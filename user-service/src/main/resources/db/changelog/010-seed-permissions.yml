@@ -1,0 +1,70 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 010-seed-permissions
+      author: tauqeer
+
+      changes:
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: USER_CREATE }
+              - column: { name: description, value: Create users }
+              - column: { name: module_name, value: USER }
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: USER_READ }
+              - column: { name: description, value: Read users }
+              - column: { name: module_name, value: USER }
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: USER_UPDATE }
+              - column: { name: description, value: Update users }
+              - column: { name: module_name, value: USER }
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: USER_DELETE }
+              - column: { name: description, value: Delete users }
+              - column: { name: module_name, value: USER }
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: ORDER_CREATE }
+              - column: { name: description, value: Create orders }
+              - column: { name: module_name, value: ORDER }
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: ORDER_READ }
+              - column: { name: description, value: Read orders }
+              - column: { name: module_name, value: ORDER }
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: PRODUCT_READ }
+              - column: { name: description, value: Read products }
+              - column: { name: module_name, value: PRODUCT }
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: PRODUCT_UPDATE }
+              - column: { name: description, value: Update products }
+              - column: { name: module_name, value: PRODUCT }
+
+        - insert:
+            tableName: permissions
+            columns:
+              - column: { name: permission_name, value: ADMIN_ACCESS }
+              - column: { name: description, value: Full admin access }
+              - column: { name: module_name, value: ADMIN }

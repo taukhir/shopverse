@@ -1,0 +1,31 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 011-seed-roles
+      author: tauqeer
+
+      changes:
+
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: role_name, value: ROLE_ADMIN }
+              - column: { name: description, value: System Administrator }
+
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: role_name, value: ROLE_CUSTOMER }
+              - column: { name: description, value: Customer role }
+
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: role_name, value: ROLE_SUPPORT }
+              - column: { name: description, value: Support team }
+
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: role_name, value: ROLE_INVENTORY_MANAGER }
+              - column: { name: description, value: Inventory management }

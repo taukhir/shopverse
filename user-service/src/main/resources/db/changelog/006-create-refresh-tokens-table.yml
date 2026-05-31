@@ -1,0 +1,51 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 006-create-refresh-tokens-table
+      author: tauqeer
+
+      changes:
+
+        - createTable:
+            tableName: refresh_tokens
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: user_id
+                  type: BIGINT
+
+              - column:
+                  name: token
+                  type: VARCHAR(500)
+
+              - column:
+                  name: expiry_date
+                  type: TIMESTAMP
+
+              - column:
+                  name: revoked
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+
+              - column:
+                  name: device_info
+                  type: VARCHAR(255)
+
+              - column:
+                  name: ip_address
+                  type: VARCHAR(100)
+
+        - addForeignKeyConstraint:
+            baseTableName: refresh_tokens
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_refresh_tokens_user

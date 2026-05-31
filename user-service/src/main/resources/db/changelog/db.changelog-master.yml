@@ -1,0 +1,43 @@
+databaseChangeLog:
+
+  - include:
+      file: db/changelog/001-create-users-table.yml
+
+  - include:
+      file: db/changelog/002-create-roles-table.yml
+
+  - include:
+      file: db/changelog/003-create-permissions-table.yml
+
+  - include:
+      file: db/changelog/004-create-user-roles-table.yml
+
+  - include:
+      file: db/changelog/005-create-role-permissions-table.yml
+
+  - include:
+      file: db/changelog/006-create-refresh-tokens-table.yml
+
+  - include:
+      file: db/changelog/007-create-login-audit-table.yml
+
+  - include:
+      file: db/changelog/008-create-password-history-table.yml
+
+  - include:
+      file: db/changelog/009-create-user-audit-table.yml
+
+  - include:
+      file: db/changelog/010-seed-permissions.yml
+
+  - include:
+      file: db/changelog/011-seed-roles.yml
+
+  - include:
+      file: db/changelog/012-seed-role-permissions.yml
+
+  - include:
+      file: db/changelog/013-seed-admin-user.yml
+
+  - include:
+      file: db/changelog/014-seed-user-roles.yml
