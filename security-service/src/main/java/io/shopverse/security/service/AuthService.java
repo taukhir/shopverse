@@ -33,9 +33,10 @@ public class AuthService {
         User user;
 
         try {
+            log.info("Loading user for authentication username={}", req.username());
             user = userService.loadByUsername(req.username());
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.warn("Authentication failed because user lookup failed username={}", req.username());
             throw new BadCredentialsException(
                     "Invalid username or password"
             );
@@ -48,12 +49,13 @@ public class AuthService {
                 );
 
         if (!passwordMatches) {
-            log.error("Wrong password");
+            log.warn("Authentication failed because password did not match username={}", req.username());
             throw new BadCredentialsException(
                     "Invalid username or password"
             );
         }
 
+        log.info("Authentication successful username={}", req.username());
         return jwtService.generateToken(user);
 
     }

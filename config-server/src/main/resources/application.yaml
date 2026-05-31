@@ -10,3 +10,19 @@ spring:
         git:
           uri: https://github.com/taukhir/spring-cloud-configs
           default-label: master
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  include-application-name: false
+  file:
+    name: ${LOG_FILE:logs/${spring.application.name}.log}
+  pattern:
+    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
