@@ -2,21 +2,12 @@ package io.shopverse.security.service;
 
 import io.shopverse.security.dto.AuthResponse;
 import io.shopverse.security.dto.LoginRequest;
-import io.shopverse.security.model.Role;
 import io.shopverse.security.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j

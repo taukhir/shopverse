@@ -192,7 +192,7 @@
             "type": "loki",
             "uid": "Loki"
           },
-          "expr": "{job=~\"shopverse-local-files|docker-containers\"}",
+          "expr": "{job=~\"shopverse-local-files|shopverse-service-volume-files|docker-containers\"}",
           "refId": "A"
         }
       ],

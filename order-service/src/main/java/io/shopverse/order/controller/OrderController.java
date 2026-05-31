@@ -1,60 +1,77 @@
 package io.shopverse.order.controller;
 
+import io.shopverse.order.constants.OrderMessages;
+import io.shopverse.order.data.SampleOrderData;
+import io.shopverse.order.dto.CatalogItemResponse;
+import io.shopverse.order.dto.OrderDeleteResponse;
+import io.shopverse.order.dto.OrderResponse;
+import io.shopverse.order.dto.ServiceHealthResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/orders")
 public class OrderController {
+
+    private final SampleOrderData sampleOrderData;
 
     // PUBLIC APIs
 
     @GetMapping("/public/health")
-    public String health() {
+    public ServiceHealthResponse health() {
         log.info("Health check requested for order service");
-        return "Order Service is UP";
+        return new ServiceHealthResponse(OrderMessages.SERVICE_NAME, OrderMessages.SERVICE_UP);
     }
 
     @GetMapping("/public/catalog")
-    public String catalog() {
+    public List<CatalogItemResponse> catalog() {
         log.info("Public product catalog requested through order service");
-        return "Public Product Catalog";
+        return sampleOrderData.catalog();
     }
 
     // USER APIs
 
     @GetMapping
-    public String getOrders() {
+    public List<OrderResponse> getOrders() {
         log.info("Fetching orders for current user");
-        return "Fetching Orders";
+        return sampleOrderData.orders();
     }
 
     @GetMapping("/{id}")
-    public String getOrderById(@PathVariable Long id) {
+    public ResponseEntity<OrderResponse> getOrderById(@PathVariable Long id) {
         log.info("Fetching order by id: {}", id);
-        return "Fetching Order " + id;
+        return sampleOrderData.orderById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public String createOrder() {
+    public ResponseEntity<OrderResponse> createOrder() {
         log.info("Creating order for current user");
-        return "Order Created";
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(sampleOrderData.newSampleOrder());
     }
 
     // ADMIN APIs
 
     @DeleteMapping("/{id}")
-    public String deleteOrder(@PathVariable Long id) {
+    public OrderDeleteResponse deleteOrder(@PathVariable Long id) {
         log.warn("Deleting order by id: {}", id);
-        return "Order Deleted " + id;
+        return sampleOrderData.deleteResponse(id);
     }
 
     @GetMapping("/admin/all")
-    public String allOrders() {
+    public List<OrderResponse> allOrders() {
         log.info("Admin requested all orders");
-        return "All Orders For Admin";
+        return sampleOrderData.orders();
     }
-
 
 }

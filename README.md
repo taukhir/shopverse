@@ -8,7 +8,7 @@ Shopverse is a Spring Boot microservices proof of concept for an e-commerce back
 
 | Component | Port | Responsibility |
 | --- | ---: | --- |
-| Config Server | `8888` | Loads centralized service configuration from `https://github.com/taukhir/spring-cloud-configs`. |
+| Config Server | `8888` | Loads centralized service configuration from the root `cloud-configs/` folder. |
 | Discovery Server | `8761` | Eureka service registry for service discovery. |
 | API Gateway | `8080` | Single entry point for clients and route forwarding to backend services. |
 | Auth Service | `8081` | Authenticates users, issues asymmetric JWTs, exposes JWKS public keys. |
@@ -32,7 +32,7 @@ Client
 
 ### Key Patterns Used
 
-- **Centralized config:** Spring Cloud Config Server reads service config from GitHub.
+- **Centralized config:** Spring Cloud Config Server reads shared and service-specific config from `cloud-configs/`.
 - **Service discovery:** Eureka lets services register and discover each other by service name.
 - **API gateway:** Spring Cloud Gateway routes external traffic to internal services.
 - **Asymmetric JWT:** Auth Service signs tokens with an RSA private key; resource services validate using JWKS public keys.
@@ -71,12 +71,153 @@ Eureka dashboard:
 http://localhost:8761
 ```
 
-## Centralized Config
+## Run Everything With Docker Compose
 
-Runtime configuration is maintained in:
+The root [docker-compose.yml](docker-compose.yml) starts the full Shopverse POC:
+
+- MySQL
+- Config Server
+- Discovery Server
+- User Service
+- Auth Service
+- Order Service
+- API Gateway
+- Prometheus
+- Loki
+- Promtail
+- Zipkin
+- Grafana
+
+Each service has a production-minded Dockerfile with:
+
+- Multi-stage Java 21 build/runtime images.
+- Gradle dependency caching.
+- Non-root runtime user.
+- Container-aware JVM settings.
+- Actuator healthcheck.
+- App logs written under `/app/logs`.
+
+### 1. Create Local Environment File
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Adjust `.env` if needed:
 
 ```text
-https://github.com/taukhir/spring-cloud-configs
+MYSQL_DATABASE=user_service
+MYSQL_USER=ahmed
+MYSQL_PASSWORD=Ahm3d@123
+MYSQL_ROOT_PASSWORD=root
+GRAFANA_ADMIN_PASSWORD=admin
+```
+
+### 2. Build Images
+
+```powershell
+docker compose build
+```
+
+### 3. Start The Full Stack
+
+```powershell
+docker compose up -d
+```
+
+### 4. Watch Startup Logs
+
+```powershell
+docker compose logs -f config-server discovery-server mysql
+```
+
+Then:
+
+```powershell
+docker compose logs -f user-service security-service order-service api-gateway
+```
+
+### 5. Check Container Health
+
+```powershell
+docker compose ps
+```
+
+Expected important containers should eventually show `healthy`:
+
+```text
+shopverse-config-server
+shopverse-discovery-server
+shopverse-user-service
+shopverse-security-service
+shopverse-order-service
+shopverse-api-gateway
+shopverse-mysql
+```
+
+### 6. Smoke Test APIs
+
+```powershell
+curl http://localhost:8888/actuator/health
+curl http://localhost:8761/actuator/health
+curl http://localhost:8082/actuator/health
+curl http://localhost:8081/actuator/health
+curl http://localhost:8083/actuator/health
+curl http://localhost:8080/actuator/health
+curl http://localhost:8080/api/v1/orders/public/health
+```
+
+### 7. Open UIs
+
+| Tool | URL |
+| --- | --- |
+| API Gateway | `http://localhost:8080` |
+| Eureka | `http://localhost:8761` |
+| Grafana | `http://localhost:3000` |
+| Prometheus | `http://localhost:9090` |
+| Loki | `http://localhost:3100` |
+| Zipkin | `http://localhost:9411` |
+
+Grafana credentials:
+
+```text
+admin / value from GRAFANA_ADMIN_PASSWORD
+```
+
+### 8. Stop The Stack
+
+```powershell
+docker compose down
+```
+
+Stop and remove volumes, including MySQL, Loki, Prometheus, and Grafana data:
+
+```powershell
+docker compose down -v
+```
+
+### Docker Notes
+
+The Docker Compose file uses container DNS names instead of `localhost`:
+
+```text
+config-server:8888
+discovery-server:8761
+mysql:3306
+zipkin:9411
+security-service:8081
+```
+
+This matters because `localhost` inside a container means the container itself, not your host machine.
+
+The Config Server uses the native profile in Docker and mounts `./cloud-configs` as a read-only config folder at `/config`.
+
+## Centralized Config
+
+Runtime configuration is maintained in the root project folder:
+
+```text
+cloud-configs/
 ```
 
 Local service `application.yaml` files should mostly contain bootstrap config:
@@ -89,7 +230,7 @@ spring:
     import: optional:configserver:http://localhost:8888
 ```
 
-Shared observability settings should live in the config repo's common `application.yaml`:
+Shared observability settings should live in `cloud-configs/application.yml`:
 
 ```yaml
 management:
@@ -155,10 +296,19 @@ The local observability stack is in:
 observability/
 ```
 
-Start it:
+Use this observability-only compose file when you are running the Spring services from IntelliJ, Gradle, or terminals on your host machine.
+
+Start only observability:
 
 ```powershell
 cd "D:\BE Projects\shopverse\observability"
+docker compose up -d
+```
+
+If you want Docker to run MySQL, all Spring services, and observability together, use the root compose file instead:
+
+```powershell
+cd "D:\BE Projects\shopverse"
 docker compose up -d
 ```
 
@@ -209,7 +359,7 @@ Grafana -> Explore -> Loki
 All local service log files:
 
 ```logql
-{job="shopverse-local-files"}
+{job=~"shopverse-local-files|shopverse-service-volume-files"}
 ```
 
 One service:
@@ -384,7 +534,7 @@ docker logs shopverse-promtail
 Run a broad Loki query:
 
 ```logql
-{job=~"shopverse-local-files|docker-containers"}
+{job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"}
 ```
 
 ### Prometheus Shows Services Down
@@ -431,10 +581,10 @@ The main framework used to build each microservice. It provides auto-configurati
 Centralized configuration service. Instead of copying the same YAML properties into every service, services fetch their runtime configuration from the Config Server, which reads from:
 
 ```text
-https://github.com/taukhir/spring-cloud-configs
+cloud-configs/
 ```
 
-In this POC, shared settings like actuator exposure, logging patterns, tracing config, database URLs, and service-specific properties can be managed from one Git repo.
+In this POC, shared settings like actuator exposure, logging patterns, tracing config, database URLs, and service-specific properties are managed from that centralized folder. Docker mounts it into Config Server as `/config`.
 
 ### Spring Cloud Gateway
 

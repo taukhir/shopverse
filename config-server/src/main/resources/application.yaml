@@ -1,15 +1,16 @@
 server:
-  port: 8888
+  port: ${SERVER_PORT:8888}
 
 spring:
   application:
     name: config-server
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:native}
   cloud:
     config:
       server:
-        git:
-          uri: https://github.com/taukhir/spring-cloud-configs
-          default-label: master
+        native:
+          search-locations: ${CONFIG_SEARCH_LOCATIONS:file:../cloud-configs,file:./cloud-configs}
 
 management:
   endpoints:

@@ -1,14 +1,14 @@
 # Config Repo Snippets
 
-Copy these files into the centralized Spring Cloud Config repository:
+These snippets show the shared observability properties that belong in centralized Spring Cloud Config.
 
 ```text
-https://github.com/taukhir/spring-cloud-configs
+cloud-configs/application.yml
 ```
 
 ## Recommended Files
 
-Add `application.yaml` to the config repo for shared observability settings across all config clients.
+Add the shared properties to `cloud-configs/application.yml` for all config clients.
 
 The shared config enables:
 

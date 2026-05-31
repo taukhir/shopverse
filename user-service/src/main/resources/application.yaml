@@ -4,28 +4,5 @@ server:
 spring:
   application:
     name: ${SPRING_APPLICATION_NAME:USER-SERVICE}
-
   config:
-    import: optional:configserver:http://localhost:8888
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,prometheus
-  metrics:
-    tags:
-      application: ${spring.application.name}
-  tracing:
-    sampling:
-      probability: ${TRACING_SAMPLING_PROBABILITY:1.0}
-    export:
-      zipkin:
-        endpoint: ${ZIPKIN_ENDPOINT:http://localhost:9411/api/v2/spans}
-
-logging:
-  include-application-name: false
-  file:
-    name: ${LOG_FILE:logs/${spring.application.name}.log}
-  pattern:
-    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
+    import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8888}

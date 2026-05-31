@@ -14,6 +14,10 @@ User Service manages users, roles, permissions, password lifecycle, audit histor
 - Springdoc OpenAPI
 - Docker
 - Eureka Discovery Client
+- Spring Cloud Config Client
+- Micrometer Prometheus metrics
+- Zipkin tracing
+- Centralized logging through Promtail/Loki/Grafana
 
 ## Features
 
@@ -42,7 +46,7 @@ User Service manages users, roles, permissions, password lifecycle, audit histor
 | `POST` | `/api/v1/users/{id}/password/reset` | Admin password reset |
 | `GET` | `/api/v1/roles` | Paged roles |
 | `GET` | `/api/v1/permissions` | Paged permissions |
-| `GET` | `/api/v1/users/public/health` | Public service health |
+| `GET` | `/api/v1/public/health` | Public service health |
 
 Example paged request:
 
@@ -57,20 +61,34 @@ After starting the service:
 - Swagger UI: `http://localhost:8082/swagger-ui/index.html`
 - OpenAPI JSON: `http://localhost:8082/v3/api-docs`
 - Actuator health: `http://localhost:8082/actuator/health`
+- Prometheus metrics: `http://localhost:8082/actuator/prometheus`
 
 ## Environment Variables
+
+The root Docker Compose file reads variables from `shopverse/.env`. Start by copying:
+
+```powershell
+Copy-Item ..\.env.example ..\.env
+```
+
+For direct `bootRun`, set these variables in your shell or IDE run configuration. Spring Boot does not automatically load a `.env` file when running outside Docker Compose.
 
 | Variable | Default | Description |
 | --- | --- | --- |
 | `SERVER_PORT` | `8082` | HTTP port |
-| `SPRING_APPLICATION_NAME` | `user-service` | Spring application name |
+| `SPRING_APPLICATION_NAME` | `USER-SERVICE` | Spring application name |
+| `SPRING_CONFIG_IMPORT` | `optional:configserver:http://localhost:8888` | Config Server import URL |
 | `DB_URL` | `jdbc:mysql://localhost:3307/user_service` | JDBC URL |
 | `DB_USERNAME` | `ahmed` | Database username |
 | `DB_PASSWORD` | `Ahm3d@123` | Database password |
 | `DB_DRIVER` | `com.mysql.cj.jdbc.Driver` | JDBC driver |
+| `JPA_DDL_AUTO` | `none` | Hibernate DDL strategy |
 | `LIQUIBASE_ENABLED` | `true` | Enables Liquibase |
 | `LIQUIBASE_CHANGELOG` | `classpath:db/changelog/db.changelog-master.yml` | Liquibase changelog path |
 | `EUREKA_DEFAULT_ZONE` | `http://localhost:8761/eureka` | Eureka server URL |
+| `EUREKA_INSTANCE_HOSTNAME` | `localhost` | Eureka instance hostname |
+| `EUREKA_PREFER_IP_ADDRESS` | `true` | Prefer IP address for Eureka registration |
+| `JWK_SET_URI` | `http://localhost:8081/auth/.well-known/jwks.json` | Auth Service JWKS endpoint |
 | `JPA_SHOW_SQL` | `false` | SQL logging |
 | `HIBERNATE_FORMAT_SQL` | `false` | SQL formatting |
 | `RATE_LIMIT_ENABLED` | `true` | Enables Resilience4j rate limiter filter |
@@ -80,6 +98,12 @@ After starting the service:
 | `BULKHEAD_MAX_CONCURRENT_REQUESTS` | `100` | Max concurrent API requests per instance |
 | `LOOKUP_RETRY_MAX_ATTEMPTS` | `3` | Retry attempts for safe lookup reads |
 | `LOOKUP_RETRY_WAIT_DURATION_MILLIS` | `100` | Retry delay for lookup reads |
+| `TRACING_ENABLED` | `true` | Enables tracing |
+| `TRACING_SAMPLING_PROBABILITY` | `1.0` | Trace sampling probability |
+| `ZIPKIN_ENDPOINT` | `http://localhost:9411/api/v2/spans` | Zipkin trace endpoint |
+| `LOG_FILE` | `logs/${spring.application.name}.log` | Service log file path |
+
+Root `.env` variables use a `USER_SERVICE_` prefix for Docker Compose and are mapped to the Spring variables above. For example, `USER_SERVICE_DB_URL` becomes `DB_URL` inside the user-service container.
 
 ## Running Locally
 
@@ -105,6 +129,14 @@ Run tests:
 ```
 
 ## Docker
+
+Run as part of the full root stack:
+
+```bash
+cd ..
+docker compose up -d
+docker compose logs -f user-service
+```
 
 Build the image:
 
@@ -133,6 +165,18 @@ The Dockerfile uses:
 - Actuator healthcheck
 - `.dockerignore` to reduce build context size
 
+## Observability
+
+- Logs are written to `/app/logs/user-service.log` in Docker.
+- Prometheus scrapes `/actuator/prometheus`.
+- Custom request counter: `shopverse_service_requests_logged_total{service="USER-SERVICE"}`.
+- Zipkin receives request spans.
+- Grafana Loki query:
+
+```logql
+{application="USER-SERVICE"}
+```
+
 ## Resilience
 
 This service uses Resilience4j core modules directly:
@@ -149,7 +193,7 @@ Write operations are not retried automatically to avoid duplicate mutations. For
 - Passwords are stored with Spring Security `DelegatingPasswordEncoder`.
 - New passwords are checked against recent password history.
 - User deletion is soft delete: status becomes `DELETED`, account is disabled, and audit history is retained.
-- Current development security uses in-memory users; replace this with JWT/security-service integration before production.
+- Current POC security validates JWTs through the Auth Service JWKS endpoint.
 
 ## Database Tables
 
@@ -181,4 +225,4 @@ Unit tests cover:
 - Replace in-memory Spring Security users with JWT/security-service integration.
 - Add Testcontainers integration tests for MySQL and Liquibase.
 - Move cache/rate limit state to Redis for multi-instance deployments.
-- Add centralized logging, tracing, and metrics dashboards.
+- Move secrets to Docker secrets or a secret manager before production.
