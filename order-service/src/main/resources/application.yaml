@@ -21,6 +21,9 @@ eureka:
 
 
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
   tracing:
     enabled: ${TRACING_ENABLED:true}
     sampling:
@@ -31,8 +34,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,info,prometheus
 logging:
   include-application-name: false
+  file:
+    name: ${LOG_FILE:logs/${spring.application.name}.log}
   pattern:
     correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
