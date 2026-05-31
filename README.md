@@ -419,3 +419,259 @@ management:
 ```
 
 Restart the service after dependency or config changes.
+
+## Component Glossary
+
+### Spring Boot
+
+The main framework used to build each microservice. It provides auto-configuration, embedded servers, Actuator endpoints, security integration, and production-ready defaults.
+
+### Spring Cloud Config Server
+
+Centralized configuration service. Instead of copying the same YAML properties into every service, services fetch their runtime configuration from the Config Server, which reads from:
+
+```text
+https://github.com/taukhir/spring-cloud-configs
+```
+
+In this POC, shared settings like actuator exposure, logging patterns, tracing config, database URLs, and service-specific properties can be managed from one Git repo.
+
+### Spring Cloud Gateway
+
+The API Gateway and single entry point for client traffic. Clients call the gateway on port `8080`, and the gateway forwards requests to internal services such as `ORDER-SERVICE`, `USER-SERVICE`, and `AUTH-SERVICE`.
+
+It helps centralize routing, cross-cutting filters, and external API exposure.
+
+### Eureka Discovery Server
+
+Service registry. Microservices register themselves with Eureka, and other services can discover them by name instead of hardcoded host/port values.
+
+Example:
+
+```text
+AUTH-SERVICE -> USER-SERVICE
+```
+
+The Auth Service can call User Service by service name through Feign and Eureka.
+
+### Spring Security
+
+Provides authentication and authorization support. In this POC, services use Spring Security to protect APIs and validate JWT access tokens.
+
+### Asymmetric JWT
+
+JWT authentication using an RSA key pair:
+
+- Auth Service signs JWTs using the private key.
+- Other services validate JWTs using the public key.
+- The public key is exposed through the JWKS endpoint:
+
+```text
+/auth/.well-known/jwks.json
+```
+
+This is safer than sharing a single secret across all services.
+
+### JWKS
+
+JSON Web Key Set. It is a standard format for exposing public keys used to verify JWT signatures.
+
+Resource services use the JWKS endpoint to validate tokens issued by the Auth Service.
+
+### OpenFeign
+
+Declarative HTTP client used for service-to-service calls.
+
+In this POC, Auth Service uses Feign to call User Service:
+
+```java
+@FeignClient(name = "USER-SERVICE")
+```
+
+Feign works nicely with Eureka, so the service can be called by name instead of a fixed URL.
+
+### Spring Boot Actuator
+
+Production monitoring endpoints for each service.
+
+Important endpoints in this POC:
+
+```text
+/actuator/health
+/actuator/info
+/actuator/prometheus
+```
+
+Prometheus scrapes `/actuator/prometheus` to collect service metrics.
+
+### Micrometer
+
+Metrics and observability facade used by Spring Boot.
+
+Micrometer gives the app a common API for metrics, while different backends can consume those metrics. In this POC, Micrometer exposes metrics in Prometheus format through:
+
+```gradle
+runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+```
+
+It also provides the foundation for tracing integration through Spring Boot observability.
+
+### Prometheus
+
+Metrics database and scraper.
+
+Prometheus periodically calls each service's:
+
+```text
+/actuator/prometheus
+```
+
+Then it stores metrics such as request counts, request durations, JVM memory, CPU usage, and custom counters like:
+
+```promql
+shopverse_service_requests_logged_total
+shopverse_gateway_requests_logged_total
+```
+
+Prometheus answers metric queries using PromQL.
+
+### Grafana
+
+Visualization and exploration UI.
+
+Grafana connects to:
+
+- Prometheus for metrics.
+- Loki for logs.
+- Zipkin for traces.
+
+In this POC, Grafana is used to see dashboards, query logs, inspect service health, and correlate logs with trace IDs.
+
+### Loki
+
+Centralized log storage from Grafana Labs.
+
+Loki stores logs with labels such as:
+
+```text
+application
+traceId
+spanId
+level
+job
+```
+
+You query Loki from Grafana using LogQL.
+
+Example:
+
+```logql
+{application="ORDER-SERVICE"}
+```
+
+### Promtail
+
+Log shipper for Loki.
+
+Promtail reads logs and sends them to Loki. In this POC, it reads:
+
+- local service log files: `<service>/logs/*.log`
+- Docker container stdout logs
+
+Promtail also extracts labels like `application`, `traceId`, and `spanId` from log lines.
+
+### Zipkin
+
+Distributed tracing backend.
+
+Zipkin receives spans from services and shows request timelines across services. It helps answer questions like:
+
+- Which services were involved in this request?
+- How long did each service take?
+- Where did the request fail?
+
+In this POC, services send traces to:
+
+```text
+http://localhost:9411/api/v2/spans
+```
+
+### Distributed Tracing
+
+Distributed tracing follows one request as it moves across multiple services.
+
+Each request gets:
+
+- `traceId`: same ID across the full request journey.
+- `spanId`: ID for one operation inside that trace.
+
+Example:
+
+```text
+Client -> API Gateway -> Order Service
+```
+
+The gateway and order service logs should share the same `traceId`, making it easier to debug one request across services.
+
+### OpenTelemetry
+
+OpenTelemetry is an open standard for traces, metrics, and logs.
+
+In this current POC, we are not directly using OpenTelemetry as the tracing implementation. We are using:
+
+```text
+Spring Boot Zipkin starter -> Micrometer Tracing -> Zipkin
+```
+
+OpenTelemetry could be introduced later if we want vendor-neutral exporting to observability platforms such as Grafana Tempo, Jaeger, Honeycomb, New Relic, Datadog, or an OpenTelemetry Collector.
+
+### Centralized Logging
+
+Centralized logging means logs from all services are collected in one place instead of checking each terminal separately.
+
+In this POC:
+
+```text
+Spring Boot logs
+  -> local log file / Docker stdout
+  -> Promtail
+  -> Loki
+  -> Grafana
+```
+
+This lets us search logs across all services by application, level, or trace ID.
+
+### Docker Compose
+
+Used to run the local observability stack with one command:
+
+```powershell
+docker compose up -d
+```
+
+The compose file starts:
+
+- Grafana
+- Prometheus
+- Loki
+- Promtail
+- Zipkin
+
+### Gradle
+
+Build tool used by each service. Dependencies such as Spring Boot, Prometheus registry, Zipkin starter, Lombok, and Spring Cloud libraries are declared in each service's `build.gradle`.
+
+Config Server cannot provide Gradle dependencies. It only provides runtime properties.
+
+### Lombok
+
+Reduces Java boilerplate.
+
+Examples used in the project:
+
+```java
+@Slf4j
+@RequiredArgsConstructor
+```
+
+`@Slf4j` creates the logger used for centralized logging.
