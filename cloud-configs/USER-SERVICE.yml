@@ -1,0 +1,45 @@
+server:
+  port: ${SERVER_PORT:8082}
+
+spring:
+  liquibase:
+    enabled: ${LIQUIBASE_ENABLED:true}
+    change-log: ${LIQUIBASE_CHANGELOG:classpath:db/changelog/db.changelog-master.yml}
+
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3307/user_service}
+    username: ${DB_USERNAME:ahmed}
+    password: ${DB_PASSWORD:Ahm3d@123}
+    driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:none}
+    properties:
+      hibernate:
+        format_sql: ${HIBERNATE_FORMAT_SQL:false}
+    show-sql: ${JPA_SHOW_SQL:false}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/auth/.well-known/jwks.json}
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure.liquibase: ${LIQUIBASE_LOG_LEVEL:INFO}
+    liquibase: ${LIQUIBASE_LOG_LEVEL:INFO}
+
+shopverse:
+  user-service:
+    rate-limit:
+      enabled: ${RATE_LIMIT_ENABLED:true}
+      refill-tokens-per-minute: ${RATE_LIMIT_REFILL_TOKENS_PER_MINUTE:60}
+      burst-capacity: ${RATE_LIMIT_BURST_CAPACITY:120}
+    bulkhead:
+      enabled: ${BULKHEAD_ENABLED:true}
+      max-concurrent-requests: ${BULKHEAD_MAX_CONCURRENT_REQUESTS:100}
+    retry:
+      max-attempts: ${LOOKUP_RETRY_MAX_ATTEMPTS:3}
+      wait-duration-millis: ${LOOKUP_RETRY_WAIT_DURATION_MILLIS:100}

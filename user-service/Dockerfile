@@ -8,10 +8,10 @@ COPY gradle ./gradle
 RUN chmod +x ./gradlew
 
 # Download dependencies first so Docker can cache them independently from source changes.
-RUN ./gradlew dependencies --no-daemon
+RUN --mount=type=cache,target=/root/.gradle ./gradlew dependencies --no-daemon
 
 COPY src ./src
-RUN ./gradlew bootJar --no-daemon
+RUN --mount=type=cache,target=/root/.gradle ./gradlew bootJar --no-daemon
 
 FROM eclipse-temurin:21-jre-jammy AS runtime
 

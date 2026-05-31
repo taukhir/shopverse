@@ -1,0 +1,6 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+security:
+  jwt:
+    issuer: ${JWT_ISSUER:shopverse-auth-service}

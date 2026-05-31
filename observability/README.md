@@ -58,7 +58,7 @@ Promtail scrapes those files from the mounted workspace and also scrapes Docker 
 Recent logs:
 
 ```logql
-{job="shopverse-local-files"}
+{job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"}
 ```
 
 Logs for one service:

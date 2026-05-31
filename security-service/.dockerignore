@@ -1,0 +1,7 @@
+.gradle
+build
+logs
+*.log
+.idea
+.vscode
+Dockerfile

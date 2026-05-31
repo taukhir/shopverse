@@ -1,11 +1,7 @@
 .gradle
 build
-out
-target
+logs
+*.log
 .idea
 .vscode
-*.iml
-*.log
-.env
-.env.*
-HELP.md
+Dockerfile
