@@ -1,0 +1,9 @@
+server:
+  port: ${SERVER_PORT:8082}
+
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:USER-SERVICE}
+
+  config:
+    import: optional:configserver:http://localhost:8888

@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+
+  mysql-user-db:
+    image: mysql:8.4
+    container_name: user-db
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user_service
+      MYSQL_USER: ahmed
+      MYSQL_PASSWORD: Ahm3d@123
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - user_mysql_data:/var/lib/mysql
+
+volumes:
+  user_mysql_data:

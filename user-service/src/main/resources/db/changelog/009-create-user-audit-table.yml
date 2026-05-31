@@ -1,0 +1,47 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 009-create-user-audit-table
+      author: tauqeer
+
+      changes:
+
+        - createTable:
+            tableName: user_audit
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: user_id
+                  type: BIGINT
+
+              - column:
+                  name: action
+                  type: VARCHAR(100)
+
+              - column:
+                  name: performed_by
+                  type: VARCHAR(100)
+
+              - column:
+                  name: performed_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: details
+                  type: TEXT
+
+        - addForeignKeyConstraint:
+            baseTableName: user_audit
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_user_audit_user
