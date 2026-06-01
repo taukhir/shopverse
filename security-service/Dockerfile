@@ -28,7 +28,8 @@ RUN apt-get update \
 
 COPY --from=build /workspace/build/libs/*.jar app.jar
 
-RUN chown -R shopverse:shopverse ${APP_HOME}
+RUN mkdir -p ${APP_HOME}/logs \
+    && chown -R shopverse:shopverse ${APP_HOME}
 USER shopverse
 
 EXPOSE 8081
