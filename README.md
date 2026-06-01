@@ -212,6 +212,376 @@ This matters because `localhost` inside a container means the container itself, 
 
 The Config Server uses the native profile in Docker and mounts `./cloud-configs` as a read-only config folder at `/config`.
 
+## Docker Command Reference
+
+Run these commands from the root `shopverse` folder:
+
+```powershell
+cd "D:\BE Projects\shopverse"
+```
+
+### Build Images
+
+Build all service images:
+
+```powershell
+docker compose build
+```
+
+Build one service image:
+
+```powershell
+docker compose build user-service
+docker compose build security-service
+docker compose build order-service
+docker compose build api-gateway
+docker compose build config-server
+docker compose build discovery-server
+```
+
+Build without Docker cache:
+
+```powershell
+docker compose build --no-cache user-service
+```
+
+List Shopverse images:
+
+```powershell
+docker images "shopverse/*"
+```
+
+### Start Services
+
+Start the full stack:
+
+```powershell
+docker compose up -d
+```
+
+Start only infrastructure first:
+
+```powershell
+docker compose up -d mysql config-server discovery-server zipkin loki promtail prometheus grafana
+```
+
+Start application services:
+
+```powershell
+docker compose up -d user-service security-service order-service api-gateway
+```
+
+Start one service:
+
+```powershell
+docker compose up -d user-service
+```
+
+Recreate one service after config or image changes:
+
+```powershell
+docker compose up -d --force-recreate user-service
+```
+
+Recreate a service and its dependent runtime path:
+
+```powershell
+docker compose up -d --force-recreate user-service security-service order-service api-gateway prometheus
+```
+
+### Stop And Restart
+
+Stop all containers without removing them:
+
+```powershell
+docker compose stop
+```
+
+Stop one service:
+
+```powershell
+docker compose stop user-service
+```
+
+Restart one service:
+
+```powershell
+docker compose restart user-service
+```
+
+Restart services that depend on config changes:
+
+```powershell
+docker compose restart user-service security-service order-service api-gateway
+```
+
+Stop and remove containers, but keep volumes:
+
+```powershell
+docker compose down
+```
+
+Stop and remove containers plus volumes:
+
+```powershell
+docker compose down -v
+```
+
+Use `down -v` carefully because it removes MySQL, Loki, Prometheus, Grafana, and service log volumes.
+
+### Check Status And Health
+
+List running containers:
+
+```powershell
+docker compose ps
+```
+
+List all containers:
+
+```powershell
+docker ps -a
+```
+
+Inspect one container:
+
+```powershell
+docker inspect shopverse-user-service
+```
+
+Check container resource usage:
+
+```powershell
+docker stats
+```
+
+Check Docker volumes:
+
+```powershell
+docker volume ls
+```
+
+### Docker Logs
+
+Show logs for all services:
+
+```powershell
+docker compose logs
+```
+
+Follow all logs live:
+
+```powershell
+docker compose logs -f
+```
+
+Show only the last 100 lines:
+
+```powershell
+docker compose logs --tail=100
+```
+
+Follow one service:
+
+```powershell
+docker compose logs -f user-service
+docker compose logs -f security-service
+docker compose logs -f order-service
+docker compose logs -f api-gateway
+docker compose logs -f config-server
+docker compose logs -f discovery-server
+```
+
+Check observability logs:
+
+```powershell
+docker compose logs -f promtail
+docker compose logs -f loki
+docker compose logs -f prometheus
+docker compose logs -f grafana
+docker compose logs -f zipkin
+```
+
+Use container names directly:
+
+```powershell
+docker logs -f shopverse-user-service
+docker logs -f shopverse-order-service
+docker logs -f shopverse-api-gateway
+docker logs -f shopverse-promtail
+```
+
+Show recent logs:
+
+```powershell
+docker logs --tail 50 shopverse-user-service
+docker logs --since 10m shopverse-user-service
+docker logs -f --tail 100 shopverse-user-service
+```
+
+Search logs in PowerShell:
+
+```powershell
+docker compose logs user-service | Select-String "ERROR"
+docker compose logs | Select-String "Exception"
+docker compose logs | Select-String "traceId"
+```
+
+### Execute Commands Inside Containers
+
+Open a shell inside a container:
+
+```powershell
+docker exec -it shopverse-user-service sh
+```
+
+Check service log files inside a container:
+
+```powershell
+docker exec -it shopverse-user-service sh -c "ls -la /app/logs"
+```
+
+Check environment variables inside a container:
+
+```powershell
+docker exec -it shopverse-user-service sh -c "env | sort"
+```
+
+Check MySQL from inside the MySQL container:
+
+```powershell
+docker exec -it shopverse-mysql mysql -uahmed -pAhm3d@123 user_service
+```
+
+### Smoke Test Endpoints
+
+Use `curl.exe` in PowerShell to avoid the PowerShell `curl` alias:
+
+```powershell
+curl.exe http://localhost:8888/actuator/health
+curl.exe http://localhost:8761/actuator/health
+curl.exe http://localhost:8082/actuator/health
+curl.exe http://localhost:8081/actuator/health
+curl.exe http://localhost:8083/actuator/health
+curl.exe http://localhost:8080/actuator/health
+```
+
+Public order health through API Gateway:
+
+```powershell
+curl.exe http://localhost:8080/api/v1/orders/public/health
+```
+
+Check Prometheus metrics endpoint:
+
+```powershell
+curl.exe http://localhost:8082/actuator/prometheus
+curl.exe http://localhost:8083/actuator/prometheus
+```
+
+Refresh user-service config after Config Server changes:
+
+```powershell
+curl.exe -X POST http://localhost:8082/actuator/refresh
+```
+
+### Authentication Test
+
+Login as the seeded admin user through the API Gateway:
+
+```powershell
+Invoke-RestMethod -Method Post `
+  -Uri http://localhost:8080/auth/login `
+  -Body (@{username='admin'; password='Admin@123'} | ConvertTo-Json) `
+  -ContentType 'application/json'
+```
+
+Use the returned token:
+
+```powershell
+curl.exe http://localhost:8080/api/v1/orders `
+  -H "Authorization: Bearer <token>"
+```
+
+### Observability Checks
+
+Open UIs:
+
+```text
+Grafana: http://localhost:3000
+Prometheus: http://localhost:9090
+Loki: http://localhost:3100
+Zipkin: http://localhost:9411
+Eureka: http://localhost:8761
+```
+
+Check Prometheus targets:
+
+```text
+http://localhost:9090/targets
+```
+
+Check Grafana dashboard:
+
+```text
+http://localhost:3000
+```
+
+Useful Loki queries in Grafana Explore:
+
+```logql
+{application="USER-SERVICE"}
+{application="ORDER-SERVICE"}
+{application="AUTH-SERVICE"}
+{job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"}
+{traceId="paste-trace-id-here"}
+```
+
+Useful Prometheus queries in Grafana Explore:
+
+```promql
+up
+http_server_requests_seconds_count
+sum by (application) (rate(http_server_requests_seconds_count[1m]))
+sum by (service, outcome) (increase(shopverse_service_requests_logged_total[5m]))
+```
+
+### Cleanup
+
+Remove stopped containers:
+
+```powershell
+docker container prune
+```
+
+Remove unused images:
+
+```powershell
+docker image prune
+```
+
+Remove unused volumes:
+
+```powershell
+docker volume prune
+```
+
+Remove unused Docker resources:
+
+```powershell
+docker system prune
+```
+
+Full reset for this POC:
+
+```powershell
+docker compose down -v
+docker compose build --no-cache
+docker compose up -d
+```
+
+The full reset deletes database data, logs, metrics history, and Grafana data because it removes volumes.
+
 ## Centralized Config
 
 Runtime configuration is maintained in the root project folder:
