@@ -2,6 +2,23 @@
 
 Config Server centralizes Shopverse runtime configuration. It loads service config from the root `cloud-configs/` folder and serves it to config clients at startup.
 
+## Why Centralized Config Helps
+
+In a microservices system, each service needs settings such as ports, database URLs, Eureka URLs, tracing endpoints, log levels, JWT/JWK URLs, rate-limit values, and feature flags. Keeping all of that inside every service makes changes slow and error-prone.
+
+Shopverse keeps only minimal bootstrap settings inside each service, such as the application name and Config Server URL. Runtime configuration lives in the centralized `cloud-configs/` folder:
+
+```text
+cloud-configs/application.yml        shared defaults for all services
+cloud-configs/USER-SERVICE.yml       user-service overrides
+cloud-configs/ORDER-SERVICE.yml      order-service overrides
+cloud-configs/API-GATEWAY.yml        gateway routes and gateway settings
+cloud-configs/AUTH-SERVICE.yml       auth-service settings
+cloud-configs/DISCOVERY-SERVER.yml   discovery-server settings
+```
+
+This gives us a single place to review and change configuration, keeps service jars/images environment-neutral, and reduces duplicated YAML across services.
+
 ## Responsibilities
 
 - Run Spring Cloud Config Server on port `8888`.
@@ -24,6 +41,78 @@ curl http://localhost:8888/actuator/prometheus
 curl http://localhost:8888/USER-SERVICE/default
 curl http://localhost:8888/ORDER-SERVICE/default
 ```
+
+## How Config Is Loaded
+
+Each service starts with a small local `application.yaml` that points to Config Server:
+
+```yaml
+spring:
+  application:
+    name: USER-SERVICE
+  config:
+    import: optional:configserver:http://localhost:8888
+```
+
+At startup, Spring Boot asks Config Server for:
+
+```text
+/{spring.application.name}/{profile}
+```
+
+For example:
+
+```text
+http://localhost:8888/USER-SERVICE/default
+```
+
+Config Server combines shared properties from `application.yml` with service-specific properties from `USER-SERVICE.yml`. Service-specific values override shared defaults.
+
+## Updating Config Without Restarting Services
+
+For many runtime properties, we can update config and refresh a service without rebuilding or restarting the container.
+
+1. Edit the required file in `cloud-configs/`.
+
+   Example:
+
+   ```yaml
+   shopverse:
+     user-service:
+       rate-limit:
+         burst-capacity: 200
+   ```
+
+2. Confirm Config Server can see the updated value:
+
+   ```powershell
+   curl http://localhost:8888/USER-SERVICE/default
+   ```
+
+3. Refresh the affected service:
+
+   ```powershell
+   curl -X POST http://localhost:8082/actuator/refresh
+   ```
+
+4. If more services use that property, refresh each one:
+
+   ```powershell
+   curl -X POST http://localhost:8080/actuator/refresh
+   curl -X POST http://localhost:8081/actuator/refresh
+   curl -X POST http://localhost:8082/actuator/refresh
+   curl -X POST http://localhost:8083/actuator/refresh
+   ```
+
+The refresh endpoint returns the property keys that changed.
+
+Important notes:
+
+- `/actuator/refresh` must be enabled on the client service. In Shopverse this is exposed from `cloud-configs/application.yml`.
+- Refresh works best for Spring-managed configuration, such as `@ConfigurationProperties`, `@Value`, logging levels, and beans using refresh-aware configuration.
+- Some values still require a service restart, such as server port, fixed JVM/container environment variables, datasource pool internals, or properties read only once during startup.
+- In the current Docker setup, `cloud-configs/` is mounted into Config Server as `/config`, so changing files on the host makes them available to Config Server immediately.
+- Without Spring Cloud Bus, refresh is per service instance. If a service has multiple replicas, call `/actuator/refresh` on each replica or add Spring Cloud Bus later.
 
 ## Docker
 
