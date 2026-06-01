@@ -3,8 +3,8 @@ server:
 
 spring:
   liquibase:
-    enabled: ${LIQUIBASE_ENABLED:true}
-    change-log: ${LIQUIBASE_CHANGELOG:classpath:db/changelog/db.changelog-master.yml}
+    enabled: ${USER_SERVICE_LIQUIBASE_ENABLED:true}
+    change-log: ${USER_SERVICE_LIQUIBASE_CHANGELOG:classpath:db/changelog/db.changelog-master.yml}
 
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3307/user_service}
@@ -33,6 +33,8 @@ logging:
 
 shopverse:
   user-service:
+    health-checkup:
+      message: ${USER_SERVICE_HEALTH_CHECKUP_MESSAGE:User service is running}
     rate-limit:
       enabled: ${RATE_LIMIT_ENABLED:true}
       refill-tokens-per-minute: ${RATE_LIMIT_REFILL_TOKENS_PER_MINUTE:60}

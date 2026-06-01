@@ -14,6 +14,8 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
+import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -50,6 +52,7 @@ public class SecurityConfig {
                          * Public APIs
                          */
                         .requestMatchers(
+                                "/actuator/**",
                                 "/api/v1/orders/public/**"
                         ).permitAll()
 
@@ -111,10 +114,24 @@ public class SecurityConfig {
 
                 // JWT Resource Server
                 .oauth2ResourceServer(oauth ->
-                        oauth.jwt(Customizer.withDefaults())
+                        oauth.bearerTokenResolver(publicEndpointBearerTokenResolver())
+                                .jwt(Customizer.withDefaults())
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public BearerTokenResolver publicEndpointBearerTokenResolver() {
+        DefaultBearerTokenResolver delegate = new DefaultBearerTokenResolver();
+
+        return request -> {
+            String path = request.getRequestURI();
+            if (path.startsWith("/api/v1/orders/public/") || path.startsWith("/actuator/")) {
+                return null;
+            }
+            return delegate.resolve(request);
+        };
     }
 
     @Bean

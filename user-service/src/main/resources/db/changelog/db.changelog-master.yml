@@ -41,3 +41,6 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/014-seed-user-roles.yml
+
+  - include:
+      file: db/changelog/015-bootstrap-admin-password.yml

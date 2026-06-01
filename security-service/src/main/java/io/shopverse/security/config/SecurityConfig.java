@@ -21,7 +21,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // Public endpoints
-                        .requestMatchers("/auth/login", "/auth/.well-known/jwks.json").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
 
                         // Secure all remaining APIs
                         .anyRequest().authenticated())
