@@ -34,10 +34,11 @@ Config Server can only provide properties. It cannot add runtime libraries to a 
 If a service needs a different value, add it to that service's own config file in the config repo, for example:
 
 ```text
-ORDER-SERVICE.yaml
-USER-SERVICE.yaml
-AUTH-SERVICE.yaml
-API-GATEWAY.yaml
+ORDER-SERVICE.yml
+USER-SERVICE.yml
+AUTH-SERVICE.yml
+API-GATEWAY.yml
+DISCOVERY-SERVER.yml
 ```
 
 Example:

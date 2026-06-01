@@ -1,0 +1,192 @@
+name: Shopverse CI
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shopverse-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  JAVA_VERSION: "21"
+
+jobs:
+  validate-config:
+    name: Validate repository config
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate required files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_files=(
+            "docker-compose.yml"
+            "cloud-configs/application.yml"
+            "cloud-configs/API-GATEWAY.yml"
+            "cloud-configs/AUTH-SERVICE.yml"
+            "cloud-configs/USER-SERVICE.yml"
+            "cloud-configs/ORDER-SERVICE.yml"
+            "cloud-configs/DISCOVERY-SERVER.yml"
+            "observability/prometheus-docker.yml"
+            "observability/promtail.yml"
+            "observability/loki.yml"
+          )
+
+          for file in "${required_files[@]}"; do
+            test -f "$file" || {
+              echo "Missing required file: $file"
+              exit 1
+            }
+          done
+
+  build-and-test:
+    name: Build and test ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    needs: validate-config
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: config-server
+            path: config-server
+          - service: discovery-server
+            path: discovery-server
+          - service: user-service
+            path: user-service
+          - service: auth-service
+            path: auth-service
+          - service: order-service
+            path: order-service
+          - service: api-gateway
+            path: api-gateway
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and test
+        working-directory: ${{ matrix.path }}
+        shell: bash
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build --no-daemon
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report-${{ matrix.service }}
+          path: ${{ matrix.path }}/build/reports/tests/test
+          if-no-files-found: ignore
+
+  docker-build:
+    name: Docker build ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: config-server
+            context: ./config-server
+          - service: discovery-server
+            context: ./discovery-server
+          - service: user-service
+            context: ./user-service
+          - service: auth-service
+            context: ./auth-service
+          - service: order-service
+            context: ./order-service
+          - service: api-gateway
+            context: ./api-gateway
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          push: false
+          tags: shopverse/${{ matrix.service }}:ci-${{ github.sha }}
+
+  compose-smoke-test:
+    name: Docker Compose smoke test
+    runs-on: ubuntu-latest
+    needs: docker-build
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start stack
+        shell: bash
+        run: docker compose up -d --build
+
+      - name: Wait for API Gateway
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          for attempt in {1..60}; do
+            if curl -fsS http://localhost:8080/actuator/health | grep -q UP; then
+              echo "API Gateway is healthy"
+              exit 0
+            fi
+
+            echo "Waiting for API Gateway health check... attempt ${attempt}/60"
+            sleep 10
+          done
+
+          docker compose ps
+          docker compose logs --tail=250
+          exit 1
+
+      - name: Smoke test public endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsS http://localhost:8888/actuator/health | grep -q UP
+          curl -fsS http://localhost:8761/actuator/health | grep -q UP
+          curl -fsS http://localhost:8082/actuator/health | grep -q UP
+          curl -fsS http://localhost:8081/actuator/health | grep -q UP
+          curl -fsS http://localhost:8083/actuator/health | grep -q UP
+          curl -fsS http://localhost:8080/actuator/health | grep -q UP
+          curl -fsS http://localhost:8080/api/v1/orders/public/health
+          curl -fsS http://localhost:8082/actuator/prometheus | grep -q jvm
+          curl -fsS http://localhost:8083/actuator/prometheus | grep -q jvm
+
+      - name: Dump compose logs on failure
+        if: failure()
+        shell: bash
+        run: |
+          docker compose ps
+          docker compose logs --tail=500
+
+      - name: Stop stack
+        if: always()
+        shell: bash
+        run: docker compose down -v

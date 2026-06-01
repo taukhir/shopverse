@@ -32,8 +32,8 @@ scrape_configs:
       - targets:
           - host.docker.internal:8761
         labels:
-          application: discovery-server
+          application: DISCOVERY-SERVER
       - targets:
           - host.docker.internal:8888
         labels:
-          application: config-server
+          application: CONFIG-SERVER

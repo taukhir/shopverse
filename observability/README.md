@@ -28,6 +28,39 @@ The diagram shows how the POC collects and uses observability data:
 - Grafana queries Loki for logs and Prometheus for metrics.
 - Services send tracing spans to Zipkin, and the same `traceId` appears in logs for correlation.
 
+## Zipkin Tracing Flow
+
+![Shopverse Zipkin tracing flow](shopverse-zipkin-tracing-flow.svg)
+
+Zipkin stores distributed traces. A trace represents one request journey, and spans represent individual operations inside that journey.
+
+In Shopverse, a typical traced request looks like:
+
+```text
+Client
+  -> API Gateway span
+  -> Order Service span
+  -> optional Auth/User Service spans
+  -> Zipkin
+```
+
+The important IDs are:
+
+- `traceId`: shared by all services involved in the same request.
+- `spanId`: unique to one operation inside that request.
+
+The log pattern includes both IDs:
+
+```text
+[ORDER-SERVICE,<traceId>,<spanId>]
+```
+
+That means you can open Zipkin, copy a `traceId`, then search centralized logs in Grafana Loki:
+
+```logql
+{traceId="paste-trace-id-here"}
+```
+
 ## How It Works
 
 ```text
@@ -217,7 +250,7 @@ In the root `docker-compose.yml`, each service receives a `LOG_FILE` environment
 ```yaml
 LOG_FILE: /app/logs/user-service.log
 LOG_FILE: /app/logs/order-service.log
-LOG_FILE: /app/logs/security-service.log
+LOG_FILE: /app/logs/auth-service.log
 LOG_FILE: /app/logs/api-gateway.log
 ```
 

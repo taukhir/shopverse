@@ -18,7 +18,7 @@ scrape_configs:
         labels:
           application: API-GATEWAY
       - targets:
-          - security-service:8081
+          - auth-service:8081
         labels:
           application: AUTH-SERVICE
       - targets:
@@ -32,8 +32,8 @@ scrape_configs:
       - targets:
           - discovery-server:8761
         labels:
-          application: discovery-server
+          application: DISCOVERY-SERVER
       - targets:
           - config-server:8888
         labels:
-          application: config-server
+          application: CONFIG-SERVER

@@ -47,7 +47,7 @@ docker compose up -d
 
 - Logs are written to `/app/logs/discovery-server.log`.
 - Prometheus scrapes `/actuator/prometheus`.
-- Custom request counter: `shopverse_service_requests_logged_total{service="discovery-server"}`.
+- Prometheus includes standard JVM/process/HTTP metrics.
 - Grafana Loki query:
 
 ```logql

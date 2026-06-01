@@ -1,27 +1,23 @@
-package io.shopverse.discovery.observability;
+package io.shopverse.auth.observability;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
+@Slf4j
 public class RequestLoggingFilter extends OncePerRequestFilter {
 
-    private static final Logger log = LoggerFactory.getLogger(RequestLoggingFilter.class);
-
     private final MeterRegistry meterRegistry;
-
-    public RequestLoggingFilter(MeterRegistry meterRegistry) {
-        this.meterRegistry = meterRegistry;
-    }
 
     @Override
     protected void doFilterInternal(
@@ -35,7 +31,7 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
         }
 
         long startedAt = System.nanoTime();
-        log.info("Discovery server request started method={} path={}", request.getMethod(), request.getRequestURI());
+        log.info("Auth service request started method={} path={}", request.getMethod(), request.getRequestURI());
 
         try {
             filterChain.doFilter(request, response);
@@ -45,14 +41,14 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
 
             meterRegistry.counter(
                     "shopverse.service.requests.logged",
-                    "service", "DISCOVERY-SERVER",
+                    "service", "AUTH-SERVICE",
                     "method", request.getMethod(),
                     "status", String.valueOf(status),
                     "outcome", outcome(status)
             ).increment();
 
             log.info(
-                    "Discovery server request completed method={} path={} status={} durationMs={}",
+                    "Auth service request completed method={} path={} status={} durationMs={}",
                     request.getMethod(),
                     request.getRequestURI(),
                     status,
