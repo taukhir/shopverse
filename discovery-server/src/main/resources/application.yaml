@@ -3,6 +3,6 @@ server:
 
 spring:
   application:
-    name: discovery-server
+    name: DISCOVERY-SERVER
   config:
     import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8888}

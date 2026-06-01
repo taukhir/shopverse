@@ -83,8 +83,8 @@ For direct `bootRun`, set these variables in your shell or IDE run configuration
 | `DB_PASSWORD` | `Ahm3d@123` | Database password |
 | `DB_DRIVER` | `com.mysql.cj.jdbc.Driver` | JDBC driver |
 | `JPA_DDL_AUTO` | `none` | Hibernate DDL strategy |
-| `LIQUIBASE_ENABLED` | `true` | Enables Liquibase |
-| `LIQUIBASE_CHANGELOG` | `classpath:db/changelog/db.changelog-master.yml` | Liquibase changelog path |
+| `USER_SERVICE_LIQUIBASE_ENABLED` | `true` | Enables Liquibase in Docker Compose |
+| `USER_SERVICE_LIQUIBASE_CHANGELOG` | `classpath:db/changelog/db.changelog-master.yml` | Liquibase changelog path in Docker Compose |
 | `EUREKA_DEFAULT_ZONE` | `http://localhost:8761/eureka` | Eureka server URL |
 | `EUREKA_INSTANCE_HOSTNAME` | `localhost` | Eureka instance hostname |
 | `EUREKA_PREFER_IP_ADDRESS` | `true` | Prefer IP address for Eureka registration |
@@ -218,11 +218,11 @@ Unit tests cover:
 - pagination validation
 - exception handler behavior
 - Resilience4j rate limiting and bulkhead filters
-- lookup service retry seam
+- lookup service retry behavior
 
 ## Production Follow-Ups
 
-- Replace in-memory Spring Security users with JWT/security-service integration.
+- Replace in-memory Spring Security users with JWT/auth-service integration.
 - Add Testcontainers integration tests for MySQL and Liquibase.
 - Move cache/rate limit state to Redis for multi-instance deployments.
 - Move secrets to Docker secrets or a secret manager before production.

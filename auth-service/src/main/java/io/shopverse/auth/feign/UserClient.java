@@ -1,0 +1,13 @@
+package io.shopverse.auth.feign;
+
+import io.shopverse.auth.model.User;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "USER-SERVICE")
+public interface UserClient {
+
+    @GetMapping("/api/v1/internal/users/username/{username}")
+    User loadByUsername(@PathVariable String username);
+}

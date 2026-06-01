@@ -45,7 +45,7 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
 
             meterRegistry.counter(
                     "shopverse.service.requests.logged",
-                    "service", "discovery-server",
+                    "service", "DISCOVERY-SERVER",
                     "method", request.getMethod(),
                     "status", String.valueOf(status),
                     "outcome", outcome(status)

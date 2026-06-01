@@ -19,7 +19,7 @@ spring:
               uri: lb://ORDER-SERVICE
               predicates:
                 - Path=/api/v1/orders/**
-            - id: security-service
+            - id: auth-service
               uri: lb://AUTH-SERVICE
               predicates:
                 - Path=/auth/**
