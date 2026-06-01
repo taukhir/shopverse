@@ -14,6 +14,20 @@ The stack includes:
 - Grafana includes Prometheus, Loki, and Zipkin datasources plus a starter dashboard.
 - Zipkin is included so trace IDs in logs can be correlated with traces.
 
+## Observability Flow
+
+![Shopverse observability flow](shopverse-observability-flow.svg)
+
+The diagram shows how the POC collects and uses observability data:
+
+- Services write logs to `/app/logs/*.log` and Docker stdout.
+- Promtail collects those logs, extracts labels, and sends them to Loki.
+- Loki stores centralized logs and makes them searchable from Grafana.
+- Services expose metrics through `/actuator/prometheus`.
+- Prometheus scrapes and stores those metrics.
+- Grafana queries Loki for logs and Prometheus for metrics.
+- Services send tracing spans to Zipkin, and the same `traceId` appears in logs for correlation.
+
 ## How It Works
 
 ```text
@@ -40,6 +54,55 @@ Grafana
   -> queries Loki for logs
   -> queries Zipkin for traces
 ```
+
+## Core Tools
+
+### Loki
+
+Loki is the centralized log storage system. Promtail sends service logs to Loki, and Loki stores those logs with labels such as:
+
+```text
+application
+level
+traceId
+spanId
+job
+container
+```
+
+Unlike Elasticsearch-style systems, Loki is designed to index labels instead of indexing the full log text. This keeps the setup lighter for a POC while still making logs easy to search from Grafana.
+
+Example Loki query:
+
+```logql
+{application="USER-SERVICE"}
+```
+
+### Prometheus
+
+Prometheus is the metrics database and scraper. It periodically calls each service's:
+
+```text
+/actuator/prometheus
+```
+
+Spring Boot Actuator and Micrometer expose metrics in Prometheus format. Prometheus stores these as time-series data, such as HTTP request counts, request duration, JVM memory, CPU usage, and custom counters.
+
+Example Prometheus query:
+
+```promql
+sum by (application) (rate(http_server_requests_seconds_count[1m]))
+```
+
+### Grafana
+
+Grafana is the dashboard and exploration UI. It does not collect logs or metrics by itself. Instead, it connects to datasources:
+
+- Loki for logs
+- Prometheus for metrics
+- Zipkin for traces
+
+In this POC, Grafana is where we check dashboards, search aggregated logs, inspect metrics, and correlate a log `traceId` with a Zipkin trace.
 
 ## Start The Stack
 
