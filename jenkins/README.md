@@ -587,7 +587,7 @@ When `RUN_COMPOSE_SMOKE_TEST=true`, Jenkins starts the full local stack:
 docker compose up -d --build
 ```
 
-Then it verifies service health endpoints plus public order, payment, and inventory health APIs. If the smoke test fails, Jenkins prints `docker compose ps` and recent logs.
+Then it verifies service health endpoints plus public order, payment, and inventory APIs. If the smoke test fails, Jenkins prints `docker compose ps` and recent logs. The authenticated checkout SAGA can be tested manually with a bearer token after the stack starts.
 
 ## One-Service Build Demo
 

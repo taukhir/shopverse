@@ -304,6 +304,7 @@ Logs were added around useful business and request events, for example:
 - authentication start, success, and failure
 - order health check, catalog lookup, order creation, and order deletion
 - payment and inventory health checks
+- choreography SAGA events across order, inventory, and payment services
 - request start/completion with method, path, status, and duration
 
 Request logging filters were added in services such as user, order, and auth service. These filters log:
@@ -492,6 +493,12 @@ Logs for one service:
 {application="INVENTORY-SERVICE"}
 ```
 
+SAGA logs across Order, Inventory, and Payment:
+
+```logql
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "Choreography saga"
+```
+
 Logs for one trace:
 
 ```logql
@@ -536,6 +543,8 @@ Generate traffic:
 curl.exe http://localhost:8080/api/v1/orders/public/health
 curl.exe http://localhost:8080/api/v1/payments/public/health
 curl.exe http://localhost:8080/api/v1/inventory/public/health
+curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+  -H "Authorization: Bearer <token>"
 ```
 
 Open Grafana:

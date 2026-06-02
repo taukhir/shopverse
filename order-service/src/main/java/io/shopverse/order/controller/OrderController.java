@@ -6,6 +6,7 @@ import io.shopverse.order.dto.CatalogItemResponse;
 import io.shopverse.order.dto.OrderDeleteResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.ServiceHealthResponse;
+import io.shopverse.order.saga.OrderSagaPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.List;
 public class OrderController {
 
     private final SampleOrderData sampleOrderData;
+    private final OrderSagaPublisher orderSagaPublisher;
 
     // PUBLIC APIs
 
@@ -55,9 +57,21 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderResponse> createOrder() {
         log.info("Creating order for current user");
+        OrderResponse order = sampleOrderData.newSampleOrder();
+        orderSagaPublisher.publishOrderCreated(order);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(sampleOrderData.newSampleOrder());
+                .body(order);
+    }
+
+    @PostMapping("/checkout")
+    public ResponseEntity<OrderResponse> checkout() {
+        log.info("Checkout requested for current user; starting choreography saga");
+        OrderResponse order = sampleOrderData.newSampleOrder();
+        orderSagaPublisher.publishOrderCreated(order);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(order);
     }
 
     // ADMIN APIs

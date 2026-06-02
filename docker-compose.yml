@@ -20,6 +20,33 @@ services:
     networks:
       - shopverse
 
+  kafka:
+    image: bitnami/kafka:3.9
+    container_name: shopverse-kafka
+    environment:
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_CFG_NODE_ID: 1
+      KAFKA_CFG_PROCESS_ROLES: broker,controller
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_CFG_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    ports:
+      - "9092:9092"
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics.sh --bootstrap-server localhost:9092 --list >/dev/null 2>&1"]
+      interval: 15s
+      timeout: 10s
+      retries: 15
+      start_period: 45s
+    networks:
+      - shopverse
+
   config-server:
     build:
       context: ./config-server
@@ -166,6 +193,7 @@ services:
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       LOG_FILE: /app/logs/order-service.log
     ports:
       - "8083:8083"
@@ -177,6 +205,8 @@ services:
       discovery-server:
         condition: service_healthy
       auth-service:
+        condition: service_healthy
+      kafka:
         condition: service_healthy
       zipkin:
         condition: service_started
@@ -200,6 +230,7 @@ services:
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       LOG_FILE: /app/logs/payment-service.log
     ports:
       - "8084:8084"
@@ -211,6 +242,8 @@ services:
       discovery-server:
         condition: service_healthy
       auth-service:
+        condition: service_healthy
+      kafka:
         condition: service_healthy
       zipkin:
         condition: service_started
@@ -234,6 +267,7 @@ services:
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       LOG_FILE: /app/logs/inventory-service.log
     ports:
       - "8086:8086"
@@ -245,6 +279,8 @@ services:
       discovery-server:
         condition: service_healthy
       auth-service:
+        condition: service_healthy
+      kafka:
         condition: service_healthy
       zipkin:
         condition: service_started

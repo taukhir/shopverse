@@ -289,7 +289,7 @@ docker compose down -v
 
 Why it matters:
 
-This confirms the services can run together, not only compile independently.
+This confirms the services can run together, not only compile independently. The authenticated checkout SAGA can be tested manually with a bearer token after the stack starts.
 
 ## Deploy Workflow
 
