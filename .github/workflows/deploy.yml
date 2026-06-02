@@ -46,6 +46,10 @@ jobs:
             context: ./auth-service
           - service: order-service
             context: ./order-service
+          - service: payment-service
+            context: ./payment-service
+          - service: inventory-service
+            context: ./inventory-service
           - service: api-gateway
             context: ./api-gateway
     steps:
@@ -134,6 +138,6 @@ jobs:
               echo "$GHCR_READ_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
             fi
 
-            docker compose --env-file .env --env-file .env.deploy -f docker-compose.yml -f docker-compose.deploy.yml pull config-server discovery-server user-service auth-service order-service api-gateway
+            docker compose --env-file .env --env-file .env.deploy -f docker-compose.yml -f docker-compose.deploy.yml pull config-server discovery-server user-service auth-service order-service payment-service inventory-service api-gateway
             docker compose --env-file .env --env-file .env.deploy -f docker-compose.yml -f docker-compose.deploy.yml up -d
             docker compose --env-file .env --env-file .env.deploy -f docker-compose.yml -f docker-compose.deploy.yml ps

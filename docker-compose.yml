@@ -189,6 +189,74 @@ services:
     networks:
       - shopverse
 
+  payment-service:
+    build:
+      context: ./payment-service
+    image: shopverse/payment-service:local
+    container_name: shopverse-payment-service
+    environment:
+      SERVER_PORT: 8084
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+      JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOG_FILE: /app/logs/payment-service.log
+    ports:
+      - "8084:8084"
+    volumes:
+      - payment-service-logs:/app/logs
+    depends_on:
+      config-server:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      zipkin:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8084/actuator/health | grep -q UP"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 120s
+    networks:
+      - shopverse
+
+  inventory-service:
+    build:
+      context: ./inventory-service
+    image: shopverse/inventory-service:local
+    container_name: shopverse-inventory-service
+    environment:
+      SERVER_PORT: 8086
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+      JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
+      ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      LOG_FILE: /app/logs/inventory-service.log
+    ports:
+      - "8086:8086"
+    volumes:
+      - inventory-service-logs:/app/logs
+    depends_on:
+      config-server:
+        condition: service_healthy
+      discovery-server:
+        condition: service_healthy
+      auth-service:
+        condition: service_healthy
+      zipkin:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8086/actuator/health | grep -q UP"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
+      start_period: 120s
+    networks:
+      - shopverse
+
   api-gateway:
     build:
       context: ./api-gateway
@@ -214,6 +282,10 @@ services:
       auth-service:
         condition: service_healthy
       order-service:
+        condition: service_healthy
+      payment-service:
+        condition: service_healthy
+      inventory-service:
         condition: service_healthy
       zipkin:
         condition: service_started
@@ -266,6 +338,8 @@ services:
       - ./:/workspace:ro
       - api-gateway-logs:/service-logs/api-gateway:ro
       - order-service-logs:/service-logs/order-service:ro
+      - payment-service-logs:/service-logs/payment-service:ro
+      - inventory-service-logs:/service-logs/inventory-service:ro
       - user-service-logs:/service-logs/user-service:ro
       - auth-service-logs:/service-logs/auth-service:ro
       - discovery-server-logs:/service-logs/discovery-server:ro
@@ -318,6 +392,8 @@ volumes:
   grafana-data:
   api-gateway-logs:
   order-service-logs:
+  payment-service-logs:
+  inventory-service-logs:
   user-service-logs:
   auth-service-logs:
   discovery-server-logs:

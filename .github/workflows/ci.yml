@@ -38,6 +38,8 @@ jobs:
             "cloud-configs/AUTH-SERVICE.yml"
             "cloud-configs/USER-SERVICE.yml"
             "cloud-configs/ORDER-SERVICE.yml"
+            "cloud-configs/PAYMENT-SERVICE.yml"
+            "cloud-configs/INVENTORY-SERVICE.yml"
             "cloud-configs/DISCOVERY-SERVER.yml"
             "observability/prometheus-docker.yml"
             "observability/promtail.yml"
@@ -69,6 +71,10 @@ jobs:
             path: auth-service
           - service: order-service
             path: order-service
+          - service: payment-service
+            path: payment-service
+          - service: inventory-service
+            path: inventory-service
           - service: api-gateway
             path: api-gateway
     steps:
@@ -117,6 +123,10 @@ jobs:
             context: ./auth-service
           - service: order-service
             context: ./order-service
+          - service: payment-service
+            context: ./payment-service
+          - service: inventory-service
+            context: ./inventory-service
           - service: api-gateway
             context: ./api-gateway
     steps:
@@ -174,10 +184,16 @@ jobs:
           curl -fsS http://localhost:8082/actuator/health | grep -q UP
           curl -fsS http://localhost:8081/actuator/health | grep -q UP
           curl -fsS http://localhost:8083/actuator/health | grep -q UP
+          curl -fsS http://localhost:8084/actuator/health | grep -q UP
+          curl -fsS http://localhost:8086/actuator/health | grep -q UP
           curl -fsS http://localhost:8080/actuator/health | grep -q UP
           curl -fsS http://localhost:8080/api/v1/orders/public/health
+          curl -fsS http://localhost:8080/api/v1/payments/public/health
+          curl -fsS http://localhost:8080/api/v1/inventory/public/health
           curl -fsS http://localhost:8082/actuator/prometheus | grep -q jvm
           curl -fsS http://localhost:8083/actuator/prometheus | grep -q jvm
+          curl -fsS http://localhost:8084/actuator/prometheus | grep -q jvm
+          curl -fsS http://localhost:8086/actuator/prometheus | grep -q jvm
 
       - name: Dump compose logs on failure
         if: failure()

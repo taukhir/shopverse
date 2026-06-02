@@ -92,6 +92,8 @@ cloud-configs/API-GATEWAY.yml
 cloud-configs/AUTH-SERVICE.yml
 cloud-configs/USER-SERVICE.yml
 cloud-configs/ORDER-SERVICE.yml
+cloud-configs/PAYMENT-SERVICE.yml
+cloud-configs/INVENTORY-SERVICE.yml
 cloud-configs/DISCOVERY-SERVER.yml
 observability/prometheus-docker.yml
 observability/promtail.yml
@@ -131,6 +133,8 @@ discovery-server
 user-service
 auth-service
 order-service
+payment-service
+inventory-service
 api-gateway
 ```
 
@@ -178,6 +182,8 @@ discovery-server
 user-service
 auth-service
 order-service
+payment-service
+inventory-service
 api-gateway
 ```
 
@@ -246,6 +252,8 @@ http://localhost:8761/actuator/health
 http://localhost:8082/actuator/health
 http://localhost:8081/actuator/health
 http://localhost:8083/actuator/health
+http://localhost:8084/actuator/health
+http://localhost:8086/actuator/health
 http://localhost:8080/actuator/health
 ```
 
@@ -253,6 +261,8 @@ http://localhost:8080/actuator/health
 
 ```text
 http://localhost:8080/api/v1/orders/public/health
+http://localhost:8080/api/v1/payments/public/health
+http://localhost:8080/api/v1/inventory/public/health
 ```
 
 6. Verifies Prometheus metrics are exposed:
@@ -260,6 +270,8 @@ http://localhost:8080/api/v1/orders/public/health
 ```text
 http://localhost:8082/actuator/prometheus
 http://localhost:8083/actuator/prometheus
+http://localhost:8084/actuator/prometheus
+http://localhost:8086/actuator/prometheus
 ```
 
 On failure:
@@ -364,6 +376,8 @@ discovery-server
 user-service
 auth-service
 order-service
+payment-service
+inventory-service
 api-gateway
 ```
 
@@ -452,7 +466,7 @@ IMAGE_TAG
 7. Pulls service images using:
 
 ```bash
-docker compose --env-file .env --env-file .env.deploy -f docker-compose.yml -f docker-compose.deploy.yml pull config-server discovery-server user-service auth-service order-service api-gateway
+docker compose --env-file .env --env-file .env.deploy -f docker-compose.yml -f docker-compose.deploy.yml pull config-server discovery-server user-service auth-service order-service payment-service inventory-service api-gateway
 ```
 
 8. Starts/recreates the stack:

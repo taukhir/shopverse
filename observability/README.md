@@ -16,7 +16,7 @@ The stack includes:
 
 ## Observability Flow
 
-![Shopverse observability flow](shopverse-observability-flow.svg)
+![Shopverse observability flow](../assets/shopverse-observability-flow.svg)
 
 The diagram shows how the POC collects and uses observability data:
 
@@ -30,7 +30,7 @@ The diagram shows how the POC collects and uses observability data:
 
 ## Zipkin Tracing Flow
 
-![Shopverse Zipkin tracing flow](shopverse-zipkin-tracing-flow.svg)
+![Shopverse Zipkin tracing flow](../assets/shopverse-zipkin-tracing-flow.svg)
 
 Zipkin stores distributed traces. A trace represents one request journey, and spans represent individual operations inside that journey.
 
@@ -40,7 +40,7 @@ In Shopverse, a typical traced request looks like:
 Client
   -> API Gateway span
   -> Order Service span
-  -> optional Auth/User Service spans
+  -> optional Auth/User/Payment/Inventory Service spans
   -> Zipkin
 ```
 
@@ -99,7 +99,7 @@ Use this when you want to see every log line produced by all services for one re
    {traceId="paste-trace-id-here"}
    ```
 
-This shows aggregated logs from every service that logged with the same `traceId`, such as API Gateway, Order Service, User Service, and Auth Service.
+This shows aggregated logs from every service that logged with the same `traceId`, such as API Gateway, Order Service, Payment Service, Inventory Service, User Service, and Auth Service.
 
 ### Option 2: Start From Logs
 
@@ -303,6 +303,7 @@ Logs were added around useful business and request events, for example:
 - user lookup and validation failures
 - authentication start, success, and failure
 - order health check, catalog lookup, order creation, and order deletion
+- payment and inventory health checks
 - request start/completion with method, path, status, and duration
 
 Request logging filters were added in services such as user, order, and auth service. These filters log:
@@ -338,6 +339,8 @@ In the root `docker-compose.yml`, each service receives a `LOG_FILE` environment
 ```yaml
 LOG_FILE: /app/logs/user-service.log
 LOG_FILE: /app/logs/order-service.log
+LOG_FILE: /app/logs/payment-service.log
+LOG_FILE: /app/logs/inventory-service.log
 LOG_FILE: /app/logs/auth-service.log
 LOG_FILE: /app/logs/api-gateway.log
 ```
@@ -426,12 +429,14 @@ Each Spring service exposes metrics at:
 /actuator/prometheus
 ```
 
-Prometheus scrapes these local ports from inside Docker via `host.docker.internal`:
+Prometheus scrapes these service targets from inside the Docker network:
 
 - API Gateway: `8080`
 - Auth Service: `8081`
 - User Service: `8082`
 - Order Service: `8083`
+- Payment Service: `8084`
+- Inventory Service: `8086`
 - Discovery Server: `8761`
 - Config Server: `8888`
 
@@ -483,6 +488,8 @@ Logs for one service:
 
 ```logql
 {application="ORDER-SERVICE"}
+{application="PAYMENT-SERVICE"}
+{application="INVENTORY-SERVICE"}
 ```
 
 Logs for one trace:
@@ -527,6 +534,8 @@ Generate traffic:
 
 ```powershell
 curl.exe http://localhost:8080/api/v1/orders/public/health
+curl.exe http://localhost:8080/api/v1/payments/public/health
+curl.exe http://localhost:8080/api/v1/inventory/public/health
 ```
 
 Open Grafana:
@@ -543,6 +552,8 @@ Check logs:
 
 ```logql
 {application="ORDER-SERVICE"}
+{application="PAYMENT-SERVICE"}
+{application="INVENTORY-SERVICE"}
 ```
 
 Check metrics:
