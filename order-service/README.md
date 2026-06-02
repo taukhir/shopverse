@@ -71,6 +71,70 @@ The full stack is started from the root:
 docker compose up -d
 ```
 
+## Jenkins Pipeline
+
+Order Service has a small service-specific Jenkins pipeline:
+
+```text
+order-service/Jenkinsfile
+```
+
+Use this when you want Jenkins to build and test only `order-service`, then optionally build its Docker image.
+
+Create the Jenkins job:
+
+1. Open Jenkins at `http://localhost:8085`.
+2. Login with `admin / admin`.
+3. Click **New Item**.
+4. Enter:
+
+```text
+shopverse-order-service
+```
+
+5. Select **Pipeline**.
+6. Under **Pipeline**, choose **Pipeline script from SCM**.
+7. Select **Git**.
+8. Add the Shopverse GitHub repository URL.
+9. Set **Branch Specifier** to your branch, for example:
+
+```text
+*/main
+```
+
+10. Set **Script Path** to:
+
+```text
+order-service/Jenkinsfile
+```
+
+11. Save.
+12. Click **Build with Parameters**.
+
+Useful parameters:
+
+| Parameter | Default | Use |
+| --- | --- | --- |
+| `BUILD_DOCKER_IMAGE` | `true` | Builds the order-service Docker image after Gradle build/test. |
+| `IMAGE_NAME` | `shopverse/order-service` | Docker image repository/name. |
+| `IMAGE_TAG` | empty | Optional tag. If empty, Jenkins uses `<build-number>-<git-sha>`. |
+
+Pipeline stages:
+
+| Stage | What it does |
+| --- | --- |
+| `Checkout` | Pulls the latest code from GitHub using Jenkins SCM. |
+| `Resolve Image Tag` | Creates the Docker image tag used by later stages. |
+| `Build And Test` | Runs `./gradlew clean build --no-daemon` inside `order-service`. |
+| `Build Docker Image` | Builds `shopverse/order-service:<tag>` using the service Dockerfile. |
+| `Verify Docker Image` | Runs `docker image inspect` to confirm the image exists. |
+
+Verify the image from PowerShell:
+
+```powershell
+docker image ls shopverse/order-service
+```
+
 ## Observability
 
 - Logs are written to `/app/logs/order-service.log`.

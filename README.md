@@ -279,6 +279,33 @@ docker compose build --no-cache
 docker compose up -d
 ```
 
+### Docker Command Flags
+
+Common Docker and Docker Compose flags used in this POC:
+
+| Flag | Example | What it does |
+| --- | --- | --- |
+| `-f` | `docker compose -f jenkins/docker-compose.yml up -d` | Uses a specific Compose file instead of the default `docker-compose.yml`. |
+| `-d` | `docker compose up -d` | Runs containers in detached/background mode. |
+| `-t` | `docker build -t shopverse/user-service:local ./user-service` | Tags the built image with a name and tag. |
+| `--build` | `docker compose up -d --build` | Builds images before starting containers. |
+| `--force-recreate` | `docker compose up -d --force-recreate user-service` | Recreates containers even if Compose thinks nothing changed. |
+| `--no-cache` | `docker compose build --no-cache` | Builds images without using cached Docker layers. |
+| `-v` | `docker compose down -v` | Removes named volumes along with containers and networks. This deletes local persisted data. |
+| `-p` | `docker run -p 8082:8082 ...` | Publishes container ports to the host. Format is `hostPort:containerPort`. |
+| `-e` | `docker run -e DB_USERNAME=ahmed ...` | Passes an environment variable into a container. |
+| `--rm` | `docker run --rm ...` | Automatically removes the container after it exits. |
+| `-i` | `docker exec -it shopverse-user-service sh` | Keeps STDIN open for interactive commands. |
+| `-t` with `exec` | `docker exec -it shopverse-user-service sh` | Allocates a pseudo-terminal so shell sessions work normally. |
+| `--tail` | `docker compose logs --tail=100 user-service` | Shows only the last N log lines. |
+| `--since` | `docker compose logs --since=10m user-service` | Shows logs newer than a time duration or timestamp. |
+
+Notes:
+
+- `docker compose` is the newer Docker Compose v2 command.
+- `docker-compose` with a hyphen is the older standalone Compose command.
+- Use `down -v` carefully because it deletes MySQL, Loki, Prometheus, Grafana, Jenkins, and service log volumes when used with their Compose files.
+
 ## Observability
 
 The observability stack uses:
