@@ -13,6 +13,7 @@ Shopverse is a Spring Boot microservices proof of concept for an e-commerce back
 - [Observability](#observability)
 - [Centralized Config](#centralized-config)
 - [GitHub Actions CI/CD](#github-actions-cicd)
+- [Jenkins Pipeline](#jenkins-pipeline)
 - [Component Glossary](#component-glossary)
 - [More Docs](#more-docs)
 
@@ -392,6 +393,7 @@ Workflows:
 ```text
 .github/workflows/ci.yml
 .github/workflows/deploy.yml
+.github/workflows/jenkins-trigger.yml
 ```
 
 CI triggers:
@@ -448,6 +450,59 @@ ghcr.io/<owner>/<repo>/<service>:<git-sha>
 ghcr.io/<owner>/<repo>/<service>:latest
 ```
 
+Jenkins integration:
+
+- `Shopverse CI` runs first on GitHub.
+- `Trigger Jenkins` runs only after `Shopverse CI` succeeds on `main`, or manually through GitHub Actions.
+- The trigger calls your Jenkins job using Jenkins API token authentication.
+- GitHub-hosted runners cannot reach `http://localhost:8080`; expose Jenkins through a reachable URL or use a self-hosted GitHub runner on your machine.
+
+Required GitHub secrets for Jenkins trigger:
+
+```text
+JENKINS_URL
+JENKINS_JOB_PATH
+JENKINS_USER
+JENKINS_API_TOKEN
+```
+
+Example values:
+
+```text
+JENKINS_URL=http://your-public-or-self-hosted-runner-reachable-jenkins-url
+JENKINS_JOB_PATH=job/shopverse
+```
+
+## Jenkins Pipeline
+
+Shopverse includes a Dockerized Jenkins setup in [jenkins/](jenkins/). It can build and test all services, build Docker images, optionally push images, and optionally run a Docker Compose smoke test.
+
+Start Jenkins:
+
+```powershell
+docker compose -f jenkins/docker-compose.yml up -d
+```
+
+Open:
+
+```text
+http://localhost:8085
+```
+
+Default local login:
+
+```text
+admin / admin
+```
+
+Pipeline script path:
+
+```text
+jenkins/Jenkinsfile
+```
+
+Detailed setup, stages, one-service build demo, and official Jenkins docs links are in [jenkins/README.md](jenkins/README.md).
+
 ## Component Glossary
 
 | Component | What it does in this POC |
@@ -481,3 +536,4 @@ ghcr.io/<owner>/<repo>/<service>:latest
 | Order Service | [order-service/README.md](order-service/README.md) |
 | Centralized Config | [cloud-configs/README.md](cloud-configs/README.md) |
 | Observability | [observability/README.md](observability/README.md) |
+| Jenkins | [jenkins/README.md](jenkins/README.md) |

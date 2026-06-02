@@ -1,0 +1,259 @@
+def services = [
+    'config-server',
+    'discovery-server',
+    'user-service',
+    'auth-service',
+    'order-service',
+    'api-gateway'
+]
+
+def runCommand(String unixCommand, String windowsCommand = null) {
+    if (isUnix()) {
+        sh unixCommand
+    } else {
+        bat(windowsCommand ?: unixCommand)
+    }
+}
+
+def gradleBuild(String service) {
+    dir(service) {
+        if (isUnix()) {
+            sh 'chmod +x ./gradlew && ./gradlew clean build --no-daemon'
+        } else {
+            bat 'gradlew.bat clean build --no-daemon'
+        }
+    }
+}
+
+def imageName(String service) {
+    def registry = params.IMAGE_REGISTRY?.trim()
+    def namespace = params.IMAGE_NAMESPACE?.trim()
+    def tag = env.RESOLVED_IMAGE_TAG
+    def prefix = registry ? "${registry}/" : ''
+
+    return "${prefix}${namespace}/${service}:${tag}"
+}
+
+pipeline {
+    agent any
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+
+    parameters {
+        booleanParam(name: 'BUILD_DOCKER_IMAGES', defaultValue: true, description: 'Build Docker images after Gradle build/test.')
+        booleanParam(name: 'RUN_COMPOSE_SMOKE_TEST', defaultValue: false, description: 'Start the full Docker Compose stack and run health checks.')
+        booleanParam(name: 'PUSH_DOCKER_IMAGES', defaultValue: false, description: 'Push Docker images after successful build.')
+        string(name: 'IMAGE_REGISTRY', defaultValue: '', description: 'Optional registry host, for example ghcr.io.')
+        string(name: 'IMAGE_NAMESPACE', defaultValue: 'shopverse', description: 'Image namespace or owner/repo path.')
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Optional image tag. Defaults to Jenkins build number and Git SHA.')
+        string(name: 'DOCKER_CREDENTIALS_ID', defaultValue: '', description: 'Optional Jenkins username/password credentials id for docker login.')
+    }
+
+    environment {
+        JAVA_VERSION = '21'
+        COMPOSE_PROJECT_NAME = 'shopverse'
+        DOCKER_BUILDKIT = '1'
+        COMPOSE_DOCKER_CLI_BUILD = '1'
+    }
+
+    stages {
+        stage('Checkout Latest Code') {
+            steps {
+                script {
+                    try {
+                        checkout scm
+                    } catch (Exception ignored) {
+                        echo 'No Jenkins SCM configuration found. Falling back to git pull in the current workspace.'
+                        runCommand(
+                            'git fetch --all --prune && git pull --ff-only',
+                            'git fetch --all --prune && git pull --ff-only'
+                        )
+                    }
+                }
+            }
+        }
+
+        stage('Initialize') {
+            steps {
+                script {
+                    def shortSha = env.GIT_COMMIT ? env.GIT_COMMIT.take(8) : 'local'
+                    env.RESOLVED_IMAGE_TAG = params.IMAGE_TAG?.trim() ?: "${env.BUILD_NUMBER}-${shortSha}"
+                    echo "Image tag: ${env.RESOLVED_IMAGE_TAG}"
+                }
+            }
+        }
+
+        stage('Validate Repository') {
+            steps {
+                script {
+                    def requiredFiles = [
+                        'docker-compose.yml',
+                        'cloud-configs/application.yml',
+                        'cloud-configs/API-GATEWAY.yml',
+                        'cloud-configs/AUTH-SERVICE.yml',
+                        'cloud-configs/USER-SERVICE.yml',
+                        'cloud-configs/ORDER-SERVICE.yml',
+                        'cloud-configs/DISCOVERY-SERVER.yml',
+                        'observability/prometheus-docker.yml',
+                        'observability/promtail.yml',
+                        'observability/loki.yml'
+                    ]
+
+                    requiredFiles.each { file ->
+                        if (!fileExists(file)) {
+                            error "Missing required file: ${file}"
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build And Test Services') {
+            steps {
+                script {
+                    def branches = [:]
+
+                    services.each { service ->
+                        branches[service] = {
+                            gradleBuild(service)
+                        }
+                    }
+
+                    parallel branches
+                }
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: '**/build/test-results/test/*.xml'
+                    archiveArtifacts allowEmptyArchive: true, artifacts: '**/build/reports/tests/test/**'
+                }
+            }
+        }
+
+        stage('Build Docker Images') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGES }
+            }
+            steps {
+                script {
+                    services.each { service ->
+                        runCommand(
+                            "docker build -t ${imageName(service)} ./${service}",
+                            "docker build -t ${imageName(service)} .\\${service}"
+                        )
+                    }
+                }
+            }
+        }
+
+        stage('Push Docker Images') {
+            when {
+                expression { params.PUSH_DOCKER_IMAGES }
+            }
+            steps {
+                script {
+                    if (params.DOCKER_CREDENTIALS_ID?.trim()) {
+                        def loginTarget = params.IMAGE_REGISTRY?.trim() ? " ${params.IMAGE_REGISTRY.trim()}" : ''
+                        withCredentials([usernamePassword(
+                            credentialsId: params.DOCKER_CREDENTIALS_ID,
+                            usernameVariable: 'DOCKER_USERNAME',
+                            passwordVariable: 'DOCKER_PASSWORD'
+                        )]) {
+                            runCommand(
+                                "echo \"\$DOCKER_PASSWORD\" | docker login${loginTarget} -u \"\$DOCKER_USERNAME\" --password-stdin",
+                                "echo %DOCKER_PASSWORD% | docker login${loginTarget} -u %DOCKER_USERNAME% --password-stdin"
+                            )
+                        }
+                    }
+
+                    services.each { service ->
+                        runCommand("docker push ${imageName(service)}")
+                    }
+                }
+            }
+        }
+
+        stage('Docker Compose Smoke Test') {
+            when {
+                expression { params.RUN_COMPOSE_SMOKE_TEST }
+            }
+            steps {
+                script {
+                    runCommand('docker compose up -d --build')
+
+                    if (isUnix()) {
+                        sh '''
+                            set -eu
+                            for attempt in $(seq 1 60); do
+                              if curl -fsS http://localhost:8080/actuator/health | grep -q UP; then
+                                echo "API Gateway is healthy"
+                                exit 0
+                              fi
+                              echo "Waiting for API Gateway health check... attempt ${attempt}/60"
+                              sleep 10
+                            done
+                            docker compose ps
+                            docker compose logs --tail=250
+                            exit 1
+                        '''
+                        sh '''
+                            set -eu
+                            curl -fsS http://localhost:8888/actuator/health | grep -q UP
+                            curl -fsS http://localhost:8761/actuator/health | grep -q UP
+                            curl -fsS http://localhost:8082/actuator/health | grep -q UP
+                            curl -fsS http://localhost:8081/actuator/health | grep -q UP
+                            curl -fsS http://localhost:8083/actuator/health | grep -q UP
+                            curl -fsS http://localhost:8080/actuator/health | grep -q UP
+                            curl -fsS http://localhost:8080/api/v1/orders/public/health
+                        '''
+                    } else {
+                        powershell '''
+                            $ErrorActionPreference = "Stop"
+                            for ($attempt = 1; $attempt -le 60; $attempt++) {
+                                try {
+                                    $health = Invoke-RestMethod -Uri "http://localhost:8080/actuator/health"
+                                    if ($health.status -eq "UP") {
+                                        Write-Host "API Gateway is healthy"
+                                        exit 0
+                                    }
+                                } catch {
+                                    Write-Host "Waiting for API Gateway health check... attempt $attempt/60"
+                                }
+                                Start-Sleep -Seconds 10
+                            }
+                            docker compose ps
+                            docker compose logs --tail=250
+                            exit 1
+                        '''
+                        powershell '''
+                            $ErrorActionPreference = "Stop"
+                            Invoke-RestMethod -Uri "http://localhost:8888/actuator/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8761/actuator/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8082/actuator/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8081/actuator/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8083/actuator/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8080/actuator/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8080/api/v1/orders/public/health" | Out-Null
+                        '''
+                    }
+                }
+            }
+            post {
+                failure {
+                    script {
+                        runCommand('docker compose ps')
+                        runCommand('docker compose logs --tail=500')
+                    }
+                }
+                always {
+                    script {
+                        runCommand('docker compose down -v')
+                    }
+                }
+            }
+        }
+    }
+}

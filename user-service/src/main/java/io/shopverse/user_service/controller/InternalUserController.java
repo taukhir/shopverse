@@ -23,7 +23,19 @@ public class InternalUserController {
 
     @GetMapping("/username/{username}")
     public ResponseEntity<UserResponse> getUserByUsername(@PathVariable String username) {
-        log.info("Internal user lookup requested by username: {}", username);
-        return ResponseEntity.ok(userService.loadUserByUsername(username));
+        log.info("Internal auth user lookup started username={}", username);
+        UserResponse user = userService.loadUserByUsername(username);
+        log.info(
+                "Internal auth user lookup completed username={} userId={} status={} roles={}",
+                username,
+                user.id(),
+                user.status(),
+                roleCount(user)
+        );
+        return ResponseEntity.ok(user);
+    }
+
+    private int roleCount(UserResponse user) {
+        return user.roles() == null ? 0 : user.roles().size();
     }
 }

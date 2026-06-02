@@ -37,12 +37,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-liquibase'
 	implementation 'org.liquibase:liquibase-core'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
-	implementation "io.github.resilience4j:resilience4j-ratelimiter:${resilience4jVersion}"
-	implementation "io.github.resilience4j:resilience4j-bulkhead:${resilience4jVersion}"
-	implementation "io.github.resilience4j:resilience4j-retry:${resilience4jVersion}"
+	implementation "io.github.resilience4j:resilience4j-spring-boot4:${resilience4jVersion}"
+	implementation 'org.springframework:spring-aop'
+	implementation 'org.aspectj:aspectjweaver:1.9.24'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	compileOnly 'org.projectlombok:lombok'
 	testCompileOnly 'org.projectlombok:lombok'
