@@ -235,6 +235,265 @@ docker image inspect shopverse/user-service:jenkins-user-service
 | `IMAGE_TAG` | auto | Optional fixed image tag. |
 | `DOCKER_CREDENTIALS_ID` | empty | Optional Jenkins username/password credential for Docker login. |
 
+## Jenkinsfile Syntax Used In Shopverse
+
+The Shopverse Jenkinsfiles use Declarative Pipeline syntax. This keeps the pipeline readable and gives Jenkins a predictable structure.
+
+### `pipeline`
+
+Top-level block for a Declarative Pipeline:
+
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh './gradlew build'
+            }
+        }
+    }
+}
+```
+
+Everything Jenkins runs is defined inside this block.
+
+### `agent any`
+
+Tells Jenkins where the pipeline can run:
+
+```groovy
+agent any
+```
+
+`any` means Jenkins can run the job on any available executor. In our Dockerized local setup, that means the Jenkins controller container itself runs the pipeline.
+
+### `options`
+
+Defines pipeline-level behavior:
+
+```groovy
+options {
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+}
+```
+
+| Option | What it does |
+| --- | --- |
+| `disableConcurrentBuilds()` | Prevents two builds of the same Jenkins job from running at the same time. This avoids Docker tag conflicts and Compose stack conflicts. |
+| `buildDiscarder(logRotator(numToKeepStr: '10'))` | Keeps only the latest 10 Jenkins build records for that job. This prevents Jenkins history from growing forever in the local volume. |
+
+### `parameters`
+
+Defines inputs shown in **Build with Parameters**:
+
+```groovy
+parameters {
+    booleanParam(name: 'BUILD_DOCKER_IMAGE', defaultValue: true, description: 'Build the order-service Docker image.')
+    string(name: 'IMAGE_TAG', defaultValue: '', description: 'Optional Docker image tag.')
+}
+```
+
+| Parameter type | Example | What it does |
+| --- | --- | --- |
+| `booleanParam` | `BUILD_DOCKER_IMAGE` | Creates a true/false checkbox. |
+| `string` | `IMAGE_TAG` | Creates a text input. |
+
+In our pipelines, parameters let you decide whether to build Docker images, push images, run Compose smoke tests, and override image names/tags.
+
+### `environment`
+
+Defines environment variables available to all stages:
+
+```groovy
+environment {
+    DOCKER_BUILDKIT = '1'
+    COMPOSE_DOCKER_CLI_BUILD = '1'
+}
+```
+
+| Variable | Why we use it |
+| --- | --- |
+| `DOCKER_BUILDKIT=1` | Enables Docker BuildKit. Required because our service Dockerfiles use `RUN --mount=type=cache`. |
+| `COMPOSE_DOCKER_CLI_BUILD=1` | Makes Docker Compose use the Docker CLI builder behavior. |
+| `COMPOSE_PROJECT_NAME=shopverse` | Keeps Compose project naming consistent for the shared stack pipeline. |
+
+### `stages` And `stage`
+
+`stages` is the list of major pipeline phases. Each `stage` is one visible block in Jenkins UI:
+
+```groovy
+stages {
+    stage('Checkout') {
+        steps {
+            checkout scm
+        }
+    }
+}
+```
+
+Examples in Shopverse:
+
+```text
+Checkout
+Build And Test
+Build Docker Image
+Verify Docker Image
+Docker Compose Smoke Test
+```
+
+### `steps`
+
+Contains the actual work Jenkins runs inside a stage:
+
+```groovy
+steps {
+    sh 'docker build -t "${ORDER_SERVICE_IMAGE}" ./order-service'
+}
+```
+
+Common step types we use:
+
+| Step | What it does |
+| --- | --- |
+| `checkout scm` | Checks out source code from the Git SCM configured in the Jenkins job. |
+| `sh` | Runs a shell command on Linux/macOS agents. |
+| `bat` | Runs a Windows batch command on Windows agents. |
+| `powershell` | Runs PowerShell commands on Windows agents. |
+| `dir('path')` | Runs nested steps inside a specific directory. |
+| `echo` | Prints a message into the Jenkins console log. |
+
+### `script`
+
+Allows small pieces of Groovy logic inside a Declarative Pipeline:
+
+```groovy
+script {
+    def shortSha = env.GIT_COMMIT ? env.GIT_COMMIT.take(8) : 'local'
+    env.RESOLVED_IMAGE_TAG = params.IMAGE_TAG?.trim() ?: "${env.BUILD_NUMBER}-${shortSha}"
+}
+```
+
+We use `script` when simple pipeline syntax is not enough, for example:
+
+- calculating image tags
+- looping over services
+- building a `parallel` map
+- choosing Linux vs Windows commands
+
+### `when`
+
+Controls whether a stage should run:
+
+```groovy
+when {
+    expression { params.BUILD_DOCKER_IMAGE }
+}
+```
+
+This means:
+
+```text
+Run this stage only when BUILD_DOCKER_IMAGE is true.
+```
+
+In `order-service/Jenkinsfile`, the Docker image stages are skipped when `BUILD_DOCKER_IMAGE=false`.
+
+In the shared `jenkins/Jenkinsfile`, examples include:
+
+```groovy
+when {
+    expression { params.BUILD_DOCKER_IMAGES }
+}
+```
+
+```groovy
+when {
+    expression { params.RUN_COMPOSE_SMOKE_TEST }
+}
+```
+
+These let the same pipeline run as either a Gradle-only build, a Docker-image build, or a full Compose smoke test.
+
+### `post`
+
+Runs cleanup or reporting steps after a stage or pipeline finishes:
+
+```groovy
+post {
+    always {
+        junit allowEmptyResults: true, testResults: 'order-service/build/test-results/test/*.xml'
+        archiveArtifacts allowEmptyArchive: true, artifacts: 'order-service/build/reports/tests/test/**'
+    }
+}
+```
+
+`always` means Jenkins runs these steps whether the stage passed or failed.
+
+### `junit`
+
+Publishes JUnit XML test results in Jenkins:
+
+```groovy
+junit allowEmptyResults: true, testResults: 'order-service/build/test-results/test/*.xml'
+```
+
+| Part | Meaning |
+| --- | --- |
+| `testResults` | Glob path to JUnit XML files. |
+| `allowEmptyResults: true` | Does not fail the pipeline if no test result files exist. Useful for early POC stages. |
+
+### `archiveArtifacts`
+
+Saves files from the workspace as Jenkins build artifacts:
+
+```groovy
+archiveArtifacts allowEmptyArchive: true, artifacts: 'order-service/build/reports/tests/test/**'
+```
+
+We use it to keep Gradle HTML test reports available from the Jenkins build page.
+
+### `parallel`
+
+Runs multiple branches at the same time:
+
+```groovy
+script {
+    def branches = [:]
+    services.each { service ->
+        branches[service] = {
+            gradleBuild(service)
+        }
+    }
+    parallel branches
+}
+```
+
+The shared pipeline uses this to build and test all services faster.
+
+### Helper Methods
+
+The shared `jenkins/Jenkinsfile` defines helper methods before the `pipeline` block:
+
+```groovy
+def runCommand(String unixCommand, String windowsCommand = null) {
+    if (isUnix()) {
+        sh unixCommand
+    } else {
+        bat(windowsCommand ?: unixCommand)
+    }
+}
+```
+
+| Helper | Purpose |
+| --- | --- |
+| `runCommand` | Runs Linux shell commands on Linux agents and batch commands on Windows agents. |
+| `gradleBuild` | Runs `clean build` for one service. |
+| `imageName` | Builds a consistent Docker image name from registry, namespace, service, and tag. |
+
+The `order-service/Jenkinsfile` does not use helpers because it is intentionally simple and service-specific.
+
 ## Pipeline Stages
 
 ### 1. Checkout Latest Code
