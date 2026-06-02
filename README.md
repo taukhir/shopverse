@@ -396,6 +396,8 @@ Workflows:
 .github/workflows/jenkins-trigger.yml
 ```
 
+Detailed workflow documentation is in [.github/workflows/README.md](.github/workflows/README.md).
+
 CI triggers:
 
 - every push
@@ -537,3 +539,4 @@ Detailed setup, stages, one-service build demo, and official Jenkins docs links 
 | Centralized Config | [cloud-configs/README.md](cloud-configs/README.md) |
 | Observability | [observability/README.md](observability/README.md) |
 | Jenkins | [jenkins/README.md](jenkins/README.md) |
+| GitHub Actions | [.github/workflows/README.md](.github/workflows/README.md) |
