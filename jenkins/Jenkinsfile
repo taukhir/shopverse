@@ -4,6 +4,8 @@ def services = [
     'user-service',
     'auth-service',
     'order-service',
+    'payment-service',
+    'inventory-service',
     'api-gateway'
 ]
 
@@ -96,6 +98,8 @@ pipeline {
                         'cloud-configs/AUTH-SERVICE.yml',
                         'cloud-configs/USER-SERVICE.yml',
                         'cloud-configs/ORDER-SERVICE.yml',
+                        'cloud-configs/PAYMENT-SERVICE.yml',
+                        'cloud-configs/INVENTORY-SERVICE.yml',
                         'cloud-configs/DISCOVERY-SERVER.yml',
                         'observability/prometheus-docker.yml',
                         'observability/promtail.yml',
@@ -206,8 +210,12 @@ pipeline {
                             curl -fsS http://localhost:8082/actuator/health | grep -q UP
                             curl -fsS http://localhost:8081/actuator/health | grep -q UP
                             curl -fsS http://localhost:8083/actuator/health | grep -q UP
+                            curl -fsS http://localhost:8084/actuator/health | grep -q UP
+                            curl -fsS http://localhost:8086/actuator/health | grep -q UP
                             curl -fsS http://localhost:8080/actuator/health | grep -q UP
                             curl -fsS http://localhost:8080/api/v1/orders/public/health
+                            curl -fsS http://localhost:8080/api/v1/payments/public/health
+                            curl -fsS http://localhost:8080/api/v1/inventory/public/health
                         '''
                     } else {
                         powershell '''
@@ -235,8 +243,12 @@ pipeline {
                             Invoke-RestMethod -Uri "http://localhost:8082/actuator/health" | Out-Null
                             Invoke-RestMethod -Uri "http://localhost:8081/actuator/health" | Out-Null
                             Invoke-RestMethod -Uri "http://localhost:8083/actuator/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8084/actuator/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8086/actuator/health" | Out-Null
                             Invoke-RestMethod -Uri "http://localhost:8080/actuator/health" | Out-Null
                             Invoke-RestMethod -Uri "http://localhost:8080/api/v1/orders/public/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8080/api/v1/payments/public/health" | Out-Null
+                            Invoke-RestMethod -Uri "http://localhost:8080/api/v1/inventory/public/health" | Out-Null
                         '''
                     }
                 }

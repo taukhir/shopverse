@@ -30,6 +30,14 @@ scrape_configs:
         labels:
           application: ORDER-SERVICE
       - targets:
+          - payment-service:8084
+        labels:
+          application: PAYMENT-SERVICE
+      - targets:
+          - inventory-service:8086
+        labels:
+          application: INVENTORY-SERVICE
+      - targets:
           - discovery-server:8761
         labels:
           application: DISCOVERY-SERVER

@@ -10,6 +10,7 @@ Shopverse is a Spring Boot microservices proof of concept for an e-commerce back
 - [Useful URLs](#useful-urls)
 - [Authentication](#authentication)
 - [Docker Commands](#docker-commands)
+- [Dockerfile Guide](#dockerfile-guide)
 - [Observability](#observability)
 - [Centralized Config](#centralized-config)
 - [GitHub Actions CI/CD](#github-actions-cicd)
@@ -29,6 +30,8 @@ Shopverse is a Spring Boot microservices proof of concept for an e-commerce back
 | Auth Service | `8081` | Authenticates users, signs JWTs, exposes JWKS. |
 | User Service | `8082` | Manages users, roles, permissions, and passwords. |
 | Order Service | `8083` | Sample order APIs protected by JWT roles. |
+| Payment Service | `8084` | Payment API placeholder with JWT security and observability. |
+| Inventory Service | `8086` | Inventory API placeholder with JWT security and observability. |
 | MySQL | `3307` | User service database. |
 | Grafana | `3000` | Dashboards and Explore UI for logs/metrics/traces. |
 | Prometheus | `9090` | Scrapes and stores metrics. |
@@ -59,8 +62,11 @@ shopverse/
   auth-service/         Auth/JWT service
   user-service/         User, role, permission APIs
   order-service/        Sample order APIs
+  payment-service/      Payment APIs
+  inventory-service/    Inventory APIs
   cloud-configs/        Centralized service YAML config
   observability/        Prometheus, Loki, Promtail, Grafana, Zipkin config
+  assets/               Shared README diagrams and images
   jenkins/              Local Jenkins pipeline and Docker setup
   .github/workflows/    GitHub Actions CI/CD
   docker-compose.yml    Full local stack
@@ -117,8 +123,12 @@ curl.exe http://localhost:8761/actuator/health
 curl.exe http://localhost:8082/actuator/health
 curl.exe http://localhost:8081/actuator/health
 curl.exe http://localhost:8083/actuator/health
+curl.exe http://localhost:8084/actuator/health
+curl.exe http://localhost:8086/actuator/health
 curl.exe http://localhost:8080/actuator/health
 curl.exe http://localhost:8080/api/v1/orders/public/health
+curl.exe http://localhost:8080/api/v1/payments/public/health
+curl.exe http://localhost:8080/api/v1/inventory/public/health
 ```
 
 Stop the stack:
@@ -218,6 +228,7 @@ Restart application services:
 
 ```powershell
 docker compose restart user-service auth-service order-service api-gateway
+docker compose restart payment-service inventory-service
 ```
 
 Follow logs:
@@ -232,6 +243,8 @@ Follow one service:
 docker compose logs -f user-service
 docker compose logs -f auth-service
 docker compose logs -f order-service
+docker compose logs -f payment-service
+docker compose logs -f inventory-service
 docker compose logs -f api-gateway
 ```
 
@@ -306,6 +319,44 @@ Notes:
 - `docker-compose` with a hyphen is the older standalone Compose command.
 - Use `down -v` carefully because it deletes MySQL, Loki, Prometheus, Grafana, Jenkins, and service log volumes when used with their Compose files.
 
+## Dockerfile Guide
+
+Most Spring Boot services use the same multi-stage Dockerfile pattern.
+
+| Dockerfile line | What it does |
+| --- | --- |
+| `# syntax=docker/dockerfile:1.7` | Enables Dockerfile frontend features such as BuildKit cache mounts. |
+| `FROM eclipse-temurin:21-jdk-jammy AS build` | Starts the build stage with Java 21 JDK. The JDK is needed to compile and package the app. |
+| `WORKDIR /workspace` | Sets `/workspace` as the working directory for later build-stage commands. |
+| `COPY gradlew gradlew.bat settings.gradle build.gradle ./` | Copies Gradle wrapper and build metadata first so dependency layers can be cached. |
+| `COPY gradle ./gradle` | Copies the Gradle wrapper files required by `./gradlew`. |
+| `RUN chmod +x ./gradlew` | Makes the Linux Gradle wrapper executable inside the container. |
+| `RUN --mount=type=cache,target=/root/.gradle ./gradlew dependencies --no-daemon` | Downloads dependencies using a BuildKit cache so future image builds are faster. |
+| `COPY src ./src` | Copies application source code after dependencies, so source changes do not always invalidate dependency cache. |
+| `RUN --mount=type=cache,target=/root/.gradle ./gradlew bootJar --no-daemon` | Builds the executable Spring Boot jar. |
+| `FROM eclipse-temurin:21-jre-jammy AS runtime` | Starts a smaller runtime stage with Java 21 JRE only. The final image does not need the full JDK. |
+| `ENV APP_HOME=/app ...` | Defines runtime defaults such as app directory, server port, and JVM memory options. Compose can override these values. |
+| `WORKDIR ${APP_HOME}` | Sets `/app` as the working directory in the runtime image. |
+| `RUN apt-get update ... curl ... groupadd ... useradd ...` | Installs `curl` for health checks, clears package cache, and creates a non-root `shopverse` user. |
+| `COPY --from=build /workspace/build/libs/*.jar app.jar` | Copies only the built jar from the build stage into the final runtime image. |
+| `RUN mkdir -p ${APP_HOME}/logs && chown -R shopverse:shopverse ${APP_HOME}` | Creates the log directory and gives the non-root user ownership. |
+| `USER shopverse` | Runs the application as a non-root user for safer container runtime behavior. |
+| `EXPOSE <port>` | Documents the container port used by the service. Compose still controls host port publishing. |
+| `HEALTHCHECK ... curl ... /actuator/health` | Lets Docker check whether the Spring Boot app is healthy. |
+| `ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]` | Starts the Spring Boot jar and allows `JAVA_OPTS` from environment variables. |
+
+The Jenkins Dockerfile is different because it builds a Jenkins controller image:
+
+| Dockerfile line | What it does |
+| --- | --- |
+| `FROM jenkins/jenkins:lts-jdk21` | Starts from the official Jenkins LTS image with JDK 21. |
+| `COPY plugins.txt /usr/share/ref/plugins.txt` | Copies the plugin list into Jenkins reference config. |
+| `RUN jenkins-plugin-cli --plugin-file /usr/share/ref/plugins.txt` | Installs Jenkins plugins during image build. |
+| `USER root` | Temporarily switches to root so Linux packages can be installed. |
+| `RUN apt-get update ... docker ... git ...` | Installs Docker CLI/buildx/Compose and Git so Jenkins jobs can build images and pull code. |
+| `COPY init.groovy.d/ /usr/share/ref/init.groovy.d/` | Copies Jenkins startup Groovy scripts, including local POC admin setup. |
+| `USER jenkins` | Switches back to the normal Jenkins user for runtime. |
+
 ## Observability
 
 The observability stack uses:
@@ -347,6 +398,8 @@ Useful Loki queries in Grafana Explore:
 ```logql
 {application="USER-SERVICE"}
 {application="ORDER-SERVICE"}
+{application="PAYMENT-SERVICE"}
+{application="INVENTORY-SERVICE"}
 {application="AUTH-SERVICE"}
 {traceId="paste-trace-id-here"}
 ```
@@ -363,13 +416,13 @@ More details are in [observability/README.md](observability/README.md).
 
 ## Distributed Tracing With Zipkin
 
-![Shopverse Zipkin tracing flow](observability/shopverse-zipkin-tracing-flow.svg)
+![Shopverse Zipkin tracing flow](assets/shopverse-zipkin-tracing-flow.svg)
 
 Zipkin helps us follow one request across multiple services. When a request enters Shopverse through the API Gateway, Spring Boot observability creates or continues a trace. The same `traceId` is propagated to downstream services, while each service operation gets its own `spanId`.
 
 In this POC:
 
-- Gateway, Auth Service, User Service, and Order Service create spans.
+- Gateway, Auth Service, User Service, Order Service, Payment Service, and Inventory Service create spans.
 - Services export spans to Zipkin using the configured `ZIPKIN_ENDPOINT`.
 - Logs include `[service,traceId,spanId]`, so a Zipkin trace can be connected back to Loki logs.
 - Grafana can be used with Loki logs and Zipkin traces side by side.
@@ -407,6 +460,8 @@ cloud-configs/API-GATEWAY.yml
 cloud-configs/AUTH-SERVICE.yml
 cloud-configs/USER-SERVICE.yml
 cloud-configs/ORDER-SERVICE.yml
+cloud-configs/PAYMENT-SERVICE.yml
+cloud-configs/INVENTORY-SERVICE.yml
 cloud-configs/DISCOVERY-SERVER.yml
 ```
 
@@ -489,6 +544,8 @@ Detailed setup, stages, one-service build demo, and official Jenkins docs links 
 | Auth Service | [auth-service/README.md](auth-service/README.md) |
 | User Service | [user-service/README.md](user-service/README.md) |
 | Order Service | [order-service/README.md](order-service/README.md) |
+| Payment Service | [payment-service/README.md](payment-service/README.md) |
+| Inventory Service | [inventory-service/README.md](inventory-service/README.md) |
 | Centralized Config | [cloud-configs/README.md](cloud-configs/README.md) |
 | Observability | [observability/README.md](observability/README.md) |
 | Jenkins | [jenkins/README.md](jenkins/README.md) |

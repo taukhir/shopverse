@@ -539,6 +539,8 @@ discovery-server
 user-service
 auth-service
 order-service
+payment-service
+inventory-service
 api-gateway
 ```
 
@@ -585,7 +587,7 @@ When `RUN_COMPOSE_SMOKE_TEST=true`, Jenkins starts the full local stack:
 docker compose up -d --build
 ```
 
-Then it verifies service health endpoints and the public order health API. If the smoke test fails, Jenkins prints `docker compose ps` and recent logs.
+Then it verifies service health endpoints plus public order, payment, and inventory health APIs. If the smoke test fails, Jenkins prints `docker compose ps` and recent logs.
 
 ## One-Service Build Demo
 
@@ -602,7 +604,7 @@ That confirms Jenkins can:
 3. Use BuildKit/buildx.
 4. Build a service image successfully.
 
-The full `jenkins/Jenkinsfile` uses the same Docker path, but applies it to all six services.
+The full `jenkins/Jenkinsfile` uses the same Docker path, but applies it to every Shopverse service.
 
 ## Useful Commands
 

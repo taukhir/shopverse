@@ -1,0 +1,14 @@
+server:
+  port: ${SERVER_PORT:8086}
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/auth/.well-known/jwks.json}
+
+shopverse:
+  inventory-service:
+    health-checkup:
+      message: ${INVENTORY_SERVICE_HEALTH_CHECKUP_MESSAGE:Inventory service is running}

@@ -14,5 +14,11 @@ services:
   order-service:
     image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_NAMESPACE:-taukhir/shopverse}/order-service:${IMAGE_TAG:-latest}
 
+  payment-service:
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_NAMESPACE:-taukhir/shopverse}/payment-service:${IMAGE_TAG:-latest}
+
+  inventory-service:
+    image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_NAMESPACE:-taukhir/shopverse}/inventory-service:${IMAGE_TAG:-latest}
+
   api-gateway:
     image: ${IMAGE_REGISTRY:-ghcr.io}/${IMAGE_NAMESPACE:-taukhir/shopverse}/api-gateway:${IMAGE_TAG:-latest}
