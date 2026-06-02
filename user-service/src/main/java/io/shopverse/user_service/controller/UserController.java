@@ -1,11 +1,14 @@
 package io.shopverse.user_service.controller;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.shopverse.user_service.dto.ApiResponse;
 import io.shopverse.user_service.dto.PageResponse;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.dto.UserSummaryResponse;
 import io.shopverse.user_service.entities.enums.UserStatus;
 import io.shopverse.user_service.constants.ApiConstants;
+import io.shopverse.user_service.constants.ResilienceConstants;
 import io.shopverse.user_service.model.ChangePasswordRequest;
 import io.shopverse.user_service.model.CreateUserRequest;
 import io.shopverse.user_service.model.ResetPasswordRequest;
@@ -53,6 +56,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
+    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
+    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
     public ResponseEntity<PageResponse<UserSummaryResponse>> getUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -88,12 +93,16 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
+    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
     public ResponseEntity<ApiResponse<UserResponse>> getUser(@PathVariable Long id) {
         log.info("User lookup requested by id: {}", id);
         return ResponseEntity.ok(ApiResponse.success("User fetched successfully", userService.getUser(id)));
     }
 
     @PostMapping
+    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
+    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
     public ResponseEntity<ApiResponse<UserResponse>> createUser(@Valid @RequestBody CreateUserRequest request) {
         log.info("User creation requested for username={}, email={}", request.username(), request.email());
         return ResponseEntity
@@ -102,6 +111,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
+    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
+    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
     public ResponseEntity<ApiResponse<UserResponse>> updateUser(
             @PathVariable Long id,
             @Valid @RequestBody UpdateUserRequest request
@@ -111,6 +122,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/password")
+    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
+    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
     public ResponseEntity<ApiResponse<Void>> changePassword(
             @PathVariable Long id,
             @Valid @RequestBody ChangePasswordRequest request
@@ -121,6 +134,8 @@ public class UserController {
     }
 
     @PostMapping("/{id}/password/reset")
+    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
+    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
     public ResponseEntity<ApiResponse<Void>> resetPassword(
             @PathVariable Long id,
             @Valid @RequestBody ResetPasswordRequest request
@@ -132,6 +147,8 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
+    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
     public void deleteUser(@PathVariable Long id) {
         log.warn("User deletion requested for id: {}", id);
         userService.deleteUser(id);

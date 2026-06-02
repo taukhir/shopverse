@@ -1,5 +1,8 @@
 package io.shopverse.user_service.exceptions;
 
+import io.github.resilience4j.bulkhead.BulkheadFullException;
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import io.shopverse.user_service.constants.ApiConstants;
 import io.shopverse.user_service.dto.ApiErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -89,6 +92,16 @@ public class GlobalExceptionHandler {
                 "Request conflicts with existing data or related records",
                 null
         );
+    }
+
+    @ExceptionHandler(RequestNotPermitted.class)
+    public ResponseEntity<ApiErrorResponse> handleRateLimitExceeded(RequestNotPermitted ex) {
+        return buildError(HttpStatus.TOO_MANY_REQUESTS, ApiConstants.TOO_MANY_REQUESTS_MESSAGE, null);
+    }
+
+    @ExceptionHandler(BulkheadFullException.class)
+    public ResponseEntity<ApiErrorResponse> handleBulkheadFull(BulkheadFullException ex) {
+        return buildError(HttpStatus.SERVICE_UNAVAILABLE, ApiConstants.SERVICE_BUSY_MESSAGE, null);
     }
 
     @ExceptionHandler(Exception.class)

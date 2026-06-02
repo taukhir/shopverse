@@ -1,7 +1,5 @@
 package io.shopverse.user_service.service.impl;
 
-import io.github.resilience4j.retry.Retry;
-import io.github.resilience4j.retry.RetryConfig;
 import io.shopverse.user_service.entities.Permission;
 import io.shopverse.user_service.entities.Role;
 import io.shopverse.user_service.exceptions.ResourceNotFoundException;
@@ -14,15 +12,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
-import java.time.Duration;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class
-LookupServiceImplTest {
+class LookupServiceImplTest {
 
     @Mock
     private RoleRepository roleRepository;
@@ -36,11 +31,7 @@ LookupServiceImplTest {
     void setUp() {
         lookupService = new LookupServiceImpl(
                 roleRepository,
-                permissionRepository,
-                Retry.of("test-lookup-retry", RetryConfig.custom()
-                        .maxAttempts(1)
-                        .waitDuration(Duration.ZERO)
-                        .build())
+                permissionRepository
         );
     }
 

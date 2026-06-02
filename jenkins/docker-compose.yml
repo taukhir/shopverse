@@ -1,0 +1,30 @@
+name: shopverse
+
+services:
+  jenkins:
+    build:
+      context: .
+    image: shopverse/jenkins:local
+    container_name: shopverse-jenkins
+    user: root
+    environment:
+      JENKINS_ADMIN_USER: ${JENKINS_ADMIN_USER:-admin}
+      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:-admin}
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+    ports:
+      - "${JENKINS_PORT:-8085}:8080"
+      - "${JENKINS_AGENT_PORT:-50000}:50000"
+    volumes:
+      - jenkins-home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../:/workspace/shopverse
+    working_dir: /workspace/shopverse
+    networks:
+      - shopverse
+
+networks:
+  shopverse:
+    name: shopverse
+
+volumes:
+  jenkins-home:

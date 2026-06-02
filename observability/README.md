@@ -61,6 +61,94 @@ That means you can open Zipkin, copy a `traceId`, then search centralized logs i
 {traceId="paste-trace-id-here"}
 ```
 
+## Aggregated Logs For One Trace ID
+
+Use this when you want to see every log line produced by all services for one request.
+
+### Option 1: Start From Zipkin
+
+1. Generate traffic through the API Gateway:
+
+   ```powershell
+   curl.exe http://localhost:8080/api/v1/orders/public/health
+   ```
+
+2. Open Zipkin:
+
+   ```text
+   http://localhost:9411
+   ```
+
+3. Search recent traces and open the request.
+
+4. Copy the trace ID from Zipkin.
+
+5. Open Grafana:
+
+   ```text
+   http://localhost:3000
+   ```
+
+6. Go to **Explore**.
+
+7. Select the **Loki** datasource.
+
+8. Search by trace ID:
+
+   ```logql
+   {traceId="paste-trace-id-here"}
+   ```
+
+This shows aggregated logs from every service that logged with the same `traceId`, such as API Gateway, Order Service, User Service, and Auth Service.
+
+### Option 2: Start From Logs
+
+If you do not have a trace ID yet, find a recent service log first:
+
+```logql
+{application="ORDER-SERVICE"} |= "Health check requested"
+```
+
+Copy the `traceId` label from the log row in Grafana, then run:
+
+```logql
+{traceId="paste-trace-id-here"}
+```
+
+### Useful Trace Log Queries
+
+All logs for one trace:
+
+```logql
+{traceId="paste-trace-id-here"}
+```
+
+All error logs for one trace:
+
+```logql
+{traceId="paste-trace-id-here", level="ERROR"}
+```
+
+All logs for one trace from one service:
+
+```logql
+{traceId="paste-trace-id-here", application="ORDER-SERVICE"}
+```
+
+Search within one trace:
+
+```logql
+{traceId="paste-trace-id-here"} |= "User lookup"
+```
+
+If the query returns nothing:
+
+- Confirm the request was made after Promtail and Loki were running.
+- Confirm the selected Grafana time range includes the request time.
+- Confirm the log line has a real trace ID instead of an empty value.
+- Generate traffic through the API Gateway so trace context flows across services.
+- Check Zipkin at `http://localhost:9411` to confirm a trace was created.
+
 ## How It Works
 
 ```text

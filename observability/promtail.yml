@@ -18,7 +18,7 @@ scrape_configs:
           __path__: /service-logs/*/*.log
     pipeline_stages:
       - regex:
-          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+.*\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
       - labels:
           level:
           application:
@@ -37,7 +37,7 @@ scrape_configs:
           __path__: /workspace/*/logs/*.log
     pipeline_stages:
       - regex:
-          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+.*\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
       - labels:
           level:
           application:
@@ -63,7 +63,7 @@ scrape_configs:
         target_label: stream
     pipeline_stages:
       - regex:
-          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+.*\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
       - labels:
           level:
           application:

@@ -1,5 +1,9 @@
 package io.shopverse.user_service.exceptions;
 
+import io.github.resilience4j.bulkhead.BulkheadFullException;
+import io.github.resilience4j.bulkhead.Bulkhead;
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.shopverse.user_service.dto.ApiErrorResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -56,5 +60,27 @@ class GlobalExceptionHandlerTest {
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().message())
                 .isEqualTo("Request conflicts with existing data or related records");
+    }
+
+    @Test
+    void handleRateLimitExceededReturns429() {
+        ResponseEntity<ApiErrorResponse> response = handler.handleRateLimitExceeded(
+                RequestNotPermitted.createRequestNotPermitted(RateLimiter.ofDefaults("user-service-api-rate-limiter"))
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.TOO_MANY_REQUESTS);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().message()).isEqualTo("Too many requests. Please retry later");
+    }
+
+    @Test
+    void handleBulkheadFullReturns503() {
+        ResponseEntity<ApiErrorResponse> response = handler.handleBulkheadFull(
+                BulkheadFullException.createBulkheadFullException(Bulkhead.ofDefaults("user-service-api-bulkhead"))
+        );
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().message()).isEqualTo("Service is busy. Please retry later");
     }
 }

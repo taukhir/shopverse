@@ -21,15 +21,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtService {
 
-    private final UserServiceClient userService;
     private final JwtEncoder jwtEncoder;
 
     @Value("${security.jwt.issuer}")
     private String issuer;
 
-    public AuthResponse generateToken(User req) {
-        User user = userService.loadByUsername(req.username());
-
+    public AuthResponse generateToken(User user) {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .id(UUID.randomUUID().toString())
                 .issuer(issuer)

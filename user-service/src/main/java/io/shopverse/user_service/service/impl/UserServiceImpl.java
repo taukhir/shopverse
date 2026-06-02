@@ -77,9 +77,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse loadUserByUsername(String username) {
-        log.info("Loading user by username: {}", username);
+        log.info("Loading user for auth by username={}", username);
         UserResponse response = UserMapper.toUserResponse(findUserByName(username));
-        log.info("Loaded user by username: {}", username);
+        log.info(
+                "Loaded user for auth username={} userId={} status={} roles={}",
+                username,
+                response.id(),
+                response.status(),
+                response.roles() == null ? 0 : response.roles().size()
+        );
         return response;
     }
 

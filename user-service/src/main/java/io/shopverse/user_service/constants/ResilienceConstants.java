@@ -1,7 +1,7 @@
 package io.shopverse.user_service.constants;
 
 /**
- * Named Resilience4j instances used for filters and safe read-only retries.
+ * Named Resilience4j instances used by annotation-based resilience.
  */
 public final class ResilienceConstants {
 

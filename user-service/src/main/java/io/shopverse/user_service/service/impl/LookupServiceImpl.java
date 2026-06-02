@@ -1,7 +1,8 @@
 package io.shopverse.user_service.service.impl;
 
-import io.github.resilience4j.retry.Retry;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.shopverse.user_service.config.CacheConfig;
+import io.shopverse.user_service.constants.ResilienceConstants;
 import io.shopverse.user_service.entities.Permission;
 import io.shopverse.user_service.entities.Role;
 import io.shopverse.user_service.exceptions.ResourceNotFoundException;
@@ -25,21 +26,20 @@ public class LookupServiceImpl implements LookupService {
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
-    private final Retry lookupRetry;
 
     @Override
+    @Retry(name = ResilienceConstants.LOOKUP_RETRY)
     @Cacheable(cacheNames = CacheConfig.ROLES_BY_NAME, key = "#roleName.toLowerCase()")
     public Role findRoleByName(String roleName) {
-        return Retry.decorateSupplier(lookupRetry, () -> roleRepository.findByRoleName(roleName))
-                .get()
+        return roleRepository.findByRoleName(roleName)
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + roleName));
     }
 
     @Override
+    @Retry(name = ResilienceConstants.LOOKUP_RETRY)
     @Cacheable(cacheNames = CacheConfig.PERMISSIONS_BY_NAME, key = "#permissionName.toLowerCase()")
     public Permission findPermissionByName(String permissionName) {
-        return Retry.decorateSupplier(lookupRetry, () -> permissionRepository.findByPermissionName(permissionName))
-                .get()
+        return permissionRepository.findByPermissionName(permissionName)
                 .orElseThrow(() -> new ResourceNotFoundException("Permission not found: " + permissionName));
     }
 }

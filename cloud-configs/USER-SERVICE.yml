@@ -35,13 +35,21 @@ shopverse:
   user-service:
     health-checkup:
       message: ${USER_SERVICE_HEALTH_CHECKUP_MESSAGE:User service is running}
-    rate-limit:
-      enabled: ${RATE_LIMIT_ENABLED:true}
-      refill-tokens-per-minute: ${RATE_LIMIT_REFILL_TOKENS_PER_MINUTE:60}
-      burst-capacity: ${RATE_LIMIT_BURST_CAPACITY:120}
-    bulkhead:
-      enabled: ${BULKHEAD_ENABLED:true}
-      max-concurrent-requests: ${BULKHEAD_MAX_CONCURRENT_REQUESTS:100}
-    retry:
-      max-attempts: ${LOOKUP_RETRY_MAX_ATTEMPTS:3}
-      wait-duration-millis: ${LOOKUP_RETRY_WAIT_DURATION_MILLIS:100}
+
+resilience4j:
+  ratelimiter:
+    instances:
+      user-service-api-rate-limiter:
+        limit-for-period: ${RATE_LIMIT_BURST_CAPACITY:120}
+        limit-refresh-period: ${RATE_LIMIT_REFRESH_PERIOD:60s}
+        timeout-duration: ${RATE_LIMIT_TIMEOUT_DURATION:0}
+  bulkhead:
+    instances:
+      user-service-api-bulkhead:
+        max-concurrent-calls: ${BULKHEAD_MAX_CONCURRENT_REQUESTS:100}
+        max-wait-duration: ${BULKHEAD_MAX_WAIT_DURATION:0}
+  retry:
+    instances:
+      user-service-lookup-retry:
+        max-attempts: ${LOOKUP_RETRY_MAX_ATTEMPTS:3}
+        wait-duration: ${LOOKUP_RETRY_WAIT_DURATION:100ms}
