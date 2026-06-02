@@ -1,0 +1,100 @@
+pipeline {
+    agent any
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+
+    parameters {
+        booleanParam(name: 'BUILD_DOCKER_IMAGE', defaultValue: true, description: 'Build the discovery-server Docker image.')
+        booleanParam(name: 'DEPLOY_LOCALLY', defaultValue: false, description: 'Deploy the built image to the local Docker Compose stack.')
+        string(name: 'IMAGE_NAME', defaultValue: 'shopverse/discovery-server', description: 'Docker image name.')
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Optional Docker image tag. Defaults to Jenkins build number and Git SHA.')
+    }
+
+    environment {
+        DOCKER_BUILDKIT = '1'
+        COMPOSE_DOCKER_CLI_BUILD = '1'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Resolve Image Tag') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE }
+            }
+            steps {
+                script {
+                    def shortSha = env.GIT_COMMIT ? env.GIT_COMMIT.take(8) : 'local'
+                    env.RESOLVED_IMAGE_TAG = params.IMAGE_TAG?.trim() ?: "${env.BUILD_NUMBER}-${shortSha}"
+                    env.DISCOVERY_SERVER_IMAGE = "${params.IMAGE_NAME}:${env.RESOLVED_IMAGE_TAG}"
+                    echo "Discovery server image: ${env.DISCOVERY_SERVER_IMAGE}"
+                }
+            }
+        }
+
+        stage('Build And Test') {
+            steps {
+                dir('discovery-server') {
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew clean build --no-daemon'
+                }
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'discovery-server/build/test-results/test/*.xml'
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'discovery-server/build/reports/tests/test/**'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE }
+            }
+            steps {
+                sh 'docker build -t "${DISCOVERY_SERVER_IMAGE}" ./discovery-server'
+            }
+        }
+
+        stage('Verify Docker Image') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE }
+            }
+            steps {
+                sh 'docker image inspect "${DISCOVERY_SERVER_IMAGE}"'
+            }
+        }
+
+        stage('Deploy Locally') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE && params.DEPLOY_LOCALLY }
+            }
+            steps {
+                sh 'docker tag "${DISCOVERY_SERVER_IMAGE}" shopverse/discovery-server:local'
+                sh 'docker compose up -d discovery-server'
+                sh '''
+                    for attempt in $(seq 1 40); do
+                      status=$(docker inspect -f '{{.State.Health.Status}}' shopverse-discovery-server 2>/dev/null || true)
+                      if [ "$status" = "healthy" ]; then
+                        echo "discovery-server is healthy"
+                        exit 0
+                      fi
+                      echo "Waiting for discovery-server health... attempt ${attempt}/40 current=${status:-unknown}"
+                      sleep 5
+                    done
+
+                    docker compose ps discovery-server
+                    docker compose logs --tail=200 discovery-server
+                    exit 1
+                '''
+            }
+        }
+    }
+}
