@@ -1,6 +1,6 @@
 # Payment Service
 
-Payment Service is a Shopverse Spring Boot resource service for the payment API area.
+Payment Service is a Shopverse Spring Boot resource service for the payment API area. In the POC choreography SAGA, it listens for inventory reservation events and publishes payment outcome events.
 
 ## Runtime
 
@@ -22,6 +22,23 @@ curl.exe http://localhost:8080/api/v1/payments/public/health
 
 Protected payment endpoints should use a JWT bearer token issued by Auth Service.
 
+## Choreography SAGA
+
+Payment Service listens to:
+
+```text
+shopverse.inventory.reserved
+```
+
+It publishes one of:
+
+```text
+shopverse.payment.completed
+shopverse.payment.failed
+```
+
+For the demo, payments over `10000.00` fail so compensation can be shown. Successful payments publish a reference like `PAY-ORD-1003`.
+
 ## Observability
 
 Payment Service imports centralized config from Config Server, registers with Eureka, writes logs to `/app/logs/payment-service.log`, exposes Prometheus metrics at `/actuator/prometheus`, and sends traces to Zipkin.
@@ -30,6 +47,7 @@ Useful checks:
 
 ```logql
 {application="PAYMENT-SERVICE"}
+{application="PAYMENT-SERVICE"} |= "Choreography saga"
 ```
 
 ```promql

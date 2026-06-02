@@ -1,6 +1,6 @@
 # Shopverse Order Service
 
-Order Service is a simple order API POC. It demonstrates protected order endpoints, public catalog endpoints, centralized logs, Prometheus metrics, and Zipkin tracing.
+Order Service is a simple order API POC. It demonstrates protected order endpoints, public catalog endpoints, choreography SAGA events with Kafka, centralized logs, Prometheus metrics, and Zipkin tracing.
 
 The current implementation uses static sample data so the microservices POC can be tested without adding an order database yet.
 
@@ -13,6 +13,8 @@ The current implementation uses static sample data so the microservices POC can 
 - Validate JWTs using the Auth Service JWKS endpoint.
 - Emit request logs and custom Micrometer counters.
 - Export traces to Zipkin.
+- Start the Order -> Inventory -> Payment choreography SAGA by publishing `shopverse.order.created`.
+- Listen for inventory/payment outcome events and log the final saga status.
 
 ## Port
 
@@ -29,6 +31,7 @@ The current implementation uses static sample data so the microservices POC can 
 | `GET` | `/api/v1/orders` | `ROLE_USER` or `ROLE_ADMIN` | Sample current-user orders |
 | `GET` | `/api/v1/orders/{id}` | `ROLE_USER` or `ROLE_ADMIN` | Sample order by ID |
 | `POST` | `/api/v1/orders` | `ROLE_USER` or `ROLE_ADMIN` | Returns a sample created order |
+| `POST` | `/api/v1/orders/checkout` | `ROLE_USER` or `ROLE_ADMIN` | Starts the Kafka choreography SAGA checkout flow |
 | `DELETE` | `/api/v1/orders/{id}` | `ROLE_ADMIN` | Returns a sample delete response |
 | `GET` | `/api/v1/orders/admin/all` | `ROLE_ADMIN` | Sample admin order list |
 
@@ -48,10 +51,30 @@ curl http://localhost:8080/api/v1/orders/public/health
 curl http://localhost:8080/api/v1/orders/public/catalog
 ```
 
+## Choreography SAGA
+
+Order Service starts the POC saga when an order is created:
+
+```text
+Order Service publishes shopverse.order.created
+Inventory Service publishes shopverse.inventory.reserved or shopverse.inventory.failed
+Payment Service publishes shopverse.payment.completed or shopverse.payment.failed
+Order Service logs the final confirmed, rejected, or payment-failed status
+```
+
+Useful log command:
+
+```powershell
+docker compose logs -f order-service inventory-service payment-service kafka
+```
+
 Protected endpoint:
 
 ```powershell
 curl http://localhost:8080/api/v1/orders `
+  -H "Authorization: Bearer <token>"
+
+curl -X POST http://localhost:8080/api/v1/orders/checkout `
   -H "Authorization: Bearer <token>"
 ```
 
@@ -145,6 +168,7 @@ docker image ls shopverse/order-service
 
 ```logql
 {application="ORDER-SERVICE"}
+{application="ORDER-SERVICE"} |= "Choreography saga"
 ```
 
 ## Next Improvements

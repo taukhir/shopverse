@@ -1,6 +1,6 @@
 # Shopverse
 
-Shopverse is a Spring Boot microservices proof of concept for an e-commerce backend. It demonstrates centralized configuration, service discovery, API gateway routing, asymmetric JWT security, service-to-service communication, distributed tracing, centralized logging, metrics, Docker Compose, and GitHub Actions CI/CD.
+Shopverse is a Spring Boot microservices proof of concept for an e-commerce backend. It demonstrates centralized configuration, service discovery, API gateway routing, asymmetric JWT security, service-to-service communication, choreography SAGA with Kafka, distributed tracing, centralized logging, metrics, Docker Compose, and GitHub Actions CI/CD.
 
 ## Contents
 
@@ -9,6 +9,7 @@ Shopverse is a Spring Boot microservices proof of concept for an e-commerce back
 - [Quick Start](#quick-start)
 - [Useful URLs](#useful-urls)
 - [Authentication](#authentication)
+- [Choreography SAGA](#choreography-saga)
 - [Docker Commands](#docker-commands)
 - [Dockerfile Guide](#dockerfile-guide)
 - [Observability](#observability)
@@ -32,6 +33,7 @@ Shopverse is a Spring Boot microservices proof of concept for an e-commerce back
 | Order Service | `8083` | Sample order APIs protected by JWT roles. |
 | Payment Service | `8084` | Payment API placeholder with JWT security and observability. |
 | Inventory Service | `8086` | Inventory API placeholder with JWT security and observability. |
+| Kafka | `9092` | Event broker for the choreography SAGA demo. |
 | MySQL | `3307` | User service database. |
 | Grafana | `3000` | Dashboards and Explore UI for logs/metrics/traces. |
 | Prometheus | `9090` | Scrapes and stores metrics. |
@@ -46,6 +48,7 @@ Client
   -> Target service discovered through Eureka
   -> Service validates JWT through Auth Service JWKS
   -> Service handles request
+  -> Order/Inventory/Payment coordinate through Kafka events
   -> Logs go to Loki through Promtail
   -> Metrics are scraped by Prometheus
   -> Traces are exported to Zipkin
@@ -131,6 +134,13 @@ curl.exe http://localhost:8080/api/v1/payments/public/health
 curl.exe http://localhost:8080/api/v1/inventory/public/health
 ```
 
+Trigger the authenticated checkout SAGA after login:
+
+```powershell
+curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+  -H "Authorization: Bearer <token>"
+```
+
 Stop the stack:
 
 ```powershell
@@ -196,6 +206,57 @@ Swagger authorization:
 2. Click **Authorize**.
 3. Paste only the JWT token value.
 4. Do not manually add `Bearer `; Swagger adds it.
+
+## Choreography SAGA
+
+Shopverse uses a simple choreography SAGA between Order Service, Inventory Service, and Payment Service. There is no central orchestrator. Each service listens for an event, does its local work, logs the action, and publishes the next event.
+
+Success flow:
+
+```text
+POST /api/v1/orders/checkout
+  -> Order Service publishes shopverse.order.created
+  -> Inventory Service reserves stock
+  -> Inventory Service publishes shopverse.inventory.reserved
+  -> Payment Service completes payment
+  -> Payment Service publishes shopverse.payment.completed
+  -> Order Service logs the final confirmed status
+```
+
+Failure and compensation flow:
+
+```text
+Inventory failure
+  -> Inventory Service publishes shopverse.inventory.failed
+  -> Order Service logs order rejected
+
+Payment failure
+  -> Payment Service publishes shopverse.payment.failed
+  -> Inventory Service logs inventory release compensation
+  -> Order Service logs payment failed
+```
+
+Kafka topics:
+
+```text
+shopverse.order.created
+shopverse.inventory.reserved
+shopverse.inventory.failed
+shopverse.payment.completed
+shopverse.payment.failed
+```
+
+Follow demo logs:
+
+```powershell
+docker compose logs -f order-service inventory-service payment-service kafka
+```
+
+Useful Loki query:
+
+```logql
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "Choreography saga"
+```
 
 ## Docker Commands
 
@@ -526,6 +587,7 @@ Detailed setup, stages, one-service build demo, and official Jenkins docs links 
 | OpenFeign | Declarative service-to-service HTTP client. |
 | Actuator | Provides health, info, and Prometheus endpoints. |
 | Micrometer | Produces metrics and tracing context. |
+| Kafka | Event broker used by Order, Inventory, and Payment services for choreography SAGA events. |
 | Prometheus | Scrapes and stores metrics. |
 | Loki | Stores centralized logs. |
 | Promtail | Ships logs to Loki. |

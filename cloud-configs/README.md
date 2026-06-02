@@ -28,6 +28,7 @@ Docker Compose mounts this folder into Config Server:
 `application.yml` contains cross-service defaults such as:
 
 - Eureka client defaults
+- Kafka bootstrap server and SAGA topic names
 - Actuator exposure for `health`, `info`, `prometheus`, and `refresh`
 - Prometheus metric tags
 - Micrometer tracing and Zipkin export
