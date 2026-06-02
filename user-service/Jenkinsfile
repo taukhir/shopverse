@@ -8,6 +8,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'BUILD_DOCKER_IMAGE', defaultValue: true, description: 'Build the user-service Docker image.')
+        booleanParam(name: 'DEPLOY_LOCALLY', defaultValue: false, description: 'Deploy the built image to the local Docker Compose stack.')
         string(name: 'IMAGE_NAME', defaultValue: 'shopverse/user-service', description: 'Docker image name.')
         string(name: 'IMAGE_TAG', defaultValue: '', description: 'Optional Docker image tag. Defaults to Jenkins build number and Git SHA.')
     }
@@ -68,6 +69,31 @@ pipeline {
             }
             steps {
                 sh 'docker image inspect "${USER_SERVICE_IMAGE}"'
+            }
+        }
+
+        stage('Deploy Locally') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE && params.DEPLOY_LOCALLY }
+            }
+            steps {
+                sh 'docker tag "${USER_SERVICE_IMAGE}" shopverse/user-service:local'
+                sh 'docker compose up -d user-service'
+                sh '''
+                    for attempt in $(seq 1 40); do
+                      status=$(docker inspect -f '{{.State.Health.Status}}' shopverse-user-service 2>/dev/null || true)
+                      if [ "$status" = "healthy" ]; then
+                        echo "user-service is healthy"
+                        exit 0
+                      fi
+                      echo "Waiting for user-service health... attempt ${attempt}/40 current=${status:-unknown}"
+                      sleep 5
+                    done
+
+                    docker compose ps user-service
+                    docker compose logs --tail=200 user-service
+                    exit 1
+                '''
             }
         }
     }

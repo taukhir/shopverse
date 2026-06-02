@@ -226,6 +226,7 @@ user-service/Jenkinsfile
 | Parameter | Default | Use |
 | --- | --- | --- |
 | `BUILD_DOCKER_IMAGE` | `true` | Builds the user-service Docker image after Gradle build/test. |
+| `DEPLOY_LOCALLY` | `false` | Tags the image as `shopverse/user-service:local` and deploys it through root Docker Compose. |
 | `IMAGE_NAME` | `shopverse/user-service` | Docker image repository/name. |
 | `IMAGE_TAG` | empty | Optional tag. If empty, Jenkins uses `<build-number>-<git-sha>`. |
 
@@ -238,6 +239,56 @@ user-service/Jenkinsfile
 | `Build And Test` | Runs `./gradlew clean build --no-daemon` inside `user-service`. |
 | `Build Docker Image` | Builds `shopverse/user-service:<tag>` using the service Dockerfile. |
 | `Verify Docker Image` | Runs `docker image inspect` to confirm the image exists. |
+| `Deploy Locally` | Optional. Re-tags the image as `shopverse/user-service:local`, runs `docker compose up -d user-service`, and waits for container health. |
+
+### Deploy Locally From Jenkins
+
+Use this when you want Jenkins to build the image and restart `user-service` in your local Docker Compose stack.
+
+Run **Build with Parameters** using:
+
+```text
+BUILD_DOCKER_IMAGE=true
+DEPLOY_LOCALLY=true
+IMAGE_NAME=shopverse/user-service
+IMAGE_TAG=
+```
+
+What Jenkins does:
+
+1. Builds and tests `user-service`.
+2. Builds an image such as:
+
+```text
+shopverse/user-service:<build-number>-<git-sha>
+```
+
+3. Tags that same image as:
+
+```text
+shopverse/user-service:local
+```
+
+4. Runs from the Shopverse root:
+
+```powershell
+docker compose up -d user-service
+```
+
+5. Waits for:
+
+```text
+shopverse-user-service
+```
+
+to become healthy.
+
+Important:
+
+- The root stack dependencies should be available: MySQL, Config Server, Discovery Server, Auth Service, and Zipkin.
+- If the full stack is not running, Docker Compose will start required dependencies for `user-service`.
+- Jenkins deploys into your local Docker daemon because the Jenkins container mounts `/var/run/docker.sock`.
+- The deployed service uses the image expected by root Compose: `shopverse/user-service:local`.
 
 ### Docker Image Commands
 
