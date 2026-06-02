@@ -91,13 +91,13 @@ For direct `bootRun`, set these variables in your shell or IDE run configuration
 | `JWK_SET_URI` | `http://localhost:8081/auth/.well-known/jwks.json` | Auth Service JWKS endpoint |
 | `JPA_SHOW_SQL` | `false` | SQL logging |
 | `HIBERNATE_FORMAT_SQL` | `false` | SQL formatting |
-| `RATE_LIMIT_ENABLED` | `true` | Enables Resilience4j rate limiter filter |
-| `RATE_LIMIT_REFILL_TOKENS_PER_MINUTE` | `60` | Rate limiter refresh amount |
 | `RATE_LIMIT_BURST_CAPACITY` | `120` | Short burst capacity |
-| `BULKHEAD_ENABLED` | `true` | Enables Resilience4j bulkhead filter |
+| `RATE_LIMIT_REFRESH_PERIOD` | `60s` | Rate limiter refresh period |
+| `RATE_LIMIT_TIMEOUT_DURATION` | `0` | Maximum wait time for a rate limiter permit |
 | `BULKHEAD_MAX_CONCURRENT_REQUESTS` | `100` | Max concurrent API requests per instance |
+| `BULKHEAD_MAX_WAIT_DURATION` | `0` | Maximum wait time for bulkhead access |
 | `LOOKUP_RETRY_MAX_ATTEMPTS` | `3` | Retry attempts for safe lookup reads |
-| `LOOKUP_RETRY_WAIT_DURATION_MILLIS` | `100` | Retry delay for lookup reads |
+| `LOOKUP_RETRY_WAIT_DURATION` | `100ms` | Retry delay for lookup reads |
 | `TRACING_ENABLED` | `true` | Enables tracing |
 | `TRACING_SAMPLING_PROBABILITY` | `1.0` | Trace sampling probability |
 | `ZIPKIN_ENDPOINT` | `http://localhost:9411/api/v2/spans` | Zipkin trace endpoint |
@@ -179,11 +179,11 @@ The Dockerfile uses:
 
 ## Resilience
 
-This service uses Resilience4j core modules directly:
+This service uses annotation-based Resilience4j:
 
-- `RateLimiter` protects `/api/**` from request bursts.
-- `Bulkhead` limits concurrent API requests per service instance.
-- `Retry` is used only for safe read-only role/permission lookup operations.
+- `@RateLimiter` protects user APIs from request bursts.
+- `@Bulkhead` limits concurrent user API requests per service instance.
+- `@Retry` is used only for safe read-only role/permission lookup operations.
 
 Write operations are not retried automatically to avoid duplicate mutations. For horizontally scaled production deployments, move rate limiting and cache state to Redis or enforce limits at the API gateway.
 
@@ -217,7 +217,7 @@ Unit tests cover:
 - validation helpers
 - pagination validation
 - exception handler behavior
-- Resilience4j rate limiting and bulkhead filters
+- annotation-based Resilience4j rate limiting and bulkhead behavior
 - lookup service retry behavior
 
 ## Production Follow-Ups

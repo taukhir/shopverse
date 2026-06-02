@@ -56,11 +56,12 @@ shopverse/
   api-gateway/          Spring Cloud Gateway
   config-server/        Spring Cloud Config Server
   discovery-server/     Eureka Server
-  auth-service/     Auth/JWT service
+  auth-service/         Auth/JWT service
   user-service/         User, role, permission APIs
   order-service/        Sample order APIs
   cloud-configs/        Centralized service YAML config
   observability/        Prometheus, Loki, Promtail, Grafana, Zipkin config
+  jenkins/              Local Jenkins pipeline and Docker setup
   .github/workflows/    GitHub Actions CI/CD
   docker-compose.yml    Full local stack
 ```
@@ -172,7 +173,7 @@ Invoke-RestMethod -Method Post `
   -ContentType 'application/json'
 ```
 
-Use the returned `accessToken`:
+Use the returned `token`:
 
 ```powershell
 curl.exe http://localhost:8080/api/v1/orders `
@@ -388,92 +389,17 @@ Important: Config Server can provide runtime properties, but dependencies still 
 
 ## GitHub Actions CI/CD
 
-Workflows:
+Shopverse has three workflows:
 
 ```text
-.github/workflows/ci.yml
-.github/workflows/deploy.yml
-.github/workflows/jenkins-trigger.yml
+.github/workflows/ci.yml               validates, builds, tests, and smoke-tests the stack
+.github/workflows/deploy.yml           builds/pushes GHCR images and optionally deploys over SSH
+.github/workflows/jenkins-trigger.yml  optionally triggers local/on-prem Jenkins after CI
 ```
 
-Detailed workflow documentation is in [.github/workflows/README.md](.github/workflows/README.md).
+The detailed CI, deploy, secrets, variables, and troubleshooting guide is in [.github/workflows/README.md](.github/workflows/README.md).
 
-CI triggers:
-
-- every push
-- every pull request
-
-CI stages:
-
-1. Validate required config and observability files.
-2. Build and test each Gradle service.
-3. Build Docker images.
-4. Start the Docker Compose stack.
-5. Run smoke tests against health, public API, and Prometheus endpoints.
-
-Deployment triggers:
-
-- automatically after `Shopverse CI` passes on `main`
-- manually from GitHub Actions
-
-Deployment stages:
-
-1. Build Docker images.
-2. Push images to GitHub Container Registry.
-3. Deploy to a Docker host over SSH when `ENABLE_SSH_DEPLOY=true`.
-4. Pull images and restart the stack with `docker-compose.deploy.yml`.
-
-Required repository variable:
-
-```text
-ENABLE_SSH_DEPLOY=true
-```
-
-Required repository secrets:
-
-```text
-DEPLOY_HOST
-DEPLOY_USER
-DEPLOY_SSH_KEY
-DEPLOY_PATH
-```
-
-Optional secrets:
-
-```text
-DEPLOY_PORT
-GHCR_READ_TOKEN
-```
-
-Deployment image format:
-
-```text
-ghcr.io/<owner>/<repo>/<service>:<git-sha>
-ghcr.io/<owner>/<repo>/<service>:latest
-```
-
-Jenkins integration:
-
-- `Shopverse CI` runs first on GitHub.
-- `Trigger Jenkins` runs only after `Shopverse CI` succeeds on `main`, or manually through GitHub Actions.
-- The trigger calls your Jenkins job using Jenkins API token authentication.
-- GitHub-hosted runners cannot reach `http://localhost:8080`; expose Jenkins through a reachable URL or use a self-hosted GitHub runner on your machine.
-
-Required GitHub secrets for Jenkins trigger:
-
-```text
-JENKINS_URL
-JENKINS_JOB_PATH
-JENKINS_USER
-JENKINS_API_TOKEN
-```
-
-Example values:
-
-```text
-JENKINS_URL=http://your-public-or-self-hosted-runner-reachable-jenkins-url
-JENKINS_JOB_PATH=job/shopverse
-```
+At a high level, `Shopverse CI` runs on every push and pull request. `Shopverse Deploy` runs after CI succeeds on `main`, or manually from GitHub Actions. The Jenkins trigger workflow is optional and is useful when you want GitHub to hand off a successful build to your local or company-hosted Jenkins server.
 
 ## Jenkins Pipeline
 

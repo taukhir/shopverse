@@ -97,6 +97,132 @@ jenkins/Jenkinsfile
 
 For a local mounted workspace smoke run, you can also create a pipeline job with an inline script, but the preferred POC setup is `Pipeline script from SCM` so Jenkins checks out the latest code from GitHub.
 
+## Create A User-Service Pipeline Job
+
+Use this when you want a focused Jenkins job that only builds and packages `user-service`.
+
+### Option 1: Pipeline From SCM
+
+1. Open `http://localhost:8085`.
+2. Login with `admin / admin`.
+3. Click **New Item**.
+4. Enter:
+
+```text
+shopverse-user-service
+```
+
+5. Select **Pipeline**.
+6. Click **OK**.
+7. Under **Pipeline**, select **Pipeline script from SCM**.
+8. Select **Git**.
+9. Add your Shopverse GitHub repository URL.
+10. Set **Branch Specifier** to your branch, for example:
+
+```text
+*/main
+```
+
+11. Set **Script Path** to:
+
+```text
+jenkins/Jenkinsfile
+```
+
+12. Save.
+13. Click **Build with Parameters**.
+14. Use:
+
+```text
+BUILD_DOCKER_IMAGES=true
+RUN_COMPOSE_SMOKE_TEST=false
+PUSH_DOCKER_IMAGES=false
+IMAGE_NAMESPACE=shopverse
+```
+
+The shared `jenkins/Jenkinsfile` builds all services. For a real team setup, this is the preferred job because a change in `user-service` is still validated against the full microservices POC.
+
+### Option 2: One-Service Inline Pipeline
+
+Use this for a quick POC demo where you only want to build `user-service`.
+
+1. Open `http://localhost:8085`.
+2. Click **New Item**.
+3. Enter:
+
+```text
+shopverse-user-service-image
+```
+
+4. Select **Pipeline**.
+5. Click **OK**.
+6. Under **Pipeline**, choose **Pipeline script**.
+7. Paste:
+
+```groovy
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_BUILDKIT = '1'
+        COMPOSE_DOCKER_CLI_BUILD = '1'
+        IMAGE_NAME = 'shopverse/user-service:jenkins-user-service'
+    }
+
+    stages {
+        stage('Checkout Latest Code') {
+            steps {
+                dir('/workspace/shopverse') {
+                    sh 'git -c safe.directory=/workspace/shopverse fetch --all --prune'
+                    sh 'git -c safe.directory=/workspace/shopverse pull --ff-only'
+                }
+            }
+        }
+
+        stage('Build And Test User Service') {
+            steps {
+                dir('/workspace/shopverse/user-service') {
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew clean build --no-daemon'
+                }
+            }
+        }
+
+        stage('Build User Service Docker Image') {
+            steps {
+                dir('/workspace/shopverse') {
+                    sh 'docker build -t ${IMAGE_NAME} ./user-service'
+                }
+            }
+        }
+
+        stage('Verify Image') {
+            steps {
+                sh 'docker image inspect ${IMAGE_NAME}'
+            }
+        }
+    }
+}
+```
+
+8. Save.
+9. Click **Build Now**.
+
+This demo pipeline does four things:
+
+| Stage | What it does |
+| --- | --- |
+| `Checkout Latest Code` | Pulls the latest code from GitHub in the mounted Shopverse workspace. |
+| `Build And Test User Service` | Runs `./gradlew clean build --no-daemon` inside `user-service`. |
+| `Build User Service Docker Image` | Builds `shopverse/user-service:jenkins-user-service`. |
+| `Verify Image` | Confirms the image exists in Docker. |
+
+Verify from PowerShell:
+
+```powershell
+docker image inspect shopverse/user-service:jenkins-user-service
+```
+
 ## Pipeline Parameters
 
 | Parameter | Default | Use |
