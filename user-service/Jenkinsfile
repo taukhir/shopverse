@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+
+    parameters {
+        booleanParam(name: 'BUILD_DOCKER_IMAGE', defaultValue: true, description: 'Build the user-service Docker image.')
+        string(name: 'IMAGE_NAME', defaultValue: 'shopverse/user-service', description: 'Docker image name.')
+        string(name: 'IMAGE_TAG', defaultValue: '', description: 'Optional Docker image tag. Defaults to Jenkins build number and Git SHA.')
+    }
+
+    environment {
+        DOCKER_BUILDKIT = '1'
+        COMPOSE_DOCKER_CLI_BUILD = '1'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Resolve Image Tag') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE }
+            }
+            steps {
+                script {
+                    def shortSha = env.GIT_COMMIT ? env.GIT_COMMIT.take(8) : 'local'
+                    env.RESOLVED_IMAGE_TAG = params.IMAGE_TAG?.trim() ?: "${env.BUILD_NUMBER}-${shortSha}"
+                    env.USER_SERVICE_IMAGE = "${params.IMAGE_NAME}:${env.RESOLVED_IMAGE_TAG}"
+                    echo "User service image: ${env.USER_SERVICE_IMAGE}"
+                }
+            }
+        }
+
+        stage('Build And Test') {
+            steps {
+                dir('user-service') {
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew clean build --no-daemon'
+                }
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'user-service/build/test-results/test/*.xml'
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'user-service/build/reports/tests/test/**'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE }
+            }
+            steps {
+                sh 'docker build -t "${USER_SERVICE_IMAGE}" ./user-service'
+            }
+        }
+
+        stage('Verify Docker Image') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE }
+            }
+            steps {
+                sh 'docker image inspect "${USER_SERVICE_IMAGE}"'
+            }
+        }
+    }
+}

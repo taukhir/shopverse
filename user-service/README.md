@@ -165,6 +165,140 @@ The Dockerfile uses:
 - Actuator healthcheck
 - `.dockerignore` to reduce build context size
 
+## Jenkins Pipeline
+
+User Service has a simple service-specific Jenkins pipeline:
+
+```text
+user-service/Jenkinsfile
+```
+
+Use this when you want Jenkins to build and test only `user-service`, then optionally build its Docker image.
+
+### Create The Jenkins Job
+
+1. Start Jenkins from the Shopverse root folder:
+
+```powershell
+docker compose -f jenkins/docker-compose.yml up -d
+```
+
+2. Open Jenkins:
+
+```text
+http://localhost:8085
+```
+
+3. Login:
+
+```text
+admin / admin
+```
+
+4. Click **New Item**.
+5. Enter:
+
+```text
+shopverse-user-service
+```
+
+6. Select **Pipeline**.
+7. Under **Pipeline**, choose **Pipeline script from SCM**.
+8. Select **Git**.
+9. Add the Shopverse GitHub repository URL.
+10. Set **Branch Specifier** to your branch, for example:
+
+```text
+*/main
+```
+
+11. Set **Script Path** to:
+
+```text
+user-service/Jenkinsfile
+```
+
+12. Save.
+13. Click **Build with Parameters**.
+
+### Jenkins Parameters
+
+| Parameter | Default | Use |
+| --- | --- | --- |
+| `BUILD_DOCKER_IMAGE` | `true` | Builds the user-service Docker image after Gradle build/test. |
+| `IMAGE_NAME` | `shopverse/user-service` | Docker image repository/name. |
+| `IMAGE_TAG` | empty | Optional tag. If empty, Jenkins uses `<build-number>-<git-sha>`. |
+
+### Pipeline Stages
+
+| Stage | What it does |
+| --- | --- |
+| `Checkout` | Pulls the latest code from GitHub using Jenkins SCM. |
+| `Resolve Image Tag` | Creates the Docker image tag used by later stages. |
+| `Build And Test` | Runs `./gradlew clean build --no-daemon` inside `user-service`. |
+| `Build Docker Image` | Builds `shopverse/user-service:<tag>` using the service Dockerfile. |
+| `Verify Docker Image` | Runs `docker image inspect` to confirm the image exists. |
+
+### Docker Image Commands
+
+Build the user-service image manually from the Shopverse root:
+
+```powershell
+docker build -t shopverse/user-service:local ./user-service
+```
+
+Build with Docker Compose:
+
+```powershell
+docker compose build user-service
+```
+
+Recreate only user-service after a rebuild:
+
+```powershell
+docker compose up -d --force-recreate user-service
+```
+
+List user-service images:
+
+```powershell
+docker image ls shopverse/user-service
+```
+
+Inspect a Jenkins-built image:
+
+```powershell
+docker image inspect shopverse/user-service:<tag>
+```
+
+Run the image directly:
+
+```powershell
+docker run --rm -p 8082:8082 `
+  -e SERVER_PORT=8082 `
+  -e DB_URL=jdbc:mysql://host.docker.internal:3307/user_service `
+  -e DB_USERNAME=ahmed `
+  -e DB_PASSWORD=Ahm3d@123 `
+  -e EUREKA_DEFAULT_ZONE=http://host.docker.internal:8761/eureka `
+  -e JWK_SET_URI=http://host.docker.internal:8081/auth/.well-known/jwks.json `
+  shopverse/user-service:<tag>
+```
+
+Useful verification commands:
+
+```powershell
+curl.exe http://localhost:8082/actuator/health
+curl.exe http://localhost:8082/actuator/prometheus
+docker compose logs -f user-service
+```
+
+Important notes:
+
+- The Jenkinsfile enables Docker BuildKit because the Dockerfile uses `RUN --mount=type=cache`.
+- Jenkins collects JUnit XML test results from `user-service/build/test-results/test/*.xml`.
+- Jenkins archives Gradle HTML test reports from `user-service/build/reports/tests/test/**`.
+- The service needs MySQL, Config Server, Discovery Server, and Auth Service/JWKS for full runtime behavior in the complete stack.
+
 ## Observability
 
 - Logs are written to `/app/logs/user-service.log` in Docker.
