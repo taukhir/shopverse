@@ -36,6 +36,71 @@ curl.exe -X POST http://localhost:8081/auth/login `
   -d "{\"username\":\"admin\",\"password\":\"Admin@123\"}"
 ```
 
+## Feign Client To User Service
+
+Auth Service uses Spring Cloud OpenFeign to call User Service during login. This keeps Auth Service focused on authentication while User Service remains the source of user, role, permission, and password data.
+
+Feign is enabled in `AuthServiceApplication` with:
+
+```java
+@EnableFeignClients
+```
+
+The actual client is declared as:
+
+```java
+@FeignClient(name = "USER-SERVICE")
+public interface UserClient {
+    @GetMapping("/api/v1/internal/users/username/{username}")
+    User loadByUsername(@PathVariable String username);
+}
+```
+
+Because the Feign client uses `name = "USER-SERVICE"`, Auth Service does not need a hardcoded User Service host and port. Spring Cloud uses Eureka service discovery and load balancing to resolve a running `USER-SERVICE` instance.
+
+### Login Flow
+
+1. Client calls `POST /auth/login`.
+2. `AuthService` receives the username and password.
+3. `AuthService` calls `UserServiceClient`.
+4. `UserServiceClient` delegates to the OpenFeign `UserClient`.
+5. `UserClient` calls User Service through `GET /api/v1/internal/users/username/{username}`.
+6. Auth Service validates the password.
+7. Auth Service signs and returns the JWT.
+
+### Trace Propagation
+
+Auth Service also has a Feign request interceptor in `FeignTracePropagationConfig`.
+
+That interceptor reads the current `traceId` and `spanId` from MDC and forwards them to User Service using:
+
+- W3C `traceparent`
+- B3 headers: `X-B3-TraceId`, `X-B3-SpanId`, `X-B3-Sampled`
+
+This helps Zipkin and Loki connect logs from Auth Service and User Service under the same distributed trace when a login request calls both services.
+
+### How To Verify
+
+Start the stack and follow both service logs:
+
+```powershell
+docker compose logs -f auth-service user-service
+```
+
+Call login:
+
+```powershell
+curl.exe -X POST http://localhost:8081/auth/login `
+  -H "Content-Type: application/json" `
+  -d "{\"username\":\"admin\",\"password\":\"Admin@123\"}"
+```
+
+In Loki, query both services together and filter by the trace id from the Auth Service log:
+
+```logql
+{application=~"AUTH-SERVICE|USER-SERVICE"} |= "trace-id-here"
+```
+
 ## Docker
 
 From the root project:
