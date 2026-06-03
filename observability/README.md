@@ -511,10 +511,23 @@ Grafana is the main UI for checking aggregated logs and metrics.
 
 ## Useful Grafana Queries
 
-Recent logs:
+Use Grafana Explore for both logs and metrics:
+
+- Select **Loki** when running `logql` queries.
+- Select **Prometheus** when running `promql` queries.
+
+### Loki LogQL Queries
+
+All Shopverse logs:
 
 ```logql
 {job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"}
+```
+
+All logs that have an application label:
+
+```logql
+{application=~".+"}
 ```
 
 Logs for one service:
@@ -525,46 +538,173 @@ Logs for one service:
 {application="INVENTORY-SERVICE"}
 ```
 
+Logs for API Gateway:
+
+```logql
+{application="API-GATEWAY"}
+```
+
+Logs for Auth Service:
+
+```logql
+{application="AUTH-SERVICE"}
+```
+
+Logs for User Service:
+
+```logql
+{application="USER-SERVICE"}
+```
+
 SAGA logs across Order, Inventory, and Payment:
 
 ```logql
 {application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "Choreography saga"
 ```
 
-Logs for one trace:
+Logs for one trace id:
 
 ```logql
 {traceId="paste-trace-id-here"}
 ```
 
-HTTP request rate:
+Logs for one trace id from one service:
 
-```promql
-sum by (application) (rate(http_server_requests_seconds_count[1m]))
+```logql
+{traceId="paste-trace-id-here", application="ORDER-SERVICE"}
 ```
 
-Service scrape health:
+Error logs for one trace id:
 
-```promql
-up{job="shopverse-services"}
+```logql
+{traceId="paste-trace-id-here", level="ERROR"}
 ```
 
-Custom request log counter:
+Logs for one SAGA correlation id:
 
-```promql
-sum by (service, outcome) (increase(shopverse_service_requests_logged_total[5m]))
+```logql
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "correlationId=SAGA-ORD-1003"
 ```
 
-Logs with errors:
+Logs for one order number:
+
+```logql
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "orderNumber=ORD-1003"
+```
+
+All error logs:
 
 ```logql
 {job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"} |= "ERROR"
 ```
 
-Logs for auth failures:
+All warning logs:
+
+```logql
+{job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"} |= "WARN"
+```
+
+Auth failures:
 
 ```logql
 {application="AUTH-SERVICE"} |= "Authentication failed"
+```
+
+HTTP request logs:
+
+```logql
+{application=~"API-GATEWAY|AUTH-SERVICE|USER-SERVICE|ORDER-SERVICE|PAYMENT-SERVICE|INVENTORY-SERVICE"} |= "method="
+```
+
+Checkout API logs:
+
+```logql
+{application="ORDER-SERVICE"} |= "/api/v1/orders/checkout"
+```
+
+### Prometheus PromQL Queries
+
+Service scrape health:
+
+```promql
+up
+```
+
+Shopverse service scrape health:
+
+```promql
+up{job="shopverse-services"}
+```
+
+HTTP request rate by service:
+
+```promql
+sum by (application) (rate(http_server_requests_seconds_count[1m]))
+```
+
+HTTP request rate by URI:
+
+```promql
+sum by (application, uri, method, status) (rate(http_server_requests_seconds_count[1m]))
+```
+
+Total HTTP requests in the last 5 minutes:
+
+```promql
+sum by (application, uri, method, status) (increase(http_server_requests_seconds_count[5m]))
+```
+
+Average HTTP latency by service:
+
+```promql
+sum by (application) (rate(http_server_requests_seconds_sum[5m]))
+/
+sum by (application) (rate(http_server_requests_seconds_count[5m]))
+```
+
+95th percentile HTTP latency by service:
+
+```promql
+histogram_quantile(
+  0.95,
+  sum by (application, le) (rate(http_server_requests_seconds_bucket[5m]))
+)
+```
+
+Error rate by service:
+
+```promql
+sum by (application, status) (rate(http_server_requests_seconds_count{status=~"5.."}[5m]))
+```
+
+4xx client error rate by service:
+
+```promql
+sum by (application, status) (rate(http_server_requests_seconds_count{status=~"4.."}[5m]))
+```
+
+JVM memory used by service:
+
+```promql
+sum by (application, area) (jvm_memory_used_bytes)
+```
+
+JVM thread count by service:
+
+```promql
+jvm_threads_live_threads
+```
+
+CPU usage by service process:
+
+```promql
+process_cpu_usage
+```
+
+Custom request log counter, if available:
+
+```promql
+sum by (service, outcome) (increase(shopverse_service_requests_logged_total[5m]))
 ```
 
 ## Checking The Flow
