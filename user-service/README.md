@@ -366,13 +366,62 @@ Important notes:
 
 ## Resilience
 
-This service uses annotation-based Resilience4j:
+User Service uses annotation-based Resilience4j. The controller methods are protected with annotations instead of manually creating Resilience4j beans around each service call.
 
-- `@RateLimiter` protects user APIs from request bursts.
-- `@Bulkhead` limits concurrent user API requests per service instance.
-- `@Retry` is used only for safe read-only role/permission lookup operations.
+### Rate Limiter
 
-Write operations are not retried automatically to avoid duplicate mutations. For horizontally scaled production deployments, move rate limiting and cache state to Redis or enforce limits at the API gateway.
+`@RateLimiter(name = "user-service-api-rate-limiter")` protects the user APIs from too many requests in a short time.
+
+It works like a permit counter:
+
+1. A request enters a protected API.
+2. Resilience4j checks whether a rate-limit permit is available.
+3. If a permit is available, the request continues to the controller.
+4. If no permit is available, the request is rejected with `429 Too Many Requests`.
+
+The important configuration values are:
+
+| Variable | Purpose |
+| --- | --- |
+| `RATE_LIMIT_BURST_CAPACITY` | How many requests are allowed in one refresh window. |
+| `RATE_LIMIT_REFRESH_PERIOD` | How often the permit counter is refreshed. |
+| `RATE_LIMIT_TIMEOUT_DURATION` | How long a request waits for a permit. `0` means fail fast. |
+
+### Bulkhead
+
+`@Bulkhead(name = "user-service-api-bulkhead", type = Bulkhead.Type.SEMAPHORE)` limits how many requests can run inside protected user APIs at the same time.
+
+It works like a concurrency gate:
+
+1. A request enters a protected API.
+2. Resilience4j checks whether the service instance has free concurrent capacity.
+3. If capacity is available, the request runs normally.
+4. If all slots are busy, the request is rejected with `503 Service Unavailable`.
+
+The important configuration values are:
+
+| Variable | Purpose |
+| --- | --- |
+| `BULKHEAD_MAX_CONCURRENT_REQUESTS` | Maximum concurrent protected user API requests per service instance. |
+| `BULKHEAD_MAX_WAIT_DURATION` | How long a request waits for a free bulkhead slot. `0` means fail fast. |
+
+The bulkhead is useful because one slow or overloaded endpoint should not consume all available request capacity for the whole service.
+
+### Where It Is Applied
+
+The shared rate limiter and bulkhead are applied to the main user APIs:
+
+- `GET /api/v1/users`
+- `GET /api/v1/users/{id}`
+- `POST /api/v1/users`
+- `PATCH /api/v1/users/{id}`
+- `PATCH /api/v1/users/{id}/password`
+- `POST /api/v1/users/{id}/password/reset`
+- `DELETE /api/v1/users/{id}`
+
+`@Retry(name = "user-service-lookup-retry")` is used only for safe read-only role and permission lookup operations. Write operations are not retried automatically because retrying create, update, delete, or password operations can create duplicate or confusing mutations.
+
+For horizontally scaled production deployments, move rate limiting and cache state to Redis or enforce limits at the API Gateway so limits are shared across all service instances.
 
 ## Security Notes
 
