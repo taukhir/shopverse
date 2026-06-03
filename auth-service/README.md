@@ -52,6 +52,8 @@ The full stack is started from the root:
 docker compose up -d
 ```
 
+More Docker commands, flags, and Dockerfile details are in [../docker/README.md](../docker/README.md).
+
 ## Observability
 
 - Logs are written to `/app/logs/auth-service.log`.

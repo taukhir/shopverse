@@ -68,6 +68,8 @@ Useful log command:
 docker compose logs -f order-service inventory-service payment-service kafka
 ```
 
+Detailed event flow, payloads, and code snippets are in [../saga/README.md](../saga/README.md).
+
 Protected endpoint:
 
 ```powershell
@@ -93,6 +95,8 @@ The full stack is started from the root:
 ```powershell
 docker compose up -d
 ```
+
+More Docker commands, flags, and Dockerfile details are in [../docker/README.md](../docker/README.md).
 
 ## Jenkins Pipeline
 

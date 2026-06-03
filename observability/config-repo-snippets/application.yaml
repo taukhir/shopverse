@@ -2,7 +2,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus
+        include: health,info,prometheus,refresh
   metrics:
     tags:
       application: ${spring.application.name}
@@ -20,3 +20,23 @@ logging:
     name: ${LOG_FILE:logs/${spring.application.name}.log}
   pattern:
     correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
+
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+shopverse:
+  kafka:
+    topics:
+      order-created: ${ORDER_CREATED_TOPIC:shopverse.order.created}
+      inventory-reserved: ${INVENTORY_RESERVED_TOPIC:shopverse.inventory.reserved}
+      inventory-failed: ${INVENTORY_FAILED_TOPIC:shopverse.inventory.failed}
+      payment-completed: ${PAYMENT_COMPLETED_TOPIC:shopverse.payment.completed}
+      payment-failed: ${PAYMENT_FAILED_TOPIC:shopverse.payment.failed}

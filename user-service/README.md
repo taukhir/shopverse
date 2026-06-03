@@ -165,6 +165,8 @@ The Dockerfile uses:
 - Actuator healthcheck
 - `.dockerignore` to reduce build context size
 
+More Docker commands, flags, and Dockerfile details are in [../docker/README.md](../docker/README.md).
+
 ## Jenkins Pipeline
 
 User Service has a simple service-specific Jenkins pipeline:

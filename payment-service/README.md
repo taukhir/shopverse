@@ -39,6 +39,8 @@ shopverse.payment.failed
 
 For the demo, payments over `10000.00` fail so compensation can be shown. Successful payments publish a reference like `PAY-ORD-1003`.
 
+More detailed SAGA flow and payload examples are in [../saga/README.md](../saga/README.md).
+
 ## Observability
 
 Payment Service imports centralized config from Config Server, registers with Eureka, writes logs to `/app/logs/payment-service.log`, exposes Prometheus metrics at `/actuator/prometheus`, and sends traces to Zipkin.
@@ -61,3 +63,5 @@ sum by (service, outcome) (increase(shopverse_service_requests_logged_total{serv
 .\gradlew.bat clean build
 docker build -t shopverse/payment-service:local .
 ```
+
+Docker Compose commands and Dockerfile details are in [../docker/README.md](../docker/README.md).
