@@ -173,6 +173,272 @@ Most Spring Boot services use the same multi-stage Dockerfile pattern.
 | `HEALTHCHECK ... curl ... /actuator/health` | Lets Docker check whether the Spring Boot app is healthy. |
 | `ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]` | Starts the Spring Boot jar and allows `JAVA_OPTS` from environment variables. |
 
+## RUN, CMD, And ENTRYPOINT
+
+These three Dockerfile instructions are easy to mix up because all of them look like commands, but they run at different times.
+
+| Instruction | When it runs | Purpose |
+| --- | --- | --- |
+| `RUN` | During `docker build` | Creates image layers. Use it to install packages, build the jar, create folders, or set file permissions. |
+| `ENTRYPOINT` | When a container starts | Defines the main executable for the container. In our services, it starts the Spring Boot app. |
+| `CMD` | When a container starts | Provides default arguments for `ENTRYPOINT`, or acts as the startup command if no `ENTRYPOINT` exists. |
+
+### RUN
+
+Example from our service Dockerfiles:
+
+```dockerfile
+RUN --mount=type=cache,target=/root/.gradle ./gradlew bootJar --no-daemon
+```
+
+This runs while the image is being built. It compiles the Spring Boot app and creates the jar. After the image is built, this command does not run again unless the image is rebuilt.
+
+Another example:
+
+```dockerfile
+RUN mkdir -p ${APP_HOME}/logs \
+    && chown -R shopverse:shopverse ${APP_HOME}
+```
+
+This creates `/app/logs` and fixes ownership inside the image before runtime.
+
+### ENTRYPOINT
+
+Example from our service Dockerfiles:
+
+```dockerfile
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+```
+
+This runs when the container starts. For example:
+
+```powershell
+docker compose up -d order-service
+```
+
+Docker starts the `order-service` container and runs:
+
+```sh
+java $JAVA_OPTS -jar app.jar
+```
+
+We use `sh -c` because `JAVA_OPTS` is an environment variable. The shell expands it before Java starts.
+
+### CMD
+
+`CMD` is not currently used in the Spring Boot service Dockerfiles because `ENTRYPOINT` is enough for our POC.
+
+A common pattern is:
+
+```dockerfile
+ENTRYPOINT ["java"]
+CMD ["-jar", "app.jar"]
+```
+
+In that pattern:
+
+- `ENTRYPOINT` says the container always runs `java`.
+- `CMD` gives default arguments.
+- A user can override `CMD` more easily at `docker run` time.
+
+Our current pattern is simpler:
+
+```dockerfile
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+```
+
+That is good for this POC because each service container has exactly one job: run the Spring Boot jar.
+
+### Runtime Flow In Shopverse
+
+When we run:
+
+```powershell
+docker compose up -d order-service
+```
+
+Docker does roughly this:
+
+1. Creates a container from `shopverse/order-service:local`.
+2. Applies Compose environment variables such as `SERVER_PORT`, `SPRING_CONFIG_IMPORT`, `JWK_SET_URI`, `ZIPKIN_ENDPOINT`, and `LOG_FILE`.
+3. Mounts configured volumes such as `/app/logs`.
+4. Connects the container to the `shopverse` network.
+5. Runs the Dockerfile `ENTRYPOINT`.
+6. Starts the Spring Boot app.
+7. Runs the Docker `HEALTHCHECK` until `/actuator/health` returns `UP`.
+
+## Efficient Image Builds In Shopverse
+
+Shopverse service images are built efficiently using a few practical Docker patterns.
+
+### Multi-Stage Builds
+
+Each service Dockerfile has a build stage and a runtime stage:
+
+```dockerfile
+FROM eclipse-temurin:21-jdk-jammy AS build
+...
+FROM eclipse-temurin:21-jre-jammy AS runtime
+```
+
+The build stage has the full JDK and Gradle build tools. The runtime stage has only the JRE and the built jar.
+
+Why this matters:
+
+- Final images are smaller.
+- Build tools are not shipped in runtime containers.
+- The runtime image has fewer moving parts.
+
+### Dependency Layer Caching
+
+The Dockerfile copies Gradle files before source code:
+
+```dockerfile
+COPY gradlew gradlew.bat settings.gradle build.gradle ./
+COPY gradle ./gradle
+RUN --mount=type=cache,target=/root/.gradle ./gradlew dependencies --no-daemon
+COPY src ./src
+RUN --mount=type=cache,target=/root/.gradle ./gradlew bootJar --no-daemon
+```
+
+This is intentional. Dependency downloads only need to rerun when Gradle files change. If only Java source changes, Docker can reuse the dependency layer.
+
+### BuildKit Gradle Cache
+
+These lines use BuildKit cache mounts:
+
+```dockerfile
+RUN --mount=type=cache,target=/root/.gradle ./gradlew dependencies --no-daemon
+RUN --mount=type=cache,target=/root/.gradle ./gradlew bootJar --no-daemon
+```
+
+The Gradle cache is kept outside normal image layers. This makes repeated builds faster without copying the whole Gradle cache into the final image.
+
+### Small Runtime Image
+
+Only the jar is copied from the build stage:
+
+```dockerfile
+COPY --from=build /workspace/build/libs/*.jar app.jar
+```
+
+The final image does not include:
+
+- source code
+- Gradle wrapper cache
+- Gradle build directories from the build stage
+- JDK compiler tools
+
+### Non-Root Runtime User
+
+Each Spring Boot service container creates and uses a dedicated Linux user named `shopverse`:
+
+```dockerfile
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system shopverse \
+    && useradd --system --gid shopverse --home-dir ${APP_HOME} --shell /usr/sbin/nologin shopverse
+
+RUN mkdir -p ${APP_HOME}/logs \
+    && chown -R shopverse:shopverse ${APP_HOME}
+
+USER shopverse
+```
+
+By default, many container base images run as `root`. Root inside a container is still powerful inside that container. If an attacker ever abuses an application vulnerability, running as root gives the compromised process more permissions than it needs.
+
+In Shopverse, the Spring Boot app only needs to:
+
+- read `app.jar`
+- read environment variables
+- open the application port
+- write logs to `/app/logs`
+- call other services over the Docker network
+
+It does not need root privileges.
+
+Line-by-line:
+
+| Line | What it does |
+| --- | --- |
+| `groupadd --system shopverse` | Creates a system group named `shopverse`. System groups are meant for services, not human login users. |
+| `useradd --system --gid shopverse ... shopverse` | Creates a system user named `shopverse` and puts it in the `shopverse` group. |
+| `--home-dir ${APP_HOME}` | Sets the user's home directory to `/app`, matching where the service jar runs. |
+| `--shell /usr/sbin/nologin` | Prevents this user from being used as an interactive login shell user. |
+| `mkdir -p ${APP_HOME}/logs` | Creates `/app/logs`, where Spring Boot writes file logs. |
+| `chown -R shopverse:shopverse ${APP_HOME}` | Gives the `shopverse` user and group ownership of `/app`, including `app.jar` and `/app/logs`. |
+| `USER shopverse` | Makes all following runtime commands, including `ENTRYPOINT`, run as the non-root `shopverse` user. |
+
+This means our final startup command:
+
+```dockerfile
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+```
+
+runs as `shopverse`, not as `root`.
+
+Why this matters:
+
+- Limits damage if the application process is compromised.
+- Prevents accidental writes to root-owned locations inside the container.
+- Matches a production-grade container practice.
+- Still allows the app to write logs because `/app` is owned by `shopverse`.
+
+Important detail: if we create `/app/logs` but forget `chown`, the service may fail to write log files because it no longer runs as root. That is why our Dockerfiles create the log directory and then assign ownership before `USER shopverse`.
+
+You can verify the runtime user:
+
+```powershell
+docker compose up -d order-service
+docker exec -it shopverse-order-service sh -c "id && whoami && ls -ld /app /app/logs"
+```
+
+Expected result:
+
+```text
+uid=<number>(shopverse) gid=<number>(shopverse)
+shopverse
+/app and /app/logs owned by shopverse
+```
+
+The same pattern is used by the Spring Boot service images such as:
+
+- `api-gateway`
+- `config-server`
+- `discovery-server`
+- `auth-service`
+- `user-service`
+- `order-service`
+- `payment-service`
+- `inventory-service`
+
+### Log Volume Friendly
+
+Each service writes logs to `/app/logs`:
+
+```dockerfile
+RUN mkdir -p ${APP_HOME}/logs
+```
+
+Compose mounts named volumes there, and Promtail reads those files for centralized logging.
+
+### When To Use No Cache
+
+Most of the time, use:
+
+```powershell
+docker compose build
+```
+
+Use this only when you suspect stale layers or dependency cache problems:
+
+```powershell
+docker compose build --no-cache
+```
+
+`--no-cache` is slower because Docker rebuilds every layer.
+
 The Jenkins Dockerfile is different because it builds a Jenkins controller image.
 
 | Dockerfile line | What it does |
