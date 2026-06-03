@@ -89,6 +89,7 @@ For direct `bootRun`, set these variables in your shell or IDE run configuration
 | `EUREKA_INSTANCE_HOSTNAME` | `localhost` | Eureka instance hostname |
 | `EUREKA_PREFER_IP_ADDRESS` | `true` | Prefer IP address for Eureka registration |
 | `JWK_SET_URI` | `http://localhost:8081/auth/.well-known/jwks.json` | Auth Service JWKS endpoint |
+| `JWT_ISSUER` | `shopverse-auth-service` | Expected JWT issuer used during token validation |
 | `JPA_SHOW_SQL` | `false` | SQL logging |
 | `HIBERNATE_FORMAT_SQL` | `false` | SQL formatting |
 | `RATE_LIMIT_BURST_CAPACITY` | `120` | Short burst capacity |
@@ -699,6 +700,64 @@ Then this route rule works:
 ```text
 ROLE_ADMIN
 ```
+
+### JWT Signature, Expiry, And Issuer Validation
+
+For normal User Service APIs, JWT validation happens before the request reaches the controller.
+
+User Service validates:
+
+| Check | Purpose |
+| --- | --- |
+| Signature | Confirms the JWT was signed by Auth Service. |
+| Expiry | Rejects expired tokens using the `exp` claim. |
+| Not-before time | Rejects tokens used before the `nbf` claim, if present. |
+| Issuer | Confirms the `iss` claim matches the expected Auth Service issuer. |
+
+The public key is loaded from Auth Service JWKS:
+
+```yaml
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/auth/.well-known/jwks.json}
+```
+
+The expected issuer is configured separately:
+
+```yaml
+security:
+  jwt:
+    issuer: ${JWT_ISSUER:shopverse-auth-service}
+```
+
+User Service uses a custom `JwtDecoder` bean:
+
+```java
+@Bean
+public JwtDecoder jwtDecoder() {
+    NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
+    OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(
+        JwtValidators.createDefaultWithIssuer(issuer)
+    );
+
+    jwtDecoder.setJwtValidator(validator);
+    return jwtDecoder;
+}
+```
+
+`JwtValidators.createDefaultWithIssuer(issuer)` includes Spring Security's default timestamp validators and also validates the `iss` claim.
+
+That means this token is accepted only if:
+
+- it is signed by the Auth Service private key
+- it is not expired
+- it is not used before its valid time
+- its issuer is `shopverse-auth-service`
+
+If any of these checks fail, Spring Security rejects the request before the controller method runs.
 
 ### Official References
 
