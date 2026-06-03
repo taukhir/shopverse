@@ -101,6 +101,38 @@ Use this when you want to see every log line produced by all services for one re
 
 This shows aggregated logs from every service that logged with the same `traceId`, such as API Gateway, Order Service, Payment Service, Inventory Service, User Service, and Auth Service.
 
+### Kafka SAGA Trace IDs And Correlation IDs
+
+HTTP calls usually keep the same `traceId` across API Gateway, Auth Service, User Service, and Order Service because the trace context is propagated through HTTP headers.
+
+Kafka SAGA steps run later on Kafka listener threads. Spring Kafka observation is enabled in centralized config so Micrometer can create producer/consumer observations, but a message-driven step can still be easier to debug with a business correlation id because retries, delayed processing, and independent consumers are not always tied to the original HTTP log window.
+
+For this POC, every checkout SAGA event carries:
+
+```text
+correlationId=SAGA-<orderNumber>
+```
+
+Example log fields:
+
+```text
+orderNumber=ORD-1003 correlationId=SAGA-ORD-1003
+```
+
+Use `traceId` when you want technical distributed tracing for one request. Use `correlationId` when you want the full business SAGA story across Order, Inventory, and Payment events.
+
+Search SAGA logs by correlation id:
+
+```logql
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "correlationId=SAGA-ORD-1003"
+```
+
+Search all checkout SAGA logs:
+
+```logql
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "Choreography saga"
+```
+
 ### Option 2: Start From Logs
 
 If you do not have a trace ID yet, find a recent service log first:
