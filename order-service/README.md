@@ -53,6 +53,26 @@ curl http://localhost:8080/api/v1/orders/public/health
 curl http://localhost:8080/api/v1/orders/public/catalog
 ```
 
+## Get A JWT Token
+
+Order APIs are protected except `/api/v1/orders/public/**`. Login through API Gateway and copy the returned token:
+
+```powershell
+$login = Invoke-RestMethod -Method Post `
+  -Uri http://localhost:8080/auth/login `
+  -Body (@{username='admin'; password='Admin@123'} | ConvertTo-Json) `
+  -ContentType 'application/json'
+
+$token = $login.token
+```
+
+Use the token in protected calls:
+
+```powershell
+curl.exe http://localhost:8080/api/v1/orders `
+  -H "Authorization: Bearer $token"
+```
+
 ## Choreography SAGA
 
 Order Service starts the POC saga when an order is created:
@@ -64,15 +84,146 @@ Payment Service publishes shopverse.payment.completed or shopverse.payment.faile
 Order Service logs the final confirmed, rejected, or payment-failed status
 ```
 
-Useful log command:
+### Checkout URL
+
+Through API Gateway:
+
+```http
+POST http://localhost:8080/api/v1/orders/checkout
+```
+
+Directly to Order Service:
+
+```http
+POST http://localhost:8083/api/v1/orders/checkout
+```
+
+### Request Body
+
+Current POC status: checkout does not require a request body yet. The controller creates a fixed sample order from `SampleOrderData`.
+
+You can send no body:
+
+```powershell
+curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+  -H "Authorization: Bearer $token"
+```
+
+Or send an empty JSON body for demo tools such as Postman:
+
+```powershell
+curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+  -H "Authorization: Bearer $token" `
+  -H "Content-Type: application/json" `
+  -d "{}"
+```
+
+Sample body for the next improvement, not currently consumed by the controller:
+
+```json
+{
+  "items": [
+    {
+      "productId": 101,
+      "quantity": 1
+    }
+  ]
+}
+```
+
+### Expected Response
+
+The checkout endpoint returns HTTP `201 Created` with sample order data:
+
+```json
+{
+  "id": 3,
+  "orderNumber": "ORD-1003",
+  "customerUsername": "current-user",
+  "status": "CREATED",
+  "totalAmount": 2499.00,
+  "items": [
+    {
+      "productId": 101,
+      "productName": "Wireless Keyboard",
+      "quantity": 1,
+      "price": 2499.00
+    }
+  ],
+  "createdAt": "2026-06-03T..."
+}
+```
+
+### Event Published By Order Service
+
+After creating the sample order, Order Service publishes `shopverse.order.created` to Kafka.
+
+Payload shape:
+
+```json
+{
+  "orderId": 3,
+  "orderNumber": "ORD-1003",
+  "customerUsername": "current-user",
+  "productId": 101,
+  "quantity": 1,
+  "amount": 2499.00
+}
+```
+
+Kafka topic configuration comes from centralized config:
+
+```yaml
+shopverse:
+  kafka:
+    topics:
+      order-created: shopverse.order.created
+      inventory-reserved: shopverse.inventory.reserved
+      inventory-failed: shopverse.inventory.failed
+      payment-completed: shopverse.payment.completed
+      payment-failed: shopverse.payment.failed
+```
+
+### How To Verify The SAGA
+
+Start the stack:
+
+```powershell
+docker compose up -d
+```
+
+Follow SAGA logs:
 
 ```powershell
 docker compose logs -f order-service inventory-service payment-service kafka
 ```
 
+Trigger checkout:
+
+```powershell
+curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+  -H "Authorization: Bearer $token"
+```
+
+Expected log sequence:
+
+```text
+ORDER-SERVICE     Choreography saga started orderNumber=ORD-1003 topic=shopverse.order.created
+INVENTORY-SERVICE Inventory reserved ... topic=shopverse.inventory.reserved
+PAYMENT-SERVICE   Payment completed ... topic=shopverse.payment.completed
+ORDER-SERVICE     Choreography saga completed orderNumber=ORD-1003 ... nextAction=MARK_ORDER_CONFIRMED
+```
+
+If inventory or payment fails, Order Service logs a cancellation message instead:
+
+```text
+Choreography saga cancelled orderNumber=ORD-1003 ... nextAction=MARK_ORDER_REJECTED
+Choreography saga cancelled orderNumber=ORD-1003 ... nextAction=MARK_ORDER_PAYMENT_FAILED
+```
+
 Detailed event flow, payloads, and code snippets are in [../saga/README.md](../saga/README.md).
 
-Protected endpoint:
+### Other Protected Order Calls
 
 ```powershell
 curl http://localhost:8080/api/v1/orders `
@@ -180,6 +331,7 @@ docker image ls shopverse/order-service
 ## Next Improvements
 
 - Replace static sample data with a real order database.
+- Add a real checkout request DTO so the sample request body controls order items and quantities.
 - Add DTO validation for create/update APIs.
 - Add order state transitions and payment/shipping events.
 - Add integration tests with Spring Security JWT test support.
