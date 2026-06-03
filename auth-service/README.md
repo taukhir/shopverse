@@ -208,6 +208,63 @@ In Loki, query both services together and filter by the trace id from the Auth S
 
 Auth Service currently works as a simple POC token issuer and OAuth2 Resource Server. It is not a full Spring Authorization Server yet.
 
+### Are We Using JWT Or OAuth2?
+
+Shopverse uses **JWT tokens** for API authentication and authorization.
+
+Shopverse also uses Spring Security's **OAuth2 Resource Server** support to validate those JWT bearer tokens in services.
+
+So the precise answer is:
+
+```text
+Token format: JWT
+Token usage: Bearer token
+Spring module used to validate tokens: OAuth2 Resource Server
+Full OAuth2 Authorization Server: Not implemented
+OAuth2 grant flows: Not implemented
+```
+
+In practical terms:
+
+| Area | What Shopverse Uses |
+| --- | --- |
+| Login endpoint | Custom `POST /auth/login` in Auth Service |
+| Credential validation | Auth Service sends Basic credentials to User Service; User Service validates against DB |
+| Issued token | JWT access token |
+| Token signing | RSA private key in Auth Service |
+| Token validation | Public key from Auth Service JWKS |
+| Resource service security | Spring Security OAuth2 Resource Server JWT validation |
+| OAuth2 Authorization Server | Not used |
+| Authorization Code / PKCE | Not used |
+| Client Credentials grant | Not used |
+| Refresh token flow | Not implemented yet |
+
+Why the dependency name says OAuth2:
+
+```gradle
+implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+```
+
+This starter does not mean we implemented full OAuth2 login. It gives our services the standard Spring Security machinery for:
+
+- reading `Authorization: Bearer <jwt>`
+- decoding JWTs
+- validating JWT signature and expiry
+- loading public keys from JWKS
+- creating `JwtAuthenticationToken`
+- applying role/authority checks
+
+The current flow is:
+
+```text
+Client -> Auth Service /auth/login
+Auth Service -> User Service /api/v1/internal/users/authenticated using Basic auth
+User Service -> validates username/password against DB
+Auth Service -> creates and signs JWT
+Client -> calls APIs with Authorization: Bearer <jwt>
+Resource services -> validate JWT using OAuth2 Resource Server support
+```
+
 What this means:
 
 - `POST /auth/login` is a custom login API.
