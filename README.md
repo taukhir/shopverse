@@ -66,6 +66,7 @@ shopverse/
   order-service/        Sample order APIs
   payment-service/      Payment APIs
   inventory-service/    Inventory APIs
+  saga/                 Choreography SAGA documentation
   cloud-configs/        Centralized service YAML config
   observability/        Prometheus, Loki, Promtail, Grafana, Zipkin config
   docker/               Docker commands and Compose/Dockerfile guide
@@ -257,6 +258,8 @@ Useful Loki query:
 ```logql
 {application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "Choreography saga"
 ```
+
+Detailed SAGA event flow, payloads, and testing steps are in [saga/README.md](saga/README.md).
 
 ## Docker
 
@@ -452,6 +455,7 @@ Detailed setup, stages, one-service build demo, and official Jenkins docs links 
 | Order Service | [order-service/README.md](order-service/README.md) |
 | Payment Service | [payment-service/README.md](payment-service/README.md) |
 | Inventory Service | [inventory-service/README.md](inventory-service/README.md) |
+| Choreography SAGA | [saga/README.md](saga/README.md) |
 | Docker | [docker/README.md](docker/README.md) |
 | Centralized Config | [cloud-configs/README.md](cloud-configs/README.md) |
 | Observability | [observability/README.md](observability/README.md) |
