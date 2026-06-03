@@ -6,7 +6,7 @@ Discovery Server is the Eureka registry for Shopverse services.
 
 - Run Eureka server on port `8761`.
 - Let services register themselves by application name.
-- Let clients discover services such as `USER-SERVICE`, `ORDER-SERVICE`, and `AUTH-SERVICE`.
+- Let clients discover services such as `USER-SERVICE`, `ORDER-SERVICE`, `PAYMENT-SERVICE`, `INVENTORY-SERVICE`, and `AUTH-SERVICE`.
 - Expose health and Prometheus metrics.
 - Emit startup and request logs for centralized logging.
 
@@ -42,6 +42,8 @@ The full stack is started from the root:
 ```powershell
 docker compose up -d
 ```
+
+More Docker commands, flags, and Dockerfile details are in [../docker/README.md](../docker/README.md).
 
 ## Jenkins Pipeline
 
@@ -272,5 +274,5 @@ Important notes:
 - Grafana Loki query:
 
 ```logql
-{application="discovery-server"}
+{application="DISCOVERY-SERVER"}
 ```

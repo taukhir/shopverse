@@ -16,6 +16,7 @@ RUN --mount=type=cache,target=/root/.gradle ./gradlew bootJar --no-daemon
 FROM eclipse-temurin:21-jre-jammy AS runtime
 
 ENV APP_HOME=/app \
+    SERVER_PORT=8082 \
     JAVA_OPTS="-XX:MaxRAMPercentage=75 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError"
 
 WORKDIR ${APP_HOME}
@@ -35,6 +36,6 @@ USER shopverse
 EXPOSE 8082
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD ["sh", "-c", "curl -fsS http://localhost:${SERVER_PORT:-8082}/actuator/health | grep -q UP"]
+  CMD ["sh", "-c", "curl -fsS http://localhost:${SERVER_PORT}/actuator/health | grep -q UP"]
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]

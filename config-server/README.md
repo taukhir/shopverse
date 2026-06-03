@@ -12,6 +12,8 @@ Shopverse keeps only minimal bootstrap settings inside each service, such as the
 cloud-configs/application.yml        shared defaults for all services
 cloud-configs/USER-SERVICE.yml       user-service overrides
 cloud-configs/ORDER-SERVICE.yml      order-service overrides
+cloud-configs/PAYMENT-SERVICE.yml    payment-service overrides
+cloud-configs/INVENTORY-SERVICE.yml  inventory-service overrides
 cloud-configs/API-GATEWAY.yml        gateway routes and gateway settings
 cloud-configs/AUTH-SERVICE.yml       auth-service settings
 cloud-configs/DISCOVERY-SERVER.yml   discovery-server settings
@@ -40,6 +42,8 @@ curl http://localhost:8888/actuator/health
 curl http://localhost:8888/actuator/prometheus
 curl http://localhost:8888/USER-SERVICE/default
 curl http://localhost:8888/ORDER-SERVICE/default
+curl http://localhost:8888/PAYMENT-SERVICE/default
+curl http://localhost:8888/INVENTORY-SERVICE/default
 ```
 
 ## How Config Is Loaded
@@ -102,6 +106,8 @@ For many runtime properties, we can update config and refresh a service without 
    curl -X POST http://localhost:8081/actuator/refresh
    curl -X POST http://localhost:8082/actuator/refresh
    curl -X POST http://localhost:8083/actuator/refresh
+   curl -X POST http://localhost:8084/actuator/refresh
+   curl -X POST http://localhost:8086/actuator/refresh
    ```
 
 The refresh endpoint returns the property keys that changed.
@@ -113,6 +119,19 @@ Important notes:
 - Some values still require a service restart, such as server port, fixed JVM/container environment variables, datasource pool internals, or properties read only once during startup.
 - In the current Docker setup, `cloud-configs/` is mounted into Config Server as `/config`, so changing files on the host makes them available to Config Server immediately.
 - Without Spring Cloud Bus, refresh is per service instance. If a service has multiple replicas, call `/actuator/refresh` on each replica or add Spring Cloud Bus later.
+
+## Shared Configuration Areas
+
+`cloud-configs/application.yml` contains common settings used across services:
+
+- Eureka client defaults
+- Actuator exposure for health, Prometheus, and refresh
+- Micrometer tracing and Zipkin export
+- log file path and trace/span correlation pattern
+- Kafka bootstrap server
+- Kafka topic names for the Order/Inventory/Payment choreography SAGA
+
+Service-specific files keep only overrides such as ports, JWT/JWKS settings, and service-specific values.
 
 ## Docker
 
@@ -137,6 +156,8 @@ The full stack is started from the root:
 docker compose up -d
 ```
 
+More Docker commands, flags, Dockerfile details, and the Config Server Compose block explanation are in [../docker/README.md](../docker/README.md).
+
 ## Observability
 
 - Logs are written to `/app/logs/config-server.log`.
@@ -145,7 +166,7 @@ docker compose up -d
 - Grafana Loki query:
 
 ```logql
-{application="config-server"}
+{application="CONFIG-SERVER"}
 ```
 
 ## Notes

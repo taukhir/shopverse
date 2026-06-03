@@ -40,6 +40,8 @@ shopverse.inventory.failed
 
 For the demo, product `103` or quantity greater than `5` fails inventory reservation. When payment fails, Inventory Service logs a simple inventory-release compensation action.
 
+More detailed SAGA flow and payload examples are in [../saga/README.md](../saga/README.md).
+
 ## Observability
 
 Inventory Service imports centralized config from Config Server, registers with Eureka, writes logs to `/app/logs/inventory-service.log`, exposes Prometheus metrics at `/actuator/prometheus`, and sends traces to Zipkin.
@@ -62,3 +64,5 @@ sum by (service, outcome) (increase(shopverse_service_requests_logged_total{serv
 .\gradlew.bat clean build
 docker build -t shopverse/inventory-service:local .
 ```
+
+Docker Compose commands and Dockerfile details are in [../docker/README.md](../docker/README.md).

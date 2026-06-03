@@ -284,6 +284,193 @@ Choreography saga compensation released inventory orderNumber=ORD-1003 reason=De
 | Inventory Service | `inventory-service/src/main/java/io/shopverse/inventory_service/saga` |
 | Payment Service | `payment-service/src/main/java/io/shopverse/payment_service/saga` |
 
+## Sample Code Snippets
+
+These snippets are shortened versions of the actual code. They show the important idea without all imports and error handling.
+
+### Checkout Starts The SAGA
+
+Order Service starts the flow from the authenticated checkout endpoint:
+
+```java
+@PostMapping("/checkout")
+public ResponseEntity<OrderResponse> checkout() {
+    log.info("Checkout requested for current user; starting choreography saga");
+
+    OrderResponse order = sampleOrderData.newSampleOrder();
+    orderSagaPublisher.publishOrderCreated(order);
+
+    return ResponseEntity
+            .status(HttpStatus.CREATED)
+            .body(order);
+}
+```
+
+### Order Publishes `order.created`
+
+Order Service converts the sample order to an event and publishes it to Kafka:
+
+```java
+@Value("${shopverse.kafka.topics.order-created}")
+private String orderCreatedTopic;
+
+public void publishOrderCreated(OrderResponse order) {
+    OrderCreatedEvent event = new OrderCreatedEvent(
+            order.id(),
+            order.orderNumber(),
+            order.customerUsername(),
+            order.items().getFirst().productId(),
+            order.items().getFirst().quantity(),
+            order.totalAmount()
+    );
+
+    String payload = objectMapper.writeValueAsString(event);
+    kafkaTemplate.send(orderCreatedTopic, order.orderNumber(), payload);
+
+    log.info("Choreography saga started orderNumber={} topic={} payload={}",
+            order.orderNumber(), orderCreatedTopic, payload);
+}
+```
+
+### Inventory Consumes `order.created`
+
+Inventory Service listens for the order event and decides whether stock can be reserved:
+
+```java
+@KafkaListener(
+        topics = "${shopverse.kafka.topics.order-created}",
+        groupId = "${spring.application.name}"
+)
+public void onOrderCreated(String payload) {
+    OrderCreatedEvent event = objectMapper.readValue(payload, OrderCreatedEvent.class);
+
+    log.info("Choreography saga inventory step started orderNumber={} productId={} quantity={}",
+            event.orderNumber(), event.productId(), event.quantity());
+
+    if (event.productId() == 103L || event.quantity() > 5) {
+        publishInventoryFailed(event, "Inventory not available for product " + event.productId());
+        return;
+    }
+
+    InventoryReservedEvent reservedEvent = new InventoryReservedEvent(
+            event.orderId(),
+            event.orderNumber(),
+            event.productId(),
+            event.quantity(),
+            event.amount()
+    );
+
+    kafkaTemplate.send(inventoryReservedTopic, event.orderNumber(),
+            objectMapper.writeValueAsString(reservedEvent));
+}
+```
+
+### Payment Consumes `inventory.reserved`
+
+Payment Service listens for inventory reservation and publishes payment success or failure:
+
+```java
+private static final BigDecimal DEMO_PAYMENT_LIMIT = new BigDecimal("10000.00");
+
+@KafkaListener(
+        topics = "${shopverse.kafka.topics.inventory-reserved}",
+        groupId = "${spring.application.name}"
+)
+public void onInventoryReserved(String payload) {
+    InventoryReservedEvent event = objectMapper.readValue(payload, InventoryReservedEvent.class);
+
+    log.info("Choreography saga payment step started orderNumber={} amount={}",
+            event.orderNumber(), event.amount());
+
+    if (event.amount().compareTo(DEMO_PAYMENT_LIMIT) > 0) {
+        publishPaymentFailed(event, "Demo payment limit exceeded");
+        return;
+    }
+
+    PaymentCompletedEvent completedEvent = new PaymentCompletedEvent(
+            event.orderId(),
+            event.orderNumber(),
+            "PAY-" + event.orderNumber(),
+            event.amount()
+    );
+
+    kafkaTemplate.send(paymentCompletedTopic, event.orderNumber(),
+            objectMapper.writeValueAsString(completedEvent));
+}
+```
+
+### Order Consumes Final Outcome
+
+Order Service listens for final events and logs the order status transition:
+
+```java
+@KafkaListener(
+        topics = "${shopverse.kafka.topics.payment-completed}",
+        groupId = "${spring.application.name}"
+)
+public void onPaymentCompleted(String payload) {
+    PaymentCompletedEvent event = objectMapper.readValue(payload, PaymentCompletedEvent.class);
+
+    log.info("Choreography saga completed orderNumber={} paymentReference={} amount={} nextAction=MARK_ORDER_CONFIRMED",
+            event.orderNumber(), event.paymentReference(), event.amount());
+}
+```
+
+It also listens to failure topics:
+
+```java
+@KafkaListener(
+        topics = "${shopverse.kafka.topics.inventory-failed}",
+        groupId = "${spring.application.name}"
+)
+public void onInventoryFailed(String payload) {
+    InventoryFailedEvent event = objectMapper.readValue(payload, InventoryFailedEvent.class);
+
+    log.warn("Choreography saga cancelled orderNumber={} reason={} nextAction=MARK_ORDER_REJECTED",
+            event.orderNumber(), event.reason());
+}
+```
+
+### Inventory Compensation On Payment Failure
+
+Inventory Service reacts to payment failure and logs the compensation:
+
+```java
+@KafkaListener(
+        topics = "${shopverse.kafka.topics.payment-failed}",
+        groupId = "${spring.application.name}"
+)
+public void onPaymentFailed(String payload) {
+    PaymentFailedEvent event = objectMapper.readValue(payload, PaymentFailedEvent.class);
+
+    log.warn("Choreography saga compensation released inventory orderNumber={} reason={}",
+            event.orderNumber(), event.reason());
+}
+```
+
+### Kafka Topic Configuration
+
+Topic names are stored in centralized config:
+
+```yaml
+shopverse:
+  kafka:
+    topics:
+      order-created: ${ORDER_CREATED_TOPIC:shopverse.order.created}
+      inventory-reserved: ${INVENTORY_RESERVED_TOPIC:shopverse.inventory.reserved}
+      inventory-failed: ${INVENTORY_FAILED_TOPIC:shopverse.inventory.failed}
+      payment-completed: ${PAYMENT_COMPLETED_TOPIC:shopverse.payment.completed}
+      payment-failed: ${PAYMENT_FAILED_TOPIC:shopverse.payment.failed}
+```
+
+Kafka bootstrap config is also centralized:
+
+```yaml
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+```
+
 ## How To Test
 
 Start the stack:

@@ -22,6 +22,8 @@ API Gateway is the public entry point for Shopverse traffic. It routes requests 
 | Route | Target |
 | --- | --- |
 | `/api/v1/orders/**` | `ORDER-SERVICE` |
+| `/api/v1/payments/**` | `PAYMENT-SERVICE` |
+| `/api/v1/inventory/**` | `INVENTORY-SERVICE` |
 | `/api/v1/users/**` | `USER-SERVICE` |
 | `/api/v1/roles/**` | `USER-SERVICE` |
 | `/api/v1/permissions/**` | `USER-SERVICE` |
@@ -33,6 +35,15 @@ API Gateway is the public entry point for Shopverse traffic. It routes requests 
 ```powershell
 curl http://localhost:8080/actuator/health
 curl http://localhost:8080/api/v1/orders/public/health
+curl http://localhost:8080/api/v1/payments/public/health
+curl http://localhost:8080/api/v1/inventory/public/health
+```
+
+Authenticated checkout SAGA route:
+
+```powershell
+curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+  -H "Authorization: Bearer <token>"
 ```
 
 ## Docker
@@ -51,6 +62,8 @@ The full stack is started from the root:
 docker compose up -d
 ```
 
+More Docker commands, flags, and Dockerfile details are in [../docker/README.md](../docker/README.md).
+
 ## Observability
 
 - Logs are written to `/app/logs/api-gateway.log`.
@@ -61,3 +74,8 @@ docker compose up -d
 ```logql
 {application="API-GATEWAY"}
 ```
+
+## Notes
+
+- Route definitions are maintained centrally in `cloud-configs/API-GATEWAY.yml`.
+- Backend services are resolved through Eureka using service IDs such as `ORDER-SERVICE`, `PAYMENT-SERVICE`, and `INVENTORY-SERVICE`.
