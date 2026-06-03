@@ -22,7 +22,7 @@ public final class UserMapper {
                 user.getId(),
                 user.getUuid(),
                 user.getUsername(),
-                user.getPassword(),
+                null,
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),
