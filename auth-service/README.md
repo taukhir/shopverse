@@ -216,7 +216,7 @@ In our POC:
 - `iss` comes from centralized config: `security.jwt.issuer`.
 - `exp` is one hour after token creation.
 - `jti` is a unique token id.
-- `roles` is a space-separated role list, for example `ROLE_ADMIN ROLE_USER`.
+- `roles` is a space-separated role list, for example `ROLE_ADMIN ROLE_CUSTOMER`.
 
 #### 6. JwtEncoder Signs The Token
 
@@ -319,7 +319,7 @@ This turns:
 ```json
 {
   "sub": "admin",
-  "roles": "ROLE_ADMIN ROLE_USER"
+  "roles": "ROLE_ADMIN ROLE_CUSTOMER"
 }
 ```
 
@@ -327,17 +327,19 @@ into authorities:
 
 ```text
 ROLE_ADMIN
-ROLE_USER
+ROLE_CUSTOMER
 ```
 
 Then route rules work:
 
 ```java
 .requestMatchers("/api/v1/orders/admin/**").hasRole("ADMIN")
-.requestMatchers("/api/v1/orders/**").hasAnyRole("USER", "ADMIN")
+.requestMatchers("/api/v1/orders/**").hasAnyRole("CUSTOMER", "ADMIN")
 ```
 
 `hasRole("ADMIN")` checks for `ROLE_ADMIN` internally.
+
+Role names must stay consistent across User Service seed data, JWT claims, and resource-service security rules. If the database stores `ROLE_CUSTOMER`, then APIs should check `hasRole("CUSTOMER")`. If an API checks `hasRole("USER")`, the JWT must contain `ROLE_USER`.
 
 #### 11. Method Security Uses Same Authentication
 
@@ -414,6 +416,161 @@ return jwtService.generateToken(user);
 ```
 
 For a more standard Spring Security login flow, we could introduce a `UserDetailsService`, a `DaoAuthenticationProvider`, and an `AuthenticationManager`. The current code keeps the flow explicit and simple for the microservices POC.
+
+### Form Login Authentication
+
+Form login is the traditional Spring Security browser-login flow.
+
+Typical behavior:
+
+1. User opens a protected page.
+2. Spring redirects the browser to a login page.
+3. User submits username and password through an HTML form.
+4. Spring authenticates the user.
+5. Spring creates an HTTP session.
+6. Browser stores a session cookie such as `JSESSIONID`.
+7. Later requests use the session cookie instead of sending username/password again.
+
+Example configuration:
+
+```java
+http
+    .authorizeHttpRequests(auth -> auth
+        .requestMatchers("/login", "/css/**").permitAll()
+        .anyRequest().authenticated()
+    )
+    .formLogin(Customizer.withDefaults());
+```
+
+Form login is useful for server-rendered web apps. For Shopverse microservices, we use stateless JWT authentication instead because APIs are called by clients, API Gateway, and other services.
+
+### In-Memory Users
+
+In-memory authentication is useful for demos, tests, local admin tools, and quick POCs.
+
+Example:
+
+```java
+@Bean
+UserDetailsService users() {
+    UserDetails admin = User.withUsername("admin")
+        .password(passwordEncoder().encode("Admin@123"))
+        .roles("ADMIN")
+        .build();
+
+    return new InMemoryUserDetailsManager(admin);
+}
+```
+
+How it works:
+
+1. `InMemoryUserDetailsManager` stores users in application memory.
+2. `DaoAuthenticationProvider` calls `loadUserByUsername(...)`.
+3. Spring gets the stored password hash and authorities.
+4. `PasswordEncoder.matches(...)` validates the submitted password.
+5. If valid, Spring creates an authenticated `Authentication`.
+
+Limitations:
+
+- users disappear when the application restarts unless hardcoded/configured again
+- no central user lifecycle
+- not suitable for production user management
+- hard to audit password changes, account locks, and role changes
+
+### DB-Backed Users
+
+For production-style authentication, users should come from a database or identity provider.
+
+Typical DB-backed Spring Security flow:
+
+```java
+@Service
+public class DatabaseUserDetailsService implements UserDetailsService {
+    private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException(username));
+
+        return org.springframework.security.core.userdetails.User
+            .withUsername(user.getUsername())
+            .password(user.getPassword())
+            .authorities(toAuthorities(user))
+            .accountLocked(!user.isAccountNonLocked())
+            .disabled(!user.isEnabled())
+            .build();
+    }
+}
+```
+
+Then Spring uses:
+
+- `UserDetailsService` to load the user
+- `PasswordEncoder` to verify the password
+- `GrantedAuthority` values for roles and permissions
+- `AuthenticationManager` and `DaoAuthenticationProvider` to coordinate the login
+
+In Shopverse, User Service already stores users, encoded passwords, roles, and permissions. Auth Service currently loads those through Feign instead of directly querying the DB. That is a good microservices boundary because Auth Service does not need direct access to the User Service database.
+
+### Loading Roles And Permissions From DB
+
+When authenticating from DB, roles and permissions usually come from relationships like:
+
+```text
+users -> user_roles -> roles -> role_permissions -> permissions
+```
+
+A user may have:
+
+```text
+ROLE_ADMIN
+ROLE_CUSTOMER
+```
+
+And permissions such as:
+
+```text
+USER_READ
+USER_WRITE
+ORDER_CANCEL
+```
+
+Convert both into Spring Security authorities:
+
+```java
+private Collection<GrantedAuthority> toAuthorities(User user) {
+    List<GrantedAuthority> authorities = new ArrayList<>();
+
+    user.getRoles().forEach(role -> {
+        authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        role.getPermissions().forEach(permission ->
+            authorities.add(new SimpleGrantedAuthority(permission.getPermissionName()))
+        );
+    });
+
+    return authorities;
+}
+```
+
+Then method security can use both role checks and permission checks:
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+public void adminOnlyAction() {}
+
+@PreAuthorize("hasAuthority('ORDER_CANCEL')")
+public void cancelOrder() {}
+```
+
+For JWT-based microservices, there are two common options:
+
+| Option | How It Works | Tradeoff |
+| --- | --- | --- |
+| Put roles/permissions in JWT | Auth Service loads roles/permissions during login and writes them into JWT claims. | Fast authorization, but permission changes apply only after a new token is issued. |
+| Load permissions at resource service | Resource service validates JWT, then calls User/Auth service for current permissions. | Always fresh permissions, but more network calls and tighter service coupling. |
+
+For this POC, we include roles in the JWT. Permissions are still stored in User Service and can be added later as a `permissions` claim if we want permission-level authorization across services.
 
 ### Security Filter Chain
 
@@ -641,7 +798,7 @@ With that converter, a JWT claim like:
 ```json
 {
   "sub": "admin",
-  "roles": "ROLE_ADMIN ROLE_USER"
+  "roles": "ROLE_ADMIN ROLE_CUSTOMER"
 }
 ```
 
@@ -649,7 +806,7 @@ becomes Spring Security authorities:
 
 ```text
 ROLE_ADMIN
-ROLE_USER
+ROLE_CUSTOMER
 ```
 
 Then these checks work:
@@ -683,6 +840,272 @@ Current POC tokens include roles, not a separate permissions claim. Permissions 
 | `UserDetailsService` | Loads user data for username/password authentication. |
 | `GrantedAuthority` | Represents a role or permission used by authorization checks. |
 | `JwtAuthenticationConverter` | Converts JWT claims into Spring Security authorities. |
+
+## Security Concepts
+
+### Access Tokens
+
+An access token is a short-lived credential used to call protected APIs.
+
+In Shopverse:
+
+- access token format is JWT
+- token is sent as `Authorization: Bearer <token>`
+- resource services validate it using JWKS
+- token currently expires after one hour
+
+Access tokens should be short-lived because they are bearer credentials. Whoever has the token can use it until it expires.
+
+### Refresh Tokens
+
+A refresh token is a longer-lived credential used to get a new access token.
+
+Typical flow:
+
+1. User logs in.
+2. Auth Service returns access token and refresh token.
+3. Client calls APIs with the access token.
+4. When the access token expires, client sends refresh token to Auth Service.
+5. Auth Service validates refresh token and issues a new access token.
+
+Refresh tokens should be stored securely, rotated after use, revocable, and persisted server-side as hashed values.
+
+Current POC status: refresh-token flow is not implemented in Auth Service yet.
+
+### Sessions And Cookies
+
+A session is server-side login state. A cookie is browser-side storage that carries a session id or token.
+
+Classic Spring form login uses:
+
+```text
+JSESSIONID cookie -> server-side session
+```
+
+JWT APIs usually avoid server sessions:
+
+```text
+Authorization: Bearer <jwt> -> stateless validation
+```
+
+Cookies can also store JWTs, but then CSRF protection becomes important because browsers automatically send cookies.
+
+### JWT
+
+JWT is a signed token with:
+
+```text
+header.payload.signature
+```
+
+JWTs are useful because resource services can validate them without calling Auth Service for every request. They must be protected carefully because a stolen JWT can be used as a bearer token.
+
+### OAuth2
+
+OAuth2 is an authorization framework for issuing and using access tokens.
+
+Common actors:
+
+- Resource Owner: the user
+- Client: frontend/mobile/backend client
+- Authorization Server: issues tokens
+- Resource Server: validates tokens and protects APIs
+
+Current POC: Auth Service behaves like a simple custom token issuer and resource server. For production OAuth2, use Spring Authorization Server.
+
+### API Keys
+
+An API key is a static credential used by clients or services.
+
+API keys are simple but risky:
+
+- often long-lived
+- easy to leak
+- usually do not represent a user
+- need rotation, rate limits, scopes, and audit logs
+
+For internal service-to-service auth, prefer mTLS or OAuth2 Client Credentials over raw API keys.
+
+### Other Credentials
+
+| Credential Type | Typical Use |
+| --- | --- |
+| Basic Auth | Simple username/password over HTTPS. Avoid for modern APIs unless very controlled. |
+| mTLS certificate | Strong service-to-service authentication. |
+| Signed request/HMAC | Protects request integrity for webhooks or partner APIs. |
+| One-time token | Password reset, email verification, MFA challenge. |
+| Personal access token | User-generated long-lived token for developer/API access. |
+
+## Microservices Security Principles
+
+Security in microservices should be layered. Do not rely on only one control.
+
+### API Security
+
+- Put APIs behind API Gateway.
+- Validate JWTs in each service, not only at the gateway.
+- Use HTTPS everywhere outside local development.
+- Use clear public, internal, user, and admin routes.
+- Apply least privilege with roles and permissions.
+- Validate request bodies with Bean Validation.
+- Never log passwords, tokens, private keys, or full authorization headers.
+- Use rate limiting and bulkheads for sensitive endpoints.
+- Return consistent error responses without leaking internal details.
+
+### Service-To-Service Security
+
+- Prefer service discovery plus internal network isolation.
+- Use mTLS for strong service identity in production.
+- Use OAuth2 Client Credentials for service-to-service authorization.
+- Do not trust a request only because it came from inside the network.
+- Propagate trace ids, but do not treat trace ids as authentication.
+- Avoid sharing one static API key across many services.
+
+### Database Security
+
+- Use parameterized queries, JPA repositories, or Criteria APIs to reduce SQL injection risk.
+- Never concatenate untrusted input into SQL.
+- Use least-privilege DB users per service.
+- Keep each service database private to that service.
+- Encrypt sensitive data at rest where required.
+- Back up databases and test restore procedures.
+- Store password hashes, never raw passwords.
+- Use migration tools such as Liquibase for controlled schema changes.
+
+### SQL Injection Protection
+
+SQL injection happens when user input becomes executable SQL.
+
+Good patterns:
+
+```java
+userRepository.findByUsername(username)
+```
+
+or:
+
+```java
+criteriaBuilder.equal(root.get("username"), username)
+```
+
+Risky pattern:
+
+```java
+"select * from users where username = '" + username + "'"
+```
+
+Spring Data JPA and prepared statements help, but input validation and safe query construction are still required.
+
+### DDoS And Bot Protection
+
+- Apply rate limits at API Gateway.
+- Apply per-service rate limits for sensitive APIs.
+- Use CAPTCHA or step-up verification for public login/register flows if abuse appears.
+- Block suspicious IPs or clients at gateway/WAF level.
+- Use request size limits and timeouts.
+- Add account lockout or progressive delays after repeated failed login attempts.
+- Monitor login failures, high traffic, and abnormal user behavior.
+
+### JWT Attack Protection
+
+- Use asymmetric signing such as RS256.
+- Keep private keys secret and outside source control in production.
+- Validate signature, expiry, issuer, and audience.
+- Use short-lived access tokens.
+- Rotate signing keys and publish new keys through JWKS.
+- Use `kid` to identify active keys.
+- Reject tokens with unexpected algorithms.
+- Do not accept unsigned tokens.
+- Do not store sensitive secrets in JWT payload because payload can be decoded by clients.
+- Re-issue tokens after role/permission changes when immediate enforcement is needed.
+
+### Secrets Management
+
+- Do not commit production secrets.
+- Use Docker secrets, Kubernetes secrets, Vault, AWS Secrets Manager, Azure Key Vault, or similar tools.
+- Rotate DB passwords, API keys, and signing keys.
+- Give each service only the secrets it needs.
+- Avoid printing secrets in logs, stack traces, or CI/CD output.
+
+### CSRF
+
+CSRF mainly affects browser apps that use cookies automatically.
+
+For stateless bearer-token APIs:
+
+- CSRF is commonly disabled.
+- Clients send tokens explicitly in `Authorization` headers.
+
+For cookie-based login:
+
+- keep CSRF protection enabled
+- use `SameSite=Lax` or `SameSite=Strict`
+- require CSRF tokens for state-changing requests
+
+### CORS
+
+CORS controls which browser origins can call APIs.
+
+Best practices:
+
+- Allow only known frontend origins.
+- Avoid `allowedOrigins("*")` with credentials.
+- Limit allowed methods and headers.
+- Keep CORS config environment-specific.
+
+### JavaScript And Browser Attacks
+
+Main browser risks:
+
+- XSS: attacker runs JavaScript in the user's browser.
+- CSRF: attacker makes the browser send unwanted cookie-authenticated requests.
+- Token theft: attacker steals tokens from local storage or exposed JS state.
+
+Mitigations:
+
+- sanitize and encode user-controlled output
+- use Content Security Policy
+- avoid storing long-lived tokens in local storage
+- use HttpOnly cookies if cookie-based auth is chosen
+- keep dependencies updated
+- validate input on server side even if frontend validates it too
+
+### Malicious Users And Account Abuse
+
+- Lock or throttle accounts after repeated failed logins.
+- Add audit logs for login, password change, admin actions, and permission changes.
+- Support disabling compromised users.
+- Use MFA for admin users.
+- Alert on unusual login locations, high-value actions, and privilege changes.
+- Keep admin APIs separate and strongly protected.
+
+### Untrusted Services And API Key Abuse
+
+An untrusted service can exploit weak service-to-service security by replaying API keys, calling internal APIs, or impersonating another service.
+
+Mitigations:
+
+- do not expose internal APIs publicly
+- require service authentication for internal APIs
+- scope API keys to the minimum permissions
+- rotate keys regularly
+- bind credentials to a service identity where possible
+- log service identity and request id for audit
+- use mTLS or OAuth2 Client Credentials instead of shared static keys
+
+### Production Hardening Checklist
+
+- Replace bundled RSA keys with managed secrets.
+- Add refresh-token rotation if refresh tokens are implemented.
+- Add issuer and audience validation in every resource service.
+- Add key rotation with multiple JWKS keys.
+- Add centralized audit logging for security events.
+- Add rate limits for login, registration, password reset, and admin APIs.
+- Add account lockout or risk-based login throttling.
+- Add CORS allowlists per environment.
+- Add mTLS or OAuth2 Client Credentials for internal service calls.
+- Use least-privilege DB users and network policies.
+- Keep dependencies patched and scan images in CI/CD.
 
 ## Docker
 
