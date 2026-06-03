@@ -113,6 +113,273 @@ What this means:
 - Other services validate that JWT with the public key exposed through JWKS.
 - `spring-boot-starter-oauth2-resource-server` is used for JWT validation, not for implementing all OAuth2 grant flows.
 
+### Complete Security Flow
+
+This is the full current Shopverse security flow from password storage to API authorization.
+
+#### 1. Password Is Stored In User Service
+
+When a user is created, password is changed, or password is reset, User Service hashes the raw password before saving it.
+
+The important code path is:
+
+```java
+String encodedPassword = passwordEncoder.encode(request.password());
+user.setPassword(encodedPassword);
+```
+
+The `PasswordEncoder` bean is created with:
+
+```java
+PasswordEncoderFactories.createDelegatingPasswordEncoder()
+```
+
+By default this creates a `DelegatingPasswordEncoder`. It stores passwords with an algorithm prefix, for example:
+
+```text
+{bcrypt}$2a$10$...
+```
+
+That prefix tells Spring Security which encoder should verify the password later. In our POC, the default encoding algorithm is BCrypt.
+
+Important: passwords are not decoded. Password hashing is one-way. During login, Spring hashes/checks the submitted raw password against the stored hash.
+
+#### 2. Login Request Reaches Auth Service
+
+The client calls:
+
+```http
+POST /auth/login
+```
+
+Auth Service allows `/auth/**` without a token:
+
+```java
+.requestMatchers("/auth/**").permitAll()
+```
+
+That is why login and JWKS can be called before the user has a JWT.
+
+#### 3. Auth Service Loads User Through Feign
+
+`AuthService` calls `UserServiceClient`, which delegates to the Feign `UserClient`.
+
+```java
+User user = userService.loadByUsername(req.username());
+```
+
+Feign calls User Service:
+
+```http
+GET /api/v1/internal/users/username/{username}
+```
+
+User Service returns the user data, stored password hash, and roles.
+
+#### 4. Auth Service Verifies Password
+
+Auth Service does not decode the stored password. It asks Spring Security's `PasswordEncoder` to compare the raw password with the stored hash:
+
+```java
+boolean passwordMatches = passwordEncoder.matches(req.password(), user.password());
+```
+
+Behind the scenes:
+
+1. `DelegatingPasswordEncoder` reads the password prefix, such as `{bcrypt}`.
+2. It selects the matching encoder.
+3. BCrypt checks whether the submitted password matches the stored hash.
+4. If it matches, authentication continues.
+5. If it does not match, Auth Service throws `BadCredentialsException`.
+
+#### 5. Auth Service Builds JWT Claims
+
+After successful password verification, `JwtService` creates claims:
+
+```java
+JwtClaimsSet claims = JwtClaimsSet.builder()
+    .id(UUID.randomUUID().toString())
+    .issuer(issuer)
+    .issuedAt(Instant.now())
+    .expiresAt(Instant.now().plus(1, ChronoUnit.HOURS))
+    .subject(user.username())
+    .claim("roles", user.roles()
+        .stream()
+        .map(Role::roleName)
+        .collect(Collectors.joining(" ")))
+    .build();
+```
+
+In our POC:
+
+- `sub` is the username.
+- `iss` comes from centralized config: `security.jwt.issuer`.
+- `exp` is one hour after token creation.
+- `jti` is a unique token id.
+- `roles` is a space-separated role list, for example `ROLE_ADMIN ROLE_USER`.
+
+#### 6. JwtEncoder Signs The Token
+
+Auth Service signs the token here:
+
+```java
+jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue()
+```
+
+The `JwtEncoder` bean is a `NimbusJwtEncoder`. It is configured with an RSA JWK containing:
+
+- public key
+- private key
+- key id: `key-1`
+
+The private key is used only by Auth Service to sign tokens.
+
+#### 7. Auth Service Exposes JWKS
+
+Auth Service exposes the public key here:
+
+```http
+GET /auth/.well-known/jwks.json
+```
+
+Only the public key is returned:
+
+```java
+new JWKSet(rsaKey.toPublicJWK())
+```
+
+Resource services use this public key to verify JWT signatures. They do not need the private key.
+
+#### 8. Client Calls A Protected API
+
+The client sends the token to API Gateway or directly to a service:
+
+```http
+Authorization: Bearer <jwt>
+```
+
+For example:
+
+```http
+GET /api/v1/orders
+Authorization: Bearer eyJhbGciOiJSUzI1Ni...
+```
+
+#### 9. Spring Security Validates JWT In Resource Services
+
+User, Order, Inventory, and Payment services are configured as OAuth2 resource servers.
+
+They have:
+
+```yaml
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8081/auth/.well-known/jwks.json
+```
+
+They also enable JWT validation in `SecurityFilterChain`:
+
+```java
+.oauth2ResourceServer(oauth -> oauth.jwt(...))
+```
+
+Because of these two things, Spring Boot automatically creates a `JwtDecoder` bean. We do not manually call it in controllers.
+
+Behind the scenes for every protected request:
+
+1. `BearerTokenAuthenticationFilter` reads the bearer token from the `Authorization` header.
+2. `JwtAuthenticationProvider` receives the token.
+3. `JwtAuthenticationProvider` calls the auto-configured `JwtDecoder`.
+4. `JwtDecoder` obtains the public key from Auth Service JWKS.
+5. `JwtDecoder` verifies the JWT signature.
+6. It checks token validity, including expiry.
+7. Spring creates a `JwtAuthenticationToken`.
+8. Spring stores it in `SecurityContext`.
+9. Controller code runs only after the request is authenticated and authorized.
+
+#### 10. Spring Extracts Roles
+
+By default, Spring Security maps `scope` or `scp` claims into authorities like `SCOPE_read`.
+
+Our POC uses a custom `roles` claim, so resource services define a `JwtAuthenticationConverter`:
+
+```java
+JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
+converter.setAuthoritiesClaimName("roles");
+converter.setAuthorityPrefix("");
+```
+
+Because Shopverse roles already include `ROLE_`, for example `ROLE_ADMIN`, we keep the prefix empty.
+
+This turns:
+
+```json
+{
+  "sub": "admin",
+  "roles": "ROLE_ADMIN ROLE_USER"
+}
+```
+
+into authorities:
+
+```text
+ROLE_ADMIN
+ROLE_USER
+```
+
+Then route rules work:
+
+```java
+.requestMatchers("/api/v1/orders/admin/**").hasRole("ADMIN")
+.requestMatchers("/api/v1/orders/**").hasAnyRole("USER", "ADMIN")
+```
+
+`hasRole("ADMIN")` checks for `ROLE_ADMIN` internally.
+
+#### 11. Method Security Uses Same Authentication
+
+Services that use `@EnableMethodSecurity` can also protect methods:
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+```
+
+Method security does not decode the JWT again. It reads the already authenticated `JwtAuthenticationToken` from `SecurityContext` and checks the authorities that were extracted during the filter-chain step.
+
+#### 12. What Spring Does By Default For Us
+
+Spring Boot and Spring Security handle a lot of background wiring:
+
+| Spring Feature | What It Does For Us |
+| --- | --- |
+| `spring-boot-starter-security` | Adds Spring Security filters and default security infrastructure. |
+| `SecurityFilterChain` bean | Replaces old `WebSecurityConfigurerAdapter` style and defines API security rules. |
+| `PasswordEncoderFactories.createDelegatingPasswordEncoder()` | Creates a password encoder that supports `{bcrypt}` and other algorithm prefixes. |
+| `spring-boot-starter-oauth2-resource-server` | Adds JWT bearer-token authentication support. |
+| `jwk-set-uri` property | Lets Boot auto-create a Nimbus `JwtDecoder` for resource services. |
+| `oauth2ResourceServer().jwt()` | Adds bearer-token JWT validation into the filter chain. |
+| `BearerTokenAuthenticationFilter` | Extracts `Authorization: Bearer <token>` automatically. |
+| `JwtAuthenticationProvider` | Authenticates the JWT using `JwtDecoder`. |
+| `SecurityContext` | Stores authenticated user information for the current request. |
+| `@EnableMethodSecurity` | Enables annotations like `@PreAuthorize`. |
+
+#### 13. What We Wrote Ourselves
+
+Shopverse-specific security code is intentionally small:
+
+| Custom Code | Why We Added It |
+| --- | --- |
+| `AuthService` | Custom login flow for the POC. |
+| `UserClient` / `UserServiceClient` | Load user data from User Service through Feign. |
+| `JwtService` | Build Shopverse JWT claims and issue tokens. |
+| `JwtConfig` | Configure RSA key, `JwtEncoder`, `JwtDecoder`, and JWKS key object. |
+| `AuthController.keys()` | Expose public JWKS for other services. |
+| Resource-service `JwtAuthenticationConverter` | Read roles from our custom `roles` claim. |
+| Resource-service authorization rules | Protect APIs by role. |
+
 ### OAuth2 Grant Types
 
 OAuth2 defines different ways for a client to obtain an access token.
@@ -343,7 +610,8 @@ Important role detail:
 - `hasRole('ADMIN')` checks for authority `ROLE_ADMIN`.
 - `hasAuthority('USER_READ')` checks for exact authority `USER_READ`.
 - Spring's default JWT converter usually maps `scope` or `scp` claims into authorities like `SCOPE_read`.
-- Our POC currently writes roles into a custom `roles` claim.
+- Our POC writes roles into a custom `roles` claim.
+- Shopverse role names are stored with the `ROLE_` prefix, for example `ROLE_ADMIN`.
 
 To make method security read the custom `roles` claim, add a JWT authority converter:
 
@@ -352,7 +620,7 @@ To make method security read the custom `roles` claim, add a JWT authority conve
 JwtAuthenticationConverter jwtAuthenticationConverter() {
     JwtGrantedAuthoritiesConverter rolesConverter = new JwtGrantedAuthoritiesConverter();
     rolesConverter.setAuthoritiesClaimName("roles");
-    rolesConverter.setAuthorityPrefix("ROLE_");
+    rolesConverter.setAuthorityPrefix("");
 
     JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
     converter.setJwtGrantedAuthoritiesConverter(rolesConverter);
@@ -373,7 +641,7 @@ With that converter, a JWT claim like:
 ```json
 {
   "sub": "admin",
-  "roles": "ADMIN USER"
+  "roles": "ROLE_ADMIN ROLE_USER"
 }
 ```
 
@@ -391,11 +659,13 @@ Then these checks work:
 @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 ```
 
-For permission-style checks, store permissions in a separate claim and map them without the `ROLE_` prefix. Then use:
+For permission-style checks, store permissions in a separate claim such as `permissions` and map them without the `ROLE_` prefix. Then use:
 
 ```java
 @PreAuthorize("hasAuthority('USER_READ')")
 ```
+
+Current POC tokens include roles, not a separate permissions claim. Permissions are stored in User Service and can be added to the JWT later if we want permission-level method security.
 
 ### Important Spring Security Classes
 
