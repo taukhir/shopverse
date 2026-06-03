@@ -27,8 +27,8 @@ Shopverse is a Spring Boot microservices proof of concept for an e-commerce back
 | Config Server | `8888` | Serves centralized config from `cloud-configs/`. |
 | Discovery Server | `8761` | Eureka registry for service discovery. |
 | API Gateway | `8080` | Public entry point and route forwarder. |
-| Auth Service | `8081` | Authenticates users, signs JWTs, exposes JWKS. |
-| User Service | `8082` | Manages users, roles, permissions, and passwords. |
+| Auth Service | `8081` | Receives login requests, delegates credential validation to User Service, signs JWTs, exposes JWKS. |
+| User Service | `8082` | Manages users, roles, permissions, passwords, and DB-backed Basic credential validation for Auth Service. |
 | Order Service | `8083` | Sample order APIs protected by JWT roles. |
 | Payment Service | `8084` | Payment API placeholder with JWT security and observability. |
 | Inventory Service | `8086` | Inventory API placeholder with JWT security and observability. |
@@ -181,9 +181,16 @@ The default local value is `admin`.
 
 The Auth Service uses asymmetric JWT:
 
+- Auth Service receives `username` and `password` from `/auth/login`.
+- Auth Service calls User Service through OpenFeign using `GET /api/v1/internal/users/authenticated`.
+- Auth Service sends the submitted credentials to User Service with HTTP Basic for this internal login validation call.
+- User Service validates the credentials against its user database using a DB-backed `UserDetailsService`, `DaoAuthenticationProvider`, and `DelegatingPasswordEncoder`.
+- User Service returns authenticated user details and roles without returning the password hash.
 - Auth Service signs tokens with an RSA private key.
 - Resource services validate tokens using the public JWKS endpoint.
 - JWKS endpoint: `http://localhost:8081/auth/.well-known/jwks.json`
+
+Role names must be consistent across User Service seed data, JWT claims, and resource-service rules. If the JWT contains `ROLE_CUSTOMER`, services should check `hasRole("CUSTOMER")`; if a service checks `hasRole("USER")`, the JWT must contain `ROLE_USER`.
 
 Login through the API Gateway:
 

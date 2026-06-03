@@ -51,21 +51,67 @@ The actual client is declared as:
 ```java
 @FeignClient(name = "USER-SERVICE")
 public interface UserClient {
-    @GetMapping("/api/v1/internal/users/username/{username}")
-    User loadByUsername(@PathVariable String username);
+    @GetMapping("/api/v1/internal/users/authenticated")
+    User loadAuthenticatedUser(@RequestHeader("Authorization") String authorization);
 }
 ```
 
 Because the Feign client uses `name = "USER-SERVICE"`, Auth Service does not need a hardcoded User Service host and port. Spring Cloud uses Eureka service discovery and load balancing to resolve a running `USER-SERVICE` instance.
 
+### Why Auth Service Calls A Basic-Protected User Service API
+
+During login, Auth Service receives:
+
+```json
+{
+  "username": "admin",
+  "password": "Admin@123"
+}
+```
+
+Auth Service does not directly query the User Service database and does not manually compare the submitted password with the stored password hash.
+
+Instead, Auth Service delegates credential validation to User Service:
+
+```java
+User user = userService.authenticate(req.username(), req.password());
+```
+
+`UserServiceClient` builds the Basic auth header:
+
+```java
+String credentials = username + ":" + password;
+String encodedCredentials = Base64.getEncoder()
+    .encodeToString(credentials.getBytes(StandardCharsets.UTF_8));
+
+return "Basic " + encodedCredentials;
+```
+
+Then OpenFeign calls:
+
+```http
+GET /api/v1/internal/users/authenticated
+Authorization: Basic base64(username:password)
+```
+
+User Service validates the Basic credentials using its DB-backed `UserDetailsService`, `DaoAuthenticationProvider`, and `DelegatingPasswordEncoder`. If credentials are valid, User Service returns user details and roles without returning the password hash. Auth Service then signs the JWT.
+
+This keeps ownership clear:
+
+| Service | Security Responsibility |
+| --- | --- |
+| User Service | Owns user records, encoded passwords, roles, permissions, and credential validation. |
+| Auth Service | Receives login requests, delegates credential validation, builds JWT claims, signs JWTs, and exposes JWKS. |
+| Resource Services | Validate JWT bearer tokens and enforce role/permission rules. |
+
 ### Login Flow
 
 1. Client calls `POST /auth/login`.
 2. `AuthService` receives the username and password.
-3. `AuthService` calls `UserServiceClient`.
-4. `UserServiceClient` delegates to the OpenFeign `UserClient`.
-5. `UserClient` calls User Service through `GET /api/v1/internal/users/username/{username}`.
-6. Auth Service validates the password.
+3. `UserServiceClient` builds a Basic auth header from the submitted username/password.
+4. `UserClient` calls User Service through `GET /api/v1/internal/users/authenticated`.
+5. User Service validates the Basic credentials against its database.
+6. User Service returns authenticated user details and roles without returning the password hash.
 7. Auth Service signs and returns the JWT.
 
 ### Trace Propagation
@@ -78,6 +124,63 @@ That interceptor reads the current `traceId` and `spanId` from MDC and forwards 
 - B3 headers: `X-B3-TraceId`, `X-B3-SpanId`, `X-B3-Sampled`
 
 This helps Zipkin and Loki connect logs from Auth Service and User Service under the same distributed trace when a login request calls both services.
+
+### Feign Trace And Span Propagation
+
+When Auth Service calls User Service through Feign, we want both services to be visible under the same distributed trace.
+
+Spring/Micrometer puts trace values into SLF4J MDC for the current request:
+
+```text
+traceId=<current-trace-id>
+spanId=<current-span-id>
+```
+
+`FeignTracePropagationConfig` reads those MDC values:
+
+```java
+String traceId = MDC.get("traceId");
+String spanId = MDC.get("spanId");
+```
+
+If both values are present, the Feign `RequestInterceptor` adds tracing headers to the outgoing User Service request.
+
+W3C Trace Context header:
+
+```http
+traceparent: 00-<traceId>-<spanId>-01
+```
+
+B3 headers:
+
+```http
+X-B3-TraceId: <traceId>
+X-B3-SpanId: <spanId>
+X-B3-Sampled: 1
+```
+
+Example:
+
+```http
+traceparent: 00-6a1e660de4db49fe47911954296ecce5-1ee04f11149f6bee-01
+X-B3-TraceId: 6a1e660de4db49fe47911954296ecce5
+X-B3-SpanId: 1ee04f11149f6bee
+X-B3-Sampled: 1
+```
+
+Internal flow:
+
+1. Client calls `POST /auth/login`.
+2. Auth Service receives the request and tracing creates or continues a trace.
+3. Auth Service logs include `[AUTH-SERVICE,<traceId>,<spanId>]`.
+4. Auth Service calls User Service through Feign.
+5. The Feign interceptor copies the trace context into HTTP headers.
+6. User Service receives those headers and continues the same trace.
+7. User Service logs include the same `traceId` with its own span id.
+8. Zipkin shows one distributed trace across Auth Service and User Service.
+9. Loki can query both services by the same `traceId`.
+
+The trace id represents the whole request journey. The span id represents one operation inside that journey. Auth Service and User Service should share the same trace id but usually have different span ids.
 
 ### How To Verify
 
@@ -165,32 +268,36 @@ That is why login and JWKS can be called before the user has a JWT.
 `AuthService` calls `UserServiceClient`, which delegates to the Feign `UserClient`.
 
 ```java
-User user = userService.loadByUsername(req.username());
+User user = userService.authenticate(req.username(), req.password());
 ```
 
-Feign calls User Service:
+Feign calls User Service with HTTP Basic credentials:
 
 ```http
-GET /api/v1/internal/users/username/{username}
+GET /api/v1/internal/users/authenticated
+Authorization: Basic base64(username:password)
 ```
 
-User Service returns the user data, stored password hash, and roles.
+User Service validates the username/password against its database and returns the authenticated user data and roles. The password hash stays inside User Service.
 
-#### 4. Auth Service Verifies Password
+#### 4. User Service Verifies Password
 
-Auth Service does not decode the stored password. It asks Spring Security's `PasswordEncoder` to compare the raw password with the stored hash:
+Auth Service no longer verifies the password itself in this flow. User Service verifies the password through Spring Security HTTP Basic authentication.
 
 ```java
-boolean passwordMatches = passwordEncoder.matches(req.password(), user.password());
+User user = userService.authenticate(req.username(), req.password());
 ```
 
 Behind the scenes:
 
-1. `DelegatingPasswordEncoder` reads the password prefix, such as `{bcrypt}`.
-2. It selects the matching encoder.
-3. BCrypt checks whether the submitted password matches the stored hash.
-4. If it matches, authentication continues.
-5. If it does not match, Auth Service throws `BadCredentialsException`.
+1. Auth Service sends `Authorization: Basic base64(username:password)` to User Service.
+2. User Service's Basic authentication filter extracts the credentials.
+3. `DaoAuthenticationProvider` calls the DB-backed `UserDetailsService`.
+4. `UserDetailsService` loads the user, password hash, roles, and permissions from the User Service database.
+5. `DelegatingPasswordEncoder` reads the password prefix, such as `{bcrypt}`.
+6. BCrypt checks whether the submitted password matches the stored hash.
+7. If credentials are valid, User Service controller returns authenticated user details.
+8. If credentials are invalid, User Service returns `401`, and Auth Service converts that to `BadCredentialsException`.
 
 #### 5. Auth Service Builds JWT Claims
 
@@ -375,7 +482,7 @@ Shopverse-specific security code is intentionally small:
 | Custom Code | Why We Added It |
 | --- | --- |
 | `AuthService` | Custom login flow for the POC. |
-| `UserClient` / `UserServiceClient` | Load user data from User Service through Feign. |
+| `UserClient` / `UserServiceClient` | Send Basic credentials to User Service and receive authenticated user details through Feign. |
 | `JwtService` | Build Shopverse JWT claims and issue tokens. |
 | `JwtConfig` | Configure RSA key, `JwtEncoder`, `JwtDecoder`, and JWKS key object. |
 | `AuthController.keys()` | Expose public JWKS for other services. |
@@ -407,15 +514,14 @@ Common provider examples:
 - `OAuth2LoginAuthenticationProvider`: handles OAuth2 login with external identity providers.
 - Custom provider: useful for OTP, LDAP, API key, or domain-specific authentication.
 
-In this POC, login is handled manually inside `AuthService`:
+In this POC, Auth Service delegates username/password verification to User Service through Basic-authenticated Feign:
 
 ```java
-User user = userService.loadByUsername(req.username());
-boolean passwordMatches = passwordEncoder.matches(req.password(), user.password());
+User user = userService.authenticate(req.username(), req.password());
 return jwtService.generateToken(user);
 ```
 
-For a more standard Spring Security login flow, we could introduce a `UserDetailsService`, a `DaoAuthenticationProvider`, and an `AuthenticationManager`. The current code keeps the flow explicit and simple for the microservices POC.
+User Service uses a DB-backed `UserDetailsService`, `DaoAuthenticationProvider`, and `PasswordEncoder` to validate those Basic credentials. Auth Service stays responsible for issuing the JWT after User Service confirms the credentials.
 
 ### Form Login Authentication
 
@@ -626,10 +732,11 @@ In this Auth Service, we do not currently expose a `UserDetailsService` bean. In
 
 - `UserServiceClient` is our domain service wrapper.
 - `UserClient` is the Feign client that calls `USER-SERVICE`.
-- `AuthService` manually validates the password.
-- `JwtService` creates the token after successful authentication.
+- `AuthService` sends submitted credentials to User Service using internal HTTP Basic.
+- User Service owns the DB-backed `UserDetailsService` and password verification.
+- `JwtService` creates the token after User Service confirms the credentials.
 
-This keeps the POC small while still showing how Auth Service and User Service communicate in a microservice architecture.
+This keeps Auth Service responsible for token issuing while User Service remains the owner of user records, password hashes, roles, and permissions.
 
 ### Asymmetric JWT
 
@@ -813,7 +920,7 @@ Then these checks work:
 
 ```java
 @PreAuthorize("hasRole('ADMIN')")
-@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+@PreAuthorize("hasAnyRole('ADMIN', 'CUSTOMER')")
 ```
 
 For permission-style checks, store permissions in a separate claim such as `permissions` and map them without the `ROLE_` prefix. Then use:
@@ -823,6 +930,225 @@ For permission-style checks, store permissions in a separate claim such as `perm
 ```
 
 Current POC tokens include roles, not a separate permissions claim. Permissions are stored in User Service and can be added to the JWT later if we want permission-level method security.
+
+### Scope Vs Role In JWT
+
+Spring Security treats scopes and roles as authorities, but it maps them differently by default.
+
+#### Scope Claims
+
+OAuth2 access tokens often contain scopes:
+
+```json
+{
+  "sub": "admin",
+  "scope": "openid profile order.read order.write"
+}
+```
+
+or:
+
+```json
+{
+  "sub": "admin",
+  "scp": ["order.read", "order.write"]
+}
+```
+
+By default, Spring's JWT authority converter reads `scope` or `scp` and prefixes each value with `SCOPE_`.
+
+That means:
+
+```text
+order.read
+```
+
+becomes:
+
+```text
+SCOPE_order.read
+```
+
+Then authorization checks look like:
+
+```java
+@PreAuthorize("hasAuthority('SCOPE_order.read')")
+```
+
+or in the filter chain:
+
+```java
+.requestMatchers(HttpMethod.GET, "/api/v1/orders/**").hasAuthority("SCOPE_order.read")
+```
+
+Scopes are useful for OAuth2-style API permissions.
+
+#### Role Claims
+
+Roles usually represent who the user is in the system:
+
+```json
+{
+  "sub": "admin",
+  "roles": "ROLE_ADMIN ROLE_CUSTOMER"
+}
+```
+
+In Spring Security:
+
+```java
+hasRole("ADMIN")
+```
+
+is a shortcut for:
+
+```java
+hasAuthority("ROLE_ADMIN")
+```
+
+So `hasRole("ADMIN")` expects the final authority to be `ROLE_ADMIN`.
+
+#### Why Spring Adds `ROLE_`
+
+Spring Security has historically treated roles as a special kind of authority with a `ROLE_` prefix.
+
+These two checks are equivalent:
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+```
+
+This check is different:
+
+```java
+@PreAuthorize("hasAuthority('ADMIN')")
+```
+
+It only works if the authority is exactly `ADMIN`.
+
+### Bypassing Or Controlling The `ROLE_` Prefix
+
+There are three common approaches.
+
+#### Option 1: Store Roles With `ROLE_` And Use Empty Converter Prefix
+
+This is what Shopverse currently does.
+
+JWT claim:
+
+```json
+{
+  "roles": "ROLE_ADMIN ROLE_CUSTOMER"
+}
+```
+
+Converter:
+
+```java
+@Bean
+JwtAuthenticationConverter jwtAuthenticationConverter() {
+    JwtGrantedAuthoritiesConverter rolesConverter = new JwtGrantedAuthoritiesConverter();
+    rolesConverter.setAuthoritiesClaimName("roles");
+    rolesConverter.setAuthorityPrefix("");
+
+    JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+    converter.setJwtGrantedAuthoritiesConverter(rolesConverter);
+    return converter;
+}
+```
+
+Usage:
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+```
+
+This works because the JWT already contains `ROLE_ADMIN`.
+
+#### Option 2: Store Roles Without `ROLE_` And Add Prefix During Conversion
+
+JWT claim:
+
+```json
+{
+  "roles": "ADMIN CUSTOMER"
+}
+```
+
+Converter:
+
+```java
+@Bean
+JwtAuthenticationConverter jwtAuthenticationConverter() {
+    JwtGrantedAuthoritiesConverter rolesConverter = new JwtGrantedAuthoritiesConverter();
+    rolesConverter.setAuthoritiesClaimName("roles");
+    rolesConverter.setAuthorityPrefix("ROLE_");
+
+    JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+    converter.setJwtGrantedAuthoritiesConverter(rolesConverter);
+    return converter;
+}
+```
+
+Usage:
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+```
+
+This works because Spring converts `ADMIN` from the token into `ROLE_ADMIN`.
+
+#### Option 3: Avoid `hasRole` And Use Exact Authorities
+
+If we do not want Spring's role shortcut behavior, use `hasAuthority(...)`.
+
+JWT claim:
+
+```json
+{
+  "roles": "ADMIN CUSTOMER"
+}
+```
+
+Converter:
+
+```java
+rolesConverter.setAuthoritiesClaimName("roles");
+rolesConverter.setAuthorityPrefix("");
+```
+
+Usage:
+
+```java
+@PreAuthorize("hasAuthority('ADMIN')")
+```
+
+This bypasses Spring's `ROLE_` role convention because we are checking the exact authority string.
+
+#### Optional: Change The Global Role Prefix
+
+Spring also allows changing the global role prefix:
+
+```java
+@Bean
+GrantedAuthorityDefaults grantedAuthorityDefaults() {
+    return new GrantedAuthorityDefaults("");
+}
+```
+
+With this, `hasRole("ADMIN")` no longer adds `ROLE_`.
+
+Use this carefully. It affects role checks globally and can confuse teams if some services use default Spring behavior and others remove the prefix.
+
+Recommended Shopverse POC rule:
+
+- keep DB roles as `ROLE_ADMIN`, `ROLE_CUSTOMER`
+- keep JWT roles as `ROLE_ADMIN ROLE_CUSTOMER`
+- use `setAuthorityPrefix("")`
+- use `hasRole("ADMIN")` or `hasAuthority("ROLE_ADMIN")`
+- keep role names consistent across User Service seed data, JWT claims, and resource-service rules
 
 ### Important Spring Security Classes
 
@@ -840,6 +1166,13 @@ Current POC tokens include roles, not a separate permissions claim. Permissions 
 | `UserDetailsService` | Loads user data for username/password authentication. |
 | `GrantedAuthority` | Represents a role or permission used by authorization checks. |
 | `JwtAuthenticationConverter` | Converts JWT claims into Spring Security authorities. |
+
+### Official References
+
+- [Spring Security Architecture and SecurityFilterChain](https://docs.spring.io/spring-security/reference/servlet/architecture.html)
+- [Spring Security HTTP Basic Authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/basic.html)
+- [Spring Security UserDetailsService](https://docs.enterprise.spring.io/spring-security/reference/servlet/authentication/passwords/user-details-service.html)
+- [Spring Security OAuth2 Resource Server JWT](https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html)
 
 ## Security Concepts
 

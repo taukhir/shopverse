@@ -55,11 +55,13 @@ curl.exe -X POST http://localhost:8083/api/v1/orders/checkout `
   -H "Authorization: Bearer <token>"
 ```
 
-This endpoint is authenticated. It requires `ROLE_USER` or `ROLE_ADMIN` because it is protected by the existing Order Service security rule:
+This endpoint is authenticated. It requires the customer/user role accepted by Order Service or `ROLE_ADMIN`.
 
 ```text
-POST /api/v1/orders/** -> ROLE_USER or ROLE_ADMIN
+POST /api/v1/orders/** -> customer/user role or ROLE_ADMIN
 ```
+
+Role names must match the JWT. If User Service/Auth Service issues `ROLE_CUSTOMER`, Order Service should check `hasRole("CUSTOMER")`. If Order Service checks `hasRole("USER")`, the JWT must contain `ROLE_USER`.
 
 ## Success Flow
 

@@ -28,12 +28,14 @@ The current implementation uses static sample data so the microservices POC can 
 | --- | --- | --- | --- |
 | `GET` | `/api/v1/orders/public/health` | Public | Service health response |
 | `GET` | `/api/v1/orders/public/catalog` | Public | Sample product catalog |
-| `GET` | `/api/v1/orders` | `ROLE_USER` or `ROLE_ADMIN` | Sample current-user orders |
-| `GET` | `/api/v1/orders/{id}` | `ROLE_USER` or `ROLE_ADMIN` | Sample order by ID |
-| `POST` | `/api/v1/orders` | `ROLE_USER` or `ROLE_ADMIN` | Returns a sample created order |
-| `POST` | `/api/v1/orders/checkout` | `ROLE_USER` or `ROLE_ADMIN` | Starts the Kafka choreography SAGA checkout flow |
+| `GET` | `/api/v1/orders` | User/customer role or `ROLE_ADMIN` | Sample current-user orders |
+| `GET` | `/api/v1/orders/{id}` | User/customer role or `ROLE_ADMIN` | Sample order by ID |
+| `POST` | `/api/v1/orders` | User/customer role or `ROLE_ADMIN` | Returns a sample created order |
+| `POST` | `/api/v1/orders/checkout` | User/customer role or `ROLE_ADMIN` | Starts the Kafka choreography SAGA checkout flow |
 | `DELETE` | `/api/v1/orders/{id}` | `ROLE_ADMIN` | Returns a sample delete response |
 | `GET` | `/api/v1/orders/admin/all` | `ROLE_ADMIN` | Sample admin order list |
+
+Role names must match the JWT. If User Service/Auth Service issues `ROLE_CUSTOMER`, configure Order Service checks with `hasRole("CUSTOMER")`. If Order Service checks `hasRole("USER")`, the JWT must contain `ROLE_USER`.
 
 ## Smoke Tests
 

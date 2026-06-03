@@ -16,7 +16,7 @@ public interface UserService {
 
     UserResponse getUser(Long id);
 
-    UserResponse loadUserByUsername(String username);
+    UserResponse loadAuthenticatedUserByUsername(String username);
 
     UserResponse createUser(CreateUserRequest request);
 

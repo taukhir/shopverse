@@ -7,8 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +21,13 @@ public class InternalUserController {
 
     private final UserService userService;
 
-    @GetMapping("/username/{username}")
-    public ResponseEntity<UserResponse> getUserByUsername(@PathVariable String username) {
-        log.info("Internal auth user lookup started username={}", username);
-        UserResponse user = userService.loadUserByUsername(username);
+    @GetMapping("/authenticated")
+    public ResponseEntity<UserResponse> getAuthenticatedUser(Authentication authentication) {
+        String username = authentication.getName();
+        log.info("Internal authenticated user lookup started username={}", username);
+        UserResponse user = userService.loadAuthenticatedUserByUsername(username);
         log.info(
-                "Internal auth user lookup completed username={} userId={} status={} roles={}",
+                "Internal authenticated user lookup completed username={} userId={} status={} roles={}",
                 username,
                 user.id(),
                 user.status(),

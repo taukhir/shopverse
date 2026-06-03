@@ -27,8 +27,9 @@ API Gateway is the public entry point for Shopverse traffic. It routes requests 
 | `/api/v1/users/**` | `USER-SERVICE` |
 | `/api/v1/roles/**` | `USER-SERVICE` |
 | `/api/v1/permissions/**` | `USER-SERVICE` |
-| `/api/v1/internal/users/**` | `USER-SERVICE` |
 | `/auth/**` | `AUTH-SERVICE` |
+
+`/api/v1/internal/users/**` is intentionally not exposed through the public API Gateway route table. Auth Service calls User Service directly through Eureka/OpenFeign for internal Basic credential validation.
 
 ## Useful URLs
 

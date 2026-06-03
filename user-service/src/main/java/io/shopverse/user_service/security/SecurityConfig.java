@@ -4,6 +4,7 @@ import io.shopverse.user_service.constants.ApiConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,21 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
+    @Order(1)
+    public SecurityFilterChain internalUserSecurityFilterChain(HttpSecurity http) throws Exception {
+        http
+                // Keep HTTP Basic scoped to internal credential validation only.
+                .securityMatcher(ApiConstants.INTERNAL_USERS + "/**")
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults());
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
@@ -35,7 +51,7 @@ public class SecurityConfig {
                         // Allow actuator endpoints
                         .requestMatchers("/actuator/**").permitAll()
                         // Public APIs
-                        .requestMatchers(ApiConstants.PUBLIC_API + "/**", ApiConstants.INTERNAL_USERS + "/**",
+                        .requestMatchers(ApiConstants.PUBLIC_API + "/**",
 
                                 ApiConstants.SWAGGER, ApiConstants.SWAGGER_HTML, ApiConstants.OPEN_API).permitAll()
 

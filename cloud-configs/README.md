@@ -35,3 +35,9 @@ Docker Compose mounts this folder into Config Server:
 - log file and trace/span correlation pattern
 
 Service-specific files override or add settings for individual services.
+
+## Gateway Route Boundary
+
+`API-GATEWAY.yml` exposes public client routes such as `/auth/**`, `/api/v1/orders/**`, `/api/v1/users/**`, `/api/v1/roles/**`, and `/api/v1/permissions/**`.
+
+Internal User Service routes such as `/api/v1/internal/users/authenticated` are not routed through API Gateway. Auth Service calls that endpoint directly through Eureka/OpenFeign for internal Basic credential validation during login.

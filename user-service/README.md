@@ -431,6 +431,282 @@ For horizontally scaled production deployments, move rate limiting and cache sta
 - User deletion is soft delete: status becomes `DELETED`, account is disabled, and audit history is retained.
 - Current POC security validates JWTs through the Auth Service JWKS endpoint.
 
+## Internal Login Authentication
+
+Auth Service authenticates login requests by calling User Service with HTTP Basic credentials:
+
+```http
+GET /api/v1/internal/users/authenticated
+Authorization: Basic base64(username:password)
+```
+
+User Service validates those credentials against the user database using a DB-backed `UserDetailsService`, `DaoAuthenticationProvider`, and `DelegatingPasswordEncoder`.
+
+If credentials are valid, User Service returns authenticated user details and roles without returning the password hash. Auth Service then signs the JWT.
+
+This endpoint is intentionally scoped to internal service communication. In production, protect it with internal networking, HTTPS/mTLS, rate limits, and audit logs.
+
+User Service uses two `SecurityFilterChain` beans intentionally:
+
+- Internal user authentication endpoints use HTTP Basic only.
+- Normal user, role, and permission APIs use JWT resource-server security.
+
+Keeping separate chains prevents HTTP Basic from being accepted across all user APIs and keeps JWT authorization rules focused on the public resource API surface.
+
+### Why User Service Has Two Security Filter Chains
+
+User Service handles two different authentication styles:
+
+| Request Type | Example Endpoint | Credential Type | Purpose |
+| --- | --- | --- | --- |
+| Internal login validation | `/api/v1/internal/users/authenticated` | HTTP Basic | Auth Service sends submitted username/password so User Service can validate them against the DB. |
+| Normal resource APIs | `/api/v1/users/**`, `/api/v1/roles/**` | JWT Bearer token | Clients call business APIs after login with the token issued by Auth Service. |
+
+Because these two request types should not share the same authentication behavior, User Service defines two `SecurityFilterChain` beans.
+
+Spring Security checks filter chains by order. The first matching chain handles the request.
+
+```java
+@Bean
+@Order(1)
+public SecurityFilterChain internalUserSecurityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .securityMatcher(ApiConstants.INTERNAL_USERS + "/**")
+        .csrf(AbstractHttpConfigurer::disable)
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+        .httpBasic(Customizer.withDefaults());
+
+    return http.build();
+}
+```
+
+This chain matches only:
+
+```text
+/api/v1/internal/users/**
+```
+
+So the internal credential-validation endpoint accepts HTTP Basic.
+
+The second chain handles the normal User Service APIs:
+
+```java
+@Bean
+@Order(2)
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf(AbstractHttpConfigurer::disable)
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/actuator/**").permitAll()
+            .requestMatchers(ApiConstants.PUBLIC_API + "/**",
+                    ApiConstants.SWAGGER,
+                    ApiConstants.SWAGGER_HTML,
+                    ApiConstants.OPEN_API).permitAll()
+            .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole("USER", "ADMIN")
+            .requestMatchers(ApiConstants.ROLES + "/**").hasRole("ADMIN")
+            .anyRequest().authenticated())
+        .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
+
+    return http.build();
+}
+```
+
+This chain validates JWT bearer tokens for normal APIs.
+
+Keeping the chains separate prevents Basic authentication from becoming valid for every User Service API. That is the main reason we keep two chains.
+
+### How The Internal Basic Authentication Flow Works
+
+Login starts in Auth Service:
+
+```java
+User user = userService.authenticate(req.username(), req.password());
+```
+
+Auth Service builds a Basic auth header:
+
+```java
+String credentials = username + ":" + password;
+String encodedCredentials = Base64.getEncoder()
+    .encodeToString(credentials.getBytes(StandardCharsets.UTF_8));
+
+return "Basic " + encodedCredentials;
+```
+
+Then Auth Service calls User Service:
+
+```http
+GET /api/v1/internal/users/authenticated
+Authorization: Basic base64(username:password)
+```
+
+Inside User Service:
+
+1. Spring Security's Basic authentication filter reads the `Authorization` header.
+2. It extracts the submitted username and password.
+3. `DaoAuthenticationProvider` asks `DatabaseUserDetailsService` to load that username.
+4. `DatabaseUserDetailsService` fetches the user, roles, permissions, password hash, and account flags from MySQL.
+5. Spring Security uses `PasswordEncoder.matches(rawPassword, storedHash)` internally.
+6. If valid, the request reaches `InternalUserController`.
+7. User Service returns user details and roles without returning the password hash.
+8. Auth Service signs the JWT.
+
+### Why DatabaseUserDetailsService Exists
+
+Spring Security does not know how our Shopverse tables are designed. It only knows the `UserDetailsService` contract:
+
+```java
+UserDetails loadUserByUsername(String username)
+```
+
+`DatabaseUserDetailsService` is the adapter between our database model and Spring Security.
+
+```java
+@Service
+@RequiredArgsConstructor
+public class DatabaseUserDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException(
+                "User not found with username: " + username
+            ));
+
+        return org.springframework.security.core.userdetails.User
+            .withUsername(user.getUsername())
+            .password(user.getPassword())
+            .authorities(toAuthorities(user))
+            .accountExpired(!isTrue(user.getAccountNonExpired()))
+            .accountLocked(!isTrue(user.getAccountNonLocked()))
+            .credentialsExpired(!isTrue(user.getCredentialsNonExpired()))
+            .disabled(!isTrue(user.getEnabled()) || user.getStatus() != UserStatus.ACTIVE)
+            .build();
+    }
+}
+```
+
+This class is needed because Basic authentication needs to verify a submitted username/password. The DB-backed `UserDetailsService` gives Spring Security:
+
+- username
+- stored encoded password
+- account status flags
+- roles
+- permissions
+
+Then Spring Security performs password matching for us through `DaoAuthenticationProvider` and `PasswordEncoder`.
+
+### How Roles And Permissions Are Loaded
+
+The repository loads the user together with roles and permissions:
+
+```java
+@EntityGraph(attributePaths = {"roles", "roles.permissions"})
+Optional<User> findByUsername(String username);
+```
+
+Then `DatabaseUserDetailsService` converts roles and permissions into Spring Security authorities:
+
+```java
+private Collection<GrantedAuthority> toAuthorities(User user) {
+    Set<GrantedAuthority> authorities = new LinkedHashSet<>();
+
+    user.getRoles().forEach(role -> {
+        authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        role.getPermissions().forEach(permission ->
+            authorities.add(new SimpleGrantedAuthority(permission.getPermissionName()))
+        );
+    });
+
+    return authorities;
+}
+```
+
+Example authorities:
+
+```text
+ROLE_ADMIN
+ROLE_CUSTOMER
+USER_READ
+USER_WRITE
+ORDER_CANCEL
+```
+
+Roles can be used with:
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+```
+
+Permissions can be used with:
+
+```java
+@PreAuthorize("hasAuthority('USER_READ')")
+```
+
+### Why JwtAuthenticationConverter Exists
+
+The Basic authentication chain is only for login validation. After login, clients call normal APIs with JWT:
+
+```http
+Authorization: Bearer <jwt>
+```
+
+Spring Security can validate the JWT signature using the Auth Service JWKS endpoint. But it also needs to know where roles are stored in the JWT.
+
+Our JWT stores roles in a custom `roles` claim:
+
+```json
+{
+  "sub": "admin",
+  "roles": "ROLE_ADMIN ROLE_CUSTOMER"
+}
+```
+
+By default, Spring Security maps `scope` or `scp` claims into authorities like `SCOPE_read`. Since our token uses `roles`, we provide a converter:
+
+```java
+@Bean
+public JwtAuthenticationConverter jwtAuthenticationConverter() {
+    JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
+    converter.setAuthoritiesClaimName("roles");
+    converter.setAuthorityPrefix("");
+
+    JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+    jwtConverter.setJwtGrantedAuthoritiesConverter(converter);
+
+    return jwtConverter;
+}
+```
+
+`setAuthoritiesClaimName("roles")` tells Spring Security to read authorities from the `roles` claim.
+
+`setAuthorityPrefix("")` tells Spring Security not to add another prefix because our roles already contain `ROLE_`.
+
+Then this route rule works:
+
+```java
+.requestMatchers(ApiConstants.ROLES + "/**").hasRole("ADMIN")
+```
+
+`hasRole("ADMIN")` checks for the authority:
+
+```text
+ROLE_ADMIN
+```
+
+### Official References
+
+- [Spring Security Architecture and SecurityFilterChain](https://docs.spring.io/spring-security/reference/servlet/architecture.html)
+- [Spring Security HTTP Basic Authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/basic.html)
+- [Spring Security UserDetailsService](https://docs.enterprise.spring.io/spring-security/reference/servlet/authentication/passwords/user-details-service.html)
+- [Spring Security OAuth2 Resource Server JWT](https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html)
+
 ## Database Tables
 
 - `users`
@@ -458,7 +734,7 @@ Unit tests cover:
 
 ## Production Follow-Ups
 
-- Replace in-memory Spring Security users with JWT/auth-service integration.
 - Add Testcontainers integration tests for MySQL and Liquibase.
+- Add mTLS or OAuth2 client credentials for internal Auth Service -> User Service authentication.
 - Move cache/rate limit state to Redis for multi-instance deployments.
 - Move secrets to Docker secrets or a secret manager before production.
