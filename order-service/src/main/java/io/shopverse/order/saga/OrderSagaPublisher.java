@@ -21,9 +21,11 @@ public class OrderSagaPublisher {
     private String orderCreatedTopic;
 
     public void publishOrderCreated(OrderResponse order) {
+        String correlationId = "SAGA-" + order.orderNumber();
         OrderCreatedEvent event = new OrderCreatedEvent(
                 order.id(),
                 order.orderNumber(),
+                correlationId,
                 order.customerUsername(),
                 order.items().getFirst().productId(),
                 order.items().getFirst().quantity(),
@@ -34,8 +36,9 @@ public class OrderSagaPublisher {
             String payload = objectMapper.writeValueAsString(event);
             kafkaTemplate.send(orderCreatedTopic, order.orderNumber(), payload);
             log.info(
-                    "Choreography saga started orderNumber={} topic={} payload={}",
+                    "Choreography saga started orderNumber={} correlationId={} topic={} payload={}",
                     order.orderNumber(),
+                    correlationId,
                     orderCreatedTopic,
                     payload
             );

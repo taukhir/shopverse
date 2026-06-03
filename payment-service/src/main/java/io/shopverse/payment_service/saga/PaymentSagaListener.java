@@ -34,8 +34,9 @@ public class PaymentSagaListener {
         try {
             InventoryReservedEvent event = objectMapper.readValue(payload, InventoryReservedEvent.class);
             log.info(
-                    "Choreography saga payment step started orderNumber={} amount={}",
+                    "Choreography saga payment step started orderNumber={} correlationId={} amount={}",
                     event.orderNumber(),
+                    event.correlationId(),
                     event.amount()
             );
 
@@ -47,14 +48,16 @@ public class PaymentSagaListener {
             PaymentCompletedEvent completedEvent = new PaymentCompletedEvent(
                     event.orderId(),
                     event.orderNumber(),
+                    event.correlationId(),
                     "PAY-" + event.orderNumber(),
                     event.amount()
             );
             String completedPayload = objectMapper.writeValueAsString(completedEvent);
             kafkaTemplate.send(paymentCompletedTopic, event.orderNumber(), completedPayload);
             log.info(
-                    "Choreography saga payment completed orderNumber={} topic={} payload={}",
+                    "Choreography saga payment completed orderNumber={} correlationId={} topic={} payload={}",
                     event.orderNumber(),
+                    event.correlationId(),
                     paymentCompletedTopic,
                     completedPayload
             );
@@ -64,12 +67,13 @@ public class PaymentSagaListener {
     }
 
     private void publishPaymentFailed(InventoryReservedEvent event, String reason) throws Exception {
-        PaymentFailedEvent failedEvent = new PaymentFailedEvent(event.orderId(), event.orderNumber(), reason);
+        PaymentFailedEvent failedEvent = new PaymentFailedEvent(event.orderId(), event.orderNumber(), event.correlationId(), reason);
         String failedPayload = objectMapper.writeValueAsString(failedEvent);
         kafkaTemplate.send(paymentFailedTopic, event.orderNumber(), failedPayload);
         log.warn(
-                "Choreography saga payment failed orderNumber={} topic={} reason={}",
+                "Choreography saga payment failed orderNumber={} correlationId={} topic={} reason={}",
                 event.orderNumber(),
+                event.correlationId(),
                 paymentFailedTopic,
                 reason
         );

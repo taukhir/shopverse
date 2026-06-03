@@ -30,8 +30,9 @@ public class InventorySagaListener {
         try {
             OrderCreatedEvent event = objectMapper.readValue(payload, OrderCreatedEvent.class);
             log.info(
-                    "Choreography saga inventory step started orderNumber={} productId={} quantity={}",
+                    "Choreography saga inventory step started orderNumber={} correlationId={} productId={} quantity={}",
                     event.orderNumber(),
+                    event.correlationId(),
                     event.productId(),
                     event.quantity()
             );
@@ -44,6 +45,7 @@ public class InventorySagaListener {
             InventoryReservedEvent reservedEvent = new InventoryReservedEvent(
                     event.orderId(),
                     event.orderNumber(),
+                    event.correlationId(),
                     event.productId(),
                     event.quantity(),
                     event.amount()
@@ -51,8 +53,9 @@ public class InventorySagaListener {
             String reservedPayload = objectMapper.writeValueAsString(reservedEvent);
             kafkaTemplate.send(inventoryReservedTopic, event.orderNumber(), reservedPayload);
             log.info(
-                    "Choreography saga inventory reserved orderNumber={} topic={} payload={}",
+                    "Choreography saga inventory reserved orderNumber={} correlationId={} topic={} payload={}",
                     event.orderNumber(),
+                    event.correlationId(),
                     inventoryReservedTopic,
                     reservedPayload
             );
@@ -69,8 +72,9 @@ public class InventorySagaListener {
         try {
             PaymentFailedEvent event = objectMapper.readValue(payload, PaymentFailedEvent.class);
             log.warn(
-                    "Choreography saga compensation released inventory orderNumber={} reason={}",
+                    "Choreography saga compensation released inventory orderNumber={} correlationId={} reason={}",
                     event.orderNumber(),
+                    event.correlationId(),
                     event.reason()
             );
         } catch (Exception exception) {
@@ -79,12 +83,13 @@ public class InventorySagaListener {
     }
 
     private void publishInventoryFailed(OrderCreatedEvent event, String reason) throws Exception {
-        InventoryFailedEvent failedEvent = new InventoryFailedEvent(event.orderId(), event.orderNumber(), reason);
+        InventoryFailedEvent failedEvent = new InventoryFailedEvent(event.orderId(), event.orderNumber(), event.correlationId(), reason);
         String failedPayload = objectMapper.writeValueAsString(failedEvent);
         kafkaTemplate.send(inventoryFailedTopic, event.orderNumber(), failedPayload);
         log.warn(
-                "Choreography saga inventory failed orderNumber={} topic={} reason={}",
+                "Choreography saga inventory failed orderNumber={} correlationId={} topic={} reason={}",
                 event.orderNumber(),
+                event.correlationId(),
                 inventoryFailedTopic,
                 reason
         );

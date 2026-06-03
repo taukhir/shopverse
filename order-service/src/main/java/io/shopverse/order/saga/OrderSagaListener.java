@@ -21,8 +21,9 @@ public class OrderSagaListener {
         try {
             InventoryFailedEvent event = objectMapper.readValue(payload, InventoryFailedEvent.class);
             log.warn(
-                    "Choreography saga cancelled orderNumber={} reason={} nextAction=MARK_ORDER_REJECTED",
+                    "Choreography saga cancelled orderNumber={} correlationId={} reason={} nextAction=MARK_ORDER_REJECTED",
                     event.orderNumber(),
+                    event.correlationId(),
                     event.reason()
             );
         } catch (Exception exception) {
@@ -38,8 +39,9 @@ public class OrderSagaListener {
         try {
             PaymentCompletedEvent event = objectMapper.readValue(payload, PaymentCompletedEvent.class);
             log.info(
-                    "Choreography saga completed orderNumber={} paymentReference={} amount={} nextAction=MARK_ORDER_CONFIRMED",
+                    "Choreography saga completed orderNumber={} correlationId={} paymentReference={} amount={} nextAction=MARK_ORDER_CONFIRMED",
                     event.orderNumber(),
+                    event.correlationId(),
                     event.paymentReference(),
                     event.amount()
             );
@@ -56,8 +58,9 @@ public class OrderSagaListener {
         try {
             PaymentFailedEvent event = objectMapper.readValue(payload, PaymentFailedEvent.class);
             log.warn(
-                    "Choreography saga cancelled orderNumber={} reason={} nextAction=MARK_ORDER_PAYMENT_FAILED",
+                    "Choreography saga cancelled orderNumber={} correlationId={} reason={} nextAction=MARK_ORDER_PAYMENT_FAILED",
                     event.orderNumber(),
+                    event.correlationId(),
                     event.reason()
             );
         } catch (Exception exception) {
