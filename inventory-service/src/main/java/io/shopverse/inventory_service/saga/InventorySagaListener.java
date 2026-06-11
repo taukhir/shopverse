@@ -7,6 +7,10 @@ import io.shopverse.inventory_service.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.RetryableTopic;
+import org.springframework.kafka.annotation.DltHandler;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import io.shopverse.inventory_service.recovery.FailedKafkaEventService;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -15,9 +19,11 @@ import org.springframework.stereotype.Component;
 public class InventorySagaListener {
 
     private final ObjectMapper objectMapper;
-    private final InventorySagaPublisher publisher;
+    private final InventorySagaTransactionService sagaTransactionService;
     private final InventoryService inventoryService;
+    private final FailedKafkaEventService failedKafkaEventService;
 
+    @RetryableTopic(attempts = "3")
     @KafkaListener(
             topics = "${shopverse.kafka.topics.order-created}",
             groupId = "${spring.application.name}"
@@ -36,31 +42,10 @@ public class InventorySagaListener {
                 event.quantity()
         );
 
-        if (!inventoryService.reserve(
-                event.orderNumber(),
-                event.correlationId(),
-                event.productId(),
-                event.quantity()
-        )) {
-            publisher.publishFailed(new InventoryFailedEvent(
-                    event.orderId(),
-                    event.orderNumber(),
-                    event.correlationId(),
-                    "Inventory not available for product " + event.productId()
-            ));
-            return;
-        }
-
-        publisher.publishReserved(new InventoryReservedEvent(
-                event.orderId(),
-                event.orderNumber(),
-                event.correlationId(),
-                event.productId(),
-                event.quantity(),
-                event.amount()
-        ));
+        sagaTransactionService.handleOrderCreated(event);
     }
 
+    @RetryableTopic(attempts = "3")
     @KafkaListener(
             topics = "${shopverse.kafka.topics.payment-failed}",
             groupId = "${spring.application.name}"
@@ -86,5 +71,17 @@ public class InventorySagaListener {
         } catch (JsonProcessingException exception) {
             throw new IllegalArgumentException("Invalid Kafka event payload for " + eventType.getSimpleName(), exception);
         }
+    }
+
+    @DltHandler
+    public void onDeadLetter(ConsumerRecord<String, String> record) {
+        String sourceTopic = record.topic().replaceFirst("-dlt$", "");
+        failedKafkaEventService.record(
+                sourceTopic,
+                record.value(),
+                "Inventory listener failed after retry policy",
+                3
+        );
+        log.error("Inventory event moved to DLT sourceTopic={} payload={}", sourceTopic, record.value());
     }
 }

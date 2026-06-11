@@ -2,10 +2,7 @@ package io.shopverse.payment_service.saga;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.shopverse.payment_service.entity.PaymentEntity;
-import io.shopverse.payment_service.entity.PaymentStatus;
 import io.shopverse.payment_service.observability.CorrelationContext;
-import io.shopverse.payment_service.service.PaymentService;
 import io.shopverse.payment_service.service.FailedKafkaEventService;
 import io.shopverse.payment_service.config.KafkaTopicsProperties;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +18,7 @@ import org.springframework.stereotype.Component;
 public class PaymentSagaListener {
 
     private final ObjectMapper objectMapper;
-    private final PaymentSagaPublisher publisher;
-    private final PaymentService paymentService;
+    private final PaymentSagaTransactionService sagaTransactionService;
     private final FailedKafkaEventService failedKafkaEventService;
     private final KafkaTopicsProperties topics;
 
@@ -49,46 +45,14 @@ public class PaymentSagaListener {
 
     private void handleInventoryReserved(InventoryReservedEvent event) {
         log.info(
-                "Choreography saga payment step started orderNumber={} correlationId={} amount={}",
+                "Choreography saga payment step started orderNumber={} correlationId={} customer={} amount={}",
                 event.orderNumber(),
                 event.correlationId(),
+                event.customerUsername(),
                 event.amount()
         );
 
-        PaymentEntity payment = paymentService.process(
-                event.orderNumber(),
-                event.correlationId(),
-                event.amount()
-        );
-
-        if (payment.getStatus() == PaymentStatus.DECLINED) {
-            publisher.publishFailed(new PaymentFailedEvent(
-                    event.orderId(),
-                    event.orderNumber(),
-                    event.correlationId(),
-                    payment.getFailureReason()
-            ));
-            return;
-        }
-
-        if (payment.getStatus() == PaymentStatus.TIMED_OUT) {
-            log.warn(
-                    "Payment outcome is uncertain; waiting for reconciliation orderNumber={} correlationId={}",
-                    event.orderNumber(),
-                    event.correlationId()
-            );
-            return;
-        }
-
-        if (payment.getStatus() == PaymentStatus.CAPTURED) {
-            publisher.publishCompleted(new PaymentCompletedEvent(
-                event.orderId(),
-                event.orderNumber(),
-                event.correlationId(),
-                payment.getPaymentReference(),
-                event.amount()
-            ));
-        }
+        sagaTransactionService.handleInventoryReserved(event);
     }
 
     private <T> T readEvent(String payload, Class<T> eventType) {

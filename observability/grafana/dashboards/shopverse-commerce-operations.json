@@ -2,11 +2,25 @@
   "annotations": {"list": []},
   "editable": true,
   "graphTooltip": 1,
+  "links": [
+    {
+      "title": "Explore centralized logs",
+      "type": "link",
+      "url": "/explore?left={\"datasource\":\"Loki\"}",
+      "targetBlank": false
+    },
+    {
+      "title": "Explore distributed traces",
+      "type": "link",
+      "url": "/explore?left={\"datasource\":\"Zipkin\"}",
+      "targetBlank": false
+    }
+  ],
   "panels": [
     {
       "type": "stat",
       "title": "Active SAGAs",
-      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
       "targets": [
         {
           "expr": "sum(increase(shopverse_saga_transitions_total{stage=\"PAYMENT_PROCESSING\"}[1h])) - sum(increase(shopverse_saga_transitions_total{stage=~\"ORDER_CONFIRMED|PAYMENT_FAILED|INVENTORY_REJECTED\"}[1h]))",
@@ -18,7 +32,7 @@
     {
       "type": "timeseries",
       "title": "SAGA Transitions",
-      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
       "targets": [
         {
           "expr": "sum by (stage) (rate(shopverse_saga_transitions_total[5m]))",
@@ -31,7 +45,7 @@
     {
       "type": "timeseries",
       "title": "Payment Outcomes",
-      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
       "targets": [
         {
           "expr": "sum by (status) (rate(shopverse_payment_outcomes_total[5m]))",
@@ -44,7 +58,7 @@
     {
       "type": "timeseries",
       "title": "Inventory Reservation Conflicts",
-      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
       "targets": [
         {
           "expr": "sum by (reason) (increase(shopverse_inventory_reservation_conflicts_total[5m]))",
@@ -57,7 +71,7 @@
     {
       "type": "timeseries",
       "title": "Expired Reservations",
-      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "datasource": {"type": "prometheus", "uid": "Prometheus"},
       "targets": [
         {
           "expr": "increase(shopverse_inventory_reservations_expired_total[5m])",

@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
     Optional<PaymentEntity> findByOrderNumber(String orderNumber);
+
+    boolean existsByOrderNumberAndCustomerUsername(String orderNumber, String customerUsername);
 }

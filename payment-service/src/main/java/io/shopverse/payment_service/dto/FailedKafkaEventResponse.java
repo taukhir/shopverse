@@ -9,6 +9,8 @@ public record FailedKafkaEventResponse(
         String failureReason,
         int retryCount,
         boolean replayed,
+        int replayCount,
+        String lastReplayedBy,
         Instant failedAt,
         Instant replayedAt
 ) {

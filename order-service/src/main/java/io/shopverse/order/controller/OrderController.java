@@ -10,7 +10,6 @@ import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.OrderTimelineResponse;
 import io.shopverse.order.dto.ServiceHealthResponse;
 import io.shopverse.order.observability.CorrelationConstants;
-import io.shopverse.order.saga.OrderSagaPublisher;
 import io.shopverse.order.service.CatalogService;
 import io.shopverse.order.service.OrderService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,6 +26,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 
@@ -46,7 +46,6 @@ public class OrderController {
 
     private final OrderService orderService;
     private final CatalogService catalogService;
-    private final OrderSagaPublisher orderSagaPublisher;
 
     // PUBLIC APIs
 
@@ -84,6 +83,7 @@ public class OrderController {
 
     @GetMapping("/{id}/timeline")
     @Operation(summary = "Get the persisted SAGA timeline for an order")
+    @PreAuthorize("hasRole('ADMIN') or @orderAuthorization.isOwner(#id, authentication.name)")
     public List<OrderTimelineResponse> getTimeline(@PathVariable Long id) {
         return orderService.getTimeline(id);
     }
@@ -111,7 +111,6 @@ public class OrderController {
                 correlationId,
                 idempotencyKey
         );
-        orderSagaPublisher.publishOrderCreated(order, order.correlationId());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(order);

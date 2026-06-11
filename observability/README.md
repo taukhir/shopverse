@@ -8,6 +8,29 @@ Shopverse uses three complementary signals:
 
 Grafana is the visualization and query UI. It does not collect or persist telemetry itself.
 
+## Alerts, SLOs, And Operational Links
+
+Prometheus loads `prometheus-rules.yml`. It records:
+
+- five-minute HTTP availability
+- five-minute p95 latency by application
+- checkout failure rate
+
+Provisioned alerts detect a service down for two minutes, availability below
+99%, p95 latency above one second, outbox publication failures, and new Kafka
+DLT events.
+
+```promql
+shopverse:http_requests:availability_5m
+shopverse:http_requests:p95_seconds_5m
+sum(increase(shopverse_outbox_publish_total{outcome="failed"}[5m]))
+sum by (service) (increase(shopverse_kafka_dlt_events_total[10m]))
+```
+
+Grafana Loki derived fields make JSON `traceId` values clickable into Zipkin.
+`correlationId` values link back to a Loki Explore query across all services.
+The commerce dashboard also provides direct Explore links for logs and traces.
+
 ![Shopverse observability flow](../assets/shopverse-observability-flow.svg)
 
 ## Structured JSON Logging

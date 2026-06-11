@@ -33,6 +33,17 @@ Repositories return entities only inside the service layer. Controllers expose i
 | `POST` | `/api/v1/orders/checkout` | Customer/Admin | Persist order and start SAGA |
 | `DELETE` | `/api/v1/orders/{id}` | Admin | Cancel order |
 | `GET` | `/api/v1/orders/admin/all` | Admin | All orders |
+| `GET` | `/api/v1/orders/admin/dead-letters` | Admin | Persisted exhausted consumer events |
+| `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | Admin | Audit and queue replay |
+
+Timeline access uses method security:
+
+```java
+@PreAuthorize("hasRole('ADMIN') or @orderAuthorization.isOwner(#id, authentication.name)")
+```
+
+A customer can read only their own timeline. Method-security integration tests
+cover the owner, another customer, and an administrator.
 
 Checkout request:
 
@@ -165,7 +176,23 @@ public List<CatalogItemResponse> getCatalog() {
 
 The Feign interceptor propagates `X-Correlation-Id`. Micrometer instrumentation propagates W3C trace context.
 
-After the order transaction commits, `KafkaTemplate.send(...)` schedules `shopverse.order.created`. It already returns a `CompletableFuture`, so adding `@Async` would only add another executor without improving Kafka delivery semantics. Consumers use `@KafkaListener`; listener concurrency should be controlled by Kafka partitions and container concurrency.
+Checkout persists the order, timeline row, and `OrderCreatedEvent` outbox row in
+one transaction. A scheduled dispatcher later publishes committed outbox rows.
+Consumers use `@KafkaListener`; listener concurrency is controlled by Kafka
+partitions and container concurrency.
+
+## Transaction Boundaries And Rollback
+
+- `checkout`: order, items, first timeline row, and outbox row commit together.
+- `markInventoryReservedAndPaymentProcessing`: both state/timeline transitions
+  commit together.
+- Listener failures roll back their JPA transaction and are retried by Kafka.
+- Outbox serialization uses `Propagation.MANDATORY`; calling it outside a
+  domain transaction fails immediately.
+- The dispatcher uses `REQUIRES_NEW` and a pessimistic row lock per event.
+- Kafka failure leaves the row `PENDING`, increments `publishAttempts`, and
+  records `lastError`; the next scan retries it.
+- Kafka delivery is at-least-once. Consumer idempotency remains mandatory.
 
 SAGA outcomes update persisted order state:
 
@@ -175,7 +202,8 @@ PENDING_INVENTORY -> INVENTORY_REJECTED
 PENDING_INVENTORY -> PAYMENT_FAILED
 ```
 
-For a stricter production design, use a transactional outbox so database persistence and event publication cannot diverge.
+Published outbox rows are retained for audit. Retention/archival is a planned
+operational improvement.
 
 ## Resilience, Caching, And Threads
 

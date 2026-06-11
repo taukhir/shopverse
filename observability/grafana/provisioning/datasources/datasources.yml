@@ -13,6 +13,15 @@ datasources:
     type: loki
     access: proxy
     url: http://loki:3100
+    jsonData:
+      derivedFields:
+        - name: TraceID
+          matcherRegex: '"traceId":"([a-fA-F0-9]+)"'
+          datasourceUid: Zipkin
+          url: '$${__value.raw}'
+        - name: CorrelationID
+          matcherRegex: '"correlationId":"([^"]+)"'
+          url: '/explore?left={"datasource":"Loki","queries":[{"expr":"{application=~\".+\"} | json | correlationId=\"$${__value.raw}\""}]}'
 
   - name: Zipkin
     uid: Zipkin

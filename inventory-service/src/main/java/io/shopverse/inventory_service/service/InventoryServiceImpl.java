@@ -10,7 +10,8 @@ import io.shopverse.inventory_service.exception.ResourceNotFoundException;
 import io.shopverse.inventory_service.repository.InventoryItemRepository;
 import io.shopverse.inventory_service.repository.InventoryReservationRepository;
 import io.shopverse.inventory_service.saga.InventoryFailedEvent;
-import io.shopverse.inventory_service.saga.InventorySagaPublisher;
+import io.shopverse.inventory_service.config.KafkaTopicsProperties;
+import io.shopverse.inventory_service.outbox.OutboxService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -32,7 +33,8 @@ public class InventoryServiceImpl implements InventoryService {
     private final InventoryItemRepository itemRepository;
     private final InventoryReservationRepository reservationRepository;
     private final InventoryProperties inventoryProperties;
-    private final InventorySagaPublisher sagaPublisher;
+    private final OutboxService outboxService;
+    private final KafkaTopicsProperties topics;
     private final MeterRegistry meterRegistry;
 
     @Override
@@ -122,12 +124,21 @@ public class InventoryServiceImpl implements InventoryService {
         expired.forEach(reservation -> {
             findItem(reservation.getProductId()).release(reservation.getQuantity());
             reservation.expire();
-            sagaPublisher.publishFailed(new InventoryFailedEvent(
+            InventoryFailedEvent event = new InventoryFailedEvent(
                     null,
                     reservation.getOrderNumber(),
                     reservation.getCorrelationId(),
                     "Inventory reservation expired before payment completed"
-            ));
+            );
+            outboxService.enqueue(
+                    "INVENTORY_RESERVATION",
+                    reservation.getOrderNumber(),
+                    InventoryFailedEvent.class.getSimpleName(),
+                    topics.inventoryFailed(),
+                    reservation.getOrderNumber(),
+                    event,
+                    reservation.getCorrelationId()
+            );
             meterRegistry.counter("shopverse.inventory.reservations.expired").increment();
             log.atWarn()
                     .addKeyValue("orderNumber", reservation.getOrderNumber())

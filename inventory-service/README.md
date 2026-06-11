@@ -20,6 +20,8 @@ Inventory Service owns product stock and idempotent SAGA reservations. It uses M
 | `GET` | `/api/v1/inventory/public/items` | Public | Product availability catalog |
 | `GET` | `/api/v1/inventory/{productId}` | Customer/Admin | Product stock |
 | `PUT` | `/api/v1/inventory/admin/items` | Admin | Create or replace stock |
+| `GET` | `/api/v1/inventory/admin/dead-letters` | Admin | Persisted exhausted consumer events |
+| `POST` | `/api/v1/inventory/admin/dead-letters/{id}/replay` | Admin | Audit and queue replay |
 
 Admin request:
 
@@ -129,7 +131,20 @@ shopverse.payment.failed
   -> release the persisted reservation
 ```
 
-Consumers use `@KafkaListener`. Producers use the asynchronous `KafkaTemplate.send(...)` future. An extra `@Async` layer is intentionally avoided because Kafka listener containers and producer I/O already execute asynchronously.
+Consumers use `@KafkaListener`. Outbox dispatchers call
+`KafkaTemplate.send(...)` and wait for broker acknowledgement before marking a
+row published. An extra `@Async` layer is intentionally avoided because the
+scheduled dispatcher and Kafka client already provide the required separation.
+
+Inventory outcomes now use a transactional outbox. Stock/reservation changes
+and `inventory.reserved` or `inventory.failed` are inserted in one MySQL
+transaction. Reservation expiry releases stock, marks the reservation expired,
+and inserts its compensation event atomically.
+
+The dispatcher publishes committed rows in `REQUIRES_NEW` transactions and
+locks each row before sending. A failed send keeps the row pending for retry.
+Exhausted incoming Kafka events are persisted and can be replayed through the
+admin API; replay count, actor, and timestamp are audited.
 
 The event correlation ID is installed in MDC while each record is processed, so JSON logs from Inventory can be joined with Order and Payment logs.
 

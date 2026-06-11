@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PaymentService {
 
-    PaymentEntity process(String orderNumber, String correlationId, BigDecimal amount);
+    PaymentEntity process(String orderNumber, String correlationId, String customerUsername, BigDecimal amount);
 
     PaymentResponse reconcile(String orderNumber);
 

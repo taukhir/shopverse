@@ -3,3 +3,7 @@ databaseChangeLog:
       file: db/changelog/001-create-payment-schema.yml
   - include:
       file: db/changelog/002-failed-kafka-events.yml
+  - include:
+      file: db/changelog/003-payment-owner.yml
+  - include:
+      file: db/changelog/004-outbox-and-replay-audit.yml
