@@ -43,6 +43,9 @@ RequestInterceptor correlationIdRequestInterceptor() {
 
 Micrometer propagates W3C trace headers independently. The interceptor preserves the business correlation ID.
 
+The full request-filter, MDC, Feign, Kafka, and trace flow is documented in
+[MDC, correlation IDs, and tracing](../observability/MDC-CORRELATION-TRACING.md#end-to-end-propagation).
+
 ## Error And Resilience Rules
 
 - Put `@Retry` and `@CircuitBreaker` on the service method that owns the remote operation, not on the Feign interface.

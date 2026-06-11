@@ -6,11 +6,11 @@ This directory is the canonical documentation set for Shopverse. Service READMEs
 
 | Guide | Purpose |
 |---|---|
-| [System design](architecture/SYSTEM-DESIGN.md) | Services, databases, events, architecture, data model, and end-to-end flows |
-| [Features and demos](reference/FEATURES-AND-DEMOS.md) | Implemented features, current limitations, and demonstration steps |
+| [System design](architecture/SYSTEM-DESIGN.md) | Context, runtime, authentication, SAGA, outbox, events, states, ERDs, deployment, and observability diagrams |
+| [Features and demos](reference/FEATURES-AND-DEMOS.md) | Implementation evidence, code examples, limitations, and complete demonstration steps |
 | [API guide](development/API-GUIDE.md) | Shopverse authentication, important endpoints, and POC demo |
 | [Generic REST API design](development/REST-API-GENERIC.md) | HTTP semantics, contracts, security, idempotency, and production practices |
-| [Debugging guide](development/DEBUGGING.md) | Symptom-based investigation using Docker, logs, metrics, Kafka, and databases |
+| [Debugging guide](development/DEBUGGING.md) | Evidence-first runbooks for security, routing, databases, Kafka, SAGA, and observability |
 | [Testing strategy](development/TESTING.md) | Unit, integration, Testcontainers, E2E, and bounded verification modes |
 | [Code cross-check](reference/CODE-CROSS-CHECK.md) | Confirmed behavior, documentation decisions, and remaining gaps |
 | [API Gateway](development/API-GATEWAY-GENERIC.md) | Generic gateway architecture and the reactive Shopverse filter chain |
@@ -38,7 +38,8 @@ This directory is the canonical documentation set for Shopverse. Service READMEs
 - [Observability architecture](observability/OBSERVABILITY.md)
 - [Micrometer metrics](observability/MICROMETER-METRICS.md)
 - [Prometheus](observability/PROMETHEUS.md)
-- [Loki and Promtail](observability/LOKI-PROMTAIL.md)
+- [Loki](observability/LOKI.md)
+- [Promtail](observability/PROMTAIL.md)
 - [Grafana](observability/GRAFANA.md)
 
 ## Spring And Data

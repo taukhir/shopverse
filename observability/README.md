@@ -1,6 +1,16 @@
 # Shopverse Observability
 
-This file documents deployment files and operational commands. Canonical concept guides are indexed under [docs/observability](../docs/README.md), including dedicated Prometheus, Loki/Promtail, Grafana, structured logging, and tracing documentation.
+This file documents deployment files and operational commands. Canonical
+concept guides are indexed under [docs/observability](../docs/README.md),
+including dedicated [Prometheus](../docs/observability/PROMETHEUS.md),
+[Loki](../docs/observability/LOKI.md),
+[Promtail](../docs/observability/PROMTAIL.md),
+[Grafana](../docs/observability/GRAFANA.md), structured logging, and tracing
+documentation.
+
+Promtail is still used by this POC, but it reached upstream end of life on
+March 2, 2026. Use the Promtail guide for the implemented flow and the planned
+Grafana Alloy migration direction.
 
 Shopverse uses three complementary signals:
 

@@ -387,5 +387,6 @@ distributed timing and call relationships.
 
 - [Shopverse structured logging](STRUCTURED-LOGGING.md)
 - [MDC](MDC-GENERIC.md)
-- [Loki and Promtail](LOKI-PROMTAIL.md)
+- [Loki](LOKI.md)
+- [Promtail](PROMTAIL.md)
 - [Grafana](GRAFANA.md)

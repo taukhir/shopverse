@@ -355,6 +355,10 @@ propagate it through Feign calls or Kafka events.
 Caller-provided correlation IDs should be validated for length and allowed
 characters before being copied into logs and downstream headers.
 
+For the complete Shopverse flow from gateway header creation through servlet
+MDC, Feign forwarding, Kafka events, and trace propagation, see
+[MDC, correlation IDs, and tracing](../observability/MDC-CORRELATION-TRACING.md#end-to-end-propagation).
+
 ## Duration Measurement
 
 The filter uses a monotonic clock:
