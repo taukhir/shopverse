@@ -8,7 +8,6 @@ public record User(
         Long id,
         String uuid,
         String username,
-        String password,
         String email,
         String firstName,
         String lastName,

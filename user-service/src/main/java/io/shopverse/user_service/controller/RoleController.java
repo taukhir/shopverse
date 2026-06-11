@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -44,6 +45,7 @@ public class RoleController {
     private final RoleService roleService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<PageResponse<RoleResponse>> getRoles(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -67,11 +69,13 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<RoleResponse>> getRole(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.success("Role fetched successfully", roleService.getRole(id)));
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<RoleResponse>> createRole(@Valid @RequestBody CreateRoleRequest request) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -79,6 +83,7 @@ public class RoleController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<RoleResponse>> updateRole(
             @PathVariable Long id,
             @Valid @RequestBody UpdateRoleRequest request
@@ -87,6 +92,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRole(@PathVariable Long id) {
         roleService.deleteRole(id);

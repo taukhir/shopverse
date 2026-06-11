@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-failed-kafka-events
+      author: shopverse
+      changes:
+        - createTable:
+            tableName: failed_kafka_events
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: source_topic
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: payload
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: failure_reason
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: retry_count
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: replayed
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: failed_at
+                  type: TIMESTAMP(6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: replayed_at
+                  type: TIMESTAMP(6)

@@ -1,17 +1,13 @@
 package io.shopverse.order.security;
 
-import io.shopverse.order.model.Permissions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver;
@@ -25,7 +21,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity http) throws Exception {
+            HttpSecurity http,
+            JwtAuthenticationConverter jwtAuthenticationConverter
+    ) throws Exception {
 
         http
 
@@ -52,8 +50,15 @@ public class SecurityConfig {
                          * Public APIs
                          */
                         .requestMatchers(
-                                "/actuator/**",
-                                "/api/v1/orders/public/**"
+                                "/api/v1/orders/public/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**"
+                        ).permitAll()
+                        .requestMatchers(
+                                "/actuator/health",
+                                "/actuator/health/**",
+                                "/actuator/info",
+                                "/actuator/prometheus"
                         ).permitAll()
 
                         /*
@@ -71,7 +76,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/v1/orders/**"
-                        ).hasAnyRole("USER", "ADMIN")
+                        ).hasAnyRole("CUSTOMER", "ADMIN")
 
                         /*
                          * Write APIs
@@ -79,7 +84,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/api/v1/orders/**"
-                        ).hasAnyRole("USER", "ADMIN")
+                        ).hasAnyRole("CUSTOMER", "ADMIN")
 
                         /*
                          * Update APIs
@@ -87,7 +92,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.PUT,
                                 "/api/v1/orders/**"
-                        ).hasAnyRole("USER", "ADMIN")
+                        ).hasAnyRole("CUSTOMER", "ADMIN")
 
                         /*
                          * Patch APIs
@@ -95,7 +100,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 HttpMethod.PATCH,
                                 "/api/v1/orders/**"
-                        ).hasAnyRole("USER", "ADMIN")
+                        ).hasAnyRole("CUSTOMER", "ADMIN")
 
                         /*
                          * Delete APIs
@@ -115,7 +120,7 @@ public class SecurityConfig {
                 // JWT Resource Server
                 .oauth2ResourceServer(oauth ->
                         oauth.bearerTokenResolver(publicEndpointBearerTokenResolver())
-                                .jwt(Customizer.withDefaults())
+                                .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter))
                 );
 
         return http.build();
@@ -127,11 +132,17 @@ public class SecurityConfig {
 
         return request -> {
             String path = request.getRequestURI();
-            if (path.startsWith("/api/v1/orders/public/") || path.startsWith("/actuator/")) {
+            if (path.startsWith("/api/v1/orders/public/") || isPublicActuatorEndpoint(path)) {
                 return null;
             }
             return delegate.resolve(request);
         };
+    }
+
+    private boolean isPublicActuatorEndpoint(String path) {
+        return path.startsWith("/actuator/health")
+                || path.equals("/actuator/info")
+                || path.equals("/actuator/prometheus");
     }
 
     @Bean
@@ -151,11 +162,4 @@ public class SecurityConfig {
 
         return jwtConverter;
     }
-
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
 }

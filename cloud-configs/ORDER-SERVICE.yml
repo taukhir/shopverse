@@ -2,8 +2,52 @@ server:
   port: ${SERVER_PORT:8083}
 
 spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3307/order_service}
+    username: ${DB_USERNAME:ahmed}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yml
+  cache:
+    type: simple
   security:
     oauth2:
       resourceserver:
         jwt:
           jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/auth/.well-known/jwks.json}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,refresh
+
+resilience4j:
+  ratelimiter:
+    instances:
+      order-api:
+        limit-for-period: ${ORDER_RATE_LIMIT:100}
+        limit-refresh-period: 1s
+        timeout-duration: 0
+  bulkhead:
+    instances:
+      order-api:
+        max-concurrent-calls: ${ORDER_MAX_CONCURRENT_CALLS:100}
+        max-wait-duration: 0
+  retry:
+    instances:
+      inventory-client:
+        max-attempts: 3
+        wait-duration: 200ms
+  circuitbreaker:
+    instances:
+      inventory-client:
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s

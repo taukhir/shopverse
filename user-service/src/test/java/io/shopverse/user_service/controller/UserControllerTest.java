@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.lang.reflect.Method;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.containsString;
@@ -126,31 +125,8 @@ class UserControllerTest {
 
     @Test
     void userEndpointsUseAnnotationBasedResilience() throws Exception {
-        Method getUser = UserController.class.getMethod("getUser", Long.class);
-        Method createUser = UserController.class.getMethod("createUser", CreateUserRequest.class);
-
-        assertResilienceAnnotations(getUser);
-        assertResilienceAnnotations(createUser);
-    }
-
-    private static UserResponse userResponse() {
-        return new UserResponse(
-                1L,
-                "user-uuid-1",
-                "ahmed",
-                null,
-                "ahmed@example.com",
-                "Ahmed",
-                "Khan",
-                "+919876543210",
-                UserStatus.ACTIVE,
-                Set.of()
-        );
-    }
-
-    private static void assertResilienceAnnotations(Method method) {
-        RateLimiter rateLimiter = method.getAnnotation(RateLimiter.class);
-        Bulkhead bulkhead = method.getAnnotation(Bulkhead.class);
+        RateLimiter rateLimiter = UserController.class.getAnnotation(RateLimiter.class);
+        Bulkhead bulkhead = UserController.class.getAnnotation(Bulkhead.class);
 
         org.assertj.core.api.Assertions.assertThat(rateLimiter).isNotNull();
         org.assertj.core.api.Assertions.assertThat(rateLimiter.name())
@@ -161,4 +137,19 @@ class UserControllerTest {
         org.assertj.core.api.Assertions.assertThat(bulkhead.type())
                 .isEqualTo(Bulkhead.Type.SEMAPHORE);
     }
+
+    private static UserResponse userResponse() {
+        return new UserResponse(
+                1L,
+                "user-uuid-1",
+                "ahmed",
+                "ahmed@example.com",
+                "Ahmed",
+                "Khan",
+                "+919876543210",
+                UserStatus.ACTIVE,
+                Set.of()
+        );
+    }
+
 }

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-reservation-expiry
+      author: shopverse
+      changes:
+        - addColumn:
+            tableName: inventory_reservations
+            columns:
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP(6)
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: inventory_reservations
+            indexName: idx_inventory_reservation_expiry
+            columns:
+              - column:
+                  name: status
+              - column:
+                  name: expires_at

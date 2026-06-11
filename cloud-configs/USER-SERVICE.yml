@@ -9,7 +9,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3307/user_service}
     username: ${DB_USERNAME:ahmed}
-    password: ${DB_PASSWORD:Ahm3d@123}
+    password: ${DB_PASSWORD}
     driver-class-name: ${DB_DRIVER:com.mysql.cj.jdbc.Driver}
 
   jpa:
@@ -18,6 +18,8 @@ spring:
     properties:
       hibernate:
         format_sql: ${HIBERNATE_FORMAT_SQL:false}
+        default_batch_fetch_size: ${HIBERNATE_DEFAULT_BATCH_FETCH_SIZE:50}
+    open-in-view: false
     show-sql: ${JPA_SHOW_SQL:false}
 
   security:
@@ -57,3 +59,9 @@ resilience4j:
       user-service-lookup-retry:
         max-attempts: ${LOOKUP_RETRY_MAX_ATTEMPTS:3}
         wait-duration: ${LOOKUP_RETRY_WAIT_DURATION:100ms}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,refresh

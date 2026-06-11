@@ -6,6 +6,19 @@ spring:
     gateway:
       server:
         webflux:
+          default-filters:
+            - name: CircuitBreaker
+              args:
+                name: gateway-downstream
+            - name: Retry
+              args:
+                retries: 2
+                methods:
+                  - GET
+                statuses:
+                  - BAD_GATEWAY
+                  - SERVICE_UNAVAILABLE
+                  - GATEWAY_TIMEOUT
           discovery:
             locator:
               enabled: true
@@ -31,3 +44,17 @@ spring:
               uri: lb://USER-SERVICE
               predicates:
                 - Path=/api/v1/users/**,/api/v1/roles/**,/api/v1/permissions/**
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/auth/.well-known/jwks.json}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      gateway-downstream:
+        sliding-window-size: 20
+        minimum-number-of-calls: 10
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s

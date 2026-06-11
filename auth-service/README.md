@@ -22,9 +22,7 @@ Auth Service authenticates users, issues asymmetric JWTs, and exposes JWKS publi
 | Method | Endpoint | Description |
 | --- | --- | --- |
 | `POST` | `/auth/login` | Authenticate and return JWT |
-| `GET` | `/auth/login` | Compatibility login endpoint |
 | `GET` | `/auth/.well-known/jwks.json` | Public JWKS keys |
-| `GET` | `/auth/verify` | Simple protected verification endpoint |
 | `GET` | `/actuator/health` | Service health |
 | `GET` | `/actuator/prometheus` | Prometheus metrics |
 
@@ -35,6 +33,18 @@ curl.exe -X POST http://localhost:8081/auth/login `
   -H "Content-Type: application/json" `
   -d "{\"username\":\"admin\",\"password\":\"Admin@123\"}"
 ```
+
+Response:
+
+```json
+{
+  "token": "<signed-jwt>"
+}
+```
+
+The token contains issuer, subject, issued/expiry timestamps, roles, and
+permissions. Passwords are used only for credential validation and are never
+placed in the JWT or application logs.
 
 ## Feign Client To User Service
 
@@ -116,14 +126,9 @@ This keeps ownership clear:
 
 ### Trace Propagation
 
-Auth Service also has a Feign request interceptor in `FeignTracePropagationConfig`.
+Auth Service includes `feign-micrometer`. Spring Cloud OpenFeign therefore integrates the client call with Micrometer Observation and the configured tracing bridge. The tracing stack creates a Feign client span and propagates standard trace context to User Service without a custom MDC/header interceptor.
 
-That interceptor reads the current `traceId` and `spanId` from MDC and forwards them to User Service using:
-
-- W3C `traceparent`
-- B3 headers: `X-B3-TraceId`, `X-B3-SpanId`, `X-B3-Sampled`
-
-This helps Zipkin and Loki connect logs from Auth Service and User Service under the same distributed trace when a login request calls both services.
+This keeps Zipkin spans and Loki logs connected under the same trace while avoiding manual `traceparent` and B3 header construction.
 
 ### Feign Trace And Span Propagation
 
@@ -136,14 +141,7 @@ traceId=<current-trace-id>
 spanId=<current-span-id>
 ```
 
-`FeignTracePropagationConfig` reads those MDC values:
-
-```java
-String traceId = MDC.get("traceId");
-String spanId = MDC.get("spanId");
-```
-
-If both values are present, the Feign `RequestInterceptor` adds tracing headers to the outgoing User Service request.
+OpenFeign's Micrometer capability creates the client observation and delegates propagation to the configured tracing bridge.
 
 W3C Trace Context header:
 
@@ -503,7 +501,7 @@ Then route rules work:
 
 `hasRole("ADMIN")` checks for `ROLE_ADMIN` internally.
 
-Role names must stay consistent across User Service seed data, JWT claims, and resource-service security rules. If the database stores `ROLE_CUSTOMER`, then APIs should check `hasRole("CUSTOMER")`. If an API checks `hasRole("USER")`, the JWT must contain `ROLE_USER`.
+Role names are aligned across User Service seed data, JWT claims, and resource-service rules: customer APIs accept `ROLE_CUSTOMER`, and administrator APIs accept `ROLE_ADMIN`.
 
 #### 11. Method Security Uses Same Authentication
 
@@ -744,7 +742,8 @@ Current Auth Service behavior:
 ```java
 http.csrf(AbstractHttpConfigurer::disable)
     .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/actuator/**").permitAll()
+        .requestMatchers("/actuator/health", "/actuator/health/**",
+                "/actuator/info", "/actuator/prometheus").permitAll()
         .requestMatchers("/auth/**").permitAll()
         .anyRequest().authenticated())
     .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
@@ -756,7 +755,7 @@ What each part does:
 | Configuration | Meaning |
 | --- | --- |
 | `csrf(...disable)` | Disables CSRF protection because this API is stateless and does not use browser sessions. |
-| `/actuator/** permitAll` | Allows health and metrics endpoints. |
+| Selected actuator endpoints | Allows health, info, and Prometheus metrics without exposing administrative actuator operations. |
 | `/auth/** permitAll` | Allows login and JWKS endpoints without a token. |
 | `anyRequest().authenticated()` | Requires authentication for all other endpoints. |
 | `oauth2ResourceServer(...jwt...)` | Enables bearer-token JWT validation. |

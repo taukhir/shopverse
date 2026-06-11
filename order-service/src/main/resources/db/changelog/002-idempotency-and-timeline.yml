@@ -1,0 +1,58 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-order-idempotency
+      author: shopverse
+      changes:
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: idempotency_key
+                  type: VARCHAR(100)
+                  defaultValueComputed: UUID()
+                  constraints:
+                    nullable: false
+                    unique: true
+        - createTable:
+            tableName: order_timeline_events
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_number
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: correlation_id
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stage
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: detail
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: occurred_at
+                  type: TIMESTAMP(6)
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: order_timeline_events
+            indexName: idx_order_timeline_order_time
+            columns:
+              - column:
+                  name: order_number
+              - column:
+                  name: occurred_at

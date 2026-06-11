@@ -1,11 +1,12 @@
 package io.shopverse.inventory_service.saga;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.shopverse.inventory_service.observability.CorrelationContext;
+import io.shopverse.inventory_service.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -13,55 +14,51 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class InventorySagaListener {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
-
-    @Value("${shopverse.kafka.topics.inventory-reserved}")
-    private String inventoryReservedTopic;
-
-    @Value("${shopverse.kafka.topics.inventory-failed}")
-    private String inventoryFailedTopic;
+    private final InventorySagaPublisher publisher;
+    private final InventoryService inventoryService;
 
     @KafkaListener(
             topics = "${shopverse.kafka.topics.order-created}",
             groupId = "${spring.application.name}"
     )
     public void onOrderCreated(String payload) {
-        try {
-            OrderCreatedEvent event = objectMapper.readValue(payload, OrderCreatedEvent.class);
-            log.info(
-                    "Choreography saga inventory step started orderNumber={} correlationId={} productId={} quantity={}",
-                    event.orderNumber(),
-                    event.correlationId(),
-                    event.productId(),
-                    event.quantity()
-            );
+        OrderCreatedEvent event = readEvent(payload, OrderCreatedEvent.class);
+        CorrelationContext.run(event.correlationId(), () -> handleOrderCreated(event));
+    }
 
-            if (event.productId() == 103L || event.quantity() > 5) {
-                publishInventoryFailed(event, "Inventory not available for product " + event.productId());
-                return;
-            }
+    private void handleOrderCreated(OrderCreatedEvent event) {
+        log.info(
+                "Choreography saga inventory step started orderNumber={} correlationId={} productId={} quantity={}",
+                event.orderNumber(),
+                event.correlationId(),
+                event.productId(),
+                event.quantity()
+        );
 
-            InventoryReservedEvent reservedEvent = new InventoryReservedEvent(
+        if (!inventoryService.reserve(
+                event.orderNumber(),
+                event.correlationId(),
+                event.productId(),
+                event.quantity()
+        )) {
+            publisher.publishFailed(new InventoryFailedEvent(
                     event.orderId(),
                     event.orderNumber(),
                     event.correlationId(),
-                    event.productId(),
-                    event.quantity(),
-                    event.amount()
-            );
-            String reservedPayload = objectMapper.writeValueAsString(reservedEvent);
-            kafkaTemplate.send(inventoryReservedTopic, event.orderNumber(), reservedPayload);
-            log.info(
-                    "Choreography saga inventory reserved orderNumber={} correlationId={} topic={} payload={}",
-                    event.orderNumber(),
-                    event.correlationId(),
-                    inventoryReservedTopic,
-                    reservedPayload
-            );
-        } catch (Exception exception) {
-            log.error("Unable to process order.created event payload={}", payload, exception);
+                    "Inventory not available for product " + event.productId()
+            ));
+            return;
         }
+
+        publisher.publishReserved(new InventoryReservedEvent(
+                event.orderId(),
+                event.orderNumber(),
+                event.correlationId(),
+                event.productId(),
+                event.quantity(),
+                event.amount()
+        ));
     }
 
     @KafkaListener(
@@ -69,29 +66,25 @@ public class InventorySagaListener {
             groupId = "${spring.application.name}"
     )
     public void onPaymentFailed(String payload) {
-        try {
-            PaymentFailedEvent event = objectMapper.readValue(payload, PaymentFailedEvent.class);
-            log.warn(
-                    "Choreography saga compensation released inventory orderNumber={} correlationId={} reason={}",
-                    event.orderNumber(),
-                    event.correlationId(),
-                    event.reason()
-            );
-        } catch (Exception exception) {
-            log.error("Unable to process payment.failed compensation event payload={}", payload, exception);
-        }
+        PaymentFailedEvent event = readEvent(payload, PaymentFailedEvent.class);
+        CorrelationContext.run(event.correlationId(), () -> handlePaymentFailed(event));
     }
 
-    private void publishInventoryFailed(OrderCreatedEvent event, String reason) throws Exception {
-        InventoryFailedEvent failedEvent = new InventoryFailedEvent(event.orderId(), event.orderNumber(), event.correlationId(), reason);
-        String failedPayload = objectMapper.writeValueAsString(failedEvent);
-        kafkaTemplate.send(inventoryFailedTopic, event.orderNumber(), failedPayload);
+    private void handlePaymentFailed(PaymentFailedEvent event) {
+        inventoryService.release(event.orderNumber());
         log.warn(
-                "Choreography saga inventory failed orderNumber={} correlationId={} topic={} reason={}",
+                "Choreography saga compensation released inventory orderNumber={} correlationId={} reason={}",
                 event.orderNumber(),
                 event.correlationId(),
-                inventoryFailedTopic,
-                reason
+                event.reason()
         );
+    }
+
+    private <T> T readEvent(String payload, Class<T> eventType) {
+        try {
+            return objectMapper.readValue(payload, eventType);
+        } catch (JsonProcessingException exception) {
+            throw new IllegalArgumentException("Invalid Kafka event payload for " + eventType.getSimpleName(), exception);
+        }
     }
 }

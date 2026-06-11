@@ -2,6 +2,40 @@
 
 User Service manages users, roles, permissions, password lifecycle, audit history, and user-facing account APIs for the Shopverse platform.
 
+## Permission-Level Method Security
+
+Auth Service now includes both role and permission claims in the JWT. User
+Service merges them into Spring Security authorities and protects controller
+methods:
+
+```java
+@PreAuthorize("hasAuthority('USER_READ')")
+public ResponseEntity<ApiResponse<UserResponse>> getUser(Long id) { ... }
+
+@PreAuthorize("hasAuthority('ADMIN_ACCESS')")
+public ResponseEntity<ApiResponse<RoleResponse>> createRole(...) { ... }
+```
+
+HTTP Basic is scoped to `/api/v1/internal/users/**` for Auth Service credential
+validation. Public business APIs use bearer JWTs. Password hashes, Basic
+headers, and bearer tokens are never written to logs.
+
+## N+1 Query Prevention
+
+Associations remain `LAZY` by default. Repository methods that serialize roles
+or permissions opt into entity graphs:
+
+```java
+@EntityGraph(attributePaths = {"roles", "roles.permissions"})
+Optional<User> findByUsername(String username);
+
+spring.jpa.properties.hibernate.default_batch_fetch_size: 50
+```
+
+Detail and authentication lookups use entity graphs. Paged specification
+queries use Hibernate batch fetching rather than collection fetch joins, which
+preserves database pagination while avoiding one query per row.
+
 ## Tech Stack
 
 - Java 21
@@ -54,6 +88,58 @@ Example paged request:
 GET /api/v1/users?page=0&size=20&sortBy=username&direction=ASC&search=ahmed&status=ACTIVE&role=ADMIN
 ```
 
+Create-user request:
+
+```http
+POST /api/v1/users
+Authorization: Bearer <admin-token>
+Content-Type: application/json
+
+{
+  "username": "demo.user",
+  "email": "demo.user@example.com",
+  "password": "ChangeMe@123",
+  "firstName": "Demo",
+  "lastName": "User",
+  "phoneNumber": "+919876543210",
+  "roles": ["ROLE_CUSTOMER"]
+}
+```
+
+The JWT must contain `USER_CREATE`. Representative response:
+
+```json
+{
+  "success": true,
+  "message": "User created successfully",
+  "data": {
+    "id": 10,
+    "uuid": "<generated-uuid>",
+    "username": "demo.user",
+    "email": "demo.user@example.com",
+    "firstName": "Demo",
+    "lastName": "User",
+    "phoneNumber": "+919876543210",
+    "status": "ACTIVE",
+    "roles": [
+      {
+        "id": 2,
+        "roleName": "ROLE_CUSTOMER",
+        "description": "Customer role",
+        "permissions": [
+          {"id": 5, "permissionName": "ORDER_CREATE", "description": "Create orders", "moduleName": "ORDER"},
+          {"id": 6, "permissionName": "ORDER_READ", "description": "Read orders", "moduleName": "ORDER"},
+          {"id": 7, "permissionName": "PRODUCT_READ", "description": "Read products", "moduleName": "PRODUCT"}
+        ]
+      }
+    ]
+  },
+  "timestamp": "2026-06-11T14:00:00"
+}
+```
+
+Generated values and assigned role details depend on the database state.
+
 ## API Documentation
 
 After starting the service:
@@ -80,7 +166,7 @@ For direct `bootRun`, set these variables in your shell or IDE run configuration
 | `SPRING_CONFIG_IMPORT` | `optional:configserver:http://localhost:8888` | Config Server import URL |
 | `DB_URL` | `jdbc:mysql://localhost:3307/user_service` | JDBC URL |
 | `DB_USERNAME` | `ahmed` | Database username |
-| `DB_PASSWORD` | `Ahm3d@123` | Database password |
+| `DB_PASSWORD` | Required | Database password; set it through the environment or secret manager |
 | `DB_DRIVER` | `com.mysql.cj.jdbc.Driver` | JDBC driver |
 | `JPA_DDL_AUTO` | `none` | Hibernate DDL strategy |
 | `USER_SERVICE_LIQUIBASE_ENABLED` | `true` | Enables Liquibase in Docker Compose |
@@ -106,13 +192,17 @@ For direct `bootRun`, set these variables in your shell or IDE run configuration
 
 Root `.env` variables use a `USER_SERVICE_` prefix for Docker Compose and are mapped to the Spring variables above. For example, `USER_SERVICE_DB_URL` becomes `DB_URL` inside the user-service container.
 
+For this local POC, credentials belong in the ignored root `.env` file.
+`.env.example` must contain placeholders only. Do not place secrets in this
+README, Git history, centralized configuration, logs, or container images.
+
 ## Running Locally
 
-Start MySQL from the bundled compose file:
+Start MySQL from the root Compose stack:
 
 ```bash
-cd src/main/resources/db
-docker compose up -d
+cd ..
+docker compose up -d mysql
 ```
 
 Run the service:
@@ -151,7 +241,7 @@ Run the container:
 docker run --rm -p 8082:8082 ^
   -e DB_URL=jdbc:mysql://host.docker.internal:3307/user_service ^
   -e DB_USERNAME=ahmed ^
-  -e DB_PASSWORD=Ahm3d@123 ^
+  -e DB_PASSWORD="$env:MYSQL_PASSWORD" ^
   -e EUREKA_DEFAULT_ZONE=http://host.docker.internal:8761/eureka ^
   shopverse/user-service:latest
 ```
@@ -332,7 +422,7 @@ docker run --rm -p 8082:8082 `
   -e SERVER_PORT=8082 `
   -e DB_URL=jdbc:mysql://host.docker.internal:3307/user_service `
   -e DB_USERNAME=ahmed `
-  -e DB_PASSWORD=Ahm3d@123 `
+  -e DB_PASSWORD="$env:MYSQL_PASSWORD" `
   -e EUREKA_DEFAULT_ZONE=http://host.docker.internal:8761/eureka `
   -e JWK_SET_URI=http://host.docker.internal:8081/auth/.well-known/jwks.json `
   shopverse/user-service:<tag>
@@ -500,15 +590,17 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
         .csrf(AbstractHttpConfigurer::disable)
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/actuator/**").permitAll()
+            .requestMatchers("/actuator/health", "/actuator/health/**",
+                    "/actuator/info", "/actuator/prometheus").permitAll()
             .requestMatchers(ApiConstants.PUBLIC_API + "/**",
                     ApiConstants.SWAGGER,
                     ApiConstants.SWAGGER_HTML,
                     ApiConstants.OPEN_API).permitAll()
-            .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole("USER", "ADMIN")
+            .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole("CUSTOMER", "ADMIN")
             .requestMatchers(ApiConstants.ROLES + "/**").hasRole("ADMIN")
             .anyRequest().authenticated())
-        .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
+        .oauth2ResourceServer(oauth -> oauth.jwt(jwt ->
+                jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
 
     return http.build();
 }

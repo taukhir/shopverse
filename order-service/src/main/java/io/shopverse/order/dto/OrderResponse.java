@@ -7,6 +7,8 @@ import java.util.List;
 public record OrderResponse(
         Long id,
         String orderNumber,
+        String correlationId,
+        String idempotencyKey,
         String customerUsername,
         String status,
         BigDecimal totalAmount,

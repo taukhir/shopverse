@@ -96,25 +96,25 @@ For many runtime properties, we can update config and refresh a service without 
 3. Refresh the affected service:
 
    ```powershell
-   curl -X POST http://localhost:8082/actuator/refresh
+   curl.exe -X POST http://localhost:8082/actuator/refresh `
+     -H "Authorization: Bearer $token"
    ```
 
 4. If more services use that property, refresh each one:
 
    ```powershell
-   curl -X POST http://localhost:8080/actuator/refresh
-   curl -X POST http://localhost:8081/actuator/refresh
-   curl -X POST http://localhost:8082/actuator/refresh
-   curl -X POST http://localhost:8083/actuator/refresh
-   curl -X POST http://localhost:8084/actuator/refresh
-   curl -X POST http://localhost:8086/actuator/refresh
+   curl.exe -X POST http://localhost:8081/actuator/refresh -H "Authorization: Bearer $token"
+   curl.exe -X POST http://localhost:8082/actuator/refresh -H "Authorization: Bearer $token"
+   curl.exe -X POST http://localhost:8083/actuator/refresh -H "Authorization: Bearer $token"
+   curl.exe -X POST http://localhost:8084/actuator/refresh -H "Authorization: Bearer $token"
+   curl.exe -X POST http://localhost:8086/actuator/refresh -H "Authorization: Bearer $token"
    ```
 
 The refresh endpoint returns the property keys that changed.
 
 Important notes:
 
-- `/actuator/refresh` must be enabled on the client service. In Shopverse this is exposed from `cloud-configs/application.yml`.
+- `/actuator/refresh` is exposed only by the JWT-secured business services. Obtain `$token` from `POST /auth/login` before calling it.
 - Refresh works best for Spring-managed configuration, such as `@ConfigurationProperties`, `@Value`, logging levels, and beans using refresh-aware configuration.
 - Some values still require a service restart, such as server port, fixed JVM/container environment variables, datasource pool internals, or properties read only once during startup.
 - In the current Docker setup, `cloud-configs/` is mounted into Config Server as `/config`, so changing files on the host makes them available to Config Server immediately.
@@ -125,7 +125,7 @@ Important notes:
 `cloud-configs/application.yml` contains common settings used across services:
 
 - Eureka client defaults
-- Actuator exposure for health, Prometheus, and refresh
+- Shared actuator exposure for health, info, and Prometheus; refresh is enabled only in secured service-specific configuration
 - Micrometer tracing and Zipkin export
 - log file path and trace/span correlation pattern
 - Kafka bootstrap server

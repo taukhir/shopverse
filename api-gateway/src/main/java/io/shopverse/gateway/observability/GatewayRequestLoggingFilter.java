@@ -11,9 +11,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Component
 public class GatewayRequestLoggingFilter implements GlobalFilter, Ordered {
 
+    private static final String CORRELATION_HEADER = "X-Correlation-Id";
     private static final Logger log = LoggerFactory.getLogger(GatewayRequestLoggingFilter.class);
 
     private final MeterRegistry meterRegistry;
@@ -26,16 +30,28 @@ public class GatewayRequestLoggingFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String method = exchange.getRequest().getMethod().name();
         String path = exchange.getRequest().getURI().getPath();
+        String correlationId = Optional.ofNullable(exchange.getRequest().getHeaders().getFirst(CORRELATION_HEADER))
+                .filter(value -> !value.isBlank())
+                .orElseGet(() -> UUID.randomUUID().toString());
 
-        if (path.equals("/actuator/prometheus")) {
-            return chain.filter(exchange);
+        ServerWebExchange correlatedExchange = exchange.mutate()
+                .request(request -> request.headers(headers -> headers.set(CORRELATION_HEADER, correlationId)))
+                .build();
+        correlatedExchange.getResponse().getHeaders().set(CORRELATION_HEADER, correlationId);
+
+        if (path.startsWith("/actuator/")) {
+            return chain.filter(correlatedExchange);
         }
 
         long startedAt = System.nanoTime();
-        log.info("Gateway request started method={} path={}", method, path);
+        log.atInfo()
+                .addKeyValue("correlationId", correlationId)
+                .addKeyValue("method", method)
+                .addKeyValue("path", path)
+                .log("Gateway request started");
 
-        return chain.filter(exchange).doFinally(signalType -> {
-            HttpStatusCode statusCode = exchange.getResponse().getStatusCode();
+        return chain.filter(correlatedExchange).doFinally(signalType -> {
+            HttpStatusCode statusCode = correlatedExchange.getResponse().getStatusCode();
             int status = statusCode == null ? 200 : statusCode.value();
             long durationMs = (System.nanoTime() - startedAt) / 1_000_000;
 
@@ -46,13 +62,13 @@ public class GatewayRequestLoggingFilter implements GlobalFilter, Ordered {
                     "outcome", outcome(status)
             ).increment();
 
-            log.info(
-                    "Gateway request completed method={} path={} status={} durationMs={}",
-                    method,
-                    path,
-                    status,
-                    durationMs
-            );
+            log.atInfo()
+                    .addKeyValue("correlationId", correlationId)
+                    .addKeyValue("method", method)
+                    .addKeyValue("path", path)
+                    .addKeyValue("status", status)
+                    .addKeyValue("durationMs", durationMs)
+                    .log("Gateway request completed");
         });
     }
 
@@ -62,15 +78,11 @@ public class GatewayRequestLoggingFilter implements GlobalFilter, Ordered {
     }
 
     private String outcome(int status) {
-        if (status >= 500) {
-            return "SERVER_ERROR";
-        }
-        if (status >= 400) {
-            return "CLIENT_ERROR";
-        }
-        if (status >= 300) {
-            return "REDIRECTION";
-        }
-        return "SUCCESS";
+        return switch (status / 100) {
+            case 3 -> "REDIRECTION";
+            case 4 -> "CLIENT_ERROR";
+            case 5 -> "SERVER_ERROR";
+            default -> "SUCCESS";
+        };
     }
 }

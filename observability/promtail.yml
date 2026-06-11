@@ -15,15 +15,22 @@ scrape_configs:
           - localhost
         labels:
           job: shopverse-service-volume-files
+          log_type: application
           __path__: /service-logs/*/*.log
+          __path_exclude__: /service-logs/*/*-health.log
     pipeline_stages:
-      - regex:
-          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+.*\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
+      - json:
+          expressions:
+            timestamp: "@timestamp"
+            level: level
+            application: application
+            traceId: traceId
+            spanId: spanId
+            correlationId: correlationId
+            message: message
       - labels:
           level:
           application:
-          traceId:
-          spanId:
       - timestamp:
           source: timestamp
           format: RFC3339Nano
@@ -34,15 +41,47 @@ scrape_configs:
           - localhost
         labels:
           job: shopverse-local-files
+          log_type: application
           __path__: /workspace/*/logs/*.log
+          __path_exclude__: /workspace/*/logs/*-health.log
     pipeline_stages:
-      - regex:
-          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+.*\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
+      - json:
+          expressions:
+            timestamp: "@timestamp"
+            level: level
+            application: application
+            traceId: traceId
+            spanId: spanId
+            correlationId: correlationId
+            message: message
       - labels:
           level:
           application:
-          traceId:
-          spanId:
+      - timestamp:
+          source: timestamp
+          format: RFC3339Nano
+
+  - job_name: shopverse-health-log-files
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: shopverse-health-files
+          log_type: health
+          __path__: /service-logs/*/*-health.log
+    pipeline_stages:
+      - json:
+          expressions:
+            timestamp: "@timestamp"
+            level: level
+            application: application
+            traceId: traceId
+            spanId: spanId
+            correlationId: correlationId
+            message: message
+      - labels:
+          level:
+          application:
       - timestamp:
           source: timestamp
           format: RFC3339Nano
@@ -62,13 +101,18 @@ scrape_configs:
       - source_labels: [__meta_docker_container_log_stream]
         target_label: stream
     pipeline_stages:
-      - regex:
-          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2}T\S+)\s+(?P<level>\w+)\s+.*\[(?P<application>[^,\]]*),(?P<traceId>[^,\]]*),(?P<spanId>[^\]]*)\]\s+(?P<message>.*)$'
+      - json:
+          expressions:
+            timestamp: "@timestamp"
+            level: level
+            application: application
+            traceId: traceId
+            spanId: spanId
+            correlationId: correlationId
+            message: message
       - labels:
           level:
           application:
-          traceId:
-          spanId:
       - timestamp:
           source: timestamp
           format: RFC3339Nano

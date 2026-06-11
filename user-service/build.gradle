@@ -35,11 +35,10 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.boot:spring-boot-starter-liquibase'
-	implementation 'org.liquibase:liquibase-core'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
 	implementation "io.github.resilience4j:resilience4j-spring-boot4:${resilience4jVersion}"
 	implementation 'org.springframework:spring-aop'
-	implementation 'org.aspectj:aspectjweaver:1.9.24'
+	implementation 'org.aspectj:aspectjweaver'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
