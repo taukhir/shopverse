@@ -38,6 +38,7 @@ See:
 
 - [Feign clients](../docs/integration/FEIGN-CLIENTS.md)
 - [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Generic Spring Security](../docs/security/SPRING-SECURITY-GENERIC.md)
 - [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)
 
 ## Configuration

@@ -1,5 +1,9 @@
 # MDC, Correlation IDs, And Tracing
 
+For a framework-generic explanation of MDC, `ThreadLocal` behavior,
+`MDC.putCloseable`, cleanup, asynchronous propagation, dependencies, and
+production practices, see [Mapped Diagnostic Context (MDC)](MDC-GENERIC.md).
+
 ## Three Identifiers
 
 | Identifier | Scope | Created by | Main use |
@@ -38,6 +42,12 @@ The correlation ID is part of every SAGA event payload. Each listener deserializ
 OrderCreatedEvent event = objectMapper.readValue(payload, OrderCreatedEvent.class);
 CorrelationContext.run(event.correlationId(), () -> sagaService.handle(event));
 ```
+
+The second argument is a `Runnable` lambda. `CorrelationContext` places the
+event correlation ID into MDC, invokes the lambda, and removes the value even
+if the handler throws. See the
+[Kafka listener example](MDC-GENERIC.md#kafka-listener-example) for the
+line-by-line flow.
 
 ## Micrometer Trace Propagation
 

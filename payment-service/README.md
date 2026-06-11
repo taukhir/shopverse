@@ -53,4 +53,6 @@ docker compose up -d payment-service
 
 - [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
 - [Transactions](../docs/reliability/TRANSACTIONS.md)
+- [Generic transaction concepts](../docs/reliability/TRANSACTIONS-GENERIC.md)
 - [Features and demos](../docs/reference/FEATURES-AND-DEMOS.md)
+- [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)

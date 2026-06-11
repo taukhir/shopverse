@@ -24,6 +24,9 @@ public interface UserClient {
 - Micrometer observation can create client spans.
 - Interceptors consistently add internal authentication or correlation headers.
 
+Service-name resolution and instance selection are explained in
+[Load balancing](../architecture/LOAD-BALANCING-GENERIC.md).
+
 ## Correlation Propagation
 
 ```java

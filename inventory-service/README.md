@@ -44,5 +44,8 @@ docker compose up -d inventory-service
 ## Related Guides
 
 - [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
+- [Shopverse transaction boundaries](../docs/reliability/TRANSACTIONS.md)
+- [Generic transaction concepts](../docs/reliability/TRANSACTIONS-GENERIC.md)
 - [Kafka](../docs/integration/KAFKA.md)
 - [Distributed systems](../docs/architecture/DISTRIBUTED-SYSTEMS.md)
+- [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)

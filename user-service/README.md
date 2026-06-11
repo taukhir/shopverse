@@ -69,6 +69,8 @@ docker compose up -d user-service
 ## Related Guides
 
 - [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Liquibase](../docs/data/LIQUIBASE.md)
+- [Generic Spring Security](../docs/security/SPRING-SECURITY-GENERIC.md)
+- [Liquibase](../docs/data/LIQUIBASE-GENERIC.md)
 - [Resilience4j](../docs/reliability/RESILIENCE4J.md)
+- [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)
 - [Testing](../docs/development/TESTING.md)

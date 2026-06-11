@@ -1,18 +1,26 @@
 # Structured Logging
 
+For generic SLF4J, Logback, `log.atInfo()`, appenders, encoders, JSON,
+Logstash format, rotation, retention, and centralized logging concepts, see
+[Application logging](LOGGING-GENERIC.md). This guide describes the current
+Shopverse implementation.
+
 ## Implemented Flow
 
 ```mermaid
 flowchart LR
-    APP[Spring Boot service] --> STDOUT[JSON stdout]
-    APP --> FILE[Rolling JSON file]
+    APP[Spring Boot service] --> STDOUT[Console output]
+    APP --> FILE[Rolling log file]
     STDOUT --> PROMTAIL[Promtail]
     FILE --> PROMTAIL
     PROMTAIL --> LOKI[Loki]
     LOKI --> GRAFANA[Grafana Explore and dashboards]
 ```
 
-Spring Boot's `StructuredLogEncoder` writes Logstash-compatible JSON. Common fields include timestamp, level, logger, message, application, environment, `traceId`, `spanId`, and MDC `correlationId`.
+Order, Inventory, Payment, Auth, and API Gateway use Spring Boot's
+`StructuredLogEncoder` to write Logstash-compatible JSON. Common fields can
+include timestamp, level, logger, message, application, environment,
+`traceId`, `spanId`, MDC fields, and fluent key/value fields.
 
 ```xml
 <encoder class="org.springframework.boot.logging.logback.StructuredLogEncoder">
@@ -22,7 +30,7 @@ Spring Boot's `StructuredLogEncoder` writes Logstash-compatible JSON. Common fie
 
 ## Logback Configuration
 
-User, Order, Inventory, and Payment define:
+Order, Inventory, and Payment define:
 
 - `CONSOLE`: JSON to container stdout.
 - `APP_FILE`: rolling application JSON file.
@@ -38,7 +46,13 @@ Application file policy:
 <totalSizeCap>256MB</totalSizeCap>
 ```
 
-Health file policy is smaller: 10 MB segments, 3 days, and 64 MB total. Auth, Gateway, Config, and Discovery currently do not route health logs through the dedicated `io.shopverse.health` logger.
+Health file policy is smaller: 5 MB segments, 3 days, and 64 MB total.
+
+User Service has console, application-file, and health-file destinations, but
+currently uses `SHOPVERSE_LOG_PATTERN` text encoding instead of
+`StructuredLogEncoder`. Auth and Gateway use structured JSON without the
+dedicated health logger. Config and Discovery also do not route health logs
+through `io.shopverse.health`.
 
 ## Paths
 
@@ -82,6 +96,11 @@ log.atInfo()
         .addKeyValue("correlationId", correlationId)
         .log("Order created");
 ```
+
+`log.atInfo()` starts SLF4J's fluent INFO-level event builder,
+`addKeyValue(...)` adds structured event fields, and `.log(...)` emits the
+event. See
+[Traditional and fluent SLF4J logging](LOGGING-GENERIC.md#traditional-and-fluent-slf4j-logging).
 
 Never log passwords, Basic headers, JWTs, private keys, payment credentials, or complete personal data.
 

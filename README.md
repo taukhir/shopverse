@@ -114,11 +114,11 @@ Start with the [documentation index](docs/README.md).
 |---|---|
 | Architecture | [System design](docs/architecture/SYSTEM-DESIGN.md) |
 | Features | [Features and demos](docs/reference/FEATURES-AND-DEMOS.md) |
-| APIs | [API guide](docs/development/API-GUIDE.md) |
+| APIs | [Shopverse API guide](docs/development/API-GUIDE.md) and [REST design](docs/development/REST-API-GENERIC.md) |
 | Security | [JWT, OAuth2, and Spring Security](docs/security/JWT-OAUTH2-SPRING-SECURITY.md) |
 | Messaging | [Kafka](docs/integration/KAFKA.md) and [SAGA/outbox](docs/reliability/SAGA-OUTBOX.md) |
 | Observability | [Observability architecture](docs/observability/OBSERVABILITY.md) |
-| Data | [Liquibase](docs/data/LIQUIBASE.md) and [transactions](docs/reliability/TRANSACTIONS.md) |
+| Data | [Liquibase](docs/data/LIQUIBASE-GENERIC.md), [Shopverse transactions](docs/reliability/TRANSACTIONS.md), and [transaction concepts](docs/reliability/TRANSACTIONS-GENERIC.md) |
 | Testing | [Testing strategy](docs/development/TESTING.md) |
 | Troubleshooting | [Debugging guide](docs/development/DEBUGGING.md) |
 

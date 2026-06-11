@@ -40,6 +40,11 @@ flowchart LR
 
 Each stateful service owns a separate MySQL schema. Services do not join across another service's tables.
 
+The gateway and Feign clients resolve logical service names through Eureka and
+Spring Cloud LoadBalancer. See
+[Load balancing](LOAD-BALANCING-GENERIC.md) for algorithms, discovery, health,
+dependencies, and the Shopverse request path.
+
 ## Checkout Flow
 
 ```mermaid
