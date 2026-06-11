@@ -6,6 +6,7 @@ public record InventoryReservedEvent(
         Long orderId,
         String orderNumber,
         String correlationId,
+        String customerUsername,
         Long productId,
         Integer quantity,
         BigDecimal amount

@@ -31,6 +31,8 @@ spring:
       ack-mode: record
 
 shopverse:
+  outbox:
+    publish-delay-ms: ${OUTBOX_PUBLISH_DELAY_MS:1000}
   logging:
     health-file: ${HEALTH_LOG_FILE:logs/${spring.application.name}-health.log}
   kafka:
@@ -49,6 +51,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
   tracing:
     enabled: ${TRACING_ENABLED:true}
     sampling:

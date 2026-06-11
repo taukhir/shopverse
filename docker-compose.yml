@@ -361,6 +361,7 @@ services:
       - "9090:9090"
     volumes:
       - ./observability/prometheus-docker.yml:/etc/prometheus/prometheus.yml:ro
+      - ./observability/prometheus-rules.yml:/etc/prometheus/rules/shopverse.yml:ro
       - prometheus-data:/prometheus
     depends_on:
       api-gateway:

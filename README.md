@@ -22,6 +22,18 @@ Shopverse is a Spring Boot microservices proof of concept for an e-commerce back
 
 ## Architecture
 
+### 1. Platform Overview
+
+Start with this diagram for a readable overview of the major services and
+platform components:
+
+![Shopverse platform architecture](assets/shopverse-architecture-flow.svg)
+
+### 2. Detailed Runtime Architecture
+
+This view includes service communication, persistence, centralized
+configuration, discovery, logs, metrics, and traces:
+
 ```mermaid
 flowchart LR
     Client["Client / Swagger / Postman"] --> Gateway["API Gateway<br/>JWT + correlation + circuit breaker"]
@@ -74,6 +86,31 @@ flowchart LR
     Loki --> Grafana
     Zipkin["Zipkin"] --> Grafana
 ```
+
+### 3. Checkout And SAGA Flow
+
+This focused view shows only the main business journey:
+
+```mermaid
+flowchart LR
+    Client["Client"] -->|"JWT + Idempotency-Key"| Gateway["API Gateway"]
+    Gateway -->|"POST /api/v1/orders/checkout"| Order["Order Service"]
+    Order -->|"Feign: product and price"| Inventory["Inventory Service"]
+    Order -->|"order.created"| Kafka["Kafka"]
+    Kafka --> Inventory
+    Inventory -->|"inventory.reserved"| Kafka
+    Kafka --> Payment["Payment Service"]
+    Payment -->|"payment.completed or payment.failed"| Kafka
+    Kafka --> Order
+    Kafka -->|"payment.failed compensation"| Inventory
+
+    Order --> OrderDB[("Order DB")]
+    Inventory --> InventoryDB[("Inventory DB")]
+    Payment --> PaymentDB[("Payment DB")]
+```
+
+Use the platform overview when introducing Shopverse, the runtime diagram when
+explaining infrastructure, and the SAGA diagram when demonstrating checkout.
 
 | Component | Port | Responsibility |
 | --- | ---: | --- |
@@ -144,6 +181,12 @@ avoided because it creates noise and risks exposing credentials or tokens.
   refund through a provider abstraction and local stub.
 - Payment listener failures retry and move to a DLT; persisted failures can be
   inspected and replayed through admin APIs.
+- Customer order timelines and payment records enforce resource ownership;
+  administrators retain cross-customer access.
+- Order, Inventory, and Payment write outgoing Kafka events to transactional
+  outbox tables in the same MySQL transaction as their domain changes.
+- Order, Inventory, and Payment persist exhausted Kafka failures with replay
+  count, last replay actor, and replay timestamp.
 - Grafana provisions a `Shopverse Commerce Operations` dashboard.
 
 Redis and a distributed lock are intentionally not used for stock ownership.
@@ -312,6 +355,10 @@ service ports are useful for local Swagger and diagnostics.
 | `POST` | `/api/v1/payments/admin/simulation?mode=TIMEOUT` | Admin | Select the payment stub result |
 | `POST` | `/api/v1/payments/admin/orders/{orderNumber}/reconcile` | Admin | Resolve a timed-out payment |
 | `GET` | `/api/v1/payments/admin/dead-letters` | Admin | Inspect persisted payment DLT records |
+| `GET` | `/api/v1/orders/admin/dead-letters` | Admin | Inspect Order consumer failures |
+| `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | Admin | Audit and queue Order event replay |
+| `GET` | `/api/v1/inventory/admin/dead-letters` | Admin | Inspect Inventory consumer failures |
+| `POST` | `/api/v1/inventory/admin/dead-letters/{id}/replay` | Admin | Audit and queue Inventory event replay |
 
 Login request and response:
 
@@ -624,40 +671,32 @@ now implemented:
 | Payment uncertainty, reconciliation, and refund | Implemented |
 | Queryable SAGA timeline | Implemented |
 | Payment failure simulation API | Partial; API exists, browser console and broader fault injection remain |
-| Retry, payment DLT persistence, and replay | Partial; extend the same recovery model to all Kafka consumers |
+| Retry, DLT persistence, replay, and replay audit | Implemented for Order, Inventory, and Payment |
 | Grafana commerce operations dashboard | Implemented baseline; alerts and SLOs remain |
 | Last-item race demonstration | Planned automated scenario |
 | AI Incident Investigator | Planned |
 
-The most important next engineering work is a transactional outbox, automated
-concurrency and end-to-end tests, and multi-replica-safe reservation expiry.
+The most important next engineering work is automated concurrency/end-to-end
+tests, multi-replica-safe reservation expiry, and outbox retention/archival.
 
 ### Next Implementation Priorities
 
-1. **Resource ownership authorization:** ensure a customer can read only their
-   own order timeline and payment record; administrators retain cross-customer
-   access. Add method-level tests for both allowed and denied cases.
-2. **Transactional outbox:** persist each domain change and its outgoing event
-   in one MySQL transaction, then publish the outbox record to Kafka. This
-   closes the current failure window between database commit and
-   `KafkaTemplate.send(...)`.
-3. **Testcontainers integration tests:** run MySQL and Kafka in automated tests
+1. **Testcontainers integration tests:** run MySQL and Kafka in automated tests
    for duplicate checkout, last-item contention, retries, compensation, DLT,
    and replay. Keep unit tests, but make these distributed invariants executable.
-4. **Multi-replica expiry ownership:** claim expired reservations in bounded
+2. **Multi-replica expiry ownership:** claim expired reservations in bounded
    batches so multiple Inventory instances do not perform duplicate scans and
    work. Preserve the current idempotent state transition as the final guard.
-5. **Idempotency request fingerprint:** store a hash of the checkout payload
+3. **Idempotency request fingerprint:** store a hash of the checkout payload
    with the key. Return the original response for the same request and reject
    reuse of the key with a different payload. Add retention/cleanup.
-6. **External payment contract stub:** move the provider stub behind HTTP and
+4. **External payment contract stub:** move the provider stub behind HTTP and
    use WireMock for timeout, malformed response, delayed callback, and retry
    tests. This exercises Feign/HTTP resilience rather than only an in-process
    strategy.
-7. **Recovery and operations:** extend DLT persistence/replay to Order and
-   Inventory consumers, add replay audit fields, Prometheus alerts, SLOs, and
-   Grafana links from correlation ID to logs and traces.
-8. **Security hardening after the POC:** remove the `{noop}` bootstrap password,
+5. **Outbox operations:** add retention/archival, backlog age gauges, and a
+   controlled admin retry for repeatedly failing outbox rows.
+6. **Security hardening after the POC:** remove the `{noop}` bootstrap password,
    move RSA keys and passwords to managed secrets, add refresh-token
    rotation/revocation through a proper authorization server, and remove demo
    credentials.
@@ -829,9 +868,11 @@ The simulator should:
 
 Target outcome: architecture behavior can be demonstrated on demand instead of waiting for accidental failures.
 
-### Phase 7: Dead-Letter Topics And Replay - Partially Implemented
+### Phase 7: Dead-Letter Topics And Replay - Implemented
 
-Payment consumer failures use retry topics, a DLT handler, persisted failure records, and admin replay. Order and Inventory still need the same recovery model.
+Order, Inventory, and Payment consumer failures use retry topics, DLT handlers,
+persisted failure records, audited admin replay, and outbox-backed replay
+publication.
 
 Improve Kafka failure recovery:
 

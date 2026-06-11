@@ -44,6 +44,11 @@ Representative payment response:
 All non-public payment endpoints require a JWT; `/admin/**` requires
 `ROLE_ADMIN`.
 
+`GET /orders/{orderNumber}` additionally enforces ownership with method
+security. A customer can read only a payment whose persisted
+`customerUsername` matches the JWT subject; administrators can read any
+payment. Integration tests cover owner, non-owner, and admin access.
+
 ## Persistence And Processing
 
 - `PaymentEntity` stores order number, amount, status, payment reference, failure reason, and correlation ID.
@@ -98,7 +103,16 @@ shopverse.inventory.reserved
   -> or shopverse.payment.failed
 ```
 
-`@KafkaListener` handles records on Kafka container threads. `KafkaTemplate.send(...)` publishes asynchronously and exposes completion/failure through `CompletableFuture`. Correlation context is restored into MDC for every consumed event.
+`@KafkaListener` handles records on Kafka container threads. The outbox
+dispatcher uses `KafkaTemplate.send(...)` and waits for broker acknowledgement
+before marking the row published. Correlation context is restored into MDC for
+consumed and dispatched events.
+
+Payment persistence and its completion/failure event use a transactional
+outbox. Processing or reconciliation updates the payment and inserts the
+outgoing event in one transaction. Serialization or database failure rolls
+back both. The dispatcher publishes only committed rows and retries failed
+sends.
 
 ## Retry, Dead Letter, And Replay
 
@@ -112,7 +126,8 @@ POST /api/v1/payments/admin/dead-letters/{id}/replay
 ```
 
 Replay republishes the original payload and marks the failure record as
-replayed while preserving its history.
+replayed while preserving its history. Replay itself inserts an outbox row and
+updates `replayCount`, `lastReplayedBy`, and `replayedAt` atomically.
 
 ## Resilience And Observability
 

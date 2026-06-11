@@ -1,5 +1,34 @@
 # Shopverse Choreography SAGA
 
+## Transactional Outbox
+
+Order, Inventory, and Payment no longer publish directly from their domain
+transactions:
+
+```text
+BEGIN DATABASE TRANSACTION
+  update domain aggregate
+  append timeline/audit state
+  insert outbox_events row
+COMMIT
+
+scheduled dispatcher
+  lock one PENDING row
+  publish to Kafka and wait for broker acknowledgement
+  mark PUBLISHED
+```
+
+If domain work, event serialization, or outbox insertion fails, the complete
+database transaction rolls back. If Kafka is unavailable, the committed
+business state and pending outbox row remain durable and publication is
+retried. Because a crash can occur after Kafka accepts a record but before the
+row is marked published, delivery remains at-least-once and consumers must
+remain idempotent.
+
+Incoming listener transactions roll back on exceptions. Spring Kafka retries
+three times, then Order, Inventory, and Payment persist DLT records. Admin
+replay is audited and queued through the outbox rather than sent directly.
+
 This document explains the simple SAGA pattern used in the Shopverse POC between:
 
 - Order Service
@@ -206,14 +235,24 @@ contention.
 
 ## Dead Letter And Replay
 
-The Payment listener retries three times using Spring Kafka retry topics.
-Exhausted records enter the DLT handler and are persisted with payload, source
-topic, retry count, failure reason, and replay timestamps:
+Order, Inventory, and Payment listeners retry three times using Spring Kafka
+retry topics. Exhausted records enter a DLT handler and are persisted with
+payload, source topic, retry count, failure reason, replay count, last replay
+actor, and replay timestamps:
 
 ```http
+GET  /api/v1/orders/admin/dead-letters
+POST /api/v1/orders/admin/dead-letters/{id}/replay
+
+GET  /api/v1/inventory/admin/dead-letters
+POST /api/v1/inventory/admin/dead-letters/{id}/replay
+
 GET  /api/v1/payments/admin/dead-letters
 POST /api/v1/payments/admin/dead-letters/{id}/replay
 ```
+
+All endpoints require `ROLE_ADMIN`. Replay inserts a new transactional outbox
+row and updates the audit fields in the same transaction.
 
 ### 1. Order Service Publishes `order.created`
 

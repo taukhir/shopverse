@@ -26,6 +26,8 @@ public interface OrderService {
 
     void markPaymentProcessing(String orderNumber);
 
+    void markInventoryReservedAndPaymentProcessing(String orderNumber);
+
     void markPaymentFailed(String orderNumber, String reason);
 
     void confirm(String orderNumber, String paymentReference);

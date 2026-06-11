@@ -10,8 +10,6 @@ import io.shopverse.payment_service.service.PaymentService;
 import io.shopverse.payment_service.service.FailedKafkaEventService;
 import io.shopverse.payment_service.provider.PaymentSimulationMode;
 import io.shopverse.payment_service.provider.StubPaymentProvider;
-import io.shopverse.payment_service.saga.PaymentCompletedEvent;
-import io.shopverse.payment_service.saga.PaymentSagaPublisher;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -44,7 +44,6 @@ public class PaymentController {
 
     private final PaymentService paymentService;
     private final StubPaymentProvider stubPaymentProvider;
-    private final PaymentSagaPublisher paymentSagaPublisher;
     private final FailedKafkaEventService failedKafkaEventService;
 
     @GetMapping("/public/health")
@@ -54,6 +53,7 @@ public class PaymentController {
     }
 
     @GetMapping("/orders/{orderNumber}")
+    @PreAuthorize("hasRole('ADMIN') or @paymentAuthorization.isOwner(#orderNumber, authentication.name)")
     public PaymentResponse getByOrderNumber(@PathVariable String orderNumber) {
         return paymentService.getByOrderNumber(orderNumber);
     }
@@ -74,15 +74,6 @@ public class PaymentController {
     @Operation(summary = "Reconcile a timed-out payment and publish completion")
     public PaymentResponse reconcile(@PathVariable String orderNumber) {
         PaymentResponse payment = paymentService.reconcile(orderNumber);
-        if ("CAPTURED".equals(payment.status())) {
-            paymentSagaPublisher.publishCompleted(new PaymentCompletedEvent(
-                    null,
-                    payment.orderNumber(),
-                    payment.correlationId(),
-                    payment.paymentReference(),
-                    payment.amount()
-            ));
-        }
         return payment;
     }
 
@@ -99,7 +90,7 @@ public class PaymentController {
 
     @PostMapping("/admin/dead-letters/{id}/replay")
     @Operation(summary = "Replay a persisted failed Kafka event")
-    public FailedKafkaEventResponse replay(@PathVariable Long id) {
-        return failedKafkaEventService.replay(id);
+    public FailedKafkaEventResponse replay(@PathVariable Long id, Authentication authentication) {
+        return failedKafkaEventService.replay(id, authentication.getName());
     }
 }

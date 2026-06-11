@@ -30,6 +30,9 @@ public class PaymentEntity extends BaseAuditableEntity {
     @Column(nullable = false, unique = true, length = 64)
     private String correlationId;
 
+    @Column(nullable = false, length = 100)
+    private String customerUsername;
+
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal amount;
 
@@ -43,9 +46,10 @@ public class PaymentEntity extends BaseAuditableEntity {
     @Column(length = 500)
     private String failureReason;
 
-    public PaymentEntity(String orderNumber, String correlationId, BigDecimal amount) {
+    public PaymentEntity(String orderNumber, String correlationId, String customerUsername, BigDecimal amount) {
         this.orderNumber = orderNumber;
         this.correlationId = correlationId;
+        this.customerUsername = customerUsername;
         this.amount = amount;
         this.status = PaymentStatus.PENDING;
     }

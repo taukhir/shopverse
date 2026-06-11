@@ -44,6 +44,12 @@ public class FailedKafkaEvent {
 
     private Instant replayedAt;
 
+    @Column(nullable = false)
+    private int replayCount;
+
+    @Column(length = 100)
+    private String lastReplayedBy;
+
     public FailedKafkaEvent(String sourceTopic, String payload, String failureReason, int retryCount) {
         this.sourceTopic = sourceTopic;
         this.payload = payload;
@@ -52,8 +58,10 @@ public class FailedKafkaEvent {
         this.failedAt = Instant.now();
     }
 
-    public void markReplayed() {
+    public void markReplayed(String replayedBy) {
         replayed = true;
         replayedAt = Instant.now();
+        replayCount++;
+        lastReplayedBy = replayedBy;
     }
 }

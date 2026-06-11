@@ -5,6 +5,9 @@ import io.shopverse.payment_service.dto.PaymentResponse;
 import io.shopverse.payment_service.entity.PaymentEntity;
 import io.shopverse.payment_service.exception.ResourceNotFoundException;
 import io.shopverse.payment_service.repository.PaymentRepository;
+import io.shopverse.payment_service.config.KafkaTopicsProperties;
+import io.shopverse.payment_service.outbox.OutboxService;
+import io.shopverse.payment_service.saga.PaymentCompletedEvent;
 import io.shopverse.payment_service.provider.PaymentProvider;
 import io.shopverse.payment_service.provider.PaymentSimulationMode;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +31,20 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentProperties paymentProperties;
     private final PaymentProvider paymentProvider;
     private final MeterRegistry meterRegistry;
+    private final OutboxService outboxService;
+    private final KafkaTopicsProperties topics;
 
     @Override
     @Transactional
     @CacheEvict(cacheNames = "payments", allEntries = true)
-    public PaymentEntity process(String orderNumber, String correlationId, BigDecimal amount) {
+    public PaymentEntity process(
+            String orderNumber,
+            String correlationId,
+            String customerUsername,
+            BigDecimal amount
+    ) {
         return repository.findByOrderNumber(orderNumber).orElseGet(() -> {
-            PaymentEntity payment = new PaymentEntity(orderNumber, correlationId, amount);
+            PaymentEntity payment = new PaymentEntity(orderNumber, correlationId, customerUsername, amount);
             if (amount.compareTo(paymentProperties.approvalLimit()) > 0) {
                 payment.decline("Payment approval limit exceeded");
             } else {
@@ -81,6 +91,21 @@ public class PaymentServiceImpl implements PaymentService {
         if (payment.getStatus() == io.shopverse.payment_service.entity.PaymentStatus.TIMED_OUT) {
             payment.authorize("RECONCILED-" + orderNumber);
             payment.capture();
+            outboxService.enqueue(
+                    "PAYMENT",
+                    payment.getOrderNumber(),
+                    PaymentCompletedEvent.class.getSimpleName(),
+                    topics.paymentCompleted(),
+                    payment.getOrderNumber(),
+                    new PaymentCompletedEvent(
+                            null,
+                            payment.getOrderNumber(),
+                            payment.getCorrelationId(),
+                            payment.getPaymentReference(),
+                            payment.getAmount()
+                    ),
+                    payment.getCorrelationId()
+            );
         }
         return toResponse(payment);
     }

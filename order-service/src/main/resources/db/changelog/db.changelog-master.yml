@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/001-create-order-schema.yml
   - include:
       file: db/changelog/002-idempotency-and-timeline.yml
+  - include:
+      file: db/changelog/003-outbox-and-failed-events.yml

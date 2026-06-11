@@ -10,6 +10,9 @@ import io.shopverse.order.entity.OrderTimelineStage;
 import io.shopverse.order.exception.ResourceNotFoundException;
 import io.shopverse.order.repository.OrderRepository;
 import io.shopverse.order.repository.OrderTimelineRepository;
+import io.shopverse.order.config.KafkaTopicsProperties;
+import io.shopverse.order.outbox.OutboxService;
+import io.shopverse.order.saga.OrderCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -31,6 +34,8 @@ public class OrderServiceImpl implements OrderService {
     private final OrderTimelineRepository timelineRepository;
     private final CatalogService catalogService;
     private final MeterRegistry meterRegistry;
+    private final OutboxService outboxService;
+    private final KafkaTopicsProperties topics;
 
     @Override
     @Transactional
@@ -69,6 +74,23 @@ public class OrderServiceImpl implements OrderService {
         });
         OrderEntity saved = repository.save(order);
         appendTimeline(saved, OrderTimelineStage.ORDER_CREATED, "Checkout accepted and order persisted");
+        outboxService.enqueue(
+                "ORDER",
+                saved.getOrderNumber(),
+                "OrderCreatedEvent",
+                topics.orderCreated(),
+                saved.getOrderNumber(),
+                new OrderCreatedEvent(
+                        saved.getId(),
+                        saved.getOrderNumber(),
+                        saved.getCorrelationId(),
+                        saved.getCustomerUsername(),
+                        saved.getItems().getFirst().getProductId(),
+                        saved.getItems().getFirst().getQuantity(),
+                        saved.getTotalAmount()
+                ),
+                saved.getCorrelationId()
+        );
         log.atInfo()
                 .addKeyValue("orderNumber", saved.getOrderNumber())
                 .addKeyValue("correlationId", correlationId)
@@ -146,6 +168,17 @@ public class OrderServiceImpl implements OrderService {
     @CacheEvict(cacheNames = "orders", allEntries = true)
     public void markPaymentProcessing(String orderNumber) {
         OrderEntity order = findByNumber(orderNumber);
+        order.markPaymentProcessing();
+        appendTimeline(order, OrderTimelineStage.PAYMENT_PROCESSING, "Payment processing started");
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "orders", allEntries = true)
+    public void markInventoryReservedAndPaymentProcessing(String orderNumber) {
+        OrderEntity order = findByNumber(orderNumber);
+        order.markInventoryReserved();
+        appendTimeline(order, OrderTimelineStage.INVENTORY_RESERVED, "Inventory reservation confirmed");
         order.markPaymentProcessing();
         appendTimeline(order, OrderTimelineStage.PAYMENT_PROCESSING, "Payment processing started");
     }
