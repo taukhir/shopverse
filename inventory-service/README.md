@@ -1,68 +1,153 @@
-# Inventory Service
+# Shopverse Inventory Service
 
-Inventory Service is a Shopverse Spring Boot resource service for the inventory API area. In the POC choreography SAGA, it listens for order-created events and publishes inventory outcome events.
+Inventory Service owns product stock and idempotent SAGA reservations. It uses MySQL, Spring Data JPA, Liquibase, optimistic locking, validation, caching, Resilience4j annotations, Kafka, JWT security, OpenAPI, metrics, tracing, and JSON logs.
 
 ## Runtime
 
 | Item | Value |
 | --- | --- |
-| Spring application name | `INVENTORY-SERVICE` |
-| Local port | `8086` |
-| Gateway route | `/api/v1/inventory/**` |
-| Config file | `cloud-configs/INVENTORY-SERVICE.yml` |
-| Docker image | `shopverse/inventory-service:local` |
+| Application | `INVENTORY-SERVICE` |
+| Port | `8086` |
+| Database | `inventory_service` |
+| Config | `cloud-configs/INVENTORY-SERVICE.yml` |
+| Swagger UI | `http://localhost:8086/swagger-ui/index.html` |
 
-## Local Endpoints
+## APIs
 
-```powershell
-curl.exe http://localhost:8086/actuator/health
-curl.exe http://localhost:8086/api/v1/inventory/public/health
-curl.exe http://localhost:8080/api/v1/inventory/public/health
+| Method | Path | Access | Purpose |
+| --- | --- | --- | --- |
+| `GET` | `/api/v1/inventory/public/health` | Public | Health response |
+| `GET` | `/api/v1/inventory/public/items` | Public | Product availability catalog |
+| `GET` | `/api/v1/inventory/{productId}` | Customer/Admin | Product stock |
+| `PUT` | `/api/v1/inventory/admin/items` | Admin | Create or replace stock |
+
+Admin request:
+
+```json
+{
+  "productId": 101,
+  "productName": "Wireless Keyboard",
+  "unitPrice": 2499.00,
+  "availableQuantity": 10
+}
 ```
 
-Protected inventory endpoints should use a JWT bearer token issued by Auth Service.
+Validation uses `@NotNull`, `@NotBlank`, `@Positive`, `@PositiveOrZero`, and `@DecimalMin`.
 
-## Choreography SAGA
+Representative response:
 
-Inventory Service listens to:
+```json
+{
+  "id": 1,
+  "productId": 101,
+  "productName": "Wireless Keyboard",
+  "unitPrice": 2499.00,
+  "availableQuantity": 10,
+  "reservedQuantity": 0,
+  "available": true,
+  "updatedAt": "2026-06-11T08:30:00Z"
+}
+```
+
+Use an administrator JWT for the upsert:
+
+```powershell
+curl.exe -X PUT http://localhost:8080/api/v1/inventory/admin/items `
+  -H "Authorization: Bearer <token>" `
+  -H "Content-Type: application/json" `
+  -d '{\"productId\":101,\"productName\":\"Wireless Keyboard\",\"unitPrice\":2499.00,\"availableQuantity\":10}'
+```
+
+## Persistence And Concurrency
+
+- `InventoryItem` stores available/reserved quantities and uses JPA `@Version` optimistic locking.
+- `InventoryReservation` has a unique order number, making repeated Kafka delivery idempotent.
+- `BaseAuditableEntity` uses `@CreatedDate` and `@LastModifiedDate`.
+- Liquibase creates and seeds the schema; Hibernate validates it.
+- `@Transactional` protects reserve/release state changes.
+- `@Cacheable` caches reads and `@CacheEvict` invalidates writes.
+
+## Reservation Expiry And Overselling Prevention
+
+Checkout reservations contain a persisted `expiresAt` calculated from the
+central `shopverse.inventory.reservation-ttl` setting, defaulting to five
+minutes.
+
+```java
+@Version
+private long version;
+
+public void reserve(int quantity) {
+    if (availableQuantity < quantity) {
+        throw new IllegalStateException("Insufficient stock");
+    }
+    availableQuantity -= quantity;
+    reservedQuantity += quantity;
+}
+```
+
+Hibernate updates the row with the previous version:
+
+```sql
+update inventory_items
+set available_quantity=?, reserved_quantity=?, version=version+1
+where id=? and version=?
+```
+
+Only one concurrent buyer can update the final unit. A loser receives an
+optimistic-lock failure and Kafka retry processes the latest stock state. This
+prevents overselling without a JVM mutex or Redis lock.
+
+The scheduled expiry job queries only active reservations whose indexed
+`expires_at` is in the past:
+
+```java
+@Scheduled(fixedDelayString =
+        "${shopverse.inventory.expiry-scan-delay-ms:60000}")
+public int expireReservations() {
+    // Release quantities, mark EXPIRED, and publish compensation.
+}
+```
+
+Release is idempotent because only `RESERVED` records can transition to
+`RELEASED` or `EXPIRED`. Repeated payment-failure events therefore cannot add
+stock twice.
+
+For this aggregate, database optimistic locking is the distributed concurrency
+control. Redis is not required. Redis would be considered for shared catalog
+cache or very high read traffic, not as the final stock correctness mechanism.
+
+## Kafka SAGA
 
 ```text
 shopverse.order.created
+  -> reserve persisted stock
+  -> shopverse.inventory.reserved
+  -> or shopverse.inventory.failed
+
 shopverse.payment.failed
+  -> release the persisted reservation
 ```
 
-It publishes one of:
+Consumers use `@KafkaListener`. Producers use the asynchronous `KafkaTemplate.send(...)` future. An extra `@Async` layer is intentionally avoided because Kafka listener containers and producer I/O already execute asynchronously.
 
-```text
-shopverse.inventory.reserved
-shopverse.inventory.failed
+The event correlation ID is installed in MDC while each record is processed, so JSON logs from Inventory can be joined with Order and Payment logs.
+
+## Resilience And Observability
+
+The controller uses:
+
+```java
+@RateLimiter(name = "inventory-api")
+@Bulkhead(name = "inventory-api", type = Bulkhead.Type.SEMAPHORE)
 ```
 
-For the demo, product `103` or quantity greater than `5` fails inventory reservation. When payment fails, Inventory Service logs a simple inventory-release compensation action.
-
-More detailed SAGA flow and payload examples are in [../saga/README.md](../saga/README.md).
-
-## Observability
-
-Inventory Service imports centralized config from Config Server, registers with Eureka, writes logs to `/app/logs/inventory-service.log`, exposes Prometheus metrics at `/actuator/prometheus`, and sends traces to Zipkin.
-
-Useful checks:
-
-```logql
-{application="INVENTORY-SERVICE"}
-{application="INVENTORY-SERVICE"} |= "Choreography saga"
-```
-
-```promql
-up{application="INVENTORY-SERVICE"}
-sum by (service, outcome) (increase(shopverse_service_requests_logged_total{service="INVENTORY-SERVICE"}[5m]))
-```
+Configuration lives in `cloud-configs/INVENTORY-SERVICE.yml`. Request logs, metrics, trace IDs, span IDs, and correlation IDs follow the shared observability pipeline described in [Observability](../observability/README.md).
 
 ## Build
 
 ```powershell
-.\gradlew.bat clean build
-docker build -t shopverse/inventory-service:local .
+.\gradlew.bat clean test
+docker compose build inventory-service
+docker compose up -d inventory-service
 ```
-
-Docker Compose commands and Dockerfile details are in [../docker/README.md](../docker/README.md).

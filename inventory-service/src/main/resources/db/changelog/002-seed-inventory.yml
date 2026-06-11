@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-seed-inventory
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO inventory_items
+                (product_id, product_name, unit_price, available_quantity, reserved_quantity, version, created_at, updated_at)
+              VALUES
+                (101, 'Wireless Keyboard', 2499.00, 20, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
+                (102, 'USB-C Dock', 5299.00, 10, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
+                (103, 'Noise Cancelling Headphones', 8999.00, 0, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6));

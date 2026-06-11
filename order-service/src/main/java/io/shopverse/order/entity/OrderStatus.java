@@ -1,0 +1,12 @@
+package io.shopverse.order.entity;
+
+public enum OrderStatus {
+    ORDER_CREATED,
+    PENDING_INVENTORY,
+    INVENTORY_RESERVED,
+    PAYMENT_PROCESSING,
+    INVENTORY_REJECTED,
+    PAYMENT_FAILED,
+    CONFIRMED,
+    CANCELLED
+}

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-create-inventory-schema.yml
+  - include:
+      file: db/changelog/002-seed-inventory.yml
+  - include:
+      file: db/changelog/003-reservation-expiry.yml

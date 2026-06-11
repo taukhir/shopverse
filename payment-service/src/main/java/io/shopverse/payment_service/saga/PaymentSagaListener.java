@@ -1,81 +1,101 @@
 package io.shopverse.payment_service.saga;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.shopverse.payment_service.entity.PaymentEntity;
+import io.shopverse.payment_service.entity.PaymentStatus;
+import io.shopverse.payment_service.observability.CorrelationContext;
+import io.shopverse.payment_service.service.PaymentService;
+import io.shopverse.payment_service.service.FailedKafkaEventService;
+import io.shopverse.payment_service.config.KafkaTopicsProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.annotation.RetryableTopic;
+import org.springframework.kafka.annotation.DltHandler;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class PaymentSagaListener {
 
-    private static final BigDecimal DEMO_PAYMENT_LIMIT = new BigDecimal("10000.00");
-
-    private final KafkaTemplate<String, String> kafkaTemplate;
     private final ObjectMapper objectMapper;
+    private final PaymentSagaPublisher publisher;
+    private final PaymentService paymentService;
+    private final FailedKafkaEventService failedKafkaEventService;
+    private final KafkaTopicsProperties topics;
 
-    @Value("${shopverse.kafka.topics.payment-completed}")
-    private String paymentCompletedTopic;
-
-    @Value("${shopverse.kafka.topics.payment-failed}")
-    private String paymentFailedTopic;
-
+    @RetryableTopic(attempts = "3")
     @KafkaListener(
             topics = "${shopverse.kafka.topics.inventory-reserved}",
             groupId = "${spring.application.name}"
     )
     public void onInventoryReserved(String payload) {
-        try {
-            InventoryReservedEvent event = objectMapper.readValue(payload, InventoryReservedEvent.class);
-            log.info(
-                    "Choreography saga payment step started orderNumber={} correlationId={} amount={}",
-                    event.orderNumber(),
-                    event.correlationId(),
-                    event.amount()
-            );
+        InventoryReservedEvent event = readEvent(payload, InventoryReservedEvent.class);
+        CorrelationContext.run(event.correlationId(), () -> handleInventoryReserved(event));
+    }
 
-            if (event.amount().compareTo(DEMO_PAYMENT_LIMIT) > 0) {
-                publishPaymentFailed(event, "Demo payment limit exceeded");
-                return;
-            }
+    @DltHandler
+    public void onDeadLetter(String payload) {
+        failedKafkaEventService.record(
+                topics.inventoryReserved(),
+                payload,
+                "Payment listener failed after retry policy",
+                3
+        );
+        log.error("Payment event moved to DLT payload={}", payload);
+    }
 
-            PaymentCompletedEvent completedEvent = new PaymentCompletedEvent(
+    private void handleInventoryReserved(InventoryReservedEvent event) {
+        log.info(
+                "Choreography saga payment step started orderNumber={} correlationId={} amount={}",
+                event.orderNumber(),
+                event.correlationId(),
+                event.amount()
+        );
+
+        PaymentEntity payment = paymentService.process(
+                event.orderNumber(),
+                event.correlationId(),
+                event.amount()
+        );
+
+        if (payment.getStatus() == PaymentStatus.DECLINED) {
+            publisher.publishFailed(new PaymentFailedEvent(
                     event.orderId(),
                     event.orderNumber(),
                     event.correlationId(),
-                    "PAY-" + event.orderNumber(),
-                    event.amount()
-            );
-            String completedPayload = objectMapper.writeValueAsString(completedEvent);
-            kafkaTemplate.send(paymentCompletedTopic, event.orderNumber(), completedPayload);
-            log.info(
-                    "Choreography saga payment completed orderNumber={} correlationId={} topic={} payload={}",
+                    payment.getFailureReason()
+            ));
+            return;
+        }
+
+        if (payment.getStatus() == PaymentStatus.TIMED_OUT) {
+            log.warn(
+                    "Payment outcome is uncertain; waiting for reconciliation orderNumber={} correlationId={}",
                     event.orderNumber(),
-                    event.correlationId(),
-                    paymentCompletedTopic,
-                    completedPayload
+                    event.correlationId()
             );
-        } catch (Exception exception) {
-            log.error("Unable to process inventory.reserved event payload={}", payload, exception);
+            return;
+        }
+
+        if (payment.getStatus() == PaymentStatus.CAPTURED) {
+            publisher.publishCompleted(new PaymentCompletedEvent(
+                event.orderId(),
+                event.orderNumber(),
+                event.correlationId(),
+                payment.getPaymentReference(),
+                event.amount()
+            ));
         }
     }
 
-    private void publishPaymentFailed(InventoryReservedEvent event, String reason) throws Exception {
-        PaymentFailedEvent failedEvent = new PaymentFailedEvent(event.orderId(), event.orderNumber(), event.correlationId(), reason);
-        String failedPayload = objectMapper.writeValueAsString(failedEvent);
-        kafkaTemplate.send(paymentFailedTopic, event.orderNumber(), failedPayload);
-        log.warn(
-                "Choreography saga payment failed orderNumber={} correlationId={} topic={} reason={}",
-                event.orderNumber(),
-                event.correlationId(),
-                paymentFailedTopic,
-                reason
-        );
+    private <T> T readEvent(String payload, Class<T> eventType) {
+        try {
+            return objectMapper.readValue(payload, eventType);
+        } catch (JsonProcessingException exception) {
+            throw new IllegalArgumentException("Invalid Kafka event payload for " + eventType.getSimpleName(), exception);
+        }
     }
 }

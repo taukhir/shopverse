@@ -1,67 +1,134 @@
-# Payment Service
+# Shopverse Payment Service
 
-Payment Service is a Shopverse Spring Boot resource service for the payment API area. In the POC choreography SAGA, it listens for inventory reservation events and publishes payment outcome events.
+Payment Service persists idempotent payment outcomes for the checkout SAGA. It uses MySQL, Spring Data JPA, Liquibase, typed configuration properties, caching, Resilience4j annotations, Kafka, JWT security, OpenAPI, metrics, tracing, and JSON logs.
 
 ## Runtime
 
 | Item | Value |
 | --- | --- |
-| Spring application name | `PAYMENT-SERVICE` |
-| Local port | `8084` |
-| Gateway route | `/api/v1/payments/**` |
-| Config file | `cloud-configs/PAYMENT-SERVICE.yml` |
-| Docker image | `shopverse/payment-service:local` |
+| Application | `PAYMENT-SERVICE` |
+| Port | `8084` |
+| Database | `payment_service` |
+| Config | `cloud-configs/PAYMENT-SERVICE.yml` |
+| Swagger UI | `http://localhost:8084/swagger-ui/index.html` |
 
-## Local Endpoints
+## APIs
 
-```powershell
-curl.exe http://localhost:8084/actuator/health
-curl.exe http://localhost:8084/api/v1/payments/public/health
-curl.exe http://localhost:8080/api/v1/payments/public/health
+| Method | Path | Access | Purpose |
+| --- | --- | --- | --- |
+| `GET` | `/api/v1/payments/public/health` | Public | Health response |
+| `GET` | `/api/v1/payments/orders/{orderNumber}` | Customer/Admin | Payment outcome |
+| `GET` | `/api/v1/payments/admin` | Admin | All payments |
+| `POST` | `/api/v1/payments/admin/simulation?mode={mode}` | Admin | Set `SUCCESS`, `DECLINE`, or `TIMEOUT` |
+| `POST` | `/api/v1/payments/admin/orders/{orderNumber}/reconcile` | Admin | Reconcile a timed-out payment |
+| `POST` | `/api/v1/payments/admin/orders/{orderNumber}/refund` | Admin | Refund a captured payment |
+| `GET` | `/api/v1/payments/admin/dead-letters` | Admin | Inspect persisted failures |
+| `POST` | `/api/v1/payments/admin/dead-letters/{id}/replay` | Admin | Replay one failed event |
+
+Representative payment response:
+
+```json
+{
+  "id": 7,
+  "orderNumber": "ORD-10042",
+  "correlationId": "checkout-demo-101",
+  "amount": 2499.00,
+  "status": "CAPTURED",
+  "paymentReference": "PAY-...",
+  "failureReason": null,
+  "createdAt": "2026-06-11T08:30:02Z",
+  "updatedAt": "2026-06-11T08:30:03Z"
+}
 ```
 
-Protected payment endpoints should use a JWT bearer token issued by Auth Service.
+All non-public payment endpoints require a JWT; `/admin/**` requires
+`ROLE_ADMIN`.
 
-## Choreography SAGA
+## Persistence And Processing
 
-Payment Service listens to:
+- `PaymentEntity` stores order number, amount, status, payment reference, failure reason, and correlation ID.
+- A unique order number prevents duplicate charges when Kafka redelivers an event.
+- `BaseAuditableEntity` uses JPA `@CreatedDate` and `@LastModifiedDate`.
+- Liquibase owns schema changes; Hibernate validates mappings.
+- Reads use `@Cacheable`; processing invalidates cached payment data.
+- `PaymentProperties` maps and validates `shopverse.payment.approval-limit`.
+
+## Provider Boundary And Payment Uncertainty
+
+`PaymentProvider` isolates Shopverse from a third-party gateway. The included
+`StubPaymentProvider` is an in-process deterministic test double with
+deterministic modes:
+
+```text
+SUCCESS -> AUTHORIZED -> CAPTURED
+DECLINE -> DECLINED
+TIMEOUT -> TIMED_OUT
+```
+
+Set a scenario:
+
+```http
+POST /api/v1/payments/admin/simulation?mode=TIMEOUT
+```
+
+Timeout is uncertain, not an immediate permanent failure. The order stays in
+`PAYMENT_PROCESSING`, and inventory remains reserved until reconciliation or
+the five-minute expiry:
+
+```http
+POST /api/v1/payments/admin/orders/{orderNumber}/reconcile
+POST /api/v1/payments/admin/orders/{orderNumber}/refund
+```
+
+Reconciliation turns a timed-out payment into `AUTHORIZED` then `CAPTURED` and
+publishes payment completion. Only captured payments can be refunded.
+
+The provider interface supports later Adapter/Strategy implementations for
+Stripe, Razorpay, cards, wallets, bank transfer, or cash-on-delivery without
+putting provider-specific code in the SAGA listener. A standalone WireMock
+container is a suitable next step when HTTP contract testing is required;
+SoapUI is not required for the current in-process stub.
+
+## Kafka SAGA
 
 ```text
 shopverse.inventory.reserved
+  -> process and persist payment once
+  -> shopverse.payment.completed
+  -> or shopverse.payment.failed
 ```
 
-It publishes one of:
+`@KafkaListener` handles records on Kafka container threads. `KafkaTemplate.send(...)` publishes asynchronously and exposes completion/failure through `CompletableFuture`. Correlation context is restored into MDC for every consumed event.
 
-```text
-shopverse.payment.completed
-shopverse.payment.failed
+## Retry, Dead Letter, And Replay
+
+The payment listener uses `@RetryableTopic(attempts = "3")`. After retries are
+exhausted, `@DltHandler` persists the failed payload, source topic, reason,
+retry count, and timestamps.
+
+```http
+GET  /api/v1/payments/admin/dead-letters
+POST /api/v1/payments/admin/dead-letters/{id}/replay
 ```
 
-For the demo, payments over `10000.00` fail so compensation can be shown. Successful payments publish a reference like `PAY-ORD-1003`.
+Replay republishes the original payload and marks the failure record as
+replayed while preserving its history.
 
-More detailed SAGA flow and payload examples are in [../saga/README.md](../saga/README.md).
+## Resilience And Observability
 
-## Observability
+The API uses annotation-driven:
 
-Payment Service imports centralized config from Config Server, registers with Eureka, writes logs to `/app/logs/payment-service.log`, exposes Prometheus metrics at `/actuator/prometheus`, and sends traces to Zipkin.
-
-Useful checks:
-
-```logql
-{application="PAYMENT-SERVICE"}
-{application="PAYMENT-SERVICE"} |= "Choreography saga"
+```java
+@RateLimiter(name = "payment-api")
+@Bulkhead(name = "payment-api", type = Bulkhead.Type.SEMAPHORE)
 ```
 
-```promql
-up{application="PAYMENT-SERVICE"}
-sum by (service, outcome) (increase(shopverse_service_requests_logged_total{service="PAYMENT-SERVICE"}[5m]))
-```
+Limits live in centralized config. JSON logging, Loki collection, Prometheus metrics, and Zipkin tracing are documented in [Observability](../observability/README.md).
 
 ## Build
 
 ```powershell
-.\gradlew.bat clean build
-docker build -t shopverse/payment-service:local .
+.\gradlew.bat clean test
+docker compose build payment-service
+docker compose up -d payment-service
 ```
-
-Docker Compose commands and Dockerfile details are in [../docker/README.md](../docker/README.md).

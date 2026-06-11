@@ -16,16 +16,23 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleBadCredentials(
             BadCredentialsException ex
     ) {
+        return error(HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
 
-        ErrorResponse error =
-                new ErrorResponse(
-                        401,
-                        ex.getMessage(),
-                        LocalDateTime.now()
-                );
+    @ExceptionHandler(AuthenticationServiceUnavailableException.class)
+    public ResponseEntity<ErrorResponse> handleAuthenticationServiceUnavailable(
+            AuthenticationServiceUnavailableException ex
+    ) {
+        return error(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
+    }
 
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .body(error);
+    private ResponseEntity<ErrorResponse> error(HttpStatus status, String message) {
+        ErrorResponse error = new ErrorResponse(
+                status.value(),
+                message,
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity.status(status).body(error);
     }
 }

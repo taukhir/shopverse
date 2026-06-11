@@ -1,5 +1,27 @@
 # Shopverse Docker Guide
 
+## Local POC Secrets
+
+Docker Compose reads local credentials and overrides from the repository root
+`.env` file:
+
+```powershell
+Copy-Item .env.example .env
+docker compose config
+```
+
+Keeping POC credentials in `.env` is acceptable for this local demo because
+`.env` is ignored by Git and `.env.example` contains placeholders. Do not put
+real secrets in Compose YAML, centralized config, README examples, image
+layers, logs, or CI output. Before any shared or production deployment, use
+Docker/Kubernetes secrets or a managed secret store and rotate any credential
+that has been exposed.
+
+The current repository also includes a known demo admin login and classpath RSA
+keys to make the authentication flow runnable after cloning. Treat both as
+disposable POC fixtures, not protected secrets. Replace the bootstrap password
+and mount signing keys at runtime before deploying outside a local demo.
+
 This guide keeps Docker and Docker Compose details in one place so the root README can stay focused on the project overview.
 
 ## Docker Compose Commands
@@ -98,7 +120,8 @@ docker exec -it shopverse-user-service sh -c "ls -la /app/logs"
 Refresh user-service config after Config Server changes:
 
 ```powershell
-curl.exe -X POST http://localhost:8082/actuator/refresh
+curl.exe -X POST http://localhost:8082/actuator/refresh `
+  -H "Authorization: Bearer $token"
 ```
 
 Stop the stack:
@@ -122,6 +145,25 @@ docker compose up -d
 ```
 
 Use `down -v` carefully because it deletes MySQL, Loki, Prometheus, Grafana, Jenkins, and service log volumes when used with their Compose files.
+
+## MySQL Service Databases
+
+The MySQL container provisions `order_service`, `inventory_service`, and
+`payment_service` through `docker/mysql/init/01-create-service-databases.sh`.
+The script grants access to the `MYSQL_USER` configured in `.env`; no local
+developer username is embedded in it.
+
+MySQL executes `/docker-entrypoint-initdb.d` only when its data directory is
+created for the first time. An existing `mysql-data` volume will not rerun the
+new script. For a disposable local POC, recreate the volume:
+
+```powershell
+docker compose down -v
+docker compose up -d mysql
+```
+
+This deletes existing database, logging, and observability volumes. Preserve or
+back up any data you need before using `-v`.
 
 ## Docker Command Flags
 

@@ -1,124 +1,40 @@
 # Shopverse Order Service
 
-Order Service is a simple order API POC. It demonstrates protected order endpoints, public catalog endpoints, choreography SAGA events with Kafka, centralized logs, Prometheus metrics, and Zipkin tracing.
+Order Service owns persistent customer orders and starts the Kafka choreography SAGA. It uses MySQL, Spring Data JPA, Liquibase, Bean Validation, caching, OpenFeign, Resilience4j annotations, JWT resource-server security, Micrometer metrics, Zipkin tracing, and structured JSON logging.
 
-The current implementation uses static sample data so the microservices POC can be tested without adding an order database yet.
+## Runtime
 
-## Responsibilities
+| Item | Value |
+| --- | --- |
+| Application | `ORDER-SERVICE` |
+| Port | `8083` |
+| Database | `order_service` |
+| Config | `cloud-configs/ORDER-SERVICE.yml` |
+| Swagger UI | `http://localhost:8083/swagger-ui/index.html` |
 
-- Serve public health and sample catalog APIs.
-- Serve user order APIs protected by JWT roles.
-- Serve admin order APIs protected by `ROLE_ADMIN`.
-- Register with Eureka as `ORDER-SERVICE`.
-- Validate JWTs using the Auth Service JWKS endpoint.
-- Emit request logs and custom Micrometer counters.
-- Export traces to Zipkin.
-- Start the Order -> Inventory -> Payment choreography SAGA by publishing `shopverse.order.created`.
-- Listen for inventory/payment outcome events and log the final saga status.
+## Data Model
 
-## Port
+- `OrderEntity`: order number, customer, status, amount, correlation ID, payment reference, failure reason.
+- `OrderItemEntity`: product, quantity, and the authoritative price captured at checkout.
+- `BaseAuditableEntity`: `@CreatedDate` and `@LastModifiedDate` populated by JPA auditing.
+- Liquibase owns schema creation; Hibernate runs with `ddl-auto: validate`.
 
-```text
-8083
-```
+Repositories return entities only inside the service layer. Controllers expose immutable Java records instead of persistence entities.
 
-## Endpoints
+## APIs
 
-| Method | Endpoint | Security | Description |
+| Method | Path | Access | Purpose |
 | --- | --- | --- | --- |
-| `GET` | `/api/v1/orders/public/health` | Public | Service health response |
-| `GET` | `/api/v1/orders/public/catalog` | Public | Sample product catalog |
-| `GET` | `/api/v1/orders` | User/customer role or `ROLE_ADMIN` | Sample current-user orders |
-| `GET` | `/api/v1/orders/{id}` | User/customer role or `ROLE_ADMIN` | Sample order by ID |
-| `POST` | `/api/v1/orders` | User/customer role or `ROLE_ADMIN` | Returns a sample created order |
-| `POST` | `/api/v1/orders/checkout` | User/customer role or `ROLE_ADMIN` | Starts the Kafka choreography SAGA checkout flow |
-| `DELETE` | `/api/v1/orders/{id}` | `ROLE_ADMIN` | Returns a sample delete response |
-| `GET` | `/api/v1/orders/admin/all` | `ROLE_ADMIN` | Sample admin order list |
+| `GET` | `/api/v1/orders/public/health` | Public | Health response |
+| `GET` | `/api/v1/orders/public/catalog` | Public | Inventory catalog through Feign |
+| `GET` | `/api/v1/orders` | Customer/Admin | Current customer's orders |
+| `GET` | `/api/v1/orders/{id}` | Owner/Admin | One order |
+| `GET` | `/api/v1/orders/{id}/timeline` | Authenticated | Persisted SAGA timeline |
+| `POST` | `/api/v1/orders/checkout` | Customer/Admin | Persist order and start SAGA |
+| `DELETE` | `/api/v1/orders/{id}` | Admin | Cancel order |
+| `GET` | `/api/v1/orders/admin/all` | Admin | All orders |
 
-Role names must match the JWT. If User Service/Auth Service issues `ROLE_CUSTOMER`, configure Order Service checks with `hasRole("CUSTOMER")`. If Order Service checks `hasRole("USER")`, the JWT must contain `ROLE_USER`.
-
-## Smoke Tests
-
-Public endpoints:
-
-```powershell
-curl http://localhost:8083/api/v1/orders/public/health
-curl http://localhost:8083/api/v1/orders/public/catalog
-```
-
-Through the gateway:
-
-```powershell
-curl http://localhost:8080/api/v1/orders/public/health
-curl http://localhost:8080/api/v1/orders/public/catalog
-```
-
-## Get A JWT Token
-
-Order APIs are protected except `/api/v1/orders/public/**`. Login through API Gateway and copy the returned token:
-
-```powershell
-$login = Invoke-RestMethod -Method Post `
-  -Uri http://localhost:8080/auth/login `
-  -Body (@{username='admin'; password='Admin@123'} | ConvertTo-Json) `
-  -ContentType 'application/json'
-
-$token = $login.token
-```
-
-Use the token in protected calls:
-
-```powershell
-curl.exe http://localhost:8080/api/v1/orders `
-  -H "Authorization: Bearer $token"
-```
-
-## Choreography SAGA
-
-Order Service starts the POC saga when an order is created:
-
-```text
-Order Service publishes shopverse.order.created
-Inventory Service publishes shopverse.inventory.reserved or shopverse.inventory.failed
-Payment Service publishes shopverse.payment.completed or shopverse.payment.failed
-Order Service logs the final confirmed, rejected, or payment-failed status
-```
-
-### Checkout URL
-
-Through API Gateway:
-
-```http
-POST http://localhost:8080/api/v1/orders/checkout
-```
-
-Directly to Order Service:
-
-```http
-POST http://localhost:8083/api/v1/orders/checkout
-```
-
-### Request Body
-
-Current POC status: checkout does not require a request body yet. The controller creates a fixed sample order from `SampleOrderData`.
-
-You can send no body:
-
-```powershell
-curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
-  -H "Authorization: Bearer $token"
-```
-
-Or send an empty JSON body for demo tools such as Postman:
-
-```powershell
-curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
-  -H "Authorization: Bearer $token" `
-  -H "Content-Type: application/json" `
-  -d "{}"
-```
-
-Sample body for the next improvement, not currently consumed by the controller:
+Checkout request:
 
 ```json
 {
@@ -131,207 +47,172 @@ Sample body for the next improvement, not currently consumed by the controller:
 }
 ```
 
-### Expected Response
+Required headers:
 
-The checkout endpoint returns HTTP `201 Created` with sample order data:
+```http
+Authorization: Bearer <token>
+Idempotency-Key: checkout-user-42-cart-9001
+X-Correlation-Id: checkout-demo-101
+```
+
+The current SAGA event supports one product per order, so `items` is validated with `@NotEmpty` and `@Size(max = 1)`. Product IDs and quantities use `@NotNull` and `@Positive`. Product name and price are not trusted from the client; Order Service reads them from Inventory Service.
+
+Representative `201 Created` response:
 
 ```json
 {
-  "id": 3,
-  "orderNumber": "ORD-1003",
-  "customerUsername": "current-user",
-  "status": "CREATED",
+  "id": 42,
+  "orderNumber": "ORD-10042",
+  "correlationId": "checkout-demo-101",
+  "idempotencyKey": "checkout-user-42-cart-9001",
+  "customerUsername": "admin",
+  "status": "PENDING_INVENTORY",
   "totalAmount": 2499.00,
   "items": [
     {
       "productId": 101,
       "productName": "Wireless Keyboard",
       "quantity": 1,
-      "price": 2499.00
+      "unitPrice": 2499.00
     }
   ],
-  "createdAt": "2026-06-03T..."
+  "createdAt": "2026-06-11T08:30:00Z"
 }
 ```
 
-### Event Published By Order Service
+Generated IDs, order numbers, timestamps, and the eventual SAGA status vary.
 
-After creating the sample order, Order Service publishes `shopverse.order.created` to Kafka.
+## Idempotent Checkout And Duplicate Requests
 
-Payload shape:
+`Idempotency-Key` is persisted with a unique database constraint:
+
+```java
+repository.findWithItemsByIdempotencyKey(idempotencyKey)
+        .ifPresent(existing -> returnExistingOrder(existing));
+```
+
+Sequential retries return the original order instead of creating another
+order or payment. The unique constraint remains authoritative if two service
+instances receive the key concurrently. The key is also bound to the customer,
+so another user cannot claim an existing checkout.
+
+This is stronger than an in-memory map because it survives restarts and works
+across replicas. The API does not use a distributed Redis lock: locks expire,
+whereas the database uniqueness invariant is permanent.
+
+## Queryable Order Timeline
+
+Each transition is appended to `order_timeline_events`:
+
+```text
+ORDER_CREATED
+INVENTORY_RESERVED
+PAYMENT_PROCESSING
+PAYMENT_COMPLETED
+ORDER_CONFIRMED
+```
+
+Failure states include `INVENTORY_REJECTED`, `PAYMENT_FAILED`, and
+`ORDER_CANCELLED`.
+
+```http
+GET /api/v1/orders/{id}/timeline
+```
+
+Representative response:
+
+```json
+[
+  {
+    "orderNumber": "ORD-10042",
+    "correlationId": "checkout-demo-101",
+    "stage": "ORDER_CREATED",
+    "detail": "Order persisted and ready for inventory reservation",
+    "occurredAt": "2026-06-11T08:30:00Z"
+  }
+]
+```
+
+Each timeline row contains `orderNumber`, `correlationId`, stage, detail, and
+timestamp. Use the correlation ID to move from the business timeline to Loki,
+and use a log's trace ID to open the technical execution in Zipkin.
+
+```powershell
+$login = Invoke-RestMethod -Method Post `
+  -Uri http://localhost:8080/auth/login `
+  -ContentType application/json `
+  -Body (@{username='admin'; password='Admin@123'} | ConvertTo-Json)
+
+curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+  -H "Authorization: Bearer $($login.token)" `
+  -H "Content-Type: application/json" `
+  -H "X-Correlation-Id: checkout-demo-101" `
+  -d '{\"items\":[{\"productId\":101,\"quantity\":1}]}'
+```
+
+## Synchronous And Asynchronous Communication
+
+`InventoryClient` is an OpenFeign client. `CatalogService` wraps it with annotation-driven resilience and caching:
+
+```java
+@Retry(name = "inventory-client")
+@CircuitBreaker(name = "inventory-client", fallbackMethod = "fallbackCatalog")
+@Cacheable(cacheNames = "catalog")
+public List<CatalogItemResponse> getCatalog() {
+    return inventoryClient.getCatalog().stream().map(...).toList();
+}
+```
+
+The Feign interceptor propagates `X-Correlation-Id`. Micrometer instrumentation propagates W3C trace context.
+
+After the order transaction commits, `KafkaTemplate.send(...)` schedules `shopverse.order.created`. It already returns a `CompletableFuture`, so adding `@Async` would only add another executor without improving Kafka delivery semantics. Consumers use `@KafkaListener`; listener concurrency should be controlled by Kafka partitions and container concurrency.
+
+SAGA outcomes update persisted order state:
+
+```text
+PENDING_INVENTORY -> CONFIRMED
+PENDING_INVENTORY -> INVENTORY_REJECTED
+PENDING_INVENTORY -> PAYMENT_FAILED
+```
+
+For a stricter production design, use a transactional outbox so database persistence and event publication cannot diverge.
+
+## Resilience, Caching, And Threads
+
+- `@RateLimiter(name = "order-api")` protects controller traffic.
+- `@Bulkhead(name = "order-api", type = SEMAPHORE)` limits concurrent calls.
+- `@Retry` and `@CircuitBreaker` protect the Inventory Feign call.
+- `@Cacheable` caches catalog/order reads; `@CacheEvict` invalidates writes.
+- Java 21 virtual threads are enabled centrally with `spring.threads.virtual.enabled=true`.
+
+Resilience instances and limits live in centralized config instead of Java `@Bean` factories.
+
+## Observability
+
+The request filter creates or accepts `X-Correlation-Id`, writes it to MDC, returns it in the response, logs request duration, and increments `shopverse_service_requests_logged_total`. Kafka events carry the same business correlation ID.
+
+Logs use Spring Boot's Logstash-compatible structured JSON encoder:
 
 ```json
 {
-  "orderId": 3,
-  "orderNumber": "ORD-1003",
-  "customerUsername": "current-user",
-  "productId": 101,
-  "quantity": 1,
-  "amount": 2499.00
+  "@timestamp": "2026-06-11T02:52:30.918+05:30",
+  "level": "INFO",
+  "application": "ORDER-SERVICE",
+  "traceId": "...",
+  "spanId": "...",
+  "correlationId": "checkout-demo-101",
+  "message": "Order persisted and ready for inventory reservation",
+  "orderNumber": "ORD-..."
 }
 ```
 
-Kafka topic configuration comes from centralized config:
+Health logs are routed to a separate rolling file. See [Observability](../observability/README.md) and [SAGA](../saga/README.md).
 
-```yaml
-shopverse:
-  kafka:
-    topics:
-      order-created: shopverse.order.created
-      inventory-reserved: shopverse.inventory.reserved
-      inventory-failed: shopverse.inventory.failed
-      payment-completed: shopverse.payment.completed
-      payment-failed: shopverse.payment.failed
-```
-
-### How To Verify The SAGA
-
-Start the stack:
+## Build
 
 ```powershell
-docker compose up -d
-```
-
-Follow SAGA logs:
-
-```powershell
-docker compose logs -f order-service inventory-service payment-service kafka
-```
-
-Trigger checkout:
-
-```powershell
-curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
-  -H "Authorization: Bearer $token"
-```
-
-Expected log sequence:
-
-```text
-ORDER-SERVICE     Choreography saga started orderNumber=ORD-1003 topic=shopverse.order.created
-INVENTORY-SERVICE Inventory reserved ... topic=shopverse.inventory.reserved
-PAYMENT-SERVICE   Payment completed ... topic=shopverse.payment.completed
-ORDER-SERVICE     Choreography saga completed orderNumber=ORD-1003 ... nextAction=MARK_ORDER_CONFIRMED
-```
-
-If inventory or payment fails, Order Service logs a cancellation message instead:
-
-```text
-Choreography saga cancelled orderNumber=ORD-1003 ... nextAction=MARK_ORDER_REJECTED
-Choreography saga cancelled orderNumber=ORD-1003 ... nextAction=MARK_ORDER_PAYMENT_FAILED
-```
-
-Detailed event flow, payloads, and code snippets are in [../saga/README.md](../saga/README.md).
-
-### Other Protected Order Calls
-
-```powershell
-curl http://localhost:8080/api/v1/orders `
-  -H "Authorization: Bearer <token>"
-
-curl -X POST http://localhost:8080/api/v1/orders/checkout `
-  -H "Authorization: Bearer <token>"
-```
-
-## Docker
-
-From the root project:
-
-```powershell
+.\gradlew.bat clean test
 docker compose build order-service
 docker compose up -d order-service
 docker compose logs -f order-service
 ```
-
-The full stack is started from the root:
-
-```powershell
-docker compose up -d
-```
-
-More Docker commands, flags, and Dockerfile details are in [../docker/README.md](../docker/README.md).
-
-## Jenkins Pipeline
-
-Order Service has a small service-specific Jenkins pipeline:
-
-```text
-order-service/Jenkinsfile
-```
-
-Use this when you want Jenkins to build and test only `order-service`, then optionally build its Docker image.
-
-Create the Jenkins job:
-
-1. Open Jenkins at `http://localhost:8085`.
-2. Login with `admin / admin`.
-3. Click **New Item**.
-4. Enter:
-
-```text
-shopverse-order-service
-```
-
-5. Select **Pipeline**.
-6. Under **Pipeline**, choose **Pipeline script from SCM**.
-7. Select **Git**.
-8. Add the Shopverse GitHub repository URL.
-9. Set **Branch Specifier** to your branch, for example:
-
-```text
-*/main
-```
-
-10. Set **Script Path** to:
-
-```text
-order-service/Jenkinsfile
-```
-
-11. Save.
-12. Click **Build with Parameters**.
-
-Useful parameters:
-
-| Parameter | Default | Use |
-| --- | --- | --- |
-| `BUILD_DOCKER_IMAGE` | `true` | Builds the order-service Docker image after Gradle build/test. |
-| `IMAGE_NAME` | `shopverse/order-service` | Docker image repository/name. |
-| `IMAGE_TAG` | empty | Optional tag. If empty, Jenkins uses `<build-number>-<git-sha>`. |
-
-Pipeline stages:
-
-| Stage | What it does |
-| --- | --- |
-| `Checkout` | Pulls the latest code from GitHub using Jenkins SCM. |
-| `Resolve Image Tag` | Creates the Docker image tag used by later stages. |
-| `Build And Test` | Runs `./gradlew clean build --no-daemon` inside `order-service`. |
-| `Build Docker Image` | Builds `shopverse/order-service:<tag>` using the service Dockerfile. |
-| `Verify Docker Image` | Runs `docker image inspect` to confirm the image exists. |
-
-Verify the image from PowerShell:
-
-```powershell
-docker image ls shopverse/order-service
-```
-
-## Observability
-
-- Logs are written to `/app/logs/order-service.log`.
-- Prometheus scrapes `/actuator/prometheus`.
-- Custom request counter: `shopverse_service_requests_logged_total{service="ORDER-SERVICE"}`.
-- Zipkin receives request spans.
-- Grafana Loki query:
-
-```logql
-{application="ORDER-SERVICE"}
-{application="ORDER-SERVICE"} |= "Choreography saga"
-```
-
-## Next Improvements
-
-- Replace static sample data with a real order database.
-- Add a real checkout request DTO so the sample request body controls order items and quantities.
-- Add DTO validation for create/update APIs.
-- Add order state transitions and payment/shipping events.
-- Add integration tests with Spring Security JWT test support.

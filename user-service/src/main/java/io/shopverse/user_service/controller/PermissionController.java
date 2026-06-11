@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -45,6 +46,7 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<PageResponse<PermissionResponse>> getPermissions(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -68,6 +70,7 @@ public class PermissionController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<PermissionResponse>> getPermission(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.success(
                 "Permission fetched successfully",
@@ -76,6 +79,7 @@ public class PermissionController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<PermissionResponse>> createPermission(
             @Valid @RequestBody CreatePermissionRequest request
     ) {
@@ -88,6 +92,7 @@ public class PermissionController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<PermissionResponse>> updatePermission(
             @PathVariable Long id,
             @Valid @RequestBody UpdatePermissionRequest request
@@ -99,6 +104,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePermission(@PathVariable Long id) {
         permissionService.deletePermission(id);

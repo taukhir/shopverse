@@ -29,12 +29,16 @@ Docker Compose mounts this folder into Config Server:
 
 - Eureka client defaults
 - Kafka bootstrap server and SAGA topic names
-- Actuator exposure for `health`, `info`, `prometheus`, and `refresh`
+- Kafka idempotent producer, `acks=all`, record acknowledgement, and tracing
+- Shared actuator exposure for `health`, `info`, and `prometheus`
 - Prometheus metric tags
-- Micrometer tracing and Zipkin export
-- log file and trace/span correlation pattern
+- Java 21 virtual-thread support
+- Micrometer/Brave tracing and Zipkin export
+- Logstash JSON output, application fields, and rolling log files
 
 Service-specific files override or add settings for individual services.
+
+`refresh` is exposed only in the JWT-secured Auth, User, Order, Payment, and Inventory service configurations. It is not globally exposed on Config Server, Discovery Server, or API Gateway.
 
 ## Gateway Route Boundary
 

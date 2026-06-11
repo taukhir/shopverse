@@ -5,12 +5,13 @@ services:
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-user_service}
       MYSQL_USER: ${MYSQL_USER:-ahmed}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-Ahm3d@123}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
     ports:
       - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$${MYSQL_ROOT_PASSWORD} --silent"]
       interval: 10s
@@ -108,7 +109,7 @@ services:
       EUREKA_DEFAULT_ZONE: ${USER_SERVICE_EUREKA_DEFAULT_ZONE:-http://discovery-server:8761/eureka}
       DB_URL: ${USER_SERVICE_DB_URL:-jdbc:mysql://mysql:3306/user_service?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false}
       DB_USERNAME: ${MYSQL_USER:-ahmed}
-      DB_PASSWORD: ${MYSQL_PASSWORD:-Ahm3d@123}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
       DB_DRIVER: ${USER_SERVICE_DB_DRIVER:-com.mysql.cj.jdbc.Driver}
       JPA_DDL_AUTO: ${USER_SERVICE_JPA_DDL_AUTO:-none}
       JPA_SHOW_SQL: ${USER_SERVICE_JPA_SHOW_SQL:-false}
@@ -194,12 +195,17 @@ services:
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_URL: jdbc:mysql://mysql:3306/order_service?allowPublicKeyRetrieval=true&useSSL=false
+      DB_USERNAME: ${MYSQL_USER:-ahmed}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
       LOG_FILE: /app/logs/order-service.log
     ports:
       - "8083:8083"
     volumes:
       - order-service-logs:/app/logs
     depends_on:
+      mysql:
+        condition: service_healthy
       config-server:
         condition: service_healthy
       discovery-server:
@@ -231,12 +237,17 @@ services:
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_URL: jdbc:mysql://mysql:3306/payment_service?allowPublicKeyRetrieval=true&useSSL=false
+      DB_USERNAME: ${MYSQL_USER:-ahmed}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
       LOG_FILE: /app/logs/payment-service.log
     ports:
       - "8084:8084"
     volumes:
       - payment-service-logs:/app/logs
     depends_on:
+      mysql:
+        condition: service_healthy
       config-server:
         condition: service_healthy
       discovery-server:
@@ -268,12 +279,17 @@ services:
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_URL: jdbc:mysql://mysql:3306/inventory_service?allowPublicKeyRetrieval=true&useSSL=false
+      DB_USERNAME: ${MYSQL_USER:-ahmed}
+      DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
       LOG_FILE: /app/logs/inventory-service.log
     ports:
       - "8086:8086"
     volumes:
       - inventory-service-logs:/app/logs
     depends_on:
+      mysql:
+        condition: service_healthy
       config-server:
         condition: service_healthy
       discovery-server:
@@ -399,7 +415,7 @@ services:
     container_name: shopverse-grafana
     environment:
       GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?Set GRAFANA_ADMIN_PASSWORD in .env}
       GF_USERS_DEFAULT_THEME: light
     ports:
       - "3000:3000"

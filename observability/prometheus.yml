@@ -30,6 +30,14 @@ scrape_configs:
         labels:
           application: ORDER-SERVICE
       - targets:
+          - host.docker.internal:8084
+        labels:
+          application: PAYMENT-SERVICE
+      - targets:
+          - host.docker.internal:8086
+        labels:
+          application: INVENTORY-SERVICE
+      - targets:
           - host.docker.internal:8761
         labels:
           application: DISCOVERY-SERVER

@@ -11,11 +11,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class RequestLoggingFilter extends OncePerRequestFilter {
+
+    private static final String CORRELATION_HEADER = "X-Correlation-Id";
+    private static final String CORRELATION_MDC_KEY = "correlationId";
 
     private final MeterRegistry meterRegistry;
 
@@ -25,17 +30,20 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        if (request.getRequestURI().equals("/actuator/prometheus")) {
+        if (request.getRequestURI().startsWith("/actuator/")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        long startedAt = System.nanoTime();
-        log.info("Auth service request started method={} path={}", request.getMethod(), request.getRequestURI());
+        String correlationId = correlationId(request);
+        response.setHeader(CORRELATION_HEADER, correlationId);
 
-        try {
-            filterChain.doFilter(request, response);
-        } finally {
+        try (var ignored = org.slf4j.MDC.putCloseable(CORRELATION_MDC_KEY, correlationId)) {
+            long startedAt = System.nanoTime();
+            log.info("Auth service request started method={} path={}", request.getMethod(), request.getRequestURI());
+            try {
+                filterChain.doFilter(request, response);
+            } finally {
             int status = response.getStatus();
             long durationMs = (System.nanoTime() - startedAt) / 1_000_000;
 
@@ -54,19 +62,22 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
                     status,
                     durationMs
             );
+            }
         }
     }
 
+    private String correlationId(HttpServletRequest request) {
+        return Optional.ofNullable(request.getHeader(CORRELATION_HEADER))
+                .filter(value -> !value.isBlank())
+                .orElseGet(() -> UUID.randomUUID().toString());
+    }
+
     private String outcome(int status) {
-        if (status >= 500) {
-            return "SERVER_ERROR";
-        }
-        if (status >= 400) {
-            return "CLIENT_ERROR";
-        }
-        if (status >= 300) {
-            return "REDIRECTION";
-        }
-        return "SUCCESS";
+        return switch (status / 100) {
+            case 3 -> "REDIRECTION";
+            case 4 -> "CLIENT_ERROR";
+            case 5 -> "SERVER_ERROR";
+            default -> "SUCCESS";
+        };
     }
 }

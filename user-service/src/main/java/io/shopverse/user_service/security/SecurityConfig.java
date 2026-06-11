@@ -21,8 +21,12 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 @Configuration
 @EnableWebSecurity
@@ -52,7 +56,10 @@ public class SecurityConfig {
 
     @Bean
     @Order(2)
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            JwtAuthenticationConverter jwtAuthenticationConverter
+    ) throws Exception {
 
         http
 
@@ -61,29 +68,21 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(auth -> auth
-                        // Allow actuator endpoints
-                        .requestMatchers("/actuator/**").permitAll()
-                        // Public APIs
+                        .requestMatchers(
+                                "/actuator/health",
+                                "/actuator/health/**",
+                                "/actuator/info",
+                                "/actuator/prometheus"
+                        ).permitAll()
                         .requestMatchers(ApiConstants.PUBLIC_API + "/**",
 
                                 ApiConstants.SWAGGER, ApiConstants.SWAGGER_HTML, ApiConstants.OPEN_API).permitAll()
-
-//                        // Admin only DELETE
-//                        .requestMatchers(
-//                                HttpMethod.DELETE,
-//                                ApiConstants.USERS + "/**"
-//                        ).hasRole("ADMIN")
-
-                        // User + Admin
-                        .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole("USER", "ADMIN")
-
-                        // Roles APIs
+                        .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers(ApiConstants.ROLES + "/**").hasRole("ADMIN")
-
                         .anyRequest().authenticated())
 
-                // JWT Resource Server
-                .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()));
+                .oauth2ResourceServer(oauth -> oauth.jwt(jwt ->
+                        jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
 
         return http.build();
     }
@@ -91,15 +90,25 @@ public class SecurityConfig {
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
 
-        JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
-
-        converter.setAuthoritiesClaimName("roles");
-
-        converter.setAuthorityPrefix("");
-
         JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
 
-        jwtConverter.setJwtGrantedAuthoritiesConverter(converter);
+        jwtConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
+            LinkedHashSet<GrantedAuthority> authorities = new LinkedHashSet<>();
+            String roles = jwt.getClaimAsString("roles");
+            if (roles != null) {
+                Arrays.stream(roles.split(" "))
+                        .filter(role -> !role.isBlank())
+                        .map(SimpleGrantedAuthority::new)
+                        .forEach(authorities::add);
+            }
+            var permissions = jwt.getClaimAsStringList("permissions");
+            if (permissions != null) {
+                permissions.stream()
+                        .map(SimpleGrantedAuthority::new)
+                        .forEach(authorities::add);
+            }
+            return authorities;
+        });
 
         return jwtConverter;
     }

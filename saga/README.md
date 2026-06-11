@@ -61,7 +61,7 @@ This endpoint is authenticated. It requires the customer/user role accepted by O
 POST /api/v1/orders/** -> customer/user role or ROLE_ADMIN
 ```
 
-Role names must match the JWT. If User Service/Auth Service issues `ROLE_CUSTOMER`, Order Service should check `hasRole("CUSTOMER")`. If Order Service checks `hasRole("USER")`, the JWT must contain `ROLE_USER`.
+Customer checkout accepts `ROLE_CUSTOMER`, and administrative operations accept `ROLE_ADMIN`, matching the roles issued in Shopverse JWTs.
 
 ## Success Flow
 
@@ -142,14 +142,88 @@ cloud-configs/application.yml
 
 ## Data Flow
 
+## Current Persistent State Flow
+
+```mermaid
+stateDiagram-v2
+    [*] --> ORDER_CREATED
+    ORDER_CREATED --> INVENTORY_RESERVED
+    ORDER_CREATED --> INVENTORY_REJECTED
+    INVENTORY_RESERVED --> PAYMENT_PROCESSING
+    PAYMENT_PROCESSING --> PAYMENT_COMPLETED
+    PAYMENT_PROCESSING --> PAYMENT_FAILED
+    PAYMENT_PROCESSING --> INVENTORY_REJECTED: reservation expired
+    PAYMENT_COMPLETED --> ORDER_CONFIRMED
+    ORDER_CONFIRMED --> [*]
+```
+
+Every transition is stored in `order_timeline_events` and incremented as a
+Micrometer metric. The timeline is queryable through:
+
+```http
+GET /api/v1/orders/{id}/timeline
+```
+
+## Failure Simulation APIs
+
+The POC exposes controlled admin APIs instead of hiding failure rules in code:
+
+```http
+POST /api/v1/payments/admin/simulation?mode=SUCCESS
+POST /api/v1/payments/admin/simulation?mode=DECLINE
+POST /api/v1/payments/admin/simulation?mode=TIMEOUT
+```
+
+Insufficient stock can be simulated by setting a product quantity to zero
+through the Inventory admin API. Duplicate HTTP delivery is simulated by
+reusing `Idempotency-Key`; duplicate Kafka delivery is safe because reservation
+and payment tables have unique order numbers.
+
+For timeout testing, wait for the reservation TTL to observe automatic
+compensation, or reconcile before expiry:
+
+```http
+POST /api/v1/payments/admin/orders/{orderNumber}/reconcile
+```
+
+The Grafana `Shopverse Commerce Operations` dashboard shows SAGA transitions,
+payment outcomes, inventory conflicts, and expired reservations.
+
+## Concurrency And Locking Decision
+
+Shopverse uses three durable invariants:
+
+1. Unique `orders.idempotency_key` prevents duplicate checkout creation.
+2. Unique reservation/payment order numbers make event consumers idempotent.
+3. `InventoryItem.@Version` prevents two transactions from reserving the last
+   unit.
+
+No Redis distributed lock is used. A cache lock can expire while a transaction
+is still running and cannot replace the database constraint. If Shopverse later
+assigns a scarce external resource, the assignment table should still have a
+unique database constraint; a short-lived distributed lock may only reduce
+contention.
+
+## Dead Letter And Replay
+
+The Payment listener retries three times using Spring Kafka retry topics.
+Exhausted records enter the DLT handler and are persisted with payload, source
+topic, retry count, failure reason, and replay timestamps:
+
+```http
+GET  /api/v1/payments/admin/dead-letters
+POST /api/v1/payments/admin/dead-letters/{id}/replay
+```
+
 ### 1. Order Service Publishes `order.created`
 
-When `/api/v1/orders/checkout` is called, Order Service creates sample order data and publishes:
+When `/api/v1/orders/checkout` is called, Order Service validates the request, resolves authoritative product data from Inventory Service through Feign, persists the order in MySQL, and publishes:
 
 ```json
 {
   "orderId": 3,
   "orderNumber": "ORD-1003",
+  "correlationId": "checkout-demo-101",
   "customerUsername": "current-user",
   "productId": 101,
   "quantity": 1,
@@ -165,12 +239,7 @@ Choreography saga started orderNumber=ORD-1003 topic=shopverse.order.created pay
 
 ### 2. Inventory Service Consumes `order.created`
 
-Inventory Service reads the order event and checks a simple demo rule:
-
-```text
-if productId == 103 or quantity > 5 -> inventory fails
-otherwise -> inventory is reserved
-```
+Inventory Service reads the event and transactionally reserves persisted stock. A unique reservation per order makes redelivery idempotent, and `@Version` optimistic locking prevents silent lost updates during concurrent reservation attempts.
 
 On success, it publishes:
 
@@ -296,11 +365,18 @@ Order Service starts the flow from the authenticated checkout endpoint:
 
 ```java
 @PostMapping("/checkout")
-public ResponseEntity<OrderResponse> checkout() {
+public ResponseEntity<OrderResponse> checkout(
+        @Valid @RequestBody CheckoutRequest request,
+        Authentication authentication
+) {
     log.info("Checkout requested for current user; starting choreography saga");
-
-    OrderResponse order = sampleOrderData.newSampleOrder();
-    orderSagaPublisher.publishOrderCreated(order);
+    String correlationId = MDC.get(CorrelationConstants.MDC_KEY);
+    OrderResponse order = orderService.checkout(
+            request,
+            authentication.getName(),
+            correlationId
+    );
+    orderSagaPublisher.publishOrderCreated(order, correlationId);
 
     return ResponseEntity
             .status(HttpStatus.CREATED)
@@ -310,16 +386,17 @@ public ResponseEntity<OrderResponse> checkout() {
 
 ### Order Publishes `order.created`
 
-Order Service converts the sample order to an event and publishes it to Kafka:
+Order Service converts the persisted order to an event and publishes it to Kafka:
 
 ```java
-@Value("${shopverse.kafka.topics.order-created}")
-private String orderCreatedTopic;
-
-public void publishOrderCreated(OrderResponse order) {
+public CompletableFuture<Void> publishOrderCreated(
+        OrderResponse order,
+        String correlationId
+) {
     OrderCreatedEvent event = new OrderCreatedEvent(
             order.id(),
             order.orderNumber(),
+            correlationId,
             order.customerUsername(),
             order.items().getFirst().productId(),
             order.items().getFirst().quantity(),
@@ -327,7 +404,8 @@ public void publishOrderCreated(OrderResponse order) {
     );
 
     String payload = objectMapper.writeValueAsString(event);
-    kafkaTemplate.send(orderCreatedTopic, order.orderNumber(), payload);
+    return kafkaTemplate.send(topics.orderCreated(), order.orderNumber(), payload)
+            .thenApply(result -> null);
 
     log.info("Choreography saga started orderNumber={} topic={} payload={}",
             order.orderNumber(), orderCreatedTopic, payload);

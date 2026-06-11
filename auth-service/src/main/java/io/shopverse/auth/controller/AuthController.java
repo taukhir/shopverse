@@ -5,6 +5,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import io.shopverse.auth.dto.AuthResponse;
 import io.shopverse.auth.dto.LoginRequest;
 import io.shopverse.auth.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,18 +27,10 @@ public class AuthController {
     private final AuthService authService;
     private final RSAKey rsaKey;
 
-    @GetMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest req){
-        log.info("Login requested for username={}", req.username());
-        return  ResponseEntity
-                .status(HttpStatus.OK)
-                .body(authService.authenticate(req));
-    }
-
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> loginPost(@RequestBody LoginRequest req){
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest req) {
         log.info("Login requested for username={}", req.username());
-        return  ResponseEntity
+        return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(authService.authenticate(req));
     }
@@ -51,11 +44,4 @@ public class AuthController {
 
         return jwkSet.toJSONObject();
     }
-
-    @GetMapping("verify")
-    public String verify(){
-        log.info("Auth token verification endpoint requested");
-        return "verified";
-    }
-
 }

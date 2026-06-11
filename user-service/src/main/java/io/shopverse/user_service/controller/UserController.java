@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -41,6 +42,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Users", description = "User account and password management APIs")
+@RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
+@Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
 public class UserController {
 
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of(
@@ -56,8 +59,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
-    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
+    @PreAuthorize("hasAuthority('USER_READ')")
     public ResponseEntity<PageResponse<UserSummaryResponse>> getUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -93,16 +95,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
-    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
+    @PreAuthorize("hasAuthority('USER_READ')")
     public ResponseEntity<ApiResponse<UserResponse>> getUser(@PathVariable Long id) {
         log.info("User lookup requested by id: {}", id);
         return ResponseEntity.ok(ApiResponse.success("User fetched successfully", userService.getUser(id)));
     }
 
     @PostMapping
-    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
-    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
+    @PreAuthorize("hasAuthority('USER_CREATE')")
     public ResponseEntity<ApiResponse<UserResponse>> createUser(@Valid @RequestBody CreateUserRequest request) {
         log.info("User creation requested for username={}, email={}", request.username(), request.email());
         return ResponseEntity
@@ -111,8 +111,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
-    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
+    @PreAuthorize("hasAuthority('USER_UPDATE')")
     public ResponseEntity<ApiResponse<UserResponse>> updateUser(
             @PathVariable Long id,
             @Valid @RequestBody UpdateUserRequest request
@@ -122,8 +121,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}/password")
-    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
-    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
+    @PreAuthorize("hasAuthority('USER_UPDATE')")
     public ResponseEntity<ApiResponse<Void>> changePassword(
             @PathVariable Long id,
             @Valid @RequestBody ChangePasswordRequest request
@@ -134,8 +132,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/password/reset")
-    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
-    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
+    @PreAuthorize("hasAuthority('USER_UPDATE')")
     public ResponseEntity<ApiResponse<Void>> resetPassword(
             @PathVariable Long id,
             @Valid @RequestBody ResetPasswordRequest request
@@ -146,9 +143,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('USER_DELETE')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RateLimiter(name = ResilienceConstants.API_RATE_LIMITER)
-    @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
     public void deleteUser(@PathVariable Long id) {
         log.warn("User deletion requested for id: {}", id);
         userService.deleteUser(id);

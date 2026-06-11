@@ -1,55 +1,93 @@
 # Shopverse API Gateway
 
-API Gateway is the public entry point for Shopverse traffic. It routes requests to backend services through Eureka service discovery and participates in centralized logging, metrics, and distributed tracing.
+API Gateway is the public reactive entry point. It loads routes from Config
+Server, discovers instances through Eureka, balances traffic, validates JWTs,
+applies downstream resilience, and propagates observability context.
 
-## Responsibilities
+## Routes
 
-- Route external API calls to backend services.
-- Register with Eureka as `API-GATEWAY`.
-- Load runtime configuration from Config Server.
-- Emit request logs with trace/span IDs.
-- Expose Prometheus metrics through Actuator.
-- Export request traces to Zipkin.
-
-## Port
-
-```text
-8080
-```
-
-## Important Routes
-
-| Route | Target |
+| Path | Target |
 | --- | --- |
-| `/api/v1/orders/**` | `ORDER-SERVICE` |
-| `/api/v1/payments/**` | `PAYMENT-SERVICE` |
-| `/api/v1/inventory/**` | `INVENTORY-SERVICE` |
+| `/auth/**` | `AUTH-SERVICE` |
 | `/api/v1/users/**` | `USER-SERVICE` |
 | `/api/v1/roles/**` | `USER-SERVICE` |
 | `/api/v1/permissions/**` | `USER-SERVICE` |
-| `/auth/**` | `AUTH-SERVICE` |
+| `/api/v1/orders/**` | `ORDER-SERVICE` |
+| `/api/v1/payments/**` | `PAYMENT-SERVICE` |
+| `/api/v1/inventory/**` | `INVENTORY-SERVICE` |
 
-`/api/v1/internal/users/**` is intentionally not exposed through the public API Gateway route table. Auth Service calls User Service directly through Eureka/OpenFeign for internal Basic credential validation.
+Internal User Service authentication endpoints are intentionally not routed.
+Auth Service reaches them directly through OpenFeign.
 
-## Useful URLs
+## Load-Balanced Routing
 
-```powershell
-curl http://localhost:8080/actuator/health
-curl http://localhost:8080/api/v1/orders/public/health
-curl http://localhost:8080/api/v1/payments/public/health
-curl http://localhost:8080/api/v1/inventory/public/health
+Routes are centralized in `cloud-configs/API-GATEWAY.yml`:
+
+```yaml
+- id: order-service
+  uri: lb://ORDER-SERVICE
+  predicates:
+    - Path=/api/v1/orders/**
 ```
 
-Authenticated checkout SAGA route:
+The `lb://` URI asks Spring Cloud LoadBalancer for instances supplied by
+Eureka. No service host or port is hardcoded.
 
-```powershell
-curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
-  -H "Authorization: Bearer <token>"
+## Security
+
+The Gateway is a reactive OAuth2 resource server. It allows `/auth/**`,
+`/api/v1/*/public/**`, and selected Actuator endpoints. Other requests require
+a bearer JWT. Public keys are loaded from Auth Service's JWKS endpoint.
+
+Backend services validate the JWT again. Gateway validation protects the edge;
+service validation preserves zero-trust boundaries when a service is reached
+without the Gateway.
+
+## Resilience
+
+Global Gateway filters protect downstream calls:
+
+```yaml
+default-filters:
+  - name: CircuitBreaker
+    args:
+      name: gateway-downstream
+  - name: Retry
+    args:
+      retries: 2
+      methods: GET
 ```
 
-## Docker
+Retries are restricted to GET. Retrying checkout, payment, or other writes
+without idempotency controls can duplicate state changes.
 
-From the root project:
+Service-level Resilience4j annotations still protect business boundaries:
+Gateway resilience handles route failures; service resilience handles local
+concurrency and specific downstream clients.
+
+## Correlation And Tracing
+
+`GatewayRequestLoggingFilter` accepts or generates `X-Correlation-Id`, returns
+it to the client, and forwards it:
+
+```java
+ServerWebExchange correlatedExchange = exchange.mutate()
+        .request(request -> request.headers(headers ->
+                headers.set("X-Correlation-Id", correlationId)))
+        .build();
+```
+
+Micrometer/Brave independently propagates W3C `traceparent`. The trace ID
+describes one technical execution; the correlation ID describes the business
+operation.
+
+Logs are structured JSON:
+
+```logql
+{application="API-GATEWAY"} | json
+```
+
+## Run
 
 ```powershell
 docker compose build api-gateway
@@ -57,26 +95,6 @@ docker compose up -d api-gateway
 docker compose logs -f api-gateway
 ```
 
-The full stack is started from the root:
+Health: `http://localhost:8080/actuator/health`
 
-```powershell
-docker compose up -d
-```
-
-More Docker commands, flags, and Dockerfile details are in [../docker/README.md](../docker/README.md).
-
-## Observability
-
-- Logs are written to `/app/logs/api-gateway.log`.
-- Prometheus scrapes `/actuator/prometheus`.
-- Zipkin receives spans at `ZIPKIN_ENDPOINT`.
-- Grafana Loki query:
-
-```logql
-{application="API-GATEWAY"}
-```
-
-## Notes
-
-- Route definitions are maintained centrally in `cloud-configs/API-GATEWAY.yml`.
-- Backend services are resolved through Eureka using service IDs such as `ORDER-SERVICE`, `PAYMENT-SERVICE`, and `INVENTORY-SERVICE`.
+See [Observability](../observability/README.md), [Cloud Config](../cloud-configs/README.md), and [Docker](../docker/README.md).

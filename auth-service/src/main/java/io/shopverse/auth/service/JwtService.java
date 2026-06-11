@@ -40,6 +40,15 @@ public class JwtService {
                                 .map(Role::roleName)
                                 .collect(Collectors.joining(" "))
                 )
+                .claim(
+                        "permissions",
+                        user.roles().stream()
+                                .flatMap(role -> role.permissions().stream())
+                                .map(permission -> permission.permissionName())
+                                .distinct()
+                                .sorted()
+                                .toList()
+                )
                 .build();
 
         return new AuthResponse(jwtEncoder.encode(

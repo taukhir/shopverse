@@ -1,660 +1,353 @@
-# Shopverse Observability POC
+# Shopverse Observability
 
-This folder contains the local observability stack for the Shopverse microservices POC. It helps us answer three operational questions:
+Shopverse uses three complementary signals:
 
-- Are the services healthy and receiving traffic?
-- What happened inside each service during a request?
-- Can we connect logs, metrics, and traces for the same request?
+- **Logs:** Spring Boot structured JSON -> Promtail -> Loki -> Grafana.
+- **Metrics:** Actuator and Micrometer -> Prometheus -> Grafana.
+- **Traces:** Micrometer Tracing/Brave bridge -> Zipkin -> Grafana or Zipkin UI.
 
-The stack includes:
-
-- Prometheus scrapes Spring Boot Actuator metrics from each service.
-- Loki stores centralized service logs.
-- Promtail ships Docker container logs and local service log files to Loki.
-- Grafana includes Prometheus, Loki, and Zipkin datasources plus a starter dashboard.
-- Zipkin is included so trace IDs in logs can be correlated with traces.
-
-## Observability Flow
+Grafana is the visualization and query UI. It does not collect or persist telemetry itself.
 
 ![Shopverse observability flow](../assets/shopverse-observability-flow.svg)
 
-The diagram shows how the POC collects and uses observability data:
-
-- Services write logs to `/app/logs/*.log` and Docker stdout.
-- Promtail collects those logs, extracts labels, and sends them to Loki.
-- Loki stores centralized logs and makes them searchable from Grafana.
-- Services expose metrics through `/actuator/prometheus`.
-- Prometheus scrapes and stores those metrics.
-- Grafana queries Loki for logs and Prometheus for metrics.
-- Services send tracing spans to Zipkin, and the same `traceId` appears in logs for correlation.
-
-## Zipkin Tracing Flow
-
-![Shopverse Zipkin tracing flow](../assets/shopverse-zipkin-tracing-flow.svg)
-
-Zipkin stores distributed traces. A trace represents one request journey, and spans represent individual operations inside that journey.
-
-In Shopverse, a typical traced request looks like:
-
-```text
-Client
-  -> API Gateway span
-  -> Order Service span
-  -> optional Auth/User/Payment/Inventory Service spans
-  -> Zipkin
-```
-
-The important IDs are:
-
-- `traceId`: shared by all services involved in the same request.
-- `spanId`: unique to one operation inside that request.
-
-The log pattern includes both IDs:
-
-```text
-[ORDER-SERVICE,<traceId>,<spanId>]
-```
-
-That means you can open Zipkin, copy a `traceId`, then search centralized logs in Grafana Loki:
-
-```logql
-{traceId="paste-trace-id-here"}
-```
-
-## Aggregated Logs For One Trace ID
-
-Use this when you want to see every log line produced by all services for one request.
-
-### Option 1: Start From Zipkin
-
-1. Generate traffic through the API Gateway:
-
-   ```powershell
-   curl.exe http://localhost:8080/api/v1/orders/public/health
-   ```
-
-2. Open Zipkin:
-
-   ```text
-   http://localhost:9411
-   ```
-
-3. Search recent traces and open the request.
-
-4. Copy the trace ID from Zipkin.
-
-5. Open Grafana:
-
-   ```text
-   http://localhost:3000
-   ```
-
-6. Go to **Explore**.
-
-7. Select the **Loki** datasource.
-
-8. Search by trace ID:
-
-   ```logql
-   {traceId="paste-trace-id-here"}
-   ```
-
-This shows aggregated logs from every service that logged with the same `traceId`, such as API Gateway, Order Service, Payment Service, Inventory Service, User Service, and Auth Service.
-
-### Kafka SAGA Trace IDs And Correlation IDs
-
-HTTP calls usually keep the same `traceId` across API Gateway, Auth Service, User Service, and Order Service because the trace context is propagated through HTTP headers.
-
-Kafka SAGA steps run later on Kafka listener threads. Spring Kafka observation is enabled in centralized config so Micrometer can create producer/consumer observations, but a message-driven step can still be easier to debug with a business correlation id because retries, delayed processing, and independent consumers are not always tied to the original HTTP log window.
-
-For this POC, every checkout SAGA event carries:
-
-```text
-correlationId=SAGA-<orderNumber>
-```
-
-Example log fields:
-
-```text
-orderNumber=ORD-1003 correlationId=SAGA-ORD-1003
-```
-
-Use `traceId` when you want technical distributed tracing for one request. Use `correlationId` when you want the full business SAGA story across Order, Inventory, and Payment events.
-
-Search SAGA logs by correlation id:
-
-```logql
-{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "correlationId=SAGA-ORD-1003"
-```
-
-Search all checkout SAGA logs:
-
-```logql
-{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "Choreography saga"
-```
-
-### Option 2: Start From Logs
-
-If you do not have a trace ID yet, find a recent service log first:
-
-```logql
-{application="ORDER-SERVICE"} |= "Health check requested"
-```
-
-Copy the `traceId` label from the log row in Grafana, then run:
-
-```logql
-{traceId="paste-trace-id-here"}
-```
-
-### Useful Trace Log Queries
-
-All logs for one trace:
-
-```logql
-{traceId="paste-trace-id-here"}
-```
-
-All error logs for one trace:
-
-```logql
-{traceId="paste-trace-id-here", level="ERROR"}
-```
-
-All logs for one trace from one service:
-
-```logql
-{traceId="paste-trace-id-here", application="ORDER-SERVICE"}
-```
-
-Search within one trace:
-
-```logql
-{traceId="paste-trace-id-here"} |= "User lookup"
-```
-
-If the query returns nothing:
-
-- Confirm the request was made after Promtail and Loki were running.
-- Confirm the selected Grafana time range includes the request time.
-- Confirm the log line has a real trace ID instead of an empty value.
-- Generate traffic through the API Gateway so trace context flows across services.
-- Check Zipkin at `http://localhost:9411` to confirm a trace was created.
-
-## How It Works
-
-```text
-Spring Boot services
-  -> logs to console and /app/logs/*.log
-  -> exposes /actuator/prometheus
-  -> sends tracing spans to Zipkin
-
-Promtail
-  -> reads service log files and Docker container logs
-  -> extracts labels like application, level, traceId, spanId
-  -> pushes logs to Loki
-
-Prometheus
-  -> scrapes /actuator/prometheus from each service
-  -> stores metrics time series
-
-Loki
-  -> stores centralized logs
-  -> keeps labels for filtering and correlation
-
-Grafana
-  -> queries Prometheus for metrics
-  -> queries Loki for logs
-  -> queries Zipkin for traces
-```
-
-## Core Tools
-
-### Loki
-
-Loki is the centralized log storage system. Promtail sends service logs to Loki, and Loki stores those logs with labels such as:
-
-```text
-application
-level
-traceId
-spanId
-job
-container
-```
-
-Unlike Elasticsearch-style systems, Loki is designed to index labels instead of indexing the full log text. This keeps the setup lighter for a POC while still making logs easy to search from Grafana.
-
-Example Loki query:
-
-```logql
-{application="USER-SERVICE"}
-```
-
-### Prometheus
-
-Prometheus is the metrics database and scraper. It periodically calls each service's:
-
-```text
-/actuator/prometheus
-```
-
-Spring Boot Actuator and Micrometer expose metrics in Prometheus format. Prometheus stores these as time-series data, such as HTTP request counts, request duration, JVM memory, CPU usage, and custom counters.
-
-Example Prometheus query:
-
-```promql
-sum by (application) (rate(http_server_requests_seconds_count[1m]))
-```
-
-### Grafana
-
-Grafana is the dashboard and exploration UI. It does not collect logs or metrics by itself. Instead, it connects to datasources:
-
-- Loki for logs
-- Prometheus for metrics
-- Zipkin for traces
-
-In this POC, Grafana is where we check dashboards, search aggregated logs, inspect metrics, and correlate a log `traceId` with a Zipkin trace.
-
-## Start The Stack
-
-From the root `shopverse` folder, start the full POC stack:
-
-```powershell
-docker compose up -d
-```
-
-You can also start only the standalone observability stack from this folder:
-
-```powershell
-docker compose up -d
-```
-
-Open:
-
-- Grafana: http://localhost:3000
-- Prometheus: http://localhost:9090
-- Loki: http://localhost:3100
-- Zipkin: http://localhost:9411
-
-Grafana login:
-
-- Username: `admin`
-- Password: `admin`
-
-## Service-Side Logging Config
-
-Shared logging config is managed through the centralized config folder:
-
-```text
-../cloud-configs/application.yml
-```
-
-Important configuration:
-
-```yaml
-logging:
-  include-application-name: false
-  file:
-    name: ${LOG_FILE:logs/${spring.application.name}.log}
-  pattern:
-    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
-```
-
-This makes every service write logs to a file and include correlation data in the log line:
-
-```text
-[USER-SERVICE,<traceId>,<spanId>]
-```
-
-Example log shape:
-
-```text
-2026-05-26T14:38:09.317+05:30 INFO [ORDER-SERVICE,abc123,def456] ... Health check requested for order service
-```
-
-The `traceId` and `spanId` values come from Micrometer tracing. They allow us to search logs for one request and connect those logs to Zipkin traces.
-
-## Application Logs Added In Services
-
-The services use Lombok SLF4J with `@Slf4j`.
-
-Examples:
-
-```java
-@Slf4j
-public class UserController {
-    // log.info(...), log.warn(...)
+## Structured JSON Logging
+
+Services use Lombok `@Slf4j` and Spring Boot's `StructuredLogEncoder` with the Logstash JSON format. Console and rolling file output contain machine-readable fields:
+
+```json
+{
+  "@timestamp": "2026-06-11T02:52:30.918+05:30",
+  "level": "INFO",
+  "application": "ORDER-SERVICE",
+  "traceId": "6a1e660de4db49fe47911954296ecce5",
+  "spanId": "1ee04f11149f6bee",
+  "correlationId": "checkout-demo-101",
+  "message": "Order persisted and ready for inventory reservation",
+  "orderNumber": "ORD-A1B2C3D4"
 }
 ```
 
-Logs were added around useful business and request events, for example:
+Business fields are added without string concatenation:
 
-- user creation, update, password change, password reset, and deletion
-- user lookup and validation failures
-- authentication start, success, and failure
-- order health check, catalog lookup, order creation, and order deletion
-- payment and inventory health checks
-- choreography SAGA events across order, inventory, and payment services
-- request start/completion with method, path, status, and duration
-
-Request logging filters were added in services such as user, order, and auth service. These filters log:
-
-```text
-method
-path
-status
-durationMs
+```java
+log.atInfo()
+        .addKeyValue("orderNumber", order.getOrderNumber())
+        .addKeyValue("correlationId", correlationId)
+        .log("Order persisted and ready for inventory reservation");
 ```
 
-They skip `/actuator/prometheus` so Prometheus scraping does not create noisy logs.
+Shared format selection is in `cloud-configs/application.yml`. Each service has `logback-spring.xml` for:
 
-The same filters also increment a custom Micrometer counter:
+- JSON console output.
+- JSON application rolling files.
+- Separate health-check rolling files.
+- Seven application-log history files, 10 MB per segment, and a 256 MB total cap.
 
-```text
-shopverse.service.requests.logged
+The encoder and centralized fields are configured as follows:
+
+```xml
+<encoder class="org.springframework.boot.logging.logback.StructuredLogEncoder">
+    <format>${STRUCTURED_FORMAT}</format>
+</encoder>
 ```
-
-Labels on this metric include:
-
-```text
-service
-method
-status
-outcome
-```
-
-## Docker Logging Setup
-
-In the root `docker-compose.yml`, each service receives a `LOG_FILE` environment variable:
 
 ```yaml
-LOG_FILE: /app/logs/user-service.log
-LOG_FILE: /app/logs/order-service.log
-LOG_FILE: /app/logs/payment-service.log
-LOG_FILE: /app/logs/inventory-service.log
-LOG_FILE: /app/logs/auth-service.log
-LOG_FILE: /app/logs/api-gateway.log
+logging:
+  structured:
+    format:
+      console: logstash
+      file: logstash
+    json:
+      add:
+        application: ${spring.application.name}
+        environment: ${APP_ENVIRONMENT:local}
 ```
 
-Each service also mounts a Docker volume at `/app/logs`:
+## Correlation And Trace Propagation
 
-```yaml
-volumes:
-  - user-service-logs:/app/logs
+`traceId` and `spanId` describe technical execution. Micrometer creates them and propagates W3C trace headers over instrumented HTTP, Feign, and Kafka operations.
+
+`correlationId` describes one business operation. Request filters:
+
+1. Accept `X-Correlation-Id` or generate a UUID.
+2. Put it in SLF4J MDC.
+3. Return it as `X-Correlation-Id`.
+4. Propagate it through the Order Feign interceptor.
+5. Store it in every SAGA Kafka payload.
+6. Restore it into MDC in each Kafka listener.
+
+HTTP filter pattern:
+
+```java
+String correlationId = Optional
+        .ofNullable(request.getHeader("X-Correlation-Id"))
+        .filter(value -> !value.isBlank())
+        .orElseGet(() -> UUID.randomUUID().toString());
+
+response.setHeader("X-Correlation-Id", correlationId);
+try (MDC.MDCCloseable ignored =
+             MDC.putCloseable("correlationId", correlationId)) {
+    filterChain.doFilter(request, response);
+}
 ```
 
-This keeps logs outside the application container filesystem. If a service container is recreated, its log volume can still exist unless the Docker volume is removed.
+Feign propagation:
 
-## Promtail Log Collection
+```java
+RequestInterceptor correlationInterceptor() {
+    return template -> template.header(
+            "X-Correlation-Id",
+            MDC.get("correlationId")
+    );
+}
+```
 
-Promtail is configured in:
+Kafka listeners restore the event value before business logging:
+
+```java
+CorrelationContext.run(
+        event.correlationId(),
+        () -> handleInventoryReserved(event)
+);
+```
+
+Use a trace ID to inspect one execution path. Use a correlation ID to inspect a business flow that can cross asynchronous retries and multiple traces.
+
+### How Zipkin Tracing Works Internally
+
+The resolved Spring Boot 4 runtime uses:
 
 ```text
-promtail.yml
+micrometer-observation
+micrometer-tracing
+micrometer-tracing-bridge-brave
+brave-context-slf4j
+zipkin-reporter-brave
+spring-boot-zipkin
 ```
 
-It collects logs from three places:
+Spring Boot auto-configuration connects the infrastructure without custom
+tracing `@Bean` methods:
+
+```text
+ObservationRegistry
+  -> Micrometer Tracer backed by Brave
+  -> W3C trace-context propagation
+  -> HTTP, Feign, and Kafka observation instrumentation
+  -> Zipkin span reporter
+  -> POST /api/v2/spans
+```
+
+For incoming HTTP, instrumentation extracts `traceparent` or starts a trace.
+It creates a server span and puts `traceId` and `spanId` in MDC. Instrumented
+outgoing calls inject the current context:
+
+```http
+traceparent: 00-<traceId>-<parentSpanId>-01
+X-Correlation-Id: <business-correlation-id>
+```
+
+The receiving service creates a child span under the same trace. Completed
+spans are exported to the configured Zipkin endpoint:
+
+```yaml
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    export:
+      zipkin:
+        endpoint: http://zipkin:9411/api/v2/spans
+```
+
+Kafka producer/listener observation is enabled centrally. Kafka trace headers
+carry technical context; the event `correlationId` preserves business identity
+through delays, retries, and compensation.
+
+## Collection And Storage
+
+Promtail reads:
 
 ```text
 /service-logs/*/*.log
 /workspace/*/logs/*.log
-Docker container stdout/stderr logs
+Docker container stdout/stderr
 ```
 
-Promtail uses regex pipeline stages to parse Spring Boot log lines and extract labels:
+Why multiple sources are collected:
 
-```text
-level
-application
-traceId
-spanId
-container
-compose_service
-stream
-```
+- Named service volumes preserve rolling application and health files when a
+  container is recreated.
+- Workspace files cover services run directly from an IDE or Gradle.
+- Docker stdout/stderr captures startup failures even when file logging cannot
+  initialize.
 
-Those labels make logs easy to query in Grafana.
+File and stdout collection can contain the same event. Select one `job` in
+Grafana when deduplication matters. A production deployment normally chooses
+one canonical source per workload.
 
-Example:
-
-```logql
-{application="USER-SERVICE"}
-```
-
-or:
-
-```logql
-{traceId="paste-trace-id-here"}
-```
-
-## Loki Log Storage
-
-Loki is configured in:
-
-```text
-loki.yml
-```
-
-For this POC, Loki stores data on the local filesystem inside the Docker volume:
-
-```text
-loki-data:/loki
-```
-
-Retention is enabled:
+Promtail parses and exports JSON:
 
 ```yaml
-limits_config:
-  retention_period: 168h
+pipeline_stages:
+  - json:
+      expressions:
+        timestamp: "@timestamp"
+        level: level
+        application: application
+        traceId: traceId
+        spanId: spanId
+        correlationId: correlationId
+        message: message
+  - labels:
+      level:
+      application:
 ```
 
-That means logs are kept for about 7 days.
+Only stable low-cardinality values such as `application` and `level` become
+Loki labels. Trace and correlation IDs remain JSON fields because indexing
+every unique ID as a label would create harmful cardinality.
 
-This POC does not currently use JSON logs. The services produce standard Spring Boot text logs with a correlation pattern, and Promtail parses those logs using regex. JSON logs can be added later if we want stronger structured logging.
+Promtail sends batches to `/loki/api/v1/push`. Loki stores compressed chunks
+and TSDB indexes under `/loki` in the `loki-data` volume. POC retention is seven
+days. Service log volumes survive container recreation unless explicitly
+removed.
 
-## Metrics Collection
+Prometheus scrapes `/actuator/prometheus`. Micrometer exposes HTTP, JVM, process, Kafka, cache, Resilience4j, and custom request metrics.
 
-Each Spring service exposes metrics at:
+Prometheus does not derive metrics from Loki logs in this POC. Grafana queries
+the independent stores:
 
 ```text
-/actuator/prometheus
+Grafana -> Loki       for LogQL and logs
+Grafana -> Prometheus for PromQL and time series
+Grafana -> Zipkin     for traces and spans
 ```
 
-Prometheus scrapes these service targets from inside the Docker network:
+### Logging Level Policy
 
-- API Gateway: `8080`
-- Auth Service: `8081`
-- User Service: `8082`
-- Order Service: `8083`
-- Payment Service: `8084`
-- Inventory Service: `8086`
-- Discovery Server: `8761`
-- Config Server: `8888`
+Shopverse intentionally does not log entry and exit for every Java method.
+That produces noise and can expose sensitive data.
 
-Micrometer produces JVM, HTTP, process, and custom application metrics. Prometheus scrapes those metrics and Grafana displays them.
+- `DEBUG`: detailed read, cache, and decision diagnostics.
+- `INFO`: request boundaries and successful business transitions.
+- `WARN`: rejected operations, compensation, or degraded fallback.
+- `ERROR`: unexpected failures requiring investigation, with stack traces.
 
-Useful metric examples:
+Passwords, bearer tokens, authorization headers, and private keys are never
+logged.
 
-```promql
-up
+## Start And Open
+
+```powershell
+docker compose up -d
+docker compose ps
 ```
 
-```promql
-http_server_requests_seconds_count
-```
+- Grafana: `http://localhost:3000`
+- Prometheus: `http://localhost:9090`
+- Loki: `http://localhost:3100`
+- Zipkin: `http://localhost:9411`
 
-```promql
-jvm_memory_used_bytes
-```
+Grafana defaults are `admin` / the password configured in `.env`.
 
-```promql
-shopverse_service_requests_logged_total
-```
+## Loki Queries
 
-## Grafana Datasources
+Run these in Grafana Explore with the Loki datasource.
 
-Grafana datasources are provisioned from:
-
-```text
-grafana/provisioning/datasources/datasources.yml
-```
-
-Configured datasources:
-
-- `Prometheus`: metrics
-- `Loki`: centralized logs
-- `Zipkin`: distributed traces
-
-Grafana is the main UI for checking aggregated logs and metrics.
-
-## Useful Grafana Queries
-
-Use Grafana Explore for both logs and metrics:
-
-- Select **Loki** when running `logql` queries.
-- Select **Prometheus** when running `promql` queries.
-
-### Loki LogQL Queries
-
-All Shopverse logs:
+All application logs:
 
 ```logql
-{job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"}
+{application=~".+", log_type!="health"} | json
 ```
 
-All logs that have an application label:
+One service:
 
 ```logql
-{application=~".+"}
+{application="ORDER-SERVICE", log_type!="health"} | json
 ```
 
-Logs for one service:
+Health logs:
 
 ```logql
-{application="ORDER-SERVICE"}
-{application="PAYMENT-SERVICE"}
-{application="INVENTORY-SERVICE"}
+{log_type="health"} | json
 ```
 
-Logs for API Gateway:
+One trace ID:
 
 ```logql
-{application="API-GATEWAY"}
+{application=~".+"} | json | traceId="6a1e660de4db49fe47911954296ecce5"
 ```
 
-Logs for Auth Service:
+One trace in Order Service:
 
 ```logql
-{application="AUTH-SERVICE"}
+{application="ORDER-SERVICE"} | json | traceId="6a1e660de4db49fe47911954296ecce5"
 ```
 
-Logs for User Service:
+One SAGA correlation ID:
 
 ```logql
-{application="USER-SERVICE"}
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"}
+| json
+| correlationId="checkout-demo-101"
 ```
 
-SAGA logs across Order, Inventory, and Payment:
+One order number:
 
 ```logql
-{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "Choreography saga"
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"}
+| json
+| orderNumber="ORD-A1B2C3D4"
 ```
 
-Logs for one trace id:
+Errors:
 
 ```logql
-{traceId="paste-trace-id-here"}
+{application=~".+", level="ERROR"} | json
 ```
 
-Logs for one trace id from one service:
+SAGA messages:
 
 ```logql
-{traceId="paste-trace-id-here", application="ORDER-SERVICE"}
+{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"}
+| json
+| message=~".*(saga|Inventory reserved|Payment processed).*"
 ```
 
-Error logs for one trace id:
+If no result appears, widen Grafana's time range, generate traffic after Promtail is ready, and inspect `docker compose logs promtail loki`.
 
-```logql
-{traceId="paste-trace-id-here", level="ERROR"}
-```
+## Prometheus Queries
 
-Logs for one SAGA correlation id:
+Run these in Grafana Explore with the Prometheus datasource.
 
-```logql
-{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "correlationId=SAGA-ORD-1003"
-```
-
-Logs for one order number:
-
-```logql
-{application=~"ORDER-SERVICE|INVENTORY-SERVICE|PAYMENT-SERVICE"} |= "orderNumber=ORD-1003"
-```
-
-All error logs:
-
-```logql
-{job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"} |= "ERROR"
-```
-
-All warning logs:
-
-```logql
-{job=~"shopverse-local-files|shopverse-service-volume-files|docker-containers"} |= "WARN"
-```
-
-Auth failures:
-
-```logql
-{application="AUTH-SERVICE"} |= "Authentication failed"
-```
-
-HTTP request logs:
-
-```logql
-{application=~"API-GATEWAY|AUTH-SERVICE|USER-SERVICE|ORDER-SERVICE|PAYMENT-SERVICE|INVENTORY-SERVICE"} |= "method="
-```
-
-Checkout API logs:
-
-```logql
-{application="ORDER-SERVICE"} |= "/api/v1/orders/checkout"
-```
-
-### Prometheus PromQL Queries
-
-Service scrape health:
-
-```promql
-up
-```
-
-Shopverse service scrape health:
+Service availability:
 
 ```promql
 up{job="shopverse-services"}
 ```
 
-HTTP request rate by service:
+Down services:
 
 ```promql
-sum by (application) (rate(http_server_requests_seconds_count[1m]))
+up{job="shopverse-services"} == 0
 ```
 
-HTTP request rate by URI:
+Request rate:
 
 ```promql
-sum by (application, uri, method, status) (rate(http_server_requests_seconds_count[1m]))
+sum by (application) (rate(http_server_requests_seconds_count[5m]))
 ```
 
-Total HTTP requests in the last 5 minutes:
+Requests by route and status:
 
 ```promql
-sum by (application, uri, method, status) (increase(http_server_requests_seconds_count[5m]))
+sum by (application, method, uri, status) (
+  rate(http_server_requests_seconds_count[5m])
+)
 ```
 
-Average HTTP latency by service:
+Average latency:
 
 ```promql
 sum by (application) (rate(http_server_requests_seconds_sum[5m]))
@@ -662,7 +355,7 @@ sum by (application) (rate(http_server_requests_seconds_sum[5m]))
 sum by (application) (rate(http_server_requests_seconds_count[5m]))
 ```
 
-95th percentile HTTP latency by service:
+95th percentile latency:
 
 ```promql
 histogram_quantile(
@@ -671,118 +364,80 @@ histogram_quantile(
 )
 ```
 
-Error rate by service:
+5xx percentage:
 
 ```promql
-sum by (application, status) (rate(http_server_requests_seconds_count{status=~"5.."}[5m]))
+100 *
+sum by (application) (rate(http_server_requests_seconds_count{status=~"5.."}[5m]))
+/
+sum by (application) (rate(http_server_requests_seconds_count[5m]))
 ```
 
-4xx client error rate by service:
+Custom logged-request counter:
 
 ```promql
-sum by (application, status) (rate(http_server_requests_seconds_count{status=~"4.."}[5m]))
+sum by (service, outcome) (
+  increase(shopverse_service_requests_logged_total[5m])
+)
 ```
 
-JVM memory used by service:
+Rate-limiter calls:
 
 ```promql
-sum by (application, area) (jvm_memory_used_bytes)
+sum by (application, name, kind) (
+  rate(resilience4j_ratelimiter_calls_total[5m])
+)
 ```
 
-JVM thread count by service:
+Bulkhead capacity:
 
 ```promql
-jvm_threads_live_threads
+resilience4j_bulkhead_available_concurrent_calls
 ```
 
-CPU usage by service process:
+JVM heap usage:
 
 ```promql
-process_cpu_usage
+100 *
+sum by (application) (jvm_memory_used_bytes{area="heap"})
+/
+sum by (application) (jvm_memory_max_bytes{area="heap"})
 ```
 
-Custom request log counter, if available:
+Kafka producer rate, when exported:
 
 ```promql
-sum by (service, outcome) (increase(shopverse_service_requests_logged_total[5m]))
+sum by (application, client_id) (
+  rate(kafka_producer_record_send_total[5m])
+)
 ```
 
-## Checking The Flow
+## End-To-End Check
 
-Generate traffic:
+Send checkout with an explicit business correlation ID:
 
 ```powershell
-curl.exe http://localhost:8080/api/v1/orders/public/health
-curl.exe http://localhost:8080/api/v1/payments/public/health
-curl.exe http://localhost:8080/api/v1/inventory/public/health
 curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
-  -H "Authorization: Bearer <token>"
+  -H "Authorization: Bearer <token>" `
+  -H "Content-Type: application/json" `
+  -H "X-Correlation-Id: checkout-demo-101" `
+  -d '{\"items\":[{\"productId\":101,\"quantity\":1}]}'
 ```
 
-Open Grafana:
+Then:
 
-```text
-http://localhost:3000
+1. Search `checkout-demo-101` in Loki using the correlation query above.
+2. Copy a `traceId` from one JSON log and search it in Loki.
+3. Open the same trace in Zipkin.
+4. Check HTTP and SAGA-related metrics in Prometheus/Grafana.
+
+## Useful Docker Checks
+
+```powershell
+docker compose logs -f order-service inventory-service payment-service
+docker compose logs --tail 200 promtail loki prometheus grafana zipkin
+docker compose exec order-service curl -fsS http://localhost:8083/actuator/prometheus
+docker volume ls
 ```
 
-Check logs:
-
-1. Go to Explore.
-2. Select the Loki datasource.
-3. Run:
-
-```logql
-{application="ORDER-SERVICE"}
-{application="PAYMENT-SERVICE"}
-{application="INVENTORY-SERVICE"}
-```
-
-Check metrics:
-
-1. Go to Explore.
-2. Select the Prometheus datasource.
-3. Run:
-
-```promql
-sum by (application) (rate(http_server_requests_seconds_count[1m]))
-```
-
-Check traces:
-
-1. Open Zipkin at `http://localhost:9411`.
-2. Search for recent traces.
-3. Copy a trace ID.
-4. In Grafana Loki, search:
-
-```logql
-{traceId="paste-trace-id-here"}
-```
-
-This connects one request across traces and logs.
-
-## Common Troubleshooting
-
-If logs do not appear in Grafana:
-
-- Check Promtail is running: `docker compose ps promtail`
-- Check Promtail logs: `docker logs shopverse-promtail`
-- Check Loki is running: `docker compose ps loki`
-- Confirm service logs exist in the mounted volumes.
-- Generate new traffic after the stack is up.
-
-If metrics do not appear:
-
-- Open Prometheus: `http://localhost:9090`
-- Go to Status, then Targets.
-- Confirm service targets are `UP`.
-- Check a service endpoint directly, for example:
-
-```text
-http://localhost:8082/actuator/prometheus
-```
-
-If trace IDs are empty in logs:
-
-- Confirm tracing is enabled in centralized config.
-- Confirm the service has Micrometer tracing/Zipkin dependencies.
-- Generate traffic through the API Gateway so trace context can flow across services.
+Do not use `docker compose down -v` when logs or databases must be preserved; `-v` removes named volumes.
