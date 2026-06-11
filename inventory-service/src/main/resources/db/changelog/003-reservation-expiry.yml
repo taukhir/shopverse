@@ -9,9 +9,17 @@ databaseChangeLog:
               - column:
                   name: expires_at
                   type: TIMESTAMP(6)
-                  defaultValueComputed: CURRENT_TIMESTAMP
-                  constraints:
-                    nullable: false
+        - update:
+            tableName: inventory_reservations
+            columns:
+              - column:
+                  name: expires_at
+                  valueComputed: CURRENT_TIMESTAMP(6)
+            where: expires_at IS NULL
+        - addNotNullConstraint:
+            tableName: inventory_reservations
+            columnName: expires_at
+            columnDataType: TIMESTAMP(6)
         - createIndex:
             tableName: inventory_reservations
             indexName: idx_inventory_reservation_expiry

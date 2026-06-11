@@ -58,3 +58,8 @@ resilience4j:
         minimum-number-of-calls: 10
         failure-rate-threshold: 50
         wait-duration-in-open-state: 10s
+  timelimiter:
+    instances:
+      gateway-downstream:
+        timeout-duration: 5s
+        cancel-running-future: true

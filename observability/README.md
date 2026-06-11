@@ -1,5 +1,7 @@
 # Shopverse Observability
 
+This file documents deployment files and operational commands. Canonical concept guides are indexed under [docs/observability](../docs/README.md), including dedicated Prometheus, Loki/Promtail, Grafana, structured logging, and tracing documentation.
+
 Shopverse uses three complementary signals:
 
 - **Logs:** Spring Boot structured JSON -> Promtail -> Loki -> Grafana.

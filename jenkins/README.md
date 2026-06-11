@@ -1,5 +1,7 @@
 # Shopverse Jenkins
 
+This is the canonical Jenkins operations guide. Testing strategy and bounded verification modes are documented in [Testing strategy](../docs/development/TESTING.md).
+
 This folder contains the local Jenkins setup for the Shopverse POC.
 
 Official Jenkins references:

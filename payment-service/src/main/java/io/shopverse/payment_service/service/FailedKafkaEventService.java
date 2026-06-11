@@ -25,6 +25,9 @@ public class FailedKafkaEventService {
 
     @Transactional
     public void record(String topic, String payload, String reason, int retries) {
+        if (repository.existsBySourceTopicAndPayloadAndReplayedFalse(topic, payload)) {
+            return;
+        }
         repository.save(new FailedKafkaEvent(topic, payload, reason, retries));
         meterRegistry.counter("shopverse.kafka.dlt.events", "service", "payment").increment();
     }

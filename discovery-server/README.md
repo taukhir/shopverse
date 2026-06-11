@@ -1,5 +1,7 @@
 # Shopverse Discovery Server
 
+For the complete service topology, see [System design](../docs/architecture/SYSTEM-DESIGN.md). This README covers Eureka-specific operation.
+
 Discovery Server is the Eureka registry for Shopverse services.
 
 ## Responsibilities
