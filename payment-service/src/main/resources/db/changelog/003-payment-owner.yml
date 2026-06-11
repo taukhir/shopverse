@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-payment-owner
+      author: shopverse
+      changes:
+        - addColumn:
+            tableName: payments
+            columns:
+              - column:
+                  name: customer_username
+                  type: VARCHAR(100)
+                  defaultValue: legacy-customer
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: payments
+            indexName: idx_payments_customer_order
+            columns:
+              - column:
+                  name: customer_username
+              - column:
+                  name: order_number

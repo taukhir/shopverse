@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - "**"
+  workflow_dispatch:
+  schedule:
+    - cron: "30 20 * * *"
 
 permissions:
   contents: read
@@ -22,17 +25,24 @@ jobs:
   validate-config:
     name: Validate repository config
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate required files
+      - name: Validate required files and Compose model
         shell: bash
+        env:
+          MYSQL_PASSWORD: test-password
+          MYSQL_ROOT_PASSWORD: test-root-password
+          GRAFANA_ADMIN_PASSWORD: test-grafana-password
+          COMPOSE_PROJECT_NAME: shopverse-ci-validation
         run: |
           set -euo pipefail
 
           required_files=(
             "docker-compose.yml"
+            "docker-compose.test.yml"
             "cloud-configs/application.yml"
             "cloud-configs/API-GATEWAY.yml"
             "cloud-configs/AUTH-SERVICE.yml"
@@ -53,30 +63,92 @@ jobs:
             }
           done
 
-  build-and-test:
-    name: Build and test ${{ matrix.service }}
+          docker compose -f docker-compose.yml -f docker-compose.test.yml config --quiet
+
+  changes:
+    name: Detect affected services
     runs-on: ubuntu-latest
-    needs: validate-config
+    timeout-minutes: 3
+    outputs:
+      matrix: ${{ steps.detect.outputs.matrix }}
+      integration_matrix: ${{ steps.detect.outputs.integration_matrix }}
+      has_changes: ${{ steps.detect.outputs.has_changes }}
+      has_integration_changes: ${{ steps.detect.outputs.has_integration_changes }}
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build service matrices
+        id: detect
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+
+          services=(
+            "config-server"
+            "discovery-server"
+            "user-service"
+            "auth-service"
+            "order-service"
+            "payment-service"
+            "inventory-service"
+            "api-gateway"
+          )
+
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            changed_files="shared-change"
+          elif [[ "$EVENT_NAME" == "pull_request" ]]; then
+            changed_files="$(git diff --name-only "${PR_BASE_SHA}...HEAD")"
+          elif [[ -z "$BEFORE_SHA" || "$BEFORE_SHA" =~ ^0+$ ]]; then
+            changed_files="shared-change"
+          else
+            changed_files="$(git diff --name-only "${BEFORE_SHA}...HEAD")"
+          fi
+
+          shared=false
+          if grep -Eq '^(cloud-configs/|docker-compose|docker/|observability/|scripts/|\.github/workflows/|README\.md)' <<< "$changed_files"; then
+            shared=true
+          fi
+
+          include='[]'
+          integration_include='[]'
+          for service in "${services[@]}"; do
+            if [[ "$shared" == "true" ]] || grep -q "^${service}/" <<< "$changed_files"; then
+              include="$(jq -c --arg service "$service" --arg path "$service" \
+                '. + [{service: $service, path: $path}]' <<< "$include")"
+
+              if [[ "$service" =~ ^(order-service|inventory-service|payment-service)$ ]]; then
+                integration_include="$(jq -c --arg service "$service" --arg path "$service" \
+                  '. + [{service: $service, path: $path}]' <<< "$integration_include")"
+              fi
+            fi
+          done
+
+          matrix="$(jq -cn --argjson include "$include" '{include: $include}')"
+          integration_matrix="$(jq -cn --argjson include "$integration_include" '{include: $include}')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "integration_matrix=$integration_matrix" >> "$GITHUB_OUTPUT"
+          echo "has_changes=$([[ $(jq length <<< "$include") -gt 0 ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          echo "has_integration_changes=$([[ $(jq length <<< "$integration_include") -gt 0 ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  unit-test:
+    name: Unit test ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs:
+      - validate-config
+      - changes
+    if: needs.changes.outputs.has_changes == 'true'
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - service: config-server
-            path: config-server
-          - service: discovery-server
-            path: discovery-server
-          - service: user-service
-            path: user-service
-          - service: auth-service
-            path: auth-service
-          - service: order-service
-            path: order-service
-          - service: payment-service
-            path: payment-service
-          - service: inventory-service
-            path: inventory-service
-          - service: api-gateway
-            path: api-gateway
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.changes.outputs.matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -87,48 +159,79 @@ jobs:
           distribution: temurin
           java-version: ${{ env.JAVA_VERSION }}
 
-      - name: Set up Gradle
+      - name: Set up Gradle cache
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build and test
+      - name: Run unit tests
         working-directory: ${{ matrix.path }}
-        shell: bash
         run: |
           chmod +x ./gradlew
-          ./gradlew clean build --no-daemon
+          ./gradlew test --no-daemon --max-workers=2
 
-      - name: Upload test reports
-        if: always()
+      - name: Upload failed test reports
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: test-report-${{ matrix.service }}
+          name: unit-test-report-${{ matrix.service }}
           path: ${{ matrix.path }}/build/reports/tests/test
+          if-no-files-found: ignore
+
+  integration-test:
+    name: Integration test ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    needs:
+      - validate-config
+      - changes
+    if: needs.changes.outputs.has_integration_changes == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix: ${{ fromJSON(needs.changes.outputs.integration_matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Set up Gradle cache
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Run Testcontainers integration tests
+        working-directory: ${{ matrix.path }}
+        run: |
+          chmod +x ./gradlew
+          ./gradlew integrationTest --no-daemon --max-workers=2
+
+      - name: Upload failed integration reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-report-${{ matrix.service }}
+          path: ${{ matrix.path }}/build/reports/tests/integrationTest
           if-no-files-found: ignore
 
   docker-build:
     name: Docker build ${{ matrix.service }}
     runs-on: ubuntu-latest
-    needs: build-and-test
+    timeout-minutes: 12
+    needs:
+      - changes
+      - unit-test
+      - integration-test
+    if: |
+      always() &&
+      needs.changes.outputs.has_changes == 'true' &&
+      needs.unit-test.result == 'success' &&
+      (needs.integration-test.result == 'success' || needs.integration-test.result == 'skipped')
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - service: config-server
-            context: ./config-server
-          - service: discovery-server
-            context: ./discovery-server
-          - service: user-service
-            context: ./user-service
-          - service: auth-service
-            context: ./auth-service
-          - service: order-service
-            context: ./order-service
-          - service: payment-service
-            context: ./payment-service
-          - service: inventory-service
-            context: ./inventory-service
-          - service: api-gateway
-            context: ./api-gateway
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.changes.outputs.matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -136,73 +239,68 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker image
+      - name: Build Docker image with layer cache
         uses: docker/build-push-action@v6
         with:
-          context: ${{ matrix.context }}
+          context: ./${{ matrix.path }}
           push: false
           tags: shopverse/${{ matrix.service }}:ci-${{ github.sha }}
+          cache-from: type=gha,scope=${{ matrix.service }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.service }}
 
   compose-smoke-test:
-    name: Docker Compose smoke test
+    name: Checkout SAGA smoke test
     runs-on: ubuntu-latest
-    needs: docker-build
-    timeout-minutes: 20
+    timeout-minutes: 15
+    needs:
+      - validate-config
+      - changes
+      - unit-test
+      - integration-test
+      - docker-build
+    if: |
+      always() &&
+      (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch') &&
+      needs.validate-config.result == 'success' &&
+      (needs.unit-test.result == 'success' || needs.unit-test.result == 'skipped') &&
+      (needs.integration-test.result == 'success' || needs.integration-test.result == 'skipped') &&
+      (needs.docker-build.result == 'success' || needs.docker-build.result == 'skipped')
+    env:
+      MYSQL_PASSWORD: shopverse-test-password
+      MYSQL_ROOT_PASSWORD: shopverse-test-root-password
+      GRAFANA_ADMIN_PASSWORD: shopverse-test-grafana-password
+      COMPOSE_PROJECT_NAME: shopverse-ci-smoke
+      COMPOSE_PARALLEL_LIMIT: "2"
+      COMPOSE_BAKE: "false"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Start stack
+      - name: Start lightweight stack
         shell: bash
-        run: docker compose up -d --build
+        run: |
+          docker compose \
+            -f docker-compose.yml \
+            -f docker-compose.test.yml \
+            up -d --build \
+            mysql mysql-bootstrap kafka config-server discovery-server \
+            user-service auth-service order-service payment-service \
+            inventory-service api-gateway
 
       - name: Wait for API Gateway
-        shell: bash
-        run: |
-          set -euo pipefail
+        shell: pwsh
+        run: ./scripts/Wait-Service.ps1 -Uri http://localhost:18080/actuator/health -TimeoutSeconds 180
 
-          for attempt in {1..60}; do
-            if curl -fsS http://localhost:8080/actuator/health | grep -q UP; then
-              echo "API Gateway is healthy"
-              exit 0
-            fi
+      - name: Run authenticated SAGA smoke test
+        shell: pwsh
+        run: ./scripts/Smoke-Test.ps1 -GatewayUrl http://localhost:18080 -TimeoutSeconds 45
 
-            echo "Waiting for API Gateway health check... attempt ${attempt}/60"
-            sleep 10
-          done
-
-          docker compose ps
-          docker compose logs --tail=250
-          exit 1
-
-      - name: Smoke test public endpoints
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -fsS http://localhost:8888/actuator/health | grep -q UP
-          curl -fsS http://localhost:8761/actuator/health | grep -q UP
-          curl -fsS http://localhost:8082/actuator/health | grep -q UP
-          curl -fsS http://localhost:8081/actuator/health | grep -q UP
-          curl -fsS http://localhost:8083/actuator/health | grep -q UP
-          curl -fsS http://localhost:8084/actuator/health | grep -q UP
-          curl -fsS http://localhost:8086/actuator/health | grep -q UP
-          curl -fsS http://localhost:8080/actuator/health | grep -q UP
-          curl -fsS http://localhost:8080/api/v1/orders/public/health
-          curl -fsS http://localhost:8080/api/v1/payments/public/health
-          curl -fsS http://localhost:8080/api/v1/inventory/public/health
-          curl -fsS http://localhost:8082/actuator/prometheus | grep -q jvm
-          curl -fsS http://localhost:8083/actuator/prometheus | grep -q jvm
-          curl -fsS http://localhost:8084/actuator/prometheus | grep -q jvm
-          curl -fsS http://localhost:8086/actuator/prometheus | grep -q jvm
-
-      - name: Dump compose logs on failure
+      - name: Dump bounded diagnostics on failure
         if: failure()
-        shell: bash
         run: |
-          docker compose ps
-          docker compose logs --tail=500
+          docker compose -f docker-compose.yml -f docker-compose.test.yml ps
+          docker compose -f docker-compose.yml -f docker-compose.test.yml logs --tail=120
 
       - name: Stop stack
         if: always()
-        shell: bash
-        run: docker compose down -v
+        run: docker compose -f docker-compose.yml -f docker-compose.test.yml down -v --remove-orphans --timeout 10

@@ -9,10 +9,21 @@ databaseChangeLog:
               - column:
                   name: idempotency_key
                   type: VARCHAR(100)
-                  defaultValueComputed: UUID()
-                  constraints:
-                    nullable: false
-                    unique: true
+        - update:
+            tableName: orders
+            columns:
+              - column:
+                  name: idempotency_key
+                  valueComputed: CONCAT('legacy-', id)
+            where: idempotency_key IS NULL
+        - addNotNullConstraint:
+            tableName: orders
+            columnName: idempotency_key
+            columnDataType: VARCHAR(100)
+        - addUniqueConstraint:
+            tableName: orders
+            columnNames: idempotency_key
+            constraintName: uk_orders_idempotency_key
         - createTable:
             tableName: order_timeline_events
             columns:

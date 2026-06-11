@@ -1,100 +1,48 @@
-# Shopverse API Gateway
+# API Gateway
 
-API Gateway is the public reactive entry point. It loads routes from Config
-Server, discovers instances through Eureka, balances traffic, validates JWTs,
-applies downstream resilience, and propagates observability context.
+API Gateway runs on port `8080` and is the normal client entry point.
+
+## Responsibilities
+
+- route requests by service path;
+- resolve `lb://SERVICE-NAME` destinations through Eureka and Spring Cloud LoadBalancer;
+- enforce public/protected path policy;
+- validate bearer JWTs for protected routes;
+- propagate correlation and trace context;
+- emit gateway request logs and Micrometer metrics.
 
 ## Routes
 
-| Path | Target |
-| --- | --- |
-| `/auth/**` | `AUTH-SERVICE` |
-| `/api/v1/users/**` | `USER-SERVICE` |
-| `/api/v1/roles/**` | `USER-SERVICE` |
-| `/api/v1/permissions/**` | `USER-SERVICE` |
-| `/api/v1/orders/**` | `ORDER-SERVICE` |
-| `/api/v1/payments/**` | `PAYMENT-SERVICE` |
-| `/api/v1/inventory/**` | `INVENTORY-SERVICE` |
+| Prefix | Destination |
+|---|---|
+| `/auth/**` | Auth Service |
+| `/api/v1/users/**`, `/api/v1/roles/**`, `/api/v1/permissions/**` | User Service |
+| `/api/v1/orders/**` | Order Service |
+| `/api/v1/payments/**` | Payment Service |
+| `/api/v1/inventory/**` | Inventory Service |
 
-Internal User Service authentication endpoints are intentionally not routed.
-Auth Service reaches them directly through OpenFeign.
+Exact route and public-path configuration is centralized in `cloud-configs/API-GATEWAY.yml`.
 
-## Load-Balanced Routing
+## Request Context
 
-Routes are centralized in `cloud-configs/API-GATEWAY.yml`:
+The gateway accepts or creates `X-Correlation-Id`, returns it to the caller, and forwards it downstream. Micrometer handles W3C trace propagation independently.
 
-```yaml
-- id: order-service
-  uri: lb://ORDER-SERVICE
-  predicates:
-    - Path=/api/v1/orders/**
-```
-
-The `lb://` URI asks Spring Cloud LoadBalancer for instances supplied by
-Eureka. No service host or port is hardcoded.
-
-## Security
-
-The Gateway is a reactive OAuth2 resource server. It allows `/auth/**`,
-`/api/v1/*/public/**`, and selected Actuator endpoints. Other requests require
-a bearer JWT. Public keys are loaded from Auth Service's JWKS endpoint.
-
-Backend services validate the JWT again. Gateway validation protects the edge;
-service validation preserves zero-trust boundaries when a service is reached
-without the Gateway.
-
-## Resilience
-
-Global Gateway filters protect downstream calls:
-
-```yaml
-default-filters:
-  - name: CircuitBreaker
-    args:
-      name: gateway-downstream
-  - name: Retry
-    args:
-      retries: 2
-      methods: GET
-```
-
-Retries are restricted to GET. Retrying checkout, payment, or other writes
-without idempotency controls can duplicate state changes.
-
-Service-level Resilience4j annotations still protect business boundaries:
-Gateway resilience handles route failures; service resilience handles local
-concurrency and specific downstream clients.
-
-## Correlation And Tracing
-
-`GatewayRequestLoggingFilter` accepts or generates `X-Correlation-Id`, returns
-it to the client, and forwards it:
-
-```java
-ServerWebExchange correlatedExchange = exchange.mutate()
-        .request(request -> request.headers(headers ->
-                headers.set("X-Correlation-Id", correlationId)))
-        .build();
-```
-
-Micrometer/Brave independently propagates W3C `traceparent`. The trace ID
-describes one technical execution; the correlation ID describes the business
-operation.
-
-Logs are structured JSON:
-
-```logql
-{application="API-GATEWAY"} | json
-```
+Gateway logging is reactive; completion logging occurs when the downstream publisher terminates. Avoid blocking code in gateway filters.
 
 ## Run
 
 ```powershell
-docker compose build api-gateway
-docker compose up -d api-gateway
-docker compose logs -f api-gateway
+./gradlew bootRun
 ```
 
-Health: `http://localhost:8080/actuator/health`
+```powershell
+docker compose build api-gateway
+docker compose up -d api-gateway
+```
 
-See [Observability](../observability/README.md), [Cloud Config](../cloud-configs/README.md), and [Docker](../docker/README.md).
+## Related Guides
+
+- [System design](../docs/architecture/SYSTEM-DESIGN.md)
+- [Spring Boot internals](../docs/development/SPRING-BOOT-INTERNALS.md)
+- [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)

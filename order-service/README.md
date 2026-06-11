@@ -1,246 +1,70 @@
-# Shopverse Order Service
+# Order Service
 
-Order Service owns persistent customer orders and starts the Kafka choreography SAGA. It uses MySQL, Spring Data JPA, Liquibase, Bean Validation, caching, OpenFeign, Resilience4j annotations, JWT resource-server security, Micrometer metrics, Zipkin tracing, and structured JSON logging.
-
-## Runtime
-
-| Item | Value |
-| --- | --- |
-| Application | `ORDER-SERVICE` |
-| Port | `8083` |
-| Database | `order_service` |
-| Config | `cloud-configs/ORDER-SERVICE.yml` |
-| Swagger UI | `http://localhost:8083/swagger-ui/index.html` |
-
-## Data Model
-
-- `OrderEntity`: order number, customer, status, amount, correlation ID, payment reference, failure reason.
-- `OrderItemEntity`: product, quantity, and the authoritative price captured at checkout.
-- `BaseAuditableEntity`: `@CreatedDate` and `@LastModifiedDate` populated by JPA auditing.
-- Liquibase owns schema creation; Hibernate runs with `ddl-auto: validate`.
-
-Repositories return entities only inside the service layer. Controllers expose immutable Java records instead of persistence entities.
+Order Service runs on port `8083`. It owns checkout, order state, customer ownership, the business SAGA timeline, and Order-side outbox/DLT recovery.
 
 ## APIs
 
-| Method | Path | Access | Purpose |
-| --- | --- | --- | --- |
-| `GET` | `/api/v1/orders/public/health` | Public | Health response |
-| `GET` | `/api/v1/orders/public/catalog` | Public | Inventory catalog through Feign |
-| `GET` | `/api/v1/orders` | Customer/Admin | Current customer's orders |
-| `GET` | `/api/v1/orders/{id}` | Owner/Admin | One order |
-| `GET` | `/api/v1/orders/{id}/timeline` | Authenticated | Persisted SAGA timeline |
-| `POST` | `/api/v1/orders/checkout` | Customer/Admin | Persist order and start SAGA |
-| `DELETE` | `/api/v1/orders/{id}` | Admin | Cancel order |
-| `GET` | `/api/v1/orders/admin/all` | Admin | All orders |
-| `GET` | `/api/v1/orders/admin/dead-letters` | Admin | Persisted exhausted consumer events |
-| `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | Admin | Audit and queue replay |
+| Method | Path | Access |
+|---|---|---|
+| `GET` | `/api/v1/orders/public/health` | public |
+| `GET` | `/api/v1/orders/public/catalog` | public |
+| `GET` | `/api/v1/orders` | current customer |
+| `GET` | `/api/v1/orders/{id}` | owner or admin |
+| `GET` | `/api/v1/orders/{id}/timeline` | owner or admin |
+| `POST` | `/api/v1/orders/checkout` | authenticated |
+| `DELETE` | `/api/v1/orders/{id}` | admin |
+| `GET` | `/api/v1/orders/admin/all` | admin route policy |
+| `GET` | `/api/v1/orders/admin/dead-letters` | admin |
+| `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | admin |
 
-Timeline access uses method security:
+Checkout:
 
-```java
-@PreAuthorize("hasRole('ADMIN') or @orderAuthorization.isOwner(#id, authentication.name)")
-```
+```http
+POST /api/v1/orders/checkout
+Authorization: Bearer <token>
+Idempotency-Key: checkout-user-42-cart-9001
+X-Correlation-Id: demo-checkout-9001
+Content-Type: application/json
 
-A customer can read only their own timeline. Method-security integration tests
-cover the owner, another customer, and an administrator.
-
-Checkout request:
-
-```json
 {
   "items": [
-    {
-      "productId": 101,
-      "quantity": 1
-    }
+    { "productId": 101, "quantity": 1 }
   ]
 }
 ```
 
-Required headers:
+Current validation allows one item.
 
-```http
-Authorization: Bearer <token>
-Idempotency-Key: checkout-user-42-cart-9001
-X-Correlation-Id: checkout-demo-101
-```
+## Persistence And Consistency
 
-The current SAGA event supports one product per order, so `items` is validated with `@NotEmpty` and `@Size(max = 1)`. Product IDs and quantities use `@NotNull` and `@Positive`. Product name and price are not trusted from the client; Order Service reads them from Inventory Service.
+Order, items, initial timeline event, and outgoing outbox event commit in one transaction. Reusing an idempotency key returns the existing order. A database unique constraint protects concurrent duplicates.
 
-Representative `201 Created` response:
+The outbox publisher sends `order.created`. Listeners consume inventory and payment outcomes and append timeline stages.
 
-```json
-{
-  "id": 42,
-  "orderNumber": "ORD-10042",
-  "correlationId": "checkout-demo-101",
-  "idempotencyKey": "checkout-user-42-cart-9001",
-  "customerUsername": "admin",
-  "status": "PENDING_INVENTORY",
-  "totalAmount": 2499.00,
-  "items": [
-    {
-      "productId": 101,
-      "productName": "Wireless Keyboard",
-      "quantity": 1,
-      "unitPrice": 2499.00
-    }
-  ],
-  "createdAt": "2026-06-11T08:30:00Z"
-}
-```
+## Communication
 
-Generated IDs, order numbers, timestamps, and the eventual SAGA status vary.
+- synchronous: Feign catalog lookup to `INVENTORY-SERVICE`, protected by Retry and CircuitBreaker;
+- asynchronous: Kafka SAGA events through transactional outbox.
 
-## Idempotent Checkout And Duplicate Requests
+## Caching And Resilience
 
-`Idempotency-Key` is persisted with a unique database constraint:
+Order and catalog reads use local Spring Cache. Controller access uses RateLimiter and semaphore Bulkhead. These settings are defined in `cloud-configs/ORDER-SERVICE.yml`.
 
-```java
-repository.findWithItemsByIdempotencyKey(idempotencyKey)
-        .ifPresent(existing -> returnExistingOrder(existing));
-```
-
-Sequential retries return the original order instead of creating another
-order or payment. The unique constraint remains authoritative if two service
-instances receive the key concurrently. The key is also bound to the customer,
-so another user cannot claim an existing checkout.
-
-This is stronger than an in-memory map because it survives restarts and works
-across replicas. The API does not use a distributed Redis lock: locks expire,
-whereas the database uniqueness invariant is permanent.
-
-## Queryable Order Timeline
-
-Each transition is appended to `order_timeline_events`:
-
-```text
-ORDER_CREATED
-INVENTORY_RESERVED
-PAYMENT_PROCESSING
-PAYMENT_COMPLETED
-ORDER_CONFIRMED
-```
-
-Failure states include `INVENTORY_REJECTED`, `PAYMENT_FAILED`, and
-`ORDER_CANCELLED`.
-
-```http
-GET /api/v1/orders/{id}/timeline
-```
-
-Representative response:
-
-```json
-[
-  {
-    "orderNumber": "ORD-10042",
-    "correlationId": "checkout-demo-101",
-    "stage": "ORDER_CREATED",
-    "detail": "Order persisted and ready for inventory reservation",
-    "occurredAt": "2026-06-11T08:30:00Z"
-  }
-]
-```
-
-Each timeline row contains `orderNumber`, `correlationId`, stage, detail, and
-timestamp. Use the correlation ID to move from the business timeline to Loki,
-and use a log's trace ID to open the technical execution in Zipkin.
+## Run
 
 ```powershell
-$login = Invoke-RestMethod -Method Post `
-  -Uri http://localhost:8080/auth/login `
-  -ContentType application/json `
-  -Body (@{username='admin'; password='Admin@123'} | ConvertTo-Json)
-
-curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
-  -H "Authorization: Bearer $($login.token)" `
-  -H "Content-Type: application/json" `
-  -H "X-Correlation-Id: checkout-demo-101" `
-  -d '{\"items\":[{\"productId\":101,\"quantity\":1}]}'
+./gradlew test
+./gradlew bootRun
 ```
-
-## Synchronous And Asynchronous Communication
-
-`InventoryClient` is an OpenFeign client. `CatalogService` wraps it with annotation-driven resilience and caching:
-
-```java
-@Retry(name = "inventory-client")
-@CircuitBreaker(name = "inventory-client", fallbackMethod = "fallbackCatalog")
-@Cacheable(cacheNames = "catalog")
-public List<CatalogItemResponse> getCatalog() {
-    return inventoryClient.getCatalog().stream().map(...).toList();
-}
-```
-
-The Feign interceptor propagates `X-Correlation-Id`. Micrometer instrumentation propagates W3C trace context.
-
-Checkout persists the order, timeline row, and `OrderCreatedEvent` outbox row in
-one transaction. A scheduled dispatcher later publishes committed outbox rows.
-Consumers use `@KafkaListener`; listener concurrency is controlled by Kafka
-partitions and container concurrency.
-
-## Transaction Boundaries And Rollback
-
-- `checkout`: order, items, first timeline row, and outbox row commit together.
-- `markInventoryReservedAndPaymentProcessing`: both state/timeline transitions
-  commit together.
-- Listener failures roll back their JPA transaction and are retried by Kafka.
-- Outbox serialization uses `Propagation.MANDATORY`; calling it outside a
-  domain transaction fails immediately.
-- The dispatcher uses `REQUIRES_NEW` and a pessimistic row lock per event.
-- Kafka failure leaves the row `PENDING`, increments `publishAttempts`, and
-  records `lastError`; the next scan retries it.
-- Kafka delivery is at-least-once. Consumer idempotency remains mandatory.
-
-SAGA outcomes update persisted order state:
-
-```text
-PENDING_INVENTORY -> CONFIRMED
-PENDING_INVENTORY -> INVENTORY_REJECTED
-PENDING_INVENTORY -> PAYMENT_FAILED
-```
-
-Published outbox rows are retained for audit. Retention/archival is a planned
-operational improvement.
-
-## Resilience, Caching, And Threads
-
-- `@RateLimiter(name = "order-api")` protects controller traffic.
-- `@Bulkhead(name = "order-api", type = SEMAPHORE)` limits concurrent calls.
-- `@Retry` and `@CircuitBreaker` protect the Inventory Feign call.
-- `@Cacheable` caches catalog/order reads; `@CacheEvict` invalidates writes.
-- Java 21 virtual threads are enabled centrally with `spring.threads.virtual.enabled=true`.
-
-Resilience instances and limits live in centralized config instead of Java `@Bean` factories.
-
-## Observability
-
-The request filter creates or accepts `X-Correlation-Id`, writes it to MDC, returns it in the response, logs request duration, and increments `shopverse_service_requests_logged_total`. Kafka events carry the same business correlation ID.
-
-Logs use Spring Boot's Logstash-compatible structured JSON encoder:
-
-```json
-{
-  "@timestamp": "2026-06-11T02:52:30.918+05:30",
-  "level": "INFO",
-  "application": "ORDER-SERVICE",
-  "traceId": "...",
-  "spanId": "...",
-  "correlationId": "checkout-demo-101",
-  "message": "Order persisted and ready for inventory reservation",
-  "orderNumber": "ORD-..."
-}
-```
-
-Health logs are routed to a separate rolling file. See [Observability](../observability/README.md) and [SAGA](../saga/README.md).
-
-## Build
 
 ```powershell
-.\gradlew.bat clean test
 docker compose build order-service
 docker compose up -d order-service
-docker compose logs -f order-service
 ```
+
+## Related Guides
+
+- [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
+- [API guide](../docs/development/API-GUIDE.md)
+- [Transactions](../docs/reliability/TRANSACTIONS.md)
+- [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)

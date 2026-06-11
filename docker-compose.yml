@@ -21,6 +21,22 @@ services:
     networks:
       - shopverse
 
+  mysql-bootstrap:
+    image: mysql:8.4
+    container_name: shopverse-mysql-bootstrap
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: ${MYSQL_USER:-ahmed}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    command: ["/bin/sh", "/scripts/01-create-service-databases.sh"]
+    volumes:
+      - ./docker/mysql/init:/scripts:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - shopverse
+
   kafka:
     image: apache/kafka:3.9.1
     container_name: shopverse-kafka
@@ -131,8 +147,8 @@ services:
     volumes:
       - user-service-logs:/app/logs
     depends_on:
-      mysql:
-        condition: service_healthy
+      mysql-bootstrap:
+        condition: service_completed_successfully
       config-server:
         condition: service_healthy
       discovery-server:
@@ -204,8 +220,8 @@ services:
     volumes:
       - order-service-logs:/app/logs
     depends_on:
-      mysql:
-        condition: service_healthy
+      mysql-bootstrap:
+        condition: service_completed_successfully
       config-server:
         condition: service_healthy
       discovery-server:
@@ -246,8 +262,8 @@ services:
     volumes:
       - payment-service-logs:/app/logs
     depends_on:
-      mysql:
-        condition: service_healthy
+      mysql-bootstrap:
+        condition: service_completed_successfully
       config-server:
         condition: service_healthy
       discovery-server:
@@ -288,8 +304,8 @@ services:
     volumes:
       - inventory-service-logs:/app/logs
     depends_on:
-      mysql:
-        condition: service_healthy
+      mysql-bootstrap:
+        condition: service_completed_successfully
       config-server:
         condition: service_healthy
       discovery-server:
@@ -318,6 +334,7 @@ services:
       SERVER_PORT: 8080
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
+      JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       LOG_FILE: /app/logs/api-gateway.log
     ports:

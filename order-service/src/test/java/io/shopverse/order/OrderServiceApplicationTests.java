@@ -13,7 +13,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 		"spring.datasource.driver-class-name=org.h2.Driver",
 		"spring.datasource.username=sa",
 		"spring.datasource.password=",
-		"spring.jpa.hibernate.ddl-auto=validate",
+		"spring.jpa.hibernate.ddl-auto=none",
 		"spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.yml",
 		"spring.kafka.listener.auto-startup=false",
 		"shopverse.kafka.topics.order-created=shopverse.order.created",

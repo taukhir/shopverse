@@ -1,5 +1,7 @@
 # Shopverse Cloud Configs
 
+This README is the reference for configuration-source files. System architecture and cross-cutting behavior are documented in [docs](../docs/README.md).
+
 This folder is the centralized configuration source for the Shopverse POC.
 
 The Config Server runs with the Spring Cloud Config native backend and reads these files:

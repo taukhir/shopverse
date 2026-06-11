@@ -1,5 +1,7 @@
 # Shopverse Choreography SAGA
 
+This file is the detailed operational record for the SAGA implementation. The canonical conceptual guide and current guarantees are in [SAGA and transactional outbox](../docs/reliability/SAGA-OUTBOX.md); Kafka behavior is documented in [Kafka](../docs/integration/KAFKA.md).
+
 ## Transactional Outbox
 
 Order, Inventory, and Payment no longer publish directly from their domain

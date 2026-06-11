@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-order-outbox
+      author: shopverse
+      changes:
+        - createTable:
+            tableName: outbox_events
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: aggregate_type, type: VARCHAR(80), constraints: { nullable: false } }
+              - column: { name: aggregate_id, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: event_type, type: VARCHAR(120), constraints: { nullable: false } }
+              - column: { name: topic, type: VARCHAR(200), constraints: { nullable: false } }
+              - column: { name: message_key, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: payload, type: TEXT, constraints: { nullable: false } }
+              - column: { name: correlation_id, type: VARCHAR(64), constraints: { nullable: false } }
+              - column: { name: status, type: VARCHAR(20), constraints: { nullable: false } }
+              - column: { name: publish_attempts, type: INT, defaultValueNumeric: 0, constraints: { nullable: false } }
+              - column: { name: created_at, type: TIMESTAMP(6), constraints: { nullable: false } }
+              - column: { name: published_at, type: TIMESTAMP(6) }
+              - column: { name: last_error, type: VARCHAR(1000) }
+        - createIndex:
+            tableName: outbox_events
+            indexName: idx_order_outbox_status_created
+            columns:
+              - column: { name: status }
+              - column: { name: created_at }
+  - changeSet:
+      id: 003-order-failed-events
+      author: shopverse
+      changes:
+        - createTable:
+            tableName: failed_kafka_events
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: source_topic, type: VARCHAR(200), constraints: { nullable: false } }
+              - column: { name: payload, type: TEXT, constraints: { nullable: false } }
+              - column: { name: failure_reason, type: VARCHAR(500), constraints: { nullable: false } }
+              - column: { name: retry_count, type: INT, constraints: { nullable: false } }
+              - column: { name: replayed, type: BOOLEAN, defaultValueBoolean: false, constraints: { nullable: false } }
+              - column: { name: replay_count, type: INT, defaultValueNumeric: 0, constraints: { nullable: false } }
+              - column: { name: failed_at, type: TIMESTAMP(6), constraints: { nullable: false } }
+              - column: { name: replayed_at, type: TIMESTAMP(6) }
+              - column: { name: last_replayed_by, type: VARCHAR(100) }

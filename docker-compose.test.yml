@@ -1,0 +1,137 @@
+services:
+  mysql:
+    container_name: ${COMPOSE_PROJECT_NAME}-mysql
+    mem_limit: 512m
+    ports: !reset []
+    healthcheck:
+      interval: 3s
+      timeout: 3s
+      retries: 20
+      start_period: 15s
+
+  mysql-bootstrap:
+    container_name: ${COMPOSE_PROJECT_NAME}-mysql-bootstrap
+    mem_limit: 192m
+
+  kafka:
+    container_name: ${COMPOSE_PROJECT_NAME}-kafka
+    mem_limit: 768m
+    ports: !reset []
+    healthcheck:
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  config-server:
+    container_name: ${COMPOSE_PROJECT_NAME}-config-server
+    mem_limit: 384m
+    ports: !reset []
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 24
+      start_period: 30s
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx256m -XX:+ExitOnOutOfMemoryError"
+
+  discovery-server:
+    container_name: ${COMPOSE_PROJECT_NAME}-discovery-server
+    mem_limit: 448m
+    ports: !reset []
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 24
+      start_period: 30s
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
+
+  user-service:
+    container_name: ${COMPOSE_PROJECT_NAME}-user-service
+    mem_limit: 448m
+    ports: !reset []
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 45s
+
+  auth-service:
+    container_name: ${COMPOSE_PROJECT_NAME}-auth-service
+    mem_limit: 448m
+    ports: !reset []
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 45s
+
+  order-service:
+    container_name: ${COMPOSE_PROJECT_NAME}-order-service
+    mem_limit: 448m
+    ports: !reset []
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 45s
+
+  payment-service:
+    container_name: ${COMPOSE_PROJECT_NAME}-payment-service
+    mem_limit: 448m
+    ports: !reset []
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 45s
+
+  inventory-service:
+    container_name: ${COMPOSE_PROJECT_NAME}-inventory-service
+    mem_limit: 448m
+    ports: !reset []
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 45s
+
+  api-gateway:
+    container_name: ${COMPOSE_PROJECT_NAME}-api-gateway
+    mem_limit: 448m
+    ports: !override
+      - "18080:8080"
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
+    healthcheck:
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 45s
+
+  zipkin:
+    container_name: ${COMPOSE_PROJECT_NAME}-zipkin
+    mem_limit: 384m
+    ports: !reset []
+
+networks:
+  shopverse:
+    name: ${COMPOSE_PROJECT_NAME}-network

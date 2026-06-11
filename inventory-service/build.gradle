@@ -20,6 +20,21 @@ repositories {
 ext {
 	set('springCloudVersion', "2025.1.1")
 	set('resilience4jVersion', "2.4.0")
+	set('testcontainersVersion', "2.0.5")
+}
+
+sourceSets {
+	integrationTest {
+		java.srcDir file('src/integrationTest/java')
+		resources.srcDir file('src/integrationTest/resources')
+		compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
+		runtimeClasspath += output + compileClasspath
+	}
+}
+
+configurations {
+	integrationTestImplementation.extendsFrom testImplementation
+	integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
 }
 
 dependencies {
@@ -51,6 +66,10 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testRuntimeOnly 'com.h2database:h2'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	integrationTestImplementation platform("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
+	integrationTestImplementation 'org.testcontainers:testcontainers-junit-jupiter'
+	integrationTestImplementation 'org.testcontainers:testcontainers-mysql'
+	integrationTestImplementation 'org.testcontainers:testcontainers-kafka'
 }
 
 dependencyManagement {
@@ -61,4 +80,16 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	maxParallelForks = 1
+}
+
+tasks.register('integrationTest', Test) {
+	description = 'Runs MySQL and Kafka Testcontainers integration tests.'
+	group = 'verification'
+	testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	classpath = sourceSets.integrationTest.runtimeClasspath
+	useJUnitPlatform()
+	maxParallelForks = 1
+	shouldRunAfter tasks.named('test')
+	systemProperty 'junit.jupiter.execution.parallel.enabled', 'false'
 }

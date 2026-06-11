@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -26,8 +25,7 @@ public class FailedKafkaEvent {
     @Column(nullable = false, length = 200)
     private String sourceTopic;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String payload;
 
     @Column(nullable = false, length = 500)
@@ -36,7 +34,7 @@ public class FailedKafkaEvent {
     @Column(nullable = false)
     private int retryCount;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private boolean replayed;
 
     @Column(nullable = false)

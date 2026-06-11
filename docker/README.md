@@ -1,5 +1,7 @@
 # Shopverse Docker Guide
 
+This is the canonical Docker and Compose operations guide. Application architecture and feature demonstrations are indexed in [docs](../docs/README.md).
+
 ## Local POC Secrets
 
 Docker Compose reads local credentials and overrides from the repository root
@@ -49,6 +51,44 @@ Start and rebuild in one command:
 ```powershell
 docker compose up -d --build
 ```
+
+## Lightweight Verification Stack
+
+`docker-compose.test.yml` is an override for automated checkout verification.
+It starts only MySQL, Kafka, Config Server, Eureka, application services,
+API Gateway, and the Zipkin dependency required by the base Compose model.
+Prometheus, Loki, Promtail, Grafana, and their volumes are omitted.
+
+The override:
+
+- gives containers a unique verification-project name
+- publishes only API Gateway on `localhost:18080`
+- uses faster bounded health checks
+- disables trace sampling for the verification run
+- keeps verification volumes separate from development data
+
+Run it through the bounded verification script:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+  -Mode Full -TimeoutMinutes 10
+```
+
+The script polls health instead of sleeping for a fixed period, runs an
+authenticated checkout and timeline assertion, prints only bounded diagnostics
+on failure, and removes the temporary project afterward.
+
+If the normal stack is healthy on port `8080`, Full mode reuses it to avoid
+doubling local container and memory usage. Add `-ForceIsolatedStack` only after
+stopping the normal stack or when the machine has enough capacity for both.
+
+Docker builds use a BuildKit cache mount for Gradle. The Dockerfiles run
+`bootJar` once; they do not run a separate `dependencies` task because that
+duplicates dependency resolution, produces excessive output, and increases
+memory pressure. The verification path disables Compose Bake and limits
+parallel service builds to two.
+The test override also caps container memory and Java heaps so CI cannot size
+every JVM from total host memory.
 
 Check containers:
 
@@ -153,13 +193,25 @@ The MySQL container provisions `order_service`, `inventory_service`, and
 The script grants access to the `MYSQL_USER` configured in `.env`; no local
 developer username is embedded in it.
 
-MySQL executes `/docker-entrypoint-initdb.d` only when its data directory is
-created for the first time. An existing `mysql-data` volume will not rerun the
-new script. For a disposable local POC, recreate the volume:
+MySQL itself executes `/docker-entrypoint-initdb.d` only when its data directory
+is created for the first time. Shopverse also runs the idempotent
+`mysql-bootstrap` Compose service after MySQL becomes healthy on every startup.
+It creates any missing service databases and reapplies grants before the
+database-backed services start. This allows an existing `mysql-data` volume to
+pick up newly added service schemas without deleting stored data.
+
+Check the bootstrap result with:
+
+```powershell
+docker compose ps mysql mysql-bootstrap
+docker compose logs mysql-bootstrap
+```
+
+For a completely disposable reset only:
 
 ```powershell
 docker compose down -v
-docker compose up -d mysql
+docker compose up -d
 ```
 
 This deletes existing database, logging, and observability volumes. Preserve or
