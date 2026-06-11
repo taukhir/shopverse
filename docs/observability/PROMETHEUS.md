@@ -2,6 +2,11 @@
 
 Prometheus periodically pulls metrics from `/actuator/prometheus`. It stores time series, evaluates recording rules and alerts, and supplies Grafana with metric data.
 
+Application code creates and updates meters through Micrometer's
+`MeterRegistry`. See [Micrometer metrics](MICROMETER-METRICS.md) for the
+`meterRegistry.counter(...)` flow, meter types, dependencies, and tag
+cardinality practices.
+
 ## Useful PromQL
 
 Service health:

@@ -27,6 +27,10 @@ WebFilter / GlobalFilter -> route lookup -> security -> load-balanced downstream
 
 Reactive work may move between threads, so Reactor Context and Micrometer context propagation are more important than relying only on thread-local state.
 
+See [API Gateway](API-GATEWAY-GENERIC.md) for generic gateway concepts and the
+detailed `chain.filter(...)` lifecycle, correlation handling, `doFinally`,
+duration measurement, metrics, and termination signals.
+
 ## Security Path
 
 For a bearer request:

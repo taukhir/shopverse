@@ -8,13 +8,16 @@ Shopverse uses three complementary signals:
 | Logs | SLF4J + Logback JSON | Loki | Grafana |
 | Traces | Spring Boot Zipkin starter and Micrometer Observation | Zipkin | Zipkin and Grafana links |
 
+For a detailed explanation of `MeterRegistry`, counters, timers, tags, metric
+export, and Prometheus scraping, see [Micrometer metrics](MICROMETER-METRICS.md).
+
 ## Internal Flow
 
 ```mermaid
 flowchart TB
     S[Shopverse services]
     S -->|/actuator/prometheus| P[Prometheus]
-    S -->|JSON stdout and files| PT[Promtail]
+    S -->|Structured JSON or configured text logs| PT[Promtail]
     PT --> L[Loki]
     S -->|Zipkin span export| Z[Zipkin]
     P --> G[Grafana]

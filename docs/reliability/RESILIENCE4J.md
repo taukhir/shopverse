@@ -2,6 +2,11 @@
 
 Shopverse uses annotation-based Resilience4j and centralized YAML configuration. The annotations are implemented through Spring AOP proxies.
 
+For generic Rate Limiter, semaphore/thread-pool Bulkhead, Retry, Circuit
+Breaker, Time Limiter, fallback, annotation internals, pattern composition,
+metrics, dependencies, and production guidance, see
+[Resilience4j patterns](RESILIENCE4J-GENERIC.md).
+
 ## Patterns
 
 ### Rate Limiter
@@ -14,6 +19,10 @@ Controls how many calls enter an API during a refresh period.
 
 Current service limits use zero wait time, so excess calls fail fast.
 
+Inventory specifically uses 150 permissions per one-second refresh period.
+Because the annotation is class-level, it applies to each proxied public
+Inventory controller method, including public health and catalog methods.
+
 ### Bulkhead
 
 Limits concurrent work and prevents one endpoint from consuming all request threads.
@@ -23,6 +32,9 @@ Limits concurrent work and prevents one endpoint from consuming all request thre
 ```
 
 The semaphore bulkhead is suitable for synchronous controller work. It does not create another thread pool.
+
+Inventory allows 100 concurrent calls and waits zero time for a permit.
+Excess calls fail with `BulkheadFullException`.
 
 ### Retry
 
@@ -55,6 +67,10 @@ Spring creates a proxy around the annotated bean. Advice consults the named regi
 - User role/permission lookup: Retry plus cache.
 
 Gateway-level resilience protects the edge; service-level resilience protects a service's own resource boundary. Avoid stacking large retries at both layers because attempts multiply.
+
+User Service maps `RequestNotPermitted` to HTTP `429` and
+`BulkheadFullException` to HTTP `503`. Equivalent explicit mappings are not
+currently present in every other service and remain a consistency improvement.
 
 ## Practices
 

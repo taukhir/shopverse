@@ -1,13 +1,17 @@
 # API Guide
 
-## REST Conventions
+This guide is the Shopverse endpoint catalog and POC demonstration runbook.
+Reusable HTTP design guidance is maintained in
+[REST API design](REST-API-GENERIC.md).
+
+## Shopverse Conventions
 
 - APIs are versioned under `/api/v1`.
-- resources use nouns and HTTP methods express the action;
 - request records use Jakarta Validation;
 - protected APIs require `Authorization: Bearer <token>`;
 - checkout requires `Idempotency-Key`;
-- responses use stable DTOs instead of exposing JPA entities;
+- `X-Correlation-Id` can be supplied by the caller and is propagated;
+- responses use DTOs instead of exposing JPA entities;
 - ownership checks protect customer-specific order and payment records.
 
 The gateway at `http://localhost:8080` is the normal entry point.
@@ -53,7 +57,7 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 
 ## Important APIs
 
-### Public
+### Authentication And Public
 
 | Method | Path |
 |---|---|
@@ -62,8 +66,9 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 | `GET` | `/api/v1/orders/public/health` |
 | `GET` | `/api/v1/orders/public/catalog` |
 | `GET` | `/api/v1/inventory/public/items` |
+| `GET` | `/api/v1/payments/public/health` |
 
-### Customer
+### Customer Commerce
 
 | Method | Path | Rule |
 |---|---|---|
@@ -73,21 +78,26 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 | `POST` | `/api/v1/orders/checkout` | authenticated |
 | `GET` | `/api/v1/payments/orders/{orderNumber}` | owner or admin |
 
-### Administrator
+### Administration And Recovery
 
-| Method | Path |
-|---|---|
-| `GET` | `/api/v1/orders/admin/all` |
-| `PUT` | `/api/v1/inventory/admin/items` |
-| `GET` | `/api/v1/payments/admin` |
-| `POST` | `/api/v1/payments/admin/simulation?mode=TIMEOUT` |
-| `POST` | `/api/v1/payments/admin/orders/{orderNumber}/reconcile` |
-| `POST` | `/api/v1/payments/admin/orders/{orderNumber}/refund` |
-| `GET/POST` | service dead-letter inspection/replay endpoints |
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/api/v1/orders/admin/all` | inspect all orders |
+| `PUT` | `/api/v1/inventory/admin/items` | create or replace stock |
+| `GET` | `/api/v1/payments/admin` | inspect all payments |
+| `POST` | `/api/v1/payments/admin/simulation?mode=TIMEOUT` | select stub-provider behavior |
+| `POST` | `/api/v1/payments/admin/orders/{orderNumber}/reconcile` | resolve a timed-out payment |
+| `POST` | `/api/v1/payments/admin/orders/{orderNumber}/refund` | refund a payment |
+| `GET` | `/api/v1/orders/admin/dead-letters` | inspect Order recovery records |
+| `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | replay an Order record |
+| `GET` | `/api/v1/inventory/admin/dead-letters` | inspect Inventory recovery records |
+| `POST` | `/api/v1/inventory/admin/dead-letters/{id}/replay` | replay an Inventory record |
+| `GET` | `/api/v1/payments/admin/dead-letters` | inspect Payment recovery records |
+| `POST` | `/api/v1/payments/admin/dead-letters/{id}/replay` | replay a Payment record |
 
 User, Role, and Permission CRUD are documented in [user-service/README.md](../../user-service/README.md).
 
-## Error Design
+## Current Error Direction
 
 Production-grade responses should consistently include:
 
@@ -102,19 +112,33 @@ Production-grade responses should consistently include:
 }
 ```
 
-The POC has validation and exception handling, but a single cross-service error schema remains a useful hardening item.
+The POC has validation and exception handling. A single cross-service error
+schema remains a hardening item and must be treated as planned until every
+service returns it consistently.
 
-## Complete Demo
+## Complete POC Demo
 
-1. Start the stack using the Docker guide.
-2. Log in and store the bearer token.
-3. call the catalog endpoint and choose an available product.
-4. submit checkout with a unique idempotency and correlation ID.
-5. read the order and timeline.
-6. read the payment as the same customer.
-7. query Loki by correlation ID.
-8. inspect the trace in Zipkin.
-9. inspect SAGA and payment metrics in Grafana.
-10. repeat the same checkout key and confirm no duplicate order.
+1. Start the stack using the [Docker guide](../../docker/README.md).
+2. Confirm gateway, discovery, Config Server, MySQL, Kafka, and observability containers are healthy.
+3. Log in through `POST /auth/login` and store the bearer token.
+4. Call `GET /api/v1/orders/public/catalog` and choose an available product.
+5. Submit checkout with unique `Idempotency-Key` and `X-Correlation-Id` headers.
+6. Save the returned order ID and order number.
+7. Call `GET /api/v1/orders/{id}/timeline` as the owning customer.
+8. Call `GET /api/v1/payments/orders/{orderNumber}` as the same customer.
+9. Query Loki with the correlation ID and inspect the trace in Zipkin.
+10. Inspect SAGA, outbox, HTTP, JVM, and payment metrics in Grafana.
+11. Repeat checkout with the same idempotency key and confirm that no second order, reservation, or payment is created.
+12. Log in as another customer and confirm the timeline and payment return `403`.
+13. Log in as an administrator and confirm cross-customer access succeeds.
+14. Select `DECLINE` or `TIMEOUT` payment simulation and observe compensation or reconciliation.
+15. Inspect and replay a persisted dead-letter record after correcting its cause.
 
 See [Features and demos](../reference/FEATURES-AND-DEMOS.md) for failure demonstrations.
+
+## Related Guides
+
+- [Generic REST API design](REST-API-GENERIC.md)
+- [Features and demonstrations](../reference/FEATURES-AND-DEMOS.md)
+- [System design](../architecture/SYSTEM-DESIGN.md)
+- [Debugging](DEBUGGING.md)

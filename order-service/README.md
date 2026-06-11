@@ -67,4 +67,6 @@ docker compose up -d order-service
 - [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
 - [API guide](../docs/development/API-GUIDE.md)
 - [Transactions](../docs/reliability/TRANSACTIONS.md)
+- [Generic transaction concepts](../docs/reliability/TRANSACTIONS-GENERIC.md)
 - [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)
+- [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)

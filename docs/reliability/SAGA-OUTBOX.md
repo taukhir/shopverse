@@ -1,5 +1,11 @@
 # Choreography SAGA And Transactional Outbox
 
+For generic SAGA theory, choreography versus orchestration, consistency,
+compensation, isolation, idempotency, and a detailed transactional-outbox
+explanation, see
+[SAGA and transactional outbox patterns](SAGA-GENERIC.md). This document
+describes the Shopverse implementation.
+
 ## Why A SAGA
 
 Checkout changes Order, Inventory, and Payment data owned by different services. A single ACID transaction cannot safely cover those databases and Kafka. Shopverse uses local transactions plus events and compensation.
@@ -45,6 +51,163 @@ A scheduled publisher:
 3. opens a `REQUIRES_NEW` transaction;
 4. sends with `KafkaTemplate`;
 5. marks it `PUBLISHED`, or records failure and attempt count.
+
+## Inventory SAGA Transaction
+
+Inventory processes `OrderCreatedEvent` through one local transaction:
+
+```java
+@Transactional
+public void handleOrderCreated(OrderCreatedEvent event) {
+    boolean reserved = inventoryService.reserve(
+            event.orderNumber(),
+            event.correlationId(),
+            event.productId(),
+            event.quantity()
+    );
+
+    Object outgoingEvent = reserved
+            ? new InventoryReservedEvent(
+                    event.orderId(),
+                    event.orderNumber(),
+                    event.correlationId(),
+                    event.customerUsername(),
+                    event.productId(),
+                    event.quantity(),
+                    event.amount()
+            )
+            : new InventoryFailedEvent(
+                    event.orderId(),
+                    event.orderNumber(),
+                    event.correlationId(),
+                    "Inventory not available for product " + event.productId()
+            );
+
+    String topic = reserved
+            ? topics.inventoryReserved()
+            : topics.inventoryFailed();
+
+    outboxService.enqueue(
+            "INVENTORY_RESERVATION",
+            event.orderNumber(),
+            outgoingEvent.getClass().getSimpleName(),
+            topic,
+            event.orderNumber(),
+            outgoingEvent,
+            event.correlationId()
+    );
+}
+```
+
+### What `@Transactional` Achieves
+
+Spring opens one Inventory database transaction around the public service
+method. Within that transaction:
+
+1. `inventoryService.reserve(...)` checks stock and changes inventory and
+   reservation state;
+2. the code creates either a success or failure event;
+3. `outboxService.enqueue(...)` serializes and saves the outgoing event.
+
+`OutboxService.enqueue(...)` uses:
+
+```java
+@Transactional(propagation = Propagation.MANDATORY)
+```
+
+`MANDATORY` requires the caller's transaction. It prevents the outbox row from
+being accidentally inserted in an independent transaction.
+
+```mermaid
+flowchart TB
+    EVENT["OrderCreatedEvent"] --> TX["Begin Inventory DB transaction"]
+    TX --> RESERVE["Check and reserve inventory"]
+    RESERVE --> DECISION{"Reserved?"}
+    DECISION -->|"Yes"| SUCCESS["Build InventoryReservedEvent"]
+    DECISION -->|"No"| FAILURE["Build InventoryFailedEvent"]
+    SUCCESS --> OUTBOX["Insert PENDING outbox row"]
+    FAILURE --> OUTBOX
+    OUTBOX --> COMMIT{"Commit transaction"}
+    COMMIT -->|"Success"| DURABLE["Inventory state and event commit together"]
+    COMMIT -->|"Error"| ROLLBACK["Inventory state and outbox row roll back"]
+```
+
+If reservation persistence, event construction, JSON serialization, or outbox
+insertion throws an unchecked exception, neither the inventory change nor the
+outbox row commits.
+
+### Event And Topic Selection
+
+`reserved` determines both the event contract and destination:
+
+| Result | Event | Topic |
+|---|---|---|
+| stock reserved | `InventoryReservedEvent` | `shopverse.inventory.reserved` |
+| stock unavailable | `InventoryFailedEvent` | `shopverse.inventory.failed` |
+
+The order number is used as aggregate ID and Kafka message key. This supports
+per-order partition ordering.
+
+### What This Transaction Does Not Do
+
+The transaction does not:
+
+- include Order Service's database;
+- include Payment Service's database;
+- publish to Kafka before commit;
+- roll back the already-created Order when inventory is unavailable.
+
+The Inventory transaction commits its local outcome. Order Service later
+consumes that outcome and applies its own local transaction.
+
+## Outbox Publication
+
+The scheduled publisher reads the oldest 50 `PENDING` rows. A separate worker
+uses `REQUIRES_NEW`, locks the selected row with `PESSIMISTIC_WRITE`, sends it
+through `KafkaTemplate`, and marks it published after broker acknowledgement.
+
+```mermaid
+sequenceDiagram
+    participant Scheduler
+    participant DB as Inventory DB
+    participant Worker
+    participant Kafka
+
+    Scheduler->>DB: Find oldest PENDING rows
+    Scheduler->>Worker: publish(eventId)
+    Worker->>DB: Begin REQUIRES_NEW and lock row
+    Worker->>Kafka: Send topic, key, payload
+    Kafka-->>Worker: Partition and offset acknowledgement
+    Worker->>DB: Mark PUBLISHED
+    Worker->>DB: Commit
+```
+
+If Kafka fails, the worker records the error and increments attempts while the
+row remains `PENDING`. The current POC retries it on later scheduler runs.
+
+A crash after Kafka acknowledgement but before `PUBLISHED` commits can cause a
+duplicate send. Shopverse therefore provides at-least-once publication, not
+global exactly once.
+
+## SAGA Transaction And Consistency Summary
+
+```text
+Inventory state + Inventory outbox row
+    = one local ACID transaction
+
+Outbox row + Kafka publication
+    = separate recoverable publication step
+
+Order + Inventory + Payment
+    = eventually consistent SAGA
+
+Failure after remote commits
+    = compensation, not database rollback
+```
+
+Shopverse achieves reliable event intent: a committed local domain change has
+a durable outbox record. It still requires idempotent consumers because
+publication and consumption are at least once.
 
 ## Idempotency
 
