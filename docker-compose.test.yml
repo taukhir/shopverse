@@ -27,13 +27,14 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-config-server
     mem_limit: 384m
     ports: !reset []
+    environment:
+      JAVA_OPTS: "-Xms64m -Xmx256m -XX:+ExitOnOutOfMemoryError"
+      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
     healthcheck:
       interval: 5s
       timeout: 3s
       retries: 24
       start_period: 30s
-    environment:
-      JAVA_OPTS: "-Xms64m -Xmx256m -XX:+ExitOnOutOfMemoryError"
 
   discovery-server:
     container_name: ${COMPOSE_PROJECT_NAME}-discovery-server

@@ -15,11 +15,26 @@ $lastError = $null
 
 while ([DateTimeOffset]::UtcNow -lt $deadline) {
     try {
-        $response = Invoke-WebRequest -UseBasicParsing -Uri $Uri -TimeoutSec 5
-        if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 300) {
-            if ([string]::IsNullOrWhiteSpace($ExpectedPattern) -or $response.Content -match $ExpectedPattern) {
-                return $response
+        $output = @(& curl.exe `
+            --silent `
+            --show-error `
+            --max-time 5 `
+            --write-out "`n%{http_code}" `
+            $Uri 2>&1)
+        $curlExitCode = $LASTEXITCODE
+        if ($curlExitCode -eq 0 -and $output.Count -ge 1) {
+            $statusCode = [int]$output[-1]
+            $content = ($output[0..([math]::Max(0, $output.Count - 2))] -join [Environment]::NewLine)
+            if ($statusCode -ge 200 -and $statusCode -lt 300) {
+                if ([string]::IsNullOrWhiteSpace($ExpectedPattern) -or $content -match $ExpectedPattern) {
+                    return [pscustomobject]@{
+                        StatusCode = $statusCode
+                        Content = $content
+                    }
+                }
             }
+        } else {
+            $lastError = ($output -join [Environment]::NewLine)
         }
     } catch {
         $lastError = $_.Exception.Message

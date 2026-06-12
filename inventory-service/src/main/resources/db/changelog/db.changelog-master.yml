@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/003-reservation-expiry.yml
   - include:
       file: db/changelog/004-outbox-and-failed-events.yml
+  - include:
+      file: db/changelog/005-outbox-claim.yml

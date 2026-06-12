@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-payment-outbox-claim
+      author: shopverse
+      changes:
+        - addColumn:
+            tableName: outbox_events
+            columns:
+              - column: { name: claimed_at, type: TIMESTAMP(6) }
+        - createIndex:
+            tableName: outbox_events
+            indexName: idx_payment_outbox_claim
+            columns:
+              - column: { name: status }
+              - column: { name: claimed_at }

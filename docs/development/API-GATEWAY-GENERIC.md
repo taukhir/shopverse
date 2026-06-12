@@ -607,7 +607,7 @@ traces or implementation details.
 
 ## Related Guides
 
-- [Spring Boot request internals](SPRING-BOOT-INTERNALS.md)
+- [Spring Boot internals](SPRING-BOOT-INTERNALS.md)
 - [MDC generic guide](../observability/MDC-GENERIC.md)
 - [Shopverse correlation and tracing](../observability/MDC-CORRELATION-TRACING.md)
 - [Micrometer metrics](../observability/MICROMETER-METRICS.md)

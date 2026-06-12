@@ -7,7 +7,7 @@ API Gateway runs on port `8080` and is the normal client entry point.
 - route requests by service path;
 - resolve `lb://SERVICE-NAME` destinations through Eureka and Spring Cloud LoadBalancer;
 - enforce public/protected path policy;
-- validate bearer JWTs for protected routes;
+- validate bearer JWT signature, timestamps, and issuer for protected routes;
 - propagate correlation and trace context;
 - emit gateway request logs and Micrometer metrics.
 

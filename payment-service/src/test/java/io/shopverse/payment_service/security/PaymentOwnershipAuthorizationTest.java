@@ -35,7 +35,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
         "shopverse.kafka.topics.inventory-reserved=shopverse.inventory.reserved",
         "shopverse.kafka.topics.inventory-failed=shopverse.inventory.failed",
         "shopverse.kafka.topics.payment-completed=shopverse.payment.completed",
-        "shopverse.kafka.topics.payment-failed=shopverse.payment.failed"
+        "shopverse.kafka.topics.payment-failed=shopverse.payment.failed",
+        "security.jwt.issuer=shopverse-auth-service"
 })
 class PaymentOwnershipAuthorizationTest {
 

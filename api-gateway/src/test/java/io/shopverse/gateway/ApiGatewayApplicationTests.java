@@ -7,7 +7,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @SpringBootTest(properties = {
 		"eureka.client.register-with-eureka=false",
-		"eureka.client.fetch-registry=false"
+		"eureka.client.fetch-registry=false",
+		"security.jwt.issuer=shopverse-auth-service"
 })
 class ApiGatewayApplicationTests {
 

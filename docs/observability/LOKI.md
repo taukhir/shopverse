@@ -185,16 +185,13 @@ metrics are useful for exceptions or text-only evidence.
 
 ## Duplicate Logs
 
-The POC reads both rolling files and Docker stdout. The same log can appear in
-two streams:
+Application services use rolling JSON files as their canonical Loki source.
+Promtail drops those services from its Docker discovery job, while retaining
+Docker stdout for infrastructure containers. This prevents normal application
+events from being ingested twice.
 
-```text
-shopverse-service-volume-files
-docker-containers
-```
-
-Choose one job when counting. Production should generally select one canonical
-collection path per workload.
+Duplicates can still occur if the Promtail positions file is deleted or if the
+same local file is mounted through multiple paths.
 
 ## Retention And Deletion
 

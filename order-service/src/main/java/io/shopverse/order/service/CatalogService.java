@@ -4,6 +4,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.shopverse.order.client.InventoryClient;
 import io.shopverse.order.dto.CatalogItemResponse;
+import io.shopverse.order.exception.ServiceUnavailableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -32,8 +33,8 @@ public class CatalogService {
                 .toList();
     }
 
-    private List<CatalogItemResponse> fallbackCatalog(Throwable throwable) {
-        log.warn("Inventory catalog unavailable; returning an empty catalog", throwable);
-        return List.of();
+    List<CatalogItemResponse> fallbackCatalog(Throwable throwable) {
+        log.warn("Inventory catalog unavailable after retry and circuit-breaker policies", throwable);
+        throw new ServiceUnavailableException("Inventory catalog is temporarily unavailable", throwable);
     }
 }

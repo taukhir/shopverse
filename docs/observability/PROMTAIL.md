@@ -49,7 +49,7 @@ source and startup behavior.
 | `shopverse-service-volume-files` | mounted service logs | application file logs |
 | `local-service-log-files` | workspace logs | non-container development |
 | `shopverse-health-log-files` | `*-health.log` | isolate probe noise |
-| `docker-containers` | Docker socket | stdout, startup, infrastructure logs |
+| `docker-containers` | Docker socket | infrastructure stdout and startup logs |
 
 Application jobs exclude health files:
 
@@ -91,6 +91,10 @@ Promtail reads the Docker socket and maps metadata:
 
 ```yaml
 relabel_configs:
+  - source_labels:
+      [__meta_docker_container_label_com_docker_compose_service]
+    regex: (api-gateway|auth-service|config-server|discovery-server|inventory-service|order-service|payment-service|user-service)
+    action: drop
   - source_labels: [__meta_docker_container_name]
     regex: /(.+)
     target_label: container
@@ -104,13 +108,14 @@ avoid exposing the socket beyond the collector.
 
 ## Why Read Files And Stdout?
 
-The POC demonstrates both:
+The POC uses both collection mechanisms for different workloads:
 
-- stdout supports container-native inspection;
-- files demonstrate rolling retention and health-log separation.
+- application files provide rolling retention and health-log separation;
+- Docker stdout captures infrastructure and startup output.
 
-The trade-off is duplicate log ingestion. Production should choose a canonical
-path unless redundancy is an explicit requirement with deduplication.
+Application services are excluded from the Docker discovery job, making their
+named JSON log volumes the canonical Loki source. `docker compose logs` remains
+available for direct container diagnostics.
 
 ## Troubleshooting Missing Logs
 

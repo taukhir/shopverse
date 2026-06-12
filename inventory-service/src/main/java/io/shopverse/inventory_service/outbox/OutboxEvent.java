@@ -22,6 +22,7 @@ public class OutboxEvent {
     @Column(nullable = false, length = 64) private String correlationId;
     @Enumerated(EnumType.STRING) @Column(nullable = false, length = 20) private OutboxStatus status;
     @Column(nullable = false) private int publishAttempts;
+    private Instant claimedAt;
     @Column(nullable = false) private Instant createdAt;
     private Instant publishedAt;
     @Column(length = 1000) private String lastError;
@@ -39,16 +40,31 @@ public class OutboxEvent {
         this.createdAt = Instant.now();
     }
 
+    public void claim() {
+        status = OutboxStatus.PROCESSING;
+        claimedAt = Instant.now();
+        publishAttempts++;
+    }
+
     public void markPublished() {
         status = OutboxStatus.PUBLISHED;
         publishedAt = Instant.now();
+        claimedAt = null;
         lastError = null;
     }
 
     public void markFailed(Throwable exception) {
-        publishAttempts++;
         String message = exception.getMessage();
         lastError = message == null ? exception.getClass().getSimpleName()
                 : message.substring(0, Math.min(message.length(), 1000));
+        claimedAt = null;
+        status = OutboxStatus.PENDING;
+    }
+
+    public void releaseStaleClaim() {
+        if (status == OutboxStatus.PROCESSING) {
+            status = OutboxStatus.PENDING;
+            claimedAt = null;
+        }
     }
 }
