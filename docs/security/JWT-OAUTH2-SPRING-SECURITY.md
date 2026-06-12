@@ -71,13 +71,16 @@ Resource services validate:
 - expiration and not-before timestamps through default validators;
 - endpoint and method authorities.
 
-User Service additionally validates issuer equal to `shopverse-auth-service`:
+Every Shopverse resource server validates issuer equal to
+`shopverse-auth-service`:
 
 ```java
 decoder.setJwtValidator(JwtValidators.createDefaultWithIssuer(issuer));
 ```
 
-API Gateway, Order, Inventory, and Payment currently configure `jwk-set-uri` but do not add an explicit issuer validator. Adding `issuer-uri` or an equivalent validator consistently is a security hardening item.
+Gateway uses the reactive decoder equivalent. Auth, User, Order, Inventory, and
+Payment use `NimbusJwtDecoder`. A token signed by the trusted key is still
+rejected when its `iss` claim does not match the configured issuer.
 
 ## Claims And Authorities
 

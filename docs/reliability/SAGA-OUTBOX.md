@@ -6,6 +6,10 @@ explanation, see
 [SAGA and transactional outbox patterns](SAGA-GENERIC.md). This document
 describes the Shopverse implementation.
 
+For a focused explanation of why the publisher must not retain a database lock
+while waiting for Kafka, see
+[Lock contention problems and fixes](LOCK-CONTENTION-FIXES.md).
+
 ## Why A SAGA
 
 Checkout changes Order, Inventory, and Payment data owned by different services. A single ACID transaction cannot safely cover those databases and Kafka. Shopverse uses local transactions plus events and compensation.
@@ -47,10 +51,11 @@ public OrderResponse checkout(...) {
 A scheduled publisher:
 
 1. selects the oldest 50 `PENDING` rows;
-2. locks one row;
-3. opens a `REQUIRES_NEW` transaction;
-4. sends with `KafkaTemplate`;
-5. marks it `PUBLISHED`, or records failure and attempt count.
+2. claims one row as `PROCESSING` in a short transaction;
+3. commits the claim and releases the database lock;
+4. sends with `KafkaTemplate` outside the database transaction;
+5. marks it `PUBLISHED`, or returns it to `PENDING`, in another short
+   transaction.
 
 ## Inventory SAGA Transaction
 
@@ -162,9 +167,18 @@ consumes that outcome and applies its own local transaction.
 
 ## Outbox Publication
 
-The scheduled publisher reads the oldest 50 `PENDING` rows. A separate worker
-uses `REQUIRES_NEW`, locks the selected row with `PESSIMISTIC_WRITE`, sends it
-through `KafkaTemplate`, and marks it published after broker acknowledgement.
+The scheduled publisher reads the oldest 50 `PENDING` rows. Publication is
+split into three steps:
+
+1. a short database transaction locks the row and changes it from `PENDING` to
+   `PROCESSING`;
+2. the transaction commits and releases the row lock before
+   `KafkaTemplate.send(...)` waits for Kafka;
+3. another short transaction changes the row to `PUBLISHED`, or returns it to
+   `PENDING` when the send fails.
+
+This prevents a slow Kafka broker from holding a database connection and
+pessimistic row lock for the network timeout.
 
 ```mermaid
 sequenceDiagram
@@ -175,15 +189,19 @@ sequenceDiagram
 
     Scheduler->>DB: Find oldest PENDING rows
     Scheduler->>Worker: publish(eventId)
-    Worker->>DB: Begin REQUIRES_NEW and lock row
+    Worker->>DB: Lock row and mark PROCESSING
+    Worker->>DB: Commit and release lock
     Worker->>Kafka: Send topic, key, payload
     Kafka-->>Worker: Partition and offset acknowledgement
-    Worker->>DB: Mark PUBLISHED
-    Worker->>DB: Commit
+    Worker->>DB: New transaction marks PUBLISHED
 ```
 
 If Kafka fails, the worker records the error and increments attempts while the
 row remains `PENDING`. The current POC retries it on later scheduler runs.
+
+`claimed_at` supports crash recovery. A scheduler resets `PROCESSING` rows
+whose claim is older than `shopverse.outbox.claim-timeout-ms`. The claim timeout
+must remain longer than the Kafka send timeout.
 
 A crash after Kafka acknowledgement but before `PUBLISHED` commits can cause a
 duplicate send. Shopverse therefore provides at-least-once publication, not

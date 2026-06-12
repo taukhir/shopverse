@@ -50,6 +50,10 @@ spring:
         jwt:
           jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/auth/.well-known/jwks.json}
 
+security:
+  jwt:
+    issuer: ${JWT_ISSUER:shopverse-auth-service}
+
 resilience4j:
   circuitbreaker:
     instances:

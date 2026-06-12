@@ -88,12 +88,14 @@ function Invoke-BoundedProcess {
         1,
         [math]::Floor(($deadline - [DateTimeOffset]::UtcNow).TotalMilliseconds)
     )
-    $process = Start-Process `
-        -FilePath $FilePath `
-        -ArgumentList $Arguments `
-        -WorkingDirectory $WorkingDirectory `
-        -NoNewWindow `
-        -PassThru
+    $startInfo = [System.Diagnostics.ProcessStartInfo]::new()
+    $startInfo.FileName = $FilePath
+    $startInfo.Arguments = $Arguments -join " "
+    $startInfo.WorkingDirectory = $WorkingDirectory
+    $startInfo.UseShellExecute = $false
+    $startInfo.CreateNoWindow = $true
+
+    $process = [System.Diagnostics.Process]::Start($startInfo)
     $null = $process.Handle
 
     if (-not $process.WaitForExit($remainingMilliseconds)) {

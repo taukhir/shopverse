@@ -1,4 +1,8 @@
 **/logs/
 .env
+.idea/
+*.iml
+**/build/
+**/.gradle/
 docs/build/
 docs/*.docx

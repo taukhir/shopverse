@@ -45,6 +45,8 @@ public class OutboxEvent {
     @Column(nullable = false)
     private int publishAttempts;
 
+    private Instant claimedAt;
+
     @Column(nullable = false)
     private Instant createdAt;
 
@@ -73,16 +75,31 @@ public class OutboxEvent {
         this.createdAt = Instant.now();
     }
 
+    public void claim() {
+        status = OutboxStatus.PROCESSING;
+        claimedAt = Instant.now();
+        publishAttempts++;
+    }
+
     public void markPublished() {
         status = OutboxStatus.PUBLISHED;
         publishedAt = Instant.now();
+        claimedAt = null;
         lastError = null;
     }
 
     public void markFailed(Throwable exception) {
-        publishAttempts++;
         lastError = exception.getMessage() == null
                 ? exception.getClass().getSimpleName()
                 : exception.getMessage().substring(0, Math.min(exception.getMessage().length(), 1000));
+        claimedAt = null;
+        status = OutboxStatus.PENDING;
+    }
+
+    public void releaseStaleClaim() {
+        if (status == OutboxStatus.PROCESSING) {
+            status = OutboxStatus.PENDING;
+            claimedAt = null;
+        }
     }
 }

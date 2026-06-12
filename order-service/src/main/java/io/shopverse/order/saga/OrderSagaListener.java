@@ -29,9 +29,10 @@ public class OrderSagaListener {
     )
     public void onInventoryReserved(String payload) {
         InventoryReservedEvent event = readEvent(payload, InventoryReservedEvent.class);
-        CorrelationContext.run(event.correlationId(), () -> {
-            orderService.markInventoryReservedAndPaymentProcessing(event.orderNumber());
-        });
+        CorrelationContext.run(
+                event.correlationId(),
+                () -> orderService.markInventoryReservedAndPaymentProcessing(event.orderNumber())
+        );
     }
 
     @RetryableTopic(attempts = "3")

@@ -52,7 +52,10 @@ Do not commit `.env`. In production, use a secret manager and replace internal B
 
 ## Tests
 
-Controller tests demonstrate request validation and method security. Repository/service coverage should continue to test entity graphs, password behavior, permission checks, and transaction rollback.
+Controller tests demonstrate request mapping and validation. Service tests cover
+password, lookup, role, permission, and audit behavior. Dedicated method-security
+tests should be added for permission allow/deny cases; the standalone MockMvc
+controller test does not load the Spring Security filter chain.
 
 ## Run
 

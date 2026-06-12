@@ -8,7 +8,7 @@ COPY gradle ./gradle
 RUN chmod +x ./gradlew
 
 COPY src ./src
-RUN --mount=type=cache,target=/root/.gradle ./gradlew bootJar --no-daemon --max-workers=2
+RUN --mount=type=cache,id=shopverse-api-gateway-gradle,target=/root/.gradle ./gradlew bootJar --no-daemon --max-workers=2
 
 FROM eclipse-temurin:21-jre-jammy AS runtime
 
@@ -24,10 +24,10 @@ RUN apt-get update \
     && groupadd --system shopverse \
     && useradd --system --gid shopverse --home-dir ${APP_HOME} --shell /usr/sbin/nologin shopverse
 
-COPY --from=build /workspace/build/libs/*.jar app.jar
+COPY --chown=shopverse:shopverse --from=build /workspace/build/libs/*.jar app.jar
 
 RUN mkdir -p ${APP_HOME}/logs \
-    && chown -R shopverse:shopverse ${APP_HOME}
+    && chown shopverse:shopverse ${APP_HOME}/logs
 USER shopverse
 
 EXPOSE 8080

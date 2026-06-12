@@ -34,7 +34,8 @@ import static org.assertj.core.api.Assertions.assertThat;
         "shopverse.kafka.topics.inventory-failed=shopverse.inventory.failed",
         "shopverse.kafka.topics.payment-completed=shopverse.payment.completed",
         "shopverse.kafka.topics.payment-failed=shopverse.payment.failed",
-        "spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:65535/jwks"
+        "spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:65535/jwks",
+        "security.jwt.issuer=shopverse-auth-service"
 })
 class OrderInfrastructureIntegrationTest {
 
@@ -68,6 +69,7 @@ class OrderInfrastructureIntegrationTest {
         assertThat(tableExists("order_timeline_events")).isTrue();
         assertThat(tableExists("outbox_events")).isTrue();
         assertThat(tableExists("failed_kafka_events")).isTrue();
+        assertThat(columnExists("outbox_events", "claimed_at")).isTrue();
     }
 
     @Test
@@ -122,5 +124,18 @@ class OrderInfrastructureIntegrationTest {
                 aggregateId
         );
         return count == null ? 0 : count;
+    }
+
+    private boolean columnExists(String tableName, String columnName) {
+        Integer count = jdbcTemplate.queryForObject(
+                """
+                select count(*) from information_schema.columns
+                where table_schema = database() and table_name = ? and column_name = ?
+                """,
+                Integer.class,
+                tableName,
+                columnName
+        );
+        return count != null && count == 1;
     }
 }

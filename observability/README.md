@@ -206,7 +206,7 @@ Promtail reads:
 ```text
 /service-logs/*/*.log
 /workspace/*/logs/*.log
-Docker container stdout/stderr
+Infrastructure container stdout/stderr
 ```
 
 Why multiple sources are collected:
@@ -214,12 +214,12 @@ Why multiple sources are collected:
 - Named service volumes preserve rolling application and health files when a
   container is recreated.
 - Workspace files cover services run directly from an IDE or Gradle.
-- Docker stdout/stderr captures startup failures even when file logging cannot
-  initialize.
+- Docker stdout/stderr captures infrastructure startup failures.
 
-File and stdout collection can contain the same event. Select one `job` in
-Grafana when deduplication matters. A production deployment normally chooses
-one canonical source per workload.
+Application containers are dropped from the Docker discovery job because their
+JSON events are already collected from named log volumes. This avoids duplicate
+application ingestion while retaining MySQL, Kafka, Loki, Promtail, Prometheus,
+Grafana, and Zipkin container output.
 
 Promtail parses and exports JSON:
 

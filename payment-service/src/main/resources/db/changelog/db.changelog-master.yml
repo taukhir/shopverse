@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/003-payment-owner.yml
   - include:
       file: db/changelog/004-outbox-and-replay-audit.yml
+  - include:
+      file: db/changelog/005-outbox-claim.yml

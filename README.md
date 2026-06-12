@@ -119,7 +119,7 @@ Start with the [documentation index](docs/README.md).
 | Messaging | [Kafka](docs/integration/KAFKA.md) and [SAGA/outbox](docs/reliability/SAGA-OUTBOX.md) |
 | Observability | [Observability architecture](docs/observability/OBSERVABILITY.md) |
 | Data | [Liquibase](docs/data/LIQUIBASE-GENERIC.md), [Shopverse transactions](docs/reliability/TRANSACTIONS.md), and [transaction concepts](docs/reliability/TRANSACTIONS-GENERIC.md) |
-| Testing | [Testing strategy](docs/development/TESTING.md) |
+| Testing | [Shopverse testing](docs/development/TESTING.md) and [generic Java/Spring testing](docs/development/TESTING-GENERIC.md) |
 | Troubleshooting | [Debugging guide](docs/development/DEBUGGING.md) |
 
 Service-specific APIs and configuration remain in each service README. Operational guides remain beside their deployment files:

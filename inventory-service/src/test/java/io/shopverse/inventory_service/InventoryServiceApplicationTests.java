@@ -18,9 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 		"shopverse.kafka.topics.inventory-failed=shopverse.inventory.failed",
 		"shopverse.kafka.topics.payment-completed=shopverse.payment.completed",
 		"shopverse.kafka.topics.payment-failed=shopverse.payment.failed",
-		"spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:8081/auth/.well-known/jwks.json"
-		,"shopverse.inventory.reservation-ttl=5m"
-		,"shopverse.inventory.expiry-scan-delay-ms=60000"
+		"spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:8081/auth/.well-known/jwks.json",
+		"security.jwt.issuer=shopverse-auth-service",
+		"shopverse.inventory.reservation-ttl=5m",
+		"shopverse.inventory.expiry-scan-delay-ms=60000"
 })
 class InventoryServiceApplicationTests {
 

@@ -69,17 +69,19 @@ Promtail reads:
 
 - `/service-logs/*/*.log` from Docker service volumes;
 - `/workspace/*/logs/*.log` for local service files;
-- Docker stdout through the Docker socket.
+- infrastructure Docker stdout through the Docker socket.
 
 Health files are excluded from application jobs and collected with `log_type=health`.
 
 ## Why Read Files And Stdout
 
-- stdout is the container-native source and captures startup output;
+- infrastructure stdout captures startup and platform output;
 - files provide explicit rolling retention and survive container recreation through volumes;
 - separate health files prevent probe traffic from hiding business logs.
 
-Reading both can produce duplicate records. Queries should select the desired `job` or `log_type`. A production deployment should normally standardize on one collection path.
+Application services are excluded from Docker discovery, so their rolling JSON
+files are the canonical Loki source and normal application events are not
+duplicated.
 
 ## Logging Practices
 

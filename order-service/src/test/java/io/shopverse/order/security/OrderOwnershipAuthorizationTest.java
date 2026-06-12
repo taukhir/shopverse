@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -34,7 +33,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
         "shopverse.kafka.topics.inventory-reserved=shopverse.inventory.reserved",
         "shopverse.kafka.topics.inventory-failed=shopverse.inventory.failed",
         "shopverse.kafka.topics.payment-completed=shopverse.payment.completed",
-        "shopverse.kafka.topics.payment-failed=shopverse.payment.failed"
+        "shopverse.kafka.topics.payment-failed=shopverse.payment.failed",
+        "security.jwt.issuer=shopverse-auth-service"
 })
 class OrderOwnershipAuthorizationTest {
 

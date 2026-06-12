@@ -24,7 +24,7 @@ Unchecked exceptions mark the transaction for rollback by default. Do not catch 
 - one service transaction touches only that service's database;
 - remote Feign and Kafka calls are not held inside long database transactions;
 - outbox insertion is part of the domain transaction;
-- outbox publication uses `REQUIRES_NEW` per record;
+- outbox claiming and finalization use separate short transactions;
 - outbox insertion requires an existing transaction through `MANDATORY`.
 
 The inventory SAGA step demonstrates the atomic local boundary:
@@ -52,26 +52,27 @@ public void enqueue(...) {
 }
 ```
 
-The publisher processes each event independently:
+The publisher processes each event independently without holding a database
+lock during Kafka network I/O:
 
 ```java
-@Transactional(propagation = Propagation.REQUIRES_NEW)
-public void publish(Long eventId) {
-    OutboxEvent event = repository.findByIdForUpdate(eventId).orElse(null);
-    // publish and update this outbox row
-}
+OutboxMessage message = claimInShortTransaction(eventId);
+kafkaTemplate.send(message.topic(), message.key(), message.payload()).get();
+markPublishedInShortTransaction(message.id());
 ```
 
 ## Proxy Rules
 
-`@Transactional` is applied by a Spring proxy. Calls from one method to another on `this` do not cross the proxy and therefore do not start a new propagation boundary. Shopverse uses a separate outbox worker bean so `REQUIRES_NEW` is effective.
+`@Transactional` is applied by a Spring proxy. Calls from one method to another
+on `this` do not cross the proxy. The outbox worker therefore uses
+`TransactionTemplate` to make the claim and finalization boundaries explicit.
 
 ## Isolation And Locking
 
 Inventory uses JPA `@Version` optimistic locking to detect concurrent stock
-updates. Outbox publication uses `PESSIMISTIC_WRITE` while changing one event's
-publication state. Keep transactions short so lock wait and deadlock risk
-remain bounded.
+updates. Outbox publication uses `PESSIMISTIC_WRITE` only while claiming or
+finalizing one event's publication state. The transaction commits before the
+Kafka send begins, so broker latency does not extend the database lock.
 
 When a deadlock occurs, the database chooses a victim and rolls it back. Retry only the complete idempotent unit of work with a small bounded policy.
 

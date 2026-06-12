@@ -1,6 +1,10 @@
 # Shopverse Testing And Verification
 
-This file contains executable commands for the repository scripts. Test design, JUnit/Testcontainers guidance, and the three bounded verification modes are documented in [Testing strategy](../docs/development/TESTING.md).
+This file contains executable commands for the repository scripts. Shopverse
+coverage and the three bounded verification modes are documented in
+[Testing strategy](../docs/development/TESTING.md). Reusable JUnit, Mockito,
+Spring Test, controller/service/repository, Testcontainers, and E2E concepts
+are documented in [Generic testing](../docs/development/TESTING-GENERIC.md).
 
 Shopverse uses layered verification so a small code change does not require a
 full Docker rebuild. Each layer has a bounded purpose and timeout.
