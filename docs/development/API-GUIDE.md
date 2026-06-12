@@ -95,7 +95,8 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 | `GET` | `/api/v1/payments/admin/dead-letters` | inspect Payment recovery records |
 | `POST` | `/api/v1/payments/admin/dead-letters/{id}/replay` | replay a Payment record |
 
-User, Role, and Permission CRUD are documented in [user-service/README.md](../../user-service/README.md).
+User, Role, and Permission CRUD are documented in the
+[User Service README](https://github.com/taukhir/shopverse/tree/main/user-service).
 
 ## Current Error Direction
 
@@ -118,7 +119,7 @@ service returns it consistently.
 
 ## Complete POC Demo
 
-1. Start the stack using the [Docker guide](../../docker/README.md).
+1. Start the stack using the [Docker guide](https://github.com/taukhir/shopverse/tree/main/docker).
 2. Confirm gateway, discovery, Config Server, MySQL, Kafka, and observability containers are healthy.
 3. Log in through `POST /auth/login` and store the bearer token.
 4. Call `GET /api/v1/orders/public/catalog` and choose an available product.

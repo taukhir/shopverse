@@ -387,6 +387,6 @@ weighted instances, sticky sessions, or consistent hashing.
 ## Related Guides
 
 - [API Gateway](../development/API-GATEWAY-GENERIC.md)
-- [Feign clients](../integration/FEIGN-CLIENTS.md)
+- [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md)
 - [System design](SYSTEM-DESIGN.md)
 - [Resilience4j](../reliability/RESILIENCE4J.md)

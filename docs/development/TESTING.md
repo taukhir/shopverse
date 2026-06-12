@@ -3,7 +3,7 @@
 This guide documents Shopverse-specific coverage and verification modes.
 Reusable JUnit, Mockito, Spring Test, repository/controller/service testing,
 Testcontainers, and E2E concepts are in
-[Java and Spring Boot testing](TESTING-GENERIC.md).
+[Spring Boot testing](../spring/SPRING-BOOT-TESTING.md).
 
 ## Objectives
 
@@ -249,8 +249,8 @@ this one script.
 | `scripts/Smoke-Test.ps1` | authenticated checkout and timeline verification |
 | `scripts/Wait-Service.ps1` | bounded health polling |
 
-Operational command details are kept in
-[testing/README.md](../../testing/README.md).
+Operational command details are kept in the
+[testing README](https://github.com/taukhir/shopverse/tree/main/testing).
 
 ## Quick Mode
 
@@ -516,8 +516,8 @@ These are testing roadmap items, not implemented guarantees.
 
 ## Related Guides
 
-- [Generic testing](TESTING-GENERIC.md)
-- [Testing commands](../../testing/README.md)
-- [CI workflows](../../.github/workflows/README.md)
+- [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md)
+- [Testing commands](https://github.com/taukhir/shopverse/tree/main/testing)
+- [CI workflows](https://github.com/taukhir/shopverse/tree/main/.github/workflows)
 - [Debugging](DEBUGGING.md)
 - [Features and demos](../reference/FEATURES-AND-DEMOS.md)

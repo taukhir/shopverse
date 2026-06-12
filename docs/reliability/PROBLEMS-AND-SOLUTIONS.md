@@ -11,6 +11,12 @@ verification, their impact, and the fixes applied to the project.
 | Outbox runtime reliability | A database row lock could remain held while waiting for Kafka | Blocked workers, exhausted connections, and lock timeouts | Split publication into short claim and finalization transactions around an unlocked Kafka send | [Short Outbox transactions](#2-outbox-database-locks-while-waiting-for-kafka) |
 | Docker image efficiency | A JAR copied as `root` was recursively changed to another owner in a later layer | The large JAR could be represented again in a copy-on-write layer | Set final ownership during `COPY` with `--chown` | [Duplicate JAR ownership layers](#3-duplicated-jar-ownership-layers) |
 | Order dependency handling | An Inventory outage was converted into an empty catalog and reported as product not found | Misleading and potentially cached `404` responses | Throw a service-unavailable exception and return retryable `503` | [Inventory failure semantics](#4-inventory-failures-reported-as-product-not-found) |
+| Outbox crash recovery | A worker could stop after claiming an event | Event remains stuck in `PROCESSING` | Track claim time and release stale claims | [Stale Outbox claims](#5-outbox-events-stuck-after-a-worker-crash) |
+| Verification resource control | Gradle, Docker, or smoke checks could wait indefinitely | CI agents and developer machines remain occupied | Apply one global deadline and terminate timed-out process trees | [Bounded verification](#6-unbounded-verification-processes) |
+| Windows health probing | PowerShell HTTP probing intermittently rejected valid container responses | Healthy stacks were reported as failed | Use bounded `curl.exe` status and body checks | [Reliable health probes](#7-unreliable-windows-health-probes) |
+| Isolated test observability | Config Server attempted to export test spans to an unsuitable default Zipkin endpoint | Connection warnings and timing noise | Disable sampling only in the isolated test override | [Test tracing noise](#8-unnecessary-config-server-tracing-in-isolated-tests) |
+| Container security | Application processes could otherwise run with container root privileges | Greater impact if application code is compromised | Create and run as the non-root `shopverse` user | [Non-root runtime](#9-container-processes-running-as-root) |
+| Runtime image composition | Build tooling and package metadata can unnecessarily remain in deployable images | Larger images and unnecessary runtime components | Use JDK build stages, JRE runtime stages, and remove package indexes | [Multi-stage runtime images](#10-build-tools-in-runtime-images) |
 
 The common principle is to avoid unnecessary shared mutable state, keep lock
 scope narrow, and write files with their final metadata as early as possible.
@@ -607,18 +613,336 @@ assertThat(problem.getStatus())
 - logs retain the original Feign, discovery, timeout, or circuit-breaker cause;
 - startup-time Eureka propagation can recover within the bounded smoke test.
 
+## 5. Outbox Events Stuck After A Worker Crash
+
+### Problem Statement
+
+The short-transaction Outbox design changes an event from `PENDING` to
+`PROCESSING` before publishing it to Kafka. A process can terminate after that
+claim commits but before it records success or failure:
+
+```text
+PENDING
+  -> claim commits as PROCESSING
+  -> process terminates
+  -> no finalization transaction runs
+```
+
+Without recovery, normal publisher scans select only `PENDING` rows, so this
+event would remain in `PROCESSING` permanently.
+
+### Solution
+
+Outbox rows now record when the claim was acquired:
+
+```java
+public void claim() {
+    status = OutboxStatus.PROCESSING;
+    claimedAt = Instant.now();
+    publishAttempts++;
+}
+```
+
+Before publishing pending events, the scheduler releases claims older than a
+configured timeout:
+
+```java
+worker.releaseStaleClaims(
+        Instant.now().minusMillis(claimTimeoutMs)
+);
+```
+
+The recovery transaction returns stale rows to `PENDING`:
+
+```java
+public void releaseStaleClaim() {
+    if (status == OutboxStatus.PROCESSING) {
+        status = OutboxStatus.PENDING;
+        claimedAt = null;
+    }
+}
+```
+
+The claim timeout must be longer than the Kafka send timeout. Otherwise, a
+slow but active publisher could be mistaken for a failed worker.
+
+### Result
+
+- a terminated publisher does not permanently strand its claimed event;
+- events become eligible for later publication;
+- `publishAttempts` provides operational evidence of repeated attempts;
+- at-least-once delivery remains explicit, so consumers must be idempotent.
+
+## 6. Unbounded Verification Processes
+
+### Problem Statement
+
+Service tests, image builds, startup checks, and SAGA smoke tests can block due
+to a dependency download, unhealthy container, unavailable service, or child
+process that does not terminate. Without an overall deadline, verification can
+consume CI or developer resources for an indefinite period.
+
+### Solution
+
+The verification runner calculates one deadline for the complete run:
+
+```powershell
+$startedAt = [DateTimeOffset]::UtcNow
+$deadline = $startedAt.AddMinutes($TimeoutMinutes)
+```
+
+Every subprocess receives only the time remaining in that budget:
+
+```powershell
+$remainingMilliseconds = [math]::Max(
+    1,
+    [math]::Floor(
+        ($deadline - [DateTimeOffset]::UtcNow).TotalMilliseconds
+    )
+)
+```
+
+When a process exceeds the deadline, its complete Windows process tree is
+terminated:
+
+```powershell
+if (-not $process.WaitForExit($remainingMilliseconds)) {
+    & taskkill.exe /PID $process.Id /T /F 2>$null | Out-Null
+    throw "$DisplayName exceeded the remaining verification deadline"
+}
+```
+
+Gradle also runs with controlled parallelism:
+
+```powershell
+gradlew.bat test --no-daemon --max-workers=2
+```
+
+### Result
+
+- verification has a predictable upper bound;
+- failed child processes do not remain running in the background;
+- Gradle workers cannot grow without control;
+- CI failure is explicit instead of appearing as an endless running job.
+
+This is a verification-infrastructure fix. It protects delivery pipelines and
+developer resources rather than changing runtime request handling.
+
+## 7. Unreliable Windows Health Probes
+
+### Problem Statement
+
+The original PowerShell web request occasionally reported that a connection
+closed unexpectedly even when the API Gateway container was healthy. This
+created false-negative full-stack verification failures.
+
+### Solution
+
+`Wait-Service.ps1` now invokes `curl.exe` with a request-level timeout and
+captures both the response body and HTTP status:
+
+```powershell
+$output = @(& curl.exe `
+    --silent `
+    --show-error `
+    --max-time 5 `
+    --write-out "`n%{http_code}" `
+    $Uri 2>&1)
+```
+
+The probe accepts only successful HTTP status codes and, when configured,
+checks the expected health payload:
+
+```powershell
+if ($statusCode -ge 200 -and $statusCode -lt 300) {
+    if ([string]::IsNullOrWhiteSpace($ExpectedPattern) -or
+        $content -match $ExpectedPattern) {
+        return $result
+    }
+}
+```
+
+An outer deadline and polling interval keep the complete readiness wait
+bounded.
+
+### Result
+
+- healthy containers are less likely to be reported as failed;
+- each HTTP attempt has its own five-second timeout;
+- readiness requires both an acceptable status and expected content;
+- failures retain the last connection error for diagnosis.
+
+This is also a verification-infrastructure fix.
+
+## 8. Unnecessary Config Server Tracing In Isolated Tests
+
+### Problem Statement
+
+Config Server tracing defaults to enabled with full sampling:
+
+```yaml
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+    export:
+      zipkin:
+        endpoint: http://localhost:9411/api/v2/spans
+```
+
+Inside a container, `localhost` means that same container. During isolated
+functional verification, Config Server could therefore attempt to export
+spans to a Zipkin endpoint that was not appropriate for that test context,
+creating connection warnings and timing noise.
+
+### Solution
+
+The isolated Compose override disables sampling for Config Server:
+
+```yaml
+config-server:
+  environment:
+    MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
+```
+
+Spring Boot maps that environment variable to:
+
+```yaml
+management:
+  tracing:
+    sampling:
+      probability: 0
+```
+
+The normal Docker environment can still enable tracing and use the Docker DNS
+endpoint:
+
+```yaml
+ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+```
+
+### Result
+
+- isolated functional tests avoid irrelevant span-export traffic;
+- Config Server logs no longer contain false Zipkin connection noise;
+- normal observability environments can continue exporting traces;
+- test configuration remains separate from production tracing policy.
+
+## 9. Container Processes Running As Root
+
+### Problem Statement
+
+A container process runs as `root` unless the image selects another user.
+Application compromise under container root gives an attacker broader
+permissions inside the container and access to any writable mounted paths
+allowed to that user.
+
+### Solution
+
+Each runtime image creates a dedicated system group and user:
+
+```dockerfile
+RUN groupadd --system shopverse \
+    && useradd --system \
+        --gid shopverse \
+        --home-dir /app \
+        --shell /usr/sbin/nologin \
+        shopverse
+```
+
+Required files and writable directories receive the correct ownership:
+
+```dockerfile
+COPY --chown=shopverse:shopverse \
+    --from=build /workspace/build/libs/*.jar app.jar
+
+RUN mkdir -p /app/logs \
+    && chown shopverse:shopverse /app/logs
+```
+
+The final runtime process executes as that user:
+
+```dockerfile
+USER shopverse
+```
+
+### Result
+
+- application code does not execute as container root;
+- the service can read its JAR and write only to prepared locations;
+- the account has no interactive login shell;
+- container compromise has a smaller privilege scope.
+
+Non-root execution is one defense layer. Production deployments should still
+use read-only filesystems where practical, dropped Linux capabilities,
+resource limits, secret stores, and orchestrator security policies.
+
+## 10. Build Tools In Runtime Images
+
+### Problem Statement
+
+Building and running a Spring Boot service in one JDK-based image leaves the
+Java compiler, Gradle-related build environment, source files, and other
+build-only components in the deployable artifact.
+
+### Solution
+
+Shopverse Dockerfiles use separate build and runtime stages.
+
+The build stage uses a JDK:
+
+```dockerfile
+FROM eclipse-temurin:21-jdk-jammy AS build
+
+COPY src ./src
+RUN --mount=type=cache,id=shopverse-order-service-gradle,target=/root/.gradle \
+    ./gradlew bootJar --no-daemon --max-workers=2
+```
+
+The runtime stage uses only a JRE and copies the completed JAR:
+
+```dockerfile
+FROM eclipse-temurin:21-jre-jammy AS runtime
+
+COPY --chown=shopverse:shopverse \
+    --from=build /workspace/build/libs/*.jar app.jar
+```
+
+Package-manager metadata is removed after installing the health-check client:
+
+```dockerfile
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+```
+
+### Result
+
+- Gradle, source files, and the JDK compiler are not copied into the runtime
+  stage;
+- the deployed image contains fewer build-only components;
+- package indexes do not remain as unnecessary layer data;
+- image transfer, storage, and vulnerability review are simpler.
+
 ## Summary
 
-| Problem | Root cause | Applied fix |
+| Category | Problem | Applied solution |
 |---|---|---|
-| Parallel image build failures | unrelated Gradle builds shared cache metadata | unique BuildKit cache ID per service |
-| Outbox database contention | Kafka network wait occurred while a database transaction and row lock remained active | short claim and finalization transactions with Kafka publication outside them |
-| Oversized runtime images | the JAR ownership changed in a later immutable layer | `COPY --chown` plus ownership changes limited to `/app/logs` |
-| Inventory outage returned `404` | dependency failures were represented by an empty catalog | explicit `ServiceUnavailableException` mapped to retryable `503` |
+| Runtime | Outbox database lock held during Kafka wait | short claim and finalization transactions |
+| Runtime | Worker crash strands a claimed Outbox event | timestamped claims and stale-claim recovery |
+| Runtime | Inventory outage returned `404` | explicit `ServiceUnavailableException` mapped to `503` |
+| Security | Services could run as container root | dedicated non-root `shopverse` user |
+| Build | Parallel builds shared Gradle cache metadata | unique BuildKit cache ID per service |
+| Build | JAR ownership changed in a later immutable layer | `COPY --chown` and targeted log-directory ownership |
+| Build | Build tooling could remain in deployable images | separate JDK build and JRE runtime stages |
+| Verification | Processes could run indefinitely | global deadline and process-tree termination |
+| Verification | Windows web probe produced false failures | bounded `curl.exe` status and content checks |
+| Verification | Config Server exported irrelevant test spans | zero sampling in isolated test Compose only |
 
 ## Related Documentation
 
 - [Shopverse SAGA and Outbox implementation](SAGA-OUTBOX.md)
 - [Generic SAGA and Outbox patterns](SAGA-GENERIC.md)
 - [Spring and Kafka transactions](TRANSACTIONS.md)
-- [Docker guide](../../docker/README.md)
+- [Docker guide](https://github.com/taukhir/shopverse/tree/main/docker)

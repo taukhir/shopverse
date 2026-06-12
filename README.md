@@ -110,16 +110,27 @@ The request persists Order state and an outbox event in one transaction. Kafka t
 
 Start with the [documentation index](docs/README.md).
 
+The same Markdown is rendered as a reusable backend engineering Docusaurus
+portal from `documentation/`, with Shopverse organized as a case study.
+Run it locally with:
+
+```powershell
+cd documentation
+npm install
+npm start
+```
+
 | Area | Guide |
 |---|---|
 | Architecture | [System design](docs/architecture/SYSTEM-DESIGN.md) |
+| Distributed systems | [Fundamentals](docs/architecture/DISTRIBUTED-SYSTEMS-GENERIC.md), [CAP and consistency](docs/architecture/DISTRIBUTED-CONSISTENCY-CAP.md), and [interview questions](docs/reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md) |
 | Features | [Features and demos](docs/reference/FEATURES-AND-DEMOS.md) |
 | APIs | [Shopverse API guide](docs/development/API-GUIDE.md) and [REST design](docs/development/REST-API-GENERIC.md) |
 | Security | [JWT, OAuth2, and Spring Security](docs/security/JWT-OAUTH2-SPRING-SECURITY.md) |
-| Messaging | [Kafka](docs/integration/KAFKA.md) and [SAGA/outbox](docs/reliability/SAGA-OUTBOX.md) |
+| Messaging | [Apache Kafka](docs/integration/APACHE-KAFKA.md), [Spring Kafka](docs/spring/SPRING-KAFKA.md), and [SAGA/outbox](docs/reliability/SAGA-OUTBOX.md) |
 | Observability | [Observability architecture](docs/observability/OBSERVABILITY.md) |
-| Data | [Liquibase](docs/data/LIQUIBASE-GENERIC.md), [Shopverse transactions](docs/reliability/TRANSACTIONS.md), and [transaction concepts](docs/reliability/TRANSACTIONS-GENERIC.md) |
-| Testing | [Shopverse testing](docs/development/TESTING.md) and [generic Java/Spring testing](docs/development/TESTING-GENERIC.md) |
+| Data | [Database engineering](docs/data/DATABASE-ENGINEERING.md), [Hibernate](docs/data/HIBERNATE.md), [Liquibase](docs/data/LIQUIBASE-GENERIC.md), [Spring transactions](docs/spring/SPRING-TRANSACTIONS.md), and [caching principles](docs/architecture/CACHING-GENERIC.md) |
+| Testing | [Shopverse testing](docs/development/TESTING.md) and [Spring Boot testing](docs/spring/SPRING-BOOT-TESTING.md) |
 | Troubleshooting | [Debugging guide](docs/development/DEBUGGING.md) |
 
 Service-specific APIs and configuration remain in each service README. Operational guides remain beside their deployment files:

@@ -418,8 +418,9 @@ event contract strategy is required at scale.
 ## Related Guides
 
 - [System design](SYSTEM-DESIGN.md)
-- [Transactions](../reliability/TRANSACTIONS-GENERIC.md)
+- [Spring Transactions](../spring/SPRING-TRANSACTIONS.md)
 - [SAGA and outbox](../reliability/SAGA-GENERIC.md)
-- [Kafka](../integration/KAFKA.md)
+- [Apache Kafka](../integration/APACHE-KAFKA.md)
+- [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [Resilience4j](../reliability/RESILIENCE4J-GENERIC.md)
 - [Observability](../observability/OBSERVABILITY.md)
