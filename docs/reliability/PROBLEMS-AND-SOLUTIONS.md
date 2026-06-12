@@ -1,4 +1,4 @@
-# Build And Runtime Problems And Fixes
+# Shopverse Problems And Solutions
 
 This document records build and runtime problems found during Shopverse
 verification, their impact, and the fixes applied to the project.
@@ -10,6 +10,7 @@ verification, their impact, and the fixes applied to the project.
 | Docker build reliability | Parallel service builds shared Gradle cache metadata | Intermittent Gradle lock failures | Assign a unique BuildKit cache ID to every service | [Gradle cache locks](#1-parallel-docker-builds-and-gradle-cache-locks) |
 | Outbox runtime reliability | A database row lock could remain held while waiting for Kafka | Blocked workers, exhausted connections, and lock timeouts | Split publication into short claim and finalization transactions around an unlocked Kafka send | [Short Outbox transactions](#2-outbox-database-locks-while-waiting-for-kafka) |
 | Docker image efficiency | A JAR copied as `root` was recursively changed to another owner in a later layer | The large JAR could be represented again in a copy-on-write layer | Set final ownership during `COPY` with `--chown` | [Duplicate JAR ownership layers](#3-duplicated-jar-ownership-layers) |
+| Order dependency handling | An Inventory outage was converted into an empty catalog and reported as product not found | Misleading and potentially cached `404` responses | Throw a service-unavailable exception and return retryable `503` | [Inventory failure semantics](#4-inventory-failures-reported-as-product-not-found) |
 
 The common principle is to avoid unnecessary shared mutable state, keep lock
 scope narrow, and write files with their final metadata as early as possible.
@@ -396,6 +397,216 @@ Shopverse services.
 - image export, transfer, and storage require fewer bytes;
 - services continue running as the non-root `shopverse` user.
 
+## 4. Inventory Failures Reported As Product Not Found
+
+### Problem Statement
+
+Order Service obtains current product information from Inventory Service before
+creating an order:
+
+```java
+List<CatalogItemResponse> catalog = catalogService.getCatalog();
+```
+
+The catalog call is protected by retry, circuit-breaker, and cache
+interceptors:
+
+```java
+@Retry(name = "inventory-client")
+@CircuitBreaker(
+        name = "inventory-client",
+        fallbackMethod = "fallbackCatalog"
+)
+@Cacheable(cacheNames = "catalog")
+public List<CatalogItemResponse> getCatalog() {
+    return inventoryClient.getCatalog().stream()
+            .map(item -> new CatalogItemResponse(
+                    item.productId(),
+                    item.productName(),
+                    item.unitPrice(),
+                    item.available()
+            ))
+            .toList();
+}
+```
+
+The previous fallback returned an empty catalog whenever Inventory Service
+could not be reached:
+
+```java
+private List<CatalogItemResponse> fallbackCatalog(Throwable throwable) {
+    log.warn("Inventory catalog unavailable; returning an empty catalog", throwable);
+    return List.of();
+}
+```
+
+Checkout then searched that empty list:
+
+```java
+CatalogItemResponse product = catalog.stream()
+        .filter(candidate -> candidate.productId().equals(item.productId()))
+        .filter(CatalogItemResponse::available)
+        .findFirst()
+        .orElseThrow(() -> new ResourceNotFoundException(
+                "Product is unavailable or does not exist: " + item.productId()
+        ));
+```
+
+This converted several infrastructure failures into a business-level
+`ResourceNotFoundException`:
+
+- Inventory had not registered with Eureka yet;
+- no Inventory instance was available;
+- the Feign request timed out;
+- Inventory returned a temporary server error;
+- the circuit breaker was open.
+
+`ResourceNotFoundException` maps to `404 Not Found`, so the client was told
+that the product did not exist even when the product was present.
+
+```mermaid
+flowchart TB
+    CHECKOUT["Checkout request"] --> CALL["Order calls Inventory"]
+    CALL --> FAILURE["Discovery, timeout, or server failure"]
+    FAILURE --> RETRY["Retry attempts fail"]
+    RETRY --> FALLBACK["Fallback returns empty catalog"]
+    FALLBACK --> LOOKUP["Product search finds nothing"]
+    LOOKUP --> WRONG["Misleading HTTP 404"]
+```
+
+### Why Returning An Empty Collection Was Unsafe
+
+An empty collection is a valid successful result. It means Inventory Service
+responded and currently has no catalog entries. It must not also mean that the
+service could not be contacted.
+
+The method is also annotated with `@Cacheable`. Returning a normal empty list
+creates a risk that the fallback value is treated as a successful result and
+cached, depending on the active Spring interceptor ordering. Later checkouts
+could continue seeing an empty catalog after Inventory recovered.
+
+An exception keeps the failure explicit and is not stored as a successful
+cache value by Spring's standard cache interceptor.
+
+### Solution
+
+The fallback now throws a dedicated `ServiceUnavailableException` and
+preserves the original cause:
+
+```java
+List<CatalogItemResponse> fallbackCatalog(Throwable throwable) {
+    log.warn(
+            "Inventory catalog unavailable after retry and circuit-breaker policies",
+            throwable
+    );
+    throw new ServiceUnavailableException(
+            "Inventory catalog is temporarily unavailable",
+            throwable
+    );
+}
+```
+
+The exception is intentionally different from `ResourceNotFoundException`:
+
+```java
+public class ServiceUnavailableException extends RuntimeException {
+
+    public ServiceUnavailableException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+```
+
+The global exception handler converts it to `503 Service Unavailable`:
+
+```java
+@ExceptionHandler(ServiceUnavailableException.class)
+ProblemDetail handleServiceUnavailable(
+        ServiceUnavailableException exception
+) {
+    return ProblemDetail.forStatusAndDetail(
+            HttpStatus.SERVICE_UNAVAILABLE,
+            exception.getMessage()
+    );
+}
+```
+
+Example response:
+
+```json
+{
+  "status": 503,
+  "detail": "Inventory catalog is temporarily unavailable"
+}
+```
+
+### Corrected Flow
+
+```mermaid
+flowchart TB
+    CHECKOUT["Checkout request"] --> CALL["Order calls Inventory"]
+    CALL --> RETRY["Retry policy"]
+    RETRY --> DECISION{"Inventory response?"}
+    DECISION -->|"Temporary failure"| FALLBACK["Throw ServiceUnavailableException"]
+    FALLBACK --> RETRYABLE["HTTP 503: client may retry"]
+    DECISION -->|"Successful catalog"| LOOKUP["Search for requested product"]
+    LOOKUP -->|"Missing or unavailable"| NOTFOUND["HTTP 404"]
+    LOOKUP -->|"Available"| CREATE["Create order and Outbox event"]
+```
+
+The resulting HTTP semantics are:
+
+| Condition | Response | Retry guidance |
+|---|---|---|
+| Inventory responds and product is missing | `404 Not Found` | Do not retry without changing the request |
+| Inventory responds and product is unavailable | `404 Not Found` in the current POC | Retry only after stock changes |
+| Inventory has no Eureka instance | `503 Service Unavailable` | Retry with bounded backoff |
+| Inventory request times out | `503 Service Unavailable` | Retry with bounded backoff |
+| Circuit breaker invokes fallback | `503 Service Unavailable` | Retry after the dependency can recover |
+
+### Verification Behavior
+
+The bounded Docker smoke test retries checkout only when it receives `503`:
+
+```powershell
+if ($statusCode -ne 503 -or
+    [DateTimeOffset]::UtcNow -ge $checkoutDeadline) {
+    throw
+}
+
+Start-Sleep -Seconds 1
+```
+
+This is deliberate:
+
+- `503` represents a potentially transient dependency failure;
+- `404` represents a business result and should not be retried blindly;
+- the overall deadline prevents an unavailable dependency from making the
+  verification run indefinitely.
+
+Focused regression tests verify both parts of the contract:
+
+```java
+assertThatThrownBy(() -> service.fallbackCatalog(cause))
+        .isInstanceOf(ServiceUnavailableException.class)
+        .hasMessage("Inventory catalog is temporarily unavailable")
+        .hasCause(cause);
+```
+
+```java
+assertThat(problem.getStatus())
+        .isEqualTo(HttpStatus.SERVICE_UNAVAILABLE.value());
+```
+
+### Result
+
+- infrastructure failures are no longer represented as missing products;
+- transient failures return the correct retryable `503` status;
+- genuine missing products continue to return `404`;
+- failed catalog lookups are not returned as cacheable empty data;
+- logs retain the original Feign, discovery, timeout, or circuit-breaker cause;
+- startup-time Eureka propagation can recover within the bounded smoke test.
+
 ## Summary
 
 | Problem | Root cause | Applied fix |
@@ -403,6 +614,7 @@ Shopverse services.
 | Parallel image build failures | unrelated Gradle builds shared cache metadata | unique BuildKit cache ID per service |
 | Outbox database contention | Kafka network wait occurred while a database transaction and row lock remained active | short claim and finalization transactions with Kafka publication outside them |
 | Oversized runtime images | the JAR ownership changed in a later immutable layer | `COPY --chown` plus ownership changes limited to `/app/logs` |
+| Inventory outage returned `404` | dependency failures were represented by an empty catalog | explicit `ServiceUnavailableException` mapped to retryable `503` |
 
 ## Related Documentation
 
