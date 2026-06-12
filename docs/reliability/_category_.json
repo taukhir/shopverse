@@ -1,0 +1,8 @@
+{
+  "label": "Reliability",
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "description": "SAGA, outbox, resilience patterns, transactions, and verified problems and solutions."
+  }
+}

@@ -459,7 +459,8 @@ strictly race-safe. A database-unique event ID/inbox remains planned.
 
 - [Features and demonstrations](../reference/FEATURES-AND-DEMOS.md)
 - [Distributed systems](DISTRIBUTED-SYSTEMS.md)
-- [Kafka](../integration/KAFKA.md)
+- [Apache Kafka](../integration/APACHE-KAFKA.md)
+- [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [SAGA and outbox](../reliability/SAGA-OUTBOX.md)
 - [Security](../security/JWT-OAUTH2-SPRING-SECURITY.md)
 - [Observability](../observability/OBSERVABILITY.md)

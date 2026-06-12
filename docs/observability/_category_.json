@@ -1,0 +1,8 @@
+{
+  "label": "Observability",
+  "position": 10,
+  "link": {
+    "type": "generated-index",
+    "description": "Logs, metrics, traces, dashboards, alerts, and investigation workflows."
+  }
+}

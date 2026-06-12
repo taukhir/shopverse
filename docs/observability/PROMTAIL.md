@@ -187,5 +187,5 @@ For a production platform:
 
 - [Loki](LOKI.md)
 - [Structured logging](STRUCTURED-LOGGING.md)
-- [Operational configuration](../../observability/README.md)
+- [Operational configuration](https://github.com/taukhir/shopverse/tree/main/observability)
 - [Official Promtail status and Alloy migration](https://grafana.com/docs/loki/latest/send-data/promtail/)

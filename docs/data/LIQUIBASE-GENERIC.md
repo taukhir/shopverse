@@ -315,6 +315,6 @@ flowchart TD
 
 ## Related Guides
 
-- [Generic transactions](../reliability/TRANSACTIONS-GENERIC.md)
+- [Spring transactions](../spring/SPRING-TRANSACTIONS.md)
 - [Shopverse transaction boundaries](../reliability/TRANSACTIONS.md)
 - [Distributed systems](../architecture/DISTRIBUTED-SYSTEMS.md)

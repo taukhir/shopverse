@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshopverse_documentation=self.webpackChunkshopverse_documentation||[]).push([[2555],{2555(e,s,a){a.d(s,{createWardleyServices:()=>c.J});var c=a(4837);a(9302)}}]);

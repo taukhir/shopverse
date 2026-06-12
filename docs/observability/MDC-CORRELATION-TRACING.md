@@ -379,8 +379,8 @@ Use Zipkin for the span tree and Loki for detailed application events.
 ## Related Guides
 
 - [Generic MDC behavior](MDC-GENERIC.md)
-- [Feign clients](../integration/FEIGN-CLIENTS.md)
-- [Kafka](../integration/KAFKA.md)
+- [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md)
+- [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [API Gateway](../development/API-GATEWAY-GENERIC.md)
 - [Structured logging](STRUCTURED-LOGGING.md)
 - [Loki](LOKI.md)

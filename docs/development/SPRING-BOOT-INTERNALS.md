@@ -238,7 +238,24 @@ normally instantiates non-lazy singleton beans.
 
 ## Dependency Injection
 
-Constructor injection is the Shopverse default:
+Dependency injection (DI) means an object receives its dependencies from the
+Spring container instead of constructing them itself. It is the practical
+implementation of inversion of control (IoC): application code declares what
+it needs, while the container controls object creation, wiring, lifecycle, and
+eligible proxy decoration.
+
+Without DI:
+
+```java
+public class InventoryService {
+    private final InventoryRepository repository = new JdbcInventoryRepository();
+}
+```
+
+This class chooses the implementation, controls its lifecycle, and is difficult
+to isolate in a unit test.
+
+With DI:
 
 ```java
 @Service
@@ -253,6 +270,66 @@ public class InventoryServiceImpl {
 Lombok generates the constructor. Spring resolves constructor parameters by
 type, qualifier, and bean name rules, then invokes it.
 
+### How Spring Resolves A Dependency
+
+At startup, Spring performs this conceptual flow:
+
+```mermaid
+flowchart TD
+    Scan["Component scanning and configuration"] --> Definitions["Register BeanDefinitions"]
+    Definitions --> Create["Create InventoryServiceImpl"]
+    Create --> Resolve["Resolve InventoryItemRepository by type"]
+    Resolve --> Candidates{"How many candidates?"}
+    Candidates -->|"One"| Inject["Invoke constructor"]
+    Candidates -->|"Several"| Select["@Qualifier, @Primary, then name rules"]
+    Candidates -->|"None"| Fail["NoSuchBeanDefinitionException"]
+    Select --> Inject
+    Inject --> Process["Run BeanPostProcessors"]
+    Process --> Proxy["Return proxy when advice applies"]
+    Proxy --> Store["Store singleton in BeanFactory"]
+```
+
+More precisely:
+
+1. component scanning, `@Bean` methods, imports, and auto-configuration
+   register bean definitions;
+2. `DefaultListableBeanFactory` identifies beans that match each constructor
+   parameter;
+3. Spring considers type, generic type, `@Qualifier`, `@Primary`, priority,
+   and dependency name;
+4. dependencies are created first when necessary;
+5. Spring invokes the constructor or factory method;
+6. bean post-processors apply lifecycle callbacks and may return an AOP proxy;
+7. the resulting singleton is cached in the application context.
+
+Spring injects the object registered in the container. For repositories,
+transactions, caching, security, or asynchronous behavior, that object may be
+a generated proxy rather than the concrete target instance.
+
+### Constructor Injection
+
+Constructor injection is the default choice for required dependencies:
+
+```java
+@Service
+public class PaymentService {
+
+    private final PaymentRepository paymentRepository;
+    private final PaymentGateway paymentGateway;
+
+    public PaymentService(
+            PaymentRepository paymentRepository,
+            PaymentGateway paymentGateway
+    ) {
+        this.paymentRepository = paymentRepository;
+        this.paymentGateway = paymentGateway;
+    }
+}
+```
+
+When a class has one constructor, `@Autowired` is unnecessary. Lombok
+`@RequiredArgsConstructor` can generate the constructor for `final` fields.
+
 Constructor injection:
 
 - makes dependencies explicit;
@@ -261,8 +338,248 @@ Constructor injection:
 - makes unit tests easy;
 - avoids partially initialized field-injected objects.
 
-When several beans implement the same type, use `@Qualifier` or `@Primary`
-rather than relying on accidental naming.
+```java
+PaymentGateway gateway = mock(PaymentGateway.class);
+PaymentRepository repository = mock(PaymentRepository.class);
+PaymentService service = new PaymentService(repository, gateway);
+```
+
+The test does not need a Spring context because the dependency contract is
+ordinary Java.
+
+### Setter Injection
+
+Setter injection is appropriate for a genuinely optional or reconfigurable
+dependency:
+
+```java
+@Service
+public class ReportService {
+
+    private AuditPublisher auditPublisher = AuditPublisher.noOp();
+
+    @Autowired(required = false)
+    public void setAuditPublisher(AuditPublisher auditPublisher) {
+        this.auditPublisher = auditPublisher;
+    }
+}
+```
+
+Required business dependencies should normally remain constructor parameters.
+Setter injection makes mutability and the possibility of incomplete
+initialization part of the class design.
+
+### Field Injection
+
+```java
+@Autowired
+private PaymentRepository paymentRepository;
+```
+
+Field injection is concise but should generally be avoided in production code:
+
+- required dependencies are hidden from the constructor contract;
+- fields cannot normally be `final`;
+- plain unit tests require reflection or a Spring context;
+- classes can accumulate too many dependencies without obvious constructor
+  pressure;
+- the object can be instantiated in an invalid state outside Spring.
+
+### Multiple Implementations
+
+If two beans implement the same interface, injection by type is ambiguous:
+
+```java
+public interface PaymentGateway {
+    PaymentResult charge(PaymentCommand command);
+}
+
+@Component("cardGateway")
+class CardPaymentGateway implements PaymentGateway {
+    // ...
+}
+
+@Component("walletGateway")
+class WalletPaymentGateway implements PaymentGateway {
+    // ...
+}
+```
+
+Choose explicitly with `@Qualifier`:
+
+```java
+@Service
+public class CheckoutService {
+
+    private final PaymentGateway paymentGateway;
+
+    public CheckoutService(
+            @Qualifier("cardGateway") PaymentGateway paymentGateway
+    ) {
+        this.paymentGateway = paymentGateway;
+    }
+}
+```
+
+Or define the application-wide default with `@Primary`:
+
+```java
+@Primary
+@Component
+class CardPaymentGateway implements PaymentGateway {
+    // ...
+}
+```
+
+Use `@Qualifier` when the caller requires a particular semantic implementation.
+Use `@Primary` when one implementation is the normal default. Avoid depending
+on accidental parameter-name matching.
+
+### Injecting All Implementations
+
+Spring can inject collections when an application must execute a strategy
+chain:
+
+```java
+public interface FraudRule {
+    FraudDecision evaluate(PaymentCommand command);
+}
+
+@Service
+public class FraudEngine {
+
+    private final List<FraudRule> rules;
+
+    public FraudEngine(List<FraudRule> rules) {
+        this.rules = List.copyOf(rules);
+    }
+}
+```
+
+Use `@Order` or implement `Ordered` when sequence is part of the contract:
+
+```java
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
+class BlockedAccountRule implements FraudRule {
+    // ...
+}
+```
+
+For keyed strategy selection, inject a map. Bean names become keys:
+
+```java
+public PaymentRouter(Map<String, PaymentGateway> gateways) {
+    this.gateways = Map.copyOf(gateways);
+}
+```
+
+### Optional And Lazy Dependencies
+
+`ObjectProvider<T>` supports optional or deferred lookup without injecting the
+entire application context:
+
+```java
+@Service
+public class OptionalAuditService {
+
+    private final ObjectProvider<AuditPublisher> publisherProvider;
+
+    public OptionalAuditService(
+            ObjectProvider<AuditPublisher> publisherProvider
+    ) {
+        this.publisherProvider = publisherProvider;
+    }
+
+    public void publish(AuditEvent event) {
+        publisherProvider.ifAvailable(publisher -> publisher.publish(event));
+    }
+}
+```
+
+`@Lazy` delays bean creation or injects a lazy proxy:
+
+```java
+public ReportService(@Lazy ExpensiveReportClient reportClient) {
+    this.reportClient = reportClient;
+}
+```
+
+Use laziness for startup cost or an intentional deferred dependency, not to
+hide an invalid architecture or routine circular dependency.
+
+### Circular Dependencies
+
+Constructor cycles cannot be created:
+
+```text
+OrderService -> PaymentService -> OrderService
+```
+
+Spring cannot finish constructing either object because each requires the
+other first. The preferred fix is to change ownership:
+
+```text
+CheckoutCoordinator
+  -> OrderService
+  -> PaymentService
+```
+
+Other valid solutions include:
+
+- publish an application or domain event instead of calling back;
+- extract the shared responsibility into a third service;
+- reverse one dependency behind a narrower interface;
+- pass required data as a method argument;
+- use `ObjectProvider` or `@Lazy` only when delayed resolution is genuinely
+  part of the design.
+
+Enabling circular references or switching to field injection hides the design
+problem and can produce partially initialized beans. It is not a production
+solution.
+
+### `@Bean` Versus Component Scanning
+
+Use component stereotypes for application-owned classes:
+
+```java
+@Service
+class InventoryService {
+}
+```
+
+Use `@Bean` when creating a third-party type, selecting construction
+parameters, or centralizing infrastructure configuration:
+
+```java
+@Configuration(proxyBeanMethods = false)
+class ClockConfiguration {
+
+    @Bean
+    Clock applicationClock() {
+        return Clock.systemUTC();
+    }
+}
+```
+
+Both approaches register bean definitions in the same container. `@Bean`
+describes how a bean is created; `@Component` marks the class itself as a
+component-scan candidate.
+
+### Dependency Injection Production Practices
+
+- use constructor injection for mandatory dependencies;
+- keep injected fields `final`;
+- inject narrow interfaces instead of broad service locators;
+- treat excessive constructor parameters as a design warning;
+- use `@Qualifier` names that express business meaning;
+- avoid mutable singleton state;
+- do not perform remote calls in constructors;
+- use conditional configuration for optional infrastructure;
+- mock direct collaborators in unit tests and reserve context tests for
+  wiring behavior;
+- remember that self-invocation bypasses proxy-based advice such as
+  `@Transactional`, `@Async`, and `@Cacheable`.
 
 ## Bean Lifecycle
 
@@ -815,7 +1132,7 @@ a transaction proxy:
 5. commits on success;
 6. rolls back for configured failures.
 
-See [Transactions](../reliability/TRANSACTIONS-GENERIC.md) for propagation,
+See [Spring Transactions](../spring/SPRING-TRANSACTIONS.md) for propagation,
 isolation, proxy limitations, and Kafka/database boundaries.
 
 ## Spring Data Repository Proxies
@@ -930,7 +1247,7 @@ At invocation:
 5. the HTTP client sends the request;
 6. response decoding creates the declared Java type.
 
-See [Feign clients](../integration/FEIGN-CLIENTS.md).
+See [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md).
 
 ## Kafka Infrastructure
 
@@ -955,7 +1272,7 @@ Kafka consumer poll
 ```
 
 Listener methods do not run on the Java `main` thread. See
-[Kafka](../integration/KAFKA.md) for concurrency, retries, DLT, and delivery
+[Spring Kafka](../spring/SPRING-KAFKA.md) for concurrency, retries, DLT, and delivery
 semantics.
 
 ## Actuator, Micrometer, And Tracing
@@ -1080,10 +1397,10 @@ must not depend only on `@PreDestroy`.
 
 - [Spring Security](../security/SPRING-SECURITY-GENERIC.md)
 - [API Gateway](API-GATEWAY-GENERIC.md)
-- [Transactions](../reliability/TRANSACTIONS-GENERIC.md)
+- [Spring Transactions](../spring/SPRING-TRANSACTIONS.md)
 - [Liquibase](../data/LIQUIBASE-GENERIC.md)
-- [Feign](../integration/FEIGN-CLIENTS.md)
-- [Kafka](../integration/KAFKA.md)
+- [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md)
+- [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [MDC and tracing](../observability/MDC-CORRELATION-TRACING.md)
 - [Micrometer metrics](../observability/MICROMETER-METRICS.md)
 

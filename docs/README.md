@@ -1,71 +1,79 @@
-# Shopverse Documentation
+---
+slug: /
+title: Backend Engineering Knowledge Base
+sidebar_position: 1
+---
 
-This directory is the canonical documentation set for Shopverse. Service READMEs describe only service-specific runtime behavior. Cross-cutting concepts live here so they are documented once.
+# Backend Engineering Knowledge Base
 
-## Start Here
+This is a reusable study and reference library for backend engineering,
+Spring, databases, microservices, distributed systems, security,
+observability, testing, and delivery.
 
-| Guide | Purpose |
+Shopverse is included as a detailed case study showing how these concepts work
+together in a real microservices proof of concept. It is not the scope or title
+of the complete knowledge base.
+
+## Choose A Track
+
+| Track | Purpose |
 |---|---|
-| [System design](architecture/SYSTEM-DESIGN.md) | Context, runtime, authentication, SAGA, outbox, events, states, ERDs, deployment, and observability diagrams |
-| [Features and demos](reference/FEATURES-AND-DEMOS.md) | Implementation evidence, code examples, limitations, and complete demonstration steps |
-| [API guide](development/API-GUIDE.md) | Shopverse authentication, important endpoints, and POC demo |
-| [Generic REST API design](development/REST-API-GENERIC.md) | HTTP semantics, contracts, security, idempotency, and production practices |
-| [Debugging guide](development/DEBUGGING.md) | Evidence-first runbooks for security, routing, databases, Kafka, SAGA, and observability |
-| [Testing strategy](development/TESTING.md) | Shopverse coverage, scripts, CI gates, resource controls, and bounded verification modes |
-| [Generic Java/Spring testing](development/TESTING-GENERIC.md) | JUnit, Mockito, test slices, repositories, controllers, services, Testcontainers, and E2E practices |
-| [Code cross-check](reference/CODE-CROSS-CHECK.md) | Confirmed behavior, documentation decisions, and remaining gaps |
-| [API Gateway](development/API-GATEWAY-GENERIC.md) | Generic gateway architecture and the reactive Shopverse filter chain |
-| [Load balancing](architecture/LOAD-BALANCING-GENERIC.md) | Algorithms, discovery models, Spring Cloud LoadBalancer, and Shopverse flow |
+| [Structured learning path](reference/LEARNING-PATH.md) | Learn topics in dependency order from foundations through distributed systems |
+| [Topic-based reference](#knowledge-domains) | Jump directly to a backend engineering subject |
+| [Shopverse case study](case-study/SHOPVERSE.md) | Study one complete implementation, its architecture, APIs, failures, and fixes |
+| [Operations cheat sheet](operations/OPERATIONS-CHEATSHEET.md) | Quickly find Docker, Git, LogQL, PromQL, Zipkin, and verification commands |
+| [CI/CD automation](operations/CI-CD-AUTOMATION.md) | Compare Jenkins, GitHub Actions, GitOps, cloud pipelines, and delivery controls |
 
-## Integration And Messaging
+## Knowledge Domains
 
-- [Feign clients](integration/FEIGN-CLIENTS.md)
-- [Kafka](integration/KAFKA.md) - brokers, publishing, pull-based consumers, threads, retry/DLT, idempotency, lag, and debugging
-- [SAGA and transactional outbox](reliability/SAGA-OUTBOX.md)
-- [Shopverse problems and solutions](reliability/PROBLEMS-AND-SOLUTIONS.md) - verified build, runtime, Docker, Outbox, and dependency-handling improvements
-- [Outbox database lock and Kafka solution (Word)](reliability/Outbox-Database-Lock-and-Kafka-Solution.docx)
-- [Generic SAGA and outbox patterns](reliability/SAGA-GENERIC.md)
-- [Transactions](reliability/TRANSACTIONS.md)
-- [Generic Spring and Kafka transactions](reliability/TRANSACTIONS-GENERIC.md)
+1. **Engineering foundations:** SOLID, DRY, API design, testing, and Git.
+2. **Spring and Java backend:** Framework, Boot, Web, Data JPA, Security, and
+   caching.
+3. **Databases and transactions:** normalization through 4NF, joins, indexes,
+   query optimization, ACID, locking, Liquibase, partitioning, and sharding.
+4. **Microservices and integration:** service boundaries, API Gateway,
+   discovery, load balancing, Feign, and Kafka.
+5. **Distributed systems:** CAP, consistency, distributed databases,
+   transactions, locks, SAGA, consensus, resilience, and failure recovery.
+6. **Logging and observability:** MDC, structured logs, metrics, Prometheus,
+   Loki, Grafana, tracing, and alerts.
+7. **Delivery and operations:** Docker, Jenkins, GitHub Actions, CI/CD
+   automation, deployment strategies, debugging, and operational tooling.
 
-## Security
+## Theory And Case Studies
 
-- [Generic Spring Security](security/SPRING-SECURITY-GENERIC.md)
-- [JWT, OAuth2, and Spring Security](security/JWT-OAUTH2-SPRING-SECURITY.md)
+Generic guides explain the reusable concept:
 
-## Observability
+```text
+SAGA-GENERIC.md
+SPRING-TRANSACTIONS.md
+SPRING-CACHE.md
+SPRING-AOP.md
+SPRING-SECURITY-GENERIC.md
+REST-API-GENERIC.md
+```
 
-- [Shopverse centralized logging and observability (Word)](Shopverse_Centralized_Logging_And_Observability.docx)
-- [MDC, correlation IDs, and distributed tracing](observability/MDC-CORRELATION-TRACING.md)
-- [Generic application logging](observability/LOGGING-GENERIC.md)
-- [Structured logging](observability/STRUCTURED-LOGGING.md)
-- [Observability architecture](observability/OBSERVABILITY.md)
-- [Micrometer metrics](observability/MICROMETER-METRICS.md)
-- [Prometheus](observability/PROMETHEUS.md)
-- [Loki](observability/LOKI.md)
-- [Promtail](observability/PROMTAIL.md)
-- [Grafana](observability/GRAFANA.md)
+Shopverse guides then demonstrate concrete application:
 
-## Spring And Data
-
-- [Spring Boot internals](development/SPRING-BOOT-INTERNALS.md) - startup, auto-configuration, beans, property binding, MVC, Jackson, data, Kafka, and observability
-- [Liquibase](data/LIQUIBASE-GENERIC.md)
-- [Resilience4j](reliability/RESILIENCE4J.md)
-- [Generic Resilience4j patterns](reliability/RESILIENCE4J-GENERIC.md)
-- [Distributed systems](architecture/DISTRIBUTED-SYSTEMS.md)
-
-## Operational Documentation
-
-- [Docker](../docker/README.md)
-- [Centralized configuration](../config-server/README.md)
-- [Jenkins](../jenkins/README.md)
-- [GitHub Actions](../.github/workflows/README.md)
-- [Observability deployment files](../observability/README.md)
+```text
+SAGA-OUTBOX.md
+TRANSACTIONS.md
+JWT-OAUTH2-SPRING-SECURITY.md
+API-GUIDE.md
+```
 
 ## Documentation Rules
 
-1. Put service ports, endpoints, environment variables, and local build commands in the service README.
-2. Put reusable technical explanations in this directory.
-3. Mark features as **Implemented**, **Partial**, or **Planned**. Do not document roadmap work as current behavior.
-4. Keep secrets and real credentials out of examples.
-5. Update diagrams and API examples when event contracts or routes change.
+1. Explain a reusable concept independently before using Shopverse as an
+   example.
+2. Put project-specific behavior in the Shopverse case-study track.
+3. Mark implementation status as **Implemented**, **Partial**, or **Planned**.
+4. Keep commands in operational guides and conceptual explanations in study
+   guides.
+5. Keep secrets and real credentials out of examples.
+6. Prefer one canonical explanation and link to it instead of duplicating
+   content.
+
+The Markdown is rendered by the Docusaurus application under
+`documentation/`. GitHub Actions validates changes and deploys the site to
+GitHub Pages.

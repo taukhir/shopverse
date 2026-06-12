@@ -418,7 +418,8 @@ sensitive payloads by default.
 ## Related Guides
 
 - [Shopverse SAGA and outbox implementation](SAGA-OUTBOX.md)
-- [Kafka](../integration/KAFKA.md)
+- [Apache Kafka](../integration/APACHE-KAFKA.md)
+- [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [Shopverse transactions](TRANSACTIONS.md)
-- [Generic transaction concepts](TRANSACTIONS-GENERIC.md)
+- [Spring transaction concepts](../spring/SPRING-TRANSACTIONS.md)
 - [Distributed systems](../architecture/DISTRIBUTED-SYSTEMS.md)

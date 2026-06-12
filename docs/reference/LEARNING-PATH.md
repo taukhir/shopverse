@@ -1,0 +1,98 @@
+---
+title: Backend Engineering Learning Path
+sidebar_position: 1
+---
+
+# Backend Engineering Learning Path
+
+Use this path to study backend engineering from fundamentals to
+production-oriented distributed-system behavior. Generic concepts come first;
+the corresponding Shopverse pages provide concrete implementation examples.
+
+## Stage 1: Application Foundations
+
+| Topic | Study guide | Practical outcome |
+|---|---|---|
+| Java and Spring runtime | [Spring Boot internals](../development/SPRING-BOOT-INTERNALS.md) | Understand startup, beans, auto-configuration, MVC, Jackson, and Actuator |
+| Engineering design | [Engineering principles](../development/ENGINEERING-PRINCIPLES.md) | Apply SOLID, DRY, cohesion, boundaries, and pragmatic abstraction |
+| REST APIs | [REST API design](../development/REST-API-GENERIC.md) | Design resources, status codes, validation, errors, pagination, and idempotency |
+| Testing | [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md) | Choose unit, slice, integration, Testcontainers, and E2E tests |
+
+## Stage 2: Data And Persistence
+
+| Topic | Study guide | Practical outcome |
+|---|---|---|
+| Relational design | [Database engineering](../data/DATABASE-ENGINEERING.md) | Understand normalization, joins, indexes, query plans, ACID, partitioning, and sharding |
+| ORM internals | [Hibernate ORM](../data/HIBERNATE.md) | Understand persistence contexts, entity states, dirty checking, fetching, auditing, and performance |
+| Spring Data JPA | [Spring Data JPA](../spring/SPRING-DATA-JPA.md) | Use repositories, transactions, projections, fetch plans, auditing, and locking safely |
+| Migrations | [Liquibase](../data/LIQUIBASE-GENERIC.md) | Version schemas and perform compatible production migrations |
+| Transactions | [Spring transactions](../spring/SPRING-TRANSACTIONS.md) | Understand propagation, isolation, rollback, locks, and transaction boundaries |
+
+## Stage 3: Microservice Communication
+
+| Topic | Study guide | Practical outcome |
+|---|---|---|
+| Microservices | [Microservice architecture](../architecture/MICROSERVICES-GENERIC.md) | Understand boundaries, data ownership, failure modes, and operational cost |
+| Gateway | [API Gateway](../development/API-GATEWAY-GENERIC.md) | Understand routing, edge security, correlation, filters, and metrics |
+| Discovery and balancing | [Load balancing](../architecture/LOAD-BALANCING-GENERIC.md) | Understand Eureka and client-side instance selection |
+| Synchronous HTTP | [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md) | Build declarative clients with propagation, timeouts, metrics, and resilience |
+| Kafka platform | [Apache Kafka](../integration/APACHE-KAFKA.md) | Understand brokers, partitions, consumer groups, offsets, retention, and lag |
+| Spring Kafka | [Spring Kafka](../spring/SPRING-KAFKA.md) | Implement templates, listeners, acknowledgment, retry, DLT, and transactions |
+
+## Stage 4: Distributed Consistency
+
+| Topic | Study guide | Practical outcome |
+|---|---|---|
+| Distributed foundations | [Distributed systems fundamentals](../architecture/DISTRIBUTED-SYSTEMS-GENERIC.md) | Understand partial failure, messaging, idempotency, ownership, scaling, and availability |
+| CAP and consistency | [Distributed consistency and CAP](../architecture/DISTRIBUTED-CONSISTENCY-CAP.md) | Compare strong, eventual, causal, session, quorum, and strong eventual consistency |
+| CQRS | [Command Query Responsibility Segregation](../architecture/CQRS.md) | Separate command invariants from optimized and eventually consistent read models |
+| Distributed databases | [Distributed databases](../data/DISTRIBUTED-DATABASES.md) | Understand replication, sharding, consistent hashing, failover, and cross-shard trade-offs |
+| Transactions and coordination | [Distributed transactions and locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md) | Compare local transactions, 2PC, SAGA, outbox, distributed locks, leases, and fencing |
+| SAGA | [Generic SAGA and Outbox](../reliability/SAGA-GENERIC.md) | Model local transactions and compensation |
+| Shopverse checkout | [Shopverse SAGA](../reliability/SAGA-OUTBOX.md) | Follow Order, Inventory, and Payment event flow |
+| Reliability patterns | [Resilience4j](../reliability/RESILIENCE4J-GENERIC.md) | Apply retry, circuit breaker, rate limiter, bulkhead, timeout, and fallback |
+| Spring resilience | [Spring Resilience4j](../spring/SPRING-RESILIENCE4J.md) | Apply annotation-based policies, exception classification, backoff, jitter, and HTTP mappings |
+| Distributed admission control | [Distributed rate limiting](../reliability/DISTRIBUTED-RATE-LIMITING.md) | Size global quotas, token buckets, burst capacity, and upstream/downstream controls |
+| High availability | [High availability and SPOF prevention](../reliability/HIGH-AVAILABILITY-SPOF.md) | Find single points of failure and design replication, failover, quorum, and recovery |
+| Failure and consensus | [Distributed failure and consensus](../reliability/DISTRIBUTED-FAILURE-CONSENSUS.md) | Understand replication, failover, quorum, Raft, Paxos, split-brain, and cloud failure modes |
+| Interview preparation | [Distributed systems interview questions](DISTRIBUTED-SYSTEMS-INTERVIEW.md) | Practice precise trade-off and scenario answers |
+| Production failures | [Problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md) | Study real defects found and corrected during verification |
+
+## Stage 5: Security
+
+| Topic | Study guide | Practical outcome |
+|---|---|---|
+| Spring Security | [Generic Spring Security](../security/SPRING-SECURITY-GENERIC.md) | Understand filter chains, providers, context, method security, and proxies |
+| JWT and OAuth2 | [Shopverse security](../security/JWT-OAUTH2-SPRING-SECURITY.md) | Follow login, RSA signing, JWKS, decoding, claims, roles, and ownership checks |
+
+## Stage 6: Observability And Operations
+
+| Topic | Study guide | Practical outcome |
+|---|---|---|
+| Logs | [Structured logging](../observability/STRUCTURED-LOGGING.md) | Trace requests through JSON logs, MDC, Loki, and Grafana |
+| Metrics | [Micrometer](../observability/MICROMETER-METRICS.md) and [Prometheus](../observability/PROMETHEUS.md) | Build counters, timers, PromQL, SLOs, and alerts |
+| Traces | [MDC and tracing](../observability/MDC-CORRELATION-TRACING.md) | Distinguish correlation IDs, trace IDs, and spans |
+| Operations | [Operations cheat sheet](../operations/OPERATIONS-CHEATSHEET.md) | Start, inspect, query, verify, and troubleshoot the stack |
+| Deployment | [Deployment strategies](../operations/DEPLOYMENT-STRATEGIES.md) | Compare rolling, blue-green, canary, feature flags, and rollback |
+| Containers | [Docker](../operations/DOCKER.md) | Build secure, efficient images and operate containers and Compose |
+| Delivery automation | [CI/CD automation](../operations/CI-CD-AUTOMATION.md) | Design quality gates, artifact promotion, GitOps, security, and rollback |
+| Hosted CI/CD | [GitHub Actions](../operations/GITHUB-ACTIONS.md) | Use events, matrices, caching, environments, OIDC, images, and deployment jobs |
+| Self-hosted CI/CD | [Jenkins](../operations/JENKINS.md) | Build declarative pipelines with agents, stages, credentials, artifacts, and deployments |
+
+## Recommended Practical Sequence
+
+1. Start the Docker stack.
+2. Log in and decode the JWT.
+3. Submit an idempotent checkout.
+4. Query the order timeline.
+5. Follow the correlation ID in Loki.
+6. Open the related trace in Zipkin.
+7. inspect request and business metrics in Prometheus or Grafana.
+8. Trigger a payment failure and observe compensation.
+9. Inspect an Outbox row and DLT recovery path.
+10. Run Quick, Integration, and Full verification modes.
+
+After completing the generic path, use the
+[Shopverse case study](../case-study/SHOPVERSE.md) to connect the subjects in
+one working system. Its complete commands and expected outcomes are in
+[Features and demonstrations](FEATURES-AND-DEMOS.md).

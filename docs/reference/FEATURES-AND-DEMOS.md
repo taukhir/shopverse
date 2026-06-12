@@ -36,7 +36,7 @@ full failure testing.
 
 ## Demo Prerequisites
 
-1. Start the stack using the [Docker guide](../../docker/README.md).
+1. Start the stack using the [Docker guide](https://github.com/taukhir/shopverse/tree/main/docker).
 2. Confirm containers are healthy with `docker compose ps`.
 3. Use `http://localhost:8080` as the application entry point.
 4. Have one customer credential and one administrator credential.

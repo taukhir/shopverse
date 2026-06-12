@@ -1109,7 +1109,7 @@ Not currently implemented:
 
 - [Shopverse JWT and OAuth2 implementation](JWT-OAUTH2-SPRING-SECURITY.md)
 - [API Gateway](../development/API-GATEWAY-GENERIC.md)
-- [Feign clients](../integration/FEIGN-CLIENTS.md)
+- [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md)
 - [Testing](../development/TESTING.md)
 
 ## Official References

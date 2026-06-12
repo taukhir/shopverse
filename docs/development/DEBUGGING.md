@@ -468,6 +468,6 @@ mismatches in `cloud-configs`.
 
 - [System design](../architecture/SYSTEM-DESIGN.md)
 - [Distributed systems](../architecture/DISTRIBUTED-SYSTEMS.md)
-- [Kafka](../integration/KAFKA.md)
+- [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [Observability](../observability/OBSERVABILITY.md)
 - [Features and demos](../reference/FEATURES-AND-DEMOS.md)
