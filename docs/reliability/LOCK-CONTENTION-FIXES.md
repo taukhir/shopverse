@@ -1,13 +1,18 @@
-# Lock Contention Problems And Fixes
+# Build And Runtime Problems And Fixes
 
-This document records two lock-contention problems found during Shopverse
-verification and the fixes applied to the project:
+This document records build and runtime problems found during Shopverse
+verification, their impact, and the fixes applied to the project.
 
-1. parallel Docker builds competing for one Gradle cache;
-2. Outbox workers holding database locks while waiting for Kafka.
+## Problem Index
 
-These issues occur in different environments, but the underlying rule is the
-same: do not hold or share a lock across unrelated or slow work.
+| Area | Problem statement | Impact | Implemented fix | Details |
+|---|---|---|---|---|
+| Docker build reliability | Parallel service builds shared Gradle cache metadata | Intermittent Gradle lock failures | Assign a unique BuildKit cache ID to every service | [Gradle cache locks](#1-parallel-docker-builds-and-gradle-cache-locks) |
+| Outbox runtime reliability | A database row lock could remain held while waiting for Kafka | Blocked workers, exhausted connections, and lock timeouts | Split publication into short claim and finalization transactions around an unlocked Kafka send | [Short Outbox transactions](#2-outbox-database-locks-while-waiting-for-kafka) |
+| Docker image efficiency | A JAR copied as `root` was recursively changed to another owner in a later layer | The large JAR could be represented again in a copy-on-write layer | Set final ownership during `COPY` with `--chown` | [Duplicate JAR ownership layers](#3-duplicated-jar-ownership-layers) |
+
+The common principle is to avoid unnecessary shared mutable state, keep lock
+scope narrow, and write files with their final metadata as early as possible.
 
 ## 1. Parallel Docker Builds And Gradle Cache Locks
 
@@ -282,15 +287,122 @@ will later be retried, potentially producing a duplicate event.
 Therefore Kafka consumers must remain idempotent, using an event ID or inbox
 record to reject already-processed events.
 
+## 3. Duplicated JAR Ownership Layers
+
+### Problem
+
+The runtime image previously copied the application JAR as `root` and changed
+the ownership of the complete application directory in a later instruction:
+
+```dockerfile
+COPY --from=build /workspace/build/libs/*.jar app.jar
+
+RUN mkdir -p /app/logs \
+    && chown -R shopverse:shopverse /app
+```
+
+Docker image layers are immutable. The `COPY` instruction created a layer
+containing a root-owned JAR. The recursive `chown` then changed metadata for
+that large file in a later copy-on-write layer.
+
+```text
+COPY layer   -> app.jar owned by root
+chown layer  -> app.jar represented again as owned by shopverse
+```
+
+Although the application behaved correctly, the ownership-only change could
+increase the final image size and the number of bytes exported, transferred,
+and stored.
+
+### Fix
+
+Shopverse now assigns the final owner while copying the JAR:
+
+```dockerfile
+COPY --chown=shopverse:shopverse \
+    --from=build /workspace/build/libs/*.jar app.jar
+
+RUN mkdir -p /app/logs \
+    && chown shopverse:shopverse /app/logs
+```
+
+`COPY --chown` creates the JAR with the required user and group in its original
+layer. The following `RUN` instruction changes ownership only for the small
+logs directory.
+
+```text
+COPY layer       -> app.jar owned by shopverse
+directory layer  -> create and own /app/logs only
+```
+
+```mermaid
+flowchart LR
+    subgraph Before
+        B1["Copy root-owned JAR"] --> B2["Recursively chown /app"]
+        B2 --> B3["Large JAR affected in another layer"]
+    end
+
+    subgraph After
+        A1["COPY --chown application JAR"] --> A2["Create and own /app/logs"]
+        A2 --> A3["JAR stored with final ownership once"]
+    end
+```
+
+### Why Recursive `chown` Was Removed
+
+This command is unnecessarily broad:
+
+```dockerfile
+chown -R shopverse:shopverse /app
+```
+
+It traverses the JAR and every future file under `/app`. The application JAR
+already has the correct owner after `COPY --chown`, so only the writable
+directory requires an ownership change:
+
+```dockerfile
+chown shopverse:shopverse /app/logs
+```
+
+### Non-Root Runtime Is Preserved
+
+The optimization does not weaken container security:
+
+```dockerfile
+USER shopverse
+```
+
+The JAR and log directory remain accessible to the non-root runtime user. The
+change only avoids rewriting ownership metadata in a later image layer.
+
+### Verification
+
+Docker history for the optimized Order Service image shows:
+
+```text
+125MB   COPY --chown=shopverse:shopverse ... app.jar
+12.3kB  RUN mkdir -p /app/logs && chown shopverse:shopverse /app/logs
+```
+
+The large JAR is present in its copy layer, while the following ownership
+layer is only a few kilobytes. The same Dockerfile pattern is used across all
+Shopverse services.
+
+### Result
+
+- application JARs are stored with final ownership immediately;
+- recursive changes over `/app` are avoided;
+- runtime images are smaller;
+- image export, transfer, and storage require fewer bytes;
+- services continue running as the non-root `shopverse` user.
+
 ## Summary
 
-| Problem | Incorrect lock scope | Applied fix |
+| Problem | Root cause | Applied fix |
 |---|---|---|
-| Parallel image builds | unrelated services share Gradle cache metadata | unique BuildKit cache ID per service |
-| Outbox publication | database lock remains held during Kafka network wait | short claim and finalization transactions around an unlocked Kafka send |
-
-In both cases, the fix reduces the lock scope to the smallest operation that
-actually requires exclusive access.
+| Parallel image build failures | unrelated Gradle builds shared cache metadata | unique BuildKit cache ID per service |
+| Outbox database contention | Kafka network wait occurred while a database transaction and row lock remained active | short claim and finalization transactions with Kafka publication outside them |
+| Oversized runtime images | the JAR ownership changed in a later immutable layer | `COPY --chown` plus ownership changes limited to `/app/logs` |
 
 ## Related Documentation
 
@@ -298,4 +410,3 @@ actually requires exclusive access.
 - [Generic SAGA and Outbox patterns](SAGA-GENERIC.md)
 - [Spring and Kafka transactions](TRANSACTIONS.md)
 - [Docker guide](../../docker/README.md)
-
