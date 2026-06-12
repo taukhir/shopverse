@@ -8,7 +8,7 @@ describes the Shopverse implementation.
 
 For a focused explanation of why the publisher must not retain a database lock
 while waiting for Kafka, see
-[Build and runtime problems and fixes](LOCK-CONTENTION-FIXES.md).
+[Shopverse problems and solutions](PROBLEMS-AND-SOLUTIONS.md).
 
 ## Why A SAGA
 

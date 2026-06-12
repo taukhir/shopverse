@@ -22,7 +22,7 @@ This directory is the canonical documentation set for Shopverse. Service READMEs
 - [Feign clients](integration/FEIGN-CLIENTS.md)
 - [Kafka](integration/KAFKA.md) - brokers, publishing, pull-based consumers, threads, retry/DLT, idempotency, lag, and debugging
 - [SAGA and transactional outbox](reliability/SAGA-OUTBOX.md)
-- [Build and runtime problems and fixes](reliability/LOCK-CONTENTION-FIXES.md) - Gradle cache locks, short Outbox transactions, and smaller Docker image layers
+- [Shopverse problems and solutions](reliability/PROBLEMS-AND-SOLUTIONS.md) - verified build, runtime, Docker, Outbox, and dependency-handling improvements
 - [Outbox database lock and Kafka solution (Word)](reliability/Outbox-Database-Lock-and-Kafka-Solution.docx)
 - [Generic SAGA and outbox patterns](reliability/SAGA-GENERIC.md)
 - [Transactions](reliability/TRANSACTIONS.md)
