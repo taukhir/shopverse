@@ -29,6 +29,20 @@ Listeners use `@RetryableTopic(attempts = "3")`. An unresolved event reaches `@D
 
 `cloud-configs/INVENTORY-SERVICE.yml` defines datasource, cache, JWT, reservation TTL, expiry scan delay, RateLimiter, and Bulkhead.
 
+## Tests And Observability
+
+`test` covers unit/slice behavior; `integrationTest` uses MySQL and Kafka
+Testcontainers for Liquibase, transaction, outbox, and publication checks.
+
+```powershell
+./gradlew test
+./gradlew integrationTest
+```
+
+```logql
+{log_type="application", application="INVENTORY-SERVICE"}
+```
+
 ## Run
 
 ```powershell
@@ -44,8 +58,11 @@ docker compose up -d inventory-service
 ## Related Guides
 
 - [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
+- [SAGA code flow](../docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
 - [Shopverse transaction boundaries](../docs/reliability/TRANSACTIONS.md)
-- [Generic transaction concepts](../docs/reliability/TRANSACTIONS-GENERIC.md)
-- [Kafka](../docs/integration/KAFKA.md)
+- [Spring transactions](../docs/spring/SPRING-TRANSACTIONS.md)
+- [Apache Kafka](../docs/integration/APACHE-KAFKA.md)
+- [Spring Kafka](../docs/spring/SPRING-KAFKA.md)
 - [Distributed systems](../docs/architecture/DISTRIBUTED-SYSTEMS.md)
 - [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)
+- [Spring Resilience4j](../docs/spring/SPRING-RESILIENCE4J.md)

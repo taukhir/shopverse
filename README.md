@@ -57,13 +57,27 @@ The exact implementation matrix and demo scenarios are in [Features and demonstr
 
 ## Quick Start
 
-Create a local `.env` from the documented variables, then:
+Prerequisites:
+
+- Docker Desktop with Docker Compose v2
+- Git
+- Java 21 and Node.js 20+ only when running services or documentation outside Docker
+- at least 8 GB memory available to Docker for the complete local stack
+
+Create a local `.env` from the repository template, validate the Compose model,
+then start:
 
 ```powershell
+Copy-Item .env.example .env
+docker compose config
 docker compose build
 docker compose up -d
 docker compose ps
 ```
+
+Replace placeholder values in `.env` before exposing the stack beyond a local
+POC. Wait until Config Server, Discovery Server, MySQL, and application
+containers report healthy before testing checkout.
 
 Use the API Gateway for application requests:
 
@@ -128,7 +142,7 @@ npm start
 | APIs | [Shopverse API guide](docs/development/API-GUIDE.md) and [REST design](docs/development/REST-API-GENERIC.md) |
 | Security | [JWT, OAuth2, and Spring Security](docs/security/JWT-OAUTH2-SPRING-SECURITY.md) |
 | Messaging | [Apache Kafka](docs/integration/APACHE-KAFKA.md), [Spring Kafka](docs/spring/SPRING-KAFKA.md), and [SAGA/outbox](docs/reliability/SAGA-OUTBOX.md) |
-| Observability | [Observability architecture](docs/observability/OBSERVABILITY.md) |
+| Observability | [Observability architecture](docs/observability/OBSERVABILITY.md) and [operations](docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md) |
 | Data | [Database engineering](docs/data/DATABASE-ENGINEERING.md), [Hibernate](docs/data/HIBERNATE.md), [Liquibase](docs/data/LIQUIBASE-GENERIC.md), [Spring transactions](docs/spring/SPRING-TRANSACTIONS.md), and [caching principles](docs/architecture/CACHING-GENERIC.md) |
 | Testing | [Shopverse testing](docs/development/TESTING.md) and [Spring Boot testing](docs/spring/SPRING-BOOT-TESTING.md) |
 | Troubleshooting | [Debugging guide](docs/development/DEBUGGING.md) |

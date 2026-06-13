@@ -386,6 +386,7 @@ weighted instances, sticky sessions, or consistent hashing.
 
 ## Related Guides
 
+- [Service Discovery](SERVICE-DISCOVERY.md)
 - [API Gateway](../development/API-GATEWAY-GENERIC.md)
 - [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md)
 - [System design](SYSTEM-DESIGN.md)

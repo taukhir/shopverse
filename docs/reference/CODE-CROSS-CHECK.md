@@ -44,6 +44,11 @@ Docker, Testcontainers, or end-to-end verification was performed.
 11. **Development RSA keys are tracked.** They are acceptable only as disposable
     POC keys. Production keys must come from a secret store and must never be
     committed.
+12. **User method-security coverage is incomplete.** Standalone controller
+    tests validate mappings and request validation but do not load the Spring
+    Security filter chain. Add focused `@PreAuthorize` allow/deny tests for
+    `USER_READ`, `USER_CREATE`, `USER_UPDATE`, `USER_DELETE`, and
+    `ADMIN_ACCESS`.
 
 ## Static Validation Results
 

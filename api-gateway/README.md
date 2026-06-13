@@ -34,6 +34,24 @@ including `GatewayFilterChain`, `chain.filter(...)`, `doFinally(...)`,
 correlation handling, timing, metrics, and production practices, see
 [API Gateway](../docs/development/API-GATEWAY-GENERIC.md).
 
+## Configuration
+
+Routes, JWT validation, actuator exposure, resilience, tracing, and logging are
+centralized in `cloud-configs/API-GATEWAY.yml`.
+
+## Tests And Observability
+
+```powershell
+./gradlew test
+```
+
+Prometheus scrapes `/actuator/prometheus`. Application logs are shipped to Loki
+and can be queried with:
+
+```logql
+{log_type="application", application="API-GATEWAY"}
+```
+
 ## Run
 
 ```powershell
@@ -50,6 +68,7 @@ docker compose up -d api-gateway
 - [System design](../docs/architecture/SYSTEM-DESIGN.md)
 - [Spring Boot internals](../docs/development/SPRING-BOOT-INTERNALS.md)
 - [API Gateway concepts and filter chain](../docs/development/API-GATEWAY-GENERIC.md)
+- [Service discovery](../docs/architecture/SERVICE-DISCOVERY.md)
 - [Load balancing](../docs/architecture/LOAD-BALANCING-GENERIC.md)
 - [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
 - [Generic Spring Security](../docs/security/SPRING-SECURITY-GENERIC.md)

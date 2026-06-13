@@ -36,7 +36,7 @@ The client uses the Eureka name `USER-SERVICE`. Spring Cloud LoadBalancer choose
 
 See:
 
-- [Feign clients](../docs/integration/FEIGN-CLIENTS.md)
+- [Spring Cloud OpenFeign](../docs/spring/SPRING-OPENFEIGN.md)
 - [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
 - [Generic Spring Security](../docs/security/SPRING-SECURITY-GENERIC.md)
 - [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)
@@ -46,6 +46,18 @@ See:
 Runtime configuration comes from `cloud-configs/AUTH-SERVICE.yml` through Config Server. Important environment values include RSA key material/path, JWT issuer, internal User Service credentials, Eureka URL, Zipkin endpoint, and log path.
 
 Real credentials and private keys must not be committed. Local POC values may be supplied through `.env`.
+
+## Tests And Observability
+
+```powershell
+./gradlew test
+```
+
+Prometheus scrapes `/actuator/prometheus`. Search Auth Service logs with:
+
+```logql
+{log_type="application", application="AUTH-SERVICE"}
+```
 
 ## Run
 
@@ -58,6 +70,12 @@ docker compose build auth-service
 docker compose up -d auth-service
 ```
 
-## Notes
+## Limitations
 
 Shopverse uses JWT bearer tokens and Resource Server validation. This service is not a complete OAuth2 Authorization Server and does not currently issue refresh tokens.
+
+## Related Guides
+
+- [Spring Cloud OpenFeign](../docs/spring/SPRING-OPENFEIGN.md)
+- [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Shopverse observability operations](../docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)

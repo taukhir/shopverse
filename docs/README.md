@@ -27,17 +27,19 @@ of the complete knowledge base.
 ## Knowledge Domains
 
 1. **Engineering foundations:** SOLID, DRY, API design, testing, and Git.
-2. **Spring and Java backend:** Framework, Boot, Web, Data JPA, Security, and
-   caching.
-3. **Databases and transactions:** normalization through 4NF, joins, indexes,
+2. **Java fundamentals:** OOP, collections, streams, Java 8-21, concurrency,
+   CompletableFuture, and virtual threads.
+3. **Spring ecosystem:** Framework, Boot, Web, Data JPA, Security, Cloud,
+   resilience, and testing.
+4. **Databases and transactions:** normalization through 4NF, joins, indexes,
    query optimization, ACID, locking, Liquibase, partitioning, and sharding.
-4. **Microservices and integration:** service boundaries, API Gateway,
+5. **Microservices and integration:** service boundaries, API Gateway,
    discovery, load balancing, Feign, and Kafka.
-5. **Distributed systems:** CAP, consistency, distributed databases,
+6. **Distributed systems:** CAP, consistency, distributed databases,
    transactions, locks, SAGA, consensus, resilience, and failure recovery.
-6. **Logging and observability:** MDC, structured logs, metrics, Prometheus,
+7. **Logging and observability:** MDC, structured logs, metrics, Prometheus,
    Loki, Grafana, tracing, and alerts.
-7. **Delivery and operations:** Docker, Jenkins, GitHub Actions, CI/CD
+8. **Delivery and operations:** Docker, Jenkins, GitHub Actions, CI/CD
    automation, deployment strategies, debugging, and operational tooling.
 
 ## Theory And Case Studies
@@ -57,9 +59,13 @@ Shopverse guides then demonstrate concrete application:
 
 ```text
 SAGA-OUTBOX.md
+SHOPVERSE-SAGA-CODE-FLOW.md
 TRANSACTIONS.md
 JWT-OAUTH2-SPRING-SECURITY.md
 API-GUIDE.md
+SHOPVERSE-DOCKER.md
+SHOPVERSE-JENKINS.md
+SHOPVERSE-OBSERVABILITY-OPERATIONS.md
 ```
 
 ## Documentation Rules

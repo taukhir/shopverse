@@ -19,6 +19,7 @@ Official references:
 | `ci.yml` | Validate config, test affected services, build affected images, and run the SAGA smoke gate |
 | `deploy.yml` | Build and push images to GHCR, then optionally deploy through SSH |
 | `jenkins-trigger.yml` | Trigger Jenkins after a successful GitHub workflow |
+| `docs-site.yml` | Build the Docusaurus knowledge base and deploy it to GitHub Pages |
 
 ## CI Triggers
 
@@ -154,3 +155,19 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.p
 
 See [testing/README.md](../../testing/README.md) for coverage and failure
 triage.
+
+## Documentation Workflow
+
+`docs-site.yml` installs the pinned Node dependencies from
+`documentation/package-lock.json`, runs the Docusaurus build, uploads the
+generated static site, and deploys it to GitHub Pages. Changes under `docs/`,
+`documentation/`, or the workflow itself should trigger this validation.
+
+The local equivalent is:
+
+```powershell
+Set-Location documentation
+npm ci
+npm run typecheck
+npm run build
+```

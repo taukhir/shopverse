@@ -37,6 +37,17 @@ Customer payment lookup compares the authenticated JWT subject with the payment 
 
 `cloud-configs/PAYMENT-SERVICE.yml` defines datasource, JWT, approval limit, cache, RateLimiter, and Bulkhead.
 
+## Tests And Observability
+
+```powershell
+./gradlew test
+./gradlew integrationTest
+```
+
+```logql
+{log_type="application", application="PAYMENT-SERVICE"}
+```
+
 ## Run
 
 ```powershell
@@ -52,7 +63,10 @@ docker compose up -d payment-service
 ## Related Guides
 
 - [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
+- [SAGA code flow](../docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
 - [Transactions](../docs/reliability/TRANSACTIONS.md)
-- [Generic transaction concepts](../docs/reliability/TRANSACTIONS-GENERIC.md)
+- [Spring transactions](../docs/spring/SPRING-TRANSACTIONS.md)
+- [Spring Kafka](../docs/spring/SPRING-KAFKA.md)
 - [Features and demos](../docs/reference/FEATURES-AND-DEMOS.md)
 - [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)
+- [Spring Resilience4j](../docs/spring/SPRING-RESILIENCE4J.md)

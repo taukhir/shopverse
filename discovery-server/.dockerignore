@@ -1,7 +1,10 @@
+.git
+.gitignore
 .gradle
 build
 logs
 *.log
 .idea
 .vscode
-Dockerfile
+*.iml
+README.md

@@ -1,5 +1,6 @@
 import type {Config} from '@docusaurus/types';
 import type {Options, ThemeConfig} from '@docusaurus/preset-classic';
+import {themes as prismThemes} from 'prism-react-renderer';
 
 const config: Config = {
   title: 'Backend Engineering Knowledge Base',
@@ -121,6 +122,8 @@ const config: Config = {
       copyright: `Copyright ${new Date().getFullYear()} Backend Engineering Knowledge Base`,
     },
     prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.vsDark,
       additionalLanguages: ['java', 'bash', 'powershell', 'yaml', 'json', 'sql'],
     },
   } satisfies ThemeConfig,

@@ -9,16 +9,28 @@ Use this path to study backend engineering from fundamentals to
 production-oriented distributed-system behavior. Generic concepts come first;
 the corresponding Shopverse pages provide concrete implementation examples.
 
-## Stage 1: Application Foundations
+## Stage 1: Java And Engineering Foundations
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
-| Java and Spring runtime | [Spring Boot internals](../development/SPRING-BOOT-INTERNALS.md) | Understand startup, beans, auto-configuration, MVC, Jackson, and Actuator |
+| Object-oriented programming | [Java OOP](../java/JAVA-OOP.md) | Model behavior using encapsulation, abstraction, composition, and polymorphism |
+| Collections | [Java Collections](../java/JAVA-COLLECTIONS.md) | Select lists, sets, maps, queues, and concurrent collections correctly |
+| Functional processing | [Java Streams](../java/JAVA-STREAMS.md) | Build lazy, side-effect-controlled pipelines and collectors |
+| Modern Java | [Java 8 to 21](../java/JAVA-8-TO-21.md) | Apply lambdas, Optional, records, sealed types, switch patterns, and virtual threads |
+| Concurrency | [Java Multithreading](../java/JAVA-MULTITHREADING.md) | Use executors, CompletableFuture, synchronization, cancellation, and virtual threads safely |
 | Engineering design | [Engineering principles](../development/ENGINEERING-PRINCIPLES.md) | Apply SOLID, DRY, cohesion, boundaries, and pragmatic abstraction |
 | REST APIs | [REST API design](../development/REST-API-GENERIC.md) | Design resources, status codes, validation, errors, pagination, and idempotency |
+
+## Stage 2: Spring Ecosystem
+
+| Topic | Study guide | Practical outcome |
+|---|---|---|
+| Spring overview | [Spring Ecosystem](../spring/SPRING-ECOSYSTEM.md) | Understand Framework, Boot, Web, Data, Security, Cloud, Actuator, and testing modules |
+| Spring runtime | [Spring Boot internals](../development/SPRING-BOOT-INTERNALS.md) | Understand startup, beans, auto-configuration, MVC, Jackson, and Actuator |
+| Spring REST | [Spring REST APIs](../development/SPRING-REST-APIS.md) | Implement controllers, validation, files, errors, and HTTP clients |
 | Testing | [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md) | Choose unit, slice, integration, Testcontainers, and E2E tests |
 
-## Stage 2: Data And Persistence
+## Stage 3: Data And Persistence
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
@@ -28,18 +40,19 @@ the corresponding Shopverse pages provide concrete implementation examples.
 | Migrations | [Liquibase](../data/LIQUIBASE-GENERIC.md) | Version schemas and perform compatible production migrations |
 | Transactions | [Spring transactions](../spring/SPRING-TRANSACTIONS.md) | Understand propagation, isolation, rollback, locks, and transaction boundaries |
 
-## Stage 3: Microservice Communication
+## Stage 4: Microservice Communication
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
 | Microservices | [Microservice architecture](../architecture/MICROSERVICES-GENERIC.md) | Understand boundaries, data ownership, failure modes, and operational cost |
 | Gateway | [API Gateway](../development/API-GATEWAY-GENERIC.md) | Understand routing, edge security, correlation, filters, and metrics |
-| Discovery and balancing | [Load balancing](../architecture/LOAD-BALANCING-GENERIC.md) | Understand Eureka and client-side instance selection |
+| Service discovery | [Service discovery](../architecture/SERVICE-DISCOVERY.md) | Understand registration, leases, Eureka, DNS, Kubernetes, and stale-instance behavior |
+| Load balancing | [Load balancing](../architecture/LOAD-BALANCING-GENERIC.md) | Choose client/server-side algorithms and eligible instances |
 | Synchronous HTTP | [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md) | Build declarative clients with propagation, timeouts, metrics, and resilience |
 | Kafka platform | [Apache Kafka](../integration/APACHE-KAFKA.md) | Understand brokers, partitions, consumer groups, offsets, retention, and lag |
 | Spring Kafka | [Spring Kafka](../spring/SPRING-KAFKA.md) | Implement templates, listeners, acknowledgment, retry, DLT, and transactions |
 
-## Stage 4: Distributed Consistency
+## Stage 5: Distributed Consistency
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
@@ -58,14 +71,14 @@ the corresponding Shopverse pages provide concrete implementation examples.
 | Interview preparation | [Distributed systems interview questions](DISTRIBUTED-SYSTEMS-INTERVIEW.md) | Practice precise trade-off and scenario answers |
 | Production failures | [Problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md) | Study real defects found and corrected during verification |
 
-## Stage 5: Security
+## Stage 6: Security
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
 | Spring Security | [Generic Spring Security](../security/SPRING-SECURITY-GENERIC.md) | Understand filter chains, providers, context, method security, and proxies |
 | JWT and OAuth2 | [Shopverse security](../security/JWT-OAUTH2-SPRING-SECURITY.md) | Follow login, RSA signing, JWKS, decoding, claims, roles, and ownership checks |
 
-## Stage 6: Observability And Operations
+## Stage 7: Observability And Operations
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|

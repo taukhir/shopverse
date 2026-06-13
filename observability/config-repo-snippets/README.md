@@ -15,12 +15,16 @@ Add the shared properties to `cloud-configs/application.yml` for all config clie
 The shared config enables:
 
 - `/actuator/prometheus`
-- `/actuator/refresh`
 - Prometheus `application` metric tag
 - Zipkin trace export
 - trace/span correlation in logs
 - local service log files for Promtail
 - Kafka bootstrap and SAGA topic names when services use the choreography SAGA
+
+`/actuator/refresh` is intentionally **not** exposed by the shared
+`application.yml`. It is enabled only in the JWT-secured Auth, User, Order,
+Payment, and Inventory service files. Config Server, Discovery Server, and API
+Gateway do not inherit a public refresh endpoint.
 
 ## Important
 
