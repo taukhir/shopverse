@@ -9,6 +9,11 @@
   --ifm-code-font-size: 0.92rem;
   --ifm-font-family-base: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ifm-heading-font-family: var(--ifm-font-family-base);
+  --ifm-heading-font-weight: 650;
+  --ifm-line-height-base: 1.7;
+  --ifm-global-radius: 6px;
+  --doc-border: #d7e1df;
+  --doc-surface: #f7faf9;
 }
 
 [data-theme="dark"] {
@@ -19,19 +24,47 @@
   --ifm-color-primary-light: #6bceb8;
   --ifm-color-primary-lighter: #76d2bd;
   --ifm-color-primary-lightest: #97dece;
+  --doc-border: #344743;
+  --doc-surface: #18221f;
 }
 
 .theme-doc-markdown {
   max-width: 980px;
 }
 
+.theme-doc-markdown > p,
+.theme-doc-markdown > ul,
+.theme-doc-markdown > ol {
+  max-width: 82ch;
+}
+
 .theme-doc-markdown table {
   display: table;
   width: 100%;
+  font-size: 0.94rem;
+}
+
+.theme-doc-markdown table th {
+  background: var(--doc-surface);
+  font-weight: 650;
 }
 
 .theme-doc-markdown h1 {
   letter-spacing: 0;
+  font-size: 2.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.theme-doc-markdown h2 {
+  border-bottom: 1px solid var(--doc-border);
+  letter-spacing: 0;
+  margin-top: 2.75rem;
+  padding-bottom: 0.45rem;
+}
+
+.theme-doc-markdown h3 {
+  letter-spacing: 0;
+  margin-top: 2rem;
 }
 
 .navbar__title {
@@ -40,4 +73,46 @@
 
 code {
   border-radius: 4px;
+}
+
+.theme-code-block,
+.admonition,
+.theme-doc-markdown .mermaid {
+  border: 1px solid var(--doc-border);
+  border-radius: var(--ifm-global-radius);
+}
+
+.theme-doc-markdown .mermaid {
+  background: var(--doc-surface);
+  margin: 1.5rem 0 2rem;
+  overflow-x: auto;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.theme-doc-sidebar-menu {
+  font-size: 0.9rem;
+}
+
+.theme-doc-sidebar-menu .menu__link {
+  line-height: 1.35;
+}
+
+.pagination-nav__link {
+  border-radius: var(--ifm-global-radius);
+}
+
+@media (max-width: 996px) {
+  .theme-doc-markdown h1 {
+    font-size: 1.85rem;
+  }
+
+  .theme-doc-markdown {
+    max-width: 100%;
+  }
+
+  .theme-doc-markdown table {
+    display: block;
+    overflow-x: auto;
+  }
 }

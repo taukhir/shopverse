@@ -9,3 +9,4 @@ docs/*.docx
 documentation/node_modules/
 documentation/build/
 documentation/.docusaurus/
+.tmp/

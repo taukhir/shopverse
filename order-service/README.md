@@ -50,6 +50,22 @@ The outbox publisher sends `order.created`. Listeners consume inventory and paym
 
 Order and catalog reads use local Spring Cache. Controller access uses RateLimiter and semaphore Bulkhead. These settings are defined in `cloud-configs/ORDER-SERVICE.yml`.
 
+## Configuration
+
+`cloud-configs/ORDER-SERVICE.yml` owns datasource, JWT, Kafka topics, outbox,
+cache, Feign, resilience, metrics, tracing, and logging settings.
+
+## Tests And Observability
+
+```powershell
+./gradlew test
+./gradlew integrationTest
+```
+
+```logql
+{log_type="application", application="ORDER-SERVICE"}
+```
+
 ## Run
 
 ```powershell
@@ -65,8 +81,11 @@ docker compose up -d order-service
 ## Related Guides
 
 - [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
+- [SAGA code flow](../docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
 - [API guide](../docs/development/API-GUIDE.md)
 - [Transactions](../docs/reliability/TRANSACTIONS.md)
-- [Generic transaction concepts](../docs/reliability/TRANSACTIONS-GENERIC.md)
+- [Spring transactions](../docs/spring/SPRING-TRANSACTIONS.md)
+- [Spring Cloud OpenFeign](../docs/spring/SPRING-OPENFEIGN.md)
 - [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)
 - [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)
+- [Spring Resilience4j](../docs/spring/SPRING-RESILIENCE4J.md)

@@ -50,6 +50,53 @@ Calls made through `this.someAnnotatedMethod()` normally bypass the proxy.
 Move the protected operation to another Spring bean or use programmatic
 decoration when self-invocation cannot be avoided.
 
+## Annotation Reference
+
+All annotation `name` values select a configuration instance under the
+corresponding `resilience4j.*.instances` section.
+
+| Annotation | Purpose | Important annotation attributes |
+|---|---|---|
+| `@Retry` | repeats a classified transient failure | `name`, `fallbackMethod` |
+| `@CircuitBreaker` | rejects calls while a dependency is considered unhealthy | `name`, `fallbackMethod` |
+| `@RateLimiter` | controls call admission per time period | `name`, `fallbackMethod` |
+| `@Bulkhead` | limits concurrent calls or isolates work in a thread pool | `name`, `type`, `fallbackMethod` |
+| `@TimeLimiter` | applies a deadline to supported async/reactive return types | `name`, `fallbackMethod` |
+
+```java
+@Retry(name = "inventory-client", fallbackMethod = "catalogFallback")
+@CircuitBreaker(name = "inventory-client", fallbackMethod = "catalogFallback")
+public CatalogResponse loadCatalog(String category) {
+    return inventoryClient.getCatalog(category);
+}
+
+private CatalogResponse catalogFallback(
+        String category,
+        Throwable failure
+) {
+    return CatalogResponse.unavailable(category);
+}
+```
+
+The fallback must return a compatible type. It receives original arguments in
+the same order and a compatible exception as its final argument.
+
+## Retry Parameters
+
+| Parameter | One-line description |
+|---|---|
+| `max-attempts` | total calls including the original attempt |
+| `wait-duration` | base delay between attempts |
+| `retry-exceptions` | exception classes explicitly eligible for retry |
+| `ignore-exceptions` | exception classes that must not be retried |
+| `retry-exception-predicate` | custom class deciding whether an exception is retryable |
+| `retry-on-result-predicate` | custom class deciding whether a returned value should be retried |
+| `fail-after-max-attempts` | controls whether max-attempt exhaustion raises a retry-specific failure |
+| `enable-exponential-backoff` | multiplies delay after each failed attempt |
+| `exponential-backoff-multiplier` | factor used to grow exponential delay |
+| `enable-randomized-wait` | randomizes wait to reduce synchronized retry waves where supported |
+| `randomized-wait-factor` | controls random variation around the wait duration |
+
 ## Constant Retry
 
 ```java
@@ -196,6 +243,109 @@ resilience4j:
 Annotation ordering is controlled by configured aspect order. Test the effective
 composition instead of assuming source-code order.
 
+## Circuit Breaker Parameters
+
+| Parameter | One-line description |
+|---|---|
+| `sliding-window-type` | uses `COUNT_BASED` calls or a `TIME_BASED` interval |
+| `sliding-window-size` | number of calls or seconds retained in the evaluation window |
+| `minimum-number-of-calls` | observations required before thresholds can open the circuit |
+| `failure-rate-threshold` | failed-call percentage that opens the circuit |
+| `slow-call-rate-threshold` | slow-call percentage that opens the circuit |
+| `slow-call-duration-threshold` | duration after which a call is considered slow |
+| `wait-duration-in-open-state` | time before OPEN can transition to HALF_OPEN |
+| `permitted-number-of-calls-in-half-open-state` | trial calls allowed during HALF_OPEN |
+| `max-wait-duration-in-half-open-state` | maximum HALF_OPEN duration before reevaluation |
+| `automatic-transition-from-open-to-half-open-enabled` | schedules transition without requiring a new caller |
+| `record-exceptions` | exceptions counted as failures |
+| `ignore-exceptions` | exceptions excluded from failure calculation |
+| `record-failure-predicate` | custom failure classifier |
+
+## Rate Limiter Parameters
+
+| Parameter | One-line description |
+|---|---|
+| `limit-for-period` | permissions created during each refresh period |
+| `limit-refresh-period` | interval at which the permission budget refreshes |
+| `timeout-duration` | maximum wait for permission before rejection |
+| `register-health-indicator` | exposes policy health when supported/configured |
+| `event-consumer-buffer-size` | number of recent events retained for event consumers |
+
+`timeout-duration: 0` fails fast instead of occupying request threads while
+waiting for the next permission window.
+
+## Bulkhead Types
+
+### Semaphore Bulkhead
+
+```java
+@Bulkhead(
+        name = "inventory-api",
+        type = Bulkhead.Type.SEMAPHORE
+)
+```
+
+A semaphore bulkhead executes on the caller thread and limits simultaneous
+method executions.
+
+| Parameter | One-line description |
+|---|---|
+| `max-concurrent-calls` | maximum calls allowed to execute at once |
+| `max-wait-duration` | maximum wait for a semaphore permit |
+
+Use it for synchronous controller/service calls where only concurrency must be
+bounded.
+
+### Thread-Pool Bulkhead
+
+```java
+@Bulkhead(
+        name = "report-provider",
+        type = Bulkhead.Type.THREADPOOL
+)
+public CompletionStage<Report> generateReport() {
+    return CompletableFuture.supplyAsync(this::loadReport);
+}
+```
+
+Thread-pool bulkhead isolates execution in a dedicated executor and bounded
+queue.
+
+| Parameter | One-line description |
+|---|---|
+| `core-thread-pool-size` | baseline worker thread count |
+| `max-thread-pool-size` | maximum worker thread count |
+| `queue-capacity` | waiting tasks accepted before rejection |
+| `keep-alive-duration` | idle time before excess threads terminate |
+| `writable-stack-trace-enabled` | controls rejection-exception stack traces |
+
+Use it when dedicated executor isolation is required. It adds queueing,
+context-propagation, cancellation, and thread-management concerns.
+
+### Choosing The Type
+
+| Semaphore | Thread pool |
+|---|---|
+| low overhead | stronger executor isolation |
+| caller thread executes | dedicated worker executes |
+| natural for synchronous methods | natural for async return types |
+| no queue unless permit wait is configured | bounded queue available |
+| MDC/security context remains on caller thread | context must be propagated |
+
+Virtual threads reduce thread cost but do not replace a bulkhead. The
+downstream connection pool and service capacity are still finite.
+
+## Time Limiter Parameters
+
+| Parameter | One-line description |
+|---|---|
+| `timeout-duration` | maximum permitted asynchronous execution time |
+| `cancel-running-future` | requests cancellation when timeout occurs |
+
+Cancellation is cooperative. A timed-out remote request or database operation
+may continue unless the underlying client supports cancellation and has its own
+network/query timeout.
+
 ## Capacity-Aware Bulkheads
 
 An upper estimate for concurrent work is:
@@ -251,10 +401,24 @@ class ResilienceExceptionHandler {
 9. Export Actuator/Micrometer metrics.
 10. Test outage, recovery, saturation, and half-open behavior.
 
+## Do And Do Not
+
+| Do | Do not |
+|---|---|
+| configure named policies centrally | create policy beans for every endpoint without need |
+| retry idempotent transient work | retry validation, authorization, or permanent business failure |
+| use backoff and jitter | retry immediately across every architecture layer |
+| set HTTP/database timeouts too | assume `@TimeLimiter` stops all underlying work |
+| map rejection to `429`/`503` | expose generic `500` for expected capacity rejection |
+| measure limits with load tests | copy arbitrary permit and pool numbers |
+| keep fallback truthful | return empty data that looks authoritative |
+| call annotated methods through a proxy | rely on self-invocation |
+| monitor retries, rejections, and breaker state | hide degradation from operators |
+| test the composed order | infer execution order from annotation placement |
+
 ## Related Guides
 
 - [Generic Resilience4j Patterns](../reliability/RESILIENCE4J-GENERIC.md)
 - [Distributed Rate Limiting](../reliability/DISTRIBUTED-RATE-LIMITING.md)
 - [Shopverse Resilience4j](../reliability/RESILIENCE4J.md)
 - [Micrometer Metrics](../observability/MICROMETER-METRICS.md)
-

@@ -18,7 +18,18 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '2. Spring And Java Backend',
+      label: '2. Java Fundamentals',
+      items: [
+        'java/JAVA-OOP',
+        'java/JAVA-COLLECTIONS',
+        'java/JAVA-STREAMS',
+        'java/JAVA-8-TO-21',
+        'java/JAVA-MULTITHREADING',
+      ],
+    },
+    {
+      type: 'category',
+      label: '3. Spring Ecosystem',
       items: [
         'spring/SPRING-ECOSYSTEM',
         'development/SPRING-BOOT-INTERNALS',
@@ -38,7 +49,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '3. Data And Caching',
+      label: '4. Data And Caching',
       items: [
         'data/DATABASE-ENGINEERING',
         'data/HIBERNATE',
@@ -48,17 +59,18 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '4. Microservices And Integration',
+      label: '5. Microservices And Integration',
       items: [
         'architecture/MICROSERVICES-GENERIC',
         'development/API-GATEWAY-GENERIC',
+        'architecture/SERVICE-DISCOVERY',
         'architecture/LOAD-BALANCING-GENERIC',
         'integration/APACHE-KAFKA',
       ],
     },
     {
       type: 'category',
-      label: '5. Distributed Systems',
+      label: '6. Distributed Systems',
       items: [
         'architecture/DISTRIBUTED-SYSTEMS-GENERIC',
         'architecture/DISTRIBUTED-CONSISTENCY-CAP',
@@ -75,7 +87,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '6. Logging And Observability',
+      label: '7. Logging And Observability',
       items: [
         'observability/LOGGING-GENERIC',
         'observability/MDC-GENERIC',
@@ -88,12 +100,14 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '7. Delivery, Containers And CI/CD',
+      label: '8. Delivery, Containers And CI/CD',
       items: [
         'operations/DEPLOYMENT-STRATEGIES',
         'operations/DOCKER',
+        'operations/SHOPVERSE-DOCKER',
         'operations/CI-CD-AUTOMATION',
         'operations/JENKINS',
+        'operations/SHOPVERSE-JENKINS',
         'operations/GITHUB-ACTIONS',
         'operations/SPRING-BOOT-ADMIN',
         'operations/OPERATIONS-CHEATSHEET',
@@ -111,10 +125,12 @@ const sidebars: SidebarsConfig = {
         'development/API-GUIDE',
         'architecture/DISTRIBUTED-SYSTEMS',
         'reliability/SAGA-OUTBOX',
+        'reliability/SHOPVERSE-SAGA-CODE-FLOW',
         'reliability/TRANSACTIONS',
         'reliability/RESILIENCE4J',
         'security/JWT-OAUTH2-SPRING-SECURITY',
         'observability/OBSERVABILITY',
+        'observability/SHOPVERSE-OBSERVABILITY-OPERATIONS',
         'observability/MDC-CORRELATION-TRACING',
         'observability/STRUCTURED-LOGGING',
         'development/TESTING',

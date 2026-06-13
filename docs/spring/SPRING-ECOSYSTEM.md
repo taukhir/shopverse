@@ -113,7 +113,7 @@ Shopverse uses:
 | Module | Shopverse use |
 |---|---|
 | Config | load centralized service configuration |
-| Netflix Eureka | register and discover service instances |
+| Netflix Eureka | register and discover service instances; see the dedicated [Service Discovery](../architecture/SERVICE-DISCOVERY.md) guide |
 | LoadBalancer | select an instance for logical service names |
 | OpenFeign | declarative synchronous service clients |
 | Gateway | route and protect external requests |
