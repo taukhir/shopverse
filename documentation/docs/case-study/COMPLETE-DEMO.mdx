@@ -1,0 +1,597 @@
+---
+title: Complete Shopverse Demo
+sidebar_position: 2
+description: A reproducible, end-to-end demonstration of Shopverse security, checkout, SAGA, outbox, recovery, and observability.
+---
+
+import {ReadingGuide} from '@site/src/components/DocumentationLanding';
+
+# Complete Shopverse Demo
+
+This is the canonical demonstration runbook for the Shopverse POC. It uses the
+API Gateway as the application entry point and connects each API action to the
+state, events, logs, metrics, and traces it produces.
+
+<ReadingGuide>
+
+For the shortest automated proof, run `.\scripts\Smoke-Test.ps1`. Follow this
+guide when presenting the architecture or inspecting each part of the checkout
+journey manually.
+
+</ReadingGuide>
+
+## Demo Outcome
+
+At the end of the happy path, you should have:
+
+- a JWT issued by Auth Service after User Service validates the credentials;
+- one persistent Order created through an idempotent API;
+- an Inventory reservation protected by optimistic locking;
+- a captured Payment;
+- a queryable SAGA timeline ending in `ORDER_CONFIRMED`;
+- published outbox records in the service databases;
+- correlated JSON logs in Loki and Grafana;
+- service metrics in Prometheus and Grafana;
+- distributed HTTP spans in Zipkin.
+
+```mermaid
+flowchart LR
+    Client["Demo client"] -->|"Login and checkout"| Gateway["API Gateway :8080"]
+    Gateway --> Auth["Auth Service"]
+    Auth -->|"Feign + Basic Auth"| User["User Service"]
+    Gateway --> Order["Order Service"]
+    Order --> OrderDB[("Order DB + outbox")]
+    OrderDB --> Kafka["Kafka"]
+    Kafka --> Inventory["Inventory Service"]
+    Inventory --> InventoryDB[("Inventory DB + outbox")]
+    InventoryDB --> Kafka
+    Kafka --> Payment["Payment Service"]
+    Payment --> PaymentDB[("Payment DB + outbox")]
+    PaymentDB --> Kafka
+    Kafka --> Order
+    Gateway -.->|"correlation ID"| Logs["Promtail -> Loki -> Grafana"]
+    Gateway -.->|"trace context"| Traces["Micrometer -> Zipkin"]
+    Gateway -.->|"metrics"| Metrics["Prometheus -> Grafana"]
+```
+
+## 1. Prerequisites
+
+Use:
+
+- Docker Desktop with Docker Compose v2;
+- PowerShell 7 or Windows PowerShell;
+- at least 8 GB of memory available to Docker;
+- ports `8080`, `8081`, `8082`, `8083`, `8084`, `8086`, `8761`, `8888`,
+  `9090`, `9411`, `3100`, and `3000` available.
+
+Run every repository command from the Shopverse root:
+
+```powershell
+Set-Location "D:\BE Projects\shopverse"
+```
+
+Create the local environment file once:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Replace all `change-me-*` values in `.env`. These credentials are local POC
+secrets and must not be committed.
+
+## 2. Start The Platform
+
+Validate the resolved Compose model before building:
+
+```powershell
+docker compose config
+docker compose build
+docker compose up -d
+docker compose ps
+```
+
+`mysql-bootstrap` is a one-shot container. A successful exit code of `0` is
+expected; it creates the independent `order_service`, `inventory_service`, and
+`payment_service` databases.
+
+Wait until application containers report `healthy`. For a compact status view:
+
+```powershell
+docker compose ps --format "table {{.Service}}\t{{.Status}}\t{{.Ports}}"
+```
+
+If a container is unhealthy:
+
+```powershell
+docker compose logs --tail=200 <service-name>
+docker inspect --format "{{json .State.Health}}" shopverse-<service-name>
+```
+
+## 3. Verify Platform Infrastructure
+
+Open these interfaces:
+
+| Component | URL | Expected evidence |
+|---|---|---|
+| Config Server | `http://localhost:8888/ORDER-SERVICE/default` | common and Order property sources |
+| Eureka | `http://localhost:8761` | application services registered |
+| Gateway health | `http://localhost:8080/actuator/health` | `UP` |
+| Grafana | `http://localhost:3000` | provisioned data sources and dashboards |
+| Prometheus | `http://localhost:9090/targets` | Shopverse targets `UP` |
+| Zipkin | `http://localhost:9411` | trace search interface |
+| Loki readiness | `http://localhost:3100/ready` | `ready` |
+
+Public routing can be tested without a token:
+
+```powershell
+$gateway = "http://localhost:8080"
+
+Invoke-RestMethod "$gateway/api/v1/orders/public/health"
+Invoke-RestMethod "$gateway/api/v1/inventory/public/health"
+Invoke-RestMethod "$gateway/api/v1/payments/public/health"
+Invoke-RestMethod "$gateway/api/v1/orders/public/catalog"
+```
+
+The catalog request demonstrates a synchronous path:
+
+```text
+Client -> Gateway -> Order Service -> Feign -> Inventory Service
+```
+
+## 4. Authenticate As The Demo Administrator
+
+Shopverse seeds this local demonstration account through Liquibase:
+
+```text
+username: admin
+password: Admin@123
+```
+
+The stored database value is an encoded or delegated password representation.
+Do not send the stored hash as the login password.
+
+```powershell
+$loginBody = @{
+    username = "admin"
+    password = "Admin@123"
+} | ConvertTo-Json
+
+$login = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/auth/login" `
+    -ContentType "application/json" `
+    -Body $loginBody
+
+$token = $login.token
+$token.Substring(0, [Math]::Min(40, $token.Length))
+```
+
+Expected result: the response contains a non-empty `token`.
+
+The authentication path is:
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant G as API Gateway
+    participant A as Auth Service
+    participant U as User Service
+    participant D as User Database
+
+    C->>G: POST /auth/login
+    G->>A: route request
+    A->>U: Feign internal Basic Auth request
+    U->>D: load user, roles, and permissions
+    D-->>U: encoded password and authorities
+    U-->>A: authenticated user details
+    A->>A: verify password and sign RSA JWT
+    A-->>C: access token
+```
+
+Inspect the public signing keys:
+
+```powershell
+Invoke-RestMethod "$gateway/auth/.well-known/jwks.json" |
+    ConvertTo-Json -Depth 10
+```
+
+Resource services use this JWKS document to verify the signature. They also
+validate standard JWT constraints, including expiry and issuer
+`shopverse-auth-service`.
+
+## 5. Create An Idempotent Checkout
+
+Create stable identifiers for this demonstration:
+
+```powershell
+$suffix = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+$correlationId = "demo-$suffix"
+$idempotencyKey = "checkout-$suffix"
+
+$headers = @{
+    Authorization      = "Bearer $token"
+    "X-Correlation-Id" = $correlationId
+    "Idempotency-Key"  = $idempotencyKey
+}
+
+$checkoutBody = @{
+    items = @(
+        @{
+            productId = 101
+            quantity  = 1
+        }
+    )
+} | ConvertTo-Json -Depth 5
+
+$order = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/orders/checkout" `
+    -Headers $headers `
+    -ContentType "application/json" `
+    -Body $checkoutBody
+
+$order | ConvertTo-Json -Depth 10
+```
+
+Retain the identifiers used by later steps:
+
+```powershell
+$orderId = $order.id
+$orderNumber = $order.orderNumber
+```
+
+The initial response can arrive before the asynchronous SAGA finishes. The
+checkout transaction atomically stores the Order, its first timeline entry, and
+an outbox event. A background publisher later sends that outbox event to Kafka.
+
+## 6. Follow The SAGA Timeline
+
+Poll the order until it reaches a terminal state:
+
+```powershell
+do {
+    Start-Sleep -Seconds 1
+    $currentOrder = Invoke-RestMethod `
+        -Uri "$gateway/api/v1/orders/$orderId" `
+        -Headers @{ Authorization = "Bearer $token" }
+
+    Write-Host "Order status: $($currentOrder.status)"
+} until ($currentOrder.status -in @(
+    "CONFIRMED",
+    "INVENTORY_REJECTED",
+    "PAYMENT_FAILED",
+    "CANCELLED"
+))
+```
+
+Read the durable business timeline:
+
+```powershell
+$timeline = Invoke-RestMethod `
+    -Uri "$gateway/api/v1/orders/$orderId/timeline" `
+    -Headers @{ Authorization = "Bearer $token" }
+
+$timeline | Format-Table stage, occurredAt, correlationId, detail -AutoSize
+```
+
+The happy path must contain:
+
+```text
+ORDER_CREATED
+INVENTORY_RESERVED
+PAYMENT_PROCESSING
+PAYMENT_COMPLETED
+ORDER_CONFIRMED
+```
+
+Inspect the payment record:
+
+```powershell
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/payments/orders/$orderNumber" `
+    -Headers @{ Authorization = "Bearer $token" } |
+    ConvertTo-Json -Depth 10
+```
+
+Expected payment status: `CAPTURED`.
+
+## 7. Prove Duplicate Request Handling
+
+Repeat the exact checkout with the same `Idempotency-Key`:
+
+```powershell
+$duplicate = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/orders/checkout" `
+    -Headers $headers `
+    -ContentType "application/json" `
+    -Body $checkoutBody
+
+[pscustomobject]@{
+    OriginalOrderId  = $order.id
+    DuplicateOrderId = $duplicate.id
+    SameOrder        = $order.id -eq $duplicate.id
+}
+```
+
+`SameOrder` must be `True`. The unique database constraint is the final
+concurrency guard, while the service returns the existing Order for a repeated
+request instead of reserving stock or charging again.
+
+## 8. Inspect Transactional Outbox Evidence
+
+Read the MySQL password from your local `.env` and run:
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SELECT id, aggregate_id, event_type, topic, status, publish_attempts, correlation_id
+    FROM order_service.outbox_events ORDER BY id DESC LIMIT 5;
+    SELECT id, aggregate_id, event_type, topic, status, publish_attempts, correlation_id
+    FROM inventory_service.outbox_events ORDER BY id DESC LIMIT 5;
+    SELECT id, aggregate_id, event_type, topic, status, publish_attempts, correlation_id
+    FROM payment_service.outbox_events ORDER BY id DESC LIMIT 5;
+  "
+'
+```
+
+Expected result: the relevant records progress to `PUBLISHED`. The database
+transaction does not wait for Kafka; it commits domain state and an outbox row,
+then a bounded worker claims and publishes the row separately.
+
+Inspect the Order and timeline rows:
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SELECT id, order_number, customer_username, status, correlation_id, idempotency_key
+    FROM order_service.orders ORDER BY id DESC LIMIT 5;
+    SELECT order_id, stage, detail, occurred_at
+    FROM order_service.order_timeline_events ORDER BY id DESC LIMIT 10;
+  "
+'
+```
+
+## 9. Demonstrate Payment Failure And Recovery
+
+The in-memory payment stub supports `SUCCESS`, `DECLINE`, and `TIMEOUT`.
+Changing the mode requires the administrator token.
+
+Set timeout mode:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/payments/admin/simulation?mode=TIMEOUT" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+Create another checkout using new correlation and idempotency values. Payment
+will enter `TIMED_OUT`, representing an uncertain external-provider result.
+Then reconcile it:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/payments/admin/orders/<order-number>/reconcile" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+Replace `<order-number>` with the timeout demo Order number. Reconciliation
+publishes completion through the outbox so the Order can finish.
+
+Always restore the default mode after the demo:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/payments/admin/simulation?mode=SUCCESS" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+For a deterministic inventory failure, submit a checkout for product `101`
+with a quantity larger than the catalog's available quantity. The expected
+Order terminal status is `INVENTORY_REJECTED`; Payment must not be charged.
+
+## 10. Inspect DLT Recovery APIs
+
+Retryable Kafka listeners send exhausted poison events to a DLT. Shopverse
+persists one unresolved recovery record per failed source event and audits
+replay attempts.
+
+```powershell
+$adminHeaders = @{ Authorization = "Bearer $token" }
+
+Invoke-RestMethod "$gateway/api/v1/orders/admin/dead-letters" -Headers $adminHeaders
+Invoke-RestMethod "$gateway/api/v1/inventory/admin/dead-letters" -Headers $adminHeaders
+Invoke-RestMethod "$gateway/api/v1/payments/admin/dead-letters" -Headers $adminHeaders
+```
+
+Replay an existing record:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/orders/admin/dead-letters/<id>/replay" `
+    -Headers $adminHeaders
+```
+
+Use the corresponding Inventory or Payment endpoint for records owned by those
+services. Replay fields include count, timestamp, and operator identity.
+
+:::note
+
+The public application API intentionally does not provide an endpoint that
+injects arbitrary malformed Kafka payloads. DLT creation is demonstrated by
+integration tests or controlled local Kafka tooling.
+
+:::
+
+## 11. Find The Journey In Loki And Grafana
+
+Open Grafana Explore at `http://localhost:3000/explore`, select `Loki`, and
+query the correlation ID created in step 5:
+
+```logql
+{log_type="application"}
+| json
+| correlationId="CORRELATION_ID"
+```
+
+Replace `CORRELATION_ID` with:
+
+```powershell
+$correlationId
+```
+
+Useful queries:
+
+```logql
+{application="ORDER-SERVICE"}
+```
+
+```logql
+{log_type="application"}
+| json
+| level="ERROR"
+```
+
+```logql
+{log_type="application"} |= "ORDER_NUMBER"
+```
+
+Health logs are deliberately separated:
+
+```logql
+{log_type="health"}
+```
+
+Application logs come from each service's rolling JSON file volume. Promtail
+parses those records, promotes bounded fields such as `application` and
+`level` to labels, and pushes batches to Loki. Correlation and trace IDs remain
+JSON fields to avoid high-cardinality labels.
+
+## 12. Inspect Metrics
+
+Open Prometheus at `http://localhost:9090` and run:
+
+```promql
+up{job="shopverse-services"}
+```
+
+```promql
+sum by (stage) (
+  increase(shopverse_saga_transitions_total[15m])
+)
+```
+
+```promql
+sum by (status) (
+  increase(shopverse_payment_outcomes_total[15m])
+)
+```
+
+```promql
+sum by (outcome) (
+  increase(shopverse_outbox_publish_total[15m])
+)
+```
+
+```promql
+sum by (application, status) (
+  rate(http_server_requests_seconds_count[5m])
+)
+```
+
+In Grafana, open the provisioned **Shopverse Commerce Operations** dashboard.
+It includes active SAGA estimates, SAGA transitions, payment outcomes,
+inventory conflicts, and expired reservations.
+
+## 13. Inspect Distributed Traces
+
+Open Zipkin at `http://localhost:9411`:
+
+1. select `API-GATEWAY` or leave the service filter empty;
+2. choose a time range containing the demo request;
+3. select **Run Query**;
+4. open the checkout trace and inspect gateway and HTTP service spans.
+
+Micrometer Tracing propagates W3C trace headers across synchronous HTTP and
+Feign calls. Kafka business events preserve the explicit correlation ID, but
+asynchronous consumer work can start a separate trace. Use:
+
+- `traceId` for one instrumented execution path;
+- `correlationId` for the complete business journey across HTTP, Kafka,
+  retries, outbox publication, and compensation.
+
+## 14. Run The Automated Proof
+
+The repository smoke test performs login, checkout, terminal-state polling, and
+timeline validation:
+
+```powershell
+.\scripts\Smoke-Test.ps1
+```
+
+Credentials can be overridden:
+
+```powershell
+.\scripts\Smoke-Test.ps1 `
+    -Username "admin" `
+    -Password "Admin@123" `
+    -GatewayUrl "http://localhost:8080"
+```
+
+Use bounded verification modes for broader evidence:
+
+```powershell
+.\scripts\Verify-Shopverse.ps1 -Mode Quick -TimeoutMinutes 1
+.\scripts\Verify-Shopverse.ps1 -Mode Integration -TimeoutMinutes 5
+.\scripts\Verify-Shopverse.ps1 -Mode Full -TimeoutMinutes 10
+```
+
+| Mode | Scope | Target |
+|---|---|---:|
+| `Quick` | changed-service compile and unit tests | under 1 minute |
+| `Integration` | MySQL, Kafka, outbox, and Testcontainers | 2-5 minutes |
+| `Full` | Docker SAGA, security, recovery, and observability | under 10 minutes |
+
+## 15. Stop Or Reset
+
+Stop containers while preserving databases and observability volumes:
+
+```powershell
+docker compose down
+```
+
+Remove containers and all named volumes for a clean demonstration:
+
+```powershell
+docker compose down -v
+```
+
+The second command deletes local MySQL, Prometheus, Loki, Grafana, and service
+log data.
+
+## Troubleshooting Order
+
+When a step fails, inspect evidence in this order:
+
+1. `docker compose ps`;
+2. `docker compose logs --tail=200 <service>`;
+3. Eureka registration;
+4. Config Server property output;
+5. Order timeline and service database rows;
+6. outbox status and publish attempts;
+7. Kafka/DLT recovery records;
+8. Loki correlation query;
+9. Zipkin trace;
+10. Prometheus targets and metrics.
+
+Continue with:
+
+- [API guide](../development/API-GUIDE.md) for the complete endpoint catalog;
+- [Features and demonstrations](../reference/FEATURES-AND-DEMOS.md) for the implementation matrix;
+- [SAGA and Outbox](../reliability/SAGA-OUTBOX.md) for transaction and event flow;
+- [Observability operations](../observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md) for more LogQL and PromQL;
+- [Debugging guide](../development/DEBUGGING.md) for failure diagnosis.

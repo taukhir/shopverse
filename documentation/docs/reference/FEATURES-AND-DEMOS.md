@@ -5,6 +5,9 @@ the steps used to demonstrate them. `Implemented` means code and configuration
 exist. It does not imply production scale, external-provider certification, or
 full failure testing.
 
+For one reproducible walkthrough from startup to observability, use the
+[complete Shopverse demo](../case-study/COMPLETE-DEMO.mdx).
+
 ## Implementation Matrix
 
 | Feature | Status | Evidence |

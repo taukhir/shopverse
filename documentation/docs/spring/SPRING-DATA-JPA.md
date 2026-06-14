@@ -474,6 +474,215 @@ Use a direct many-to-many only when the join has no business attributes. If it
 needs `assignedAt`, `assignedBy`, status, or audit data, map the join table as
 its own entity such as `UserRoleEntity`.
 
+## Jackson And Entity Relationships
+
+JPA models object graphs, while Jackson serializes object graphs. Returning a
+bidirectional entity relationship directly from a controller can cause:
+
+- infinite JSON recursion;
+- unexpected lazy-loading queries;
+- `LazyInitializationException` after the transaction closes;
+- oversized responses;
+- accidental exposure of passwords, audit fields, or internal identifiers;
+- unsafe deserialization that mutates relationships clients should not own.
+
+The preferred API design is to map entities to explicit response DTOs:
+
+```java
+public record OrderResponse(
+        Long id,
+        String orderNumber,
+        String status,
+        List<OrderItemResponse> items
+) {
+}
+```
+
+```java
+public OrderResponse toResponse(OrderEntity order) {
+    return new OrderResponse(
+            order.getId(),
+            order.getOrderNumber(),
+            order.getStatus().name(),
+            order.getItems().stream()
+                    .map(item -> new OrderItemResponse(
+                            item.getProductId(),
+                            item.getQuantity()
+                    ))
+                    .toList()
+    );
+}
+```
+
+Jackson annotations are still useful for internal models, legacy APIs, or
+carefully bounded entity serialization.
+
+Spring Boot's web starter normally supplies Jackson Databind and its annotation
+module:
+
+```gradle
+implementation 'org.springframework.boot:spring-boot-starter-web'
+```
+
+The examples use:
+
+```java
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+```
+
+### `@JsonIgnore`
+
+`@JsonIgnore` excludes a property from both normal serialization and
+deserialization:
+
+```java
+@Entity
+class UserEntity {
+
+    @JsonIgnore
+    @Column(name = "password", nullable = false)
+    private String encodedPassword;
+}
+```
+
+It can also break a recursive relationship by hiding the back link:
+
+```java
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "order_id", nullable = false)
+@JsonIgnore
+private OrderEntity order;
+```
+
+Use it for a property that must never appear in that JSON model. Do not treat
+it as the only protection for sensitive data; DTO mapping provides a clearer
+allowlist of fields.
+
+### `@JsonManagedReference` And `@JsonBackReference`
+
+These annotations represent a parent-child JSON relationship:
+
+```java
+@Entity
+class OrderEntity {
+
+    @OneToMany(mappedBy = "order")
+    @JsonManagedReference
+    private List<OrderItemEntity> items = new ArrayList<>();
+}
+```
+
+```java
+@Entity
+class OrderItemEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    @JsonBackReference
+    private OrderEntity order;
+}
+```
+
+Jackson serializes the managed, or forward, side:
+
+```json
+{
+  "id": 10,
+  "items": [
+    {
+      "id": 100,
+      "quantity": 2
+    }
+  ]
+}
+```
+
+It omits the `order` back-reference inside every item, preventing:
+
+```text
+order -> items -> order -> items -> ...
+```
+
+Use named references when one class has multiple parent-child relationships:
+
+```java
+@JsonManagedReference("order-items")
+private List<OrderItemEntity> items;
+
+@JsonBackReference("order-items")
+private OrderEntity order;
+```
+
+This approach intentionally produces an asymmetric JSON graph. It is unsuitable
+when clients need both directions represented.
+
+### `@JsonIdentityInfo`
+
+`@JsonIdentityInfo` writes an object fully once and uses its identifier for
+later references:
+
+```java
+@Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
+class OrderEntity {
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItemEntity> items = new ArrayList<>();
+}
+```
+
+```java
+@Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
+class OrderItemEntity {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OrderEntity order;
+}
+```
+
+A repeated Order reference can then be represented as its ID instead of
+recursively serializing the complete object:
+
+```json
+{
+  "id": 10,
+  "items": [
+    {
+      "id": 100,
+      "order": 10
+    }
+  ]
+}
+```
+
+Use identity serialization when graph identity is part of the intended JSON
+contract. It couples the API format to entity identifiers and can be confusing
+for clients, so DTOs remain preferable for public REST APIs.
+
+### Choosing A Strategy
+
+| Requirement | Preferred approach |
+|---|---|
+| Stable public API | response DTOs |
+| Hide one sensitive or internal property | `@JsonIgnore`, preferably plus DTOs |
+| Serialize parent children but omit child parent | managed/back references |
+| Preserve repeated object identity | `@JsonIdentityInfo` |
+| Avoid lazy-loading during serialization | fetch explicitly and map inside the transaction |
+
+Jackson annotations control JSON only. They do not change JPA ownership,
+cascades, fetching, foreign keys, or transaction behavior.
+
 ## Cascades And Orphan Removal
 
 | Cascade | Effect |
@@ -1309,3 +1518,4 @@ actual access patterns rather than every column.
 - [Liquibase](../data/LIQUIBASE-GENERIC.md)
 - [Spring REST APIs](../development/SPRING-REST-APIS.md)
 - [Spring Boot Testing](SPRING-BOOT-TESTING.md)
+- [Jackson annotations reference](https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations)

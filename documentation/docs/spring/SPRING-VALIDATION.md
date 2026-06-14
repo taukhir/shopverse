@@ -55,7 +55,9 @@ public record CreateProductRequest(
 
 ## `@Valid`
 
-`@Valid` requests validation and cascades into nested objects:
+`@Valid` is the Jakarta Bean Validation cascade marker. It tells the validator
+to traverse the annotated object and validate constraints declared inside it.
+It is most commonly used on Spring MVC request objects and nested DTO fields:
 
 ```java
 public record CheckoutRequest(
@@ -78,16 +80,43 @@ ResponseEntity<OrderResponse> checkout(
 Without `@Valid` on the collection element or nested field, constraints inside
 `CheckoutItemRequest` are not necessarily traversed.
 
-`@Valid` is a Jakarta annotation. It supports cascading but does not select
-Spring validation groups.
+`@Valid`:
+
+- is defined by `jakarta.validation.Valid`;
+- validates an object graph recursively;
+- works on fields, record components, method parameters, and return values;
+- does not itself define a validation rule;
+- does not select validation groups.
+
+For example, `@Valid` alone does not mean that a request must be non-null:
+
+```java
+public OrderResponse create(
+        @Valid @RequestBody CreateOrderRequest request
+) {
+    // @Valid traverses request when a request object exists.
+}
+```
+
+Nullability is owned by the web binding contract or an explicit constraint:
+
+```java
+public OrderResponse create(
+        @NotNull @Valid @RequestBody CreateOrderRequest request
+) {
+    // ...
+}
+```
 
 ## `@Validated`
 
-`@Validated` is Spring's validation annotation. It:
+`@Validated` is Spring's extension to Bean Validation. It is defined by
+`org.springframework.validation.annotation.Validated` and is used when Spring
+needs to:
 
-- enables method-level validation on a Spring bean;
-- supports validation groups;
-- can be applied at type or method level.
+- enable method-level validation on a Spring bean;
+- select validation groups;
+- mark a type, method, or parameter as a Spring validation boundary.
 
 ```java
 @RestController
@@ -101,6 +130,10 @@ class ProductController {
 }
 ```
 
+This class-level controller style uses Spring's validation proxy. With Spring
+Framework 6.1 or later, prefer MVC's built-in method validation for controller
+parameter constraints as explained in the comparison section below.
+
 Method validation can also apply to services:
 
 ```java
@@ -110,27 +143,135 @@ class TransferService {
 
     public Receipt transfer(
             @NotBlank String account,
-            @Positive BigDecimal amount
+            @Positive BigDecimal amount,
+            @Valid TransferOptions options
     ) {
         // ...
     }
 }
 ```
 
-The call must pass through the Spring-managed method-validation proxy.
-Self-invocation can bypass proxy-based validation.
+For a service bean, the call must pass through the Spring-managed
+method-validation proxy. Self-invocation bypasses that proxy:
+
+```java
+@Service
+@Validated
+class TransferService {
+
+    public void transferBatch(List<TransferCommand> commands) {
+        commands.forEach(command ->
+                validateAndTransfer(command)); // direct self-invocation
+    }
+
+    public void validateAndTransfer(@Valid TransferCommand command) {
+        // Proxy-based method validation is not intercepted here.
+    }
+}
+```
+
+Move the validated method to another Spring bean, validate explicitly, or
+restructure the boundary instead of attempting proxy self-injection.
 
 ## `@Valid` Versus `@Validated`
 
 | Capability | `@Valid` | `@Validated` |
 |---|---:|---:|
 | Jakarta standard | Yes | No, Spring-specific |
-| Nested-object cascading | Yes | Can trigger validation, but use `@Valid` for cascade |
-| Method validation | Used on parameters | Enables it on Spring bean |
-| Validation groups | No group selection | Yes |
-| Typical controller use | `@Valid @RequestBody` | class-level for path/query validation |
+| Primary purpose | Cascade into an object graph | Enable Spring method validation or select groups |
+| Nested-object cascading | Yes | No replacement for field-level `@Valid` |
+| Validation groups | Cannot select a group | Selects one or more groups |
+| Typical controller use | Request body, model attribute, request part | Group selection; legacy/proxy controller method validation |
+| Typical service use | Nested parameter or return object | Type-level method validation |
+| Requires a Spring proxy | No for ordinary MVC argument validation | Yes for service method validation |
 
-They are complementary:
+### When To Use `@Valid`
+
+Use `@Valid` for an ordinary request body:
+
+```java
+@PostMapping
+OrderResponse create(
+        @Valid @RequestBody CreateOrderRequest request
+) {
+    return orderService.create(request);
+}
+```
+
+Use it on every nested boundary that must be traversed:
+
+```java
+public record CreateOrderRequest(
+        @NotEmpty
+        List<@Valid OrderItemRequest> items,
+
+        @NotNull
+        @Valid AddressRequest shippingAddress
+) {
+}
+```
+
+Without the nested `@Valid`, constraints such as `@Positive quantity` and
+`@NotBlank postalCode` can be skipped.
+
+### When To Use `@Validated`
+
+Use `@Validated` on a service that validates method parameters or return
+values:
+
+```java
+@Service
+@Validated
+class InventoryService {
+
+    public InventoryResponse reserve(
+            @Positive Long productId,
+            @Positive int quantity
+    ) {
+        // ...
+    }
+}
+```
+
+Use it to select a validation group:
+
+```java
+interface OnCreate {
+}
+
+interface OnUpdate {
+}
+
+public record UserRequest(
+        @Null(groups = OnCreate.class)
+        @NotNull(groups = OnUpdate.class)
+        Long id,
+
+        @NotBlank(groups = {OnCreate.class, OnUpdate.class})
+        String username
+) {
+}
+```
+
+```java
+@PostMapping
+UserResponse create(
+        @Validated(OnCreate.class) @RequestBody UserRequest request
+) {
+    // ...
+}
+
+@PutMapping("/{id}")
+UserResponse update(
+        @Validated(OnUpdate.class) @RequestBody UserRequest request
+) {
+    // ...
+}
+```
+
+### When To Use Both
+
+They solve different problems and are frequently complementary:
 
 ```java
 @RestController
@@ -146,6 +287,36 @@ class OrderController {
     }
 }
 ```
+
+Here:
+
+- type-level `@Validated` enables proxy-based validation of `priority`;
+- parameter-level `@Valid` traverses `CreateOrderRequest`;
+- nested fields inside the request still need their own `@Valid`.
+
+For Spring Framework 6.1 and later, Spring MVC has built-in controller method
+validation when constraints are declared directly on handler method parameters
+or return values. In that model, remove class-level `@Validated` from the
+controller and let MVC raise `HandlerMethodValidationException`. Keep
+`@Validated` on service beans where proxy-based method validation is required.
+
+Applications can therefore encounter two common exceptions:
+
+| Exception | Typical source |
+|---|---|
+| `MethodArgumentNotValidException` | validation of one `@Valid` request object |
+| `HandlerMethodValidationException` | constraints across controller method parameters or return value |
+
+### Decision Guide
+
+| Requirement | Use |
+|---|---|
+| Validate fields in one request DTO | `@Valid @RequestBody` |
+| Validate objects nested inside a DTO | `@Valid` on the nested field or type argument |
+| Validate `@PathVariable`, `@RequestParam`, or service arguments | method validation |
+| Enable service method validation | `@Validated` on the Spring service |
+| Apply create/update groups | `@Validated(Group.class)` |
+| Cascade while also selecting a group | `@Validated(Group.class)` at the entry point and `@Valid` on nested objects |
 
 ## Container Element Validation
 
@@ -402,4 +573,4 @@ Use `@WebMvcTest` to verify request binding, validation, and error JSON.
 - [Spring Boot Internals](../development/SPRING-BOOT-INTERNALS.md)
 - [Hibernate ORM](../data/HIBERNATE.md)
 - [Spring Boot Testing](SPRING-BOOT-TESTING.md)
-
+- [Spring MVC validation reference](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html)

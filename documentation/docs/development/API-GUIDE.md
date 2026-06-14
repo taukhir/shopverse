@@ -16,6 +16,10 @@ Reusable HTTP design guidance is maintained in
 
 The gateway at `http://localhost:8080` is the normal entry point.
 
+Use the [complete Shopverse demo](../case-study/COMPLETE-DEMO.mdx) for a
+PowerShell-based runbook that chains authentication, checkout, SAGA state,
+outbox evidence, failure simulation, and observability.
+
 ## Authentication
 
 ```http
