@@ -1,8 +1,23 @@
 # Shopverse Observability Architecture
 
+import {DocFigure, ReadingGuide} from '@site/src/components/DocumentationLanding';
+
 Observability answers questions about a running system using signals emitted by
 the system. Shopverse combines metrics, logs, traces, and persistent business
 state.
+
+<DocFigure
+  src="/img/diagrams/shopverse-observability-flow.svg"
+  alt="Shopverse observability pipeline showing structured logs to Promtail and Loki, metrics to Prometheus, traces to Zipkin, and Grafana dashboards"
+  caption="Shopverse telemetry flow from Spring services to collection, storage, and investigation tools."
+/>
+
+<ReadingGuide>
+
+Start with the signal table, then use the operational decision guide to choose
+between logs, metrics, traces, and durable business state during an incident.
+
+</ReadingGuide>
 
 ## Signals
 

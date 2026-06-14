@@ -27,7 +27,7 @@ const config: Config = {
         language: ['en'],
         indexDocs: true,
         indexBlog: false,
-        docsDir: '../docs',
+        docsDir: 'docs',
         docsRouteBasePath: '/',
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
@@ -40,13 +40,13 @@ const config: Config = {
       'classic',
       {
         docs: {
-          path: '../docs',
+          path: 'docs',
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           editUrl: ({docPath}) =>
-            `https://github.com/taukhir/shopverse/edit/main/docs/${docPath}`,
+            `https://github.com/taukhir/shopverse/edit/main/documentation/docs/${docPath}`,
         },
         blog: false,
         theme: {
@@ -67,6 +67,10 @@ const config: Config = {
     },
     navbar: {
       title: 'Backend Engineering',
+      logo: {
+        alt: 'Backend Engineering Knowledge Base',
+        src: 'img/favicon.svg',
+      },
       items: [
         {
           type: 'docSidebar',

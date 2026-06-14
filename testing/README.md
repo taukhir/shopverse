@@ -2,10 +2,10 @@
 
 This file contains executable commands for the repository scripts. Shopverse
 coverage and the three bounded verification modes are documented in
-[Testing strategy](../docs/development/TESTING.md). Reusable JUnit, Mockito,
+[Testing strategy](../documentation/docs/development/TESTING.md). Reusable JUnit, Mockito,
 Spring Test, controller/service/repository, Testcontainers, and E2E concepts
 are documented in
-[Spring Boot testing](../docs/spring/SPRING-BOOT-TESTING.md).
+[Spring Boot testing](../documentation/docs/spring/SPRING-BOOT-TESTING.md).
 
 Shopverse uses layered verification so a small code change does not require a
 full Docker rebuild. Each layer has a bounded purpose and timeout.

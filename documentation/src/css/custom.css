@@ -14,6 +14,8 @@
   --ifm-global-radius: 6px;
   --doc-border: #d7e1df;
   --doc-surface: #f7faf9;
+  --doc-accent-soft: #e6f3ef;
+  --doc-code-border: #cbd8d5;
 }
 
 [data-theme="dark"] {
@@ -26,6 +28,8 @@
   --ifm-color-primary-lightest: #97dece;
   --doc-border: #344743;
   --doc-surface: #18221f;
+  --doc-accent-soft: #203c35;
+  --doc-code-border: #344743;
 }
 
 .theme-doc-markdown {
@@ -53,6 +57,7 @@
   letter-spacing: 0;
   font-size: 2.25rem;
   margin-bottom: 1.25rem;
+  text-wrap: balance;
 }
 
 .theme-doc-markdown h2 {
@@ -67,8 +72,16 @@
   margin-top: 2rem;
 }
 
+.theme-doc-markdown a:not(.button):not([class*="topicCard"]) {
+  text-underline-offset: 0.16em;
+}
+
 .navbar__title {
   letter-spacing: 0;
+}
+
+.navbar__logo {
+  height: 30px;
 }
 
 code {
@@ -77,17 +90,25 @@ code {
 
 .theme-code-block,
 .admonition,
-.theme-doc-markdown .mermaid {
+.docusaurus-mermaid-container {
   border: 1px solid var(--doc-border);
   border-radius: var(--ifm-global-radius);
 }
 
-.theme-doc-markdown .mermaid {
+.theme-code-block {
+  box-shadow: none;
+}
+
+.docusaurus-mermaid-container {
   background: var(--doc-surface);
   margin: 1.5rem 0 2rem;
   overflow-x: auto;
   padding: 1.25rem;
   text-align: center;
+}
+
+.docusaurus-mermaid-container svg {
+  min-width: 620px;
 }
 
 .theme-doc-sidebar-menu {
@@ -102,6 +123,28 @@ code {
   border-radius: var(--ifm-global-radius);
 }
 
+.table-of-contents {
+  border-left-color: var(--doc-border);
+  font-size: 0.82rem;
+}
+
+.table-of-contents__link {
+  line-height: 1.45;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  background: var(--doc-accent-soft);
+  color: var(--ifm-color-primary-darkest);
+}
+
+[data-theme="dark"] .breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--ifm-color-primary-lightest);
+}
+
+.footer {
+  border-top: 1px solid #263b36;
+}
+
 @media (max-width: 996px) {
   .theme-doc-markdown h1 {
     font-size: 1.85rem;
@@ -114,5 +157,9 @@ code {
   .theme-doc-markdown table {
     display: block;
     overflow-x: auto;
+  }
+
+  .docusaurus-mermaid-container {
+    padding: 0.75rem;
   }
 }

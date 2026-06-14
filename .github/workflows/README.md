@@ -1,6 +1,6 @@
 # Shopverse GitHub Actions
 
-This is the canonical workflow operations guide. Test-layer design and target runtimes are documented in [Testing strategy](../../docs/development/TESTING.md).
+This is the canonical workflow operations guide. Test-layer design and target runtimes are documented in [Testing strategy](../../documentation/docs/development/TESTING.md).
 
 Shopverse uses GitHub Actions for affected-service CI, Docker image validation,
 optional deployment, and optional Jenkins handoff.
@@ -160,8 +160,12 @@ triage.
 
 `docs-site.yml` installs the pinned Node dependencies from
 `documentation/package-lock.json`, runs the Docusaurus build, uploads the
-generated static site, and deploys it to GitHub Pages. Changes under `docs/`,
-`documentation/`, or the workflow itself should trigger this validation.
+generated static site, and deploys it to GitHub Pages. Changes under
+`documentation/` or the workflow itself trigger this validation.
+
+The complete local setup, customization, image/diagram, search, troubleshooting,
+and deployment reference is
+[Docusaurus documentation portal](../../documentation/docs/operations/DOCUSAURUS.md).
 
 The local equivalent is:
 

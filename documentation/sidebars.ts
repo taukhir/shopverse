@@ -109,6 +109,7 @@ const sidebars: SidebarsConfig = {
         'operations/JENKINS',
         'operations/SHOPVERSE-JENKINS',
         'operations/GITHUB-ACTIONS',
+        'operations/DOCUSAURUS',
         'operations/SPRING-BOOT-ADMIN',
         'operations/OPERATIONS-CHEATSHEET',
       ],

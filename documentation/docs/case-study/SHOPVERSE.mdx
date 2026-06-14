@@ -1,26 +1,34 @@
 ---
 title: Shopverse Case Study
 sidebar_position: 1
+hide_table_of_contents: true
+hide_title: true
 ---
 
-# Shopverse Case Study
+import {
+  DocFigure,
+  ReadingGuide,
+  ShopverseHome,
+} from '@site/src/components/DocumentationLanding';
 
-Shopverse is the practical case study inside this backend engineering knowledge
-base. It demonstrates how Spring, databases, security, Kafka, distributed
-consistency, observability, testing, and delivery interact in one system.
+<ShopverseHome />
 
-## What The Case Study Demonstrates
+## Architecture At A Glance
 
-- independently owned microservice databases;
-- centralized configuration and service discovery;
-- API Gateway routing and edge security;
-- RSA-signed JWT access tokens and JWKS;
-- synchronous Feign communication;
-- asynchronous Kafka choreography;
-- SAGA compensation and transactional Outbox;
-- idempotent checkout and concurrency control;
-- JSON logging, correlation IDs, metrics, traces, dashboards, and alerts;
-- Docker, GitHub Actions, Jenkins, Testcontainers, and bounded verification.
+<DocFigure
+  src="/img/diagrams/shopverse-architecture-flow.svg"
+  alt="Shopverse microservices architecture showing gateway, services, Kafka, databases, security, and observability"
+  caption="The complete Shopverse runtime topology. Select the image to open the full-size diagram."
+/>
+
+<ReadingGuide>
+
+Read [System design](../architecture/SYSTEM-DESIGN.md) before individual
+services. It explains ownership boundaries, authentication, synchronous calls,
+Kafka choreography, persistence, observability, and deployment topology in one
+place.
+
+</ReadingGuide>
 
 ## Recommended Case-Study Order
 
@@ -35,6 +43,18 @@ consistency, observability, testing, and delivery interact in one system.
 | 7 | [Observability](../observability/OBSERVABILITY.md) | How are logs, metrics, and traces connected? |
 | 8 | [Testing strategy](../development/TESTING.md) | How is the ecosystem verified without unbounded resource use? |
 | 9 | [Problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md) | Which production-relevant defects were found and fixed? |
+
+## What The Case Study Demonstrates
+
+| Area | Implemented behavior |
+|---|---|
+| Platform | API Gateway, Config Server, Eureka discovery, load balancing, and Feign |
+| Security | RSA JWT signing, JWKS, roles, permissions, issuer/expiry validation, and ownership |
+| Commerce | idempotent checkout, persistent orders, inventory reservations, payment state, and timeline |
+| Consistency | local transactions, transactional outbox, Kafka choreography, compensation, and DLT replay |
+| Concurrency | optimistic locking, uniqueness constraints, reservation expiry, and bounded workers |
+| Observability | JSON logs, MDC correlation, Prometheus metrics, Grafana dashboards, Loki, and Zipkin |
+| Delivery | multi-stage Docker images, GitHub Actions, Jenkins, Testcontainers, and bounded verification |
 
 ## Theory Before Implementation
 

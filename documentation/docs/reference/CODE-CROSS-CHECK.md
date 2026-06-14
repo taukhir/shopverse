@@ -73,4 +73,5 @@ Docker, Testcontainers, or end-to-end verification was performed.
 - Kafka is described as at-least-once, not exactly-once.
 - compensation is a new transaction, not a distributed rollback.
 - correlation ID and trace ID are documented as different identifiers.
-- service READMEs contain local contracts; reusable explanations live under `docs/`.
+- service READMEs contain local contracts; reusable explanations live under
+  `documentation/docs/`.

@@ -57,12 +57,12 @@ docker compose up -d inventory-service
 
 ## Related Guides
 
-- [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
-- [SAGA code flow](../docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
-- [Shopverse transaction boundaries](../docs/reliability/TRANSACTIONS.md)
-- [Spring transactions](../docs/spring/SPRING-TRANSACTIONS.md)
-- [Apache Kafka](../docs/integration/APACHE-KAFKA.md)
-- [Spring Kafka](../docs/spring/SPRING-KAFKA.md)
-- [Distributed systems](../docs/architecture/DISTRIBUTED-SYSTEMS.md)
-- [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)
-- [Spring Resilience4j](../docs/spring/SPRING-RESILIENCE4J.md)
+- [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
+- [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
+- [Shopverse transaction boundaries](../documentation/docs/reliability/TRANSACTIONS.md)
+- [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)
+- [Apache Kafka](../documentation/docs/integration/APACHE-KAFKA.md)
+- [Spring Kafka](../documentation/docs/spring/SPRING-KAFKA.md)
+- [Distributed systems](../documentation/docs/architecture/DISTRIBUTED-SYSTEMS.md)
+- [Generic Resilience4j patterns](../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
+- [Spring Resilience4j](../documentation/docs/spring/SPRING-RESILIENCE4J.md)

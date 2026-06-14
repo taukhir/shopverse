@@ -1,10 +1,26 @@
 # Shopverse System Design
 
+import {DocFigure, ReadingGuide} from '@site/src/components/DocumentationLanding';
+
 Shopverse is an observable, failure-aware commerce microservices POC. It
 demonstrates secure and idempotent checkout across independently persisted
 services using synchronous discovery-based HTTP calls, asynchronous Kafka
 choreography, local transactions, transactional outbox, compensation, and
 operational recovery.
+
+<DocFigure
+  src="/img/diagrams/shopverse-architecture-flow.svg"
+  alt="Shopverse runtime architecture with API Gateway, Spring services, Kafka, service databases, configuration, discovery, security, and observability"
+  caption="High-level runtime architecture. The Mermaid diagrams below decompose each part of this topology."
+/>
+
+<ReadingGuide>
+
+Read this page from top to bottom for the complete platform model. For a faster
+walkthrough, focus on **Runtime Architecture**, **Successful Checkout SAGA**,
+**Failure And Compensation**, and **Observability Architecture**.
+
+</ReadingGuide>
 
 ## System Context
 
