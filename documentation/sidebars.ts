@@ -120,6 +120,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         'case-study/SHOPVERSE',
+        'case-study/COMPLETE-DEMO',
         'architecture/SYSTEM-DESIGN',
         'services/SERVICE-CATALOG',
         'reference/FEATURES-AND-DEMOS',

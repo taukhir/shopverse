@@ -343,8 +343,197 @@ An exception after flush can still roll back the transaction.
 | `@Convert` | attribute converter |
 
 Hibernate also provides provider-specific annotations such as `@BatchSize`,
-`@Fetch`, `@Formula`, `@CreationTimestamp`, and `@UpdateTimestamp`. Prefer
-standard JPA annotations when they satisfy the requirement.
+`@Fetch`, `@Formula`, `@CreationTimestamp`, `@UpdateTimestamp`,
+`@DynamicInsert`, and `@DynamicUpdate`. Prefer standard JPA annotations when
+they satisfy the requirement.
+
+## Dynamic Insert And Update SQL
+
+Hibernate normally prepares reusable SQL shapes containing all mapped writable
+columns. `@DynamicInsert` and `@DynamicUpdate` are Hibernate-specific
+optimizations that generate SQL from the values or dirty fields involved in a
+particular operation.
+
+### `@DynamicInsert`
+
+```java
+import org.hibernate.annotations.DynamicInsert;
+
+@Entity
+@DynamicInsert
+@Table(name = "products")
+public class ProductEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    private String description;
+
+    @Column(name = "status", nullable = false)
+    private String status;
+}
+```
+
+Without dynamic insert, Hibernate can generate one stable statement:
+
+```sql
+insert into products (description, name, status) values (?, ?, ?)
+```
+
+With `@DynamicInsert`, null properties that are eligible for omission can be
+left out:
+
+```sql
+insert into products (name) values (?)
+```
+
+This is useful when:
+
+- the table has database defaults that must run when a column is omitted;
+- an entity has many nullable columns and inserts populate only a small subset;
+- measurements show a meaningful benefit.
+
+It is not a general-purpose default. Dynamic SQL shapes reduce prepared
+statement reuse and increase SQL-generation and statement-cache variety.
+
+### `@DynamicUpdate`
+
+```java
+import org.hibernate.annotations.DynamicUpdate;
+
+@Entity
+@DynamicUpdate
+@Table(name = "products")
+public class ProductEntity {
+
+    @Id
+    private Long id;
+
+    private String name;
+
+    private BigDecimal price;
+
+    private String description;
+
+    @Version
+    private long version;
+}
+```
+
+When only `price` changes, a normal static update can include all writable
+columns:
+
+```sql
+update products
+set description = ?, name = ?, price = ?, version = ?
+where id = ? and version = ?
+```
+
+Dynamic update can generate:
+
+```sql
+update products
+set price = ?, version = ?
+where id = ? and version = ?
+```
+
+Potential benefits:
+
+- less data sent for wide tables;
+- fewer columns touched by database triggers;
+- reduced risk of unnecessary index maintenance for unchanged columns;
+- clearer SQL during diagnostics.
+
+Tradeoffs:
+
+- many possible SQL shapes reduce statement-plan and prepared-statement reuse;
+- Hibernate must build SQL based on dirty state;
+- it does not replace optimistic locking;
+- it does not make detached-object updates automatically safe;
+- the benefit is usually small for narrow entities.
+
+Hibernate dirty checking already determines whether a managed entity needs an
+update. `@DynamicUpdate` changes the columns in that update; it does not cause
+dirty checking.
+
+### `insertable` And `updatable`
+
+JPA's `@Column` flags are mapping rules, not dynamic SQL optimizations:
+
+```java
+@Column(
+        name = "created_at",
+        insertable = false,
+        updatable = false
+)
+private Instant createdAt;
+
+@Column(
+        name = "external_reference",
+        updatable = false
+)
+private String externalReference;
+```
+
+| Setting | Meaning |
+|---|---|
+| `insertable = false` | omit this mapped property from ORM-generated `INSERT` statements |
+| `updatable = false` | omit it from ORM-generated `UPDATE` statements |
+
+Common uses include:
+
+- database-generated timestamps;
+- computed or trigger-managed columns;
+- a read-only duplicate mapping of the same database column;
+- immutable business values that are written once.
+
+For a database default, omit the column during insert:
+
+```sql
+create table products (
+    id bigint primary key auto_increment,
+    name varchar(120) not null,
+    status varchar(30) not null default 'ACTIVE',
+    created_at timestamp not null default current_timestamp
+);
+```
+
+```java
+@Column(name = "status", insertable = false)
+private String status;
+
+@Column(
+        name = "created_at",
+        insertable = false,
+        updatable = false
+)
+private Instant createdAt;
+```
+
+After insertion, refresh the entity or use a provider-supported generated-value
+mapping if the application immediately needs the database-generated value.
+
+Do not use `updatable = false` as an authorization control. Java code can still
+change the in-memory field, bulk SQL can update the column, and other
+applications can modify it. Enforce true invariants through service rules,
+database permissions, constraints, and appropriate auditing.
+
+### Production Decision
+
+| Requirement | Recommended mapping |
+|---|---|
+| Stable SQL and effective statement reuse | default static insert/update |
+| Database default for selected null columns | `@DynamicInsert` or `insertable = false`, based on semantics |
+| Wide table with measured sparse updates | consider `@DynamicUpdate` |
+| Column must never be changed by ORM | `updatable = false` |
+| Database owns column generation | non-insertable/non-updatable or generated-value mapping |
+
+Measure generated SQL, database plan-cache behavior, trigger effects, and batch
+throughput before applying dynamic annotations broadly.
 
 ## `@Transient`
 
@@ -980,6 +1169,6 @@ query.
 ## Official References
 
 - [Hibernate ORM User Guide](https://docs.hibernate.org/orm/7.1/userguide/html_single/)
+- [Hibernate selective insert and update columns](https://docs.jboss.org/hibernate/orm/7.0/introduction/html_single/Hibernate_Introduction.html#dynamic-insert-update)
 - [Hibernate Session API](https://docs.hibernate.org/orm/7.1/javadocs/org/hibernate/Session.html)
 - [Spring Data JPA Auditing](https://docs.spring.io/spring-data/jpa/reference/auditing.html)
-

@@ -40,7 +40,8 @@ The Config Server centralizes runtime configuration, Eureka provides service dis
 - JUnit, Mockito, Spring test slices, Testcontainers, and bounded verification modes
 - Docker Compose, GitHub Actions, and Jenkins pipelines
 
-The exact implementation matrix and demo scenarios are in [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md).
+Run the POC with the [complete Shopverse demo](documentation/docs/case-study/COMPLETE-DEMO.mdx).
+The exact implementation matrix is in [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md).
 
 ## Services
 
@@ -136,6 +137,7 @@ npm start
 
 | Area | Guide |
 |---|---|
+| Complete demo | [End-to-end Shopverse runbook](documentation/docs/case-study/COMPLETE-DEMO.mdx) |
 | Architecture | [System design](documentation/docs/architecture/SYSTEM-DESIGN.md) |
 | Distributed systems | [Fundamentals](documentation/docs/architecture/DISTRIBUTED-SYSTEMS-GENERIC.md), [CAP and consistency](documentation/docs/architecture/DISTRIBUTED-CONSISTENCY-CAP.md), and [interview questions](documentation/docs/reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md) |
 | Features | [Features and demos](documentation/docs/reference/FEATURES-AND-DEMOS.md) |
