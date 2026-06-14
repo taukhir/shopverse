@@ -2,7 +2,7 @@
 
 Shopverse is an observable, failure-aware commerce microservices POC. It demonstrates secure, idempotent checkout across independently persisted Order, Inventory, and Payment services using Kafka choreography, transactional outbox, compensation, and end-to-end observability.
 
-![Shopverse architecture](assets/shopverse-architecture-flow.svg)
+![Shopverse architecture](documentation/static/img/diagrams/shopverse-architecture-flow.svg)
 
 ## Architecture
 
@@ -40,7 +40,7 @@ The Config Server centralizes runtime configuration, Eureka provides service dis
 - JUnit, Mockito, Spring test slices, Testcontainers, and bounded verification modes
 - Docker Compose, GitHub Actions, and Jenkins pipelines
 
-The exact implementation matrix and demo scenarios are in [Features and demonstrations](docs/reference/FEATURES-AND-DEMOS.md).
+The exact implementation matrix and demo scenarios are in [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md).
 
 ## Services
 
@@ -122,7 +122,7 @@ The request persists Order state and an outbox event in one transaction. Kafka t
 
 ## Documentation
 
-Start with the [documentation index](docs/README.md).
+Start with the [documentation index](documentation/docs/README.mdx).
 
 The same Markdown is rendered as a reusable backend engineering Docusaurus
 portal from `documentation/`, with Shopverse organized as a case study.
@@ -136,16 +136,16 @@ npm start
 
 | Area | Guide |
 |---|---|
-| Architecture | [System design](docs/architecture/SYSTEM-DESIGN.md) |
-| Distributed systems | [Fundamentals](docs/architecture/DISTRIBUTED-SYSTEMS-GENERIC.md), [CAP and consistency](docs/architecture/DISTRIBUTED-CONSISTENCY-CAP.md), and [interview questions](docs/reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md) |
-| Features | [Features and demos](docs/reference/FEATURES-AND-DEMOS.md) |
-| APIs | [Shopverse API guide](docs/development/API-GUIDE.md) and [REST design](docs/development/REST-API-GENERIC.md) |
-| Security | [JWT, OAuth2, and Spring Security](docs/security/JWT-OAUTH2-SPRING-SECURITY.md) |
-| Messaging | [Apache Kafka](docs/integration/APACHE-KAFKA.md), [Spring Kafka](docs/spring/SPRING-KAFKA.md), and [SAGA/outbox](docs/reliability/SAGA-OUTBOX.md) |
-| Observability | [Observability architecture](docs/observability/OBSERVABILITY.md) and [operations](docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md) |
-| Data | [Database engineering](docs/data/DATABASE-ENGINEERING.md), [Hibernate](docs/data/HIBERNATE.md), [Liquibase](docs/data/LIQUIBASE-GENERIC.md), [Spring transactions](docs/spring/SPRING-TRANSACTIONS.md), and [caching principles](docs/architecture/CACHING-GENERIC.md) |
-| Testing | [Shopverse testing](docs/development/TESTING.md) and [Spring Boot testing](docs/spring/SPRING-BOOT-TESTING.md) |
-| Troubleshooting | [Debugging guide](docs/development/DEBUGGING.md) |
+| Architecture | [System design](documentation/docs/architecture/SYSTEM-DESIGN.md) |
+| Distributed systems | [Fundamentals](documentation/docs/architecture/DISTRIBUTED-SYSTEMS-GENERIC.md), [CAP and consistency](documentation/docs/architecture/DISTRIBUTED-CONSISTENCY-CAP.md), and [interview questions](documentation/docs/reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md) |
+| Features | [Features and demos](documentation/docs/reference/FEATURES-AND-DEMOS.md) |
+| APIs | [Shopverse API guide](documentation/docs/development/API-GUIDE.md) and [REST design](documentation/docs/development/REST-API-GENERIC.md) |
+| Security | [JWT, OAuth2, and Spring Security](documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md) |
+| Messaging | [Apache Kafka](documentation/docs/integration/APACHE-KAFKA.md), [Spring Kafka](documentation/docs/spring/SPRING-KAFKA.md), and [SAGA/outbox](documentation/docs/reliability/SAGA-OUTBOX.md) |
+| Observability | [Observability architecture](documentation/docs/observability/OBSERVABILITY.md) and [operations](documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md) |
+| Data | [Database engineering](documentation/docs/data/DATABASE-ENGINEERING.md), [Hibernate](documentation/docs/data/HIBERNATE.md), [Liquibase](documentation/docs/data/LIQUIBASE-GENERIC.md), [Spring transactions](documentation/docs/spring/SPRING-TRANSACTIONS.md), and [caching principles](documentation/docs/architecture/CACHING-GENERIC.md) |
+| Testing | [Shopverse testing](documentation/docs/development/TESTING.md) and [Spring Boot testing](documentation/docs/spring/SPRING-BOOT-TESTING.md) |
+| Troubleshooting | [Debugging guide](documentation/docs/development/DEBUGGING.md) |
 
 Service-specific APIs and configuration remain in each service README. Operational guides remain beside their deployment files:
 

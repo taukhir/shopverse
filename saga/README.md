@@ -6,10 +6,10 @@ reliable event publication.
 
 Canonical documentation:
 
-- [Shopverse SAGA code flow](../docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
-- [SAGA and outbox architecture](../docs/reliability/SAGA-OUTBOX.md)
-- [Generic SAGA and outbox patterns](../docs/reliability/SAGA-GENERIC.md)
-- [Transactions](../docs/reliability/TRANSACTIONS.md)
+- [Shopverse SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
+- [SAGA and outbox architecture](../documentation/docs/reliability/SAGA-OUTBOX.md)
+- [Generic SAGA and outbox patterns](../documentation/docs/reliability/SAGA-GENERIC.md)
+- [Transactions](../documentation/docs/reliability/TRANSACTIONS.md)
 
 ## Success Flow
 
@@ -96,5 +96,5 @@ creation, and `X-Correlation-Id` links HTTP and Kafka logs.
 | topic/retry configuration | centralized `cloud-configs` and service config records |
 | shared event contracts | participating service event packages |
 
-See the [code-flow page](../docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md) for
+See the [code-flow page](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md) for
 annotated listener, outbox, transaction, retry, and DLT snippets.

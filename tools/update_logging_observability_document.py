@@ -8,7 +8,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
 
 
-OUTPUT = Path("docs/Shopverse_Centralized_Logging_And_Observability.docx")
+OUTPUT = Path("documentation/docs/Shopverse_Centralized_Logging_And_Observability.docx")
 
 NAVY = "17365D"
 BLUE = "2E74B5"
@@ -1358,15 +1358,15 @@ docker compose exec promtail cat /tmp/positions.yml
 
     doc.add_heading("20. Related Repository References", level=1)
     for item in [
-        "docs/observability/LOGGING-GENERIC.md",
-        "docs/observability/STRUCTURED-LOGGING.md",
-        "docs/observability/MDC-GENERIC.md",
-        "docs/observability/MDC-CORRELATION-TRACING.md",
-        "docs/observability/PROMTAIL.md",
-        "docs/observability/LOKI.md",
-        "docs/observability/PROMETHEUS.md",
-        "docs/observability/GRAFANA.md",
-        "docs/observability/OBSERVABILITY.md",
+        "documentation/docs/observability/LOGGING-GENERIC.md",
+        "documentation/docs/observability/STRUCTURED-LOGGING.md",
+        "documentation/docs/observability/MDC-GENERIC.md",
+        "documentation/docs/observability/MDC-CORRELATION-TRACING.md",
+        "documentation/docs/observability/PROMTAIL.md",
+        "documentation/docs/observability/LOKI.md",
+        "documentation/docs/observability/PROMETHEUS.md",
+        "documentation/docs/observability/GRAFANA.md",
+        "documentation/docs/observability/OBSERVABILITY.md",
         "observability/promtail.yml",
         "observability/prometheus.yml",
         "observability/loki.yml",

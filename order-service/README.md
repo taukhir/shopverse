@@ -80,12 +80,12 @@ docker compose up -d order-service
 
 ## Related Guides
 
-- [SAGA and outbox](../docs/reliability/SAGA-OUTBOX.md)
-- [SAGA code flow](../docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
-- [API guide](../docs/development/API-GUIDE.md)
-- [Transactions](../docs/reliability/TRANSACTIONS.md)
-- [Spring transactions](../docs/spring/SPRING-TRANSACTIONS.md)
-- [Spring Cloud OpenFeign](../docs/spring/SPRING-OPENFEIGN.md)
-- [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)
-- [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)
-- [Spring Resilience4j](../docs/spring/SPRING-RESILIENCE4J.md)
+- [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
+- [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
+- [API guide](../documentation/docs/development/API-GUIDE.md)
+- [Transactions](../documentation/docs/reliability/TRANSACTIONS.md)
+- [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)
+- [Spring Cloud OpenFeign](../documentation/docs/spring/SPRING-OPENFEIGN.md)
+- [MDC and tracing](../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
+- [Generic Resilience4j patterns](../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
+- [Spring Resilience4j](../documentation/docs/spring/SPRING-RESILIENCE4J.md)

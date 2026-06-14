@@ -71,11 +71,11 @@ docker compose up -d user-service
 
 ## Related Guides
 
-- [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Generic Spring Security](../docs/security/SPRING-SECURITY-GENERIC.md)
-- [Liquibase](../docs/data/LIQUIBASE-GENERIC.md)
-- [Shopverse Resilience4j](../docs/reliability/RESILIENCE4J.md)
-- [Generic Resilience4j patterns](../docs/reliability/RESILIENCE4J-GENERIC.md)
-- [Spring Resilience4j](../docs/spring/SPRING-RESILIENCE4J.md)
-- [Spring Boot testing](../docs/spring/SPRING-BOOT-TESTING.md)
-- [Shopverse testing strategy](../docs/development/TESTING.md)
+- [JWT and Spring Security](../documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Generic Spring Security](../documentation/docs/security/SPRING-SECURITY-GENERIC.md)
+- [Liquibase](../documentation/docs/data/LIQUIBASE-GENERIC.md)
+- [Shopverse Resilience4j](../documentation/docs/reliability/RESILIENCE4J.md)
+- [Generic Resilience4j patterns](../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
+- [Spring Resilience4j](../documentation/docs/spring/SPRING-RESILIENCE4J.md)
+- [Spring Boot testing](../documentation/docs/spring/SPRING-BOOT-TESTING.md)
+- [Shopverse testing strategy](../documentation/docs/development/TESTING.md)

@@ -1,6 +1,6 @@
 # Shopverse Cloud Configs
 
-This README is the reference for configuration-source files. System architecture and cross-cutting behavior are documented in [docs](../docs/README.md).
+This README is the reference for configuration-source files. System architecture and cross-cutting behavior are documented in [docs](../documentation/docs/README.mdx).
 
 This folder is the centralized configuration source for the Shopverse POC.
 

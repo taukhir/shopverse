@@ -7,9 +7,9 @@ Detailed explanations of the service Dockerfile, multi-stage builds, BuildKit
 cache isolation, non-root users, Compose configuration, MySQL bootstrap, and
 every major directive are maintained in:
 
-- [Shopverse Docker implementation](../docs/operations/SHOPVERSE-DOCKER.md)
-- [Generic Docker reference](../docs/operations/DOCKER.md)
-- [Production problems and solutions](../docs/reliability/PROBLEMS-AND-SOLUTIONS.md)
+- [Shopverse Docker implementation](../documentation/docs/operations/SHOPVERSE-DOCKER.md)
+- [Generic Docker reference](../documentation/docs/operations/DOCKER.md)
+- [Production problems and solutions](../documentation/docs/reliability/PROBLEMS-AND-SOLUTIONS.md)
 
 ## Prerequisites
 
@@ -157,5 +157,5 @@ All Spring Boot service images follow the same principles:
 - expose Actuator health checks;
 - write application files under `/app/logs`.
 
-See the [implementation page](../docs/operations/SHOPVERSE-DOCKER.md) for the
+See the [implementation page](../documentation/docs/operations/SHOPVERSE-DOCKER.md) for the
 annotated Dockerfile and Compose examples.

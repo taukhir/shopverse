@@ -1,6 +1,6 @@
 # Shopverse Config Server
 
-Cross-cutting architecture and service ownership are documented in the [Shopverse documentation index](../docs/README.md). This README remains focused on Config Server operation and refresh behavior.
+Cross-cutting architecture and service ownership are documented in the [Shopverse documentation index](../documentation/docs/README.mdx). This README remains focused on Config Server operation and refresh behavior.
 
 Config Server centralizes Shopverse runtime configuration. It loads service config from the root `cloud-configs/` folder and serves it to config clients at startup.
 

@@ -5,12 +5,10 @@ on:
     branches:
       - main
     paths:
-      - "docs/**"
       - "documentation/**"
       - ".github/workflows/docs-site.yml"
   pull_request:
     paths:
-      - "docs/**"
       - "documentation/**"
       - ".github/workflows/docs-site.yml"
   workflow_dispatch:

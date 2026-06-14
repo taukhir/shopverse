@@ -5,10 +5,10 @@ configuration used by the local Shopverse stack.
 
 Canonical documentation:
 
-- [Shopverse observability operations](../docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
-- [Observability architecture](../docs/observability/OBSERVABILITY.md)
-- [Structured logging](../docs/observability/STRUCTURED-LOGGING.md)
-- [MDC, correlation, and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)
+- [Shopverse observability operations](../documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
+- [Observability architecture](../documentation/docs/observability/OBSERVABILITY.md)
+- [Structured logging](../documentation/docs/observability/STRUCTURED-LOGGING.md)
+- [MDC, correlation, and tracing](../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
 
 ## Components
 
@@ -98,7 +98,7 @@ sum(rate(http_server_requests_seconds_count[5m])) by (application)
 
 The full query catalog, timer/counter explanation, cardinality guidance, and
 troubleshooting procedure are in the
-[operations page](../docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md).
+[operations page](../documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md).
 
 ## Configuration
 

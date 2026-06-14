@@ -36,10 +36,10 @@ The client uses the Eureka name `USER-SERVICE`. Spring Cloud LoadBalancer choose
 
 See:
 
-- [Spring Cloud OpenFeign](../docs/spring/SPRING-OPENFEIGN.md)
-- [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Generic Spring Security](../docs/security/SPRING-SECURITY-GENERIC.md)
-- [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)
+- [Spring Cloud OpenFeign](../documentation/docs/spring/SPRING-OPENFEIGN.md)
+- [JWT and Spring Security](../documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Generic Spring Security](../documentation/docs/security/SPRING-SECURITY-GENERIC.md)
+- [MDC and tracing](../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
 
 ## Configuration
 
@@ -76,6 +76,6 @@ Shopverse uses JWT bearer tokens and Resource Server validation. This service is
 
 ## Related Guides
 
-- [Spring Cloud OpenFeign](../docs/spring/SPRING-OPENFEIGN.md)
-- [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Shopverse observability operations](../docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
+- [Spring Cloud OpenFeign](../documentation/docs/spring/SPRING-OPENFEIGN.md)
+- [JWT and Spring Security](../documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Shopverse observability operations](../documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)

@@ -9,7 +9,7 @@ from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
 
 
-OUTPUT = Path("docs/reliability/Outbox-Database-Lock-and-Kafka-Solution.docx")
+OUTPUT = Path("documentation/docs/reliability/Outbox-Database-Lock-and-Kafka-Solution.docx")
 
 NAVY = "17365D"
 BLUE = "2E74B5"

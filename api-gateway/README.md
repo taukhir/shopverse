@@ -32,7 +32,7 @@ Gateway logging is reactive; completion logging occurs when the downstream publi
 For generic API Gateway concepts and the complete Shopverse request lifecycle,
 including `GatewayFilterChain`, `chain.filter(...)`, `doFinally(...)`,
 correlation handling, timing, metrics, and production practices, see
-[API Gateway](../docs/development/API-GATEWAY-GENERIC.md).
+[API Gateway](../documentation/docs/development/API-GATEWAY-GENERIC.md).
 
 ## Configuration
 
@@ -65,11 +65,11 @@ docker compose up -d api-gateway
 
 ## Related Guides
 
-- [System design](../docs/architecture/SYSTEM-DESIGN.md)
-- [Spring Boot internals](../docs/development/SPRING-BOOT-INTERNALS.md)
-- [API Gateway concepts and filter chain](../docs/development/API-GATEWAY-GENERIC.md)
-- [Service discovery](../docs/architecture/SERVICE-DISCOVERY.md)
-- [Load balancing](../docs/architecture/LOAD-BALANCING-GENERIC.md)
-- [JWT and Spring Security](../docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Generic Spring Security](../docs/security/SPRING-SECURITY-GENERIC.md)
-- [MDC and tracing](../docs/observability/MDC-CORRELATION-TRACING.md)
+- [System design](../documentation/docs/architecture/SYSTEM-DESIGN.md)
+- [Spring Boot internals](../documentation/docs/development/SPRING-BOOT-INTERNALS.md)
+- [API Gateway concepts and filter chain](../documentation/docs/development/API-GATEWAY-GENERIC.md)
+- [Service discovery](../documentation/docs/architecture/SERVICE-DISCOVERY.md)
+- [Load balancing](../documentation/docs/architecture/LOAD-BALANCING-GENERIC.md)
+- [JWT and Spring Security](../documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Generic Spring Security](../documentation/docs/security/SPRING-SECURITY-GENERIC.md)
+- [MDC and tracing](../documentation/docs/observability/MDC-CORRELATION-TRACING.md)

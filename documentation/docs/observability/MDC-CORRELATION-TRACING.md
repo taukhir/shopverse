@@ -1,5 +1,7 @@
 # MDC, Correlation IDs, And Tracing
 
+import {DocFigure} from '@site/src/components/DocumentationLanding';
+
 For a framework-generic explanation of MDC, `ThreadLocal` behavior,
 `MDC.putCloseable`, cleanup, asynchronous propagation, dependencies, and
 production practices, see [Mapped Diagnostic Context (MDC)](MDC-GENERIC.md).
@@ -284,6 +286,12 @@ is processed seconds later, retried, handled by another replica, or replayed
 from a DLT.
 
 ## Micrometer Trace Propagation
+
+<DocFigure
+  src="/img/diagrams/shopverse-zipkin-tracing-flow.svg"
+  alt="Shopverse distributed tracing flow through gateway, services, Feign, Micrometer tracing, and Zipkin"
+  caption="Trace and span propagation for synchronous calls, with correlation IDs retained across asynchronous business events."
+/>
 
 Spring Boot Actuator and Micrometer Observation auto-configure instrumentation for supported HTTP clients, servers, Kafka templates, and listeners. The active observation creates spans, injects tracing headers, and places `traceId` and `spanId` in the logging context. Zipkin export is configured through:
 

@@ -2,9 +2,9 @@
 
 For reusable concepts such as registration, leases, stale instances,
 client/server-side discovery, DNS, and Kubernetes discovery, see
-[Service discovery](../docs/architecture/SERVICE-DISCOVERY.md). For the
+[Service discovery](../documentation/docs/architecture/SERVICE-DISCOVERY.md). For the
 complete Shopverse topology, see
-[System design](../docs/architecture/SYSTEM-DESIGN.md). This README covers only
+[System design](../documentation/docs/architecture/SYSTEM-DESIGN.md). This README covers only
 Shopverse Discovery Server operation.
 
 Discovery Server is the Eureka registry for Shopverse services.
@@ -67,7 +67,7 @@ The pipeline checks out code, builds/tests the service, optionally builds and
 inspects the image, deploys it locally, and waits for Docker health.
 
 For generic Jenkins syntax, stages, `when`, `options`, credentials, and
-production practices, see [Jenkins](../docs/operations/JENKINS.md). For the
+production practices, see [Jenkins](../documentation/docs/operations/JENKINS.md). For the
 complete Shopverse Jenkins setup, see [jenkins/README.md](../jenkins/README.md).
 
 ## Observability

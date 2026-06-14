@@ -1,6 +1,9 @@
 # Config Repo Snippets
 
-These snippets are examples only. The active centralized configuration is under [`cloud-configs`](../../cloud-configs/README.md), and the canonical observability concepts are under [`docs/observability`](../../docs/README.md).
+These snippets are examples only. The active centralized configuration is under
+[`cloud-configs`](../../cloud-configs/README.md), and the canonical
+observability concepts are linked from the
+[documentation index](../../documentation/docs/README.mdx).
 
 These snippets show the shared observability properties that belong in centralized Spring Cloud Config.
 
