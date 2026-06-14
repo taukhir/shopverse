@@ -21,6 +21,23 @@ The service consumes `shopverse.order.created`, verifies stock, creates a reserv
 
 `InventoryItem` uses JPA `@Version`. Concurrent updates based on a stale version fail instead of silently overselling the last item. Reservation operations are transactional and use order number as the business key.
 
+Liquibase seeds products `101` through `106`, including available, low-stock,
+and unavailable examples:
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot inventory_service -e "
+    SELECT product_id, product_name, available_quantity,
+           reserved_quantity, version
+    FROM inventory_items ORDER BY product_id;
+  "
+'
+```
+
+The `version` value increments on successful versioned updates. Concurrent
+transactions using an older value are rejected and must restart the complete
+idempotent reservation operation with freshly loaded state.
+
 ## Kafka Recovery
 
 Listeners use `@RetryableTopic(attempts = "3")`. An unresolved event reaches `@DltHandler`, is persisted once with retry/replay audit, and can be replayed through the admin API.

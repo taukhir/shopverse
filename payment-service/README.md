@@ -33,6 +33,19 @@ The service consumes `inventory.reserved`, persists the payment and an outgoing 
 
 Customer payment lookup compares the authenticated JWT subject with the payment owner. Administrators retain cross-customer access.
 
+Liquibase includes matching historical payment examples for
+`DEMO-ORD-1001` (`CAPTURED`) and `DEMO-ORD-1002` (`DECLINED`):
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot payment_service -e "
+    SELECT order_number, customer_username, status, amount,
+           payment_reference, failure_reason
+    FROM payments ORDER BY created_at DESC;
+  "
+'
+```
+
 ## Configuration
 
 `cloud-configs/PAYMENT-SERVICE.yml` defines datasource, JWT, approval limit, cache, RateLimiter, and Bulkhead.

@@ -38,6 +38,23 @@ Liquibase creates users, roles, permissions, join tables, refresh-token/audit su
 
 `DatabaseUserDetailsService` adapts the User repository model to Spring Security's `UserDetailsService` contract. BCrypt compares the supplied password with the stored hash.
 
+Local Liquibase data includes `admin`, `customer1`, and `customer2`. Credentials
+are listed in the root `demo-credentials.local.md`, which is ignored by Git.
+Customer passwords are stored as delegated BCrypt hashes. All seeded accounts
+remain local POC identities and must not be reused in a deployed environment.
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot user_service -e "
+    SELECT u.username, u.status, r.role_name
+    FROM users u
+    LEFT JOIN user_roles ur ON ur.user_id = u.id
+    LEFT JOIN roles r ON r.id = ur.role_id
+    ORDER BY u.username;
+  "
+'
+```
+
 ## Caching And Resilience
 
 Role and permission lookups use `ConcurrentMapCacheManager`. This is a local cache, not Redis. Mutations evict the related caches.
