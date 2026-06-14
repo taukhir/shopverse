@@ -41,6 +41,22 @@ Order, items, initial timeline event, and outgoing outbox event commit in one tr
 
 The outbox publisher sends `order.created`. Listeners consume inventory and payment outcomes and append timeline stages.
 
+Liquibase also inserts three historical demonstration orders:
+`DEMO-ORD-1001` (confirmed), `DEMO-ORD-1002` (payment failed), and
+`DEMO-ORD-1003` (inventory rejected). They support immediate API and SQL
+exploration but do not publish Kafka events during migration.
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot order_service -e "
+    SELECT order_number, customer_username, status, correlation_id
+    FROM orders ORDER BY created_at DESC;
+    SELECT order_number, stage, detail, occurred_at
+    FROM order_timeline_events ORDER BY order_number, occurred_at;
+  "
+'
+```
+
 ## Communication
 
 - synchronous: Feign catalog lookup to `INVENTORY-SERVICE`, protected by Retry and CircuitBreaker;

@@ -1213,6 +1213,41 @@ This preserves database pagination while avoiding one child query per parent.
 
 Do not solve N+1 by enabling `EAGER` everywhere.
 
+### Which N+1 Solution Should You Use?
+
+Choose the fetch plan for one use case rather than changing the entity mapping
+globally:
+
+| Situation | Best approach | Reason |
+|---|---|---|
+| Login: one user with roles and permissions | `@EntityGraph` or `JOIN FETCH` | load the complete authentication graph in one bounded operation |
+| Need exact join type or query predicate | JPQL `JOIN FETCH` | query controls inner/left join and filtering explicitly |
+| Loading many users and later reading roles | batch fetching | groups lazy collection loads without creating one huge join |
+| Large list or reporting API | DTO projection | selects only fields required by the response |
+| Huge or multiple nested collections | separate bounded queries | avoids cartesian multiplication and excessive managed entities |
+| Pagination with collections | page IDs plus DTO/batch fetch | collection fetch joins distort parent pagination |
+| Simple CRUD that does not use associations | keep relationships lazy | avoids paying for data that the operation never reads |
+
+Shopverse User Service demonstrates a bounded authentication fetch:
+
+```java
+@EntityGraph(attributePaths = {"roles", "roles.permissions"})
+Optional<User> findByUsername(String username);
+```
+
+This is appropriate because login loads exactly one User and immediately needs
+all authorities. Applying the same graph to a page containing thousands of
+users would produce much more duplicated SQL data and memory pressure.
+
+Use this decision sequence:
+
+1. identify the exact response or business operation;
+2. decide whether entities will be modified or only displayed;
+3. count expected parents and children;
+4. preserve database pagination;
+5. select the smallest fetch plan that meets the requirement;
+6. verify query count and result size with realistic data.
+
 ## JDBC Batching
 
 Batching groups similar insert or update statements into fewer network
@@ -1302,17 +1337,130 @@ or database-write prohibition.
 private long version;
 ```
 
+Optimistic locking assumes collisions are uncommon. It does not lock the row
+when it is read. Instead, each transaction remembers the version it loaded and
+proves during update that the row still has that version.
+
+Shopverse Inventory uses this mapping:
+
+```java
+@Entity
+class InventoryItem {
+
+    @Id
+    private Long id;
+
+    private int availableQuantity;
+
+    private int reservedQuantity;
+
+    @Version
+    private long version;
+}
+```
+
+Assume product `101` starts as:
+
+| Field | Value |
+|---|---:|
+| `available_quantity` | 1 |
+| `reserved_quantity` | 0 |
+| `version` | 7 |
+
+Two checkout consumers read the same row:
+
+```mermaid
+sequenceDiagram
+    participant A as Transaction A
+    participant DB as inventory_items
+    participant B as Transaction B
+
+    A->>DB: SELECT product 101
+    DB-->>A: available=1, version=7
+    B->>DB: SELECT product 101
+    DB-->>B: available=1, version=7
+    A->>DB: UPDATE ... WHERE id=101 AND version=7
+    DB-->>A: 1 row updated; version becomes 8
+    B->>DB: UPDATE ... WHERE id=101 AND version=7
+    DB-->>B: 0 rows updated
+    B->>B: optimistic-locking exception
+```
+
 Generated update:
 
 ```sql
+-- simplified conceptual shape
 update inventory_items
-set available_quantity = ?, version = version + 1
+set available_quantity = ?,
+    reserved_quantity = ?,
+    version = version + 1
 where id = ? and version = ?;
 ```
 
-If no row matches, another transaction changed the version. Hibernate raises
-an optimistic-locking exception. Retry only the complete idempotent operation
-with freshly loaded state.
+Depending on the Hibernate version and dialect, the new version may instead be
+calculated in Java and bound as `version = ?`. The concurrency guarantee comes
+from the old version in the `WHERE` clause and the affected-row count.
+
+The first transaction updates one row and changes version `7` to `8`. The
+second transaction still asks for version `7`, so the database updates zero
+rows. Hibernate interprets that zero-row result as stale state and raises an
+optimistic-locking exception, commonly exposed as:
+
+- `OptimisticLockException`;
+- `StaleObjectStateException`;
+- Spring's translated `ObjectOptimisticLockingFailureException`.
+
+The failed transaction must roll back. It must not continue using its stale
+entity.
+
+For Shopverse, a safe retry means:
+
+1. start a new transaction;
+2. reload the Inventory item and its current version;
+3. re-check available stock;
+4. check the Order/reservation idempotency key;
+5. execute the complete reservation operation again;
+6. commit only one reservation and one corresponding outbox event.
+
+Do not retry only `repository.save(staleEntity)`. That can repeat stale
+decisions. Retry the complete idempotent business operation with bounded
+attempts and backoff.
+
+Optimistic locking prevents a lost update:
+
+```text
+without @Version:
+Transaction A writes 0 available
+Transaction B writes 0 available using stale state
+both may believe they purchased the last item
+
+with @Version:
+one update succeeds
+the stale update is rejected
+the loser reloads and observes insufficient stock
+```
+
+It does not prevent:
+
+- duplicate API requests by itself;
+- duplicate Kafka event processing;
+- conflicts across rows that do not share a version;
+- overselling caused by code that bypasses the versioned entity;
+- unbounded retry storms under high contention.
+
+Shopverse combines `@Version` with unique Order/reservation business keys,
+idempotent checkout, transactional boundaries, and database constraints.
+
+Use optimistic locking when:
+
+- contention is expected to be low or moderate;
+- reads should not block other transactions;
+- the operation can be retried safely;
+- rejecting stale decisions is more important than waiting for a lock.
+
+Prefer an atomic conditional update or carefully bounded pessimistic lock when
+contention is consistently high and repeated optimistic retries would waste
+resources.
 
 ### Pessimistic Locking
 

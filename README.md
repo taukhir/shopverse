@@ -98,6 +98,43 @@ Key interfaces:
 
 Docker configuration and command explanations are in [docker/README.md](docker/README.md).
 
+## MySQL Demo Data
+
+Compose exposes MySQL on host port `3307`; containers use `mysql:3306`.
+Shopverse maintains separate schemas:
+
+| Schema | Owner |
+|---|---|
+| `user_service` | users, roles, permissions, authentication support |
+| `order_service` | orders, line items, timeline, outbox, DLT recovery |
+| `inventory_service` | catalog, stock, reservations, outbox, DLT recovery |
+| `payment_service` | payments, outbox, DLT recovery |
+
+Liquibase seeds:
+
+- `admin`, `customer1`, and `customer2`;
+- catalog products `101` through `106`;
+- confirmed, payment-failed, and inventory-rejected historical orders;
+- matching payment examples for the successful and declined orders.
+
+Local account passwords are in the Git-ignored
+`demo-credentials.local.md`. Customer passwords are stored as delegated BCrypt
+hashes. Production credentials still belong in managed secret and identity
+systems rather than repository documentation.
+
+Inspect all schemas:
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SHOW DATABASES LIKE \"%_service\";
+  "
+'
+```
+
+The [complete Shopverse demo](documentation/docs/case-study/COMPLETE-DEMO.mdx)
+contains SAGA, timeline, outbox, inventory, payment, and correlation queries.
+
 ## Checkout Example
 
 First obtain a token from `POST /auth/login`, then call:

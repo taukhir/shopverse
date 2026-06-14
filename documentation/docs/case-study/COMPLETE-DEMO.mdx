@@ -140,15 +140,18 @@ Client -> Gateway -> Order Service -> Feign -> Inventory Service
 
 ## 4. Authenticate As The Demo Administrator
 
-Shopverse seeds this local demonstration account through Liquibase:
+Shopverse seeds three local demonstration accounts through Liquibase:
 
-```text
-username: admin
-password: Admin@123
-```
+| Purpose | Username | Role |
+|---|---|---|
+| administration and recovery APIs | `admin` | `ROLE_ADMIN` |
+| customer ownership demos | `customer1` | `ROLE_CUSTOMER` |
+| cross-customer denial demos | `customer2` | `ROLE_CUSTOMER` |
 
-The stored database value is an encoded or delegated password representation.
-Do not send the stored hash as the login password.
+Passwords are maintained in the ignored root file
+`demo-credentials.local.md`. The current local administrator password remains
+`Admin@123`. The stored database value is an encoded or delegated password
+representation; do not send that stored value as the login password.
 
 ```powershell
 $loginBody = @{
@@ -198,6 +201,22 @@ Invoke-RestMethod "$gateway/auth/.well-known/jwks.json" |
 Resource services use this JWKS document to verify the signature. They also
 validate standard JWT constraints, including expiry and issuer
 `shopverse-auth-service`.
+
+### Verify Seeded Users And Roles
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot user_service -e "
+    SELECT u.id, u.username, u.email, u.status, r.role_name
+    FROM users u
+    LEFT JOIN user_roles ur ON ur.user_id = u.id
+    LEFT JOIN roles r ON r.id = ur.role_id
+    ORDER BY u.id, r.role_name;
+  "
+'
+```
+
+Expected users include `admin`, `customer1`, and `customer2`.
 
 ## 5. Create An Idempotent Checkout
 
@@ -346,11 +365,114 @@ docker compose exec mysql sh -lc '
   MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
     SELECT id, order_number, customer_username, status, correlation_id, idempotency_key
     FROM order_service.orders ORDER BY id DESC LIMIT 5;
-    SELECT order_id, stage, detail, occurred_at
+    SELECT order_number, stage, detail, occurred_at
     FROM order_service.order_timeline_events ORDER BY id DESC LIMIT 10;
   "
 '
 ```
+
+### Query One Complete SAGA In MySQL
+
+Use the Order number captured during checkout:
+
+```powershell
+docker compose exec mysql sh -lc "
+  MYSQL_PWD=\"\$MYSQL_ROOT_PASSWORD\" mysql -uroot -e \"
+    SELECT o.id, o.order_number, o.customer_username, o.status,
+           o.total_amount, o.correlation_id, o.payment_reference,
+           i.product_id, i.product_name, i.quantity, i.unit_price
+    FROM order_service.orders o
+    JOIN order_service.order_items i ON i.order_id = o.id
+    WHERE o.order_number = '$orderNumber';
+
+    SELECT stage, detail, occurred_at
+    FROM order_service.order_timeline_events
+    WHERE order_number = '$orderNumber'
+    ORDER BY occurred_at;
+
+    SELECT order_number, customer_username, status, amount,
+           payment_reference, failure_reason
+    FROM payment_service.payments
+    WHERE order_number = '$orderNumber';
+
+    SELECT order_number, product_id, quantity, status, expires_at
+    FROM inventory_service.inventory_reservations
+    WHERE order_number = '$orderNumber';
+  \"
+"
+```
+
+Application services never perform this cross-schema query. It is an
+operations/demo command that correlates independently owned service records by
+`order_number`.
+
+### Query By Correlation ID
+
+```powershell
+docker compose exec mysql sh -lc "
+  MYSQL_PWD=\"\$MYSQL_ROOT_PASSWORD\" mysql -uroot -e \"
+    SELECT order_number, status, correlation_id
+    FROM order_service.orders
+    WHERE correlation_id = '$correlationId';
+
+    SELECT order_number, stage, detail, occurred_at
+    FROM order_service.order_timeline_events
+    WHERE correlation_id = '$correlationId'
+    ORDER BY occurred_at;
+
+    SELECT aggregate_type, aggregate_id, event_type, topic,
+           status, publish_attempts, last_error
+    FROM order_service.outbox_events
+    WHERE correlation_id = '$correlationId';
+  \"
+"
+```
+
+### Inspect Seeded Historical Scenarios
+
+The seed data gives immediate examples before a live checkout is triggered:
+
+| Order | Owner | Final state | Scenario |
+|---|---|---|---|
+| `DEMO-ORD-1001` | `customer1` | `CONFIRMED` | successful payment |
+| `DEMO-ORD-1002` | `customer1` | `PAYMENT_FAILED` | declined payment |
+| `DEMO-ORD-1003` | `customer2` | `INVENTORY_REJECTED` | unavailable stock |
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SELECT o.order_number, o.customer_username, o.status, o.total_amount,
+           GROUP_CONCAT(CONCAT(i.product_name, \" x\", i.quantity)
+                        ORDER BY i.id SEPARATOR \", \") AS items
+    FROM order_service.orders o
+    JOIN order_service.order_items i ON i.order_id = o.id
+    WHERE o.order_number LIKE \"DEMO-ORD-%\"
+    GROUP BY o.id, o.order_number, o.customer_username, o.status, o.total_amount
+    ORDER BY o.order_number;
+  "
+'
+```
+
+These rows are historical examples only. They do not create Kafka or outbox
+events during migration. Use `POST /api/v1/orders/checkout` to demonstrate the
+live choreography SAGA.
+
+### Inspect Inventory And Lock Versions
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot inventory_service -e "
+    SELECT product_id, product_name, unit_price, available_quantity,
+           reserved_quantity, version
+    FROM inventory_items
+    ORDER BY product_id;
+  "
+'
+```
+
+The `version` column is Hibernate's optimistic-lock token. A successful
+reservation changes quantities and increments this value. A stale concurrent
+update whose old version no longer matches affects zero rows and is rejected.
 
 ## 9. Demonstrate Payment Failure And Recovery
 

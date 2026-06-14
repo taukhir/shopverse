@@ -1,5 +1,6 @@
 **/logs/
 .env
+demo-credentials.local.md
 .idea/
 *.iml
 **/build/
