@@ -39,6 +39,40 @@ Current validation allows one item.
 
 Order, items, initial timeline event, and outgoing outbox event commit in one transaction. Reusing an idempotency key returns the existing order. A database unique constraint protects concurrent duplicates.
 
+## Queryable SAGA Timeline
+
+Order Service stores important checkout transitions in
+`order_timeline_events`. This is the durable business history for an order,
+separate from logs and traces. It records stages such as `ORDER_CREATED`,
+`INVENTORY_RESERVED`, `PAYMENT_PROCESSING`, `PAYMENT_COMPLETED`,
+`ORDER_CONFIRMED`, `INVENTORY_REJECTED`, and `PAYMENT_FAILED`.
+
+Read it through:
+
+```http
+GET /api/v1/orders/{id}/timeline
+Authorization: Bearer <token>
+```
+
+The endpoint is owner-or-admin protected. Use the returned `correlationId` to
+find related Loki logs and Zipkin traces.
+
+The authorization rule, Spring method-security flow, repository ownership
+query, `401`/`403` behavior, and tests are documented in
+[Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md).
+
+## Idempotency And Kafka Keys
+
+Checkout uses a caller-provided `Idempotency-Key` because the order ID and
+order number do not exist before the first checkout request is saved. If the
+client times out after Order Service commits, the client can retry with the
+same key and receive the existing order instead of creating another one.
+
+After the order exists, SAGA events use `orderNumber` as the Kafka message key.
+That key keeps events for the same order on the same Kafka partition for
+per-order ordering. It does not deduplicate records by itself; downstream
+services still need idempotent business handling.
+
 The outbox publisher sends `order.created`. Listeners consume inventory and payment outcomes and append timeline stages.
 
 Liquibase also inserts three historical demonstration orders:
@@ -97,8 +131,11 @@ docker compose up -d order-service
 ## Related Guides
 
 - [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
+- [Transactional outbox pattern](../documentation/docs/reliability/OUTBOX-PATTERN.md)
+- [Inbox pattern](../documentation/docs/reliability/INBOX-PATTERN.md)
 - [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
 - [API guide](../documentation/docs/development/API-GUIDE.md)
+- [Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
 - [Transactions](../documentation/docs/reliability/TRANSACTIONS.md)
 - [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)
 - [Spring Cloud OpenFeign](../documentation/docs/spring/SPRING-OPENFEIGN.md)

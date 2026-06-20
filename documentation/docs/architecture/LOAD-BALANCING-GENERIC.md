@@ -1,3 +1,7 @@
+---
+title: Load Balancing
+---
+
 # Load Balancing
 
 Load balancing distributes work across multiple service instances so one

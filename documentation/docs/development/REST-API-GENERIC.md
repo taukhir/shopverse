@@ -1,5 +1,13 @@
 # REST API Design
 
+Read this page if you want to understand:
+
+- resource naming conventions and versioning;
+- safe and idempotent HTTP methods;
+- status-code selection;
+- pagination, filtering, sorting, and validation;
+- API consistency rules that apply before Spring-specific implementation.
+
 REST APIs expose resources through stable HTTP contracts. A good contract is
 predictable for clients, independent of database entities, secure by default,
 and observable when requests fail.
@@ -79,15 +87,15 @@ safe secret handling.
 
 Choose methods according to their defined meaning:
 
-| Method | Intended use | Safe | Idempotent |
-|---|---|---:|---:|
-| `GET` | Read a representation | Yes | Yes |
-| `HEAD` | Read headers without a body | Yes | Yes |
-| `OPTIONS` | Discover communication options | Yes | Yes |
-| `POST` | Create a resource or submit a command | No | No, by default |
-| `PUT` | Replace a resource at a known URI | No | Yes |
-| `PATCH` | Apply a partial change | No | Depends on the patch |
-| `DELETE` | Remove a resource | No | Yes |
+| Method | Intended use | Safe | Idempotent | Typical response |
+|---|---|---:|---:|---|
+| `GET` | Read a representation | Yes | Yes | `200`, `304`, `404` |
+| `HEAD` | Read headers without a body | Yes | Yes | `200`, `304`, `404` |
+| `OPTIONS` | Discover communication options | Yes | Yes | `204`, `200` |
+| `POST` | Create a resource or submit a command | No | No, by default | `201`, `202`, `200`, `409` |
+| `PUT` | Replace a resource at a known URI | No | Yes | `200`, `204`, `404` |
+| `PATCH` | Apply a partial change | No | Depends on the patch | `200`, `204`, `409` |
+| `DELETE` | Remove a resource | No | Yes | `204`, `404` |
 
 A **safe** method is read-only from the client's perspective. Logging and
 metrics may occur, but a `GET` request must not create an order, charge a
@@ -96,6 +104,11 @@ payment, or change inventory.
 An **idempotent** method can be repeated with the same intended server-side
 effect. The response may differ; for example, a repeated `DELETE` can return
 `404` after the resource has already been removed.
+
+Safe methods are automatically idempotent because they should not change
+business state. Idempotent does not mean read-only; `PUT` and `DELETE` can
+change state, but repeating the same request should not create additional
+side effects.
 
 ### 5. Design Idempotency For Retried Commands
 
@@ -128,6 +141,10 @@ Use status codes to describe the protocol-level result:
 | Resource created | `201 Created` |
 | Asynchronous work accepted | `202 Accepted` |
 | Successful request without a body | `204 No Content` |
+| Cached representation still valid | `304 Not Modified` |
+| Resource permanently moved | `301 Moved Permanently` |
+| Temporary redirect that may change back | `302 Found` or `307 Temporary Redirect` |
+| Permanent redirect preserving method | `308 Permanent Redirect` |
 | Malformed request | `400 Bad Request` |
 | Missing or invalid authentication | `401 Unauthorized` |
 | Authenticated but not permitted | `403 Forbidden` |
@@ -140,6 +157,10 @@ Use status codes to describe the protocol-level result:
 
 Do not return `200 OK` with an error payload. Include `Location` with
 `201 Created` or `202 Accepted` when clients can follow a resource or operation.
+
+Use 3xx responses deliberately. Redirects are useful for canonical URLs,
+resource moves, download links, and cache validation, but API clients must know
+whether the HTTP method may change during redirect handling.
 
 ### 7. Keep APIs Stateless
 
@@ -266,6 +287,70 @@ Safe means the request should not change business state. Idempotent means
 repeating the same request has the same intended effect, although response
 metadata can differ.
 
+### Safe Methods
+
+HTTP safe methods are:
+
+| Method | Why it is safe |
+|---|---|
+| `GET` | retrieves a representation |
+| `HEAD` | retrieves headers only |
+| `OPTIONS` | asks which methods/options are supported |
+| `TRACE` | diagnostic echo; usually disabled in production |
+
+Safe means the client did not ask for a state change. The server may still
+write access logs, metrics, audit reads, or cache entries. It must not perform
+business changes such as:
+
+- creating an order;
+- charging a payment;
+- reducing inventory;
+- changing user status;
+- sending an email as the main operation.
+
+### Idempotent Methods
+
+HTTP idempotent methods are:
+
+| Method | Why it is idempotent |
+|---|---|
+| `GET` | repeated reads have the same intended effect |
+| `HEAD` | repeated metadata reads have the same intended effect |
+| `OPTIONS` | repeated capability checks have the same intended effect |
+| `PUT` | repeatedly replacing the resource with the same representation has the same final state |
+| `DELETE` | repeatedly deleting the same resource leaves it deleted |
+
+`POST` is not idempotent by default:
+
+```http
+POST /api/v1/orders
+```
+
+If repeated, it can create multiple orders. For business commands that may be
+retried, use a durable idempotency key:
+
+```http
+POST /api/v1/orders/checkout
+Idempotency-Key: checkout-user-42-cart-9001
+```
+
+`PATCH` depends on the patch document. This can be idempotent:
+
+```http
+PATCH /api/v1/users/42
+Content-Type: application/merge-patch+json
+
+{ "displayName": "Ahmed" }
+```
+
+This may not be idempotent:
+
+```http
+PATCH /api/v1/accounts/42
+
+{ "operation": "incrementBalance", "amount": 100 }
+```
+
 `POST` operations that create orders, payments, or other irreversible effects
 should support an idempotency key:
 
@@ -285,6 +370,12 @@ in-memory existence check alone does not prevent concurrent duplicates.
 | `201 Created` | Resource created; include `Location` when practical |
 | `202 Accepted` | Asynchronous work accepted but not completed |
 | `204 No Content` | Successful operation without a response body |
+| `301 Moved Permanently` | Resource has a permanent new URI; clients may update stored links |
+| `302 Found` | Temporary redirect; historically clients may change method to `GET` |
+| `303 See Other` | Redirect client to retrieve another resource with `GET`, often after `POST` |
+| `304 Not Modified` | Cached representation is still valid; response has no body |
+| `307 Temporary Redirect` | Temporary redirect preserving original method and body |
+| `308 Permanent Redirect` | Permanent redirect preserving original method and body |
 | `400 Bad Request` | Malformed request or invalid syntax |
 | `401 Unauthorized` | Authentication is missing or invalid |
 | `403 Forbidden` | Identity is valid but lacks access |
@@ -297,6 +388,44 @@ in-memory existence check alone does not prevent concurrent duplicates.
 
 Do not return `200` with an error object. The HTTP status must describe the
 result so clients, gateways, and monitoring systems can interpret it.
+
+### Important 3xx Status Codes
+
+3xx responses tell the client that another action is needed, usually using a
+`Location` header.
+
+| Code | Meaning | API guidance |
+|---|---|---|
+| `301 Moved Permanently` | Resource URI changed permanently | Useful for canonical URLs; be careful because clients may cache it |
+| `302 Found` | Temporary redirect | Common in browsers; API clients may change method to `GET` |
+| `303 See Other` | See another resource using `GET` | Useful after `POST` when client should fetch operation/result resource |
+| `304 Not Modified` | Cached copy is still valid | Used with `ETag` or `Last-Modified`; no response body |
+| `307 Temporary Redirect` | Temporary redirect, method preserved | Safer than `302` for APIs when method/body must not change |
+| `308 Permanent Redirect` | Permanent redirect, method preserved | Safer than `301` for APIs when method/body must not change |
+
+Examples:
+
+```http
+HTTP/1.1 303 See Other
+Location: /api/v1/orders/ORD-1001
+```
+
+Use this when a command was accepted or completed and the client should fetch
+the resulting resource with `GET`.
+
+```http
+GET /api/v1/products/101
+If-None-Match: "v7"
+
+HTTP/1.1 304 Not Modified
+ETag: "v7"
+```
+
+Use this for cache validation. The client keeps using its cached
+representation.
+
+For APIs, prefer `307`/`308` over `302`/`301` when the original method and body
+must be preserved.
 
 ## Requests, Responses, And DTOs
 

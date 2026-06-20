@@ -1,4 +1,8 @@
-# SAGA And Transactional Outbox Patterns
+---
+title: SAGA Pattern
+---
+
+# SAGA Pattern
 
 A SAGA coordinates one business operation across services that own separate
 databases. Instead of one distributed ACID transaction, each participant
@@ -191,7 +195,10 @@ concurrency. Strong idempotency should be enforced by durable storage.
 
 ## Transactional Outbox Pattern
 
-The transactional outbox solves the dual-write problem.
+The transactional outbox solves the dual-write problem. For a focused
+problem/solution and implementation guide, see
+[Transactional outbox pattern](OUTBOX-PATTERN.md). For the consumer-side
+deduplication partner, see [Inbox pattern](INBOX-PATTERN.md).
 
 ## The Dual-Write Failure
 

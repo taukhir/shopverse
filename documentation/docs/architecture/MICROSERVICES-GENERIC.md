@@ -1,9 +1,9 @@
 ---
-title: Microservice Architecture
+title: Microservices Fundamentals
 sidebar_position: 1
 ---
 
-# Microservice Architecture
+# Microservices Fundamentals
 
 Microservices organize a system around independently owned business
 capabilities. They exchange simpler contracts while keeping implementation and

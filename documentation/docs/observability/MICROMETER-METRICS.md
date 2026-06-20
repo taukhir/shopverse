@@ -2,6 +2,14 @@
 
 Micrometer is the metrics instrumentation facade used by Spring Boot. Application code records measurements through Micrometer APIs without coupling business code directly to Prometheus.
 
+Read this page if you want to understand:
+
+- what `MeterRegistry` does;
+- when to use counters, timers, gauges, and summaries;
+- how Spring Boot exposes metrics through `/actuator/prometheus`;
+- how Prometheus scrapes metrics and Grafana visualizes them;
+- how Shopverse records request, outbox, inventory, and gateway metrics.
+
 `MeterRegistry` is Micrometer's main entry point for creating, finding, and managing meters such as:
 
 - counters;

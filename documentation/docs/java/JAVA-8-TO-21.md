@@ -5,6 +5,13 @@ sidebar_position: 4
 
 # Important Java Features From 8 To 21
 
+:::info
+This page is kept as a compact legacy overview. The expanded notes now live in
+the [Java 8 To 21 feature section](features-8-to-21/JAVA-8-TO-21.md), with
+dedicated pages for Optional, `var`, switch, records, sealed classes, and
+virtual threads.
+:::
+
 This page focuses on production-relevant language and runtime features rather
 than listing every JEP.
 
@@ -221,4 +228,3 @@ Only by explicitly permitted types, subject to Java's module/package rules.
 - benchmark virtual-thread workloads with real pools and dependencies;
 - keep switch expressions exhaustive;
 - avoid Optional abuse and unreadable stream chains.
-

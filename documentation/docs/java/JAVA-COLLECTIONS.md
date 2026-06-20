@@ -8,6 +8,9 @@ sidebar_position: 2
 The Collections Framework provides interfaces, implementations, algorithms,
 iterators, and concurrent data structures.
 
+For deeper implementation details, see
+[Java Collection Internals](JAVA-COLLECTION-INTERNALS.md).
+
 ## Main Hierarchy
 
 ```mermaid
@@ -37,6 +40,29 @@ flowchart TB
 
 Prefer `ArrayList` over `LinkedList` for most application workloads because of
 memory locality and fast indexed reads.
+
+## Interface Summary
+
+| Interface | Purpose |
+|---|---|
+| `List` | ordered collection with positional access |
+| `Set` | unique elements |
+| `Queue` | FIFO-style processing |
+| `Deque` | double-ended queue, stack, or queue |
+| `Map` | key-value lookup, separate from `Collection` hierarchy |
+
+## Common Defaults
+
+| Type | Important default |
+|---|---|
+| `ArrayList` | grows from an internal array as elements are added |
+| `HashMap` | default capacity 16, load factor 0.75 |
+| `HashSet` | backed by `HashMap` |
+| `ArrayDeque` | resizable circular array |
+| `TreeMap` | red-black tree |
+
+Default values matter when large collections are built repeatedly. If expected
+size is known, pre-size hash maps and array lists to reduce reallocations.
 
 ## Complexity
 
@@ -68,6 +94,8 @@ quantities.merge(productId, quantity, Integer::sum);
 
 Keys must have stable `equals` and `hashCode`. Do not mutate a field involved
 in hashing after insertion.
+
+More detail: [HashMap and HashSet internals](JAVA-COLLECTION-INTERNALS.md).
 
 ## Immutable And Unmodifiable
 
@@ -147,4 +175,3 @@ finding that position remains O(n).
 - avoid parallel mutation of ordinary collections;
 - use database pagination rather than loading huge tables into collections;
 - choose concurrent collections for their semantics, not only to avoid locks.
-

@@ -5,6 +5,14 @@ sidebar_position: 7
 
 # Spring Bean Validation
 
+Read this page if you want to understand:
+
+- when to use `@Valid` versus `@Validated`;
+- how Bean Validation integrates with Spring MVC and service methods;
+- how to create custom validators;
+- how validation differs from authorization and business invariants;
+- how to keep API request DTOs strict and predictable.
+
 Spring integrates Jakarta Bean Validation for validating HTTP requests,
 configuration properties, method parameters, return values, and persistence
 objects. Hibernate Validator is the commonly used implementation.

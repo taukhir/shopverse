@@ -24,6 +24,20 @@ relevant stage and use the practical-outcome column as a checklist.
 
 <LearningRoadmap />
 
+## Quick Tracks
+
+Use these tracks when you do not want to read the full path linearly.
+
+| Track | Read in this order |
+|---|---|
+| Java backend | [Java OOP](../java/JAVA-OOP.md) -> [Java Collections](../java/JAVA-COLLECTIONS.md) -> [Java Multithreading](../java/JAVA-MULTITHREADING.md) -> [Spring Ecosystem](../spring/SPRING-ECOSYSTEM.md) -> [Spring REST APIs](../development/SPRING-REST-APIS.md) |
+| Spring Boot production | [Spring Boot internals](../development/SPRING-BOOT-INTERNALS.md) -> [Spring Data JPA](../spring/SPRING-DATA-JPA.md) -> [Spring transactions](../spring/SPRING-TRANSACTIONS.md) -> [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md) |
+| Microservices | [Microservices and distributed systems](../architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS.md) -> [API Gateway](../development/API-GATEWAY-GENERIC.md) -> [Service discovery](../architecture/SERVICE-DISCOVERY.md) -> [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md) -> [Spring Kafka](../spring/SPRING-KAFKA.md) |
+| Reliability | [Distributed transactions and locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md) -> [SAGA pattern](../reliability/SAGA-GENERIC.md) -> [Transactional outbox](../reliability/OUTBOX-PATTERN.md) -> [Inbox pattern](../reliability/INBOX-PATTERN.md) -> [Problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md) |
+| Security | [Security principles](../security/principles/SECURITY-PRINCIPLES.md) -> [JWT fundamentals](../security/jwt/JWT-FUNDAMENTALS.md) -> [OAuth2 fundamentals](../security/oauth/OAUTH2-FUNDAMENTALS.md) -> [Spring Security](../security/SPRING-SECURITY-GENERIC.md) -> [Shopverse security](../security/JWT-OAUTH2-SPRING-SECURITY.md) |
+| Observability | [Structured logging](../observability/STRUCTURED-LOGGING.md) -> [MDC and tracing](../observability/MDC-CORRELATION-TRACING.md) -> [Micrometer](../observability/MICROMETER-METRICS.md) -> [Prometheus](../observability/PROMETHEUS.md) -> [Grafana](../observability/GRAFANA.md) |
+| Shopverse demo | [Shopverse case study](../case-study/SHOPVERSE.mdx) -> [Complete demo](../case-study/COMPLETE-DEMO.mdx) -> [Features and demos](FEATURES-AND-DEMOS.md) -> [Debugging](../development/DEBUGGING.md) |
+
 ## Stage 1: Java And Engineering Foundations
 
 | Topic | Study guide | Practical outcome |
@@ -90,8 +104,13 @@ relevant stage and use the practical-outcome column as a checklist.
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
+| Security principles | [Security principles](../security/principles/SECURITY-PRINCIPLES.md) | Apply least privilege, defense in depth, fail-closed behavior, and auditability |
+| API security | [API security principles](../security/principles/API-SECURITY-PRINCIPLES.md) | Protect APIs with authentication, authorization, validation, safe errors, and rate limits |
+| Microservices security | [Microservices security principles](../security/principles/MICROSERVICES-SECURITY-PRINCIPLES.md) | Secure service boundaries instead of trusting internal traffic blindly |
+| JWT | [JWT fundamentals](../security/jwt/JWT-FUNDAMENTALS.md) | Understand token structure, signature validation, claims, roles, scopes, and JWKS |
+| OAuth2/OIDC | [OAuth2 fundamentals](../security/oauth/OAUTH2-FUNDAMENTALS.md) | Understand authorization servers, resource servers, grant types, OIDC, and token lifecycle |
 | Spring Security | [Generic Spring Security](../security/SPRING-SECURITY-GENERIC.md) | Understand filter chains, providers, context, method security, and proxies |
-| JWT and OAuth2 | [Shopverse security](../security/JWT-OAUTH2-SPRING-SECURITY.md) | Follow login, RSA signing, JWKS, decoding, claims, roles, and ownership checks |
+| Shopverse security | [Shopverse security](../security/JWT-OAUTH2-SPRING-SECURITY.md) | Follow login, RSA signing, JWKS, decoding, claims, roles, and ownership checks |
 
 ## Stage 7: Observability And Operations
 
