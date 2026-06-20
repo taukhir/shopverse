@@ -8,6 +8,10 @@ import {ReadingGuide} from '@site/src/components/DocumentationLanding';
 
 # Complete Shopverse Demo
 
+Read this page if you want one runnable end-to-end walkthrough that connects
+authentication, idempotent checkout, SAGA, outbox, observability, DLT/replay,
+and verification commands in a single flow.
+
 This is the canonical demonstration runbook for the Shopverse POC. It uses the
 API Gateway as the application entry point and connects each API action to the
 state, events, logs, metrics, and traces it produces.
@@ -313,6 +317,92 @@ Invoke-RestMethod `
 ```
 
 Expected payment status: `CAPTURED`.
+
+### Prove Resource Ownership Authorization
+
+Use the seeded `DEMO-ORD-1001` record to prove that authentication alone does
+not grant access to another customer's data. The record and its Payment belong
+to `customer1`.
+
+```powershell
+function Get-ShopverseToken($username, $password) {
+    $body = @{
+        username = $username
+        password = $password
+    } | ConvertTo-Json
+
+    (Invoke-RestMethod `
+        -Method Post `
+        -Uri "$gateway/auth/login" `
+        -ContentType "application/json" `
+        -Body $body).token
+}
+
+$customer1Token = Get-ShopverseToken "customer1" "Customer@123"
+$customer2Token = Get-ShopverseToken "customer2" "Buyer@123"
+
+$customer1Orders = Invoke-RestMethod `
+    -Uri "$gateway/api/v1/orders" `
+    -Headers @{ Authorization = "Bearer $customer1Token" }
+
+$ownedOrder = $customer1Orders |
+    Where-Object orderNumber -eq "DEMO-ORD-1001" |
+    Select-Object -First 1
+
+$ownedOrderId = $ownedOrder.id
+```
+
+The owner can read both protected resources:
+
+```powershell
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/orders/$ownedOrderId/timeline" `
+    -Headers @{ Authorization = "Bearer $customer1Token" }
+
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/payments/orders/DEMO-ORD-1001" `
+    -Headers @{ Authorization = "Bearer $customer1Token" }
+```
+
+Another authenticated customer receives `403 Forbidden` for both APIs:
+
+```powershell
+$otherCustomerTimeline = Invoke-WebRequest `
+    -SkipHttpErrorCheck `
+    -Uri "$gateway/api/v1/orders/$ownedOrderId/timeline" `
+    -Headers @{ Authorization = "Bearer $customer2Token" }
+
+$otherCustomerPayment = Invoke-WebRequest `
+    -SkipHttpErrorCheck `
+    -Uri "$gateway/api/v1/payments/orders/DEMO-ORD-1001" `
+    -Headers @{ Authorization = "Bearer $customer2Token" }
+
+$otherCustomerTimeline.StatusCode
+$otherCustomerPayment.StatusCode
+```
+
+Expected output:
+
+```text
+403
+403
+```
+
+The administrator token created earlier retains cross-customer access:
+
+```powershell
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/orders/$ownedOrderId/timeline" `
+    -Headers @{ Authorization = "Bearer $token" }
+
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/payments/orders/DEMO-ORD-1001" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+For the underlying `@PreAuthorize` expressions, repository queries, Spring
+Security interception flow, and tests, see
+[Resource ownership authorization](../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md).
 
 ## 7. Prove Duplicate Request Handling
 

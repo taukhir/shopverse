@@ -68,6 +68,67 @@ finished.
 
 A SAGA can outlive one HTTP trace. Its correlation ID remains stable while trace IDs may differ between delayed Kafka operations.
 
+## Why Correlation ID Is Not Just A Trace ID
+
+Correlation IDs and trace IDs are sometimes used interchangeably in small
+systems because one HTTP request can produce one trace and one request
+identifier. Shopverse keeps them separate because checkout is both a technical
+trace and a business workflow.
+
+Trace ID is owned by Micrometer Tracing and the tracing backend. It is best for
+answering:
+
+- which services were called;
+- which spans were slow;
+- where latency was introduced;
+- how one instrumented HTTP or Kafka execution behaved.
+
+Correlation ID is owned by the application. It is best for answering:
+
+- what happened to one checkout or SAGA;
+- which logs belong to this customer operation;
+- which Kafka events, outbox rows, DLT records, and timeline rows belong
+  together;
+- which identifier should be returned to the client for support.
+
+In a synchronous request, both identifiers can point to the same user action:
+
+```text
+Client -> Gateway -> User Service -> Response
+traceId=6a1e...
+correlationId=abc-123
+```
+
+In a SAGA, one business operation can cross several traces:
+
+```text
+Checkout request
+  traceId=trace-http-1
+  correlationId=SAGA-ORD-1003
+
+Outbox publisher later sends order.created
+  traceId=trace-kafka-2
+  correlationId=SAGA-ORD-1003
+
+Payment listener later completes payment
+  traceId=trace-kafka-3
+  correlationId=SAGA-ORD-1003
+```
+
+The practical rule in Shopverse is:
+
+| Use | Identifier |
+|---|---|
+| Zipkin span tree, timing, and latency | `traceId` |
+| Loki logs across services | `correlationId` or `traceId` depending on scope |
+| complete checkout/SAGA journey | `correlationId` |
+| Kafka event payloads, outbox, DLT, and replay | `correlationId` |
+| client support reference | `X-Correlation-Id` |
+
+Use both. Let Micrometer generate and propagate `traceId`; let Shopverse carry
+`correlationId` through headers, MDC, Kafka events, logs, response headers,
+timeline rows, and recovery records.
+
 ## End-To-End Propagation
 
 The complete rule is:

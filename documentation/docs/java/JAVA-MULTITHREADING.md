@@ -3,11 +3,14 @@ title: Java Multithreading
 sidebar_position: 5
 ---
 
-# Java Multithreading And CompletableFuture
+# Java Multithreading
 
 Concurrency allows tasks to overlap. Parallelism executes tasks at the same
 time. Correct code must define ownership, visibility, atomicity, cancellation,
 and resource bounds.
+
+For deep async composition, see
+[Java CompletableFuture](JAVA-COMPLETABLE-FUTURE.md).
 
 ## Creating Work
 
@@ -39,6 +42,9 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
 }
 ```
 
+For a deeper Java 21 discussion, see
+[Java Virtual Threads](features-8-to-21/JAVA-VIRTUAL-THREADS.md).
+
 ### CompletableFuture
 
 ```java
@@ -59,6 +65,9 @@ Always pass an owned executor for server-side blocking work instead of silently
 using the common pool.
 
 ## CompletableFuture Composition
+
+This section is a quick reference. The detailed guide is
+[Java CompletableFuture](JAVA-COMPLETABLE-FUTURE.md).
 
 | Method | Meaning |
 |---|---|
@@ -225,4 +234,3 @@ transactions.
 8. Test races repeatedly and enforce invariants in durable storage.
 9. Capture thread dumps for deadlock/starvation diagnosis.
 10. Load-test virtual threads against real downstream limits.
-

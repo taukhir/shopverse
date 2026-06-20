@@ -1,8 +1,20 @@
+---
+title: API Gateway
+---
+
 # API Gateway
 
 An API Gateway is a single managed entry point placed between clients and
 backend services. It accepts external requests, applies cross-cutting policy,
 selects a route, and forwards the request to the appropriate service.
+
+Read this page if you want to understand:
+
+- what an API Gateway does and what it should not own;
+- how gateway filters fit into request processing;
+- how correlation IDs, logs, and metrics are added at the edge;
+- how routing, service discovery, and load balancing work together;
+- which gateway concerns should still be enforced inside downstream services.
 
 ```mermaid
 flowchart LR
@@ -180,6 +192,11 @@ Shopverse retries only selected `GET` failures at the gateway.
 See [Resilience4j patterns](../reliability/RESILIENCE4J-GENERIC.md) for
 Circuit Breaker states, retry safety, Time Limiter semantics, Bulkhead and
 Rate Limiter behavior, pattern ordering, and retry amplification.
+
+For Gateway filter factories, Redis token-bucket rate limiting, route-specific
+circuit breakers and fallbacks, filter ordering, capacity calculations, and
+failure handling, see
+[Advanced Spring Cloud Gateway](SPRING-CLOUD-GATEWAY-ADVANCED.md).
 
 ## Deployment Patterns
 

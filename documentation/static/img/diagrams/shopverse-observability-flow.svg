@@ -1,98 +1,91 @@
-<svg width="1120" height="680" viewBox="0 0 1120 680" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1120" height="680" fill="#F8FAFC"/>
-  <text x="560" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#111827">Shopverse Observability Flow</text>
-  <text x="560" y="82" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#4B5563">Logs, metrics, traces, storage, and dashboards</text>
-
+<svg width="1120" height="700" viewBox="0 0 1120 700" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Shopverse Observability Flow</title>
+  <desc id="desc">A clean observability diagram showing logs, metrics, traces, and Grafana investigation paths.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 30px Arial, sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 15px Arial, sans-serif; fill: #475569; }
+    .laneTitle { font: 700 13px Arial, sans-serif; fill: #334155; letter-spacing: .6px; }
+    .boxTitle { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+    .boxText { font: 400 13px Arial, sans-serif; fill: #475569; }
+    .small { font: 400 12.5px Arial, sans-serif; fill: #475569; }
+    .source { fill: #ecfeff; stroke: #0891b2; stroke-width: 1.6; rx: 18; }
+    .logs { fill: #fff7ed; stroke: #f97316; stroke-width: 1.6; rx: 18; }
+    .metrics { fill: #f0fdf4; stroke: #22c55e; stroke-width: 1.6; rx: 18; }
+    .traces { fill: #fff1f2; stroke: #ef4444; stroke-width: 1.6; rx: 18; }
+    .ui { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 1.6; rx: 18; }
+    .business { fill: #eef2ff; stroke: #6366f1; stroke-width: 1.6; rx: 18; }
+    .arrow { stroke: #475569; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+    .label { font: 700 12px Arial, sans-serif; fill: #334155; }
+  </style>
   <defs>
-    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
-      <path d="M2 2L10 6L2 10V2Z" fill="#374151"/>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#475569"/>
     </marker>
-    <style>
-      .box { fill: #FFFFFF; stroke: #CBD5E1; stroke-width: 2; rx: 14; }
-      .service { fill: #ECFEFF; stroke: #06B6D4; stroke-width: 2; rx: 14; }
-      .collector { fill: #F0FDF4; stroke: #22C55E; stroke-width: 2; rx: 14; }
-      .store { fill: #FFF7ED; stroke: #F97316; stroke-width: 2; rx: 14; }
-      .ui { fill: #F5F3FF; stroke: #8B5CF6; stroke-width: 2; rx: 14; }
-      .trace { fill: #FEF2F2; stroke: #EF4444; stroke-width: 2; rx: 14; }
-      .title { font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; fill: #111827; }
-      .body { font-family: Arial, sans-serif; font-size: 13px; fill: #374151; }
-      .small { font-family: Arial, sans-serif; font-size: 12px; fill: #4B5563; }
-      .label { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; fill: #374151; }
-      .arrow { stroke: #374151; stroke-width: 2.5; marker-end: url(#arrow); }
-      .dash { stroke: #64748B; stroke-width: 2.5; stroke-dasharray: 7 6; marker-end: url(#arrow); }
-    </style>
   </defs>
 
-  <rect x="58" y="130" width="240" height="118" class="service"/>
-  <text x="178" y="162" text-anchor="middle" class="title">Spring Boot Services</text>
-  <text x="82" y="194" class="body">API Gateway</text>
-  <text x="82" y="216" class="body">User, Auth, Order services</text>
-  <text x="82" y="238" class="body">Config and Discovery servers</text>
+  <rect class="bg" width="1120" height="700"/>
+  <text x="560" y="48" text-anchor="middle" class="title">Shopverse Observability Flow</text>
+  <text x="560" y="76" text-anchor="middle" class="subtitle">Four signals answer different questions: logs, metrics, traces, and durable business state</text>
 
-  <rect x="58" y="310" width="240" height="116" class="box"/>
-  <text x="178" y="342" text-anchor="middle" class="title">Service Output</text>
-  <text x="82" y="374" class="body">Text logs with correlation</text>
-  <text x="82" y="396" class="body">/actuator/prometheus metrics</text>
-  <text x="82" y="418" class="body">Zipkin spans</text>
+  <text x="72" y="122" class="laneTitle">SOURCE</text>
+  <rect x="72" y="148" width="230" height="122" class="source"/>
+  <text x="187" y="184" text-anchor="middle" class="boxTitle">Spring Services</text>
+  <text x="106" y="214" class="boxText">Gateway, Auth, User</text>
+  <text x="106" y="236" class="boxText">Order, Inventory, Payment</text>
+  <text x="106" y="258" class="boxText">Config and Discovery</text>
 
-  <rect x="396" y="130" width="238" height="118" class="collector"/>
-  <text x="515" y="162" text-anchor="middle" class="title">Promtail</text>
-  <text x="420" y="194" class="body">Reads service log files</text>
-  <text x="420" y="216" class="body">Reads Docker container logs</text>
-  <text x="420" y="238" class="body">Extracts labels from log lines</text>
+  <text x="408" y="122" class="laneTitle">COLLECT AND STORE</text>
+  <rect x="392" y="130" width="250" height="92" class="logs"/>
+  <text x="517" y="162" text-anchor="middle" class="boxTitle">Logs</text>
+  <text x="426" y="190" class="boxText">Logback JSON files/stdout</text>
+  <text x="426" y="210" class="boxText">Promtail ships to Loki</text>
 
-  <rect x="396" y="310" width="238" height="116" class="collector"/>
-  <text x="515" y="342" text-anchor="middle" class="title">Prometheus</text>
-  <text x="420" y="374" class="body">Scrapes Actuator metrics</text>
-  <text x="420" y="396" class="body">Stores time-series metrics</text>
-  <text x="420" y="418" class="body">Supports PromQL queries</text>
+  <rect x="392" y="274" width="250" height="92" class="metrics"/>
+  <text x="517" y="306" text-anchor="middle" class="boxTitle">Metrics</text>
+  <text x="426" y="334" class="boxText">Actuator /prometheus</text>
+  <text x="426" y="354" class="boxText">Prometheus scrapes series</text>
 
-  <rect x="396" y="490" width="238" height="100" class="trace"/>
-  <text x="515" y="522" text-anchor="middle" class="title">Zipkin</text>
-  <text x="420" y="554" class="body">Stores distributed traces</text>
-  <text x="420" y="576" class="body">Shows spans and timings</text>
+  <rect x="392" y="418" width="250" height="92" class="traces"/>
+  <text x="517" y="450" text-anchor="middle" class="boxTitle">Traces</text>
+  <text x="426" y="478" class="boxText">Micrometer spans</text>
+  <text x="426" y="498" class="boxText">Zipkin stores timelines</text>
 
-  <rect x="762" y="130" width="238" height="118" class="store"/>
-  <text x="881" y="162" text-anchor="middle" class="title">Loki</text>
-  <text x="786" y="194" class="body">Stores centralized logs</text>
-  <text x="786" y="216" class="body">Indexes labels, not full text</text>
-  <text x="786" y="238" class="body">Keeps logs for 7 days</text>
+  <rect x="392" y="562" width="250" height="72" class="business"/>
+  <text x="517" y="592" text-anchor="middle" class="boxTitle">Business State</text>
+  <text x="426" y="620" class="boxText">Timeline, outbox, DLT tables</text>
 
-  <rect x="762" y="310" width="238" height="116" class="ui"/>
-  <text x="881" y="342" text-anchor="middle" class="title">Grafana</text>
-  <text x="786" y="374" class="body">Dashboards and Explore UI</text>
-  <text x="786" y="396" class="body">Queries Loki and Prometheus</text>
-  <text x="786" y="418" class="body">Correlates logs and traces</text>
+  <text x="782" y="122" class="laneTitle">INVESTIGATE</text>
+  <rect x="770" y="240" width="260" height="150" class="ui"/>
+  <text x="900" y="276" text-anchor="middle" class="boxTitle">Grafana</text>
+  <text x="804" y="306" class="boxText">Explore Loki logs</text>
+  <text x="804" y="328" class="boxText">Query Prometheus metrics</text>
+  <text x="804" y="350" class="boxText">Link to Zipkin traces</text>
+  <text x="804" y="372" class="boxText">Correlate by time and IDs</text>
 
-  <path d="M178 248V310" class="arrow"/>
-  <text x="196" y="285" class="label">emits</text>
+  <rect x="770" y="462" width="260" height="92" class="business"/>
+  <text x="900" y="494" text-anchor="middle" class="boxTitle">Operational APIs</text>
+  <text x="804" y="522" class="boxText">Order timeline</text>
+  <text x="804" y="542" class="boxText">Outbox and DLT recovery</text>
 
-  <path d="M298 184H396" class="arrow"/>
-  <text x="322" y="171" class="label">log files</text>
+  <path d="M302 190 H392" class="arrow"/>
+  <text x="320" y="176" class="label">JSON logs</text>
+  <path d="M302 220 C350 250 350 300 392 320" class="arrow"/>
+  <text x="314" y="286" class="label">metrics</text>
+  <path d="M302 238 C350 330 350 430 392 464" class="arrow"/>
+  <text x="314" y="404" class="label">spans</text>
+  <path d="M302 256 C350 440 350 580 392 598" class="arrow"/>
+  <text x="314" y="556" class="label">business state</text>
 
-  <path d="M298 368H396" class="arrow"/>
-  <text x="318" y="355" class="label">metrics</text>
+  <path d="M642 176 C715 180 760 226 812 250" class="arrow"/>
+  <path d="M642 320 H770" class="arrow"/>
+  <path d="M642 464 C715 452 760 400 824 390" class="arrow"/>
+  <path d="M642 598 H770" class="arrow"/>
 
-  <path d="M298 420C338 490 350 540 396 540" class="dash"/>
-  <text x="315" y="470" class="label">traces</text>
+  <rect x="72" y="470" width="230" height="86" class="source"/>
+  <text x="187" y="500" text-anchor="middle" class="boxTitle">Correlation Fields</text>
+  <text x="106" y="528" class="boxText">correlationId: business flow</text>
+  <text x="106" y="548" class="boxText">traceId/spanId: technical trace</text>
 
-  <path d="M634 184H762" class="arrow"/>
-  <text x="675" y="171" class="label">push logs</text>
-
-  <path d="M634 368H762" class="arrow"/>
-  <text x="660" y="355" class="label">query metrics</text>
-
-  <path d="M881 248V310" class="arrow"/>
-  <text x="900" y="285" class="label">query logs</text>
-
-  <path d="M634 540C720 540 804 475 856 426" class="dash"/>
-  <text x="728" y="514" class="label">query traces</text>
-
-  <rect x="64" y="505" width="252" height="106" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="14"/>
-  <text x="190" y="535" text-anchor="middle" class="title">Correlation Labels</text>
-  <text x="88" y="566" class="body">application = USER-SERVICE</text>
-  <text x="88" y="588" class="body">traceId = same request journey</text>
-  <text x="88" y="610" class="body">spanId = one operation/span</text>
-
-  <text x="560" y="646" text-anchor="middle" class="small">Typical debug path: generate traffic -> check Grafana logs -> copy traceId -> open Zipkin trace -> inspect Prometheus metrics.</text>
+  <text x="560" y="670" text-anchor="middle" class="small">Debug path: start with symptom metric, open related logs, inspect trace latency, then verify durable timeline/outbox/DLT state.</text>
 </svg>

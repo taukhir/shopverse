@@ -5,6 +5,29 @@ sidebar_position: 1
 
 # Spring Ecosystem
 
+## Why Spring?
+
+Spring solves common enterprise application problems so every service does not
+need to rebuild the same infrastructure by hand.
+
+It provides:
+
+- dependency injection and inversion of control;
+- declarative transactions;
+- web MVC and REST support;
+- validation and type conversion;
+- security integration;
+- data access abstractions;
+- cache abstraction;
+- messaging and integration support;
+- testing support;
+- observability hooks;
+- cloud-native configuration and discovery integrations.
+
+Without Spring, application code usually contains more manual object creation,
+transaction handling, servlet plumbing, security wiring, configuration parsing,
+and repeated infrastructure code.
+
 ## Spring Framework
 
 Spring Framework provides the core programming model:
@@ -30,6 +53,9 @@ eligible proxies, and manages its lifecycle.
 
 ## Spring Boot
 
+Spring Boot builds on Spring Framework. It does not replace Spring; it makes
+Spring applications easier to create, configure, run, package, and operate.
+
 Spring Boot adds conventions and production-oriented auto-configuration:
 
 - starter dependencies;
@@ -39,6 +65,41 @@ Spring Boot adds conventions and production-oriented auto-configuration:
 - Actuator;
 - structured logging and observability integration;
 - executable JAR packaging.
+
+## Why Spring Boot Over Plain Spring Framework?
+
+| Plain Spring Framework | Spring Boot |
+|---|---|
+| more manual dependency selection | starter dependencies |
+| more manual XML/Java configuration | auto-configuration |
+| external servlet container often required | embedded Tomcat/Jetty/Undertow |
+| production endpoints need custom setup | Actuator |
+| config patterns are manual | externalized configuration and profiles |
+| packaging varies by project | executable JAR conventions |
+
+Spring Boot is the usual choice for microservices because it gives a consistent
+application model, faster setup, easier local runs, and stronger production
+defaults.
+
+Spring also provides the
+[Spring Expression Language (SpEL)](SPRING-SPEL.md) for small declarative
+expressions in configuration injection, method security, caching, event
+listeners, scheduling, and supported Spring Data features.
+
+## Important Spring Boot Features
+
+| Feature | Why it matters |
+|---|---|
+| `@SpringBootApplication` | entry point combining configuration, scanning, and auto-configuration |
+| starters | curated dependency sets for web, JPA, security, Kafka, actuator |
+| auto-configuration | creates infrastructure beans when conditions match |
+| externalized config | reads properties from files, env vars, config server, command line |
+| profiles | environment-specific configuration |
+| embedded server | run service as a self-contained app |
+| Actuator | health, metrics, info, readiness/liveness endpoints |
+| Micrometer | vendor-neutral metrics/tracing facade |
+| testing support | slice tests, Spring context tests, MockMvc, Testcontainers integration |
+| devtools | development-time restart support |
 
 ```java
 @SpringBootApplication
@@ -117,6 +178,15 @@ Shopverse uses:
 | LoadBalancer | select an instance for logical service names |
 | OpenFeign | declarative synchronous service clients |
 | Gateway | route and protect external requests |
+
+Advanced production topics are documented separately:
+
+- [Advanced Spring Cloud Gateway](../development/SPRING-CLOUD-GATEWAY-ADVANCED.md)
+  covers filter factories, Redis-backed rate limiting, circuit-breaker filters,
+  retries, fallbacks, and operational behavior;
+- [Spring Boot production tuning](../development/spring-boot-internals/PRODUCTION-TUNING.md)
+  covers startup measurement, JVM/container memory, connection pools,
+  concurrency, graceful shutdown, and capacity formulas.
 
 ```text
 InventoryClient logical name

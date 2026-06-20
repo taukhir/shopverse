@@ -7,6 +7,14 @@ transient failures, and failing predictably when a dependency is unhealthy.
 This guide explains the patterns generically and uses Shopverse code and
 configuration as examples.
 
+Read this page if you want to understand:
+
+- when to use retry, circuit breaker, rate limiter, timeout, and bulkhead;
+- how Resilience4j annotations are applied through Spring AOP;
+- how fallback methods should be designed;
+- how to classify retryable and non-retryable failures;
+- how these policies interact with upstream and downstream capacity.
+
 ## Dependencies
 
 Shopverse servlet services use:

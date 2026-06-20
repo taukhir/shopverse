@@ -1,0 +1,335 @@
+﻿---
+title: JWT JWKS And Resource Server Security
+---
+
+# JWT JWKS And Resource Server Security
+
+Bearer JWT authentication, JWT parts, JWS/JWE/JWK/JWKS, symmetric/asymmetric signing, Shopverse encoding/decoding, claims, revocation, and production practices.
+
+Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
+
+## Stateless Bearer JWT Authentication
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Filter as BearerTokenAuthenticationFilter
+    participant Provider as JwtAuthenticationProvider
+    participant Decoder as JwtDecoder
+    participant JWKS
+    participant Converter as JwtAuthenticationConverter
+    participant Context as SecurityContextHolder
+
+    Client->>Filter: Authorization: Bearer JWT
+    Filter->>Provider: BearerTokenAuthenticationToken
+    Provider->>Decoder: decode(token)
+    Decoder->>JWKS: Obtain/cache public key by kid
+    Decoder->>Decoder: Verify signature and validate claims
+    Decoder-->>Provider: Jwt
+    Provider->>Converter: Convert claims to authorities
+    Converter-->>Provider: JwtAuthenticationToken
+    Provider-->>Filter: Authenticated result
+    Filter->>Context: Store Authentication for request
+```
+
+No password lookup is required for each resource request. The token signature
+and claims are the authentication evidence.
+
+### BearerTokenResolver
+
+`BearerTokenResolver` extracts a bearer token from an HTTP request before
+`BearerTokenAuthenticationFilter` attempts authentication.
+
+The default implementation reads the `Authorization: Bearer` header. A custom
+resolver can support another trusted location or deliberately ignore bearer
+headers for narrowly defined public endpoints.
+
+Returning `null` means no bearer token was resolved. It does not itself grant
+access; the later authorization rules still decide whether an anonymous
+request is permitted.
+
+Be careful when combining a custom resolver with `permitAll()`. The resolver
+and authorization matchers should describe the same public surface.
+
+
+## JWT Structure
+
+JWT compact serialization has three Base64URL-encoded parts:
+
+```text
+header.payload.signature
+```
+
+### Header
+
+```json
+{
+  "alg": "RS256",
+  "kid": "key-1",
+  "typ": "JWT"
+}
+```
+
+- `alg`: signing algorithm;
+- `kid`: key identifier;
+- `typ`: optional media type.
+
+### Payload
+
+```json
+{
+  "iss": "shopverse-auth-service",
+  "sub": "alice",
+  "aud": ["shopverse-api"],
+  "iat": 1781160000,
+  "exp": 1781163600,
+  "jti": "token-id",
+  "roles": "ROLE_CUSTOMER",
+  "permissions": ["ORDER_READ"]
+}
+```
+
+The payload is encoded, not encrypted. Anyone holding the token can decode the
+claims. Do not put passwords, secrets, or unnecessary personal data inside it.
+
+### Signature
+
+The signature protects integrity and authenticity:
+
+```text
+sign(
+  base64url(header) + "." + base64url(payload),
+  signing key
+)
+```
+
+Changing the header or payload causes signature verification to fail.
+
+
+## JWS, JWE, JWK, And JWKS
+
+| Term | Meaning |
+|---|---|
+| JWT | Token format containing claims |
+| JWS | Signed content; common bearer JWT form |
+| JWE | Encrypted content |
+| JWK | One cryptographic key represented as JSON |
+| JWKS | A JSON Web Key Set containing one or more public keys |
+
+Shopverse uses signed JWTs/JWS, not encrypted JWE tokens.
+
+
+## Symmetric And Asymmetric JWT Signing
+
+### Symmetric HMAC
+
+The same secret signs and verifies:
+
+```text
+Auth Server -- shared secret --> Resource Server
+```
+
+Advantages:
+
+- simple;
+- fast.
+
+Risks:
+
+- every verifier that has the secret can also mint tokens;
+- secret distribution and rotation become difficult across many services.
+
+### Asymmetric RSA Or EC
+
+The issuer signs with a private key; resource servers verify with the public
+key:
+
+```text
+Private key: Auth Server only
+Public key: Resource Servers
+```
+
+Advantages:
+
+- verifiers cannot sign tokens;
+- public keys can be distributed through JWKS;
+- better fit for microservices.
+
+Shopverse uses RSA.
+
+
+## Shopverse JWT Encoding
+
+Auth Service creates a signing JWK:
+
+```java
+JWK jwk = new RSAKey.Builder(rsaKeys.publicKey())
+        .privateKey(rsaKeys.privateKey())
+        .keyID("key-1")
+        .build();
+
+JWKSource<SecurityContext> jwks =
+        new ImmutableJWKSet<>(new JWKSet(jwk));
+
+return new NimbusJwtEncoder(jwks);
+```
+
+`NimbusJwtEncoder` selects a signing key and uses the private key to create the
+signature.
+
+Shopverse builds claims:
+
+```java
+JwtClaimsSet claims = JwtClaimsSet.builder()
+        .id(UUID.randomUUID().toString())
+        .issuer(issuer)
+        .issuedAt(Instant.now())
+        .expiresAt(Instant.now().plus(1, ChronoUnit.HOURS))
+        .subject(user.username())
+        .claim("roles", roles)
+        .claim("permissions", permissions)
+        .build();
+
+String token = jwtEncoder.encode(
+        JwtEncoderParameters.from(claims)
+).getTokenValue();
+```
+
+The private key must remain only in the issuer.
+
+
+## JWKS Publication
+
+Shopverse exposes only the public JWK:
+
+```java
+@GetMapping("/.well-known/jwks.json")
+public Map<String, Object> keys() {
+    return new JWKSet(rsaKey.toPublicJWK()).toJSONObject();
+}
+```
+
+Resource services use `kid` to find the matching public key. A production
+JWKS can contain both current and retiring public keys during rotation.
+
+Never publish a JWK containing private-key parameters.
+
+
+## Shopverse JWT Decoding
+
+User Service creates a decoder from the JWKS endpoint:
+
+```java
+NimbusJwtDecoder jwtDecoder =
+        NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
+
+jwtDecoder.setJwtValidator(
+        JwtValidators.createDefaultWithIssuer(issuer)
+);
+```
+
+The decoder:
+
+1. parses the compact token;
+2. obtains the public key;
+3. verifies the signature;
+4. validates timestamps;
+5. validates the configured issuer;
+6. returns a `Jwt` containing trusted claims.
+
+Every resource service should also validate expected audience and restrict
+accepted algorithms.
+
+
+## Claim Types
+
+### Registered Claims
+
+Standard names include:
+
+| Claim | Purpose |
+|---|---|
+| `iss` | issuer |
+| `sub` | subject/principal |
+| `aud` | intended audience |
+| `exp` | expiry |
+| `nbf` | not valid before |
+| `iat` | issued at |
+| `jti` | unique token identifier |
+
+### Public Claims
+
+Names defined through shared standards or collision-resistant namespaces.
+
+### Private Claims
+
+Application-specific claims such as Shopverse `roles` and `permissions`.
+Issuer and resource servers must agree on their type and meaning.
+
+Keep claims small. Large tokens increase every request header and proxy limit
+risk.
+
+
+## JWT Revocation And Blocking
+
+Self-contained JWT validation is fast because a resource server does not call
+the issuer for every request. The trade-off is that a valid token normally
+remains usable until expiry.
+
+Options for immediate or near-immediate blocking:
+
+### Short-Lived Access Tokens
+
+Limit the exposure window and use refresh-token rotation.
+
+### `jti` Deny List
+
+Store revoked token IDs until their expiry. This adds a lookup to resource
+requests and requires shared storage.
+
+### User Security Version
+
+Include a version claim and compare it with current user state. Password reset,
+role change, or account disable increments the version.
+
+### Key Rotation
+
+Remove a compromised signing key and stop accepting tokens signed with it.
+This revokes many tokens at once and must be coordinated carefully.
+
+### Opaque Tokens And Introspection
+
+Resource servers call or cache an Authorization Server introspection result.
+This supports centralized revocation but adds runtime dependency and latency.
+
+### Gateway Deny List Only
+
+Blocking only at the gateway is insufficient if services can be reached
+directly. Enforcement must exist at every reachable security boundary.
+
+Shopverse currently relies on token expiry and does not implement a JWT deny
+list, security-version check, or opaque-token introspection.
+
+
+## JWT And OAuth2 Production Practices
+
+1. Use HTTPS everywhere.
+2. keep private signing keys in a secret manager or HSM.
+3. publish only public keys through JWKS.
+4. rotate keys using stable `kid` values and overlap.
+5. restrict accepted algorithms; never trust the token's algorithm blindly.
+6. validate issuer, audience, expiry, not-before, and required claims.
+7. keep access tokens short-lived.
+8. minimize claims and never include secrets.
+9. protect tokens from logs, URLs, browser storage exposure, and referrers.
+10. use Authorization Code with PKCE for public user-facing clients.
+11. use Client Credentials with narrow scopes for service identities.
+12. rotate and revoke refresh tokens.
+13. apply least privilege to roles, scopes, and permissions.
+14. enforce authorization inside resource services, not only at the gateway.
+15. audit authentication, role changes, key rotation, and denied operations.
+
+
+
+
+

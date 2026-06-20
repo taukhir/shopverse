@@ -25,13 +25,60 @@ CAPTURED -> REFUNDED
 
 The stub provider supports `SUCCESS`, `DECLINE`, and `TIMEOUT`. A timed-out payment remains uncertain until the reconciliation endpoint resolves it.
 
+## Timeout Reconciliation And Refunds
+
+Payment timeout is modeled as an uncertain state, not an automatic decline.
+When the stub provider returns `TIMEOUT`, Payment Service stores the payment
+as `TIMED_OUT` and does not publish `payment.completed` or `payment.failed`.
+This prevents blind retry from creating a duplicate charge and keeps the SAGA
+visible for operator recovery.
+
+Reconciliation resolves the uncertain state:
+
+```http
+POST /api/v1/payments/admin/orders/{orderNumber}/reconcile
+Authorization: Bearer <admin-token>
+```
+
+If the payment is `TIMED_OUT`, reconciliation marks it `CAPTURED`, creates a
+`RECONCILED-{orderNumber}` reference, and enqueues `payment.completed` through
+the outbox so Order Service can confirm the order.
+
+Refund is a local payment administration action:
+
+```http
+POST /api/v1/payments/admin/orders/{orderNumber}/refund
+Authorization: Bearer <admin-token>
+```
+
+Only `CAPTURED` payments can be refunded. Refund changes Payment state to
+`REFUNDED`. The current POC does not publish a `payment.refunded` event or
+change Order state after refund.
+
 ## SAGA
 
 The service consumes `inventory.reserved`, persists the payment and an outgoing event in one transaction, and emits `payment.completed` or `payment.failed` through its outbox. Payment failure causes Order failure and Inventory compensation.
 
+## Idempotent Consumer Behavior
+
+Kafka can redeliver the same `inventory.reserved` business event. Payment uses
+`orderNumber` as the payment business key. Before creating or processing a new
+payment, the service checks whether a payment already exists for that order.
+If it exists, the existing payment is reused and the customer is not charged
+again by a duplicate event.
+
+Producer idempotence protects producer retries to Kafka, but it does not
+protect payment side effects. Payment must remain idempotent at the database
+and provider boundary. A production payment integration should also send a
+provider idempotency key derived from the order number.
+
 ## Ownership
 
 Customer payment lookup compares the authenticated JWT subject with the payment owner. Administrators retain cross-customer access.
+
+See [Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+for the problem statement, `@PreAuthorize` flow, targeted repository query,
+expected API outcomes, and method-security tests.
 
 Liquibase includes matching historical payment examples for
 `DEMO-ORD-1001` (`CAPTURED`) and `DEMO-ORD-1002` (`DECLINED`):
@@ -76,6 +123,10 @@ docker compose up -d payment-service
 ## Related Guides
 
 - [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
+- [Problems and solutions](../documentation/docs/reliability/PROBLEMS-AND-SOLUTIONS.md)
+- [Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+- [Transactional outbox pattern](../documentation/docs/reliability/OUTBOX-PATTERN.md)
+- [Inbox pattern](../documentation/docs/reliability/INBOX-PATTERN.md)
 - [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
 - [Transactions](../documentation/docs/reliability/TRANSACTIONS.md)
 - [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)

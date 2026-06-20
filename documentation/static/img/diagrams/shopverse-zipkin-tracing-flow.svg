@@ -1,101 +1,109 @@
-<svg width="1120" height="640" viewBox="0 0 1120 640" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1120" height="640" fill="#F8FAFC"/>
-  <text x="560" y="48" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#111827">Zipkin Distributed Tracing In Shopverse</text>
-  <text x="560" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#4B5563">One request keeps the same traceId as it moves through Gateway and services</text>
-
+<svg width="1120" height="660" viewBox="0 0 1120 660" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Zipkin Distributed Tracing In Shopverse</title>
+  <desc id="desc">A tracing diagram showing trace ID propagation across Gateway, Order Service, Feign calls, Kafka processing, Zipkin, and Loki.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 30px Arial, sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 15px Arial, sans-serif; fill: #475569; }
+    .boxTitle { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+    .boxText { font: 400 12.5px Arial, sans-serif; fill: #475569; }
+    .label { font: 700 12px Arial, sans-serif; fill: #334155; }
+    .traceLabel { font: 700 12px Arial, sans-serif; fill: #7f1d1d; }
+    .client { fill: #ecfeff; stroke: #0891b2; stroke-width: 1.6; rx: 16; }
+    .svc { fill: #f0fdf4; stroke: #22c55e; stroke-width: 1.6; rx: 16; }
+    .async { fill: #fffbeb; stroke: #d97706; stroke-width: 1.6; rx: 16; }
+    .trace { fill: #fff1f2; stroke: #ef4444; stroke-width: 1.6; rx: 16; }
+    .logs { fill: #fff7ed; stroke: #f97316; stroke-width: 1.6; rx: 16; }
+    .ui { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 1.6; rx: 16; }
+    .arrow { stroke: #475569; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+    .span { stroke: #ef4444; stroke-width: 2.2; fill: none; stroke-dasharray: 7 7; marker-end: url(#traceArrow); }
+    .logLine { stroke: #f97316; stroke-width: 2.1; fill: none; stroke-dasharray: 6 7; marker-end: url(#logArrow); }
+  </style>
   <defs>
-    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
-      <path d="M2 2L10 6L2 10V2Z" fill="#334155"/>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#475569"/>
     </marker>
-    <style>
-      .box { fill:#FFFFFF; stroke:#CBD5E1; stroke-width:2; rx:14; }
-      .client { fill:#ECFEFF; stroke:#0891B2; stroke-width:2; rx:14; }
-      .svc { fill:#F0FDF4; stroke:#22C55E; stroke-width:2; rx:14; }
-      .zipkin { fill:#FEF2F2; stroke:#EF4444; stroke-width:2; rx:14; }
-      .log { fill:#FFF7ED; stroke:#F97316; stroke-width:2; rx:14; }
-      .grafana { fill:#F5F3FF; stroke:#8B5CF6; stroke-width:2; rx:14; }
-      .title { font-family:Arial, sans-serif; font-size:17px; font-weight:700; fill:#111827; }
-      .body { font-family:Arial, sans-serif; font-size:13px; fill:#374151; }
-      .small { font-family:Arial, sans-serif; font-size:12px; fill:#475569; }
-      .label { font-family:Arial, sans-serif; font-size:12px; font-weight:700; fill:#334155; }
-      .arrow { stroke:#334155; stroke-width:2.4; marker-end:url(#arrow); }
-      .dash { stroke:#64748B; stroke-width:2.2; stroke-dasharray:7 6; marker-end:url(#arrow); }
-    </style>
+    <marker id="traceArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#ef4444"/>
+    </marker>
+    <marker id="logArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f97316"/>
+    </marker>
   </defs>
 
-  <rect x="48" y="144" width="150" height="88" class="client"/>
-  <text x="123" y="178" text-anchor="middle" class="title">Client</text>
-  <text x="78" y="208" class="body">HTTP request</text>
+  <rect class="bg" width="1120" height="660"/>
+  <text x="560" y="48" text-anchor="middle" class="title">Zipkin Distributed Tracing In Shopverse</text>
+  <text x="560" y="76" text-anchor="middle" class="subtitle">Micrometer propagates trace context; Shopverse separately carries correlation ID for the business journey</text>
 
-  <rect x="270" y="124" width="180" height="128" class="svc"/>
-  <text x="360" y="158" text-anchor="middle" class="title">API Gateway</text>
-  <text x="300" y="190" class="body">Creates or receives trace</text>
-  <text x="300" y="212" class="body">spanId = gateway span</text>
-  <text x="300" y="234" class="body">Forwards trace headers</text>
+  <rect x="62" y="142" width="142" height="80" class="client"/>
+  <text x="133" y="174" text-anchor="middle" class="boxTitle">Client</text>
+  <text x="133" y="198" text-anchor="middle" class="boxText">HTTP request</text>
 
-  <rect x="532" y="124" width="180" height="128" class="svc"/>
-  <text x="622" y="158" text-anchor="middle" class="title">Order Service</text>
-  <text x="562" y="190" class="body">Receives trace headers</text>
-  <text x="562" y="212" class="body">same traceId</text>
-  <text x="562" y="234" class="body">new service spanId</text>
+  <rect x="276" y="126" width="170" height="112" class="svc"/>
+  <text x="361" y="156" text-anchor="middle" class="boxTitle">API Gateway</text>
+  <text x="306" y="184" class="boxText">server span</text>
+  <text x="306" y="204" class="boxText">adds trace headers</text>
+  <text x="306" y="224" class="boxText">adds correlation ID</text>
 
-  <rect x="794" y="124" width="180" height="128" class="svc"/>
-  <text x="884" y="158" text-anchor="middle" class="title">User/Auth Service</text>
-  <text x="824" y="190" class="body">Feign/internal calls</text>
-  <text x="824" y="212" class="body">same traceId</text>
-  <text x="824" y="234" class="body">child spans</text>
+  <rect x="520" y="126" width="170" height="112" class="svc"/>
+  <text x="605" y="156" text-anchor="middle" class="boxTitle">Order Service</text>
+  <text x="550" y="184" class="boxText">same traceId</text>
+  <text x="550" y="204" class="boxText">new spanId</text>
+  <text x="550" y="224" class="boxText">checkout logs</text>
 
-  <rect x="314" y="360" width="210" height="112" class="zipkin"/>
-  <text x="419" y="394" text-anchor="middle" class="title">Zipkin</text>
-  <text x="344" y="426" class="body">Receives spans from services</text>
-  <text x="344" y="448" class="body">Shows request timeline</text>
-  <text x="344" y="470" class="body">Finds slow/failing spans</text>
+  <rect x="764" y="126" width="170" height="112" class="svc"/>
+  <text x="849" y="156" text-anchor="middle" class="boxTitle">Feign / Service</text>
+  <text x="794" y="184" class="boxText">traceparent forwarded</text>
+  <text x="794" y="204" class="boxText">X-Correlation-Id</text>
+  <text x="794" y="224" class="boxText">child service span</text>
 
-  <rect x="598" y="360" width="210" height="112" class="log"/>
-  <text x="703" y="394" text-anchor="middle" class="title">Loki Logs</text>
-  <text x="628" y="426" class="body">Stores logs with traceId</text>
-  <text x="628" y="448" class="body">Query by traceId</text>
-  <text x="628" y="470" class="body">Correlates with Zipkin</text>
+  <path d="M204 182 H276" class="arrow"/>
+  <text x="218" y="170" class="label">request</text>
+  <path d="M446 182 H520" class="arrow"/>
+  <text x="458" y="170" class="label">trace headers</text>
+  <path d="M690 182 H764" class="arrow"/>
+  <text x="704" y="170" class="label">Feign call</text>
 
-  <rect x="874" y="360" width="170" height="112" class="grafana"/>
-  <text x="959" y="394" text-anchor="middle" class="title">Grafana</text>
-  <text x="904" y="426" class="body">Explore Loki logs</text>
-  <text x="904" y="448" class="body">Open Zipkin trace</text>
-  <text x="904" y="470" class="body">View metrics too</text>
+  <rect x="142" y="318" width="210" height="96" class="async"/>
+  <text x="247" y="350" text-anchor="middle" class="boxTitle">Kafka SAGA Event</text>
+  <text x="172" y="378" class="boxText">correlationId in payload</text>
+  <text x="172" y="398" class="boxText">new trace may start later</text>
 
-  <rect x="78" y="368" width="170" height="94" class="box"/>
-  <text x="163" y="402" text-anchor="middle" class="title">Log Pattern</text>
-  <text x="105" y="434" class="body">[SERVICE,traceId,spanId]</text>
-  <text x="105" y="456" class="body">same traceId per request</text>
+  <rect x="454" y="318" width="210" height="96" class="trace"/>
+  <text x="559" y="350" text-anchor="middle" class="boxTitle">Zipkin</text>
+  <text x="484" y="378" class="boxText">stores spans and timing</text>
+  <text x="484" y="398" class="boxText">shows technical call tree</text>
 
-  <path d="M198 188H270" class="arrow"/>
-  <text x="214" y="176" class="label">request</text>
+  <rect x="750" y="318" width="210" height="96" class="logs"/>
+  <text x="855" y="350" text-anchor="middle" class="boxTitle">Loki Logs</text>
+  <text x="780" y="378" class="boxText">logs include traceId</text>
+  <text x="780" y="398" class="boxText">and correlationId</text>
 
-  <path d="M450 188H532" class="arrow"/>
-  <text x="466" y="176" class="label">trace headers</text>
+  <rect x="454" y="498" width="210" height="86" class="ui"/>
+  <text x="559" y="530" text-anchor="middle" class="boxTitle">Grafana Explore</text>
+  <text x="484" y="558" class="boxText">query logs, metrics, traces</text>
 
-  <path d="M712 188H794" class="arrow"/>
-  <text x="728" y="176" class="label">child call</text>
+  <path d="M605 238 C558 286 420 310 352 340" class="arrow"/>
+  <text x="418" y="292" class="label">async event</text>
 
-  <path d="M360 252V360" class="dash"/>
-  <path d="M622 252C590 306 516 330 462 360" class="dash"/>
-  <path d="M884 252C816 320 628 330 490 360" class="dash"/>
-  <text x="452" y="326" class="label">spans exported to Zipkin</text>
+  <path d="M361 238 C394 274 444 302 500 318" class="span"/>
+  <path d="M605 238 V318" class="span"/>
+  <path d="M849 238 C780 292 700 310 620 318" class="span"/>
+  <text x="468" y="282" class="traceLabel">spans exported</text>
 
-  <path d="M360 252C408 318 536 338 598 392" class="dash"/>
-  <path d="M622 252V360" class="dash"/>
-  <path d="M884 252C832 312 772 340 738 360" class="dash"/>
-  <text x="654" y="326" class="label">logs include traceId</text>
+  <path d="M361 238 C475 292 650 305 750 350" class="logLine"/>
+  <path d="M605 238 C650 280 734 300 812 318" class="logLine"/>
+  <path d="M849 238 V318" class="logLine"/>
+  <text x="686" y="286" class="label">logs indexed by time and fields</text>
 
-  <path d="M808 416H874" class="arrow"/>
-  <text x="826" y="404" class="label">query</text>
+  <path d="M559 414 V498" class="arrow"/>
+  <path d="M855 414 C780 470 680 506 664 520" class="arrow"/>
+  <text x="710" y="488" class="label">copy traceId or correlationId</text>
 
-  <path d="M524 416H598" class="arrow"/>
-  <text x="540" y="404" class="label">copy traceId</text>
+  <rect x="76" y="500" width="250" height="84" class="client"/>
+  <text x="201" y="530" text-anchor="middle" class="boxTitle">Identifier Rule</text>
+  <text x="106" y="558" class="boxText">traceId = one technical trace</text>
+  <text x="106" y="578" class="boxText">correlationId = whole business flow</text>
 
-  <path d="M248 416H314" class="arrow"/>
-  <text x="264" y="404" class="label">same id</text>
-
-  <text x="560" y="552" text-anchor="middle" class="body">Example log correlation: [ORDER-SERVICE,4bf92f3577b34da6a3ce929d0e0e4736,00f067aa0ba902b7]</text>
-  <text x="560" y="586" text-anchor="middle" class="small">Debug path: call API through Gateway -> open Zipkin trace -> copy traceId -> search Loki logs with {traceId="..."}</text>
+  <text x="560" y="626" text-anchor="middle" class="boxText">Search Zipkin by trace ID for latency. Search Loki by correlation ID for the complete checkout or SAGA journey.</text>
 </svg>

@@ -17,6 +17,20 @@ Inventory Service runs on port `8086`. It owns stock, reservations, expiry, over
 
 The service consumes `shopverse.order.created`, verifies stock, creates a reservation, decrements available quantity, and saves an inventory outcome to the outbox. Payment failure releases the reservation. A scheduled expiry task restores stock for reservations that exceed the configured five-minute TTL.
 
+## Idempotent Consumer Behavior
+
+Kafka can redeliver the same `order.created` business event. Inventory uses
+`orderNumber` as the reservation business key. Before reserving stock, the
+service checks whether a reservation already exists for that order. If it
+exists, the duplicate event is treated as already handled and stock is not
+decremented again.
+
+`orderNumber` is used here because Inventory only receives the event after
+Order Service has created the order. Kafka consumer ID, group ID, partition,
+offset, and trace ID are runtime identifiers; they can change across retries,
+rebalances, DLT, or replay and should not be used as the business duplicate
+key.
+
 ## Concurrency
 
 `InventoryItem` uses JPA `@Version`. Concurrent updates based on a stale version fail instead of silently overselling the last item. Reservation operations are transactional and use order number as the business key.
@@ -75,6 +89,8 @@ docker compose up -d inventory-service
 ## Related Guides
 
 - [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
+- [Transactional outbox pattern](../documentation/docs/reliability/OUTBOX-PATTERN.md)
+- [Inbox pattern](../documentation/docs/reliability/INBOX-PATTERN.md)
 - [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
 - [Shopverse transaction boundaries](../documentation/docs/reliability/TRANSACTIONS.md)
 - [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)

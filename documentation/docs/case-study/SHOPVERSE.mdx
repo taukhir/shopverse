@@ -41,9 +41,10 @@ Kafka choreography, persistence, observability, and deployment topology.
 | 5 | [API guide](../development/API-GUIDE.md) | How do clients use the platform? |
 | 6 | [SAGA and Outbox](../reliability/SAGA-OUTBOX.md) | How does checkout remain recoverable across services? |
 | 7 | [Security implementation](../security/JWT-OAUTH2-SPRING-SECURITY.md) | How are authentication and authorization enforced? |
-| 8 | [Observability](../observability/OBSERVABILITY.md) | How are logs, metrics, and traces connected? |
-| 9 | [Testing strategy](../development/TESTING.md) | How is the ecosystem verified without unbounded resource use? |
-| 10 | [Problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md) | Which production-relevant defects were found and fixed? |
+| 8 | [Resource ownership](../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md) | Why can customers read only their own Order timelines and Payment records? |
+| 9 | [Observability](../observability/OBSERVABILITY.md) | How are logs, metrics, and traces connected? |
+| 10 | [Testing strategy](../development/TESTING.md) | How is the ecosystem verified without unbounded resource use? |
+| 11 | [Problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md) | Which production-relevant defects were found and fixed? |
 
 ## What The Case Study Demonstrates
 
@@ -56,6 +57,28 @@ Kafka choreography, persistence, observability, and deployment topology.
 | Concurrency | optimistic locking, uniqueness constraints, reservation expiry, and bounded workers |
 | Observability | JSON logs, MDC correlation, Prometheus metrics, Grafana dashboards, Loki, and Zipkin |
 | Delivery | multi-stage Docker images, GitHub Actions, Jenkins, Testcontainers, and bounded verification |
+
+## Resource Ownership In The Case Study
+
+Shopverse distinguishes authentication from resource authorization. A valid
+customer JWT permits access to protected APIs, but it does not permit reading
+another customer's data by guessing an Order ID or order number.
+
+```mermaid
+flowchart LR
+    JWT["Validated customer JWT"] --> METHOD["@PreAuthorize"]
+    METHOD --> POLICY{"Admin or persisted owner?"}
+    POLICY -->|Yes| DATA["Return timeline or payment"]
+    POLICY -->|No| DENY["403 Forbidden"]
+```
+
+Order Service checks `orderId + customerUsername`; Payment Service checks
+`orderNumber + customerUsername`. Administrators bypass the owner query for
+support operations. Read the
+[dedicated ownership case](../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+for implementation details and use the
+[complete demo](COMPLETE-DEMO.mdx) to prove owner, non-owner, and administrator
+behavior.
 
 ## Theory Before Implementation
 

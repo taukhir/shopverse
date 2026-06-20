@@ -1,10 +1,12 @@
 # Choreography SAGA And Transactional Outbox
 
 For generic SAGA theory, choreography versus orchestration, consistency,
-compensation, isolation, idempotency, and a detailed transactional-outbox
-explanation, see
-[SAGA and transactional outbox patterns](SAGA-GENERIC.md). This document
-describes the Shopverse implementation.
+compensation, isolation, and idempotency, see
+[SAGA and transactional outbox patterns](SAGA-GENERIC.md). For dedicated
+producer and consumer reliability patterns, see
+[Transactional outbox pattern](OUTBOX-PATTERN.md) and
+[Inbox pattern](INBOX-PATTERN.md). This document describes the Shopverse
+implementation.
 
 For a focused explanation of why the publisher must not retain a database lock
 while waiting for Kafka, see
@@ -199,9 +201,23 @@ sequenceDiagram
 If Kafka fails, the worker records the error and increments attempts while the
 row remains `PENDING`. The current POC retries it on later scheduler runs.
 
-`claimed_at` supports crash recovery. A scheduler resets `PROCESSING` rows
-whose claim is older than `shopverse.outbox.claim-timeout-ms`. The claim timeout
-must remain longer than the Kafka send timeout.
+`claimed_at` supports crash recovery. A row becomes stale when it remains
+`PROCESSING` longer than `shopverse.outbox.claim-timeout-ms`:
+
+```text
+status = PROCESSING
+claimed_at < now - claim timeout
+```
+
+The recovery scheduler resets that row back to `PENDING`. This makes the row
+retryable because normal publisher scans pick pending rows:
+
+```text
+PENDING -> PROCESSING -> send to Kafka -> PUBLISHED
+```
+
+The claim timeout must remain longer than the Kafka send timeout. Otherwise a
+slow but healthy send could be reclaimed while it is still running.
 
 A crash after Kafka acknowledgement but before `PUBLISHED` commits can cause a
 duplicate send. Shopverse therefore provides at-least-once publication, not
@@ -231,7 +247,27 @@ publication and consumption are at least once.
 
 HTTP checkout requires `Idempotency-Key`. Repeating the same key returns the existing order instead of inserting another one. A unique database constraint protects races that pass the application lookup concurrently.
 
-Kafka remains at-least-once. Consumers must treat repeated state transitions as harmless by checking existing order, payment, and reservation state and by using unique business keys.
+Kafka remains at-least-once. Producer idempotence is enabled in centralized
+Kafka configuration, but it only protects supported producer retries to the
+broker. It does not deduplicate business effects after outbox restart, retry
+topics, DLT replay, or consumer crashes.
+
+Consumers must treat repeated state transitions as harmless by checking
+existing order, payment, and reservation state and by using unique business
+keys:
+
+```text
+Order checkout -> Idempotency-Key
+Inventory      -> orderNumber
+Payment        -> orderNumber
+Kafka key      -> orderNumber
+```
+
+Consumer ID, group ID, offset, and trace ID are runtime or observability
+identifiers. They are not stable business duplicate keys. For a full
+production inbox pattern, add an immutable event ID to every event and store
+`(event_id, consumer_name)` with a database uniqueness constraint in the same
+transaction as the business update.
 
 ## Inventory Concurrency
 
@@ -245,7 +281,59 @@ Admin replay APIs enqueue the event through the outbox and update the audit fiel
 
 ## Timeline
 
-Order Service persists queryable stages with timestamp, correlation ID, and details. The timeline is protected by ownership authorization. It is the business audit trail; Kafka logs and Zipkin traces are operational evidence, not the source of order state.
+Order Service persists queryable stages with timestamp, correlation ID, and
+details. The timeline is protected by ownership authorization. It is the
+business audit trail; Kafka logs and Zipkin traces are operational evidence,
+not the source of order state.
+
+Typical success path:
+
+```text
+ORDER_CREATED
+  -> INVENTORY_RESERVED
+  -> PAYMENT_PROCESSING
+  -> PAYMENT_COMPLETED
+  -> ORDER_CONFIRMED
+```
+
+Typical failure paths:
+
+```text
+ORDER_CREATED
+  -> INVENTORY_REJECTED
+```
+
+```text
+ORDER_CREATED
+  -> INVENTORY_RESERVED
+  -> PAYMENT_PROCESSING
+  -> PAYMENT_FAILED
+```
+
+The timeline table stores:
+
+| Field | Purpose |
+|---|---|
+| `orderNumber` | groups rows for one order |
+| `correlationId` | connects timeline to logs, events, DLT, and traces |
+| `stage` | durable business transition |
+| `detail` | human-readable reason or reference |
+| `occurredAt` | chronological ordering |
+
+API:
+
+```http
+GET /api/v1/orders/{id}/timeline
+```
+
+Authorization:
+
+```java
+@PreAuthorize("hasRole('ADMIN') or @orderAuthorization.isOwner(#id, authentication.name)")
+```
+
+Use the timeline first to understand the order's business state, then use the
+correlation ID to inspect Loki logs and the trace ID to inspect Zipkin spans.
 
 ## Guarantees And Limits
 

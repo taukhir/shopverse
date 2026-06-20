@@ -292,7 +292,127 @@ User Service has:
 1. a higher-priority Basic-auth chain restricted to `/api/v1/internal/users/**`;
 2. a JWT resource-server chain for public and administrative APIs.
 
-`securityMatcher` chooses the first matching chain. The internal endpoint cannot accidentally fall through to the bearer policy, and the Basic policy does not apply to the rest of the API.
+The implementation is in
+`user-service/src/main/java/io/shopverse/user_service/security/SecurityConfig.java`:
+
+```java
+@Bean
+@Order(1)
+public SecurityFilterChain internalUserSecurityFilterChain(HttpSecurity http)
+        throws Exception {
+    http
+            .securityMatcher(ApiConstants.INTERNAL_USERS + "/**")
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(session ->
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+            .httpBasic(Customizer.withDefaults());
+
+    return http.build();
+}
+```
+
+```java
+@Bean
+@Order(2)
+public SecurityFilterChain securityFilterChain(
+        HttpSecurity http,
+        JwtAuthenticationConverter jwtAuthenticationConverter
+) throws Exception {
+    http
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(session ->
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/actuator/health", "/actuator/info",
+                            "/actuator/prometheus").permitAll()
+                    .requestMatchers(ApiConstants.PUBLIC_API + "/**").permitAll()
+                    .requestMatchers(ApiConstants.USERS + "/**")
+                            .hasAnyRole("CUSTOMER", "ADMIN")
+                    .requestMatchers(ApiConstants.ROLES + "/**")
+                            .hasRole("ADMIN")
+                    .anyRequest().authenticated())
+            .oauth2ResourceServer(oauth -> oauth.jwt(jwt ->
+                    jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+
+    return http.build();
+}
+```
+
+`securityMatcher(...)` scopes a chain to matching request paths. `@Order(1)`
+is evaluated before `@Order(2)`, so the internal Basic chain gets the first
+chance to handle `/api/v1/internal/users/**`. If the request does not match
+that path, Spring Security evaluates the JWT chain.
+
+```mermaid
+flowchart TD
+    REQ["Incoming request"] --> PROXY["Spring Security FilterChainProxy"]
+    PROXY --> BASIC_MATCH{"Matches /api/v1/internal/users/**?"}
+    BASIC_MATCH -->|"Yes"| BASIC["Chain @Order(1): HTTP Basic"]
+    BASIC_MATCH -->|"No"| JWT["Chain @Order(2): JWT resource server"]
+
+    BASIC --> BASIC_HEADER{"Authorization: Basic ... present?"}
+    BASIC_HEADER -->|"No or invalid"| BASIC_401["401 Unauthorized"]
+    BASIC_HEADER -->|"Valid"| USER_DETAILS["DatabaseUserDetailsService loads user"]
+    USER_DETAILS --> PASSWORD["PasswordEncoder verifies BCrypt password"]
+    PASSWORD --> INTERNAL_CONTROLLER["InternalUserController returns user, roles, permissions"]
+
+    JWT --> PUBLIC{"Public or actuator endpoint?"}
+    PUBLIC -->|"Yes"| CONTROLLER["Controller allowed without JWT"]
+    PUBLIC -->|"No"| BEARER{"Authorization: Bearer ... present?"}
+    BEARER -->|"No or invalid"| JWT_401["401 Unauthorized"]
+    BEARER -->|"Valid"| DECODE["JwtDecoder verifies signature, expiry, issuer"]
+    DECODE --> CONVERT["JwtAuthenticationConverter maps roles and permissions"]
+    CONVERT --> CONTEXT["SecurityContext stores JwtAuthenticationToken"]
+    CONTEXT --> AUTHORIZE["URL rules and @PreAuthorize are evaluated"]
+```
+
+### Internal Login Flow Through The Basic Chain
+
+Auth Service calls the internal User Service endpoint during login:
+
+```text
+POST /auth/login
+  -> Auth Service
+  -> Feign call to User Service /api/v1/internal/users/authenticated/{username}
+  -> Authorization: Basic base64(username:password)
+```
+
+Because the path starts with `/api/v1/internal/users/`, Spring selects the
+`@Order(1)` chain. That chain uses HTTP Basic only for this internal lookup.
+Spring delegates to `DatabaseUserDetailsService`, which loads the user,
+roles, and permissions from MySQL. The configured `PasswordEncoder` verifies
+the submitted password against the stored BCrypt hash.
+
+If authentication succeeds, User Service returns user details to Auth Service.
+Auth Service then signs a JWT containing roles and permissions.
+
+### Public And User APIs Through The JWT Chain
+
+Requests such as these do not match the Basic chain:
+
+```text
+GET  /api/v1/users
+POST /api/v1/users
+GET  /api/v1/roles
+```
+
+They fall through to the `@Order(2)` chain. That chain uses OAuth2 Resource
+Server support:
+
+1. `BearerTokenAuthenticationFilter` reads the `Authorization: Bearer ...`
+   header.
+2. `NimbusJwtDecoder` fetches the public key from JWKS and verifies the RSA
+   signature.
+3. `JwtValidators.createDefaultWithIssuer(issuer)` verifies expiry and issuer.
+4. `JwtAuthenticationConverter` converts `roles` and `permissions` claims into
+   Spring `GrantedAuthority` values.
+5. request-level rules such as `.hasRole("ADMIN")` are checked.
+6. method-level rules such as `@PreAuthorize("hasAuthority('USER_CREATE')")`
+   are checked before the controller method runs.
+
+The internal endpoint cannot accidentally fall through to the bearer policy,
+and the Basic policy does not apply to the rest of the API.
 
 ## Ownership Authorization
 
@@ -304,6 +424,13 @@ Order timeline and payment lookup allow either:
 ```java
 @PreAuthorize("hasRole('ADMIN') or @orderAuthorization.isOwner(#id, authentication.name)")
 ```
+
+Authentication alone does not authorize access to every identifier a caller
+can place in a URL. Shopverse therefore checks the persisted owner before
+returning customer Order timelines and Payment records, while administrators
+retain cross-customer access. See
+[Resource Ownership Authorization](../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+for the complete code flow and tests.
 
 This is stronger than checking only whether a caller has a generic read permission.
 
@@ -327,8 +454,6 @@ issuance. It should not be described as an OAuth2 password grant.
 
 ## Current Security Gaps
 
-- Gateway, Order, Inventory, and Payment do not currently add the same explicit
-  issuer validator used by User Service.
 - audience validation is not consistently configured.
 - JWT deny-list, user security version, and opaque-token introspection are not
   implemented.

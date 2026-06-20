@@ -8,6 +8,10 @@ sidebar_position: 3
 A Stream describes a lazy pipeline over a data source. It is not a collection
 and normally does not store elements.
 
+Streams are built on functional interfaces such as `Predicate`, `Function`,
+`Consumer`, and `Supplier`. See
+[Java Functional Interfaces](JAVA-FUNCTIONAL-INTERFACES.md).
+
 ```java
 List<String> paidOrders = orders.stream()
         .filter(order -> order.status() == OrderStatus.PAID)
@@ -40,6 +44,30 @@ operation such as `toList`, `reduce`, or `count` starts traversal.
 | `reduce` | combine into one value |
 | `anyMatch` / `allMatch` | short-circuit predicates |
 | `findFirst` / `findAny` | retrieve an element |
+
+## Stream Lifecycle
+
+```text
+collection / array / generator
+  -> stream source
+  -> intermediate operation
+  -> intermediate operation
+  -> terminal operation
+  -> result
+```
+
+Nothing runs until the terminal operation starts traversal.
+
+```java
+Stream<Order> pipeline = orders.stream()
+        .filter(order -> {
+            log.info("Filtering {}", order.orderNumber());
+            return order.status() == OrderStatus.PAID;
+        });
+
+// No log yet.
+long count = pipeline.count(); // traversal starts here
+```
 
 ## Map Versus FlatMap
 
@@ -173,4 +201,3 @@ can produce different answers.
 - do not hide expensive remote calls inside `map`;
 - use primitive streams to reduce boxing for numerical workloads;
 - benchmark before selecting parallel streams.
-
