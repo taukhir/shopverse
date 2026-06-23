@@ -6,6 +6,8 @@ public record CatalogItemResponse(
         Long productId,
         String productName,
         BigDecimal price,
-        boolean available
+        boolean available,
+        String imageUrl,
+        String imageKey
 ) {
 }

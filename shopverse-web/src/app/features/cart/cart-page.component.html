@@ -1,0 +1,20 @@
+<section class="cart-page">
+  <div class="cart-heading"><p class="eyebrow">YOUR SELECTION</p><h1>Cart <span>({{ cart.itemCount() }})</span></h1></div>
+  @if (cart.items().length === 0) {
+    <section class="empty-cart"><p class="eyebrow">NOTHING HERE YET</p><h2>A little empty space is fine.</h2><p>Find something worth bringing home from the current collection.</p><a routerLink="/products">Explore collection <span>→</span></a></section>
+  } @else {
+    <div class="cart-layout">
+      <div class="cart-items">
+        @for (item of cart.items(); track item.productId; let index = $index) {
+          <article class="cart-item">
+            <div class="item-mark"><span>0{{ index + 1 }}</span><i></i></div>
+            <div class="item-name"><p>PRODUCT {{ item.productId }}</p><h2>{{ item.productName }}</h2><button type="button" (click)="cart.remove(item.productId)">Remove</button></div>
+            <div class="quantity" aria-label="Quantity controls for {{ item.productName }}"><button type="button" aria-label="Decrease quantity" (click)="cart.setQuantity(item.productId, item.quantity - 1)">−</button><span>{{ item.quantity }}</span><button type="button" aria-label="Increase quantity" (click)="cart.setQuantity(item.productId, item.quantity + 1)">+</button></div>
+            <strong>{{ price(item.price * item.quantity) }}</strong>
+          </article>
+        }
+      </div>
+      <aside class="summary"><p class="eyebrow">SUMMARY</p><div><span>Items</span><strong>{{ cart.itemCount() }}</strong></div><div><span>Subtotal</span><strong>{{ price(cart.total()) }}</strong></div><div class="total"><span>Total</span><strong>{{ price(cart.total()) }}</strong></div><a routerLink="/checkout">Continue to checkout <span>→</span></a><p class="summary-note">Shipping and final availability are confirmed at checkout.</p></aside>
+    </div>
+  }
+</section>

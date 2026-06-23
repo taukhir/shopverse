@@ -50,8 +50,9 @@ key.
 
 `InventoryItem` uses JPA `@Version`. Concurrent updates based on a stale version fail instead of silently overselling the last item. Reservation operations are transactional and use order number as the business key.
 
-Liquibase seeds products `101` through `110`, including available, reserved, low-stock,
-and unavailable examples:
+Liquibase seeds products `101` through `120`, including available, reserved, low-stock,
+and unavailable examples. Each catalog record also contains `brand`, `model`,
+`category`, `description`, `imageUrl`, and `imageKey`.
 
 ```powershell
 docker compose exec mysql sh -lc '
@@ -66,6 +67,43 @@ docker compose exec mysql sh -lc '
 The `version` value increments on successful versioned updates. Concurrent
 transactions using an older value are rejected and must restart the complete
 idempotent reservation operation with freshly loaded state.
+
+## Product Images
+
+Product media is stored in MinIO, while Inventory stores only the object key
+and browser-facing URL. The local Compose stack starts MinIO on `9000`, its
+console on `9001`, and a one-shot `minio-init` container that creates the
+`shopverse-product-images` bucket and uploads `assets/products/products`.
+
+`GET /api/v1/inventory/public/items` returns the URL the frontend can bind to
+an image element. The browser then downloads the media directly from MinIO;
+Inventory does not proxy image bytes.
+
+```json
+{
+  "productId": 101,
+  "brand": "KeyForge",
+  "model": "SV-101-2026",
+  "imageUrl": "http://localhost:9000/shopverse-product-images/products/101.png",
+  "imageKey": "products/101.png"
+}
+```
+
+MinIO credentials are set in the ignored `.env` file using `MINIO_ROOT_USER`
+and `MINIO_ROOT_PASSWORD`. Do not expose root credentials to the frontend.
+
+Verify media initialization after startup:
+
+```powershell
+docker compose ps minio minio-init
+docker compose logs --tail=100 minio-init
+Invoke-WebRequest -Method Head `
+  -Uri "http://localhost:9000/shopverse-product-images/products/101.png"
+```
+
+`minio` should be healthy, `minio-init` should have completed successfully,
+and the image request should return `200`. Re-run `minio-init` after changing
+files under `assets/products/products`.
 
 ## Kafka Recovery
 

@@ -72,12 +72,14 @@ class InventoryInfrastructureIntegrationTest {
         assertThat(tableExists("outbox_events")).isTrue();
         assertThat(tableExists("failed_kafka_events")).isTrue();
         assertThat(columnExists("outbox_events", "claimed_at")).isTrue();
+        assertThat(columnExists("inventory_items", "brand")).isTrue();
+        assertThat(columnExists("inventory_items", "image_url")).isTrue();
     }
 
     @Test
     void migrationsSeedCatalogAndReservationHistory() {
-        assertThat(count("select count(*) from inventory_items where product_id between 101 and 110"))
-                .isEqualTo(10);
+        assertThat(count("select count(*) from inventory_items where product_id between 101 and 120"))
+                .isEqualTo(20);
         assertThat(count("select count(*) from inventory_reservations where order_number like 'DEMO-ORD-%'"))
                 .isEqualTo(5);
         assertThat(jdbcTemplate.queryForObject(
@@ -88,6 +90,10 @@ class InventoryInfrastructureIntegrationTest {
                 "select reserved_quantity from inventory_items where product_id = 104",
                 Integer.class
         )).isEqualTo(1);
+        assertThat(jdbcTemplate.queryForObject(
+                "select image_key from inventory_items where product_id = 120",
+                String.class
+        )).isEqualTo("products/120.png");
     }
 
     @Test

@@ -43,12 +43,28 @@ public class InventoryServiceImpl implements InventoryService {
     public InventoryResponse upsert(InventoryUpsertRequest request) {
         InventoryItem item = itemRepository.findByProductId(request.productId())
                 .map(existing -> {
-                    existing.replaceStock(request.productName(), request.unitPrice(), request.availableQuantity());
+                    existing.replaceCatalogDetails(
+                            request.productName(),
+                            request.brand(),
+                            request.model(),
+                            request.category(),
+                            request.description(),
+                            request.imageUrl(),
+                            request.imageKey(),
+                            request.unitPrice(),
+                            request.availableQuantity()
+                    );
                     return existing;
                 })
                 .orElseGet(() -> new InventoryItem(
                         request.productId(),
                         request.productName(),
+                        request.brand(),
+                        request.model(),
+                        request.category(),
+                        request.description(),
+                        request.imageUrl(),
+                        request.imageKey(),
                         request.unitPrice(),
                         request.availableQuantity()
                 ));
@@ -158,6 +174,12 @@ public class InventoryServiceImpl implements InventoryService {
                 item.getId(),
                 item.getProductId(),
                 item.getProductName(),
+                item.getBrand(),
+                item.getModel(),
+                item.getCategory(),
+                item.getDescription(),
+                item.getImageUrl(),
+                item.getImageKey(),
                 item.getUnitPrice(),
                 item.getAvailableQuantity(),
                 item.getReservedQuantity(),

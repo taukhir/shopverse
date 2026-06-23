@@ -222,7 +222,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Seed-ShopverseData
 Remove-Item Env:SHOPVERSE_ADMIN_PASSWORD
 ```
 
-Defaults are 20 named customers, 150 catalog items, and 120 checkout requests.
+Defaults are 20 named customers, 20 catalog items, and 120 checkout requests.
 Checkout jobs run in batches of four to avoid overwhelming a laptop-sized
 Compose stack. Re-running uses the same `api-seed-checkout-####` idempotency
 keys, so a completed checkout is returned rather than duplicated.
@@ -237,7 +237,7 @@ $seed = Get-Content .\.tmp\shopverse-api-seed-manifest.json -Raw | ConvertFrom-J
 $seed.orders | Where-Object OrderIndex -eq 1 | Format-List
 ```
 
-For a smaller first run, use `-CustomerCount 5 -ProductCount 25 -OrderCount 20
+For a smaller first run, use `-CustomerCount 5 -ProductCount 10 -OrderCount 20
 -BatchSize 2`. This is local POC data only; the script should never target a
 shared or production environment.
 

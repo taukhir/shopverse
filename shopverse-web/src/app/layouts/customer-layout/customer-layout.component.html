@@ -1,19 +1,19 @@
 <a class="skip-link" href="#main-content">Skip to content</a>
 
 <header class="site-header">
-  <a class="brand" routerLink="/" aria-label="ShopVerse home">shop<span>verse</span><i></i></a>
+  <a class="brand" routerLink="/" aria-label="ShopVerse home"><img class="brand-mark" src="/shopverse-mark.svg" alt="" />shop<span>verse</span></a>
   <nav class="site-nav" aria-label="Main navigation">
     <a routerLink="/products" routerLinkActive="active">Shop</a>
     <a routerLink="/orders" routerLinkActive="active">Orders</a>
     <a routerLink="/account" routerLinkActive="active">Account</a>
   </nav>
-  <a class="cart-link" routerLink="/cart">Cart <span>0</span></a>
+  <a class="cart-link" routerLink="/cart">Cart <span>{{ cart.itemCount() }}</span></a>
 </header>
 
 <main id="main-content"><router-outlet /></main>
 
 <footer class="site-footer">
-  <a class="brand" routerLink="/">shop<span>verse</span><i></i></a>
+  <a class="brand" routerLink="/" aria-label="ShopVerse home"><img class="brand-mark" src="/shopverse-mark.svg" alt="" />shop<span>verse</span></a>
   <p>Commerce that keeps every step in view.</p>
   <a routerLink="/admin">Operations</a>
 </footer>

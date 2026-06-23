@@ -117,7 +117,7 @@ validation, inventory upsert, idempotent checkout, Kafka SAGA, outbox, logging,
 and tracing paths used by a normal client. It is not a Liquibase migration and
 must never be used against a production environment.
 
-The default data set contains 20 named customer accounts, 150 realistic catalog
+The default data set contains 20 named customer accounts, 20 realistic catalog
 items, and 120 one-item checkout requests. User creation accepts duplicate
 users, product creation is a `PUT` upsert, and every checkout has a stable
 `Idempotency-Key`. This means a rerun resumes the same data set instead of
@@ -135,7 +135,7 @@ For a smaller workstation run, lower the counts and concurrency:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Seed-ShopverseData.ps1 `
-  -CustomerCount 5 -ProductCount 25 -OrderCount 20 -BatchSize 2
+  -CustomerCount 5 -ProductCount 10 -OrderCount 20 -BatchSize 2
 ```
 
 The script prompts for the administrator password when neither

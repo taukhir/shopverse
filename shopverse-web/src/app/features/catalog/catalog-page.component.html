@@ -1,0 +1,48 @@
+<section class="catalog-hero">
+  <p class="eyebrow">THE SHOPVERSE EDIT / 2026</p>
+  <h1>Things worth<br />bringing home.</h1>
+  <div class="catalog-note"><span>01</span><p>Our current collection, live from Inventory Service.</p></div>
+</section>
+
+<section class="catalog-content" aria-labelledby="catalog-title">
+  <div class="catalog-meta">
+    <div><p class="eyebrow">AVAILABLE COLLECTION</p><h2 id="catalog-title">The essentials.</h2></div>
+    @if (state() === 'ready') { <p class="count">{{ products().length }} items live</p> }
+  </div>
+
+  @if (state() === 'loading') {
+    <div class="product-grid loading" aria-label="Loading catalog">
+      @for (placeholder of [1, 2, 3, 4]; track placeholder) { <div class="skeleton"><i></i><span></span><span></span></div> }
+    </div>
+  } @else if (state() === 'error') {
+    <div class="status-card" role="alert">
+      <p class="eyebrow">CATALOG UNAVAILABLE</p>
+      <h2>We could not reach the collection.</h2>
+      <p>Start the ShopVerse gateway and Order Service, then try again.</p>
+      <button type="button" (click)="loadCatalog()">Try again <span>→</span></button>
+    </div>
+  } @else if (products().length === 0) {
+    <div class="status-card"><p class="eyebrow">NO ITEMS YET</p><h2>The collection is being prepared.</h2></div>
+  } @else {
+    <div class="product-grid">
+      @for (product of products(); track product.productId; let index = $index) {
+        <article class="product-card" [class.unavailable]="!product.available">
+          <div class="product-art">
+            <img [src]="product.imageUrl" [alt]="product.productName" loading="lazy" />
+            @if (!product.available) { <span class="availability-flag">Unavailable</span> }
+          </div>
+          <div class="product-info">
+            <div><p [class.out-of-stock]="!product.available">{{ product.available ? 'IN STOCK' : 'CURRENTLY UNAVAILABLE' }}</p><h3>{{ product.productName }}</h3></div>
+            <strong>{{ price(product.price) }}</strong>
+          </div>
+          <div class="card-rule"></div>
+          @if (product.available) {
+            <button class="product-action" type="button" (click)="addToCart(product)">Add to cart <span>→</span></button>
+          } @else {
+            <p class="product-action">Check back soon <span>↗</span></p>
+          }
+        </article>
+      }
+    </div>
+  }
+</section>
