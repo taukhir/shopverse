@@ -75,6 +75,22 @@ class InventoryInfrastructureIntegrationTest {
     }
 
     @Test
+    void migrationsSeedCatalogAndReservationHistory() {
+        assertThat(count("select count(*) from inventory_items where product_id between 101 and 110"))
+                .isEqualTo(10);
+        assertThat(count("select count(*) from inventory_reservations where order_number like 'DEMO-ORD-%'"))
+                .isEqualTo(5);
+        assertThat(jdbcTemplate.queryForObject(
+                "select status from inventory_reservations where order_number = 'DEMO-ORD-1004'",
+                String.class
+        )).isEqualTo("RESERVED");
+        assertThat(jdbcTemplate.queryForObject(
+                "select reserved_quantity from inventory_items where product_id = 104",
+                Integer.class
+        )).isEqualTo(1);
+    }
+
+    @Test
     void outboxCommitAndRollbackShareTheTransactionBoundary() {
         String committedId = "commit-" + UUID.randomUUID();
         transactionTemplate.executeWithoutResult(status -> enqueue(committedId));
@@ -125,6 +141,11 @@ class InventoryInfrastructureIntegrationTest {
                 Integer.class,
                 aggregateId
         );
+        return count == null ? 0 : count;
+    }
+
+    private int count(String sql) {
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
         return count == null ? 0 : count;
     }
 

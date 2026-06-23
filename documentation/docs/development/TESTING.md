@@ -17,15 +17,20 @@ Shopverse testing is designed to:
 - stop failed verification instead of polling for hours;
 - collect focused diagnostics.
 
-## Three Verification Modes
+## Four Verification Modes
 
 | Mode | Purpose | Performance target | Hard limit |
 |---|---|---:|---:|
-| Quick | changed-service compile/unit tests | under 1 minute | overall script timeout |
+| Changed | unit tests for affected services only | under 1 minute when narrowly scoped | per-task and suite timeouts |
+| Quick | unit tests for every service, or an explicit service list | under 2 minutes with warm caches | per-task and suite timeouts |
 | Integration | MySQL/Kafka/Testcontainers tests | 2-5 minutes | normally 10 minutes locally, 12 minutes in CI |
 | Full | Docker startup and authenticated SAGA smoke path | under 10 minutes | 10-minute local default; CI smoke job allows 15 minutes |
 
-Targets are engineering goals, not guarantees on a cold machine. Image
+Targets are engineering goals, not guarantees on a cold machine. The local
+verification script bootstraps the Gradle wrapper outside the execution budget,
+reuses one daemon across sequential service builds, applies both per-task and
+suite deadlines, prints bounded child-process diagnostics on failure, and stops
+the daemon after the suite. Image
 downloads, Docker startup, and dependency resolution can exceed them. Hard
 limits prevent indefinite resource consumption.
 

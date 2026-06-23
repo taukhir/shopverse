@@ -31,7 +31,34 @@ ORDER_CREATED
 - insufficient stock: Inventory emits `inventory.failed`; Order becomes `INVENTORY_REJECTED`;
 - payment decline: Payment emits `payment.failed`; Order becomes `PAYMENT_FAILED`; Inventory releases the reservation;
 - payment timeout: Payment remains `TIMED_OUT` and waits for reconciliation;
-- reservation expiry: Inventory marks an unpaid reservation `EXPIRED` and restores stock.
+- reservation expiry baseline: Inventory scans `RESERVED` rows after their TTL,
+  marks them `EXPIRED`, and restores stock. Atomic multi-replica ownership and
+  the successful-payment terminal transition remain planned; see
+  [Multi-Replica Reservation Expiry](problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
+
+### Late Payment After Expiry
+
+The current choreography confirms Order directly from `payment.completed` and
+does not automatically refund a capture discovered after Inventory expiry.
+The target choreography makes Inventory's atomic post-payment commitment the
+final stock decision:
+
+```text
+payment.completed
+  -> Inventory RESERVED -> COMMITTED
+  -> inventory.committed
+  -> Order confirmed
+
+payment.completed after Inventory EXPIRED
+  -> late-payment.detected
+  -> Payment REFUND_PENDING -> REFUNDED
+  -> payment.refunded
+  -> Order cancelled with refund evidence
+```
+
+The detailed state machines, event contracts, idempotency rules, transaction
+boundaries, failure matrix, and Testcontainers plan are in
+[Late Payment Reconciliation After Expiry](problems/runtime/LATE-PAYMENT-AFTER-EXPIRY.md).
 
 ## Transactional Outbox
 

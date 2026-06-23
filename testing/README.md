@@ -1,7 +1,7 @@
 # Shopverse Testing And Verification
 
 This file contains executable commands for the repository scripts. Shopverse
-coverage and the three bounded verification modes are documented in
+coverage and the four bounded verification modes are documented in
 [Testing strategy](../documentation/docs/development/TESTING.md). Reusable JUnit, Mockito,
 Spring Test, controller/service/repository, Testcontainers, and E2E concepts
 are documented in
@@ -9,6 +9,12 @@ are documented in
 
 Shopverse uses layered verification so a small code change does not require a
 full Docker rebuild. Each layer has a bounded purpose and timeout.
+
+The local verification script separates Gradle-wrapper bootstrap from the test
+execution budget. It reuses one Gradle daemon across the selected services,
+runs service builds sequentially to avoid shared-cache lock contention, and
+stops the daemon when the suite finishes. A failed or timed-out child process
+prints its final 160 stdout/stderr lines before the summary.
 
 ## Verification Layers
 
@@ -30,6 +36,20 @@ Run unit tests only for one service:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
   -Mode Quick -Services order-service
 ```
+
+Override the suite and individual-task budgets independently:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+  -Mode Quick `
+  -TimeoutMinutes 10 `
+  -TaskTimeoutMinutes 4 `
+  -BootstrapTimeoutMinutes 5
+```
+
+`TimeoutMinutes` starts after wrapper bootstrap. A cold wrapper download cannot
+consume the budget intended for tests. The default per-task budget is four
+minutes for unit tests and eight minutes for integration tests.
 
 Run unit tests only for changed services:
 
@@ -89,9 +109,59 @@ The suites verify:
 `@Testcontainers(disabledWithoutDocker = true)` lets unit-only development
 continue when Docker is unavailable. CI runners are expected to provide Docker.
 
+## API Demo Data Seeder
+
+`scripts/Seed-ShopverseData.ps1` populates a running local stack through the
+API Gateway. It deliberately exercises the same authentication, authorization,
+validation, inventory upsert, idempotent checkout, Kafka SAGA, outbox, logging,
+and tracing paths used by a normal client. It is not a Liquibase migration and
+must never be used against a production environment.
+
+The default data set contains 20 named customer accounts, 150 realistic catalog
+items, and 120 one-item checkout requests. User creation accepts duplicate
+users, product creation is a `PUT` upsert, and every checkout has a stable
+`Idempotency-Key`. This means a rerun resumes the same data set instead of
+silently creating another 120 logical checkouts.
+
+Start the Compose stack and seed it:
+
+```powershell
+$env:SHOPVERSE_ADMIN_PASSWORD = "Admin@123"
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Seed-ShopverseData.ps1
+Remove-Item Env:SHOPVERSE_ADMIN_PASSWORD
+```
+
+For a smaller workstation run, lower the counts and concurrency:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Seed-ShopverseData.ps1 `
+  -CustomerCount 5 -ProductCount 25 -OrderCount 20 -BatchSize 2
+```
+
+The script prompts for the administrator password when neither
+`-AdminPassword` nor `SHOPVERSE_ADMIN_PASSWORD` is set. It writes generated
+customer credentials to the ignored root file `demo-credentials.local.md` and
+the full result, order identifiers, correlation IDs, and idempotency keys to
+the ignored `.tmp/shopverse-api-seed-manifest.json`.
+
+Use the manifest to investigate an individual checkout:
+
+```powershell
+$seed = Get-Content .\.tmp\shopverse-api-seed-manifest.json -Raw | ConvertFrom-Json
+$seed.orders | Where-Object OrderIndex -eq 1 | Format-List
+```
+
+The correlation format is `api-seed-correlation-0001`, so it can be searched
+directly in Grafana Explore/Loki. The matching order idempotency key is
+`api-seed-checkout-0001`.
+
 ## Resource And Deadlock Controls
 
 - Gradle build cache and configuration cache are enabled.
+- Local suites reuse one bounded Gradle daemon and stop it afterward.
+- Wrapper bootstrap has an independent timeout and reported duration.
+- Every Gradle task has its own timeout in addition to the suite deadline.
+- Failed tasks print bounded Gradle stdout and stderr before exiting.
 - Each service is limited to two Gradle workers.
 - Test JVM forks are limited to one per service.
 - Integration suites are sequential inside each service.

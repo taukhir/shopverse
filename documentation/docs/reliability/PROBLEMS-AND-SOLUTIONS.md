@@ -10,7 +10,7 @@ Production, runtime, build, testing, and operations issues are split into focuse
 
 | Page | Covers |
 |---|---|
-| [Runtime Reliability Problems](problems/RUNTIME-RELIABILITY-PROBLEMS.md) | Distributed checkout, SAGA visibility, resource ownership, duplicate checkout, Kafka idempotency, payment uncertainty, and locking decisions. |
+| [Runtime Reliability Problems](problems/RUNTIME-RELIABILITY-PROBLEMS.md) | Distributed checkout, SAGA visibility, resource ownership, reservation expiry, duplicate checkout, Kafka idempotency, payment uncertainty, and locking decisions. |
 | [Outbox Runtime Problems](problems/OUTBOX-RUNTIME-PROBLEMS.md) | Outbox database lock scope and stale outbox claim recovery. |
 | [Docker And Runtime Image Problems](problems/DOCKER-RUNTIME-IMAGE-PROBLEMS.md) | Parallel Gradle cache locks, duplicate JAR ownership layers, non-root containers, and multi-stage runtime image composition. |
 | [Dependency And Verification Problems](problems/DEPENDENCY-VERIFICATION-PROBLEMS.md) | Inventory outage semantics, bounded verification, Windows health probes, and isolated Config Server tracing noise. |
@@ -40,6 +40,11 @@ Moved to [Runtime Reliability Problems](problems/RUNTIME-RELIABILITY-PROBLEMS.md
 
 The problem, implementation, code flow, and tests are documented in
 [Resource Ownership Authorization](problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md).
+
+## Multi-Replica Reservation Expiry
+
+The current gap and target atomic-claim design are documented in
+[Multi-Replica Reservation Expiry](problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
 
 ## Idempotent Checkout Using Mandatory Idempotency-Key
 

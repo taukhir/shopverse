@@ -67,3 +67,98 @@ databaseChangeLog:
                   name: order_number
               - column:
                   name: occurred_at
+
+  - changeSet:
+      id: 002-seed-demo-orders-and-timeline
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              INSERT IGNORE INTO orders
+                (order_number, customer_username, status, total_amount, correlation_id,
+                 payment_reference, failure_reason, created_at, updated_at, idempotency_key)
+              VALUES
+                ('DEMO-ORD-1001', 'customer1', 'CONFIRMED', 2499.00, 'demo-corr-1001',
+                 'DEMO-PAY-1001', NULL, '2026-06-15 09:00:00.000000', '2026-06-15 09:00:08.000000', 'demo-checkout-1001'),
+                ('DEMO-ORD-1002', 'customer1', 'PAYMENT_FAILED', 5299.00, 'demo-corr-1002',
+                 NULL, 'Demo provider declined the payment', '2026-06-15 10:00:00.000000', '2026-06-15 10:00:06.000000', 'demo-checkout-1002'),
+                ('DEMO-ORD-1003', 'customer2', 'INVENTORY_REJECTED', 8999.00, 'demo-corr-1003',
+                 NULL, 'Inventory not available for product 103', '2026-06-15 11:00:00.000000', '2026-06-15 11:00:03.000000', 'demo-checkout-1003'),
+                ('DEMO-ORD-1004', 'customer2', 'PAYMENT_PROCESSING', 12999.00, 'demo-corr-1004',
+                 NULL, 'Provider timeout; reconciliation required', '2026-06-16 09:00:00.000000', '2026-06-16 09:00:05.000000', 'demo-checkout-1004'),
+                ('DEMO-ORD-1005', 'customer1', 'CANCELLED', 1599.00, 'demo-corr-1005',
+                 NULL, 'Cancelled by administrator', '2026-06-16 11:00:00.000000', '2026-06-16 11:00:04.000000', 'demo-checkout-1005'),
+                ('DEMO-ORD-1006', 'customer2', 'CONFIRMED', 12999.00, 'demo-corr-1006',
+                 'DEMO-PAY-1006', NULL, '2026-06-17 09:00:00.000000', '2026-06-17 09:00:07.000000', 'demo-checkout-1006'),
+                ('DEMO-ORD-1007', 'customer1', 'CONFIRMED', 7798.00, 'demo-corr-1007',
+                 'DEMO-PAY-1007', NULL, '2026-06-17 11:00:00.000000', '2026-06-17 11:00:09.000000', 'demo-checkout-1007'),
+                ('DEMO-ORD-1008', 'customer2', 'CANCELLED', 6499.00, 'demo-corr-1008',
+                 'DEMO-PAY-1008', 'Payment refunded after cancellation', '2026-06-17 14:00:00.000000', '2026-06-17 14:05:00.000000', 'demo-checkout-1008'),
+                ('DEMO-ORD-1009', 'customer1', 'INVENTORY_REJECTED', 1999.00, 'demo-corr-1009',
+                 NULL, 'Inventory reservation expired before payment completed', '2026-06-17 16:00:00.000000', '2026-06-17 16:05:02.000000', 'demo-checkout-1009');
+
+              INSERT INTO order_items (order_id, product_id, product_name, quantity, unit_price)
+              SELECT o.id, seed.product_id, seed.product_name, seed.quantity, seed.unit_price
+              FROM orders o
+              JOIN (
+                SELECT 'DEMO-ORD-1001' order_number, 101 product_id, 'Wireless Keyboard' product_name, 1 quantity, 2499.00 unit_price
+                UNION ALL SELECT 'DEMO-ORD-1002', 102, 'USB-C Dock', 1, 5299.00
+                UNION ALL SELECT 'DEMO-ORD-1003', 103, 'Noise Cancelling Headphones', 1, 8999.00
+                UNION ALL SELECT 'DEMO-ORD-1004', 104, '27-inch 4K Monitor', 1, 12999.00
+                UNION ALL SELECT 'DEMO-ORD-1005', 105, 'Ergonomic Wireless Mouse', 1, 1599.00
+                UNION ALL SELECT 'DEMO-ORD-1006', 104, '27-inch 4K Monitor', 1, 12999.00
+                UNION ALL SELECT 'DEMO-ORD-1007', 101, 'Wireless Keyboard', 1, 2499.00
+                UNION ALL SELECT 'DEMO-ORD-1007', 102, 'USB-C Dock', 1, 5299.00
+                UNION ALL SELECT 'DEMO-ORD-1008', 106, 'Mechanical Gaming Keyboard', 1, 6499.00
+                UNION ALL SELECT 'DEMO-ORD-1009', 108, 'Aluminium Laptop Stand', 1, 1999.00
+              ) seed ON seed.order_number = o.order_number
+              WHERE NOT EXISTS (
+                SELECT 1 FROM order_items item
+                WHERE item.order_id = o.id AND item.product_id = seed.product_id
+              );
+              INSERT INTO order_timeline_events
+                (order_number, correlation_id, stage, detail, occurred_at)
+              SELECT seed.order_number, seed.correlation_id, seed.stage, seed.detail, seed.occurred_at
+              FROM (
+                SELECT 'DEMO-ORD-1001' order_number, 'demo-corr-1001' correlation_id, 'ORDER_CREATED' stage, 'Checkout accepted and order persisted' detail, TIMESTAMP '2026-06-15 09:00:00.000000' occurred_at
+                UNION ALL SELECT 'DEMO-ORD-1001','demo-corr-1001','INVENTORY_RESERVED','Inventory reservation confirmed',TIMESTAMP '2026-06-15 09:00:02.000000'
+                UNION ALL SELECT 'DEMO-ORD-1001','demo-corr-1001','PAYMENT_PROCESSING','Payment processing started',TIMESTAMP '2026-06-15 09:00:03.000000'
+                UNION ALL SELECT 'DEMO-ORD-1001','demo-corr-1001','PAYMENT_COMPLETED','Payment reference DEMO-PAY-1001',TIMESTAMP '2026-06-15 09:00:07.000000'
+                UNION ALL SELECT 'DEMO-ORD-1001','demo-corr-1001','ORDER_CONFIRMED','Order confirmed',TIMESTAMP '2026-06-15 09:00:08.000000'
+                UNION ALL SELECT 'DEMO-ORD-1002','demo-corr-1002','ORDER_CREATED','Checkout accepted and order persisted',TIMESTAMP '2026-06-15 10:00:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1002','demo-corr-1002','INVENTORY_RESERVED','Inventory reservation confirmed',TIMESTAMP '2026-06-15 10:00:02.000000'
+                UNION ALL SELECT 'DEMO-ORD-1002','demo-corr-1002','PAYMENT_PROCESSING','Payment processing started',TIMESTAMP '2026-06-15 10:00:03.000000'
+                UNION ALL SELECT 'DEMO-ORD-1002','demo-corr-1002','PAYMENT_FAILED','Demo provider declined the payment',TIMESTAMP '2026-06-15 10:00:06.000000'
+                UNION ALL SELECT 'DEMO-ORD-1003','demo-corr-1003','ORDER_CREATED','Checkout accepted and order persisted',TIMESTAMP '2026-06-15 11:00:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1003','demo-corr-1003','INVENTORY_REJECTED','Inventory not available for product 103',TIMESTAMP '2026-06-15 11:00:03.000000'
+                UNION ALL SELECT 'DEMO-ORD-1004','demo-corr-1004','ORDER_CREATED','Checkout accepted and order persisted',TIMESTAMP '2026-06-16 09:00:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1004','demo-corr-1004','INVENTORY_RESERVED','Inventory reservation confirmed',TIMESTAMP '2026-06-16 09:00:02.000000'
+                UNION ALL SELECT 'DEMO-ORD-1004','demo-corr-1004','PAYMENT_PROCESSING','Provider timeout; reconciliation required',TIMESTAMP '2026-06-16 09:00:05.000000'
+                UNION ALL SELECT 'DEMO-ORD-1005','demo-corr-1005','ORDER_CREATED','Checkout accepted and order persisted',TIMESTAMP '2026-06-16 11:00:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1005','demo-corr-1005','ORDER_CANCELLED','Order cancelled by administrator',TIMESTAMP '2026-06-16 11:00:04.000000'
+                UNION ALL SELECT 'DEMO-ORD-1006','demo-corr-1006','ORDER_CREATED','Checkout accepted and order persisted',TIMESTAMP '2026-06-17 09:00:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1006','demo-corr-1006','INVENTORY_RESERVED','Inventory reservation confirmed',TIMESTAMP '2026-06-17 09:00:02.000000'
+                UNION ALL SELECT 'DEMO-ORD-1006','demo-corr-1006','PAYMENT_PROCESSING','Payment processing started',TIMESTAMP '2026-06-17 09:00:03.000000'
+                UNION ALL SELECT 'DEMO-ORD-1006','demo-corr-1006','PAYMENT_COMPLETED','Payment reference DEMO-PAY-1006',TIMESTAMP '2026-06-17 09:00:06.000000'
+                UNION ALL SELECT 'DEMO-ORD-1006','demo-corr-1006','ORDER_CONFIRMED','Order confirmed',TIMESTAMP '2026-06-17 09:00:07.000000'
+                UNION ALL SELECT 'DEMO-ORD-1007','demo-corr-1007','ORDER_CREATED','Multi-item checkout accepted',TIMESTAMP '2026-06-17 11:00:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1007','demo-corr-1007','INVENTORY_RESERVED','Inventory reservation confirmed',TIMESTAMP '2026-06-17 11:00:03.000000'
+                UNION ALL SELECT 'DEMO-ORD-1007','demo-corr-1007','PAYMENT_PROCESSING','Payment processing started',TIMESTAMP '2026-06-17 11:00:04.000000'
+                UNION ALL SELECT 'DEMO-ORD-1007','demo-corr-1007','PAYMENT_COMPLETED','Payment reference DEMO-PAY-1007',TIMESTAMP '2026-06-17 11:00:08.000000'
+                UNION ALL SELECT 'DEMO-ORD-1007','demo-corr-1007','ORDER_CONFIRMED','Order confirmed',TIMESTAMP '2026-06-17 11:00:09.000000'
+                UNION ALL SELECT 'DEMO-ORD-1008','demo-corr-1008','ORDER_CREATED','Checkout accepted and order persisted',TIMESTAMP '2026-06-17 14:00:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1008','demo-corr-1008','INVENTORY_RESERVED','Inventory reservation confirmed',TIMESTAMP '2026-06-17 14:00:02.000000'
+                UNION ALL SELECT 'DEMO-ORD-1008','demo-corr-1008','PAYMENT_PROCESSING','Payment processing started',TIMESTAMP '2026-06-17 14:00:03.000000'
+                UNION ALL SELECT 'DEMO-ORD-1008','demo-corr-1008','PAYMENT_COMPLETED','Payment later refunded',TIMESTAMP '2026-06-17 14:00:07.000000'
+                UNION ALL SELECT 'DEMO-ORD-1008','demo-corr-1008','ORDER_CONFIRMED','Order initially confirmed',TIMESTAMP '2026-06-17 14:00:08.000000'
+                UNION ALL SELECT 'DEMO-ORD-1008','demo-corr-1008','ORDER_CANCELLED','Order cancelled and payment refunded',TIMESTAMP '2026-06-17 14:05:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1009','demo-corr-1009','ORDER_CREATED','Checkout accepted and order persisted',TIMESTAMP '2026-06-17 16:00:00.000000'
+                UNION ALL SELECT 'DEMO-ORD-1009','demo-corr-1009','INVENTORY_RESERVED','Inventory reservation confirmed',TIMESTAMP '2026-06-17 16:00:02.000000'
+                UNION ALL SELECT 'DEMO-ORD-1009','demo-corr-1009','INVENTORY_REJECTED','Reservation expired before payment completed',TIMESTAMP '2026-06-17 16:05:02.000000'
+              ) seed
+              WHERE NOT EXISTS (
+                SELECT 1 FROM order_timeline_events event
+                WHERE event.order_number = seed.order_number
+                  AND event.stage = seed.stage
+                  AND event.occurred_at = seed.occurred_at
+              );

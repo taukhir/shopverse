@@ -66,6 +66,11 @@ Shopverse separates publication into three phases:
 
 The implementation is used by Order, Inventory, and Payment services.
 
+This is the current Shopverse per-row pessimistic-claim baseline. For the
+corrected strategy matrix, MySQL `SKIP LOCKED` batch target, PostgreSQL
+`RETURNING` distinction, and crash-window comparison, see
+[Database Locking And Work Claims](../locking/DATABASE-LOCKING-AND-CLAIMS.md).
+
 ### Phase 1: Claim In A Short Transaction
 
 ```java

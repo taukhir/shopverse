@@ -38,10 +38,23 @@ Liquibase creates users, roles, permissions, join tables, refresh-token/audit su
 
 `DatabaseUserDetailsService` adapts the User repository model to Spring Security's `UserDetailsService` contract. BCrypt compares the supplied password with the stored hash.
 
-Local Liquibase data includes `admin`, `customer1`, and `customer2`. Credentials
+Local Liquibase data includes `admin`, `customer1`, `customer2`, `support1`,
+and `inventory1`. Credentials
 are listed in the root `demo-credentials.local.md`, which is ignored by Git.
 Customer passwords are stored as delegated BCrypt hashes. All seeded accounts
 remain local POC identities and must not be reused in a deployed environment.
+
+Generate a delegated development hash with the tooling-only Gradle task. The
+utility is compiled from test sources and is not included in the service JAR:
+
+```powershell
+$env:SHOPVERSE_HASH_PASSWORD = 'temporary-local-password'
+.\gradlew.bat generatePasswordHash --no-daemon
+Remove-Item Env:SHOPVERSE_HASH_PASSWORD
+```
+
+The task reads only the environment variable so the password is not stored in
+Gradle configuration-cache state or supplied as a command-line argument.
 
 ```powershell
 docker compose exec mysql sh -lc '

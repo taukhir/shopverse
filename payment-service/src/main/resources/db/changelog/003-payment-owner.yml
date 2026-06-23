@@ -20,3 +20,26 @@ databaseChangeLog:
                   name: customer_username
               - column:
                   name: order_number
+
+  - changeSet:
+      id: 003-seed-demo-payments
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              INSERT IGNORE INTO payments
+                (order_number, correlation_id, customer_username, amount, status,
+                 payment_reference, failure_reason, created_at, updated_at)
+              VALUES
+                ('DEMO-ORD-1001', 'demo-corr-1001', 'customer1', 2499.00, 'CAPTURED',
+                 'DEMO-PAY-1001', NULL, '2026-06-15 09:00:04.000000', '2026-06-15 09:00:07.000000'),
+                ('DEMO-ORD-1002', 'demo-corr-1002', 'customer1', 5299.00, 'DECLINED',
+                 NULL, 'Demo provider declined the payment', '2026-06-15 10:00:04.000000', '2026-06-15 10:00:06.000000'),
+                ('DEMO-ORD-1004', 'demo-corr-1004', 'customer2', 12999.00, 'TIMED_OUT',
+                 NULL, 'Provider timeout; final outcome requires reconciliation', '2026-06-16 09:00:04.000000', '2026-06-16 09:00:05.000000'),
+                ('DEMO-ORD-1006', 'demo-corr-1006', 'customer2', 12999.00, 'CAPTURED',
+                 'DEMO-PAY-1006', NULL, '2026-06-17 09:00:04.000000', '2026-06-17 09:00:06.000000'),
+                ('DEMO-ORD-1007', 'demo-corr-1007', 'customer1', 7798.00, 'CAPTURED',
+                 'DEMO-PAY-1007', NULL, '2026-06-17 11:00:05.000000', '2026-06-17 11:00:08.000000'),
+                ('DEMO-ORD-1008', 'demo-corr-1008', 'customer2', 6499.00, 'REFUNDED',
+                 'DEMO-PAY-1008', 'Refund completed after order cancellation', '2026-06-17 14:00:04.000000', '2026-06-17 14:05:00.000000');

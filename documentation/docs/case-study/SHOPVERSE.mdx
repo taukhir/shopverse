@@ -54,7 +54,7 @@ Kafka choreography, persistence, observability, and deployment topology.
 | Security | RSA JWT signing, JWKS, roles, permissions, issuer/expiry validation, and ownership |
 | Commerce | idempotent checkout, persistent orders, inventory reservations, payment state, and timeline |
 | Consistency | local transactions, transactional outbox, Kafka choreography, compensation, and DLT replay |
-| Concurrency | optimistic locking, uniqueness constraints, reservation expiry, and bounded workers |
+| Concurrency | optimistic locking, uniqueness constraints, and a single-worker reservation-expiry baseline; [multi-replica expiry remains planned](../reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md) |
 | Observability | JSON logs, MDC correlation, Prometheus metrics, Grafana dashboards, Loki, and Zipkin |
 | Delivery | multi-stage Docker images, GitHub Actions, Jenkins, Testcontainers, and bounded verification |
 

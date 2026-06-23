@@ -11,3 +11,20 @@ databaseChangeLog:
                 (101, 'Wireless Keyboard', 2499.00, 20, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
                 (102, 'USB-C Dock', 5299.00, 10, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
                 (103, 'Noise Cancelling Headphones', 8999.00, 0, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6));
+
+  - changeSet:
+      id: 002-seed-demo-inventory
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              INSERT IGNORE INTO inventory_items
+                (product_id, product_name, unit_price, available_quantity, reserved_quantity, version, created_at, updated_at)
+              VALUES
+                (104, '27-inch 4K Monitor', 12999.00, 5, 1, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
+                (105, 'Ergonomic Wireless Mouse', 1599.00, 30, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
+                (106, 'Mechanical Gaming Keyboard', 6499.00, 15, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
+                (107, 'Full HD Webcam', 3499.00, 12, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
+                (108, 'Aluminium Laptop Stand', 1999.00, 25, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
+                (109, 'Portable SSD 1TB', 7499.00, 8, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6)),
+                (110, 'Ergonomic Gaming Chair', 18999.00, 4, 0, 0, CURRENT_TIMESTAMP(6), CURRENT_TIMESTAMP(6));

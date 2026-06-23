@@ -233,7 +233,7 @@ Inventory, Payment, and Kafka.
 |---|---|---|
 | `order.created` | reserve stock | `inventory.reserved` or `inventory.failed` |
 | `inventory.reserved` | create/process payment | `payment.completed`, `payment.failed`, or timeout state |
-| `payment.completed` | confirm order | `ORDER_CONFIRMED` |
+| `payment.completed` | currently confirms Order directly; target design first commits the Inventory reservation | current `ORDER_CONFIRMED`; target `inventory.committed` or `late-payment.detected` |
 | `payment.failed` | fail order and release reservation | compensated inventory |
 | reservation expiry | restore stock | reservation `EXPIRED` |
 
