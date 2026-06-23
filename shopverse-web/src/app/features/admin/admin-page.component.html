@@ -1,0 +1,22 @@
+<div class="admin-shell">
+  <aside>
+    <a class="brand" routerLink="/">shop<span>verse</span><i></i></a>
+    <p>OPERATIONS</p>
+    <nav>
+      <a routerLink="/admin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Overview</a>
+      <a routerLink="/admin/orders" routerLinkActive="active">Orders</a>
+      <a routerLink="/admin/inventory" routerLinkActive="active">Inventory</a>
+      <a routerLink="/admin/users" routerLinkActive="active">Users</a>
+      <a routerLink="/admin/payments" routerLinkActive="active">Payments</a>
+    </nav>
+    <a class="back" routerLink="/">← View storefront</a>
+  </aside>
+  <main>
+    <div class="topbar"><span>ADMIN / {{ section | uppercase }}</span><button>Admin account</button></div>
+    <section class="content">
+      <p class="eyebrow">Operations workspace</p>
+      <h1>{{ section === 'overview' ? 'A clear view of the system.' : (section | titlecase) }}</h1>
+      <div class="empty-state"><strong>{{ section === 'overview' ? 'Admin shell is ready.' : 'This workspace is ready for integration.' }}</strong><p>Connect this screen to the API Gateway after customer storefront APIs are in place.</p></div>
+    </section>
+  </main>
+</div>
