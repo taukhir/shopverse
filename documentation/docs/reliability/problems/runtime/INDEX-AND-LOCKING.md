@@ -17,6 +17,7 @@ Back to [Runtime Reliability Problems](../RUNTIME-RELIABILITY-PROBLEMS.md).
 | Duplicate checkout protection | Client or gateway retries can submit the same checkout more than once | duplicate orders, duplicate inventory reservations, and duplicate payment attempts | Require `Idempotency-Key`, persist it with the order, and enforce database uniqueness | [Idempotent checkout](IDEMPOTENT-CHECKOUT.md#idempotent-checkout-using-mandatory-idempotency-key) |
 | Kafka duplicate handling | Kafka and outbox retries can deliver the same business event more than once | repeated reservation, repeated payment, or repeated recovery records | Enable producer idempotence and make consumers idempotent with business keys | [Kafka producer and consumer idempotency](KAFKA-IDEMPOTENCY.md#kafka-producer-idempotence-and-idempotent-consumers) |
 | Payment uncertainty | Provider timeout does not prove success or failure | wrong decline, duplicate charge, or stuck order | Persist `TIMED_OUT`, reconcile later, and allow captured refunds | [Payment timeout reconciliation and refunds](PAYMENT-TIMEOUT-RECONCILIATION.md#payment-timeout-reconciliation-and-refunds) |
+| Multi-replica reservation expiry | Every Inventory replica can scan the same expired reservation | duplicate work, optimistic-lock failures, batch rollback, and misleading metrics | Planned conditional row claim and one independent transaction per reservation | [Four reservations and two schedulers](TWO-SCHEDULER-RESERVATION-EXAMPLE.md) |
 | Concurrency control choice | `@Version` and pessimistic locks can look similar but act at different points in the transaction | wrong lock choice can cause lost updates, duplicate worker processing, or unnecessary blocking | Use `@Version` for ordinary business-row conflicts and short pessimistic claims or atomic status updates for worker ownership | [Optimistic versus pessimistic locking](#optimistic-versus-pessimistic-locking) |
 | Docker build reliability | Parallel service builds shared Gradle cache metadata | Intermittent Gradle lock failures | Assign a unique BuildKit cache ID to every service | [Gradle cache locks](../DOCKER-RUNTIME-IMAGE-PROBLEMS.md#1-parallel-docker-builds-and-gradle-cache-locks) |
 | Outbox runtime reliability | A database row lock could remain held while waiting for Kafka | Blocked workers, exhausted connections, and lock timeouts | Split publication into short claim and finalization transactions around an unlocked Kafka send | [Short Outbox transactions](../OUTBOX-RUNTIME-PROBLEMS.md#2-outbox-database-locks-while-waiting-for-kafka) |
@@ -69,7 +70,7 @@ Shopverse uses different protection depending on the invariant:
 | Checkout duplicate request | mandatory `Idempotency-Key` and unique database constraint | duplicate HTTP retries should return the existing order |
 | Inventory reservation duplicate event | lookup by `orderNumber` | a repeated Kafka event must not reserve stock again |
 | Outbox publishing | short database claim/finalize transactions | two workers must not publish the same row concurrently |
-| Multi-replica reservation expiry | planned row claim or scheduler lock | every Inventory replica can run the scheduler, so each expired reservation needs one owner |
+| Multi-replica reservation expiry | planned atomic row claim plus paid-reservation terminal state | every Inventory replica can run the scheduler, so each expired reservation needs one owner and paid stock must stop being eligible |
 
 `@Version` comes into play during flush, update, or commit. Hibernate generates
 an update with the old version in the `WHERE` clause:
@@ -102,6 +103,9 @@ holding a database lock while waiting for Kafka.
 
 For the full comparison, SQL shape, diagrams, and Shopverse decision guide,
 see [Spring Data JPA locking and concurrency](../../../spring/SPRING-DATA-JPA.md#locking-and-concurrency).
+
+The complete current-state analysis and target implementation are documented
+in [Multi-Replica Reservation Expiry](MULTI-REPLICA-RESERVATION-EXPIRY.md).
 
 
 

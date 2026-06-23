@@ -99,8 +99,34 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 | `GET` | `/api/v1/payments/admin/dead-letters` | inspect Payment recovery records |
 | `POST` | `/api/v1/payments/admin/dead-letters/{id}/replay` | replay a Payment record |
 
-User, Role, and Permission CRUD are documented in the
-[User Service README](https://github.com/taukhir/shopverse/tree/main/user-service).
+### User Administration
+
+These routes are served by User Service through the gateway. JWT permissions
+provide the final method-level authorization check.
+
+| Method | Path | Required permission |
+|---|---|---|
+| `GET` | `/api/v1/users` | `USER_READ` |
+| `GET` | `/api/v1/users/{id}` | `USER_READ` |
+| `POST` | `/api/v1/users` | `USER_CREATE` |
+| `PATCH` | `/api/v1/users/{id}` | `USER_UPDATE` |
+| `PATCH` | `/api/v1/users/{id}/password` | `USER_UPDATE` |
+| `POST` | `/api/v1/users/{id}/password/reset` | `USER_UPDATE` |
+| `DELETE` | `/api/v1/users/{id}` | `USER_DELETE` |
+
+### Roles And Permissions
+
+Role routes require `ROLE_ADMIN` at the HTTP security layer. Both Role and
+Permission controllers require `ADMIN_ACCESS` at the method-security layer.
+
+| Resource | List/read | Create | Update | Delete |
+|---|---|---|---|---|
+| Roles | `GET /api/v1/roles[/{id}]` | `POST /api/v1/roles` | `PATCH /api/v1/roles/{id}` | `DELETE /api/v1/roles/{id}` |
+| Permissions | `GET /api/v1/permissions[/{id}]` | `POST /api/v1/permissions` | `PATCH /api/v1/permissions/{id}` | `DELETE /api/v1/permissions/{id}` |
+
+See the internal [Shopverse service catalog](../services/SERVICE-CATALOG.md)
+for User Service ownership, dependencies, and request flow. The service-level
+README remains the operational source for direct-port commands and Swagger.
 
 ## Current Error Direction
 

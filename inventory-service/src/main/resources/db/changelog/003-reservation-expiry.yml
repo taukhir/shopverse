@@ -28,3 +28,24 @@ databaseChangeLog:
                   name: status
               - column:
                   name: expires_at
+
+  - changeSet:
+      id: 003-seed-demo-reservations
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              INSERT IGNORE INTO inventory_reservations
+                (order_number, correlation_id, product_id, quantity, status,
+                 expires_at, created_at, updated_at)
+              VALUES
+                ('DEMO-ORD-1002', 'demo-corr-1002', 102, 1, 'RELEASED',
+                 '2026-06-15 10:10:00.000000', '2026-06-15 10:00:02.000000', '2026-06-15 10:00:06.000000'),
+                ('DEMO-ORD-1004', 'demo-corr-1004', 104, 1, 'RESERVED',
+                 '2099-12-31 23:59:59.000000', '2026-06-16 09:00:02.000000', '2026-06-16 09:00:02.000000'),
+                ('DEMO-ORD-1005', 'demo-corr-1005', 105, 1, 'RELEASED',
+                 '2026-06-16 11:10:00.000000', '2026-06-16 11:00:02.000000', '2026-06-16 11:00:04.000000'),
+                ('DEMO-ORD-1008', 'demo-corr-1008', 106, 1, 'RELEASED',
+                 '2026-06-17 14:10:00.000000', '2026-06-17 14:00:02.000000', '2026-06-17 14:05:00.000000'),
+                ('DEMO-ORD-1009', 'demo-corr-1009', 108, 1, 'EXPIRED',
+                 '2026-06-17 16:05:00.000000', '2026-06-17 16:00:02.000000', '2026-06-17 16:05:01.000000');

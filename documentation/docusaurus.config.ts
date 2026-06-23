@@ -43,8 +43,9 @@ const config: Config = {
           path: 'docs',
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          showLastUpdateAuthor: true,
-          showLastUpdateTime: true,
+          // Git-derived dates are unreliable for local and newly generated pages.
+          showLastUpdateAuthor: false,
+          showLastUpdateTime: false,
           editUrl: ({docPath}) =>
             `https://github.com/taukhir/shopverse/edit/main/documentation/docs/${docPath}`,
         },

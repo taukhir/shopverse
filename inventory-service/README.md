@@ -15,7 +15,22 @@ Inventory Service runs on port `8086`. It owns stock, reservations, expiry, over
 
 ## Reservation Flow
 
-The service consumes `shopverse.order.created`, verifies stock, creates a reservation, decrements available quantity, and saves an inventory outcome to the outbox. Payment failure releases the reservation. A scheduled expiry task restores stock for reservations that exceed the configured five-minute TTL.
+The service consumes `shopverse.order.created`, verifies stock, creates a
+reservation, decrements available quantity, and saves an inventory outcome to
+the outbox. Payment failure releases the reservation. A scheduled expiry task
+restores stock for reservations that exceed the configured five-minute TTL.
+
+The current expiry worker is a single-worker baseline, not yet a complete
+multi-replica-safe implementation. It has no atomic reservation claim, and
+Inventory does not yet consume `payment.completed` to move successful
+reservations out of `RESERVED`. The problem, race conditions, target state
+machine, atomic-claim transaction, failure behavior, and required tests are in
+[Multi-replica reservation expiry](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
+
+The same guide documents the unresolved late-payment race. Once expiry commits
+and stock is released, a delayed `payment.completed` event must not resurrect
+the reservation. The target choreography commits Inventory first or starts an
+idempotent Payment refund workflow.
 
 ## Idempotent Consumer Behavior
 
@@ -35,7 +50,7 @@ key.
 
 `InventoryItem` uses JPA `@Version`. Concurrent updates based on a stale version fail instead of silently overselling the last item. Reservation operations are transactional and use order number as the business key.
 
-Liquibase seeds products `101` through `106`, including available, low-stock,
+Liquibase seeds products `101` through `110`, including available, reserved, low-stock,
 and unavailable examples:
 
 ```powershell
@@ -92,6 +107,10 @@ docker compose up -d inventory-service
 - [Transactional outbox pattern](../documentation/docs/reliability/OUTBOX-PATTERN.md)
 - [Inbox pattern](../documentation/docs/reliability/INBOX-PATTERN.md)
 - [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
+- [Multi-replica reservation expiry](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
+- [Four reservations and two schedulers walkthrough](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md#worked-example-four-reservations-and-two-schedulers)
+- [Locking and work ownership](../documentation/docs/reliability/locking/LOCKING-AND-WORK-OWNERSHIP.md)
+- [Scheduler locking with ShedLock](../documentation/docs/reliability/locking/SCHEDULER-LOCKING-SHEDLOCK.md)
 - [Shopverse transaction boundaries](../documentation/docs/reliability/TRANSACTIONS.md)
 - [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)
 - [Apache Kafka](../documentation/docs/integration/APACHE-KAFKA.md)

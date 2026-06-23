@@ -1,13 +1,16 @@
 ---
-title: Distributed Transactions And Locks
+title: Distributed Transactions
 sidebar_position: 3
 ---
 
-# Distributed Transactions And Locks
+# Distributed Transactions
 
 A local transaction coordinates changes through one transaction manager and
 resource, usually one database. A distributed transaction coordinates changes
 across independent databases, brokers, services, or shards.
+
+Locking and worker ownership are now organized under
+[Locking And Work Ownership](locking/LOCKING-AND-WORK-OWNERSHIP.md).
 
 ## Local Versus Distributed Transaction
 
@@ -169,118 +172,16 @@ orderNumber -> Kafka partition -> sequential consumer
 This simplifies ordering but the database still needs invariants for replay,
 multiple writers, and operational mistakes.
 
-## Distributed Locks
+## Distributed Locks And Work Ownership
 
-A distributed lock coordinates processes on different nodes so one holder is
-allowed to perform an operation for a resource.
+The detailed material has moved to focused guides so transaction protocols do
+not compete with lock, scheduler, and queue ownership theory on this page:
 
-Examples:
-
-- one scheduled settlement job;
-- exclusive external device operation;
-- one migration/coordinator task;
-- cross-node leader election.
-
-Do not use a distributed lock when database uniqueness, an atomic update,
-partition ownership, or idempotency solves the problem more safely.
-
-## Lease-Based Lock
-
-Distributed locks normally use a lease:
-
-```text
-acquire lock for 30 seconds
-renew while work continues
-expire if holder disappears
-```
-
-Failure scenario:
-
-1. process A acquires lock;
-2. A pauses for longer than lease;
-3. lock expires;
-4. process B acquires lock;
-5. A resumes and writes stale data.
-
-Mutual exclusion has been violated from the resource's perspective.
-
-## Fencing Tokens
-
-Every lock acquisition receives an increasing token:
-
-```text
-A gets token 41
-B later gets token 42
-```
-
-The protected resource rejects operations using a token older than the latest:
-
-```sql
-update resource
-set value = ?, fencing_token = 42
-where id = ?
-  and fencing_token < 42;
-```
-
-Leases control coordination; fencing protects the resource from stale holders.
-
-## Redis Locks
-
-A basic single-node Redis lock uses:
-
-```text
-SET lock-key unique-owner-value NX PX 30000
-```
-
-Release must delete only when the stored value matches the owner, commonly
-through an atomic script.
-
-Consider:
-
-- Redis failover semantics;
-- lease duration and renewal;
-- fencing;
-- clock/process pauses;
-- protected resource validation.
-
-A lock library does not remove these system-design questions.
-
-## Database Advisory Locks
-
-Some databases provide advisory/application locks. They are useful when:
-
-- all contenders use the same database;
-- lock lifetime and connection behavior are understood;
-- the protected resource is tied to that database.
-
-They can be simpler than introducing a separate lock service.
-
-## Deadlocks
-
-Deadlock:
-
-```text
-transaction A holds row 1, waits for row 2
-transaction B holds row 2, waits for row 1
-```
-
-Controls:
-
-- consistent lock ordering;
-- short transactions;
-- indexed predicates;
-- bounded batch size;
-- no network calls while holding locks;
-- bounded retry of the complete idempotent unit.
-
-## Idempotency Versus Locking
-
-Locks try to prevent concurrent execution. Idempotency makes duplicate
-execution safe.
-
-In distributed systems, idempotency is often more robust because locks can
-expire, owners can pause, and responses can be lost. Some invariants still need
-exclusive coordination or atomic database constraints.
+- [Locking And Work Ownership](locking/LOCKING-AND-WORK-OWNERSHIP.md)
+- [Distributed Locks And Fencing](locking/DISTRIBUTED-LOCKS-AND-FENCING.md)
+- [Scheduler Locking With ShedLock](locking/SCHEDULER-LOCKING-SHEDLOCK.md)
+- [Database Locking And Work Claims](locking/DATABASE-LOCKING-AND-CLAIMS.md)
+- [Partition And Queue Ownership](locking/PARTITION-AND-QUEUE-OWNERSHIP.md)
 
 ## Interview Questions
 
@@ -304,13 +205,11 @@ recovery logic.
 
 ### Why Is A Distributed Lock Necessary?
 
-Only when multiple nodes must coordinate exclusive access to a resource that
-cannot be protected by one local database invariant or ownership mechanism.
+See [Distributed Locks And Fencing](locking/DISTRIBUTED-LOCKS-AND-FENCING.md).
 
 ### Why Are Fencing Tokens Important?
 
-They prevent a paused or expired lock holder from writing after a newer holder
-has taken ownership.
+See [Distributed Locks And Fencing](locking/DISTRIBUTED-LOCKS-AND-FENCING.md#fencing-tokens).
 
 ## Related Guides
 
@@ -318,4 +217,3 @@ has taken ownership.
 - [SAGA And Outbox](SAGA-GENERIC.md)
 - [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
 - [Caching Principles](../architecture/CACHING-GENERIC.md)
-

@@ -133,6 +133,11 @@ local transaction rolls back.
 
 Shopverse avoids holding database locks while waiting for Kafka.
 
+The current implementation uses a short per-row pessimistic claim. The
+comparison with conditional updates, MySQL `SKIP LOCKED`, and PostgreSQL
+`UPDATE ... RETURNING` is maintained in
+[Database Locking And Work Claims](locking/DATABASE-LOCKING-AND-CLAIMS.md).
+
 ```text
 1. Claim row in a short DB transaction.
 2. Commit and release the database lock.
@@ -225,3 +230,5 @@ events through business keys or the inbox pattern.
 - [Shopverse SAGA and outbox](SAGA-OUTBOX.md)
 - [Shopverse problems and solutions](PROBLEMS-AND-SOLUTIONS.md)
 - [Spring Kafka](../spring/SPRING-KAFKA.md)
+- [Database locking and Outbox claim strategies](locking/DATABASE-LOCKING-AND-CLAIMS.md)
+- [Locking and work ownership](locking/LOCKING-AND-WORK-OWNERSHIP.md)

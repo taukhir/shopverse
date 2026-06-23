@@ -57,3 +57,28 @@ databaseChangeLog:
               - column:
                   name: failed_login_attempts
                   valueNumeric: 0
+
+  - changeSet:
+      id: 013-seed-demo-users
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              INSERT IGNORE INTO users
+                (uuid, username, email, password, first_name, last_name,
+                 status, account_non_locked, account_non_expired,
+                 credentials_non_expired, enabled, failed_login_attempts,
+                 password_changed_at, created_at, created_by, updated_at, updated_by, version)
+              VALUES
+                ('demo-customer-1', 'customer1', 'customer1@shopverse.local', '{noop}Customer@123',
+                 'Aarav', 'Sharma', 'ACTIVE', TRUE, TRUE, TRUE, TRUE, 0,
+                 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'liquibase-demo', CURRENT_TIMESTAMP, 'liquibase-demo', 0),
+                ('demo-customer-2', 'customer2', 'customer2@shopverse.local', '{noop}Buyer@123',
+                 'Meera', 'Patel', 'ACTIVE', TRUE, TRUE, TRUE, TRUE, 0,
+                 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'liquibase-demo', CURRENT_TIMESTAMP, 'liquibase-demo', 0),
+                ('demo-support-1', 'support1', 'support1@shopverse.local', '{noop}Support@123',
+                 'Rohan', 'Support', 'ACTIVE', TRUE, TRUE, TRUE, TRUE, 0,
+                 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'liquibase-demo', CURRENT_TIMESTAMP, 'liquibase-demo', 0),
+                ('demo-inventory-1', 'inventory1', 'inventory1@shopverse.local', '{noop}Inventory@123',
+                 'Isha', 'Inventory', 'ACTIVE', TRUE, TRUE, TRUE, TRUE, 0,
+                 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'liquibase-demo', CURRENT_TIMESTAMP, 'liquibase-demo', 0);

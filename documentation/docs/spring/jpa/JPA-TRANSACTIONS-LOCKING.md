@@ -6,6 +6,11 @@ title: JPA Transactions Locking And Concurrency
 
 Transaction boundaries, optimistic locking, pessimistic locking, atomic conditional updates, and Shopverse concurrency decisions.
 
+For scheduler leadership, Outbox polling strategies, `SKIP LOCKED`, leases,
+fencing, and queue/partition ownership, use the
+[Locking And Work Ownership](../../reliability/locking/LOCKING-AND-WORK-OWNERSHIP.md)
+umbrella.
+
 Back to [Spring Data JPA](../SPRING-DATA-JPA.md).
 
 ## Transactions
@@ -262,6 +267,12 @@ event.
 Use pessimistic row locks or atomic status transitions for worker ownership.
 Use optimistic locking for ordinary entity state where the business operation
 can safely retry from a fresh read.
+
+The complete Shopverse current-state analysis, paid-reservation gap,
+atomic-claim transaction, crash behavior, and test plan are documented in
+[Multi-Replica Reservation Expiry](../../reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
+The [four-reservation, two-scheduler walkthrough](../../reliability/problems/runtime/TWO-SCHEDULER-RESERVATION-EXAMPLE.md)
+shows update counts, row-lock waiting, commits, one-record rollback, and retry.
 
 ### Atomic Conditional Update
 

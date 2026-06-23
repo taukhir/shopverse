@@ -55,6 +55,13 @@ Only `CAPTURED` payments can be refunded. Refund changes Payment state to
 `REFUNDED`. The current POC does not publish a `payment.refunded` event or
 change Order state after refund.
 
+The current POC also does not automatically refund a payment whose Inventory
+reservation expired before the delayed `payment.completed` event was
+processed. The target state machine uses `REFUND_PENDING`, a stable provider
+refund idempotency key, reconciliation after uncertain provider responses, and
+`payment.refunded`. See
+[Multi-replica reservation expiry and late payment](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
+
 ## SAGA
 
 The service consumes `inventory.reserved`, persists the payment and an outgoing event in one transaction, and emits `payment.completed` or `payment.failed` through its outbox. Payment failure causes Order failure and Inventory compensation.
@@ -80,8 +87,8 @@ See [Resource ownership authorization](../documentation/docs/reliability/problem
 for the problem statement, `@PreAuthorize` flow, targeted repository query,
 expected API outcomes, and method-security tests.
 
-Liquibase includes matching historical payment examples for
-`DEMO-ORD-1001` (`CAPTURED`) and `DEMO-ORD-1002` (`DECLINED`):
+Liquibase includes matching historical payments for captured, declined,
+timed-out, and refunded scenarios across the `DEMO-ORD-*` records:
 
 ```powershell
 docker compose exec mysql sh -lc '
@@ -125,6 +132,7 @@ docker compose up -d payment-service
 - [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
 - [Problems and solutions](../documentation/docs/reliability/PROBLEMS-AND-SOLUTIONS.md)
 - [Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+- [Reservation expiry and late-payment recovery](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
 - [Transactional outbox pattern](../documentation/docs/reliability/OUTBOX-PATTERN.md)
 - [Inbox pattern](../documentation/docs/reliability/INBOX-PATTERN.md)
 - [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)

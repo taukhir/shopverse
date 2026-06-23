@@ -73,6 +73,24 @@ class OrderInfrastructureIntegrationTest {
     }
 
     @Test
+    void migrationsSeedCoherentOrderHistory() {
+        assertThat(count("select count(*) from orders where order_number like 'DEMO-ORD-%'"))
+                .isEqualTo(9);
+        assertThat(count("""
+                select count(*) from order_items item
+                join orders orders on orders.id = item.order_id
+                where orders.order_number like 'DEMO-ORD-%'
+                """))
+                .isEqualTo(10);
+        assertThat(count("select count(*) from order_timeline_events where order_number like 'DEMO-ORD-%'"))
+                .isEqualTo(35);
+        assertThat(jdbcTemplate.queryForObject(
+                "select status from orders where order_number = 'DEMO-ORD-1004'",
+                String.class
+        )).isEqualTo("PAYMENT_PROCESSING");
+    }
+
+    @Test
     void outboxCommitAndRollbackShareTheTransactionBoundary() {
         String committedId = "commit-" + UUID.randomUUID();
         transactionTemplate.executeWithoutResult(status -> enqueue(committedId));
@@ -123,6 +141,11 @@ class OrderInfrastructureIntegrationTest {
                 Integer.class,
                 aggregateId
         );
+        return count == null ? 0 : count;
+    }
+
+    private int count(String sql) {
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
         return count == null ? 0 : count;
     }
 

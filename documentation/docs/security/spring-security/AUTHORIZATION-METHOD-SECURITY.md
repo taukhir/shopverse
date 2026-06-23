@@ -223,7 +223,9 @@ Not currently implemented:
 - refresh-token rotation;
 - JWT deny list or security version;
 - external policy engine;
-- consistent issuer/audience validation in every resource service.
+- explicit JWT audience validation in every resource service. Timestamp and
+  issuer validation are already applied by Gateway, Auth, User, Order,
+  Inventory, and Payment through `JwtValidators.createDefaultWithIssuer(...)`.
 
 
 

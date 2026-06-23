@@ -75,9 +75,17 @@ services still need idempotent business handling.
 
 The outbox publisher sends `order.created`. Listeners consume inventory and payment outcomes and append timeline stages.
 
-Liquibase also inserts three historical demonstration orders:
-`DEMO-ORD-1001` (confirmed), `DEMO-ORD-1002` (payment failed), and
-`DEMO-ORD-1003` (inventory rejected). They support immediate API and SQL
+Currently `payment.completed` confirms the Order directly. The target
+late-payment-safe choreography records payment completion but confirms only
+after Inventory atomically commits the reservation and emits
+`inventory.committed`. If expiry wins, Order follows refund/cancellation
+recovery instead. See
+[Reservation expiry and late-payment recovery](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
+
+Liquibase also inserts nine historical demonstration orders, from
+`DEMO-ORD-1001` through `DEMO-ORD-1009`. They cover confirmation, payment
+failure, inventory rejection, timeout, cancellation, refund, multi-item history,
+and reservation expiry, supporting immediate API and SQL
 exploration but do not publish Kafka events during migration.
 
 ```powershell
@@ -136,6 +144,7 @@ docker compose up -d order-service
 - [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
 - [API guide](../documentation/docs/development/API-GUIDE.md)
 - [Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+- [Reservation expiry and late-payment recovery](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
 - [Transactions](../documentation/docs/reliability/TRANSACTIONS.md)
 - [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)
 - [Spring Cloud OpenFeign](../documentation/docs/spring/SPRING-OPENFEIGN.md)

@@ -102,6 +102,12 @@ Reconciliation converts the uncertain payment to `CAPTURED` and emits
 `payment.completed` through the outbox. Order Service later consumes that
 event and confirms the order.
 
+If reconciliation completes after the Inventory reservation has already
+expired, confirmation is unsafe because released stock may have been assigned
+elsewhere. The target workflow detects the late payment and starts an
+idempotent refund instead. See
+[Late Payment Reconciliation After Expiry](LATE-PAYMENT-AFTER-EXPIRY.md).
+
 ### Refund API
 
 ```http

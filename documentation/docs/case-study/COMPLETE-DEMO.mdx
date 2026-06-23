@@ -144,13 +144,15 @@ Client -> Gateway -> Order Service -> Feign -> Inventory Service
 
 ## 4. Authenticate As The Demo Administrator
 
-Shopverse seeds three local demonstration accounts through Liquibase:
+Shopverse seeds five local demonstration accounts through Liquibase:
 
 | Purpose | Username | Role |
 |---|---|---|
 | administration and recovery APIs | `admin` | `ROLE_ADMIN` |
 | customer ownership demos | `customer1` | `ROLE_CUSTOMER` |
 | cross-customer denial demos | `customer2` | `ROLE_CUSTOMER` |
+| support/read-only demonstrations | `support1` | `ROLE_SUPPORT` |
+| inventory permission demonstrations | `inventory1` | `ROLE_INVENTORY_MANAGER` |
 
 Passwords are maintained in the ignored root file
 `demo-credentials.local.md`. The current local administrator password remains
@@ -206,6 +208,39 @@ Resource services use this JWKS document to verify the signature. They also
 validate standard JWT constraints, including expiry and issuer
 `shopverse-auth-service`.
 
+## Large API Seed Data Set
+
+For a richer local walkthrough, seed realistic customer, product, and order
+data through the Gateway instead of inserting it directly into service
+databases. The script exercises the production-shaped API path: JWT login,
+permission checks, validation, inventory upsert, checkout idempotency, the
+Kafka SAGA, transactional outbox, JSON logs, metrics, and trace propagation.
+
+```powershell
+$env:SHOPVERSE_ADMIN_PASSWORD = "Admin@123"
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Seed-ShopverseData.ps1
+Remove-Item Env:SHOPVERSE_ADMIN_PASSWORD
+```
+
+Defaults are 20 named customers, 150 catalog items, and 120 checkout requests.
+Checkout jobs run in batches of four to avoid overwhelming a laptop-sized
+Compose stack. Re-running uses the same `api-seed-checkout-####` idempotency
+keys, so a completed checkout is returned rather than duplicated.
+
+The ignored `demo-credentials.local.md` file receives the generated customer
+login details. `.tmp/shopverse-api-seed-manifest.json` records each order ID,
+order number, correlation ID, and idempotency key. For example, inspect the
+first order and use its correlation ID in Loki:
+
+```powershell
+$seed = Get-Content .\.tmp\shopverse-api-seed-manifest.json -Raw | ConvertFrom-Json
+$seed.orders | Where-Object OrderIndex -eq 1 | Format-List
+```
+
+For a smaller first run, use `-CustomerCount 5 -ProductCount 25 -OrderCount 20
+-BatchSize 2`. This is local POC data only; the script should never target a
+shared or production environment.
+
 ### Verify Seeded Users And Roles
 
 ```powershell
@@ -220,7 +255,8 @@ docker compose exec mysql sh -lc '
 '
 ```
 
-Expected users include `admin`, `customer1`, and `customer2`.
+Expected users include `admin`, `customer1`, `customer2`, `support1`, and
+`inventory1`.
 
 ## 5. Create An Idempotent Checkout
 
@@ -527,6 +563,12 @@ The seed data gives immediate examples before a live checkout is triggered:
 | `DEMO-ORD-1001` | `customer1` | `CONFIRMED` | successful payment |
 | `DEMO-ORD-1002` | `customer1` | `PAYMENT_FAILED` | declined payment |
 | `DEMO-ORD-1003` | `customer2` | `INVENTORY_REJECTED` | unavailable stock |
+| `DEMO-ORD-1004` | `customer2` | `PAYMENT_PROCESSING` | timed-out payment awaiting reconciliation |
+| `DEMO-ORD-1005` | `customer1` | `CANCELLED` | administrator cancellation |
+| `DEMO-ORD-1006` | `customer2` | `CONFIRMED` | captured monitor purchase |
+| `DEMO-ORD-1007` | `customer1` | `CONFIRMED` | historical multi-item order |
+| `DEMO-ORD-1008` | `customer2` | `CANCELLED` | refunded payment history |
+| `DEMO-ORD-1009` | `customer1` | `INVENTORY_REJECTED` | expired reservation |
 
 ```powershell
 docker compose exec mysql sh -lc '
@@ -546,6 +588,30 @@ docker compose exec mysql sh -lc '
 These rows are historical examples only. They do not create Kafka or outbox
 events during migration. Use `POST /api/v1/orders/checkout` to demonstrate the
 live choreography SAGA.
+
+Inspect timeline history, reservation state, and matching payment records:
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SELECT order_number, stage, detail, occurred_at
+    FROM order_service.order_timeline_events
+    WHERE order_number LIKE \"DEMO-ORD-%\"
+    ORDER BY order_number, occurred_at;
+
+    SELECT order_number, product_id, quantity, status, expires_at
+    FROM inventory_service.inventory_reservations
+    WHERE order_number LIKE \"DEMO-ORD-%\"
+    ORDER BY order_number;
+
+    SELECT order_number, customer_username, status, amount,
+           payment_reference, failure_reason
+    FROM payment_service.payments
+    WHERE order_number LIKE \"DEMO-ORD-%\"
+    ORDER BY order_number;
+  "
+'
+```
 
 ### Inspect Inventory And Lock Versions
 

@@ -16,7 +16,8 @@ For one reproducible walkthrough from startup to observability, use the
 | Eureka discovery and load balancing | Implemented | service registration and logical Feign names |
 | API Gateway routing and JWT security | Implemented | gateway routes and resource-server configuration |
 | RSA JWT and JWKS | Implemented | Auth `JwtEncoder`, JWKS endpoint, resource decoders |
-| Issuer validation in every resource service | Partial | explicit in User Service; cross-service consistency requires audit |
+| JWT timestamp and issuer validation | Implemented | Gateway, Auth, User, Order, Inventory, and Payment use `JwtValidators.createDefaultWithIssuer(...)` |
+| JWT audience validation | Planned | no explicit audience validator is configured yet |
 | Method and ownership authorization | Implemented | permissions plus Order/Payment owner checks |
 | Structured JSON logging | Implemented | structured Logback encoders |
 | Health-log separation | Implemented for core business services | dedicated health files and Promtail job |
@@ -24,7 +25,7 @@ For one reproducible walkthrough from startup to observability, use the
 | Distributed tracing | Implemented | Micrometer tracing and Zipkin export |
 | Independent persistent schemas | Implemented | JPA, Liquibase, separate service databases |
 | Idempotent checkout | Implemented | header, lookup, and database uniqueness |
-| Inventory reservation and expiry | Implemented | reservation state, TTL task, compensation |
+| Inventory reservation and expiry | Partial | TTL task exists; atomic multi-replica claim and successful-payment terminal transition remain pending |
 | Overselling prevention | Implemented | optimistic version and transactional stock update |
 | Payment uncertainty | Implemented | timeout, reconciliation, and refund states |
 | Choreography SAGA | Implemented | Kafka event listeners and compensation |

@@ -72,6 +72,22 @@ class PaymentInfrastructureIntegrationTest {
     }
 
     @Test
+    void migrationsSeedPaymentHistory() {
+        assertThat(count("select count(*) from payments where order_number like 'DEMO-ORD-%'"))
+                .isEqualTo(6);
+        assertThat(count("select count(*) from payments where status = 'CAPTURED'"))
+                .isEqualTo(3);
+        assertThat(jdbcTemplate.queryForObject(
+                "select status from payments where order_number = 'DEMO-ORD-1004'",
+                String.class
+        )).isEqualTo("TIMED_OUT");
+        assertThat(jdbcTemplate.queryForObject(
+                "select status from payments where order_number = 'DEMO-ORD-1008'",
+                String.class
+        )).isEqualTo("REFUNDED");
+    }
+
+    @Test
     void outboxCommitAndRollbackShareTheTransactionBoundary() {
         String committedId = "commit-" + UUID.randomUUID();
         transactionTemplate.executeWithoutResult(status -> enqueue(committedId));
@@ -122,6 +138,11 @@ class PaymentInfrastructureIntegrationTest {
                 Integer.class,
                 aggregateId
         );
+        return count == null ? 0 : count;
+    }
+
+    private int count(String sql) {
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class);
         return count == null ? 0 : count;
     }
 

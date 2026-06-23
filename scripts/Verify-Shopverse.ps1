@@ -7,7 +7,14 @@ param(
 
     [string]$BaseRef = "",
 
+    [ValidateRange(1, 120)]
     [int]$TimeoutMinutes = 10,
+
+    [ValidateRange(0, 120)]
+    [int]$TaskTimeoutMinutes = 0,
+
+    [ValidateRange(1, 30)]
+    [int]$BootstrapTimeoutMinutes = 5,
 
     [switch]$KeepStack,
 
@@ -41,8 +48,10 @@ $allServices = @(
     "api-gateway"
 )
 $startedAt = [DateTimeOffset]::UtcNow
-$deadline = $startedAt.AddMinutes($TimeoutMinutes)
+$executionStartedAt = $null
+$deadline = $null
 $results = [System.Collections.Generic.List[object]]::new()
+$gradleBootstrapService = $null
 
 function Initialize-Java {
     if ($env:JAVA_HOME -and (Test-Path (Join-Path $env:JAVA_HOME "bin\java.exe"))) {
@@ -67,9 +76,37 @@ function Initialize-Java {
 }
 
 function Assert-WithinDeadline {
-    if ([DateTimeOffset]::UtcNow -ge $deadline) {
+    if ($deadline -and [DateTimeOffset]::UtcNow -ge $deadline) {
         throw "Verification exceeded the ${TimeoutMinutes}-minute overall timeout."
     }
+}
+
+function Get-RemainingSeconds {
+    if (-not $deadline) {
+        return [int]::MaxValue
+    }
+
+    return [math]::Max(
+        1,
+        [math]::Floor(($deadline - [DateTimeOffset]::UtcNow).TotalSeconds)
+    )
+}
+
+function Write-BoundedProcessOutput {
+    param(
+        [string]$Label,
+        [string]$Output,
+        [int]$TailLines = 160
+    )
+
+    if ([string]::IsNullOrWhiteSpace($Output)) {
+        return
+    }
+
+    Write-Host "--- $Label (last $TailLines lines) ---"
+    $Output -split "`r?`n" |
+        Select-Object -Last $TailLines |
+        ForEach-Object { Write-Host $_ }
 }
 
 function Invoke-BoundedProcess {
@@ -80,33 +117,49 @@ function Invoke-BoundedProcess {
         [Parameter(Mandatory)]
         [string]$WorkingDirectory,
         [Parameter(Mandatory)]
-        [string]$DisplayName
+        [string]$DisplayName,
+        [Parameter(Mandatory)]
+        [int]$TimeoutSeconds,
+        [switch]$ShowOutput
     )
 
-    Assert-WithinDeadline
-    $remainingMilliseconds = [math]::Max(
-        1,
-        [math]::Floor(($deadline - [DateTimeOffset]::UtcNow).TotalMilliseconds)
-    )
     $startInfo = [System.Diagnostics.ProcessStartInfo]::new()
     $startInfo.FileName = $FilePath
     $startInfo.Arguments = $Arguments -join " "
     $startInfo.WorkingDirectory = $WorkingDirectory
     $startInfo.UseShellExecute = $false
     $startInfo.CreateNoWindow = $true
+    $startInfo.RedirectStandardOutput = $true
+    $startInfo.RedirectStandardError = $true
 
     $process = [System.Diagnostics.Process]::Start($startInfo)
     $null = $process.Handle
+    $stdoutTask = $process.StandardOutput.ReadToEndAsync()
+    $stderrTask = $process.StandardError.ReadToEndAsync()
 
-    if (-not $process.WaitForExit($remainingMilliseconds)) {
+    if (-not $process.WaitForExit($TimeoutSeconds * 1000)) {
         & taskkill.exe /PID $process.Id /T /F 2>$null | Out-Null
-        throw "$DisplayName exceeded the remaining verification deadline and was terminated."
+        $process.WaitForExit()
+        $stdout = $stdoutTask.GetAwaiter().GetResult()
+        $stderr = $stderrTask.GetAwaiter().GetResult()
+        Write-BoundedProcessOutput -Label "$DisplayName stdout" -Output $stdout
+        Write-BoundedProcessOutput -Label "$DisplayName stderr" -Output $stderr
+        throw "$DisplayName exceeded its ${TimeoutSeconds}-second timeout and was terminated."
     }
 
     $process.WaitForExit()
     $process.Refresh()
+    $stdout = $stdoutTask.GetAwaiter().GetResult()
+    $stderr = $stderrTask.GetAwaiter().GetResult()
     if ($process.ExitCode -ne 0) {
+        Write-BoundedProcessOutput -Label "$DisplayName stdout" -Output $stdout
+        Write-BoundedProcessOutput -Label "$DisplayName stderr" -Output $stderr
         throw "$DisplayName failed with exit code $($process.ExitCode)."
+    }
+
+    if ($ShowOutput) {
+        Write-BoundedProcessOutput -Label $DisplayName -Output $stdout
+        Write-BoundedProcessOutput -Label "$DisplayName stderr" -Output $stderr
     }
 }
 
@@ -120,22 +173,70 @@ function Invoke-GradleTask {
     $servicePath = Join-Path $repoRoot $Service
     $stopwatch = [Diagnostics.Stopwatch]::StartNew()
     Write-Host "[$Service] Running $Task"
+    $taskTimeoutSeconds = [math]::Min(
+        $effectiveTaskTimeoutMinutes * 60,
+        (Get-RemainingSeconds)
+    )
 
     try {
         Invoke-BoundedProcess `
             -FilePath "cmd.exe" `
-            -Arguments @("/d", "/s", "/c", "gradlew.bat $Task --no-daemon --max-workers=2") `
+            -Arguments @("/d", "/s", "/c", "gradlew.bat $Task --daemon --max-workers=2 --console=plain") `
             -WorkingDirectory $servicePath `
-            -DisplayName "$Service Gradle task '$Task'"
+            -DisplayName "$Service Gradle task '$Task'" `
+            -TimeoutSeconds $taskTimeoutSeconds
+        $results.Add([pscustomobject]@{
+            check = "${Service}:$Task"
+            status = "PASS"
+            seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds, 1)
+        })
+    } catch {
+        $results.Add([pscustomobject]@{
+            check = "${Service}:$Task"
+            status = "FAIL"
+            seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds, 1)
+        })
+        throw
     } finally {
         $stopwatch.Stop()
     }
+}
 
+function Initialize-GradleRuntime {
+    param([string]$Service)
+
+    $servicePath = Join-Path $repoRoot $Service
+    $stopwatch = [Diagnostics.Stopwatch]::StartNew()
+    Write-Host "[$Service] Bootstrapping Gradle wrapper (outside test budget)"
+    Invoke-BoundedProcess `
+        -FilePath "cmd.exe" `
+        -Arguments @("/d", "/s", "/c", "gradlew.bat --version --daemon --console=plain") `
+        -WorkingDirectory $servicePath `
+        -DisplayName "Gradle wrapper bootstrap" `
+        -TimeoutSeconds ($BootstrapTimeoutMinutes * 60)
+    $stopwatch.Stop()
     $results.Add([pscustomobject]@{
-        check = "${Service}:$Task"
+        check = "gradle-bootstrap"
         status = "PASS"
         seconds = [math]::Round($stopwatch.Elapsed.TotalSeconds, 1)
     })
+}
+
+function Stop-GradleRuntime {
+    if (-not $gradleBootstrapService) {
+        return
+    }
+
+    try {
+        Invoke-BoundedProcess `
+            -FilePath "cmd.exe" `
+            -Arguments @("/d", "/s", "/c", "gradlew.bat --stop --console=plain") `
+            -WorkingDirectory (Join-Path $repoRoot $gradleBootstrapService) `
+            -DisplayName "Gradle daemon shutdown" `
+            -TimeoutSeconds 30
+    } catch {
+        Write-Warning "Unable to stop the Gradle daemon cleanly: $($_.Exception.Message)"
+    }
 }
 
 if ($Mode -ne "Full") {
@@ -162,6 +263,23 @@ $invalidServices = @($Services | Where-Object { $_ -notin $allServices })
 if ($invalidServices) {
     throw "Unknown services: $($invalidServices -join ', ')"
 }
+
+$effectiveTaskTimeoutMinutes = if ($TaskTimeoutMinutes -gt 0) {
+    $TaskTimeoutMinutes
+} elseif ($Mode -eq "Integration") {
+    8
+} else {
+    4
+}
+
+if ($Mode -ne "Full") {
+    $gradleBootstrapService = $Services[0]
+    Initialize-GradleRuntime -Service $gradleBootstrapService
+}
+
+$executionStartedAt = [DateTimeOffset]::UtcNow
+$deadline = $executionStartedAt.AddMinutes($TimeoutMinutes)
+$verificationError = $null
 
 Push-Location $repoRoot
 try {
@@ -230,7 +348,9 @@ try {
                     -FilePath "docker" `
                     -Arguments $composeArguments `
                     -WorkingDirectory $repoRoot `
-                    -DisplayName "Docker Compose startup"
+                    -DisplayName "Docker Compose startup" `
+                    -TimeoutSeconds (Get-RemainingSeconds) `
+                    -ShowOutput
 
                 & (Join-Path $PSScriptRoot "Wait-Service.ps1") `
                     -Uri "http://localhost:18080/actuator/health" `
@@ -259,12 +379,23 @@ try {
             }
         }
     }
+} catch {
+    $verificationError = $_
 } finally {
     Pop-Location
+    if ($Mode -ne "Full") {
+        Stop-GradleRuntime
+    }
 }
 
 $elapsed = [math]::Round(([DateTimeOffset]::UtcNow - $startedAt).TotalSeconds, 1)
+$executionElapsed = [math]::Round(([DateTimeOffset]::UtcNow - $executionStartedAt).TotalSeconds, 1)
 Write-Host ""
 Write-Host "Shopverse verification: $Mode"
 $results | Format-Table -AutoSize
-Write-Host "Total duration: ${elapsed}s"
+Write-Host "Execution duration (excluding bootstrap): ${executionElapsed}s"
+Write-Host "Total wall-clock duration: ${elapsed}s"
+
+if ($verificationError) {
+    throw $verificationError
+}

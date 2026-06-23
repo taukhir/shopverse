@@ -59,3 +59,11 @@ dependencyManagement {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('generatePasswordHash', JavaExec) {
+	group = 'development'
+	description = 'Generates a delegated BCrypt hash without packaging the tool in the application JAR.'
+	dependsOn tasks.named('testClasses')
+	classpath = sourceSets.test.runtimeClasspath
+	mainClass = 'io.shopverse.user_service.util.PasswordHashTool'
+}

@@ -233,6 +233,10 @@ traditional destructive queue.
 Use separate topics or explicit routing when different work types require
 independent retry, retention, ownership, or scaling.
 
+For the ownership comparison between Kafka groups, competing queues, static
+shards, lease tables, and database row claims, see
+[Partition And Queue Ownership](../../reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP.md).
+
 
 
 

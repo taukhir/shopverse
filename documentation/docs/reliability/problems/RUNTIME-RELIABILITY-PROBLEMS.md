@@ -5,8 +5,8 @@ title: Runtime Reliability Problems
 # Runtime Reliability Problems
 
 Runtime reliability problems are split by locking, distributed checkout,
-timeline visibility, resource ownership, idempotent checkout, Kafka
-idempotency, and payment uncertainty.
+timeline visibility, resource ownership, reservation expiry, idempotent
+checkout, Kafka idempotency, and payment uncertainty.
 
 ## Focused Pages
 
@@ -16,6 +16,7 @@ idempotency, and payment uncertainty.
 | [Reliable Distributed Checkout Problem](runtime/DISTRIBUTED-CHECKOUT.md) | Reliable checkout across Order, Inventory, Payment, Kafka, SAGA, and outbox. |
 | [Queryable Order Timeline Problem](runtime/QUERYABLE-ORDER-TIMELINE.md) | Queryable owner-protected SAGA timeline for order support and debugging. |
 | [Resource Ownership Authorization](runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md) | Preventing authenticated customers from reading another customer's Order timeline or Payment record. |
+| [Multi-Replica Reservation Expiry](runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md) | Atomic expiry ownership, paid-reservation state, transaction boundaries, crash behavior, and required tests. |
 | [Idempotent Checkout Problem](runtime/IDEMPOTENT-CHECKOUT.md) | Mandatory Idempotency-Key and duplicate checkout prevention. |
 | [Kafka Idempotency Problem](runtime/KAFKA-IDEMPOTENCY.md) | Kafka producer idempotence, idempotent consumers, business keys, and duplicate event handling. |
 | [Payment Timeout Reconciliation Problem](runtime/PAYMENT-TIMEOUT-RECONCILIATION.md) | Payment uncertainty, timeout reconciliation, and refunds. |
@@ -43,6 +44,10 @@ Moved to [Queryable Order Timeline Problem](runtime/QUERYABLE-ORDER-TIMELINE.md)
 ## Resource Ownership Authorization
 
 Moved to [Resource Ownership Authorization](runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md).
+
+## Multi-Replica Reservation Expiry
+
+Moved to [Multi-Replica Reservation Expiry](runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
 
 ## Idempotent Checkout Using Mandatory Idempotency-Key
 
