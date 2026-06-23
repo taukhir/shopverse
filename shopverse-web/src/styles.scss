@@ -1,0 +1,55 @@
+:root {
+  --ink: #0b0f14;
+  --ink-soft: #151b23;
+  --paper: #f2efe8;
+  --paper-deep: #e4dfd3;
+  --white: #fffdf8;
+  --muted: #697078;
+  --line: rgba(11, 15, 20, 0.15);
+  --line-strong: rgba(11, 15, 20, 0.28);
+  --accent: #ff6b35;
+  --accent-soft: #ffb199;
+  --green: #a8f0c6;
+  --danger: #d14d41;
+  --font-body: Inter, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: Inter, "Segoe UI", Helvetica, Arial, sans-serif;
+  --max-width: 1240px;
+  --header-height: 72px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+img { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 12px;
+  left: 12px;
+  padding: 10px 16px;
+  color: var(--white);
+  background: var(--accent);
+  transform: translateY(-150%);
+}
+
+.skip-link:focus { transform: translateY(0); }

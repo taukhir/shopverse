@@ -1,0 +1,33 @@
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">SHOPVERSE / 01</p>
+    <h1>Well-made things.<br />Made simple.</h1>
+    <p class="lede">A thoughtfully paced storefront for the things that fit naturally into your every day.</p>
+    <div class="hero-actions">
+      <a class="button button-primary" routerLink="/products">Browse collection <span>→</span></a>
+      <a class="text-link" routerLink="/orders">Track an order</a>
+    </div>
+  </div>
+  <div class="hero-mark" aria-hidden="true"><span>SV</span><i></i></div>
+</section>
+
+<section class="collection" aria-labelledby="collection-title">
+  <div class="section-heading">
+    <p class="eyebrow">A considered edit</p>
+    <h2 id="collection-title">Start with what matters.</h2>
+  </div>
+  <div class="category-grid">
+    @for (category of categories; track category; let index = $index) {
+      <a class="category-card" routerLink="/products" [class.featured]="index === 0">
+        <span>0{{ index + 1 }}</span>
+        <strong>{{ category }}</strong>
+        <em>Explore →</em>
+      </a>
+    }
+  </div>
+</section>
+
+<section class="promise">
+  <p class="eyebrow">BUILT FOR CLARITY</p>
+  <p>From stock availability to order confirmation, every step stays visible.</p>
+</section>
