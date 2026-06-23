@@ -5,8 +5,8 @@ param(
     [string]$AdminPassword = $env:SHOPVERSE_ADMIN_PASSWORD,
     [ValidateRange(1, 20)]
     [int]$CustomerCount = 20,
-    [ValidateRange(1, 150)]
-    [int]$ProductCount = 150,
+    [ValidateRange(1, 20)]
+    [int]$ProductCount = 20,
     [ValidateRange(1, 500)]
     [int]$OrderCount = 120,
     [ValidateRange(1, 8)]
@@ -190,14 +190,30 @@ $catalogGroups = @(
     @{ BasePrice = 21.99; Names = @("Little Explorer Puzzle", "Rocket Building Blocks", "Rainbow Art Set", "Junior Science Kit", "Storytime Book Light", "Galaxy Craft Box", "Woodland Memory Game", "Ocean Sticker Set", "Castle Play Tent", "Dino Excavation Kit", "Safari Water Bottle", "Robot Coding Cards", "Cloud Night Light", "Map Floor Puzzle", "Space Sketchbook") }
 )
 
+$categoryLabels = @(
+    "Computer Accessories", "Office Equipment", "Home and Living", "Fitness", "Travel",
+    "Kitchen", "Outdoors", "Personal Care", "Pet Supplies", "Kids and Learning"
+)
+$brandLabels = @(
+    "KeyForge", "PaperCraft", "HearthHome", "PeakMotion", "TrailPack",
+    "SavorWare", "SummitGear", "AuraCare", "PawFoundry", "BrightMinds"
+)
 $products = [System.Collections.Generic.List[object]]::new()
 $productIndex = 0
-foreach ($group in $catalogGroups) {
+for ($groupIndex = 0; $groupIndex -lt $catalogGroups.Count; $groupIndex++) {
+    $group = $catalogGroups[$groupIndex]
     foreach ($name in $group.Names) {
         $productIndex++
+        $productId = 100 + $productIndex
         $products.Add([pscustomobject]@{
-                ProductId = 10000 + $productIndex
+                ProductId = $productId
                 ProductName = $name
+                Brand = $brandLabels[$groupIndex]
+                Model = "SV-{0:D3}-2026" -f $productId
+                Category = $categoryLabels[$groupIndex]
+                Description = "$name is a Shopverse demonstration product for catalog, checkout, and inventory reservation flows."
+                ImageKey = "products/$productId.png"
+                ImageUrl = "http://localhost:9000/shopverse-product-images/products/$productId.png"
                 UnitPrice = [decimal]($group.BasePrice + (($productIndex % 9) * 7.5))
                 AvailableQuantity = 40 + (($productIndex * 7) % 61)
             })
@@ -239,6 +255,12 @@ foreach ($product in $products) {
     $payload = @{
         productId = $product.ProductId
         productName = $product.ProductName
+        brand = $product.Brand
+        model = $product.Model
+        category = $product.Category
+        description = $product.Description
+        imageUrl = $product.ImageUrl
+        imageKey = $product.ImageKey
         unitPrice = $product.UnitPrice
         availableQuantity = $product.AvailableQuantity
     }

@@ -1,15 +1,15 @@
 :root {
-  --ink: #0b0f14;
-  --ink-soft: #151b23;
-  --paper: #f2efe8;
-  --paper-deep: #e4dfd3;
-  --white: #fffdf8;
-  --muted: #697078;
-  --line: rgba(11, 15, 20, 0.15);
-  --line-strong: rgba(11, 15, 20, 0.28);
-  --accent: #ff6b35;
-  --accent-soft: #ffb199;
-  --green: #a8f0c6;
+  --ink: #0c1020;
+  --ink-soft: #151b32;
+  --paper: #f1f0f7;
+  --paper-deep: #dedbea;
+  --white: #fdfcff;
+  --muted: #686b7e;
+  --line: rgba(12, 16, 32, 0.15);
+  --line-strong: rgba(12, 16, 32, 0.28);
+  --accent: #7887ff;
+  --accent-soft: #b8c0ff;
+  --green: #9fe9ce;
   --danger: #d14d41;
   --font-body: Inter, "Segoe UI", Helvetica, Arial, sans-serif;
   --font-display: Inter, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -35,6 +35,13 @@ a { color: inherit; text-decoration: none; }
 button, input { font: inherit; }
 button { cursor: pointer; }
 img { display: block; max-width: 100%; }
+
+.brand .brand-mark {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  margin-right: 8px;
+}
 
 :focus-visible {
   outline: 3px solid var(--accent);

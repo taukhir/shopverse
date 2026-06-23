@@ -8,5 +8,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './storefront.component.scss',
 })
 export class StorefrontComponent {
-  protected readonly categories = ['Home', 'Tech', 'Everyday', 'New arrivals'];
+  protected readonly categories = [
+    { name: 'Home', description: 'Objects for quieter spaces.', mark: 'H', tone: 'cobalt' },
+    { name: 'Tech', description: 'Tools that keep up.', mark: 'T', tone: 'lilac' },
+    { name: 'Everyday', description: 'Small upgrades, well made.', mark: 'E', tone: 'ink' },
+    { name: 'New arrivals', description: 'Freshly added to the edit.', mark: '+', tone: 'paper' },
+  ];
 }

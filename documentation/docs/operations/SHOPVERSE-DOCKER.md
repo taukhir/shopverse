@@ -250,6 +250,45 @@ docker compose ps mysql mysql-bootstrap
 docker compose logs mysql-bootstrap
 ```
 
+## MinIO Product Media
+
+MinIO is the local S3-compatible object store for Inventory catalog images.
+The `inventory_items` table stores stable metadata (`image_key` and
+`image_url`), while the bytes remain under the `shopverse-product-images`
+bucket. This avoids database backup growth and lets a browser load media
+directly from object storage.
+
+```mermaid
+flowchart LR
+    Inventory["Inventory API"] -->|"imageUrl + imageKey"| Browser
+    Browser -->|"GET imageUrl"| MinIO["MinIO object API :9000"]
+    Assets["assets/products/products"] --> Init["minio-init one-shot container"]
+    Init -->|"create bucket + upload"| MinIO
+```
+
+`minio-init` runs after the MinIO health check. It creates the bucket if it
+does not exist, applies the POC download policy, and uploads the local catalog
+assets. It is safe to recreate after an asset change.
+
+```powershell
+docker compose config
+docker compose up -d minio minio-init
+docker compose ps minio minio-init
+docker compose logs --tail=100 minio-init
+docker compose up -d --force-recreate minio-init
+```
+
+The API endpoint is `http://localhost:9000`; the local console is
+`http://localhost:9001`. Configure `MINIO_ROOT_USER` and
+`MINIO_ROOT_PASSWORD` in the ignored root `.env`. Compose resolves every
+required environment variable before it builds any service, so a missing
+MinIO password blocks even a targeted command such as `docker compose build
+order-service`.
+
+The public bucket policy is deliberately local-POC behavior. A production
+deployment should keep buckets private and return short-lived pre-signed URLs
+or use a CDN with an origin-access policy.
+
 ## Local Secrets
 
 Create local values from the template:
@@ -310,4 +349,3 @@ powershell -NoProfile -ExecutionPolicy Bypass `
 - [Shopverse problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md)
 - [Shopverse testing strategy](../development/TESTING.md)
 - [Centralized logging](../observability/STRUCTURED-LOGGING.md)
-

@@ -36,6 +36,24 @@ public class InventoryItem extends BaseAuditableEntity {
     @Column(nullable = false, length = 160)
     private String productName;
 
+    @Column(length = 80)
+    private String brand;
+
+    @Column(length = 80)
+    private String model;
+
+    @Column(length = 60)
+    private String category;
+
+    @Column(length = 1000)
+    private String description;
+
+    @Column(name = "image_url", length = 500)
+    private String imageUrl;
+
+    @Column(name = "image_key", length = 255)
+    private String imageKey;
+
     // BigDecimal prevents floating-point rounding errors with currency.
     // precision = total digits; scale = digits after the decimal point (e.g., 99999999999999997.00)
     @Column(nullable = false, precision = 19, scale = 2)
@@ -51,9 +69,26 @@ public class InventoryItem extends BaseAuditableEntity {
     @Version
     private long version;
 
-    public InventoryItem(Long productId, String productName, BigDecimal unitPrice, int availableQuantity) {
+    public InventoryItem(
+            Long productId,
+            String productName,
+            String brand,
+            String model,
+            String category,
+            String description,
+            String imageUrl,
+            String imageKey,
+            BigDecimal unitPrice,
+            int availableQuantity
+    ) {
         this.productId = productId;
         this.productName = productName;
+        this.brand = brand;
+        this.model = model;
+        this.category = category;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.imageKey = imageKey;
         this.unitPrice = unitPrice;
         this.availableQuantity = availableQuantity;
     }
@@ -91,8 +126,24 @@ public class InventoryItem extends BaseAuditableEntity {
     /**
      * Administrative method to reset or override the current product details and stock level.
      */
-    public void replaceStock(String name, BigDecimal price, int quantity) {
+    public void replaceCatalogDetails(
+            String name,
+            String newBrand,
+            String newModel,
+            String newCategory,
+            String newDescription,
+            String newImageUrl,
+            String newImageKey,
+            BigDecimal price,
+            int quantity
+    ) {
         productName = name;
+        brand = newBrand;
+        model = newModel;
+        category = newCategory;
+        description = newDescription;
+        imageUrl = newImageUrl;
+        imageKey = newImageKey;
         unitPrice = price;
         availableQuantity = quantity;
     }

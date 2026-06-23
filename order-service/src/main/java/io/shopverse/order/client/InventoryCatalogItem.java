@@ -7,6 +7,8 @@ public record InventoryCatalogItem(
         Long id,
         Long productId,
         String productName,
+        String imageUrl,
+        String imageKey,
         BigDecimal unitPrice,
         int availableQuantity,
         int reservedQuantity,

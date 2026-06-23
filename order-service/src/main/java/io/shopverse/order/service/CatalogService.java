@@ -28,7 +28,9 @@ public class CatalogService {
                         item.productId(),
                         item.productName(),
                         item.unitPrice(),
-                        item.available()
+                        item.available(),
+                        item.imageUrl(),
+                        item.imageKey()
                 ))
                 .toList();
     }

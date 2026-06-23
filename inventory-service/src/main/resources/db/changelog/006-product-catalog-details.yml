@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-add-product-catalog-details
+      author: shopverse
+      changes:
+        - addColumn:
+            tableName: inventory_items
+            columns:
+              - column: { name: brand, type: VARCHAR(80) }
+              - column: { name: model, type: VARCHAR(80) }
+              - column: { name: category, type: VARCHAR(60) }
+              - column: { name: description, type: VARCHAR(1000) }
+              - column: { name: image_url, type: VARCHAR(500) }
+              - column: { name: image_key, type: VARCHAR(255) }
+        - createIndex:
+            tableName: inventory_items
+            indexName: idx_inventory_item_category
+            columns:
+              - column: { name: category }
+
+  - changeSet:
+      id: 006-seed-product-catalog-details
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              UPDATE inventory_items
+              SET brand = CASE product_id
+                    WHEN 101 THEN 'KeyForge' WHEN 102 THEN 'DockPro' WHEN 103 THEN 'SonicCore'
+                    WHEN 104 THEN 'ViewPoint' WHEN 105 THEN 'ErgoFlow' WHEN 106 THEN 'KeyForge'
+                    WHEN 107 THEN 'VisionLink' WHEN 108 THEN 'LiftDesk' WHEN 109 THEN 'DataVault'
+                    WHEN 110 THEN 'ComfortArc' WHEN 111 THEN 'PowerHub' WHEN 112 THEN 'LumaDesk'
+                    WHEN 113 THEN 'SoundWave' WHEN 114 THEN 'TrailPack' WHEN 115 THEN 'Presento'
+                    WHEN 116 THEN 'LiftDesk' WHEN 117 THEN 'KeyForge' WHEN 118 THEN 'VisionLink'
+                    WHEN 119 THEN 'SonicCore' WHEN 120 THEN 'PrintMate' END,
+                  model = CONCAT('SV-', product_id, '-2026'),
+                  category = CASE product_id
+                    WHEN 101 THEN 'Computer Accessories' WHEN 102 THEN 'Computer Accessories' WHEN 103 THEN 'Audio'
+                    WHEN 104 THEN 'Monitors' WHEN 105 THEN 'Computer Accessories' WHEN 106 THEN 'Computer Accessories'
+                    WHEN 107 THEN 'Computer Accessories' WHEN 108 THEN 'Workspace' WHEN 109 THEN 'Storage'
+                    WHEN 110 THEN 'Workspace' WHEN 111 THEN 'Power and Charging' WHEN 112 THEN 'Workspace'
+                    WHEN 113 THEN 'Audio' WHEN 114 THEN 'Bags and Travel' WHEN 115 THEN 'Computer Accessories'
+                    WHEN 116 THEN 'Workspace' WHEN 117 THEN 'Computer Accessories' WHEN 118 THEN 'Lighting'
+                    WHEN 119 THEN 'Audio' WHEN 120 THEN 'Office Equipment' END,
+                  description = CONCAT(product_name, ' is a local Shopverse demonstration product for checkout, inventory reservation, and catalog-media flows.'),
+                  image_key = CONCAT('products/', product_id, '.png'),
+                  image_url = CONCAT('http://localhost:9000/shopverse-product-images/products/', product_id, '.png')
+              WHERE product_id BETWEEN 101 AND 120;

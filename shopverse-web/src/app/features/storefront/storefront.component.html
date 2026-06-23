@@ -8,20 +8,23 @@
       <a class="text-link" routerLink="/orders">Track an order</a>
     </div>
   </div>
-  <div class="hero-mark" aria-hidden="true"><span>SV</span><i></i></div>
+  <figure class="hero-visual">
+    <img src="/images/shopverse-cobalt-hero.png" alt="Cobalt headphones, camera, and knit textile arranged in a studio." />
+    <figcaption><span>THE COBALT EDIT</span><strong>01 / 04</strong></figcaption>
+  </figure>
 </section>
 
 <section class="collection" aria-labelledby="collection-title">
   <div class="section-heading">
-    <p class="eyebrow">A considered edit</p>
-    <h2 id="collection-title">Start with what matters.</h2>
+    <div><p class="eyebrow">A considered edit</p><h2 id="collection-title">Browse by<br />how you live.</h2></div>
+    <p class="section-copy">A smaller collection of useful objects, organized around the places and routines they belong to.</p>
   </div>
   <div class="category-grid">
-    @for (category of categories; track category; let index = $index) {
-      <a class="category-card" routerLink="/products" [class.featured]="index === 0">
-        <span>0{{ index + 1 }}</span>
-        <strong>{{ category }}</strong>
-        <em>Explore →</em>
+    @for (category of categories; track category.name; let index = $index) {
+      <a class="category-card" [class]="'category-card tone-' + category.tone" routerLink="/products">
+        <div class="category-art" aria-hidden="true"><span>0{{ index + 1 }}</span><b>{{ category.mark }}</b><i></i></div>
+        <div class="category-copy"><strong>{{ category.name }}</strong><p>{{ category.description }}</p></div>
+        <em>Explore <span>→</span></em>
       </a>
     }
   </div>
@@ -29,5 +32,5 @@
 
 <section class="promise">
   <p class="eyebrow">BUILT FOR CLARITY</p>
-  <p>From stock availability to order confirmation, every step stays visible.</p>
+  <p>Better objects, clearly chosen. From availability to confirmation, every step stays visible.</p>
 </section>

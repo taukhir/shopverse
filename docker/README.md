@@ -116,6 +116,46 @@ docker compose exec mysql mysql -uroot -p
 Production deployments should use managed/database-per-service isolation as
 required by scale, security, and availability objectives.
 
+## MinIO Product Media
+
+MinIO provides local S3-compatible object storage for Inventory catalog images.
+MySQL stores product metadata plus `imageKey` and `imageUrl`; it does not store
+image bytes. The `minio-init` one-shot service creates the
+`shopverse-product-images` bucket, makes it downloadable for the public POC
+catalog, and uploads the committed files from `assets/products/products`.
+
+Add these local-only values to `.env` before any Compose build or startup:
+
+```properties
+MINIO_ROOT_USER=shopverse-minio
+MINIO_ROOT_PASSWORD=replace-with-a-strong-local-password
+```
+
+Compose validates every required variable before it builds any individual
+service. Therefore a missing MinIO password can block `docker compose build
+order-service`; use `docker compose config` first to diagnose interpolation.
+
+```powershell
+docker compose config
+docker compose up -d minio minio-init
+docker compose ps minio minio-init
+docker compose logs --tail=100 minio-init
+```
+
+Expected result: `minio` is healthy and `minio-init` exits with code `0`.
+The object API is `http://localhost:9000`; the local administration console is
+`http://localhost:9001`. Use `MINIO_ROOT_USER` and `MINIO_ROOT_PASSWORD` only
+for the console. The frontend uses the public per-product URL returned by
+Inventory and never receives root credentials.
+
+After changing or adding a file below `assets/products/products`, rerun only
+the initializer:
+
+```powershell
+docker compose up -d --force-recreate minio-init
+docker compose logs --tail=100 minio-init
+```
+
 ## Health And Diagnostics
 
 ```powershell
@@ -139,6 +179,8 @@ status, then inspect the affected service and its direct dependencies.
 | Grafana | `http://localhost:3000` |
 | Prometheus | `http://localhost:9090` |
 | Zipkin | `http://localhost:9411` |
+| MinIO object API | `http://localhost:9000` |
+| MinIO console | `http://localhost:9001` |
 | Jenkins | `http://localhost:8085` |
 
 Credentials are environment-driven; do not assume a fixed username/password
