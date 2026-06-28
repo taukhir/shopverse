@@ -1,8 +1,48 @@
 # Shopverse
 
+[![Shopverse CI](https://github.com/taukhir/shopverse/actions/workflows/ci.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/ci.yml)
+[![Documentation](https://github.com/taukhir/shopverse/actions/workflows/docs-site.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/docs-site.yml)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=flat-square&logo=springboot&logoColor=white)
+![Kafka](https://img.shields.io/badge/Kafka-Choreography_SAGA-231F20?style=flat-square&logo=apachekafka&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker_Compose-Local_platform-2496ED?style=flat-square&logo=docker&logoColor=white)
+
 Shopverse is an observable, failure-aware commerce microservices POC. It demonstrates secure, idempotent checkout across independently persisted Order, Inventory, and Payment services using Kafka choreography, transactional outbox, compensation, and end-to-end observability.
 
 ![Shopverse architecture](documentation/static/img/diagrams/shopverse-architecture-flow.svg)
+
+## Why This Repository Matters
+
+Shopverse is the main proof artifact behind my portfolio. It is built to show
+how I reason about backend architecture, not only how I write service code.
+
+| Signal | What to inspect |
+| --- | --- |
+| **System design** | Gateway, discovery, config, service boundaries, database ownership, and event flow |
+| **Reliability** | Idempotent checkout, outbox, Kafka retries, DLT persistence, replay audit, and compensation |
+| **Security** | RSA-signed JWTs, JWKS validation, role/permission checks, and ownership authorization |
+| **Operations** | Docker Compose, CI gates, structured logs, metrics, traces, dashboards, and runbooks |
+| **Engineering maturity** | Service READMEs, documentation portal, ADRs, bounded tests, and failure-mode demos |
+
+## Fast Reviewer Path
+
+If you only have a few minutes, review these in order:
+
+1. [Architecture diagram](documentation/static/img/diagrams/shopverse-architecture-flow.svg)
+2. [Checkout example](#checkout-example)
+3. [Architecture decisions](#architecture-decisions)
+4. [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md)
+5. [End-to-end demo runbook](documentation/docs/case-study/COMPLETE-DEMO.mdx)
+6. [GitHub Actions workflow guide](.github/workflows/README.md)
+
+## What This Demonstrates
+
+- Designing service boundaries around ownership and failure isolation
+- Handling distributed checkout without a single shared transaction
+- Making asynchronous work queryable through order timelines and audit tables
+- Using security and observability as part of the architecture, not as add-ons
+- Keeping local development repeatable through Compose, seeded data, and runbooks
+- Validating behavior through unit, integration, container, and smoke-test layers
 
 ## Architecture
 
@@ -26,6 +66,15 @@ flowchart LR
 ```
 
 The Config Server centralizes runtime configuration, Eureka provides service discovery, and the observability stack combines Prometheus, Grafana, Loki, Promtail, Micrometer Tracing, and Zipkin.
+
+## Architecture Decisions
+
+| Decision | Why it matters | ADR |
+| --- | --- | --- |
+| API Gateway, Eureka, and Config Server | Keeps edge routing, discovery, and runtime configuration explicit and reviewable | [ADR 001](docs/adr/001-gateway-discovery-config.md) |
+| Kafka choreography SAGA | Avoids distributed transactions while keeping checkout failure paths observable | [ADR 002](docs/adr/002-kafka-choreography-saga.md) |
+| JWT and JWKS security model | Lets services validate tokens without sharing signing secrets | [ADR 003](docs/adr/003-jwt-jwks-security.md) |
+| Observability by default | Makes local and production-like behavior diagnosable across services | [ADR 004](docs/adr/004-observability-stack.md) |
 
 ## Core Capabilities
 
@@ -97,6 +146,26 @@ Key interfaces:
 | Zipkin | `http://localhost:9411` |
 
 Docker configuration and command explanations are in [docker/README.md](docker/README.md).
+
+## Five-Minute Local Evaluation
+
+Use this path when you want to verify the architecture without reading every
+service first:
+
+```powershell
+Copy-Item .env.example .env
+docker compose config
+docker compose up -d mysql mysql-bootstrap kafka config-server discovery-server user-service auth-service order-service payment-service inventory-service api-gateway
+docker compose ps
+```
+
+Then:
+
+1. Open Eureka at `http://localhost:8761` and confirm services are registered.
+2. Log in through `POST /auth/login`.
+3. Submit the [checkout request](#checkout-example) through the gateway.
+4. Query the order timeline to observe SAGA state changes.
+5. Open Zipkin/Grafana/Prometheus to inspect traces, metrics, and service health.
 
 ## MySQL Demo Data
 

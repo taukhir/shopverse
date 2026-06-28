@@ -97,7 +97,7 @@ Images are validated but not pushed by the CI workflow.
 
 ### 6. Checkout SAGA Smoke Test
 
-The end-to-end gate runs on `main`, manual runs, and scheduled verification.
+The end-to-end gate runs on `master`, manual runs, and scheduled verification.
 It starts the lightweight Compose override, not the observability stack:
 
 ```bash
@@ -119,7 +119,7 @@ even when a previous step fails.
 
 ## Deploy Workflow
 
-`deploy.yml` runs after successful CI on `main` or through a manual dispatch.
+`deploy.yml` runs after successful CI on `master` or through a manual dispatch.
 It builds and pushes images to GitHub Container Registry. The optional SSH
 deployment requires repository/environment secrets for the target host and
 credentials.

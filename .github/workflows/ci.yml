@@ -260,7 +260,7 @@ jobs:
       - docker-build
     if: |
       always() &&
-      (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch') &&
+      (github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch') &&
       needs.validate-config.result == 'success' &&
       (needs.unit-test.result == 'success' || needs.unit-test.result == 'skipped') &&
       (needs.integration-test.result == 'success' || needs.integration-test.result == 'skipped') &&
