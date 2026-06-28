@@ -198,6 +198,7 @@ as parsed JSON fields rather than indexed labels.
 
 ## Related Guides
 
+- [Observability implementation guide](OBSERVABILITY-IMPLEMENTATION-GUIDE.md)
 - [Micrometer metrics](MICROMETER-METRICS.md)
 - [Prometheus](PROMETHEUS.md)
 - [Loki](LOKI.md)

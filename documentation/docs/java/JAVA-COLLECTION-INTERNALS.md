@@ -175,4 +175,3 @@ use and `ConcurrentHashMap` for concurrent use.
 
 Because it stores values as keys in a backing `HashMap`; keys are unique based
 on `hashCode` and `equals`.
-

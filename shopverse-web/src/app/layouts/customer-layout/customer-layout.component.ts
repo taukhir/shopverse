@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { CartService } from '../../core/cart/cart.service';
+import { SessionService } from '../../core/auth/session.service';
 
 @Component({
   selector: 'app-customer-layout',
@@ -11,4 +13,11 @@ import { CartService } from '../../core/cart/cart.service';
 })
 export class CustomerLayoutComponent {
   protected readonly cart = inject(CartService);
+  protected readonly session = inject(SessionService);
+  private readonly router = inject(Router);
+
+  protected logout(): void {
+    this.session.logout();
+    this.router.navigateByUrl('/');
+  }
 }

@@ -7,6 +7,7 @@ Canonical documentation:
 
 - [Shopverse observability operations](../documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
 - [Observability architecture](../documentation/docs/observability/OBSERVABILITY.md)
+- [Observability implementation guide](../documentation/docs/observability/OBSERVABILITY-IMPLEMENTATION-GUIDE.md)
 - [Structured logging](../documentation/docs/observability/STRUCTURED-LOGGING.md)
 - [MDC, correlation, and tracing](../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
 

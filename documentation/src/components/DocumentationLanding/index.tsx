@@ -33,7 +33,7 @@ type Topic = {
 const topics: Topic[] = [
   {
     title: 'Java',
-    description: 'OOP, collections, streams, Java 8-21, concurrency, and practical interview questions.',
+    description: 'OOP, collections, streams, Java 8-26, concurrency, and practical interview questions.',
     href: '/java/JAVA-OOP',
     icon: <Braces aria-hidden="true" />,
     meta: 'Language foundation',

@@ -1,5 +1,10 @@
 # REST API Design
 
+REST stands for **Representational State Transfer**. It is an architectural
+style for exposing resources through standard HTTP semantics. In a REST API,
+clients operate on resource representations, usually JSON, using HTTP methods
+such as `GET`, `POST`, `PUT`, `PATCH`, and `DELETE`.
+
 Read this page if you want to understand:
 
 - resource naming conventions and versioning;

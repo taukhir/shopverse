@@ -94,7 +94,7 @@ For LLD:
 
 - [System Design](../SYSTEM-DESIGN.md)
 - [Microservice Architecture](../MICROSERVICES-GENERIC.md)
-- [Java Design Patterns](../../development/DESIGN-PATTERNS.md)
+- [Design Patterns](../../development/DESIGN-PATTERNS.md)
 - [Database Engineering](../../data/DATABASE-ENGINEERING.md)
 
 

@@ -35,6 +35,8 @@ export class CartService {
 
   remove(productId: number): void { this.setQuantity(productId, 0); }
 
+  clear(): void { this.update(() => []); }
+
   private update(transform: (items: CartItem[]) => CartItem[]): void {
     const next = transform(this.items());
     this.items.set(next);

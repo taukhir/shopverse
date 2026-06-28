@@ -43,7 +43,7 @@ try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
 ```
 
 For a deeper Java 21 discussion, see
-[Java Virtual Threads](features-8-to-21/JAVA-VIRTUAL-THREADS.md).
+[Java Virtual Threads](features-8-to-26/JAVA-VIRTUAL-THREADS.md).
 
 ### CompletableFuture
 
@@ -109,6 +109,35 @@ Use:
 - immutable objects and safe publication;
 - concurrent collections for shared containers.
 
+## Synchronization And Atomic Classes
+
+Use `synchronized` when one thread at a time must protect a critical section:
+
+```java
+class Counter {
+    private int value;
+
+    synchronized int incrementAndGet() {
+        return ++value;
+    }
+}
+```
+
+Use atomic classes for simple lock-free state changes:
+
+```java
+AtomicInteger counter = new AtomicInteger();
+int next = counter.incrementAndGet();
+```
+
+Use `LongAdder` for high-write counters such as metrics:
+
+```java
+LongAdder requests = new LongAdder();
+requests.increment();
+long total = requests.sum();
+```
+
 ## Race Condition
 
 ```java
@@ -144,6 +173,30 @@ Prevent it by:
 - using timed `tryLock`;
 - reducing shared mutable state;
 - detecting and retrying database deadlock victims safely.
+
+Example with stable lock ordering:
+
+```java
+void transfer(Account from, Account to, BigDecimal amount) {
+    Account first = from.id() < to.id() ? from : to;
+    Account second = from.id() < to.id() ? to : from;
+
+    synchronized (first) {
+        synchronized (second) {
+            from.debit(amount);
+            to.credit(amount);
+        }
+    }
+}
+```
+
+Thread priority exists, but it is only a scheduler hint:
+
+```java
+thread.setPriority(Thread.NORM_PRIORITY);
+```
+
+Do not rely on priority for correctness or service-level guarantees.
 
 ## ThreadLocal And Context
 
