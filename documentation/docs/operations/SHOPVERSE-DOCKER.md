@@ -253,6 +253,8 @@ docker compose logs mysql-bootstrap
 ## MinIO Product Media
 
 MinIO is the local S3-compatible object store for Inventory catalog images.
+For generic MinIO concepts, policies, and presigned upload flow, see
+[MinIO Object Storage](MINIO.md).
 The `inventory_items` table stores stable metadata (`image_key` and
 `image_url`), while the bytes remain under the `shopverse-product-images`
 bucket. This avoids database backup growth and lets a browser load media

@@ -289,14 +289,24 @@ Prefer:
 ```java
 record Money(BigDecimal amount, Currency currency) {
     Money {
-        Objects.requireNonNull(amount);
-        Objects.requireNonNull(currency);
+        Objects.requireNonNull(amount, "Money amount cannot be null");
+        Objects.requireNonNull(currency, "Money currency cannot be null");
         if (amount.signum() < 0) {
             throw new IllegalArgumentException("amount must be non-negative");
         }
     }
 }
 ```
+
+`Money { ... }` is a **compact constructor**. In a record, Java already knows
+the constructor parameters from the record header, so you can write validation
+without repeating `Money(BigDecimal amount, Currency currency)`. The compact
+constructor runs before the record instance is created. Use it for null checks,
+normalization, and invariant validation.
+
+`Objects.requireNonNull(value, "message")` fails fast with a specific
+`NullPointerException` message. The message matters in production because logs
+and stack traces show which required value was missing.
 
 ### Program To Capabilities
 
@@ -479,6 +489,6 @@ scheduled jobs, and internal calls may bypass controllers.
 
 ## Related Guides
 
-- [Java Design Patterns](DESIGN-PATTERNS.md)
+- [Design Patterns](DESIGN-PATTERNS.md)
 - [HLD And LLD](../architecture/HLD-LLD.md)
 - [Microservice Architecture](../architecture/MICROSERVICES-GENERIC.md)

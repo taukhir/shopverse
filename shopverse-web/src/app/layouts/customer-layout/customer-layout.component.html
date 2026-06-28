@@ -5,7 +5,7 @@
   <nav class="site-nav" aria-label="Main navigation">
     <a routerLink="/products" routerLinkActive="active">Shop</a>
     <a routerLink="/orders" routerLinkActive="active">Orders</a>
-    <a routerLink="/account" routerLinkActive="active">Account</a>
+    @if (session.isAuthenticated()) { <a routerLink="/account" routerLinkActive="active">Account</a><button class="logout" type="button" (click)="logout()">Sign out</button> } @else { <a routerLink="/login" routerLinkActive="active">Sign in</a> }
   </nav>
   <a class="cart-link" routerLink="/cart">Cart <span>{{ cart.itemCount() }}</span></a>
 </header>

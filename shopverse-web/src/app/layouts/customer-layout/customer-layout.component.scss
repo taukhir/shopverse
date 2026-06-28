@@ -23,6 +23,7 @@
 .site-nav { display: flex; gap: 28px; margin-left: auto; margin-right: 42px; font-size: 13px; font-weight: 700; }
 .site-nav a { padding: 6px 0; color: rgba(255, 253, 248, 0.72); }
 .site-nav a:hover, .site-nav a.active { color: var(--accent-soft); }
+.site-nav .logout { padding: 0; color: rgba(255,253,248,.72); border: 0; background: transparent; font-size: 13px; font-weight: 700; }.site-nav .logout:hover { color: var(--accent-soft); }
 .cart-link { padding: 9px 12px; border: 1px solid rgba(255,255,255,.25); font-size: 13px; font-weight: 700; }
 .cart-link span { margin-left: 6px; color: var(--accent-soft); }
 

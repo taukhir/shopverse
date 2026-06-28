@@ -1,9 +1,9 @@
 ---
-title: Java 8 To 21 Overview
+title: Java 8 To 26 Overview
 sidebar_position: 1
 ---
 
-# Java 8 To 21 Overview
+# Java 8 To 26 Overview
 
 This page is the umbrella for important Java language and runtime features
 used in modern backend development.
@@ -27,10 +27,15 @@ used in modern backend development.
 | Pattern matching | 16+ | safer type checks and switch |
 | Virtual threads | 21 | cheap thread-per-task blocking I/O |
 | Sequenced collections | 21 | standard first/last/reversed APIs |
+| Scoped values | 21 preview, 25 final | safer immutable context passing than many `ThreadLocal` use cases |
+| Stream gatherers | 24 | custom intermediate stream operations |
+| Stable values | 25 preview | lazily initialized immutable values |
+| Primitive pattern matching | 26 preview | richer pattern matching over primitive values |
 
 ## Dedicated Pages
 
 - [Optional](JAVA-OPTIONAL.md)
+- [Lambdas](JAVA-LAMBDAS.md)
 - [var](JAVA-VAR.md)
 - [Switch](JAVA-SWITCH.md)
 - [Records](JAVA-RECORDS.md)
@@ -49,4 +54,3 @@ Good candidates in backend code:
 - sealed interfaces for fixed domain result types;
 - virtual threads for high-concurrency blocking I/O;
 - Optional for repository/service return values where absence is expected.
-

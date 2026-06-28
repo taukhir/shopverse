@@ -339,5 +339,5 @@ A production service needs more than an endpoint:
 
 - [HLD And LLD](HLD-LLD.md)
 - [Engineering Principles](../development/ENGINEERING-PRINCIPLES.md)
-- [Java Design Patterns](../development/DESIGN-PATTERNS.md)
+- [Design Patterns](../development/DESIGN-PATTERNS.md)
 - [SAGA And Outbox](../reliability/SAGA-GENERIC.md)

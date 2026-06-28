@@ -119,6 +119,83 @@ Comparator<Order> newestFirst =
 orders.sort(newestFirst);
 ```
 
+## Safe Iteration And Fail-Fast Behavior
+
+Most non-concurrent collection iterators are fail-fast. If the collection is
+structurally modified outside the iterator while iterating, Java can throw
+`ConcurrentModificationException`.
+
+Avoid:
+
+```java
+for (Order order : orders) {
+    if (order.cancelled()) {
+        orders.remove(order);
+    }
+}
+```
+
+Prefer iterator removal:
+
+```java
+Iterator<Order> iterator = orders.iterator();
+while (iterator.hasNext()) {
+    if (iterator.next().cancelled()) {
+        iterator.remove();
+    }
+}
+```
+
+Or create a new filtered collection:
+
+```java
+List<Order> activeOrders = orders.stream()
+        .filter(order -> !order.cancelled())
+        .toList();
+```
+
+## HashMap Versus ConcurrentHashMap
+
+| Concern | `HashMap` | `ConcurrentHashMap` |
+|---|---|---|
+| Thread safety | no | yes for concurrent access |
+| Null keys/values | allows one null key and null values | does not allow null keys/values |
+| Iteration | fail-fast best effort | weakly consistent |
+| Use case | local/single-threaded map | shared mutable map across threads |
+
+`ConcurrentHashMap` does not make compound business operations automatically
+atomic. Use methods such as `compute`, `computeIfAbsent`, and `merge` when the
+read-modify-write operation must be atomic for one key.
+
+```java
+inventoryByProduct.merge(productId, quantity, Integer::sum);
+```
+
+## ArrayList Versus Vector
+
+| Concern | `ArrayList` | `Vector` |
+|---|---|---|
+| Synchronization | not synchronized | synchronized methods |
+| Performance | better in normal code | slower due method-level locking |
+| Modern preference | yes | legacy |
+
+Prefer `ArrayList` with external synchronization or concurrent collections
+when needed. `Vector` is mostly seen in legacy code.
+
+## Storing Custom Objects In Hash Collections
+
+Objects used as keys in `HashMap` or elements in `HashSet` need correct,
+stable `equals` and `hashCode`.
+
+```java
+public record ProductKey(Long productId, String warehouseCode) {
+}
+```
+
+Records are useful keys because Java generates value-based equality and hash
+code. Do not mutate fields used by equality after insertion into a hash-based
+collection.
+
 `Comparable` defines natural order. `Comparator` defines external or multiple
 orders. A sorted set/map treats comparator equality as key equality, so the
 comparison should be consistent with intended uniqueness.

@@ -1,9 +1,9 @@
 ---
-title: Java Design Patterns
+title: Design Patterns
 sidebar_position: 3
 ---
 
-# Java Design Patterns
+# Design Patterns
 
 Design patterns are reusable solution shapes, not mandatory class structures.
 Use them when they clarify change, ownership, or collaboration. Do not force a
@@ -16,6 +16,14 @@ pattern onto simple code.
 | Creational | control object construction |
 | Structural | compose objects and interfaces |
 | Behavioral | coordinate responsibilities and communication |
+
+Detailed pages:
+
+| Page | Focus |
+|---|---|
+| [Creational Patterns](design-patterns/CREATIONAL-PATTERNS.md) | object creation, factories, builders, singleton |
+| [Structural Patterns](design-patterns/STRUCTURAL-PATTERNS.md) | adapters, decorators, facades, proxies |
+| [Behavioral Patterns](design-patterns/BEHAVIORAL-PATTERNS.md) | strategy, observer, chain of responsibility, state |
 
 ## Strategy
 
@@ -422,4 +430,3 @@ transactions.
 - [Spring AOP](../spring/SPRING-AOP.md)
 - [Microservice Architecture](../architecture/MICROSERVICES-GENERIC.md)
 - [SAGA](../reliability/SAGA-GENERIC.md)
-

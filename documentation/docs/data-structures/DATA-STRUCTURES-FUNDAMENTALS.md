@@ -10,6 +10,23 @@ inserted, deleted, and updated efficiently.
 
 Choosing the wrong structure can turn simple code into slow code.
 
+## Concrete Versus Abstract Data Structures
+
+An **abstract data type** describes behavior. A **data structure** describes
+one implementation of that behavior.
+
+| Abstract type | Behavior | Possible implementation |
+|---|---|---|
+| List | ordered sequence | array list, linked list |
+| Stack | last in, first out | array, linked list, deque |
+| Queue | first in, first out | circular array, linked list |
+| Map | key-value lookup | hash table, tree |
+| Set | unique values | hash table, tree |
+| Priority queue | remove highest/lowest priority first | binary heap |
+
+This distinction matters in interviews and design. For example, "use a queue"
+describes behavior; `ArrayDeque` or `LinkedList` describes implementation.
+
 ## Why Data Structures Matter
 
 | Need | Better structure |
@@ -55,6 +72,14 @@ flowchart TB
     Specialized --> Trie
 ```
 
+| Category | Examples | Typical use |
+|---|---|---|
+| Linear | array, linked list, stack, queue, deque | ordered traversal and sequential processing |
+| Non-linear | tree, graph, heap, trie | hierarchy, relationship traversal, priority, prefix search |
+| Hash-based | hash map, hash set | fast lookup and duplicate detection |
+| Concurrent | concurrent map, blocking queue | safe access across threads |
+| Persistent/immutable | immutable list/map implementations | safe sharing and functional-style updates |
+
 ## Interview Questions
 
 ### Array vs linked list?
@@ -70,4 +95,3 @@ lookup and sorted/range operations.
 ### Stack vs queue?
 
 Stack is LIFO. Queue is FIFO.
-

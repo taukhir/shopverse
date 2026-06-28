@@ -20,6 +20,30 @@ git push -u origin feature/order-timeline
 `--ff-only` refuses an implicit merge during pull. Resolve divergence
 deliberately with rebase or merge according to the team's policy.
 
+## Command Cheat Sheet
+
+| Task | Command | Notes |
+|---|---|---|
+| check changes | `git status` | first command before risky operations |
+| inspect file diff | `git diff path/to/file` | unstaged changes |
+| stage file | `git add path/to/file` | puts changes into the index |
+| unstage file | `git restore --staged path/to/file` | keeps working-tree changes |
+| amend last commit | `git commit --amend` | rewrites last commit; avoid after sharing |
+| rollback shared commit | `git revert <commit>` | creates a new inverse commit |
+| rollback local commits but keep changes | `git reset --soft HEAD~2` | moves branch, keeps staged changes |
+| rollback local commits and unstage | `git reset --mixed HEAD~2` | keeps files changed |
+| combine commits | `git rebase -i HEAD~3` | squash/fixup local commits |
+| save temporary work | `git stash push -m "message"` | use before switching context |
+| restore stashed work | `git stash pop` | applies and drops the stash |
+| list branches | `git branch -a` | includes remote-tracking branches |
+| create branch | `git switch -c feature/name` | starts new local branch |
+| track remote branch | `git switch --track origin/feature/name` | creates local branch from remote |
+| safer force push | `git push --force-with-lease` | protects unseen remote changes |
+
+`origin` is the conventional name for the remote repository. A remote branch
+such as `origin/main` is Git's local record of what the remote branch looked
+like after the last fetch.
+
 ## Fetch, Pull, Merge, And Rebase
 
 These commands solve related but different problems:

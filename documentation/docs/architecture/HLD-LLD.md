@@ -14,6 +14,8 @@ HLD and LLD material is split into architecture basics, capacity and performance
 | [Capacity And Performance Estimation](hld-lld/CAPACITY-PERFORMANCE-ESTIMATION.md) | Capacity estimation, latency, throughput, active requests, worked checkout estimate, RED/USE/business metrics, and performance rules. |
 | [Non Functional Requirements](hld-lld/NON-FUNCTIONAL-REQUIREMENTS.md) | Availability, scalability, reliability, security, operability, and related non-functional requirements. |
 | [LLD Examples And Diagrams](hld-lld/LLD-EXAMPLES-DIAGRAMS.md) | LLD contents, class example, sequence example, and state diagram example. |
+| [UML Diagrams](hld-lld/UML-DIAGRAMS.md) | Class, sequence, state, activity, and component diagram guidance. |
+| [ERD Diagrams](hld-lld/ERD-DIAGRAMS.md) | Tables, keys, relationships, and database-design diagrams. |
 | [Database LLD And Design Process](hld-lld/DATABASE-LLD-DESIGN-PROCESS.md) | Database LLD, design process, interview approach, do and do not rules, and related guides. |
 
 ## Compatibility Anchors

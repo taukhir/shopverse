@@ -63,6 +63,15 @@ List<String> numbers = orders.stream()
         .toList();
 ```
 
+Function composition:
+
+```java
+Function<Order, BigDecimal> total = Order::totalAmount;
+Function<BigDecimal, String> moneyLabel = amount -> "INR " + amount;
+
+Function<Order, String> orderTotalLabel = total.andThen(moneyLabel);
+```
+
 ## Supplier
 
 ```java
@@ -82,6 +91,36 @@ orders.forEach(audit);
 ```
 
 Use consumers carefully. They are side-effect oriented.
+
+## BiFunction And Operators
+
+```java
+BiFunction<BigDecimal, BigDecimal, BigDecimal> addTax =
+        (amount, tax) -> amount.add(tax);
+
+BinaryOperator<BigDecimal> maxAmount = BigDecimal::max;
+
+UnaryOperator<String> normalizeUsername =
+        username -> username.trim().toLowerCase(Locale.ROOT);
+```
+
+Use `UnaryOperator<T>` when input and output are the same type. Use
+`BinaryOperator<T>` when both inputs and the output are the same type.
+
+## Custom Functional Interface
+
+Create a custom interface when the domain name is clearer than a generic
+`Function`.
+
+```java
+@FunctionalInterface
+interface PaymentRiskRule {
+    RiskDecision evaluate(PaymentAttempt attempt);
+}
+```
+
+This reads better than `Function<PaymentAttempt, RiskDecision>` when the
+concept is important in the domain.
 
 ## Method References
 
@@ -121,4 +160,3 @@ custom interface only when the domain name improves clarity.
 
 No. If logic is long, branching-heavy, or reused in many places, a named method
 or class is clearer.
-

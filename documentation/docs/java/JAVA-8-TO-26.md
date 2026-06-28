@@ -1,13 +1,13 @@
 ---
-title: Java 8 To 21 Features
+title: Java 8 To 26 Features
 sidebar_position: 4
 ---
 
-# Important Java Features From 8 To 21
+# Important Java Features From 8 To 26
 
 :::info
 This page is kept as a compact legacy overview. The expanded notes now live in
-the [Java 8 To 21 feature section](features-8-to-21/JAVA-8-TO-21.md), with
+the [Java 8 To 26 feature section](features-8-to-26/JAVA-8-TO-26.md), with
 dedicated pages for Optional, `var`, switch, records, sealed classes, and
 virtual threads.
 :::
@@ -194,6 +194,11 @@ List<String> reverseView = orderNumbers.reversed();
 | 16 | records, `instanceof` patterns |
 | 17 LTS | sealed classes |
 | 21 LTS | virtual threads, switch patterns, sequenced collections |
+| 22 | unnamed variables and patterns, foreign function and memory API |
+| 23 | Markdown documentation comments, primitive patterns preview |
+| 24 | stream gatherers, class-file API |
+| 25 | scoped values final, compact source files preview |
+| 26 | primitive pattern matching and newer preview/incubator work |
 
 ## Interview And Tricky Questions
 

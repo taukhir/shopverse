@@ -462,6 +462,23 @@ pipelines.
 
 ## Do And Do Not
 
+## Method Reference Table
+
+| Method | Use when | Returns |
+|---|---|---|
+| `supplyAsync` | async task produces a value | `CompletableFuture<T>` |
+| `runAsync` | async task has side effects only | `CompletableFuture<Void>` |
+| `thenApply` | transform one successful result | `CompletableFuture<R>` |
+| `thenCompose` | call another async operation depending on the first result | `CompletableFuture<R>` |
+| `thenCombine` | combine two independent futures | `CompletableFuture<R>` |
+| `allOf` | wait for many futures | `CompletableFuture<Void>` |
+| `anyOf` | use the first completed future | `CompletableFuture<Object>` |
+| `exceptionally` | recover from failure | `CompletableFuture<T>` |
+| `handle` | convert success or failure into a value | `CompletableFuture<R>` |
+| `whenComplete` | observe completion without changing result | `CompletableFuture<T>` |
+| `orTimeout` | fail if not complete in time | same future |
+| `completeOnTimeout` | produce fallback value after timeout | same future |
+
 Do:
 
 - use a custom executor for server-side blocking work;
@@ -517,4 +534,3 @@ needed to complete that same future.
 
 It is safe after adding timeouts and exception handling. Without those, it can
 wait indefinitely or fail with a wrapped exception.
-
