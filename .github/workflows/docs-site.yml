@@ -3,7 +3,7 @@ name: Shopverse Documentation
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "documentation/**"
       - ".github/workflows/docs-site.yml"
