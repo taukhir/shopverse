@@ -9,6 +9,19 @@ databases. Instead of one distributed ACID transaction, each participant
 commits a local transaction and communicates the result to the next
 participant.
 
+## Shopverse Links
+
+Shopverse demonstrates SAGA concepts through:
+
+- [Shopverse SAGA And Outbox](SAGA-OUTBOX.md) for the checkout choreography;
+- [Shopverse SAGA Code Flow](SHOPVERSE-SAGA-CODE-FLOW.md) for service-level flow;
+- [Outbox Starter](../platform/OUTBOX-STARTER.md) for durable event publication mechanics;
+- [Kafka Recovery Starter](../platform/KAFKA-RECOVERY-STARTER.md) for failed event recovery;
+- [Runtime Reliability Problems](problems/RUNTIME-RELIABILITY-PROBLEMS.md) for checkout failure scenarios.
+
+Use this page for generic SAGA theory. Use the Shopverse pages for current
+code paths, measured gaps, and implementation-specific decisions.
+
 If a later step fails, the system executes compensating business actions for
 earlier committed work.
 
@@ -371,6 +384,21 @@ failure guard. Document the maturity level explicitly:
 When writing architecture docs, do not collapse these levels into one word such
 as "reliable". State exactly which guarantees exist and which are target
 hardening work.
+
+### Operational Visibility
+
+A SAGA should expose enough state for operators to answer:
+
+- which business operation is in progress;
+- which service owns the current step;
+- which event or command last changed state;
+- whether the workflow is waiting, failed, compensated, or complete;
+- which correlation ID connects logs across services;
+- which recovery action is allowed.
+
+For choreography, this usually requires a local timeline, correlated logs,
+metrics, and replayable failure records. Without those, the system may be
+eventually consistent in theory but difficult to operate during incidents.
 
 ## Ordering
 

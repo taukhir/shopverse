@@ -30,6 +30,8 @@ Shopverse case study:
 | Logging And Observability | logging, MDC, metrics, Prometheus, Loki, Promtail, Grafana |
 | Delivery, Containers And CI/CD | Docker, Jenkins, GitHub Actions, deployment, Docusaurus |
 | Shopverse Case Study | project-specific architecture, APIs, SAGA, observability, testing, and problem fixes |
+| Platform Infrastructure | shared infrastructure modules extracted from duplicated service code |
+| Problems And Solutions | problem statements, measured fixes, and verification results |
 
 ## Page Placement Rules
 
@@ -41,6 +43,8 @@ Shopverse case study:
 | Commands that apply to any project | generic Operations page |
 | Interview questions | relevant generic section or Reference |
 | Problem statement and fix from this POC | `reliability/PROBLEMS-AND-SOLUTIONS.md` |
+| Shared platform starter usage | `platform/README.md` and focused platform module pages |
+| Optimization measurements and command output | `reliability/problems/optimization/*` |
 | API request/response examples | `development/API-GUIDE.md` or service README |
 
 ## Length Guidelines
@@ -129,6 +133,23 @@ Example:
 
 - [Transactional outbox pattern](../reliability/OUTBOX-PATTERN.md)
 - [Shopverse SAGA and outbox implementation](../reliability/SAGA-OUTBOX.md)
+
+## Current Organization Pass
+
+The docs are organized around two reader modes:
+
+| Reader mode | Use |
+|---|---|
+| Learning mode | Generic Java, Spring, data, security, operations, and distributed-system pages. |
+| Shopverse mode | Case study, platform infrastructure, problem/solution pages, and implementation guides. |
+
+When adding new content, avoid putting a full Shopverse implementation inside a
+generic learning page. Add a short "Shopverse link" section that points to the
+case-study or platform page instead.
+
+When adding a new problem fix, place the detailed command output and
+before/after numbers under `reliability/problems/`, then link to it from the
+generic operations or architecture page.
 
 ## Current Maintenance Guidance
 

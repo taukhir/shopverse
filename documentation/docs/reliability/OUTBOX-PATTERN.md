@@ -6,6 +6,18 @@ in event-driven systems:
 > How do we make sure a committed database change eventually publishes its
 > integration event?
 
+## Shopverse Links
+
+Shopverse applies this pattern through:
+
+- [Outbox Starter](../platform/OUTBOX-STARTER.md) for shared claim, publish, stale-claim release, metrics, and logging;
+- [Shopverse SAGA And Outbox](SAGA-OUTBOX.md) for the checkout flow;
+- [Outbox Runtime Problems](problems/OUTBOX-RUNTIME-PROBLEMS.md) for lock scope and stale claims;
+- [Runtime Optimization](problems/optimization/RUNTIME-OPTIMIZATION.md) for replay indexes and local runtime tuning.
+
+The platform starter owns infrastructure mechanics. Services still own domain
+event creation, outbox entities, repositories, and Liquibase schemas.
+
 ## Problem Statement
 
 A service often needs to update its database and publish an event:
@@ -161,6 +173,22 @@ sequenceDiagram
 This keeps database lock scope short and prevents Kafka latency from consuming
 database connections.
 
+### Claiming Strategy Checklist
+
+Before running more than one publisher replica, confirm the claim strategy is
+race-safe:
+
+- pending selection is bounded;
+- a row can move from `PENDING` to `PROCESSING` only once per claim attempt;
+- locks or conditional updates are held only for short database work;
+- Kafka send happens after the claim transaction commits;
+- stale claims have a timeout and release path;
+- indexes support pending and stale-claim queries.
+
+If a service cannot prove those properties, scale out the publisher only after
+adding row locks, `SKIP LOCKED`, atomic updates, or another explicit ownership
+mechanism.
+
 ## Crash Recovery
 
 If a publisher crashes after claiming a row, the row can stay `PROCESSING`.
@@ -225,6 +253,7 @@ events through business keys or the inbox pattern.
 
 ## Related Guides
 
+- [Outbox Starter](../platform/OUTBOX-STARTER.md)
 - [Inbox pattern](INBOX-PATTERN.md)
 - [SAGA and transactional outbox patterns](SAGA-GENERIC.md)
 - [Shopverse SAGA and outbox](SAGA-OUTBOX.md)

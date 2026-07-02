@@ -8,6 +8,19 @@ Kafka listeners, consumer groups, acknowledgments, delivery semantics, and Sprin
 
 Back to [Spring Kafka](../SPRING-KAFKA.md).
 
+## Shopverse Links
+
+Shopverse applies these consumer concepts through:
+
+- [Kafka Event Parsing](../../platform/KAFKA-PARSING.md) for shared listener JSON parsing;
+- [Kafka Recovery Starter](../../platform/KAFKA-RECOVERY-STARTER.md) for failed-event persistence and replay;
+- [Spring Kafka Retry DLT And Recovery](./SPRING-KAFKA-RETRY-DLT-RECOVERY.md) for retry and dead-letter behavior;
+- [Runtime Reliability Problems](../../reliability/problems/RUNTIME-RELIABILITY-PROBLEMS.md) for duplicate delivery and idempotency decisions.
+
+The shared parser removes repeated `ObjectMapper` try/catch blocks. It does
+not make listener business effects idempotent; that still needs service-owned
+state checks, unique keys, or an inbox/processed-event table.
+
 ## Consuming With `@KafkaListener`
 
 ```java
@@ -58,6 +71,32 @@ public void consume(ConsumerRecord<String, String> record) {
 ```
 
 Do not log sensitive payloads by default.
+
+### Listener Parsing Boundary
+
+A listener normally has three responsibilities:
+
+1. parse the transport payload;
+2. restore tracing/correlation context;
+3. run service-owned business handling.
+
+Only the first responsibility is a good shared-library candidate. Business
+handling and event records belong to the service because they are part of that
+service's domain contract.
+
+```java
+InventoryReservedEvent event = eventParser.parse(
+        payload,
+        InventoryReservedEvent.class
+);
+
+CorrelationContext.run(
+        event.correlationId(),
+        () -> handleInventoryReserved(event)
+);
+```
+
+This keeps the listener small while avoiding a large shared domain library.
 
 
 ## Consumer Groups

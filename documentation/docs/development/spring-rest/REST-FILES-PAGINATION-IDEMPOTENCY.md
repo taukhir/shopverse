@@ -8,6 +8,14 @@ Multipart uploads, downloads, pagination, conditional requests, idempotent comma
 
 Back to [Spring REST APIs](../SPRING-REST-APIS.md).
 
+## Shopverse Links
+
+Shopverse platform helpers related to this page:
+
+- [Shared Web Pagination](../../platform/WEB-PAGINATION.md) for `PageResponse`, `PageMapper`, and `PaginationUtils`;
+- [Common Error Contract](../../platform/COMMON-ERROR.md) for consistent pagination validation errors;
+- [Runtime Reliability Problems](../../reliability/problems/RUNTIME-RELIABILITY-PROBLEMS.md) for idempotent checkout and duplicate request handling.
+
 ## Multipart File Upload
 
 Spring MVC supports multipart requests through `MultipartFile`. Use it when a
@@ -356,6 +364,24 @@ Page<ProductResponse> search(
 Offset pagination is simple but can become slow or inconsistent for deep,
 frequently changing result sets. Use cursor or keyset pagination when the
 dataset and access pattern require it.
+
+### Pagination Boundary
+
+A shared pagination helper can own:
+
+- page and size validation;
+- max-size enforcement;
+- shared `PageResponse` shape;
+- mapping from Spring `Page<T>` to API response metadata.
+
+The service should own:
+
+- allowed sort fields;
+- default sort;
+- filter semantics;
+- whether offset, cursor, or keyset pagination is appropriate.
+
+This prevents the web module from becoming a domain query library.
 
 
 ## Conditional Requests And Optimistic Concurrency
