@@ -10,6 +10,11 @@ spring:
   threads:
     virtual:
       enabled: ${VIRTUAL_THREADS_ENABLED:true}
+  datasource:
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:5}
+      minimum-idle: ${DB_POOL_MIN_IDLE:1}
+      connection-timeout: ${DB_POOL_CONNECTION_TIMEOUT_MS:30000}
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     template:
@@ -29,6 +34,7 @@ spring:
     listener:
       observation-enabled: true
       ack-mode: record
+      concurrency: ${KAFKA_LISTENER_CONCURRENCY:1}
 
 shopverse:
   outbox:

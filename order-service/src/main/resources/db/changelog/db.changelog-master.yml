@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/003-outbox-and-failed-events.yml
   - include:
       file: db/changelog/004-outbox-claim.yml
+  - include:
+      file: db/changelog/005-failed-event-indexes.yml
