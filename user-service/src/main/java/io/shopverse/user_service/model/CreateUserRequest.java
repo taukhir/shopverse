@@ -1,9 +1,9 @@
 package io.shopverse.user_service.model;
 
+import io.shopverse.user_service.validation.StrongPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import io.shopverse.user_service.validation.StrongPassword;
 
 import java.util.Set;
 

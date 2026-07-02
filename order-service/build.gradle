@@ -59,7 +59,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-zipkin'
 	implementation 'org.springframework.boot:spring-boot-starter-kafka'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-	implementation 'org.springframework.security:spring-security-oauth2-jose'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
 	implementation "io.github.resilience4j:resilience4j-spring-boot4:${resilience4jVersion}"
 	implementation 'org.springframework:spring-aop'
@@ -89,6 +88,10 @@ dependencyManagement {
 tasks.named('test') {
 	useJUnitPlatform()
 	maxParallelForks = 1
+}
+
+tasks.named('jar') {
+	enabled = false
 }
 
 tasks.register('integrationTest', Test) {

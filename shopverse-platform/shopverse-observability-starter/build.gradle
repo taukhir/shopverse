@@ -1,11 +1,11 @@
 description = 'Shopverse observability auto-configuration for correlation, MDC, request logging, and metrics.'
 
 dependencies {
-    api 'org.springframework.boot:spring-boot-autoconfigure'
-    api 'org.springframework.boot:spring-boot-actuator-autoconfigure'
-    api 'org.springframework:spring-web'
-    api 'io.micrometer:micrometer-core'
-    api 'org.slf4j:slf4j-api'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
+    implementation 'org.springframework.boot:spring-boot-actuator-autoconfigure'
+    implementation 'org.springframework:spring-web'
+    implementation 'io.micrometer:micrometer-core'
+    implementation 'org.slf4j:slf4j-api'
     compileOnly 'jakarta.servlet:jakarta.servlet-api'
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

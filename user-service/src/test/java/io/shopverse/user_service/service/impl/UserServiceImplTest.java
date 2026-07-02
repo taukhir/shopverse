@@ -8,11 +8,7 @@ import io.shopverse.user_service.entities.User;
 import io.shopverse.user_service.entities.enums.UserStatus;
 import io.shopverse.user_service.exceptions.DuplicateResourceException;
 import io.shopverse.user_service.exceptions.ResourceNotFoundException;
-import io.shopverse.user_service.model.ChangePasswordRequest;
-import io.shopverse.user_service.model.CreateUserRequest;
-import io.shopverse.user_service.model.ResetPasswordRequest;
-import io.shopverse.user_service.model.UpdateUserRequest;
-import io.shopverse.user_service.model.UserFilter;
+import io.shopverse.user_service.model.*;
 import io.shopverse.user_service.repository.UserRepository;
 import io.shopverse.user_service.service.LookupService;
 import io.shopverse.user_service.service.PasswordHistoryService;
@@ -36,9 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
