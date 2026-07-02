@@ -4,7 +4,7 @@ import io.github.resilience4j.bulkhead.BulkheadFullException;
 import io.github.resilience4j.bulkhead.Bulkhead;
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import io.github.resilience4j.ratelimiter.RateLimiter;
-import io.shopverse.user_service.dto.ApiErrorResponse;
+import io.shopverse.platform.error.ApiErrorResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

@@ -2,8 +2,9 @@ package io.shopverse.user_service.exceptions;
 
 import io.github.resilience4j.bulkhead.BulkheadFullException;
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import io.shopverse.platform.web.pagination.InvalidPageRequestException;
 import io.shopverse.user_service.constants.ApiConstants;
-import io.shopverse.user_service.dto.ApiErrorResponse;
+import io.shopverse.platform.error.ApiErrorResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ApiErrorResponse> handleBadRequest(BadRequestException ex) {
+        return buildError(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(InvalidPageRequestException.class)
+    public ResponseEntity<ApiErrorResponse> handleInvalidPageRequest(InvalidPageRequestException ex) {
         return buildError(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
     }
 

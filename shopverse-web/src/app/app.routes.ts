@@ -8,6 +8,7 @@ import { LoginPageComponent } from './features/auth/login-page.component';
 import { CatalogPageComponent } from './features/catalog/catalog-page.component';
 import { CartPageComponent } from './features/cart/cart-page.component';
 import { CheckoutPageComponent } from './features/checkout/checkout-page.component';
+import { OrderDetailPageComponent } from './features/orders/order-detail-page.component';
 import { OrdersPageComponent } from './features/orders/orders-page.component';
 import { StorefrontComponent } from './features/storefront/storefront.component';
 import { adminGuard, authGuard } from './core/auth/auth.guard';
@@ -23,6 +24,7 @@ export const routes: Routes = [
       { path: 'cart', title: 'Cart - ShopVerse', component: CartPageComponent },
       { path: 'checkout', title: 'Checkout - ShopVerse', component: CheckoutPageComponent, canActivate: [authGuard] },
       { path: 'orders', title: 'Orders - ShopVerse', component: OrdersPageComponent, canActivate: [authGuard] },
+      { path: 'orders/:id', title: 'Order details - ShopVerse', component: OrderDetailPageComponent, canActivate: [authGuard] },
       { path: 'account', title: 'Account - ShopVerse', component: AccountPageComponent, canActivate: [authGuard] },
     ],
   },

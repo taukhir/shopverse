@@ -1,0 +1,63 @@
+<section class="page-shell account-page">
+  <div class="heading">
+    <p class="eyebrow">YOUR ACCOUNT</p>
+    <h1 class="page-title">Good to see you,<br />{{ profile()?.firstName || session.username() }}.</h1>
+  </div>
+
+  @if (loading()) {
+    <div class="notice">Loading account details...</div>
+  } @else if (loadError()) {
+    <div class="notice">
+      We could not load your account.
+      <button type="button" (click)="loadProfile()">Try again</button>
+    </div>
+  } @else {
+    <div class="account-grid">
+      <aside class="summary">
+        <p>ACCOUNT SNAPSHOT</p>
+        <div><span>Signed in as</span><strong>{{ profile()?.email || session.username() }}</strong></div>
+        <div><span>Status</span><strong>{{ profile()?.status || 'Active' }}</strong></div>
+        <div><span>Access</span><strong>{{ session.isAdmin() ? 'Administrator' : 'Customer' }}</strong></div>
+        <div class="summary-actions">
+          <a routerLink="/orders">View order history <b>&rarr;</b></a>
+          @if (session.isAdmin()) {
+            <a routerLink="/admin">Open operations <b>&rarr;</b></a>
+          }
+          <button type="button" (click)="logout()">Sign out</button>
+        </div>
+      </aside>
+
+      <form class="profile-form" (ngSubmit)="saveProfile()">
+        <div class="form-head">
+          <p>PROFILE DETAILS</p>
+          <span>Update your name and contact details used by ShopVerse.</span>
+        </div>
+
+        <div class="fields">
+          <label>First name<input name="firstName" [(ngModel)]="form.firstName" autocomplete="given-name" /></label>
+          <label>Last name<input name="lastName" [(ngModel)]="form.lastName" autocomplete="family-name" /></label>
+          <label>Email<input name="email" [(ngModel)]="form.email" type="email" autocomplete="email" required /></label>
+          <label>Phone<input name="phoneNumber" [(ngModel)]="form.phoneNumber" autocomplete="tel" placeholder="+919999999999" /></label>
+        </div>
+
+        <section class="address-card">
+          <p>ADDRESS</p>
+          <h2>Delivery addresses are coming next.</h2>
+          <span>The user service currently stores contact details only. Address book fields are reserved here so the UI flow is ready once the backend model exists.</span>
+        </section>
+
+        @if (saveError()) {
+          <div class="form-message error">{{ saveError() }}</div>
+        }
+        @if (saveSuccess()) {
+          <div class="form-message success">Account details updated.</div>
+        }
+
+        <button class="save" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Saving...' : 'Save account details' }}
+          <b>&rarr;</b>
+        </button>
+      </form>
+    </div>
+  }
+</section>

@@ -1,6 +1,6 @@
 package io.shopverse.user_service.service;
 
-import io.shopverse.user_service.dto.PageResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.dto.RoleResponse;
 import io.shopverse.user_service.model.CreateRoleRequest;
 import io.shopverse.user_service.model.RoleFilter;

@@ -1,0 +1,14 @@
+description = 'Shopverse transactional outbox abstractions, publisher support, metrics, and retry contracts.'
+
+dependencies {
+    api project(':shopverse-kafka-starter')
+    api 'org.springframework.boot:spring-boot-autoconfigure'
+    api 'org.springframework.kafka:spring-kafka'
+    api 'org.springframework:spring-tx'
+    api 'io.micrometer:micrometer-core'
+    api 'org.slf4j:slf4j-api'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+}

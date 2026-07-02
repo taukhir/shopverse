@@ -25,6 +25,45 @@ Detailed pages:
 | [Structural Patterns](design-patterns/STRUCTURAL-PATTERNS.md) | adapters, decorators, facades, proxies |
 | [Behavioral Patterns](design-patterns/BEHAVIORAL-PATTERNS.md) | strategy, observer, chain of responsibility, state |
 
+## Pattern Selection Cheat Sheet
+
+Use this table to choose a pattern from the problem, not from the pattern name.
+
+| Problem you see | Pattern to consider | Example |
+|---|---|---|
+| object creation has runtime choices | Factory Method | create payment gateway by type |
+| related object families must change together | Abstract Factory | AWS clients versus Azure clients |
+| object has many optional fields | Builder | order/test fixture creation |
+| one managed instance per app context | Singleton/Spring singleton bean | pricing service, meter registry |
+| external API does not match domain API | Adapter | wrap legacy bank SDK |
+| add behavior around same interface | Decorator | metrics/logging/retry wrapper |
+| simplify a complex subsystem | Facade | checkout facade over order/inventory/payment |
+| control access/lifecycle | Proxy | Spring `@Transactional`, Feign client, Hibernate lazy proxy |
+| tree of individual and grouped objects | Composite | product bundle, menu tree |
+| many interchangeable algorithms | Strategy | card/UPI/PayPal payment |
+| publish changes to subscribers | Observer | domain events, Kafka consumers |
+| ordered handlers process a request | Chain of Responsibility | ATM dispenser, servlet filters, security filters |
+| behavior depends on lifecycle state | State | payment status transitions |
+| fixed workflow with variable steps | Template Method | import job |
+| action should be represented as data | Command | refund command, queue message |
+
+## How To Use Patterns Correctly
+
+Good pattern use:
+
+- removes duplicated decisions;
+- makes new variants easier;
+- isolates external dependencies;
+- expresses domain intent;
+- improves testability.
+
+Bad pattern use:
+
+- adds abstraction for one implementation;
+- hides simple logic behind many classes;
+- makes debugging harder;
+- uses pattern names instead of domain names.
+
 ## Strategy
 
 Use Strategy when one operation has interchangeable algorithms.
@@ -117,6 +156,10 @@ class PricingService {
 
 This does not make the bean thread-safe. Keep singleton services stateless or
 protect mutable state.
+
+## References
+
+- [Design Patterns Cheat Sheet - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/design-patterns-cheat-sheet-when-to-use-which-design-pattern/)
 
 Avoid hand-written global singletons:
 

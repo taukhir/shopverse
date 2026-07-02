@@ -1,8 +1,7 @@
 package io.shopverse.payment_service.saga;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.shopverse.payment_service.observability.CorrelationContext;
+import io.shopverse.platform.kafka.KafkaEventParser;
+import io.shopverse.platform.observability.CorrelationContext;
 import io.shopverse.payment_service.config.KafkaTopicsProperties;
 import io.shopverse.payment_service.service.FailedKafkaEventService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PaymentSagaListener {
 
-    private final ObjectMapper objectMapper;
+    private final KafkaEventParser eventParser;
     private final PaymentSagaTransactionService sagaTransactionService;
     private final FailedKafkaEventService failedKafkaEventService;
     private final KafkaTopicsProperties topics;
@@ -28,7 +27,7 @@ public class PaymentSagaListener {
             groupId = "${spring.application.name}"
     )
     public void onInventoryReserved(String payload) {
-        InventoryReservedEvent event = readEvent(payload, InventoryReservedEvent.class);
+        InventoryReservedEvent event = eventParser.parse(payload, InventoryReservedEvent.class);
         CorrelationContext.run(event.correlationId(), () -> handleInventoryReserved(event));
     }
 
@@ -55,11 +54,4 @@ public class PaymentSagaListener {
         sagaTransactionService.handleInventoryReserved(event);
     }
 
-    private <T> T readEvent(String payload, Class<T> eventType) {
-        try {
-            return objectMapper.readValue(payload, eventType);
-        } catch (JsonProcessingException exception) {
-            throw new IllegalArgumentException("Invalid Kafka event payload for " + eventType.getSimpleName(), exception);
-        }
-    }
 }

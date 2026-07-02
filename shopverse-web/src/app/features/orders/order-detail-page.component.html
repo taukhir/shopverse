@@ -1,0 +1,62 @@
+<section class="detail-page">
+  <a class="back" routerLink="/orders">&larr; Back to orders</a>
+
+  @if (state() === 'loading') {
+    <div class="notice">Loading order details...</div>
+  } @else if (state() === 'error') {
+    <div class="notice">We could not load this order. <button type="button" (click)="load()">Try again</button></div>
+  } @else if (order()) {
+    <div class="heading">
+      <p>ORDER {{ order()?.orderNumber }}</p>
+      <h1>{{ order()?.status }}</h1>
+      <span>Placed {{ order()?.createdAt | date:'medium' }}</span>
+    </div>
+
+    <div class="layout">
+      <main>
+        <section class="panel">
+          <div class="panel-head"><p>ITEMS</p><strong>{{ price(order()?.totalAmount || 0) }}</strong></div>
+          @for (item of order()?.items || []; track item.productId) {
+            <article class="item">
+              <div>
+                <span>PRODUCT {{ item.productId }}</span>
+                <h2>{{ item.productName }}</h2>
+                <p>Qty {{ item.quantity }} x {{ price(item.unitPrice) }}</p>
+              </div>
+              <strong>{{ price(item.quantity * item.unitPrice) }}</strong>
+            </article>
+          }
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><p>ORDER TIMELINE</p><strong>{{ timeline().length }} steps</strong></div>
+          @if (!timeline().length) {
+            <div class="empty">No timeline events have been recorded yet.</div>
+          } @else {
+            <div class="timeline">
+              @for (event of timeline(); track event.stage + event.occurredAt) {
+                <article>
+                  <i></i>
+                  <div>
+                    <span>{{ event.occurredAt | date:'medium' }}</span>
+                    <h3>{{ cleanStage(event.stage) }}</h3>
+                    <p>{{ event.detail }}</p>
+                  </div>
+                </article>
+              }
+            </div>
+          }
+        </section>
+      </main>
+
+      <aside class="summary">
+        <p>SUMMARY</p>
+        <div><span>Status</span><strong>{{ order()?.status }}</strong></div>
+        <div><span>Order number</span><strong>{{ order()?.orderNumber }}</strong></div>
+        <div><span>Customer</span><strong>{{ order()?.customerUsername }}</strong></div>
+        <div><span>Correlation</span><strong>{{ order()?.correlationId }}</strong></div>
+        <div class="total"><span>Total</span><strong>{{ price(order()?.totalAmount || 0) }}</strong></div>
+      </aside>
+    </div>
+  }
+</section>

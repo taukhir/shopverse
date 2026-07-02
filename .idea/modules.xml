@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/order-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/order-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/order-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/order-service.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/shopverse.iml" filepath="$PROJECT_DIR$/.idea/shopverse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1986393480/shopverse-platform.shopverse-observability-starter.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1986393480/shopverse-platform.shopverse-observability-starter.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service.test.iml" />
     </modules>

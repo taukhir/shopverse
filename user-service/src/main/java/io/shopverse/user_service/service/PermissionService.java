@@ -1,6 +1,6 @@
 package io.shopverse.user_service.service;
 
-import io.shopverse.user_service.dto.PageResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.dto.PermissionResponse;
 import io.shopverse.user_service.model.CreatePermissionRequest;
 import io.shopverse.user_service.model.PermissionFilter;

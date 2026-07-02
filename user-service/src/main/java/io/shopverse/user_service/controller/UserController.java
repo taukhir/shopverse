@@ -3,7 +3,7 @@ package io.shopverse.user_service.controller;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.shopverse.user_service.dto.ApiResponse;
-import io.shopverse.user_service.dto.PageResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.dto.UserSummaryResponse;
 import io.shopverse.user_service.entities.enums.UserStatus;
@@ -12,10 +12,11 @@ import io.shopverse.user_service.constants.ResilienceConstants;
 import io.shopverse.user_service.model.ChangePasswordRequest;
 import io.shopverse.user_service.model.CreateUserRequest;
 import io.shopverse.user_service.model.ResetPasswordRequest;
+import io.shopverse.user_service.model.UpdateProfileRequest;
 import io.shopverse.user_service.model.UpdateUserRequest;
 import io.shopverse.user_service.model.UserFilter;
 import io.shopverse.user_service.service.UserService;
-import io.shopverse.user_service.util.PaginationUtils;
+import io.shopverse.platform.web.pagination.PaginationUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +63,15 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
         return ResponseEntity.ok(userService.loadAuthenticatedUserByUsername(authentication.getName()));
+    }
+
+    @PatchMapping("/me")
+    public ResponseEntity<UserResponse> updateCurrentUser(
+            Authentication authentication,
+            @Valid @RequestBody UpdateProfileRequest request
+    ) {
+        log.info("Authenticated profile update requested for username={}", authentication.getName());
+        return ResponseEntity.ok(userService.updateAuthenticatedUserProfile(authentication.getName(), request));
     }
 
     @GetMapping

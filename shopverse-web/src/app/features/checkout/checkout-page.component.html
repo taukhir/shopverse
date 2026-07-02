@@ -1,0 +1,35 @@
+<section class="page-shell checkout-page">
+  <p class="eyebrow">CHECKOUT</p>
+  <h1 class="page-title">Review and place<br />your order.</h1>
+
+  @if (!cart.items().length) {
+    <div class="notice">Your cart is empty. <a routerLink="/products">Browse products &rarr;</a></div>
+  } @else if (cart.items().length > 1) {
+    <div class="notice">
+      <h2>One item at a time.</h2>
+      <span>The current ShopVerse checkout API accepts one item per order. Adjust your cart before continuing.</span>
+      <a routerLink="/cart">Review cart &rarr;</a>
+    </div>
+  } @else {
+    <div class="checkout">
+      <div>
+        <p>ORDER SUMMARY</p>
+        <h2>{{ cart.items()[0].productName }}</h2>
+        <span>Quantity {{ cart.items()[0].quantity }}</span>
+        <strong>{{ price(cart.total()) }}</strong>
+      </div>
+      <aside>
+        <p>PAYMENT</p>
+        <h2>Payment follows confirmation.</h2>
+        <span>This demo creates the order and starts the existing inventory/payment workflow. No card data is collected here.</span>
+        @if (error()) {
+          <b>{{ error() }}</b>
+        }
+        @if (success()) {
+          <b class="success">Order {{ success() }} created. Track its progress in your order history.</b>
+        }
+        <button (click)="placeOrder()" [disabled]="loading()">{{ loading() ? 'Placing order...' : 'Place order' }} <em>&rarr;</em></button>
+      </aside>
+    </div>
+  }
+</section>

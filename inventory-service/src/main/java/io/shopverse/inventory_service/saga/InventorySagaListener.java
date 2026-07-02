@@ -1,8 +1,7 @@
 package io.shopverse.inventory_service.saga;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.shopverse.inventory_service.observability.CorrelationContext;
+import io.shopverse.platform.kafka.KafkaEventParser;
+import io.shopverse.platform.observability.CorrelationContext;
 import io.shopverse.inventory_service.recovery.FailedKafkaEventService;
 import io.shopverse.inventory_service.service.InventoryService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class InventorySagaListener {
 
-    private final ObjectMapper objectMapper;
+    private final KafkaEventParser eventParser;
     private final InventorySagaTransactionService sagaTransactionService;
     private final InventoryService inventoryService;
     private final FailedKafkaEventService failedKafkaEventService;
@@ -29,7 +28,7 @@ public class InventorySagaListener {
             groupId = "${spring.application.name}"
     )
     public void onOrderCreated(String payload) {
-        OrderCreatedEvent event = readEvent(payload, OrderCreatedEvent.class);
+        OrderCreatedEvent event = eventParser.parse(payload, OrderCreatedEvent.class);
         CorrelationContext.run(event.correlationId(), () -> handleOrderCreated(event));
     }
 
@@ -39,7 +38,7 @@ public class InventorySagaListener {
             groupId = "${spring.application.name}"
     )
     public void onPaymentFailed(String payload) {
-        PaymentFailedEvent event = readEvent(payload, PaymentFailedEvent.class);
+        PaymentFailedEvent event = eventParser.parse(payload, PaymentFailedEvent.class);
         CorrelationContext.run(event.correlationId(), () -> handlePaymentFailed(event));
     }
 
@@ -62,17 +61,6 @@ public class InventorySagaListener {
                 event.correlationId(),
                 event.reason()
         );
-    }
-
-    private <T> T readEvent(String payload, Class<T> eventType) {
-        try {
-            return objectMapper.readValue(payload, eventType);
-        } catch (JsonProcessingException exception) {
-            throw new IllegalArgumentException(
-                    "Invalid Kafka event payload for " + eventType.getSimpleName(),
-                    exception
-            );
-        }
     }
 
     @DltHandler

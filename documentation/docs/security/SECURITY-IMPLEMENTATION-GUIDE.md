@@ -25,6 +25,9 @@ Shopverse uses JWT bearer access tokens. Auth Service is not currently a full
 OAuth2 Authorization Server with authorization-code, refresh-token, or
 client-credentials grants.
 
+For the next implementation layer covering refresh-token rotation and API keys,
+see [Access Token, Refresh Token, And API Key Implementation Guide](ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md).
+
 ![Animated Shopverse JWT and JWKS security flow showing login, user lookup, token signing, JWKS publication, gateway validation, and resource service verification](/img/diagrams/shopverse-security-animated.gif)
 
 ## Step 1: Add Security Dependencies
@@ -214,6 +217,7 @@ Verification checklist:
 ## Related Guides
 
 - [JWT, OAuth2, and Spring Security](JWT-OAUTH2-SPRING-SECURITY.md)
+- [Access token, refresh token, and API key implementation](ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md)
 - [Spring Security](SPRING-SECURITY-GENERIC.md)
 - [JWT fundamentals](jwt/JWT-FUNDAMENTALS.md)
 - [JWKS asymmetric JWT](jwt/JWKS-ASYMMETRIC-JWT.md)

@@ -2,7 +2,7 @@ package io.shopverse.user_service.service.impl;
 
 import io.shopverse.user_service.constants.AuditActions;
 import io.shopverse.user_service.constants.AuditDetails;
-import io.shopverse.user_service.dto.PageResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.dto.UserSummaryResponse;
 import io.shopverse.user_service.entities.Role;
@@ -15,6 +15,7 @@ import io.shopverse.user_service.mapper.UserMapper;
 import io.shopverse.user_service.model.ChangePasswordRequest;
 import io.shopverse.user_service.model.CreateUserRequest;
 import io.shopverse.user_service.model.ResetPasswordRequest;
+import io.shopverse.user_service.model.UpdateProfileRequest;
 import io.shopverse.user_service.model.UpdateUserRequest;
 import io.shopverse.user_service.model.UserFilter;
 import io.shopverse.user_service.repository.UserRepository;
@@ -23,7 +24,7 @@ import io.shopverse.user_service.service.LookupService;
 import io.shopverse.user_service.service.PasswordHistoryService;
 import io.shopverse.user_service.service.UserAuditService;
 import io.shopverse.user_service.service.UserService;
-import io.shopverse.user_service.util.PageMapper;
+import io.shopverse.platform.web.pagination.PageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -88,6 +89,36 @@ public class UserServiceImpl implements UserService {
                 response.roles() == null ? 0 : response.roles().size()
         );
         return response;
+    }
+
+    @Override
+    @Transactional
+    public UserResponse updateAuthenticatedUserProfile(String username, UpdateProfileRequest request) {
+        log.info("Updating authenticated profile for username={}", username);
+        User user = findUserByName(username);
+
+        String updatedEmail = normalizeEmail(request.email());
+        if (updatedEmail != null && !updatedEmail.equals(user.getEmail())) {
+            if (userRepository.existsByEmail(updatedEmail)) {
+                log.warn("Profile update rejected for username={} because email already exists: {}", username, updatedEmail);
+                throw new DuplicateResourceException("Email already exists");
+            }
+            user.setEmail(updatedEmail);
+        }
+        if (request.firstName() != null) {
+            user.setFirstName(request.firstName());
+        }
+        if (request.lastName() != null) {
+            user.setLastName(request.lastName());
+        }
+        if (request.phoneNumber() != null) {
+            user.setPhoneNumber(request.phoneNumber());
+        }
+
+        User savedUser = userRepository.save(user);
+        userAuditService.record(savedUser, AuditActions.USER_UPDATED, AuditDetails.USER_ACCOUNT_UPDATED);
+        log.info("Updated authenticated profile userId={}", savedUser.getId());
+        return UserMapper.toUserResponse(savedUser);
     }
 
     @Override

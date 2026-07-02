@@ -355,6 +355,23 @@ Event is published again
 Therefore, outbox delivery is normally at least once. Consumers must be
 idempotent.
 
+## SAGA Implementation Maturity
+
+Many systems implement the first working SAGA path before they implement every
+failure guard. Document the maturity level explicitly:
+
+| Level | Typical evidence |
+|---|---|
+| Happy-path choreography | Events move the workflow through the expected success path. |
+| Recoverable local transactions | Each service commits domain state and outgoing event intent atomically. |
+| Idempotent consumption | Duplicate messages and client retries do not duplicate business effects. |
+| Operational baseline | DLT, replay audit, correlation IDs, metrics, and bounded retries exist. |
+| Production hardening | Event IDs, schema versioning, inbox/processed-event tables, backoff, terminal failure, alerting, and replay policy are in place. |
+
+When writing architecture docs, do not collapse these levels into one word such
+as "reliable". State exactly which guarantees exist and which are target
+hardening work.
+
 ## Ordering
 
 Global ordering is expensive and usually unnecessary. Preserve ordering only

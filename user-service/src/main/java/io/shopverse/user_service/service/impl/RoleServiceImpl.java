@@ -1,7 +1,7 @@
 package io.shopverse.user_service.service.impl;
 
 import io.shopverse.user_service.config.CacheConfig;
-import io.shopverse.user_service.dto.PageResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.dto.RoleResponse;
 import io.shopverse.user_service.entities.Permission;
 import io.shopverse.user_service.entities.Role;
@@ -16,7 +16,7 @@ import io.shopverse.user_service.repository.RoleRepository;
 import io.shopverse.user_service.repository.specification.RoleSpecifications;
 import io.shopverse.user_service.service.LookupService;
 import io.shopverse.user_service.service.RoleService;
-import io.shopverse.user_service.util.PageMapper;
+import io.shopverse.platform.web.pagination.PageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Pageable;

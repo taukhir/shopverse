@@ -8,6 +8,11 @@ producer and consumer reliability patterns, see
 [Inbox pattern](INBOX-PATTERN.md). This document describes the Shopverse
 implementation.
 
+Implementation statements on this page describe the current POC. Sections that
+use target or production language identify future hardening work and should not
+be read as implemented guarantees. The feature matrix remains the canonical
+status record.
+
 For a focused explanation of why the publisher must not retain a database lock
 while waiting for Kafka, see
 [Shopverse problems and solutions](PROBLEMS-AND-SOLUTIONS.md).
@@ -40,8 +45,8 @@ ORDER_CREATED
 
 The current choreography confirms Order directly from `payment.completed` and
 does not automatically refund a capture discovered after Inventory expiry.
-The target choreography makes Inventory's atomic post-payment commitment the
-final stock decision:
+The following target choreography is planned hardening. It makes Inventory's
+atomic post-payment commitment the final stock decision:
 
 ```text
 payment.completed

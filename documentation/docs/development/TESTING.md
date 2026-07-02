@@ -5,6 +5,10 @@ Reusable JUnit, Mockito, Spring Test, repository/controller/service testing,
 Testcontainers, and E2E concepts are in
 [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md).
 
+Testing claims here describe current repository automation. Manual demo steps,
+planned gates, and production-quality verification goals are called out as
+gaps or next improvements rather than implemented guarantees.
+
 ## Objectives
 
 Shopverse testing is designed to:

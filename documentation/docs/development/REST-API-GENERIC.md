@@ -598,6 +598,19 @@ Publish OpenAPI documentation from the implemented controllers and DTOs.
 Document authentication, status codes, validation rules, idempotency, examples,
 and error responses.
 
+Separate the API contract from roadmap notes. A reader should be able to tell:
+
+- which endpoints exist today;
+- which request and response fields are stable;
+- which error shapes are already returned by the runtime;
+- which examples are runnable against the current environment;
+- which items are planned improvements.
+
+Use labels such as `Current behavior`, `Known limits`, and `Target design`
+when production hardening is described beside an implemented API. Avoid saying
+an API "supports" a capability until the controller, validation, authorization,
+error mapping, tests, and operational evidence all exist.
+
 For each request, record:
 
 - service, method, route template, status, and duration;
@@ -622,6 +635,21 @@ trace. Neither value is an authentication mechanism.
 10. emit low-cardinality metrics and correlated logs.
 11. define timeouts, rate limits, and dependency failure behavior.
 12. never expose secrets or implementation details in responses.
+
+## API Maturity Levels
+
+API maturity is not only whether an endpoint returns `200`.
+
+| Level | Evidence |
+|---|---|
+| Prototype | Endpoint exists and works for a narrow happy path. |
+| Implemented | Request validation, authorization, persistence, and expected responses are coded and tested. |
+| Operational baseline | Logs, metrics, timeouts, idempotency, and failure handling are present for normal operations. |
+| Production ready | Compatibility policy, contract tests, alerting, rate limits, threat review, and rollback/deprecation process are in place. |
+
+Use these levels when documenting implementation status. They make it clear
+whether a page describes runnable behavior, an operational baseline, or a
+target production posture.
 
 ## Request Flow
 

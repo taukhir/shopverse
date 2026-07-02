@@ -1,7 +1,7 @@
 package io.shopverse.user_service.controller;
 
 import io.shopverse.user_service.dto.ApiResponse;
-import io.shopverse.user_service.dto.PageResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.dto.RoleResponse;
 import io.shopverse.user_service.constants.ApiConstants;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,7 +9,7 @@ import io.shopverse.user_service.model.CreateRoleRequest;
 import io.shopverse.user_service.model.RoleFilter;
 import io.shopverse.user_service.model.UpdateRoleRequest;
 import io.shopverse.user_service.service.RoleService;
-import io.shopverse.user_service.util.PaginationUtils;
+import io.shopverse.platform.web.pagination.PaginationUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

@@ -32,6 +32,28 @@ used in modern backend development.
 | Stable values | 25 preview | lazily initialized immutable values |
 | Primitive pattern matching | 26 preview | richer pattern matching over primitive values |
 
+## Java 26 And AI
+
+Java 26 does not add a dedicated core-JDK AI framework like "Java AI API" or a
+built-in LLM client. AI work in Java is usually done through libraries and
+frameworks such as LangChain4j, Spring AI, ONNX Runtime, DJL, TensorFlow Java,
+or HTTP clients calling hosted model APIs.
+
+Some modern Java/JDK features are still useful for AI-enabled backend systems:
+
+| Feature area | Why it helps AI applications |
+|---|---|
+| Virtual threads | handle many blocking calls to model APIs, vector databases, and downstream services with simpler request-per-task code |
+| Structured concurrency | coordinate parallel calls such as retrieval, ranking, model invocation, and guardrail checks |
+| Scoped values | pass request context safely across structured concurrent tasks without mutable `ThreadLocal` leakage |
+| Vector API work in recent JDKs | enables SIMD-style numeric operations that can help ML/vector workloads when libraries use it |
+| Foreign Function and Memory API | allows Java libraries to call native AI/ML runtimes more safely than older JNI-heavy approaches |
+| HTTP Client | useful for calling hosted LLM, embedding, reranking, and moderation APIs |
+
+So the correct statement is: Java 26 is not an AI release by itself, but modern
+Java runtime features make Java more practical for building AI-integrated
+backend services.
+
 ## Dedicated Pages
 
 - [Optional](JAVA-OPTIONAL.md)

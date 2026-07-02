@@ -49,10 +49,36 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/shopverse-platform" name="shopverse-platform">
+                <projects>
+                  <project path="$PROJECT_DIR$/shopverse-platform" />
+                  <project path="$PROJECT_DIR$/shopverse-platform/shopverse-common-error" />
+                  <project path="$PROJECT_DIR$/shopverse-platform/shopverse-kafka-recovery-starter" />
+                  <project path="$PROJECT_DIR$/shopverse-platform/shopverse-kafka-starter" />
+                  <project path="$PROJECT_DIR$/shopverse-platform/shopverse-observability-starter" />
+                  <project path="$PROJECT_DIR$/shopverse-platform/shopverse-outbox-starter" />
+                  <project path="$PROJECT_DIR$/shopverse-platform/shopverse-security-starter" />
+                  <project path="$PROJECT_DIR$/shopverse-platform/shopverse-web" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$/user-service" />
         <option name="gradleJvm" value="openjdk-24" />
         <option name="modules">
           <set>
+            <option value="$PROJECT_DIR$/shopverse-platform" />
+            <option value="$PROJECT_DIR$/shopverse-platform/shopverse-common-error" />
+            <option value="$PROJECT_DIR$/shopverse-platform/shopverse-kafka-recovery-starter" />
+            <option value="$PROJECT_DIR$/shopverse-platform/shopverse-kafka-starter" />
+            <option value="$PROJECT_DIR$/shopverse-platform/shopverse-observability-starter" />
+            <option value="$PROJECT_DIR$/shopverse-platform/shopverse-outbox-starter" />
+            <option value="$PROJECT_DIR$/shopverse-platform/shopverse-security-starter" />
+            <option value="$PROJECT_DIR$/shopverse-platform/shopverse-web" />
             <option value="$PROJECT_DIR$/user-service" />
           </set>
         </option>

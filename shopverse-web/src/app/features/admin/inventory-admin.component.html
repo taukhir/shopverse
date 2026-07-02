@@ -1,0 +1,67 @@
+<main class="admin-page-shell inventory-admin">
+  <div class="heading">
+    <div>
+      <p class="eyebrow">INVENTORY</p>
+      <h1>Stock and catalog.</h1>
+    </div>
+    <button (click)="create()">Add item +</button>
+  </div>
+
+  @if (error()) {
+    <div class="notice">{{ error() }}</div>
+  } @else if (loading()) {
+    <div class="notice">Loading inventory...</div>
+  } @else {
+    <div class="table">
+      @for (item of items(); track item.productId) {
+        <article>
+          <img [src]="item.imageUrl" [alt]="item.productName" />
+          <div>
+            <span>{{ item.category }}</span>
+            <strong>{{ item.productName }}</strong>
+            <small>{{ item.brand }} / {{ item.model }}</small>
+          </div>
+          <em [class.low]="item.availableQuantity < 5">{{ item.availableQuantity }} available</em>
+          <b>{{ item.reservedQuantity }} reserved</b>
+          <button (click)="edit(item)">Edit</button>
+        </article>
+      }
+    </div>
+  }
+
+  @if (editing()) {
+    <div class="overlay">
+      <form (ngSubmit)="save()">
+        <header>
+          <div>
+            <p>{{ form.productId ? 'EDIT ITEM' : 'NEW ITEM' }}</p>
+            <h2>{{ form.productId ? 'Update inventory' : 'Add inventory item' }}</h2>
+          </div>
+          <button type="button" (click)="close()">Close</button>
+        </header>
+
+        <div class="fields">
+          <label>Product ID<input type="number" [(ngModel)]="form.productId" name="productId" required /></label>
+          <label>Product name<input [(ngModel)]="form.productName" name="productName" required /></label>
+          <label>Brand<input [(ngModel)]="form.brand" name="brand" required /></label>
+          <label>Model<input [(ngModel)]="form.model" name="model" required /></label>
+          <label>Category<input [(ngModel)]="form.category" name="category" required /></label>
+          <label>Price<input type="number" min="0.01" step="0.01" [(ngModel)]="form.unitPrice" name="unitPrice" required /></label>
+          <label>Available quantity<input type="number" min="0" [(ngModel)]="form.availableQuantity" name="availableQuantity" required /></label>
+          <label>Image URL<input type="url" [(ngModel)]="form.imageUrl" name="imageUrl" required /></label>
+          <label class="wide">Image key<input [(ngModel)]="form.imageKey" name="imageKey" required /></label>
+          <label class="wide">Description<textarea [(ngModel)]="form.description" name="description" required></textarea></label>
+        </div>
+
+        @if (saveError()) {
+          <div class="form-message error">{{ saveError() }}</div>
+        }
+
+        <footer>
+          <button type="button" (click)="close()">Cancel</button>
+          <button class="primary" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Save item' }}</button>
+        </footer>
+      </form>
+    </div>
+  }
+</main>

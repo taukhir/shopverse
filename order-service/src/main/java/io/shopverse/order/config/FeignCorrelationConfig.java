@@ -1,7 +1,7 @@
 package io.shopverse.order.config;
 
 import feign.RequestInterceptor;
-import io.shopverse.order.observability.CorrelationConstants;
+import io.shopverse.platform.observability.CorrelationConstants;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

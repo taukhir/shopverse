@@ -1,0 +1,23 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'shopverse-platform'
+
+include 'shopverse-common-error'
+include 'shopverse-web'
+include 'shopverse-observability-starter'
+include 'shopverse-security-starter'
+include 'shopverse-kafka-starter'
+include 'shopverse-outbox-starter'
+include 'shopverse-kafka-recovery-starter'
