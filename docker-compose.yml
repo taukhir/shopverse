@@ -65,6 +65,7 @@ services:
       - shopverse
 
   minio:
+    profiles: ["assets"]
     image: minio/minio:RELEASE.2025-04-22T22-12-26Z
     container_name: shopverse-minio
     command: server /data --console-address ":9001"
@@ -86,6 +87,7 @@ services:
       - shopverse
 
   minio-init:
+    profiles: ["assets"]
     image: minio/mc:RELEASE.2025-05-21T01-59-54Z
     container_name: shopverse-minio-init
     entrypoint: ["/bin/sh", "-ec"]
@@ -108,11 +110,13 @@ services:
 
   config-server:
     build:
-      context: ./config-server
+      context: .
+      dockerfile: config-server/Dockerfile
     image: shopverse/config-server:local
     container_name: shopverse-config-server
     environment:
       SERVER_PORT: 8888
+      JAVA_OPTS: ${CONFIG_SERVER_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_PROFILES_ACTIVE: native
       CONFIG_SEARCH_LOCATIONS: file:/config
       LOG_FILE: /app/logs/config-server.log
@@ -132,11 +136,13 @@ services:
 
   discovery-server:
     build:
-      context: ./discovery-server
+      context: .
+      dockerfile: discovery-server/Dockerfile
     image: shopverse/discovery-server:local
     container_name: shopverse-discovery-server
     environment:
       SERVER_PORT: 8761
+      JAVA_OPTS: ${DISCOVERY_SERVER_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       LOG_FILE: /app/logs/discovery-server.log
     ports:
@@ -156,12 +162,15 @@ services:
       - shopverse
 
   user-service:
+    profiles: ["apps"]
     build:
-      context: ./user-service
+      context: .
+      dockerfile: user-service/Dockerfile
     image: shopverse/user-service:local
     container_name: shopverse-user-service
     environment:
       SERVER_PORT: ${USER_SERVICE_PORT:-8082}
+      JAVA_OPTS: ${USER_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_APPLICATION_NAME: ${USER_SERVICE_APP_NAME:-USER-SERVICE}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_DEFAULT_ZONE: ${USER_SERVICE_EUREKA_DEFAULT_ZONE:-http://discovery-server:8761/eureka}
@@ -207,12 +216,15 @@ services:
       - shopverse
 
   auth-service:
+    profiles: ["apps"]
     build:
-      context: ./auth-service
+      context: .
+      dockerfile: auth-service/Dockerfile
     image: shopverse/auth-service:local
     container_name: shopverse-auth-service
     environment:
       SERVER_PORT: 8081
+      JAVA_OPTS: ${AUTH_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
@@ -242,12 +254,15 @@ services:
       - shopverse
 
   order-service:
+    profiles: ["apps"]
     build:
-      context: ./order-service
+      context: .
+      dockerfile: order-service/Dockerfile
     image: shopverse/order-service:local
     container_name: shopverse-order-service
     environment:
       SERVER_PORT: 8083
+      JAVA_OPTS: ${ORDER_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
@@ -284,12 +299,15 @@ services:
       - shopverse
 
   payment-service:
+    profiles: ["apps"]
     build:
-      context: ./payment-service
+      context: .
+      dockerfile: payment-service/Dockerfile
     image: shopverse/payment-service:local
     container_name: shopverse-payment-service
     environment:
       SERVER_PORT: 8084
+      JAVA_OPTS: ${PAYMENT_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
@@ -326,12 +344,15 @@ services:
       - shopverse
 
   inventory-service:
+    profiles: ["apps"]
     build:
-      context: ./inventory-service
+      context: .
+      dockerfile: inventory-service/Dockerfile
     image: shopverse/inventory-service:local
     container_name: shopverse-inventory-service
     environment:
       SERVER_PORT: 8086
+      JAVA_OPTS: ${INVENTORY_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
@@ -368,12 +389,15 @@ services:
       - shopverse
 
   api-gateway:
+    profiles: ["apps"]
     build:
-      context: ./api-gateway
+      context: .
+      dockerfile: api-gateway/Dockerfile
     image: shopverse/api-gateway:local
     container_name: shopverse-api-gateway
     environment:
       SERVER_PORT: 8080
+      JAVA_OPTS: ${API_GATEWAY_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
@@ -410,6 +434,7 @@ services:
       - shopverse
 
   prometheus:
+    profiles: ["observability"]
     image: prom/prometheus:v3.2.1
     container_name: shopverse-prometheus
     command:
@@ -422,13 +447,11 @@ services:
       - ./observability/prometheus-docker.yml:/etc/prometheus/prometheus.yml:ro
       - ./observability/prometheus-rules.yml:/etc/prometheus/rules/shopverse.yml:ro
       - prometheus-data:/prometheus
-    depends_on:
-      api-gateway:
-        condition: service_healthy
     networks:
       - shopverse
 
   loki:
+    profiles: ["observability"]
     image: grafana/loki:3.4.2
     container_name: shopverse-loki
     command: -config.file=/etc/loki/loki.yml
@@ -441,6 +464,7 @@ services:
       - shopverse
 
   promtail:
+    profiles: ["observability"]
     image: grafana/promtail:3.4.2
     container_name: shopverse-promtail
     command: -config.file=/etc/promtail/promtail.yml
@@ -471,6 +495,7 @@ services:
       - shopverse
 
   grafana:
+    profiles: ["observability"]
     image: grafana/grafana:11.5.2
     container_name: shopverse-grafana
     environment:

@@ -1,16 +1,17 @@
 # syntax=docker/dockerfile:1.7
 
 FROM eclipse-temurin:21-jdk-jammy AS build
-WORKDIR /workspace
+WORKDIR /workspace/config-server
 
-COPY gradlew gradlew.bat settings.gradle build.gradle ./
-COPY gradle ./gradle
+COPY config-server/gradlew config-server/gradlew.bat config-server/settings.gradle config-server/build.gradle ./
+COPY config-server/gradle ./gradle
+COPY shopverse-platform ../shopverse-platform
 RUN chmod +x ./gradlew
 
-COPY src ./src
+COPY config-server/src ./src
 RUN --mount=type=cache,id=shopverse-config-server-gradle,target=/root/.gradle ./gradlew bootJar --no-daemon --max-workers=2
 
-FROM eclipse-temurin:21-jre-jammy AS runtime
+FROM eclipse-temurin:21-jre-alpine AS runtime
 
 ENV APP_HOME=/app \
     SERVER_PORT=8888 \
@@ -18,13 +19,11 @@ ENV APP_HOME=/app \
 
 WORKDIR ${APP_HOME}
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl \
-    && rm -rf /var/lib/apt/lists/* \
-    && groupadd --system shopverse \
-    && useradd --system --gid shopverse --home-dir ${APP_HOME} --shell /usr/sbin/nologin shopverse
+RUN apk add --no-cache curl \
+    && addgroup -S shopverse \
+    && adduser -S -G shopverse -h ${APP_HOME} -s /sbin/nologin shopverse
 
-COPY --chown=shopverse:shopverse --from=build /workspace/build/libs/*.jar app.jar
+COPY --chown=shopverse:shopverse --from=build /workspace/config-server/build/libs/*.jar app.jar
 
 RUN mkdir -p ${APP_HOME}/logs \
     && chown shopverse:shopverse ${APP_HOME}/logs
