@@ -1,6 +1,7 @@
 package io.shopverse.auth.config;
 
 import feign.RequestInterceptor;
+import io.shopverse.platform.observability.CorrelationConstants;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +28,7 @@ public class FeignCorrelationConfig {
              * Usually, the correlationId is added to MDC by a filter/interceptor
              * when the request first enters the service.
              */
-            String correlationId = MDC.get("correlationId");
+            String correlationId = MDC.get(CorrelationConstants.MDC_KEY);
 
             /*
              * Only add the header if correlationId is present and not blank.
@@ -42,7 +43,7 @@ public class FeignCorrelationConfig {
                  * This allows the next microservice to receive the same correlation ID,
                  * put it into its own MDC, and include it in its logs.
                  */
-                template.header("X-Correlation-Id", correlationId);
+                template.header(CorrelationConstants.HEADER_NAME, correlationId);
             }
         };
     }

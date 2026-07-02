@@ -4,6 +4,10 @@ This guide is the Shopverse endpoint catalog and POC demonstration runbook.
 Reusable HTTP design guidance is maintained in
 [REST API design](REST-API-GENERIC.md).
 
+The endpoints and flows below describe current POC behavior unless a section
+is explicitly marked as hardening or roadmap. For feature status, see
+[Features and demos](../reference/FEATURES-AND-DEMOS.md).
+
 ## Shopverse Conventions
 
 - APIs are versioned under `/api/v1`.
@@ -128,9 +132,11 @@ See the internal [Shopverse service catalog](../services/SERVICE-CATALOG.md)
 for User Service ownership, dependencies, and request flow. The service-level
 README remains the operational source for direct-port commands and Swagger.
 
-## Current Error Direction
+## Error Contract Direction
 
-Production-grade responses should consistently include:
+Production-grade responses should consistently include the shape below. This
+is the target direction for cross-service consistency, not a guarantee that
+every current Shopverse service returns this exact schema today:
 
 ```json
 {

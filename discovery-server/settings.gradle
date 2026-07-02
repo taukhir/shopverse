@@ -1,1 +1,3 @@
 rootProject.name = 'discovery-server'
+
+includeBuild('../shopverse-platform')

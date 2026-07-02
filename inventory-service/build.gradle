@@ -38,6 +38,11 @@ configurations {
 }
 
 dependencies {
+	implementation 'io.shopverse.platform:shopverse-observability-starter:0.0.1-SNAPSHOT'
+	implementation 'io.shopverse.platform:shopverse-security-starter:0.0.1-SNAPSHOT'
+	implementation 'io.shopverse.platform:shopverse-kafka-starter:0.0.1-SNAPSHOT'
+	implementation 'io.shopverse.platform:shopverse-outbox-starter:0.0.1-SNAPSHOT'
+	implementation 'io.shopverse.platform:shopverse-kafka-recovery-starter:0.0.1-SNAPSHOT'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.boot:spring-boot-starter-security'

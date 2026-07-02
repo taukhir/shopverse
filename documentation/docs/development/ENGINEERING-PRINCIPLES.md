@@ -487,6 +487,24 @@ scheduled jobs, and internal calls may bypass controllers.
 - Does the test verify behavior instead of implementation details?
 - Is documentation marked Implemented, Partial, or Planned?
 
+## Documentation As Engineering Evidence
+
+Architecture documentation should preserve the difference between what exists,
+what is intentionally limited, and what is planned. Treat docs as part of the
+engineering system:
+
+| Claim type | Required support |
+|---|---|
+| Implemented behavior | Code path, configuration, test, demo command, or observable runtime evidence |
+| Operational baseline | Runbook, metric/log/trace evidence, bounded failure behavior, and known limits |
+| Known gap | Impact, current mitigation, and owner or roadmap link |
+| Target design | Clearly marked as planned, with migration or validation criteria |
+
+Good docs avoid two failure modes: under-documenting real behavior so the
+system looks weaker than it is, and overstating target design so readers assume
+hardening already exists. Add context instead of deleting detail when a page
+mixes current and future behavior.
+
 ## Related Guides
 
 - [Design Patterns](DESIGN-PATTERNS.md)

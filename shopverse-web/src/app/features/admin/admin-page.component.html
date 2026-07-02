@@ -1,1 +1,154 @@
-<div class="admin-shell"><aside><a class="brand" routerLink="/"><img class="brand-mark" src="/shopverse-mark.svg" alt="" />shop<span>verse</span></a><p>OPERATIONS</p><nav><a routerLink="/admin" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Overview</a><a routerLink="/admin/orders" routerLinkActive="active">Orders</a><a routerLink="/admin/inventory" routerLinkActive="active">Inventory</a><a routerLink="/admin/users" routerLinkActive="active">Users</a></nav><a class="back" routerLink="/">View storefront</a></aside><main><div class="topbar"><span>ADMIN / {{ section().toUpperCase() }}</span><button (click)="logout()">Sign out</button></div><section class="content"><p class="eyebrow">Operations workspace</p><h1>{{ section()==='overview' ? 'System at a glance.' : section()==='orders' ? 'Order operations.' : 'Customer accounts.' }}</h1>@if(loading()){<div class="notice">Loading operations data...</div>}@else if(error()){<div class="notice">{{ error() }} <button (click)="load()">Try again</button></div>}@else if(section()==='overview'){<div class="metrics"><article><span>Orders</span><strong>{{ orders().length }}</strong></article><article><span>Customers</span><strong>{{ users().length }}</strong></article><article><span>Open orders</span><strong>{{ openOrderCount() }}</strong></article></div>}@else if(section()==='orders'){<div class="table">@for(order of orders();track order.id){<article><div><span>{{ order.orderNumber }}</span><strong>{{ order.customerUsername }}</strong></div><em>{{ order.status }}</em><b>{{ price(order.totalAmount) }}</b></article>}</div>}@else if(section()==='users'){<div class="table">@for(user of users();track user.id){<a [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><em>{{ user.status }}</em><b>View</b></a>}</div>}@else{<div class="notice">This area is reserved for a later operations integration.</div>}</section></main></div>
+<div class="admin-shell">
+  <aside>
+    <a class="brand" routerLink="/"><img class="brand-mark" src="/shopverse-mark.svg" alt="" />shop<span>verse</span></a>
+    <p>OPERATIONS</p>
+    <nav>
+      <a routerLink="/admin" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Overview</a>
+      <a routerLink="/admin/orders" routerLinkActive="active">Orders</a>
+      <a routerLink="/admin/inventory" routerLinkActive="active">Inventory</a>
+      <a routerLink="/admin/users" routerLinkActive="active">Users</a>
+    </nav>
+    <a class="back" routerLink="/">View storefront</a>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <span>ADMIN / {{ section().toUpperCase() }}</span>
+      <button (click)="logout()">Sign out</button>
+    </div>
+
+    <section class="content">
+      <p class="eyebrow">Operations workspace</p>
+      <h1>{{ section()==='overview' ? 'System at a glance.' : section()==='orders' ? 'Order operations.' : 'Customer accounts.' }}</h1>
+
+      @if(loading()) {
+        <div class="notice">Loading operations data...</div>
+      } @else if(error()) {
+        <div class="notice">{{ error() }} <button (click)="load()">Try again</button></div>
+      } @else if(section()==='overview') {
+        @if(optionalWarning()) {
+          <div class="soft-notice">{{ optionalWarning() }}</div>
+        }
+
+        <div class="hero-metrics">
+          <article class="primary-card">
+            <span>Total revenue signal</span>
+            <strong>{{ price(orderRevenue()) }}</strong>
+            <p>Based on all order records currently visible to admin.</p>
+          </article>
+          <article><span>Orders</span><strong>{{ orders().length }}</strong><em>{{ openOrderCount() }} open</em></article>
+          <article><span>Customers</span><strong>{{ userTotal() }}</strong><em>{{ users().length }} loaded</em></article>
+          <article><span>Recoverable</span><strong>{{ recoverableEvents().length }}</strong><em>{{ failedEvents().length }} failed events</em></article>
+        </div>
+
+        <div class="overview-grid">
+          <section class="panel inventory-panel">
+            <div class="panel-head">
+              <div><p>INVENTORY HEALTH</p><h2>Stock position.</h2></div>
+              <a routerLink="/admin/inventory">Manage inventory &rarr;</a>
+            </div>
+            <div class="stock-cards">
+              <article><span>Items</span><strong>{{ inventoryTotals().items }}</strong></article>
+              <article><span>Available</span><strong>{{ inventoryTotals().available }}</strong></article>
+              <article><span>Reserved</span><strong>{{ inventoryTotals().reserved }}</strong></article>
+              <article class="danger"><span>Low / out</span><strong>{{ inventoryTotals().lowStock + inventoryTotals().outOfStock }}</strong></article>
+            </div>
+            <div class="stock-bar" aria-label="Inventory stock split">
+              <i class="available" [style.width.%]="percent(inventoryTotals().available, inventoryTotals().available + inventoryTotals().reserved)"></i>
+              <i class="reserved" [style.width.%]="percent(inventoryTotals().reserved, inventoryTotals().available + inventoryTotals().reserved)"></i>
+            </div>
+            <div class="low-stock">
+              <p>LOW STOCK WATCH</p>
+              @if(!lowStockItems().length) {
+                <span class="empty">No low-stock items right now.</span>
+              } @else {
+                @for(item of lowStockItems(); track item.productId) {
+                  <article>
+                    <div><span>{{ item.category || 'Item' }}</span><strong>{{ item.productName }}</strong></div>
+                    <b>{{ item.availableQuantity }} left</b>
+                  </article>
+                }
+              }
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div><p>PAYMENTS</p><h2>Status summary.</h2></div>
+              <span>{{ price(paymentTotals().amount) }}</span>
+            </div>
+            <div class="payment-summary">
+              <article><span>Captured</span><strong>{{ paymentTotals().captured }}</strong></article>
+              <article><span>Pending</span><strong>{{ paymentTotals().pending }}</strong></article>
+              <article class="danger"><span>Failed</span><strong>{{ paymentTotals().failed }}</strong></article>
+              <article><span>Refunded</span><strong>{{ paymentTotals().refunded }}</strong></article>
+            </div>
+            <div class="status-list">
+              @if(!paymentStatusSlices().length) {
+                <div class="empty">No payment records yet.</div>
+              } @else {
+                @for(slice of paymentStatusSlices(); track slice.status) {
+                  <article>
+                    <div><span>{{ slice.status }}</span><b>{{ slice.count }}</b></div>
+                    <i><em [style.width.%]="slice.percent"></em></i>
+                  </article>
+                }
+              }
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div><p>ORDER MIX</p><h2>Current flow.</h2></div>
+              <span>{{ orders().length }} total</span>
+            </div>
+            <div class="status-list">
+              @for(slice of orderStatusSlices(); track slice.status) {
+                <article>
+                  <div><span>{{ slice.status }}</span><b>{{ slice.count }}</b></div>
+                  <i><em [style.width.%]="slice.percent"></em></i>
+                </article>
+              }
+            </div>
+          </section>
+
+          <section class="panel recovery-panel">
+            <div class="panel-head">
+              <div><p>RECOVERY</p><h2>Recent failures.</h2></div>
+              <span>{{ recoverableEvents().length }} actionable</span>
+            </div>
+            @if(!recentFailedEvents().length) {
+              <div class="empty">No failed events have been recorded.</div>
+            } @else {
+              <div class="recovery-list">
+                @for(event of recentFailedEvents(); track event.service + '-' + event.id) {
+                  <article [class.done]="event.replayed">
+                    <div>
+                      <span>{{ event.service }} / {{ event.sourceTopic }}</span>
+                      <strong>{{ event.failureReason }}</strong>
+                    </div>
+                    <em>{{ event.replayed ? 'Replayed' : 'Open' }}</em>
+                  </article>
+                }
+              </div>
+            }
+          </section>
+        </div>
+      } @else if(section()==='orders') {
+        <div class="table">
+          @for(order of orders(); track order.id) {
+            <article><div><span>{{ order.orderNumber }}</span><strong>{{ order.customerUsername }}</strong></div><em>{{ order.status }}</em><b>{{ price(order.totalAmount) }}</b></article>
+          }
+        </div>
+      } @else if(section()==='users') {
+        <div class="table">
+          @for(user of users(); track user.id) {
+            <a [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><em>{{ user.status }}</em><b>View</b></a>
+          }
+        </div>
+      } @else {
+        <div class="notice">This area is reserved for a later operations integration.</div>
+      }
+    </section>
+  </main>
+</div>

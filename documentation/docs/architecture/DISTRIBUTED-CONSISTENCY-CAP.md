@@ -43,6 +43,26 @@ carts after communication recovers.
 CAP is not a permanent label for every operation in a product. Different
 operations can make different trade-offs.
 
+## CAP Interview Mistake To Avoid
+
+Do not say "this system is CA" as if partitions can be ignored. In a real
+distributed system, network partitions and delayed communication are possible.
+The practical design question is:
+
+```text
+When a partition happens, should this operation reject/delay work to preserve
+consistency, or continue serving and reconcile later?
+```
+
+For example:
+
+| Operation | Better partition behavior |
+|---|---|
+| debit bank account | reject/delay if consistency cannot be proven |
+| update shopping-cart note | accept and reconcile later |
+| reserve last inventory item | preserve consistency to avoid overselling |
+| update product-search index | eventual consistency is acceptable |
+
 ## PACELC
 
 PACELC extends CAP:
@@ -81,6 +101,16 @@ Costs may include:
 Use strong consistency for invariants such as uniqueness, balance updates, and
 exclusive allocation when stale decisions are unacceptable.
 
+Shopverse example:
+
+```text
+Two customers try to buy the last unit.
+Inventory reservation must not accept both.
+```
+
+This needs a local database invariant such as optimistic locking, pessimistic
+locking, or an atomic conditional update.
+
 ## Eventual Consistency
 
 If updates stop, replicas eventually converge:
@@ -101,6 +131,14 @@ Appropriate examples:
 - product descriptions;
 - cache copies;
 - cross-service read models.
+
+Shopverse example:
+
+```text
+Order timeline may be updated after Kafka events are processed.
+The checkout API can return the accepted order before every downstream timeline
+entry is visible.
+```
 
 ## Strong Eventual Consistency
 
@@ -198,6 +236,35 @@ transaction does not make a cross-service workflow globally atomic.
 
 ## Cross-Service Consistency
 
+In microservices, each service owns its database. A single ACID transaction
+should not normally span Order DB, Inventory DB, and Payment DB. Instead, use:
+
+- local transactions inside each service;
+- events to communicate state changes;
+- SAGA for multi-step workflows;
+- compensation for business rollback;
+- outbox to avoid losing events;
+- idempotent consumers to tolerate duplicate delivery.
+
+This gives eventual business consistency, not one global database transaction.
+
+## Consistency Decision Table
+
+| Use case | Recommended consistency |
+|---|---|
+| username uniqueness | strong local DB constraint |
+| inventory reservation | strong per product/row invariant |
+| order timeline projection | eventual consistency |
+| search index | eventual consistency |
+| analytics dashboard | eventual consistency |
+| payment ledger | strong local transaction and reconciliation |
+| cache | eventual with TTL/invalidation |
+
+## References
+
+- [CAP Theorem in System Design - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/cap-theorem-in-system-design/)
+- [Consistency in System Design - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/consistency-in-system-design/)
+
 Microservices commonly use:
 
 ```text
@@ -252,4 +319,3 @@ invalidation behavior.
 - [Distributed Systems Fundamentals](DISTRIBUTED-SYSTEMS-GENERIC.md)
 - [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
 - [SAGA And Outbox](../reliability/SAGA-GENERIC.md)
-

@@ -1,7 +1,81 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
-import { SessionService } from '../../core/auth/session.service';
+import { ProfileUpdate, SessionService, UserProfile } from '../../core/auth/session.service';
 
-@Component({ selector: 'app-account-page', imports: [RouterLink], template: `<section class="page"><p>YOUR ACCOUNT</p><h1>Good to see you,<br />{{ session.profile()?.firstName || session.username() }}.</h1><div class="account"><div><span>Signed in as</span><strong>{{ session.profile()?.email || session.username() }}</strong></div><div><span>Account status</span><strong>{{ session.profile()?.status || 'Active' }}</strong></div><div><span>Access</span><strong>{{ session.isAdmin() ? 'Administrator' : 'Customer' }}</strong></div></div><div class="actions"><a routerLink="/orders">View order history →</a>@if (session.isAdmin()) {<a routerLink="/admin">Open operations →</a>}<button (click)="logout()">Sign out</button></div></section>`, styles: `.page{max-width:var(--max-width);min-height:calc(100dvh - 188px);margin:auto;padding:100px 24px}.page>p{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.13em}.page>h1{margin:18px 0 56px;font-size:clamp(48px,7vw,94px);letter-spacing:-.08em;line-height:.9}.account{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.account div{display:grid;gap:11px;padding:26px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white)}.account span{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.account strong{font-size:16px}.actions{display:flex;gap:14px;margin-top:30px}.actions a,.actions button{padding:12px 15px;border:1px solid var(--ink);background:transparent;font-size:12px;font-weight:800}.actions a:first-child{color:var(--white);background:var(--ink)}@media(max-width:650px){.account{grid-template-columns:1fr}.actions{flex-direction:column;width:max-content}}` })
-export class AccountPageComponent { protected readonly session = inject(SessionService); private readonly router = inject(Router); constructor(){ if(!this.session.profile()) this.session.loadProfile().subscribe(); } protected logout(){this.session.logout();this.router.navigateByUrl('/');} }
+@Component({
+  selector: 'app-account-page',
+  imports: [FormsModule, RouterLink],
+  templateUrl: './account-page.component.html',
+  styleUrl: './account-page.component.scss',
+})
+export class AccountPageComponent {
+  protected readonly session = inject(SessionService);
+  private readonly router = inject(Router);
+  protected readonly loading = signal(false);
+  protected readonly saving = signal(false);
+  protected readonly loadError = signal('');
+  protected readonly saveError = signal('');
+  protected readonly saveSuccess = signal(false);
+  protected readonly profile = this.session.profile;
+  protected readonly form: ProfileUpdate = { email: '', firstName: '', lastName: '', phoneNumber: '' };
+
+  constructor() {
+    if (this.session.profile()) {
+      this.populate(this.session.profile());
+    } else {
+      this.loadProfile();
+    }
+  }
+
+  protected loadProfile(): void {
+    this.loading.set(true);
+    this.loadError.set('');
+    this.session.loadProfile().subscribe({
+      next: (profile) => {
+        this.populate(profile);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loadError.set('Unable to load profile');
+        this.loading.set(false);
+      },
+    });
+  }
+
+  protected saveProfile(): void {
+    this.saving.set(true);
+    this.saveError.set('');
+    this.saveSuccess.set(false);
+    this.session.updateProfile({
+      email: this.form.email.trim(),
+      firstName: this.form.firstName.trim(),
+      lastName: this.form.lastName.trim(),
+      phoneNumber: this.form.phoneNumber.trim(),
+    }).subscribe({
+      next: (profile) => {
+        this.populate(profile);
+        this.saveSuccess.set(true);
+        this.saving.set(false);
+      },
+      error: () => {
+        this.saveError.set('We could not update your account details. Check the email/phone format and try again.');
+        this.saving.set(false);
+      },
+    });
+  }
+
+  protected logout(): void {
+    this.session.logout();
+    this.router.navigateByUrl('/');
+  }
+
+  private populate(profile: UserProfile | null): void {
+    if (!profile) return;
+    this.form.email = profile.email ?? '';
+    this.form.firstName = profile.firstName ?? '';
+    this.form.lastName = profile.lastName ?? '';
+    this.form.phoneNumber = profile.phoneNumber ?? '';
+  }
+}

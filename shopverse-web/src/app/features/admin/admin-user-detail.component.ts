@@ -1,8 +1,112 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { catchError, forkJoin, of } from 'rxjs';
 
-interface User { id:number; username:string; email:string; firstName:string; lastName:string; phoneNumber:string|null; status:string; roles:Array<{roleName:string}>; }
+interface User {
+  id:number;
+  username:string;
+  email:string;
+  firstName:string;
+  lastName:string;
+  phoneNumber:string|null;
+  status:string;
+  roles:Array<{roleName:string}>;
+}
 
-@Component({ selector:'app-admin-user-detail', imports:[RouterLink], template:`<main class="page"><a routerLink="/admin/users">Back to users</a>@if(error()){<div class="notice">{{error()}}</div>}@else if(!user()){<div class="notice">Loading user details...</div>}@else{<p>USER PROFILE</p><h1>{{user()!.firstName}} {{user()!.lastName}}</h1><div class="grid"><article><span>Username</span><strong>{{user()!.username}}</strong></article><article><span>Email</span><strong>{{user()!.email}}</strong></article><article><span>Phone</span><strong>{{user()!.phoneNumber || 'Not provided'}}</strong></article><article><span>Status</span><strong>{{user()!.status}}</strong></article><article class="roles"><span>Roles</span><strong>@for(role of user()!.roles;track role.roleName){<b>{{role.roleName}}</b>}</strong></article></div>}</main>`, styles:`.page{max-width:1100px;min-height:100dvh;margin:auto;padding:70px 30px}.page>a{font-size:12px;font-weight:800;border-bottom:1px solid var(--ink)}p{margin:58px 0 18px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.13em}h1{margin:0 0 54px;font-size:clamp(48px,7vw,88px);letter-spacing:-.08em;line-height:.9}.grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}article{display:grid;gap:10px;padding:24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white)}article span{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.1em}.roles{grid-column:span 2}.roles strong{display:flex;gap:8px;flex-wrap:wrap}.roles b{padding:5px 7px;color:#4558ce;background:#e8eaff;font-size:11px}.notice{margin-top:55px;padding:25px;color:var(--white);background:var(--ink-soft)}@media(max-width:600px){.grid{grid-template-columns:1fr}.roles{grid-column:auto}}` })
-export class AdminUserDetailComponent { private readonly http=inject(HttpClient); private readonly route=inject(ActivatedRoute); protected readonly user=signal<User|null>(null); protected readonly error=signal(''); constructor(){const id=this.route.snapshot.paramMap.get('id');this.http.get<{data:User}>(`/api/v1/users/${id}`).subscribe({next:r=>this.user.set(r.data),error:()=>this.error.set('We could not load this user profile.')})} }
+interface Role { id:number; roleName:string; description:string; }
+interface Page<T> { content:T[]; totalElements:number; }
+interface ApiResponse<T> { data:T; message:string; success:boolean; }
+interface Order { id:number; orderNumber:string; customerUsername:string; status:string; totalAmount:number; createdAt:string; }
+
+@Component({
+  selector: 'app-admin-user-detail',
+  imports: [DatePipe, FormsModule, RouterLink],
+  templateUrl: './admin-user-detail.component.html',
+  styleUrl: './admin-user-detail.component.scss',
+})
+export class AdminUserDetailComponent {
+  private readonly http = inject(HttpClient);
+  private readonly route = inject(ActivatedRoute);
+  protected readonly user = signal<User | null>(null);
+  protected readonly roles = signal<Role[]>([]);
+  protected readonly userOrders = signal<Order[]>([]);
+  protected readonly loading = signal(true);
+  protected readonly saving = signal(false);
+  protected readonly error = signal('');
+  protected readonly saveError = signal('');
+  protected readonly saveSuccess = signal(false);
+  protected readonly statuses = ['ACTIVE', 'INACTIVE', 'SUSPENDED', 'DELETED'];
+  protected readonly form = { status: 'ACTIVE', roles: new Set<string>() };
+
+  constructor() {
+    this.load();
+  }
+
+  protected load(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.loading.set(true);
+    this.error.set('');
+    forkJoin({
+      user: this.http.get<ApiResponse<User>>(`/api/v1/users/${id}`),
+      roles: this.http.get<Page<Role>>('/api/v1/roles?size=50').pipe(catchError(() => of({ content: [], totalElements: 0 } as Page<Role>))),
+      orders: this.http.get<Order[]>('/api/v1/orders/admin/all').pipe(catchError(() => of([] as Order[]))),
+    }).subscribe({
+      next: ({ user, roles, orders }) => {
+        this.user.set(user.data);
+        this.roles.set(roles.content);
+        this.populate(user.data);
+        this.userOrders.set(orders.filter((order) => order.customerUsername === user.data.username));
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set('We could not load this user profile.');
+        this.loading.set(false);
+      },
+    });
+  }
+
+  protected hasRole(roleName: string): boolean {
+    return this.form.roles.has(roleName);
+  }
+
+  protected toggleRole(roleName: string): void {
+    this.saveSuccess.set(false);
+    if (this.form.roles.has(roleName)) this.form.roles.delete(roleName);
+    else this.form.roles.add(roleName);
+  }
+
+  protected saveAccess(): void {
+    const user = this.user();
+    if (!user) return;
+    this.saving.set(true);
+    this.saveError.set('');
+    this.saveSuccess.set(false);
+    this.http.patch<ApiResponse<User>>(`/api/v1/users/${user.id}`, {
+      status: this.form.status,
+      roles: Array.from(this.form.roles),
+    }).subscribe({
+      next: (response) => {
+        this.user.set(response.data);
+        this.populate(response.data);
+        this.saveSuccess.set(true);
+        this.saving.set(false);
+      },
+      error: () => {
+        this.saveError.set('Access changes could not be saved. Confirm this admin has USER_UPDATE permission.');
+        this.saving.set(false);
+      },
+    });
+  }
+
+  protected price(value: number): string {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value);
+  }
+
+  private populate(user: User): void {
+    this.form.status = user.status;
+    this.form.roles = new Set(user.roles.map((role) => role.roleName));
+  }
+}

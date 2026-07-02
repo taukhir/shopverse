@@ -1,0 +1,8 @@
+description = 'Common API error response contracts for Shopverse services.'
+
+dependencies {
+    api 'com.fasterxml.jackson.core:jackson-annotations'
+    api 'org.springframework:spring-web'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

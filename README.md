@@ -9,6 +9,13 @@
 
 Shopverse is an observable, failure-aware commerce microservices POC. It demonstrates secure, idempotent checkout across independently persisted Order, Inventory, and Payment services using Kafka choreography, transactional outbox, compensation, and end-to-end observability.
 
+Runtime claims in this README describe the current local POC unless a section
+explicitly says otherwise. The exact status of each capability is maintained in
+the [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md)
+matrix using `Implemented`, `Implemented baseline`, `Partial`, and `Planned`
+labels. Production hardening notes are roadmap or design guidance, not claims
+that the current Compose stack is production-ready.
+
 ![Shopverse architecture](documentation/static/img/diagrams/shopverse-architecture-flow.svg)
 
 ## Why This Repository Matters
@@ -23,6 +30,18 @@ how I reason about backend architecture, not only how I write service code.
 | **Security** | RSA-signed JWTs, JWKS validation, role/permission checks, and ownership authorization |
 | **Operations** | Docker Compose, CI gates, structured logs, metrics, traces, dashboards, and runbooks |
 | **Engineering maturity** | Service READMEs, documentation portal, ADRs, bounded tests, and failure-mode demos |
+
+## Status Model
+
+| Label | Meaning |
+|---|---|
+| `Implemented` | Code and configuration exist and are demonstrable in the local POC. |
+| `Implemented baseline` | A working baseline exists, with known scale, automation, or hardening gaps. |
+| `Partial` | The core behavior exists, but important correctness, automation, or production-readiness work remains. |
+| `Planned` | Roadmap, study material, or target design; not current runtime behavior. |
+
+When this README summarizes a broad capability, treat the implementation
+matrix as the source of truth for the precise status and evidence.
 
 ## Fast Reviewer Path
 
@@ -71,12 +90,16 @@ The Config Server centralizes runtime configuration, Eureka provides service dis
 
 | Decision | Why it matters | ADR |
 | --- | --- | --- |
-| API Gateway, Eureka, and Config Server | Keeps edge routing, discovery, and runtime configuration explicit and reviewable | [ADR 001](docs/adr/001-gateway-discovery-config.md) |
-| Kafka choreography SAGA | Avoids distributed transactions while keeping checkout failure paths observable | [ADR 002](docs/adr/002-kafka-choreography-saga.md) |
-| JWT and JWKS security model | Lets services validate tokens without sharing signing secrets | [ADR 003](docs/adr/003-jwt-jwks-security.md) |
-| Observability by default | Makes local and production-like behavior diagnosable across services | [ADR 004](docs/adr/004-observability-stack.md) |
+| API Gateway, Eureka, and Config Server | Keeps edge routing, discovery, and runtime configuration explicit and reviewable | [ADR 001](documentation/docs/architecture/adr/001-gateway-discovery-config.md) |
+| Kafka choreography SAGA | Avoids distributed transactions while keeping checkout failure paths observable | [ADR 002](documentation/docs/architecture/adr/002-kafka-choreography-saga.md) |
+| JWT and JWKS security model | Lets services validate tokens without sharing signing secrets | [ADR 003](documentation/docs/architecture/adr/003-jwt-jwks-security.md) |
+| Observability by default | Makes local POC and production-shaped behavior diagnosable across services | [ADR 004](documentation/docs/architecture/adr/004-observability-stack.md) |
 
 ## Core Capabilities
+
+The list below is intentionally high level. Some items are complete in the POC,
+some are implemented baselines, and some have hardening work documented in the
+implementation matrix.
 
 - RSA-signed JWT access tokens, JWKS, expiry validation, roles, permissions, and ownership authorization
 - API Gateway routing, service discovery, Spring Cloud LoadBalancer, and Feign clients
@@ -233,6 +256,9 @@ Start with the [documentation index](documentation/docs/README.mdx).
 
 The same Markdown is rendered as a reusable backend engineering Docusaurus
 portal from `documentation/`, with Shopverse organized as a case study.
+Generic engineering guides explain reusable production practices; Shopverse
+case-study pages state which practices are implemented in this repository and
+which remain planned.
 Run it locally with:
 
 ```powershell

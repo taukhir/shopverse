@@ -8,6 +8,11 @@ services using synchronous discovery-based HTTP calls, asynchronous Kafka
 choreography, local transactions, transactional outbox, compensation, and
 operational recovery.
 
+This page describes current runtime architecture unless a paragraph explicitly
+uses roadmap language such as `planned`, `target`, or `production hardening`.
+For precise feature status and demonstration evidence, use the
+[Features and demonstrations](../reference/FEATURES-AND-DEMOS.md) matrix.
+
 <DocFigure
   src="/img/diagrams/shopverse-architecture-flow.svg"
   alt="Shopverse runtime architecture with API Gateway, Spring services, Kafka, service databases, configuration, discovery, security, and observability"
@@ -436,9 +441,10 @@ flowchart TB
     Observe --> ObsVolumes["Loki, Grafana, and Prometheus volumes"]
 ```
 
-Docker Compose is the current local deployment model. Production deployment
-would require secret management, TLS, broker authentication, backups,
-multi-node Kafka/Loki/Prometheus strategy, alert delivery, and orchestrator
+Docker Compose is the current local deployment model. The production
+deployment list below is a hardening target, not implemented runtime behavior:
+secret management, TLS, broker authentication, backups, multi-node
+Kafka/Loki/Prometheus strategy, alert delivery, and orchestrator
 health/resource controls.
 
 ## Consistency And Failure Boundaries
@@ -458,7 +464,7 @@ health/resource controls.
 Current DLT deduplication uses an application existence check and is not
 strictly race-safe. A database-unique event ID/inbox remains planned.
 
-## Current Boundaries
+## Current Runtime Boundaries
 
 - Checkout currently accepts one item.
 - Cache providers are local in-memory caches, not distributed Redis.

@@ -1,0 +1,99 @@
+<main class="admin-user-detail">
+  <nav class="crumbs" aria-label="Admin breadcrumb">
+    <a routerLink="/admin">Admin</a><span>/</span><a routerLink="/admin/users">Users</a><span>/</span><b>{{ user()?.username || 'Profile' }}</b>
+  </nav>
+
+  @if (error()) {
+    <div class="notice">{{ error() }} <button type="button" (click)="load()">Try again</button></div>
+  } @else if (loading()) {
+    <div class="notice">Loading user details...</div>
+  } @else if (user()) {
+    <div class="heading">
+      <div>
+        <p>USER PROFILE</p>
+        <h1>{{ user()!.firstName }} {{ user()!.lastName }}</h1>
+      </div>
+      <a routerLink="/admin/users">Back to users</a>
+    </div>
+
+    <div class="layout">
+      <section class="profile-card">
+        <div class="grid">
+          <article><span>Username</span><strong>{{ user()!.username }}</strong></article>
+          <article><span>Email</span><strong>{{ user()!.email }}</strong></article>
+          <article><span>Phone</span><strong>{{ user()!.phoneNumber || 'Not provided' }}</strong></article>
+          <article><span>Status</span><strong>{{ user()!.status }}</strong></article>
+          <article class="roles">
+            <span>Roles</span>
+            <strong>
+              @for (role of user()!.roles; track role.roleName) {
+                <b>{{ role.roleName }}</b>
+              }
+            </strong>
+          </article>
+        </div>
+      </section>
+
+      <aside class="management">
+        <p>ACCESS MANAGEMENT</p>
+        <form (ngSubmit)="saveAccess()">
+          <label>
+            Account status
+            <select name="status" [(ngModel)]="form.status">
+              @for (status of statuses; track status) {
+                <option [value]="status">{{ status }}</option>
+              }
+            </select>
+          </label>
+
+          <div class="role-picker">
+            <span>Roles</span>
+            @if (!roles().length) {
+              <em>Role catalog unavailable.</em>
+            } @else {
+              @for (role of roles(); track role.roleName) {
+                <label class="check">
+                  <input type="checkbox" [checked]="hasRole(role.roleName)" (change)="toggleRole(role.roleName)" />
+                  {{ role.roleName }}
+                </label>
+              }
+            }
+          </div>
+
+          @if (saveError()) {
+            <div class="form-message error">{{ saveError() }}</div>
+          }
+          @if (saveSuccess()) {
+            <div class="form-message success">User access updated.</div>
+          }
+
+          <button class="primary" type="submit" [disabled]="saving()">{{ saving() ? 'Saving...' : 'Save access changes' }} <b>&rarr;</b></button>
+        </form>
+      </aside>
+    </div>
+
+    <section class="orders">
+      <div class="section-head">
+        <div><p>LINKED ORDER HISTORY</p><h2>{{ userOrders().length }} orders by {{ user()!.username }}</h2></div>
+        <a routerLink="/admin/orders">View all orders &rarr;</a>
+      </div>
+
+      @if (!userOrders().length) {
+        <div class="empty">No orders found for this user.</div>
+      } @else {
+        <div class="order-list">
+          @for (order of userOrders(); track order.id) {
+            <a [routerLink]="['/orders', order.id]">
+              <div>
+                <span>{{ order.orderNumber }}</span>
+                <strong>{{ order.status }}</strong>
+                <small>{{ order.createdAt | date:'mediumDate' }}</small>
+              </div>
+              <b>{{ price(order.totalAmount) }} <em>&rarr;</em></b>
+            </a>
+          }
+        </div>
+      }
+    </section>
+  }
+</main>

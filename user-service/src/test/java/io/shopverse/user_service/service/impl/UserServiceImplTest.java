@@ -1,6 +1,6 @@
 package io.shopverse.user_service.service.impl;
 
-import io.shopverse.user_service.dto.PageResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.dto.UserSummaryResponse;
 import io.shopverse.user_service.entities.Role;

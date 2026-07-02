@@ -53,3 +53,20 @@ flowchart LR
 Reusable theory stays independent from Shopverse. Project-specific APIs,
 configuration, code paths, and operating instructions remain in the case-study
 track.
+
+## Status Discipline
+
+Generic pages describe how production systems are usually designed, operated,
+and reviewed. They are not implementation claims for Shopverse by themselves.
+When a generic practice is applied to Shopverse, the matching case-study page
+or [Features and demos](reference/FEATURES-AND-DEMOS.md) entry should say
+whether it is `Implemented`, `Implemented baseline`, `Partial`, or `Planned`.
+
+Use this rule when reading or editing the docs:
+
+| Page type | Expected content |
+|---|---|
+| Generic guide | Concepts, trade-offs, examples, checklists, production practices |
+| Shopverse case study | Current runtime behavior, code/config evidence, demo path, known gaps |
+| Problem analysis | Observed issue, impact, current mitigation, target design |
+| Roadmap | Future work explicitly marked as not current runtime behavior |

@@ -1,0 +1,184 @@
+.account-page {
+  .notice {
+    max-width: 620px;
+    padding: 30px;
+  }
+}
+
+.summary > p,
+.form-head p,
+.address-card p {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.summary,
+.profile-form {
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.summary {
+  padding: 28px;
+}
+
+.summary div:not(.summary-actions) {
+  display: grid;
+  gap: 8px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.summary span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.summary strong {
+  font-size: 16px;
+  word-break: break-word;
+}
+
+.summary-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.summary-actions a,
+.summary-actions button,
+.save {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 15px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.summary-actions a:first-child,
+.save {
+  color: var(--white);
+  background: var(--ink);
+}
+
+.profile-form {
+  padding: 30px;
+}
+
+.form-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.form-head span {
+  max-width: 360px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+input {
+  width: 100%;
+  padding: 14px 13px;
+  border: 1px solid var(--line);
+  background: #f8f8fc;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  outline: none;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(111, 119, 255, 0.16);
+}
+
+.address-card {
+  margin-top: 18px;
+  padding: 24px;
+  color: var(--white);
+  background: var(--ink-soft);
+}
+
+.address-card p {
+  color: var(--accent-soft);
+}
+
+.address-card h2 {
+  margin: 10px 0 8px;
+  font-size: 28px;
+  letter-spacing: -0.05em;
+}
+
+.address-card span {
+  display: block;
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.form-message {
+  margin-top: 16px;
+}
+
+.save {
+  width: 100%;
+  margin-top: 18px;
+}
+
+.save:disabled {
+  opacity: 0.65;
+}
+
+@media (max-width: 820px) {
+  .account-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-head {
+    display: block;
+  }
+
+  .fields {
+    grid-template-columns: 1fr;
+  }
+}

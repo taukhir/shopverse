@@ -25,6 +25,10 @@ security:
   jwt:
     issuer: ${JWT_ISSUER:shopverse-auth-service}
 
+shopverse:
+  kafka-recovery:
+    service-name: order
+
 management:
   endpoints:
     web:

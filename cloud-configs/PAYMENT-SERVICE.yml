@@ -26,6 +26,8 @@ security:
     issuer: ${JWT_ISSUER:shopverse-auth-service}
 
 shopverse:
+  kafka-recovery:
+    service-name: payment
   payment-service:
     health-checkup:
       message: ${PAYMENT_SERVICE_HEALTH_CHECKUP_MESSAGE:Payment service is running}

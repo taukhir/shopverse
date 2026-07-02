@@ -1,8 +1,7 @@
 package io.shopverse.order.saga;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.shopverse.order.observability.CorrelationContext;
+import io.shopverse.platform.kafka.KafkaEventParser;
+import io.shopverse.platform.observability.CorrelationContext;
 import io.shopverse.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderSagaListener {
 
-    private final ObjectMapper objectMapper;
+    private final KafkaEventParser eventParser;
     private final OrderService orderService;
     private final FailedKafkaEventService failedKafkaEventService;
 
@@ -28,7 +27,7 @@ public class OrderSagaListener {
             groupId = "${spring.application.name}"
     )
     public void onInventoryReserved(String payload) {
-        InventoryReservedEvent event = readEvent(payload, InventoryReservedEvent.class);
+        InventoryReservedEvent event = eventParser.parse(payload, InventoryReservedEvent.class);
         CorrelationContext.run(
                 event.correlationId(),
                 () -> orderService.markInventoryReservedAndPaymentProcessing(event.orderNumber())
@@ -41,7 +40,7 @@ public class OrderSagaListener {
             groupId = "${spring.application.name}"
     )
     public void onInventoryFailed(String payload) {
-        InventoryFailedEvent event = readEvent(payload, InventoryFailedEvent.class);
+        InventoryFailedEvent event = eventParser.parse(payload, InventoryFailedEvent.class);
         CorrelationContext.run(event.correlationId(), () -> handleInventoryFailed(event));
     }
 
@@ -61,7 +60,7 @@ public class OrderSagaListener {
             groupId = "${spring.application.name}"
     )
     public void onPaymentCompleted(String payload) {
-        PaymentCompletedEvent event = readEvent(payload, PaymentCompletedEvent.class);
+        PaymentCompletedEvent event = eventParser.parse(payload, PaymentCompletedEvent.class);
         CorrelationContext.run(event.correlationId(), () -> handlePaymentCompleted(event));
     }
 
@@ -82,7 +81,7 @@ public class OrderSagaListener {
             groupId = "${spring.application.name}"
     )
     public void onPaymentFailed(String payload) {
-        PaymentFailedEvent event = readEvent(payload, PaymentFailedEvent.class);
+        PaymentFailedEvent event = eventParser.parse(payload, PaymentFailedEvent.class);
         CorrelationContext.run(event.correlationId(), () -> handlePaymentFailed(event));
     }
 
@@ -94,14 +93,6 @@ public class OrderSagaListener {
                 event.correlationId(),
                 event.reason()
         );
-    }
-
-    private <T> T readEvent(String payload, Class<T> eventType) {
-        try {
-            return objectMapper.readValue(payload, eventType);
-        } catch (JsonProcessingException exception) {
-            throw new IllegalArgumentException("Invalid Kafka event payload for " + eventType.getSimpleName(), exception);
-        }
     }
 
     @DltHandler

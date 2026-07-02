@@ -1,0 +1,9 @@
+description = 'Shared web-layer helpers for Shopverse services.'
+
+dependencies {
+    api project(':shopverse-common-error')
+    api 'org.springframework.data:spring-data-commons'
+    api 'org.springframework:spring-web'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

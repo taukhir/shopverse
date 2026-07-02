@@ -4,5 +4,39 @@ import { RouterLink } from '@angular/router';
 
 import { CartService } from '../../core/cart/cart.service';
 
-@Component({ selector:'app-checkout-page', imports:[RouterLink], template:`<section class="page"><p>CHECKOUT</p><h1>Review and place<br />your order.</h1>@if(!cart.items().length){<div class="notice">Your cart is empty. <a routerLink="/products">Browse products →</a></div>}@else if(cart.items().length>1){<div class="notice"><h2>One item at a time.</h2><span>The current ShopVerse checkout API accepts one item per order. Adjust your cart before continuing.</span><a routerLink="/cart">Review cart →</a></div>}@else{<div class="checkout"><div><p>ORDER SUMMARY</p><h2>{{ cart.items()[0].productName }}</h2><span>Quantity {{ cart.items()[0].quantity }}</span><strong>{{ price(cart.total()) }}</strong></div><aside><p>PAYMENT</p><h2>Payment follows confirmation.</h2><span>This demo creates the order and starts the existing inventory/payment workflow. No card data is collected here.</span>@if(error()){<b>{{ error() }}</b>}@if(success()){<b class="success">Order {{ success() }} created. Track its progress in your order history.</b>}<button (click)="placeOrder()" [disabled]="loading()">{{loading()?'Placing order...':'Place order'}} <em>→</em></button></aside></div>}</section>`, styles:`.page{max-width:var(--max-width);min-height:calc(100dvh - 188px);margin:auto;padding:100px 24px}.page>p,.checkout p{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.13em}.page>h1{margin:18px 0 50px;font-size:clamp(48px,7vw,94px);letter-spacing:-.08em;line-height:.9}.notice{max-width:600px;padding:34px;color:var(--white);background:var(--ink-soft)}.notice h2{margin:0;font-size:30px}.notice span{display:block;margin-top:8px;color:var(--accent-soft)}.notice a{display:inline-block;margin-top:22px;color:var(--white);border-bottom:1px solid var(--white);font-size:12px;font-weight:800}.checkout{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);background:var(--white)}.checkout>div,.checkout aside{padding:34px}.checkout h2{margin:15px 0 8px;font-size:29px;letter-spacing:-.05em}.checkout span{display:block;color:var(--muted);font-size:13px}.checkout strong{display:block;margin-top:45px;font-size:24px}.checkout aside{color:var(--white);background:var(--ink-soft)}.checkout aside p{color:var(--accent-soft)}.checkout aside span{color:rgba(255,255,255,.68);line-height:1.6}.checkout b{display:block;margin-top:20px;color:#ffaaa3;font-size:12px}.checkout b.success{color:var(--green)}button{display:flex;justify-content:space-between;width:100%;margin-top:28px;padding:14px 16px;color:var(--ink);border:0;background:var(--accent-soft);font-weight:800}button:disabled{opacity:.6}@media(max-width:650px){.checkout{grid-template-columns:1fr}}` })
-export class CheckoutPageComponent { protected readonly cart=inject(CartService); private readonly http=inject(HttpClient); protected readonly loading=signal(false); protected readonly error=signal(''); protected readonly success=signal(''); protected placeOrder(){const item=this.cart.items()[0];if(!item)return;this.loading.set(true);this.error.set('');const headers=new HttpHeaders({'Idempotency-Key':`web-${item.productId}-${crypto.randomUUID()}`});this.http.post<{orderNumber:string}>('/api/v1/orders/checkout',{items:[{productId:item.productId,quantity:item.quantity}]},{headers}).subscribe({next:o=>{this.success.set(o.orderNumber);this.cart.clear();this.loading.set(false)},error:()=>{this.error.set('We could not create the order. Please try again.');this.loading.set(false)}})} protected price(value:number){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(value)} }
+@Component({
+  selector: 'app-checkout-page',
+  imports: [RouterLink],
+  templateUrl: './checkout-page.component.html',
+  styleUrl: './checkout-page.component.scss',
+})
+export class CheckoutPageComponent {
+  protected readonly cart = inject(CartService);
+  private readonly http = inject(HttpClient);
+  protected readonly loading = signal(false);
+  protected readonly error = signal('');
+  protected readonly success = signal('');
+
+  protected placeOrder(): void {
+    const item = this.cart.items()[0];
+    if (!item) return;
+    this.loading.set(true);
+    this.error.set('');
+    const headers = new HttpHeaders({ 'Idempotency-Key': `web-${item.productId}-${crypto.randomUUID()}` });
+    this.http.post<{ orderNumber: string }>('/api/v1/orders/checkout', { items: [{ productId: item.productId, quantity: item.quantity }] }, { headers }).subscribe({
+      next: (order) => {
+        this.success.set(order.orderNumber);
+        this.cart.clear();
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set('We could not create the order. Please try again.');
+        this.loading.set(false);
+      },
+    });
+  }
+
+  protected price(value: number): string {
+    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value);
+  }
+}

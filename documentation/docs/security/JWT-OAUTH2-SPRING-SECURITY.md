@@ -7,6 +7,11 @@ dependencies, and production practices, see
 [Spring Security](SPRING-SECURITY-GENERIC.md). This guide maps those concepts
 to Shopverse.
 
+This guide distinguishes Shopverse's current custom JWT login/resource-server
+implementation from OAuth2/OIDC features that are planned or generic security
+practice. Use the status table below and the implementation matrix before
+treating a security capability as implemented.
+
 ## What Shopverse Uses
 
 Shopverse uses JWT bearer access tokens and Spring Security's OAuth2 Resource Server support. Auth Service performs a custom username/password login; it is not currently a full OAuth2 Authorization Server and does not implement authorization-code, client-credentials, or refresh-token grants.
@@ -452,7 +457,7 @@ This is stronger than checking only whether a caller has a generic read permissi
 Shopverse's `/auth/login` endpoint is custom authentication followed by JWT
 issuance. It should not be described as an OAuth2 password grant.
 
-## Current Security Gaps
+## Current Security Gaps And Roadmap
 
 - audience validation is not consistently configured.
 - JWT deny-list, user security version, and opaque-token introspection are not

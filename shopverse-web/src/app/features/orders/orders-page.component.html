@@ -1,0 +1,29 @@
+<section class="page-shell orders-page">
+  <p class="eyebrow">YOUR ORDERS</p>
+  <h1 class="page-title">Order history.</h1>
+
+  @if (state() === 'loading') {
+    <div class="notice">Loading your order history...</div>
+  } @else if (state() === 'error') {
+    <div class="notice">We could not load your orders. <button (click)="load()">Try again</button></div>
+  } @else if (!orders().length) {
+    <div class="notice">
+      <h2>No orders yet.</h2>
+      <span>Your confirmed orders will appear here.</span>
+      <a routerLink="/products">Browse the collection</a>
+    </div>
+  } @else {
+    <div class="orders">
+      @for (order of orders(); track order.id) {
+        <a [routerLink]="['/orders', order.id]">
+          <div>
+            <p>{{ order.orderNumber }}</p>
+            <h2>{{ order.status }}</h2>
+            <span>{{ order.createdAt | date:'mediumDate' }} · {{ itemLabel(order) }}</span>
+          </div>
+          <strong>{{ price(order.totalAmount) }} <b>&rarr;</b></strong>
+        </a>
+      }
+    </div>
+  }
+</section>

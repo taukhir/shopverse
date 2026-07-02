@@ -13,6 +13,13 @@ export interface UserProfile {
   roles: Array<{ roleName: string }>;
 }
 
+export interface ProfileUpdate {
+  email: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+}
+
 interface TokenClaims { sub?: string; exp?: number; roles?: string; }
 const tokenKey = 'shopverse.session.token';
 
@@ -34,6 +41,10 @@ export class SessionService {
 
   loadProfile() {
     return this.http.get<UserProfile>('/api/v1/users/me').pipe(tap((profile) => this.profile.set(profile)));
+  }
+
+  updateProfile(profile: ProfileUpdate) {
+    return this.http.patch<UserProfile>('/api/v1/users/me', profile).pipe(tap((updated) => this.profile.set(updated)));
   }
 
   logout(): void {

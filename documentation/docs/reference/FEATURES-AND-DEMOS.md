@@ -5,6 +5,15 @@ the steps used to demonstrate them. `Implemented` means code and configuration
 exist. It does not imply production scale, external-provider certification, or
 full failure testing.
 
+Status labels are intentionally conservative:
+
+| Status | Meaning |
+|---|---|
+| Implemented | Code/configuration exist and can be demonstrated in the local POC. |
+| Implemented baseline | A working baseline exists, but scale, automation, alerting, or hardening is incomplete. |
+| Partial | The core behavior exists, but important correctness or operational work remains. |
+| Planned | Roadmap or study material; not current runtime behavior. |
+
 For one reproducible walkthrough from startup to observability, use the
 [complete Shopverse demo](../case-study/COMPLETE-DEMO.mdx).
 
@@ -415,6 +424,10 @@ testing patterns plus GitHub Actions and Jenkins build/image pipelines.
 15. inspect database and outbox evidence.
 
 ## Roadmap
+
+The items below are target improvements. They must not be described elsewhere
+as implemented until code, configuration, tests, and a demonstration path are
+added to the implementation matrix.
 
 1. Add event IDs, schema versions, and a transactional consumer inbox.
 2. Add bounded outbox backoff, terminal failure, and oldest-pending alerts.

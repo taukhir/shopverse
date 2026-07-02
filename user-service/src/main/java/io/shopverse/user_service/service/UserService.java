@@ -1,11 +1,12 @@
 package io.shopverse.user_service.service;
 
-import io.shopverse.user_service.dto.PageResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.dto.UserSummaryResponse;
 import io.shopverse.user_service.model.ChangePasswordRequest;
 import io.shopverse.user_service.model.CreateUserRequest;
 import io.shopverse.user_service.model.ResetPasswordRequest;
+import io.shopverse.user_service.model.UpdateProfileRequest;
 import io.shopverse.user_service.model.UpdateUserRequest;
 import io.shopverse.user_service.model.UserFilter;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ public interface UserService {
     UserResponse getUser(Long id);
 
     UserResponse loadAuthenticatedUserByUsername(String username);
+
+    UserResponse updateAuthenticatedUserProfile(String username, UpdateProfileRequest request);
 
     UserResponse createUser(CreateUserRequest request);
 

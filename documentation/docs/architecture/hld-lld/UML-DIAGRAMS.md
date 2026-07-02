@@ -17,6 +17,21 @@ teams can discuss before code exists.
 | Activity diagram | workflow and decisions |
 | Component diagram | high-level modules and dependencies |
 
+## When To Use Which UML Diagram
+
+| Situation | Better diagram |
+|---|---|
+| explaining classes and relationships | class diagram |
+| explaining API/event flow | sequence diagram |
+| explaining order/payment lifecycle | state diagram |
+| explaining business workflow decisions | activity diagram |
+| explaining deployable modules | component diagram |
+| explaining runtime nodes | deployment diagram |
+
+UML is useful only when the diagram answers a question. Do not draw every
+possible relationship. Draw the relationships that affect implementation or
+review decisions.
+
 ## Class Diagram Example
 
 ```mermaid
@@ -78,3 +93,29 @@ workflow, and approval problems.
 | Name important messages and states | Draw unlabeled arrows |
 | Keep diagrams versioned with code/docs | Keep stale diagrams as authority |
 | Use diagrams to explain trade-offs | Use diagrams as decoration |
+
+## UML In LLD Interviews
+
+For LLD, a strong answer usually includes:
+
+1. core classes and interfaces;
+2. important relationships;
+3. method signatures for key behavior;
+4. state transitions if lifecycle matters;
+5. sequence diagram for one important operation;
+6. extension points and design patterns used;
+7. edge cases and concurrency concerns.
+
+Example prompts:
+
+| Prompt | Useful diagrams |
+|---|---|
+| parking lot | class, sequence, state |
+| ATM | class, chain-of-responsibility sequence, state |
+| elevator | class, state, sequence |
+| rate limiter | class, sequence, component |
+| notification system | class, sequence, component |
+
+## References
+
+- [Unified Modeling Language Introduction - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/unified-modeling-language-uml-introduction/)

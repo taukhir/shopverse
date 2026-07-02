@@ -9,7 +9,7 @@ import io.shopverse.order.dto.OrderDeleteResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.OrderTimelineResponse;
 import io.shopverse.order.dto.ServiceHealthResponse;
-import io.shopverse.order.observability.CorrelationConstants;
+import io.shopverse.platform.observability.CorrelationConstants;
 import io.shopverse.order.service.CatalogService;
 import io.shopverse.order.service.OrderService;
 import io.swagger.v3.oas.annotations.tags.Tag;
