@@ -89,6 +89,47 @@ signals are delivered directly to the process.
 9. Scan images and generate an SBOM.
 10. Never bake secrets into image layers.
 
+### Build Context Rules
+
+The Docker build context is the filesystem tree Docker can see during `COPY`.
+If a Dockerfile needs files outside a service directory, the context must be
+large enough to include them.
+
+For a multi-module or composite build:
+
+```yaml
+order-service:
+  build:
+    context: .
+    dockerfile: order-service/Dockerfile
+```
+
+Then the Dockerfile can copy both service code and shared platform modules:
+
+```dockerfile
+COPY order-service/src ./src
+COPY shopverse-platform ../shopverse-platform
+```
+
+Use `.dockerignore` to keep the larger context from sending build outputs,
+Gradle caches, `.git`, and other local files to Docker.
+
+### Named Volumes And Runtime Users
+
+When changing an image from root to a non-root runtime user, old named volumes
+can keep root-owned files from previous containers. The image may be correct
+but the mounted volume can still block writes.
+
+Typical symptom:
+
+```text
+Permission denied: /app/logs/service.log
+```
+
+Fix the specific stale volume instead of deleting all data volumes. Avoid
+`docker compose down -v` unless deleting databases and object storage is
+intentional.
+
 ## Commands
 
 ### Images
@@ -167,6 +208,29 @@ order-service:
 Applications must still tolerate dependencies restarting after initial
 startup.
 
+### Compose Profiles
+
+Use Compose profiles when the full local stack is too heavy for every task:
+
+```yaml
+prometheus:
+  profiles: ["observability"]
+
+order-service:
+  profiles: ["apps"]
+```
+
+Examples:
+
+```powershell
+docker compose up -d
+docker compose --profile apps up -d
+docker compose --profile apps --profile observability up -d
+```
+
+Profiles reduce default startup time and memory pressure while keeping optional
+services available when needed.
+
 ## Production Considerations
 
 - set CPU and memory limits;
@@ -188,6 +252,9 @@ and environment-driven configuration.
 
 Use the project guide for exact commands and line-by-line Compose explanations:
 
-- [Shopverse Docker guide](https://github.com/taukhir/shopverse/tree/main/docker)
-- [Docker production problems solved](../reliability/PROBLEMS-AND-SOLUTIONS.md)
-
+- [Shopverse Docker implementation](SHOPVERSE-DOCKER.md)
+- [Local Docker implementation guide](LOCAL-DOCKER-IMPLEMENTATION-GUIDE.md)
+- [Docker build context for platform modules](../reliability/problems/optimization/DOCKER-BUILD-CONTEXT-PLATFORM.md)
+- [Docker image size optimization](../reliability/problems/optimization/DOCKER-IMAGE-SIZE-OPTIMIZATION.md)
+- [Docker Compose profiles](../reliability/problems/optimization/DOCKER-COMPOSE-PROFILES.md)
+- [Runtime optimization](../reliability/problems/optimization/RUNTIME-OPTIMIZATION.md)

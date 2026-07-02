@@ -6,6 +6,20 @@ title: Spring REST APIs
 
 Spring REST API material is split into controller design, request mapping, validation/errors, file handling, concurrency/idempotency/OpenAPI, REST clients, testing, and interviews.
 
+## Shopverse Implementation Path
+
+Shopverse shares a small amount of REST infrastructure:
+
+| REST Concern | Shopverse page |
+|---|---|
+| Shared API error response record | [Common Error Contract](../platform/COMMON-ERROR.md) |
+| Shared page response and pagination helpers | [Shared Web Pagination](../platform/WEB-PAGINATION.md) |
+| Platform troubleshooting | [Platform Troubleshooting](../platform/TROUBLESHOOTING.md) |
+
+Controllers, request DTOs, response DTOs, endpoint sort fields, and exception
+policy remain service-owned. The platform modules standardize transport
+helpers only.
+
 ## Focused Pages
 
 | Page | Covers |

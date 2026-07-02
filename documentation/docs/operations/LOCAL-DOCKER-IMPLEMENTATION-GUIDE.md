@@ -9,6 +9,10 @@ This guide explains how the Shopverse local Docker environment is assembled.
 For Docker fundamentals, see [Docker](DOCKER.md). For the detailed current
 Docker implementation, see [Shopverse Docker implementation](SHOPVERSE-DOCKER.md).
 
+For measured startup, memory, and profile results, see
+[Docker Compose Profiles](../reliability/problems/optimization/DOCKER-COMPOSE-PROFILES.md)
+and [Runtime Optimization](../reliability/problems/optimization/RUNTIME-OPTIMIZATION.md).
+
 ## Shopverse Local Docker Stack
 
 | Component | Role |
@@ -110,6 +114,18 @@ healthcheck:
 
 `depends_on` with health conditions improves startup order, but services still
 need normal retry behavior because containers can restart later.
+
+Shopverse also uses Compose profiles so the default local stack stays smaller:
+
+```powershell
+docker compose up -d
+docker compose --profile apps up -d
+docker compose --profile observability up -d
+docker compose --profile apps --profile observability --profile assets up -d
+```
+
+Default Compose starts core infrastructure. Application, observability, and
+asset services are opt-in profiles.
 
 ## Step 5: Build Spring Boot Images
 

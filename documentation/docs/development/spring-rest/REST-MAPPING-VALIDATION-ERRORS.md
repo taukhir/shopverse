@@ -8,6 +8,17 @@ Request data mapping, validation, ResponseEntity, and central error handling.
 
 Back to [Spring REST APIs](../SPRING-REST-APIS.md).
 
+## Shopverse Links
+
+Shopverse applies these REST patterns with:
+
+- [Common Error Contract](../../platform/COMMON-ERROR.md) for the shared error response record;
+- [Shared Web Pagination](../../platform/WEB-PAGINATION.md) for page response and pagination validation helpers;
+- [Platform Troubleshooting](../../platform/TROUBLESHOOTING.md) for common integration mistakes.
+
+The shared error module standardizes the JSON shape. Services still own their
+exception classes and status-code policy.
+
 ## Mapping Request Data
 
 ### Path Variables
@@ -233,6 +244,37 @@ Validation failures should produce field-level errors:
   ]
 }
 ```
+
+### Error Contract Boundary
+
+Central error handling should be consistent without becoming a hidden domain
+policy layer.
+
+Good shared contract:
+
+```java
+public record ApiErrorResponse(
+        Instant timestamp,
+        int status,
+        String error,
+        String message,
+        String path
+) {
+}
+```
+
+Service-owned policy:
+
+```java
+@ExceptionHandler(ProductNotFoundException.class)
+ResponseEntity<ApiErrorResponse> handleNotFound(...) {
+    return buildError(HttpStatus.NOT_FOUND, ...);
+}
+```
+
+Keep the mapping from `ProductNotFoundException` to `404` in the service. The
+platform module should not know product, order, payment, inventory, or customer
+exception types.
 
 
 

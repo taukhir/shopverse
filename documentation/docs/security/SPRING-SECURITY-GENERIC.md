@@ -6,6 +6,21 @@ title: Spring Security
 
 Spring Security material is split into focused pages for authentication basics, servlet filter internals, JWT/JWKS, authorization, OAuth2, and production security practices.
 
+## Shopverse Implementation Path
+
+After reading the generic security pages, use these Shopverse pages for the
+actual implementation:
+
+| Concept | Shopverse page |
+|---|---|
+| Servlet JWT resource-server shared setup | [Security Starter](../platform/SECURITY-STARTER.md) |
+| Current JWT/OAuth2 mapping | [JWT, OAuth2, And Spring Security](JWT-OAUTH2-SPRING-SECURITY.md) |
+| Security starter properties and troubleshooting | [Platform Config Properties](../platform/CONFIG-PROPERTIES.md) and [Platform Troubleshooting](../platform/TROUBLESHOOTING.md) |
+| Resource ownership authorization problems | [Resource Ownership Authorization](../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md) |
+
+Important boundary: the current platform security starter is servlet-based.
+`api-gateway` uses WebFlux and keeps reactive security configuration local.
+
 For generic security study material, start with:
 
 - [Security principles](principles/SECURITY-PRINCIPLES.md)
