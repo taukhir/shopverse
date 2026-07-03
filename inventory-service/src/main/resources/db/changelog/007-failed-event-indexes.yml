@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-inventory-failed-event-indexes
+      author: shopverse
+      changes:
+        - createIndex:
+            tableName: failed_kafka_events
+            indexName: idx_inventory_failed_replayed_failed_at
+            columns:
+              - column: { name: replayed }
+              - column: { name: failed_at }
+        - createIndex:
+            tableName: failed_kafka_events
+            indexName: idx_inventory_failed_topic_replayed
+            columns:
+              - column: { name: source_topic }
+              - column: { name: replayed }

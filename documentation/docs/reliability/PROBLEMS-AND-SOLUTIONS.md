@@ -6,6 +6,9 @@ title: Shopverse Problems And Solutions
 
 Production, runtime, build, testing, and operations issues are split into focused problem pages while this page remains the index.
 
+For the newer grouped index, start with
+[Problems And Solutions Index](problems/README.md).
+
 ## Focused Pages
 
 | Page | Covers |
@@ -14,6 +17,7 @@ Production, runtime, build, testing, and operations issues are split into focuse
 | [Outbox Runtime Problems](problems/OUTBOX-RUNTIME-PROBLEMS.md) | Outbox database lock scope and stale outbox claim recovery. |
 | [Docker And Runtime Image Problems](problems/DOCKER-RUNTIME-IMAGE-PROBLEMS.md) | Parallel Gradle cache locks, duplicate JAR ownership layers, non-root containers, and multi-stage runtime image composition. |
 | [Dependency And Verification Problems](problems/DEPENDENCY-VERIFICATION-PROBLEMS.md) | Inventory outage semantics, bounded verification, Windows health probes, and isolated Config Server tracing noise. |
+| [Build, JAR, Docker, And Compose Optimization Solutions](problems/OPTIMIZATION-SOLUTIONS.md) | Umbrella plan, baseline measurements, and deep-dive solution pages for fixing Docker builds, reducing test time, shrinking images/JARs, and adding Compose profiles. |
 | [Problems Summary And Links](problems/PROBLEMS-SUMMARY-LINKS.md) | The summary table and related documentation links. |
 
 ## Compatibility Anchors

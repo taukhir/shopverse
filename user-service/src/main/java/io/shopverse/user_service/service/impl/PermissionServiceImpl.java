@@ -1,7 +1,8 @@
 package io.shopverse.user_service.service.impl;
 
-import io.shopverse.user_service.config.CacheConfig;
+import io.shopverse.platform.web.pagination.PageMapper;
 import io.shopverse.platform.web.pagination.PageResponse;
+import io.shopverse.user_service.config.CacheConfig;
 import io.shopverse.user_service.dto.PermissionResponse;
 import io.shopverse.user_service.entities.Permission;
 import io.shopverse.user_service.exceptions.DuplicateResourceException;
@@ -14,7 +15,6 @@ import io.shopverse.user_service.model.UpdatePermissionRequest;
 import io.shopverse.user_service.repository.PermissionRepository;
 import io.shopverse.user_service.repository.specification.PermissionSpecifications;
 import io.shopverse.user_service.service.PermissionService;
-import io.shopverse.platform.web.pagination.PageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Pageable;

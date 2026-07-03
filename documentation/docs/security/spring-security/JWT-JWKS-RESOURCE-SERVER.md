@@ -8,6 +8,17 @@ Bearer JWT authentication, JWT parts, JWS/JWE/JWK/JWKS, symmetric/asymmetric sig
 
 Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
 
+## Shopverse Links
+
+Shopverse shares servlet resource-server infrastructure through:
+
+- [Security Starter](../../platform/SECURITY-STARTER.md) for issuer validation, JWKS-backed decoding, and authority conversion;
+- [JWT, OAuth2, And Spring Security](../JWT-OAUTH2-SPRING-SECURITY.md) for the current Auth Service and resource-service flow;
+- [Platform Troubleshooting](../../platform/TROUBLESHOOTING.md) for missing bean, wrong issuer, JWKS, and servlet/WebFlux mismatch failures.
+
+The starter does not own endpoint authorization. Each service keeps its own
+`SecurityFilterChain`, `@PreAuthorize` rules, and resource-ownership checks.
+
 ## Stateless Bearer JWT Authentication
 
 ```mermaid
@@ -239,6 +250,27 @@ The decoder:
 
 Every resource service should also validate expected audience and restrict
 accepted algorithms.
+
+### Shared Resource-Server Boundary
+
+A good shared resource-server module can own:
+
+- JWT decoder construction;
+- issuer and timestamp validation;
+- JWKS location handling;
+- claim-to-authority conversion;
+- common actuator permit-list defaults when they are truly uniform.
+
+It should not own:
+
+- endpoint-specific URL rules;
+- business ownership checks;
+- token issuing;
+- service-local Basic auth;
+- reactive gateway security when the starter is servlet-based.
+
+This separation keeps security plumbing consistent without hiding service API
+authorization in a central library.
 
 
 ## Claim Types

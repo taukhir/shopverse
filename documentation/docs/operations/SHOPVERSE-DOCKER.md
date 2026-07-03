@@ -9,6 +9,13 @@ This page is the canonical explanation of how Shopverse builds and runs its
 containers. For reusable Docker concepts and commands, see
 [Docker](DOCKER.md).
 
+For the measured optimization work that changed the current Docker setup, see:
+
+- [Docker Build Context For Platform Modules](../reliability/problems/optimization/DOCKER-BUILD-CONTEXT-PLATFORM.md)
+- [Docker Image Size Optimization](../reliability/problems/optimization/DOCKER-IMAGE-SIZE-OPTIMIZATION.md)
+- [Docker Compose Profiles](../reliability/problems/optimization/DOCKER-COMPOSE-PROFILES.md)
+- [Runtime Optimization](../reliability/problems/optimization/RUNTIME-OPTIMIZATION.md)
+
 ## Container Architecture
 
 ```mermaid
@@ -27,6 +34,10 @@ flowchart TB
 The final image contains the runtime JRE, `curl`, the application JAR, and a
 writable log directory. It does not contain source code, Gradle caches, or the
 JDK compiler.
+
+Current service Dockerfiles build from the repository root context because the
+services use the local `shopverse-platform` composite build. `.dockerignore`
+keeps that root context small enough for normal local builds.
 
 ## Service Dockerfile
 

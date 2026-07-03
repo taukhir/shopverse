@@ -1,9 +1,9 @@
 package io.shopverse.user_service.exceptions;
 
-import io.github.resilience4j.bulkhead.BulkheadFullException;
 import io.github.resilience4j.bulkhead.Bulkhead;
-import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import io.github.resilience4j.bulkhead.BulkheadFullException;
 import io.github.resilience4j.ratelimiter.RateLimiter;
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import io.shopverse.platform.error.ApiErrorResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.DataIntegrityViolationException;
