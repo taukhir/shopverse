@@ -1,17 +1,18 @@
 package io.shopverse.order.service;
 
-import io.shopverse.order.dto.CheckoutRequest;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.shopverse.order.config.KafkaTopicsProperties;
 import io.shopverse.order.dto.CatalogItemResponse;
+import io.shopverse.order.dto.CheckoutRequest;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.OrderTimelineResponse;
 import io.shopverse.order.entity.OrderEntity;
 import io.shopverse.order.entity.OrderTimelineEvent;
 import io.shopverse.order.entity.OrderTimelineStage;
 import io.shopverse.order.exception.ResourceNotFoundException;
+import io.shopverse.order.outbox.OutboxService;
 import io.shopverse.order.repository.OrderRepository;
 import io.shopverse.order.repository.OrderTimelineRepository;
-import io.shopverse.order.config.KafkaTopicsProperties;
-import io.shopverse.order.outbox.OutboxService;
 import io.shopverse.order.saga.OrderCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,6 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.List;
 import java.util.UUID;

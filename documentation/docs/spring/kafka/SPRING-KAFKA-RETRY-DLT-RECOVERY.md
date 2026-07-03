@@ -8,6 +8,19 @@ Retry topics, DLT handlers, poison-event recovery guarantees, and replaying fail
 
 Back to [Spring Kafka](../SPRING-KAFKA.md).
 
+## Shopverse Links
+
+Shopverse implements the recovery mechanics with:
+
+- [Kafka Recovery Starter](../../platform/KAFKA-RECOVERY-STARTER.md) for failed-event recording, replay orchestration, and metrics;
+- [Kafka Event Parsing](../../platform/KAFKA-PARSING.md) for consistent payload parsing;
+- [Outbox Starter](../../platform/OUTBOX-STARTER.md) so replay publishes through the same durable outbox path as normal events;
+- [Runtime Optimization](../../reliability/problems/optimization/RUNTIME-OPTIMIZATION.md) for failed-event replay indexes and listener concurrency settings.
+
+The generic retry/DLT mechanism is transport-level recovery. Shopverse adds a
+database recovery record so operators can inspect, audit, and replay failures
+after the root cause is fixed.
+
 ## Non-Blocking Retry With `@RetryableTopic`
 
 Shopverse uses:
@@ -182,6 +195,25 @@ creates another retry/DLT cycle.
 Replay must use the original event ID and consumer idempotency rules when those
 are introduced. An operator action should never bypass normal validation,
 authorization, outbox, logging, or metrics.
+
+### Replay Through Outbox
+
+Do not replay by directly sending from an admin controller to Kafka. That
+creates another dual-write path and bypasses the same durability guarantees
+used by normal event publication.
+
+Safer replay flow:
+
+```text
+operator requests replay
+  -> service validates authorization and failed-event state
+  -> recovery service parses the stored payload
+  -> service-owned adapter enqueues replay into the outbox
+  -> outbox publisher sends to Kafka
+  -> failed-event row records replay metadata
+```
+
+This preserves auditability, metrics, retry behavior, and correlation handling.
 
 
 

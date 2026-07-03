@@ -6,6 +6,22 @@ title: Spring Kafka
 
 Spring Kafka material is split into focused pages for publishing, consuming, concurrency, retries/DLT, idempotency, operations, and event design.
 
+## Shopverse Implementation Path
+
+After reading the generic Kafka pages, use these Shopverse pages to see the
+same ideas applied in code:
+
+| Concept | Shopverse page |
+|---|---|
+| Shared listener JSON parsing | [Kafka Event Parsing](../platform/KAFKA-PARSING.md) |
+| Failed event persistence and replay | [Kafka Recovery Starter](../platform/KAFKA-RECOVERY-STARTER.md) |
+| Outbox-backed event publication | [Outbox Starter](../platform/OUTBOX-STARTER.md) |
+| Kafka idempotency and runtime failures | [Runtime Reliability Problems](../reliability/problems/RUNTIME-RELIABILITY-PROBLEMS.md) |
+| Replay and DLT operational behavior | [Outbox Runtime Problems](../reliability/problems/OUTBOX-RUNTIME-PROBLEMS.md) |
+
+Keep the boundary clear: Kafka infrastructure helpers can be shared, but event
+payload records such as order, payment, or inventory events stay service-owned.
+
 ## Focused Pages
 
 | Page | Covers |

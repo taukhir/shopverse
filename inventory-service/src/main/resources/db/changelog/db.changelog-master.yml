@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/005-outbox-claim.yml
   - include:
       file: db/changelog/006-product-catalog-details.yml
+  - include:
+      file: db/changelog/007-failed-event-indexes.yml

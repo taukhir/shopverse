@@ -1,9 +1,9 @@
 package io.shopverse.user_service.repository;
 
 import io.shopverse.user_service.entities.Role;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.EntityGraph;
 
 import java.util.Optional;
 

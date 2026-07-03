@@ -1,16 +1,16 @@
 # syntax=docker/dockerfile:1.7
 
 FROM eclipse-temurin:21-jdk-jammy AS build
-WORKDIR /workspace
+WORKDIR /workspace/api-gateway
 
-COPY gradlew gradlew.bat settings.gradle build.gradle ./
-COPY gradle ./gradle
+COPY api-gateway/gradlew api-gateway/gradlew.bat api-gateway/settings.gradle api-gateway/build.gradle ./
+COPY api-gateway/gradle ./gradle
 RUN chmod +x ./gradlew
 
-COPY src ./src
+COPY api-gateway/src ./src
 RUN --mount=type=cache,id=shopverse-api-gateway-gradle,target=/root/.gradle ./gradlew bootJar --no-daemon --max-workers=2
 
-FROM eclipse-temurin:21-jre-jammy AS runtime
+FROM eclipse-temurin:21-jre-alpine AS runtime
 
 ENV APP_HOME=/app \
     SERVER_PORT=8080 \
@@ -18,13 +18,11 @@ ENV APP_HOME=/app \
 
 WORKDIR ${APP_HOME}
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl \
-    && rm -rf /var/lib/apt/lists/* \
-    && groupadd --system shopverse \
-    && useradd --system --gid shopverse --home-dir ${APP_HOME} --shell /usr/sbin/nologin shopverse
+RUN apk add --no-cache curl \
+    && addgroup -S shopverse \
+    && adduser -S -G shopverse -h ${APP_HOME} -s /sbin/nologin shopverse
 
-COPY --chown=shopverse:shopverse --from=build /workspace/build/libs/*.jar app.jar
+COPY --chown=shopverse:shopverse --from=build /workspace/api-gateway/build/libs/*.jar app.jar
 
 RUN mkdir -p ${APP_HOME}/logs \
     && chown shopverse:shopverse ${APP_HOME}/logs

@@ -5,6 +5,7 @@ const sidebars: SidebarsConfig = {
     'README',
     'reference/LEARNING-PATH',
     'reference/DOCUMENTATION-STRUCTURE',
+    'reference/DOCUMENTATION-MAINTENANCE-MAP',
     {
       type: 'category',
       label: '1. Engineering Foundations',
@@ -71,6 +72,7 @@ const sidebars: SidebarsConfig = {
       label: '2. Java Fundamentals',
       items: [
         'java/JAVA-FUNDAMENTALS',
+        'java/JAVA-8-TO-26',
         'java/JAVA-JVM-MEMORY',
         'java/JAVA-THREADING-MODEL',
         'java/JAVA-OOP',
@@ -103,6 +105,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: '3. Spring Ecosystem',
       items: [
+        'spring/README',
         'spring/SPRING-ECOSYSTEM',
         'spring/SPRING-SPEL',
         {
@@ -332,6 +335,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: '8. Delivery, Containers And CI/CD',
       items: [
+        'operations/README',
         'operations/DEPLOYMENT-STRATEGIES',
         'operations/DOCKER',
         'operations/MINIO',
@@ -348,7 +352,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Shopverse Case Study',
+      label: '9. Shopverse Implementation',
       collapsed: false,
       items: [
         {
@@ -406,6 +410,26 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'Platform Infrastructure',
+          collapsed: false,
+          items: [
+            'platform/README',
+            'platform/DUPLICATE-LOGIC',
+            'platform/MIGRATION-CHECKLIST',
+            'platform/BEFORE-AFTER-FILES',
+            'platform/CONFIG-PROPERTIES',
+            'platform/TROUBLESHOOTING',
+            'platform/COMMON-ERROR',
+            'platform/WEB-PAGINATION',
+            'platform/OBSERVABILITY-STARTER',
+            'platform/SECURITY-STARTER',
+            'platform/KAFKA-PARSING',
+            'platform/OUTBOX-STARTER',
+            'platform/KAFKA-RECOVERY-STARTER',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Checkout Reliability',
           items: [
             'reliability/SAGA-OUTBOX',
@@ -444,6 +468,7 @@ const sidebars: SidebarsConfig = {
           label: 'Problems And Solutions',
           items: [
             'reliability/PROBLEMS-AND-SOLUTIONS',
+            'reliability/problems/README',
             {
               type: 'category',
               label: 'Runtime Reliability Problems',
@@ -471,6 +496,23 @@ const sidebars: SidebarsConfig = {
             'reliability/problems/OUTBOX-RUNTIME-PROBLEMS',
             'reliability/problems/DOCKER-RUNTIME-IMAGE-PROBLEMS',
             'reliability/problems/DEPENDENCY-VERIFICATION-PROBLEMS',
+            {
+              type: 'category',
+              label: 'Optimization Solutions',
+              items: [
+                'reliability/problems/OPTIMIZATION-SOLUTIONS',
+                'reliability/problems/optimization/OPTIMIZATION-BASELINE',
+                'reliability/problems/optimization/DOCKER-BUILD-CONTEXT-PLATFORM',
+                'reliability/problems/optimization/ORDER-SERVICE-TEST-OPTIMIZATION',
+                'reliability/problems/optimization/DOCKER-IMAGE-SIZE-OPTIMIZATION',
+                'reliability/problems/optimization/JAR-SIZE-OPTIMIZATION',
+                'reliability/problems/optimization/DOCKER-COMPOSE-PROFILES',
+                'reliability/problems/optimization/GRADLE-DEPENDENCY-OPTIMIZATION',
+                'reliability/problems/optimization/GRADLE-BUILD-PERFORMANCE',
+                'reliability/problems/optimization/RUNTIME-OPTIMIZATION',
+                'reliability/problems/optimization/VERIFICATION-AND-DOCUMENTATION',
+              ],
+            },
             'reliability/problems/PROBLEMS-SUMMARY-LINKS',
           ],
         },

@@ -37,21 +37,21 @@ jobs:
       matrix:
         include:
           - service: config-server
-            context: ./config-server
+            dockerfile: config-server/Dockerfile
           - service: discovery-server
-            context: ./discovery-server
+            dockerfile: discovery-server/Dockerfile
           - service: user-service
-            context: ./user-service
+            dockerfile: user-service/Dockerfile
           - service: auth-service
-            context: ./auth-service
+            dockerfile: auth-service/Dockerfile
           - service: order-service
-            context: ./order-service
+            dockerfile: order-service/Dockerfile
           - service: payment-service
-            context: ./payment-service
+            dockerfile: payment-service/Dockerfile
           - service: inventory-service
-            context: ./inventory-service
+            dockerfile: inventory-service/Dockerfile
           - service: api-gateway
-            context: ./api-gateway
+            dockerfile: api-gateway/Dockerfile
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,7 +80,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
-          context: ${{ matrix.context }}
+          context: .
+          file: ${{ matrix.dockerfile }}
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ steps.vars.outputs.image_namespace }}/${{ matrix.service }}:${{ steps.vars.outputs.source_sha }}

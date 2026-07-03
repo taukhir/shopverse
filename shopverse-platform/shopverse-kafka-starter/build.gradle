@@ -1,10 +1,8 @@
 description = 'Shopverse Kafka event envelope, parsing, listener helpers, and correlation support.'
 
 dependencies {
-    api project(':shopverse-observability-starter')
-    api 'com.fasterxml.jackson.core:jackson-databind'
-    api 'org.springframework.boot:spring-boot-autoconfigure'
-    api 'org.springframework.kafka:spring-kafka'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure'
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
