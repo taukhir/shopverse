@@ -285,13 +285,18 @@ jobs:
       - name: Start lightweight stack
         shell: bash
         run: |
-          docker compose \
-            -f docker-compose.yml \
-            -f docker-compose.test.yml \
-            up -d --build \
-            mysql mysql-bootstrap kafka config-server discovery-server \
-            user-service auth-service order-service payment-service \
-            inventory-service api-gateway
+          set -o pipefail
+          if ! docker compose \
+              -f docker-compose.yml \
+              -f docker-compose.test.yml \
+              up -d --build \
+              mysql mysql-bootstrap kafka config-server discovery-server \
+              user-service auth-service order-service payment-service \
+              inventory-service api-gateway; then
+            docker compose -f docker-compose.yml -f docker-compose.test.yml ps
+            docker compose -f docker-compose.yml -f docker-compose.test.yml logs --tail=160 mysql mysql-bootstrap
+            exit 1
+          fi
 
       - name: Wait for API Gateway
         shell: pwsh
