@@ -1,6 +1,0 @@
-[Error: EPERM: operation not permitted, lstat 'D:\BE Projects\shopverse\documentation\build\assets\js\e0cae2bc.29aeac51.js'] {
-  errno: -4048,
-  code: 'EPERM',
-  syscall: 'lstat',
-  path: 'D:\\BE Projects\\shopverse\\documentation\\build\\assets\\js\\e0cae2bc.29aeac51.js'
-}

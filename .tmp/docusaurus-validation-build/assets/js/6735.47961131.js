@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshopverse_documentation=self.webpackChunkshopverse_documentation||[]).push([[6735],{6735(e,s,n){n.d(s,{createEventModelingServices:()=>t.g});var t=n(2968);n(9302)}}]);
