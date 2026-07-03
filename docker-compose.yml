@@ -120,6 +120,7 @@ services:
       SPRING_PROFILES_ACTIVE: native
       CONFIG_SEARCH_LOCATIONS: file:/config
       LOG_FILE: /app/logs/config-server.log
+      TRACING_SAMPLING_PROBABILITY: ${CONFIG_SERVER_TRACING_SAMPLING_PROBABILITY:-0.0}
     ports:
       - "8888:8888"
     volumes:
@@ -145,6 +146,7 @@ services:
       JAVA_OPTS: ${DISCOVERY_SERVER_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       LOG_FILE: /app/logs/discovery-server.log
+      TRACING_SAMPLING_PROBABILITY: ${DISCOVERY_SERVER_TRACING_SAMPLING_PROBABILITY:-0.0}
     ports:
       - "8761:8761"
     volumes:
@@ -178,6 +180,8 @@ services:
       DB_USERNAME: ${MYSQL_USER:-ahmed}
       DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
       DB_DRIVER: ${USER_SERVICE_DB_DRIVER:-com.mysql.cj.jdbc.Driver}
+      DB_POOL_MAX_SIZE: ${USER_SERVICE_DB_POOL_MAX_SIZE:-4}
+      DB_POOL_MIN_IDLE: ${USER_SERVICE_DB_POOL_MIN_IDLE:-1}
       JPA_DDL_AUTO: ${USER_SERVICE_JPA_DDL_AUTO:-none}
       JPA_SHOW_SQL: ${USER_SERVICE_JPA_SHOW_SQL:-false}
       HIBERNATE_FORMAT_SQL: ${USER_SERVICE_HIBERNATE_FORMAT_SQL:-false}
@@ -185,6 +189,7 @@ services:
       USER_SERVICE_LIQUIBASE_CHANGELOG: ${USER_SERVICE_LIQUIBASE_CHANGELOG:-classpath:db/changelog/db.changelog-master.yml}
       JWK_SET_URI: ${USER_SERVICE_JWK_SET_URI:-http://auth-service:8081/auth/.well-known/jwks.json}
       ZIPKIN_ENDPOINT: ${USER_SERVICE_ZIPKIN_ENDPOINT:-http://zipkin:9411/api/v2/spans}
+      TRACING_SAMPLING_PROBABILITY: ${USER_SERVICE_TRACING_SAMPLING_PROBABILITY:-0.1}
       LOG_FILE: ${USER_SERVICE_LOG_FILE:-/app/logs/user-service.log}
       RATE_LIMIT_BURST_CAPACITY: ${USER_SERVICE_RATE_LIMIT_BURST_CAPACITY:-120}
       RATE_LIMIT_REFRESH_PERIOD: ${USER_SERVICE_RATE_LIMIT_REFRESH_PERIOD:-60s}
@@ -228,6 +233,7 @@ services:
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      TRACING_SAMPLING_PROBABILITY: ${AUTH_SERVICE_TRACING_SAMPLING_PROBABILITY:-0.1}
       RSA_PUBLIC_KEY: classpath:keys/public.pem
       RSA_PRIVATE_KEY: classpath:keys/private.pem
       LOG_FILE: /app/logs/auth-service.log
@@ -271,7 +277,13 @@ services:
       DB_URL: jdbc:mysql://mysql:3306/order_service?allowPublicKeyRetrieval=true&useSSL=false
       DB_USERNAME: ${MYSQL_USER:-ahmed}
       DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      DB_POOL_MAX_SIZE: ${ORDER_SERVICE_DB_POOL_MAX_SIZE:-4}
+      DB_POOL_MIN_IDLE: ${ORDER_SERVICE_DB_POOL_MIN_IDLE:-1}
       LOG_FILE: /app/logs/order-service.log
+      TRACING_SAMPLING_PROBABILITY: ${ORDER_SERVICE_TRACING_SAMPLING_PROBABILITY:-0.1}
+      KAFKA_LISTENER_CONCURRENCY: ${ORDER_SERVICE_KAFKA_LISTENER_CONCURRENCY:-1}
+      KAFKA_CONSUMER_MAX_POLL_RECORDS: ${ORDER_SERVICE_KAFKA_CONSUMER_MAX_POLL_RECORDS:-25}
+      OUTBOX_BATCH_SIZE: ${ORDER_SERVICE_OUTBOX_BATCH_SIZE:-25}
     ports:
       - "8083:8083"
     volumes:
@@ -316,7 +328,13 @@ services:
       DB_URL: jdbc:mysql://mysql:3306/payment_service?allowPublicKeyRetrieval=true&useSSL=false
       DB_USERNAME: ${MYSQL_USER:-ahmed}
       DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      DB_POOL_MAX_SIZE: ${PAYMENT_SERVICE_DB_POOL_MAX_SIZE:-4}
+      DB_POOL_MIN_IDLE: ${PAYMENT_SERVICE_DB_POOL_MIN_IDLE:-1}
       LOG_FILE: /app/logs/payment-service.log
+      TRACING_SAMPLING_PROBABILITY: ${PAYMENT_SERVICE_TRACING_SAMPLING_PROBABILITY:-0.1}
+      KAFKA_LISTENER_CONCURRENCY: ${PAYMENT_SERVICE_KAFKA_LISTENER_CONCURRENCY:-1}
+      KAFKA_CONSUMER_MAX_POLL_RECORDS: ${PAYMENT_SERVICE_KAFKA_CONSUMER_MAX_POLL_RECORDS:-25}
+      OUTBOX_BATCH_SIZE: ${PAYMENT_SERVICE_OUTBOX_BATCH_SIZE:-25}
     ports:
       - "8084:8084"
     volumes:
@@ -361,7 +379,14 @@ services:
       DB_URL: jdbc:mysql://mysql:3306/inventory_service?allowPublicKeyRetrieval=true&useSSL=false
       DB_USERNAME: ${MYSQL_USER:-ahmed}
       DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      DB_POOL_MAX_SIZE: ${INVENTORY_SERVICE_DB_POOL_MAX_SIZE:-4}
+      DB_POOL_MIN_IDLE: ${INVENTORY_SERVICE_DB_POOL_MIN_IDLE:-1}
       LOG_FILE: /app/logs/inventory-service.log
+      TRACING_SAMPLING_PROBABILITY: ${INVENTORY_SERVICE_TRACING_SAMPLING_PROBABILITY:-0.1}
+      KAFKA_LISTENER_CONCURRENCY: ${INVENTORY_SERVICE_KAFKA_LISTENER_CONCURRENCY:-1}
+      KAFKA_CONSUMER_MAX_POLL_RECORDS: ${INVENTORY_SERVICE_KAFKA_CONSUMER_MAX_POLL_RECORDS:-25}
+      OUTBOX_BATCH_SIZE: ${INVENTORY_SERVICE_OUTBOX_BATCH_SIZE:-25}
+      INVENTORY_EXPIRY_SCAN_DELAY_MS: ${INVENTORY_SERVICE_EXPIRY_SCAN_DELAY_MS:-60000}
     ports:
       - "8086:8086"
     volumes:
@@ -402,6 +427,7 @@ services:
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+      TRACING_SAMPLING_PROBABILITY: ${API_GATEWAY_TRACING_SAMPLING_PROBABILITY:-0.1}
       LOG_FILE: /app/logs/api-gateway.log
     ports:
       - "8080:8080"

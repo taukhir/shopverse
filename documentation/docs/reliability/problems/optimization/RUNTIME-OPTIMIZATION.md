@@ -8,13 +8,17 @@ Back to [Optimization Solutions](../OPTIMIZATION-SOLUTIONS.md).
 
 ## Status
 
-Implemented as a first measured local-runtime pass.
+Implemented as a measured local-runtime pass, with a second pass that makes
+per-service runtime tuning explicit in Compose.
 
 Changed:
 
 - added local JVM heap percentage overrides through Compose `JAVA_OPTS`
 - added shared Hikari pool defaults in `cloud-configs/application.yml`
 - added shared Kafka listener concurrency default in `cloud-configs/application.yml`
+- added shared Kafka consumer poll-size and producer batching/compression defaults
+- added shared outbox batch-size default
+- added service-specific local Compose defaults for DB pool size, Kafka poll size, outbox batch size, and tracing sample rate
 - added failed-event replay indexes in `order-service`, `payment-service`, and `inventory-service`
 - verified default Compose and `apps` profile startup after rebuilding the optimized images
 
@@ -179,6 +183,66 @@ docker volume ls --format "{{.Name}}" |
 
 Do not use `docker compose down -v` unless you intentionally want to delete
 database and MinIO data volumes too.
+
+### Step 6: Make Local Runtime Knobs Explicit Per Service
+
+`cloud-configs/application.yml` now exposes these shared runtime defaults:
+
+```yaml
+spring:
+  kafka:
+    consumer:
+      properties:
+        max.poll.records: ${KAFKA_CONSUMER_MAX_POLL_RECORDS:50}
+    producer:
+      properties:
+        linger.ms: ${KAFKA_PRODUCER_LINGER_MS:5}
+        compression.type: ${KAFKA_PRODUCER_COMPRESSION_TYPE:lz4}
+
+shopverse:
+  outbox:
+    batch-size: ${OUTBOX_BATCH_SIZE:25}
+```
+
+The Compose file then sets local defaults per service instead of relying only
+on broad shared defaults:
+
+```yaml
+order-service:
+  environment:
+    DB_POOL_MAX_SIZE: ${ORDER_SERVICE_DB_POOL_MAX_SIZE:-4}
+    DB_POOL_MIN_IDLE: ${ORDER_SERVICE_DB_POOL_MIN_IDLE:-1}
+    TRACING_SAMPLING_PROBABILITY: ${ORDER_SERVICE_TRACING_SAMPLING_PROBABILITY:-0.1}
+    KAFKA_LISTENER_CONCURRENCY: ${ORDER_SERVICE_KAFKA_LISTENER_CONCURRENCY:-1}
+    KAFKA_CONSUMER_MAX_POLL_RECORDS: ${ORDER_SERVICE_KAFKA_CONSUMER_MAX_POLL_RECORDS:-25}
+    OUTBOX_BATCH_SIZE: ${ORDER_SERVICE_OUTBOX_BATCH_SIZE:-25}
+```
+
+The same variables are listed in `.env.example` so local developers can copy
+and adjust them without editing Compose.
+
+Why this helps:
+
+- local MySQL connection usage is bounded service by service
+- local Kafka consumers process smaller batches by default, which avoids large bursts during recovery
+- outbox publishers claim smaller batches locally, reducing DB lock time and Kafka send pressure
+- tracing is sampled at `0.1` for application services and `0.0` for config/discovery by default, reducing local Zipkin and logging overhead
+- production can still override every value without changing the image or source code
+
+Suggested local overrides:
+
+```powershell
+$env:ORDER_SERVICE_DB_POOL_MAX_SIZE="6"
+$env:ORDER_SERVICE_KAFKA_LISTENER_CONCURRENCY="2"
+$env:ORDER_SERVICE_KAFKA_CONSUMER_MAX_POLL_RECORDS="100"
+$env:ORDER_SERVICE_OUTBOX_BATCH_SIZE="50"
+$env:ORDER_SERVICE_TRACING_SAMPLING_PROBABILITY="1.0"
+docker compose --profile apps up -d order-service
+```
+
+Use larger values only when measuring throughput or replay behavior. For
+normal local development, the smaller defaults reduce memory, DB connection,
+Kafka, and tracing pressure.
 
 ## Verification Commands And Results
 
