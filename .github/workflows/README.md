@@ -143,6 +143,14 @@ reachable from the GitHub-hosted runner or through a secure self-hosted runner.
 Keep Jenkins credentials in GitHub secrets and configure Jenkins CSRF/API-token
 requirements as documented in [jenkins/README.md](../../jenkins/README.md).
 
+Leave all Jenkins secrets unset to skip this optional handoff. If any Jenkins
+secret is set, configure all of them:
+
+- `JENKINS_URL`
+- `JENKINS_JOB_PATH`
+- `JENKINS_USER`
+- `JENKINS_API_TOKEN`
+
 ## Local Equivalent
 
 The closest local commands are:
