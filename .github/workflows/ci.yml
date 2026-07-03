@@ -35,6 +35,8 @@ jobs:
         env:
           MYSQL_PASSWORD: test-password
           MYSQL_ROOT_PASSWORD: test-root-password
+          MINIO_ROOT_USER: test-minio-user
+          MINIO_ROOT_PASSWORD: test-minio-password
           GRAFANA_ADMIN_PASSWORD: test-grafana-password
           COMPOSE_PROJECT_NAME: shopverse-ci-validation
         run: |
