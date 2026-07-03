@@ -1,13 +1,47 @@
+# Local scratch and generated validation output
+.tmp/
+tmp/
+*.tmp
+
+# Logs
 **/logs/
+*.log
+
+# Local environment and secrets
 .env
+.env.*
+!.env.example
 demo-credentials.local.md
+
+# IDE/editor metadata
 .idea/
+**/.idea/
+.vscode/
+**/.vscode/
 *.iml
+*.iws
+*.ipr
+
+# Java/Gradle output
 **/build/
 **/.gradle/
+**/out/
+**/bin/
+HELP.md
+
+# Node/frontend output
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+
+# Documentation generated files
 documentation/docs/*.docx
 documentation/docs/rendered/
 documentation/node_modules/
 documentation/build/
 documentation/.docusaurus/
-.tmp/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,1 +1,0 @@
-(self.webpackChunkshopverse_documentation=self.webpackChunkshopverse_documentation||[]).push([[5741],{5741(){}}]);
