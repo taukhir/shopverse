@@ -1,3 +1,18 @@
+---
+title: JWT, OAuth2, And Spring Security
+difficulty: Advanced
+page_type: Case Study
+status: Partial
+prerequisites:
+  - HTTP authentication fundamentals
+  - JWT claims and asymmetric signing
+learning_objectives:
+  - Follow Shopverse login and resource-server authorization
+  - Distinguish implemented JWT behavior from planned OAuth2 features
+technologies: [Spring Security, JWT, JWKS, RSA]
+last_reviewed: "2026-07-10"
+---
+
 # JWT, OAuth2, And Spring Security
 
 For generic Spring Security architecture, authentication providers, form

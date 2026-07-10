@@ -386,6 +386,10 @@ services:
       KAFKA_CONSUMER_MAX_POLL_RECORDS: ${INVENTORY_SERVICE_KAFKA_CONSUMER_MAX_POLL_RECORDS:-25}
       OUTBOX_BATCH_SIZE: ${INVENTORY_SERVICE_OUTBOX_BATCH_SIZE:-25}
       INVENTORY_EXPIRY_SCAN_DELAY_MS: ${INVENTORY_SERVICE_EXPIRY_SCAN_DELAY_MS:-60000}
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_PUBLIC_ENDPOINT: ${MINIO_PUBLIC_ENDPOINT:-http://localhost:9000}
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-shopverse-minio}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:?Set MINIO_ROOT_PASSWORD in .env}
     ports:
       - "8086:8086"
     volumes:
@@ -400,6 +404,8 @@ services:
       auth-service:
         condition: service_healthy
       kafka:
+        condition: service_healthy
+      minio:
         condition: service_healthy
       zipkin:
         condition: service_started

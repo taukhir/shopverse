@@ -13,6 +13,8 @@ Shopverse uses MinIO for Inventory product images. In this project, MinIO is
 the local replacement for a production object store such as AWS S3, Azure Blob
 Storage, or Google Cloud Storage.
 
+![Shopverse MinIO product media flow showing Angular, Inventory, MySQL metadata, and MinIO image objects](/img/minio/minio-shopverse-flow.svg)
+
 ## What Problem MinIO Solves In Shopverse
 
 An e-commerce catalog needs product photos, thumbnails, and future media such

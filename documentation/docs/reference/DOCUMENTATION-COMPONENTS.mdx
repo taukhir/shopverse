@@ -1,0 +1,78 @@
+---
+title: Reusable Documentation Components
+difficulty: Beginner
+page_type: Reference
+status: Implemented
+learning_objectives:
+  - Use consistent interactive patterns in Markdown and MDX guides
+  - Avoid duplicating presentation markup across documentation pages
+technologies: [Docusaurus, MDX, React]
+last_reviewed: "2026-07-10"
+---
+
+# Reusable Documentation Components
+
+These components are globally available in every Markdown and MDX page. No
+import statement is required.
+
+## Consistent Callouts
+
+<DocCallout type="mistake">Do not describe planned behavior as currently implemented.</DocCallout>
+<DocCallout type="production">Include failure behavior, observability, and recovery—not only the happy path.</DocCallout>
+<DocCallout type="shopverse">Link implementation claims to source, configuration, or a runnable demonstration.</DocCallout>
+
+Supported types are `mistake`, `production`, `shopverse`, `tip`, and `code`.
+
+## Expandable Answers
+
+<ExpandableAnswer title="Why keep answers collapsed?">
+
+Readers can attempt an interview question or exercise before revealing the
+explanation, while print output still includes the answer.
+
+</ExpandableAnswer>
+
+## API Panels
+
+<ApiPanel method="POST" path="/api/orders/checkout" title="Create an idempotent checkout">
+
+Use the panel body for authentication, headers, request JSON, response JSON,
+failure cases, and implementation notes.
+
+</ApiPanel>
+
+## Before And After
+
+<BeforeAfter
+  before={<pre><code>{`manual mapping in every service`}</code></pre>}
+  after={<pre><code>{`shared platform starter`}</code></pre>}
+/>
+
+## Dependency And Command Tabs
+
+`DependencyTabs` accepts `maven` and `gradle` content. `CommandTabs` accepts
+`powershell` and `bash` content. The selected build tool or shell is remembered
+across tab groups and can be represented in the page URL.
+
+````mdx
+<DependencyTabs
+  maven={<>```xml
+  &lt;dependency&gt;...&lt;/dependency&gt;
+  ```</>}
+  gradle={<>```kotlin
+  implementation("group:artifact:version")
+  ```</>}
+/>
+
+<CommandTabs
+  powershell={<>```powershell
+  .\\gradlew.bat test
+  ```</>}
+  bash={<>```bash
+  ./gradlew test
+  ```</>}
+/>
+````
+
+`VersionTabs` accepts an `items` array with `label`, `value`, and `content`
+when a guide must compare Java or framework versions.

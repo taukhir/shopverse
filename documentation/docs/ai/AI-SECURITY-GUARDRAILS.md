@@ -49,6 +49,8 @@ DTOs, and an allowlisted tool registry.
 Prompt injection happens when user content tries to change the model's
 instructions.
 
+![Prompt injection defense GIF](/img/diagrams/prompt-injection-defense.gif)
+
 Attack:
 
 ```text

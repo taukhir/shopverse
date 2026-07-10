@@ -29,4 +29,10 @@ export class InventoryApiService {
   saveItem(item: InventoryItem) {
     return this.http.put<InventoryItem>(API_PATHS.inventory.adminItems, item);
   }
+
+  uploadImage(productId: number, file: File) {
+    const body = new FormData();
+    body.append('file', file);
+    return this.http.post<Pick<InventoryItem, 'imageUrl' | 'imageKey'>>(API_PATHS.inventory.itemImage(productId), body);
+  }
 }

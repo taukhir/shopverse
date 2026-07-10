@@ -1,3 +1,17 @@
+---
+title: Shopverse Debugging Runbook
+difficulty: Intermediate
+page_type: Runbook
+status: Implemented
+prerequisites:
+  - Local Shopverse environment or deployed stack access
+learning_objectives:
+  - Preserve evidence before changing runtime state
+  - Isolate failures across gateway, services, Kafka, and databases
+technologies: [Docker, Kafka, PostgreSQL, OpenTelemetry]
+last_reviewed: "2026-07-10"
+---
+
 # Shopverse Debugging Runbook
 
 Use this guide to preserve evidence, isolate the failing layer, and recover

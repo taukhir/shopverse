@@ -6,6 +6,8 @@ const sidebars: SidebarsConfig = {
     'reference/LEARNING-PATH',
     'reference/DOCUMENTATION-STRUCTURE',
     'reference/DOCUMENTATION-MAINTENANCE-MAP',
+    'reference/DOCUMENTATION-COMPONENTS',
+    'reference/GLOSSARY',
     {
       type: 'category',
       label: '1. Engineering Foundations',
@@ -353,13 +355,13 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '9. AI, RAG And Java AI',
-      collapsed: false,
+      collapsed: true,
       items: [
         'ai/README',
         {
           type: 'category',
           label: 'Start Here',
-          collapsed: false,
+          collapsed: true,
           items: [
             'ai/BEGINNER-TO-ADVANCED-GUIDE',
             'ai/VISUAL-LEARNING-GUIDE',
@@ -371,7 +373,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Core AI Concepts',
-          collapsed: false,
+          collapsed: true,
           items: [
             'ai/LLM-GENERATIVE-AI-FUNDAMENTALS',
             'ai/API-INTEGRATION-PROMPTING',
@@ -382,7 +384,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Java AI',
-          collapsed: false,
+          collapsed: true,
           items: [
             'ai/JAVA-AI-DEVELOPER-GUIDE',
             'ai/JAVA-AI-CODE-COOKBOOK',
@@ -391,7 +393,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Spring AI',
-          collapsed: false,
+          collapsed: true,
           items: [
             'ai/SPRING-AI-UMBRELLA',
             'ai/SPRING-AI-DEEP-DIVE',
@@ -400,13 +402,13 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'LangChain4j',
-          collapsed: false,
+          collapsed: true,
           items: [
             'ai/LANGCHAIN4J-UMBRELLA',
             {
               type: 'category',
               label: 'Tutorials For Java/Spring',
-              collapsed: false,
+              collapsed: true,
               items: [
                 'ai/LANGCHAIN4J-TUTORIALS',
                 'ai/LANGCHAIN4J-TUTORIAL-CHAT-MODELS',
@@ -422,7 +424,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Framework Comparison',
-          collapsed: false,
+          collapsed: true,
           items: [
             'ai/SPRING-AI-VS-LANGCHAIN4J',
           ],
@@ -430,7 +432,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Security And Guardrails',
-          collapsed: false,
+          collapsed: true,
           items: [
             'ai/AI-SECURITY-GUARDRAILS',
           ],
@@ -438,7 +440,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Shopverse Hands-on',
-          collapsed: false,
+          collapsed: true,
           items: [
             'ai/SHOPVERSE-AI-POC-PLAN',
             'ai/HANDS-ON-LABS',
@@ -450,7 +452,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '10. Shopverse Implementation',
-      collapsed: false,
+      collapsed: true,
       items: [
         {
           type: 'category',

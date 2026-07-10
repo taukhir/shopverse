@@ -1,0 +1,37 @@
+export type LearningPage = {title: string; path: string; stage: string; difficulty: 'Beginner'|'Intermediate'|'Advanced'; type: 'Concept'|'Tutorial'|'Reference'|'Runbook'|'Case Study'; prerequisites?: string[]};
+
+export const learningCatalog: LearningPage[] = [
+  {title:'Java Fundamentals',path:'/java/JAVA-FUNDAMENTALS',stage:'Java',difficulty:'Beginner',type:'Concept'},
+  {title:'Object-Oriented Programming',path:'/java/JAVA-OOP',stage:'Java',difficulty:'Beginner',type:'Tutorial',prerequisites:['/java/JAVA-FUNDAMENTALS']},
+  {title:'Collections',path:'/java/JAVA-COLLECTIONS',stage:'Java',difficulty:'Intermediate',type:'Concept',prerequisites:['/java/JAVA-OOP']},
+  {title:'Multithreading',path:'/java/JAVA-MULTITHREADING',stage:'Java',difficulty:'Advanced',type:'Concept',prerequisites:['/java/JAVA-COLLECTIONS']},
+  {title:'Spring Ecosystem',path:'/spring/SPRING-ECOSYSTEM',stage:'Spring',difficulty:'Beginner',type:'Concept',prerequisites:['/java/JAVA-FUNDAMENTALS']},
+  {title:'Spring Boot Internals',path:'/development/SPRING-BOOT-INTERNALS',stage:'Spring',difficulty:'Intermediate',type:'Concept',prerequisites:['/spring/SPRING-ECOSYSTEM']},
+  {title:'Spring REST APIs',path:'/development/SPRING-REST-APIS',stage:'Spring',difficulty:'Intermediate',type:'Tutorial',prerequisites:['/spring/SPRING-ECOSYSTEM']},
+  {title:'Spring Boot Testing',path:'/spring/SPRING-BOOT-TESTING',stage:'Spring',difficulty:'Advanced',type:'Tutorial',prerequisites:['/development/SPRING-REST-APIS']},
+  {title:'Database Engineering',path:'/data/DATABASE-ENGINEERING',stage:'Data',difficulty:'Beginner',type:'Concept'},
+  {title:'Hibernate',path:'/data/HIBERNATE',stage:'Data',difficulty:'Intermediate',type:'Concept',prerequisites:['/data/DATABASE-ENGINEERING']},
+  {title:'Spring Data JPA',path:'/spring/SPRING-DATA-JPA',stage:'Data',difficulty:'Intermediate',type:'Tutorial',prerequisites:['/data/HIBERNATE']},
+  {title:'JPA Transactions And Locking',path:'/spring/jpa/JPA-TRANSACTIONS-LOCKING',stage:'Data',difficulty:'Advanced',type:'Concept',prerequisites:['/spring/SPRING-DATA-JPA']},
+  {title:'Microservices',path:'/architecture/MICROSERVICES-GENERIC',stage:'Distributed Systems',difficulty:'Beginner',type:'Concept'},
+  {title:'Apache Kafka',path:'/integration/APACHE-KAFKA',stage:'Distributed Systems',difficulty:'Intermediate',type:'Concept',prerequisites:['/architecture/MICROSERVICES-GENERIC']},
+  {title:'SAGA Pattern',path:'/reliability/SAGA-GENERIC',stage:'Distributed Systems',difficulty:'Advanced',type:'Concept',prerequisites:['/integration/APACHE-KAFKA']},
+  {title:'Shopverse System Design',path:'/architecture/SYSTEM-DESIGN',stage:'Distributed Systems',difficulty:'Advanced',type:'Case Study',prerequisites:['/reliability/SAGA-GENERIC']},
+  {title:'Security Principles',path:'/security/principles/SECURITY-PRINCIPLES',stage:'Security',difficulty:'Beginner',type:'Concept'},
+  {title:'JWT Fundamentals',path:'/security/jwt/JWT-FUNDAMENTALS',stage:'Security',difficulty:'Intermediate',type:'Concept',prerequisites:['/security/principles/SECURITY-PRINCIPLES']},
+  {title:'Spring Security',path:'/security/SPRING-SECURITY-GENERIC',stage:'Security',difficulty:'Advanced',type:'Concept',prerequisites:['/security/jwt/JWT-FUNDAMENTALS']},
+  {title:'Shopverse JWT Security',path:'/security/JWT-OAUTH2-SPRING-SECURITY',stage:'Security',difficulty:'Advanced',type:'Case Study',prerequisites:['/security/SPRING-SECURITY-GENERIC']},
+  {title:'Logging Fundamentals',path:'/observability/LOGGING-GENERIC',stage:'Operations',difficulty:'Beginner',type:'Concept'},
+  {title:'Observability',path:'/observability/',stage:'Operations',difficulty:'Intermediate',type:'Case Study',prerequisites:['/observability/LOGGING-GENERIC']},
+  {title:'Docker Operations',path:'/operations/DOCKER',stage:'Operations',difficulty:'Intermediate',type:'Runbook'},
+  {title:'Debugging Runbook',path:'/development/DEBUGGING',stage:'Operations',difficulty:'Advanced',type:'Runbook',prerequisites:['/observability/']},
+  {title:'AI Learning Track',path:'/ai/',stage:'AI',difficulty:'Beginner',type:'Tutorial'},
+  {title:'LLM Fundamentals',path:'/ai/LLM-GENERATIVE-AI-FUNDAMENTALS',stage:'AI',difficulty:'Beginner',type:'Concept',prerequisites:['/ai/']},
+  {title:'Embeddings And RAG',path:'/ai/EMBEDDINGS-VECTOR-DB-RAG',stage:'AI',difficulty:'Intermediate',type:'Concept',prerequisites:['/ai/LLM-GENERATIVE-AI-FUNDAMENTALS']},
+  {title:'AI Security And Guardrails',path:'/ai/AI-SECURITY-GUARDRAILS',stage:'AI',difficulty:'Advanced',type:'Reference',prerequisites:['/ai/EMBEDDINGS-VECTOR-DB-RAG']},
+];
+
+export const learningStages = Array.from(new Set(learningCatalog.map((page) => page.stage)));
+export function pageIsUnlocked(page: LearningPage, completed: Set<string>) { return (page.prerequisites ?? []).every((path) => completed.has(path)); }
+export function nextLearningPage(completedPaths: string[]) { const completed=new Set(completedPaths); return learningCatalog.find((page)=>!completed.has(page.path)&&pageIsUnlocked(page,completed)); }
+export function relatedLearningPages(path: string) { const current=learningCatalog.find((page)=>page.path===path); return current ? learningCatalog.filter((page)=>page.stage===current.stage&&page.path!==path).slice(0,3) : []; }

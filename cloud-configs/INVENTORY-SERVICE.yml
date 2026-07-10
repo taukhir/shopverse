@@ -7,11 +7,22 @@ shopverse:
   inventory:
     reservation-ttl: ${INVENTORY_RESERVATION_TTL:5m}
     expiry-scan-delay-ms: ${INVENTORY_EXPIRY_SCAN_DELAY_MS:60000}
+    images:
+      endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+      public-endpoint: ${MINIO_PUBLIC_ENDPOINT:http://localhost:9000}
+      access-key: ${MINIO_ACCESS_KEY:shopverse-minio}
+      secret-key: ${MINIO_SECRET_KEY:shopverse-minio-secret}
+      bucket: ${MINIO_BUCKET:shopverse-product-images}
+      max-size-bytes: ${INVENTORY_IMAGE_MAX_SIZE_BYTES:5242880}
   inventory-service:
     health-checkup:
       message: ${INVENTORY_SERVICE_HEALTH_CHECKUP_MESSAGE:Inventory service is running}
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3307/inventory_service}
     username: ${DB_USERNAME:ahmed}

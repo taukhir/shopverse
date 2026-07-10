@@ -1,0 +1,5 @@
+.trigger { align-items:center; background:var(--ifm-background-surface-color); border:1px solid var(--doc-border); border-radius:999px; bottom:1.25rem; box-shadow:var(--doc-shadow-sm); color:inherit; cursor:pointer; display:flex; font-size:.76rem; font-weight:700; gap:.4rem; left:9rem; min-height:44px; padding:.6rem .75rem; position:fixed; z-index:var(--ifm-z-index-fixed); }
+.trigger svg { height:16px; width:16px; }
+.trigger kbd { font-size:.6rem; }
+@media(max-width:996px) { .trigger { bottom:4.75rem; left:4.6rem; } .trigger span,.trigger kbd { display:none; } }
+@media print { .trigger { display:none; } }

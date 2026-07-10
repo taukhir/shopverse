@@ -28,6 +28,13 @@
   } @else if (loading()) {
     <app-loading-skeleton [rows]="5" />
   } @else {
+    <section class="stock-summary" aria-label="Inventory stock summary">
+      <div><span>Products</span><strong>{{ stockSummary().products }}</strong></div>
+      <div><span>Available units</span><strong>{{ stockSummary().available }}</strong></div>
+      <div><span>Reserved units</span><strong>{{ stockSummary().reserved }}</strong></div>
+      <button type="button" (click)="stockFilter.set('LOW')"><span>Low stock</span><strong>{{ stockSummary().low }}</strong></button>
+      <button type="button" (click)="stockFilter.set('OUT')"><span>Out of stock</span><strong>{{ stockSummary().out }}</strong></button>
+    </section>
     <div class="list-controls" aria-label="Inventory list controls">
       <label>Search<input [(ngModel)]="search" placeholder="Product, category, brand, model" /></label>
       <label>Stock
@@ -119,6 +126,11 @@
               <div>No image URL yet.</div>
             }
             <span>Preview helps catch broken MiniIO/object URLs before saving catalog changes.</span>
+            <label class="image-upload">
+              {{ uploadingImage() ? 'Uploading...' : (form.imageUrl ? 'Replace image' : 'Upload image') }}
+              <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" (change)="uploadImage($event)" [disabled]="uploadingImage()" />
+            </label>
+            @if (imageUploadError()) { <span class="upload-error">{{ imageUploadError() }}</span> }
           </aside>
 
           <div class="fields">
@@ -129,7 +141,7 @@
             <label>Category<input [(ngModel)]="form.category" name="category" required /></label>
             <label>Price<input type="number" min="0.01" step="0.01" [(ngModel)]="form.unitPrice" name="unitPrice" required /></label>
             <label>Available quantity<input type="number" min="0" [(ngModel)]="form.availableQuantity" name="availableQuantity" required /></label>
-            <label>Reserved quantity<input type="number" min="0" [(ngModel)]="form.reservedQuantity" name="reservedQuantity" required /></label>
+            <label>Reserved quantity<input type="number" min="0" [(ngModel)]="form.reservedQuantity" name="reservedQuantity" readonly /></label>
             <label class="wide">Image URL<input type="url" [(ngModel)]="form.imageUrl" name="imageUrl" required /></label>
             <label class="wide">Image key<input [(ngModel)]="form.imageKey" name="imageKey" required /></label>
             <label class="wide">Description<textarea [(ngModel)]="form.description" name="description" required></textarea></label>

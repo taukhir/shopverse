@@ -26,6 +26,11 @@ public class ApiExceptionHandler {
         return ApiErrors.problem(HttpStatus.CONFLICT, exception.getMessage());
     }
 
+    @ExceptionHandler(InventoryImageException.class)
+    ProblemDetail handleInventoryImage(InventoryImageException exception) {
+        return ApiErrors.problem(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
     ProblemDetail handleOptimisticLockingFailure(ObjectOptimisticLockingFailureException exception) {
         return ApiErrors.problem(

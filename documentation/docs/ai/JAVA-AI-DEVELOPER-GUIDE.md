@@ -183,6 +183,8 @@ Interview point:
 Tool calling means the model can request a backend function, but Java executes
 the function.
 
+![Tool authorization GIF](/img/diagrams/tool-authorization.gif)
+
 For Shopverse:
 
 ```text
@@ -288,4 +290,3 @@ Interview line:
 | P1 | LangChain4j AI Services | useful Java abstraction |
 | P2 | streaming | useful for UI but not mandatory |
 | P2 | memory | useful for chatbots but not first POC requirement |
-
