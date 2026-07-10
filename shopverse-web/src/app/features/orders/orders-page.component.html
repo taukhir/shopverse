@@ -3,27 +3,73 @@
   <h1 class="page-title">Order history.</h1>
 
   @if (state() === 'loading') {
-    <div class="notice">Loading your order history...</div>
+    <app-loading-skeleton [rows]="4" />
   } @else if (state() === 'error') {
-    <div class="notice">We could not load your orders. <button (click)="load()">Try again</button></div>
+    <app-service-notice
+      eyebrow="ORDERS UNAVAILABLE"
+      title="We could not load your orders."
+      message="Order Service may be offline or your session may need refreshing."
+      (retry)="load()"
+    />
   } @else if (!orders().length) {
-    <div class="notice">
-      <h2>No orders yet.</h2>
-      <span>Your confirmed orders will appear here.</span>
-      <a routerLink="/products">Browse the collection</a>
-    </div>
+    <app-empty-state
+      eyebrow="NO ORDERS YET"
+      title="No orders yet."
+      message="Your confirmed orders will appear here."
+      actionLabel="Browse the collection"
+      actionLink="/products"
+    />
   } @else {
+    <div class="order-controls" aria-label="Order history filters">
+      <label>Search<input [(ngModel)]="search" placeholder="Order number or status" /></label>
+      <label>Status
+        <select [(ngModel)]="statusFilter">
+          @for (status of statuses(); track status) {
+            <option [value]="status">{{ status === 'ALL' ? 'All statuses' : statusLabel(status) }}</option>
+          }
+        </select>
+      </label>
+      <label>Sort
+        <select [(ngModel)]="sort">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="amountDesc">Amount high to low</option>
+          <option value="amountAsc">Amount low to high</option>
+          <option value="status">Status</option>
+        </select>
+      </label>
+      <button type="button" (click)="clearFilters()">Clear</button>
+    </div>
+
+    @if (!filteredOrders().length) {
+      <app-empty-state
+        eyebrow="NO ORDERS MATCH"
+        title="No orders match these filters."
+        message="Clear filters or search by a different order number."
+        actionLabel="Browse products"
+        actionLink="/products"
+      />
+      <button class="clear-inline" type="button" (click)="clearFilters()">Clear filters</button>
+    } @else {
     <div class="orders">
-      @for (order of orders(); track order.id) {
+      @for (order of filteredOrders(); track order.id) {
         <a [routerLink]="['/orders', order.id]">
-          <div>
+          <div class="order-main">
             <p>{{ order.orderNumber }}</p>
-            <h2>{{ order.status }}</h2>
-            <span>{{ order.createdAt | date:'mediumDate' }} · {{ itemLabel(order) }}</span>
+            <h2>{{ statusLabel(order.status) }}</h2>
+            <span>{{ order.createdAt | date:'mediumDate' }} &middot; {{ itemLabel(order) }}</span>
+            <em>{{ currentStatusMessage(order) }}</em>
+            <div class="progress-track" aria-label="Order progress">
+              <i [style.width.%]="progress(order)" [class]="statusTone(order.status)"></i>
+            </div>
           </div>
-          <strong>{{ price(order.totalAmount) }} <b>&rarr;</b></strong>
+          <div class="order-side">
+            <small [class]="statusTone(order.status)">{{ statusLabel(order.status) }}</small>
+            <strong>{{ price(order.totalAmount) }} <b>&rarr;</b></strong>
+          </div>
         </a>
       }
     </div>
+    }
   }
 </section>

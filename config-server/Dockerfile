@@ -5,6 +5,7 @@ WORKDIR /workspace/config-server
 
 COPY config-server/gradlew config-server/gradlew.bat config-server/settings.gradle config-server/build.gradle ./
 COPY config-server/gradle ./gradle
+COPY build-logic ../build-logic
 COPY shopverse-platform ../shopverse-platform
 RUN chmod +x ./gradlew
 

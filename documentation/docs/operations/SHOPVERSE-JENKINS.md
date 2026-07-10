@@ -218,7 +218,7 @@ stage('Docker Compose Smoke Test') {
         expression { params.RUN_COMPOSE_SMOKE_TEST }
     }
     steps {
-        sh 'docker compose up -d --build'
+        sh 'docker compose --profile apps --profile assets up -d --build'
     }
 }
 ```
@@ -365,4 +365,3 @@ flowchart LR
 - [GitHub Actions](GITHUB-ACTIONS.md)
 - [CI/CD automation](CI-CD-AUTOMATION.md)
 - [Shopverse testing](../development/TESTING.md)
-

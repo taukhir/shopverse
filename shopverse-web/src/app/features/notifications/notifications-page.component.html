@@ -1,0 +1,81 @@
+<section class="notifications-page">
+  <nav class="customer-nav" aria-label="Notification navigation">
+    <a routerLink="/account">← Account</a>
+    <div>
+      <a routerLink="/">Home</a>
+      <a routerLink="/orders">Orders</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p>Customer signals</p>
+    <h1>Notification center.</h1>
+    <span>Frontend-ready inbox for order, payment, and account events. Backend delivery rules can plug into this surface later.</span>
+  </header>
+
+  <section class="summary-grid" aria-label="Notification summary">
+    <article>
+      <span>Unread</span>
+      <strong>0</strong>
+      <p>Live unread counts need notification API support.</p>
+    </article>
+    <article>
+      <span>Watching</span>
+      <strong>Orders</strong>
+      <p>Order lifecycle events are the first priority.</p>
+    </article>
+    <article>
+      <span>Delivery</span>
+      <strong>In-app + email</strong>
+      <p>Preference controls are staged for backend persistence.</p>
+    </article>
+  </section>
+
+  <section class="layout">
+    <main class="panel">
+      <div class="panel-head">
+        <div>
+          <p>A clean activity stream</p>
+          <h2>What customers will see</h2>
+        </div>
+        <a routerLink="/orders">View orders →</a>
+      </div>
+
+      <div class="notification-list">
+        @for (notification of notifications(); track notification.title) {
+          <article [class]="notification.tone">
+            <i aria-hidden="true"></i>
+            <div>
+              <span>{{ notification.meta }}</span>
+              <h3>{{ notification.title }}</h3>
+              <p>{{ notification.description }}</p>
+            </div>
+          </article>
+        }
+      </div>
+    </main>
+
+    <aside class="panel preferences">
+      <div class="panel-head compact">
+        <div>
+          <p>Preferences</p>
+          <h2>Controls staged</h2>
+        </div>
+      </div>
+
+      <div class="preference-list">
+        @for (preference of preferences(); track preference.label) {
+          <article>
+            <div>
+              <strong>{{ preference.label }}</strong>
+              <p>{{ preference.description }}</p>
+            </div>
+            <button type="button" disabled>{{ preference.enabled ? 'On' : 'Off' }}</button>
+          </article>
+        }
+      </div>
+
+      <p class="note">Preference changes are disabled until notification settings endpoints are available.</p>
+    </aside>
+  </section>
+</section>

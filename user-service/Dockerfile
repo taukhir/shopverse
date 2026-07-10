@@ -5,6 +5,7 @@ WORKDIR /workspace/user-service
 
 COPY user-service/gradlew user-service/gradlew.bat user-service/settings.gradle user-service/build.gradle ./
 COPY user-service/gradle ./gradle
+COPY build-logic ../build-logic
 COPY shopverse-platform ../shopverse-platform
 RUN chmod +x ./gradlew
 

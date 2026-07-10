@@ -106,7 +106,7 @@ Before:
 
 After:
 
-- `shopverse-common-error` provides `ApiErrorResponse`
+- `shopverse-common-error` provides `ApiErrorResponse` and `ApiErrors`
 - `shopverse-web` provides `PageResponse`, `PageMapper`, `PaginationUtils`, and `InvalidPageRequestException`
 
 Currently used by:

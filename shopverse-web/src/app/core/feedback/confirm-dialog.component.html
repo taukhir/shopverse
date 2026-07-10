@@ -1,0 +1,13 @@
+@if (confirm.state(); as dialog) {
+  <section class="confirm-backdrop" role="presentation">
+    <article class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <p>{{ dialog.tone === 'danger' ? 'CONFIRM RISKY ACTION' : 'PLEASE CONFIRM' }}</p>
+      <h2 id="confirm-title">{{ dialog.title }}</h2>
+      <span>{{ dialog.message }}</span>
+      <div>
+        <button type="button" (click)="confirm.answer(false)">{{ dialog.cancelText }}</button>
+        <button class="primary" [class.danger]="dialog.tone === 'danger'" type="button" (click)="confirm.answer(true)">{{ dialog.confirmText }}</button>
+      </div>
+    </article>
+  </section>
+}

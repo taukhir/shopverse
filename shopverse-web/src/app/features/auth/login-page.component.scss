@@ -98,3 +98,12 @@ button:disabled {
 small {
   margin-top: 22px;
 }
+
+.auth-switch {
+  margin-top: 10px;
+}
+
+.auth-switch a {
+  color: var(--accent);
+  font-weight: 800;
+}

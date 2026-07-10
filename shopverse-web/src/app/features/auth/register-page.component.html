@@ -1,0 +1,32 @@
+<main class="auth-page register-page">
+  <a class="brand" routerLink="/"><img src="/shopverse-mark.svg" width="26" height="26" alt="" />shop<span>verse</span></a>
+
+  <section>
+    <p>CREATE ACCOUNT</p>
+    <h1>Join ShopVerse.</h1>
+    <span>Create a customer account to checkout, view order history, and track your purchases.</span>
+
+    <form (ngSubmit)="submit()">
+      <div class="split">
+        <label>First name<input name="firstName" [(ngModel)]="form.firstName" autocomplete="given-name" /></label>
+        <label>Last name<input name="lastName" [(ngModel)]="form.lastName" autocomplete="family-name" /></label>
+      </div>
+      <label>Username<input name="username" [(ngModel)]="form.username" autocomplete="username" required /></label>
+      <label>Email<input name="email" [(ngModel)]="form.email" type="email" autocomplete="email" required /></label>
+      <label>Phone<input name="phoneNumber" [(ngModel)]="form.phoneNumber" autocomplete="tel" placeholder="+919999999999" /></label>
+      <label>Password<input name="password" [(ngModel)]="form.password" type="password" autocomplete="new-password" required /></label>
+      <small class="hint">Use 8+ characters with uppercase, lowercase, number, and special character.</small>
+
+      @if (error()) {
+        <div class="form-message error">{{ error() }}</div>
+      }
+      @if (success()) {
+        <div class="form-message success">{{ success() }}</div>
+      }
+
+      <button [disabled]="loading()">{{ loading() ? 'Creating account...' : 'Create account' }} <b>&rarr;</b></button>
+    </form>
+
+    <small>Already have an account? <a routerLink="/login">Sign in</a></small>
+  </section>
+</main>

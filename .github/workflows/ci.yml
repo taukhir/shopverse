@@ -114,7 +114,7 @@ jobs:
           fi
 
           shared=false
-          if grep -Eq '^(cloud-configs/|docker-compose|docker/|observability/|scripts/|\.github/workflows/|README\.md)' <<< "$changed_files"; then
+          if grep -Eq '^(build-logic/|shopverse-platform/|cloud-configs/|docker-compose|docker/|observability/|scripts/|\.github/workflows/|README\.md)' <<< "$changed_files"; then
             shared=true
           fi
 

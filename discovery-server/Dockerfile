@@ -5,6 +5,7 @@ WORKDIR /workspace/discovery-server
 
 COPY discovery-server/gradlew discovery-server/gradlew.bat discovery-server/settings.gradle discovery-server/build.gradle ./
 COPY discovery-server/gradle ./gradle
+COPY build-logic ../build-logic
 COPY shopverse-platform ../shopverse-platform
 RUN chmod +x ./gradlew
 

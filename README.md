@@ -127,6 +127,8 @@ The exact implementation matrix is in [Features and demonstrations](documentatio
 | Inventory Service | 8086 | stock, reservations, expiry, compensation |
 | Discovery Server | 8761 | Eureka registry |
 | Config Server | 8888 | centralized configuration |
+| Angular Storefront | 4200 | customer/admin web UI served by nginx in Docker |
+| Documentation | 3001 | Docusaurus documentation portal served by nginx in Docker |
 
 ## Quick Start
 
@@ -142,9 +144,8 @@ then start:
 
 ```powershell
 Copy-Item .env.example .env
-docker compose config
-docker compose build
-docker compose up -d
+docker compose --profile apps --profile assets config --quiet
+docker compose --profile apps --profile assets up --build -d
 docker compose ps
 ```
 
@@ -170,6 +171,75 @@ Key interfaces:
 
 Docker configuration and command explanations are in [docker/README.md](docker/README.md).
 
+## Docker Compose Modes
+
+The root [docker-compose.yml](docker-compose.yml) remains the backend platform
+compose file. The optional [docker-compose.full-stack.yml](docker-compose.full-stack.yml)
+overlay adds the Angular storefront and Docusaurus documentation containers.
+
+Backend platform only:
+
+```powershell
+Copy-Item .env.example .env
+docker compose --profile apps --profile assets config --quiet
+docker compose --profile apps --profile assets up --build
+```
+
+Full stack with Angular, Docusaurus, backend services, and MinIO product assets:
+
+```powershell
+Copy-Item .env.example .env
+docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml config --quiet
+docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml up --build
+```
+
+Full stack plus observability:
+
+```powershell
+docker compose --profile apps --profile assets --profile observability -f docker-compose.yml -f docker-compose.full-stack.yml config --quiet
+docker compose --profile apps --profile assets --profile observability -f docker-compose.yml -f docker-compose.full-stack.yml up --build
+```
+
+Useful URLs:
+
+| Interface | URL | Notes |
+|---|---|---|
+| Angular storefront/admin | `http://localhost:4200` | nginx serves Angular and proxies `/api` and `/auth` to `api-gateway:8080` |
+| Documentation | `http://localhost:3001` | static Docusaurus build |
+| API Gateway | `http://localhost:8080` | backend entry point |
+| MinIO Console | `http://localhost:9001` | enabled by the `assets` profile |
+| Eureka | `http://localhost:8761` | service registry |
+| Grafana | `http://localhost:3000` | enabled by the `observability` profile |
+| Prometheus | `http://localhost:9090` | enabled by the `observability` profile |
+| Zipkin | `http://localhost:9411` | traces |
+
+Optional frontend/docs port overrides in `.env`:
+
+```dotenv
+SHOPVERSE_WEB_PORT=4200
+SHOPVERSE_DOCS_PORT=3001
+```
+
+Compose profiles:
+
+| Profile | Adds |
+|---|---|
+| `apps` | Spring Boot application services and API Gateway |
+| `assets` | MinIO and product-image seeding |
+| `observability` | Prometheus, Grafana, Loki, and Promtail |
+
+Troubleshooting:
+
+- If `http://localhost:4200` loads but catalog/auth calls fail, check that
+  `api-gateway` is healthy: `docker compose ps api-gateway`.
+- If product images are missing, start with `--profile assets` and verify
+  `minio-init` completed successfully.
+- If Angular route refreshes return `404`, confirm the container is using
+  [shopverse-web/nginx.conf](shopverse-web/nginx.conf); it falls back to
+  `index.html` for client-side routes.
+- If documentation is unavailable, rebuild only the docs image:
+  `docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml build documentation`.
+
 ## Five-Minute Local Evaluation
 
 Use this path when you want to verify the architecture without reading every
@@ -177,8 +247,8 @@ service first:
 
 ```powershell
 Copy-Item .env.example .env
-docker compose config
-docker compose up -d mysql mysql-bootstrap kafka config-server discovery-server user-service auth-service order-service payment-service inventory-service api-gateway
+docker compose --profile apps --profile assets config --quiet
+docker compose --profile apps --profile assets up -d mysql mysql-bootstrap kafka minio minio-init config-server discovery-server user-service auth-service order-service payment-service inventory-service api-gateway
 docker compose ps
 ```
 

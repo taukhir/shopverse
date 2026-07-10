@@ -118,6 +118,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public UserResponse registerCustomer(RegisterCustomerRequest request) {
+        log.info("Registering customer username={}, email={}", request.username(), request.email());
+        return createUser(new CreateUserRequest(
+                request.username(),
+                request.email(),
+                request.password(),
+                request.firstName(),
+                request.lastName(),
+                request.phoneNumber(),
+                Set.of("ROLE_CUSTOMER")
+        ));
+    }
+
+    @Override
+    @Transactional
     public UserResponse createUser(CreateUserRequest request) {
         log.info("Creating user username={}, email={}", request.username(), request.email());
         if (userRepository.existsByUsername(request.username())) {

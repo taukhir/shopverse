@@ -1,5 +1,6 @@
 package io.shopverse.payment_service.exception;
 
+import io.shopverse.platform.error.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,11 +11,11 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     ProblemDetail handleNotFound(ResourceNotFoundException exception) {
-        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
+        return ApiErrors.problem(HttpStatus.NOT_FOUND, exception.getMessage());
     }
 
-    @ExceptionHandler(IllegalStateException.class)
-    ProblemDetail handleConflict(IllegalStateException exception) {
-        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, exception.getMessage());
+    @ExceptionHandler(InvalidPaymentStateException.class)
+    ProblemDetail handleInvalidPaymentState(InvalidPaymentStateException exception) {
+        return ApiErrors.problem(HttpStatus.CONFLICT, exception.getMessage());
     }
 }

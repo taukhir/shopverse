@@ -1,17 +1,80 @@
 <section class="hero">
   <div class="hero-copy">
-    <p class="eyebrow">SHOPVERSE / 01</p>
-    <h1>Well-made things.<br />Made simple.</h1>
-    <p class="lede">A thoughtfully paced storefront for the things that fit naturally into your every day.</p>
+    <p class="eyebrow">SHOPVERSE / COBALT EDIT</p>
+    <h1>Shop like the system is thinking with you.</h1>
+    <p class="lede">A smart, clean commerce experience for useful everyday products: live availability, resilient checkout, saved cart state, and visible order progress.</p>
     <div class="hero-actions">
-      <a class="button button-primary" routerLink="/products">Browse collection <span>→</span></a>
+      <a class="primary-action" routerLink="/products">Browse collection <span>&rarr;</span></a>
       <a class="text-link" routerLink="/orders">Track an order</a>
+    </div>
+    <div class="hero-highlights" aria-label="ShopVerse highlights">
+      @for (item of highlights; track item.label) {
+        <article>
+          <strong>{{ item.value }}</strong>
+          <span>{{ item.label }}</span>
+          <small>{{ item.meta }}</small>
+        </article>
+      }
     </div>
   </div>
   <figure class="hero-visual">
-    <img src="/images/shopverse-cobalt-hero.png" alt="Cobalt headphones, camera, and knit textile arranged in a studio." />
+    <picture>
+      <source srcset="/images/shopverse-cobalt-hero.webp" type="image/webp" />
+      <img
+        src="/images/shopverse-cobalt-hero.png"
+        alt="Cobalt headphones, camera, and knit textile arranged in a studio."
+        width="720"
+        height="900"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        appImageFallback
+      />
+    </picture>
+    <div class="system-card">
+      <p>LIVE SIGNALS</p>
+      @for (signal of signals; track signal.label) {
+        <div><span>{{ signal.label }}</span><strong [class]="signal.tone">{{ signal.value }}</strong></div>
+      }
+    </div>
+    <div class="hero-badge">
+      <span>New</span>
+      <strong>Transaction receipts and order timelines are now visible.</strong>
+      <a routerLink="/orders">See orders</a>
+    </div>
     <figcaption><span>THE COBALT EDIT</span><strong>01 / 04</strong></figcaption>
   </figure>
+</section>
+
+<section class="intelligence" aria-labelledby="intelligence-title">
+  <div>
+    <p class="eyebrow">SMART COMMERCE LAYER</p>
+    <h2 id="intelligence-title">Not just a storefront. A visible order system.</h2>
+  </div>
+  <div class="intelligence-grid">
+    @for (item of intelligence; track item.title) {
+      <article>
+        <strong>{{ item.title }}</strong>
+        <p>{{ item.copy }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="flow" aria-labelledby="flow-title">
+  <div class="flow-heading">
+    <p class="eyebrow">HOW IT WORKS</p>
+    <h2 id="flow-title">A quieter path from catalog to confirmation.</h2>
+  </div>
+  <div class="flow-grid">
+    @for (item of flow; track item.step) {
+      <article>
+        <span>{{ item.step }}</span>
+        <strong>{{ item.title }}</strong>
+        <p>{{ item.copy }}</p>
+      </article>
+    }
+  </div>
 </section>
 
 <section class="collection" aria-labelledby="collection-title">
@@ -22,9 +85,9 @@
   <div class="category-grid">
     @for (category of categories; track category.name; let index = $index) {
       <a class="category-card" [class]="'category-card tone-' + category.tone" routerLink="/products">
-        <div class="category-art" aria-hidden="true"><span>0{{ index + 1 }}</span><b>{{ category.mark }}</b><i></i></div>
+        <div class="category-art" aria-hidden="true"><span>0{{ index + 1 }}</span><b>{{ category.mark }}</b></div>
         <div class="category-copy"><strong>{{ category.name }}</strong><p>{{ category.description }}</p></div>
-        <em>Explore <span>→</span></em>
+        <em>Explore <span>&rarr;</span></em>
       </a>
     }
   </div>
@@ -33,4 +96,5 @@
 <section class="promise">
   <p class="eyebrow">BUILT FOR CLARITY</p>
   <p>Better objects, clearly chosen. From availability to confirmation, every step stays visible.</p>
+  <a routerLink="/products">Start with the collection <span>&rarr;</span></a>
 </section>

@@ -9,7 +9,55 @@ buckets and exposes S3-style HTTP APIs. It is commonly used in local
 development, private cloud, Kubernetes, and testing environments where teams
 want S3-compatible behavior without depending directly on AWS.
 
-Shopverse uses MinIO for Inventory product images.
+Shopverse uses MinIO for Inventory product images. In this project, MinIO is
+the local replacement for a production object store such as AWS S3, Azure Blob
+Storage, or Google Cloud Storage.
+
+## What Problem MinIO Solves In Shopverse
+
+An e-commerce catalog needs product photos, thumbnails, and future media such
+as manuals or variant images. Those files are large binary payloads, but the
+Inventory Service is mainly responsible for structured product data such as
+name, price, stock, category, and SKU.
+
+MinIO separates those responsibilities:
+
+| Problem without object storage | How MinIO solves it |
+|---|---|
+| Product images would be stored as large database BLOBs | MySQL stores only `image_key` and `image_url`; MinIO stores the image bytes |
+| Inventory API would have to stream image bytes | Browser downloads images directly from MinIO using `imageUrl` |
+| Database backups would grow with every image | Product rows stay small; object data lives in the `minio-data` volume |
+| Moving to production S3 later would require a different programming model | MinIO uses S3-compatible bucket, object, policy, and presigned URL concepts |
+| Frontend developers need realistic image URLs locally | Compose starts MinIO on `9000` and seeds the same object-key pattern used by the app |
+
+The result is a cleaner boundary: Inventory owns product metadata, while MinIO
+owns product media.
+
+## Where Shopverse Uses It
+
+| Shopverse area | MinIO role |
+|---|---|
+| `inventory-service` database migration | populates `image_key = products/{productId}.png` and `image_url = http://localhost:9000/shopverse-product-images/products/{productId}.png` |
+| Inventory catalog API | returns product JSON with `imageUrl` and `imageKey` |
+| Angular catalog page | binds `product.imageUrl` into an `<img>` element |
+| Angular product detail page | displays the selected product image and related product images |
+| Angular cart and admin screens | reuse the same image URL field for previews |
+| `assets/products/products` | source folder for seed PNG files |
+| `minio-init` container | creates the bucket, applies the demo read policy, and uploads seed images |
+
+These are real seeded product objects used by the local Shopverse catalog:
+
+| Object key | Preview |
+|---|---|
+| `products/101.png` | ![Shopverse seeded product 101 served from MinIO](/img/minio/product-101.png) |
+| `products/102.png` | ![Shopverse seeded product 102 served from MinIO](/img/minio/product-102.png) |
+| `products/103.png` | ![Shopverse seeded product 103 served from MinIO](/img/minio/product-103.png) |
+
+In the running stack the browser loads the same object pattern from:
+
+```text
+http://localhost:9000/shopverse-product-images/products/101.png
+```
 
 ## Why Object Storage Instead Of Database BLOBs?
 
@@ -41,6 +89,23 @@ key    = products/101.png
 bytes  = PNG image
 ```
 
+## Why We Use MinIO Instead Of Only Local Files
+
+The project could store files in a mounted folder and return `/images/101.png`,
+but that would hide important production concerns. MinIO is closer to the way
+real commerce systems serve media:
+
+| Local folder approach | MinIO approach |
+|---|---|
+| application-specific file path | S3-compatible bucket and object key |
+| usually tied to one server | can later map to S3-compatible infrastructure |
+| access control is custom application code | bucket policies and presigned URLs are built-in concepts |
+| hard to model direct browser uploads | presigned PUT flow matches production object-storage patterns |
+| no object metadata semantics | content type, ETag, object metadata, and lifecycle patterns are available |
+
+For a POC, MinIO gives realistic infrastructure without needing an AWS account
+or external network dependency during local development.
+
 ## Core Concepts
 
 | Concept | Meaning |
@@ -54,8 +119,30 @@ bytes  = PNG image
 
 ## How MinIO Stores Data
 
-Internally, MinIO stores objects on disk under its configured data volume.
-In Docker Compose, Shopverse maps this to the `minio-data` volume.
+Internally, MinIO stores objects on disk under its configured data volume. In
+Docker Compose, Shopverse maps this to the named Docker volume `minio-data`:
+
+```yaml title="docker-compose.yml"
+minio:
+  image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+  command: server /data --console-address ":9001"
+  volumes:
+    - minio-data:/data
+
+volumes:
+  minio-data:
+```
+
+The application does not depend on MinIO's internal disk layout. It talks to
+MinIO through the S3-compatible HTTP API. That matters because the object can
+move from local Docker storage to a production object store while the app still
+uses the same logical model:
+
+```text
+bucket: shopverse-product-images
+key:    products/101.png
+url:    http://localhost:9000/shopverse-product-images/products/101.png
+```
 
 ```mermaid
 flowchart LR
@@ -72,6 +159,50 @@ flowchart LR
 MinIO is S3-compatible at the API level. That means code written against S3
 concepts such as buckets, keys, object metadata, and presigned URLs can often
 work with either MinIO or AWS S3 after configuration changes.
+
+## Why This Is Efficient
+
+MinIO improves efficiency by keeping heavy media traffic away from services
+that should focus on business logic.
+
+```mermaid
+flowchart TB
+    Browser["Browser"]
+    Gateway["API Gateway"]
+    Inventory["Inventory Service"]
+    MySQL["MySQL\nsmall product rows"]
+    MinIO["MinIO\nlarge image objects"]
+
+    Browser -->|"GET /api/v1/inventory/items"| Gateway
+    Gateway --> Inventory
+    Inventory -->|"read metadata only"| MySQL
+    Inventory -->|"JSON with imageUrl"| Browser
+    Browser -->|"GET image bytes directly"| MinIO
+```
+
+Efficiency comes from several design choices:
+
+| Efficiency point | Why it helps |
+|---|---|
+| database rows stay small | catalog queries read text/numeric fields instead of large binary payloads |
+| API Gateway and Inventory do not stream images | fewer CPU, memory, and network hops inside the backend |
+| browser downloads media directly | image traffic goes to the storage layer designed for object delivery |
+| object keys are stable | frontend can cache image URLs, and production can place a CDN in front |
+| seed images are idempotent | `minio-init` can recreate buckets and upload objects without manual console work |
+| S3-compatible behavior | the team can test bucket policies and presigned URL flows locally |
+
+In production, the same pattern can become:
+
+```mermaid
+flowchart LR
+    Browser --> CDN["CDN"]
+    CDN --> Origin["S3 / MinIO origin"]
+    Inventory["Inventory API"] --> DB["MySQL\nimage_key + public URL"]
+    Browser -->|"catalog JSON"| Inventory
+```
+
+The backend still returns product metadata, but public media delivery can be
+handled by infrastructure optimized for static bytes.
 
 ## Shopverse Runtime Flow
 

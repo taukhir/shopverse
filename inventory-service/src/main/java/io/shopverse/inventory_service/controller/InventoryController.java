@@ -4,6 +4,7 @@ import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.shopverse.inventory_service.constants.InventoryConstants;
 import io.shopverse.inventory_service.dto.InventoryResponse;
+import io.shopverse.inventory_service.dto.InventoryReservationResponse;
 import io.shopverse.inventory_service.dto.InventoryUpsertRequest;
 import io.shopverse.inventory_service.dto.ServiceHealthResponse;
 import io.shopverse.inventory_service.service.InventoryService;
@@ -60,5 +61,11 @@ public class InventoryController {
     @Operation(summary = "Create or replace product stock")
     public InventoryResponse upsert(@Valid @RequestBody InventoryUpsertRequest request) {
         return inventoryService.upsert(request);
+    }
+
+    @GetMapping("/admin/reservations/orders/{orderNumber}")
+    @Operation(summary = "Get inventory reservation state for an order")
+    public InventoryReservationResponse getReservationByOrder(@PathVariable String orderNumber) {
+        return inventoryService.getReservationByOrderNumber(orderNumber);
     }
 }

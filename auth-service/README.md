@@ -20,6 +20,9 @@ Login request:
 }
 ```
 
+Swagger is available at `/swagger-ui/index.html` when the service is reached
+directly.
+
 ## Authentication Flow
 
 1. Auth Service receives validated credentials.

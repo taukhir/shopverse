@@ -1,0 +1,37 @@
+.unauthorized-page {
+  display: grid;
+  align-content: center;
+}
+
+.card {
+  max-width: 680px;
+  padding: 34px;
+  color: var(--white);
+  background: var(--ink-soft);
+}
+
+.card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.actions a {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  min-width: 180px;
+  padding: 13px 15px;
+  color: var(--ink);
+  background: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 800;
+}

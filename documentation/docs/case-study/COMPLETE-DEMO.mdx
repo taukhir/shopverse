@@ -88,9 +88,8 @@ secrets and must not be committed.
 Validate the resolved Compose model before building:
 
 ```powershell
-docker compose config
-docker compose build
-docker compose up -d
+docker compose --profile apps --profile assets --profile observability config --quiet
+docker compose --profile apps --profile assets --profile observability up --build -d
 docker compose ps
 ```
 

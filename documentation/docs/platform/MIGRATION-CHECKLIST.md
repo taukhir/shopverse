@@ -7,10 +7,10 @@ into `shopverse-platform`.
 
 | Service | Platform modules | Required local adapters | Keep local |
 |---|---|---|---|
-| `user-service` | `shopverse-web`, `shopverse-observability-starter`, `shopverse-security-starter` | none | exception handler, endpoint authorization, allowed page sort fields |
-| `order-service` | `shopverse-observability-starter`, `shopverse-security-starter`, `shopverse-kafka-starter`, `shopverse-outbox-starter`, `shopverse-kafka-recovery-starter` | `OrderOutboxEventStore`, `OrderFailedKafkaEventStore`, `OrderKafkaReplayOutbox` | order entities, order events, repositories, outbox schema |
-| `payment-service` | `shopverse-observability-starter`, `shopverse-security-starter`, `shopverse-kafka-starter`, `shopverse-outbox-starter`, `shopverse-kafka-recovery-starter` | `PaymentOutboxEventStore`, `PaymentFailedKafkaEventStore`, `PaymentKafkaReplayOutbox` | payment entities, payment events, repositories, outbox schema |
-| `inventory-service` | `shopverse-observability-starter`, `shopverse-security-starter`, `shopverse-kafka-starter`, `shopverse-outbox-starter`, `shopverse-kafka-recovery-starter` | `InventoryOutboxEventStore`, `InventoryFailedKafkaEventStore`, `InventoryKafkaReplayOutbox` | inventory entities, inventory events, repositories, outbox schema |
+| `user-service` | `shopverse-common-error`, `shopverse-web`, `shopverse-observability-starter`, `shopverse-security-starter` | none | exception status policy, endpoint authorization, allowed page sort fields |
+| `order-service` | `shopverse-common-error`, `shopverse-observability-starter`, `shopverse-security-starter`, `shopverse-kafka-starter`, `shopverse-outbox-starter`, `shopverse-kafka-recovery-starter` | `OrderOutboxEventStore`, `OrderFailedKafkaEventStore`, `OrderKafkaReplayOutbox` | order entities, order events, repositories, outbox schema |
+| `payment-service` | `shopverse-common-error`, `shopverse-observability-starter`, `shopverse-security-starter`, `shopverse-kafka-starter`, `shopverse-outbox-starter`, `shopverse-kafka-recovery-starter` | `PaymentOutboxEventStore`, `PaymentFailedKafkaEventStore`, `PaymentKafkaReplayOutbox` | payment entities, payment events, repositories, outbox schema |
+| `inventory-service` | `shopverse-common-error`, `shopverse-observability-starter`, `shopverse-security-starter`, `shopverse-kafka-starter`, `shopverse-outbox-starter`, `shopverse-kafka-recovery-starter` | `InventoryOutboxEventStore`, `InventoryFailedKafkaEventStore`, `InventoryKafkaReplayOutbox` | inventory entities, inventory events, repositories, outbox schema |
 | `auth-service` | `shopverse-observability-starter` | none | token issuing, auth-specific security, user credential logic |
 | `config-server` | `shopverse-observability-starter` | none | config server behavior |
 | `discovery-server` | `shopverse-observability-starter` | none | Eureka server behavior |

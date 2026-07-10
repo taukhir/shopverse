@@ -27,7 +27,7 @@ contracts, helper APIs, and Spring Boot auto-configuration.
 
 | Module | Use when a service needs | Keep local |
 |---|---|---|
-| `shopverse-common-error` | Common API error response records | Exception classes and service-specific handler policy |
+| `shopverse-common-error` | Common API error response records and local handler helpers | Exception classes and service-specific status policy |
 | `shopverse-web` | `PageResponse`, `PageMapper`, pagination validation | Endpoint-specific allowed sort fields |
 | `shopverse-observability-starter` | Servlet request logging, MDC correlation, correlation helpers, request metrics | Reactive gateway filters and service-specific log messages that are not common |
 | `shopverse-security-starter` | Servlet resource-server JWT decoder, issuer validation, roles/permissions authority mapping | Endpoint authorization rules, Basic auth, token issuing, gateway reactive security |
@@ -66,9 +66,9 @@ implementation 'io.shopverse.platform:shopverse-security-starter:0.0.1-SNAPSHOT'
 | Service | Platform modules adopted |
 |---|---|
 | `user-service` | common error, web, observability, security |
-| `order-service` | observability, security, Kafka parsing, outbox, Kafka recovery |
-| `payment-service` | observability, security, Kafka parsing, outbox, Kafka recovery |
-| `inventory-service` | observability, security, Kafka parsing, outbox, Kafka recovery |
+| `order-service` | common error, observability, security, Kafka parsing, outbox, Kafka recovery |
+| `payment-service` | common error, observability, security, Kafka parsing, outbox, Kafka recovery |
+| `inventory-service` | common error, observability, security, Kafka parsing, outbox, Kafka recovery |
 | `auth-service` | observability |
 | `config-server` | observability |
 | `discovery-server` | observability |

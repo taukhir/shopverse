@@ -5,6 +5,7 @@ WORKDIR /workspace/order-service
 
 COPY order-service/gradlew order-service/gradlew.bat order-service/settings.gradle order-service/build.gradle ./
 COPY order-service/gradle ./gradle
+COPY build-logic ../build-logic
 COPY shopverse-platform ../shopverse-platform
 RUN chmod +x ./gradlew
 

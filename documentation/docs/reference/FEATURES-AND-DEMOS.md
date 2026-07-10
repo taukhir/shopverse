@@ -41,6 +41,11 @@ For one reproducible walkthrough from startup to observability, use the
 | Transactional outbox | Implemented | domain and outbox atomic local transaction |
 | DLT persistence and replay audit | Implemented baseline | Order, Inventory, and Payment recovery APIs |
 | Queryable order timeline | Implemented | timeline table and ownership-protected API |
+| Angular storefront and admin UI | Implemented baseline | `shopverse-web` served locally or through full-stack Compose |
+| MinIO product media | Implemented baseline | Inventory image metadata plus seeded MinIO bucket |
+| Public customer registration | Implemented | `POST /api/v1/public/users/register` |
+| Shared platform error helpers | Implemented | `shopverse-common-error` `ApiErrorResponse` and `ApiErrors` |
+| Gradle convention plugins | Implemented baseline | local `build-logic` included build used by service builds |
 | Failure simulation | Partial | payment success, decline, and timeout |
 | Distributed Redis cache | Planned | current caches are local |
 | Transactional inbox/event-ID deduplication | Planned | current consumers use state checks and constraints |

@@ -1,5 +1,5 @@
 <main class="auth-page">
-  <a class="brand" routerLink="/"><img src="/shopverse-mark.svg" alt="" />shop<span>verse</span></a>
+  <a class="brand" routerLink="/"><img src="/shopverse-mark.svg" width="26" height="26" alt="" />shop<span>verse</span></a>
 
   <section>
     <p>MEMBER ACCESS</p>
@@ -9,6 +9,9 @@
     <form (ngSubmit)="submit()">
       <label>Username<input name="username" [(ngModel)]="username" autocomplete="username" required /></label>
       <label>Password<input name="password" [(ngModel)]="password" type="password" autocomplete="current-password" required /></label>
+      @if (notice()) {
+        <div class="form-message success">{{ notice() }}</div>
+      }
       @if (error()) {
         <div class="form-message error">{{ error() }}</div>
       }
@@ -16,5 +19,6 @@
     </form>
 
     <small>Administrator accounts use the same sign-in form and open the operations workspace automatically.</small>
+    <small class="auth-switch">New here? <a routerLink="/register">Create a customer account</a></small>
   </section>
 </main>

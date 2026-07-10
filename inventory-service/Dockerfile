@@ -5,6 +5,7 @@ WORKDIR /workspace/inventory-service
 
 COPY inventory-service/gradlew inventory-service/gradlew.bat inventory-service/settings.gradle inventory-service/build.gradle ./
 COPY inventory-service/gradle ./gradle
+COPY build-logic ../build-logic
 COPY shopverse-platform ../shopverse-platform
 RUN chmod +x ./gradlew
 

@@ -3,6 +3,7 @@ package io.shopverse.payment_service.service;
 import io.shopverse.payment_service.config.PaymentProperties;
 import io.shopverse.payment_service.dto.PaymentResponse;
 import io.shopverse.payment_service.entity.PaymentEntity;
+import io.shopverse.payment_service.exception.InvalidPaymentStateException;
 import io.shopverse.payment_service.exception.ResourceNotFoundException;
 import io.shopverse.payment_service.repository.PaymentRepository;
 import io.shopverse.payment_service.config.KafkaTopicsProperties;
@@ -116,7 +117,7 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentResponse refund(String orderNumber) {
         PaymentEntity payment = findPayment(orderNumber);
         if (payment.getStatus() != io.shopverse.payment_service.entity.PaymentStatus.CAPTURED) {
-            throw new IllegalStateException("Only captured payments can be refunded");
+            throw new InvalidPaymentStateException("Only captured payments can be refunded");
         }
         payment.refund();
         return toResponse(payment);

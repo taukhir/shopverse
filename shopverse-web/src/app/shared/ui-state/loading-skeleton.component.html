@@ -1,0 +1,11 @@
+<section class="skeleton" [class.cards]="variant() === 'cards'" [attr.aria-label]="'Loading content'">
+  @for (item of placeholders.slice(0, rows()); track item) {
+    <article>
+      <i></i>
+      <div>
+        <span></span>
+        <b></b>
+      </div>
+    </article>
+  }
+</section>

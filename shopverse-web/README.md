@@ -1,59 +1,75 @@
-# ShopverseWeb
+# Shopverse Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.3.
+Angular storefront and administration UI for the Shopverse local POC.
 
-## Development server
+The app runs on port `4200` in local development and in the full-stack Docker
+overlay. It talks to the backend through the API Gateway at `localhost:8080`.
 
-To start a local development server, run:
+## Responsibilities
 
-```bash
-ng serve
+- Customer login and registration.
+- Product catalog and product-detail browsing.
+- Cart and checkout flow.
+- Customer order and order-detail views.
+- Account/profile management.
+- Admin views for users, orders, inventory, payments, and recovery workflows.
+
+## Local Development
+
+Install dependencies once:
+
+```powershell
+npm ci
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Start the Angular development server:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```powershell
+npm start -- --proxy-config proxy.conf.json
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open:
 
-```bash
-ng generate --help
+```text
+http://localhost:4200
 ```
 
-## Building
+`proxy.conf.json` forwards `/api` and `/auth` to the API Gateway on
+`http://localhost:8080`, so start the backend stack before exercising real
+catalog, auth, checkout, or admin flows.
 
-To build the project run:
+## Docker
 
-```bash
-ng build
+The full-stack Compose overlay builds this app and serves it with nginx:
+
+```powershell
+docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml up --build shopverse-web
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The nginx config proxies `/api` and `/auth` to `api-gateway:8080` and falls
+back to `index.html` for Angular client-side routes.
 
-## Running unit tests
+## Scripts
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+| Command | Purpose |
+|---|---|
+| `npm start` | run Angular dev server |
+| `npm run build` | production build |
+| `npm run build:dev` | development build |
+| `npm test` | Angular unit-test command |
 
-```bash
-ng test
-```
+No end-to-end test runner is configured yet.
 
-## Running end-to-end tests
+## Runtime Notes
 
-For end-to-end (e2e) testing, run:
+- Access tokens are stored in `sessionStorage` for the local POC.
+- Cart state is stored in `localStorage`.
+- Product images are loaded from MinIO URLs returned by Inventory.
+- Protected API calls attach `Authorization: Bearer <token>`.
 
-```bash
-ng e2e
-```
+## Related Docs
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [Root quick start](../README.md)
+- [API guide](../documentation/docs/development/API-GUIDE.md)
+- [Service catalog](../documentation/docs/services/SERVICE-CATALOG.md)
+- [Complete demo](../documentation/docs/case-study/COMPLETE-DEMO.mdx)

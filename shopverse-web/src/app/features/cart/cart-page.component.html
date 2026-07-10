@@ -1,20 +1,72 @@
 <section class="cart-page">
   <div class="cart-heading"><p class="eyebrow">YOUR SELECTION</p><h1>Cart <span>({{ cart.itemCount() }})</span></h1></div>
   @if (cart.items().length === 0) {
-    <section class="empty-cart"><p class="eyebrow">NOTHING HERE YET</p><h2>A little empty space is fine.</h2><p>Find something worth bringing home from the current collection.</p><a routerLink="/products">Explore collection <span>→</span></a></section>
+    <app-empty-state
+      eyebrow="NOTHING HERE YET"
+      title="A little empty space is fine."
+      message="Find something worth bringing home from the current collection."
+      actionLabel="Explore collection"
+      actionLink="/products"
+    />
   } @else {
     <div class="cart-layout">
       <div class="cart-items">
         @for (item of cart.items(); track item.productId; let index = $index) {
           <article class="cart-item">
-            <div class="item-mark"><span>0{{ index + 1 }}</span><i></i></div>
-            <div class="item-name"><p>PRODUCT {{ item.productId }}</p><h2>{{ item.productName }}</h2><button type="button" (click)="cart.remove(item.productId)">Remove</button></div>
-            <div class="quantity" aria-label="Quantity controls for {{ item.productName }}"><button type="button" aria-label="Decrease quantity" (click)="cart.setQuantity(item.productId, item.quantity - 1)">−</button><span>{{ item.quantity }}</span><button type="button" aria-label="Increase quantity" (click)="cart.setQuantity(item.productId, item.quantity + 1)">+</button></div>
+            <a class="item-mark" [routerLink]="['/products', item.productId]" [attr.aria-label]="'View ' + item.productName">
+              @if (item.imageUrl) {
+                <img
+                  [src]="item.imageUrl"
+                  [alt]="item.productName"
+                  width="104"
+                  height="104"
+                  loading="lazy"
+                  decoding="async"
+                  appImageFallback
+                />
+              } @else {
+                <span>0{{ index + 1 }}</span><i></i>
+              }
+            </a>
+            <div class="item-name">
+              <p>PRODUCT {{ item.productId }} @if (item.available === false) { <b>Unavailable</b> }</p>
+              <h2><a [routerLink]="['/products', item.productId]">{{ item.productName }}</a></h2>
+              <span class="line-message">{{ lineMessage(item.available) }}</span>
+              <button type="button" (click)="cart.remove(item.productId)">Remove</button>
+              <button type="button" class="save-later" disabled>Save for later soon</button>
+            </div>
+            <div class="quantity" aria-label="Quantity controls for {{ item.productName }}"><button type="button" aria-label="Decrease quantity" (click)="cart.setQuantity(item.productId, item.quantity - 1)">&minus;</button><span>{{ item.quantity }}</span><button type="button" aria-label="Increase quantity" (click)="cart.setQuantity(item.productId, item.quantity + 1)">+</button></div>
             <strong>{{ price(item.price * item.quantity) }}</strong>
           </article>
         }
       </div>
-      <aside class="summary"><p class="eyebrow">SUMMARY</p><div><span>Items</span><strong>{{ cart.itemCount() }}</strong></div><div><span>Subtotal</span><strong>{{ price(cart.total()) }}</strong></div><div class="total"><span>Total</span><strong>{{ price(cart.total()) }}</strong></div><a routerLink="/checkout">Continue to checkout <span>→</span></a><p class="summary-note">Shipping and final availability are confirmed at checkout.</p></aside>
+      <aside class="summary">
+        <p class="eyebrow">SUMMARY</p>
+        <div><span>Items</span><strong>{{ cart.itemCount() }}</strong></div>
+        <div><span>Subtotal</span><strong>{{ price(cart.total()) }}</strong></div>
+        <div><span>Estimated tax</span><strong>Calculated later</strong></div>
+        <div><span>Delivery estimate</span><strong>Calculated later</strong></div>
+        <div class="total"><span>Total</span><strong>{{ price(cart.total()) }}</strong></div>
+        @if (hasUnavailableItems()) {
+          <p class="checkout-warning">Remove unavailable items before checkout. They cannot be reserved or paid for.</p>
+          <button class="cleanup" type="button" (click)="removeUnavailableItems()">Remove unavailable items</button>
+        }
+        @if (cart.items().length > 1) {
+          <p class="checkout-warning">Checkout currently accepts one product line per order. Keep one item in cart before placing the order.</p>
+        }
+        @if (canCheckout()) {
+          <a routerLink="/checkout">Continue to checkout <span>&rarr;</span></a>
+        } @else {
+          <button class="disabled-checkout" type="button" disabled>Checkout unavailable</button>
+        }
+        <a class="secondary-action" routerLink="/products">Continue shopping</a>
+        <p class="summary-note">Shipping, payment method, and final availability are confirmed at checkout.</p>
+      </aside>
     </div>
+    <section class="saved-panel">
+      <p class="eyebrow">SAVED FOR LATER</p>
+      <h2>Wishlist-style cart parking is ready for a backend model.</h2>
+      <span>Once product favorites or saved carts exist, customers can move items here instead of removing them.</span>
+    </section>
   }
 </section>

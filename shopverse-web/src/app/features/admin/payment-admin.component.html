@@ -1,0 +1,124 @@
+<main class="admin-page-shell payment-admin">
+  <nav class="admin-local-nav" aria-label="Admin navigation">
+    <div class="crumbs">
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Payments</b>
+    </div>
+    <div class="admin-actions">
+      <a routerLink="/admin">Overview</a>
+      <a routerLink="/admin/orders">Orders</a>
+      <button type="button" (click)="logout()">Sign out</button>
+    </div>
+  </nav>
+
+  <div class="heading">
+    <div>
+      <p class="eyebrow">PAYMENTS</p>
+      <h1>Payment operations.</h1>
+    </div>
+    <button type="button" (click)="load()">Refresh</button>
+  </div>
+
+  @if (error()) {
+    <app-service-notice
+      eyebrow="PAYMENTS UNAVAILABLE"
+      title="Payment operations could not be loaded."
+      [message]="error()"
+      (retry)="load()"
+    />
+  } @else if (loading()) {
+    <app-loading-skeleton [rows]="5" />
+  } @else {
+    <section class="metrics">
+      <article class="primary"><span>Total amount</span><strong>{{ price(totals().amount) }}</strong><em>{{ totals().count }} records</em></article>
+      <article><span>Captured</span><strong>{{ totals().captured }}</strong></article>
+      <article><span>Pending</span><strong>{{ totals().pending }}</strong></article>
+      <article class="danger"><span>Failed</span><strong>{{ totals().failed }}</strong></article>
+      <article><span>Refunded</span><strong>{{ totals().refunded }}</strong></article>
+    </section>
+
+    <section class="simulation">
+      <div>
+        <p>STUB SIMULATION</p>
+        <h2>Control the next payment outcome.</h2>
+        <span>This affects the payment provider stub used by the demo workflow.</span>
+      </div>
+      <form (ngSubmit)="setSimulationMode()">
+        <select name="simulationMode" [(ngModel)]="simulationMode">
+          @for (mode of modes; track mode) {
+            <option [value]="mode">{{ mode }}</option>
+          }
+        </select>
+        <button [disabled]="simulationSaving()">{{ simulationSaving() ? 'Saving...' : 'Apply mode' }}</button>
+      </form>
+    </section>
+
+    @if (actionError()) {
+      <div class="form-message error">{{ actionError() }}</div>
+    }
+    @if (actionSuccess()) {
+      <div class="form-message success">{{ actionSuccess() }}</div>
+    }
+
+    <div class="list-controls" aria-label="Payment list controls">
+      <label>Search<input [(ngModel)]="search" placeholder="Order, reference, failure, status" /></label>
+      <label>Status
+        <select [(ngModel)]="statusFilter">
+          @for (status of statuses(); track status) {
+            <option [value]="status">{{ status }}</option>
+          }
+        </select>
+      </label>
+      <label>Sort
+        <select [(ngModel)]="sort">
+          <option value="updatedDesc">Recently updated</option>
+          <option value="updatedAsc">Oldest updated</option>
+          <option value="amountDesc">Amount high to low</option>
+          <option value="amountAsc">Amount low to high</option>
+          <option value="status">Status</option>
+          <option value="order">Order number</option>
+        </select>
+      </label>
+    </div>
+
+    @if (!filteredPayments().length) {
+      <app-empty-state eyebrow="NO PAYMENTS MATCH" title="No payment records match." message="Clear the search or status filter to see more payment records." />
+    } @else {
+      <section class="table">
+        @for (payment of visiblePayments(); track payment.id) {
+          <article>
+            <div class="order">
+              <span>{{ payment.orderNumber }}</span>
+              <strong>{{ payment.status }}</strong>
+              <small>{{ payment.updatedAt | date:'medium' }}</small>
+            </div>
+            <div>
+              <span>Amount</span>
+              <b>{{ price(payment.amount) }}</b>
+            </div>
+            <div>
+              <span>Reference</span>
+              <b>{{ payment.paymentReference || 'Not captured' }}</b>
+            </div>
+            <div>
+              <span>Failure</span>
+              <b>{{ payment.failureReason || '&mdash;' }}</b>
+            </div>
+            <div class="actions">
+              <button type="button" (click)="reconcile(payment)" [disabled]="!canReconcile(payment) || busyOrder() === payment.orderNumber">
+                {{ busyOrder() === payment.orderNumber ? 'Working...' : 'Reconcile' }}
+              </button>
+              <button type="button" (click)="refund(payment)" [disabled]="!canRefund(payment) || busyOrder() === payment.orderNumber">Refund</button>
+            </div>
+          </article>
+        }
+      </section>
+      <div class="table-pagination">
+        <span>{{ pageLabel() }}</span>
+        <div>
+          <button type="button" (click)="changePage(-1)" [disabled]="page() <= 1">Previous</button>
+          <button type="button" (click)="changePage(1)" [disabled]="page() >= pageCount()">Next</button>
+        </div>
+      </div>
+    }
+  }
+</main>

@@ -35,6 +35,10 @@ Content-Type: application/json
 
 Current validation allows one item.
 
+Swagger is available at `/swagger-ui/index.html` when the service is reached
+directly; use the [API guide](../documentation/docs/development/API-GUIDE.md)
+for gateway-facing examples.
+
 ## Persistence And Consistency
 
 Order, items, initial timeline event, and outgoing outbox event commit in one transaction. Reusing an idempotency key returns the existing order. A database unique constraint protects concurrent duplicates.

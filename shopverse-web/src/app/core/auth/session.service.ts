@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { tap } from 'rxjs';
 
+import { API_PATHS } from '../api/api-paths';
+import { STORAGE_KEYS } from '../constants/storage-keys';
+
 export interface UserProfile {
   id: number;
   username: string;
@@ -21,7 +24,6 @@ export interface ProfileUpdate {
 }
 
 interface TokenClaims { sub?: string; exp?: number; roles?: string; }
-const tokenKey = 'shopverse.session.token';
 
 @Injectable({ providedIn: 'root' })
 export class SessionService {
@@ -34,32 +36,32 @@ export class SessionService {
   readonly isAdmin = computed(() => this.roles().includes('ROLE_ADMIN'));
 
   login(username: string, password: string) {
-    return this.http.post<{ token: string }>('/auth/login', { username, password }).pipe(
+    return this.http.post<{ token: string }>(API_PATHS.auth.login, { username, password }).pipe(
       tap(({ token }) => this.setToken(token)),
     );
   }
 
   loadProfile() {
-    return this.http.get<UserProfile>('/api/v1/users/me').pipe(tap((profile) => this.profile.set(profile)));
+    return this.http.get<UserProfile>(API_PATHS.users.me).pipe(tap((profile) => this.profile.set(profile)));
   }
 
   updateProfile(profile: ProfileUpdate) {
-    return this.http.patch<UserProfile>('/api/v1/users/me', profile).pipe(tap((updated) => this.profile.set(updated)));
+    return this.http.patch<UserProfile>(API_PATHS.users.me, profile).pipe(tap((updated) => this.profile.set(updated)));
   }
 
   logout(): void {
-    sessionStorage.removeItem(tokenKey);
+    sessionStorage.removeItem(STORAGE_KEYS.sessionToken);
     this.token.set(null);
     this.profile.set(null);
   }
 
   private setToken(token: string): void {
-    sessionStorage.setItem(tokenKey, token);
+    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
     this.token.set(token);
   }
 
   private readToken(): string | null {
-    try { return sessionStorage.getItem(tokenKey); } catch { return null; }
+    try { return sessionStorage.getItem(STORAGE_KEYS.sessionToken); } catch { return null; }
   }
 
   private claims(): TokenClaims | null {

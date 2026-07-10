@@ -1,11 +1,12 @@
 <a class="skip-link" href="#main-content">Skip to content</a>
 
 <header class="site-header">
-  <a class="brand" routerLink="/" aria-label="ShopVerse home"><img class="brand-mark" src="/shopverse-mark.svg" alt="" />shop<span>verse</span></a>
+  <a class="brand" routerLink="/" aria-label="ShopVerse home"><img class="brand-mark" src="/shopverse-mark.svg" width="26" height="26" alt="" />shop<span>verse</span></a>
   <nav class="site-nav" aria-label="Main navigation">
+    <a routerLink="/" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Home</a>
     <a routerLink="/products" routerLinkActive="active">Shop</a>
     <a routerLink="/orders" routerLinkActive="active">Orders</a>
-    @if (session.isAuthenticated()) { <a routerLink="/account" routerLinkActive="active">Account</a><button class="logout" type="button" (click)="logout()">Sign out</button> } @else { <a routerLink="/login" routerLinkActive="active">Sign in</a> }
+    @if (session.isAuthenticated()) { <a routerLink="/notifications" routerLinkActive="active">Alerts</a><a routerLink="/account" routerLinkActive="active">Account</a><button class="logout" type="button" (click)="logout()">Sign out</button> } @else { <a routerLink="/login" routerLinkActive="active">Sign in</a> }
   </nav>
   <a class="cart-link" routerLink="/cart">Cart <span>{{ cart.itemCount() }}</span></a>
 </header>
@@ -13,7 +14,7 @@
 <main id="main-content"><router-outlet /></main>
 
 <footer class="site-footer">
-  <a class="brand" routerLink="/" aria-label="ShopVerse home"><img class="brand-mark" src="/shopverse-mark.svg" alt="" />shop<span>verse</span></a>
+  <a class="brand" routerLink="/" aria-label="ShopVerse home"><img class="brand-mark" src="/shopverse-mark.svg" width="26" height="26" loading="lazy" decoding="async" alt="" />shop<span>verse</span></a>
   <p>Commerce that keeps every step in view.</p>
   <a routerLink="/admin">Operations</a>
 </footer>

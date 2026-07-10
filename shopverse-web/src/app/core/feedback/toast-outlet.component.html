@@ -1,0 +1,9 @@
+<section class="toast-stack" aria-live="polite" aria-label="Notifications">
+  @for (message of toast.messages(); track message.id) {
+    <article [class]="message.tone">
+      <span>{{ message.tone }}</span>
+      <p>{{ message.message }}</p>
+      <button type="button" (click)="toast.dismiss(message.id)" aria-label="Dismiss notification">×</button>
+    </article>
+  }
+</section>

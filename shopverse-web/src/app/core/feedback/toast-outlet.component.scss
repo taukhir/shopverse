@@ -1,0 +1,55 @@
+.toast-stack {
+  position: fixed;
+  z-index: 1000;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  gap: 10px;
+  width: min(360px, calc(100vw - 36px));
+}
+
+article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  padding: 14px 14px 14px 16px;
+  color: var(--white);
+  background: var(--ink-soft);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 8px 9px 0 rgba(12, 16, 32, 0.14);
+}
+
+article.success {
+  background: #12392d;
+}
+
+article.error {
+  background: #561d1d;
+}
+
+span {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+p {
+  grid-column: 1;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+button {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  padding: 0 3px;
+  color: var(--white);
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+}

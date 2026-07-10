@@ -1,5 +1,11 @@
 <section class="detail-page">
-  <a class="back" routerLink="/orders">&larr; Back to orders</a>
+  <nav class="customer-nav" aria-label="Order navigation">
+    <a routerLink="/orders">&larr; Back to orders</a>
+    <div>
+      <a routerLink="/account">Account</a>
+      <a routerLink="/">Home</a>
+    </div>
+  </nav>
 
   @if (state() === 'loading') {
     <div class="notice">Loading order details...</div>
@@ -8,9 +14,59 @@
   } @else if (order()) {
     <div class="heading">
       <p>ORDER {{ order()?.orderNumber }}</p>
-      <h1>{{ order()?.status }}</h1>
+      <h1>{{ currentStatus() }}</h1>
       <span>Placed {{ order()?.createdAt | date:'medium' }}</span>
     </div>
+
+    <section class="status-strip">
+      <article>
+        <span>Current status</span>
+        <strong [class]="statusTone(order()?.status)">{{ currentStatus() }}</strong>
+      </article>
+      <article>
+        <span>Payment</span>
+        <strong [class]="statusTone(payment()?.status)">{{ paymentStatus() }}</strong>
+      </article>
+      <article>
+        <span>Support reference</span>
+        <strong>{{ order()?.correlationId || order()?.orderNumber }}</strong>
+      </article>
+    </section>
+
+    <section class="progress-card">
+      <div>
+        <p>TRACKING</p>
+        <h2>Where your order stands.</h2>
+      </div>
+      <div class="steps">
+        @for (step of steps(); track step.label) {
+          <article [class]="step.state">
+            <i></i>
+            <span>{{ step.label }}</span>
+          </article>
+        }
+      </div>
+    </section>
+
+    <section class="next-card">
+      <p>WHAT HAPPENS NEXT</p>
+      <h2>{{ nextMessage() }}</h2>
+    </section>
+
+    <section class="customer-actions">
+      <div>
+        <p>CUSTOMER SERVICE</p>
+        <h2>Need help with this order?</h2>
+        <span>These actions are wired as frontend placeholders until payment, refund, cancellation, and receipt APIs are available.</span>
+      </div>
+      <div class="action-grid">
+        <button type="button" (click)="placeholderAction('Cancel order')">Cancel order</button>
+        <button type="button" (click)="placeholderAction('Retry payment')">Retry payment</button>
+        <button type="button" (click)="placeholderAction('Request refund')">Request refund</button>
+        <button type="button" (click)="placeholderAction('Download receipt')">Download receipt</button>
+        <button type="button" (click)="copyAllReferences()">Copy all references</button>
+      </div>
+    </section>
 
     <div class="layout">
       <main>
@@ -35,7 +91,7 @@
           } @else {
             <div class="timeline">
               @for (event of timeline(); track event.stage + event.occurredAt) {
-                <article>
+                <article [class]="statusTone(event.stage)">
                   <i></i>
                   <div>
                     <span>{{ event.occurredAt | date:'medium' }}</span>
@@ -49,13 +105,48 @@
         </section>
       </main>
 
-      <aside class="summary">
-        <p>SUMMARY</p>
-        <div><span>Status</span><strong>{{ order()?.status }}</strong></div>
-        <div><span>Order number</span><strong>{{ order()?.orderNumber }}</strong></div>
-        <div><span>Customer</span><strong>{{ order()?.customerUsername }}</strong></div>
-        <div><span>Correlation</span><strong>{{ order()?.correlationId }}</strong></div>
-        <div class="total"><span>Total</span><strong>{{ price(order()?.totalAmount || 0) }}</strong></div>
+      <aside>
+        <section class="summary">
+          <p>SUMMARY</p>
+          <div><span>Status</span><strong>{{ currentStatus() }}</strong></div>
+          <div>
+            <span>Order number</span>
+            <strong>{{ order()?.orderNumber }}</strong>
+            <button type="button" (click)="copy(order()?.orderNumber, 'Order number')">Copy</button>
+          </div>
+          <div><span>Customer</span><strong>{{ order()?.customerUsername }}</strong></div>
+          <div>
+            <span>Correlation</span>
+            <strong>{{ order()?.correlationId || 'Not available' }}</strong>
+            @if (order()?.correlationId) {
+              <button type="button" (click)="copy(order()?.correlationId, 'Correlation ID')">Copy</button>
+            }
+          </div>
+          @if (order()?.idempotencyKey) {
+            <div>
+              <span>Idempotency key</span>
+              <strong>{{ order()?.idempotencyKey }}</strong>
+              <button type="button" (click)="copy(order()?.idempotencyKey, 'Idempotency key')">Copy</button>
+            </div>
+          }
+          <div class="total"><span>Total</span><strong>{{ price(order()?.totalAmount || 0) }}</strong></div>
+        </section>
+
+        <section class="payment-card">
+          <p>PAYMENT</p>
+          <div><span>Status</span><strong>{{ paymentStatus() }}</strong></div>
+          <div><span>Amount</span><strong>{{ payment() ? price(payment()!.amount) : price(order()?.totalAmount || 0) }}</strong></div>
+          <div>
+            <span>Reference</span>
+            <strong>{{ payment()?.paymentReference || 'Not captured' }}</strong>
+            @if (payment()?.paymentReference) {
+              <button type="button" (click)="copy(payment()?.paymentReference, 'Payment reference')">Copy</button>
+            }
+          </div>
+          @if (payment()?.failureReason) {
+            <div><span>Failure reason</span><strong>{{ payment()?.failureReason }}</strong></div>
+          }
+        </section>
       </aside>
     </div>
   }
