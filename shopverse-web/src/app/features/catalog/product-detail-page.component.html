@@ -1,0 +1,143 @@
+<section class="page-shell product-detail-page">
+  <a class="back-link" routerLink="/products">&larr; Back to catalog</a>
+
+  @if (state() === 'loading') {
+    <app-loading-skeleton [rows]="2" variant="cards" />
+  } @else if (state() === 'error') {
+    <app-service-notice
+      eyebrow="PRODUCT UNAVAILABLE"
+      title="We could not load this product."
+      message="Confirm the backend services are running, then try again."
+      (retry)="load()"
+    />
+  } @else if (state() === 'not-found') {
+    <app-empty-state
+      eyebrow="NOT FOUND"
+      title="This product is not in the current collection."
+      message="Return to the catalog to continue browsing available products."
+      actionLabel="Browse catalog"
+      actionLink="/products"
+    />
+  } @else if (product(); as item) {
+    <div class="detail-grid">
+      <div class="product-media">
+        <img
+          [src]="item.imageUrl"
+          [alt]="item.productName"
+          width="720"
+          height="560"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          appImageFallback
+        />
+        @if (!item.available) {
+          <span>Unavailable</span>
+        }
+      </div>
+
+      <article class="product-summary">
+        <p class="eyebrow">{{ item.available ? 'IN STOCK' : 'CURRENTLY UNAVAILABLE' }}</p>
+        <h1>{{ item.productName }}</h1>
+        <strong>{{ price(item.price) }}</strong>
+        <p class="summary-copy">
+          A focused ShopVerse essential from the live catalog. Availability is confirmed again during checkout.
+        </p>
+
+        <div class="service-strip" aria-label="Product service information">
+          <article>
+            <span>Delivery</span>
+            <b>{{ deliveryWindow() }}</b>
+          </article>
+          <article>
+            <span>Returns</span>
+            <b>7-day replacement</b>
+          </article>
+          <article>
+            <span>Support</span>
+            <b>Order-level tracking</b>
+          </article>
+        </div>
+
+        <div class="detail-facts">
+          <div><span>Product ID</span><b>{{ item.productId }}</b></div>
+          <div><span>Status</span><b>{{ item.available ? 'Available' : 'Unavailable' }}</b></div>
+          <div><span>Image key</span><b>{{ item.imageKey || 'Catalog image' }}</b></div>
+        </div>
+
+        @if (item.available) {
+          <div class="purchase-panel">
+            <div class="quantity">
+              <span>Quantity</span>
+              <div>
+                <button type="button" (click)="setQuantity(quantity() - 1)" aria-label="Decrease quantity">&minus;</button>
+                <b>{{ quantity() }}</b>
+                <button type="button" (click)="setQuantity(quantity() + 1)" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div class="total"><span>Total</span><strong>{{ total() }}</strong></div>
+            <button class="add" type="button" (click)="addToCart(item)">Add to cart <b>&rarr;</b></button>
+          </div>
+        } @else {
+          <div class="unavailable-note">This item cannot be added right now. Check back after inventory is updated.</div>
+        }
+      </article>
+    </div>
+
+    <section class="confidence-grid">
+      <article>
+        <p class="eyebrow">WHY BUY THIS</p>
+        <h2>Selected for a clean everyday setup.</h2>
+        <span>ShopVerse keeps the catalog intentionally focused: practical essentials, clear pricing, live availability, and order tracking after checkout.</span>
+      </article>
+      <article>
+        <p class="eyebrow">SPECIFICATIONS</p>
+        <div class="spec-list">
+          @for (spec of productSpecs(item); track spec.label) {
+            <div><span>{{ spec.label }}</span><b>{{ spec.value }}</b></div>
+          }
+        </div>
+      </article>
+      <article>
+        <p class="eyebrow">CHECKOUT NOTE</p>
+        <h2>Inventory is verified again before order creation.</h2>
+        <span>If stock changes between browsing and checkout, the order will stop safely before payment capture.</span>
+      </article>
+    </section>
+
+    <section class="related" aria-labelledby="related-title">
+      <div>
+        <p class="eyebrow">MORE FROM THE EDIT</p>
+        <h2 id="related-title">Related essentials.</h2>
+      </div>
+      <div class="related-grid">
+        @for (relatedItem of related(); track relatedItem.productId) {
+          <a [routerLink]="['/products', relatedItem.productId]">
+            <img
+              [src]="relatedItem.imageUrl"
+              [alt]="relatedItem.productName"
+              width="320"
+              height="170"
+              loading="lazy"
+              decoding="async"
+              appImageFallback
+            />
+            <span>{{ relatedItem.available ? 'IN STOCK' : 'UNAVAILABLE' }}</span>
+            <strong>{{ relatedItem.productName }}</strong>
+            <b>{{ price(relatedItem.price) }}</b>
+          </a>
+        }
+      </div>
+    </section>
+
+    @if (item.available) {
+      <div class="sticky-purchase">
+        <div>
+          <span>{{ item.productName }}</span>
+          <strong>{{ total() }}</strong>
+        </div>
+        <button type="button" (click)="addToCart(item)">Add {{ quantity() }} to cart</button>
+      </div>
+    }
+  }
+</section>

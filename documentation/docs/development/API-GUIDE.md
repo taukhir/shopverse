@@ -71,6 +71,8 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 |---|---|
 | `POST` | `/auth/login` |
 | `GET` | `/auth/.well-known/jwks.json` |
+| `POST` | `/api/v1/public/users/register` |
+| `GET` | `/api/v1/public/health` |
 | `GET` | `/api/v1/orders/public/health` |
 | `GET` | `/api/v1/orders/public/catalog` |
 | `GET` | `/api/v1/inventory/public/items` |
@@ -80,6 +82,8 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 
 | Method | Path | Rule |
 |---|---|---|
+| `GET` | `/api/v1/users/me` | current user's profile |
+| `PATCH` | `/api/v1/users/me` | update current user's profile |
 | `GET` | `/api/v1/orders` | current user's orders |
 | `GET` | `/api/v1/orders/{id}` | owner or admin |
 | `GET` | `/api/v1/orders/{id}/timeline` | owner or admin |
@@ -92,6 +96,7 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 |---|---|---|
 | `GET` | `/api/v1/orders/admin/all` | inspect all orders |
 | `PUT` | `/api/v1/inventory/admin/items` | create or replace stock |
+| `GET` | `/api/v1/inventory/admin/reservations/orders/{orderNumber}` | inspect reservation state for one order |
 | `GET` | `/api/v1/payments/admin` | inspect all payments |
 | `POST` | `/api/v1/payments/admin/simulation?mode=TIMEOUT` | select stub-provider behavior |
 | `POST` | `/api/v1/payments/admin/orders/{orderNumber}/reconcile` | resolve a timed-out payment |
@@ -110,6 +115,8 @@ provide the final method-level authorization check.
 
 | Method | Path | Required permission |
 |---|---|---|
+| `GET` | `/api/v1/users/me` | authenticated user |
+| `PATCH` | `/api/v1/users/me` | authenticated user |
 | `GET` | `/api/v1/users` | `USER_READ` |
 | `GET` | `/api/v1/users/{id}` | `USER_READ` |
 | `POST` | `/api/v1/users` | `USER_CREATE` |

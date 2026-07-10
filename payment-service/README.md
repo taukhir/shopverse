@@ -15,6 +15,10 @@ Payment Service runs on port `8084`. It owns persistent payment state, a third-p
 | `GET` | `/api/v1/payments/admin/dead-letters` | admin |
 | `POST` | `/api/v1/payments/admin/dead-letters/{id}/replay` | admin |
 
+Swagger is available at `/swagger-ui/index.html` when the service is reached
+directly; use the [API guide](../documentation/docs/development/API-GUIDE.md)
+for gateway-facing examples.
+
 ## Payment States
 
 ```text

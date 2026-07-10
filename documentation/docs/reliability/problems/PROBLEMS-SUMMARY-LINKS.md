@@ -15,6 +15,7 @@ Back to [Shopverse Problems And Solutions](../PROBLEMS-AND-SOLUTIONS.md).
 | Runtime | Checkout spans multiple service databases and Kafka | choreography SAGA with local transactions, outbox, compensation, and timeline |
 | Security | A valid customer JWT could be used to guess another customer's resource identifier | owner-or-admin method security backed by service-local existence queries |
 | Runtime | Checkout retry can create duplicate orders | mandatory `Idempotency-Key`, same-customer lookup, and database uniqueness |
+| Runtime | Checkout loads the full Inventory catalog to validate one requested product | direct product lookup now and bulk product lookup before multi-item checkout |
 | Runtime | Domain state can commit while the outgoing event is lost | transactional outbox inserted atomically with domain state |
 | Runtime | Poison Kafka event can block business progress | retry topics, DLT persistence, and replay audit fields |
 | Runtime | Outbox database lock held during Kafka wait | short claim and finalization transactions |
@@ -33,6 +34,7 @@ Back to [Shopverse Problems And Solutions](../PROBLEMS-AND-SOLUTIONS.md).
 
 - [Shopverse SAGA and Outbox implementation](../SAGA-OUTBOX.md)
 - [Resource ownership authorization](runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+- [Checkout catalog lookup problem](runtime/CATALOG-LOOKUP-CHECKOUT.md)
 - [Transactional outbox pattern](../OUTBOX-PATTERN.md)
 - [Inbox pattern](../INBOX-PATTERN.md)
 - [Shopverse SAGA code flow](../SHOPVERSE-SAGA-CODE-FLOW.md)

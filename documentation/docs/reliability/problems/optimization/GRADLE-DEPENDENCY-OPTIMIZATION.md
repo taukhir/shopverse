@@ -250,15 +250,10 @@ Use these rules for new dependencies:
 
 These are useful next steps, but they should be done separately:
 
-1. Add a shared version catalog or convention plugin.
-2. Centralize repeated versions:
-   - Spring Cloud
-   - Springdoc
-   - Resilience4j
-   - Testcontainers
-3. Evaluate dependency locking after dependency shape stabilizes.
-4. Add dependency verification metadata only when the team is ready to maintain it.
-5. Continue auditing large runtime libraries before removing any feature dependency.
+1. Add a shared version catalog for dependency aliases.
+2. Evaluate dependency locking after dependency shape stabilizes.
+3. Add dependency verification metadata only when the team is ready to maintain it.
+4. Continue auditing large runtime libraries before removing any feature dependency.
 
 ## Future Target: Version Catalog
 
@@ -281,6 +276,154 @@ implementation libs.resilience4j.spring.boot
 
 Because this repository has multiple independent Gradle builds, we should
 introduce the catalog carefully and verify each service one at a time.
+
+## Gradle Convention Plugins
+
+Status: implemented first pass.
+
+Goal: reduce repeated Gradle setup across services without forcing all services
+into one root multi-project build. Each service remains independently buildable
+and keeps the current `includeBuild('../shopverse-platform')` model.
+
+### Implemented Approach
+
+Shopverse uses a small included build for Gradle convention plugins:
+
+```text
+build-logic/
+  settings.gradle
+  build.gradle
+  src/main/groovy/io.shopverse.java-service-conventions.gradle
+  src/main/groovy/io.shopverse.spring-boot-service-conventions.gradle
+  src/main/groovy/io.shopverse.integration-test-conventions.gradle
+```
+
+This is cleaner than copying root scripts because each service applies the same
+local plugin while remaining a standalone Gradle project.
+
+### Build Logic
+
+- `java-service-conventions`: Java 21 toolchain, repositories, test launcher,
+  JUnit Platform, and common `jar` behavior.
+- `spring-boot-service-conventions`: Spring Boot plugin,
+  dependency-management plugin, Spring Cloud BOM, actuator/test defaults.
+- `integration-test-conventions`: shared `integrationTest` source set,
+  configurations, and task for `order-service`, `payment-service`, and
+  `inventory-service`.
+
+### Service Wiring
+
+Update each service `settings.gradle`:
+
+```groovy
+pluginManagement {
+    includeBuild('../build-logic')
+}
+
+includeBuild('../shopverse-platform')
+```
+
+Repeated plugin/config blocks in service `build.gradle` files are replaced with:
+
+```groovy
+plugins {
+    id 'io.shopverse.spring-boot-service-conventions'
+}
+```
+
+For services with integration tests:
+
+```groovy
+plugins {
+    id 'io.shopverse.spring-boot-service-conventions'
+    id 'io.shopverse.integration-test-conventions'
+}
+```
+
+### Centralized Versions
+
+The convention plugins currently centralize these repeated versions:
+
+- Spring Boot: `4.0.6`
+- Spring Cloud: `2025.1.1`
+- Resilience4j: `2.4.0`
+- Testcontainers: `2.0.5`
+
+A version catalog is still a useful future step for dependency aliases, but the
+first migration keeps version constants in the convention plugin.
+
+### Centralized Common Configuration
+
+These repeated blocks now live in conventions:
+
+- `group = 'io.shopverse'`
+- `version = '0.0.1-SNAPSHOT'`
+- Java 21 toolchain
+- `repositories { mavenCentral() }`
+- Spring Cloud BOM import
+- `tasks.named('test') { useJUnitPlatform(); maxParallelForks = 1 }`
+- `tasks.named('jar') { enabled = false }`
+- `testRuntimeOnly 'org.junit.platform:junit-platform-launcher'`
+
+Still intentionally left in service builds unless a later pass proves they are
+universal:
+
+- `developmentOnly 'org.springframework.boot:spring-boot-devtools'`
+- `runtimeOnly 'io.micrometer:micrometer-registry-prometheus'`
+
+Do not blindly centralize domain or service-specific dependencies such as JPA,
+Kafka, Feign, Liquibase, security, platform starters, or Springdoc. Keep those
+in the service build until the dependency belongs to every service using the
+same semantics.
+
+### Migration Order Used
+
+The intended migration order is:
+
+1. `config-server`
+2. `discovery-server`
+3. `api-gateway`
+4. `auth-service`
+5. `user-service`
+6. `order-service`
+7. `payment-service`
+8. `inventory-service`
+
+Start with smaller services, then migrate services with custom integration tests
+and larger dependency surfaces.
+
+### Verification
+
+After each service migration:
+
+```powershell
+cd service-name
+.\gradlew.bat test --no-daemon
+```
+
+For integration-test services:
+
+```powershell
+.\gradlew.bat integrationTest --no-daemon
+```
+
+Also verify Docker builds still work because Dockerfiles copy each service's
+`settings.gradle`, `build.gradle`, and wrapper.
+
+### Docker Note
+
+Because service builds depend on `../build-logic`, every service Dockerfile must copy
+`build-logic` into the Docker build context, just like services currently copy
+`shopverse-platform`.
+
+Example:
+
+```dockerfile
+COPY build-logic ../build-logic
+COPY shopverse-platform ../shopverse-platform
+```
+
+This has been added to the Java service Dockerfiles.
 
 ## Risk
 

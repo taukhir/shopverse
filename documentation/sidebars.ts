@@ -352,7 +352,104 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '9. Shopverse Implementation',
+      label: '9. AI, RAG And Java AI',
+      collapsed: false,
+      items: [
+        'ai/README',
+        {
+          type: 'category',
+          label: 'Start Here',
+          collapsed: false,
+          items: [
+            'ai/BEGINNER-TO-ADVANCED-GUIDE',
+            'ai/VISUAL-LEARNING-GUIDE',
+            'ai/AI-LEARNING-PLAN',
+            'ai/AI-FRAMEWORKS-FROM-ZERO',
+            'ai/SPRING-AI-LANGCHAIN4J-JAVA',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Core AI Concepts',
+          collapsed: false,
+          items: [
+            'ai/LLM-GENERATIVE-AI-FUNDAMENTALS',
+            'ai/API-INTEGRATION-PROMPTING',
+            'ai/EMBEDDINGS-VECTOR-DB-RAG',
+            'ai/ADVANCED-AI-TOPICS',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Java AI',
+          collapsed: false,
+          items: [
+            'ai/JAVA-AI-DEVELOPER-GUIDE',
+            'ai/JAVA-AI-CODE-COOKBOOK',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Spring AI',
+          collapsed: false,
+          items: [
+            'ai/SPRING-AI-UMBRELLA',
+            'ai/SPRING-AI-DEEP-DIVE',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'LangChain4j',
+          collapsed: false,
+          items: [
+            'ai/LANGCHAIN4J-UMBRELLA',
+            {
+              type: 'category',
+              label: 'Tutorials For Java/Spring',
+              collapsed: false,
+              items: [
+                'ai/LANGCHAIN4J-TUTORIALS',
+                'ai/LANGCHAIN4J-TUTORIAL-CHAT-MODELS',
+                'ai/LANGCHAIN4J-TUTORIAL-AI-SERVICES',
+                'ai/LANGCHAIN4J-TUTORIAL-TOOLS-MEMORY',
+                'ai/LANGCHAIN4J-TUTORIAL-RAG',
+                'ai/LANGCHAIN4J-TUTORIAL-SPRING-BOOT',
+              ],
+            },
+            'ai/LANGCHAIN4J-DEEP-DIVE',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Framework Comparison',
+          collapsed: false,
+          items: [
+            'ai/SPRING-AI-VS-LANGCHAIN4J',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Security And Guardrails',
+          collapsed: false,
+          items: [
+            'ai/AI-SECURITY-GUARDRAILS',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Shopverse Hands-on',
+          collapsed: false,
+          items: [
+            'ai/SHOPVERSE-AI-POC-PLAN',
+            'ai/HANDS-ON-LABS',
+            'ai/INTERVIEW-QA',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: '10. Shopverse Implementation',
       collapsed: false,
       items: [
         {
@@ -489,6 +586,7 @@ const sidebars: SidebarsConfig = {
                   ],
                 },
                 'reliability/problems/runtime/IDEMPOTENT-CHECKOUT',
+                'reliability/problems/runtime/CATALOG-LOOKUP-CHECKOUT',
                 'reliability/problems/runtime/KAFKA-IDEMPOTENCY',
                 'reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION',
               ],

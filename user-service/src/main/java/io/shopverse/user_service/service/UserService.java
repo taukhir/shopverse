@@ -16,6 +16,8 @@ public interface UserService {
 
     UserResponse updateAuthenticatedUserProfile(String username, UpdateProfileRequest request);
 
+    UserResponse registerCustomer(RegisterCustomerRequest request);
+
     UserResponse createUser(CreateUserRequest request);
 
     UserResponse updateUser(Long id, UpdateUserRequest request);

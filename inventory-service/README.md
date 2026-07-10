@@ -10,8 +10,13 @@ Inventory Service runs on port `8086`. It owns stock, reservations, expiry, over
 | `GET` | `/api/v1/inventory/public/items` | public |
 | `GET` | `/api/v1/inventory/{productId}` | authenticated |
 | `PUT` | `/api/v1/inventory/admin/items` | admin |
+| `GET` | `/api/v1/inventory/admin/reservations/orders/{orderNumber}` | admin |
 | `GET` | `/api/v1/inventory/admin/dead-letters` | admin |
 | `POST` | `/api/v1/inventory/admin/dead-letters/{id}/replay` | admin |
+
+Swagger is available at `/swagger-ui/index.html` when the service is reached
+directly; use the [API guide](../documentation/docs/development/API-GUIDE.md)
+for gateway-facing examples.
 
 ## Reservation Flow
 
@@ -67,6 +72,16 @@ docker compose exec mysql sh -lc '
 The `version` value increments on successful versioned updates. Concurrent
 transactions using an older value are rejected and must restart the complete
 idempotent reservation operation with freshly loaded state.
+
+Administrators can inspect the reservation created for one order:
+
+```http
+GET /api/v1/inventory/admin/reservations/orders/{orderNumber}
+Authorization: Bearer <admin-token>
+```
+
+Use this when debugging checkout, expiry, compensation, or late-payment
+recovery flows.
 
 ## Product Images
 

@@ -1,5 +1,6 @@
 package io.shopverse.inventory_service.entity;
 
+import io.shopverse.inventory_service.exception.InsufficientStockException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -107,7 +108,7 @@ public class InventoryItem extends BaseAuditableEntity {
      */
     public void reserve(int quantity) {
         if (!canReserve(quantity)) {
-            throw new IllegalStateException("Insufficient stock for product " + productId);
+            throw new InsufficientStockException("Insufficient stock for product " + productId);
         }
         availableQuantity -= quantity;
         reservedQuantity += quantity;

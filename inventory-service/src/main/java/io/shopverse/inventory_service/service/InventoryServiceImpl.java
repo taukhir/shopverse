@@ -2,6 +2,7 @@ package io.shopverse.inventory_service.service;
 
 import io.shopverse.inventory_service.dto.InventoryResponse;
 import io.shopverse.inventory_service.config.InventoryProperties;
+import io.shopverse.inventory_service.dto.InventoryReservationResponse;
 import io.shopverse.inventory_service.dto.InventoryUpsertRequest;
 import io.shopverse.inventory_service.entity.InventoryItem;
 import io.shopverse.inventory_service.entity.InventoryReservation;
@@ -80,6 +81,13 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public List<InventoryResponse> getAll() {
         return itemRepository.findAll().stream().map(this::toResponse).toList();
+    }
+
+    @Override
+    public InventoryReservationResponse getReservationByOrderNumber(String orderNumber) {
+        InventoryReservation reservation = reservationRepository.findByOrderNumber(orderNumber)
+                .orElseThrow(() -> new ResourceNotFoundException("Inventory reservation not found for order: " + orderNumber));
+        return toReservationResponse(reservation);
     }
 
     @Override
@@ -185,6 +193,18 @@ public class InventoryServiceImpl implements InventoryService {
                 item.getReservedQuantity(),
                 item.getAvailableQuantity() > 0,
                 item.getUpdatedAt()
+        );
+    }
+
+    private InventoryReservationResponse toReservationResponse(InventoryReservation reservation) {
+        return new InventoryReservationResponse(
+                reservation.getId(),
+                reservation.getOrderNumber(),
+                reservation.getCorrelationId(),
+                reservation.getProductId(),
+                reservation.getQuantity(),
+                reservation.getStatus().name(),
+                reservation.getExpiresAt()
         );
     }
 }

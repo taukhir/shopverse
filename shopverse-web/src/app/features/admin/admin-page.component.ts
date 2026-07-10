@@ -1,37 +1,49 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { catchError, forkJoin, of } from 'rxjs';
 
 import { SessionService } from '../../core/auth/session.service';
+import { APP_MESSAGES } from '../../core/errors/app-messages';
+import { ConfirmService } from '../../core/feedback/confirm.service';
+import { ToastService } from '../../core/feedback/toast.service';
+import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
+import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
+import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
+import { compareNumber, compareText, uniqueSorted } from '../../shared/utils/collection';
+import { formatInr } from '../../shared/utils/formatters';
+import { AdminApiService, AdminFailedEvent, AdminInventoryItem, AdminOrder, AdminPayment, AdminUser } from './admin-api.service';
 
-interface Order { id:number; orderNumber:string; customerUsername:string; status:string; totalAmount:number; createdAt?:string; }
-interface User { id:number; username:string; email:string; firstName:string; lastName:string; status:string; roles:string[]; }
-interface InventoryItem { productId:number; productName:string; category:string; availableQuantity:number; reservedQuantity:number; available:boolean; unitPrice:number; updatedAt?:string; }
-interface Payment { id:number; orderNumber:string; amount:number; status:string; failureReason:string|null; updatedAt:string; }
-interface FailedEvent { id:number; sourceTopic:string; failureReason:string; retryCount:number; replayed:boolean; replayCount:number; failedAt:string; replayedAt:string|null; service?:string; }
-interface Page<T> { content:T[]; totalElements:number; }
 interface StatusSlice { status:string; count:number; percent:number; }
 
 @Component({
   selector:'app-admin-page',
-  imports:[RouterLink,RouterLinkActive],
+  imports:[EmptyStateComponent,FormsModule,LoadingSkeletonComponent,RouterLink,RouterLinkActive,ServiceNoticeComponent],
   templateUrl:'./admin-page.component.html',
   styleUrl:'./admin-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminPageComponent {
   private readonly route=inject(ActivatedRoute);
-  private readonly http=inject(HttpClient);
+  private readonly adminApi=inject(AdminApiService);
+  private readonly confirm=inject(ConfirmService);
   private readonly router=inject(Router);
   protected readonly session=inject(SessionService);
+  private readonly toast=inject(ToastService);
 
   protected readonly section=signal(this.route.snapshot.paramMap.get('section') ?? 'overview');
-  protected readonly orders=signal<Order[]>([]);
-  protected readonly users=signal<User[]>([]);
+  protected readonly orders=signal<AdminOrder[]>([]);
+  protected readonly users=signal<AdminUser[]>([]);
   protected readonly userTotal=signal(0);
-  protected readonly inventory=signal<InventoryItem[]>([]);
-  protected readonly payments=signal<Payment[]>([]);
-  protected readonly failedEvents=signal<FailedEvent[]>([]);
+  protected readonly inventory=signal<AdminInventoryItem[]>([]);
+  protected readonly payments=signal<AdminPayment[]>([]);
+  protected readonly failedEvents=signal<AdminFailedEvent[]>([]);
+  protected readonly orderSearch=signal('');
+  protected readonly orderStatusFilter=signal('ALL');
+  protected readonly orderSort=signal<'newest'|'oldest'|'amountDesc'|'amountAsc'|'status'|'customer'|'orderNumber'>('newest');
+  protected readonly orderPage=signal(1);
+  protected readonly userPage=signal(1);
+  protected readonly pageSize=8;
   protected readonly optionalWarning=signal('');
   protected readonly loading=signal(true);
   protected readonly error=signal('');
@@ -64,9 +76,42 @@ export class AdminPageComponent {
   protected readonly recentFailedEvents=computed(()=>[...this.failedEvents()].sort((a,b)=>(b.failedAt || '').localeCompare(a.failedAt || '')).slice(0,5));
   protected readonly orderStatusSlices=computed(()=>this.slices(this.orders().map(order=>order.status)));
   protected readonly paymentStatusSlices=computed(()=>this.slices(this.payments().map(payment=>payment.status)));
+  protected readonly orderStatuses=computed(()=>['ALL',...uniqueSorted(this.orders().map(order=>order.status))]);
+  protected readonly filteredOrders=computed(()=>{
+    const query=this.orderSearch().trim().toLowerCase();
+    const status=this.orderStatusFilter();
+    const orders=this.orders().filter(order=>{
+      const matchesStatus=status==='ALL' || order.status===status;
+      const haystack=`${order.orderNumber} ${order.customerUsername}`.toLowerCase();
+      return matchesStatus && (!query || haystack.includes(query));
+    });
+    return [...orders].sort((a,b)=>{
+      switch(this.orderSort()){
+        case 'oldest': return (a.createdAt || '').localeCompare(b.createdAt || '');
+        case 'amountDesc': return compareNumber(b.totalAmount, a.totalAmount);
+        case 'amountAsc': return compareNumber(a.totalAmount, b.totalAmount);
+        case 'status': return compareText(a.status, b.status);
+        case 'customer': return compareText(a.customerUsername, b.customerUsername);
+        case 'orderNumber': return compareText(a.orderNumber, b.orderNumber);
+        default: return (b.createdAt || '').localeCompare(a.createdAt || '');
+      }
+    });
+  });
+  protected readonly orderPageCount=computed(()=>this.pageCount(this.filteredOrders().length));
+  protected readonly visibleOrders=computed(()=>{
+    const page=this.clampedPage(this.orderPage(), this.orderPageCount());
+    const start=(page-1)*this.pageSize;
+    return this.filteredOrders().slice(start,start+this.pageSize);
+  });
+  protected readonly userPageCount=computed(()=>this.pageCount(this.users().length));
+  protected readonly visibleUsers=computed(()=>{
+    const page=this.clampedPage(this.userPage(), this.userPageCount());
+    const start=(page-1)*this.pageSize;
+    return this.users().slice(start,start+this.pageSize);
+  });
 
   constructor(){
-    this.route.paramMap.subscribe(params=>{
+    this.route.paramMap.pipe(takeUntilDestroyed()).subscribe(params=>{
       this.section.set(params.get('section') ?? 'overview');
       this.load();
     });
@@ -77,15 +122,7 @@ export class AdminPageComponent {
     this.error.set('');
     this.optionalWarning.set('');
 
-    forkJoin({
-      orders: this.http.get<Order[]>('/api/v1/orders/admin/all'),
-      users: this.http.get<Page<User>>('/api/v1/users?size=12'),
-      inventory: this.http.get<InventoryItem[]>('/api/v1/inventory/public/items').pipe(catchError(()=>of([] as InventoryItem[]))),
-      payments: this.http.get<Payment[]>('/api/v1/payments/admin').pipe(catchError(()=>of([] as Payment[]))),
-      orderDeadLetters: this.http.get<FailedEvent[]>('/api/v1/orders/admin/dead-letters').pipe(catchError(()=>of([] as FailedEvent[]))),
-      inventoryDeadLetters: this.http.get<FailedEvent[]>('/api/v1/inventory/admin/dead-letters').pipe(catchError(()=>of([] as FailedEvent[]))),
-      paymentDeadLetters: this.http.get<FailedEvent[]>('/api/v1/payments/admin/dead-letters').pipe(catchError(()=>of([] as FailedEvent[]))),
-    }).subscribe({
+    this.adminApi.loadOverview().subscribe({
       next: ({orders, users, inventory, payments, orderDeadLetters, inventoryDeadLetters, paymentDeadLetters})=>{
         this.orders.set(orders);
         this.users.set(users.content);
@@ -98,7 +135,7 @@ export class AdminPageComponent {
           ...paymentDeadLetters.map(event=>({...event,service:'Payments'})),
         ]);
         if(!inventory.length || !payments.length){
-          this.optionalWarning.set('Some operational widgets may be empty if Inventory or Payment Service is offline or has no records yet.');
+          this.optionalWarning.set(APP_MESSAGES.warnings.partialAdminData);
         }
         this.loading.set(false);
       },
@@ -107,7 +144,7 @@ export class AdminPageComponent {
   }
 
   protected price(value:number): string {
-    return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(value);
+    return formatInr(value);
   }
 
   protected percent(value:number,total:number): number {
@@ -115,8 +152,31 @@ export class AdminPageComponent {
     return Math.round((value/total)*100);
   }
 
-  protected logout(): void {
+  protected pageLabel(total:number,page:number): string {
+    if(!total) return '0 records';
+    const safePage=this.clampedPage(page,this.pageCount(total));
+    const start=(safePage-1)*this.pageSize+1;
+    const end=Math.min(start+this.pageSize-1,total);
+    return `${start}-${end} of ${total}`;
+  }
+
+  protected changeOrderPage(delta:number): void {
+    this.orderPage.set(this.clampedPage(this.orderPage()+delta,this.orderPageCount()));
+  }
+
+  protected changeUserPage(delta:number): void {
+    this.userPage.set(this.clampedPage(this.userPage()+delta,this.userPageCount()));
+  }
+
+  protected async logout(): Promise<void> {
+    const confirmed = await this.confirm.confirm({
+      title: 'Sign out?',
+      message: 'You will leave the operations workspace.',
+      confirmText: 'Sign out',
+    });
+    if (!confirmed) return;
     this.session.logout();
+    this.toast.info('Signed out.');
     this.router.navigateByUrl('/');
   }
 
@@ -131,8 +191,16 @@ export class AdminPageComponent {
       .sort((a,b)=>b.count-a.count);
   }
 
+  private pageCount(total:number): number {
+    return Math.max(1, Math.ceil(total/this.pageSize));
+  }
+
+  private clampedPage(page:number,pageCount:number): number {
+    return Math.min(Math.max(1,page),pageCount);
+  }
+
   private fail(): void {
-    this.error.set('Operations data is unavailable. Confirm the backend services are running and this account has administrator permissions.');
+    this.error.set(APP_MESSAGES.errors.operationsUnavailable);
     this.loading.set(false);
   }
 }

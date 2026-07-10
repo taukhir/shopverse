@@ -2,8 +2,62 @@
   <p class="eyebrow">CHECKOUT</p>
   <h1 class="page-title">Review and place<br />your order.</h1>
 
-  @if (!cart.items().length) {
-    <div class="notice">Your cart is empty. <a routerLink="/products">Browse products &rarr;</a></div>
+  @if (receipt(); as transaction) {
+    <section class="receipt">
+      <div class="receipt-head">
+        <div>
+          <p>ORDER PLACED</p>
+          <h2>Transaction receipt</h2>
+          <span>Keep these references for support, reconciliation, and duplicate-charge checks.</span>
+        </div>
+        <strong>{{ price(transaction.amount) }}</strong>
+      </div>
+
+      <div class="receipt-grid">
+        <article>
+          <span>Order number</span>
+          <strong>{{ transaction.orderNumber }}</strong>
+          <button type="button" class="copy-button" (click)="copy(transaction.orderNumber, 'Order number')">Copy</button>
+        </article>
+        <article>
+          <span>Transaction ID</span>
+          <strong>{{ transaction.transactionId }}</strong>
+          <button type="button" class="copy-button" (click)="copy(transaction.transactionId, 'Transaction ID')">Copy</button>
+        </article>
+        <article class="wide">
+          <span>Idempotency key</span>
+          <strong>{{ transaction.idempotencyKey }}</strong>
+          <button type="button" class="copy-button" (click)="copy(transaction.idempotencyKey, 'Idempotency key')">Copy</button>
+        </article>
+        <article>
+          <span>Payment status</span>
+          <strong>{{ transaction.paymentStatus }}</strong>
+        </article>
+        <article>
+          <span>Placed at</span>
+          <strong>{{ transaction.placedAt | date:'medium' }}</strong>
+        </article>
+        <article>
+          <span>Item</span>
+          <strong>{{ transaction.productName }}</strong>
+          <small>Product {{ transaction.productId }} · Qty {{ transaction.quantity }}</small>
+        </article>
+      </div>
+
+      <div class="receipt-actions">
+        <a routerLink="/orders">View order history</a>
+        <a [routerLink]="['/orders']">Track timeline</a>
+        <a routerLink="/products">Continue shopping</a>
+      </div>
+    </section>
+  } @else if (!cart.items().length) {
+    <app-empty-state
+      eyebrow="EMPTY CART"
+      title="Checkout needs an item."
+      message="Add one product from the collection before placing an order."
+      actionLabel="Browse products"
+      actionLink="/products"
+    />
   } @else if (cart.items().length > 1) {
     <div class="notice">
       <h2>One item at a time.</h2>
@@ -11,22 +65,48 @@
       <a routerLink="/cart">Review cart &rarr;</a>
     </div>
   } @else {
+    <div class="checkout-steps" aria-label="Checkout steps">
+      <article class="active"><span>01</span><b>Review</b></article>
+      <article><span>02</span><b>Reserve inventory</b></article>
+      <article><span>03</span><b>Payment later</b></article>
+    </div>
+
+    <section class="checkout-readiness">
+      <article><span>Shipping address</span><strong>Account address book pending</strong><small>Frontend is ready for add/edit once backend stores addresses.</small></article>
+      <article><span>Delivery method</span><strong>Standard delivery</strong><small>ETA and carrier rates can plug in here later.</small></article>
+      <article><span>Payment method</span><strong>Card / UPI / Wallet later</strong><small>No payment credentials are collected in this flow yet.</small></article>
+      <article><span>Terms</span><strong>Return window visible</strong><small>Final policy acknowledgement can be made mandatory later.</small></article>
+    </section>
+
     <div class="checkout">
       <div>
         <p>ORDER SUMMARY</p>
         <h2>{{ cart.items()[0].productName }}</h2>
         <span>Quantity {{ cart.items()[0].quantity }}</span>
         <strong>{{ price(cart.total()) }}</strong>
+        <div class="review-list">
+          <div><span>Contact</span><b>Uses signed-in account session</b></div>
+          <div><span>Delivery</span><b>Address capture will be enabled before payment</b></div>
+          <div><span>Inventory</span><b>Reserved during order creation</b></div>
+        </div>
       </div>
       <aside>
         <p>PAYMENT</p>
         <h2>Payment follows confirmation.</h2>
         <span>This demo creates the order and starts the existing inventory/payment workflow. No card data is collected here.</span>
+        <div class="payment-placeholder">
+          <div><span>Method</span><b>Card / UPI / Wallet later</b></div>
+          <div><span>Capture</span><b>After successful reservation</b></div>
+        </div>
         @if (error()) {
           <b>{{ error() }}</b>
         }
         @if (success()) {
           <b class="success">Order {{ success() }} created. Track its progress in your order history.</b>
+          <div class="success-actions">
+            <a routerLink="/orders">View order history</a>
+            <a routerLink="/products">Continue shopping</a>
+          </div>
         }
         <button (click)="placeOrder()" [disabled]="loading()">{{ loading() ? 'Placing order...' : 'Place order' }} <em>&rarr;</em></button>
       </aside>

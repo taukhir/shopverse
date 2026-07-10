@@ -11,5 +11,5 @@ export const authGuard: CanActivateFn = (_, state) => {
 export const adminGuard: CanActivateFn = (_, state) => {
   const session = inject(SessionService);
   if (!session.isAuthenticated()) return inject(Router).createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
-  return session.isAdmin() || inject(Router).createUrlTree(['/account']);
+  return session.isAdmin() || inject(Router).createUrlTree(['/unauthorized']);
 };

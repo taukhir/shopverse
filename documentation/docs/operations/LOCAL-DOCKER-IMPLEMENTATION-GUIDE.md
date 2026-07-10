@@ -120,7 +120,8 @@ Shopverse also uses Compose profiles so the default local stack stays smaller:
 ```powershell
 docker compose up -d
 docker compose --profile apps up -d
-docker compose --profile observability up -d
+docker compose --profile assets up -d
+docker compose --profile apps --profile assets up -d
 docker compose --profile apps --profile observability --profile assets up -d
 ```
 
@@ -138,9 +139,9 @@ JDK build stage -> bootJar -> JRE runtime stage -> non-root user -> actuator hea
 Useful commands:
 
 ```powershell
-docker compose config
-docker compose build
-docker compose build order-service
+docker compose --profile apps --profile assets config --quiet
+docker compose --profile apps --profile assets build
+docker compose --profile apps build order-service
 ```
 
 Use targeted builds while developing one service.

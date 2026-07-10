@@ -39,6 +39,13 @@ correlation handling, timing, metrics, and production practices, see
 Routes, JWT validation, actuator exposure, resilience, tracing, and logging are
 centralized in `cloud-configs/API-GATEWAY.yml`.
 
+## OpenAPI
+
+The gateway does not currently aggregate downstream OpenAPI documents. Use the
+service-level Swagger UI on servlet services when running them directly, or use
+the [API guide](../documentation/docs/development/API-GUIDE.md) for the gateway
+entry-point catalog.
+
 ## Tests And Observability
 
 ```powershell

@@ -1,0 +1,35 @@
+# Full-stack overlay for the ShopVerse UI and documentation.
+#
+# Usage:
+#   docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml up --build
+#
+# URLs:
+#   Storefront:     http://localhost:4200
+#   Documentation:  http://localhost:3001
+#   API Gateway:    http://localhost:8080
+
+services:
+  shopverse-web:
+    build:
+      context: ./shopverse-web
+      dockerfile: Dockerfile
+    image: shopverse/shopverse-web:local
+    container_name: shopverse-web
+    ports:
+      - "${SHOPVERSE_WEB_PORT:-4200}:80"
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    networks:
+      - shopverse
+
+  documentation:
+    build:
+      context: ./documentation
+      dockerfile: Dockerfile
+    image: shopverse/documentation:local
+    container_name: shopverse-documentation
+    ports:
+      - "${SHOPVERSE_DOCS_PORT:-3001}:80"
+    networks:
+      - shopverse

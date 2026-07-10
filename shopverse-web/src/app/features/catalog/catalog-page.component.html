@@ -7,42 +7,86 @@
 <section class="catalog-content" aria-labelledby="catalog-title">
   <div class="catalog-meta">
     <div><p class="eyebrow">AVAILABLE COLLECTION</p><h2 id="catalog-title">The essentials.</h2></div>
-    @if (state() === 'ready') { <p class="count">{{ products().length }} items live</p> }
+    @if (state() === 'ready') { <p class="count">{{ filteredProducts().length }} of {{ products().length }} items</p> }
   </div>
 
   @if (state() === 'loading') {
-    <div class="product-grid loading" aria-label="Loading catalog">
-      @for (placeholder of [1, 2, 3, 4]; track placeholder) { <div class="skeleton"><i></i><span></span><span></span></div> }
-    </div>
+    <app-loading-skeleton [rows]="4" variant="cards" />
   } @else if (state() === 'error') {
-    <div class="status-card" role="alert">
-      <p class="eyebrow">CATALOG UNAVAILABLE</p>
-      <h2>We could not reach the collection.</h2>
-      <p>Start the ShopVerse gateway and Order Service, then try again.</p>
-      <button type="button" (click)="loadCatalog()">Try again <span>→</span></button>
-    </div>
+    <app-service-notice
+      eyebrow="CATALOG UNAVAILABLE"
+      title="We could not reach the collection."
+      message="Start the ShopVerse gateway and Order Service, then try again."
+      (retry)="loadCatalog(true)"
+    />
   } @else if (products().length === 0) {
-    <div class="status-card"><p class="eyebrow">NO ITEMS YET</p><h2>The collection is being prepared.</h2></div>
+    <app-empty-state eyebrow="NO ITEMS YET" title="The collection is being prepared." message="Inventory will appear here once products are available." />
   } @else {
+    <div class="catalog-controls" aria-label="Catalog filters">
+      <label>Search<input [(ngModel)]="search" placeholder="Search product, brand, category" /></label>
+      <label>Category
+        <select [(ngModel)]="category">
+          @for (item of categories(); track item) {
+            <option [value]="item">{{ item === 'ALL' ? 'All categories' : item }}</option>
+          }
+        </select>
+      </label>
+      <label>Availability
+        <select [(ngModel)]="availability">
+          <option value="ALL">All availability</option>
+          <option value="AVAILABLE">In stock</option>
+          <option value="UNAVAILABLE">Unavailable</option>
+        </select>
+      </label>
+      <label>Sort
+        <select [(ngModel)]="sort">
+          <option value="featured">Featured</option>
+          <option value="priceAsc">Price low to high</option>
+          <option value="priceDesc">Price high to low</option>
+          <option value="name">Name</option>
+        </select>
+      </label>
+      <button type="button" (click)="clearFilters()">Clear</button>
+    </div>
+
+    @if (!filteredProducts().length) {
+      <app-empty-state
+        eyebrow="NO RESULTS"
+        title="No products match these filters."
+        message="Try clearing filters or browsing all available essentials."
+        actionLabel="Clear filters"
+        actionLink="/products"
+      />
+      <button class="clear-inline" type="button" (click)="clearFilters()">Clear filters</button>
+    } @else {
     <div class="product-grid">
-      @for (product of products(); track product.productId; let index = $index) {
+      @for (product of filteredProducts(); track product.productId; let index = $index) {
         <article class="product-card" [class.unavailable]="!product.available">
-          <div class="product-art">
-            <img [src]="product.imageUrl" [alt]="product.productName" loading="lazy" />
+          <a class="product-art" [routerLink]="['/products', product.productId]" [attr.aria-label]="'View ' + product.productName">
+            <img
+              [src]="product.imageUrl"
+              [alt]="product.productName"
+              width="360"
+              height="324"
+              loading="lazy"
+              decoding="async"
+              appImageFallback
+            />
             @if (!product.available) { <span class="availability-flag">Unavailable</span> }
-          </div>
+          </a>
           <div class="product-info">
-            <div><p [class.out-of-stock]="!product.available">{{ product.available ? 'IN STOCK' : 'CURRENTLY UNAVAILABLE' }}</p><h3>{{ product.productName }}</h3></div>
+            <div><p [class.out-of-stock]="!product.available">{{ product.available ? 'IN STOCK' : 'CURRENTLY UNAVAILABLE' }}</p><h3><a [routerLink]="['/products', product.productId]">{{ product.productName }}</a></h3></div>
             <strong>{{ price(product.price) }}</strong>
           </div>
           <div class="card-rule"></div>
           @if (product.available) {
-            <button class="product-action" type="button" (click)="addToCart(product)">Add to cart <span>→</span></button>
+            <button class="product-action" type="button" (click)="addToCart(product)">Add to cart <span>&rarr;</span></button>
           } @else {
-            <p class="product-action">Check back soon <span>↗</span></p>
+            <p class="product-action">Check back soon <span>&nearr;</span></p>
           }
         </article>
       }
     </div>
+    }
   }
 </section>

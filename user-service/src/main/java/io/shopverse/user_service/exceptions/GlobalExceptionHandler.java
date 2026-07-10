@@ -3,6 +3,7 @@ package io.shopverse.user_service.exceptions;
 import io.github.resilience4j.bulkhead.BulkheadFullException;
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import io.shopverse.platform.error.ApiErrorResponse;
+import io.shopverse.platform.error.ApiErrors;
 import io.shopverse.platform.web.pagination.InvalidPageRequestException;
 import io.shopverse.user_service.constants.ApiConstants;
 import jakarta.validation.ConstraintViolationException;
@@ -15,9 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -51,31 +50,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiErrorResponse> handleValidation(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .collect(Collectors.toMap(
-                        fieldError -> fieldError.getField(),
-                        fieldError -> fieldError.getDefaultMessage() == null
-                                ? "Invalid value"
-                                : fieldError.getDefaultMessage(),
-                        (first, second) -> first
-                ));
-
-        return buildError(HttpStatus.BAD_REQUEST, "Validation failed", errors);
+        return ApiErrors.validationResponse(ex);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ApiErrorResponse> handleConstraintViolation(ConstraintViolationException ex) {
-        Map<String, String> errors = ex.getConstraintViolations()
-                .stream()
-                .collect(Collectors.toMap(
-                        violation -> violation.getPropertyPath().toString(),
-                        violation -> violation.getMessage(),
-                        (first, second) -> first
-                ));
-
-        return buildError(HttpStatus.BAD_REQUEST, "Validation failed", errors);
+        return ApiErrors.constraintViolationResponse(ex);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -124,15 +104,6 @@ public class GlobalExceptionHandler {
             String message,
             Map<String, String> errors
     ) {
-        ApiErrorResponse error = new ApiErrorResponse(
-                status.value(),
-                message,
-                LocalDateTime.now(),
-                errors
-        );
-
-        return ResponseEntity
-                .status(status)
-                .body(error);
+        return ApiErrors.response(status, message, errors);
     }
 }

@@ -5,6 +5,7 @@ WORKDIR /workspace/api-gateway
 
 COPY api-gateway/gradlew api-gateway/gradlew.bat api-gateway/settings.gradle api-gateway/build.gradle ./
 COPY api-gateway/gradle ./gradle
+COPY build-logic ../build-logic
 RUN chmod +x ./gradlew
 
 COPY api-gateway/src ./src

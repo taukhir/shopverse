@@ -1,6 +1,13 @@
 <main class="admin-user-detail">
-  <nav class="crumbs" aria-label="Admin breadcrumb">
-    <a routerLink="/admin">Admin</a><span>/</span><a routerLink="/admin/users">Users</a><span>/</span><b>{{ user()?.username || 'Profile' }}</b>
+  <nav class="admin-local-nav" aria-label="Admin navigation">
+    <div class="crumbs">
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><a routerLink="/admin/users">Users</a><span>/</span><b>{{ user()?.username || 'Profile' }}</b>
+    </div>
+    <div class="admin-actions">
+      <a routerLink="/admin">Overview</a>
+      <a routerLink="/admin/users">Users</a>
+      <button type="button" (click)="logout()">Sign out</button>
+    </div>
   </nav>
 
   @if (error()) {

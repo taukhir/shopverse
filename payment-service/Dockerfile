@@ -5,6 +5,7 @@ WORKDIR /workspace/payment-service
 
 COPY payment-service/gradlew payment-service/gradlew.bat payment-service/settings.gradle payment-service/build.gradle ./
 COPY payment-service/gradle ./gradle
+COPY build-logic ../build-logic
 COPY shopverse-platform ../shopverse-platform
 RUN chmod +x ./gradlew
 

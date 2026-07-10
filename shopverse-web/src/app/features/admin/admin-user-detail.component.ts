@@ -1,9 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
+
+import { API_PATHS } from '../../core/api/api-paths';
+import { SessionService } from '../../core/auth/session.service';
+import { formatInr } from '../../shared/utils/formatters';
 
 interface User {
   id:number;
@@ -26,10 +30,13 @@ interface Order { id:number; orderNumber:string; customerUsername:string; status
   imports: [DatePipe, FormsModule, RouterLink],
   templateUrl: './admin-user-detail.component.html',
   styleUrl: './admin-user-detail.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminUserDetailComponent {
   private readonly http = inject(HttpClient);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  protected readonly session = inject(SessionService);
   protected readonly user = signal<User | null>(null);
   protected readonly roles = signal<Role[]>([]);
   protected readonly userOrders = signal<Order[]>([]);
@@ -50,9 +57,9 @@ export class AdminUserDetailComponent {
     this.loading.set(true);
     this.error.set('');
     forkJoin({
-      user: this.http.get<ApiResponse<User>>(`/api/v1/users/${id}`),
-      roles: this.http.get<Page<Role>>('/api/v1/roles?size=50').pipe(catchError(() => of({ content: [], totalElements: 0 } as Page<Role>))),
-      orders: this.http.get<Order[]>('/api/v1/orders/admin/all').pipe(catchError(() => of([] as Order[]))),
+      user: this.http.get<ApiResponse<User>>(API_PATHS.users.byId(id ?? '')),
+      roles: this.http.get<Page<Role>>(API_PATHS.roles.page(50)).pipe(catchError(() => of({ content: [], totalElements: 0 } as Page<Role>))),
+      orders: this.http.get<Order[]>(API_PATHS.orders.adminAll).pipe(catchError(() => of([] as Order[]))),
     }).subscribe({
       next: ({ user, roles, orders }) => {
         this.user.set(user.data);
@@ -84,7 +91,7 @@ export class AdminUserDetailComponent {
     this.saving.set(true);
     this.saveError.set('');
     this.saveSuccess.set(false);
-    this.http.patch<ApiResponse<User>>(`/api/v1/users/${user.id}`, {
+    this.http.patch<ApiResponse<User>>(API_PATHS.users.byId(user.id), {
       status: this.form.status,
       roles: Array.from(this.form.roles),
     }).subscribe({
@@ -102,7 +109,12 @@ export class AdminUserDetailComponent {
   }
 
   protected price(value: number): string {
-    return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(value);
+    return formatInr(value);
+  }
+
+  protected logout(): void {
+    this.session.logout();
+    this.router.navigateByUrl('/');
   }
 
   private populate(user: User): void {

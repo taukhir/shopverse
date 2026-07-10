@@ -6,7 +6,7 @@ title: Runtime Reliability Problems
 
 Runtime reliability problems are split by locking, distributed checkout,
 timeline visibility, resource ownership, reservation expiry, idempotent
-checkout, Kafka idempotency, and payment uncertainty.
+checkout, dependency lookup scope, Kafka idempotency, and payment uncertainty.
 
 ## Focused Pages
 
@@ -18,6 +18,7 @@ checkout, Kafka idempotency, and payment uncertainty.
 | [Resource Ownership Authorization](runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md) | Preventing authenticated customers from reading another customer's Order timeline or Payment record. |
 | [Multi-Replica Reservation Expiry](runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md) | Atomic expiry ownership, paid-reservation state, transaction boundaries, crash behavior, and required tests. |
 | [Idempotent Checkout Problem](runtime/IDEMPOTENT-CHECKOUT.md) | Mandatory Idempotency-Key and duplicate checkout prevention. |
+| [Checkout Catalog Lookup Problem](runtime/CATALOG-LOOKUP-CHECKOUT.md) | Replacing checkout's full-catalog Inventory dependency with direct lookup now and bulk lookup before multi-item checkout. |
 | [Kafka Idempotency Problem](runtime/KAFKA-IDEMPOTENCY.md) | Kafka producer idempotence, idempotent consumers, business keys, and duplicate event handling. |
 | [Payment Timeout Reconciliation Problem](runtime/PAYMENT-TIMEOUT-RECONCILIATION.md) | Payment uncertainty, timeout reconciliation, and refunds. |
 
@@ -52,6 +53,10 @@ Moved to [Multi-Replica Reservation Expiry](runtime/MULTI-REPLICA-RESERVATION-EX
 ## Idempotent Checkout Using Mandatory Idempotency-Key
 
 Moved to [Idempotent Checkout Problem](runtime/IDEMPOTENT-CHECKOUT.md).
+
+## Checkout Catalog Lookup
+
+Moved to [Checkout Catalog Lookup Problem](runtime/CATALOG-LOOKUP-CHECKOUT.md).
 
 ## Kafka Producer Idempotence And Idempotent Consumers
 

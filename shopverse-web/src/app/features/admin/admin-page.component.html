@@ -1,11 +1,13 @@
 <div class="admin-shell">
   <aside>
-    <a class="brand" routerLink="/"><img class="brand-mark" src="/shopverse-mark.svg" alt="" />shop<span>verse</span></a>
+    <a class="brand" routerLink="/"><img class="brand-mark" src="/shopverse-mark.svg" width="26" height="26" alt="" />shop<span>verse</span></a>
     <p>OPERATIONS</p>
     <nav>
       <a routerLink="/admin" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Overview</a>
       <a routerLink="/admin/orders" routerLinkActive="active">Orders</a>
       <a routerLink="/admin/inventory" routerLinkActive="active">Inventory</a>
+      <a routerLink="/admin/payments" routerLinkActive="active">Payments</a>
+      <a routerLink="/admin/recovery" routerLinkActive="active">Recovery</a>
       <a routerLink="/admin/users" routerLinkActive="active">Users</a>
     </nav>
     <a class="back" routerLink="/">View storefront</a>
@@ -22,9 +24,14 @@
       <h1>{{ section()==='overview' ? 'System at a glance.' : section()==='orders' ? 'Order operations.' : 'Customer accounts.' }}</h1>
 
       @if(loading()) {
-        <div class="notice">Loading operations data...</div>
+        <app-loading-skeleton [rows]="5" />
       } @else if(error()) {
-        <div class="notice">{{ error() }} <button (click)="load()">Try again</button></div>
+        <app-service-notice
+          eyebrow="OPERATIONS UNAVAILABLE"
+          title="Admin data could not be loaded."
+          [message]="error()"
+          (retry)="load()"
+        />
       } @else if(section()==='overview') {
         @if(optionalWarning()) {
           <div class="soft-notice">{{ optionalWarning() }}</div>
@@ -115,7 +122,7 @@
           <section class="panel recovery-panel">
             <div class="panel-head">
               <div><p>RECOVERY</p><h2>Recent failures.</h2></div>
-              <span>{{ recoverableEvents().length }} actionable</span>
+              <a routerLink="/admin/recovery">{{ recoverableEvents().length }} actionable &rarr;</a>
             </div>
             @if(!recentFailedEvents().length) {
               <div class="empty">No failed events have been recorded.</div>
@@ -135,17 +142,72 @@
           </section>
         </div>
       } @else if(section()==='orders') {
-        <div class="table">
-          @for(order of orders(); track order.id) {
-            <article><div><span>{{ order.orderNumber }}</span><strong>{{ order.customerUsername }}</strong></div><em>{{ order.status }}</em><b>{{ price(order.totalAmount) }}</b></article>
-          }
+        <div class="list-controls" aria-label="Order list controls">
+          <label>Search<input [(ngModel)]="orderSearch" placeholder="Order number or customer" /></label>
+          <label>Status
+            <select [(ngModel)]="orderStatusFilter">
+              @for(status of orderStatuses(); track status) {
+                <option [value]="status">{{ status }}</option>
+              }
+            </select>
+          </label>
+          <label>Sort
+            <select [(ngModel)]="orderSort">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="amountDesc">Amount high to low</option>
+              <option value="amountAsc">Amount low to high</option>
+              <option value="status">Status</option>
+              <option value="customer">Customer</option>
+              <option value="orderNumber">Order number</option>
+            </select>
+          </label>
         </div>
+        @if(!filteredOrders().length) {
+          <app-empty-state
+            eyebrow="NO ORDERS MATCH"
+            title="No orders match the current filters."
+            message="Clear the search, select ALL statuses, or wait for new checkout activity."
+            actionLabel="View storefront"
+            actionLink="/"
+          />
+        } @else {
+          <div class="table">
+            @for(order of visibleOrders(); track order.id) {
+              <a [routerLink]="['/admin/orders', order.id]"><div><span>{{ order.orderNumber }}</span><strong>{{ order.customerUsername }}</strong></div><em>{{ order.status }}</em><b>{{ price(order.totalAmount) }}</b></a>
+            }
+          </div>
+          <div class="table-pagination">
+            <span>{{ pageLabel(filteredOrders().length, orderPage()) }}</span>
+            <div>
+              <button type="button" (click)="changeOrderPage(-1)" [disabled]="orderPage() <= 1">Previous</button>
+              <button type="button" (click)="changeOrderPage(1)" [disabled]="orderPage() >= orderPageCount()">Next</button>
+            </div>
+          </div>
+        }
       } @else if(section()==='users') {
-        <div class="table">
-          @for(user of users(); track user.id) {
-            <a [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><em>{{ user.status }}</em><b>View</b></a>
-          }
-        </div>
+        @if(!users().length) {
+          <app-empty-state
+            eyebrow="NO USERS LOADED"
+            title="No customer accounts are visible."
+            message="User Service returned an empty page or the admin account does not have access to user records."
+            actionLabel="Back to overview"
+            actionLink="/admin"
+          />
+        } @else {
+          <div class="table">
+            @for(user of visibleUsers(); track user.id) {
+              <a [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><em>{{ user.status }}</em><b>View</b></a>
+            }
+          </div>
+          <div class="table-pagination">
+            <span>{{ pageLabel(users().length, userPage()) }}</span>
+            <div>
+              <button type="button" (click)="changeUserPage(-1)" [disabled]="userPage() <= 1">Previous</button>
+              <button type="button" (click)="changeUserPage(1)" [disabled]="userPage() >= userPageCount()">Next</button>
+            </div>
+          </div>
+        }
       } @else {
         <div class="notice">This area is reserved for a later operations integration.</div>
       }

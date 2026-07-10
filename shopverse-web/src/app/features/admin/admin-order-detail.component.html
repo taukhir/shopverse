@@ -1,0 +1,87 @@
+<main class="admin-order-detail">
+  <nav class="admin-local-nav" aria-label="Admin navigation">
+    <div class="crumbs">
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><a routerLink="/admin/orders">Orders</a><span>/</span><b>{{ order()?.orderNumber || 'Order' }}</b>
+    </div>
+    <div class="admin-actions">
+      <a routerLink="/admin">Overview</a>
+      <a routerLink="/admin/orders">Orders</a>
+      <button type="button" (click)="logout()">Sign out</button>
+    </div>
+  </nav>
+
+  @if (loading()) {
+    <div class="notice">Loading order operations...</div>
+  } @else if (error()) {
+    <div class="notice">{{ error() }} <button type="button" (click)="load()">Try again</button></div>
+  } @else if (order()) {
+    <section class="hero">
+      <div>
+        <p class="eyebrow">ORDER {{ order()!.orderNumber }}</p>
+        <h1>{{ order()!.status }}</h1>
+        <span>Placed {{ order()!.createdAt | date:'medium' }} by {{ order()!.customerUsername }}</span>
+      </div>
+      <strong>{{ price(order()!.totalAmount) }}</strong>
+    </section>
+
+    <section class="state-grid">
+      <article>
+        <span>Payment status</span>
+        <strong>{{ payment()?.status || 'Not created' }}</strong>
+        <p>{{ payment()?.paymentReference || payment()?.failureReason || 'No payment record returned yet.' }}</p>
+      </article>
+      <article>
+        <span>Inventory reservation</span>
+        <strong>{{ reservation()?.status || 'Not found' }}</strong>
+        <p>
+          @if (reservation()) {
+            Product {{ reservation()!.productId }} / Qty {{ reservation()!.quantity }} / Expires {{ reservation()!.expiresAt | date:'short' }}
+          } @else {
+            No reservation record returned yet.
+          }
+        </p>
+      </article>
+      <article>
+        <span>Correlation</span>
+        <strong>{{ order()!.correlationId || 'Missing' }}</strong>
+        <p>Idempotency {{ order()!.idempotencyKey || 'not supplied' }}</p>
+      </article>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-head"><p>ITEMS</p><strong>{{ order()!.items.length }} lines</strong></div>
+        @for (item of order()!.items; track item.productId) {
+          <article class="item">
+            <div>
+              <span>PRODUCT {{ item.productId }}</span>
+              <h2>{{ item.productName }}</h2>
+              <p>Qty {{ item.quantity }} x {{ price(item.unitPrice) }}</p>
+            </div>
+            <strong>{{ price(item.quantity * item.unitPrice) }}</strong>
+          </article>
+        }
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><p>SAGA TIMELINE</p><strong>{{ timeline().length }} steps</strong></div>
+        @if (!timeline().length) {
+          <div class="empty">No timeline events recorded.</div>
+        } @else {
+          <div class="timeline">
+            @for (event of timeline(); track event.stage + event.occurredAt) {
+              <article>
+                <i></i>
+                <div>
+                  <span>{{ event.occurredAt | date:'medium' }}</span>
+                  <h3>{{ cleanStage(event.stage) }}</h3>
+                  <p>{{ event.detail }}</p>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      </section>
+    </div>
+  }
+</main>

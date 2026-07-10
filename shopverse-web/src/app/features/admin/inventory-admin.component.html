@@ -1,4 +1,15 @@
 <main class="admin-page-shell inventory-admin">
+  <nav class="admin-local-nav" aria-label="Admin navigation">
+    <div class="crumbs">
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Inventory</b>
+    </div>
+    <div class="admin-actions">
+      <a routerLink="/admin">Overview</a>
+      <a routerLink="/">Storefront</a>
+      <button type="button" (click)="logout()">Sign out</button>
+    </div>
+  </nav>
+
   <div class="heading">
     <div>
       <p class="eyebrow">INVENTORY</p>
@@ -8,25 +19,76 @@
   </div>
 
   @if (error()) {
-    <div class="notice">{{ error() }}</div>
+    <app-service-notice
+      eyebrow="INVENTORY UNAVAILABLE"
+      title="Inventory could not be loaded."
+      [message]="error()"
+      (retry)="load()"
+    />
   } @else if (loading()) {
-    <div class="notice">Loading inventory...</div>
+    <app-loading-skeleton [rows]="5" />
   } @else {
-    <div class="table">
-      @for (item of items(); track item.productId) {
-        <article>
-          <img [src]="item.imageUrl" [alt]="item.productName" />
-          <div>
-            <span>{{ item.category }}</span>
-            <strong>{{ item.productName }}</strong>
-            <small>{{ item.brand }} / {{ item.model }}</small>
-          </div>
-          <em [class.low]="item.availableQuantity < 5">{{ item.availableQuantity }} available</em>
-          <b>{{ item.reservedQuantity }} reserved</b>
-          <button (click)="edit(item)">Edit</button>
-        </article>
-      }
+    <div class="list-controls" aria-label="Inventory list controls">
+      <label>Search<input [(ngModel)]="search" placeholder="Product, category, brand, model" /></label>
+      <label>Stock
+        <select [(ngModel)]="stockFilter">
+          <option value="ALL">All stock</option>
+          <option value="AVAILABLE">Available</option>
+          <option value="LOW">Low stock</option>
+          <option value="OUT">Out of stock</option>
+        </select>
+      </label>
+      <label>Sort
+        <select [(ngModel)]="sort">
+          <option value="name">Name</option>
+          <option value="category">Category</option>
+          <option value="stockAsc">Stock low to high</option>
+          <option value="stockDesc">Stock high to low</option>
+          <option value="priceAsc">Price low to high</option>
+          <option value="priceDesc">Price high to low</option>
+        </select>
+      </label>
     </div>
+
+    @if (!filteredItems().length) {
+      <app-empty-state eyebrow="NO INVENTORY MATCH" title="No items match the current filters." message="Clear the search or change stock filters to see more items." />
+    } @else {
+      <div class="table">
+        @for (item of visibleItems(); track item.productId) {
+          <article>
+            <img
+              [src]="item.imageUrl"
+              [alt]="item.productName"
+              width="70"
+              height="58"
+              loading="lazy"
+              decoding="async"
+              appImageFallback
+            />
+            <div>
+              <span>{{ item.category }}</span>
+              <strong>{{ item.productName }}</strong>
+              <small>{{ item.brand }} / {{ item.model }}</small>
+            </div>
+            <em [class.low]="item.availableQuantity < 5">{{ item.availableQuantity }} available</em>
+            <b>{{ item.reservedQuantity }} reserved</b>
+            <div class="row-actions">
+              <button type="button" (click)="edit(item)">Edit</button>
+              <button type="button" class="danger-disabled" (click)="deleteUnavailable()" title="Backend delete endpoint is not available yet">
+                Delete
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+      <div class="table-pagination">
+        <span>{{ pageLabel() }}</span>
+        <div>
+          <button type="button" (click)="changePage(-1)" [disabled]="page() <= 1">Previous</button>
+          <button type="button" (click)="changePage(1)" [disabled]="page() >= pageCount()">Next</button>
+        </div>
+      </div>
+    }
   }
 
   @if (editing()) {
@@ -40,17 +102,49 @@
           <button type="button" (click)="close()">Close</button>
         </header>
 
-        <div class="fields">
-          <label>Product ID<input type="number" [(ngModel)]="form.productId" name="productId" required /></label>
-          <label>Product name<input [(ngModel)]="form.productName" name="productName" required /></label>
-          <label>Brand<input [(ngModel)]="form.brand" name="brand" required /></label>
-          <label>Model<input [(ngModel)]="form.model" name="model" required /></label>
-          <label>Category<input [(ngModel)]="form.category" name="category" required /></label>
-          <label>Price<input type="number" min="0.01" step="0.01" [(ngModel)]="form.unitPrice" name="unitPrice" required /></label>
-          <label>Available quantity<input type="number" min="0" [(ngModel)]="form.availableQuantity" name="availableQuantity" required /></label>
-          <label>Image URL<input type="url" [(ngModel)]="form.imageUrl" name="imageUrl" required /></label>
-          <label class="wide">Image key<input [(ngModel)]="form.imageKey" name="imageKey" required /></label>
-          <label class="wide">Description<textarea [(ngModel)]="form.description" name="description" required></textarea></label>
+        <div class="editor-layout">
+          <aside class="image-preview">
+            <p>IMAGE PREVIEW</p>
+            @if (imagePreview()) {
+              <img
+                [src]="imagePreview()"
+                [alt]="form.productName || 'Inventory item preview'"
+                width="260"
+                height="190"
+                loading="lazy"
+                decoding="async"
+                appImageFallback
+              />
+            } @else {
+              <div>No image URL yet.</div>
+            }
+            <span>Preview helps catch broken MiniIO/object URLs before saving catalog changes.</span>
+          </aside>
+
+          <div class="fields">
+            <label>Product ID<input type="number" [(ngModel)]="form.productId" name="productId" required /></label>
+            <label>Product name<input [(ngModel)]="form.productName" name="productName" required /></label>
+            <label>Brand<input [(ngModel)]="form.brand" name="brand" required /></label>
+            <label>Model<input [(ngModel)]="form.model" name="model" required /></label>
+            <label>Category<input [(ngModel)]="form.category" name="category" required /></label>
+            <label>Price<input type="number" min="0.01" step="0.01" [(ngModel)]="form.unitPrice" name="unitPrice" required /></label>
+            <label>Available quantity<input type="number" min="0" [(ngModel)]="form.availableQuantity" name="availableQuantity" required /></label>
+            <label>Reserved quantity<input type="number" min="0" [(ngModel)]="form.reservedQuantity" name="reservedQuantity" required /></label>
+            <label class="wide">Image URL<input type="url" [(ngModel)]="form.imageUrl" name="imageUrl" required /></label>
+            <label class="wide">Image key<input [(ngModel)]="form.imageKey" name="imageKey" required /></label>
+            <label class="wide">Description<textarea [(ngModel)]="form.description" name="description" required></textarea></label>
+          </div>
+        </div>
+
+        <div class="form-guidance">
+          <p>VALIDATION CHECKS</p>
+          @if (formWarnings().length) {
+            @for (warning of formWarnings(); track warning) {
+              <span>{{ warning }}</span>
+            }
+          } @else {
+            <span class="ok">Looks ready to save.</span>
+          }
         </div>
 
         @if (saveError()) {

@@ -8,8 +8,8 @@ sidebar_position: 3
 ## Docker
 
 ```powershell
-docker compose build
-docker compose up -d
+docker compose --profile apps --profile assets config --quiet
+docker compose --profile apps --profile assets up --build -d
 docker compose ps
 docker compose logs -f --tail 200
 docker compose restart order-service
@@ -153,4 +153,3 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass `
 - [Grafana](../observability/GRAFANA.md)
 - [Promtail](../observability/PROMTAIL.md)
 - [Debugging guide](../development/DEBUGGING.md)
-

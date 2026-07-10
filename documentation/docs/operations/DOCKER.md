@@ -158,10 +158,10 @@ docker rm shopverse-order-service
 ### Compose
 
 ```powershell
-docker compose config
-docker compose build
-docker compose up -d
-docker compose up -d --build order-service
+docker compose --profile apps --profile assets config --quiet
+docker compose --profile apps --profile assets build
+docker compose --profile apps --profile assets up -d
+docker compose --profile apps up -d --build order-service
 docker compose ps
 docker compose logs -f order-service
 docker compose restart order-service
@@ -225,7 +225,8 @@ Examples:
 ```powershell
 docker compose up -d
 docker compose --profile apps up -d
-docker compose --profile apps --profile observability up -d
+docker compose --profile apps --profile assets up -d
+docker compose --profile apps --profile observability --profile assets up -d
 ```
 
 Profiles reduce default startup time and memory pressure while keeping optional

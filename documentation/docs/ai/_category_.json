@@ -1,0 +1,8 @@
+{
+  "label": "AI, RAG And Java AI",
+  "position": 9,
+  "link": {
+    "type": "generated-index",
+    "description": "Interview-focused learning material for LLMs, Generative AI, embeddings, vector databases, RAG, Spring AI, LangChain4j, and Java API integration."
+  }
+}

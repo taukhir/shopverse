@@ -16,7 +16,9 @@ The internal endpoint supports Auth Service credential validation. Public APIs u
 | Area | Base path | Security |
 |---|---|---|
 | health | `/api/v1/public/health` | public |
+| registration | `/api/v1/public/users/register` | public |
 | internal authentication | `/api/v1/internal/users/authenticated` | internal Basic |
+| current profile | `/api/v1/users/me` | authenticated user |
 | users | `/api/v1/users` | permission authorities |
 | roles | `/api/v1/roles` | `ADMIN_ACCESS` |
 | permissions | `/api/v1/permissions` | `ADMIN_ACCESS` |
@@ -29,6 +31,14 @@ User authorities:
 | create | `USER_CREATE` |
 | update/password change | `USER_UPDATE` |
 | delete | `USER_DELETE` |
+
+Self-service endpoints:
+
+| Method | Path | Purpose |
+|---|---|---|
+| `POST` | `/api/v1/public/users/register` | create a customer account |
+| `GET` | `/api/v1/users/me` | return the current profile |
+| `PATCH` | `/api/v1/users/me` | update the current profile |
 
 Swagger is available at `/swagger-ui/index.html`; use the **Authorize** action with `Bearer <token>`.
 

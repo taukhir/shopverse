@@ -1,16 +1,18 @@
 import { Injectable, computed, signal } from '@angular/core';
 
+import { STORAGE_KEYS } from '../constants/storage-keys';
+
 export interface CartProduct {
   productId: number;
   productName: string;
   price: number;
+  imageUrl?: string;
+  available?: boolean;
 }
 
 export interface CartItem extends CartProduct {
   quantity: number;
 }
-
-const storageKey = 'shopverse.cart.v1';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
@@ -40,12 +42,12 @@ export class CartService {
   private update(transform: (items: CartItem[]) => CartItem[]): void {
     const next = transform(this.items());
     this.items.set(next);
-    localStorage.setItem(storageKey, JSON.stringify(next));
+    localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(next));
   }
 
   private readCart(): CartItem[] {
     try {
-      const parsed: unknown = JSON.parse(localStorage.getItem(storageKey) ?? '[]');
+      const parsed: unknown = JSON.parse(localStorage.getItem(STORAGE_KEYS.cart) ?? '[]');
       return Array.isArray(parsed) ? parsed.filter(this.isCartItem) : [];
     } catch { return []; }
   }

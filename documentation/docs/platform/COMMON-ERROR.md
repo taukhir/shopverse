@@ -33,10 +33,18 @@ which exception maps to which HTTP status.
 `shopverse-common-error` provides:
 
 - `io.shopverse.platform.error.ApiErrorResponse`
+- `io.shopverse.platform.error.ApiErrors`
+
+`ApiErrorResponse` is the shared JSON response record. `ApiErrors` is a small
+helper for local exception handlers that need to build `ProblemDetail`,
+`ResponseEntity<ApiErrorResponse>`, or validation-error maps consistently.
 
 ## Used By
 
 - `user-service`
+- `order-service`
+- `payment-service`
+- `inventory-service`
 
 ## Gradle Dependency
 
@@ -78,32 +86,27 @@ dependencies {
 }
 ```
 
-Use the shared response record in the local exception handler.
+Use the shared response record and helper in the local exception handler.
 
 ```java
 import io.shopverse.platform.error.ApiErrorResponse;
+import io.shopverse.platform.error.ApiErrors;
 
 @ExceptionHandler(ResourceNotFoundException.class)
 public ResponseEntity<ApiErrorResponse> handleNotFound(
-        ResourceNotFoundException ex,
-        HttpServletRequest request
+        ResourceNotFoundException ex
 ) {
-    return buildError(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI());
+    return ApiErrors.response(HttpStatus.NOT_FOUND, ex.getMessage());
 }
+```
 
-private ResponseEntity<ApiErrorResponse> buildError(
-        HttpStatus status,
-        String message,
-        String path
-) {
-    ApiErrorResponse error = new ApiErrorResponse(
-            Instant.now(),
-            status.value(),
-            status.getReasonPhrase(),
-            message,
-            path
-    );
-    return ResponseEntity.status(status).body(error);
+Services that use Spring `ProblemDetail` can use the same helper without
+adopting the `ApiErrorResponse` JSON shape:
+
+```java
+@ExceptionHandler(ResourceNotFoundException.class)
+ProblemDetail handleNotFound(ResourceNotFoundException exception) {
+    return ApiErrors.problem(HttpStatus.NOT_FOUND, exception.getMessage());
 }
 ```
 
@@ -124,11 +127,10 @@ fields:
 
 ```json
 {
-  "timestamp": "...",
   "status": 404,
-  "error": "Not Found",
   "message": "...",
-  "path": "/..."
+  "timestamp": "...",
+  "errors": null
 }
 ```
 
@@ -137,6 +139,7 @@ fields:
 | Symptom | Check |
 |---|---|
 | `ApiErrorResponse` cannot be imported | The service is missing `includeBuild('../shopverse-platform')` or the `shopverse-common-error` dependency. |
+| `ApiErrors` cannot be imported | The service is on an older platform build or is missing the `shopverse-common-error` dependency. |
 | Error JSON shape is still different | The local handler is still returning a service-local DTO. |
 | Wrong HTTP status | Fix the local exception handler. The platform module only owns the response record. |
 

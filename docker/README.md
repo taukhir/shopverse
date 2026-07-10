@@ -30,23 +30,22 @@ machine.
 From the repository root:
 
 ```powershell
-docker compose config
-docker compose build
-docker compose up -d
+docker compose --profile apps --profile assets config --quiet
+docker compose --profile apps --profile assets up --build -d
 docker compose ps
 ```
 
-`docker compose config` validates interpolation and the final merged model
+`docker compose --profile apps --profile assets config --quiet` validates interpolation and the final merged model
 before Docker creates resources.
 
 ## Common Commands
 
 ```powershell
 # Start or update the complete stack
-docker compose up -d
+docker compose --profile apps --profile assets up -d
 
 # Rebuild and restart one changed service
-docker compose up -d --build order-service
+docker compose --profile apps up -d --build order-service
 
 # Follow bounded service logs
 docker compose logs --tail=200 -f order-service
@@ -61,7 +60,7 @@ docker compose down
 docker compose down -v
 
 # Build one tagged image directly
-docker build -t shopverse/order-service:local ./order-service
+docker build -f order-service/Dockerfile -t shopverse/order-service:local .
 ```
 
 Important flags:
@@ -136,8 +135,8 @@ service. Therefore a missing MinIO password can block `docker compose build
 order-service`; use `docker compose config` first to diagnose interpolation.
 
 ```powershell
-docker compose config
-docker compose up -d minio minio-init
+docker compose --profile assets config --quiet
+docker compose --profile assets up -d minio minio-init
 docker compose ps minio minio-init
 docker compose logs --tail=100 minio-init
 ```
@@ -152,7 +151,7 @@ After changing or adding a file below `assets/products/products`, rerun only
 the initializer:
 
 ```powershell
-docker compose up -d --force-recreate minio-init
+docker compose --profile assets up -d --force-recreate minio-init
 docker compose logs --tail=100 minio-init
 ```
 

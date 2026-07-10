@@ -1,0 +1,40 @@
+.service-notice {
+  display: grid;
+  gap: 10px;
+  max-width: 680px;
+  padding: 30px;
+  color: var(--white);
+  background: var(--ink-soft);
+}
+
+p {
+  margin: 0;
+  color: var(--accent-soft);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 42px);
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+span {
+  max-width: 560px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+button {
+  width: fit-content;
+  margin-top: 10px;
+  padding: 10px 0;
+  color: var(--accent-soft);
+  border: 0;
+  background: none;
+  font-weight: 800;
+}

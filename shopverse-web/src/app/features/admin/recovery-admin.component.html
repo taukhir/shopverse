@@ -1,0 +1,100 @@
+<main class="admin-page-shell recovery-admin">
+  <nav class="admin-local-nav" aria-label="Admin navigation">
+    <div class="crumbs">
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Recovery</b>
+    </div>
+    <div class="admin-actions">
+      <a routerLink="/admin">Overview</a>
+      <a routerLink="/admin/orders">Orders</a>
+      <button type="button" (click)="logout()">Sign out</button>
+    </div>
+  </nav>
+
+  <div class="heading">
+    <div>
+      <p class="eyebrow">RECOVERY</p>
+      <h1>Dead-letter operations.</h1>
+    </div>
+    <button type="button" (click)="load()">Refresh</button>
+  </div>
+
+  @if (error()) {
+    <app-service-notice
+      eyebrow="RECOVERY UNAVAILABLE"
+      title="Recovery data could not be loaded."
+      [message]="error()"
+      (retry)="load()"
+    />
+  } @else if (loading()) {
+    <app-loading-skeleton [rows]="5" />
+  } @else {
+    <section class="metrics">
+      <article class="primary"><span>Recoverable</span><strong>{{ totals().open }}</strong><em>{{ totals().all }} total events</em></article>
+      <article><span>Replayed</span><strong>{{ totals().replayed }}</strong></article>
+      <article><span>Orders</span><strong>{{ totals().orders }}</strong></article>
+      <article><span>Inventory</span><strong>{{ totals().inventory }}</strong></article>
+      <article><span>Payments</span><strong>{{ totals().payments }}</strong></article>
+    </section>
+
+    <section class="filters" aria-label="Recovery filters">
+      @for (item of filters; track item) {
+        <button type="button" [class.active]="filter() === item" (click)="setFilter(item)">{{ item }}</button>
+      }
+    </section>
+
+    <div class="list-controls" aria-label="Recovery list controls">
+      <label>Search<input [(ngModel)]="search" placeholder="Topic, failure reason, service" /></label>
+      <label>State
+        <select [(ngModel)]="replayFilter">
+          @for (item of replayFilters; track item) {
+            <option [value]="item">{{ item }}</option>
+          }
+        </select>
+      </label>
+      <label>Sort
+        <select [(ngModel)]="sort">
+          <option value="failedDesc">Recently failed</option>
+          <option value="failedAsc">Oldest failed</option>
+          <option value="retryDesc">Retry count</option>
+          <option value="replayDesc">Replay count</option>
+          <option value="service">Service</option>
+        </select>
+      </label>
+    </div>
+
+    @if (actionError()) {
+      <div class="form-message error">{{ actionError() }}</div>
+    }
+    @if (actionSuccess()) {
+      <div class="form-message success">{{ actionSuccess() }}</div>
+    }
+
+    @if (!filteredEvents().length) {
+      <app-empty-state eyebrow="NO EVENTS MATCH" title="No failed events match." message="Clear the search or filters to inspect more recovery records." />
+    } @else {
+      <section class="event-list">
+        @for (event of filteredEvents(); track eventKey(event)) {
+          <article [class.replayed]="event.replayed">
+            <div class="event-main">
+              <div class="event-head">
+                <span>{{ event.service }} / {{ event.sourceTopic }}</span>
+                <em>{{ event.replayed ? 'Replayed' : 'Open' }}</em>
+              </div>
+              <h2>{{ event.failureReason }}</h2>
+              <p>{{ event.payload }}</p>
+            </div>
+            <div class="event-meta">
+              <div><span>Retries</span><strong>{{ event.retryCount }}</strong></div>
+              <div><span>Replays</span><strong>{{ event.replayCount }}</strong></div>
+              <div><span>Failed</span><strong>{{ event.failedAt | date:'medium' }}</strong></div>
+              <div><span>Last replay</span><strong>{{ event.replayedAt ? (event.replayedAt | date:'medium') : 'Not replayed' }}</strong></div>
+            </div>
+            <button type="button" (click)="replay(event)" [disabled]="event.replayed || busyKey() === eventKey(event)">
+              {{ busyKey() === eventKey(event) ? 'Replaying...' : event.replayed ? 'Replayed' : 'Replay event' }}
+            </button>
+          </article>
+        }
+      </section>
+    }
+  }
+</main>

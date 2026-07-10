@@ -9,6 +9,7 @@ import io.shopverse.order.dto.OrderTimelineResponse;
 import io.shopverse.order.entity.OrderEntity;
 import io.shopverse.order.entity.OrderTimelineEvent;
 import io.shopverse.order.entity.OrderTimelineStage;
+import io.shopverse.order.exception.IdempotencyKeyConflictException;
 import io.shopverse.order.exception.ResourceNotFoundException;
 import io.shopverse.order.outbox.OutboxService;
 import io.shopverse.order.repository.OrderRepository;
@@ -49,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
         var existing = repository.findWithItemsByIdempotencyKey(idempotencyKey);
         if (existing.isPresent()) {
             if (!existing.get().getCustomerUsername().equals(username)) {
-                throw new IllegalStateException("Idempotency key is already owned by another customer");
+                throw new IdempotencyKeyConflictException("Idempotency key is already owned by another customer");
             }
             log.atInfo().addKeyValue("idempotencyKey", idempotencyKey)
                     .addKeyValue("orderNumber", existing.get().getOrderNumber())

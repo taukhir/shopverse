@@ -1,1 +1,10 @@
 description = 'Common API error response contracts for Shopverse services.'
+
+dependencies {
+    api 'org.springframework:spring-context'
+    api 'org.springframework:spring-web'
+    implementation 'jakarta.validation:jakarta.validation-api'
+
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}

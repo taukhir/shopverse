@@ -308,7 +308,7 @@ Create local values from the template:
 
 ```powershell
 Copy-Item .env.example .env
-docker compose config
+docker compose --profile apps --profile assets config --quiet
 ```
 
 `.env` is ignored. `.env.example` contains only placeholders. Production
@@ -319,16 +319,16 @@ mount signing keys rather than shipping development keys in an image.
 
 ```powershell
 # Build all service images.
-docker compose build
+docker compose --profile apps --profile assets build
 
 # Build one changed service.
-docker compose build order-service
+docker compose --profile apps build order-service
 
-# Start the complete stack.
-docker compose up -d
+# Start the backend application stack with product assets.
+docker compose --profile apps --profile assets up -d
 
 # Rebuild and recreate one service.
-docker compose up -d --build order-service
+docker compose --profile apps up -d --build order-service
 
 # Inspect status and logs.
 docker compose ps

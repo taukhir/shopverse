@@ -1,0 +1,11 @@
+@if (network.isVisible()) {
+  <section class="network-banner" [class]="network.status().state" role="status" aria-live="polite">
+    <div>
+      <strong>{{ network.status().message }}</strong>
+      <span>{{ network.status().detail }}</span>
+    </div>
+    @if (network.status().state !== 'offline') {
+      <button type="button" (click)="network.dismiss()" aria-label="Dismiss service status">Dismiss</button>
+    }
+  </section>
+}

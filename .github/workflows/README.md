@@ -49,6 +49,8 @@ service:
 
 ```text
 cloud-configs/
+build-logic/
+shopverse-platform/
 docker-compose*
 docker/
 observability/
