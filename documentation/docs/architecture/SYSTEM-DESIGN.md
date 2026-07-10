@@ -1,3 +1,18 @@
+---
+title: Shopverse System Design
+difficulty: Advanced
+page_type: Case Study
+status: Implemented
+prerequisites:
+  - Microservices fundamentals
+  - REST and asynchronous messaging basics
+learning_objectives:
+  - Understand Shopverse service boundaries and runtime topology
+  - Trace checkout communication and persistence ownership
+technologies: [Spring Boot, Spring Cloud, Kafka, PostgreSQL, Docker]
+last_reviewed: "2026-07-10"
+---
+
 # Shopverse System Design
 
 import {DocFigure, ReadingGuide} from '@site/src/components/DocumentationLanding';

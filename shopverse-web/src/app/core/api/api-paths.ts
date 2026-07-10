@@ -8,6 +8,7 @@ export const API_PATHS = {
   inventory: {
     publicItems: '/api/v1/inventory/public/items',
     adminItems: '/api/v1/inventory/admin/items',
+    itemImage: (productId: number) => `/api/v1/inventory/admin/items/${productId}/image`,
     reservationByOrder: (orderNumber: string) => `/api/v1/inventory/admin/reservations/orders/${orderNumber}`,
     deadLetters: '/api/v1/inventory/admin/dead-letters',
   },

@@ -7,6 +7,9 @@ sidebar_position: 3
 
 Use this page when adding, moving, or consolidating documentation.
 
+For interactive tabs, comparisons, API panels, answers, and standardized
+callouts, use the [reusable documentation components](./DOCUMENTATION-COMPONENTS.mdx).
+
 The goal is to keep two tracks clear:
 
 - learning/reference material

@@ -47,8 +47,20 @@ jobs:
       - name: Type-check configuration
         run: npm run typecheck
 
+      - name: Check documentation quality
+        run: npm run check:content
+
       - name: Build documentation
         run: npm run build
+
+      - name: Enforce performance budget
+        run: npm run check:performance
+
+      - name: Install browser for UI tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Run documentation UI and accessibility tests
+        run: npm run test:ui
 
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'

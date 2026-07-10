@@ -2,6 +2,38 @@ import type {Config} from '@docusaurus/types';
 import type {Options, ThemeConfig} from '@docusaurus/preset-classic';
 import {themes as prismThemes} from 'prism-react-renderer';
 
+const glossaryTerms: Record<string, string> = {
+  'idempotency': 'idempotency',
+  'transactional outbox': 'transactional-outbox',
+  'saga': 'saga',
+  'jwks': 'jwks',
+  'fencing token': 'fencing-token',
+  'consumer group': 'consumer-group',
+  'distributed lock': 'distributed-lock',
+  'correlation id': 'correlation-id',
+};
+
+function remarkGlossaryLinks() {
+  return (tree: any, file: any) => {
+    if (String(file.path ?? '').includes('GLOSSARY')) return;
+    const linked = new Set<string>();
+    const walk = (node: any) => {
+      if (!node.children || ['link', 'code', 'inlineCode', 'heading'].includes(node.type)) return;
+      for (let index = 0; index < node.children.length; index += 1) {
+        const child = node.children[index];
+        if (child.type !== 'text') { walk(child); continue; }
+        const candidates = Object.keys(glossaryTerms).filter((term) => !linked.has(term));
+        const match = candidates.map((term) => ({term, index: child.value.toLowerCase().indexOf(term)})).filter((item) => item.index >= 0).sort((a, b) => a.index - b.index)[0];
+        if (!match) continue;
+        const before = child.value.slice(0, match.index); const label = child.value.slice(match.index, match.index + match.term.length); const after = child.value.slice(match.index + match.term.length);
+        const replacement = [before && {type: 'text', value: before}, {type: 'link', url: `/shopverse/reference/GLOSSARY#${glossaryTerms[match.term]}`, title: `Glossary: ${label}`, children: [{type: 'text', value: label}]}, after && {type: 'text', value: after}].filter(Boolean);
+        node.children.splice(index, 1, ...replacement); linked.add(match.term); index += replacement.length - 1;
+      }
+    };
+    walk(tree);
+  };
+}
+
 const config: Config = {
   title: 'Backend Engineering Knowledge Base',
   tagline: 'Study material, production patterns, and the Shopverse case study',
@@ -43,6 +75,7 @@ const config: Config = {
           path: 'docs',
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
+          remarkPlugins: [remarkGlossaryLinks],
           // Git-derived dates are unreliable for local and newly generated pages.
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
@@ -62,6 +95,22 @@ const config: Config = {
   ],
 
   themeConfig: {
+    metadata: [
+      {name: 'description', content: 'Backend engineering guides, production patterns, and the Shopverse microservices case study.'},
+    ],
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
+    },
+    announcementBar: {
+      id: 'reading_help_v1',
+      content: 'Tip: use search to jump across the library, and click any documentation image to inspect it full size.',
+      backgroundColor: '#e6f3ef',
+      textColor: '#104a3f',
+      isCloseable: true,
+    },
     colorMode: {
       defaultMode: 'light',
       respectPrefersColorScheme: true,
@@ -130,6 +179,10 @@ const config: Config = {
       theme: prismThemes.github,
       darkTheme: prismThemes.vsDark,
       additionalLanguages: ['java', 'bash', 'powershell', 'yaml', 'json', 'sql'],
+    },
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 4,
     },
   } satisfies ThemeConfig,
 };

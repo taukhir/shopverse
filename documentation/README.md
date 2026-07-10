@@ -15,6 +15,11 @@ The portal is organized as a reusable backend engineering study library.
 Shopverse appears as a case study rather than defining the complete
 documentation taxonomy.
 
+Reader experience includes local full-text search, Mermaid diagrams, dark
+mode, collapsible navigation, a reading-progress indicator, image previews,
+reading-time and word-count metadata, share and feedback actions, print-friendly
+pages, and a back-to-top control for long technical guides.
+
 ## Local Development
 
 ```powershell

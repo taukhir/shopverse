@@ -25,6 +25,25 @@
   border-top: 1px solid var(--line);
 }
 
+.stock-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stock-summary > * {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.stock-summary span { color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+.stock-summary strong { font-size: 22px; }
+
 .empty {
   padding: 24px;
   color: var(--muted);
@@ -194,6 +213,19 @@ form footer button {
   line-height: 1.5;
 }
 
+.image-upload {
+  padding: 10px 12px;
+  color: var(--white);
+  background: var(--ink);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.image-upload input { display: none; }
+.image-preview .upload-error { color: #8b1d1d; }
+
 .fields {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -252,6 +284,7 @@ form footer {
 }
 
 @media (max-width: 700px) {
+  .stock-summary { grid-template-columns: repeat(2, 1fr); }
   .inventory-admin {
     padding: 50px 20px;
   }

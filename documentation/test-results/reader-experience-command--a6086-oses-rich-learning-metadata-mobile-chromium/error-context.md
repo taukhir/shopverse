@@ -1,0 +1,576 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - region "Skip to main content":
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+      - /url: "#__docusaurus_skipToContent_fallback"
+  - banner [ref=e4]:
+    - generic [ref=e6]: "Tip: use search to jump across the library, and click any documentation image to inspect it full size."
+    - button "Close" [ref=e7] [cursor=pointer]:
+      - img [ref=e8] [cursor=pointer]
+  - navigation "Main" [ref=e11]:
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - button "Toggle navigation bar" [ref=e14] [cursor=pointer]:
+          - img [ref=e15] [cursor=pointer]
+        - link "Backend Engineering Knowledge Base Backend Engineering" [ref=e17] [cursor=pointer]:
+          - /url: /shopverse/
+          - img "Backend Engineering Knowledge Base" [ref=e19] [cursor=pointer]
+          - generic [ref=e20] [cursor=pointer]: Backend Engineering
+      - textbox "Search" [ref=e23]
+  - main [ref=e27]:
+    - generic [ref=e31]:
+      - article [ref=e32]:
+        - navigation "Breadcrumbs" [ref=e33]:
+          - list [ref=e34]:
+            - listitem [ref=e35]:
+              - link "Home page" [ref=e36] [cursor=pointer]:
+                - /url: /shopverse/
+                - img [ref=e37] [cursor=pointer]
+            - listitem [ref=e39]:
+              - generic [ref=e40]: Backend Engineering Knowledge Base
+        - generic [ref=e41]:
+          - generic "Reading information" [ref=e42]:
+            - generic [ref=e43]:
+              - img [ref=e44]
+              - text: 3 min read
+            - generic [ref=e47]:
+              - img [ref=e48]
+              - text: 531 words
+          - generic "Reader actions" [ref=e50]:
+            - button "Bookmark" [ref=e51] [cursor=pointer]:
+              - img [ref=e52] [cursor=pointer]
+              - text: Bookmark
+            - button "Mark complete" [ref=e54] [cursor=pointer]:
+              - img [ref=e55] [cursor=pointer]
+              - text: Mark complete
+          - generic [ref=e57]:
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - generic [ref=e60]: Backend engineering reference
+                - heading "Learn the concepts. Inspect the implementation." [level=1] [ref=e61]
+                - paragraph [ref=e62]: A structured library for Java, Spring, data, distributed systems, security, observability, and delivery, connected to a working Shopverse microservices case study.
+                - generic [ref=e63]:
+                  - link "Follow the learning path" [ref=e64] [cursor=pointer]:
+                    - /url: /shopverse/reference/LEARNING-PATH
+                    - text: Follow the learning path
+                    - img [ref=e65] [cursor=pointer]
+                  - link "Explore Shopverse" [ref=e67] [cursor=pointer]:
+                    - /url: /shopverse/case-study/SHOPVERSE
+              - generic "Documentation summary" [ref=e68]:
+                - generic [ref=e69]:
+                  - strong [ref=e70]: "8"
+                  - generic [ref=e71]: knowledge domains
+                - generic [ref=e72]:
+                  - strong [ref=e73]: "3"
+                  - generic [ref=e74]: verification levels
+                - generic [ref=e75]:
+                  - strong [ref=e76]: "1"
+                  - generic [ref=e77]: complete case study
+            - generic [ref=e78]:
+              - generic [ref=e79]:
+                - generic [ref=e80]:
+                  - generic [ref=e81]: Browse by subject
+                  - heading "Knowledge domains" [level=2] [ref=e82]
+                - paragraph [ref=e83]: Start with a topic or follow the learning path in dependency order.
+              - generic [ref=e84]:
+                - link "Language foundation Java OOP, collections, streams, Java 8-26, concurrency, and practical interview questions." [ref=e85] [cursor=pointer]:
+                  - /url: /shopverse/java/JAVA-OOP
+                  - img [ref=e87] [cursor=pointer]
+                  - generic [ref=e90] [cursor=pointer]:
+                    - generic [ref=e91] [cursor=pointer]: Language foundation
+                    - generic [ref=e92] [cursor=pointer]: Java
+                    - generic [ref=e93] [cursor=pointer]: OOP, collections, streams, Java 8-26, concurrency, and practical interview questions.
+                - link "Application platform Spring Ecosystem Boot internals, REST, Data JPA, Security, Cloud, validation, caching, and testing." [ref=e94] [cursor=pointer]:
+                  - /url: /shopverse/spring/SPRING-ECOSYSTEM
+                  - img [ref=e96] [cursor=pointer]
+                  - generic [ref=e100] [cursor=pointer]:
+                    - generic [ref=e101] [cursor=pointer]: Application platform
+                    - generic [ref=e102] [cursor=pointer]: Spring Ecosystem
+                    - generic [ref=e103] [cursor=pointer]: Boot internals, REST, Data JPA, Security, Cloud, validation, caching, and testing.
+                - link "Persistence Data Engineering Relational design, Hibernate, Liquibase, transactions, indexes, and query optimization." [ref=e104] [cursor=pointer]:
+                  - /url: /shopverse/data/DATABASE-ENGINEERING
+                  - img [ref=e106] [cursor=pointer]
+                  - generic [ref=e110] [cursor=pointer]:
+                    - generic [ref=e111] [cursor=pointer]: Persistence
+                    - generic [ref=e112] [cursor=pointer]: Data Engineering
+                    - generic [ref=e113] [cursor=pointer]: Relational design, Hibernate, Liquibase, transactions, indexes, and query optimization.
+                - link "Architecture Microservices Service boundaries, gateways, discovery, load balancing, Feign, and Kafka integration." [ref=e114] [cursor=pointer]:
+                  - /url: /shopverse/architecture/MICROSERVICES-GENERIC
+                  - img [ref=e116] [cursor=pointer]
+                  - generic [ref=e121] [cursor=pointer]:
+                    - generic [ref=e122] [cursor=pointer]: Architecture
+                    - generic [ref=e123] [cursor=pointer]: Microservices
+                    - generic [ref=e124] [cursor=pointer]: Service boundaries, gateways, discovery, load balancing, Feign, and Kafka integration.
+                - link "Reliability Distributed Systems CAP, consistency, SAGA, outbox, locks, CQRS, resilience, and high availability." [ref=e125] [cursor=pointer]:
+                  - /url: /shopverse/architecture/DISTRIBUTED-SYSTEMS-GENERIC
+                  - img [ref=e127] [cursor=pointer]
+                  - generic [ref=e131] [cursor=pointer]:
+                    - generic [ref=e132] [cursor=pointer]: Reliability
+                    - generic [ref=e133] [cursor=pointer]: Distributed Systems
+                    - generic [ref=e134] [cursor=pointer]: CAP, consistency, SAGA, outbox, locks, CQRS, resilience, and high availability.
+                - link "Identity and access Security Spring Security filters, JWT, OAuth2, JWKS, RBAC, method security, and hardening." [ref=e135] [cursor=pointer]:
+                  - /url: /shopverse/security/SPRING-SECURITY-GENERIC
+                  - img [ref=e137] [cursor=pointer]
+                  - generic [ref=e140] [cursor=pointer]:
+                    - generic [ref=e141] [cursor=pointer]: Identity and access
+                    - generic [ref=e142] [cursor=pointer]: Security
+                    - generic [ref=e143] [cursor=pointer]: Spring Security filters, JWT, OAuth2, JWKS, RBAC, method security, and hardening.
+                - link "Operations Observability Structured logs, MDC, metrics, Prometheus, Loki, Grafana, tracing, and alerting." [ref=e144] [cursor=pointer]:
+                  - /url: /shopverse/observability/LOGGING-GENERIC
+                  - img [ref=e146] [cursor=pointer]
+                  - generic [ref=e148] [cursor=pointer]:
+                    - generic [ref=e149] [cursor=pointer]: Operations
+                    - generic [ref=e150] [cursor=pointer]: Observability
+                    - generic [ref=e151] [cursor=pointer]: Structured logs, MDC, metrics, Prometheus, Loki, Grafana, tracing, and alerting.
+                - link "CI/CD Delivery Docker, Jenkins, GitHub Actions, deployment strategies, and operational commands." [ref=e152] [cursor=pointer]:
+                  - /url: /shopverse/operations/CI-CD-AUTOMATION
+                  - img [ref=e154] [cursor=pointer]
+                  - generic [ref=e158] [cursor=pointer]:
+                    - generic [ref=e159] [cursor=pointer]: CI/CD
+                    - generic [ref=e160] [cursor=pointer]: Delivery
+                    - generic [ref=e161] [cursor=pointer]: Docker, Jenkins, GitHub Actions, deployment strategies, and operational commands.
+            - generic [ref=e162]:
+              - generic [ref=e163]:
+                - img [ref=e164]
+                - generic [ref=e167]:
+                  - strong [ref=e168]: New to the material?
+                  - text: Study Java and Spring first, then data, communication, distributed consistency, and operations.
+              - link "Open learning path" [ref=e169] [cursor=pointer]:
+                - /url: /shopverse/reference/LEARNING-PATH
+                - text: Open learning path
+                - img [ref=e170] [cursor=pointer]
+            - generic [ref=e172]:
+              - generic [ref=e173]:
+                - generic [ref=e174]:
+                  - generic [ref=e175]: Find your next guide
+                  - heading "Learning directory" [level=2] [ref=e176]
+                - paragraph [ref=e177]: Filter the curated path by domain or search its metadata.
+              - generic [ref=e178]:
+                - textbox "Search learning directory" [ref=e179]
+                - generic [ref=e180]:
+                  - button "All" [ref=e181] [cursor=pointer]
+                  - button "Java" [ref=e182] [cursor=pointer]
+                  - button "Spring" [ref=e183] [cursor=pointer]
+                  - button "Data" [ref=e184] [cursor=pointer]
+                  - button "Distributed Systems" [ref=e185] [cursor=pointer]
+                  - button "Security" [ref=e186] [cursor=pointer]
+                  - button "Operations" [ref=e187] [cursor=pointer]
+                  - button "AI" [ref=e188] [cursor=pointer]
+              - generic [ref=e189]:
+                - link "Java Java Fundamentals Beginner · Concept" [ref=e190] [cursor=pointer]:
+                  - /url: /shopverse/java/JAVA-FUNDAMENTALS
+                  - generic [ref=e191] [cursor=pointer]: Java
+                  - strong [ref=e192] [cursor=pointer]: Java Fundamentals
+                  - generic [ref=e193] [cursor=pointer]: Beginner · Concept
+                - link "Java Object-Oriented Programming Beginner · Tutorial" [ref=e194] [cursor=pointer]:
+                  - /url: /shopverse/java/JAVA-OOP
+                  - generic [ref=e195] [cursor=pointer]: Java
+                  - strong [ref=e196] [cursor=pointer]: Object-Oriented Programming
+                  - generic [ref=e197] [cursor=pointer]: Beginner · Tutorial
+                - link "Java Collections Intermediate · Concept" [ref=e198] [cursor=pointer]:
+                  - /url: /shopverse/java/JAVA-COLLECTIONS
+                  - generic [ref=e199] [cursor=pointer]: Java
+                  - strong [ref=e200] [cursor=pointer]: Collections
+                  - generic [ref=e201] [cursor=pointer]: Intermediate · Concept
+                - link "Java Multithreading Advanced · Concept" [ref=e202] [cursor=pointer]:
+                  - /url: /shopverse/java/JAVA-MULTITHREADING
+                  - generic [ref=e203] [cursor=pointer]: Java
+                  - strong [ref=e204] [cursor=pointer]: Multithreading
+                  - generic [ref=e205] [cursor=pointer]: Advanced · Concept
+                - link "Spring Spring Ecosystem Beginner · Concept" [ref=e206] [cursor=pointer]:
+                  - /url: /shopverse/spring/SPRING-ECOSYSTEM
+                  - generic [ref=e207] [cursor=pointer]: Spring
+                  - strong [ref=e208] [cursor=pointer]: Spring Ecosystem
+                  - generic [ref=e209] [cursor=pointer]: Beginner · Concept
+                - link "Spring Spring Boot Internals Intermediate · Concept" [ref=e210] [cursor=pointer]:
+                  - /url: /shopverse/development/SPRING-BOOT-INTERNALS
+                  - generic [ref=e211] [cursor=pointer]: Spring
+                  - strong [ref=e212] [cursor=pointer]: Spring Boot Internals
+                  - generic [ref=e213] [cursor=pointer]: Intermediate · Concept
+                - link "Spring Spring REST APIs Intermediate · Tutorial" [ref=e214] [cursor=pointer]:
+                  - /url: /shopverse/development/SPRING-REST-APIS
+                  - generic [ref=e215] [cursor=pointer]: Spring
+                  - strong [ref=e216] [cursor=pointer]: Spring REST APIs
+                  - generic [ref=e217] [cursor=pointer]: Intermediate · Tutorial
+                - link "Spring Spring Boot Testing Advanced · Tutorial" [ref=e218] [cursor=pointer]:
+                  - /url: /shopverse/spring/SPRING-BOOT-TESTING
+                  - generic [ref=e219] [cursor=pointer]: Spring
+                  - strong [ref=e220] [cursor=pointer]: Spring Boot Testing
+                  - generic [ref=e221] [cursor=pointer]: Advanced · Tutorial
+                - link "Data Database Engineering Beginner · Concept" [ref=e222] [cursor=pointer]:
+                  - /url: /shopverse/data/DATABASE-ENGINEERING
+                  - generic [ref=e223] [cursor=pointer]: Data
+                  - strong [ref=e224] [cursor=pointer]: Database Engineering
+                  - generic [ref=e225] [cursor=pointer]: Beginner · Concept
+                - link "Data Hibernate Intermediate · Concept" [ref=e226] [cursor=pointer]:
+                  - /url: /shopverse/data/HIBERNATE
+                  - generic [ref=e227] [cursor=pointer]: Data
+                  - strong [ref=e228] [cursor=pointer]: Hibernate
+                  - generic [ref=e229] [cursor=pointer]: Intermediate · Concept
+                - link "Data Spring Data JPA Intermediate · Tutorial" [ref=e230] [cursor=pointer]:
+                  - /url: /shopverse/spring/SPRING-DATA-JPA
+                  - generic [ref=e231] [cursor=pointer]: Data
+                  - strong [ref=e232] [cursor=pointer]: Spring Data JPA
+                  - generic [ref=e233] [cursor=pointer]: Intermediate · Tutorial
+                - link "Data JPA Transactions And Locking Advanced · Concept" [ref=e234] [cursor=pointer]:
+                  - /url: /shopverse/spring/jpa/JPA-TRANSACTIONS-LOCKING
+                  - generic [ref=e235] [cursor=pointer]: Data
+                  - strong [ref=e236] [cursor=pointer]: JPA Transactions And Locking
+                  - generic [ref=e237] [cursor=pointer]: Advanced · Concept
+                - link "Distributed Systems Microservices Beginner · Concept" [ref=e238] [cursor=pointer]:
+                  - /url: /shopverse/architecture/MICROSERVICES-GENERIC
+                  - generic [ref=e239] [cursor=pointer]: Distributed Systems
+                  - strong [ref=e240] [cursor=pointer]: Microservices
+                  - generic [ref=e241] [cursor=pointer]: Beginner · Concept
+                - link "Distributed Systems Apache Kafka Intermediate · Concept" [ref=e242] [cursor=pointer]:
+                  - /url: /shopverse/integration/APACHE-KAFKA
+                  - generic [ref=e243] [cursor=pointer]: Distributed Systems
+                  - strong [ref=e244] [cursor=pointer]: Apache Kafka
+                  - generic [ref=e245] [cursor=pointer]: Intermediate · Concept
+                - link "Distributed Systems SAGA Pattern Advanced · Concept" [ref=e246] [cursor=pointer]:
+                  - /url: /shopverse/reliability/SAGA-GENERIC
+                  - generic [ref=e247] [cursor=pointer]: Distributed Systems
+                  - strong [ref=e248] [cursor=pointer]: SAGA Pattern
+                  - generic [ref=e249] [cursor=pointer]: Advanced · Concept
+                - link "Distributed Systems Shopverse System Design Advanced · Case Study" [ref=e250] [cursor=pointer]:
+                  - /url: /shopverse/architecture/SYSTEM-DESIGN
+                  - generic [ref=e251] [cursor=pointer]: Distributed Systems
+                  - strong [ref=e252] [cursor=pointer]: Shopverse System Design
+                  - generic [ref=e253] [cursor=pointer]: Advanced · Case Study
+                - link "Security Security Principles Beginner · Concept" [ref=e254] [cursor=pointer]:
+                  - /url: /shopverse/security/principles/SECURITY-PRINCIPLES
+                  - generic [ref=e255] [cursor=pointer]: Security
+                  - strong [ref=e256] [cursor=pointer]: Security Principles
+                  - generic [ref=e257] [cursor=pointer]: Beginner · Concept
+                - link "Security JWT Fundamentals Intermediate · Concept" [ref=e258] [cursor=pointer]:
+                  - /url: /shopverse/security/jwt/JWT-FUNDAMENTALS
+                  - generic [ref=e259] [cursor=pointer]: Security
+                  - strong [ref=e260] [cursor=pointer]: JWT Fundamentals
+                  - generic [ref=e261] [cursor=pointer]: Intermediate · Concept
+                - link "Security Spring Security Advanced · Concept" [ref=e262] [cursor=pointer]:
+                  - /url: /shopverse/security/SPRING-SECURITY-GENERIC
+                  - generic [ref=e263] [cursor=pointer]: Security
+                  - strong [ref=e264] [cursor=pointer]: Spring Security
+                  - generic [ref=e265] [cursor=pointer]: Advanced · Concept
+                - link "Security Shopverse JWT Security Advanced · Case Study" [ref=e266] [cursor=pointer]:
+                  - /url: /shopverse/security/JWT-OAUTH2-SPRING-SECURITY
+                  - generic [ref=e267] [cursor=pointer]: Security
+                  - strong [ref=e268] [cursor=pointer]: Shopverse JWT Security
+                  - generic [ref=e269] [cursor=pointer]: Advanced · Case Study
+                - link "Operations Logging Fundamentals Beginner · Concept" [ref=e270] [cursor=pointer]:
+                  - /url: /shopverse/observability/LOGGING-GENERIC
+                  - generic [ref=e271] [cursor=pointer]: Operations
+                  - strong [ref=e272] [cursor=pointer]: Logging Fundamentals
+                  - generic [ref=e273] [cursor=pointer]: Beginner · Concept
+                - link "Operations Observability Intermediate · Case Study" [ref=e274] [cursor=pointer]:
+                  - /url: /shopverse/observability/
+                  - generic [ref=e275] [cursor=pointer]: Operations
+                  - strong [ref=e276] [cursor=pointer]: Observability
+                  - generic [ref=e277] [cursor=pointer]: Intermediate · Case Study
+                - link "Operations Docker Operations Intermediate · Runbook" [ref=e278] [cursor=pointer]:
+                  - /url: /shopverse/operations/DOCKER
+                  - generic [ref=e279] [cursor=pointer]: Operations
+                  - strong [ref=e280] [cursor=pointer]: Docker Operations
+                  - generic [ref=e281] [cursor=pointer]: Intermediate · Runbook
+                - link "Operations Debugging Runbook Advanced · Runbook" [ref=e282] [cursor=pointer]:
+                  - /url: /shopverse/development/DEBUGGING
+                  - generic [ref=e283] [cursor=pointer]: Operations
+                  - strong [ref=e284] [cursor=pointer]: Debugging Runbook
+                  - generic [ref=e285] [cursor=pointer]: Advanced · Runbook
+                - link "AI AI Learning Track Beginner · Tutorial" [ref=e286] [cursor=pointer]:
+                  - /url: /shopverse/ai/
+                  - generic [ref=e287] [cursor=pointer]: AI
+                  - strong [ref=e288] [cursor=pointer]: AI Learning Track
+                  - generic [ref=e289] [cursor=pointer]: Beginner · Tutorial
+                - link "AI LLM Fundamentals Beginner · Concept" [ref=e290] [cursor=pointer]:
+                  - /url: /shopverse/ai/LLM-GENERATIVE-AI-FUNDAMENTALS
+                  - generic [ref=e291] [cursor=pointer]: AI
+                  - strong [ref=e292] [cursor=pointer]: LLM Fundamentals
+                  - generic [ref=e293] [cursor=pointer]: Beginner · Concept
+                - link "AI Embeddings And RAG Intermediate · Concept" [ref=e294] [cursor=pointer]:
+                  - /url: /shopverse/ai/EMBEDDINGS-VECTOR-DB-RAG
+                  - generic [ref=e295] [cursor=pointer]: AI
+                  - strong [ref=e296] [cursor=pointer]: Embeddings And RAG
+                  - generic [ref=e297] [cursor=pointer]: Intermediate · Concept
+                - link "AI AI Security And Guardrails Advanced · Reference" [ref=e298] [cursor=pointer]:
+                  - /url: /shopverse/ai/AI-SECURITY-GUARDRAILS
+                  - generic [ref=e299] [cursor=pointer]: AI
+                  - strong [ref=e300] [cursor=pointer]: AI Security And Guardrails
+                  - generic [ref=e301] [cursor=pointer]: Advanced · Reference
+            - heading "How To Use This LibraryDirect link to How To Use This Library" [level=2] [ref=e302]:
+              - text: How To Use This Library
+              - link "Direct link to How To Use This Library" [ref=e303] [cursor=pointer]:
+                - /url: "#how-to-use-this-library"
+                - text: "#"
+            - complementary [ref=e304]:
+              - img [ref=e305]
+              - paragraph [ref=e308]:
+                - text: Use a generic guide to understand a reusable concept, then open the matching Shopverse page to inspect a concrete implementation. Implementation pages are explicitly marked as
+                - strong [ref=e309]: Implemented
+                - text: ","
+                - strong [ref=e310]: Partial
+                - text: ", or"
+                - strong [ref=e311]: Planned
+                - text: so study material is not confused with current runtime behavior.
+            - table [ref=e312]:
+              - rowgroup [ref=e313]:
+                - row "Goal Recommended entry point" [ref=e314]:
+                  - cell "Goal" [ref=e315]
+                  - cell "Recommended entry point" [ref=e316]
+              - rowgroup [ref=e317]:
+                - row "Learn in dependency order Backend engineering learning path" [ref=e318]:
+                  - cell "Learn in dependency order" [ref=e319]
+                  - cell "Backend engineering learning path" [ref=e320]:
+                    - link "Backend engineering learning path" [ref=e321] [cursor=pointer]:
+                      - /url: /shopverse/reference/LEARNING-PATH
+                - row "Understand one complete platform Shopverse case study" [ref=e322]:
+                  - cell "Understand one complete platform" [ref=e323]
+                  - cell "Shopverse case study" [ref=e324]:
+                    - link "Shopverse case study" [ref=e325] [cursor=pointer]:
+                      - /url: /shopverse/case-study/SHOPVERSE
+                - row "Use shared platform modules Platform infrastructure" [ref=e326]:
+                  - cell "Use shared platform modules" [ref=e327]
+                  - cell "Platform infrastructure" [ref=e328]:
+                    - link "Platform infrastructure" [ref=e329] [cursor=pointer]:
+                      - /url: /shopverse/platform/
+                - row "Review fixes and measurements Problems and solutions index" [ref=e330]:
+                  - cell "Review fixes and measurements" [ref=e331]
+                  - cell "Problems and solutions index" [ref=e332]:
+                    - link "Problems and solutions index" [ref=e333] [cursor=pointer]:
+                      - /url: /shopverse/reliability/problems/
+                - row "Find operational commands quickly Operations cheat sheet" [ref=e334]:
+                  - cell "Find operational commands quickly" [ref=e335]
+                  - cell "Operations cheat sheet" [ref=e336]:
+                    - link "Operations cheat sheet" [ref=e337] [cursor=pointer]:
+                      - /url: /shopverse/operations/OPERATIONS-CHEATSHEET
+                - row "Prepare for interviews Use the interview sections in Java, Spring, data, Kafka, and distributed-system guides" [ref=e338]:
+                  - cell "Prepare for interviews" [ref=e339]
+                  - cell "Use the interview sections in Java, Spring, data, Kafka, and distributed-system guides" [ref=e340]
+                - row "Diagnose a running Shopverse stack Debugging runbook" [ref=e341]:
+                  - cell "Diagnose a running Shopverse stack" [ref=e342]
+                  - cell "Debugging runbook" [ref=e343]:
+                    - link "Debugging runbook" [ref=e344] [cursor=pointer]:
+                      - /url: /shopverse/development/DEBUGGING
+                - row "Modify or deploy this portal Docusaurus documentation portal" [ref=e345]:
+                  - cell "Modify or deploy this portal" [ref=e346]
+                  - cell "Docusaurus documentation portal" [ref=e347]:
+                    - link "Docusaurus documentation portal" [ref=e348] [cursor=pointer]:
+                      - /url: /shopverse/operations/DOCUSAURUS
+            - heading "Quick RoutesDirect link to Quick Routes" [level=2] [ref=e349]:
+              - text: Quick Routes
+              - link "Direct link to Quick Routes" [ref=e350] [cursor=pointer]:
+                - /url: "#quick-routes"
+                - text: "#"
+            - table [ref=e351]:
+              - rowgroup [ref=e352]:
+                - row "Route Start here" [ref=e353]:
+                  - cell "Route" [ref=e354]
+                  - cell "Start here" [ref=e355]
+              - rowgroup [ref=e356]:
+                - row "Security Security principles -> JWT fundamentals -> OAuth2 fundamentals -> Spring Security" [ref=e357]:
+                  - cell "Security" [ref=e358]
+                  - cell "Security principles -> JWT fundamentals -> OAuth2 fundamentals -> Spring Security" [ref=e359]:
+                    - link "Security principles" [ref=e360] [cursor=pointer]:
+                      - /url: /shopverse/security/principles/SECURITY-PRINCIPLES
+                    - text: "->"
+                    - link "JWT fundamentals" [ref=e361] [cursor=pointer]:
+                      - /url: /shopverse/security/jwt/JWT-FUNDAMENTALS
+                    - text: "->"
+                    - link "OAuth2 fundamentals" [ref=e362] [cursor=pointer]:
+                      - /url: /shopverse/security/oauth/OAUTH2-FUNDAMENTALS
+                    - text: "->"
+                    - link "Spring Security" [ref=e363] [cursor=pointer]:
+                      - /url: /shopverse/security/SPRING-SECURITY-GENERIC
+                - row "Microservices Microservices and distributed systems -> API Gateway -> Spring Kafka" [ref=e364]:
+                  - cell "Microservices" [ref=e365]
+                  - cell "Microservices and distributed systems -> API Gateway -> Spring Kafka" [ref=e366]:
+                    - link "Microservices and distributed systems" [ref=e367] [cursor=pointer]:
+                      - /url: /shopverse/architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS
+                    - text: "->"
+                    - link "API Gateway" [ref=e368] [cursor=pointer]:
+                      - /url: /shopverse/development/API-GATEWAY-GENERIC
+                    - text: "->"
+                    - link "Spring Kafka" [ref=e369] [cursor=pointer]:
+                      - /url: /shopverse/spring/SPRING-KAFKA
+                - row "Reliability SAGA pattern -> Transactional outbox -> Problems and solutions" [ref=e370]:
+                  - cell "Reliability" [ref=e371]
+                  - cell "SAGA pattern -> Transactional outbox -> Problems and solutions" [ref=e372]:
+                    - link "SAGA pattern" [ref=e373] [cursor=pointer]:
+                      - /url: /shopverse/reliability/SAGA-GENERIC
+                    - text: "->"
+                    - link "Transactional outbox" [ref=e374] [cursor=pointer]:
+                      - /url: /shopverse/reliability/OUTBOX-PATTERN
+                    - text: "->"
+                    - link "Problems and solutions" [ref=e375] [cursor=pointer]:
+                      - /url: /shopverse/reliability/PROBLEMS-AND-SOLUTIONS
+                - row "Platform Platform infrastructure -> Duplicate logic solutions -> Migration checklist" [ref=e376]:
+                  - cell "Platform" [ref=e377]
+                  - cell "Platform infrastructure -> Duplicate logic solutions -> Migration checklist" [ref=e378]:
+                    - link "Platform infrastructure" [ref=e379] [cursor=pointer]:
+                      - /url: /shopverse/platform/
+                    - text: "->"
+                    - link "Duplicate logic solutions" [ref=e380] [cursor=pointer]:
+                      - /url: /shopverse/platform/DUPLICATE-LOGIC
+                    - text: "->"
+                    - link "Migration checklist" [ref=e381] [cursor=pointer]:
+                      - /url: /shopverse/platform/MIGRATION-CHECKLIST
+                - row "Optimization Optimization solutions -> Runtime optimization -> Verification" [ref=e382]:
+                  - cell "Optimization" [ref=e383]
+                  - cell "Optimization solutions -> Runtime optimization -> Verification" [ref=e384]:
+                    - link "Optimization solutions" [ref=e385] [cursor=pointer]:
+                      - /url: /shopverse/reliability/problems/OPTIMIZATION-SOLUTIONS
+                    - text: "->"
+                    - link "Runtime optimization" [ref=e386] [cursor=pointer]:
+                      - /url: /shopverse/reliability/problems/optimization/RUNTIME-OPTIMIZATION
+                    - text: "->"
+                    - link "Verification" [ref=e387] [cursor=pointer]:
+                      - /url: /shopverse/reliability/problems/optimization/VERIFICATION-AND-DOCUMENTATION
+                - row "Observability Structured logging -> MDC and tracing -> Micrometer metrics" [ref=e388]:
+                  - cell "Observability" [ref=e389]
+                  - cell "Structured logging -> MDC and tracing -> Micrometer metrics" [ref=e390]:
+                    - link "Structured logging" [ref=e391] [cursor=pointer]:
+                      - /url: /shopverse/observability/STRUCTURED-LOGGING
+                    - text: "->"
+                    - link "MDC and tracing" [ref=e392] [cursor=pointer]:
+                      - /url: /shopverse/observability/MDC-CORRELATION-TRACING
+                    - text: "->"
+                    - link "Micrometer metrics" [ref=e393] [cursor=pointer]:
+                      - /url: /shopverse/observability/MICROMETER-METRICS
+                - row "Demo Shopverse case study -> Complete demo -> Features and demos" [ref=e394]:
+                  - cell "Demo" [ref=e395]
+                  - cell "Shopverse case study -> Complete demo -> Features and demos" [ref=e396]:
+                    - link "Shopverse case study" [ref=e397] [cursor=pointer]:
+                      - /url: /shopverse/case-study/SHOPVERSE
+                    - text: "->"
+                    - link "Complete demo" [ref=e398] [cursor=pointer]:
+                      - /url: /shopverse/case-study/COMPLETE-DEMO
+                    - text: "->"
+                    - link "Features and demos" [ref=e399] [cursor=pointer]:
+                      - /url: /shopverse/reference/FEATURES-AND-DEMOS
+            - heading "Documentation ModelDirect link to Documentation Model" [level=2] [ref=e400]:
+              - text: Documentation Model
+              - link "Direct link to Documentation Model" [ref=e401] [cursor=pointer]:
+                - /url: "#documentation-model"
+                - text: "#"
+            - document [ref=e403]:
+              - generic [ref=e406]:
+                - paragraph [ref=e413]: Generic concept
+                - paragraph [ref=e420]: Code and production practices
+                - paragraph [ref=e427]: Shopverse implementation
+                - paragraph [ref=e434]: Runnable demonstration
+                - paragraph [ref=e441]: Failure and recovery analysis
+            - paragraph [ref=e442]: Reusable theory stays independent from Shopverse. Project-specific APIs, configuration, code paths, and operating instructions remain in the case-study track.
+            - heading "Status DisciplineDirect link to Status Discipline" [level=2] [ref=e443]:
+              - text: Status Discipline
+              - link "Direct link to Status Discipline" [ref=e444] [cursor=pointer]:
+                - /url: "#status-discipline"
+                - text: "#"
+            - paragraph [ref=e445]:
+              - text: Generic pages describe how production systems are usually designed, operated, and reviewed. They are not implementation claims for Shopverse by themselves. When a generic practice is applied to Shopverse, the matching case-study page or
+              - link "Features and demos" [ref=e446] [cursor=pointer]:
+                - /url: /shopverse/reference/FEATURES-AND-DEMOS
+              - text: entry should say whether it is
+              - code [ref=e447]: Implemented
+              - text: ","
+              - code [ref=e448]: Implemented baseline
+              - text: ","
+              - code [ref=e449]: Partial
+              - text: ", or"
+              - code [ref=e450]: Planned
+              - text: .
+            - paragraph [ref=e451]: "Use this rule when reading or editing the docs:"
+            - table [ref=e452]:
+              - rowgroup [ref=e453]:
+                - row "Page type Expected content" [ref=e454]:
+                  - cell "Page type" [ref=e455]
+                  - cell "Expected content" [ref=e456]
+              - rowgroup [ref=e457]:
+                - row "Generic guide Concepts, trade-offs, examples, checklists, production practices" [ref=e458]:
+                  - cell "Generic guide" [ref=e459]
+                  - cell "Concepts, trade-offs, examples, checklists, production practices" [ref=e460]
+                - row "Shopverse case study Current runtime behavior, code/config evidence, demo path, known gaps" [ref=e461]:
+                  - cell "Shopverse case study" [ref=e462]
+                  - cell "Current runtime behavior, code/config evidence, demo path, known gaps" [ref=e463]
+                - row "Problem analysis Observed issue, impact, current mitigation, target design" [ref=e464]:
+                  - cell "Problem analysis" [ref=e465]
+                  - cell "Observed issue, impact, current mitigation, target design" [ref=e466]
+                - row "Roadmap Future work explicitly marked as not current runtime behavior" [ref=e467]:
+                  - cell "Roadmap" [ref=e468]
+                  - cell "Future work explicitly marked as not current runtime behavior" [ref=e469]
+        - complementary "Documentation feedback" [ref=e470]:
+          - generic [ref=e471]:
+            - strong [ref=e472]: Help improve this guide
+            - generic [ref=e473]: Share the page or tell us what is unclear, outdated, or missing.
+          - generic [ref=e474]:
+            - button "Copy link" [ref=e475] [cursor=pointer]:
+              - img [ref=e476] [cursor=pointer]
+              - text: Copy link
+            - button "Export PDF" [ref=e479] [cursor=pointer]:
+              - img [ref=e480] [cursor=pointer]
+              - text: Export PDF
+            - button "Export Word" [ref=e484] [cursor=pointer]:
+              - img [ref=e485] [cursor=pointer]
+              - text: Export Word
+            - link "Suggest an improvement" [ref=e488] [cursor=pointer]:
+              - /url: https://github.com/taukhir/shopverse/issues/new?title=Docs%20feedback%3A%20Backend%20Engineering%20Knowledge%20Base&body=%23%23%20Documentation%20page%0A%0A%2Fshopverse%2F%0A%0A%23%23%20What%20should%20be%20improved%3F%0A%0A&labels=documentation
+              - img [ref=e489] [cursor=pointer]
+              - text: Suggest an improvement
+        - link "Edit this page" [ref=e494] [cursor=pointer]:
+          - /url: https://github.com/taukhir/shopverse/edit/main/documentation/docs/README.mdx
+          - img [ref=e495] [cursor=pointer]
+          - text: Edit this page
+      - navigation "Docs pages" [ref=e498]:
+        - link "Next Backend Engineering Learning Path »" [ref=e499] [cursor=pointer]:
+          - /url: /shopverse/reference/LEARNING-PATH
+          - generic [ref=e500] [cursor=pointer]: Next
+          - generic [ref=e501] [cursor=pointer]: Backend Engineering Learning Path »
+  - contentinfo [ref=e502]:
+    - generic [ref=e503]:
+      - generic [ref=e504]:
+        - generic [ref=e505]:
+          - generic [ref=e506]: Study
+          - list [ref=e507]:
+            - listitem [ref=e508]:
+              - link "Learning path" [ref=e509] [cursor=pointer]:
+                - /url: /shopverse/reference/LEARNING-PATH
+            - listitem [ref=e510]:
+              - link "Spring ecosystem" [ref=e511] [cursor=pointer]:
+                - /url: /shopverse/spring/SPRING-ECOSYSTEM
+            - listitem [ref=e512]:
+              - link "Database engineering" [ref=e513] [cursor=pointer]:
+                - /url: /shopverse/data/DATABASE-ENGINEERING
+        - generic [ref=e514]:
+          - generic [ref=e515]: Distributed Systems
+          - list [ref=e516]:
+            - listitem [ref=e517]:
+              - link "Microservices" [ref=e518] [cursor=pointer]:
+                - /url: /shopverse/architecture/MICROSERVICES-GENERIC
+            - listitem [ref=e519]:
+              - link "Kafka" [ref=e520] [cursor=pointer]:
+                - /url: /shopverse/integration/APACHE-KAFKA
+            - listitem [ref=e521]:
+              - link "SAGA and Outbox" [ref=e522] [cursor=pointer]:
+                - /url: /shopverse/reliability/SAGA-GENERIC
+        - generic [ref=e523]:
+          - generic [ref=e524]: Case Study
+          - list [ref=e525]:
+            - listitem [ref=e526]:
+              - link "Shopverse overview" [ref=e527] [cursor=pointer]:
+                - /url: /shopverse/case-study/SHOPVERSE
+            - listitem [ref=e528]:
+              - link "System design" [ref=e529] [cursor=pointer]:
+                - /url: /shopverse/architecture/SYSTEM-DESIGN
+            - listitem [ref=e530]:
+              - link "Problems and solutions" [ref=e531] [cursor=pointer]:
+                - /url: /shopverse/reliability/PROBLEMS-AND-SOLUTIONS
+      - generic [ref=e533]: Copyright 2026 Backend Engineering Knowledge Base
+  - button "Open my reading library" [ref=e534] [cursor=pointer]:
+    - img [ref=e535] [cursor=pointer]
+  - button "Jump to the table of contents":
+    - img
+    - text: On this page
+  - button "Back to top":
+    - img
+```

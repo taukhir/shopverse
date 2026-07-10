@@ -116,6 +116,8 @@ RAG means Retrieval Augmented Generation.
 
 ![RAG flow](/img/diagrams/ai-rag-flow.svg)
 
+![RAG runtime GIF](/img/diagrams/rag-runtime.gif)
+
 It solves this problem:
 
 > The LLM does not know your private Shopverse documents, latest policies, or

@@ -1,5 +1,7 @@
 .hero {
-  background: #102d28;
+  background:
+    radial-gradient(circle at 88% 12%, rgb(85 199 173 / 16%), transparent 32%),
+    linear-gradient(135deg, #102d28 0%, #123830 100%);
   border: 1px solid #21483f;
   border-radius: 8px;
   color: #f7fbfa;
@@ -10,6 +12,10 @@
   overflow: hidden;
   padding: clamp(1.5rem, 3vw, 2.75rem);
   position: relative;
+}
+
+.hero {
+  box-shadow: var(--doc-shadow-md);
 }
 
 .hero::after {
@@ -170,6 +176,7 @@
   min-height: 142px;
   padding: 1.05rem;
   transition: border-color 150ms ease, transform 150ms ease;
+  box-shadow: var(--doc-shadow-sm);
 }
 
 .topicCard:hover {
@@ -177,6 +184,7 @@
   color: var(--ifm-font-color-base);
   text-decoration: none;
   transform: translateY(-2px);
+  box-shadow: var(--doc-shadow-md);
 }
 
 .topicIcon {
@@ -390,6 +398,9 @@
   font-size: 0.86rem;
   line-height: 1.45;
 }
+.explorer{margin-top:3rem}.explorerControls{display:grid;gap:.7rem;margin-bottom:1rem}.explorerControls input{background:var(--ifm-background-surface-color);border:1px solid var(--doc-border);border-radius:6px;color:inherit;font:inherit;padding:.7rem .8rem;width:100%}.explorerControls input:focus{border-color:var(--ifm-color-primary);outline:2px solid var(--doc-accent-soft)}.explorerControls>div{display:flex;flex-wrap:wrap;gap:.4rem}.explorerControls button{background:var(--ifm-background-surface-color);border:1px solid var(--doc-border);border-radius:999px;color:inherit;cursor:pointer;font-size:.72rem;font-weight:700;padding:.35rem .6rem}.explorerControls .activeFilter{background:var(--doc-accent-soft);border-color:var(--ifm-color-primary);color:var(--ifm-color-primary)}.explorerGrid{display:grid;gap:.55rem;grid-template-columns:repeat(3,minmax(0,1fr))}.explorerGrid a{background:var(--ifm-background-surface-color);border:1px solid var(--doc-border);border-radius:6px;color:inherit;display:grid;min-width:0;padding:.7rem}.explorerGrid a:hover{border-color:var(--ifm-color-primary);text-decoration:none}.explorerGrid span{color:var(--ifm-color-primary);font-size:.65rem;font-weight:800;text-transform:uppercase}.explorerGrid strong{font-size:.85rem;margin:.18rem 0}.explorerGrid small{color:var(--ifm-color-emphasis-600)}
+
+.explorerGrid small { color: var(--ifm-color-emphasis-800); }
 
 @media (max-width: 760px) {
   .hero {
@@ -424,6 +435,7 @@
   .topicGrid {
     grid-template-columns: 1fr;
   }
+  .explorerGrid{grid-template-columns:1fr}
 
   .figure figcaption {
     align-items: flex-start;
@@ -442,6 +454,14 @@
 @media (max-width: 420px) {
   .hero {
     padding: 1.35rem 1.1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 0.98rem;
   }
 
   .heroActions,

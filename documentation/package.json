@@ -7,7 +7,11 @@
     "build": "docusaurus build",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:content": "node scripts/check-content.mjs",
+    "check:performance": "node scripts/check-performance.mjs",
+    "test:ui": "playwright test",
+    "check": "npm run check:content && npm run typecheck && npm run build && npm run check:performance"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",
@@ -23,9 +27,11 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@docusaurus/module-type-aliases": "3.10.1",
     "@docusaurus/tsconfig": "3.10.1",
     "@docusaurus/types": "3.10.1",
+    "@playwright/test": "^1.55.1",
     "typescript": "~5.9.3"
   },
   "engines": {

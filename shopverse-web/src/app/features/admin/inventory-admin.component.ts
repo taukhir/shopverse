@@ -46,6 +46,8 @@ export class InventoryAdminComponent {
   protected readonly error = signal('');
   protected readonly editing = signal(false);
   protected readonly saving = signal(false);
+  protected readonly uploadingImage = signal(false);
+  protected readonly imageUploadError = signal('');
   protected readonly saveError = signal('');
   protected readonly search = signal('');
   protected readonly stockFilter = signal<'ALL'|'LOW'|'OUT'|'AVAILABLE'>('ALL');
@@ -77,6 +79,13 @@ export class InventoryAdminComponent {
     });
   });
   protected readonly pageCount = computed(() => this.countPages(this.filteredItems().length));
+  protected readonly stockSummary = computed(() => ({
+    products: this.items().length,
+    available: this.items().reduce((total, item) => total + item.availableQuantity, 0),
+    reserved: this.items().reduce((total, item) => total + item.reservedQuantity, 0),
+    low: this.items().filter((item) => item.availableQuantity > 0 && item.availableQuantity < 5).length,
+    out: this.items().filter((item) => item.availableQuantity === 0).length,
+  }));
   protected readonly visibleItems = computed(() => {
     const page = this.clampedPage(this.page(), this.pageCount());
     const start = (page - 1) * this.pageSize;
@@ -115,6 +124,32 @@ export class InventoryAdminComponent {
 
   protected close(): void {
     this.editing.set(false);
+  }
+
+  protected uploadImage(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    this.imageUploadError.set('');
+    if (!file) return;
+    if (this.form.productId <= 0) {
+      this.imageUploadError.set('Enter a positive product ID before uploading an image.');
+      input.value = '';
+      return;
+    }
+    this.uploadingImage.set(true);
+    this.inventoryApi.uploadImage(this.form.productId, file).subscribe({
+      next: (image) => {
+        this.form = { ...this.form, ...image };
+        this.uploadingImage.set(false);
+        this.toast.success('Product image uploaded. Save the item to apply it.');
+        input.value = '';
+      },
+      error: () => {
+        this.uploadingImage.set(false);
+        this.imageUploadError.set('Image upload failed. Check the file type, size, and object storage connection.');
+        input.value = '';
+      },
+    });
   }
 
   protected imagePreview(): string {

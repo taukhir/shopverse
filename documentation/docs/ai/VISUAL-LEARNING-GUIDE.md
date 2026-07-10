@@ -102,9 +102,17 @@ sequenceDiagram
 
 ### Animated RAG Ingestion
 
+![RAG ingestion GIF](/img/diagrams/rag-ingestion.gif)
+
+Lightweight SVG version:
+
 ![Animated RAG ingestion](/img/diagrams/animated-rag-ingestion.svg)
 
 ### Animated RAG Runtime
+
+![RAG runtime GIF](/img/diagrams/rag-runtime.gif)
+
+Lightweight SVG version:
 
 ![Animated RAG runtime](/img/diagrams/animated-rag-runtime.svg)
 
@@ -132,6 +140,10 @@ sequenceDiagram
 ![Tool calling pattern](/img/diagrams/ai-tool-calling.svg)
 
 ### Animated Tool Authorization
+
+![Tool authorization GIF](/img/diagrams/tool-authorization.gif)
+
+Lightweight SVG version:
 
 ![Animated tool authorization](/img/diagrams/animated-tool-authorization.svg)
 
@@ -165,6 +177,10 @@ sequenceDiagram
 ![Role based RAG](/img/diagrams/ai-rbac-rag.svg)
 
 ### Prompt Injection Defense
+
+![Prompt injection defense GIF](/img/diagrams/prompt-injection-defense.gif)
+
+Lightweight SVG version:
 
 ![Animated prompt injection defense](/img/diagrams/animated-prompt-injection-defense.svg)
 
@@ -225,4 +241,3 @@ Use this checklist before interview revision:
 | user-data isolation | RBAC RAG and memory isolation |
 | prompt injection defense | animated security diagram |
 | production improvement loop | evaluation lifecycle |
-
