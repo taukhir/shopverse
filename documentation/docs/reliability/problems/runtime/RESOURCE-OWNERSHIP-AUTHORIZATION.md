@@ -1,5 +1,12 @@
 ---
 title: Resource Ownership Authorization
+difficulty: Advanced
+page_type: Case Study
+status: Implemented
+prerequisites: [Spring Security authorization and domain ownership]
+learning_objectives: [Enforce customer resource ownership, Prevent cross-tenant order and payment disclosure]
+technologies: [Spring Security, Spring Data JPA]
+last_reviewed: "2026-07-11"
 ---
 
 # Resource Ownership Authorization

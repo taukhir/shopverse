@@ -1,6 +1,12 @@
 ---
 title: Docker
 sidebar_position: 2
+difficulty: Beginner
+page_type: Tutorial
+status: Generic
+learning_objectives: [Build reproducible container images, Operate and troubleshoot containerized services]
+technologies: [Docker, Docker Compose]
+last_reviewed: "2026-07-10"
 ---
 
 # Docker

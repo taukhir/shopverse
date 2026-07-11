@@ -1,0 +1,38 @@
+name: Documentation Dependency Update
+
+on:
+  schedule:
+    - cron: "20 4 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: documentation
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: documentation/package-lock.json
+      - run: npm ci
+      - name: Apply compatible dependency updates
+        run: npm update
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:ui
+      - name: Create reviewed dependency PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: codex/docs-dependency-update
+          title: "chore(docs): monthly dependency update"
+          commit-message: "chore(docs): update compatible dependencies"
+          body: "Automated compatible dependency refresh. Documentation build, content checks, performance budget, accessibility, desktop, and mobile tests passed before this PR was created."
+          labels: dependencies,documentation

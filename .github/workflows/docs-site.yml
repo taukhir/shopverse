@@ -50,6 +50,9 @@ jobs:
       - name: Check documentation quality
         run: npm run check:content
 
+      - name: Check documentation maintenance standards
+        run: npm run check:maintenance
+
       - name: Build documentation
         run: npm run build
 

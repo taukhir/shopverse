@@ -16,8 +16,9 @@
 
 .metadata svg { height: 15px; width: 15px; }
 .readerActions { display:flex; flex-wrap:wrap; gap:.45rem; margin-bottom:.75rem; }.readerActions button { align-items:center; background:transparent; border:1px solid var(--doc-border); border-radius:999px; color:var(--ifm-color-emphasis-700); cursor:pointer; display:inline-flex; font-size:.74rem; font-weight:700; gap:.35rem; min-height:34px; padding:.35rem .6rem; }.readerActions button:hover,.readerActions .selected { background:var(--doc-accent-soft); border-color:var(--ifm-color-primary); color:var(--ifm-color-primary); }.readerActions svg { height:14px; width:14px; }
+.sectionBookmark { background:transparent; border:0; border-radius:999px; color:var(--ifm-color-emphasis-500); cursor:pointer; font-size:1rem; line-height:1; margin-left:.35rem; padding:.2rem .3rem; vertical-align:middle; }.sectionBookmark:hover,.sectionBookmark.selected { background:var(--doc-accent-soft); color:var(--ifm-color-primary); }.sectionBookmark:focus-visible { outline:2px solid var(--ifm-color-primary); outline-offset:2px; }
 
-@media print { .metadata { color: #555; } }
+@media print { .metadata { color: #555; } .sectionBookmark { display:none; } }
 
 .learningHeader {
   background: var(--doc-surface);

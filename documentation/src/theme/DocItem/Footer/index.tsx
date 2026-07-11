@@ -6,9 +6,11 @@ import styles from './styles.module.css';
 import Link from '@docusaurus/Link';
 import {relatedLearningPages} from '@site/src/data/learningCatalog';
 import {exportPageAsPdf, exportPageAsWord} from '@site/src/utils/pageExport';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function DocItemFooter(): ReactNode {
   const {metadata} = useDoc();
+  const {siteConfig}=useDocusaurusContext(); const docxEndpoint=String(siteConfig.customFields?.docxExportEndpoint??'');
   const [copied, setCopied] = useState(false);
   const issueTitle = encodeURIComponent(`Docs feedback: ${metadata.title}`);
   const issueBody = encodeURIComponent(`## Documentation page\n\n${metadata.permalink}\n\n## What should be improved?\n\n`);
@@ -34,7 +36,7 @@ export default function DocItemFooter(): ReactNode {
             {copied ? 'Copied' : 'Copy link'}
           </button>
           <button type="button" onClick={exportPageAsPdf}><FileDown aria-hidden="true" />Export PDF</button>
-          <button type="button" onClick={() => exportPageAsWord(metadata.title)}><FileText aria-hidden="true" />Export Word</button>
+          <button type="button" onClick={() => exportPageAsWord(metadata.title,docxEndpoint)}><FileText aria-hidden="true" />Export {docxEndpoint?'DOCX':'Word'}</button>
           <a href={issueUrl} target="_blank" rel="noreferrer">
             <MessageSquarePlus aria-hidden="true" />Suggest an improvement
           </a>

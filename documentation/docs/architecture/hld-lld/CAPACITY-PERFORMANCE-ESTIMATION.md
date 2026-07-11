@@ -1,5 +1,12 @@
 ﻿---
 title: Capacity And Performance Estimation
+difficulty: Advanced
+page_type: Tutorial
+status: Generic
+prerequisites: [High-level system design fundamentals]
+learning_objectives: [Estimate traffic storage and throughput, Translate estimates into capacity and scaling decisions]
+technologies: [System Design, Performance Engineering]
+last_reviewed: "2026-07-11"
 ---
 
 # Capacity And Performance Estimation

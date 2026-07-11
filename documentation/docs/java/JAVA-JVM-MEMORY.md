@@ -173,9 +173,37 @@ of container memory because the JVM also needs non-heap memory.
 
 ## Interview Questions
 
-| Question | Short answer |
-|---|---|
-| Where are objects stored? | Usually heap; JVM may optimize allocations internally. |
-| Where are local variables stored? | Primitive locals and references are in stack frames; referenced objects live on heap. |
-| What causes `OutOfMemoryError`? | Heap, metaspace, direct memory, thread/native memory, or GC overhead limit. |
-| What causes `StackOverflowError`? | Deep recursion or excessive call depth on one thread. |
+### Where are objects stored?
+
+<ExpandableAnswer>
+
+Usually on the heap, although the JVM may optimize allocations internally.
+
+</ExpandableAnswer>
+
+### Where are local variables stored?
+
+<ExpandableAnswer>
+
+Primitive local values and object references are held in stack frames; the
+objects referenced by those variables usually live on the heap.
+
+</ExpandableAnswer>
+
+### What causes `OutOfMemoryError`?
+
+<ExpandableAnswer>
+
+Exhaustion can occur in the heap, metaspace, direct memory, thread or native
+memory, or because the garbage collector exceeds its overhead limit.
+
+</ExpandableAnswer>
+
+### What causes `StackOverflowError`?
+
+<ExpandableAnswer>
+
+Deep recursion or excessive call depth exhausts the stack allocated to one
+thread.
+
+</ExpandableAnswer>

@@ -1,3 +1,13 @@
+---
+title: Application Logging
+difficulty: Beginner
+page_type: Concept
+status: Generic
+learning_objectives: [Design useful structured application logs, Balance diagnostic value privacy and storage cost]
+technologies: [SLF4J, Logback, Loki]
+last_reviewed: "2026-07-10"
+---
+
 # Application Logging
 
 Logging records events that explain what an application did, why it made a
@@ -38,25 +48,36 @@ flowchart LR
 
 ## Dependencies
 
-Spring Boot web starters normally include the logging starter, SLF4J, and
-Logback transitively:
+Spring Boot web and reactive starters include the logging infrastructure
+transitively. Plain Java applications can declare SLF4J and Logback directly:
 
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-web'
-```
+Choose only the Spring web starter that matches the application's programming
+model. The combined example below also shows the direct dependencies used by a
+plain Java application; it is not a recommendation to install every entry.
 
-Reactive applications commonly receive the same infrastructure from:
-
-```gradle
+<DependencyTabs
+  gradle={<pre><code>{`implementation 'org.springframework.boot:spring-boot-starter-web'
 implementation 'org.springframework.boot:spring-boot-starter-webflux'
-```
-
-A plain Java application can declare:
-
-```gradle
 implementation 'org.slf4j:slf4j-api'
-runtimeOnly 'ch.qos.logback:logback-classic'
-```
+runtimeOnly 'ch.qos.logback:logback-classic'`}</code></pre>}
+  maven={<pre><code>{`<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.slf4j</groupId>
+  <artifactId>slf4j-api</artifactId>
+</dependency>
+<dependency>
+  <groupId>ch.qos.logback</groupId>
+  <artifactId>logback-classic</artifactId>
+  <scope>runtime</scope>
+</dependency>`}</code></pre>}
+/>
 
 Use one SLF4J provider. Multiple providers can cause startup warnings and
 unpredictable output.

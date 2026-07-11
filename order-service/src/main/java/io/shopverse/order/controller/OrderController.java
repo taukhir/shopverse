@@ -131,4 +131,12 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
+    @PostMapping("/admin/catalog-cache/evict")
+    @Operation(summary = "Evict cached inventory catalog data")
+    public ResponseEntity<Void> evictCatalogCache() {
+        log.warn("Admin requested catalog cache eviction");
+        catalogService.evictCatalog();
+        return ResponseEntity.noContent().build();
+    }
+
 }

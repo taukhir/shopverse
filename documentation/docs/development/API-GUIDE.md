@@ -1,3 +1,14 @@
+---
+title: Shopverse API Guide
+difficulty: Intermediate
+page_type: Reference
+status: Implemented
+prerequisites: [Running Shopverse stack, Valid demo credentials]
+learning_objectives: [Discover Shopverse endpoints and authorization rules, Run the main API demonstration flows]
+technologies: [REST, JWT, Spring MVC]
+last_reviewed: "2026-07-10"
+---
+
 # API Guide
 
 This guide is the Shopverse endpoint catalog and POC demonstration runbook.
@@ -26,6 +37,8 @@ outbox evidence, failure simulation, and observability.
 
 ## Authentication
 
+<ApiPanel method="POST" path="/auth/login" title="Authenticate and issue an access token">
+
 ```http
 POST /auth/login
 Content-Type: application/json
@@ -36,6 +49,8 @@ Content-Type: application/json
 }
 ```
 
+</ApiPanel>
+
 Use the returned token:
 
 ```http
@@ -43,6 +58,8 @@ Authorization: Bearer eyJ...
 ```
 
 ## Checkout
+
+<ApiPanel method="POST" path="/api/v1/orders/checkout" title="Create an idempotent checkout">
 
 ```http
 POST /api/v1/orders/checkout
@@ -62,6 +79,8 @@ Content-Type: application/json
 ```
 
 Current validation allows one checkout item. Reusing the idempotency key returns the existing order and must not reserve or charge twice.
+
+</ApiPanel>
 
 ## Important APIs
 

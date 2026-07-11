@@ -9,9 +9,11 @@
     "clear": "docusaurus clear",
     "typecheck": "tsc --noEmit",
     "check:content": "node scripts/check-content.mjs",
+    "check:maintenance": "node scripts/check-maintenance.mjs",
     "check:performance": "node scripts/check-performance.mjs",
     "test:ui": "playwright test",
-    "check": "npm run check:content && npm run typecheck && npm run build && npm run check:performance"
+    "test:visual": "playwright test tests/visual-regression.spec.ts --project=desktop-chromium",
+    "check": "npm run check:content && npm run check:maintenance && npm run typecheck && npm run build && npm run check:performance"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",

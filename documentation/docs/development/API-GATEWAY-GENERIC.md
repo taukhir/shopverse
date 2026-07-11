@@ -1,5 +1,12 @@
 ---
 title: API Gateway
+difficulty: Intermediate
+page_type: Concept
+status: Generic
+prerequisites: [REST and microservices fundamentals]
+learning_objectives: [Understand gateway routing security and resilience, Evaluate gateway ownership and failure trade-offs]
+technologies: [Spring Cloud Gateway, REST, OAuth2]
+last_reviewed: "2026-07-11"
 ---
 
 # API Gateway

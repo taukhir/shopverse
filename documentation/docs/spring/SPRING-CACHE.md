@@ -9,25 +9,40 @@ Spring Cache provides an annotation-driven abstraction over cache providers.
 Application code uses Spring's cache API while configuration selects a local
 provider such as Caffeine or a distributed provider such as Redis.
 
+Start with the [Cache Umbrella](../architecture/CACHE-UMBRELLA.md) for cache
+levels, storage, keys, provider selection, and hybrid caching.
+
+## What Is The Default Cache?
+
+| Situation | Behavior |
+|---|---|
+| `@EnableCaching` absent | Cache annotations are not intercepted; methods execute normally |
+| Caching enabled, no provider library/bean detected | Spring Boot uses the simple in-process `ConcurrentMapCacheManager` backed by concurrent maps |
+| `spring.cache.type=none` | Spring Boot configures a no-op cache manager, useful when an environment must disable storage |
+
+The simple provider creates caches on demand and is useful for learning, but it
+has no production-grade size/TTL controls and each replica has unrelated data.
+Choose Caffeine for a bounded local cache or Redis for a shared cache.
+
 ## Dependencies
 
-Core cache abstraction:
-
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-cache'
-```
-
-Local Caffeine cache:
-
-```gradle
+<DependencyTabs
+  gradle={<pre><code>{`implementation 'org.springframework.boot:spring-boot-starter-cache'
 implementation 'com.github.ben-manes.caffeine:caffeine'
-```
-
-Redis-backed cache:
-
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-```
+implementation 'org.springframework.boot:spring-boot-starter-data-redis'`}</code></pre>}
+  maven={<pre><code>{`<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-cache</artifactId>
+</dependency>
+<dependency>
+  <groupId>com.github.ben-manes.caffeine</groupId>
+  <artifactId>caffeine</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>`}</code></pre>}
+/>
 
 Use versions managed by the Spring Boot dependency platform where possible.
 
@@ -357,8 +372,11 @@ tests when provider behavior matters.
 
 ## Related Guides
 
+- [Cache umbrella](../architecture/CACHE-UMBRELLA.md)
+- [Caffeine, Redis and Memcached](../architecture/CACHE-PROVIDERS.md)
+- [Distributed and hybrid cache](../architecture/DISTRIBUTED-HYBRID-CACHE.md)
+- [Hibernate caching](../data/hibernate/HIBERNATE-CACHING.md)
 - [Caching principles](../architecture/CACHING-GENERIC.md)
 - [Spring AOP](SPRING-AOP.md)
 - [Spring Transactions](SPRING-TRANSACTIONS.md)
 - [Micrometer metrics](../observability/MICROMETER-METRICS.md)
-

@@ -63,14 +63,12 @@ public class OrderServiceImpl implements OrderService {
                 correlationId,
                 idempotencyKey
         );
-        List<CatalogItemResponse> catalog = catalogService.getCatalog();
         request.items().forEach(item -> {
-            CatalogItemResponse product = catalog.stream()
-                    .filter(candidate -> candidate.productId().equals(item.productId()))
-                    .filter(CatalogItemResponse::available)
-                    .findFirst()
-                    .orElseThrow(() -> new ResourceNotFoundException(
-                            "Product is unavailable or does not exist: " + item.productId()));
+            CatalogItemResponse product = catalogService.getProduct(item.productId());
+            if (!product.available()) {
+                throw new ResourceNotFoundException(
+                        "Product is unavailable or does not exist: " + item.productId());
+            }
             order.addItem(item.productId(), product.productName(), item.quantity(), product.price());
         });
         OrderEntity saved = repository.save(order);

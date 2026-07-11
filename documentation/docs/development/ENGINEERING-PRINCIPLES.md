@@ -1,6 +1,12 @@
 ---
 title: Engineering Principles
 sidebar_position: 1
+difficulty: Beginner
+page_type: Concept
+status: Generic
+learning_objectives: [Apply SOLID and pragmatic engineering principles, Recognize cohesion coupling and maintainability trade-offs]
+technologies: [Java, Spring Boot]
+last_reviewed: "2026-07-10"
 ---
 
 # Engineering Principles

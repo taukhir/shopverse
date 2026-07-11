@@ -1,6 +1,13 @@
 ---
 title: LangChain4j Deep Dive
 sidebar_position: 6.3
+difficulty: Advanced
+page_type: Tutorial
+status: Generic
+prerequisites: [LLM prompting tools memory and RAG fundamentals]
+learning_objectives: [Build production-oriented LangChain4j applications, Evaluate tools memory RAG and guardrail trade-offs]
+technologies: [LangChain4j, Java, RAG]
+last_reviewed: "2026-07-11"
 ---
 
 # LangChain4j Deep Dive

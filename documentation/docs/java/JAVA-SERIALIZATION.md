@@ -135,8 +135,29 @@ Risky changes:
 
 ## Interview Questions
 
-| Question | Short answer |
-|---|---|
-| What is `serialVersionUID`? | Version identifier used during native deserialization compatibility checks. |
-| Why avoid native serialization? | Security risk, Java-specific format, fragile evolution. |
-| How does Spring serialize REST responses? | Usually Jackson `HttpMessageConverter`. |
+### What is `serialVersionUID`?
+
+<ExpandableAnswer>
+
+It is a version identifier used during native Java deserialization compatibility
+checks.
+
+</ExpandableAnswer>
+
+### Why avoid native Java serialization?
+
+<ExpandableAnswer>
+
+It creates security risk, produces a Java-specific format, and is fragile when
+types evolve.
+
+</ExpandableAnswer>
+
+### How does Spring serialize REST responses?
+
+<ExpandableAnswer>
+
+Spring commonly delegates JSON serialization to Jackson through an
+`HttpMessageConverter`.
+
+</ExpandableAnswer>

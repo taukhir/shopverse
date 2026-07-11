@@ -56,7 +56,15 @@ const sidebars: SidebarsConfig = {
             },
           ],
         },
-        'development/REST-API-GENERIC',
+        {
+          type: 'category',
+          label: 'REST API Design',
+          items: [
+            'development/REST-API-GENERIC',
+            'development/REST-API-HTTP-CONTRACTS',
+            'development/REST-API-PRODUCTION-DESIGN',
+          ],
+        },
         {
           type: 'category',
           label: 'Data Structures',
@@ -87,6 +95,7 @@ const sidebars: SidebarsConfig = {
         'java/JAVA-FUNCTIONAL-INTERFACES',
         'java/JAVA-MULTITHREADING',
         'java/JAVA-COMPLETABLE-FUTURE',
+        'java/LOMBOK-GUIDE',
         {
           type: 'category',
           label: 'Java 8 To 26 Features',
@@ -118,10 +127,12 @@ const sidebars: SidebarsConfig = {
             'development/spring-boot-internals/STARTUP-AUTOCONFIGURATION',
             'development/spring-boot-internals/DI-BEAN-LIFECYCLE-AOP',
             'development/spring-boot-internals/CONFIGURATION-PROPERTIES',
+            'development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET',
             'development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS',
             'development/spring-boot-internals/INFRASTRUCTURE-INTERNALS',
             'development/spring-boot-internals/OPERATIONS-INTERNALS',
             'development/spring-boot-internals/PRODUCTION-TUNING',
+            'operations/SPRING-BOOT-ACTUATOR',
           ],
         },
         'spring/SPRING-ECOSYSTEM-INTERVIEW',
@@ -138,7 +149,16 @@ const sidebars: SidebarsConfig = {
           ],
         },
         'spring/SPRING-AOP',
-        'spring/SPRING-CACHE',
+        {
+          type: 'category',
+          label: 'Caching',
+          items: [
+            'architecture/CACHE-UMBRELLA',
+            'spring/SPRING-CACHE',
+            'architecture/CACHE-PROVIDERS',
+            'architecture/DISTRIBUTED-HYBRID-CACHE',
+          ],
+        },
         'spring/SPRING-TRANSACTIONS',
         {
           type: 'category',
@@ -188,6 +208,7 @@ const sidebars: SidebarsConfig = {
       label: '4. Data And Persistence',
       items: [
         'data/DATABASE-ENGINEERING',
+        'data/DATABASE-SELECTION-GUIDE',
         {
           type: 'category',
           label: 'Hibernate',
@@ -197,6 +218,7 @@ const sidebars: SidebarsConfig = {
             'data/hibernate/HIBERNATE-ANNOTATIONS-MAPPING',
             'data/hibernate/HIBERNATE-AUDITING-VALIDATION',
             'data/hibernate/HIBERNATE-FETCHING-PERFORMANCE',
+            'data/hibernate/HIBERNATE-CACHING',
             'data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS',
           ],
         },
@@ -214,6 +236,7 @@ const sidebars: SidebarsConfig = {
           label: 'Architecture Basics',
           items: [
             'architecture/MICROSERVICES-GENERIC',
+            'architecture/MICROSERVICES-PATTERNS',
             'architecture/DISTRIBUTED-SYSTEMS-GENERIC',
             'development/API-GATEWAY-GENERIC',
             'development/SPRING-CLOUD-GATEWAY-ADVANCED',
@@ -299,6 +322,8 @@ const sidebars: SidebarsConfig = {
             'security/oauth/OAUTH2-FUNDAMENTALS',
             'security/oauth/OAUTH2-GRANT-TYPES',
             'security/oauth/OIDC-FUNDAMENTALS',
+            'security/oauth/SSO-AND-OPENID-CONNECT',
+            'security/oauth/GOOGLE-AUTHENTICATION-SPRING',
             'security/oauth/TOKEN-LIFECYCLE',
           ],
         },
@@ -308,6 +333,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'security/SPRING-SECURITY-GENERIC',
             'security/spring-security/AUTHENTICATION-BASICS',
+            'security/spring-security/AUTHENTICATION-INTERNALS',
             'security/spring-security/SERVLET-FILTER-CHAIN',
             'security/spring-security/JWT-JWKS-RESOURCE-SERVER',
             'security/spring-security/AUTHORIZATION-METHOD-SECURITY',
@@ -348,13 +374,37 @@ const sidebars: SidebarsConfig = {
         'operations/SHOPVERSE-JENKINS',
         'operations/GITHUB-ACTIONS',
         'operations/DOCUSAURUS',
+        'operations/DOCUMENT-EXPORTS',
         'operations/SPRING-BOOT-ADMIN',
         'operations/OPERATIONS-CHEATSHEET',
       ],
     },
     {
       type: 'category',
-      label: '9. AI, RAG And Java AI',
+      label: '9. Cloud And AWS',
+      collapsed: true,
+      items: [
+        'cloud/README',
+        'cloud/CLOUD-FUNDAMENTALS',
+        {
+          type: 'category',
+          label: 'AWS',
+          collapsed: false,
+          items: [
+            'cloud/aws/AWS-UMBRELLA',
+            'cloud/aws/AWS-VPC-NETWORKING',
+            'cloud/aws/AWS-COMPUTE-EBS-SCALING',
+            'cloud/aws/AWS-DATABASES',
+            'cloud/aws/AWS-EVENTS-STORAGE',
+            'cloud/aws/AWS-LAMBDA-SERVERLESS',
+            'cloud/aws/AWS-CLOUDWATCH',
+          ],
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: '10. AI, RAG And Java AI',
       collapsed: true,
       items: [
         'ai/README',
@@ -451,7 +501,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '10. Shopverse Implementation',
+      label: '11. Shopverse Implementation',
       collapsed: true,
       items: [
         {

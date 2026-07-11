@@ -1,5 +1,11 @@
 ---
 title: Security Principles
+difficulty: Beginner
+page_type: Concept
+status: Generic
+learning_objectives: [Apply least privilege and defense in depth, Model trust boundaries threats and failure behavior]
+technologies: [JWT, OAuth2, mTLS]
+last_reviewed: "2026-07-10"
 ---
 
 # Security Principles
@@ -52,4 +58,3 @@ flowchart LR
 - [Microservices security principles](MICROSERVICES-SECURITY-PRINCIPLES.md)
 - [API security principles](API-SECURITY-PRINCIPLES.md)
 - [Spring Security](../SPRING-SECURITY-GENERIC.md)
-

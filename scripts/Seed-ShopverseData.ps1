@@ -268,6 +268,13 @@ foreach ($product in $products) {
     $productResults.Add([pscustomobject]@{ ProductId = $product.ProductId; ProductName = $product.ProductName; Status = "upserted"; AvailableQuantity = $response.availableQuantity })
 }
 
+Invoke-ShopverseJson `
+    -Method Post `
+    -Uri "$GatewayUrl/api/v1/orders/admin/catalog-cache/evict" `
+    -Headers $adminHeaders `
+    -Body $null `
+    -TimeoutSeconds $RequestTimeoutSeconds | Out-Null
+
 Write-Host "Created or confirmed $($userResults.Count) customers and upserted $($productResults.Count) products. Starting $OrderCount checkout requests in batches of $BatchSize..."
 
 $checkoutWorker = {

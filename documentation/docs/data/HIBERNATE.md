@@ -14,6 +14,7 @@ Hibernate content is split into lifecycle, annotations, auditing, validation, fe
 | [Hibernate Annotations And Mapping](hibernate/HIBERNATE-ANNOTATIONS-MAPPING.md) | Core Hibernate/JPA annotations, dynamic SQL, transient fields, and generated identifiers. |
 | [Hibernate Auditing And Validation](hibernate/HIBERNATE-AUDITING-VALIDATION.md) | Mapped superclasses, Spring Data audit metadata, audit table strategies, and Jakarta Bean Validation. |
 | [Hibernate Fetching And Performance](hibernate/HIBERNATE-FETCHING-PERFORMANCE.md) | LazyInitializationException, N+1, fetch plans, and performance optimization. |
+| [Hibernate Caching](hibernate/HIBERNATE-CACHING.md) | Persistence-context cache, second-level regions, query cache, concurrency strategies, and Spring Cache comparison. |
 | [Hibernate Interview And Production Scenarios](hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md) | Interview questions, tricky scenarios, production rules, related guides, and official references. |
 
 ## Compatibility Anchors

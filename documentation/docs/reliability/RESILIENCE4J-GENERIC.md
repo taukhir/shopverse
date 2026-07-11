@@ -1,3 +1,14 @@
+---
+title: Resilience4j Patterns
+difficulty: Advanced
+page_type: Reference
+status: Generic
+prerequisites: [Distributed failure and latency fundamentals]
+learning_objectives: [Choose circuit breaker retry timeout and bulkhead policies, Avoid retry storms and resilience anti-patterns]
+technologies: [Resilience4j, Spring Boot, Micrometer]
+last_reviewed: "2026-07-11"
+---
+
 # Resilience4j Patterns
 
 Resilience4j is a fault-tolerance library for Java. It provides small,

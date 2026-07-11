@@ -2,6 +2,13 @@
 title: Shopverse Architecture Onboarding And Audit
 sidebar_position: 3
 description: Senior-engineer onboarding guide for Shopverse architecture, data flow, risks, refactoring strategy, and production hardening.
+difficulty: Advanced
+page_type: Case Study
+status: Implemented
+prerequisites: [Microservices and distributed systems fundamentals]
+learning_objectives: [Onboard to Shopverse architecture and data flow, Evaluate risks refactoring priorities and production hardening]
+technologies: [Spring Boot, Kafka, PostgreSQL, Docker]
+last_reviewed: "2026-07-11"
 ---
 
 # Shopverse Architecture Onboarding And Audit
@@ -181,9 +188,9 @@ and payment finished.
 | Outbox terminal state | Outbox rows cycle through pending/processing/published with retry counts, but no consistent terminal failed/backoff policy. | Poison events can churn forever and hide operational debt. | P1 |
 | Reservation expiry | Inventory expiry scheduler scans rows in one service process and is documented as a baseline. | Multi-replica deployment can double-process unless claims are made atomic. | P1 |
 | Custom auth | Auth Service signs custom JWTs directly and forwards user credentials to User Service through internal Basic auth. | Harder token lifecycle, refresh, revocation, client separation, and audit. | P1 |
-| Catalog ownership | Order Service calls Inventory to read the full catalog during checkout and filters in memory. | Latency and memory grow with catalog size; checkout depends on a broad read path. | P2 |
+| Catalog ownership | Checkout now uses direct Inventory product lookup; the cached full catalog is only for browsing. | Future multi-item checkout still needs a bulk lookup contract before scale testing. | P2 |
 | API collection reads | Admin and customer list endpoints return unpaged lists in multiple services. | Slow queries and large responses under real data volume. | P2 |
-| Caching | Services use local simple cache with broad `allEntries` eviction. | Stale data across replicas and poor cache efficiency. | P2 |
+| Caching | Order catalog reads use bounded local Caffeine cache with TTL and admin eviction; other local caches remain per-instance. | Multi-replica cache invalidation still needs events or distributed cache later. | P2 |
 | Infrastructure exposure | Local Compose exposes service ports, Eureka, Config Server, MySQL, MinIO, Kafka, Prometheus, Loki, Zipkin, and Grafana to the host. | Acceptable locally, unsafe if reused beyond a developer machine. | P2 |
 | Frontend token storage | JWT is stored in `sessionStorage`. | XSS can steal tokens; CSP and refresh-token strategy are missing. | P2 |
 | Documentation mismatch risk | Some docs describe production goals beside implemented behavior. | Readers may confuse current runtime with roadmap hardening. | P3 |

@@ -8,6 +8,10 @@ Authentication, authorization, dependencies, authentication managers, providers,
 
 Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
 
+For the complete call-by-call lifecycle, password matching internals, default
+wiring, in-memory users, and SecurityContext persistence, continue to
+[Username Password Authentication Internals](AUTHENTICATION-INTERNALS.md).
+
 ## Authentication And Authorization
 
 Authentication answers:

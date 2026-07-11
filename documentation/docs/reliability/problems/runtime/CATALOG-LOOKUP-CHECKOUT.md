@@ -4,19 +4,21 @@ title: Checkout Catalog Lookup Problem
 
 # Checkout Catalog Lookup Problem
 
-Order checkout currently validates a requested product by loading the full
-Inventory catalog and filtering it inside `order-service`. That works while the
-catalog is small and checkout accepts one item, but it makes a write path depend
-on a broad read endpoint.
+Order checkout originally validated a requested product by loading the full
+Inventory catalog and filtering it inside `order-service`. That worked while
+the catalog was small and checkout accepted one item, but it made a write path
+depend on a broad read endpoint. The current implementation uses a direct
+Inventory product lookup for checkout and keeps the cached catalog path for
+browsing.
 
 ## Problem Statement
 
 During checkout, `order-service` needs only the products present in the
-checkout request. The current implementation calls Inventory's full public
-catalog endpoint, receives every product, and scans the response to find the
-requested product.
+checkout request. Loading Inventory's full public catalog, receiving every
+product, and scanning the response is the wrong dependency shape for that write
+path.
 
-Current behavior:
+Previous behavior:
 
 ```mermaid
 sequenceDiagram
@@ -45,26 +47,26 @@ path and should request only the product identifiers it must validate.
 - Future multi-item checkout would either rescan the same full catalog or create
   one direct call per item unless a bulk contract is introduced first.
 
-## How We Identified It
+## Current Implementation
 
-The checkout flow in `order-service` asks `CatalogService` for the full catalog.
-`CatalogService` delegates to `InventoryClient.getCatalog()`, which calls:
+Checkout now asks `CatalogService` for the requested product only.
+`CatalogService.getProduct(productId)` delegates to
+`InventoryClient.getCatalogItem(productId)`, which calls:
 
 ```http
-GET /api/v1/inventory/public/items
+GET /api/v1/inventory/public/items/{productId}
 ```
 
-`OrderServiceImpl` then filters the returned list by `productId` before adding
-the item to the order. The required checkout input is much smaller: one product
-today, and a bounded set of product IDs when multi-item checkout is enabled.
+`GET /api/v1/inventory/public/items` remains available for browsing and UI
+catalog reads. Order Service caches that browse catalog with Caffeine, but
+checkout does not use that cached list to validate products.
 
 ## Solution
 
-Replace checkout's full-catalog dependency with direct product lookup now, and
-design the service boundary so bulk lookup can be added before multi-item
-checkout is enabled.
+Keep checkout on direct product lookup now, and design the service boundary so
+bulk lookup can be added before multi-item checkout is enabled.
 
-Target behavior for the current one-item checkout:
+Current behavior for the one-item checkout:
 
 ```mermaid
 sequenceDiagram
@@ -143,62 +145,35 @@ Bulk response should be deterministic and easy for Order to validate:
 
 ## Step-By-Step Implementation Plan
 
-1. Add a direct Inventory read method.
+Completed implementation:
 
-   Add a service method in `inventory-service` that loads one product by
-   `productId` and maps it to the existing catalog response DTO. Keep ownership
-   in Inventory; do not move Inventory entities or domain models to a shared
-   library.
+- `inventory-service` exposes `GET /api/v1/inventory/public/items/{productId}`.
+- `order-service` Feign client exposes `getCatalogItem(productId)`.
+- `CatalogService.getProduct(productId)` maps one Inventory response into the
+  Order catalog item record.
+- `OrderServiceImpl.checkout(...)` validates each requested product through the
+  direct lookup and checks `available` before persisting order items.
+- `GET /api/v1/orders/public/catalog` still uses cached browse data.
 
-2. Expose the direct public lookup endpoint.
+Remaining/future implementation:
 
-   Add `GET /api/v1/inventory/public/items/{productId}` to
-   `InventoryController`. Keep `GET /api/v1/inventory/public/items` for the web
-   catalog and backwards compatibility.
-
-3. Update the Order Feign client.
-
-   Replace checkout usage of `getCatalog()` with a direct method such as
-   `getCatalogItem(productId)`. Leave `getCatalog()` only if another Order path
-   still needs it; otherwise remove it from the Order client.
-
-4. Update `CatalogService`.
-
-   Add `getProduct(productId)` or `getCatalogItem(productId)` that delegates to
-   the direct Inventory endpoint and maps Inventory response DTOs to Order's
-   local catalog response record.
-
-5. Update checkout validation.
-
-   In `OrderServiceImpl`, call the direct product lookup for each requested
-   checkout item. With the current one-item checkout constraint, this is a
-   single dependency call. Validate `available` before creating order items.
-
-6. Preserve error semantics.
-
-   Missing or unavailable product should remain a business failure with the
-   current customer-facing checkout message. Inventory connection failures,
-   timeouts, and non-business dependency failures should still map to service
-   unavailable behavior instead of being reported as product-not-found.
-
-7. Add focused tests.
-
-   Cover direct Inventory lookup success, missing product behavior, unavailable
-   product behavior, Inventory outage behavior, and a checkout path assertion
-   that Order no longer calls the full-catalog endpoint.
-
-8. Update API documentation.
-
-   Document the new direct Inventory lookup endpoint in the API guide and
-   service README. Mark the full catalog endpoint as a browsing/listing endpoint,
-   not a checkout dependency.
-
-9. Defer bulk lookup until multi-item checkout is real.
+1. Add bulk lookup only when checkout accepts more than one item.
 
    Do not add a bulk endpoint only for theoretical use unless multi-item
    checkout is being implemented in the same change. When multi-item checkout is
    enabled, introduce the bulk endpoint first and have Order make one lookup
    call for the whole request.
+
+2. Keep checkout error semantics explicit.
+
+   Missing or unavailable product should remain a business failure with the
+   current customer-facing checkout message. Inventory connection failures,
+   timeouts, and non-business dependency failures should map to service
+   unavailable behavior instead of being reported as product-not-found.
+
+3. Extend tests as behavior grows.
+
+   Cover bulk lookup behavior when multi-item checkout is implemented.
 
 ## Files To Change
 

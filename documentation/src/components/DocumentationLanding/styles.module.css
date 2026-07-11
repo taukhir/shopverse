@@ -1,8 +1,9 @@
 .hero {
   background:
-    radial-gradient(circle at 88% 12%, rgb(85 199 173 / 16%), transparent 32%),
-    linear-gradient(135deg, #102d28 0%, #123830 100%);
-  border: 1px solid #21483f;
+    radial-gradient(circle at 84% 18%, rgb(184 192 255 / 24%), transparent 30%),
+    radial-gradient(circle at 70% 76%, rgb(93 108 236 / 18%), transparent 24%),
+    linear-gradient(135deg, #151b50 0%, #111735 55%, #0c1020 100%);
+  border: 1px solid #323a65;
   border-radius: 8px;
   color: #f7fbfa;
   display: grid;
@@ -19,7 +20,7 @@
 }
 
 .hero::after {
-  background: #d8a928;
+  background: linear-gradient(90deg, #7887ff, #b8c0ff, #9fe9ce);
   content: "";
   height: 4px;
   left: 0;
@@ -42,7 +43,7 @@
 }
 
 .eyebrow {
-  color: #8ee0cc;
+  color: #b8c0ff;
 }
 
 .hero h1 {
@@ -81,36 +82,36 @@
 }
 
 .primaryAction {
-  background: #f2c44b;
-  color: #15221f;
+  background: #b8c0ff;
+  color: #0c1020;
 }
 
 .primaryAction:hover {
-  background: #ffda72;
-  color: #15221f;
+  background: #fdfcff;
+  color: #0c1020;
   text-decoration: none;
 }
 
 .secondaryAction {
-  border: 1px solid #55736c;
+  border: 1px solid #6671a7;
   color: #eff8f6;
 }
 
 .secondaryAction:hover {
-  border-color: #91b9af;
+  border-color: #b8c0ff;
   color: #ffffff;
   text-decoration: none;
 }
 
 .stats {
-  border-left: 1px solid #36564f;
+  border-left: 1px solid #394268;
   display: grid;
   padding-left: 1.5rem;
 }
 
 .stat {
   align-content: center;
-  border-bottom: 1px solid #36564f;
+  border-bottom: 1px solid #394268;
   display: grid;
   gap: 0.15rem;
   min-height: 76px;
@@ -121,12 +122,12 @@
 }
 
 .stat strong {
-  color: #f2c44b;
+  color: #b8c0ff;
   font-size: 1.55rem;
 }
 
 .stat span {
-  color: #bcd0cb;
+  color: #c5c9df;
   font-size: 0.8rem;
 }
 
@@ -235,7 +236,7 @@
   align-items: center;
   background: var(--doc-surface);
   border: 1px solid var(--doc-border);
-  border-left: 4px solid #d8a928;
+  border-left: 4px solid #7887ff;
   display: flex;
   gap: 1rem;
   justify-content: space-between;
@@ -353,14 +354,14 @@
 }
 
 .roadmapNumber {
-  color: #b18516;
+  color: #4051c7;
   font-size: 0.77rem;
   font-weight: 800;
   letter-spacing: 0.05em;
 }
 
 [data-theme="dark"] .roadmapNumber {
-  color: #f2c44b;
+  color: #b8c0ff;
 }
 
 .roadmapIcon {
@@ -409,7 +410,7 @@
 
   .stats {
     border-left: 0;
-    border-top: 1px solid #36564f;
+    border-top: 1px solid #394268;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     padding-left: 0;
     padding-top: 1rem;
@@ -417,7 +418,7 @@
 
   .stat {
     border-bottom: 0;
-    border-right: 1px solid #36564f;
+    border-right: 1px solid #394268;
     padding: 0 0.65rem;
     text-align: center;
   }
@@ -475,7 +476,7 @@
   }
 
   .stat {
-    border-bottom: 1px solid #36564f;
+    border-bottom: 1px solid #394268;
     border-right: 0;
     min-height: 62px;
   }

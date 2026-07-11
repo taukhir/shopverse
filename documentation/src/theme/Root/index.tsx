@@ -3,6 +3,7 @@ import {ArrowUp, ListTree, X} from 'lucide-react';
 import styles from './styles.module.css';
 import ReaderLibrary from '@site/src/components/ReaderLibrary';
 import CommandPalette from '@site/src/components/CommandPalette';
+import PrivacyAnalytics from '@site/src/components/PrivacyAnalytics';
 
 export default function Root({children}: {children: ReactNode}) {
   const [progress, setProgress] = useState(0);
@@ -54,6 +55,7 @@ export default function Root({children}: {children: ReactNode}) {
       {children}
       <ReaderLibrary />
       <CommandPalette />
+      <PrivacyAnalytics />
       <button
         className={`${styles.mobileContents} ${showMobileContents ? styles.visible : ''}`}
         type="button"

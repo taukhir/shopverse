@@ -7,7 +7,7 @@ sidebar_position: 3
 
 ## Docker
 
-```powershell
+```bash
 docker compose --profile apps --profile assets config --quiet
 docker compose --profile apps --profile assets up --build -d
 docker compose ps
@@ -21,7 +21,7 @@ volumes.
 
 ## Service Logs
 
-```powershell
+```bash
 docker compose logs --tail 200 order-service
 docker compose logs -f order-service inventory-service payment-service
 ```
@@ -124,6 +124,8 @@ Open `http://localhost:3000`.
 - Open provisioned Shopverse dashboards for SAGA and platform health.
 
 ## Verification
+
+<!-- command-tabs: powershell-only; the repository does not provide an equivalent Bash verifier -->
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass `

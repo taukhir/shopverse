@@ -71,31 +71,38 @@ flowchart LR
 
 ## Step 1: Add Service Dependencies
 
-Every observable Spring Boot service needs Actuator and the Prometheus
-Micrometer registry:
+Every observable Spring Boot service needs Actuator, Prometheus metrics,
+tracing, and Feign instrumentation when it makes declarative client calls:
 
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-actuator'
+<DependencyTabs
+  gradle={<pre><code>{`implementation 'org.springframework.boot:spring-boot-starter-actuator'
 runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-```
+implementation 'org.springframework.boot:spring-boot-starter-zipkin'
+implementation 'io.github.openfeign:feign-micrometer'`}</code></pre>}
+  maven={<pre><code>{`<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-prometheus</artifactId>
+  <scope>runtime</scope>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-zipkin</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.github.openfeign</groupId>
+  <artifactId>feign-micrometer</artifactId>
+</dependency>`}</code></pre>}
+/>
 
 Actuator exposes operational endpoints. The Prometheus registry converts
 Micrometer meters into Prometheus text format at `/actuator/prometheus`.
 
-For tracing, Shopverse currently uses Spring Boot's Zipkin integration:
-
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-zipkin'
-```
-
-Services that call other services through OpenFeign should also include Feign
-Micrometer instrumentation:
-
-```gradle
-implementation 'io.github.openfeign:feign-micrometer'
-```
-
-This helps client-side HTTP calls participate in metrics and trace propagation.
+The tracing and Feign dependencies help client-side HTTP calls participate in
+metrics and trace propagation.
 
 ## Step 2: Expose Actuator Endpoints
 

@@ -34,6 +34,7 @@ For generic security study material, start with:
 | Page | Covers |
 |---|---|
 | [Spring Security Authentication Basics](spring-security/AUTHENTICATION-BASICS.md) | Authentication, authorization, dependencies, authentication managers, providers, form login, HTTP Basic, database-backed users, and UserDetails. |
+| [Username Password Authentication Internals](spring-security/AUTHENTICATION-INTERNALS.md) | Complete request flow through filters, ProviderManager, DaoAuthenticationProvider, UserDetailsService, password verification, SecurityContextHolder, in-memory users, failures, and context cleanup. |
 | [Spring Security Servlet Filter Chain](spring-security/SERVLET-FILTER-CHAIN.md) | Servlet security architecture, core classes, SecurityContext, multiple chains, exceptions, sessions, CSRF, and CORS. |
 | [JWT JWKS And Resource Server Security](spring-security/JWT-JWKS-RESOURCE-SERVER.md) | Bearer JWT authentication, JWT parts, JWS/JWE/JWK/JWKS, symmetric/asymmetric signing, Shopverse encoding/decoding, claims, revocation, and production practices. |
 | [Spring Security Authorization And Method Security](spring-security/AUTHORIZATION-METHOD-SECURITY.md) | Scopes, roles, groups, authorities, JWT authority conversion, RBAC/policy models, method security, URL security, and Shopverse summary. |

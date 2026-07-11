@@ -28,9 +28,13 @@ complex programming model.
 
 Dependency:
 
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-web'
-```
+<DependencyTabs
+  gradle={<pre><code>{`implementation 'org.springframework.boot:spring-boot-starter-web'`}</code></pre>}
+  maven={<pre><code>{`<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>`}</code></pre>}
+/>
 
 Create a client with shared base configuration:
 
@@ -116,9 +120,13 @@ observability are consistent.
 
 Dependency:
 
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-webflux'
-```
+<DependencyTabs
+  gradle={<pre><code>{`implementation 'org.springframework.boot:spring-boot-starter-webflux'`}</code></pre>}
+  maven={<pre><code>{`<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>`}</code></pre>}
+/>
 
 `WebClient` is non-blocking when used end to end with a non-blocking connector
 and reactive processing:
@@ -161,9 +169,13 @@ requirements justify `WebClient`.
 
 Dependency:
 
-```gradle
-implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-```
+<DependencyTabs
+  gradle={<pre><code>{`implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'`}</code></pre>}
+  maven={<pre><code>{`<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>`}</code></pre>}
+/>
 
 Enable and declare a client:
 

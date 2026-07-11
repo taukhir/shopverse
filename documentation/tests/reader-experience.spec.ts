@@ -23,6 +23,18 @@ test('bookmark, completion, and reading dashboard persist', async ({page}) => {
   await expect(page.getByRole('heading', {name: /Learning dashboard 1\/28/})).toBeVisible();
 });
 
+test('individual sections can be bookmarked and reopened', async ({page}) => {
+  await page.goto('./architecture/SYSTEM-DESIGN');
+  const heading = page.locator('.theme-doc-markdown h2[id]').first();
+  const headingId = await heading.getAttribute('id');
+  await heading.getByRole('button', {name: /^Bookmark /}).click();
+  await page.getByRole('button', {name: 'Open my reading library'}).click();
+  const bookmark = page.getByRole('dialog', {name: 'My reading library'}).locator(`a[href$="#${headingId}"]`);
+  await expect(bookmark).toBeVisible();
+  await bookmark.click();
+  await expect(page).toHaveURL(new RegExp(`#${headingId}$`));
+});
+
 test('reading mode and Word export work', async ({page}) => {
   await page.goto('./architecture/SYSTEM-DESIGN');
   const downloadPromise = page.waitForEvent('download');
@@ -43,4 +55,14 @@ test('mobile layout does not overflow horizontally', async ({page}, testInfo) =>
   test.skip(!testInfo.project.name.includes('mobile'), 'Mobile-only assertion.');
   await page.goto('./architecture/SYSTEM-DESIGN');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+});
+
+test('collapsed sidebar releases the wide content canvas', async ({page}, testInfo) => {
+  test.skip(testInfo.project.name.includes('mobile'), 'Wide desktop assertion.');
+  await page.setViewportSize({width: 2048, height: 1080});
+  await page.goto('./development/ENGINEERING-PRINCIPLES');
+  await page.getByRole('button', {name: 'Collapse sidebar'}).click();
+  const widths=await page.evaluate(()=>({main:document.querySelector('main')!.getBoundingClientRect().width,container:document.querySelector('main .container')!.getBoundingClientRect().width,article:document.querySelector('article')!.getBoundingClientRect().width,markdown:document.querySelector('.theme-doc-markdown')!.getBoundingClientRect().width}));
+  expect(widths.container / widths.main).toBeGreaterThan(0.95);
+  expect(widths.markdown / widths.article).toBeGreaterThan(0.95);
 });
