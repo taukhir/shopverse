@@ -148,8 +148,29 @@ Avoid generic parameters that do not add safety or clarity.
 
 ## Interview Questions
 
-| Question | Short answer |
-|---|---|
-| Why generics? | Compile-time type safety and reusable APIs. |
-| What is type erasure? | Generic type parameters are mostly removed from bytecode for compatibility. |
-| `extends` vs `super`? | `extends` for producers/readers; `super` for consumers/writers. |
+### Why use generics?
+
+<ExpandableAnswer>
+
+Generics provide compile-time type safety and allow reusable APIs without
+unsafe casts or duplicated implementations for every element type.
+
+</ExpandableAnswer>
+
+### What is type erasure?
+
+<ExpandableAnswer>
+
+Generic type parameters are mostly removed from bytecode for backward
+compatibility. The compiler inserts casts and bridge methods where required.
+
+</ExpandableAnswer>
+
+### When should you use `extends` versus `super`?
+
+<ExpandableAnswer>
+
+Use `extends` for a producer that you primarily read from and `super` for a
+consumer that you write values into: producer extends, consumer super.
+
+</ExpandableAnswer>

@@ -25,6 +25,7 @@ flowchart LR
 | Goal | Start here |
 |---|---|
 | Decide how to split services | [Microservices fundamentals](MICROSERVICES-GENERIC.md) |
+| Select architecture and integration patterns | [Microservices architecture patterns](MICROSERVICES-PATTERNS.md) |
 | Understand distributed-system tradeoffs | [Distributed systems fundamentals](DISTRIBUTED-SYSTEMS-GENERIC.md) |
 | Route traffic through one entry point | [API Gateway](../development/API-GATEWAY-GENERIC.md) |
 | Discover and balance service instances | [Service discovery](SERVICE-DISCOVERY.md) and [Load balancing](LOAD-BALANCING-GENERIC.md) |
@@ -65,4 +66,3 @@ Shopverse uses this structure:
 
 For the concrete implementation, use the [Shopverse case study](../case-study/SHOPVERSE.mdx)
 and [system design](SYSTEM-DESIGN.md).
-

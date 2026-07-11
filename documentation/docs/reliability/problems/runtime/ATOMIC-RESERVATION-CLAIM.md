@@ -1,5 +1,12 @@
 ---
 title: Atomic Reservation Claim Implementation
+difficulty: Advanced
+page_type: Case Study
+status: Planned
+prerequisites: [Database locking and multi-replica scheduling]
+learning_objectives: [Design an atomic reservation claim algorithm, Preserve transaction and ownership boundaries across replicas]
+technologies: [Spring Data JPA, PostgreSQL, Scheduling]
+last_reviewed: "2026-07-11"
 ---
 
 # Atomic Reservation Claim Implementation
@@ -720,4 +727,3 @@ expiry wins:  RESERVED -> EXPIRING; payment transition returns 0
 If expiry wins, use the explicit late-payment workflow documented in
 [Late payment after expiry](LATE-PAYMENT-AFTER-EXPIRY.md). Never silently move
 an expired or cancelled order to `CONFIRMED`.
-

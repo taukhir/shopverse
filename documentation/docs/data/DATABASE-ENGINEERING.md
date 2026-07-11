@@ -1,6 +1,12 @@
 ---
 title: Database Engineering
 sidebar_position: 1
+difficulty: Intermediate
+page_type: Concept
+status: Generic
+learning_objectives: [Design relational schemas and indexes, Evaluate transactions query plans and scaling trade-offs]
+technologies: [PostgreSQL, SQL, Hibernate]
+last_reviewed: "2026-07-10"
 ---
 
 # Database Engineering

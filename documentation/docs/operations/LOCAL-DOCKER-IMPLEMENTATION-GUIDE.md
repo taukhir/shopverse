@@ -117,7 +117,7 @@ need normal retry behavior because containers can restart later.
 
 Shopverse also uses Compose profiles so the default local stack stays smaller:
 
-```powershell
+```bash
 docker compose up -d
 docker compose --profile apps up -d
 docker compose --profile assets up -d
@@ -138,7 +138,7 @@ JDK build stage -> bootJar -> JRE runtime stage -> non-root user -> actuator hea
 
 Useful commands:
 
-```powershell
+```bash
 docker compose --profile apps --profile assets config --quiet
 docker compose --profile apps --profile assets build
 docker compose --profile apps build order-service
@@ -178,7 +178,7 @@ Every Spring Boot service should expose and use:
 
 Compose health checks make failures visible:
 
-```powershell
+```bash
 docker compose ps
 ```
 
@@ -202,7 +202,7 @@ grafana
 
 Start only the observability tools when needed:
 
-```powershell
+```bash
 docker compose up -d prometheus loki promtail zipkin grafana
 ```
 
@@ -210,27 +210,27 @@ docker compose up -d prometheus loki promtail zipkin grafana
 
 Normal local startup:
 
-```powershell
+```bash
 docker compose up -d
 docker compose ps
 ```
 
 Follow bounded logs:
 
-```powershell
+```bash
 docker compose logs --tail=200 order-service
 docker compose logs -f --tail=100 api-gateway
 ```
 
 Stop while preserving volumes:
 
-```powershell
+```bash
 docker compose down
 ```
 
 Delete volumes only when intentionally resetting local state:
 
-```powershell
+```bash
 docker compose down -v
 ```
 

@@ -1,6 +1,13 @@
 ---
 title: Deployment Strategies
 sidebar_position: 2
+difficulty: Advanced
+page_type: Concept
+status: Generic
+prerequisites: [Containers and CI CD fundamentals]
+learning_objectives: [Compare rolling blue-green and canary deployments, Design safe release verification and rollback]
+technologies: [Docker, Kubernetes, CI/CD]
+last_reviewed: "2026-07-11"
 ---
 
 # Deployment Strategies
@@ -15,6 +22,43 @@ build artifact -> deploy to environment -> verify -> release traffic/feature
 Deployment and release should be separated when possible. This allows code to
 be deployed safely while behavior is enabled later through routing, traffic
 weight, or feature flags.
+
+![Visual overview of recreate, rolling, blue-green, canary, and feature-flag releases](/img/diagrams/deployment-strategies-overview.png)
+
+## Learning Route
+
+Use this page in three passes:
+
+1. Learn the vocabulary and compare strategies.
+2. Follow one strategy from preparation through promotion or rollback.
+3. Apply the database, event-contract, observability, and failure checklists.
+
+## The Deployment Control Loop
+
+Every safe deployment is a feedback loop rather than a file-copy operation.
+
+```mermaid
+flowchart LR
+    Build["Build immutable artifact"] --> Verify["Verify in pre-production"]
+    Verify --> Deploy["Deploy candidate"]
+    Deploy --> Expose["Expose controlled traffic"]
+    Expose --> Observe["Observe technical and business signals"]
+    Observe --> Gate{"Release gate passes?"}
+    Gate -->|"yes"| Promote["Increase exposure"]
+    Promote --> Observe
+    Gate -->|"no"| Recover["Stop, rollback, or roll forward"]
+    Recover --> Learn["Preserve evidence and improve controls"]
+```
+
+The loop needs five independent controls:
+
+| Control | Responsibility |
+|---|---|
+| Artifact control | Identify exactly what code, dependencies, and configuration are running |
+| Instance control | Decide how candidate instances start, become ready, drain, and stop |
+| Traffic control | Decide which requests or users reach stable and candidate versions |
+| State control | Keep databases, messages, caches, and external side effects compatible |
+| Evidence control | Decide whether metrics, logs, traces, and business outcomes permit promotion |
 
 ## Artifact, Environment, And Promotion
 
@@ -63,6 +107,21 @@ Before a deployment:
 | Shadow | no user impact | low for users | high | not direct | compatibility/performance testing |
 | Feature flags | no redeploy required | low | medium | very fast | separating deployment from release |
 
+### Choose By Constraint
+
+| Dominant constraint | Usually start with | Why |
+|---|---|---|
+| Simplest non-production operation | Recreate | Few moving parts; downtime is accepted |
+| Stateless service with compatible versions | Rolling | Efficient use of capacity and broad platform support |
+| Very fast traffic rollback is essential | Blue-green | Old environment remains available during validation |
+| Production behavior must be measured gradually | Canary | Limits exposure while collecting real signals |
+| Validate a replacement without affecting responses | Shadow | Candidate receives production-shaped input but does not serve users |
+| Release behavior to users/cohorts independently | Feature flags | Activation is separated from deployment |
+
+Strategies can be combined: a rolling deployment can install dormant code,
+then a feature flag can release it to a cohort. Blue-green environments can
+also receive canary traffic before the final switch.
+
 ## Recreate
 
 Stop the old version, then start the new version.
@@ -72,6 +131,19 @@ v1 stopped -> downtime -> v2 started
 ```
 
 Simple and suitable for local POCs, but it causes downtime.
+
+### Recreate Sequence And Risks
+
+1. Stop traffic or announce a maintenance window.
+2. Stop the old process.
+3. Apply backward-compatible migrations and configuration.
+4. Start the candidate and wait for readiness.
+5. Run smoke tests and reopen traffic.
+
+The failure window begins when the old version stops. Recovery time includes
+starting either version and restoring compatible state. Recreate is dangerous
+for systems with a strict availability objective, long startup, irreversible
+migrations, or asynchronous work that cannot be drained safely.
 
 ## Rolling Deployment
 
@@ -97,6 +169,31 @@ Requirements:
 - readiness probes;
 - graceful shutdown;
 - database migrations compatible with both versions.
+
+### Rolling Parameters
+
+Platforms expose these ideas with different names:
+
+| Parameter | Meaning | Safety effect |
+|---|---|---|
+| Maximum unavailable | How much stable capacity may be absent | Lower values protect availability but slow rollout |
+| Maximum surge | Extra candidate capacity allowed | More surge speeds rollout but costs capacity |
+| Readiness gate | Evidence required before receiving traffic | Prevents traffic reaching an unready instance |
+| Progress deadline | Maximum time without rollout progress | Detects a stuck deployment |
+| Drain/termination grace | Time to finish in-flight work | Reduces interrupted requests and duplicate work |
+
+Example with four replicas and one-at-a-time replacement:
+
+```text
+Step 0: v1 v1 v1 v1
+Step 1: v2 v1 v1 v1  -> verify v2 readiness
+Step 2: v2 v2 v1 v1  -> compare signals
+Step 3: v2 v2 v2 v1
+Step 4: v2 v2 v2 v2  -> close rollback window later
+```
+
+Stopping a rollout prevents more replacement; it does not automatically undo
+already replaced instances or reverse database and external effects.
 
 Rolling deployment is the common default for Kubernetes-style workloads. The
 main risk is version overlap: v1 and v2 run at the same time, so APIs, events,
@@ -127,6 +224,20 @@ share or migrate the same data.
 Rollback is usually a traffic switch back to blue, provided the database and
 external side effects remain compatible.
 
+### Blue-Green Runbook
+
+1. Deploy green with production-equivalent configuration but no user traffic.
+2. Verify startup, smoke paths, telemetry, security policy, and dependency access.
+3. Warm caches or connections without creating duplicate business effects.
+4. Shift internal/test traffic, then production traffic at the router.
+5. Observe through a defined bake period.
+6. Keep blue deployable and data-compatible until the rollback window closes.
+7. Retire blue only after state and signals prove rollback is no longer needed.
+
+Do not duplicate schedulers, message consumers, emails, or payment execution in
+both environments unless ownership is explicitly partitioned. Traffic switching
+controls HTTP requests; it does not automatically control background work.
+
 ## Canary
 
 Send a small percentage of production traffic to the new version:
@@ -149,6 +260,31 @@ flowchart LR
 
 Increase exposure only when error rate, latency, and business metrics remain
 healthy. Canary needs traffic control and automated analysis.
+
+![Animated canary deployment progressing through traffic stages and rollback](/img/diagrams/canary-deployment-flow.gif)
+
+### Example Promotion Plan
+
+| Stage | Candidate exposure | Minimum evidence | Action on failure |
+|---|---:|---|---|
+| Baseline | 0% | Stable-version baseline and healthy platform | Do not start |
+| Internal | selected staff/test traffic | Functional smoke tests and clean logs | Remove candidate traffic |
+| Initial canary | 1–5% | Sufficient requests; no severe correctness/security issue | Route to stable |
+| Expansion | 10–25% | Candidate comparable to stable for errors and latency | Freeze or rollback |
+| Majority | 50% | Healthy capacity and business KPI | Rollback if compatible |
+| Complete | 100% | Bake period passes | Retain rollback option temporarily |
+
+Percentage alone can mislead: five percent of low traffic may provide no useful
+sample, while five percent of payment traffic may carry unacceptable business
+risk. Use minimum event counts, duration, and cohort diversity together.
+
+### Canary Versus A/B Testing
+
+Canary deployment asks whether a new version is safe and healthy. A/B testing
+asks which product experience performs better. Canary routing should minimize
+risk and support rollback; A/B assignment should remain stable per user and
+support statistically valid product analysis. Do not use conversion uplift to
+hide a reliability regression.
 
 Canary decisions should consider:
 
@@ -181,6 +317,19 @@ bad behavior detected -> disable flag -> users return to old path
 They do not replace testing. Both enabled and disabled paths must be tested.
 Every flag should have an owner and expiry plan.
 
+Feature flags come in different types:
+
+| Flag type | Purpose | Expected lifetime |
+|---|---|---|
+| Release | Gradually expose new behavior | Short |
+| Experiment | Assign A/B cohorts | Until analysis completes |
+| Operational | Disable expensive or risky behavior during incidents | Longer, regularly tested |
+| Permission | Entitlement or plan access | Long-lived business rule |
+
+Do not use flags to conceal incompatible database or event changes. Evaluate
+flags server-side for sensitive authorization decisions, define behavior when
+the flag service is unavailable, and remove stale branches after rollout.
+
 ## Shadow Traffic
 
 Copy production requests to a new version without using its responses. This is
@@ -196,6 +345,49 @@ Use shadow traffic for:
 
 Do not let shadow traffic create orders, payments, emails, inventory changes,
 or external side effects.
+
+Scrub sensitive data, cap shadow volume, label shadow telemetry, and prevent the
+candidate from competing with production for scarce downstream capacity. Compare
+semantic response differences as well as status code and latency.
+
+## Platform Mechanisms
+
+The strategy is a system design; a platform mechanism only implements part of it.
+
+| Platform mechanism | What it controls |
+|---|---|
+| Kubernetes Deployment | Replica replacement, readiness, surge/unavailable capacity, rollout history |
+| Kubernetes Service | Stable routing to ready pods matching labels |
+| Ingress/service mesh | Weighted, header, cookie, or cohort traffic routing |
+| Load balancer target groups | Blue-green target registration and traffic weights |
+| CI/CD pipeline | Approval, promotion, pause, analysis, and recovery workflow |
+| Feature-flag service | Runtime behavior activation and cohort assignment |
+| Migration tool | Ordered, versioned schema changes; not application traffic |
+
+### Illustrative Kubernetes Rolling Configuration
+
+```yaml
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: application
+          image: registry.example/application:git-sha
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+```
+
+This configuration protects serving capacity but does not create canary
+analysis, guarantee application correctness, or make schema changes reversible.
 
 ## Rollback Strategies
 
@@ -342,6 +534,41 @@ and request volume is sufficient
 and condition lasts for N minutes
 then stop rollout or route traffic back
 ```
+
+### Release Gate Design
+
+A useful gate compares candidate with stable and checks absolute safety limits:
+
+```text
+promote only if
+  candidate request count >= minimum sample
+  AND candidate 5xx rate <= absolute limit
+  AND candidate 5xx rate - stable 5xx rate <= allowed regression
+  AND candidate p95 latency <= allowed regression
+  AND saturation remains below safety limit
+  AND checkout/payment success remains healthy
+```
+
+Use a longer window for low-volume business outcomes and a shorter emergency
+stop for severe security, corruption, or correctness signals. Treat missing
+telemetry as a failed gate, not success.
+
+## Failure Scenarios To Rehearse
+
+| Failure | Expected control |
+|---|---|
+| Candidate never becomes ready | Progress deadline stops rollout; logs and events explain why |
+| Old instance receives traffic while draining | Readiness removal precedes shutdown; graceful termination completes requests |
+| Candidate overloads the database | Canary/concurrency limit contains load; pool and database alarms stop promotion |
+| New producer breaks old consumer | Consumer-first compatible contract deployment and schema checks |
+| Rollback cannot read migrated data | Expand-and-contract or roll-forward plan |
+| Queue workers run in both blue and green | Explicit consumer ownership, partitioning, or paused candidate consumers |
+| Metrics look healthy but checkout fails | Business KPI and synthetic transaction gate |
+| Flag service is unavailable | Defined cached/default behavior and operational alarm |
+| Retry storm begins during rollout | Bounded retry budgets, jitter, circuit breaker, and load shedding |
+
+Run these as game-day exercises. A rollback document that has never been
+executed is an assumption, not a recovery capability.
 
 ## Microservices Deployment Rules
 

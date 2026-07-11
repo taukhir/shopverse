@@ -284,6 +284,14 @@ Local account passwords are in the Git-ignored
 hashes. Production credentials still belong in managed secret and identity
 systems rather than repository documentation.
 
+Order Service uses a bounded Caffeine cache for the browse catalog. The default
+TTL is 60 seconds and can be overridden with
+`ORDER_SERVICE_CACHE_TTL_SECONDS`. After admin product upserts, refresh the
+Order catalog view with `POST /api/v1/orders/admin/catalog-cache/evict`; the
+API seed script does this automatically. Checkout validates requested products
+through a direct Inventory lookup rather than relying on the cached browse
+catalog.
+
 Inspect all schemas:
 
 ```powershell

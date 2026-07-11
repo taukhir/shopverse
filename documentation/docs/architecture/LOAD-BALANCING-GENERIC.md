@@ -232,23 +232,25 @@ finish without new traffic arriving.
 Spring Cloud LoadBalancer provides client-side service-instance selection for
 Spring Cloud clients.
 
-Typical dependencies:
+Typical dependencies for LoadBalancer, Eureka discovery, and declarative HTTP clients:
 
-```gradle
-implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
-```
-
-For Eureka-backed discovery:
-
-```gradle
+<DependencyTabs
+  gradle={<pre><code>{`implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
 implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-```
-
-For declarative HTTP clients:
-
-```gradle
-implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-```
+implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'`}</code></pre>}
+  maven={<pre><code>{`<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>`}</code></pre>}
+/>
 
 Spring Cloud Gateway's starter integrates load-balanced `lb://` routes. Some
 starters bring LoadBalancer transitively; declaring the dedicated starter

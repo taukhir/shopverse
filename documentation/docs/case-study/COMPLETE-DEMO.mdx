@@ -2,6 +2,13 @@
 title: Complete Shopverse Demo
 sidebar_position: 2
 description: A reproducible, end-to-end demonstration of Shopverse security, checkout, SAGA, outbox, recovery, and observability.
+difficulty: Advanced
+page_type: Runbook
+status: Implemented
+prerequisites: [Running full Shopverse stack, Demo credentials]
+learning_objectives: [Demonstrate secure checkout and SAGA completion, Verify failure recovery outbox and observability evidence]
+technologies: [PowerShell, Docker, Kafka, Spring Boot]
+last_reviewed: "2026-07-11"
 ---
 
 import {ReadingGuide} from '@site/src/components/DocumentationLanding';
@@ -225,6 +232,19 @@ Defaults are 20 named customers, 20 catalog items, and 120 checkout requests.
 Checkout jobs run in batches of four to avoid overwhelming a laptop-sized
 Compose stack. Re-running uses the same `api-seed-checkout-####` idempotency
 keys, so a completed checkout is returned rather than duplicated.
+
+Order Service caches the browse catalog with Caffeine for local UI reads. The
+default TTL is 60 seconds and can be changed with
+`ORDER_SERVICE_CACHE_TTL_SECONDS`. The seed script evicts that cache after
+Inventory product upserts by calling:
+
+```http
+POST /api/v1/orders/admin/catalog-cache/evict
+```
+
+Checkout itself does not depend on the cached browse catalog. It validates the
+requested product with Inventory's direct product lookup before creating the
+order.
 
 The ignored `demo-credentials.local.md` file receives the generated customer
 login details. `.tmp/shopverse-api-seed-manifest.json` records each order ID,

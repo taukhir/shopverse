@@ -1,6 +1,13 @@
 ---
 title: Distributed Systems Interview Questions
 sidebar_position: 7
+difficulty: Advanced
+page_type: Reference
+status: Generic
+prerequisites: [Distributed systems consistency messaging and reliability]
+learning_objectives: [Explain distributed systems trade-offs clearly, Practice senior-level failure and consistency scenarios]
+technologies: [Distributed Systems, Kafka, Databases]
+last_reviewed: "2026-07-11"
 ---
 
 # Distributed Systems Interview Questions
@@ -285,4 +292,3 @@ use timestamps blindly.
 - [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
 - [Transactions And Locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md)
 - [Failure And Consensus](../reliability/DISTRIBUTED-FAILURE-CONSENSUS.md)
-

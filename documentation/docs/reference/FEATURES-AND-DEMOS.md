@@ -1,3 +1,13 @@
+---
+title: Features And Demonstrations
+difficulty: Intermediate
+page_type: Reference
+status: Implemented
+learning_objectives: [Verify implemented Shopverse capabilities, Distinguish implemented partial and planned behavior]
+technologies: [Shopverse, Docker, Kafka]
+last_reviewed: "2026-07-11"
+---
+
 # Features And Demonstrations
 
 This guide is the canonical record of implemented Shopverse capabilities and

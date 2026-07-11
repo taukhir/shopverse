@@ -1,6 +1,13 @@
 ---
 title: Apache Kafka
 sidebar_position: 5
+difficulty: Intermediate
+page_type: Concept
+status: Generic
+prerequisites: [Asynchronous messaging fundamentals]
+learning_objectives: [Understand Kafka partitions groups and delivery semantics, Design reliable event-driven workflows]
+technologies: [Apache Kafka, Spring Kafka]
+last_reviewed: "2026-07-11"
 ---
 
 # Apache Kafka
@@ -394,4 +401,3 @@ Kafka; rich routing and conventional work queues often favor RabbitMQ.
 - [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [SAGA And Outbox](../reliability/SAGA-GENERIC.md)
 - [Distributed Systems](../architecture/DISTRIBUTED-SYSTEMS.md)
-

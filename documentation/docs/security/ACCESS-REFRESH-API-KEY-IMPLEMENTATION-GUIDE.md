@@ -1,6 +1,13 @@
 ---
 title: Access Token, Refresh Token, And API Key Implementation Guide
 sidebar_position: 9
+difficulty: Advanced
+page_type: Case Study
+status: Partial
+prerequisites: [JWT OAuth2 and Spring Security fundamentals]
+learning_objectives: [Understand current Shopverse token behavior, Design refresh token and API key lifecycle hardening]
+technologies: [Spring Security, JWT, API Keys]
+last_reviewed: "2026-07-11"
 ---
 
 # Access Token, Refresh Token, And API Key Implementation Guide

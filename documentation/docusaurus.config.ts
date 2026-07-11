@@ -11,6 +11,23 @@ const glossaryTerms: Record<string, string> = {
   'consumer group': 'consumer-group',
   'distributed lock': 'distributed-lock',
   'correlation id': 'correlation-id',
+  'circuit breaker': 'circuit-breaker',
+  'backpressure': 'backpressure',
+  'optimistic locking': 'optimistic-locking',
+  'dead letter topic': 'dead-letter-topic',
+  'rbac': 'rbac',
+  'abac': 'abac',
+  'retrieval-augmented generation': 'rag',
+  'bulkhead': 'bulkhead',
+  'eventual consistency': 'eventual-consistency',
+  'cqrs': 'cqrs',
+  'cache stampede': 'cache-stampede',
+  'split brain': 'split-brain',
+  'mtls': 'mtls',
+  'csrf': 'csrf',
+  'vector database': 'vector-database',
+  'embedding': 'embedding',
+  'prompt injection': 'prompt-injection',
 };
 
 function remarkGlossaryLinks() {
@@ -43,6 +60,10 @@ const config: Config = {
   baseUrl: '/shopverse/',
   organizationName: 'taukhir',
   projectName: 'shopverse',
+  customFields: {
+    analyticsDomain: process.env.DOCS_ANALYTICS_DOMAIN ?? '',
+    docxExportEndpoint: process.env.DOCS_DOCX_EXPORT_ENDPOINT ?? '',
+  },
 
   onBrokenLinks: 'warn',
   onBrokenAnchors: 'warn',
@@ -107,8 +128,8 @@ const config: Config = {
     announcementBar: {
       id: 'reading_help_v1',
       content: 'Tip: use search to jump across the library, and click any documentation image to inspect it full size.',
-      backgroundColor: '#e6f3ef',
-      textColor: '#104a3f',
+      backgroundColor: '#e6e8ff',
+      textColor: '#2f3d9e',
       isCloseable: true,
     },
     colorMode: {

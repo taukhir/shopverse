@@ -14,7 +14,10 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yml
   cache:
-    type: simple
+    type: caffeine
+    cache-names: catalog,orders
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=${ORDER_SERVICE_CACHE_TTL_SECONDS:60}s
   security:
     oauth2:
       resourceserver:

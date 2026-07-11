@@ -2,7 +2,8 @@ import React, {useEffect, useRef, useState, type ReactNode} from 'react';
 import OriginalDocItemContent from '@theme-original/DocItem/Content';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import {Bookmark, BookOpen, CalendarCheck, Check, Clock3} from 'lucide-react';
-import {readReaderState, toggleSavedPage, writeReaderState} from '@site/src/utils/readerLibrary';
+import {normalizeReaderPath, readReaderState, READER_EVENT, toggleSavedPage, writeReaderState} from '@site/src/utils/readerLibrary';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type {Props} from '@theme/DocItem/Content';
 import styles from './styles.module.css';
 
@@ -20,6 +21,8 @@ type LearningFrontMatter = {
 
 export default function DocItemContent({children}: Props): ReactNode {
   const {frontMatter, metadata} = useDoc();
+  const {siteConfig} = useDocusaurusContext();
+  const baseUrl = siteConfig.baseUrl;
   const learning = frontMatter as LearningFrontMatter;
   const containerRef = useRef<HTMLDivElement>(null);
   const [wordCount, setWordCount] = useState<number | null>(null);
@@ -34,18 +37,60 @@ export default function DocItemContent({children}: Props): ReactNode {
     setWordCount(words);
   }, [children]);
 
+  useEffect(() => {
+    const article = containerRef.current?.querySelector<HTMLElement>('.theme-doc-markdown');
+    if (!article) return undefined;
+    const cleanups: Array<() => void> = [];
+
+    article.querySelectorAll<HTMLElement>('h2[id], h3[id], h4[id]').forEach((heading) => {
+      const headingClone = heading.cloneNode(true) as HTMLElement;
+      headingClone.querySelectorAll('.hash-link, button').forEach((element) => element.remove());
+      const sectionTitle = headingClone.textContent?.trim() || heading.id;
+      const sectionPath = normalizeReaderPath(`${window.location.pathname}#${heading.id}`, baseUrl);
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = styles.sectionBookmark;
+
+      const syncButton = () => {
+        const bookmarked = readReaderState().bookmarks.some((item) => normalizeReaderPath(item.path, baseUrl) === sectionPath);
+        button.classList.toggle(styles.selected, bookmarked);
+        button.textContent = bookmarked ? '★' : '☆';
+        button.title = bookmarked ? `Remove bookmark for ${sectionTitle}` : `Bookmark ${sectionTitle}`;
+        button.setAttribute('aria-label', button.title);
+        button.setAttribute('aria-pressed', String(bookmarked));
+      };
+      const toggleBookmark = () => {
+        const next = toggleSavedPage('bookmarks', {title: `${String(metadata.title ?? 'Documentation page')} — ${sectionTitle}`, path: sectionPath, visitedAt: Date.now()}, baseUrl);
+        writeReaderState(next);
+      };
+      button.addEventListener('click', toggleBookmark);
+      window.addEventListener(READER_EVENT, syncButton);
+      syncButton();
+      heading.appendChild(button);
+      cleanups.push(() => {
+        button.removeEventListener('click', toggleBookmark);
+        window.removeEventListener(READER_EVENT, syncButton);
+        button.remove();
+      });
+    });
+
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }, [baseUrl, children, metadata.title]);
+
   const minutes = wordCount === null ? null : Math.max(1, Math.ceil(wordCount / WORDS_PER_MINUTE));
   const page = {title: String(metadata.title ?? 'Documentation page'), path: typeof window === 'undefined' ? '' : window.location.pathname, visitedAt: Date.now()};
 
   useEffect(() => {
     const state = readReaderState();
-    setSaved({bookmarked: state.bookmarks.some((item) => item.path === window.location.pathname), completed: state.completed.some((item) => item.path === window.location.pathname)});
-  }, []);
+    const currentPath = normalizeReaderPath(window.location.pathname, baseUrl);
+    setSaved({bookmarked: state.bookmarks.some((item) => normalizeReaderPath(item.path, baseUrl) === currentPath), completed: state.completed.some((item) => normalizeReaderPath(item.path, baseUrl) === currentPath)});
+  }, [baseUrl]);
 
   const togglePage = (collection: 'bookmarks' | 'completed') => {
-    const next = toggleSavedPage(collection, {...page, path: window.location.pathname});
+    const next = toggleSavedPage(collection, {...page, path: window.location.pathname}, baseUrl);
     writeReaderState(next);
-    setSaved({bookmarked: next.bookmarks.some((item) => item.path === window.location.pathname), completed: next.completed.some((item) => item.path === window.location.pathname)});
+    const currentPath = normalizeReaderPath(window.location.pathname, baseUrl);
+    setSaved({bookmarked: next.bookmarks.some((item) => normalizeReaderPath(item.path, baseUrl) === currentPath), completed: next.completed.some((item) => normalizeReaderPath(item.path, baseUrl) === currentPath)});
   };
   const hasLearningHeader = Boolean(
     learning.difficulty || learning.page_type || learning.status || learning.prerequisites?.length ||

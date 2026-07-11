@@ -73,12 +73,16 @@ flowchart TD
 
 ## Container And Process State
 
-```powershell
-docker compose ps
+<CommandTabs
+  powershell={<pre><code>{`docker compose ps
 docker compose logs --tail=200 order-service
 docker inspect --format '{{json .State.Health}}' shopverse-order-service
-docker stats --no-stream
-```
+docker stats --no-stream`}</code></pre>}
+  bash={<pre><code>{`docker compose ps
+docker compose logs --tail=200 order-service
+docker inspect --format '{{json .State.Health}}' shopverse-order-service
+docker stats --no-stream`}</code></pre>}
+/>
 
 Check one affected dependency chain first. Streaming every container can hide
 the useful event in probe and startup noise.
@@ -96,10 +100,12 @@ observability stack
 
 ## Health And Actuator
 
-```powershell
-curl.exe http://localhost:8083/actuator/health
-curl.exe http://localhost:8083/actuator/prometheus
-```
+<CommandTabs
+  powershell={<pre><code>{`curl.exe http://localhost:8083/actuator/health
+curl.exe http://localhost:8083/actuator/prometheus`}</code></pre>}
+  bash={<pre><code>{`curl http://localhost:8083/actuator/health
+curl http://localhost:8083/actuator/prometheus`}</code></pre>}
+/>
 
 `UP` means configured health contributors pass. It does not prove that a full
 checkout, Kafka consumer, or external dependency is working.

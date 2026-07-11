@@ -1,6 +1,13 @@
 ---
 title: Spring Ecosystem
 sidebar_position: 1
+difficulty: Beginner
+page_type: Concept
+status: Generic
+prerequisites: [Java fundamentals]
+learning_objectives: [Understand the major Spring projects, Choose the appropriate Spring module for a backend concern]
+technologies: [Spring Framework, Spring Boot, Spring Cloud]
+last_reviewed: "2026-07-10"
 ---
 
 # Spring Ecosystem

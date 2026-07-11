@@ -1,3 +1,14 @@
+---
+title: Micrometer Metrics
+difficulty: Intermediate
+page_type: Tutorial
+status: Generic
+prerequisites: [Spring Boot and observability fundamentals]
+learning_objectives: [Instrument counters timers and gauges, Design low-cardinality production metrics]
+technologies: [Micrometer, Prometheus, Spring Boot]
+last_reviewed: "2026-07-11"
+---
+
 # Micrometer Metrics
 
 Micrometer is the metrics instrumentation facade used by Spring Boot. Application code records measurements through Micrometer APIs without coupling business code directly to Prometheus.

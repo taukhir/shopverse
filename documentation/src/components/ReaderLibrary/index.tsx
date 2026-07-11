@@ -2,14 +2,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import Link from '@docusaurus/Link';
 import {useLocation} from '@docusaurus/router';
 import {ArrowRight, Bookmark, CheckCircle2, Download, Flame, Focus, History, Library, Minus, Plus, RotateCcw, Trash2, Upload, X} from 'lucide-react';
-import {defaultReaderState, localDateKey, readReaderState, READER_EVENT, studyStreak, type ReaderState, writeReaderState} from '@site/src/utils/readerLibrary';
+import {defaultReaderState, localDateKey, normalizeReaderPath, readReaderState, READER_EVENT, studyStreak, type ReaderState, writeReaderState} from '@site/src/utils/readerLibrary';
 import {learningCatalog, learningStages, nextLearningPage} from '@site/src/data/learningCatalog';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
 
 export default function ReaderLibrary() {
   const location = useLocation();
   const [state, setState] = useState<ReaderState>(defaultReaderState);
   const [open, setOpen] = useState(false);
+  const {siteConfig}=useDocusaurusContext(); const analyticsAvailable=Boolean(siteConfig.customFields?.analyticsDomain); const baseUrl=siteConfig.baseUrl;
   const triggerRef = useRef<HTMLButtonElement>(null); const drawerRef = useRef<HTMLElement>(null); const importRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -24,14 +26,14 @@ export default function ReaderLibrary() {
     const timer = window.setTimeout(() => {
       if (!document.querySelector('article')) return;
       const current = readReaderState();
-      const page = {title: document.querySelector('article h1')?.textContent?.trim() || document.title, path: location.pathname, visitedAt: Date.now()};
-      const recent = [page, ...current.recent.filter((item) => item.path !== page.path)].slice(0, 10);
+      const page = {title: document.querySelector('article h1')?.textContent?.trim() || document.title, path: normalizeReaderPath(location.pathname, baseUrl), visitedAt: Date.now()};
+      const recent = [page, ...current.recent.filter((item) => normalizeReaderPath(item.path, baseUrl) !== page.path)].slice(0, 10);
       const today = localDateKey();
       const studyDays = [today, ...current.studyDays.filter((day) => day !== today)].slice(0, 120);
       writeReaderState({...current, recent, studyDays});
     }, 250);
     return () => window.clearTimeout(timer);
-  }, [location.pathname]);
+  }, [baseUrl, location.pathname]);
 
   useEffect(() => {
     document.documentElement.style.setProperty('--reader-font-scale', String(state.fontScale));
@@ -42,9 +44,10 @@ export default function ReaderLibrary() {
 
   const update = (next: ReaderState) => { setState(next); writeReaderState(next); };
   const scale = (delta: number) => update({...state, fontScale: Math.min(1.2, Math.max(0.9, Number((state.fontScale + delta).toFixed(1))))});
-  const completedPaths = state.completed.map((page) => page.path);
+  const completedPathSet = new Set(state.completed.map((page) => normalizeReaderPath(page.path, baseUrl)));
+  const completedPaths = learningCatalog.filter((page) => completedPathSet.has(page.path)).map((page) => page.path);
   const nextPage = nextLearningPage(completedPaths);
-  const resetStage = (stage: string) => update({...state, completed: state.completed.filter((item) => !learningCatalog.some((page) => page.stage === stage && page.path === item.path))});
+  const resetStage = (stage: string) => update({...state, completed: state.completed.filter((item) => !learningCatalog.some((page) => page.stage === stage && page.path === normalizeReaderPath(item.path, baseUrl)))});
   const exportData=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='shopverse-reading-progress.json';link.click();URL.revokeObjectURL(url);};
   const importData=async(event:React.ChangeEvent<HTMLInputElement>)=>{const file=event.target.files?.[0];if(!file)return;try{const parsed=JSON.parse(await file.text());update({...defaultReaderState,...parsed});}catch{window.alert('This is not a valid Shopverse reader-data file.');}event.target.value='';};
   const resetAll=()=>{if(window.confirm('Clear all bookmarks, completion progress, recent pages, and reading preferences?'))update(defaultReaderState);};
@@ -62,14 +65,14 @@ export default function ReaderLibrary() {
           <button className={state.focusMode ? styles.active : ''} type="button" onClick={() => update({...state, focusMode: !state.focusMode})}><Focus />Reading mode</button>
         </section>
         <section className={styles.dashboard}>
-          <h2><CheckCircle2 />Learning dashboard <span>{state.completed.length}/{learningCatalog.length}</span></h2>
+          <h2><CheckCircle2 />Learning dashboard <span>{completedPaths.length}/{learningCatalog.length}</span></h2>
           <div className={styles.streak}><Flame /><strong>{studyStreak(state.studyDays)} day streak</strong><span>{state.studyDays.length} study days</span></div>
           {nextPage && <Link className={styles.continue} to={nextPage.path} onClick={() => setOpen(false)}><span><small>Continue learning</small><strong>{nextPage.title}</strong></span><ArrowRight /></Link>}
           <div className={styles.stages}>{learningStages.map((stage) => { const pages=learningCatalog.filter((page)=>page.stage===stage); const done=pages.filter((page)=>completedPaths.includes(page.path)).length; const percent=Math.round(done/pages.length*100); return <div key={stage}><div><strong>{stage}</strong><span>{done}/{pages.length}</span><button type="button" disabled={!done} onClick={()=>resetStage(stage)} aria-label={`Reset ${stage} progress`}><RotateCcw /></button></div><div className={styles.progress}><span style={{width:`${percent}%`}}/><strong>{percent}%</strong></div></div>;})}</div>
         </section>
         <PageList icon={<Bookmark />} title="Bookmarks" pages={state.bookmarks} empty="Bookmark a guide to keep it here." onNavigate={() => setOpen(false)} />
         <PageList icon={<History />} title="Recently viewed" pages={state.recent} empty="Pages you read will appear here." onNavigate={() => setOpen(false)} />
-        <section className={styles.dataTools}><h2>Reader data</h2><p>Stored only in this browser. Export a backup to move progress between devices.</p><div><button type="button" onClick={exportData}><Download/>Export data</button><button type="button" onClick={()=>importRef.current?.click()}><Upload/>Import data</button><button type="button" onClick={resetAll}><Trash2/>Reset all</button></div><input ref={importRef} type="file" accept="application/json,.json" onChange={importData}/></section>
+        <section className={styles.dataTools}><h2>Privacy and reader data</h2><p>Progress stays in this browser. Anonymous analytics remains off unless you explicitly enable it and the site owner configures a privacy-respecting analytics domain.</p>{analyticsAvailable&&<button type="button" onClick={()=>update({...state,analyticsConsent:!state.analyticsConsent})}>{state.analyticsConsent?'Disable':'Enable'} anonymous analytics</button>}<div><button type="button" onClick={exportData}><Download/>Export data</button><button type="button" onClick={()=>importRef.current?.click()}><Upload/>Import data</button><button type="button" onClick={resetAll}><Trash2/>Reset all</button></div><input ref={importRef} type="file" accept="application/json,.json" onChange={importData}/></section>
         <button className={styles.clear} type="button" onClick={() => update({...state, recent: []})} disabled={!state.recent.length}>Clear recent history</button>
       </aside>
     </div>}

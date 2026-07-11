@@ -63,8 +63,14 @@ constants changes stored meaning.
 
 ## Interview Questions
 
-| Question | Short answer |
-|---|---|
-| Can enum implement an interface? | Yes. |
-| Can enum extend a class? | No; enum implicitly extends `java.lang.Enum`. |
-| Why avoid ordinal persistence? | Enum order changes can corrupt meaning. |
+### Can an enum implement an interface?
+
+<ExpandableAnswer>Yes. Each enum constant can use the shared implementation or provide its own method body.</ExpandableAnswer>
+
+### Can an enum extend a class?
+
+<ExpandableAnswer>No. Every enum implicitly extends `java.lang.Enum`, so Java's single-inheritance rule prevents another superclass.</ExpandableAnswer>
+
+### Why should ordinal persistence be avoided?
+
+<ExpandableAnswer>Reordering or inserting enum constants changes their numeric positions and can silently change the meaning of existing database values.</ExpandableAnswer>

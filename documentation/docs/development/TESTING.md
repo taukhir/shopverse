@@ -1,3 +1,14 @@
+---
+title: Shopverse Testing And Verification Strategy
+difficulty: Intermediate
+page_type: Runbook
+status: Implemented
+prerequisites: [Java and Spring Boot testing fundamentals]
+learning_objectives: [Choose the correct Shopverse verification mode, Run unit integration and bounded stack tests]
+technologies: [JUnit, Mockito, Testcontainers, Gradle]
+last_reviewed: "2026-07-10"
+---
+
 # Shopverse Testing And Verification Strategy
 
 This guide documents Shopverse-specific coverage and verification modes.
