@@ -43,6 +43,9 @@ const glossaryTerms: Record<string, string> = {
   'cdc': 'cdc',
   'sbom': 'sbom',
   'watermark': 'watermark',
+  'model context protocol': 'model-context-protocol',
+  'tool calling': 'tool-calling',
+  'reranking': 'reranking',
 };
 
 function remarkGlossaryLinks() {

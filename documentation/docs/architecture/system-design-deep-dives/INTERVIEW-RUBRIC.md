@@ -45,3 +45,9 @@ that would resolve it.
 
 Score is secondary to coherent reasoning. A simpler design with correct ownership,
 bounds and evolution is stronger than a diagram containing every fashionable tool.
+
+## Official References
+
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)

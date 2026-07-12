@@ -21,6 +21,10 @@ export class CustomerLayoutComponent {
   private readonly router = inject(Router);
   private readonly toast = inject(ToastService);
 
+  constructor() {
+    this.cart.loadPersistedCart();
+  }
+
   protected async logout(): Promise<void> {
     const confirmed = await this.confirm.confirm({
       title: 'Sign out?',

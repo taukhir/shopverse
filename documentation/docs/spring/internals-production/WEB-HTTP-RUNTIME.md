@@ -11,6 +11,10 @@ last_reviewed: "2026-07-12"
 
 # Spring Web Execution And HTTP Runtime
 
+![Spring internals atlas including MVC dispatch and bounded connection-pool behavior](/img/diagrams/spring-internals-atlas.svg)
+
+*Use the MVC and pool panels to locate queueing before optimizing controller code.*
+
 A request may queue at load balancer, accept backlog, connector, application
 executor, connection pool, database, and downstream client. “Controller latency”
 can exclude earlier waits unless instrumentation spans the full path.
@@ -54,3 +58,9 @@ part limits, verify checksum/type, scan asynchronously, and clean abandoned data
 ## Recommended Next Page
 
 [Hibernate, JDBC, And Connection Internals](./HIBERNATE-JDBC-INTERNALS.md)
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Spring project documentation](https://spring.io/projects)

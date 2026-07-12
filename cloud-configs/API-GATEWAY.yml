@@ -43,7 +43,7 @@ spring:
             - id: user-service
               uri: lb://USER-SERVICE
               predicates:
-                - Path=/api/v1/users/**,/api/v1/roles/**,/api/v1/permissions/**
+                - Path=/api/v1/users/**,/api/v1/cart/**,/api/v1/roles/**,/api/v1/permissions/**
   security:
     oauth2:
       resourceserver:

@@ -77,3 +77,9 @@ capacity changes, runbooks, and architecture improvements.
 ## Recommended Next Page
 
 Read [Performance, Capacity, And FinOps](./PERFORMANCE-CAPACITY-FINOPS.md).
+
+## Official References
+
+- [Kubernetes documentation](https://kubernetes.io/docs/)
+- [Docker documentation](https://docs.docker.com/)
+- [Google SRE Book](https://sre.google/sre-book/table-of-contents/)

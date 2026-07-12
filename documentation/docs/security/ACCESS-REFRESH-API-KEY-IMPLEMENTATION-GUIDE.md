@@ -613,3 +613,9 @@ session continuity first, then machine-client access.
 - [JWKS asymmetric JWT](jwt/JWKS-ASYMMETRIC-JWT.md)
 - [API security principles](principles/API-SECURITY-PRINCIPLES.md)
 - [Secrets and credentials](principles/SECRETS-AND-CREDENTIALS.md)
+
+## Official References
+
+- [OAuth 2.0 Security Best Current Practice — RFC 9700](https://www.rfc-editor.org/rfc/rfc9700)
+- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)

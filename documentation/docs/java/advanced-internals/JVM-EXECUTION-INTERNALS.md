@@ -86,3 +86,16 @@ without treating microseconds from one run as a benchmark.
 ## Recommended Next Page
 
 [Java Memory Model And Safe Publication](./JAVA-MEMORY-MODEL.md)
+
+## Tricky Interview Questions
+
+1. Why can virtual dispatch be fast? Guarded JIT inlining.
+2. Why does deoptimization occur? A compiled assumption becomes invalid.
+3. Does source allocation prove heap allocation? Escape analysis may eliminate it.
+
+## Official References
+
+- [JVMS Chapter 5 — Loading, Linking, And Initializing](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-5.html)
+- [JVMS §2.6 — Frames](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.6)
+- [`javap` tool specification](https://docs.oracle.com/en/java/javase/25/docs/specs/man/javap.html)
+- [Java Flight Recorder API](https://docs.oracle.com/en/java/javase/25/jfapi/)

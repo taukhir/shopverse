@@ -72,3 +72,21 @@ No. The compiler still enforces the inferred type.
 
 No. Prefer readability over brevity.
 
+## Inference Boundaries
+
+`var` is permitted only for initialized local variables, loop variables and
+lambda parameters in supported syntax. It cannot describe fields, return types,
+method parameters or a null-only initializer. Inference captures the initializer's
+static type, which can expose an implementation type or intersection/capture that
+is awkward to communicate. Use an explicit interface type when abstraction is
+part of the design.
+
+## Tricky Interview Questions
+
+1. Is `var value = null` legal? No; no type can be inferred.
+2. Does `var` use runtime type? No; inference is compile-time.
+3. Can `var` change overload resolution? The initializer is resolved first; later calls use the inferred static type.
+
+## Official References
+
+- [JLS local variable type inference](https://docs.oracle.com/javase/specs/jls/se25/html/jls-14.html#jls-14.4)

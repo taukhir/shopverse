@@ -206,3 +206,9 @@ flowchart LR
 - [Spring Security](../security/SPRING-SECURITY-GENERIC.md)
 - [Spring Transactions](../spring/SPRING-TRANSACTIONS.md)
 - [Distributed systems](../architecture/DISTRIBUTED-SYSTEMS.md)
+
+## Official References
+
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
+- [RFC 9457 — Problem Details](https://www.rfc-editor.org/rfc/rfc9457)
+- [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)

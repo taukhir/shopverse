@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # Container, Bean Factory, And Auto-Configuration Internals
 
+![Spring context refresh phases from metadata loading through post-processors, singleton creation, proxies, and readiness](/img/diagrams/spring-context-refresh.svg)
+
+*Factory post-processors operate on definitions before normal beans exist. Bean
+post-processors operate on instances and may return a proxy.*
+
 `ApplicationContext` refresh prepares the bean factory, loads/merges definitions,
 invokes factory post-processors, registers bean post-processors, initializes event/
 message infrastructure, creates remaining non-lazy singletons, and publishes
@@ -66,3 +71,10 @@ verify ordering with the condition report and context startup logs.
 ## Recommended Next Page
 
 [AOP Proxies And Transaction Internals](./AOP-TRANSACTION-INTERNALS.md)
+
+## Official References
+
+- [Spring Framework — Container Extension Points](https://docs.spring.io/spring-framework/reference/core/beans/factory-extension.html)
+- [Spring Framework — Bean Lifecycle Callbacks](https://docs.spring.io/spring-framework/reference/core/beans/factory-nature.html)
+- [Spring Boot — Creating Auto-Configuration](https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html)
+- [Spring Boot — Externalized Configuration](https://docs.spring.io/spring-boot/reference/features/external-config.html)

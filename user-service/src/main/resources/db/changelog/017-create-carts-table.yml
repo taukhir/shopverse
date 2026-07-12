@@ -1,0 +1,103 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 017-create-carts-table
+      author: codex
+      changes:
+        - createTable:
+            tableName: carts
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: version
+                  type: BIGINT
+                  defaultValueNumeric: 0
+
+        - createTable:
+            tableName: cart_items
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: cart_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: version
+                  type: BIGINT
+                  defaultValueNumeric: 0
+
+        - addForeignKeyConstraint:
+            baseTableName: carts
+            baseColumnNames: user_id
+            constraintName: fk_carts_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: cart_items
+            baseColumnNames: cart_id
+            constraintName: fk_cart_items_cart
+            referencedTableName: carts
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addUniqueConstraint:
+            tableName: cart_items
+            columnNames: cart_id, product_id
+            constraintName: uk_cart_items_cart_product

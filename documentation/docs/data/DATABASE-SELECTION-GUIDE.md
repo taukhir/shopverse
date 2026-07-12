@@ -112,3 +112,7 @@ rebalancing, schema changes, and version upgrades—not only steady-state throug
 - Keep Redis, search, analytical, and vector stores rebuildable when possible.
 - Add polyglot persistence only when its measured benefit exceeds operational cost.
 - Record the decision, rejected options, benchmarks, and reassessment triggers in an ADR.
+
+## Recommended Next Page
+
+Continue with [Database Quick Choice](./database-selection/DATABASE-QUICK-CHOICE.md).

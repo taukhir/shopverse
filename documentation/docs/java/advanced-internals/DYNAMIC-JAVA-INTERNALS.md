@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # Reflection, Proxies, Generics, And Serialization
 
+![Java internals atlas including object layout, JIT, GC, virtual threads, collections, and measurement](/img/diagrams/java-internals-atlas.svg)
+
+*The collection and JIT panels help explain why reflection, erased bridges,
+generated proxies, and serialization shape can affect dispatch and allocation.*
+
 Reflection discovers and invokes runtime members with access, module, conversion,
 and performance constraints. Cache stable metadata where justified and never turn
 untrusted names into unrestricted invocation. Method handles are typed executable
@@ -59,3 +64,15 @@ suppressed exceptions. Preserve causal exceptions and avoid losing suppressed da
 ## Recommended Next Page
 
 [NIO, Zero-Copy, And Benchmarking](./NIO-PERFORMANCE-JMH.md)
+
+## Tricky Interview Questions
+
+1. Why can reflection caches leak deployments? Strong metadata keys retain defining loaders.
+2. Can self-invocation bypass a dynamic proxy? Yes.
+3. Why use method handles? Typed, adaptable dynamic invocation with optimizable linkage.
+
+## Official References
+
+- [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se25/html/)
+- [Java Virtual Machine Specification](https://docs.oracle.com/javase/specs/jvms/se25/html/)
+- [Java SE 25 API](https://docs.oracle.com/en/java/javase/25/docs/api/)

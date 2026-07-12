@@ -160,3 +160,8 @@ custom interface only when the domain name improves clarity.
 
 No. If logic is long, branching-heavy, or reused in many places, a named method
 or class is clearer.
+
+## Official References
+
+- [`java.util.function`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/function/package-summary.html)
+- [JLS functional interfaces](https://docs.oracle.com/javase/specs/jls/se25/html/jls-9.html#jls-9.8)

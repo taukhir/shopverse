@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 PaymentConstants.PUBLIC_API + "/**",
+                                PaymentConstants.API_ROOT + "/webhooks/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
                         ).permitAll()
@@ -61,7 +62,9 @@ public class SecurityConfig {
 
         return request -> {
             String path = request.getRequestURI();
-            if (path.startsWith(PaymentConstants.PUBLIC_API + "/") || isPublicActuatorEndpoint(path)) {
+            if (path.startsWith(PaymentConstants.PUBLIC_API + "/")
+                    || path.startsWith(PaymentConstants.API_ROOT + "/webhooks/")
+                    || isPublicActuatorEndpoint(path)) {
                 return null;
             }
             return delegate.resolve(request);

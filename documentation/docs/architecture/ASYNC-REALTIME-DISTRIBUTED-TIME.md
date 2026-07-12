@@ -74,3 +74,9 @@ define how late events correct results. Keep replay deterministic.
 ## Recommended Next Page
 
 Read [Multi-Tenancy, Object Storage, And Feature Flags](./MULTITENANCY-STORAGE-FEATURE-FLAGS.md).
+
+## Official References
+
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)

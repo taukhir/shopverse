@@ -251,3 +251,12 @@ checkpointing, restart, job history, or skip/retry policy.
 - [Spring Data JPA](./SPRING-DATA-JPA.md)
 - [Spring Boot Testing](./SPRING-BOOT-TESTING.md)
 - [Spring Reactive And WebFlux](./SPRING-REACTIVE.md)
+
+## Official References
+
+- [Spring Batch reference](https://docs.spring.io/spring-batch/reference/)
+- [Spring Batch API](https://docs.spring.io/spring-batch/docs/current/api/)
+
+## Recommended Next Page
+
+Continue with [Spring Reactive And WebFlux](./SPRING-REACTIVE.md).

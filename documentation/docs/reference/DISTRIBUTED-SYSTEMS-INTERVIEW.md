@@ -12,6 +12,11 @@ last_reviewed: "2026-07-11"
 
 # Distributed Systems Interview Questions
 
+![Eight-step system-design method from requirements and estimates through operations and evolution](/img/diagrams/system-design-method.svg)
+
+*Use the same reasoning loop for every answer: clarify, estimate, define
+invariants and data ownership, analyze failure, then defend alternatives.*
+
 These questions emphasize precise guarantees and trade-offs. Strong answers
 state assumptions instead of naming a technology as a universal solution.
 
@@ -292,3 +297,9 @@ use timestamps blindly.
 - [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
 - [Transactions And Locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md)
 - [Failure And Consensus](../reliability/DISTRIBUTED-FAILURE-CONSENSUS.md)
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)

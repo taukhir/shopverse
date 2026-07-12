@@ -21,6 +21,13 @@ Back to [Shopverse Problems And Solutions](../PROBLEMS-AND-SOLUTIONS.md).
 | Runtime | Outbox database lock held during Kafka wait | short claim and finalization transactions |
 | Runtime | Worker crash strands a claimed Outbox event | timestamped claims and stale-claim recovery |
 | Runtime | Inventory outage returned `404` | explicit `ServiceUnavailableException` mapped to `503` |
+| Runtime | Cancelled orders could leave stock reserved | `OrderCancelledEvent` plus Inventory cancellation listener releases reservations |
+| Runtime | Checkout lacked durable delivery details | account address book plus immutable Order shipping snapshot |
+| Runtime | Cart disappeared across sessions/devices | User Service persisted cart APIs plus Angular account-cart sync |
+| Runtime | Product detail and related products depended on broad catalog reads | Inventory public item detail, categories, and related-product APIs |
+| Runtime | Customer payment retry/refund and return actions were placeholders | owner-protected payment retry/refund and order return-request endpoints |
+| Runtime | Operations could not progress confirmed orders through fulfillment | admin pack, ship/out-for-delivery, and deliver transitions |
+| Runtime | Provider payment callbacks had no API surface | payment webhook baseline endpoint with provider-signature verification marked as hardening |
 | Security | Services could run as container root | dedicated non-root `shopverse` user |
 | Build | Parallel builds shared Gradle cache metadata | unique BuildKit cache ID per service |
 | Build | JAR ownership changed in a later immutable layer | `COPY --chown` and targeted log-directory ownership |

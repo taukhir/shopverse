@@ -83,3 +83,20 @@ Optional fields create mapping and serialization confusion.
 It is unsafe unless presence is already guaranteed. Prefer `orElseThrow`,
 `map`, `flatMap`, or `ifPresent`.
 
+## Runtime And API Design
+
+`Optional` is a value-based return abstraction, not a universal nullable wrapper.
+Do not synchronize on it or depend on identity. `orElse` evaluates eagerly while
+`orElseGet` invokes its supplier only when empty—a remote/database fallback in
+`orElse` therefore runs even when unused. Avoid Optional fields, parameters and
+collection elements unless a specific contract justifies the extra state.
+
+## Tricky Interview Questions
+
+1. Why can `orElse(expensive())` be slow for present values? Its argument is evaluated first.
+2. Does `map` preserve null? A null mapping result becomes empty.
+3. Is `Optional` serializable? It does not implement `Serializable`.
+
+## Official References
+
+- [`Optional`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Optional.html)

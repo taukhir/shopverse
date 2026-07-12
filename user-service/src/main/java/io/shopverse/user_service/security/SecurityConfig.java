@@ -59,6 +59,8 @@ public class SecurityConfig {
                         .requestMatchers(ApiConstants.PUBLIC_API + "/**",
 
                                 ApiConstants.SWAGGER, ApiConstants.SWAGGER_HTML, ApiConstants.OPEN_API).permitAll()
+                        .requestMatchers(ApiConstants.CART + "/**").hasAnyRole("CUSTOMER", "ADMIN")
+                        .requestMatchers(ApiConstants.CART).hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers(ApiConstants.ROLES + "/**").hasRole("ADMIN")
                         .anyRequest().authenticated())

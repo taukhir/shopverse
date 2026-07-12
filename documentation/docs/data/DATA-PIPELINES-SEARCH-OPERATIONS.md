@@ -70,3 +70,9 @@ deletion against authoritative data.
 ## Recommended Next Page
 
 Continue with [SRE, Disaster Recovery, And Chaos Engineering](../operations/SRE-DR-CHAOS.md).
+
+## Official References
+
+- [Apache Kafka design](https://kafka.apache.org/documentation/#design)
+- [Elasticsearch aliases](https://www.elastic.co/guide/en/elasticsearch/reference/current/aliases.html)
+- [OpenSearch index aliases](https://docs.opensearch.org/latest/im-plugin/index-alias/)

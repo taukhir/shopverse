@@ -11,6 +11,13 @@ last_reviewed: "2026-07-10"
 
 # Java Fundamentals
 
+:::info Canonical learning route
+This URL remains the foundation overview. Senior readers should continue through
+[Core Java Deep Dive](./CORE-JAVA-DEEP-DIVE.md) and the
+[Lead And Architect Path](./JAVA-LEAD-ARCHITECT-PATH.md); detailed mechanics are
+owned by their focused child chapters rather than duplicated here.
+:::
+
 Java is a statically typed, object-oriented, class-based language designed to
 run on the Java Virtual Machine. The main idea is that Java source code is
 compiled into bytecode, and the JVM executes that bytecode on different
@@ -114,3 +121,10 @@ Java applications.
 It loads classes, verifies bytecode, executes code, manages memory, runs GC,
 and coordinates threads.
 
+## Recommended Next Page
+
+Continue with [Java OOP](./JAVA-OOP.md).
+
+## Official References
+
+- [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se25/html/index.html)

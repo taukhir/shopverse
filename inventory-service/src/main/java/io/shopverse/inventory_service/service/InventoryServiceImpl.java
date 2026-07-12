@@ -24,6 +24,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.List;
 import java.time.Instant;
+import java.util.Comparator;
 
 @Slf4j
 @Service
@@ -81,6 +82,29 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public List<InventoryResponse> getAll() {
         return itemRepository.findAll().stream().map(this::toResponse).toList();
+    }
+
+    @Override
+    public List<String> getCategories() {
+        return itemRepository.findAll().stream()
+                .map(InventoryItem::getCategory)
+                .filter(category -> category != null && !category.isBlank())
+                .distinct()
+                .sorted()
+                .toList();
+    }
+
+    @Override
+    public List<InventoryResponse> getRelated(Long productId) {
+        InventoryItem item = findItem(productId);
+        List<InventoryItem> related = item.getCategory() == null || item.getCategory().isBlank()
+                ? itemRepository.findAll().stream()
+                        .filter(candidate -> !candidate.getProductId().equals(productId))
+                        .sorted(Comparator.comparing(InventoryItem::getAvailableQuantity).reversed())
+                        .limit(8)
+                        .toList()
+                : itemRepository.findTop8ByCategoryAndProductIdNotOrderByAvailableQuantityDesc(item.getCategory(), productId);
+        return related.stream().map(this::toResponse).toList();
     }
 
     @Override

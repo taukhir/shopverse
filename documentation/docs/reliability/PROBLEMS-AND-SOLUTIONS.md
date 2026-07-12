@@ -13,6 +13,7 @@ For the newer grouped index, start with
 
 | Page | Covers |
 |---|---|
+| [Current Problems And Solutions](problems/CURRENT-PROBLEMS-AND-SOLUTIONS.md) | Current solved, partial, and remaining hardening items across runtime, API, frontend, Docker, and verification. |
 | [Runtime Reliability Problems](problems/RUNTIME-RELIABILITY-PROBLEMS.md) | Distributed checkout, SAGA visibility, resource ownership, reservation expiry, duplicate checkout, checkout dependency lookup scope, Kafka idempotency, payment uncertainty, and locking decisions. |
 | [Outbox Runtime Problems](problems/OUTBOX-RUNTIME-PROBLEMS.md) | Outbox database lock scope and stale outbox claim recovery. |
 | [Docker And Runtime Image Problems](problems/DOCKER-RUNTIME-IMAGE-PROBLEMS.md) | Parallel Gradle cache locks, duplicate JAR ownership layers, non-root containers, and multi-stage runtime image composition. |

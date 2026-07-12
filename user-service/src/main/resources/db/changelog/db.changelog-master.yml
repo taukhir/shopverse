@@ -47,3 +47,6 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/016-create-user-addresses-table.yml
+
+  - include:
+      file: db/changelog/017-create-carts-table.yml

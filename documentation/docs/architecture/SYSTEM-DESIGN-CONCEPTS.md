@@ -54,3 +54,7 @@ justify technology. Learn concepts in dependency order rather than as isolated b
 
 Continue with [Sixteen HLD Case Studies](./hld-lld/SIXTEEN-SYSTEM-DESIGN-CASE-STUDIES.md)
 to apply these concepts to recognizable systems.
+
+## Recommended Next Page
+
+Continue with [System Design Deep Dives](./SYSTEM-DESIGN-DEEP-DIVES.md).

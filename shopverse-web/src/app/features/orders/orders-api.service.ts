@@ -85,6 +85,18 @@ export class OrdersApiService {
     return this.http.post<Order>(API_PATHS.orders.cancel(id), {});
   }
 
+  requestReturn(id: number | string) {
+    return this.http.post<Order>(API_PATHS.orders.returnRequest(id), {});
+  }
+
+  retryPayment(orderNumber: string) {
+    return this.http.post<Payment>(API_PATHS.payments.retry(orderNumber), {});
+  }
+
+  requestRefund(orderNumber: string) {
+    return this.http.post<Payment>(API_PATHS.payments.refund(orderNumber), {});
+  }
+
   getOrderWorkflowState(order: Order): Observable<OrderWorkflowState> {
     return forkJoin({
       timeline: this.http.get<TimelineEvent[]>(API_PATHS.orders.timeline(order.id)).pipe(catchError(() => of([]))),

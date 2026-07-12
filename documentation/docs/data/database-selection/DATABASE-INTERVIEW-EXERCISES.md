@@ -126,3 +126,9 @@ Use this structure in every interview:
 
 Compare your answers with [Database System Design Scenarios](./SYSTEM-DESIGN-SCENARIOS.md)
 and formalize the final choice using the [Database Decision Worksheet](./DATABASE-DECISION-WORKSHEET.md).
+
+## Official References
+
+- [PostgreSQL documentation](https://www.postgresql.org/docs/current/)
+- [MySQL Reference Manual](https://dev.mysql.com/doc/refman/8.4/en/)
+- [Apache Cassandra documentation](https://cassandra.apache.org/doc/latest/)

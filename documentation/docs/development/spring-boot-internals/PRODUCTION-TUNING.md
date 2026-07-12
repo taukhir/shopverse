@@ -451,7 +451,7 @@ them in `/actuator/prometheus` before creating alerts.
 
 ## Official References
 
-- [Spring Boot efficient deployments](https://docs.spring.io/spring-boot/how-to/deployment/efficient.html)
+- [Spring Boot efficient deployments](https://docs.spring.io/spring-boot/reference/packaging/efficient.html)
 - [Spring Boot graceful shutdown](https://docs.spring.io/spring-boot/reference/web/graceful-shutdown.html)
 - [Spring Boot Actuator startup endpoint](https://docs.spring.io/spring-boot/api/rest/actuator/startup.html)
 - [Spring Boot virtual threads](https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.virtual-threads)

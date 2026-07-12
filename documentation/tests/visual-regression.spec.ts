@@ -14,3 +14,18 @@ test('technical article in dark mode', async ({page}, testInfo) => {
   await page.goto('./development/ENGINEERING-PRINCIPLES');
   await expect(page).toHaveScreenshot('engineering-principles-dark.png', {animations:'disabled', fullPage:true, maxDiffPixelRatio:0.01});
 });
+
+for (const route of [
+  'java/ADVANCED-JAVA-INTERNALS',
+  'spring/SPRING-BOOT-INTERNALS-PRODUCTION',
+  'architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS',
+]) {
+  test(`${route} visual article`, async ({page}, testInfo) => {
+    await page.emulateMedia({colorScheme: testInfo.project.name.includes('mobile') ? 'light' : 'dark'});
+    await page.goto(`./${route}`);
+    await expect(page.locator('article')).toBeVisible();
+    await expect(page.locator('img').first()).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
+    expect(await page.locator('img').evaluateAll((images) => images.filter((image) => !image.complete || image.naturalWidth === 0).map((image) => image.src))).toEqual([]);
+  });
+}

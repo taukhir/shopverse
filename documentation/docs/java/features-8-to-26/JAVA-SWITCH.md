@@ -71,3 +71,20 @@ Arrow labels avoid fall-through, and expressions force all cases to be handled.
 Use `default` for open-ended inputs. For enums or sealed types, avoiding
 `default` can let the compiler catch newly added cases.
 
+## Resolution And Exhaustiveness
+
+Switch expressions must produce a value or complete abruptly on every path.
+Arrow rules avoid accidental fall-through; colon groups in expressions use
+`yield`. Pattern dominance is compile-time checked, and null handling is explicit
+in modern pattern switches. Avoid a `default` for closed enum/sealed models when
+you want recompilation to expose new cases.
+
+## Tricky Interview Questions
+
+1. Is `break value` used in switch expressions? No; use `yield` in colon groups.
+2. Can a guarded broad pattern precede a narrower dominated pattern? Dominance rules may reject it.
+3. Does classic switch accept null safely? It generally throws unless a supported pattern switch handles null explicitly.
+
+## Official References
+
+- [JLS switch](https://docs.oracle.com/javase/specs/jls/se25/html/jls-14.html#jls-14.11)

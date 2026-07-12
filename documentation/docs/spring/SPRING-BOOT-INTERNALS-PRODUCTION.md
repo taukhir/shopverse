@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # Spring Boot Internals And Production Engineering
 
+![Six-panel visual atlas of proxies, transactions, MVC, Hibernate, connection pools, and graceful shutdown](/img/diagrams/spring-internals-atlas.svg)
+
+*The useful debugging question is always concrete: which proxy, thread,
+transaction, entity state, connection, and lifecycle phase owns this work?*
+
 This track moves from container construction to web execution, transactions,
 persistence, security/observability, and production lifecycle.
 
@@ -34,3 +39,13 @@ Existing implementation detail remains in:
 You should be able to explain startup ordering, why a proxy did not intercept a
 call, when Hibernate flushes, where a request queues, how a connection is acquired,
 and how shutdown, tracing, secrets, and Kubernetes readiness interact.
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Spring project documentation](https://spring.io/projects)
+
+## Recommended Next Page
+
+Continue with [Container, Bean Factory, And Auto-Configuration](./internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md).

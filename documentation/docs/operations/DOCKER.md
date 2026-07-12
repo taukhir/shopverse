@@ -269,3 +269,7 @@ Use the project guide for exact commands and line-by-line Compose explanations:
 - [Docker image size optimization](../reliability/problems/optimization/DOCKER-IMAGE-SIZE-OPTIMIZATION.md)
 - [Docker Compose profiles](../reliability/problems/optimization/DOCKER-COMPOSE-PROFILES.md)
 - [Runtime optimization](../reliability/problems/optimization/RUNTIME-OPTIMIZATION.md)
+
+## Recommended Next Page
+
+Continue with [Docker Internals, Layers, And Storage](./DOCKER-INTERNALS-LAYERS-STORAGE.md).

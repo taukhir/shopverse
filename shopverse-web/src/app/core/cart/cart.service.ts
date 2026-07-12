@@ -1,5 +1,9 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import { catchError, of } from 'rxjs';
 
+import { API_PATHS } from '../api/api-paths';
+import { SessionService } from '../auth/session.service';
 import { STORAGE_KEYS } from '../constants/storage-keys';
 
 export interface CartProduct {
@@ -14,11 +18,58 @@ export interface CartItem extends CartProduct {
   quantity: number;
 }
 
+interface PersistedCartItem { productId: number; quantity: number; }
+interface PersistedCartResponse { items: PersistedCartItem[]; valid: boolean; message: string; }
+interface InventoryCartItem {
+  productId: number;
+  productName: string;
+  unitPrice: number;
+  imageUrl?: string;
+  available: boolean;
+}
+
 @Injectable({ providedIn: 'root' })
 export class CartService {
+  private readonly http = inject(HttpClient);
+  private readonly session = inject(SessionService);
   readonly items = signal<CartItem[]>(this.readCart());
   readonly itemCount = computed(() => this.items().reduce((total, item) => total + item.quantity, 0));
   readonly total = computed(() => this.items().reduce((total, item) => total + item.price * item.quantity, 0));
+  readonly syncing = signal(false);
+  readonly syncError = signal('');
+
+  loadPersistedCart(): void {
+    if (!this.session.isAuthenticated()) return;
+    this.syncing.set(true);
+    this.syncError.set('');
+    this.http.get<PersistedCartResponse>(API_PATHS.cart.root).pipe(
+      catchError(() => {
+        this.syncError.set('Saved cart is unavailable; using this browser cart.');
+        return of(null);
+      }),
+    ).subscribe((cart) => {
+      if (cart) this.restorePersistedItems(cart.items);
+      this.syncing.set(false);
+    });
+  }
+
+  mergeLocalToAccount(): void {
+    if (!this.session.isAuthenticated() || !this.items().length) return;
+    this.syncing.set(true);
+    this.http.post<PersistedCartResponse>(API_PATHS.cart.merge, this.toPersistedRequest()).pipe(
+      catchError(() => {
+        this.syncError.set('Could not sync cart to your account yet.');
+        return of(null);
+      }),
+    ).subscribe((cart) => {
+      if (cart) this.restorePersistedItems(cart.items);
+      this.syncing.set(false);
+    });
+  }
+
+  validatePersistedCart() {
+    return this.http.post<PersistedCartResponse>(API_PATHS.cart.validate, {});
+  }
 
   add(product: CartProduct): void {
     this.update((items) => {
@@ -43,6 +94,40 @@ export class CartService {
     const next = transform(this.items());
     this.items.set(next);
     localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(next));
+    this.persistQuantities(next);
+  }
+
+  private persistQuantities(items: CartItem[]): void {
+    if (!this.session.isAuthenticated()) return;
+    this.http.put<PersistedCartResponse>(API_PATHS.cart.root, {
+      items: items.map((item) => ({ productId: item.productId, quantity: item.quantity })),
+    }).pipe(catchError(() => of(null))).subscribe();
+  }
+
+  private restorePersistedItems(persistedItems: PersistedCartItem[]): void {
+    this.http.get<InventoryCartItem[]>(API_PATHS.inventory.publicItems).pipe(catchError(() => of([]))).subscribe((catalog) => {
+      const catalogById = new Map(catalog.map((item) => [item.productId, item]));
+      const localById = new Map(this.items().map((item) => [item.productId, item]));
+      const next = persistedItems.map((item) => {
+        const product = catalogById.get(item.productId);
+        return {
+          ...(localById.get(item.productId) ?? {
+            productId: item.productId,
+            productName: product?.productName ?? `Product ${item.productId}`,
+            price: product?.unitPrice ?? 0,
+            imageUrl: product?.imageUrl,
+            available: product?.available ?? true,
+          }),
+          quantity: item.quantity,
+        };
+      });
+      this.items.set(next);
+      localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(next));
+    });
+  }
+
+  private toPersistedRequest(): { items: PersistedCartItem[] } {
+    return { items: this.items().map((item) => ({ productId: item.productId, quantity: item.quantity })) };
   }
 
   private readCart(): CartItem[] {

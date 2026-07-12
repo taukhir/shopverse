@@ -11,6 +11,17 @@ last_reviewed: "2026-07-12"
 
 # Advanced Java Internals
 
+:::info Canonical learning route
+This page is now the JVM/performance umbrella. Follow
+[JVM Architecture And Operations](./JAVA-JVM-ARCHITECTURE-OPERATIONS.md), then
+the focused execution, GC/layout, NIO, dynamic-Java and executable-lab chapters.
+:::
+
+![Six-panel visual atlas of Java object layout, JIT, GC, virtual threads, HashMap, and JMH](/img/diagrams/java-internals-atlas.svg)
+
+*Use the atlas as a map; each linked chapter explains where the simplified
+runtime model stops and implementation-specific evidence begins.*
+
 This track explains why Java code behaves as it does at runtime. Read the existing
 language and collection guides first; then follow execution, memory, concurrency,
 dynamic behavior, I/O, and measurement.
@@ -37,3 +48,18 @@ Supporting foundations:
 You should be able to read bytecode and thread dumps, explain happens-before,
 choose concurrency primitives, detect virtual-thread pinning, profile CPU/allocation/
 locks, and design a JMH benchmark that resists dead-code elimination and warmup bias.
+
+## Tricky Interview Questions
+
+1. Can high latency with low CPU be a JVM execution problem? It may instead be parking, locks, queues or dependencies; require evidence.
+2. Why is warm-up part of architecture? Tiered compilation changes startup behavior and capacity.
+
+## Official References
+
+- [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se25/html/)
+- [Java Virtual Machine Specification](https://docs.oracle.com/javase/specs/jvms/se25/html/)
+- [Java SE 25 API](https://docs.oracle.com/en/java/javase/25/docs/api/)
+
+## Recommended Next Page
+
+Continue with [JVM Execution Internals](./advanced-internals/JVM-EXECUTION-INTERNALS.md).

@@ -603,3 +603,9 @@ local-demo posture to production posture.
 
 Those changes preserve the current functionality while improving scalability,
 maintainability, security, and operational confidence.
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)

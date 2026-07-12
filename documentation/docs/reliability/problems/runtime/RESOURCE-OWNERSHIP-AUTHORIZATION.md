@@ -527,3 +527,9 @@ The complete commands are maintained in the
 - [Spring Security JWT resource-server reference](https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html)
 - [JwtAuthenticationToken API](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/oauth2/server/resource/authentication/JwtAuthenticationToken.html)
 - [JwtAuthenticationConverter API](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/oauth2/server/resource/authentication/JwtAuthenticationConverter.html)
+
+## Official References
+
+- [Spring transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [PostgreSQL explicit locking](https://www.postgresql.org/docs/current/explicit-locking.html)

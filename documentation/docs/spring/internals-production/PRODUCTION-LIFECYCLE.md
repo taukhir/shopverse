@@ -11,6 +11,10 @@ last_reviewed: "2026-07-12"
 
 # Spring Boot Production Lifecycle, Security, And Observability
 
+![Spring internals atlas including proxy, transaction, MVC, persistence, connection-pool, and shutdown flows](/img/diagrams/spring-internals-atlas.svg)
+
+*Production lifecycle coordinates all six resource boundaries represented here.*
+
 ## Startup And Readiness
 
 Separate process alive, application started, and traffic ready. Migrations,
@@ -61,3 +65,9 @@ stampede, invalidation, negative-cache, size and fallback policy.
 Measure condition report, bean count, class loading, JFR startup, heap/native memory,
 thread stacks, caches and connection pools. Remove unused starters/auto-configuration,
 defer only safe work, and compare JVM CDS/AOT/native approaches with production SLOs.
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Spring project documentation](https://spring.io/projects)

@@ -59,3 +59,9 @@ optimistic conflict, lock wait, pool saturation, and replica lag simulation.
 ## Recommended Next Page
 
 [Production Lifecycle, Security, And Observability](./PRODUCTION-LIFECYCLE.md)
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Spring project documentation](https://spring.io/projects)

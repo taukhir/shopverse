@@ -78,4 +78,9 @@ public class PaymentEntity extends BaseAuditableEntity {
     public void refund() {
         status = PaymentStatus.REFUNDED;
     }
+
+    public void markPending() {
+        status = PaymentStatus.PENDING;
+        failureReason = null;
+    }
 }

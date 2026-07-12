@@ -302,3 +302,9 @@ shows aggregate health.
 - Partition by the aggregate key when per-order ordering matters.
 - Never include database work and broker network waits in one long lock scope.
 - Make replay authorized, audited, rate limited, and idempotent.
+
+## Official References
+
+- [Spring transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [PostgreSQL explicit locking](https://www.postgresql.org/docs/current/explicit-locking.html)

@@ -28,11 +28,25 @@ The goal is to keep two tracks clear:
 | Docker operations | [Docker](../operations/DOCKER.md) | [Shopverse Docker](../operations/SHOPVERSE-DOCKER.md) |
 | Build/runtime optimization | [Operations](../operations/README.md) | [Optimization Solutions](../reliability/problems/OPTIMIZATION-SOLUTIONS.md) |
 | Runtime reliability | [Distributed Systems](../architecture/DISTRIBUTED-SYSTEMS.md) | [Problems And Solutions Index](../reliability/problems/README.md) |
+| JVM memory and GC | [JVM Memory Model](../java/JAVA-JVM-MEMORY.md) and [JVM Profiling/GC](../java/JVM-PROFILING-GC-NATIVE.md) | Service tuning pages link to these concepts |
+| Java concurrency | [Advanced Java Internals](../java/ADVANCED-JAVA-INTERNALS.md) | Service schedulers/consumers retain only workload-specific bounds |
+| Spring container lifecycle | [Container And BeanFactory Internals](../spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md) | Shopverse startup pages retain configuration and observed behavior |
+| Spring proxy transactions | [AOP And Transaction Internals](../spring/internals-production/AOP-TRANSACTION-INTERNALS.md) | Service pages retain concrete transaction boundaries |
+| Hibernate/JDBC performance | [Hibernate, JDBC, And Connections](../spring/internals-production/HIBERNATE-JDBC-INTERNALS.md) | Repository/problem pages retain measured queries and plans |
+| Database selection | [Database Design And Selection](../data/DATABASE-SELECTION-GUIDE.md) | Shopverse ADRs record the chosen engine and evidence |
+| Distributed scheduler ownership | [Distributed Schedulers And Work Claims](../reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md) | Reservation/outbox pages retain claim SQL and code paths |
+| System-design method | [System Design Deep Dives](../architecture/SYSTEM-DESIGN-DEEP-DIVES.md) | Case studies apply the method without redefining it |
+| API contracts | [Production REST API Design](../development/REST-API-PRODUCTION-DESIGN.md) | Controllers/gateway pages retain implemented endpoints and policies |
 
 ## Consolidation Rules
 
 When two pages overlap, do not immediately delete one. First decide which page
 is canonical for the reader goal.
+
+The semantic audit currently reports no page pairs above its near-duplicate
+threshold after fenced code samples are excluded. Therefore no destructive merge
+is justified. The canonical mappings above prevent future drift while preserving
+separate concept, implementation, runbook, lab, and interview reader goals.
 
 | If the content is... | Put the detail here | Put only a link here |
 |---|---|---|

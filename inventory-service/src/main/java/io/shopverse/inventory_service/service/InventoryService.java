@@ -14,6 +14,10 @@ public interface InventoryService {
 
     List<InventoryResponse> getAll();
 
+    List<String> getCategories();
+
+    List<InventoryResponse> getRelated(Long productId);
+
     InventoryReservationResponse getReservationByOrderNumber(String orderNumber);
 
     boolean reserve(String orderNumber, String correlationId, Long productId, int quantity);

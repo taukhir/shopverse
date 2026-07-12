@@ -161,3 +161,9 @@ optimistic versions, conditional writes, and replayable outbox/CDC pipelines.
 
 The correct choice is the weakest model that still preserves the business
 invariants and user contract—not the weakest model the database can offer.
+
+## Official References
+
+- [PostgreSQL documentation](https://www.postgresql.org/docs/current/)
+- [MySQL Reference Manual](https://dev.mysql.com/doc/refman/8.4/en/)
+- [Apache Cassandra documentation](https://cassandra.apache.org/doc/latest/)

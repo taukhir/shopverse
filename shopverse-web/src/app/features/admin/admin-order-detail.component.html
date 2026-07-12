@@ -34,6 +34,9 @@
         <button type="button" (click)="cancelOrder()" [disabled]="!canCancelOrder() || actionLoading()">
           {{ actionLoading() ? 'Cancelling...' : 'Cancel order' }}
         </button>
+        <button type="button" (click)="runFulfillmentAction('pack')" [disabled]="!canPackOrder() || actionLoading()">Pack</button>
+        <button type="button" (click)="runFulfillmentAction('ship')" [disabled]="!canShipOrder() || actionLoading()">Ship / Out for delivery</button>
+        <button type="button" (click)="runFulfillmentAction('deliver')" [disabled]="!canDeliverOrder() || actionLoading()">Deliver</button>
         <a routerLink="/admin/payments">Payment operations</a>
         <button type="button" disabled>Retry inventory soon</button>
       </div>

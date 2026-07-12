@@ -159,6 +159,11 @@ Do not ignore interruption when using `get()`.
 
 ## Execution Model
 
+`CompletableFuture` does not create a special “async thread” type. A stage is a
+unit of work that may execute immediately on the completing/calling thread or
+be submitted to an executor. The `Async` suffix controls scheduling, not
+whether the resulting value is conceptually asynchronous.
+
 There are two important forms:
 
 ```java
@@ -183,6 +188,44 @@ CompletableFuture<User> userFuture =
 ```
 
 Avoid putting blocking database or HTTP calls into the common pool.
+
+| Construction/stage | Where it normally executes |
+|---|---|
+| `completedFuture(value)` | no task; value is already available |
+| `thenApply(fn)` | thread completing the prior stage, or caller when already complete |
+| `thenApplyAsync(fn)` | common pool |
+| `thenApplyAsync(fn, executor)` | supplied executor |
+| `supplyAsync(task)` | common pool |
+| `supplyAsync(task, executor)` | supplied executor |
+
+Do not assume adjacent non-`Async` callbacks stay on the original request
+thread. Their execution thread depends on which thread completes the upstream
+stage. For blocking I/O, use an owned bounded executor or virtual-thread-per-
+task executor and still respect downstream limits.
+
+## Fan-Out, Join And Fan-In
+
+Start independent work before joining it. Joining immediately after each
+submission accidentally serializes the workflow.
+
+```java
+CompletableFuture<User> user = supplyAsync(() -> loadUser(id), ioExecutor);
+CompletableFuture<List<Order>> orders =
+        supplyAsync(() -> loadOrders(id), ioExecutor);
+
+CompletableFuture<Dashboard> dashboard = user.thenCombine(
+        orders,
+        Dashboard::new
+);
+
+return dashboard.join(); // block once at the boundary, after composition
+```
+
+For a dynamic collection, `allOf` supplies the completion barrier, while each
+typed future retains its value. Decide whether one failure should fail the
+whole group, whether siblings should be cancelled, and whether partial results
+are an allowed contract. `join` does not combine threads; it waits for a stage
+and unwraps failure through `CompletionException`.
 
 ## `supplyAsync`
 
@@ -534,3 +577,8 @@ needed to complete that same future.
 
 It is safe after adding timeouts and exception handling. Without those, it can
 wait indefinitely or fail with a wrapped exception.
+
+## Official References
+
+- [`CompletableFuture`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/CompletableFuture.html)
+- [`CompletionStage`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/CompletionStage.html)

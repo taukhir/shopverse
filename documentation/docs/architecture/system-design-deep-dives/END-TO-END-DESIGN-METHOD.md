@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # End-To-End System Design Method
 
+![Eight-step system-design method from requirements and estimates through operations and evolution](/img/diagrams/system-design-method.svg)
+
+*The feedback arrow is deliberate: estimates, access patterns, failure tests, and
+cost evidence frequently invalidate early assumptions.*
+
 ## 1. Clarify Scope
 
 Identify actors and top journeys; explicitly exclude features. Ask about correctness,
@@ -74,3 +79,10 @@ Avoid presenting a hyperscale architecture as the day-one answer.
 ## Recommended Next Page
 
 [Distributed Component Internals](./DISTRIBUTED-COMPONENT-INTERNALS.md)
+
+## Official References
+
+- [Google SRE Book — Service Level Objectives](https://sre.google/sre-book/service-level-objectives/)
+- [Google SRE Book — Handling Overload](https://sre.google/sre-book/handling-overload/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)

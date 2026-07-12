@@ -6,3 +6,13 @@ spring:
 
 server:
   port: ${SERVER_PORT:8086}
+
+shopverse:
+  kafka:
+    topics:
+      order-created: ${ORDER_CREATED_TOPIC:shopverse.order.created}
+      order-cancelled: ${ORDER_CANCELLED_TOPIC:shopverse.order.cancelled}
+      inventory-reserved: ${INVENTORY_RESERVED_TOPIC:shopverse.inventory.reserved}
+      inventory-failed: ${INVENTORY_FAILED_TOPIC:shopverse.inventory.failed}
+      payment-completed: ${PAYMENT_COMPLETED_TOPIC:shopverse.payment.completed}
+      payment-failed: ${PAYMENT_FAILED_TOPIC:shopverse.payment.failed}

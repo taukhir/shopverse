@@ -131,12 +131,29 @@ export class AdminOrderDetailComponent {
     return ['ORDER_CREATED', 'PENDING_INVENTORY', 'INVENTORY_RESERVED', 'PAYMENT_PROCESSING', 'PAYMENT_FAILED'].includes(this.order()?.status ?? '');
   }
 
+  protected canPackOrder(): boolean {
+    return this.order()?.status === 'CONFIRMED';
+  }
+
+  protected canShipOrder(): boolean {
+    return ['PACKING', 'SHIPPED'].includes(this.order()?.status ?? '');
+  }
+
+  protected canDeliverOrder(): boolean {
+    return ['SHIPPED', 'OUT_FOR_DELIVERY'].includes(this.order()?.status ?? '');
+  }
+
   protected actionHint(): string {
     const order = this.order();
     const status = order?.status ?? '';
     if (!order) return 'Load an order to inspect operations.';
     if (this.canCancelOrder()) return 'This order can be cancelled from operations.';
+    if (this.canPackOrder()) return 'This confirmed order is ready for packing.';
+    if (this.canShipOrder()) return status === 'SHIPPED' ? 'This order can move out for delivery.' : 'This packed order can be shipped.';
+    if (this.canDeliverOrder()) return 'This shipment can be marked delivered.';
     if (status === 'CONFIRMED') return 'Confirmed orders are locked until refund/return workflows are added.';
+    if (status === 'DELIVERED') return 'Delivered orders are complete unless the customer requests a return.';
+    if (status === 'RETURN_REQUESTED') return 'Customer requested a return. Return approval workflow is pending.';
     if (status === 'CANCELLED') return 'This order is already cancelled. No further cancellation action is available.';
     if (status === 'INVENTORY_REJECTED') return 'Inventory rejected this order. Ask the customer to create a new checkout.';
     return 'No direct admin action is currently available for this state.';
@@ -170,6 +187,28 @@ export class AdminOrderDetailComponent {
       error: () => {
         this.actionLoading.set(false);
         this.toast.error('Admin cancellation failed for this order state.');
+      },
+    });
+  }
+
+  protected runFulfillmentAction(action: 'pack' | 'ship' | 'deliver'): void {
+    const order = this.order();
+    if (!order || this.actionLoading()) return;
+    const path = action === 'pack'
+      ? API_PATHS.orders.adminPack(order.id)
+      : action === 'ship'
+        ? API_PATHS.orders.adminShip(order.id)
+        : API_PATHS.orders.adminDeliver(order.id);
+    this.actionLoading.set(true);
+    this.http.post<Order>(path, {}).subscribe({
+      next: (updated) => {
+        this.order.set(updated);
+        this.toast.success(`Order moved to ${this.cleanStage(updated.status)}.`);
+        this.loadOperationalState(updated);
+      },
+      error: () => {
+        this.actionLoading.set(false);
+        this.toast.error('Fulfillment action failed for this order state.');
       },
     });
   }

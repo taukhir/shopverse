@@ -376,3 +376,9 @@ is only delayed data loss.
 - [Transactional Outbox](../reliability/OUTBOX-PATTERN.md)
 - [Resilience4j And Resilience Patterns](../reliability/RESILIENCE4J-GENERIC.md)
 - [Deployment Strategies](../operations/DEPLOYMENT-STRATEGIES.md)
+
+## Official References
+
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)

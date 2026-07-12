@@ -5,6 +5,12 @@ sidebar_position: 2
 
 # Java Collections Framework
 
+:::info Canonical learning route
+Start at the [Collections Guide](./JAVA-COLLECTIONS-UMBRELLA.md). Implementation
+trade-offs live in [Collection Implementations For Architects](./JAVA-COLLECTION-IMPLEMENTATIONS-ARCHITECT.md)
+and concurrent hashing in [ConcurrentHashMap Internals](./JAVA-CONCURRENT-HASHMAP-OPENJDK.md).
+:::
+
 The Collections Framework provides interfaces, implementations, algorithms,
 iterators, and concurrent data structures.
 
@@ -252,3 +258,7 @@ finding that position remains O(n).
 - avoid parallel mutation of ordinary collections;
 - use database pagination rather than loading huge tables into collections;
 - choose concurrent collections for their semantics, not only to avoid locks.
+
+## Official References
+
+- [Java Collections Framework](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/doc-files/coll-overview.html)

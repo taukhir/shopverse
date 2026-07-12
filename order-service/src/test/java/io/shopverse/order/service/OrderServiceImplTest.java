@@ -36,7 +36,8 @@ class OrderServiceImplTest {
             "shopverse.inventory.reserved",
             "shopverse.inventory.failed",
             "shopverse.payment.completed",
-            "shopverse.payment.failed"
+            "shopverse.payment.failed",
+            "shopverse.order.cancelled"
     );
     private final OrderServiceImpl service = new OrderServiceImpl(
             repository,

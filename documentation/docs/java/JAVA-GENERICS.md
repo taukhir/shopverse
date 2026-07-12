@@ -4,6 +4,12 @@ title: Java Generics
 
 # Java Generics
 
+:::info Canonical learning route
+This page introduces the API surface. Erasure translation, bridges, wildcard
+capture and heap pollution are canonical in
+[Generics And Erasure Internals](./JAVA-GENERICS-ERASURE-INTERNALS.md).
+:::
+
 Generics add compile-time type safety while allowing reusable classes and
 methods.
 
@@ -156,6 +162,10 @@ Generics provide compile-time type safety and allow reusable APIs without
 unsafe casts or duplicated implementations for every element type.
 
 </ExpandableAnswer>
+
+## Official References
+
+- [JLS types, values and variables](https://docs.oracle.com/javase/specs/jls/se25/html/jls-4.html)
 
 ### What is type erasure?
 

@@ -72,3 +72,7 @@ Enforce tenant filters, row/document authorization, TLS, encryption, protected
 API keys, model/version lineage, deletion propagation, and input/output logging
 that excludes sensitive content. Audit which identity retrieved which source
 records—not only which vector IDs matched.
+
+## Recommended Next Page
+
+Continue with [Database Hands-On Labs](./DATABASE-HANDS-ON-LABS.md).

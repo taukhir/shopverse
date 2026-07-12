@@ -167,6 +167,26 @@ Invoke-RestMethod `
   -Headers @{ Authorization = "Bearer $adminToken" }
 ```
 
+### Failure And Operations Checklist
+
+- preserve `TIMED_OUT` as uncertainty rather than guessing success or failure;
+- reconcile using the provider operation/idempotency key and verified webhooks;
+- make reconciliation and refund state transitions conditional and idempotent;
+- alert on age and count of uncertain payments, webhook verification failures,
+  duplicate provider references, refund failures, and settlement mismatches;
+- keep an immutable audit trail while excluding payment credentials and sensitive PII;
+- route exhausted cases to explicit manual review instead of infinite retry.
+
+## Official References
+
+- [Stripe API idempotent requests](https://docs.stripe.com/api/idempotent_requests)
+- [PCI Security Standards Council](https://www.pcisecuritystandards.org/)
+- [RFC 9110 — Idempotent Methods](https://www.rfc-editor.org/rfc/rfc9110#section-9.2.2)
+
+## Recommended Next Page
+
+Continue with [Late Payment Reconciliation After Expiry](./LATE-PAYMENT-AFTER-EXPIRY.md).
+
 
 
 

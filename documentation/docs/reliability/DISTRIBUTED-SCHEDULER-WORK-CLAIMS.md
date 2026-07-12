@@ -12,6 +12,11 @@ last_reviewed: "2026-07-12"
 
 # Distributed Schedulers And Safe Work Claiming
 
+![Animated scheduler lease expiry where a fencing token rejects a stale worker](/img/diagrams/animated-scheduler-lease-fencing.svg)
+
+*A lease expiring cannot stop paused code. Incremented fencing generations let the
+protected resource reject the previous owner after work is reassigned.*
+
 `@Scheduled` is local to one application process. With four replicas, the same
 method can run four times. Preventing simultaneous method entry is also different
 from ensuring that each database record produces one correct business effect.
@@ -227,3 +232,9 @@ without exposing PII.
 Read [Database Locking And Claims](./locking/DATABASE-LOCKING-AND-CLAIMS.md) for
 engine-specific SQL, [Partition And Queue Ownership](./locking/PARTITION-AND-QUEUE-OWNERSHIP.md)
 for dynamic shard assignment, and [Idempotency](./IDEMPOTENCY-GENERIC.md) for safe retries.
+
+## Official References
+
+- [Spring transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [PostgreSQL explicit locking](https://www.postgresql.org/docs/current/explicit-locking.html)
