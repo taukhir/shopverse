@@ -11,13 +11,13 @@ last_reviewed: "2026-07-12"
 # Final Documentation Visual, Structure, And Depth Audit
 
 This report closes the visual/reference/organization improvement plan against the
-current 407-page documentation tree.
+current 417-page documentation tree.
 
 ## Final Results
 
 | Quality gate | Result |
 |---|---:|
-| metadata, internal links, images, HTTPS and safety | 407/407 passed |
+| metadata, internal links, images, HTTPS and safety | 417/417 passed |
 | exact repeated prose groups | 0 |
 | semantic near-duplicate page pairs | 0 |
 | advanced pages missing official references | 0 |
@@ -25,7 +25,7 @@ current 407-page documentation tree.
 | learning pages missing recommended-next navigation | 0 |
 | sidebar orphans | 0 |
 | pages below page-type depth target | 0 |
-| official links reachable | 280/280 |
+| official links reachable | 289/289 |
 | broken official links | 0 |
 
 ## Depth Distribution
@@ -33,9 +33,9 @@ current 407-page documentation tree.
 | Level | Pages | Meaning |
 |---|---:|---|
 | L0 | 0 | absent/insufficient |
-| L1 | 48 | concise reference, index, ADR, checklist, or implementation note |
-| L2 | 274 | useful intermediate explanation with applied evidence |
-| L3 | 85 | deep internals/failure/performance/operations/reference coverage |
+| L1 | 49 | concise reference, index, ADR, checklist, or implementation note |
+| L2 | 279 | useful intermediate explanation with applied evidence |
+| L3 | 89 | deep internals/failure/performance/operations/reference coverage |
 
 The scoring model is page-type aware. A glossary, ADR, or command index is not
 penalized for lacking the same sections as an advanced tutorial.

@@ -27,6 +27,7 @@ demo-credentials.local.md
 **/.gradle/
 **/out/
 **/bin/
+**/target/
 HELP.md
 
 # Node/frontend output
@@ -42,6 +43,7 @@ documentation/node_modules/
 documentation/build/
 documentation/.docusaurus/
 documentation/test-results/
+documentation/reports/
 
 # OS files
 .DS_Store

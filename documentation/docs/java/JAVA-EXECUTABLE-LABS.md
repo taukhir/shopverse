@@ -37,6 +37,12 @@ Additional jcstress cases prove volatile message passing, final-field publicatio
 and VarHandle release/acquire ordering. `SelectorEchoLab` demonstrates accept/read
 selection, attachment-owned buffers, partial writes, compaction and key cleanup.
 
+`CoreJavaScenariosTest` verifies widening-versus-boxing overload selection, static
+hiding versus runtime overriding, mutable-key lookup failure, comparator-based tree
+uniqueness, ForkJoin reduction, custom Spliterator partitioning, and a Java Compiler
+API compile-failure fixture. `ParallelStreamBenchmark` compares sequential and
+parallel execution at small and large sizes instead of assuming parallel speedup.
+
 ## Runtime Workloads
 
 ```powershell

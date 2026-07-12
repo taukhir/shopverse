@@ -244,6 +244,7 @@ const sidebars: SidebarsConfig = {
             'java/JAVA-EXECUTABLE-LABS',
             'java/JAVA-SENIOR-LABS-INTERVIEW',
             'java/JAVA-SENIOR-INTERVIEW-BANK',
+            'java/JAVA-CORE-INTERVIEW-WORKBOOK',
           ],
         },
         {
