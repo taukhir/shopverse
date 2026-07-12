@@ -625,3 +625,9 @@ the running endpoint before creating dashboards or alerts.
 ## Official Reference
 
 - [Resilience4j documentation](https://resilience4j.readme.io/docs)
+
+## Official References
+
+- [Spring transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [PostgreSQL explicit locking](https://www.postgresql.org/docs/current/explicit-locking.html)

@@ -730,7 +730,12 @@ throughput the system can handle before latency/errors rise beyond target.
 
 - [Capacity Estimation in Systems Design - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/capacity-estimation-in-systems-design/)
 
+## Official References
 
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
 
+## Recommended Next Page
 
-
+Continue with [End-To-End System Design Method](../system-design-deep-dives/END-TO-END-DESIGN-METHOD.md).

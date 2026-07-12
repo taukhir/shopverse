@@ -5,7 +5,7 @@ page_type: Reference
 status: Implemented
 learning_objectives: [Verify implemented Shopverse capabilities, Distinguish implemented partial and planned behavior]
 technologies: [Shopverse, Docker, Kafka]
-last_reviewed: "2026-07-11"
+last_reviewed: "2026-07-13"
 ---
 
 # Features And Demonstrations
@@ -45,10 +45,17 @@ For one reproducible walkthrough from startup to observability, use the
 | Independent persistent schemas | Implemented | JPA, Liquibase, separate service databases |
 | Idempotent checkout | Implemented | header, lookup, and database uniqueness |
 | Direct checkout product lookup | Implemented | Order checkout calls Inventory product-by-id lookup; cached full catalog is browse-only |
+| Checkout shipping snapshot | Implemented | checkout request requires shipping address and Order stores immutable snapshot |
+| Customer address book | Implemented baseline | User Service `/api/v1/users/me/addresses` plus Angular account UI |
+| Persisted cart | Implemented baseline | User Service `/api/v1/cart` APIs plus Angular account-cart sync |
+| Public product detail/categories/related APIs | Implemented baseline | Inventory public item, categories, and related endpoints |
 | Bounded local catalog cache | Implemented baseline | Order catalog uses Caffeine TTL plus admin eviction endpoint |
-| Inventory reservation and expiry | Partial | TTL task exists; atomic multi-replica claim and successful-payment terminal transition remain pending |
+| Inventory reservation and expiry | Partial | TTL task exists; cancellation/payment-failure release exists; atomic multi-replica claim and successful-payment terminal transition remain pending |
+| Inventory release on cancellation | Implemented baseline | Order emits `OrderCancelledEvent`; Inventory releases matching reservation |
 | Overselling prevention | Implemented | optimistic version and transactional stock update |
-| Payment uncertainty | Implemented | timeout, reconciliation, and refund states |
+| Payment uncertainty | Implemented | timeout, reconciliation, retry, refund, and webhook baseline states |
+| Fulfillment lifecycle | Implemented baseline | admin pack, ship/out-for-delivery, deliver transitions; tracking/carrier metadata pending |
+| Customer return request | Implemented baseline | owner-protected return request from delivered orders |
 | Choreography SAGA | Implemented | Kafka event listeners and compensation |
 | Transactional outbox | Implemented | domain and outbox atomic local transaction |
 | DLT persistence and replay audit | Implemented baseline | Order, Inventory, and Payment recovery APIs |

@@ -17,6 +17,7 @@ import io.shopverse.order.outbox.OutboxService;
 import io.shopverse.order.repository.OrderRepository;
 import io.shopverse.order.repository.OrderTimelineRepository;
 import io.shopverse.order.saga.OrderCreatedEvent;
+import io.shopverse.order.saga.OrderCancelledEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -165,6 +166,7 @@ public class OrderServiceImpl implements OrderService {
         ensureCancellable(order);
         order.cancel();
         appendTimeline(order, OrderTimelineStage.ORDER_CANCELLED, "Order cancelled by administrator");
+        enqueueOrderCancelled(order, "Order cancelled by administrator");
     }
 
     @Override
@@ -176,6 +178,62 @@ public class OrderServiceImpl implements OrderService {
         ensureCancellable(order);
         order.cancel();
         appendTimeline(order, OrderTimelineStage.ORDER_CANCELLED, "Order cancelled by administrator");
+        enqueueOrderCancelled(order, "Order cancelled by administrator");
+        return OrderMapper.toResponse(order);
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "orders", allEntries = true)
+    public OrderResponse pack(Long id) {
+        OrderEntity order = findOrderWithItems(id);
+        ensureStatus(order, OrderStatus.CONFIRMED, "Only confirmed orders can move to packing");
+        order.markPacking();
+        appendTimeline(order, OrderTimelineStage.PACKING, "Order moved to packing");
+        return OrderMapper.toResponse(order);
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "orders", allEntries = true)
+    public OrderResponse ship(Long id) {
+        OrderEntity order = findOrderWithItems(id);
+        if (order.getStatus() == OrderStatus.PACKING) {
+            order.markShipped();
+            appendTimeline(order, OrderTimelineStage.SHIPPED, "Order shipped");
+        } else if (order.getStatus() == OrderStatus.SHIPPED) {
+            order.markOutForDelivery();
+            appendTimeline(order, OrderTimelineStage.OUT_FOR_DELIVERY, "Order out for delivery");
+        } else {
+            throw new InvalidOrderStateException("Order must be PACKING or SHIPPED before the next shipping transition");
+        }
+        return OrderMapper.toResponse(order);
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "orders", allEntries = true)
+    public OrderResponse deliver(Long id) {
+        OrderEntity order = findOrderWithItems(id);
+        if (order.getStatus() != OrderStatus.SHIPPED && order.getStatus() != OrderStatus.OUT_FOR_DELIVERY) {
+            throw new InvalidOrderStateException("Only shipped orders can be delivered");
+        }
+        order.markDelivered();
+        appendTimeline(order, OrderTimelineStage.DELIVERED, "Order delivered");
+        return OrderMapper.toResponse(order);
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "orders", allEntries = true)
+    public OrderResponse requestReturn(Long id, String username) {
+        OrderEntity order = findOrderWithItems(id);
+        if (!order.getCustomerUsername().equals(username)) {
+            throw new ResourceNotFoundException("Order not found: " + id);
+        }
+        ensureStatus(order, OrderStatus.DELIVERED, "Only delivered orders can be returned");
+        order.requestReturn();
+        appendTimeline(order, OrderTimelineStage.RETURN_REQUESTED, "Return requested by customer");
         return OrderMapper.toResponse(order);
     }
 
@@ -191,6 +249,7 @@ public class OrderServiceImpl implements OrderService {
         ensureCancellable(order);
         order.cancel();
         appendTimeline(order, OrderTimelineStage.ORDER_CANCELLED, "Order cancelled by customer");
+        enqueueOrderCancelled(order, "Order cancelled by customer");
         return OrderMapper.toResponse(order);
     }
 
@@ -269,9 +328,38 @@ public class OrderServiceImpl implements OrderService {
         ).increment();
     }
 
+    private void enqueueOrderCancelled(OrderEntity order, String reason) {
+        outboxService.enqueue(
+                "ORDER",
+                order.getOrderNumber(),
+                OrderCancelledEvent.class.getSimpleName(),
+                topics.orderCancelled(),
+                order.getOrderNumber(),
+                new OrderCancelledEvent(
+                        order.getId(),
+                        order.getOrderNumber(),
+                        order.getCorrelationId(),
+                        order.getCustomerUsername(),
+                        reason
+                ),
+                order.getCorrelationId()
+        );
+    }
+
+    private OrderEntity findOrderWithItems(Long id) {
+        return repository.findWithItemsById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found: " + id));
+    }
+
     private void ensureCancellable(OrderEntity order) {
         if (!CUSTOMER_CANCELLABLE_STATUSES.contains(order.getStatus())) {
             throw new InvalidOrderStateException("Order cannot be cancelled from status: " + order.getStatus());
+        }
+    }
+
+    private void ensureStatus(OrderEntity order, OrderStatus expected, String message) {
+        if (order.getStatus() != expected) {
+            throw new InvalidOrderStateException(message + "; current status: " + order.getStatus());
         }
     }
 

@@ -63,6 +63,16 @@ public class InventoryController {
         return inventoryService.getByProductId(productId);
     }
 
+    @GetMapping("/public/categories")
+    public List<String> categories() {
+        return inventoryService.getCategories();
+    }
+
+    @GetMapping("/public/items/{productId}/related")
+    public List<InventoryResponse> related(@PathVariable Long productId) {
+        return inventoryService.getRelated(productId);
+    }
+
     @GetMapping("/{productId}")
     public InventoryResponse getInventory(@PathVariable Long productId) {
         return inventoryService.getByProductId(productId);

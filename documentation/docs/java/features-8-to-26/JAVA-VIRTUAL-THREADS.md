@@ -104,3 +104,13 @@ context and explicit cleanup.
 Not completely. They simplify many blocking I/O services. Reactive still helps
 for streaming, event-driven, and non-blocking pipelines.
 
+## Architect-Level Continuation
+
+For continuation mounting, carrier scheduling, parking, version-specific pinning,
+scoped values, structured task lifecycles, Spring/JDBC limits and JFR diagnostics,
+use [Virtual Threads And Structured Concurrency](../JAVA-VIRTUAL-STRUCTURED-CONCURRENCY.md).
+
+## Official References
+
+- [JEP 444: Virtual Threads](https://openjdk.org/jeps/444)
+- [`Thread` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Thread.html)

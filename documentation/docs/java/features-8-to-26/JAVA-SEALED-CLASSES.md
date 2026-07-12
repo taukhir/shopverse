@@ -83,3 +83,20 @@ switch checks.
 
 Only by permitted classes, subject to package/module rules.
 
+## Runtime And Evolution Depth
+
+Direct permitted subclasses must declare `final`, `sealed`, or `non-sealed`.
+In named modules they must reside in the same module; otherwise package rules
+apply. Exhaustive pattern switches benefit from the closed hierarchy, but adding
+a permitted subtype is a source/behavioral compatibility event that can invalidate
+previous exhaustiveness assumptions after recompilation.
+
+## Tricky Interview Questions
+
+1. Does `non-sealed` reopen only that branch? Yes.
+2. Is a sealed type necessarily abstract? No.
+3. Why can adding a subtype break clients? Exhaustive handling assumptions change.
+
+## Official References
+
+- [JLS sealed classes](https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html#jls-8.1.1.2)

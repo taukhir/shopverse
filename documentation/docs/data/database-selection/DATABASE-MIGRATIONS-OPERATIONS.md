@@ -235,3 +235,9 @@ Run the disposable operations lab from
 [Database Hands-On Labs](./DATABASE-HANDS-ON-LABS.md),
 and use [Database Concurrency, Latency, And Backpressure](./DATABASE-CONCURRENCY-BACKPRESSURE.md)
 to set safe migration throttles and abort thresholds.
+
+## Official References
+
+- [PostgreSQL backup and restore](https://www.postgresql.org/docs/current/backup.html)
+- [PostgreSQL high availability](https://www.postgresql.org/docs/current/high-availability.html)
+- [Liquibase documentation](https://docs.liquibase.com/)

@@ -4,6 +4,11 @@ title: Java Serialization
 
 # Java Serialization
 
+This is the format-selection and framework-facing introduction. For the full
+learning sequence, start at the
+[Serialization And Deserialization Guide](./JAVA-SERIALIZATION-UMBRELLA.md),
+then continue into native stream internals and version/security design.
+
 Serialization converts an object into a transport or storage format.
 
 In modern backend systems, JSON serialization through Jackson is more common
@@ -132,6 +137,15 @@ Risky changes:
 - Keep `serialVersionUID` explicit for native serialization.
 - Never deserialize untrusted native Java serialized data.
 - Validate deserialized request objects with Bean Validation.
+
+## Official References
+
+- [Java Object Serialization Specification](https://docs.oracle.com/en/java/javase/25/docs/specs/serialization/index.html)
+- [Jackson documentation](https://github.com/FasterXML/jackson-docs)
+
+## Recommended Next
+
+Continue with [Native Serialization Internals And Object Graphs](./JAVA-SERIALIZATION-INTERNALS.md).
 
 ## Interview Questions
 

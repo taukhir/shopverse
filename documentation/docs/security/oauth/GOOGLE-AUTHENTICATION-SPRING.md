@@ -462,3 +462,7 @@ credentials.
 - [Spring Security OAuth2 Login](https://docs.spring.io/spring-security/reference/servlet/oauth2/login/)
 - [Spring Security OAuth2 Login Core Configuration](https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html)
 - [Google OAuth App Verification](https://support.google.com/cloud/answer/13461325)
+
+## Recommended Next Page
+
+Continue with [OAuth2 And OIDC Flows](../spring-security/OAUTH2-OIDC-FLOWS.md).

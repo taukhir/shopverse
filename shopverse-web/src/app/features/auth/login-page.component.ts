@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { SessionService } from '../../core/auth/session.service';
+import { CartService } from '../../core/cart/cart.service';
 
 @Component({
   selector: 'app-login-page',
@@ -13,6 +14,7 @@ import { SessionService } from '../../core/auth/session.service';
 })
 export class LoginPageComponent {
   private readonly session = inject(SessionService);
+  private readonly cart = inject(CartService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   protected username = '';
@@ -31,6 +33,7 @@ export class LoginPageComponent {
     this.session.login(this.username, this.password).subscribe({
       next: () => {
         this.session.loadProfile().subscribe();
+        this.cart.mergeLocalToAccount();
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
         this.router.navigateByUrl(returnUrl || (this.session.isAdmin() ? '/admin' : '/account'));
       },

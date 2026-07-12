@@ -3,7 +3,9 @@ package io.shopverse.payment_service.controller;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.shopverse.payment_service.constants.PaymentConstants;
+import io.shopverse.payment_service.dto.PaymentIntentRequest;
 import io.shopverse.payment_service.dto.PaymentResponse;
+import io.shopverse.payment_service.dto.PaymentWebhookRequest;
 import io.shopverse.payment_service.dto.FailedKafkaEventResponse;
 import io.shopverse.payment_service.dto.ServiceHealthResponse;
 import io.shopverse.payment_service.service.PaymentService;
@@ -12,6 +14,7 @@ import io.shopverse.payment_service.provider.PaymentSimulationMode;
 import io.shopverse.payment_service.provider.StubPaymentProvider;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -56,6 +59,40 @@ public class PaymentController {
     @PreAuthorize("hasRole('ADMIN') or @paymentAuthorization.isOwner(#orderNumber, authentication.name)")
     public PaymentResponse getByOrderNumber(@PathVariable String orderNumber) {
         return paymentService.getByOrderNumber(orderNumber);
+    }
+
+    @PostMapping("/intent")
+    @Operation(summary = "Create or return an idempotent payment intent for an order")
+    public PaymentResponse createIntent(
+            @Valid @org.springframework.web.bind.annotation.RequestBody PaymentIntentRequest request,
+            Authentication authentication
+    ) {
+        return paymentService.createIntent(
+                request.orderNumber(),
+                request.correlationId(),
+                authentication.getName(),
+                request.amount()
+        );
+    }
+
+    @PostMapping("/orders/{orderNumber}/retry")
+    @PreAuthorize("hasRole('ADMIN') or @paymentAuthorization.isOwner(#orderNumber, authentication.name)")
+    @Operation(summary = "Retry a declined or timed-out payment")
+    public PaymentResponse retry(@PathVariable String orderNumber) {
+        return paymentService.retry(orderNumber);
+    }
+
+    @PostMapping("/orders/{orderNumber}/refund")
+    @PreAuthorize("hasRole('ADMIN') or @paymentAuthorization.isOwner(#orderNumber, authentication.name)")
+    @Operation(summary = "Request a refund for a captured payment")
+    public PaymentResponse refundRequest(@PathVariable String orderNumber) {
+        return paymentService.refund(orderNumber);
+    }
+
+    @PostMapping("/webhooks/provider")
+    @Operation(summary = "Receive a provider payment status callback")
+    public PaymentResponse providerWebhook(@Valid @org.springframework.web.bind.annotation.RequestBody PaymentWebhookRequest request) {
+        return paymentService.applyWebhook(request);
     }
 
     @GetMapping("/admin")

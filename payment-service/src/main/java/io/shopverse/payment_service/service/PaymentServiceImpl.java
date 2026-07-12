@@ -2,13 +2,16 @@ package io.shopverse.payment_service.service;
 
 import io.shopverse.payment_service.config.PaymentProperties;
 import io.shopverse.payment_service.dto.PaymentResponse;
+import io.shopverse.payment_service.dto.PaymentWebhookRequest;
 import io.shopverse.payment_service.entity.PaymentEntity;
+import io.shopverse.payment_service.entity.PaymentStatus;
 import io.shopverse.payment_service.exception.InvalidPaymentStateException;
 import io.shopverse.payment_service.exception.ResourceNotFoundException;
 import io.shopverse.payment_service.repository.PaymentRepository;
 import io.shopverse.payment_service.config.KafkaTopicsProperties;
 import io.shopverse.payment_service.outbox.OutboxService;
 import io.shopverse.payment_service.saga.PaymentCompletedEvent;
+import io.shopverse.payment_service.saga.PaymentFailedEvent;
 import io.shopverse.payment_service.provider.PaymentProvider;
 import io.shopverse.payment_service.provider.PaymentSimulationMode;
 import lombok.RequiredArgsConstructor;
@@ -73,6 +76,30 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    @Transactional
+    @CacheEvict(cacheNames = "payments", allEntries = true)
+    public PaymentResponse createIntent(String orderNumber, String correlationId, String customerUsername, BigDecimal amount) {
+        PaymentEntity payment = repository.findByOrderNumber(orderNumber).orElseGet(() ->
+                repository.save(new PaymentEntity(orderNumber, correlationId, customerUsername, amount))
+        );
+        return toResponse(payment);
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "payments", allEntries = true)
+    public PaymentResponse retry(String orderNumber) {
+        PaymentEntity payment = findPayment(orderNumber);
+        if (payment.getStatus() != PaymentStatus.DECLINED && payment.getStatus() != PaymentStatus.TIMED_OUT) {
+            throw new InvalidPaymentStateException("Only declined or timed-out payments can be retried");
+        }
+        payment.markPending();
+        applyProviderOutcome(payment);
+        enqueueOutcomeIfTerminal(payment);
+        return toResponse(payment);
+    }
+
+    @Override
     @Cacheable(cacheNames = "payments", key = "#orderNumber")
     public PaymentResponse getByOrderNumber(String orderNumber) {
         return toResponse(repository.findByOrderNumber(orderNumber)
@@ -89,7 +116,7 @@ public class PaymentServiceImpl implements PaymentService {
     @CacheEvict(cacheNames = "payments", allEntries = true)
     public PaymentResponse reconcile(String orderNumber) {
         PaymentEntity payment = findPayment(orderNumber);
-        if (payment.getStatus() == io.shopverse.payment_service.entity.PaymentStatus.TIMED_OUT) {
+        if (payment.getStatus() == PaymentStatus.TIMED_OUT) {
             payment.authorize("RECONCILED-" + orderNumber);
             payment.capture();
             outboxService.enqueue(
@@ -116,10 +143,37 @@ public class PaymentServiceImpl implements PaymentService {
     @CacheEvict(cacheNames = "payments", allEntries = true)
     public PaymentResponse refund(String orderNumber) {
         PaymentEntity payment = findPayment(orderNumber);
-        if (payment.getStatus() != io.shopverse.payment_service.entity.PaymentStatus.CAPTURED) {
+        if (payment.getStatus() != PaymentStatus.CAPTURED) {
             throw new InvalidPaymentStateException("Only captured payments can be refunded");
         }
         payment.refund();
+        return toResponse(payment);
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "payments", allEntries = true)
+    public PaymentResponse applyWebhook(PaymentWebhookRequest request) {
+        PaymentEntity payment = findPayment(request.orderNumber());
+        switch (request.status()) {
+            case AUTHORIZED -> payment.authorize(referenceOrDefault(request.paymentReference(), "WEBHOOK-AUTH-" + request.orderNumber()));
+            case CAPTURED -> {
+                if (payment.getPaymentReference() == null) {
+                    payment.authorize(referenceOrDefault(request.paymentReference(), "WEBHOOK-PAY-" + request.orderNumber()));
+                }
+                payment.capture();
+            }
+            case DECLINED -> payment.decline(reasonOrDefault(request.reason(), "Provider webhook declined the payment"));
+            case TIMED_OUT -> payment.timeOut(reasonOrDefault(request.reason(), "Provider webhook timed out the payment"));
+            case REFUNDED -> {
+                if (payment.getStatus() != PaymentStatus.CAPTURED) {
+                    throw new InvalidPaymentStateException("Only captured payments can be marked refunded");
+                }
+                payment.refund();
+            }
+            case PENDING -> payment.markPending();
+        }
+        enqueueOutcomeIfTerminal(payment);
         return toResponse(payment);
     }
 
@@ -140,5 +194,68 @@ public class PaymentServiceImpl implements PaymentService {
                 payment.getCreatedAt(),
                 payment.getUpdatedAt()
         );
+    }
+
+    private void applyProviderOutcome(PaymentEntity payment) {
+        if (payment.getAmount().compareTo(paymentProperties.approvalLimit()) > 0) {
+            payment.decline("Payment approval limit exceeded");
+            return;
+        }
+        var providerResult = paymentProvider.authorize(payment.getOrderNumber(), payment.getAmount());
+        if (providerResult.outcome() == PaymentSimulationMode.SUCCESS) {
+            payment.authorize(providerResult.reference());
+            payment.capture();
+        } else if (providerResult.outcome() == PaymentSimulationMode.DECLINE) {
+            payment.decline(providerResult.reason());
+        } else {
+            payment.timeOut(providerResult.reason());
+        }
+        meterRegistry.counter(
+                "shopverse.payment.outcomes",
+                "status", payment.getStatus().name()
+        ).increment();
+    }
+
+    private void enqueueOutcomeIfTerminal(PaymentEntity payment) {
+        if (payment.getStatus() == PaymentStatus.CAPTURED) {
+            outboxService.enqueue(
+                    "PAYMENT",
+                    payment.getOrderNumber(),
+                    PaymentCompletedEvent.class.getSimpleName(),
+                    topics.paymentCompleted(),
+                    payment.getOrderNumber(),
+                    new PaymentCompletedEvent(
+                            null,
+                            payment.getOrderNumber(),
+                            payment.getCorrelationId(),
+                            payment.getPaymentReference(),
+                            payment.getAmount()
+                    ),
+                    payment.getCorrelationId()
+            );
+        } else if (payment.getStatus() == PaymentStatus.DECLINED) {
+            outboxService.enqueue(
+                    "PAYMENT",
+                    payment.getOrderNumber(),
+                    PaymentFailedEvent.class.getSimpleName(),
+                    topics.paymentFailed(),
+                    payment.getOrderNumber(),
+                    new PaymentFailedEvent(
+                            null,
+                            payment.getOrderNumber(),
+                            payment.getCorrelationId(),
+                            payment.getFailureReason()
+                    ),
+                    payment.getCorrelationId()
+            );
+        }
+    }
+
+    private String referenceOrDefault(String reference, String fallback) {
+        return reference == null || reference.isBlank() ? fallback : reference.trim();
+    }
+
+    private String reasonOrDefault(String reason, String fallback) {
+        return reason == null || reason.isBlank() ? fallback : reason.trim();
     }
 }

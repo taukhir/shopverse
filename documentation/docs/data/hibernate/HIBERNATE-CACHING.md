@@ -166,3 +166,8 @@ statistics deliberately, not blindly at high production volume.
 ## Official Reference
 
 - [Hibernate ORM User Guide](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html)
+
+## Official References
+
+- [Hibernate ORM caching](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#caching)
+- [Jakarta Persistence specification](https://jakarta.ee/specifications/persistence/)

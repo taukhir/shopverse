@@ -92,6 +92,18 @@ export class OrderDetailPageComponent {
     return ['ORDER_CREATED', 'PENDING_INVENTORY', 'INVENTORY_RESERVED', 'PAYMENT_PROCESSING', 'PAYMENT_FAILED'].includes(this.order()?.status ?? '');
   }
 
+  protected canRetryPayment(): boolean {
+    return ['DECLINED', 'TIMED_OUT'].includes(this.payment()?.status ?? '');
+  }
+
+  protected canRequestRefund(): boolean {
+    return this.payment()?.status === 'CAPTURED';
+  }
+
+  protected canRequestReturn(): boolean {
+    return this.order()?.status === 'DELIVERED';
+  }
+
   protected async cancelOrder(): Promise<void> {
     const order = this.order();
     if (!order || !this.canCancelOrder()) return;
@@ -122,6 +134,56 @@ export class OrderDetailPageComponent {
     }
   }
 
+  protected retryPayment(): void {
+    const order = this.order();
+    if (!order?.orderNumber || !this.canRetryPayment()) return;
+    this.ordersApi.retryPayment(order.orderNumber).subscribe({
+      next: (payment) => {
+        this.payment.set(payment);
+        this.toast.success('Payment retry submitted.');
+        this.loadOrderState(order);
+      },
+      error: () => this.toast.error('Payment retry failed for this payment state.'),
+    });
+  }
+
+  protected async requestRefund(): Promise<void> {
+    const order = this.order();
+    if (!order?.orderNumber || !this.canRequestRefund()) return;
+    const confirmed = await this.confirm.confirm({
+      title: 'Request refund?',
+      message: `Request refund for ${order.orderNumber}?`,
+      confirmText: 'Request refund',
+    });
+    if (!confirmed) return;
+    this.ordersApi.requestRefund(order.orderNumber).subscribe({
+      next: (payment) => {
+        this.payment.set(payment);
+        this.toast.info('Refund request submitted.');
+      },
+      error: () => this.toast.error('Refund request failed for this payment state.'),
+    });
+  }
+
+  protected async requestReturn(): Promise<void> {
+    const order = this.order();
+    if (!order || !this.canRequestReturn()) return;
+    const confirmed = await this.confirm.confirm({
+      title: 'Request return?',
+      message: `Request a return for ${order.orderNumber}?`,
+      confirmText: 'Request return',
+    });
+    if (!confirmed) return;
+    this.ordersApi.requestReturn(order.id).subscribe({
+      next: (updated) => {
+        this.order.set(updated);
+        this.toast.info('Return request submitted.');
+        this.loadOrderState(updated);
+      },
+      error: () => this.toast.error('Return request is not available for this order state.'),
+    });
+  }
+
   protected async copyAllReferences(): Promise<void> {
     const order = this.order();
     const payment = this.payment();
@@ -143,7 +205,10 @@ export class OrderDetailPageComponent {
   protected nextMessage(): string {
     const orderStatus = this.order()?.status;
     const payment = this.payment();
-    if (orderStatus === 'CONFIRMED') return 'Your order is confirmed. We will keep the timeline updated as fulfillment features come online.';
+    if (orderStatus === 'DELIVERED') return 'Your order was delivered. You can request a return if it is still eligible.';
+    if (orderStatus === 'RETURN_REQUESTED') return 'Your return request has been submitted and is waiting for operations review.';
+    if (['PACKING', 'SHIPPED', 'OUT_FOR_DELIVERY'].includes(orderStatus ?? '')) return 'Your order is in fulfillment. Watch the timeline for delivery updates.';
+    if (orderStatus === 'CONFIRMED') return 'Your order is confirmed and waiting for fulfillment.';
     if (orderStatus?.includes('REJECTED')) return 'Inventory could not be reserved for this order. Please browse the catalog for alternatives.';
     if (payment?.status === 'DECLINED' || payment?.status === 'TIMED_OUT') return 'Payment did not complete. This demo currently requires admin reconciliation or a new checkout attempt.';
     if (payment?.status === 'CAPTURED') return 'Payment is captured and the order is waiting for final confirmation.';

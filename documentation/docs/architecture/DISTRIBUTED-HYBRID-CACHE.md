@@ -143,3 +143,9 @@ make Java object serialization an undocumented distributed contract.
 - [Cache Providers](./CACHE-PROVIDERS.md)
 - [Transactional Outbox](../reliability/OUTBOX-PATTERN.md)
 - [Distributed Locks And Fencing](../reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING.md)
+
+## Official References
+
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)

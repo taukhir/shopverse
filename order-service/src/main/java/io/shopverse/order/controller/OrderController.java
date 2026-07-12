@@ -126,6 +126,16 @@ public class OrderController {
         return ResponseEntity.ok(orderService.cancelCustomerOrder(id, authentication.getName()));
     }
 
+    @PostMapping("/{id}/return-request")
+    @Operation(summary = "Request a return for a delivered owned order")
+    public ResponseEntity<OrderResponse> requestReturn(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        log.warn("Customer return requested for order id={}", id);
+        return ResponseEntity.ok(orderService.requestReturn(id, authentication.getName()));
+    }
+
     // ADMIN APIs
 
     @DeleteMapping("/{id}")
@@ -147,6 +157,30 @@ public class OrderController {
     public ResponseEntity<OrderResponse> cancelAdminOrder(@PathVariable Long id) {
         log.warn("Admin cancellation requested for order id={}", id);
         return ResponseEntity.ok(orderService.cancelAdminOrder(id));
+    }
+
+    @PostMapping("/admin/{id}/pack")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Move a confirmed order to packing")
+    public ResponseEntity<OrderResponse> packOrder(@PathVariable Long id) {
+        log.info("Admin pack requested for order id={}", id);
+        return ResponseEntity.ok(orderService.pack(id));
+    }
+
+    @PostMapping("/admin/{id}/ship")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Advance an order through shipping states")
+    public ResponseEntity<OrderResponse> shipOrder(@PathVariable Long id) {
+        log.info("Admin ship transition requested for order id={}", id);
+        return ResponseEntity.ok(orderService.ship(id));
+    }
+
+    @PostMapping("/admin/{id}/deliver")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Mark a shipped order delivered")
+    public ResponseEntity<OrderResponse> deliverOrder(@PathVariable Long id) {
+        log.info("Admin delivery requested for order id={}", id);
+        return ResponseEntity.ok(orderService.deliver(id));
     }
 
     @PostMapping("/admin/catalog-cache/evict")

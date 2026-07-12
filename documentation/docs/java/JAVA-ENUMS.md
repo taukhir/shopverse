@@ -74,3 +74,8 @@ constants changes stored meaning.
 ### Why should ordinal persistence be avoided?
 
 <ExpandableAnswer>Reordering or inserting enum constants changes their numeric positions and can silently change the meaning of existing database values.</ExpandableAnswer>
+
+## Official References
+
+- [JLS enum classes](https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html#jls-8.9)
+- [`EnumMap`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/EnumMap.html)

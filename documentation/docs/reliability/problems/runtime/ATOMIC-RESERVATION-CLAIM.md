@@ -727,3 +727,9 @@ expiry wins:  RESERVED -> EXPIRING; payment transition returns 0
 If expiry wins, use the explicit late-payment workflow documented in
 [Late payment after expiry](LATE-PAYMENT-AFTER-EXPIRY.md). Never silently move
 an expired or cancelled order to `CONFIRMED`.
+
+## Official References
+
+- [Spring transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [PostgreSQL explicit locking](https://www.postgresql.org/docs/current/explicit-locking.html)

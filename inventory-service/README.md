@@ -1,6 +1,6 @@
 # Inventory Service
 
-Inventory Service runs on port `8086`. It owns stock, reservations, expiry, overselling prevention, and inventory-side SAGA recovery.
+Inventory Service runs on port `8086`. It owns the public product catalog, product metadata, stock, reservations, expiry, overselling prevention, cancellation release, and inventory-side SAGA recovery.
 
 ## APIs
 
@@ -8,8 +8,12 @@ Inventory Service runs on port `8086`. It owns stock, reservations, expiry, over
 |---|---|---|
 | `GET` | `/api/v1/inventory/public/health` | public |
 | `GET` | `/api/v1/inventory/public/items` | public |
+| `GET` | `/api/v1/inventory/public/items/{productId}` | public |
+| `GET` | `/api/v1/inventory/public/items/{productId}/related` | public |
+| `GET` | `/api/v1/inventory/public/categories` | public |
 | `GET` | `/api/v1/inventory/{productId}` | authenticated |
 | `PUT` | `/api/v1/inventory/admin/items` | admin |
+| `POST` | `/api/v1/inventory/admin/items/{productId}/image` | admin |
 | `GET` | `/api/v1/inventory/admin/reservations/orders/{orderNumber}` | admin |
 | `GET` | `/api/v1/inventory/admin/dead-letters` | admin |
 | `POST` | `/api/v1/inventory/admin/dead-letters/{id}/replay` | admin |
@@ -22,8 +26,9 @@ for gateway-facing examples.
 
 The service consumes `shopverse.order.created`, verifies stock, creates a
 reservation, decrements available quantity, and saves an inventory outcome to
-the outbox. Payment failure releases the reservation. A scheduled expiry task
-restores stock for reservations that exceed the configured five-minute TTL.
+the outbox. Payment failure and order cancellation release the reservation.
+A scheduled expiry task restores stock for reservations that exceed the
+configured five-minute TTL.
 
 The current expiry worker is a single-worker baseline, not yet a complete
 multi-replica-safe implementation. It has no atomic reservation claim, and
@@ -82,6 +87,29 @@ Authorization: Bearer <admin-token>
 
 Use this when debugging checkout, expiry, compensation, or late-payment
 recovery flows.
+
+Administrators can upload or replace a product image:
+
+```http
+POST /api/v1/inventory/admin/items/{productId}/image
+Authorization: Bearer <admin-token>
+Content-Type: multipart/form-data
+```
+
+## Public Catalog APIs
+
+The Angular UI now reads product browsing data directly from Inventory:
+
+```http
+GET /api/v1/inventory/public/items
+GET /api/v1/inventory/public/items/{productId}
+GET /api/v1/inventory/public/items/{productId}/related
+GET /api/v1/inventory/public/categories
+```
+
+Related products are selected by category and ordered by available quantity.
+Server-side search, filtering, pagination, and richer recommendation scoring
+remain hardening items.
 
 ## Product Images
 

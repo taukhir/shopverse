@@ -209,3 +209,19 @@ software artifact so provenance, licensing, and vulnerability exposure can be as
 
 In stream processing, a watermark estimates how far event time has progressed so
 windows can produce results while still defining treatment of late events.
+
+## Model Context Protocol {#model-context-protocol}
+
+A protocol through which an AI host/client discovers and invokes bounded server
+tools, resources and prompt templates. MCP standardizes interoperability but does
+not replace authorization or domain correctness.
+
+## Tool Calling {#tool-calling}
+
+A model produces a structured request for trusted application code to validate,
+authorize and execute. Generated tool arguments are proposals, not trusted commands.
+
+## Reranking {#reranking}
+
+Scoring a bounded set of retrieved candidates with a more precise model or policy
+after a cheaper first-stage retrieval, trading additional latency and cost for quality.

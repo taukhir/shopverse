@@ -42,6 +42,16 @@ public class InventorySagaListener {
         CorrelationContext.run(event.correlationId(), () -> handlePaymentFailed(event));
     }
 
+    @RetryableTopic(attempts = "3")
+    @KafkaListener(
+            topics = "${shopverse.kafka.topics.order-cancelled}",
+            groupId = "${spring.application.name}"
+    )
+    public void onOrderCancelled(String payload) {
+        OrderCancelledEvent event = eventParser.parse(payload, OrderCancelledEvent.class);
+        CorrelationContext.run(event.correlationId(), () -> handleOrderCancelled(event));
+    }
+
     private void handleOrderCreated(OrderCreatedEvent event) {
         log.info(
                 "Choreography saga inventory step started orderNumber={} correlationId={} productId={} quantity={}",
@@ -57,6 +67,16 @@ public class InventorySagaListener {
         inventoryService.release(event.orderNumber());
         log.warn(
                 "Choreography saga compensation released inventory orderNumber={} correlationId={} reason={}",
+                event.orderNumber(),
+                event.correlationId(),
+                event.reason()
+        );
+    }
+
+    private void handleOrderCancelled(OrderCancelledEvent event) {
+        inventoryService.release(event.orderNumber());
+        log.warn(
+                "Released inventory after order cancellation orderNumber={} correlationId={} reason={}",
                 event.orderNumber(),
                 event.correlationId(),
                 event.reason()

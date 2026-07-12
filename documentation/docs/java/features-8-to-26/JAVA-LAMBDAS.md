@@ -68,3 +68,23 @@ or immutable transformations.
 | stream predicates/transforms | debugging requires many breakpoints |
 | callbacks and event handlers | checked exceptions dominate the code |
 | strategy registration | object state/lifecycle is complex |
+
+## Runtime And Architecture Depth
+
+Lambdas are translated through `invokedynamic` and a bootstrap linkage strategy;
+they are not specified as anonymous inner-class instances. Stateless instances
+may be reused, so identity and synchronization on a lambda are invalid designs.
+Capturing lambdas retain captured objects and can extend request/class-loader
+lifetime when stored globally. Target typing can make overloaded lambda calls
+ambiguous. Checked exceptions remain constrained by the target SAM signature.
+
+## Tricky Interview Questions
+
+1. Is a new object guaranteed for every lambda evaluation? No.
+2. What does `this` mean inside a lambda? The lexically enclosing instance.
+3. Can a functional interface contain default methods? Yes; only abstract methods count toward SAM.
+
+## Official References
+
+- [JLS lambda expressions](https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html#jls-15.27)
+- [`LambdaMetafactory`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/LambdaMetafactory.html)

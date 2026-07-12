@@ -32,3 +32,13 @@ Use supporting chapters for [capacity estimation](./hld-lld/CAPACITY-PERFORMANCE
 For any prompt, produce requirements, estimates, APIs/events, schema/access paths,
 high-level flow, deep critical path, consistency/transactions, scaling, overload,
 failure/recovery, security/privacy, observability, cost, alternatives and evolution.
+
+## Official References
+
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
+
+## Recommended Next Page
+
+Continue with [End-To-End System Design Method](./system-design-deep-dives/END-TO-END-DESIGN-METHOD.md).

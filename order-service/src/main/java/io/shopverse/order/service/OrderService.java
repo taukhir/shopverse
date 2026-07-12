@@ -24,6 +24,14 @@ public interface OrderService {
 
     OrderResponse cancelAdminOrder(Long id);
 
+    OrderResponse pack(Long id);
+
+    OrderResponse ship(Long id);
+
+    OrderResponse deliver(Long id);
+
+    OrderResponse requestReturn(Long id, String username);
+
     void markInventoryRejected(String orderNumber, String reason);
 
     void markInventoryReserved(String orderNumber);

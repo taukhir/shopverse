@@ -188,6 +188,12 @@ Confirm keys with the pinned Lombok version.
 - [JPA Entity Mapping](../spring/jpa/JPA-BASICS-ENTITY-MAPPING.md)
 - [Structured Logging](../observability/STRUCTURED-LOGGING.md)
 
+## Tricky Interview Questions
+
+1. Why is `@Data` risky on entities? Generated equality/string behavior can traverse mutable IDs and relationships.
+2. Does `@Builder` enforce invariants? No.
+3. What is Lombok's compatibility cost? Compiler integration and generated API shape.
+
 ## Official References
 
 - [Lombok Features](https://projectlombok.org/features/)

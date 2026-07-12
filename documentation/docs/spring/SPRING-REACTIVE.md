@@ -262,3 +262,13 @@ an MVC application; its presence does not require a reactive server.
 - [Spring Resilience4j](./SPRING-RESILIENCE4J.md)
 - [Java CompletableFuture](../java/JAVA-COMPLETABLE-FUTURE.md)
 - [Spring Batch](./SPRING-BATCH.md)
+
+## Official References
+
+- [Spring WebFlux reference](https://docs.spring.io/spring-framework/reference/web/webflux.html)
+- [Project Reactor reference](https://projectreactor.io/docs/core/release/reference/)
+- [Reactive Streams specification](https://www.reactive-streams.org/)
+
+## Recommended Next Page
+
+Continue with [Advanced Spring Platform Patterns](./SPRING-PLATFORM-ADVANCED.md).

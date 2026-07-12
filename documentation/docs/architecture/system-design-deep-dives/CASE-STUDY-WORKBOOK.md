@@ -11,6 +11,9 @@ last_reviewed: "2026-07-12"
 
 # System Design Case-Study Workbook
 
+Use the [fifteen visual blueprints](./FIFTEEN-CASE-STUDY-VISUALS.md) to inspect
+the dominant data ownership and critical path before completing each full design.
+
 Use the [end-to-end method](./END-TO-END-DESIGN-METHOD.md) for every exercise. Do
 not claim these are any company's actual architecture.
 
@@ -49,3 +52,9 @@ not claim these are any company's actual architecture.
 ## Recommended Next Page
 
 [Interview Evaluation Rubric](./INTERVIEW-RUBRIC.md)
+
+## Official References
+
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)

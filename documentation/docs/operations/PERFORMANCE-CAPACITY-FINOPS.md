@@ -67,3 +67,9 @@ decisions and load-test reports.
 ## Recommended Next Page
 
 Continue with [Supply-Chain Security And Privacy Engineering](../security/SUPPLY-CHAIN-PRIVACY.md).
+
+## Official References
+
+- [Kubernetes documentation](https://kubernetes.io/docs/)
+- [Docker documentation](https://docs.docker.com/)
+- [Google SRE Book](https://sre.google/sre-book/table-of-contents/)

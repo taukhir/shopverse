@@ -629,3 +629,7 @@ Examples currently recorded by Shopverse include:
 - `shopverse.kafka.dlt.replays`.
 
 See [Prometheus](PROMETHEUS.md) for queries and [Observability architecture](OBSERVABILITY.md) for the complete telemetry stack.
+
+## Recommended Next Page
+
+Continue with [Prometheus](./PROMETHEUS.md).

@@ -38,7 +38,7 @@ Use these tracks when you do not want to read the full path linearly.
 
 | Track | Read in this order |
 |---|---|
-| Java backend | [Java OOP](../java/JAVA-OOP.md) -> [Java Collections](../java/JAVA-COLLECTIONS.md) -> [Java Multithreading](../java/JAVA-MULTITHREADING.md) -> [Spring Ecosystem](../spring/SPRING-ECOSYSTEM.md) -> [Spring REST APIs](../development/SPRING-REST-APIS.md) |
+| Java backend | [Core Java Deep Dive](../java/CORE-JAVA-DEEP-DIVE.md) -> [Collections guide](../java/JAVA-COLLECTIONS-UMBRELLA.md) -> [Threads and concurrency](../java/JAVA-THREADING-UMBRELLA.md) -> [Spring Ecosystem](../spring/SPRING-ECOSYSTEM.md) -> [Spring REST APIs](../development/SPRING-REST-APIS.md) |
 | Advanced Java | [Advanced Java Internals](../java/ADVANCED-JAVA-INTERNALS.md) -> [JVM execution](../java/advanced-internals/JVM-EXECUTION-INTERNALS.md) -> [Memory model](../java/advanced-internals/JAVA-MEMORY-MODEL.md) -> [AQS and virtual threads](../java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md) -> [NIO and JMH](../java/advanced-internals/NIO-PERFORMANCE-JMH.md) |
 | Spring Boot production | [Spring Boot internals](../development/SPRING-BOOT-INTERNALS.md) -> [Spring Data JPA](../spring/SPRING-DATA-JPA.md) -> [Spring transactions](../spring/SPRING-TRANSACTIONS.md) -> [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md) |
 | Spring deep internals | [Deep Spring track](../spring/SPRING-BOOT-INTERNALS-PRODUCTION.md) -> [Container internals](../spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md) -> [AOP and transactions](../spring/internals-production/AOP-TRANSACTION-INTERNALS.md) -> [Web runtime](../spring/internals-production/WEB-HTTP-RUNTIME.md) -> [Hibernate and JDBC](../spring/internals-production/HIBERNATE-JDBC-INTERNALS.md) |
@@ -51,16 +51,19 @@ Use these tracks when you do not want to read the full path linearly.
 | Shopverse demo | [Shopverse case study](../case-study/SHOPVERSE.mdx) -> [Complete demo](../case-study/COMPLETE-DEMO.mdx) -> [Features and demos](FEATURES-AND-DEMOS.md) -> [Debugging](../development/DEBUGGING.md) |
 | Database choice | [Quick choice](../data/database-selection/DATABASE-QUICK-CHOICE.md) -> [Decision worksheet](../data/database-selection/DATABASE-DECISION-WORKSHEET.md) -> [Hands-on labs](../data/database-selection/DATABASE-HANDS-ON-LABS.md) -> [Interview exercises](../data/database-selection/DATABASE-INTERVIEW-EXERCISES.md) |
 | Production platform | [Platform track](../architecture/PRODUCTION-PLATFORM-ENGINEERING.md) -> [Compatibility](../architecture/API-EVENT-COMPATIBILITY.md) -> [Kubernetes](../operations/KUBERNETES-WORKLOAD-ENGINEERING.md) -> [SRE and recovery](../operations/SRE-DR-CHAOS.md) -> [Performance and cost](../operations/PERFORMANCE-CAPACITY-FINOPS.md) |
+| AI and RAG | [AI fundamentals](../ai/LLM-GENERATIVE-AI-FUNDAMENTALS.md) -> [Model internals](../ai/AI-MODEL-INTERNALS-SELECTION.md) -> [Prompt engineering](../ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md) -> [RAG engineering](../ai/RAG-ENGINEERING.md) -> [Evaluation and operations](../ai/AI-EVALUATION-OPERATIONS.md) |
+| MCP | [MCP umbrella](../ai/MCP-UMBRELLA.md) -> [Protocol lifecycle](../ai/MCP-PROTOCOL-LIFECYCLE.md) -> [Primitives and transports](../ai/MCP-PRIMITIVES-TRANSPORTS.md) -> [Security](../ai/MCP-SECURITY-OPERATIONS.md) -> [Spring/Shopverse lab](../ai/MCP-SPRING-SHOPVERSE-LAB.md) |
+| Internals labs | [Java internals labs](../java/JAVA-INTERNALS-LABS.md) -> [Spring internals labs](../spring/SPRING-INTERNALS-LABS.md) -> [Database engine internals](../data/DATABASE-ENGINE-INTERNALS.md) -> [Microservices failure engineering](../architecture/MICROSERVICES-INTERNALS-DEEP-DIVE.md) |
 
 ## Stage 1: Java And Engineering Foundations
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
 | Object-oriented programming | [Java OOP](../java/JAVA-OOP.md) | Model behavior using encapsulation, abstraction, composition, and polymorphism |
-| Collections | [Java Collections](../java/JAVA-COLLECTIONS.md) | Select lists, sets, maps, queues, and concurrent collections correctly |
+| Collections | [Java Collections Guide](../java/JAVA-COLLECTIONS-UMBRELLA.md) | Select lists, sets, maps, queues, iterators, hashing, and concurrent collections correctly |
 | Functional processing | [Java Streams](../java/JAVA-STREAMS.md) | Build lazy, side-effect-controlled pipelines and collectors |
-| Modern Java | [Java 8 to 26](../java/JAVA-8-TO-26.md) | Apply lambdas, Optional, records, sealed types, switch patterns, virtual threads, and newer preview features |
-| Concurrency | [Java Multithreading](../java/JAVA-MULTITHREADING.md) | Use executors, CompletableFuture, synchronization, cancellation, and virtual threads safely |
+| Modern Java | [Java Features: 8 to 26](../java/features-8-to-26/JAVA-8-TO-26.md) | Apply lambdas, Optional, records, sealed types, switch patterns, virtual threads, and newer preview features |
+| Concurrency | [Threads And JVM Thread Model](../java/JAVA-THREADING-UMBRELLA.md) | Understand main, scheduler, request, GC, JIT, platform, and virtual threads before applying coordination and cancellation |
 | Engineering design | [Engineering principles](../development/ENGINEERING-PRINCIPLES.md) | Apply SOLID, DRY, cohesion, boundaries, and pragmatic abstraction |
 | REST APIs | [REST API design](../development/REST-API-GENERIC.md) | Design resources, status codes, validation, errors, pagination, and idempotency |
 
@@ -162,3 +165,7 @@ After completing the generic path, use the
 [Shopverse case study](../case-study/SHOPVERSE.mdx) to connect the subjects in
 one working system. Its complete commands and expected outcomes are in
 [Features and demonstrations](FEATURES-AND-DEMOS.md).
+
+## Recommended Next Page
+
+Continue with [Shopverse Case Study](../case-study/SHOPVERSE.mdx).

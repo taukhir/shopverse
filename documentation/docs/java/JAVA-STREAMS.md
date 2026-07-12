@@ -201,3 +201,7 @@ can produce different answers.
 - do not hide expensive remote calls inside `map`;
 - use primitive streams to reduce boxing for numerical workloads;
 - benchmark before selecting parallel streams.
+
+## Official References
+
+- [Stream package specification](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/package-summary.html)

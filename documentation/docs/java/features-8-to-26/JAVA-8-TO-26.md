@@ -64,6 +64,93 @@ backend services.
 - [Sealed Classes](JAVA-SEALED-CLASSES.md)
 - [Virtual Threads](JAVA-VIRTUAL-THREADS.md)
 
+## Version-By-Version Highlights
+
+### Java 8: Functional And Asynchronous Foundations
+
+- lambdas, method references, and functional interfaces;
+- streams and collectors;
+- `Optional` and the `java.time` API;
+- default and static interface methods;
+- `CompletableFuture` for asynchronous composition.
+
+```java
+var paidOrderIds = orders.stream()
+        .filter(Order::isPaid)
+        .map(Order::id)
+        .toList();
+```
+
+Use streams for readable transformations, not for side-effect-heavy workflows.
+Use `Optional` mainly as a return type rather than in entity fields or method
+parameters.
+
+### Java 9–11: Modules, Collections And HTTP
+
+- JPMS modules and `module-info.java`;
+- `List.of`, `Set.of`, `Map.of`, and private interface methods;
+- local variable type inference with `var`;
+- the standard HTTP Client;
+- additions such as `String.isBlank`, `lines`, and `Files.readString`.
+
+`var` preserves static typing. Use it when the initializer makes the type and
+intent obvious; avoid it when it hides an important abstraction.
+
+### Java 12–17: Expressions And Data-Oriented Types
+
+- switch expressions and `yield`;
+- text blocks;
+- records for transparent data carriers;
+- sealed classes and interfaces;
+- pattern matching for `instanceof`.
+
+```java
+String label = switch (status) {
+    case CREATED -> "new";
+    case PAID -> "ready";
+    case CANCELLED -> "closed";
+};
+```
+
+Java 17 is a long-term-support release and remains a common production
+baseline. Records are shallowly immutable: mutable components still require
+defensive copying when the domain requires deep immutability.
+
+### Java 18–21: Concurrency And Pattern Matching
+
+- simple web server, UTF-8 default charset, and incremental runtime changes;
+- record patterns and pattern matching for switch;
+- virtual threads for scalable thread-per-task blocking I/O;
+- sequenced collections;
+- structured concurrency and scoped values through their preview evolution.
+
+Virtual threads improve concurrency, not CPU speed. Database connection pools,
+downstream rate limits, and bounded resources still require explicit admission
+control.
+
+### Java 22–26: Foreign Interop And Evolving Language Features
+
+- Foreign Function and Memory API maturation;
+- stream gatherers for custom intermediate operations;
+- scoped values becoming final in Java 25;
+- stable values and other preview APIs;
+- continued pattern-matching and primitive-pattern work in Java 26 previews.
+
+Preview features require an explicit compiler/runtime flag and may change or be
+removed. Keep them away from stable public contracts unless the deployment and
+upgrade policy deliberately accepts that risk.
+
+## Feature Adoption Checklist
+
+Before adopting a feature, confirm:
+
+1. the production JDK and build tool support it;
+2. whether it is final, preview, incubating, or experimental;
+3. library, framework, IDE, static-analysis, and observability compatibility;
+4. rollback behavior for serialized data and public APIs;
+5. measurable readability, safety, or performance benefit;
+6. team understanding and test coverage.
+
 ## Practical Rule
 
 Use new Java features when they make intent clearer or remove boilerplate.
@@ -76,3 +163,22 @@ Good candidates in backend code:
 - sealed interfaces for fixed domain result types;
 - virtual threads for high-concurrency blocking I/O;
 - Optional for repository/service return values where absence is expected.
+
+## Tricky Interview Questions
+
+1. Does `var` make Java dynamically typed? No; the compiler infers one static type.
+2. Are records deeply immutable? No; their component references are final, but referenced objects may mutate.
+3. Do virtual threads remove the need for connection pools? No; pools protect scarce external resources.
+4. Can a switch expression fall through? Arrow rules do not; colon-style groups require explicit `yield` for a value.
+5. Can production code use preview features without flags? No; compilation and execution require preview enablement.
+
+## Official References
+
+- [Java language changes by release](https://docs.oracle.com/en/java/javase/25/language/java-language-changes.html)
+- [OpenJDK JEP index](https://openjdk.org/jeps/0)
+- [Java 25 API](https://docs.oracle.com/en/java/javase/25/docs/api/index.html)
+
+## Recommended Next
+
+Choose a dedicated feature page above, then continue with the
+[Core Java Deep Dive](../CORE-JAVA-DEEP-DIVE.md).

@@ -64,3 +64,9 @@ operations, missing authorization, poor SLOs, or a saturated database.
 ## Recommended Next Page
 
 Continue with [Asynchronous And Real-Time Systems](./ASYNC-REALTIME-DISTRIBUTED-TIME.md).
+
+## Official References
+
+- [gRPC core concepts](https://grpc.io/docs/what-is-grpc/core-concepts/)
+- [RFC 9113 — HTTP/2](https://www.rfc-editor.org/rfc/rfc9113)
+- [Kubernetes service networking](https://kubernetes.io/docs/concepts/services-networking/)

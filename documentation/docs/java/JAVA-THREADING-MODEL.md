@@ -4,6 +4,18 @@ title: Java Threading Model
 
 # Java Threading Model
 
+:::info Canonical learning route
+This runtime overview is part of the
+[Threads And Concurrency Guide](./JAVA-THREADING-UMBRELLA.md). Scheduling, pools,
+coordination, JMM, structured concurrency and virtual threads each have focused
+canonical chapters beneath that umbrella.
+:::
+
+![Java thread lifecycle showing NEW, RUNNABLE, blocking and waiting states, and termination](/img/diagrams/java-thread-states.svg)
+
+*`RUNNABLE` covers a thread executing in the JVM or ready for the operating
+system; Java does not expose a separate standard `RUNNING` state.*
+
 Java code runs on threads. A thread has its own call stack and shares heap
 objects with other threads in the same JVM.
 
@@ -184,3 +196,15 @@ Look for:
 - deadlock section in the dump;
 - common-pool starvation;
 - scheduler threads running long tasks.
+
+## Tricky Interview Questions
+
+1. Does returning from `main` stop the JVM? Not while non-daemon threads live.
+2. Does `RUNNABLE` mean currently on CPU? It also includes ready execution.
+3. Can priority enforce correctness or QoS? No.
+
+## Official References
+
+- [`Thread.State` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Thread.State.html)
+- [`java.util.concurrent` package specification](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/package-summary.html)
+- [JEP 444 — Virtual Threads](https://openjdk.org/jeps/444)

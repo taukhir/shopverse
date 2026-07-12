@@ -11,6 +11,11 @@ last_reviewed: "2026-07-11"
 
 # Database Concurrency, Latency, And Backpressure
 
+![Database throughput plateau and rapidly increasing latency after the saturation knee](/img/diagrams/database-overload-curve.svg)
+
+*The safe admission limit is normally before the saturation knee. Beyond it,
+additional connections increase queueing, locks, memory, and tail latency.*
+
 A database connection is permission to compete for finite CPU, memory, cache,
 locks, log bandwidth, storage I/O, and network capacity. More connections create
 more potential concurrency; they do not create more database capacity.
@@ -185,3 +190,9 @@ Verify that overload is controlled:
 
 Success is not “zero errors at any cost.” It is bounded resource use, predictable
 degradation, protected critical work, and fast recovery.
+
+## Official References
+
+- [PostgreSQL documentation](https://www.postgresql.org/docs/current/)
+- [MySQL Reference Manual](https://dev.mysql.com/doc/refman/8.4/en/)
+- [Apache Cassandra documentation](https://cassandra.apache.org/doc/latest/)

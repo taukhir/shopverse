@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # Concurrency Primitives, AQS, And Virtual Threads
 
+![AQS synchronizer state with an owner and queued parked contenders](/img/diagrams/aqs-wait-queue.svg)
+
+*AQS supplies atomic state and queue mechanics. Each synchronizer defines what
+acquisition and release mean.*
+
 ## Monitors And AQS
 
 `synchronized` combines mutual exclusion with happens-before and JVM-managed
@@ -51,6 +56,11 @@ cancellation, exception composition, and shutdown.
 
 ## Virtual Threads
 
+![Animated virtual-thread mounting, unmounting, and monitor pinning](/img/diagrams/animated-virtual-thread-pinning.svg)
+
+*Supported blocking can unmount a virtual thread. Blocking while pinned retains
+the carrier; confirm actual pinning with JFR rather than the animation alone.*
+
 Virtual threads make blocking-style code scalable by unmounting from carrier
 threads during supported blocking. They do not make CPU, database connections,
 remote quotas, memory, or locks unlimited. Use semaphores/admission control around
@@ -74,3 +84,16 @@ changing ownership or bounds—not by adding arbitrary sleep.
 ## Recommended Next Page
 
 [Reflection, Proxies, Generics, And Serialization](./DYNAMIC-JAVA-INTERNALS.md)
+
+## Tricky Interview Questions
+
+1. Does AQS guarantee fairness? No; synchronizer policy and scheduling determine it.
+2. Why can common-pool blocking starve unrelated work? Shared workers are occupied.
+3. Do virtual threads remove semaphore limits? No; semaphores protect scarce resources.
+
+## Official References
+
+- [`AbstractQueuedSynchronizer` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/locks/AbstractQueuedSynchronizer.html)
+- [`ForkJoinPool` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ForkJoinPool.html)
+- [JEP 444 — Virtual Threads](https://openjdk.org/jeps/444)
+- [JEP 505 — Structured Concurrency](https://openjdk.org/jeps/505)

@@ -5,6 +5,13 @@ sidebar_position: 4
 
 # Java Collection Internals
 
+:::info Canonical learning route
+This overview preserves the established URL. Use
+[Collection Implementations For Architects](./JAVA-COLLECTION-IMPLEMENTATIONS-ARCHITECT.md)
+for focused implementation selection and the dedicated hash-map chapters for
+OpenJDK-level mechanics.
+:::
+
 Collections are API abstractions, but performance depends on their internal
 data structures.
 
@@ -175,3 +182,8 @@ use and `ConcurrentHashMap` for concurrent use.
 
 Because it stores values as keys in a backing `HashMap`; keys are unique based
 on `hashCode` and `equals`.
+
+## Official References
+
+- [Collections Framework](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/doc-files/coll-overview.html)
+- [`HashMap`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashMap.html)

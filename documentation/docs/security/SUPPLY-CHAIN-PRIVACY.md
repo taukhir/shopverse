@@ -68,3 +68,9 @@ and evidence. Avoid exposing subject existence through authorization errors.
 
 Read [PII-Safe Logging](../observability/PII-SAFE-LOGGING.md), then
 [JVM Profiling, Garbage Collection, And Native Images](../java/JVM-PROFILING-GC-NATIVE.md).
+
+## Official References
+
+- [SLSA specification](https://slsa.dev/spec/)
+- [CycloneDX specification](https://cyclonedx.org/specification/overview/)
+- [NIST Privacy Framework](https://www.nist.gov/privacy-framework)

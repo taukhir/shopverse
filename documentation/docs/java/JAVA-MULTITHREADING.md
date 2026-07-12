@@ -5,6 +5,13 @@ sidebar_position: 5
 
 # Java Multithreading
 
+:::info Canonical learning route
+The [Threads And Concurrency Guide](./JAVA-THREADING-UMBRELLA.md) owns learning
+order. Use [Concurrency Design Review](./JAVA-CONCURRENCY-DESIGN-REVIEW.md) for
+architectural invariants and the focused executor, JMM and virtual-thread pages
+for implementation depth.
+:::
+
 Concurrency allows tasks to overlap. Parallelism executes tasks at the same
 time. Correct code must define ownership, visibility, atomicity, cancellation,
 and resource bounds.
@@ -287,3 +294,8 @@ transactions.
 8. Test races repeatedly and enforce invariants in durable storage.
 9. Capture thread dumps for deadlock/starvation diagnosis.
 10. Load-test virtual threads against real downstream limits.
+
+## Official References
+
+- [`java.util.concurrent`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/package-summary.html)
+- [JLS threads and locks](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html)

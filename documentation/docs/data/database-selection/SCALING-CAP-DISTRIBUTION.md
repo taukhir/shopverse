@@ -70,3 +70,9 @@ only key can create a hot shard. Test skew and failures at peak load.
 - Include failure headroom, compaction/repair/merge load, and rebalancing traffic.
 - Test failover fencing, split brain prevention, backup restore, and regional loss.
 - Monitor hot keys/ranges/shards, queue depth, disk I/O, cache hit ratio, and p99 latency.
+
+## Official References
+
+- [PostgreSQL documentation](https://www.postgresql.org/docs/current/)
+- [MySQL Reference Manual](https://dev.mysql.com/doc/refman/8.4/en/)
+- [Apache Cassandra documentation](https://cassandra.apache.org/doc/latest/)

@@ -505,3 +505,13 @@ tool, but Java executes the method and controls validation and authorization.
 
 I would choose it when I want interface-driven AI services, strong tool
 patterns, and a Java library that is not tied only to Spring AI abstractions.
+
+## Official References
+
+- [LangChain4j documentation](https://docs.langchain4j.dev/)
+- [Model Context Protocol specification](https://modelcontextprotocol.io/specification/)
+- [Spring AI reference](https://docs.spring.io/spring-ai/reference/)
+
+## Recommended Next Page
+
+Continue with [LangChain4j Tutorials](./LANGCHAIN4J-TUTORIALS.md).

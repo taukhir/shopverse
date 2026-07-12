@@ -98,3 +98,7 @@ service discovery, strangler fig, and bulkhead solve different forces. See
 
 Choose the simplest combination that satisfies the forces. Architecture is a
 set of enforceable decisions, not a diagram of fashionable labels.
+
+## Recommended Next Page
+
+Continue with [System Design Deep Dives](./SYSTEM-DESIGN-DEEP-DIVES.md).

@@ -116,3 +116,7 @@ without a specific workload that justifies the additional failure domain.
 - [ActiveMQ Artemis documentation](https://activemq.apache.org/components/artemis/documentation/latest/)
 - [Jakarta Messaging specification](https://jakarta.ee/specifications/messaging/)
 - [LinkedIn comparison supplied with this request](https://www.linkedin.com/posts/laxmanrthagan_kafka-vs-rabbitmq-vs-activemq-vs-jms-activity-7475751380234829824-CRyq/)
+
+## Recommended Next Page
+
+Continue with [Apache Kafka](./APACHE-KAFKA.md).

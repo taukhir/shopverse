@@ -94,3 +94,21 @@ Yes.
 Usually no. JPA entities need identity, lifecycle, proxies, and a no-arg
 constructor model. Use records for DTOs and projections instead.
 
+## Runtime And Invariant Depth
+
+Records are final nominal classes with private final component fields, accessors,
+and generated value methods. They are shallowly immutable. A compact constructor
+validates/normalizes parameters before implicit field assignment; reassign the
+parameter to store a defensive copy. Record serialization reconstructs through
+the canonical constructor, supporting invariant validation differently from
+ordinary serializable classes.
+
+## Tricky Interview Questions
+
+1. Can a record component reference mutable state? Yes.
+2. Can a record extend another class? No; it extends `Record`.
+3. Does a compact constructor explicitly assign every field? No; assignment is implicit after its body.
+
+## Official References
+
+- [JLS record classes](https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html#jls-8.10)

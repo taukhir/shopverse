@@ -104,8 +104,11 @@ implementation matrix.
 - RSA-signed JWT access tokens, JWKS, expiry validation, roles, permissions, and ownership authorization
 - API Gateway routing, service discovery, Spring Cloud LoadBalancer, and Feign clients
 - independent MySQL schemas managed by Liquibase and Spring Data JPA
-- idempotent checkout with persistent order timeline
-- optimistic inventory locking, reservation expiry, and payment compensation
+- idempotent checkout with immutable shipping-address snapshots and persistent order timeline
+- optimistic inventory locking, reservation expiry, cancellation release, and payment compensation
+- customer account address book and persisted customer cart
+- customer/admin order cancellation, payment retry/refund APIs, return request, and fulfillment transitions
+- public inventory catalog, product detail, category, related-product, and MinIO image metadata APIs
 - Kafka choreography with retries, DLT persistence, replay audit, and transactional outbox
 - annotation-based Resilience4j RateLimiter, Bulkhead, Retry, CircuitBreaker, and fallback
 - structured JSON logs, correlation propagation, Prometheus metrics, Grafana dashboards, and Zipkin traces
@@ -121,10 +124,10 @@ The exact implementation matrix is in [Features and demonstrations](documentatio
 |---|---:|---|
 | API Gateway | 8080 | routing, edge security, correlation, metrics |
 | Auth Service | 8081 | login, JWT signing, JWKS |
-| User Service | 8082 | users, roles, permissions, internal authentication |
-| Order Service | 8083 | checkout, ownership, SAGA timeline |
-| Payment Service | 8084 | payment state, simulation, reconciliation, refund |
-| Inventory Service | 8086 | stock, reservations, expiry, compensation |
+| User Service | 8082 | users, roles, permissions, account addresses, persisted carts, internal authentication |
+| Order Service | 8083 | checkout, ownership, SAGA timeline, cancellation, fulfillment, returns |
+| Payment Service | 8084 | payment state, intent, retry, reconciliation, refund, webhook baseline |
+| Inventory Service | 8086 | public catalog, product detail, stock, reservations, expiry, cancellation compensation |
 | Discovery Server | 8761 | Eureka registry |
 | Config Server | 8888 | centralized configuration |
 | Angular Storefront | 4200 | customer/admin web UI served by nginx in Docker |
@@ -275,7 +278,7 @@ Shopverse maintains separate schemas:
 Liquibase seeds:
 
 - `admin`, `customer1`, and `customer2`;
-- catalog products `101` through `106`;
+- catalog products `101` through `106` with product metadata and MinIO-backed image references;
 - confirmed, payment-failed, and inventory-rejected historical orders;
 - matching payment examples for the successful and declined orders.
 
@@ -290,7 +293,8 @@ TTL is 60 seconds and can be overridden with
 Order catalog view with `POST /api/v1/orders/admin/catalog-cache/evict`; the
 API seed script does this automatically. Checkout validates requested products
 through a direct Inventory lookup rather than relying on the cached browse
-catalog.
+catalog. Checkout also stores a shipping address snapshot on the order so
+later account-address edits do not mutate historical order records.
 
 Inspect all schemas:
 
@@ -317,6 +321,16 @@ X-Correlation-Id: demo-checkout-9001
 Content-Type: application/json
 
 {
+  "shippingAddress": {
+    "recipientName": "Ahmed Khan",
+    "phoneNumber": "+919876543210",
+    "line1": "42 Market Road",
+    "line2": "Apt 5",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "postalCode": "560001",
+    "country": "India"
+  },
   "items": [
     {
       "productId": 101,
@@ -326,7 +340,25 @@ Content-Type: application/json
 }
 ```
 
-The request persists Order state and an outbox event in one transaction. Kafka then drives Inventory and Payment asynchronously. Query `/api/v1/orders/{id}/timeline` to inspect the business journey.
+The request persists Order state, the shipping snapshot, and an outbox event in
+one transaction. Kafka then drives Inventory and Payment asynchronously. Query
+`/api/v1/orders/{id}/timeline` to inspect the business journey.
+
+## Current Customer and Operations APIs
+
+Recently implemented runtime surfaces include:
+
+| Area | Endpoints |
+|---|---|
+| Customer account | `GET/PUT/PATCH /api/v1/users/me`, `GET/POST/PUT/DELETE /api/v1/users/me/addresses` |
+| Persisted cart | `GET /api/v1/cart`, `PUT /api/v1/cart`, `POST /api/v1/cart/merge`, `POST /api/v1/cart/validate`, `DELETE /api/v1/cart/items/{productId}` |
+| Public catalog | `GET /api/v1/inventory/public/items`, `GET /api/v1/inventory/public/items/{productId}`, `GET /api/v1/inventory/public/categories`, `GET /api/v1/inventory/public/items/{productId}/related`; admin image upload through `POST /api/v1/inventory/admin/items/{productId}/image` |
+| Order actions | `POST /api/v1/orders/{id}/cancel`, `POST /api/v1/orders/{id}/return-request` |
+| Admin fulfillment | `POST /api/v1/orders/admin/{id}/pack`, `POST /api/v1/orders/admin/{id}/ship`, `POST /api/v1/orders/admin/{id}/deliver`, `POST /api/v1/orders/admin/{id}/cancel`, `POST /api/v1/orders/admin/catalog-cache/evict` |
+| Payments | `POST /api/v1/payments/intent`, `POST /api/v1/payments/orders/{orderNumber}/retry`, `POST /api/v1/payments/orders/{orderNumber}/refund`, `GET /api/v1/payments/orders/{orderNumber}`, `POST /api/v1/payments/webhooks/provider` |
+
+Payment provider webhook signature verification, refund audit depth, and
+inventory-aware cart validation remain hardening items.
 
 ## Documentation
 

@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # JVM Profiling, Garbage Collection, And Native Images
 
+![Java internals atlas showing allocation, JIT, GC, virtual threads, collection layout, and JMH phases](/img/diagrams/java-internals-atlas.svg)
+
+*Profile the relationship between these subsystems; do not tune GC, JIT, threads,
+or allocation as independent knobs.*
+
 ## Evidence Before Tuning
 
 Correlate user latency/errors with process CPU, throttling, run queue, heap,
@@ -56,3 +61,15 @@ an automatic performance upgrade.
 ## Recommended Next Page
 
 Continue with [Advanced Spring Platform Patterns](../spring/SPRING-PLATFORM-ADVANCED.md).
+
+## Tricky Interview Questions
+
+1. Why can a heap dump worsen an incident? Pause, disk pressure and sensitive-data exposure.
+2. Does frequent GC prove insufficient heap? No; inspect allocation and live set.
+3. Why can RSS exceed `-Xmx`? Native regions are outside heap.
+
+## Official References
+
+- [Java Flight Recorder](https://docs.oracle.com/en/java/javase/25/jfapi/)
+- [Java GC Tuning Guide](https://docs.oracle.com/en/java/javase/25/gctuning/)
+- [GraalVM Native Image](https://www.graalvm.org/latest/reference-manual/native-image/)

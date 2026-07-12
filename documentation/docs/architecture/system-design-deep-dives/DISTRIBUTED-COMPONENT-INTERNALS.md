@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # Distributed Component Internals
 
+![Twelve-panel atlas of distributed-system building blocks and their main failure questions](/img/diagrams/distributed-systems-atlas.svg)
+
+*Each box is an ownership and capacity mechanism, not a magic service. The labels
+under it identify the failure behavior a design must explain.*
+
 | Component | Internal decision | Failure/scaling question |
 |---|---|---|
 | load balancer | L4/L7, health, algorithm, connection reuse | stale health, uneven long connections, retry storms |
@@ -70,3 +75,9 @@ fanout users. Always define ordering scope, cursor, deduplication and reconnect/
 ## Recommended Next Page
 
 [Case-Study Design Workbook](./CASE-STUDY-WORKBOOK.md)
+
+## Official References
+
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)

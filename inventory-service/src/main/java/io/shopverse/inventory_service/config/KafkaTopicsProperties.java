@@ -11,6 +11,7 @@ public record KafkaTopicsProperties(
         @NotBlank String inventoryReserved,
         @NotBlank String inventoryFailed,
         @NotBlank String paymentCompleted,
-        @NotBlank String paymentFailed
+        @NotBlank String paymentFailed,
+        @NotBlank String orderCancelled
 ) {
 }

@@ -1,13 +1,17 @@
 # Payment Service
 
-Payment Service runs on port `8084`. It owns persistent payment state, a third-party provider boundary, payment simulation, reconciliation, refunds, and payment-side recovery.
+Payment Service runs on port `8084`. It owns persistent payment state, payment intent/retry/refund APIs, a third-party provider boundary, webhook baseline, payment simulation, reconciliation, and payment-side recovery.
 
 ## APIs
 
 | Method | Path | Access |
 |---|---|---|
 | `GET` | `/api/v1/payments/public/health` | public |
+| `POST` | `/api/v1/payments/intent` | authenticated |
 | `GET` | `/api/v1/payments/orders/{orderNumber}` | owner or admin |
+| `POST` | `/api/v1/payments/orders/{orderNumber}/retry` | owner or admin |
+| `POST` | `/api/v1/payments/orders/{orderNumber}/refund` | owner or admin |
+| `POST` | `/api/v1/payments/webhooks/provider` | provider callback baseline |
 | `GET` | `/api/v1/payments/admin` | admin |
 | `POST` | `/api/v1/payments/admin/simulation?mode=SUCCESS` | admin |
 | `POST` | `/api/v1/payments/admin/orders/{orderNumber}/reconcile` | admin |
@@ -27,7 +31,7 @@ PENDING -> AUTHORIZED -> CAPTURED
 CAPTURED -> REFUNDED
 ```
 
-The stub provider supports `SUCCESS`, `DECLINE`, and `TIMEOUT`. A timed-out payment remains uncertain until the reconciliation endpoint resolves it.
+The stub provider supports `SUCCESS`, `DECLINE`, and `TIMEOUT`. A timed-out payment remains uncertain until retry, reconciliation, or a provider webhook resolves it.
 
 ## Timeout Reconciliation And Refunds
 
@@ -58,6 +62,36 @@ Authorization: Bearer <admin-token>
 Only `CAPTURED` payments can be refunded. Refund changes Payment state to
 `REFUNDED`. The current POC does not publish a `payment.refunded` event or
 change Order state after refund.
+
+Customer-facing retry and refund routes exist:
+
+```http
+POST /api/v1/payments/orders/{orderNumber}/retry
+POST /api/v1/payments/orders/{orderNumber}/refund
+```
+
+Retry is allowed only for `DECLINED` or `TIMED_OUT` payments. Refund is
+allowed only for `CAPTURED` payments. Terminal retry/webhook outcomes enqueue
+payment completed or failed outbox events so Order Service can continue the
+workflow.
+
+The provider webhook baseline accepts:
+
+```http
+POST /api/v1/payments/webhooks/provider
+Content-Type: application/json
+
+{
+  "orderNumber": "ORD-12345678",
+  "status": "CAPTURED",
+  "paymentReference": "PROVIDER-REF-123",
+  "reason": null
+}
+```
+
+The endpoint is intentionally reachable without a customer JWT for provider
+callbacks. Production usage must add provider signature verification before
+trusting the payload.
 
 The current POC also does not automatically refund a payment whose Inventory
 reservation expired before the delayed `payment.completed` event was

@@ -1,6 +1,6 @@
 # User Service
 
-User Service runs on port `8082`. It owns users, roles, permissions, database-backed authentication, and permission-level administration.
+User Service runs on port `8082`. It owns users, roles, permissions, database-backed authentication, customer address books, persisted carts, and permission-level administration.
 
 ## Security Chains
 
@@ -19,6 +19,8 @@ The internal endpoint supports Auth Service credential validation. Public APIs u
 | registration | `/api/v1/public/users/register` | public |
 | internal authentication | `/api/v1/internal/users/authenticated` | internal Basic |
 | current profile | `/api/v1/users/me` | authenticated user |
+| address book | `/api/v1/users/me/addresses` | authenticated owner |
+| persisted cart | `/api/v1/cart` | authenticated owner |
 | users | `/api/v1/users` | permission authorities |
 | roles | `/api/v1/roles` | `ADMIN_ACCESS` |
 | permissions | `/api/v1/permissions` | `ADMIN_ACCESS` |
@@ -38,13 +40,35 @@ Self-service endpoints:
 |---|---|---|
 | `POST` | `/api/v1/public/users/register` | create a customer account |
 | `GET` | `/api/v1/users/me` | return the current profile |
-| `PATCH` | `/api/v1/users/me` | update the current profile |
+| `PUT` | `/api/v1/users/me` | replace/update the current profile |
+| `PATCH` | `/api/v1/users/me` | partial profile update alias |
+| `GET` | `/api/v1/users/me/addresses` | list owned addresses |
+| `POST` | `/api/v1/users/me/addresses` | create address |
+| `PUT` | `/api/v1/users/me/addresses/{addressId}` | update owned address |
+| `DELETE` | `/api/v1/users/me/addresses/{addressId}` | delete owned address |
+
+Cart endpoints:
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/api/v1/cart` | load current user's cart |
+| `PUT` | `/api/v1/cart` | replace cart items |
+| `POST` | `/api/v1/cart/merge` | merge local/browser cart into account cart |
+| `POST` | `/api/v1/cart/validate` | structural cart validation |
+| `DELETE` | `/api/v1/cart/items/{productId}` | remove product from cart |
+
+Cart validation is structural in User Service. Inventory-aware validation
+belongs at the Inventory/checkout boundary because User Service does not own
+product availability rules.
 
 Swagger is available at `/swagger-ui/index.html`; use the **Authorize** action with `Bearer <token>`.
 
 ## Persistence
 
-Liquibase creates users, roles, permissions, join tables, refresh-token/audit support tables, and bootstrap data. `UserRepository` and `RoleRepository` use `@EntityGraph` to load roles and permissions without an N+1 query sequence.
+Liquibase creates users, roles, permissions, join tables, refresh-token/audit
+support tables, address tables, cart tables, and bootstrap data.
+`UserRepository` and `RoleRepository` use `@EntityGraph` to load roles and
+permissions without an N+1 query sequence.
 
 `DatabaseUserDetailsService` adapts the User repository model to Spring Security's `UserDetailsService` contract. BCrypt compares the supplied password with the stored hash.
 

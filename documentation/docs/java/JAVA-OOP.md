@@ -5,6 +5,12 @@ sidebar_position: 1
 
 # Java Object-Oriented Programming
 
+:::info Canonical learning route
+Use this page for the OOP map. Specification-level dispatch, construction and
+compatibility live in [Language And OOP Internals](./JAVA-LANGUAGE-OOP-INTERNALS.md),
+with modern abstraction rules in [Abstract Classes And Interfaces](./JAVA-ABSTRACTION-INTERFACES.md).
+:::
+
 Object-oriented programming models behavior and state around collaborating
 objects. Good OOP emphasizes cohesive responsibilities and explicit
 relationships, not merely creating many classes.
@@ -236,3 +242,7 @@ Yes. Subclass construction invokes it to initialize base state.
 | program to focused contracts | deep class hierarchies |
 | use records for immutable data carriers | records for mutable entities |
 
+## Official References
+
+- [JLS classes](https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html)
+- [JLS interfaces](https://docs.oracle.com/javase/specs/jls/se25/html/jls-9.html)

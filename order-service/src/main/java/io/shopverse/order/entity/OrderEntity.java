@@ -132,4 +132,28 @@ public class OrderEntity extends BaseAuditableEntity {
     public void cancel() {
         status = OrderStatus.CANCELLED;
     }
+
+    public void markPacking() {
+        status = OrderStatus.PACKING;
+    }
+
+    public void markShipped() {
+        status = OrderStatus.SHIPPED;
+    }
+
+    public void markOutForDelivery() {
+        status = OrderStatus.OUT_FOR_DELIVERY;
+    }
+
+    public void markDelivered() {
+        status = OrderStatus.DELIVERED;
+    }
+
+    public void requestReturn() {
+        status = OrderStatus.RETURN_REQUESTED;
+    }
+
+    public void markReturned() {
+        status = OrderStatus.RETURNED;
+    }
 }

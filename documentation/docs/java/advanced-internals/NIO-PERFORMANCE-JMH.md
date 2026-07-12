@@ -56,3 +56,19 @@ JDK, flags, hardware, OS, forks, warmup, measurement, distribution, and uncertai
 3. Compare file copy versus `transferTo` while recording CPU and throughput.
 4. Write a deliberately broken JMH benchmark, identify elimination/folding, fix it,
    and compare with an application-level load test.
+
+## Official References
+
+- [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se25/html/)
+- [Java Virtual Machine Specification](https://docs.oracle.com/javase/specs/jvms/se25/html/)
+- [Java SE 25 API](https://docs.oracle.com/en/java/javase/25/docs/api/)
+
+## Tricky Interview Questions
+
+1. Why can a benchmark report impossible speed? Dead-code elimination or constant folding.
+2. Does direct memory count against heap? No, but it counts against process limits.
+3. Why must non-blocking writes loop? Partial or zero progress is legal.
+
+## Recommended Next Page
+
+Continue with [JVM Profiling, Garbage Collection, And Native Images](../JVM-PROFILING-GC-NATIVE.md).

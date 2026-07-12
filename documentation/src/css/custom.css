@@ -32,6 +32,13 @@ html[data-theme='light'] .prism-code .token {
   color: #3b4555 !important;
 }
 
+/* prism-react-renderer dims qualified Java package names inline. At 70% the
+ * resulting text misses WCAG AA on the GitHub code background. */
+html[data-theme='light'] .prism-code .token.namespace {
+  color: #3b4555 !important;
+  opacity: 1 !important;
+}
+
 html[data-theme='light'] .prism-code .token.function {
   color: #b4232f !important;
 }

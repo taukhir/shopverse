@@ -696,3 +696,9 @@ may make the old version incompatible with current state.
 - [CI/CD Automation](CI-CD-AUTOMATION.md)
 - [Jenkins](JENKINS.md)
 - [GitHub Actions](GITHUB-ACTIONS.md)
+
+## Official References
+
+- [Kubernetes documentation](https://kubernetes.io/docs/)
+- [Docker documentation](https://docs.docker.com/)
+- [Google SRE Book](https://sre.google/sre-book/table-of-contents/)

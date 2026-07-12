@@ -11,6 +11,10 @@ last_reviewed: "2026-07-12"
 
 # Advanced Spring Platform Patterns
 
+![Spring internals atlas connecting proxies, transactions, HTTP execution, persistence, pools, and shutdown](/img/diagrams/spring-internals-atlas.svg)
+
+*Platform abstractions still execute through these concrete runtime boundaries.*
+
 Framework abstractions reduce boilerplate but do not remove protocol, broker,
 module, tenant, or native-runtime semantics. Verify exact dependency compatibility
 against the project's Spring Boot and Spring Cloud release train.
@@ -74,3 +78,13 @@ collisions, batch jobs, exports, retries, and observability. See the
 - Runtime resources, queues, retries, and tenant boundaries are bounded.
 - SLO, recovery, security, privacy, performance, and cost evidence exists.
 - Platform abstractions have documented failure modes and escape hatches.
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Spring project documentation](https://spring.io/projects)
+
+## Recommended Next Page
+
+Continue with [Production Platform Engineering](../architecture/PRODUCTION-PLATFORM-ENGINEERING.md).

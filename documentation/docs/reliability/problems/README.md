@@ -14,7 +14,8 @@ not just what the final implementation looks like.
 
 | Group | Start Here | Covers |
 |---|---|---|
-| Runtime reliability | [Runtime Reliability Problems](./RUNTIME-RELIABILITY-PROBLEMS.md) | Checkout consistency, dependency lookup scope, idempotency, Kafka behavior, reservation expiry, ownership checks. |
+| Current implementation status | [Current Problems And Solutions](./CURRENT-PROBLEMS-AND-SOLUTIONS.md) | Current solved, partial, and remaining hardening items across runtime, API, frontend, Docker, and verification. |
+| Runtime reliability | [Runtime Reliability Problems](./RUNTIME-RELIABILITY-PROBLEMS.md) | Checkout consistency, dependency lookup scope, idempotency, Kafka behavior, reservation expiry, cancellation release, ownership checks, payment uncertainty, cart persistence, and fulfillment state. |
 | Outbox runtime | [Outbox Runtime Problems](./OUTBOX-RUNTIME-PROBLEMS.md) | Outbox lock scope, claim release, stuck events. |
 | Docker/runtime images | [Docker And Runtime Image Problems](./DOCKER-RUNTIME-IMAGE-PROBLEMS.md) | Runtime image composition, non-root containers, Gradle cache behavior in Docker builds. |
 | Dependency and verification | [Dependency And Verification Problems](./DEPENDENCY-VERIFICATION-PROBLEMS.md) | Health probes, bounded checks, service dependency semantics. |

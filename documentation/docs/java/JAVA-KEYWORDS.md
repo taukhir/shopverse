@@ -348,3 +348,9 @@ to the consistency requirement.
 - [JLS 14.19 — The synchronized statement](https://docs.oracle.com/en/java/javase/26/docs/specs/jls/jls-14.html#jls-14.19)
 - [JLS 17.4 — Memory model](https://docs.oracle.com/en/java/javase/26/docs/specs/jls/jls-17.html#jls-17.4)
 - [JLS 17.5 — Final field semantics](https://docs.oracle.com/en/java/javase/26/docs/specs/jls/jls-17.html#jls-17.5)
+
+## Official References
+
+- [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se25/html/)
+- [Java Virtual Machine Specification](https://docs.oracle.com/javase/specs/jvms/se25/html/)
+- [Java SE 25 API](https://docs.oracle.com/en/java/javase/25/docs/api/)

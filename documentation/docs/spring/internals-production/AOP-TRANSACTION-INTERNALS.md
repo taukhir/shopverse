@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # AOP Proxy And Transaction Internals
 
+![Animated comparison of an external Spring proxy call and self-invocation bypass](/img/diagrams/animated-spring-proxy-self-invocation.svg)
+
+*The red self-call never crosses the proxy boundary, so proxy advice is not
+reapplied. Refactor the boundary or use an appropriate weaving/programmatic model.*
+
 Spring AOP normally returns a proxy from a bean post-processor. JDK proxies expose
 interfaces; subclass proxies override eligible non-final methods. Interceptors form
 a chain around the target invocation. Final/private methods, construction, and
@@ -53,3 +58,10 @@ after-commit failure. Inspect SQL, connections, and transaction logs.
 ## Recommended Next Page
 
 [Web Execution And HTTP Runtime](./WEB-HTTP-RUNTIME.md)
+
+## Official References
+
+- [Spring Framework — AOP Proxies](https://docs.spring.io/spring-framework/reference/core/aop/proxying.html)
+- [Spring Framework — Declarative Transaction Implementation](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-decl-explained.html)
+- [Spring Framework — `@Transactional` Settings](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html)
+- [Spring Framework — Transaction Propagation](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-propagation.html)

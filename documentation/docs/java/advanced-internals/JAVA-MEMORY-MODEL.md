@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # Java Memory Model And Safe Publication
 
+![Safe publication from one thread to another using a release and acquire happens-before edge](/img/diagrams/jmm-happens-before.svg)
+
+*Program order plus a matching synchronization edge lets the second thread
+observe initialized state. Elapsed time alone does not establish visibility.*
+
 The Java Memory Model defines which writes a read may observe under concurrency.
 Sequential reasoning is valid only when synchronization establishes the required
 ordering. A data race exists when conflicting accesses occur without a happens-
@@ -76,3 +81,16 @@ for illegal outcomes. Document the happens-before proof for the correct designs.
 ## Recommended Next Page
 
 [Concurrency Primitives And AQS](./CONCURRENCY-AQS-VIRTUAL-THREADS.md)
+
+## Tricky Interview Questions
+
+1. Does `volatile` make `count++` atomic? No.
+2. Is safe publication equivalent to immutability? No.
+3. Are racy programs sequentially consistent? Not necessarily.
+
+## Official References
+
+- [JLS §17.4 — Memory Model](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html#jls-17.4)
+- [JLS §17.4.5 — Happens-before Order](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html#jls-17.4.5)
+- [JLS §17.5 — `final` Field Semantics](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html#jls-17.5)
+- [`VarHandle` memory-ordering API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/invoke/VarHandle.html)

@@ -1,6 +1,6 @@
 # Order Service
 
-Order Service runs on port `8083`. It owns checkout, order state, customer ownership, the business SAGA timeline, and Order-side outbox/DLT recovery.
+Order Service runs on port `8083`. It owns checkout, order state, customer ownership, shipping snapshots, cancellation, fulfillment transitions, return requests, the business SAGA timeline, and Order-side outbox/DLT recovery.
 
 ## APIs
 
@@ -12,8 +12,15 @@ Order Service runs on port `8083`. It owns checkout, order state, customer owner
 | `GET` | `/api/v1/orders/{id}` | owner or admin |
 | `GET` | `/api/v1/orders/{id}/timeline` | owner or admin |
 | `POST` | `/api/v1/orders/checkout` | authenticated |
+| `POST` | `/api/v1/orders/{id}/cancel` | owner |
+| `POST` | `/api/v1/orders/{id}/return-request` | owner |
 | `DELETE` | `/api/v1/orders/{id}` | admin |
 | `GET` | `/api/v1/orders/admin/all` | admin route policy |
+| `POST` | `/api/v1/orders/admin/{id}/cancel` | admin |
+| `POST` | `/api/v1/orders/admin/{id}/pack` | admin |
+| `POST` | `/api/v1/orders/admin/{id}/ship` | admin |
+| `POST` | `/api/v1/orders/admin/{id}/deliver` | admin |
+| `POST` | `/api/v1/orders/admin/catalog-cache/evict` | admin |
 | `GET` | `/api/v1/orders/admin/dead-letters` | admin |
 | `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | admin |
 
@@ -27,13 +34,35 @@ X-Correlation-Id: demo-checkout-9001
 Content-Type: application/json
 
 {
+  "shippingAddress": {
+    "recipientName": "Ahmed Khan",
+    "phoneNumber": "+919876543210",
+    "line1": "42 Market Road",
+    "line2": "Apt 5",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "postalCode": "560001",
+    "country": "India"
+  },
   "items": [
     { "productId": 101, "quantity": 1 }
   ]
 }
 ```
 
-Current validation allows one item.
+Current validation allows one item. The shipping address is stored as an
+immutable snapshot on the Order so later account-address edits do not alter
+historical order records.
+
+Fulfillment transitions:
+
+```text
+CONFIRMED -> PACKING -> SHIPPED -> OUT_FOR_DELIVERY -> DELIVERED -> RETURN_REQUESTED
+```
+
+The `/ship` endpoint advances `PACKING -> SHIPPED` and then
+`SHIPPED -> OUT_FOR_DELIVERY` on the next call. Customer return requests are
+allowed only from `DELIVERED`.
 
 Swagger is available at `/swagger-ui/index.html` when the service is reached
 directly; use the [API guide](../documentation/docs/development/API-GUIDE.md)
@@ -41,7 +70,12 @@ for gateway-facing examples.
 
 ## Persistence And Consistency
 
-Order, items, initial timeline event, and outgoing outbox event commit in one transaction. Reusing an idempotency key returns the existing order. A database unique constraint protects concurrent duplicates.
+Order, items, shipping snapshot, initial timeline event, and outgoing outbox
+event commit in one transaction. Reusing an idempotency key returns the
+existing order. A database unique constraint protects concurrent duplicates.
+
+Cancelling an order emits `OrderCancelledEvent` through the outbox. Inventory
+Service consumes that event and releases any matching reserved stock.
 
 ## Queryable SAGA Timeline
 
@@ -49,7 +83,9 @@ Order Service stores important checkout transitions in
 `order_timeline_events`. This is the durable business history for an order,
 separate from logs and traces. It records stages such as `ORDER_CREATED`,
 `INVENTORY_RESERVED`, `PAYMENT_PROCESSING`, `PAYMENT_COMPLETED`,
-`ORDER_CONFIRMED`, `INVENTORY_REJECTED`, and `PAYMENT_FAILED`.
+`ORDER_CONFIRMED`, `INVENTORY_REJECTED`, `PAYMENT_FAILED`, `ORDER_CANCELLED`,
+`PACKING`, `SHIPPED`, `OUT_FOR_DELIVERY`, `DELIVERED`, and
+`RETURN_REQUESTED`.
 
 Read it through:
 

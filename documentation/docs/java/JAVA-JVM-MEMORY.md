@@ -4,6 +4,12 @@ title: JVM Memory Model
 
 # JVM Memory Model
 
+![JVM process memory split across managed heap, per-thread areas, and native memory](/img/diagrams/jvm-memory-runtime-areas.svg)
+
+*The Java heap is only part of process memory. Container limits must also cover
+thread stacks, metaspace, compiled code, direct buffers, GC structures, agents,
+JNI libraries, and sidecars.*
+
 The JVM divides runtime memory into areas with different ownership and
 lifetime. Understanding these areas helps with memory leaks, stack overflows,
 GC tuning, and performance debugging.
@@ -44,6 +50,10 @@ flowchart LR
 | Code cache | JIT-compiled native code | code cache full warnings |
 | PC register | current instruction per thread | rarely tuned directly |
 | Native stack | JNI/native calls | native memory pressure |
+
+The specification defines logical runtime data areas; exact heap regions,
+collectors, TLAB layout, code cache, and native-memory accounting are JVM
+implementation details. Confirm them for the deployed JDK and collector.
 
 ## Heap And GC
 
@@ -207,3 +217,9 @@ Deep recursion or excessive call depth exhausts the stack allocated to one
 thread.
 
 </ExpandableAnswer>
+
+## Official References
+
+- [JVMS §2.5 — Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5)
+- [Java Troubleshooting Guide — Native Memory Tracking](https://docs.oracle.com/en/java/javase/25/vm/native-memory-tracking.html)
+- [Java Flight Recorder Runtime Guide](https://docs.oracle.com/en/java/javase/25/jfapi/flight-recorder-runtime-guide.html)

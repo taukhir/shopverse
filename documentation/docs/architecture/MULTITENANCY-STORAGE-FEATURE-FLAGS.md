@@ -66,3 +66,9 @@ stale interacting flags create an untestable combinatorial system.
 ## Recommended Next Page
 
 Continue with [Data Pipelines And Search Operations](../data/DATA-PIPELINES-SEARCH-OPERATIONS.md).
+
+## Official References
+
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [RFC 9110 — HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
