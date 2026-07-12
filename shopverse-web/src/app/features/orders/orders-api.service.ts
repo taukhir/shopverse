@@ -11,6 +11,17 @@ export interface OrderItem {
   unitPrice: number;
 }
 
+export interface ShippingAddress {
+  recipientName: string;
+  phoneNumber?: string | null;
+  line1: string;
+  line2?: string | null;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+}
+
 export interface Order {
   id: number;
   orderNumber: string;
@@ -19,6 +30,7 @@ export interface Order {
   customerUsername?: string;
   status: string;
   totalAmount: number;
+  shippingAddress?: ShippingAddress | null;
   items?: OrderItem[];
   createdAt: string;
 }
@@ -69,6 +81,10 @@ export class OrdersApiService {
     return this.http.get<Order>(API_PATHS.orders.byId(id));
   }
 
+  cancelOrder(id: number | string) {
+    return this.http.post<Order>(API_PATHS.orders.cancel(id), {});
+  }
+
   getOrderWorkflowState(order: Order): Observable<OrderWorkflowState> {
     return forkJoin({
       timeline: this.http.get<TimelineEvent[]>(API_PATHS.orders.timeline(order.id)).pipe(catchError(() => of([]))),
@@ -78,8 +94,8 @@ export class OrdersApiService {
     });
   }
 
-  checkout(items: CheckoutRequestItem[], idempotencyKey: string) {
+  checkout(items: CheckoutRequestItem[], idempotencyKey: string, shippingAddress: ShippingAddress) {
     const headers = new HttpHeaders({ 'Idempotency-Key': idempotencyKey });
-    return this.http.post<CheckoutResponse>(API_PATHS.orders.checkout, { items }, { headers });
+    return this.http.post<CheckoutResponse>(API_PATHS.orders.checkout, { items, shippingAddress }, { headers });
   }
 }

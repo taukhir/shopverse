@@ -60,6 +60,7 @@ flowchart TD
 
 | Guide | Scope |
 |---|---|
+| [Distributed Schedulers And Safe Work Claiming](../DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md) | end-to-end choice among singleton jobs, row claims, leases, ranges, queues, locks, and idempotency |
 | [Database Locking And Work Claims](DATABASE-LOCKING-AND-CLAIMS.md) | conditional updates, pessimistic locks, `SKIP LOCKED`, MySQL/PostgreSQL batch claims, outbox and expiry decisions |
 | [Scheduler Locking With ShedLock](SCHEDULER-LOCKING-SHEDLOCK.md) | one scheduled method execution across replicas, JDBC lock table, leases, crash behavior |
 | [Distributed Locks And Fencing](DISTRIBUTED-LOCKS-AND-FENCING.md) | Redis/database/coordinator leases, stale owners, fencing tokens, deadlocks |
@@ -110,4 +111,3 @@ side effect but before recording completion.
 - Enforce database constraints even when a queue serializes normal traffic.
 - Test contention and crash windows using the production database engine.
 - Monitor lock waits, deadlocks, skipped claims, stale claims, and work lag.
-

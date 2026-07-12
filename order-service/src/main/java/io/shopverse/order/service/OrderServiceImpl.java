@@ -9,7 +9,9 @@ import io.shopverse.order.dto.OrderTimelineResponse;
 import io.shopverse.order.entity.OrderEntity;
 import io.shopverse.order.entity.OrderTimelineEvent;
 import io.shopverse.order.entity.OrderTimelineStage;
+import io.shopverse.order.entity.OrderStatus;
 import io.shopverse.order.exception.IdempotencyKeyConflictException;
+import io.shopverse.order.exception.InvalidOrderStateException;
 import io.shopverse.order.exception.ResourceNotFoundException;
 import io.shopverse.order.outbox.OutboxService;
 import io.shopverse.order.repository.OrderRepository;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.EnumSet;
 import java.util.UUID;
 
 @Slf4j
@@ -30,6 +33,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class OrderServiceImpl implements OrderService {
+
+    private static final EnumSet<OrderStatus> CUSTOMER_CANCELLABLE_STATUSES = EnumSet.of(
+            OrderStatus.ORDER_CREATED,
+            OrderStatus.PENDING_INVENTORY,
+            OrderStatus.INVENTORY_RESERVED,
+            OrderStatus.PAYMENT_PROCESSING,
+            OrderStatus.PAYMENT_FAILED
+    );
 
     private final OrderRepository repository;
     private final OrderTimelineRepository timelineRepository;
@@ -62,6 +73,17 @@ public class OrderServiceImpl implements OrderService {
                 username,
                 correlationId,
                 idempotencyKey
+        );
+        var shippingAddress = request.shippingAddress();
+        order.setShippingAddress(
+                shippingAddress.recipientName().trim(),
+                trimToNull(shippingAddress.phoneNumber()),
+                shippingAddress.line1().trim(),
+                trimToNull(shippingAddress.line2()),
+                shippingAddress.city().trim(),
+                shippingAddress.state().trim(),
+                shippingAddress.postalCode().trim(),
+                shippingAddress.country().trim()
         );
         request.items().forEach(item -> {
             CatalogItemResponse product = catalogService.getProduct(item.productId());
@@ -140,8 +162,36 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity order = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found: " + id))
                 ;
+        ensureCancellable(order);
         order.cancel();
         appendTimeline(order, OrderTimelineStage.ORDER_CANCELLED, "Order cancelled by administrator");
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "orders", allEntries = true)
+    public OrderResponse cancelAdminOrder(Long id) {
+        OrderEntity order = repository.findWithItemsById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found: " + id));
+        ensureCancellable(order);
+        order.cancel();
+        appendTimeline(order, OrderTimelineStage.ORDER_CANCELLED, "Order cancelled by administrator");
+        return OrderMapper.toResponse(order);
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "orders", allEntries = true)
+    public OrderResponse cancelCustomerOrder(Long id, String username) {
+        OrderEntity order = repository.findWithItemsById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found: " + id));
+        if (!order.getCustomerUsername().equals(username)) {
+            throw new ResourceNotFoundException("Order not found: " + id);
+        }
+        ensureCancellable(order);
+        order.cancel();
+        appendTimeline(order, OrderTimelineStage.ORDER_CANCELLED, "Order cancelled by customer");
+        return OrderMapper.toResponse(order);
     }
 
     @Override
@@ -217,5 +267,19 @@ public class OrderServiceImpl implements OrderService {
                 "shopverse.saga.transitions",
                 "stage", stage.name()
         ).increment();
+    }
+
+    private void ensureCancellable(OrderEntity order) {
+        if (!CUSTOMER_CANCELLABLE_STATUSES.contains(order.getStatus())) {
+            throw new InvalidOrderStateException("Order cannot be cancelled from status: " + order.getStatus());
+        }
+    }
+
+    private String trimToNull(String value) {
+        if (value == null) {
+            return null;
+        }
+        String trimmed = value.trim();
+        return trimmed.isBlank() ? null : trimmed;
     }
 }

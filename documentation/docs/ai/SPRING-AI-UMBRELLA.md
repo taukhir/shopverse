@@ -8,6 +8,11 @@ sidebar_position: 6.15
 Use this page as the umbrella for mastering Spring AI as a Java/Spring Boot
 developer.
 
+![Spring AI capability map covering models, prompts, RAG, tools, MCP, observability, and guardrails](/img/learning/spring-ai-capabilities.jpg)
+
+*Visual summary supplied by the project owner. Source:
+[LinkedIn Spring AI overview](https://www.linkedin.com/posts/laxmanrthagan_java-springboot-springai-activity-7480381163635621888-f2L_/). Verify APIs and provider support against the pinned Spring AI reference version.*
+
 Official references:
 
 - [Spring Generative AI](https://spring.io/ai/)
@@ -30,6 +35,7 @@ Official references:
 | 10 | memory | support follow-up chat |
 | 11 | observability | monitor latency, errors, token usage |
 | 12 | security | protect user data and tools |
+| 13 | MCP | consume or expose standardized tools, resources, and prompts |
 
 ## Spring AI Mental Model
 
@@ -63,6 +69,7 @@ Question -> model decides tool need -> Spring service validates -> backend API c
 | [Embeddings, Vector DB and RAG](EMBEDDINGS-VECTOR-DB-RAG.md) | retrieval foundation |
 | [AI security and guardrails](AI-SECURITY-GUARDRAILS.md) | secure Spring AI implementation |
 | [Spring AI vs LangChain4j](SPRING-AI-VS-LANGCHAIN4J.md) | comparison for interviews |
+| [MCP with Spring AI](MCP-SPRING-AI.md) | MCP clients, servers, transports, tools, and production security |
 
 ## Minimum Spring AI Developer Skill Set
 
@@ -86,4 +93,3 @@ You should be able to build and explain:
 > extraction, and tools/function calling to connect the model to real services
 > like inventory and orders. I would keep authorization, validation, and data
 > filtering in backend code.
-

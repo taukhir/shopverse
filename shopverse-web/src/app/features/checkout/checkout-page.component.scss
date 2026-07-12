@@ -107,6 +107,86 @@
   line-height: 1.45;
 }
 
+.address-select {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.8fr) 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.address-select p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.address-select h2 {
+  margin: 8px 0;
+  font-size: 26px;
+  letter-spacing: -0.06em;
+}
+
+.address-select span,
+.address-select article span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.address-select label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.address-select select {
+  width: 100%;
+  padding: 13px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: #fbfaf7;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.address-select article {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: #fbfaf7;
+}
+
+.address-select strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.address-select button,
+.address-select a {
+  width: fit-content;
+  margin-top: 12px;
+  padding: 10px 12px;
+  color: var(--white);
+  border: 0;
+  background: var(--ink);
+  font-size: 11px;
+  font-weight: 900;
+}
+
 .checkout > div,
 .checkout aside {
   padding: 34px;
@@ -347,7 +427,8 @@
 @media (max-width: 650px) {
   .checkout,
   .checkout-steps,
-  .checkout-readiness {
+  .checkout-readiness,
+  .address-select {
     grid-template-columns: 1fr;
   }
 

@@ -6,6 +6,8 @@ import { catchError, forkJoin, of } from 'rxjs';
 
 import { API_PATHS } from '../../core/api/api-paths';
 import { SessionService } from '../../core/auth/session.service';
+import { ConfirmService } from '../../core/feedback/confirm.service';
+import { ToastService } from '../../core/feedback/toast.service';
 import { formatInr } from '../../shared/utils/formatters';
 
 interface OrderItem {
@@ -13,6 +15,17 @@ interface OrderItem {
   productName: string;
   quantity: number;
   unitPrice: number;
+}
+
+interface ShippingAddress {
+  recipientName: string;
+  phoneNumber?: string | null;
+  line1: string;
+  line2?: string | null;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
 }
 
 interface Order {
@@ -23,6 +36,7 @@ interface Order {
   customerUsername: string;
   status: string;
   totalAmount: number;
+  shippingAddress?: ShippingAddress | null;
   items: OrderItem[];
   createdAt: string;
 }
@@ -68,12 +82,15 @@ export class AdminOrderDetailComponent {
   private readonly http = inject(HttpClient);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly confirm = inject(ConfirmService);
+  private readonly toast = inject(ToastService);
   protected readonly session = inject(SessionService);
   protected readonly order = signal<Order | null>(null);
   protected readonly timeline = signal<TimelineEvent[]>([]);
   protected readonly payment = signal<Payment | null>(null);
   protected readonly reservation = signal<InventoryReservation | null>(null);
   protected readonly loading = signal(true);
+  protected readonly actionLoading = signal(false);
   protected readonly error = signal('');
 
   constructor() {
@@ -110,6 +127,53 @@ export class AdminOrderDetailComponent {
     return stage.replaceAll('_', ' ').toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase());
   }
 
+  protected canCancelOrder(): boolean {
+    return ['ORDER_CREATED', 'PENDING_INVENTORY', 'INVENTORY_RESERVED', 'PAYMENT_PROCESSING', 'PAYMENT_FAILED'].includes(this.order()?.status ?? '');
+  }
+
+  protected actionHint(): string {
+    const order = this.order();
+    const status = order?.status ?? '';
+    if (!order) return 'Load an order to inspect operations.';
+    if (this.canCancelOrder()) return 'This order can be cancelled from operations.';
+    if (status === 'CONFIRMED') return 'Confirmed orders are locked until refund/return workflows are added.';
+    if (status === 'CANCELLED') return 'This order is already cancelled. No further cancellation action is available.';
+    if (status === 'INVENTORY_REJECTED') return 'Inventory rejected this order. Ask the customer to create a new checkout.';
+    return 'No direct admin action is currently available for this state.';
+  }
+
+  protected paymentHint(): string {
+    const payment = this.payment();
+    if (!payment) return 'No payment record returned yet.';
+    if (['DECLINED', 'TIMED_OUT', 'FAILED'].includes(payment.status)) return 'Payment needs attention. Use payment operations for reconciliation or refund tooling.';
+    if (payment.status === 'CAPTURED') return 'Payment is captured. Watch order confirmation timeline.';
+    return 'Payment is still progressing through the workflow.';
+  }
+
+  protected async cancelOrder(): Promise<void> {
+    const order = this.order();
+    if (!order || !this.canCancelOrder() || this.actionLoading()) return;
+    const confirmed = await this.confirm.confirm({
+      title: 'Cancel order?',
+      message: `Cancel ${order.orderNumber} for ${order.customerUsername}?`,
+      confirmText: 'Cancel order',
+    });
+    if (!confirmed) return;
+
+    this.actionLoading.set(true);
+    this.http.post<Order>(API_PATHS.orders.adminCancel(order.id), {}).subscribe({
+      next: (updated) => {
+        this.order.set(updated);
+        this.toast.info(`Order ${updated.orderNumber} cancelled.`);
+        this.loadOperationalState(updated);
+      },
+      error: () => {
+        this.actionLoading.set(false);
+        this.toast.error('Admin cancellation failed for this order state.');
+      },
+    });
+  }
+
   protected logout(): void {
     this.session.logout();
     this.router.navigateByUrl('/');
@@ -126,9 +190,11 @@ export class AdminOrderDetailComponent {
         this.payment.set(payment);
         this.reservation.set(reservation);
         this.loading.set(false);
+        this.actionLoading.set(false);
       },
       error: () => {
         this.loading.set(false);
+        this.actionLoading.set(false);
       },
     });
   }

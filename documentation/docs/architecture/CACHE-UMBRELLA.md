@@ -58,6 +58,11 @@ flowchart LR
 | ORM second-level | Application/provider region | Reusable entity/collection state | Stale data and invalidation complexity |
 | Database buffer pool | Database | Frequently used pages and indexes | Does not fix inefficient queries |
 
+The layers form a hierarchy, not a requirement to enable every cache. Each added
+layer needs an owner, key definition, maximum staleness, invalidation/TTL,
+stampede protection, observability, and a safe miss/outage path. A useful visual
+prompt for this topic is the [layered-caching source supplied with this request](https://www.linkedin.com/posts/codingwithroby_great-backend-engineers-understand-caching-activity-7475141017277562880-md7l/).
+
 ## How Data Is Stored
 
 Conceptually:

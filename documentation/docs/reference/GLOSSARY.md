@@ -3,7 +3,7 @@ title: Backend Engineering Glossary
 page_type: Reference
 difficulty: Beginner
 status: Generic
-last_reviewed: "2026-07-10"
+last_reviewed: "2026-07-12"
 ---
 
 # Backend Engineering Glossary
@@ -134,3 +134,78 @@ images, or other data for similarity search and machine-learning tasks.
 
 An attack in which untrusted instructions attempt to override an AI system's
 intended policy, tool constraints, or handling of retrieved information.
+
+## OLTP {#oltp}
+
+Online Transaction Processing: many short, concurrent business reads and writes
+that usually require low latency, constraints, and ACID transactions.
+
+## OLAP {#olap}
+
+Online Analytical Processing: scans and aggregates large volumes of current and
+historical data for reporting, exploration, forecasting, and decision support.
+
+## NoSQL {#nosql}
+
+An umbrella for non-relational data models such as key-value, document,
+wide-column, and graph. It does not imply one consistency or transaction model.
+
+## Partitioning {#partitioning}
+
+Dividing a logical dataset into bounded pieces by range, hash, list, time, or
+another key for lifecycle management, pruning, distribution, or parallel work.
+
+## Sharding {#sharding}
+
+Horizontal partitioning that places different subsets of data on independently
+scaled nodes or groups. Cross-shard queries and transactions become harder.
+
+## Keyset Pagination {#keyset-pagination}
+
+Pagination that continues after the last stable sort key instead of skipping an
+offset, giving bounded deep-page work when the ordering is deterministic.
+
+## Connection Pool {#connection-pool}
+
+A bounded set of reusable database connections. Its wait queue and timeouts are
+part of overload control; a larger pool can increase database contention.
+
+## Query Plan {#query-plan}
+
+The optimizer's chosen operators and access paths for a query. Estimated plans
+predict work; actual plans add observed row counts, timing, and engine metrics.
+
+## SLI {#sli}
+
+A Service Level Indicator is a measured aspect of user-visible service behavior,
+such as successful-request ratio, latency, correctness, or freshness.
+
+## SLO {#slo}
+
+A Service Level Objective is the target value or range for an SLI over a defined
+time window. Its allowed failure forms an error budget.
+
+## RPO {#rpo}
+
+Recovery Point Objective is the maximum acceptable amount of committed data loss,
+expressed as a time or recovery position.
+
+## RTO {#rto}
+
+Recovery Time Objective is the maximum acceptable time to restore a capability
+after disruption.
+
+## CDC {#cdc}
+
+Change Data Capture reads committed source changes, commonly from a database log,
+and delivers them to downstream pipelines or projections.
+
+## SBOM {#sbom}
+
+A Software Bill of Materials inventories components and versions contained in a
+software artifact so provenance, licensing, and vulnerability exposure can be assessed.
+
+## Watermark {#watermark}
+
+In stream processing, a watermark estimates how far event time has progressed so
+windows can produce results while still defining treatment of late events.

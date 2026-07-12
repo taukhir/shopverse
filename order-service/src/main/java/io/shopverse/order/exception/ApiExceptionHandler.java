@@ -32,6 +32,11 @@ public class ApiExceptionHandler {
         return ApiErrors.problem(HttpStatus.CONFLICT, exception.getMessage());
     }
 
+    @ExceptionHandler(InvalidOrderStateException.class)
+    ProblemDetail handleInvalidOrderState(InvalidOrderStateException exception) {
+        return ApiErrors.problem(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     ProblemDetail handleDuplicate(DataIntegrityViolationException exception) {
         return ApiErrors.problem(

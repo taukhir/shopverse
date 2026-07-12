@@ -44,3 +44,6 @@ databaseChangeLog:
 
   - include:
       file: db/changelog/015-bootstrap-admin-password.yml
+
+  - include:
+      file: db/changelog/016-create-user-addresses-table.yml

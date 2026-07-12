@@ -12,6 +12,7 @@ public record OrderResponse(
         String customerUsername,
         String status,
         BigDecimal totalAmount,
+        ShippingAddressResponse shippingAddress,
         List<OrderItemResponse> items,
         Instant createdAt
 ) {

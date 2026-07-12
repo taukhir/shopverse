@@ -30,6 +30,67 @@
   white-space: nowrap;
 }
 
+.action-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 22px;
+  margin-top: 30px;
+  padding: 24px;
+  color: var(--white);
+  background: var(--ink-soft);
+}
+
+.action-panel p {
+  margin: 0;
+  color: var(--accent-soft);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.action-panel h2 {
+  margin: 9px 0 8px;
+  font-size: 26px;
+  letter-spacing: -0.05em;
+}
+
+.action-panel span {
+  display: block;
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-content: flex-start;
+  justify-content: flex-end;
+  min-width: 320px;
+}
+
+.action-buttons button,
+.action-buttons a {
+  padding: 10px 12px;
+  color: var(--ink);
+  border: 0;
+  background: var(--accent-soft);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.action-buttons a {
+  background: var(--green);
+}
+
+.action-buttons button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .state-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -167,6 +228,15 @@
   .hero {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .action-panel {
+    flex-direction: column;
+  }
+
+  .action-buttons {
+    justify-content: flex-start;
+    min-width: 0;
   }
 
   .state-grid,

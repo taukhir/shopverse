@@ -39,12 +39,18 @@ Use these tracks when you do not want to read the full path linearly.
 | Track | Read in this order |
 |---|---|
 | Java backend | [Java OOP](../java/JAVA-OOP.md) -> [Java Collections](../java/JAVA-COLLECTIONS.md) -> [Java Multithreading](../java/JAVA-MULTITHREADING.md) -> [Spring Ecosystem](../spring/SPRING-ECOSYSTEM.md) -> [Spring REST APIs](../development/SPRING-REST-APIS.md) |
+| Advanced Java | [Advanced Java Internals](../java/ADVANCED-JAVA-INTERNALS.md) -> [JVM execution](../java/advanced-internals/JVM-EXECUTION-INTERNALS.md) -> [Memory model](../java/advanced-internals/JAVA-MEMORY-MODEL.md) -> [AQS and virtual threads](../java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md) -> [NIO and JMH](../java/advanced-internals/NIO-PERFORMANCE-JMH.md) |
 | Spring Boot production | [Spring Boot internals](../development/SPRING-BOOT-INTERNALS.md) -> [Spring Data JPA](../spring/SPRING-DATA-JPA.md) -> [Spring transactions](../spring/SPRING-TRANSACTIONS.md) -> [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md) |
+| Spring deep internals | [Deep Spring track](../spring/SPRING-BOOT-INTERNALS-PRODUCTION.md) -> [Container internals](../spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md) -> [AOP and transactions](../spring/internals-production/AOP-TRANSACTION-INTERNALS.md) -> [Web runtime](../spring/internals-production/WEB-HTTP-RUNTIME.md) -> [Hibernate and JDBC](../spring/internals-production/HIBERNATE-JDBC-INTERNALS.md) |
+| System design deep dives | [Deep-dive track](../architecture/SYSTEM-DESIGN-DEEP-DIVES.md) -> [Design method](../architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD.md) -> [Component internals](../architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS.md) -> [Case-study workbook](../architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK.md) |
 | Microservices | [Microservices and distributed systems](../architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS.md) -> [API Gateway](../development/API-GATEWAY-GENERIC.md) -> [Service discovery](../architecture/SERVICE-DISCOVERY.md) -> [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md) -> [Spring Kafka](../spring/SPRING-KAFKA.md) |
 | Reliability | [Distributed transactions and locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md) -> [SAGA pattern](../reliability/SAGA-GENERIC.md) -> [Transactional outbox](../reliability/OUTBOX-PATTERN.md) -> [Inbox pattern](../reliability/INBOX-PATTERN.md) -> [Problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md) |
+| Distributed schedulers | [Work-claim decision guide](../reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md) -> [Database claims](../reliability/locking/DATABASE-LOCKING-AND-CLAIMS.md) -> [Partitions and queues](../reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP.md) -> [Idempotency](../reliability/IDEMPOTENCY-GENERIC.md) |
 | Security | [Security principles](../security/principles/SECURITY-PRINCIPLES.md) -> [JWT fundamentals](../security/jwt/JWT-FUNDAMENTALS.md) -> [OAuth2 fundamentals](../security/oauth/OAUTH2-FUNDAMENTALS.md) -> [Spring Security](../security/SPRING-SECURITY-GENERIC.md) -> [Shopverse security](../security/JWT-OAUTH2-SPRING-SECURITY.md) |
 | Observability | [Structured logging](../observability/STRUCTURED-LOGGING.md) -> [MDC and tracing](../observability/MDC-CORRELATION-TRACING.md) -> [Micrometer](../observability/MICROMETER-METRICS.md) -> [Prometheus](../observability/PROMETHEUS.md) -> [Grafana](../observability/GRAFANA.md) |
 | Shopverse demo | [Shopverse case study](../case-study/SHOPVERSE.mdx) -> [Complete demo](../case-study/COMPLETE-DEMO.mdx) -> [Features and demos](FEATURES-AND-DEMOS.md) -> [Debugging](../development/DEBUGGING.md) |
+| Database choice | [Quick choice](../data/database-selection/DATABASE-QUICK-CHOICE.md) -> [Decision worksheet](../data/database-selection/DATABASE-DECISION-WORKSHEET.md) -> [Hands-on labs](../data/database-selection/DATABASE-HANDS-ON-LABS.md) -> [Interview exercises](../data/database-selection/DATABASE-INTERVIEW-EXERCISES.md) |
+| Production platform | [Platform track](../architecture/PRODUCTION-PLATFORM-ENGINEERING.md) -> [Compatibility](../architecture/API-EVENT-COMPATIBILITY.md) -> [Kubernetes](../operations/KUBERNETES-WORKLOAD-ENGINEERING.md) -> [SRE and recovery](../operations/SRE-DR-CHAOS.md) -> [Performance and cost](../operations/PERFORMANCE-CAPACITY-FINOPS.md) |
 
 ## Stage 1: Java And Engineering Foundations
 
@@ -72,6 +78,11 @@ Use these tracks when you do not want to read the full path linearly.
 | Topic | Study guide | Practical outcome |
 |---|---|---|
 | Relational design | [Database engineering](../data/DATABASE-ENGINEERING.md) | Understand normalization, joins, indexes, query plans, ACID, partitioning, and sharding |
+| Database quick choice | [Database quick choice](../data/database-selection/DATABASE-QUICK-CHOICE.md) | Match OLTP, OLAP, NoSQL, search, graph, and vector workloads to database families |
+| Database decision | [Decision worksheet](../data/database-selection/DATABASE-DECISION-WORKSHEET.md) | Produce an evidence-based shortlist from workload, scale, consistency, governance, support, and cost |
+| Database operations | [Migrations and operations](../data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md) | Evolve schemas and rehearse backup, restore, failover, CDC, retention, and upgrades |
+| Database practice | [Hands-on labs](../data/database-selection/DATABASE-HANDS-ON-LABS.md) | Compare plans, indexes, pagination, pool overload, partition keys, OLAP, and vector search |
+| Database interviews | [System-design exercises](../data/database-selection/DATABASE-INTERVIEW-EXERCISES.md) | Defend storage choices and explain rejected alternatives |
 | ORM internals | [Hibernate ORM](../data/HIBERNATE.md) | Understand persistence contexts, entity states, dirty checking, fetching, auditing, and performance |
 | Spring Data JPA | [Spring Data JPA](../spring/SPRING-DATA-JPA.md) | Use repositories, transactions, projections, fetch plans, auditing, and locking safely |
 | Migrations | [Liquibase](../data/LIQUIBASE-GENERIC.md) | Version schemas and perform compatible production migrations |

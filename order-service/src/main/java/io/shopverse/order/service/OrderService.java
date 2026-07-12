@@ -20,6 +20,10 @@ public interface OrderService {
 
     void cancel(Long id);
 
+    OrderResponse cancelCustomerOrder(Long id, String username);
+
+    OrderResponse cancelAdminOrder(Long id);
+
     void markInventoryRejected(String orderNumber, String reason);
 
     void markInventoryReserved(String orderNumber);

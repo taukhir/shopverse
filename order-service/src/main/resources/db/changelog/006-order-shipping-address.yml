@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-order-shipping-address
+      author: codex
+      changes:
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: shipping_recipient_name
+                  type: VARCHAR(160)
+              - column:
+                  name: shipping_phone_number
+                  type: VARCHAR(20)
+              - column:
+                  name: shipping_line1
+                  type: VARCHAR(220)
+              - column:
+                  name: shipping_line2
+                  type: VARCHAR(220)
+              - column:
+                  name: shipping_city
+                  type: VARCHAR(100)
+              - column:
+                  name: shipping_state
+                  type: VARCHAR(100)
+              - column:
+                  name: shipping_postal_code
+                  type: VARCHAR(30)
+              - column:
+                  name: shipping_country
+                  type: VARCHAR(100)

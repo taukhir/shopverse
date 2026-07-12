@@ -19,6 +19,8 @@ duplicating the full implementation.
 | REST APIs | [Spring REST APIs](../development/SPRING-REST-APIS.md) | Controllers, validation, pagination, files, testing. |
 | Data JPA | [Spring Data JPA](./SPRING-DATA-JPA.md) | Entity mapping, repositories, transactions, locking. |
 | Kafka | [Spring Kafka](./SPRING-KAFKA.md) | Consumers, retries, DLTs, idempotency, capacity. |
+| Batch processing | [Spring Batch](./SPRING-BATCH.md) | Restartable jobs, chunks, readers, writers, scaling, and operations. |
+| Reactive programming | [Spring Reactive And WebFlux](./SPRING-REACTIVE.md) | Reactor, non-blocking APIs, backpressure, R2DBC, and testing. |
 | Testing | [Spring Boot Testing](./SPRING-BOOT-TESTING.md) | Unit, MVC, repository, security, integration, and flaky-test patterns. |
 
 ## Shopverse Links

@@ -4,6 +4,10 @@ title: Operations
 
 # Operations
 
+For a deep explanation of container isolation, virtual machines, image layers,
+copy-on-write storage, BuildKit cache, and multi-image disk management, see
+[Docker Internals, Layers, And Storage](./DOCKER-INTERNALS-LAYERS-STORAGE.md).
+
 This section contains local development, Docker, CI/CD, deployment, and
 documentation-portal operations.
 

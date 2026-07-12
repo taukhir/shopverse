@@ -1,0 +1,47 @@
+name: Database Operations Lab
+
+on:
+  workflow_dispatch:
+    inputs:
+      include_analytics:
+        description: Run the optional ClickHouse projection
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    - cron: "35 4 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: database-operations-lab
+  cancel-in-progress: false
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run bounded database operations assertions
+        shell: pwsh
+        run: ./documentation/labs/database-operations/run-lab.ps1
+      - name: Clean up disposable volumes
+        if: always()
+        shell: pwsh
+        run: ./documentation/labs/database-operations/cleanup.ps1
+
+  analytics:
+    if: github.event_name == 'workflow_dispatch' && inputs.include_analytics
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run operations and ClickHouse projection assertions
+        shell: pwsh
+        run: ./documentation/labs/database-operations/run-lab.ps1 -IncludeAnalytics
+      - name: Clean up disposable volumes
+        if: always()
+        shell: pwsh
+        run: ./documentation/labs/database-operations/cleanup.ps1

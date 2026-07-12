@@ -116,6 +116,16 @@ public class OrderController {
                 .body(order);
     }
 
+    @PostMapping("/{id}/cancel")
+    @Operation(summary = "Cancel an owned customer order when the lifecycle state allows it")
+    public ResponseEntity<OrderResponse> cancelCustomerOrder(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        log.warn("Customer cancellation requested for order id={}", id);
+        return ResponseEntity.ok(orderService.cancelCustomerOrder(id, authentication.getName()));
+    }
+
     // ADMIN APIs
 
     @DeleteMapping("/{id}")
@@ -129,6 +139,14 @@ public class OrderController {
     public List<OrderResponse> allOrders() {
         log.info("Admin requested all orders");
         return orderService.getAllOrders();
+    }
+
+    @PostMapping("/admin/{id}/cancel")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Cancel an order from the admin operations workflow")
+    public ResponseEntity<OrderResponse> cancelAdminOrder(@PathVariable Long id) {
+        log.warn("Admin cancellation requested for order id={}", id);
+        return ResponseEntity.ok(orderService.cancelAdminOrder(id));
     }
 
     @PostMapping("/admin/catalog-cache/evict")

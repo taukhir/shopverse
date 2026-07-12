@@ -12,6 +12,8 @@ on:
       - "documentation/**"
       - ".github/workflows/docs-site.yml"
   workflow_dispatch:
+  schedule:
+    - cron: "15 3 * * 1"
 
 permissions:
   contents: read
@@ -33,6 +35,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -44,14 +48,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Resolve documentation validation mode
+        id: validation
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "mode=changed" >> "$GITHUB_OUTPUT"
+            echo "base=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=full" >> "$GITHUB_OUTPUT"
+            echo "base=" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Type-check configuration
         run: npm run typecheck
 
-      - name: Check documentation quality
-        run: npm run check:content
-
-      - name: Check documentation maintenance standards
-        run: npm run check:maintenance
+      - name: Validate titles, metadata, links, images, assets, and safety
+        env:
+          DOCS_CHECK_MODE: ${{ steps.validation.outputs.mode }}
+          DOCS_BASE_SHA: ${{ steps.validation.outputs.base }}
+        run: node scripts/validate-docs.mjs --${{ steps.validation.outputs.mode }}
 
       - name: Build documentation
         run: npm run build
@@ -62,7 +78,14 @@ jobs:
       - name: Install browser for UI tests
         run: npx playwright install --with-deps chromium
 
-      - name: Run documentation UI and accessibility tests
+      - name: Run changed-page rendering, responsive, image, Mermaid, and accessibility tests
+        if: github.event_name == 'pull_request'
+        env:
+          DOCS_BASE_SHA: ${{ steps.validation.outputs.base }}
+        run: npm run test:changed
+
+      - name: Run full documentation UI and accessibility tests
+        if: github.event_name != 'pull_request'
         run: npm run test:ui
 
       - name: Configure GitHub Pages

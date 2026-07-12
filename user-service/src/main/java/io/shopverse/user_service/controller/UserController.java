@@ -7,10 +7,12 @@ import io.shopverse.platform.web.pagination.PaginationUtils;
 import io.shopverse.user_service.constants.ApiConstants;
 import io.shopverse.user_service.constants.ResilienceConstants;
 import io.shopverse.user_service.dto.ApiResponse;
+import io.shopverse.user_service.dto.UserAddressResponse;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.dto.UserSummaryResponse;
 import io.shopverse.user_service.entities.enums.UserStatus;
 import io.shopverse.user_service.model.*;
+import io.shopverse.user_service.service.UserAddressService;
 import io.shopverse.user_service.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -24,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping(ApiConstants.USERS)
@@ -45,6 +48,7 @@ public class UserController {
     );
 
     private final UserService userService;
+    private final UserAddressService userAddressService;
 
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
@@ -58,6 +62,51 @@ public class UserController {
     ) {
         log.info("Authenticated profile update requested for username={}", authentication.getName());
         return ResponseEntity.ok(userService.updateAuthenticatedUserProfile(authentication.getName(), request));
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<UserResponse> replaceCurrentUserProfile(
+            Authentication authentication,
+            @Valid @RequestBody UpdateProfileRequest request
+    ) {
+        log.info("Authenticated profile replace requested for username={}", authentication.getName());
+        return ResponseEntity.ok(userService.updateAuthenticatedUserProfile(authentication.getName(), request));
+    }
+
+    @GetMapping("/me/addresses")
+    public ResponseEntity<List<UserAddressResponse>> getCurrentUserAddresses(Authentication authentication) {
+        return ResponseEntity.ok(userAddressService.getAddresses(authentication.getName()));
+    }
+
+    @PostMapping("/me/addresses")
+    public ResponseEntity<UserAddressResponse> createCurrentUserAddress(
+            Authentication authentication,
+            @Valid @RequestBody UserAddressRequest request
+    ) {
+        log.info("Authenticated address creation requested for username={}", authentication.getName());
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userAddressService.createAddress(authentication.getName(), request));
+    }
+
+    @PutMapping("/me/addresses/{addressId}")
+    public ResponseEntity<UserAddressResponse> updateCurrentUserAddress(
+            Authentication authentication,
+            @PathVariable Long addressId,
+            @Valid @RequestBody UserAddressRequest request
+    ) {
+        log.info("Authenticated address update requested for username={} addressId={}", authentication.getName(), addressId);
+        return ResponseEntity.ok(userAddressService.updateAddress(authentication.getName(), addressId, request));
+    }
+
+    @DeleteMapping("/me/addresses/{addressId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCurrentUserAddress(
+            Authentication authentication,
+            @PathVariable Long addressId
+    ) {
+        log.warn("Authenticated address deletion requested for username={} addressId={}", authentication.getName(), addressId);
+        userAddressService.deleteAddress(authentication.getName(), addressId);
     }
 
     @GetMapping

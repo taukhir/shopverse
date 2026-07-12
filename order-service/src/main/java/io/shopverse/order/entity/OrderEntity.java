@@ -44,6 +44,30 @@ public class OrderEntity extends BaseAuditableEntity {
     @Column(length = 500)
     private String failureReason;
 
+    @Column(name = "shipping_recipient_name", length = 160)
+    private String shippingRecipientName;
+
+    @Column(name = "shipping_phone_number", length = 20)
+    private String shippingPhoneNumber;
+
+    @Column(name = "shipping_line1", length = 220)
+    private String shippingLine1;
+
+    @Column(name = "shipping_line2", length = 220)
+    private String shippingLine2;
+
+    @Column(name = "shipping_city", length = 100)
+    private String shippingCity;
+
+    @Column(name = "shipping_state", length = 100)
+    private String shippingState;
+
+    @Column(name = "shipping_postal_code", length = 30)
+    private String shippingPostalCode;
+
+    @Column(name = "shipping_country", length = 100)
+    private String shippingCountry;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private final List<OrderItemEntity> items = new ArrayList<>();
 
@@ -59,6 +83,26 @@ public class OrderEntity extends BaseAuditableEntity {
     public void addItem(Long productId, String productName, int quantity, BigDecimal unitPrice) {
         items.add(new OrderItemEntity(this, productId, productName, quantity, unitPrice));
         totalAmount = totalAmount.add(unitPrice.multiply(BigDecimal.valueOf(quantity)));
+    }
+
+    public void setShippingAddress(
+            String recipientName,
+            String phoneNumber,
+            String line1,
+            String line2,
+            String city,
+            String state,
+            String postalCode,
+            String country
+    ) {
+        this.shippingRecipientName = recipientName;
+        this.shippingPhoneNumber = phoneNumber;
+        this.shippingLine1 = line1;
+        this.shippingLine2 = line2;
+        this.shippingCity = city;
+        this.shippingState = state;
+        this.shippingPostalCode = postalCode;
+        this.shippingCountry = country;
     }
 
     public void markInventoryRejected(String reason) {

@@ -27,6 +27,26 @@
   --ifm-navbar-shadow: 0 1px 0 var(--doc-border);
 }
 
+/* Prism's GitHub theme function red is 4.29:1 on its code background. */
+html[data-theme='light'] .prism-code .token {
+  color: #3b4555 !important;
+}
+
+html[data-theme='light'] .prism-code .token.function {
+  color: #b4232f !important;
+}
+
+html[data-theme='light'] .prism-code .token.string,
+html[data-theme='light'] .prism-code .token.triple-quoted-string {
+  color: #a3155a !important;
+}
+
+html[data-theme='light'] .prism-code .token.constant,
+html[data-theme='light'] .prism-code .token.number,
+html[data-theme='light'] .prism-code .token.boolean {
+  color: #146c6b !important;
+}
+
 [data-theme="dark"] {
   --ifm-color-primary: #a8b1ff;
   --ifm-color-primary-dark: #929eff;

@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/004-outbox-claim.yml
   - include:
       file: db/changelog/005-failed-event-indexes.yml
+  - include:
+      file: db/changelog/006-order-shipping-address.yml

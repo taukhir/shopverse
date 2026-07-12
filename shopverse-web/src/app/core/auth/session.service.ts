@@ -46,7 +46,7 @@ export class SessionService {
   }
 
   updateProfile(profile: ProfileUpdate) {
-    return this.http.patch<UserProfile>(API_PATHS.users.me, profile).pipe(tap((updated) => this.profile.set(updated)));
+    return this.http.put<UserProfile>(API_PATHS.users.me, profile).pipe(tap((updated) => this.profile.set(updated)));
   }
 
   logout(): void {

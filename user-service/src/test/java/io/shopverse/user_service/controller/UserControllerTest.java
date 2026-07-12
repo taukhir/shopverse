@@ -8,6 +8,7 @@ import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.entities.enums.UserStatus;
 import io.shopverse.user_service.exceptions.GlobalExceptionHandler;
 import io.shopverse.user_service.model.CreateUserRequest;
+import io.shopverse.user_service.service.UserAddressService;
 import io.shopverse.user_service.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,9 @@ class UserControllerTest {
     @Mock
     private UserService userService;
 
+    @Mock
+    private UserAddressService userAddressService;
+
     @BeforeEach
     void setUp() {
         objectMapper = new ObjectMapper().findAndRegisterModules();
@@ -49,7 +53,7 @@ class UserControllerTest {
         validator.afterPropertiesSet();
 
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new UserController(userService))
+                .standaloneSetup(new UserController(userService, userAddressService))
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .setValidator(validator)
                 .build();

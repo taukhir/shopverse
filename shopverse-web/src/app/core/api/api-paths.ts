@@ -16,8 +16,10 @@ export const API_PATHS = {
     customer: '/api/v1/orders',
     checkout: '/api/v1/orders/checkout',
     byId: (id: number | string) => `/api/v1/orders/${id}`,
+    cancel: (id: number | string) => `/api/v1/orders/${id}/cancel`,
     timeline: (id: number | string) => `/api/v1/orders/${id}/timeline`,
     adminAll: '/api/v1/orders/admin/all',
+    adminCancel: (id: number | string) => `/api/v1/orders/admin/${id}/cancel`,
     deadLetters: '/api/v1/orders/admin/dead-letters',
   },
   payments: {
@@ -29,6 +31,8 @@ export const API_PATHS = {
   },
   users: {
     me: '/api/v1/users/me',
+    addresses: '/api/v1/users/me/addresses',
+    addressById: (id: number | string) => `/api/v1/users/me/addresses/${id}`,
     register: '/api/v1/public/users/register',
     page: (size = 12) => `/api/v1/users?size=${size}`,
     byId: (id: number | string) => `/api/v1/users/${id}`,

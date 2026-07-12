@@ -7,7 +7,8 @@
 
 .summary > p,
 .form-head p,
-.address-card p {
+.address-card p,
+.saved-addresses p {
   color: var(--muted);
   font-size: 10px;
   font-weight: 800;
@@ -215,6 +216,62 @@ input:focus {
   background: var(--white);
   font-size: 11px;
   font-weight: 900;
+}
+
+.address-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.default-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  color: var(--ink);
+  font-size: 12px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.default-toggle input {
+  width: auto;
+  accent-color: var(--accent);
+}
+
+.saved-addresses {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.saved-addresses article {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: #fbfaf7;
+}
+
+.saved-addresses h3 {
+  margin: 8px 0;
+  font-size: 20px;
+  letter-spacing: -0.05em;
+}
+
+.saved-addresses span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.address-actions button:disabled {
   opacity: 0.55;
 }
 
@@ -265,6 +322,10 @@ input:focus {
   background: transparent;
   font-size: 12px;
   font-weight: 900;
+}
+
+.account-panels article a + a {
+  margin-top: 0;
 }
 
 .form-message {
@@ -354,6 +415,10 @@ input:focus {
   }
 
   .address-book {
+    flex-direction: column;
+  }
+
+  .saved-addresses article {
     flex-direction: column;
   }
 

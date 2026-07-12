@@ -44,6 +44,8 @@ For one reproducible walkthrough from startup to observability, use the
 | Distributed tracing | Implemented | Micrometer tracing and Zipkin export |
 | Independent persistent schemas | Implemented | JPA, Liquibase, separate service databases |
 | Idempotent checkout | Implemented | header, lookup, and database uniqueness |
+| Direct checkout product lookup | Implemented | Order checkout calls Inventory product-by-id lookup; cached full catalog is browse-only |
+| Bounded local catalog cache | Implemented baseline | Order catalog uses Caffeine TTL plus admin eviction endpoint |
 | Inventory reservation and expiry | Partial | TTL task exists; atomic multi-replica claim and successful-payment terminal transition remain pending |
 | Overselling prevention | Implemented | optimistic version and transactional stock update |
 | Payment uncertainty | Implemented | timeout, reconciliation, and refund states |

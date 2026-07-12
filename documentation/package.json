@@ -11,9 +11,17 @@
     "check:content": "node scripts/check-content.mjs",
     "check:maintenance": "node scripts/check-maintenance.mjs",
     "check:performance": "node scripts/check-performance.mjs",
+    "check:docs:changed": "node scripts/validate-docs.mjs --changed",
+    "check:docs:full": "node scripts/validate-docs.mjs --full",
     "test:ui": "playwright test",
+    "test:changed": "playwright test tests/changed-docs.spec.ts",
     "test:visual": "playwright test tests/visual-regression.spec.ts --project=desktop-chromium",
-    "check": "npm run check:content && npm run check:maintenance && npm run typecheck && npm run build && npm run check:performance"
+    "check:fast": "npm run check:docs:changed && npm run typecheck",
+    "check:full": "npm run check:docs:full && npm run typecheck && npm run build && npm run check:performance && npm run test:ui",
+    "check": "npm run check:full",
+    "lab:database-operations": "pwsh ./labs/database-operations/run-lab.ps1",
+    "lab:database-operations:analytics": "pwsh ./labs/database-operations/run-lab.ps1 -IncludeAnalytics",
+    "lab:database-operations:cleanup": "pwsh ./labs/database-operations/cleanup.ps1"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",

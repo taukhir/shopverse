@@ -2,6 +2,7 @@ package io.shopverse.order.service;
 
 import io.shopverse.order.dto.OrderItemResponse;
 import io.shopverse.order.dto.OrderResponse;
+import io.shopverse.order.dto.ShippingAddressResponse;
 import io.shopverse.order.entity.OrderEntity;
 
 import java.util.List;
@@ -29,8 +30,25 @@ final class OrderMapper {
                 order.getCustomerUsername(),
                 order.getStatus().name(),
                 order.getTotalAmount(),
+                shippingAddress(order),
                 items,
                 order.getCreatedAt()
+        );
+    }
+
+    private static ShippingAddressResponse shippingAddress(OrderEntity order) {
+        if (order.getShippingLine1() == null) {
+            return null;
+        }
+        return new ShippingAddressResponse(
+                order.getShippingRecipientName(),
+                order.getShippingPhoneNumber(),
+                order.getShippingLine1(),
+                order.getShippingLine2(),
+                order.getShippingCity(),
+                order.getShippingState(),
+                order.getShippingPostalCode(),
+                order.getShippingCountry()
         );
     }
 }

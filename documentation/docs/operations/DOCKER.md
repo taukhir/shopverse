@@ -14,6 +14,10 @@ last_reviewed: "2026-07-10"
 Docker packages an application and its runtime dependencies into an image.
 Containers are isolated processes created from that image.
 
+For namespaces, cgroups, containers versus VMs, copy-on-write layers, shared
+image storage, BuildKit cache, pruning, and multi-image optimization, continue
+with [Docker Internals, Layers, And Storage](./DOCKER-INTERNALS-LAYERS-STORAGE.md).
+
 ```mermaid
 flowchart LR
     Source --> Dockerfile --> Build["docker build"]

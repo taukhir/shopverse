@@ -60,7 +60,7 @@
         <span>These actions are wired as frontend placeholders until payment, refund, cancellation, and receipt APIs are available.</span>
       </div>
       <div class="action-grid">
-        <button type="button" (click)="placeholderAction('Cancel order')">Cancel order</button>
+        <button type="button" (click)="cancelOrder()" [disabled]="!canCancelOrder()">Cancel order</button>
         <button type="button" (click)="placeholderAction('Retry payment')">Retry payment</button>
         <button type="button" (click)="placeholderAction('Request refund')">Request refund</button>
         <button type="button" (click)="placeholderAction('Download receipt')">Download receipt</button>
@@ -147,6 +147,18 @@
             <div><span>Failure reason</span><strong>{{ payment()?.failureReason }}</strong></div>
           }
         </section>
+
+        @if (order()?.shippingAddress; as address) {
+          <section class="payment-card">
+            <p>DELIVERY</p>
+            <div><span>Recipient</span><strong>{{ address.recipientName }}</strong></div>
+            <div><span>Phone</span><strong>{{ address.phoneNumber || 'Not provided' }}</strong></div>
+            <div>
+              <span>Address snapshot</span>
+              <strong>{{ address.line1 }}{{ address.line2 ? ', ' + address.line2 : '' }}, {{ address.city }}, {{ address.state }} {{ address.postalCode }}, {{ address.country }}</strong>
+            </div>
+          </section>
+        }
       </aside>
     </div>
   }
