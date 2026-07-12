@@ -29,6 +29,18 @@ const sidebars: SidebarsConfig = {
           label: 'HLD And LLD',
           items: [
             'architecture/HLD-LLD',
+            'architecture/SYSTEM-DESIGN-CONCEPTS',
+            {
+              type: 'category',
+              label: 'System Design Deep Dives',
+              link: {type: 'doc', id: 'architecture/SYSTEM-DESIGN-DEEP-DIVES'},
+              items: [
+                'architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD',
+                'architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS',
+                'architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK',
+                'architecture/system-design-deep-dives/INTERVIEW-RUBRIC',
+              ],
+            },
             {
               type: 'category',
               label: 'HLD',
@@ -42,6 +54,7 @@ const sidebars: SidebarsConfig = {
                 'architecture/hld-lld/hld/CAP-THEOREM',
                 'architecture/hld-lld/hld/CONSISTENCY',
                 'architecture/hld-lld/hld/CONTENT-DELIVERY-NETWORK',
+                'architecture/hld-lld/SIXTEEN-SYSTEM-DESIGN-CASE-STUDIES',
               ],
             },
             {
@@ -98,6 +111,19 @@ const sidebars: SidebarsConfig = {
         'java/LOMBOK-GUIDE',
         {
           type: 'category',
+          label: 'Advanced Java Internals',
+          link: {type: 'doc', id: 'java/ADVANCED-JAVA-INTERNALS'},
+          items: [
+            'java/advanced-internals/JVM-EXECUTION-INTERNALS',
+            'java/advanced-internals/JAVA-MEMORY-MODEL',
+            'java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS',
+            'java/advanced-internals/DYNAMIC-JAVA-INTERNALS',
+            'java/advanced-internals/NIO-PERFORMANCE-JMH',
+            'java/JVM-PROFILING-GC-NATIVE',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Java 8 To 26 Features',
           items: [
             'java/features-8-to-26/JAVA-8-TO-26',
@@ -124,6 +150,18 @@ const sidebars: SidebarsConfig = {
           label: 'Spring Boot Internals',
           items: [
             'development/SPRING-BOOT-INTERNALS',
+            {
+              type: 'category',
+              label: 'Deep Internals And Production',
+              link: {type: 'doc', id: 'spring/SPRING-BOOT-INTERNALS-PRODUCTION'},
+              items: [
+                'spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG',
+                'spring/internals-production/AOP-TRANSACTION-INTERNALS',
+                'spring/internals-production/WEB-HTTP-RUNTIME',
+                'spring/internals-production/HIBERNATE-JDBC-INTERNALS',
+                'spring/internals-production/PRODUCTION-LIFECYCLE',
+              ],
+            },
             'development/spring-boot-internals/STARTUP-AUTOCONFIGURATION',
             'development/spring-boot-internals/DI-BEAN-LIFECYCLE-AOP',
             'development/spring-boot-internals/CONFIGURATION-PROPERTIES',
@@ -175,6 +213,8 @@ const sidebars: SidebarsConfig = {
         },
         'spring/SPRING-VALIDATION',
         'spring/SPRING-OPENFEIGN',
+        'spring/SPRING-BATCH',
+        'spring/SPRING-REACTIVE',
         {
           type: 'category',
           label: 'Spring Kafka',
@@ -208,7 +248,28 @@ const sidebars: SidebarsConfig = {
       label: '4. Data And Persistence',
       items: [
         'data/DATABASE-ENGINEERING',
-        'data/DATABASE-SELECTION-GUIDE',
+        {
+          type: 'category',
+          label: 'Database Design And Selection',
+          link: {type: 'doc', id: 'data/DATABASE-SELECTION-GUIDE'},
+          items: [
+            'data/database-selection/DATABASE-QUICK-CHOICE',
+            'data/database-selection/DATABASE-DECISION-WORKSHEET',
+            'data/database-selection/RELATIONAL-DATABASES',
+            'data/database-selection/DISTRIBUTED-SQL-NOSQL',
+            'data/database-selection/SPECIALIZED-DATABASES',
+            'data/database-selection/VECTOR-DATABASES',
+            'data/database-selection/INDEXES-QUERY-PLANS',
+            'data/database-selection/DATABASE-QUERY-OPTIMIZATION',
+            'data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE',
+            'data/database-selection/CONSISTENCY-MODELS-BASE',
+            'data/database-selection/SCALING-CAP-DISTRIBUTION',
+            'data/database-selection/SYSTEM-DESIGN-SCENARIOS',
+            'data/database-selection/DATABASE-MIGRATIONS-OPERATIONS',
+            'data/database-selection/DATABASE-HANDS-ON-LABS',
+            'data/database-selection/DATABASE-INTERVIEW-EXERCISES',
+          ],
+        },
         {
           type: 'category',
           label: 'Hibernate',
@@ -235,6 +296,7 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Architecture Basics',
           items: [
+            'architecture/ARCHITECTURE-STYLES',
             'architecture/MICROSERVICES-GENERIC',
             'architecture/MICROSERVICES-PATTERNS',
             'architecture/DISTRIBUTED-SYSTEMS-GENERIC',
@@ -257,6 +319,7 @@ const sidebars: SidebarsConfig = {
               label: 'Locking And Work Ownership',
               items: [
                 'reliability/locking/LOCKING-AND-WORK-OWNERSHIP',
+                'reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS',
                 'reliability/locking/DATABASE-LOCKING-AND-CLAIMS',
                 'reliability/locking/SCHEDULER-LOCKING-SHEDLOCK',
                 'reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING',
@@ -274,6 +337,7 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Reliability Patterns',
           items: [
+            'reliability/IDEMPOTENCY-GENERIC',
             'reliability/RESILIENCE4J-GENERIC',
             'reliability/DISTRIBUTED-RATE-LIMITING',
             'reliability/HIGH-AVAILABILITY-SPOF',
@@ -284,6 +348,7 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Messaging',
           items: [
+            'integration/MESSAGING-PLATFORM-SELECTION',
             'integration/APACHE-KAFKA',
           ],
         },
@@ -350,6 +415,7 @@ const sidebars: SidebarsConfig = {
       label: '7. Logging And Observability',
       items: [
         'observability/LOGGING-GENERIC',
+        'observability/PII-SAFE-LOGGING',
         'observability/MDC-GENERIC',
         'observability/MICROMETER-METRICS',
         'observability/PROMETHEUS',
@@ -364,8 +430,10 @@ const sidebars: SidebarsConfig = {
       label: '8. Delivery, Containers And CI/CD',
       items: [
         'operations/README',
+        'operations/KUBERNETES-WORKLOAD-ENGINEERING',
         'operations/DEPLOYMENT-STRATEGIES',
         'operations/DOCKER',
+        'operations/DOCKER-INTERNALS-LAYERS-STORAGE',
         'operations/MINIO',
         'operations/SHOPVERSE-DOCKER',
         'operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE',
@@ -404,7 +472,24 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '10. AI, RAG And Java AI',
+      label: '10. Production Platform Engineering',
+      link: {type: 'doc', id: 'architecture/PRODUCTION-PLATFORM-ENGINEERING'},
+      items: [
+        'architecture/API-EVENT-COMPATIBILITY',
+        'architecture/NETWORKING-GRPC-SERVICE-MESH',
+        'architecture/ASYNC-REALTIME-DISTRIBUTED-TIME',
+        'architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS',
+        'data/DATA-PIPELINES-SEARCH-OPERATIONS',
+        'operations/SRE-DR-CHAOS',
+        'operations/PERFORMANCE-CAPACITY-FINOPS',
+        'security/SUPPLY-CHAIN-PRIVACY',
+        'java/JVM-PROFILING-GC-NATIVE',
+        'spring/SPRING-PLATFORM-ADVANCED',
+      ],
+    },
+    {
+      type: 'category',
+      label: '11. AI, RAG And Java AI',
       collapsed: true,
       items: [
         'ai/README',
@@ -447,6 +532,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'ai/SPRING-AI-UMBRELLA',
             'ai/SPRING-AI-DEEP-DIVE',
+            'ai/MCP-SPRING-AI',
           ],
         },
         {
@@ -501,7 +587,7 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: '11. Shopverse Implementation',
+      label: '12. Shopverse Implementation',
       collapsed: true,
       items: [
         {

@@ -225,6 +225,11 @@
   font-weight: 900;
 }
 
+.action-grid button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 1fr 360px;

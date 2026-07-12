@@ -1,0 +1,63 @@
+name: shopverse-dbops-lab
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: dbops
+      POSTGRES_USER: lab
+      POSTGRES_PASSWORD: lab-only-password
+    command: ["postgres", "-c", "wal_level=logical", "-c", "max_replication_slots=4", "-c", "max_wal_senders=4"]
+    ports: ["25432:5432"]
+    volumes:
+      - ./sql:/lab/sql:ro
+      - primary-data:/var/lib/postgresql/data
+      - lab-backup:/backup
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab -d dbops"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 768M}
+
+  restore:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: restore
+      POSTGRES_USER: lab
+      POSTGRES_PASSWORD: lab-only-password
+    ports: ["25433:5432"]
+    volumes:
+      - restore-data:/var/lib/postgresql/data
+      - lab-backup:/backup
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab -d restore"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 512M}
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.3-alpine
+    profiles: ["analytics"]
+    ports: ["28123:8123"]
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    healthcheck:
+      test: ["CMD", "clickhouse-client", "--query", "SELECT 1"]
+      interval: 3s
+      timeout: 2s
+      retries: 30
+    deploy:
+      resources:
+        limits: {cpus: "1.0", memory: 768M}
+
+volumes:
+  primary-data:
+  restore-data:
+  lab-backup:
+  clickhouse-data:

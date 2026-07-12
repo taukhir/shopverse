@@ -16,22 +16,63 @@ system must contain. Start with a concrete problem and its failure modes, then
 adopt the smallest pattern that solves it. A modular monolith remains preferable
 when independent deployment and distributed ownership do not justify the cost.
 
-## Pattern Map
+## Quick Pattern Selection Cheat Sheet
 
-| Problem | Pattern candidates |
-|---|---|
-| Protect the domain from frameworks and transports | Hexagonal architecture, clean architecture |
-| Split or modernize a monolith safely | Strangler fig, anti-corruption layer |
-| Give clients one stable entry point | API gateway, backend for frontend |
-| Locate changing service instances | Service discovery, load balancing |
-| Keep a multi-service workflow consistent | SAGA, 2PC in constrained cases |
-| Publish an event with a database change | Transactional outbox with polling or CDC |
-| Handle duplicate message delivery | Idempotent consumer, inbox/deduplication |
-| Separate write and read models | CQRS, event sourcing when history is the source of truth |
-| Isolate dependency failures | Timeout, retry, circuit breaker, bulkhead, rate limiting |
-| Add infrastructure behavior beside an app | Sidecar, ambassador, adapter |
-| Deploy safely | Blue-green, canary, rolling deployment |
-| Diagnose a distributed request | Correlation IDs, distributed tracing, log aggregation |
+Start in the first column: identify the concrete problem, select the smallest
+matching pattern, and confirm that the trade-off is acceptable. Patterns can be
+combined, but each one should solve an observed or clearly anticipated problem.
+
+| When you need to... | Pattern | Problem it solves | Main trade-off |
+|---|---|---|---|
+| Define service boundaries | Business capability + bounded context | Prevents tangled ownership and one shared domain model | Requires domain discovery and boundary refinement |
+| Protect domain logic from frameworks | Hexagonal / ports and adapters | Keeps business rules testable and independent of HTTP, Kafka, or persistence | Adds interfaces and mapping at meaningful boundaries |
+| Migrate a monolith gradually | Strangler fig | Replaces one capability at a time without a high-risk rewrite | Temporary routing, reconciliation, and duplicate paths |
+| Isolate a legacy or external domain model | Anti-corruption layer | Stops foreign concepts from leaking into the internal domain | Translation code must be maintained |
+| Give clients one stable entry point | API gateway | Centralizes edge routing, authentication, limits, and observability | Can become a bottleneck or contain too much business logic |
+| Tailor APIs for web, mobile, or partners | Backend for frontend (BFF) | Avoids forcing very different clients through one response model | More deployable components and possible duplicated composition |
+| Locate changing service instances | Service discovery + load balancing | Routes calls to healthy, dynamically changing instances | Adds infrastructure and failure modes |
+| Get an immediate result | Synchronous request-response | Provides simple, direct queries and validations | Runtime coupling; call chains reduce availability and increase latency |
+| Decouple producers from consumers | Publish-subscribe | Allows independent consumers and asynchronous processing | Eventual consistency, duplicates, ordering, and harder tracing |
+| Smooth traffic spikes | Queue-based load leveling | Buffers work so consumers process at a safe rate | Adds latency and backlog operations |
+| Scale background processing | Competing consumers | Distributes queued work across workers | Ordering and idempotency require deliberate design |
+| Update state across multiple services | SAGA | Coordinates local transactions without a global database transaction | Compensation, reconciliation, and intermediate states are complex |
+| Make a complex workflow explicit | SAGA orchestration | Centralizes workflow sequence, state, timeout, and compensation decisions | Coordinator becomes important infrastructure |
+| Keep a small event flow decentralized | SAGA choreography | Lets services react without a central workflow coordinator | End-to-end flow becomes difficult to understand as participants grow |
+| Guarantee atomicity across compatible resources | Two-phase commit (2PC) | Provides one all-or-nothing outcome in a tightly controlled boundary | Locks, latency, coordinator recovery, and poor autonomy |
+| Publish an event with a database update | Transactional outbox | Removes the failure gap between committing data and publishing an event | Requires a relay or CDC plus cleanup and monitoring |
+| Safely process redelivered messages | Idempotent consumer / inbox | Prevents duplicate business side effects | Requires message keys and deduplication state |
+| Keep each service autonomous over its data | Database per service | Prevents hidden coupling through shared table writes | Cross-service queries and transactions become harder |
+| Join a small amount of cross-service data | API composition | Builds a result while preserving data ownership | Inherits downstream latency and partial failures |
+| Serve frequent, fast cross-service reads | Materialized view | Precomputes a query-specific projection | Read data is eventually consistent and must be rebuildable |
+| Separate substantially different reads and writes | CQRS | Lets command and query models evolve and scale independently | More models, synchronization, and consistency decisions |
+| Preserve domain history as the source of truth | Event sourcing | Enables audit, temporal reconstruction, and replay | Event evolution, projection rebuilds, and operations are difficult |
+| Turn committed database changes into events | Change data capture (CDC) | Supports outbox relay, replication, search, cache, and analytics updates | Log retention, schema coupling, lag, and connector operations |
+| Bound waiting on a dependency | Timeout / deadline | Prevents slow calls from exhausting caller resources | Incorrect budgets create premature failures |
+| Recover from a brief transient failure | Retry with backoff and jitter | Repeats safe operations after temporary faults | Can amplify overload or duplicate non-idempotent work |
+| Stop calling a persistently unhealthy dependency | Circuit breaker | Fails fast and prevents cascading resource exhaustion | Thresholds and recovery probes require tuning |
+| Isolate failures between workloads | Bulkhead | Stops one dependency or workload consuming every resource | Reserved pools can reduce utilization |
+| Protect finite capacity | Rate limiting + load shedding | Rejects excess work before the system collapses | Clients need clear retry and prioritization behavior |
+| Add infrastructure behavior beside each instance | Sidecar / ambassador | Standardizes proxying, telemetry, secrets, or protocol behavior | Extra resource usage and another component that can fail |
+| Standardize service-to-service networking | Service mesh | Centralizes mTLS, traffic policy, and network telemetry | High platform and operational complexity |
+| Release with rapid environment rollback | Blue-green deployment | Switches traffic between old and new environments | Extra capacity and database compatibility planning |
+| Limit exposure to a new release | Canary deployment | Validates a version on a small traffic cohort | Needs traffic control, useful metrics, and automated promotion rules |
+| Evolve contracts without breaking consumers | Expand and contract | Supports backward-compatible API, event, and schema migration | Old and new representations coexist temporarily |
+| Trace one request across services | Correlation IDs + distributed tracing | Reveals latency, causation, and failure paths | Context propagation and telemetry storage must be consistent |
+
+### Fast Decision Rules
+
+- Prefer a **modular monolith** until independent deployment, scaling, security,
+  or team ownership provides concrete value.
+- Prefer **synchronous calls** when the caller needs an immediate answer; prefer
+  **messages or events** when work can finish later or traffic needs buffering.
+- Prefer **API composition** for small, occasional joins; prefer a **materialized
+  view** for frequent or latency-sensitive cross-service reads.
+- Prefer **SAGA orchestration** for complex or regulated workflows; use
+  **choreography** for small flows with few participants.
+- Use **CQRS** only when read and write needs differ substantially. Add **event
+  sourcing** only when immutable domain history must be the source of truth.
+- Combine **timeout, bounded retry, circuit breaker, and bulkhead** as one
+  resilience policy; do not stack retries independently at every layer.
 
 ```mermaid
 flowchart LR

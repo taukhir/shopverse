@@ -24,6 +24,21 @@
       <strong>{{ price(order()!.totalAmount) }}</strong>
     </section>
 
+    <section class="action-panel">
+      <div>
+        <p>OPERATIONS ACTIONS</p>
+        <h2>{{ actionHint() }}</h2>
+        <span>{{ paymentHint() }}</span>
+      </div>
+      <div class="action-buttons">
+        <button type="button" (click)="cancelOrder()" [disabled]="!canCancelOrder() || actionLoading()">
+          {{ actionLoading() ? 'Cancelling...' : 'Cancel order' }}
+        </button>
+        <a routerLink="/admin/payments">Payment operations</a>
+        <button type="button" disabled>Retry inventory soon</button>
+      </div>
+    </section>
+
     <section class="state-grid">
       <article>
         <span>Payment status</span>
@@ -45,6 +60,16 @@
         <span>Correlation</span>
         <strong>{{ order()!.correlationId || 'Missing' }}</strong>
         <p>Idempotency {{ order()!.idempotencyKey || 'not supplied' }}</p>
+      </article>
+      <article>
+        <span>Delivery snapshot</span>
+        @if (order()!.shippingAddress; as address) {
+          <strong>{{ address.recipientName }}</strong>
+          <p>{{ address.line1 }}{{ address.line2 ? ', ' + address.line2 : '' }}, {{ address.city }}, {{ address.state }} {{ address.postalCode }}, {{ address.country }}</p>
+        } @else {
+          <strong>Not captured</strong>
+          <p>This order was created before checkout address capture was enabled.</p>
+        }
       </article>
     </section>
 

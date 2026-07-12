@@ -72,10 +72,51 @@
     </div>
 
     <section class="checkout-readiness">
-      <article><span>Shipping address</span><strong>Account address book pending</strong><small>Frontend is ready for add/edit once backend stores addresses.</small></article>
+      <article>
+        <span>Shipping address</span>
+        @if (selectedAddress(); as address) {
+          <strong>{{ address.label }} · {{ address.recipientName }}</strong>
+          <small>{{ formatAddress(address) }}</small>
+        } @else {
+          <strong>Address required</strong>
+          <small>Add a delivery address in your account before checkout.</small>
+        }
+      </article>
       <article><span>Delivery method</span><strong>Standard delivery</strong><small>ETA and carrier rates can plug in here later.</small></article>
       <article><span>Payment method</span><strong>Card / UPI / Wallet later</strong><small>No payment credentials are collected in this flow yet.</small></article>
       <article><span>Terms</span><strong>Return window visible</strong><small>Final policy acknowledgement can be made mandatory later.</small></article>
+    </section>
+
+    <section class="address-select">
+      <div>
+        <p>DELIVERY ADDRESS</p>
+        <h2>Choose where this order goes.</h2>
+        <span>The selected address is copied to the order as a snapshot, so future account edits will not change this order.</span>
+      </div>
+      @if (addressesLoading()) {
+        <strong>Loading saved addresses...</strong>
+      } @else if (addressError()) {
+        <strong>{{ addressError() }}</strong>
+        <button type="button" (click)="loadAddresses()">Retry</button>
+      } @else if (addresses().length) {
+        <label>
+          Saved address
+          <select name="selectedAddress" [value]="selectedAddressId()" (change)="selectAddress($any($event.target).value)">
+            @for (address of addresses(); track address.id) {
+              <option [value]="address.id">{{ address.label }} · {{ address.city }}{{ address.defaultAddress ? ' · Default' : '' }}</option>
+            }
+          </select>
+        </label>
+        @if (selectedAddress(); as address) {
+          <article>
+            <span>{{ address.recipientName }} · {{ address.phoneNumber || 'No phone' }}</span>
+            <strong>{{ formatAddress(address) }}</strong>
+          </article>
+        }
+      } @else {
+        <strong>No delivery address saved.</strong>
+        <a routerLink="/account">Add address in account &rarr;</a>
+      }
     </section>
 
     <div class="checkout">
@@ -86,7 +127,7 @@
         <strong>{{ price(cart.total()) }}</strong>
         <div class="review-list">
           <div><span>Contact</span><b>Uses signed-in account session</b></div>
-          <div><span>Delivery</span><b>Address capture will be enabled before payment</b></div>
+          <div><span>Delivery</span><b>{{ selectedAddress()?.label || 'Address required' }}</b></div>
           <div><span>Inventory</span><b>Reserved during order creation</b></div>
         </div>
       </div>
@@ -108,7 +149,7 @@
             <a routerLink="/products">Continue shopping</a>
           </div>
         }
-        <button (click)="placeOrder()" [disabled]="loading()">{{ loading() ? 'Placing order...' : 'Place order' }} <em>&rarr;</em></button>
+        <button (click)="placeOrder()" [disabled]="loading() || !selectedAddress()">{{ loading() ? 'Placing order...' : 'Place order' }} <em>&rarr;</em></button>
       </aside>
     </div>
   }

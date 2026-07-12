@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { ToastService } from '../../core/feedback/toast.service';
+import { ConfirmService } from '../../core/feedback/confirm.service';
 import { formatInr } from '../../shared/utils/formatters';
 import { Order, OrdersApiService, Payment, TimelineEvent } from './orders-api.service';
 
@@ -22,6 +23,7 @@ export class OrderDetailPageComponent {
   private readonly ordersApi = inject(OrdersApiService);
   private readonly route = inject(ActivatedRoute);
   private readonly toast = inject(ToastService);
+  private readonly confirm = inject(ConfirmService);
   protected readonly order = signal<Order | null>(null);
   protected readonly timeline = signal<TimelineEvent[]>([]);
   protected readonly payment = signal<Payment | null>(null);
@@ -84,6 +86,30 @@ export class OrderDetailPageComponent {
 
   protected paymentStatus(): string {
     return this.payment()?.status ? this.cleanStage(this.payment()!.status) : 'Not Started';
+  }
+
+  protected canCancelOrder(): boolean {
+    return ['ORDER_CREATED', 'PENDING_INVENTORY', 'INVENTORY_RESERVED', 'PAYMENT_PROCESSING', 'PAYMENT_FAILED'].includes(this.order()?.status ?? '');
+  }
+
+  protected async cancelOrder(): Promise<void> {
+    const order = this.order();
+    if (!order || !this.canCancelOrder()) return;
+    const confirmed = await this.confirm.confirm({
+      title: 'Cancel order?',
+      message: `Cancel ${order.orderNumber}? This cannot be undone from the customer page.`,
+      confirmText: 'Cancel order',
+    });
+    if (!confirmed) return;
+
+    this.ordersApi.cancelOrder(order.id).subscribe({
+      next: (updated) => {
+        this.order.set(updated);
+        this.toast.info(`Order ${updated.orderNumber} cancelled.`);
+        this.loadOrderState(updated);
+      },
+      error: () => this.toast.error('We could not cancel this order from its current state.'),
+    });
   }
 
   protected async copy(value: string | null | undefined, label: string): Promise<void> {

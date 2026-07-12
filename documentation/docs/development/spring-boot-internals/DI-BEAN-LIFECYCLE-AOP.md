@@ -412,6 +412,18 @@ This is why calls must pass through the proxy for `@Transactional`,
 Avoid heavy network work in constructors or `@PostConstruct`; it delays startup
 and complicates failure recovery.
 
+For prototype-scoped beans, Spring creates and initializes instances but does
+not manage their complete destruction lifecycle. The client holding the instance
+must release its resources. Also remember that a prototype injected directly
+into a singleton is resolved once at singleton creation; use a provider or scoped
+proxy only when a fresh instance is genuinely required.
+
+Official references:
+
+- [Spring bean lifecycle callbacks](https://docs.spring.io/spring-framework/reference/core/beans/factory-nature.html)
+- [Spring bean scopes](https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html)
+- [Visual source supplied with this request](https://www.linkedin.com/posts/gagan-deep-gautam-4b396017a_java-springboot-backenddevelopment-activity-7473959565135384577-BJDy/)
+
 
 ## AOP Proxies
 

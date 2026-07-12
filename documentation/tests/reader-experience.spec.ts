@@ -20,7 +20,7 @@ test('bookmark, completion, and reading dashboard persist', async ({page}) => {
   await page.reload();
   await expect(page.getByRole('button', {name: 'Bookmarked', exact: true})).toBeVisible();
   await page.getByRole('button', {name: 'Open my reading library'}).click();
-  await expect(page.getByRole('heading', {name: /Learning dashboard 1\/28/})).toBeVisible();
+  await expect(page.getByRole('heading', {name: /Learning dashboard 1\/\d+/})).toBeVisible();
 });
 
 test('individual sections can be bookmarked and reopened', async ({page}) => {

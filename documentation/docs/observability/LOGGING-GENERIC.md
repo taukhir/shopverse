@@ -10,6 +10,10 @@ last_reviewed: "2026-07-10"
 
 # Application Logging
 
+For personally identifiable information, data classification, masking,
+tokenization, retention, access control, and incident response, see
+[PII-Safe Logging And Data Classification](./PII-SAFE-LOGGING.md).
+
 Logging records events that explain what an application did, why it made a
 decision, and where an operation failed. Production logging should create
 searchable operational evidence without exposing secrets or overwhelming the

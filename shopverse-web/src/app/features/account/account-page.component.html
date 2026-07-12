@@ -49,22 +49,73 @@
 
         <section class="address-card">
           <p>ADDRESS</p>
-          <h2>Delivery addresses are coming next.</h2>
-          <span>The user service currently stores contact details only. Address book fields are reserved here so the UI flow is ready once the backend model exists.</span>
+          <h2>{{ defaultAddress()?.label || 'Add your delivery address.' }}</h2>
+          @if (defaultAddress(); as address) {
+            <span>{{ address.line1 }}{{ address.line2 ? ', ' + address.line2 : '' }}, {{ address.city }}, {{ address.state }} {{ address.postalCode }}, {{ address.country }}</span>
+          } @else {
+            <span>Save a delivery address so checkout can use verified customer contact details.</span>
+          }
         </section>
 
         <section class="address-book">
           <div>
             <p>ADDRESS BOOK</p>
-            <h3>Default delivery address</h3>
-            <span>No saved address yet. Checkout will use account contact details until address APIs are available.</span>
-          </div>
-          <div class="address-actions">
-            <button type="button" disabled>Add address</button>
-            <button type="button" disabled>Edit default</button>
-            <button type="button" disabled>Delete</button>
+            <h3>{{ editingAddressId() ? 'Edit address' : 'Add address' }}</h3>
+            <span>{{ addresses().length }} saved {{ addresses().length === 1 ? 'address' : 'addresses' }}. One default address is used first during checkout.</span>
           </div>
         </section>
+
+        <section class="address-form">
+          <div class="fields">
+            <label>Label<input name="addressLabel" [(ngModel)]="addressForm.label" required /></label>
+            <label>Recipient<input name="recipientName" [(ngModel)]="addressForm.recipientName" required autocomplete="name" /></label>
+            <label>Phone<input name="addressPhone" [(ngModel)]="addressForm.phoneNumber" autocomplete="tel" /></label>
+            <label>Line 1<input name="line1" [(ngModel)]="addressForm.line1" required autocomplete="address-line1" /></label>
+            <label>Line 2<input name="line2" [(ngModel)]="addressForm.line2" autocomplete="address-line2" /></label>
+            <label>City<input name="city" [(ngModel)]="addressForm.city" required autocomplete="address-level2" /></label>
+            <label>State<input name="state" [(ngModel)]="addressForm.state" required autocomplete="address-level1" /></label>
+            <label>Postal code<input name="postalCode" [(ngModel)]="addressForm.postalCode" required autocomplete="postal-code" /></label>
+            <label>Country<input name="country" [(ngModel)]="addressForm.country" required autocomplete="country-name" /></label>
+          </div>
+
+          <label class="default-toggle">
+            <input name="defaultAddress" type="checkbox" [(ngModel)]="addressForm.defaultAddress" />
+            Make this the default delivery address
+          </label>
+
+          @if (addressError()) {
+            <div class="form-message error">{{ addressError() }}</div>
+          }
+
+          <div class="address-actions">
+            <button type="button" (click)="saveAddress()" [disabled]="addressSaving()">{{ addressSaving() ? 'Saving...' : editingAddressId() ? 'Update address' : 'Add address' }}</button>
+            @if (editingAddressId()) {
+              <button type="button" (click)="cancelAddressEdit()">Cancel</button>
+            }
+          </div>
+        </section>
+
+        @if (addresses().length) {
+          <section class="saved-addresses" aria-label="Saved addresses">
+            @for (address of addresses(); track address.id) {
+              <article>
+                <div>
+                  <p>{{ address.defaultAddress ? 'DEFAULT ADDRESS' : 'SAVED ADDRESS' }}</p>
+                  <h3>{{ address.label }}</h3>
+                  <span>{{ address.recipientName }} · {{ address.phoneNumber || 'No phone' }}</span>
+                  <span>{{ address.line1 }}{{ address.line2 ? ', ' + address.line2 : '' }}, {{ address.city }}, {{ address.state }} {{ address.postalCode }}, {{ address.country }}</span>
+                </div>
+                <div class="address-actions">
+                  @if (!address.defaultAddress) {
+                    <button type="button" (click)="makeDefault(address)">Make default</button>
+                  }
+                  <button type="button" (click)="editAddress(address)">Edit</button>
+                  <button type="button" (click)="deleteAddress(address)" [disabled]="addressDeleting()">Delete</button>
+                </div>
+              </article>
+            }
+          </section>
+        }
 
         <section class="account-panels">
           <article>
@@ -82,7 +133,13 @@
           <article>
             <p>RECENT ORDERS</p>
             <h3>Order history</h3>
-            <span>Review order status, payment references, and workflow timeline.</span>
+            @if (recentOrders().length) {
+              @for (order of recentOrders(); track order.id) {
+                <a [routerLink]="['/orders', order.id]">{{ order.orderNumber }} · {{ order.status }}</a>
+              }
+            } @else {
+              <span>No recent orders found for this account.</span>
+            }
             <a routerLink="/orders">Open orders &rarr;</a>
           </article>
         </section>

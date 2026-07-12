@@ -5,6 +5,11 @@ sidebar_position: 3
 
 # Spring Ecosystem Interview Questions
 
+Use this page for reasoning and explanations rather than memorizing screenshots.
+The [Spring Boot question set supplied with this request](https://www.linkedin.com/posts/harsh-arora-3a8a0a1a8_java-springboot-microservices-activity-7480318960178147328-0sDZ/)
+can be used as a revision prompt; verify version-sensitive answers against the
+Spring Framework and Spring Boot reference documentation.
+
 This guide covers practical Spring Framework and Spring Boot questions expected
 from experienced backend engineers. Strong answers should explain both the
 public API and the internal mechanism, then mention production trade-offs.

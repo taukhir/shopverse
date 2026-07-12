@@ -28,6 +28,21 @@ const glossaryTerms: Record<string, string> = {
   'vector database': 'vector-database',
   'embedding': 'embedding',
   'prompt injection': 'prompt-injection',
+  'oltp': 'oltp',
+  'olap': 'olap',
+  'nosql': 'nosql',
+  'partitioning': 'partitioning',
+  'sharding': 'sharding',
+  'keyset pagination': 'keyset-pagination',
+  'connection pool': 'connection-pool',
+  'query plan': 'query-plan',
+  'sli': 'sli',
+  'slo': 'slo',
+  'rpo': 'rpo',
+  'rto': 'rto',
+  'cdc': 'cdc',
+  'sbom': 'sbom',
+  'watermark': 'watermark',
 };
 
 function remarkGlossaryLinks() {
