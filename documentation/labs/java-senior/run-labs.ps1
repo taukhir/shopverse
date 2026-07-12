@@ -6,7 +6,8 @@ New-Item -ItemType Directory -Force -Path $out | Out-Null
 $plain = @(
   "ThreadPoolSaturationLab.java", "VirtualThreadPinningLab.java",
   "DirectMemoryPressureLab.java", "ClassLoaderIdentityLab.java", "GcAllocationWorkload.java",
-  "AdvancedApisLab.java", "SelectorEchoLab.java"
+  "AdvancedApisLab.java", "SelectorEchoLab.java", "CoreLanguageScenarios.java",
+  "ForkJoinSumLab.java", "RangeSpliterator.java"
 ) | ForEach-Object { Join-Path $root "src\main\java\io\shopverse\labs\$_" }
 javac --release 24 -d $out $plain
 if ($LASTEXITCODE -ne 0) { throw "javac failed with exit code $LASTEXITCODE" }

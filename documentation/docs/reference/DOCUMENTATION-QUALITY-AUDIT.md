@@ -17,7 +17,7 @@ than deleting or rewriting content automatically. Run `npm run check:docs:audit`
 
 | Signal | Count | Interpretation |
 |---|---:|---|
-| pages scanned | 407 | full documentation library |
+| pages scanned | 417 | full documentation library |
 | repeated prose groups | 0 | fenced examples are excluded; semantic audit also reports zero |
 | advanced pages without official references | 0 | all advanced pages link primary sources |
 | text-heavy pages without a visual/table | 0 | visual audit accepts SVG, Mermaid, tables, and interactive roadmaps |
@@ -39,7 +39,7 @@ collections/JMH, virtual-thread pinning, Spring context/proxy/transaction/MVC/
 Hibernate/pools/shutdown, database saturation, distributed components, scheduler
 fencing, the system-design method, and fifteen case-study architectures.
 
-Depth results: **L0 0, L1 48, L2 274, L3 85**. All pages meet the minimum for
+Depth results: **L0 0, L1 49, L2 279, L3 89**. All pages meet the minimum for
 their page type; concise references, indexes, ADRs, and implementation notes are
 not forced to imitate deep tutorials. The JSON report records every page's score
 and individual evidence criteria.
@@ -53,6 +53,6 @@ remain automated.
 
 ## Link Status
 
-The official-source checker verifies 280 unique links: **280 reachable, 0 broken**.
+The official-source checker verifies 289 unique links: **289 reachable, 0 broken**.
 Rate-limited responses are reported separately, and redirect targets are recorded
 in `reports/official-link-check.json` for maintenance.
