@@ -4,6 +4,12 @@ title: JWT JWKS And Resource Server Security
 
 # JWT JWKS And Resource Server Security
 
+<DocLabels items={[
+  {label: 'Resource server', tone: 'intermediate'},
+  {label: 'JWT and JWKS', tone: 'advanced'},
+  {label: 'Key operations', tone: 'production'},
+]} />
+
 Bearer JWT authentication, JWT parts, JWS/JWE/JWK/JWKS, symmetric/asymmetric signing, Shopverse encoding/decoding, claims, revocation, and production practices.
 
 Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
@@ -360,6 +366,23 @@ list, security-version check, or opaque-token introspection.
 13. apply least privilege to roles, scopes, and permissions.
 14. enforce authorization inside resource services, not only at the gateway.
 15. audit authentication, role changes, key rotation, and denied operations.
+
+## Interview Check
+
+**What should happen when a resource server sees an unknown JWT `kid`?**
+
+<ExpandableAnswer title="Expand answer">
+
+Refresh JWKS through the configured cache/decoder path with bounded network
+behavior, then reject the token if the key remains unknown. Never fall back to a
+different algorithm or arbitrary key. Alert on sustained unknown-key failures
+because they can indicate rotation drift, cache problems or forged tokens.
+
+</ExpandableAnswer>
+
+## Recommended Next
+
+Review user and service flows in [OAuth2 And OIDC](./OAUTH2-OIDC-FLOWS.md).
 
 
 

@@ -4,6 +4,12 @@ title: Spring Security Authentication Basics
 
 # Spring Security Authentication Basics
 
+<DocLabels items={[
+  {label: 'Authentication', tone: 'foundation'},
+  {label: 'Providers and credentials', tone: 'intermediate'},
+  {label: 'Spring Security 7', tone: 'production'},
+]} />
+
 Authentication, authorization, dependencies, authentication managers, providers, form login, HTTP Basic, database-backed users, and UserDetails.
 
 Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
@@ -365,6 +371,24 @@ role.getPermissions().forEach(permission ->
 ```
 
 This permits coarse role checks and finer permission checks.
+
+## Interview Check
+
+**Why should a JPA user entity not implement `UserDetails` by default?**
+
+<ExpandableAnswer title="Expand answer">
+
+It couples persistence shape, lazy relationships and serialization risk to the
+security contract. Map the account to a security-specific principal so loaded
+authorities, account flags and credential exposure are deliberate. Direct entity
+use can be acceptable in a small bounded application, but the coupling must be
+explicit and tested.
+
+</ExpandableAnswer>
+
+## Recommended Next
+
+Trace the complete call path in [Authentication Internals](./AUTHENTICATION-INTERNALS.md).
 
 
 

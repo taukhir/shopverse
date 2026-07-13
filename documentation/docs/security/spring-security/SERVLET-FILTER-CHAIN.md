@@ -4,6 +4,12 @@ title: Spring Security Servlet Filter Chain
 
 # Spring Security Servlet Filter Chain
 
+<DocLabels items={[
+  {label: 'Servlet security', tone: 'intermediate'},
+  {label: 'Filter runtime', tone: 'advanced'},
+  {label: 'Request boundary', tone: 'production'},
+]} />
+
 Servlet security architecture, core classes, SecurityContext, multiple chains, exceptions, sessions, CSRF, and CORS.
 
 Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
@@ -154,6 +160,24 @@ CORS controls which browser origins may call an API. It is not authentication
 and does not protect non-browser clients.
 
 Use explicit origin, method, and header allowlists in production.
+
+## Interview Check
+
+**Why does filter-chain order matter when multiple `SecurityFilterChain` beans exist?**
+
+<ExpandableAnswer title="Expand answer">
+
+`FilterChainProxy` selects the first matching chain. A broad matcher ordered
+before a specific actuator or API chain can shadow its policy, producing either
+unexpected denial or a security bypass. Give chains explicit order, make matchers
+non-overlapping where possible, and test representative routes against the
+selected authentication mechanism and authorization rules.
+
+</ExpandableAnswer>
+
+## Recommended Next
+
+Deepen browser controls in [CSRF, CORS And Browser Security](./CSRF-CORS-BROWSER-SECURITY.md).
 
 
 
