@@ -1,6 +1,8 @@
 ---
 title: Distributed Systems Fundamentals
 sidebar_position: 1
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Distributed Systems Fundamentals

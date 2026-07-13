@@ -1,6 +1,8 @@
 ---
 title: AI Security And Guardrails
 sidebar_position: 6.7
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # AI Security And Guardrails
@@ -432,6 +434,12 @@ class AiRequestPolicy {
 | private answer cached then another user asks | no leakage |
 
 ## Interview Explanation
+
+<ExpandableAnswer title="What should an architect explain about AI Security And Guardrails?">
+
+For **AI Security And Guardrails**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > I would secure a Spring AI app by treating the model as untrusted. Spring
 > Security authenticates the user, Java checks authorization before retrieval

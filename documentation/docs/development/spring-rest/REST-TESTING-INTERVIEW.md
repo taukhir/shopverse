@@ -40,6 +40,12 @@ Moved to [Spring REST Testing](./REST-TESTING.md).
 
 ## Lead Engineer Interview Questions
 
+<ExpandableAnswer title="What should an architect explain about Spring REST Testing And Interview Guide?">
+
+For **Spring REST Testing And Interview Guide**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
+
 All twelve former static answers are preserved as `ExpandableAnswer` blocks in
 the [Spring REST Interview Workbook](./REST-INTERVIEW-WORKBOOK.md).
 

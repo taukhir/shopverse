@@ -1,5 +1,7 @@
 ---
 title: Java Threading Model
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Threading Model

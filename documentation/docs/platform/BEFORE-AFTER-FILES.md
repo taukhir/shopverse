@@ -1,3 +1,16 @@
+---
+title: "Before And After File Inventory"
+description: "Before And After File Inventory: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Before And After File Inventory"
+tags:
+  - "platform"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Before And After File Inventory
 
 This page records what changed when duplicate infrastructure logic moved into

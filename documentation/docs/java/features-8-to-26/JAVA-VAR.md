@@ -1,6 +1,8 @@
 ---
 title: Java var
 sidebar_position: 3
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java `var`

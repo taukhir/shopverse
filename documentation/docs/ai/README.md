@@ -1,6 +1,8 @@
 ---
 title: AI Learning Track
 sidebar_position: 1
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # AI Learning Track
@@ -122,6 +124,12 @@ If you have limited time, focus on these five flows:
 | [Interview Q&A](INTERVIEW-QA.md) | short answers for common interview questions |
 
 ## Final Interview Story
+
+<ExpandableAnswer title="What should an architect explain about AI Learning Track?">
+
+For **AI Learning Track**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 By the end, you should be able to say:
 

@@ -1,6 +1,9 @@
-﻿---
-title: Spring Security Authentication Basics
 ---
+title: Spring Security Authentication Basics
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Spring Security Authentication Basics
 

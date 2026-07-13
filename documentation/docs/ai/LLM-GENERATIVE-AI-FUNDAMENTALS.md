@@ -1,6 +1,8 @@
 ---
 title: LLM And Generative AI Fundamentals
 sidebar_position: 3
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # LLM And Generative AI Fundamentals
@@ -210,6 +212,12 @@ Basic protections:
 | Guardrail | Rule, validation, or control around AI behavior |
 
 ## Interview Explanation
+
+<ExpandableAnswer title="What should an architect explain about LLM And Generative AI Fundamentals?">
+
+For **LLM And Generative AI Fundamentals**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 Use this answer:
 

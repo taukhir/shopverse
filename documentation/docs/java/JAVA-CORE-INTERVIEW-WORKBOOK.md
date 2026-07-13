@@ -1,6 +1,8 @@
 ---
 title: Java Core, Collections, Threads And Streams Interview Workbook
 description: Senior and architect questions for overloading, overriding, hiding, collections, scheduling, ForkJoinPool and stream internals.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Core, Collections, Threads And Streams Interview Workbook

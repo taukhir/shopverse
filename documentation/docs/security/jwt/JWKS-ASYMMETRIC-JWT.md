@@ -1,5 +1,7 @@
 ---
 title: JWKS And Asymmetric JWT
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # JWKS And Asymmetric JWT

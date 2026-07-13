@@ -1,6 +1,8 @@
 ---
 title: "LangChain4j Tutorial 2: AI Services And Structured Outputs"
 sidebar_position: 6.28
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # LangChain4j Tutorial 2: AI Services And Structured Outputs
@@ -234,6 +236,12 @@ Response:
 | vague prompt | specify exact domain and allowed values |
 
 ## Interview Explanation
+
+<ExpandableAnswer title="What should an architect explain about LangChain4j Tutorial 2: AI Services And Structured Outputs?">
+
+For **LangChain4j Tutorial 2: AI Services And Structured Outputs**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > LangChain4j AI Services let me define a Java interface and let the framework
 > connect it to an LLM. This is useful for Spring developers because the rest of

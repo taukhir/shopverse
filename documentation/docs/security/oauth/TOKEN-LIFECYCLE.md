@@ -1,5 +1,7 @@
 ---
 title: Token Lifecycle
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Token Lifecycle

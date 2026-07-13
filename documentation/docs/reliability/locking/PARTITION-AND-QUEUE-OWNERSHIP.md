@@ -1,5 +1,7 @@
 ---
 title: Partition And Queue Ownership
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Partition And Queue Ownership

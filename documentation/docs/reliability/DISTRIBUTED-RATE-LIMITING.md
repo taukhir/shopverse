@@ -1,6 +1,8 @@
 ---
 title: Distributed Rate Limiting
 sidebar_position: 7
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Distributed Rate Limiting

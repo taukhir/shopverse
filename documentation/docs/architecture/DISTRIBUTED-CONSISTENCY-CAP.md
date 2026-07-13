@@ -1,6 +1,8 @@
 ---
 title: Distributed Consistency And CAP
 sidebar_position: 2
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Distributed Consistency And CAP
@@ -292,28 +294,32 @@ Ask:
 
 ## Interview Questions
 
-### Does CAP Mean A System Can Only Have Two Properties?
+<ExpandableAnswer title="Does CAP Mean A System Can Only Have Two Properties?">
 
 No. Outside a partition, systems can be consistent and available. CAP
 describes the unavoidable trade-off while communication is partitioned.
 
-### Is Eventual Consistency The Same As No Consistency?
+</ExpandableAnswer>
+<ExpandableAnswer title="Is Eventual Consistency The Same As No Consistency?">
 
 No. It promises convergence if updates stop, but intermediate reads may be
 stale. Additional session or conflict-resolution guarantees may apply.
 
-### When Should Availability Be Sacrificed?
+</ExpandableAnswer>
+<ExpandableAnswer title="When Should Availability Be Sacrificed?">
 
 When accepting conflicting operations could violate a critical invariant, such
 as duplicate ownership, overspending, or assigning one exclusive resource
 twice.
 
-### Can A Cache Be Strongly Consistent With A Database?
+</ExpandableAnswer>
+<ExpandableAnswer title="Can A Cache Be Strongly Consistent With A Database?">
 
 Not by ordinary cache-aside behavior. Database and cache are separate systems.
 Strong coordination adds cost; most cache designs define bounded staleness and
 invalidation behavior.
 
+</ExpandableAnswer>
 ## Related Guides
 
 - [Distributed Systems Fundamentals](DISTRIBUTED-SYSTEMS-GENERIC.md)

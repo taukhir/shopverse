@@ -1,3 +1,16 @@
+---
+title: "Shopverse Observability Architecture"
+description: "Shopverse Observability Architecture: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Shopverse Observability Architecture"
+tags:
+  - "observability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Shopverse Observability Architecture
 
 import {DocFigure, ReadingGuide} from '@site/src/components/DocumentationLanding';

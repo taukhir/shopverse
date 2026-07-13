@@ -16,7 +16,12 @@ function changedRoutes(): string[] {
     .map((path) => {
       const content = readFileSync(path.replace(/^documentation\//, ''), 'utf8');
       const slug = content.match(/^---[\s\S]*?^slug:\s*["']?([^"'\r\n]+)["']?\s*$/m)?.[1].trim();
-      return slug ? slug.replace(/^\//, '') : path.replace(/^documentation\/docs\//, '').replace(/\.(md|mdx)$/, '');
+      if (slug) return slug.replace(/^\//, '');
+      const fileRoute = path.replace(/^documentation\/docs\//, '').replace(/\.(md|mdx)$/, '');
+      const segments = fileRoute.split('/');
+      if (segments.at(-1)?.toUpperCase() === 'README') segments.pop();
+      else segments[segments.length - 1] = segments.at(-1)!.replace(/^\d+-/, '');
+      return segments.join('/');
     });
   return [...new Set(routes)].slice(0, Number(process.env.DOCS_ROUTE_LIMIT || 12));
 }

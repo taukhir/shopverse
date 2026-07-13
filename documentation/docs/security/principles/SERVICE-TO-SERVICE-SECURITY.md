@@ -1,5 +1,7 @@
 ---
 title: Service-To-Service Security
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Service-To-Service Security

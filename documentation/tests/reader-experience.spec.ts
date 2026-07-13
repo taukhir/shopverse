@@ -61,7 +61,7 @@ test('collapsed sidebar releases the wide content canvas', async ({page}, testIn
   test.skip(testInfo.project.name.includes('mobile'), 'Wide desktop assertion.');
   await page.setViewportSize({width: 2048, height: 1080});
   await page.goto('./development/ENGINEERING-PRINCIPLES');
-  await page.getByRole('button', {name: 'Collapse sidebar'}).click();
+  await page.getByRole('button', {name: 'Collapse sidebar', exact: true}).click();
   const widths=await page.evaluate(()=>({main:document.querySelector('main')!.getBoundingClientRect().width,container:document.querySelector('main .container')!.getBoundingClientRect().width,article:document.querySelector('article')!.getBoundingClientRect().width,markdown:document.querySelector('.theme-doc-markdown')!.getBoundingClientRect().width}));
   expect(widths.container / widths.main).toBeGreaterThan(0.95);
   expect(widths.markdown / widths.article).toBeGreaterThan(0.95);

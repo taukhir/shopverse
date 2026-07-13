@@ -1,5 +1,7 @@
 ---
 title: AWS Compute, EBS, Scaling And Entry Points
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # AWS Compute, EBS, Scaling And Entry Points

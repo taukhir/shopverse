@@ -1,5 +1,7 @@
 ---
 title: Advanced Spring Cloud Gateway
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Advanced Spring Cloud Gateway

@@ -1,5 +1,7 @@
 ---
 title: Common Error Contract
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Common Error Contract

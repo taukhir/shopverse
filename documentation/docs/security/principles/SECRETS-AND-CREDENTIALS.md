@@ -1,5 +1,7 @@
 ---
 title: Secrets And Credentials
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Secrets And Credentials

@@ -41,6 +41,12 @@ justify technology. Learn concepts in dependency order rather than as isolated b
 
 ## Design Interview / Review Sequence
 
+<ExpandableAnswer title="What should an architect explain about System Design Concepts Roadmap?">
+
+For **System Design Concepts Roadmap**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
+
 1. Clarify users, commands, queries, invariants, and out-of-scope behavior.
 2. Quantify peak read/write traffic, object size, retention, concurrency, and growth.
 3. Define p95/p99 latency, availability, consistency, RTO, RPO, security, and cost.

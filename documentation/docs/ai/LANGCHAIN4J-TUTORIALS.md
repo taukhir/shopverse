@@ -1,6 +1,8 @@
 ---
 title: LangChain4j Tutorials For Java And Spring Developers
 sidebar_position: 6.26
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # LangChain4j Tutorials For Java And Spring Developers

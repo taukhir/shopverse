@@ -1,6 +1,8 @@
 ---
 title: Spring AI vs LangChain4j
 sidebar_position: 6.4
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Spring AI vs LangChain4j
@@ -124,6 +126,12 @@ Real products come from inventory service, not from generated text.
 | Memory and RAG are the same | Memory is conversation history; RAG retrieves external knowledge |
 
 ## Interview Comparison Script
+
+<ExpandableAnswer title="What should an architect explain about Spring AI vs LangChain4j?">
+
+For **Spring AI vs LangChain4j**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 Use this structure:
 

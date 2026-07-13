@@ -1,5 +1,7 @@
 ---
 title: UML Diagrams
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # UML Diagrams
@@ -95,6 +97,12 @@ workflow, and approval problems.
 | Use diagrams to explain trade-offs | Use diagrams as decoration |
 
 ## UML In LLD Interviews
+
+<ExpandableAnswer title="What should an architect explain about UML Diagrams?">
+
+For **UML Diagrams**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 For LLD, a strong answer usually includes:
 

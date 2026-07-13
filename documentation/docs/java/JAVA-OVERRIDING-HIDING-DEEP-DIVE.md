@@ -1,6 +1,8 @@
 ---
 title: Java Overriding, Method Hiding And Field Hiding Deep Dive
 description: Runtime dispatch, static hiding, fields, covariant returns, exceptions, bridges, defaults and construction traps.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Overriding, Method Hiding And Field Hiding Deep Dive

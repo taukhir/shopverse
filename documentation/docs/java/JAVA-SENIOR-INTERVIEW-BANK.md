@@ -1,6 +1,8 @@
 ---
 title: Java Senior And Architect Interview Bank
 description: Evidence-based foundational, senior, debugging, output, and architecture questions with evaluation guidance.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Senior And Architect Interview Bank

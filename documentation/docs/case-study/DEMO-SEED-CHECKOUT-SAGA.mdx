@@ -1,0 +1,353 @@
+---
+title: "Demo Seed, Checkout, And SAGA"
+description: "Demo Seed, Checkout, And SAGA with Shopverse examples, failure analysis, and production guidance."
+sidebar_label: "Demo Seed, Checkout, And SAGA"
+tags: ["shopverse", "architecture", "production"]
+page_type: "Guide"
+difficulty: "Advanced"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
+# Demo Seed, Checkout, And SAGA
+
+<DocLabels items={[{label: 'Advanced', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Production', tone: 'production'}]} />
+
+## Large API Seed Data Set
+
+For a richer local walkthrough, seed realistic customer, product, and order
+data through the Gateway instead of inserting it directly into service
+databases. The script exercises the production-shaped API path: JWT login,
+permission checks, validation, inventory upsert, checkout idempotency, the
+Kafka SAGA, transactional outbox, JSON logs, metrics, and trace propagation.
+
+```powershell
+$env:SHOPVERSE_ADMIN_PASSWORD = "Admin@123"
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Seed-ShopverseData.ps1
+Remove-Item Env:SHOPVERSE_ADMIN_PASSWORD
+```
+
+Defaults are 20 named customers, 20 catalog items, and 120 checkout requests.
+Checkout jobs run in batches of four to avoid overwhelming a laptop-sized
+Compose stack. Re-running uses the same `api-seed-checkout-####` idempotency
+keys, so a completed checkout is returned rather than duplicated.
+
+Order Service caches the browse catalog with Caffeine for local UI reads. The
+default TTL is 60 seconds and can be changed with
+`ORDER_SERVICE_CACHE_TTL_SECONDS`. The seed script evicts that cache after
+Inventory product upserts by calling:
+
+```http
+POST /api/v1/orders/admin/catalog-cache/evict
+```
+
+Checkout itself does not depend on the cached browse catalog. It validates the
+requested product with Inventory's direct product lookup before creating the
+order.
+
+The ignored `demo-credentials.local.md` file receives the generated customer
+login details. `.tmp/shopverse-api-seed-manifest.json` records each order ID,
+order number, correlation ID, and idempotency key. For example, inspect the
+first order and use its correlation ID in Loki:
+
+```powershell
+$seed = Get-Content .\.tmp\shopverse-api-seed-manifest.json -Raw | ConvertFrom-Json
+$seed.orders | Where-Object OrderIndex -eq 1 | Format-List
+```
+
+For a smaller first run, use `-CustomerCount 5 -ProductCount 10 -OrderCount 20
+-BatchSize 2`. This is local POC data only; the script should never target a
+shared or production environment.
+
+### Verify Seeded Users And Roles
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot user_service -e "
+    SELECT u.id, u.username, u.email, u.status, r.role_name
+    FROM users u
+    LEFT JOIN user_roles ur ON ur.user_id = u.id
+    LEFT JOIN roles r ON r.id = ur.role_id
+    ORDER BY u.id, r.role_name;
+  "
+'
+```
+
+Expected users include `admin`, `customer1`, `customer2`, `support1`, and
+`inventory1`.
+
+## 5. Create An Idempotent Checkout
+
+Create stable identifiers for this demonstration:
+
+```powershell
+$suffix = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+$correlationId = "demo-$suffix"
+$idempotencyKey = "checkout-$suffix"
+
+$headers = @{
+    Authorization      = "Bearer $token"
+    "X-Correlation-Id" = $correlationId
+    "Idempotency-Key"  = $idempotencyKey
+}
+
+$checkoutBody = @{
+    shippingAddress = @{
+        recipientName = "Ahmed Khan"
+        phoneNumber = "+919876543210"
+        line1 = "42 Market Road"
+        line2 = "Apt 5"
+        city = "Bangalore"
+        state = "Karnataka"
+        postalCode = "560001"
+        country = "India"
+    }
+    items = @(
+        @{
+            productId = 101
+            quantity  = 1
+        }
+    )
+} | ConvertTo-Json -Depth 5
+
+$order = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/orders/checkout" `
+    -Headers $headers `
+    -ContentType "application/json" `
+    -Body $checkoutBody
+
+$order | ConvertTo-Json -Depth 10
+```
+
+Retain the identifiers used by later steps:
+
+```powershell
+$orderId = $order.id
+$orderNumber = $order.orderNumber
+```
+
+The initial response can arrive before the asynchronous SAGA finishes. The
+checkout transaction atomically stores the Order, its first timeline entry, and
+an outbox event. A background publisher later sends that outbox event to Kafka.
+
+## 6. Follow The SAGA Timeline
+
+Poll the order until it reaches a terminal state:
+
+```powershell
+do {
+    Start-Sleep -Seconds 1
+    $currentOrder = Invoke-RestMethod `
+        -Uri "$gateway/api/v1/orders/$orderId" `
+        -Headers @{ Authorization = "Bearer $token" }
+
+    Write-Host "Order status: $($currentOrder.status)"
+} until ($currentOrder.status -in @(
+    "CONFIRMED",
+    "INVENTORY_REJECTED",
+    "PAYMENT_FAILED",
+    "CANCELLED"
+))
+```
+
+Read the durable business timeline:
+
+```powershell
+$timeline = Invoke-RestMethod `
+    -Uri "$gateway/api/v1/orders/$orderId/timeline" `
+    -Headers @{ Authorization = "Bearer $token" }
+
+$timeline | Format-Table stage, occurredAt, correlationId, detail -AutoSize
+```
+
+The happy path must contain:
+
+```text
+ORDER_CREATED
+INVENTORY_RESERVED
+PAYMENT_PROCESSING
+PAYMENT_COMPLETED
+ORDER_CONFIRMED
+```
+
+Inspect the payment record:
+
+```powershell
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/payments/orders/$orderNumber" `
+    -Headers @{ Authorization = "Bearer $token" } |
+    ConvertTo-Json -Depth 10
+```
+
+Expected payment status: `CAPTURED`.
+
+### Exercise Account, Cart, Fulfillment, And Return APIs
+
+Persist a customer cart:
+
+```powershell
+$cartBody = @{
+    items = @(
+        @{ productId = 101; quantity = 1 }
+    )
+} | ConvertTo-Json -Depth 5
+
+Invoke-RestMethod `
+    -Method Put `
+    -Uri "$gateway/api/v1/cart" `
+    -Headers @{ Authorization = "Bearer $token" } `
+    -ContentType "application/json" `
+    -Body $cartBody
+```
+
+Inspect public product detail and related products:
+
+```powershell
+Invoke-RestMethod "$gateway/api/v1/inventory/public/items/101"
+Invoke-RestMethod "$gateway/api/v1/inventory/public/items/101/related"
+Invoke-RestMethod "$gateway/api/v1/inventory/public/categories"
+```
+
+Advance a confirmed order through fulfillment as an administrator:
+
+```powershell
+$adminHeaders = @{ Authorization = "Bearer $token" }
+
+Invoke-RestMethod -Method Post -Uri "$gateway/api/v1/orders/admin/$orderId/pack" -Headers $adminHeaders
+Invoke-RestMethod -Method Post -Uri "$gateway/api/v1/orders/admin/$orderId/ship" -Headers $adminHeaders
+Invoke-RestMethod -Method Post -Uri "$gateway/api/v1/orders/admin/$orderId/ship" -Headers $adminHeaders
+Invoke-RestMethod -Method Post -Uri "$gateway/api/v1/orders/admin/$orderId/deliver" -Headers $adminHeaders
+```
+
+After delivery, the owning customer can request a return:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/orders/$orderId/return-request" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+For cancellation compensation, create a second order with the same checkout
+command from step 5 using fresh correlation and idempotency keys. Assign the
+second order response before cancelling it:
+
+```powershell
+$cancelOrderId = $cancelOrder.id
+$cancelOrderNumber = $cancelOrder.orderNumber
+```
+
+Wait until Inventory has reserved stock, then cancel it:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/orders/$cancelOrderId/cancel" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+Inventory consumes `order.cancelled` and releases the matching reservation.
+Confirm with:
+
+```powershell
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/inventory/admin/reservations/orders/$cancelOrderNumber" `
+    -Headers $adminHeaders
+```
+
+### Prove Resource Ownership Authorization
+
+Use the seeded `DEMO-ORD-1001` record to prove that authentication alone does
+not grant access to another customer's data. The record and its Payment belong
+to `customer1`.
+
+```powershell
+function Get-ShopverseToken($username, $password) {
+    $body = @{
+        username = $username
+        password = $password
+    } | ConvertTo-Json
+
+    (Invoke-RestMethod `
+        -Method Post `
+        -Uri "$gateway/auth/login" `
+        -ContentType "application/json" `
+        -Body $body).token
+}
+
+$customer1Token = Get-ShopverseToken "customer1" "Customer@123"
+$customer2Token = Get-ShopverseToken "customer2" "Buyer@123"
+
+$customer1Orders = Invoke-RestMethod `
+    -Uri "$gateway/api/v1/orders" `
+    -Headers @{ Authorization = "Bearer $customer1Token" }
+
+$ownedOrder = $customer1Orders |
+    Where-Object orderNumber -eq "DEMO-ORD-1001" |
+    Select-Object -First 1
+
+$ownedOrderId = $ownedOrder.id
+```
+
+The owner can read both protected resources:
+
+```powershell
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/orders/$ownedOrderId/timeline" `
+    -Headers @{ Authorization = "Bearer $customer1Token" }
+
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/payments/orders/DEMO-ORD-1001" `
+    -Headers @{ Authorization = "Bearer $customer1Token" }
+```
+
+Another authenticated customer receives `403 Forbidden` for both APIs:
+
+```powershell
+$otherCustomerTimeline = Invoke-WebRequest `
+    -SkipHttpErrorCheck `
+    -Uri "$gateway/api/v1/orders/$ownedOrderId/timeline" `
+    -Headers @{ Authorization = "Bearer $customer2Token" }
+
+$otherCustomerPayment = Invoke-WebRequest `
+    -SkipHttpErrorCheck `
+    -Uri "$gateway/api/v1/payments/orders/DEMO-ORD-1001" `
+    -Headers @{ Authorization = "Bearer $customer2Token" }
+
+$otherCustomerTimeline.StatusCode
+$otherCustomerPayment.StatusCode
+```
+
+Expected output:
+
+```text
+403
+403
+```
+
+The administrator token created earlier retains cross-customer access:
+
+```powershell
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/orders/$ownedOrderId/timeline" `
+    -Headers @{ Authorization = "Bearer $token" }
+
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/payments/orders/DEMO-ORD-1001" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+For the underlying `@PreAuthorize` expressions, repository queries, Spring
+Security interception flow, and tests, see
+[Resource ownership authorization](../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md).
+
+## Recommended Next
+
+Return to [Demo Setup And Checkout](./COMPLETE-DEMO-SETUP-CHECKOUT.mdx) to select the next focused guide.
+
+
+## Official References
+
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)

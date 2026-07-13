@@ -1,4 +1,4 @@
-﻿---
+---
 title: Coverage And Test Quality
 description: Risk-based JaCoCo coverage, branch and changed-code gates, mutation testing, architecture checks, exclusions, and evidence of assertion strength.
 difficulty: Advanced
@@ -11,6 +11,7 @@ learning_objectives:
 technologies: [JaCoCo, PIT, Gradle, JUnit, ArchUnit]
 last_reviewed: "2026-07-13"
 ---
+
 
 # Coverage And Test Quality
 

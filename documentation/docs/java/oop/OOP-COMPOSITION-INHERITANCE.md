@@ -1,6 +1,8 @@
 ---
 title: Composition, Ownership And Inheritance
 description: Model Java relationships, aggregate lifecycles, composition, inheritance, and substitutability with Shopverse examples.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Composition, Ownership And Inheritance

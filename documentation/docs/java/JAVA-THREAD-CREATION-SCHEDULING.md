@@ -1,6 +1,8 @@
 ---
 title: Java Thread Creation, Scheduling And Context Switching
 description: Manual threads, lifecycle, OS and JVM scheduling, time slicing, context switches, concurrency, parallelism, and joining.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Thread Creation, Scheduling And Context Switching

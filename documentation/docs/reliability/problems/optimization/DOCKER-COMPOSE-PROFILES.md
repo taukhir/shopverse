@@ -1,5 +1,7 @@
 ---
 title: Add Docker Compose Profiles
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Add Docker Compose Profiles

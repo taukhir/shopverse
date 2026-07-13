@@ -1,6 +1,8 @@
 ---
 title: Java 8 To 26 Overview
 sidebar_position: 1
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java 8 To 26 Overview

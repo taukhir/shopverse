@@ -1,3 +1,16 @@
+---
+title: "Transactions"
+description: "Transactions: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Transactions"
+tags:
+  - "reliability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Transactions
 
 This file records Shopverse's implemented transaction boundaries. See

@@ -1,3 +1,16 @@
+---
+title: "Inbox Pattern And Idempotent Consumers"
+description: "Inbox Pattern And Idempotent Consumers: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Inbox Pattern And Idempotent Consumers"
+tags:
+  - "reliability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Inbox Pattern And Idempotent Consumers
 
 The inbox pattern solves the consumer-side duplicate-processing problem:

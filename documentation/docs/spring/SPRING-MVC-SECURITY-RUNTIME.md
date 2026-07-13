@@ -36,6 +36,12 @@ and the capacity guide for queues, threads, timeouts, and saturation.
 
 ## Interview Questions
 
+<ExpandableAnswer title="What should an architect explain about Spring MVC And Security Request Runtime?">
+
+For **Spring MVC And Security Request Runtime**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
+
 The former static answers now appear as `ExpandableAnswer` checks in the
 relevant lifecycle, security, and message-conversion guides.
 

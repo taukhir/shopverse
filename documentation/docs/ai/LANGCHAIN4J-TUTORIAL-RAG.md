@@ -1,6 +1,8 @@
 ---
 title: "LangChain4j Tutorial 4: RAG And Embedding Stores"
 sidebar_position: 6.30
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # LangChain4j Tutorial 4: RAG And Embedding Stores
@@ -186,6 +188,12 @@ allowed return period.
 ```
 
 ## Interview Explanation
+
+<ExpandableAnswer title="What should an architect explain about LangChain4j Tutorial 4: RAG And Embedding Stores?">
+
+For **LangChain4j Tutorial 4: RAG And Embedding Stores**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > In LangChain4j RAG, documents are loaded, split into segments, embedded, and
 > stored in an embedding store. At runtime, a RetrievalAugmentor retrieves

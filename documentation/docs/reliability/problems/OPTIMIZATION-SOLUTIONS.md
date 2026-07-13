@@ -1,5 +1,7 @@
 ---
 title: Build, JAR, Docker, And Compose Optimization Solutions
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Build, JAR, Docker, And Compose Optimization Solutions

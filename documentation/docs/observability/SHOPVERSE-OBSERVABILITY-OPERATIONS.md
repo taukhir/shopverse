@@ -1,6 +1,8 @@
 ---
 title: Shopverse Observability Operations
 sidebar_position: 8
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Shopverse Observability Operations

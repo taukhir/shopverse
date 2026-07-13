@@ -1,3 +1,16 @@
+---
+title: "Choreography SAGA And Transactional Outbox"
+description: "Choreography SAGA And Transactional Outbox: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Choreography SAGA And Transactional Outbox"
+tags:
+  - "reliability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Choreography SAGA And Transactional Outbox
 
 For generic SAGA theory, choreography versus orchestration, consistency,

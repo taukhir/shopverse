@@ -1,3 +1,16 @@
+---
+title: "Structured Logging"
+description: "Structured Logging: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Structured Logging"
+tags:
+  - "observability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Structured Logging
 
 For generic SLF4J, Logback, `log.atInfo()`, appenders, encoders, JSON,

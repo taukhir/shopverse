@@ -1,4 +1,4 @@
-﻿---
+---
 title: JUnit Testing Fundamentals
 description: Framework-independent JUnit Platform and Jupiter foundations for deterministic lifecycle, assertions, parameterized tests, tags, and test structure before Spring-specific testing.
 difficulty: Foundation
@@ -11,6 +11,7 @@ learning_objectives:
 technologies: [JUnit Platform, JUnit Jupiter, AssertJ, Gradle]
 last_reviewed: "2026-07-13"
 ---
+
 
 # JUnit Testing Fundamentals
 

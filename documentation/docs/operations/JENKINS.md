@@ -1,6 +1,8 @@
 ---
 title: Jenkins
 sidebar_position: 4
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Jenkins
@@ -173,17 +175,19 @@ See the canonical project instructions and actual pipeline:
 
 ## Interview Questions
 
-### Declarative Versus Scripted Pipeline
+<ExpandableAnswer title="Declarative Versus Scripted Pipeline">
 
 Declarative Pipeline has a constrained, validated structure and built-in
 sections such as `stages`, `when`, and `post`. Scripted Pipeline is flexible
 Groovy but easier to make inconsistent. Prefer Declarative and use small
 `script` blocks only where needed.
 
-### Why Disable Concurrent Builds?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Disable Concurrent Builds?">
 
 When builds share fixed Docker tags, ports, workspaces, or Compose project
 names, concurrency can corrupt or conflict with state. A better long-term
 solution is isolated workspaces and unique resource names; disabling
 concurrency is still appropriate for inherently exclusive deployment jobs.
 
+</ExpandableAnswer>

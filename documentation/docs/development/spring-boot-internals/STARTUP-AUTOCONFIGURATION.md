@@ -1,4 +1,4 @@
-﻿---
+---
 title: Spring Boot Startup, Environment And Auto-Configuration
 description: Spring Boot entry point, startup phases, property sources, condition evaluation, back-off, and dependency-driven infrastructure.
 difficulty: Intermediate
@@ -11,6 +11,7 @@ learning_objectives:
 technologies: [Spring Boot, Spring Framework]
 last_reviewed: "2026-07-13"
 ---
+
 
 import {DocFigure} from '@site/src/components/DocumentationLanding';
 

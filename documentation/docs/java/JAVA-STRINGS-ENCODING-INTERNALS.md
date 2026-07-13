@@ -1,6 +1,8 @@
 ---
 title: Java String, Unicode And Encoding Internals
 description: Senior guide to String representation, pooling, concatenation, Unicode, charsets, normalization, security, and diagnostics.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java String, Unicode And Encoding Internals
@@ -65,6 +67,12 @@ case conversion must specify a locale; protocol identifiers often use
 - Diagnose mojibake by tracing the exact encode/decode boundaries, not by repeated conversions.
 
 ## Lab And Interview
+
+<ExpandableAnswer title="What should an architect explain about Java String, Unicode And Encoding Internals?">
+
+For **Java String, Unicode And Encoding Internals**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 Inspect concat bytecode using `javap -c -v`; compare code-unit, code-point and
 grapheme counts; configure a decoder to report malformed UTF-8; demonstrate

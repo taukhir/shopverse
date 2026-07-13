@@ -1,5 +1,7 @@
 ---
 title: AWS Lambda And Serverless
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # AWS Lambda And Serverless

@@ -1,6 +1,8 @@
 ---
 title: Java Lead And Architect Learning Path
 description: Senior-level Java curriculum for design reviews, runtime reasoning, performance, concurrency, compatibility, and production architecture.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Lead And Architect Learning Path
@@ -106,6 +108,12 @@ offs, failure behavior, observability, and rejected alternatives. Naming an API
 without those elements is not sufficient.
 
 ## Tricky Interview Expectations
+
+<ExpandableAnswer title="What should an architect explain about Java Lead And Architect Learning Path?">
+
+For **Java Lead And Architect Learning Path**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 1. Require the correctness boundary, not only an API name.
 2. Ask what happens at saturation, cancellation, redeploy and partial failure.

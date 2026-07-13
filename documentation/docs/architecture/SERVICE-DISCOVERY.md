@@ -1,6 +1,8 @@
 ---
 title: Service Discovery
 sidebar_position: 3
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Service Discovery
@@ -163,22 +165,25 @@ Exact commands and operational behavior remain in the
 
 ## Interview Questions
 
-### What Happens If Eureka Is Down?
+<ExpandableAnswer title="What Happens If Eureka Is Down?">
 
 Existing clients may temporarily use cached instance lists, but new
 registration and fresh discovery fail. The registry needs redundancy in a
 production architecture, and clients need bounded failure behavior.
 
-### Eureka Versus Load Balancer?
+</ExpandableAnswer>
+<ExpandableAnswer title="Eureka Versus Load Balancer?">
 
 Eureka stores/distributes instance information. A load balancer selects one
 eligible instance.
 
-### Why Not Hard-Code Service URLs?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Not Hard-Code Service URLs?">
 
 Addresses change during scaling, restart, deployment, and failover. Hard-coded
 URLs couple configuration to individual instances.
 
+</ExpandableAnswer>
 ## Related Guides
 
 - [Load Balancing](LOAD-BALANCING-GENERIC.md)

@@ -1,5 +1,7 @@
 ---
 title: Database Locking And Work Claims
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Database Locking And Work Claims

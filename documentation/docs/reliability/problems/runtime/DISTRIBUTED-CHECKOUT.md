@@ -1,6 +1,9 @@
-﻿---
-title: Reliable Distributed Checkout Problem
 ---
+title: Reliable Distributed Checkout Problem
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Reliable Distributed Checkout Problem
 

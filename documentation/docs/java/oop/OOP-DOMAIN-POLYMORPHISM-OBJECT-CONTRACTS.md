@@ -1,6 +1,8 @@
 ---
 title: Domain Polymorphism And Object Contracts
 description: Design substitutable Shopverse behaviors and safe Java equality, hashing, identity, and string contracts.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Domain Polymorphism And Object Contracts

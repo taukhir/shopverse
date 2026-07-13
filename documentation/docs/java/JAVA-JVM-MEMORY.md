@@ -1,5 +1,7 @@
 ---
 title: JVM Runtime Memory Areas
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # JVM Runtime Memory Areas

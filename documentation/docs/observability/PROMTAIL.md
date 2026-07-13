@@ -1,3 +1,16 @@
+---
+title: "Promtail"
+description: "Promtail: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Promtail"
+tags:
+  - "observability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Promtail
 
 Promtail is the log collection agent in the Shopverse POC. It discovers log

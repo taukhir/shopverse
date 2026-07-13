@@ -1,6 +1,9 @@
-﻿---
-title: Hibernate Auditing And Validation
 ---
+title: Hibernate Auditing And Validation
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Hibernate Auditing And Validation
 

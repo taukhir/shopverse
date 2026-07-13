@@ -1,6 +1,8 @@
 ---
 title: Java Collection Internals
 sidebar_position: 4
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Collection Internals

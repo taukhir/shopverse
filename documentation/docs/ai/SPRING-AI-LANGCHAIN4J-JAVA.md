@@ -1,6 +1,8 @@
 ---
 title: Spring AI, LangChain4j And Java AI
 sidebar_position: 6
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Spring AI, LangChain4j And Java AI
@@ -63,6 +65,12 @@ User question
 ```
 
 ## Interview Answer
+
+<ExpandableAnswer title="What should an architect explain about Spring AI, LangChain4j And Java AI?">
+
+For **Spring AI, LangChain4j And Java AI**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > Java AI applications still follow normal backend design. The AI provider is an
 > external dependency. Spring AI gives Spring Boot-friendly abstractions for

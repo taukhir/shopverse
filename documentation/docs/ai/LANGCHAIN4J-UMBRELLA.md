@@ -1,6 +1,8 @@
 ---
 title: LangChain4j Track
 sidebar_position: 6.25
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # LangChain4j Track
@@ -93,6 +95,12 @@ You should be able to build and explain:
 - secure tool validation
 
 ## Interview Story
+
+<ExpandableAnswer title="What should an architect explain about LangChain4j Track?">
+
+For **LangChain4j Track**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > LangChain4j simplifies Java LLM applications using Java-native abstractions.
 > Its high-level AI Services let me define an interface and let the framework

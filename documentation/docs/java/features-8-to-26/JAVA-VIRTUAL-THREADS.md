@@ -1,6 +1,8 @@
 ---
 title: Java Virtual Threads
 sidebar_position: 7
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Virtual Threads

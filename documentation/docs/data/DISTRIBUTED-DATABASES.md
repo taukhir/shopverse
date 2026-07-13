@@ -1,6 +1,8 @@
 ---
 title: Distributed Databases
 sidebar_position: 4
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Distributed Databases
@@ -268,32 +270,37 @@ These are different dimensions:
 
 ## Interview Questions
 
-### How Does A Distributed Database Differ From A Traditional Database?
+<ExpandableAnswer title="How Does A Distributed Database Differ From A Traditional Database?">
 
 It coordinates storage and processing across networked nodes, so replication,
 partitioning, membership, failure detection, and distributed consistency are
 part of normal operation.
 
-### How Does Sharding Improve Scale?
+</ExpandableAnswer>
+<ExpandableAnswer title="How Does Sharding Improve Scale?">
 
 It divides data and work across nodes, allowing storage and throughput to grow
 horizontally. It complicates cross-shard queries, transactions, and balancing.
 
-### Is Replication The Same As Sharding?
+</ExpandableAnswer>
+<ExpandableAnswer title="Is Replication The Same As Sharding?">
 
 No. Replication copies the same data for availability/read scale. Sharding
 divides different data across nodes for capacity.
 
-### How Do You Prevent Split-Brain?
+</ExpandableAnswer>
+<ExpandableAnswer title="How Do You Prevent Split-Brain?">
 
 Use quorum/consensus for leadership, leases with fencing, and prevent an old
 leader from committing after a new leader is elected.
 
-### What Is Replication Lag?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Is Replication Lag?">
 
 The delay between a write being accepted by the source/leader and becoming
 visible on a replica. It affects stale reads and failover data loss.
 
+</ExpandableAnswer>
 ## Related Guides
 
 - [Database Engineering](DATABASE-ENGINEERING.md)

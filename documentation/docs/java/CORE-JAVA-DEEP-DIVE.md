@@ -2,6 +2,8 @@
 title: Core Java Deep Dive
 description: Ordered learning path for Java language semantics, objects, collections, concurrency, exceptions, and interview preparation.
 sidebar_position: 1
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Core Java Deep Dive

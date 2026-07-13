@@ -1,3 +1,16 @@
+---
+title: "Platform Config Property Reference"
+description: "Platform Config Property Reference: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Platform Config Property Reference"
+tags:
+  - "platform"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Platform Config Property Reference
 
 This page lists the service configuration consumed by the platform modules.

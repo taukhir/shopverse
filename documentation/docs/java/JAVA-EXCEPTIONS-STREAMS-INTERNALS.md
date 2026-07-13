@@ -1,6 +1,8 @@
 ---
 title: Exception Propagation And Stream Failure Internals
 description: Senior guide to stack unwinding, suppressed failures, stream execution, spliterators, parallelism, and failure contracts.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Exception Propagation And Stream Failure Internals
@@ -78,6 +80,12 @@ operations safe. Duplicate keys in `toMap` require a deliberate merge policy.
 - Are resources opened and closed within the terminal execution lifetime?
 
 ## Lab And Interview
+
+<ExpandableAnswer title="What should an architect explain about Exception Propagation And Stream Failure Internals?">
+
+For **Exception Propagation And Stream Failure Internals**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 Write a custom tracing spliterator, compare ordered/unordered parallel behavior,
 demonstrate suppressed close failures, and benchmark a pipeline only with JMH.

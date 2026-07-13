@@ -1,6 +1,8 @@
 ---
 title: "LangChain4j Tutorial 3: Tools, Memory And Guardrails"
 sidebar_position: 6.29
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # LangChain4j Tutorial 3: Tools, Memory And Guardrails
@@ -208,6 +210,12 @@ message -> AI Service -> ProductTools.searchProducts -> inventory service -> ans
 ```
 
 ## Interview Explanation
+
+<ExpandableAnswer title="What should an architect explain about LangChain4j Tutorial 3: Tools, Memory And Guardrails?">
+
+For **LangChain4j Tutorial 3: Tools, Memory And Guardrails**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > LangChain4j tools connect an LLM to Java methods, but Java still owns
 > validation and authorization. Memory helps with follow-up conversation, but it

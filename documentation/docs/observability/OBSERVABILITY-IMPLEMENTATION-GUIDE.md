@@ -1,6 +1,8 @@
 ---
 title: Observability Implementation Guide
 sidebar_position: 7
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Observability Implementation Guide

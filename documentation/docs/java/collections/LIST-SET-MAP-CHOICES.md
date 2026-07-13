@@ -1,6 +1,8 @@
 ---
 title: List, Set, And Map Choices
 description: Practical Java List, Set, and Map implementation choices with Shopverse examples.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # List, Set, And Map Choices

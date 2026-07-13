@@ -1,6 +1,8 @@
 ---
 title: Java Generics, Erasure And Variance Internals
 description: Senior guide to invariance, wildcard capture, erasure, bridges, heap pollution, arrays, and API design.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Generics, Erasure And Variance Internals
@@ -92,6 +94,12 @@ generic information requires more than `Class<List>`.
 - Consider sealed result types when a closed outcome model is clearer than generic exception channels.
 
 ## Lab And Interview
+
+<ExpandableAnswer title="What should an architect explain about Java Generics, Erasure And Variance Internals?">
+
+For **Java Generics, Erasure And Variance Internals**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 Use `javap -v` to locate `Signature`, bridge and synthetic metadata. Compile
 varargs pollution with `-Xlint:unchecked`. Explain why `List<?>` permits `null`

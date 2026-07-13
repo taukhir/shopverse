@@ -1,3 +1,16 @@
+---
+title: "Resilience4j"
+description: "Resilience4j: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Resilience4j"
+tags:
+  - "reliability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Resilience4j
 
 Shopverse uses annotation-based Resilience4j and centralized YAML configuration. The annotations are implemented through Spring AOP proxies.

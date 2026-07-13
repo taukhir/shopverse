@@ -1,6 +1,9 @@
-﻿---
-title: Hibernate Fetching And Performance
 ---
+title: Hibernate Fetching And Performance
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Hibernate Fetching And Performance
 

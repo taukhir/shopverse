@@ -1,6 +1,8 @@
 ---
 title: Foreign Function, Memory And Dynamic Invocation Internals
 description: MemorySegment lifetimes, arenas, linker calls, method handles, call sites, hidden classes, ClassValue, and architecture risks.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Foreign Function, Memory And Dynamic Invocation Internals

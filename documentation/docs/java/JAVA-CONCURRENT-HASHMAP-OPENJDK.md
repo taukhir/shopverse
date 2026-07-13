@@ -1,6 +1,8 @@
 ---
 title: ConcurrentHashMap OpenJDK Internals And Design Review
 description: Senior walkthrough of ConcurrentHashMap nodes, CAS insertion, bin locking, tree bins, cooperative resizing, counters, visibility, and architectural limits.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # ConcurrentHashMap OpenJDK Internals And Design Review

@@ -8,26 +8,14 @@ const docsDir = path.join(documentationDir, 'docs');
 const repositoryDir = path.resolve(documentationDir, '..');
 const sidebarPath = path.join(documentationDir, 'sidebars.ts');
 const policy = JSON.parse(fs.readFileSync(
-  path.join(documentationDir, 'governance', 'spring-version-policy.json'), 'utf8'));
+  path.join(documentationDir, 'governance', 'documentation-version-policy.json'), 'utf8'));
 
 const focusRoots = [
-  path.join(docsDir, 'spring'),
-  path.join(docsDir, 'security', 'spring-security'),
-  path.join(docsDir, 'architecture', 'microservices'),
-  path.join(docsDir, 'security', 'platform'),
-  path.join(docsDir, 'architecture', 'shopverse-capstones'),
+  docsDir,
 ];
-const focusFiles = [
-  path.join(docsDir, 'architecture', 'MICROSERVICES-DISTRIBUTED-SYSTEMS.md'),
-  path.join(docsDir, 'security', 'README.md'),
-];
+const focusFiles = [];
 const requiredRegistrationRoots = [
-  path.join(docsDir, 'spring', 'architect-labs'),
-  path.join(docsDir, 'spring', 'decisions'),
-  path.join(docsDir, 'security', 'spring-security'),
-  path.join(docsDir, 'architecture', 'microservices'),
-  path.join(docsDir, 'security', 'platform'),
-  path.join(docsDir, 'architecture', 'shopverse-capstones'),
+  docsDir,
 ];
 const strictSnippetRoots = [
   path.join(docsDir, 'spring', 'architect-labs'),
@@ -47,10 +35,10 @@ function walk(root) {
 }
 
 const markdownFiles = [...new Set([
-  ...focusRoots.flatMap(walk).filter((file) => file.endsWith('.md')),
+  ...focusRoots.flatMap(walk).filter((file) => /\.mdx?$/.test(file)),
   ...focusFiles,
 ])];
-const registrationFiles = requiredRegistrationRoots.flatMap(walk).filter((file) => file.endsWith('.md'));
+const registrationFiles = requiredRegistrationRoots.flatMap(walk).filter((file) => /\.mdx?$/.test(file));
 const sidebar = fs.readFileSync(sidebarPath, 'utf8');
 const errors = [];
 const snippetSources = new Set();
@@ -61,7 +49,10 @@ function relative(file) {
 }
 
 function docId(file) {
-  return path.relative(docsDir, file).replaceAll('\\', '/').replace(/\.md$/, '');
+  const relativePath = path.relative(docsDir, file).replaceAll('\\', '/').replace(/\.mdx?$/, '');
+  const declaredId = fs.readFileSync(file, 'utf8').match(/^id:\s*['"]?([^'"\r\n]+)['"]?\s*$/m)?.[1]?.trim();
+  const conventionalId = path.posix.basename(relativePath).replace(/^\d+-/, '');
+  return path.posix.join(path.posix.dirname(relativePath), declaredId ?? conventionalId);
 }
 
 function resolveDocLink(sourceFile, rawLink) {
@@ -92,7 +83,7 @@ for (const file of markdownFiles) {
     resolveDocLink(file, match[1]);
   }
 
-  const headings = [...content.matchAll(/^#{2,6}\s+(.+)$/gm)]
+  const headings = [...content.matchAll(/^##\s+(.+)$/gm)]
     .map((match) => match[1].replace(/`/g, '').trim().toLowerCase());
   const seenHeadings = new Set();
   for (const heading of headings) {

@@ -18,7 +18,7 @@
     "check:docs:official-links": "node scripts/check-official-links.mjs",
     "check:java-labs": "node scripts/check-java-labs.mjs",
     "check:spring-labs": "node scripts/check-spring-labs.mjs",
-    "check:docs:governance": "node scripts/check-spring-governance.mjs",
+    "check:docs:governance": "node scripts/check-documentation-governance.mjs",
     "check:spring-quality": "npm run check:docs:governance && npm run check:spring-labs",
     "repair:docs:audit": "node scripts/repair-audit-gaps.mjs",
     "test:ui": "playwright test",

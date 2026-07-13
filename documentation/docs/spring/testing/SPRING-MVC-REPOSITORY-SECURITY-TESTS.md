@@ -1,4 +1,4 @@
-﻿---
+---
 title: Spring MVC Repository And Security Tests
 description: Spring Boot 4 MVC and Data JPA slices, MockMvc, security filters and method proxies, persistence constraints, transactions, locking, and production-dialect evidence.
 difficulty: Advanced
@@ -11,6 +11,7 @@ learning_objectives:
 technologies: [Spring Boot 4, MockMvc, Spring Security Test, Data JPA, MySQL]
 last_reviewed: "2026-07-13"
 ---
+
 
 # Spring MVC Repository And Security Tests
 

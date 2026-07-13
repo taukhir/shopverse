@@ -1,6 +1,8 @@
 ---
 title: Documentation Maintenance Map
 sidebar_position: 3
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Documentation Maintenance Map
@@ -94,8 +96,11 @@ New problem/solution page:
 - Every `.md` and `.mdx` doc must be reachable from `sidebars.ts`.
 - Prefer index pages before long page lists.
 - Keep deep nesting only where the reader naturally follows a topic sequence.
-- Add new Shopverse-specific pages under `9. Shopverse Implementation`.
+- Add new Shopverse-specific pages under `12. Shopverse Implementation`.
 - Add generic concept pages under their topic section, not under the case study.
+- Keep focused content pages below 450 lines. When a guide exceeds that limit,
+  preserve its URL as a visual index and register its focused children in
+  `governance/split-guide-registry.json`.
 
 ## Validation Commands
 
@@ -103,6 +108,9 @@ Run these after any documentation structure change:
 
 ```powershell
 cd documentation
+npm.cmd run check:docs:governance
+npm.cmd run check:docs:audit
+npm.cmd run check:docs:depth
 npm.cmd run build
 ```
 

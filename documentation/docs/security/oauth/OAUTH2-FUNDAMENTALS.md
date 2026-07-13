@@ -1,5 +1,7 @@
 ---
 title: OAuth2 Fundamentals
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # OAuth2 Fundamentals

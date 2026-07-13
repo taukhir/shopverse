@@ -1,5 +1,7 @@
 ---
 title: Creational Patterns
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Creational Patterns
@@ -326,23 +328,28 @@ crash the database.
 
 ## Interview Questions
 
-### Factory Versus Strategy?
+<ExpandableAnswer title="Factory Versus Strategy?">
 
 Factory decides which object to create or return. Strategy decides which
 behavior to execute. They often work together: a factory can return a strategy.
 
-### Singleton In Microservices?
+</ExpandableAnswer>
+<ExpandableAnswer title="Singleton In Microservices?">
 
 A singleton is only local to one JVM. In a microservice deployed with three
 replicas, each replica has its own singleton. For cross-replica coordination,
 use a database, distributed lock, queue, or leader-election mechanism.
 
-### Builder Versus Constructor?
+</ExpandableAnswer>
+<ExpandableAnswer title="Builder Versus Constructor?">
 
 Use constructors or records for small required objects. Use Builder when many
 optional fields or readability problems exist.
 
-### Is Spring Bean Creation A Factory Pattern?
+</ExpandableAnswer>
+<ExpandableAnswer title="Is Spring Bean Creation A Factory Pattern?">
 
 Spring's `BeanFactory` and `ApplicationContext` are factory/container
 implementations. They create, configure, wire, proxy, and manage bean lifecycle.
+
+</ExpandableAnswer>

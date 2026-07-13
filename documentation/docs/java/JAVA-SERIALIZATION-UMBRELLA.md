@@ -1,6 +1,8 @@
 ---
 title: Java Serialization And Deserialization Guide
 description: Learning path for native Java serialization, object graphs, schema evolution, security, and modern wire-format choices.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Serialization And Deserialization Guide

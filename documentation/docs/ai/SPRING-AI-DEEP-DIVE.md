@@ -1,6 +1,8 @@
 ---
 title: Spring AI Deep Dive
 sidebar_position: 6.2
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Spring AI Deep Dive
@@ -390,30 +392,36 @@ POST /api/ai/products/recommend
 
 ## Interview Q&A
 
-### What is Spring AI?
+<ExpandableAnswer title="What is Spring AI?">
 
 Spring AI is a Spring ecosystem framework for building AI applications. It
 provides abstractions for chat models, embeddings, vector stores, RAG, tools,
 structured outputs, memory, observability, and provider portability.
 
-### Why Spring AI for Shopverse?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Spring AI for Shopverse?">
 
 Shopverse is a Spring Boot microservice project. Spring AI lets us add AI using
 the same dependency injection, configuration, service layer, and observability
 style already used in the project.
 
-### What is `ChatClient`?
+</ExpandableAnswer>
+<ExpandableAnswer title="What is ChatClient?">
 
 `ChatClient` is Spring AI's fluent API for calling chat models. It lets us set
 system and user prompts and call the model without writing provider-specific
 HTTP code.
 
-### What is `VectorStore`?
+</ExpandableAnswer>
+<ExpandableAnswer title="What is VectorStore?">
 
 `VectorStore` abstracts vector database operations such as adding embedded
 documents and searching similar documents during RAG.
 
-### What are advisors?
+</ExpandableAnswer>
+<ExpandableAnswer title="What are advisors?">
 
 Advisors are reusable components that can add behavior around model calls, such
 as retrieval or memory, so that repeated AI patterns are not duplicated.
+
+</ExpandableAnswer>

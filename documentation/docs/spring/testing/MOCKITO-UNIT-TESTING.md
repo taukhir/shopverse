@@ -1,4 +1,4 @@
-﻿---
+---
 title: Mockito And Unit Testing
 description: Framework-independent test-double foundations for focused Java service tests, interaction evidence, design seams, scoped static mocking, and legacy PowerMock migration.
 difficulty: Foundation
@@ -11,6 +11,7 @@ learning_objectives:
 technologies: [Mockito, JUnit Jupiter, AssertJ, Java]
 last_reviewed: "2026-07-13"
 ---
+
 
 # Mockito And Unit Testing
 

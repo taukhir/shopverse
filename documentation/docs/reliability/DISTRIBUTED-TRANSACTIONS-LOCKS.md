@@ -1,6 +1,8 @@
 ---
 title: Distributed Transactions
 sidebar_position: 3
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Distributed Transactions
@@ -185,32 +187,37 @@ not compete with lock, scheduler, and queue ownership theory on this page:
 
 ## Interview Questions
 
-### What Is The Difference Between A Local And Distributed Transaction?
+<ExpandableAnswer title="What Is The Difference Between A Local And Distributed Transaction?">
 
 A local transaction commits through one resource manager. A distributed
 transaction coordinates several independent resources over a network and has
 additional uncertainty and failure modes.
 
-### Why Is 2PC Considered Blocking?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Is 2PC Considered Blocking?">
 
 After participants prepare, they can hold resources while waiting for the
 coordinator's final decision. A coordinator/network failure can prolong that
 uncertainty.
 
-### Why Use SAGA Instead Of 2PC?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Use SAGA Instead Of 2PC?">
 
 SAGA preserves service autonomy and availability through local commits and
 compensation, accepting intermediate inconsistency and more application-level
 recovery logic.
 
-### Why Is A Distributed Lock Necessary?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Is A Distributed Lock Necessary?">
 
 See [Distributed Locks And Fencing](locking/DISTRIBUTED-LOCKS-AND-FENCING.md).
 
-### Why Are Fencing Tokens Important?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Are Fencing Tokens Important?">
 
 See [Distributed Locks And Fencing](locking/DISTRIBUTED-LOCKS-AND-FENCING.md#fencing-tokens).
 
+</ExpandableAnswer>
 ## Related Guides
 
 - [Spring Transactions](../spring/SPRING-TRANSACTIONS.md)

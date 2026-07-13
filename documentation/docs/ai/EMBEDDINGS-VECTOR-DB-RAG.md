@@ -1,6 +1,8 @@
 ---
 title: Embeddings, Vector DB And RAG
 sidebar_position: 5
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Embeddings, Vector DB And RAG
@@ -307,6 +309,12 @@ Interview answer:
 > specialized style or task behavior consistently.
 
 ## Interview Diagram To Draw
+
+<ExpandableAnswer title="What should an architect explain about Embeddings, Vector DB And RAG?">
+
+For **Embeddings, Vector DB And RAG**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 Draw this quickly on a whiteboard:
 

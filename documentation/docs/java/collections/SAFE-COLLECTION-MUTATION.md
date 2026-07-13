@@ -1,6 +1,8 @@
 ---
 title: Safe Collection Mutation
 description: Safely remove, transform, publish, and concurrently update Java collections.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Safe Collection Mutation

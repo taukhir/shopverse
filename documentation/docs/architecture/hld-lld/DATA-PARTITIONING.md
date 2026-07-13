@@ -1,5 +1,7 @@
 ---
 title: Data Partitioning
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Data Partitioning
@@ -180,18 +182,20 @@ Design for rebalancing before the system is under pressure.
 
 ## Interview Questions
 
-### Partitioning Versus Replication?
+<ExpandableAnswer title="Partitioning Versus Replication?">
 
 Partitioning splits different data across nodes. Replication copies the same
 data across nodes. Most large systems use both.
 
-### Sharding Versus Partitioning?
+</ExpandableAnswer>
+<ExpandableAnswer title="Sharding Versus Partitioning?">
 
 Sharding is usually horizontal partitioning across independent database nodes.
 Partitioning is the broader concept and can happen inside one database or
 across many systems.
 
-### How Do You Handle A Hot Partition?
+</ExpandableAnswer>
+<ExpandableAnswer title="How Do You Handle A Hot Partition?">
 
 Options:
 
@@ -203,12 +207,14 @@ Options:
 - rate limit abusive traffic;
 - redesign the access pattern.
 
-### Why Are Cross-Shard Transactions Hard?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Are Cross-Shard Transactions Hard?">
 
 They require coordination across nodes. Failures can occur after one shard
 commits and before another commits. Designs often use SAGA, outbox, idempotency,
 or carefully scoped distributed transactions.
 
+</ExpandableAnswer>
 ## References
 
 - [Data Partitioning Techniques in System Design - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/data-partitioning-techniques/)

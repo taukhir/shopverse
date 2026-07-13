@@ -1,6 +1,9 @@
-﻿---
-title: Idempotent Checkout Problem
 ---
+title: Idempotent Checkout Problem
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Idempotent Checkout Problem
 

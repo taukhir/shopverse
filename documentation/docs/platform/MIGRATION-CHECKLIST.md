@@ -1,3 +1,16 @@
+---
+title: "Platform Migration Checklist"
+description: "Platform Migration Checklist: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Platform Migration Checklist"
+tags:
+  - "platform"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Platform Migration Checklist
 
 Use this checklist when moving duplicate infrastructure logic from a service

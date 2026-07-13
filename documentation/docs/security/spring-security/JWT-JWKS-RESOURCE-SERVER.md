@@ -1,6 +1,9 @@
-﻿---
-title: JWT JWKS And Resource Server Security
 ---
+title: JWT JWKS And Resource Server Security
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # JWT JWKS And Resource Server Security
 
