@@ -85,24 +85,32 @@ Validate with load tests before enabling in production.
 
 ## Interview Questions
 
-### Are virtual threads faster than platform threads?
+<ExpandableAnswer title="Are virtual threads faster than platform threads?">
 
 They are cheaper to create and block. They do not make CPU work faster.
 
-### Should virtual threads be pooled?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Should virtual threads be pooled?">
 
 Usually no. Create virtual threads per task. Pool scarce resources like
 database connections, not virtual threads.
 
-### Do ThreadLocal values work with virtual threads?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Do ThreadLocal values work with virtual threads?">
 
 They work, but careless use can still leak memory or context. Prefer scoped
 context and explicit cleanup.
 
-### Do virtual threads replace reactive programming?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Do virtual threads replace reactive programming?">
 
 Not completely. They simplify many blocking I/O services. Reactive still helps
 for streaming, event-driven, and non-blocking pipelines.
+
+</ExpandableAnswer>
 
 ## Architect-Level Continuation
 

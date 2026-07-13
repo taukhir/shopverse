@@ -39,9 +39,24 @@ request and overall deadlines plus cancellation and bounded bodies.
 
 ## Tricky Interview Questions
 
-1. Why can a channel operation return before a buffer is consumed? Partial progress is legal.
-2. Do virtual threads eliminate selector use cases? No; event-loop control and streaming state can still justify selectors.
-3. Who owns a wrapped stream? The API contract must define which layer closes the underlying resource.
+<ExpandableAnswer title="Why can a channel operation return before a buffer is consumed?">
+
+Partial progress is legal.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Do virtual threads eliminate selector use cases?">
+
+No; event-loop control and streaming state can still justify selectors.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Who owns a wrapped stream?">
+
+The API contract must define which layer closes the underlying resource.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

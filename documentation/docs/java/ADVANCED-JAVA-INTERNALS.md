@@ -51,8 +51,18 @@ locks, and design a JMH benchmark that resists dead-code elimination and warmup 
 
 ## Tricky Interview Questions
 
-1. Can high latency with low CPU be a JVM execution problem? It may instead be parking, locks, queues or dependencies; require evidence.
-2. Why is warm-up part of architecture? Tiered compilation changes startup behavior and capacity.
+<ExpandableAnswer title="Can high latency with low CPU be a JVM execution problem?">
+
+It may instead be parking, locks, queues or dependencies; require evidence.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is warm-up part of architecture?">
+
+Tiered compilation changes startup behavior and capacity.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

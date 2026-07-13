@@ -18,3 +18,6 @@ forks, warm-up, measurement, GC and profiler settings.
 Safety: pressure labs default to bounded allocations and terminate. Increase
 arguments only in an isolated development environment with explicit process
 memory limits.
+
+CI runs Maven compilation and tests on JDK 24 and 25. Keep release-specific APIs
+compatible with both matrix entries or isolate them behind an explicit profile.

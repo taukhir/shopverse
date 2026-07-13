@@ -60,17 +60,23 @@ Map<OrderStatus, List<Order>> ordersByStatus = service.getData();
 
 ## Interview Questions
 
-### Is `var` runtime typing?
+<ExpandableAnswer title="Is var runtime typing?">
 
 No. It is compile-time local type inference.
 
-### Does `var` reduce type safety?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does var reduce type safety?">
 
 No. The compiler still enforces the inferred type.
 
-### Should every local variable use `var`?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Should every local variable use var?">
 
 No. Prefer readability over brevity.
+
+</ExpandableAnswer>
 
 ## Inference Boundaries
 
@@ -83,9 +89,24 @@ part of the design.
 
 ## Tricky Interview Questions
 
-1. Is `var value = null` legal? No; no type can be inferred.
-2. Does `var` use runtime type? No; inference is compile-time.
-3. Can `var` change overload resolution? The initializer is resolved first; later calls use the inferred static type.
+<ExpandableAnswer title="Is var value = null legal?">
+
+No; no type can be inferred.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does var use runtime type?">
+
+No; inference is compile-time.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can var change overload resolution?">
+
+The initializer is resolved first; later calls use the inferred static type.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

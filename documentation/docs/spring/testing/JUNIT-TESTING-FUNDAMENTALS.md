@@ -1,10 +1,32 @@
 ﻿---
 title: JUnit Testing Fundamentals
+description: Framework-independent JUnit Platform and Jupiter foundations for deterministic lifecycle, assertions, parameterized tests, tags, and test structure before Spring-specific testing.
+difficulty: Foundation
+page_type: Testing
+status: Implemented
+learning_objectives:
+  - Explain JUnit Platform, Jupiter engine, and test-instance lifecycle
+  - Write deterministic behavior-focused assertions and parameterized boundaries
+  - Tag and structure tests for later Spring and CI ownership
+technologies: [JUnit Platform, JUnit Jupiter, AssertJ, Gradle]
+last_reviewed: "2026-07-13"
 ---
 
 # JUnit Testing Fundamentals
 
+<DocLabels items={[
+  {label: 'Foundation', tone: 'foundation'},
+  {label: 'Framework independent', tone: 'intermediate'},
+  {label: 'Shopverse current', tone: 'shopverse'},
+]} />
+
 Test pyramid, dependencies, JUnit annotations, lifecycle, structure, assertions, and parameterized tests.
+
+<DocCallout type="tip" title="Learn JUnit before Spring TestContext">
+JUnit owns discovery, lifecycle, parameterization, extensions, and execution.
+Spring later supplies an extension and application context; it does not replace
+these foundations.
+</DocCallout>
 
 Back to [Spring Boot Testing](../SPRING-BOOT-TESTING.md).
 
@@ -212,6 +234,55 @@ void quantityMustBePositive(int quantity, boolean expected) {
 ```
 
 Do not combine unrelated behaviors merely to reduce the number of methods.
+
+## Shopverse Current And Proposed Practice
+
+<DocCallout type="shopverse" title="Current: JUnit Platform is standardized by build conventions">
+Shopverse Java services use Java 21, `useJUnitPlatform()`, and the JUnit Platform
+launcher through shared build logic. Spring Boot `4.0.6` manages the compatible
+Jupiter, AssertJ, Mockito, and Spring Test versions.
+</DocCallout>
+
+<DocCallout type="production" title="Proposed: make test taxonomy executable">
+Adopt stable tags only where tasks or CI gates use them, keep test names focused on
+behavior, and publish JUnit XML with duration and failure output for every task.
+Do not create a tag vocabulary that has no owner or selection policy.
+</DocCallout>
+
+## Expandable Interview Checks
+
+<ExpandableAnswer title="What is the difference between JUnit Platform and Jupiter?">
+
+The Platform discovers and launches test engines. Jupiter is the programming and
+extension model used to define and execute modern JUnit tests.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is the default per-method test instance useful?">
+
+Each test receives a new class instance, reducing accidental mutable state sharing
+and order dependence. External static or infrastructure state still needs isolation.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When should cases become a parameterized test?">
+
+When several inputs prove the same rule with the same arrange/act/assert shape.
+Keep unrelated behavior in separate tests even if combining it reduces method count.
+
+</ExpandableAnswer>
+
+## Official References
+
+- [JUnit User Guide](https://docs.junit.org/current/user-guide/)
+- [Spring Boot test dependencies](https://docs.spring.io/spring-boot/reference/testing/test-scope-dependencies.html)
+
+## Recommended Next
+
+<TopicCards items={[
+  {title: 'Mockito and unit testing', href: '/spring/testing/MOCKITO-UNIT-TESTING', description: 'Add controlled collaborators while keeping production behavior under test.', icon: 'experiment', tags: ['Foundation', 'Mocks']},
+  {title: 'Spring test slices and cache', href: '/spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE', description: 'Introduce Spring only when container wiring becomes part of the claim.', icon: 'layers', tags: ['TestContext', 'Boot 4']},
+]} />
 
 
 

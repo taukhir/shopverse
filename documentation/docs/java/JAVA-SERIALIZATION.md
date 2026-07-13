@@ -149,27 +149,21 @@ Continue with [Native Serialization Internals And Object Graphs](./JAVA-SERIALIZ
 
 ## Interview Questions
 
-### What is `serialVersionUID`?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="What is serialVersionUID?">
 
 It is a version identifier used during native Java deserialization compatibility
 checks.
 
 </ExpandableAnswer>
 
-### Why avoid native Java serialization?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="Why avoid native Java serialization?">
 
 It creates security risk, produces a Java-specific format, and is fragile when
 types evolve.
 
 </ExpandableAnswer>
 
-### How does Spring serialize REST responses?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="How does Spring serialize REST responses?">
 
 Spring commonly delegates JSON serialization to Jackson through an
 `HttpMessageConverter`.

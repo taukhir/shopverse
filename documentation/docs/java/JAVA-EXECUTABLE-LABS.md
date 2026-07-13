@@ -43,6 +43,12 @@ uniqueness, ForkJoin reduction, custom Spliterator partitioning, and a Java Comp
 API compile-failure fixture. `ParallelStreamBenchmark` compares sequential and
 parallel execution at small and large sizes instead of assuming parallel speedup.
 
+`CorePdfExampleAdaptationsTest` verifies the Shopverse rewrites used by the source
+coverage expansion: bounded order-reference regex, explicit control flow, exact
+quantity accumulation, exhaustive status switching, effectively-final lambda capture,
+and locale/zone-aware presentation. The durable mapping is in the
+[Core Java Source Coverage Ledger](./CORE-JAVA-SOURCE-COVERAGE.md).
+
 ## Runtime Workloads
 
 ```powershell
@@ -62,6 +68,25 @@ heap/native limits and never run them against a shared environment.
 For every experiment record JDK build, OS/container limits, CPU, command, warm-up,
 input, expected invariant, observed result, JFR/GC/profile artifact, interpretation,
 and at least one alternative explanation rejected by evidence.
+
+## Verified Example Evidence
+
+On JDK 24 in the current Windows environment:
+
+- JOL reported the sample wrapper as 32 shallow bytes and 176 retained bytes
+  including its referenced byte array. Layout varies with JVM flags and must not
+  be hard-coded as a universal result.
+- The short JMH smoke run completed through a forked VM. Its numeric score is only
+  a tool verification; reliable comparison requires the configured full forks,
+  warm-up, measurements and representative hardware.
+- jcstress observed `0,1` and rare `1,0` outcomes in the deliberately unsafe
+  publication test, demonstrating that racy field observations cannot be reasoned
+  about as a single atomic snapshot.
+- The bounded executor accepted eight tasks—four running and four queued—and
+  rejected twelve additional submissions.
+
+Expected output should be expressed as invariants and allowed outcomes, not exact
+timings or object sizes across machines.
 
 ## Official References
 

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-12T19:33:37.011Z",
+  "generatedAt": "2026-07-13T03:40:22.620Z",
   "summary": {
-    "links": 280,
-    "ok": 280,
+    "links": 466,
+    "ok": 466,
     "failed": 0,
-    "redirected": 17,
-    "rateLimited": 4
+    "redirected": 18,
+    "rateLimited": 6
   },
   "results": [
     {
@@ -15,7 +15,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 201,
+      "durationMs": 155,
       "pages": [
         "ai/AI-MODEL-INTERNALS-SELECTION.md"
       ]
@@ -27,7 +27,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 51,
+      "durationMs": 21,
       "pages": [
         "data/database-selection/CONSISTENCY-MODELS-BASE.md",
         "data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md",
@@ -42,7 +42,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 144,
+      "durationMs": 80,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
@@ -54,9 +54,33 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 322,
+      "durationMs": 40,
       "pages": [
         "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md"
+      ]
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html",
+      "finalUrl": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 129,
+      "pages": [
+        "development/spring-rest/REST-SECURE-FILE-TRANSFER.md"
+      ]
+    },
+    {
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html",
+      "finalUrl": "https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 39,
+      "pages": [
+        "spring/spel/SPEL-SECURITY-PRODUCTION.md"
       ]
     },
     {
@@ -66,7 +90,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 549,
+      "durationMs": 128,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
@@ -78,9 +102,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 98,
+      "durationMs": 292,
       "pages": [
         "security/SUPPLY-CHAIN-PRIVACY.md"
+      ]
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
+      "finalUrl": "https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 347,
+      "pages": [
+        "development/spring-rest/REST-IDEMPOTENT-COMMANDS.md"
       ]
     },
     {
@@ -90,7 +126,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 674,
+      "durationMs": 1131,
       "pages": [
         "data/database-selection/CONSISTENCY-MODELS-BASE.md",
         "data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md",
@@ -105,19 +141,19 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 840,
+      "durationMs": 1150,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
     },
     {
       "url": "https://developers.google.com/identity/openid-connect/openid-connect",
-      "finalUrl": "https://developers.google.com/identity/openid-connect/openid-connect?hl=bn",
+      "finalUrl": "https://developers.google.com/identity/openid-connect/openid-connect",
       "status": 200,
       "ok": true,
       "rateLimited": false,
-      "redirected": true,
-      "durationMs": 1327,
+      "redirected": false,
+      "durationMs": 542,
       "pages": [
         "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md",
         "security/oauth/SSO-AND-OPENID-CONNECT.md"
@@ -130,7 +166,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 793,
+      "durationMs": 1081,
       "pages": [
         "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md"
       ]
@@ -142,7 +178,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 708,
+      "durationMs": 114,
       "pages": [
         "architecture/ASYNC-REALTIME-DISTRIBUTED-TIME.md",
         "architecture/DISTRIBUTED-HYBRID-CACHE.md",
@@ -169,11 +205,35 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 174,
+      "durationMs": 111,
       "pages": [
         "operations/DEPLOYMENT-STRATEGIES.md",
         "operations/PERFORMANCE-CAPACITY-FINOPS.md",
         "operations/SRE-DR-CHAOS.md"
+      ]
+    },
+    {
+      "url": "https://docs.gradle.org/current/userguide/jacoco_plugin.html",
+      "finalUrl": "https://docs.gradle.org/current/userguide/jacoco_plugin.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 134,
+      "pages": [
+        "spring/testing/COVERAGE-TEST-QUALITY.md"
+      ]
+    },
+    {
+      "url": "https://docs.gradle.org/current/userguide/java_testing.html#test_reporting",
+      "finalUrl": "https://docs.gradle.org/current/userguide/java_testing.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 37,
+      "pages": [
+        "spring/testing/TEST-CI-RELIABILITY-OPERATIONS.md"
       ]
     },
     {
@@ -183,7 +243,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 958,
+      "durationMs": 893,
       "pages": [
         "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md"
       ]
@@ -195,7 +255,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1012,
+      "durationMs": 885,
       "pages": [
         "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md"
       ]
@@ -207,9 +267,17 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 794,
+      "durationMs": 223,
       "pages": [
-        "java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS.md"
+        "java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS.md",
+        "spring/internals-production/HIBERNATE-JDBC-INTERNALS.md",
+        "spring/jpa/JPA-AUDITING-DELETING-TESTING.md",
+        "spring/jpa/JPA-BASICS-ENTITY-MAPPING.md",
+        "spring/jpa/JPA-FETCHING-PERFORMANCE.md",
+        "spring/jpa/JPA-RELATIONSHIPS-JSON.md",
+        "spring/jpa/JPA-TRANSACTIONS-LOCKING.md",
+        "spring/SPRING-DATA-JPA.md",
+        "spring/SPRING-JPA-HIBERNATE-ARCHITECT.md"
       ]
     },
     {
@@ -219,7 +287,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 1570,
+      "durationMs": 1384,
       "pages": [
         "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md"
       ]
@@ -231,7 +299,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 2057,
+      "durationMs": 2036,
       "pages": [
         "spring/SPRING-INTERNALS-LABS.md"
       ]
@@ -243,7 +311,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 2184,
+      "durationMs": 2140,
       "pages": [
         "data/hibernate/HIBERNATE-CACHING.md"
       ]
@@ -255,9 +323,34 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 1173,
+      "durationMs": 811,
       "pages": [
-        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md"
+        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
+        "spring/testing/JUNIT-TESTING-FUNDAMENTALS.md"
+      ]
+    },
+    {
+      "url": "https://docs.junit.org/current/user-guide/#extensions",
+      "finalUrl": "https://docs.junit.org/6.1.2/overview.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": true,
+      "durationMs": 526,
+      "pages": [
+        "spring/testing/MOCKITO-UNIT-TESTING.md"
+      ]
+    },
+    {
+      "url": "https://docs.junit.org/current/user-guide/#running-tests",
+      "finalUrl": "https://docs.junit.org/6.1.2/overview.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": true,
+      "durationMs": 413,
+      "pages": [
+        "spring/testing/TEST-CI-RELIABILITY-OPERATIONS.md"
       ]
     },
     {
@@ -267,7 +360,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 299,
+      "durationMs": 355,
       "pages": [
         "ai/LANGCHAIN4J-DEEP-DIVE.md"
       ]
@@ -279,7 +372,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 223,
+      "durationMs": 227,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -291,7 +384,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 409,
+      "durationMs": 268,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -303,7 +396,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 400,
+      "durationMs": 280,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -315,7 +408,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 398,
+      "durationMs": 260,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -327,7 +420,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 729,
+      "durationMs": 794,
       "pages": [
         "data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md"
       ]
@@ -339,9 +432,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 916,
+      "durationMs": 289,
       "pages": [
         "architecture/CACHE-PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://docs.micrometer.io/micrometer/reference/observation.html",
+      "finalUrl": "https://docs.micrometer.io/micrometer/reference/observation.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 420,
+      "pages": [
+        "spring/internals-production/PRODUCTION-LIFECYCLE.md"
       ]
     },
     {
@@ -351,7 +456,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 56,
+      "durationMs": 21,
       "pages": [
         "data/DATA-PIPELINES-SEARCH-OPERATIONS.md"
       ]
@@ -363,7 +468,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 130,
+      "durationMs": 113,
       "pages": [
         "ai/RAG-ENGINEERING.md"
       ]
@@ -375,9 +480,177 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 133,
+      "durationMs": 60,
       "pages": [
-        "development/spring-boot-internals/PRODUCTION-TUNING.md"
+        "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/21/jfapi/index.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/21/jfapi/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 84,
+      "pages": [
+        "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/21/vm/native-memory-tracking.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/21/vm/native-memory-tracking.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 49,
+      "pages": [
+        "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/api/index.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/api/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 27,
+      "pages": [
+        "java/CORE-JAVA-DEEP-DIVE.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/text/NumberFormat.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/text/NumberFormat.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 78,
+      "pages": [
+        "java/JAVA-REGEX-INTERNATIONALIZATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/time/format/DateTimeFormatter.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/time/format/DateTimeFormatter.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 54,
+      "pages": [
+        "java/JAVA-REGEX-INTERNATIONALIZATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Locale.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/Locale.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 170,
+      "pages": [
+        "java/JAVA-REGEX-INTERNATIONALIZATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/regex/Matcher.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/regex/Matcher.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 48,
+      "pages": [
+        "java/JAVA-REGEX-INTERNATIONALIZATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/regex/Pattern.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/regex/Pattern.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 32,
+      "pages": [
+        "java/JAVA-REGEX-INTERNATIONALIZATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/ResourceBundle.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/ResourceBundle.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 94,
+      "pages": [
+        "java/JAVA-REGEX-INTERNATIONALIZATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/jar.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/jar.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 65,
+      "pages": [
+        "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/java.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/java.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 109,
+      "pages": [
+        "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/javac.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/javac.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 50,
+      "pages": [
+        "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/javadoc.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/javadoc.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 27,
+      "pages": [
+        "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/javap.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/24/docs/specs/man/javap.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 35,
+      "pages": [
+        "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
       ]
     },
     {
@@ -387,7 +660,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 44,
+      "durationMs": 18,
       "pages": [
         "java/JAVA-FFM-METHOD-HANDLES-RUNTIME.md"
       ]
@@ -399,7 +672,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 17,
+      "durationMs": 52,
       "pages": [
         "java/JAVA-SERIALIZATION-UMBRELLA.md"
       ]
@@ -411,25 +684,11 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 58,
+      "durationMs": 62,
       "pages": [
         "java/advanced-internals/DYNAMIC-JAVA-INTERNALS.md",
         "java/advanced-internals/NIO-PERFORMANCE-JMH.md",
-        "java/ADVANCED-JAVA-INTERNALS.md",
-        "java/JAVA-KEYWORDS.md"
-      ]
-    },
-    {
-      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/index.html",
-      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/index.html",
-      "status": 200,
-      "ok": true,
-      "rateLimited": false,
-      "redirected": false,
-      "durationMs": 135,
-      "pages": [
-        "java/CORE-JAVA-DEEP-DIVE.md",
-        "java/features-8-to-26/JAVA-8-TO-26.md"
+        "java/ADVANCED-JAVA-INTERNALS.md"
       ]
     },
     {
@@ -439,7 +698,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 94,
+      "durationMs": 35,
       "pages": [
         "java/JAVA-SERIALIZATION-EVOLUTION-SECURITY.md"
       ]
@@ -451,7 +710,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 25,
+      "durationMs": 22,
       "pages": [
         "java/JAVA-SERIALIZATION-INTERNALS.md"
       ]
@@ -463,10 +722,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 34,
+      "durationMs": 85,
       "pages": [
         "java/JAVA-FFM-METHOD-HANDLES-RUNTIME.md",
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Comparable.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Comparable.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 76,
+      "pages": [
+        "java/JAVA-COMPARABLE-COMPARATOR-DEEP-DIVE.md"
       ]
     },
     {
@@ -476,7 +747,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 36,
+      "durationMs": 30,
       "pages": [
         "java/JAVA-FFM-METHOD-HANDLES-RUNTIME.md"
       ]
@@ -488,7 +759,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 68,
+      "durationMs": 43,
       "pages": [
         "java/features-8-to-26/JAVA-LAMBDAS.md"
       ]
@@ -500,7 +771,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 45,
+      "durationMs": 33,
       "pages": [
         "java/JAVA-FFM-METHOD-HANDLES-RUNTIME.md"
       ]
@@ -512,7 +783,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 35,
+      "durationMs": 49,
       "pages": [
         "java/JAVA-DYNAMIC-JPMS-PACKAGING.md"
       ]
@@ -524,7 +795,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 77,
+      "durationMs": 56,
       "pages": [
         "java/advanced-internals/JAVA-MEMORY-MODEL.md",
         "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md"
@@ -537,9 +808,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 40,
+      "durationMs": 28,
       "pages": [
-        "java/JAVA-OBJECTS-STRINGS-GC.md"
+        "java/JAVA-OBJECTS-STRINGS-GC.md",
+        "java/JAVA-OOP.md"
       ]
     },
     {
@@ -549,7 +821,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 50,
+      "durationMs": 70,
       "pages": [
         "java/JAVA-THREAD-COORDINATION.md"
       ]
@@ -561,7 +833,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 96,
+      "durationMs": 45,
       "pages": [
         "java/JAVA-OBJECTS-STRINGS-GC.md"
       ]
@@ -573,9 +845,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 18,
+      "durationMs": 47,
       "pages": [
         "java/JAVA-DYNAMIC-JPMS-PACKAGING.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/ScopedValue.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/ScopedValue.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 56,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-RUNTIME.md",
+        "java/threading/THREAD-CONTEXT-PROPAGATION.md"
       ]
     },
     {
@@ -585,7 +870,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 36,
+      "durationMs": 67,
       "pages": [
         "java/JAVA-OBJECTS-STRINGS-GC.md",
         "java/JAVA-STRINGS-ENCODING-INTERNALS.md"
@@ -598,12 +883,26 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 43,
+      "durationMs": 107,
       "pages": [
         "java/features-8-to-26/JAVA-VIRTUAL-THREADS.md",
+        "java/JAVA-MULTITHREADING.md",
         "java/JAVA-THREAD-CREATION-SCHEDULING.md",
+        "java/JAVA-THREAD-SCHEDULER-DEEP-DIVE.md",
         "java/JAVA-THREADING-UMBRELLA.md",
         "java/JAVA-VIRTUAL-STRUCTURED-CONCURRENCY.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Thread.html#interrupt(",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Thread.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 31,
+      "pages": [
+        "java/threading/TASK-CANCELLATION-DEADLINES.md"
       ]
     },
     {
@@ -613,9 +912,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 38,
+      "durationMs": 44,
       "pages": [
         "java/JAVA-THREADING-MODEL.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/ThreadLocal.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/ThreadLocal.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 32,
+      "pages": [
+        "java/threading/THREAD-CONTEXT-PROPAGATION.md"
       ]
     },
     {
@@ -625,7 +936,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 83,
+      "durationMs": 43,
       "pages": [
         "java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE.md"
       ]
@@ -637,7 +948,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 88,
+      "durationMs": 43,
       "pages": [
         "java/JAVA-TIME-NUMERIC-SECURITY.md"
       ]
@@ -649,9 +960,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 432,
+      "durationMs": 34,
       "pages": [
         "java/JAVA-SECURE-ASYNC-IO.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/nio/channels/FileChannel.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/nio/channels/FileChannel.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 24,
+      "pages": [
+        "java/advanced-internals/NIO-PERFORMANCE-JMH.md"
       ]
     },
     {
@@ -661,7 +984,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 48,
+      "durationMs": 51,
       "pages": [
         "java/JAVA-NIO-IO-RESOURCE-OWNERSHIP.md"
       ]
@@ -673,7 +996,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 65,
+      "durationMs": 76,
       "pages": [
         "java/JAVA-STRINGS-ENCODING-INTERNALS.md"
       ]
@@ -685,7 +1008,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 45,
+      "durationMs": 52,
       "pages": [
         "java/JAVA-SECURE-ASYNC-IO.md"
       ]
@@ -697,7 +1020,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 37,
       "pages": [
         "java/JAVA-NIO-IO-RESOURCE-OWNERSHIP.md"
       ]
@@ -709,7 +1032,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 20,
+      "durationMs": 26,
       "pages": [
         "java/JAVA-STRINGS-ENCODING-INTERNALS.md"
       ]
@@ -721,9 +1044,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 86,
+      "durationMs": 25,
       "pages": [
         "java/JAVA-TIME-NUMERIC-SECURITY.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Comparator.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Comparator.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 73,
+      "pages": [
+        "java/JAVA-COMPARABLE-COMPARATOR-DEEP-DIVE.md"
       ]
     },
     {
@@ -733,7 +1068,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 36,
+      "durationMs": 23,
       "pages": [
         "java/JAVA-CONCURRENT-HASHMAP-OPENJDK.md"
       ]
@@ -745,7 +1080,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 35,
+      "durationMs": 34,
       "pages": [
         "java/JAVA-THREAD-COORDINATION.md"
       ]
@@ -757,8 +1092,11 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 105,
+      "durationMs": 40,
       "pages": [
+        "java/completable-future/COMPLETABLE-FUTURE-FAILURE-CANCELLATION.md",
+        "java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS.md",
+        "java/completable-future/COMPLETABLE-FUTURE-PRODUCTION.md",
         "java/JAVA-COMPLETABLE-FUTURE.md",
         "java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE.md"
       ]
@@ -770,8 +1108,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 37,
+      "durationMs": 101,
       "pages": [
+        "java/completable-future/COMPLETABLE-FUTURE-COMPOSITION.md",
         "java/JAVA-COMPLETABLE-FUTURE.md"
       ]
     },
@@ -782,10 +1121,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 237,
+      "durationMs": 58,
       "pages": [
         "java/JAVA-CONCURRENT-HASHMAP-OPENJDK.md",
         "java/JAVA-HASH-COLLECTIONS-DEEP-DIVE.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/Executor.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/Executor.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 38,
+      "pages": [
+        "java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS.md"
       ]
     },
     {
@@ -795,7 +1146,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 29,
+      "durationMs": 36,
       "pages": [
         "java/JAVA-EXECUTORS-THREAD-POOLS.md"
       ]
@@ -807,9 +1158,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 27,
+      "durationMs": 24,
       "pages": [
-        "java/JAVA-EXECUTORS-THREAD-POOLS.md"
+        "java/JAVA-EXECUTORS-THREAD-POOLS.md",
+        "java/threading/TASK-CANCELLATION-DEADLINES.md"
       ]
     },
     {
@@ -819,7 +1171,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 42,
+      "durationMs": 97,
       "pages": [
         "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md"
       ]
@@ -831,9 +1183,36 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 147,
+      "durationMs": 137,
       "pages": [
-        "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md"
+        "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md",
+        "java/JAVA-FORKJOINPOOL-DEEP-DIVE.md",
+        "java/JAVA-PARALLEL-STREAM-INTERNALS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ForkJoinTask.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ForkJoinTask.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 24,
+      "pages": [
+        "java/JAVA-FORKJOINPOOL-DEEP-DIVE.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/Future.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/Future.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 27,
+      "pages": [
+        "java/completable-future/COMPLETABLE-FUTURE-FAILURE-CANCELLATION.md",
+        "java/threading/TASK-CANCELLATION-DEADLINES.md"
       ]
     },
     {
@@ -843,7 +1222,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 22,
+      "durationMs": 112,
       "pages": [
         "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md"
       ]
@@ -855,7 +1234,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 46,
+      "durationMs": 30,
       "pages": [
         "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md"
       ]
@@ -867,12 +1246,14 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 37,
+      "durationMs": 36,
       "pages": [
         "java/JAVA-COLLECTION-IMPLEMENTATIONS-ARCHITECT.md",
-        "java/JAVA-COLLECTIONS-UMBRELLA.md",
+        "java/JAVA-COLLECTIONS.md",
         "java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
+        "java/JAVA-CORE-INTERVIEW-WORKBOOK.md",
         "java/JAVA-MULTITHREADING.md",
+        "java/JAVA-SHOPVERSE-CROSSWALK.md",
         "java/JAVA-THREADING-MODEL.md"
       ]
     },
@@ -883,7 +1264,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 30,
+      "durationMs": 37,
       "pages": [
         "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md"
       ]
@@ -895,8 +1276,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 43,
+      "durationMs": 42,
       "pages": [
+        "java/JAVA-THREAD-SCHEDULER-DEEP-DIVE.md",
         "java/JAVA-THREADING-UMBRELLA.md"
       ]
     },
@@ -907,7 +1289,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 43,
+      "durationMs": 53,
       "pages": [
         "java/JAVA-EXECUTORS-THREAD-POOLS.md"
       ]
@@ -919,7 +1301,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 26,
+      "durationMs": 42,
       "pages": [
         "java/JAVA-HASH-COLLECTIONS-DEEP-DIVE.md"
       ]
@@ -931,11 +1313,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 56,
+      "durationMs": 24,
       "pages": [
         "java/JAVA-COLLECTION-IMPLEMENTATIONS-ARCHITECT.md",
         "java/JAVA-COLLECTION-INTERNALS.md",
-        "java/JAVA-COLLECTIONS-UMBRELLA.md",
         "java/JAVA-COLLECTIONS.md"
       ]
     },
@@ -946,9 +1327,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 38,
+      "durationMs": 51,
       "pages": [
         "java/JAVA-ENUMS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/EnumSet.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/EnumSet.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 79,
+      "pages": [
+        "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
       ]
     },
     {
@@ -958,7 +1351,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 27,
+      "durationMs": 64,
       "pages": [
         "java/JAVA-ABSTRACTION-INTERFACES.md",
         "java/JAVA-FUNCTIONAL-INTERFACES.md"
@@ -971,7 +1364,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 37,
+      "durationMs": 48,
       "pages": [
         "java/JAVA-COLLECTION-INTERNALS.md",
         "java/JAVA-HASH-COLLECTIONS-DEEP-DIVE.md"
@@ -984,7 +1377,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 107,
+      "durationMs": 26,
       "pages": [
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
       ]
@@ -996,9 +1389,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 136,
+      "durationMs": 120,
       "pages": [
         "java/features-8-to-26/JAVA-OPTIONAL.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/package-summary.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/package-summary.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 42,
+      "pages": [
+        "java/JAVA-CORE-INTERVIEW-WORKBOOK.md"
       ]
     },
     {
@@ -1008,7 +1413,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 127,
+      "durationMs": 126,
       "pages": [
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
       ]
@@ -1020,9 +1425,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 45,
+      "durationMs": 29,
       "pages": [
-        "java/JAVA-EXCEPTIONS-STREAMS-INTERNALS.md"
+        "java/JAVA-EXCEPTIONS-STREAMS-INTERNALS.md",
+        "java/JAVA-STREAM-PIPELINE-INTERNALS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Collector.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/Collector.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 36,
+      "pages": [
+        "java/JAVA-STREAM-PIPELINE-INTERNALS.md"
       ]
     },
     {
@@ -1032,11 +1450,26 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 37,
+      "durationMs": 34,
       "pages": [
+        "java/JAVA-CORE-INTERVIEW-WORKBOOK.md",
         "java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE.md",
         "java/JAVA-EXCEPTIONS-STREAMS-INTERNALS.md",
+        "java/JAVA-PARALLEL-STREAM-INTERNALS.md",
+        "java/JAVA-STREAM-PIPELINE-INTERNALS.md",
         "java/JAVA-STREAMS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/TreeMap.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/TreeMap.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 171,
+      "pages": [
+        "java/JAVA-COMPARABLE-COMPARATOR-DEEP-DIVE.md"
       ]
     },
     {
@@ -1046,7 +1479,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 67,
+      "durationMs": 21,
       "pages": [
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
       ]
@@ -1058,7 +1491,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 25,
+      "durationMs": 61,
       "pages": [
         "java/JAVA-NIO-IO-RESOURCE-OWNERSHIP.md"
       ]
@@ -1070,7 +1503,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 22,
+      "durationMs": 34,
       "pages": [
         "java/JAVA-SENIOR-LABS-INTERVIEW.md"
       ]
@@ -1082,7 +1515,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 33,
+      "durationMs": 62,
       "pages": [
         "java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md",
         "java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md"
@@ -1095,7 +1528,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 128,
+      "durationMs": 72,
       "pages": [
         "java/advanced-internals/JVM-EXECUTION-INTERNALS.md"
       ]
@@ -1107,7 +1540,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 26,
+      "durationMs": 15,
       "pages": [
         "java/JAVA-SERIALIZATION-UMBRELLA.md",
         "java/JAVA-SERIALIZATION.md"
@@ -1120,7 +1553,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 33,
+      "durationMs": 54,
       "pages": [
         "java/JAVA-SERIALIZATION-INTERNALS.md"
       ]
@@ -1132,7 +1565,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 18,
+      "durationMs": 51,
       "pages": [
         "java/JAVA-SERIALIZATION-INTERNALS.md"
       ]
@@ -1144,7 +1577,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 119,
+      "durationMs": 66,
       "pages": [
         "java/JAVA-SERIALIZATION-EVOLUTION-SECURITY.md"
       ]
@@ -1156,7 +1589,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 21,
+      "durationMs": 104,
       "pages": [
         "java/JAVA-GC-COLLECTORS-ARCHITECT.md",
         "java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md",
@@ -1170,7 +1603,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 405,
+      "durationMs": 44,
       "pages": [
         "java/advanced-internals/JVM-EXECUTION-INTERNALS.md",
         "java/JAVA-PRODUCTION-INCIDENTS.md",
@@ -1184,7 +1617,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 649,
+      "durationMs": 463,
       "pages": [
         "java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md",
         "java/JAVA-JVM-MEMORY.md",
@@ -1198,22 +1631,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 1256,
+      "durationMs": 661,
       "pages": [
         "java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
         "java/JAVA-SENIOR-LABS-INTERVIEW.md"
       ]
     },
     {
-      "url": "https://docs.oracle.com/en/java/javase/25/language/java-language-changes.html",
-      "finalUrl": "https://docs.oracle.com/en/java/javase/26/",
+      "url": "https://docs.oracle.com/en/java/javase/25/language/java-language-changes-summary.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/25/language/java-language-changes-summary.html",
       "status": 200,
       "ok": true,
       "rateLimited": false,
-      "redirected": true,
-      "durationMs": 666,
+      "redirected": false,
+      "durationMs": 45,
       "pages": [
-        "java/features-8-to-26/JAVA-8-TO-26.md"
+        "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
       ]
     },
     {
@@ -1223,7 +1656,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 39,
+      "durationMs": 31,
       "pages": [
         "java/JAVA-SECURE-ASYNC-IO.md"
       ]
@@ -1235,12 +1668,14 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 19,
+      "durationMs": 36,
       "pages": [
+        "java/JAVA-INTERVIEW-PREPARATION.md",
         "java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md",
         "java/JAVA-LEAD-ARCHITECT-PATH.md",
         "java/JAVA-PRODUCTION-INCIDENTS.md",
-        "java/JAVA-SENIOR-INTERVIEW-BANK.md"
+        "java/JAVA-SENIOR-INTERVIEW-BANK.md",
+        "java/JAVA-TIMED-MOCK-INTERVIEWS.md"
       ]
     },
     {
@@ -1250,7 +1685,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 110,
+      "durationMs": 80,
       "pages": [
         "java/JAVA-INTERNALS-LABS.md"
       ]
@@ -1262,9 +1697,142 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 55,
+      "durationMs": 68,
       "pages": [
         "java/JAVA-JVM-MEMORY.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/26/docs/api/index.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/26/docs/api/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 45,
+      "pages": [
+        "java/features-8-to-26/JAVA-8-TO-26.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/26/language/java-language-changes-summary.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/26/language/java-language-changes-summary.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 54,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-LANGUAGE.md",
+        "java/features-8-to-26/JAVA-8-TO-26.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/en/java/javase/26/migrate/significant-changes-jdk-26-release.html",
+      "finalUrl": "https://docs.oracle.com/en/java/javase/26/migrate/significant-changes-jdk-26-release.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 24,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-RUNTIME.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se24/html/index.html",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se24/html/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 32,
+      "pages": [
+        "java/CORE-JAVA-DEEP-DIVE.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-14.html",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-14.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 74,
+      "pages": [
+        "java/JAVA-OPERATORS-CONTROL-FLOW.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-14.html#jls-14.10",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-14.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 175,
+      "pages": [
+        "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-14.html#jls-14.3",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-14.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 60,
+      "pages": [
+        "java/JAVA-NESTED-TYPES.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-15.html",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-15.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 76,
+      "pages": [
+        "java/JAVA-OPERATORS-CONTROL-FLOW.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-15.html#jls-15.27",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-15.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 56,
+      "pages": [
+        "java/JAVA-NESTED-TYPES.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-5.html",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-5.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 102,
+      "pages": [
+        "java/JAVA-OPERATORS-CONTROL-FLOW.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-8.html#jls-8.1.3",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se24/html/jls-8.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 321,
+      "pages": [
+        "java/JAVA-NESTED-TYPES.md"
       ]
     },
     {
@@ -1274,12 +1842,11 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 256,
+      "durationMs": 214,
       "pages": [
         "java/advanced-internals/DYNAMIC-JAVA-INTERNALS.md",
         "java/advanced-internals/NIO-PERFORMANCE-JMH.md",
-        "java/ADVANCED-JAVA-INTERNALS.md",
-        "java/JAVA-KEYWORDS.md"
+        "java/ADVANCED-JAVA-INTERNALS.md"
       ]
     },
     {
@@ -1289,11 +1856,13 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 263,
+      "durationMs": 31,
       "pages": [
-        "java/CORE-JAVA-DEEP-DIVE.md",
+        "java/JAVA-CORE-INTERVIEW-WORKBOOK.md",
         "java/JAVA-FUNDAMENTALS.md",
+        "java/JAVA-INTERVIEW-PREPARATION.md",
         "java/JAVA-LEAD-ARCHITECT-PATH.md",
+        "java/JAVA-REVISION-SHEET.md",
         "java/JAVA-SENIOR-INTERVIEW-BANK.md"
       ]
     },
@@ -1304,7 +1873,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 30,
+      "durationMs": 38,
       "pages": [
         "java/JAVA-EXCEPTIONS-STREAMS-INTERNALS.md"
       ]
@@ -1316,9 +1885,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 82,
+      "durationMs": 62,
       "pages": [
+        "java/JAVA-FUNDAMENTALS-SCENARIOS.md",
         "java/JAVA-LANGUAGE-OOP-INTERNALS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-14.html",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-14.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 54,
+      "pages": [
+        "java/keywords/JAVA-CONTROL-ERROR-KEYWORDS.md"
       ]
     },
     {
@@ -1328,7 +1910,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 71,
+      "durationMs": 155,
       "pages": [
         "java/features-8-to-26/JAVA-SWITCH.md"
       ]
@@ -1340,9 +1922,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 144,
+      "durationMs": 42,
       "pages": [
         "java/features-8-to-26/JAVA-VAR.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-15.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 41,
+      "pages": [
+        "java/keywords/JAVA-CONTROL-ERROR-KEYWORDS.md"
       ]
     },
     {
@@ -1352,9 +1946,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 41,
+      "durationMs": 46,
       "pages": [
-        "java/JAVA-LANGUAGE-OOP-INTERNALS.md"
+        "java/JAVA-LANGUAGE-OOP-INTERNALS.md",
+        "java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE.md"
       ]
     },
     {
@@ -1364,7 +1959,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 140,
       "pages": [
         "java/features-8-to-26/JAVA-LAMBDAS.md"
       ]
@@ -1376,7 +1971,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 35,
+      "durationMs": 39,
       "pages": [
         "java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
         "java/JAVA-MULTITHREADING.md"
@@ -1389,9 +1984,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 206,
+      "durationMs": 72,
       "pages": [
-        "java/advanced-internals/JAVA-MEMORY-MODEL.md"
+        "java/advanced-internals/JAVA-MEMORY-MODEL.md",
+        "java/keywords/JAVA-STATE-CONCURRENCY-KEYWORDS.md"
       ]
     },
     {
@@ -1401,7 +1997,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 80,
+      "durationMs": 122,
       "pages": [
         "java/advanced-internals/JAVA-MEMORY-MODEL.md"
       ]
@@ -1413,9 +2009,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 208,
+      "durationMs": 26,
       "pages": [
         "java/advanced-internals/JAVA-MEMORY-MODEL.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-3.html#jls-3.9",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-3.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 43,
+      "pages": [
+        "java/JAVA-KEYWORDS.md"
       ]
     },
     {
@@ -1425,7 +2033,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 38,
+      "durationMs": 119,
       "pages": [
         "java/JAVA-GENERICS.md"
       ]
@@ -1437,7 +2045,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 44,
+      "durationMs": 33,
       "pages": [
         "java/JAVA-GENERICS-ERASURE-INTERNALS.md"
       ]
@@ -1449,7 +2057,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 48,
+      "durationMs": 101,
       "pages": [
         "java/JAVA-GENERICS-ERASURE-INTERNALS.md"
       ]
@@ -1461,7 +2069,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 93,
+      "durationMs": 49,
       "pages": [
         "java/JAVA-GENERICS-ERASURE-INTERNALS.md"
       ]
@@ -1473,10 +2081,23 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 72,
       "pages": [
+        "java/JAVA-FUNDAMENTALS-SCENARIOS.md",
         "java/JAVA-LANGUAGE-OOP-INTERNALS.md",
         "java/JAVA-LANGUAGE-SEMANTICS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-7.html",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-7.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 64,
+      "pages": [
+        "java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS.md"
       ]
     },
     {
@@ -1486,9 +2107,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 110,
+      "durationMs": 80,
       "pages": [
-        "java/JAVA-OOP.md"
+        "java/JAVA-OOP.md",
+        "java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS.md"
       ]
     },
     {
@@ -1498,7 +2120,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 67,
+      "durationMs": 350,
       "pages": [
         "java/features-8-to-26/JAVA-SEALED-CLASSES.md"
       ]
@@ -1510,9 +2132,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 160,
+      "durationMs": 34,
       "pages": [
         "java/features-8-to-26/JAVA-RECORDS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html#jls-8.3.1.4",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 48,
+      "pages": [
+        "java/keywords/JAVA-STATE-CONCURRENCY-KEYWORDS.md"
       ]
     },
     {
@@ -1522,9 +2156,33 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 45,
+      "durationMs": 86,
       "pages": [
         "java/JAVA-LANGUAGE-SEMANTICS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html#jls-8.4.8",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 32,
+      "pages": [
+        "java/JAVA-OVERRIDING-HIDING-DEEP-DIVE.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html#jls-8.4.9",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 106,
+      "pages": [
+        "java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE.md"
       ]
     },
     {
@@ -1534,7 +2192,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 31,
+      "durationMs": 81,
       "pages": [
         "java/JAVA-ENUMS.md"
       ]
@@ -1546,10 +2204,23 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 59,
+      "durationMs": 123,
       "pages": [
         "java/JAVA-ABSTRACTION-INTERFACES.md",
-        "java/JAVA-OOP.md"
+        "java/JAVA-OOP.md",
+        "java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-9.html#jls-9.4.1",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-9.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 61,
+      "pages": [
+        "java/JAVA-OVERRIDING-HIDING-DEEP-DIVE.md"
       ]
     },
     {
@@ -1559,9 +2230,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 86,
+      "durationMs": 101,
       "pages": [
         "java/JAVA-FUNCTIONAL-INTERFACES.md"
+      ]
+    },
+    {
+      "url": "https://docs.oracle.com/javase/specs/jvms/se24/html/jvms-4.html#jvms-4.7.28",
+      "finalUrl": "https://docs.oracle.com/javase/specs/jvms/se24/html/jvms-4.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 31,
+      "pages": [
+        "java/JAVA-NESTED-TYPES.md"
       ]
     },
     {
@@ -1571,12 +2254,11 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 254,
+      "durationMs": 113,
       "pages": [
         "java/advanced-internals/DYNAMIC-JAVA-INTERNALS.md",
         "java/advanced-internals/NIO-PERFORMANCE-JMH.md",
-        "java/ADVANCED-JAVA-INTERNALS.md",
-        "java/JAVA-KEYWORDS.md"
+        "java/ADVANCED-JAVA-INTERNALS.md"
       ]
     },
     {
@@ -1586,10 +2268,12 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 103,
+      "durationMs": 30,
       "pages": [
+        "java/JAVA-INTERVIEW-PREPARATION.md",
         "java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md",
         "java/JAVA-LEAD-ARCHITECT-PATH.md",
+        "java/JAVA-REVISION-SHEET.md",
         "java/JAVA-SENIOR-INTERVIEW-BANK.md"
       ]
     },
@@ -1600,7 +2284,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 61,
       "pages": [
         "java/JAVA-JVM-MEMORY.md"
       ]
@@ -1612,7 +2296,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 190,
+      "durationMs": 98,
       "pages": [
         "java/advanced-internals/JVM-EXECUTION-INTERNALS.md"
       ]
@@ -1624,7 +2308,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 72,
+      "durationMs": 275,
       "pages": [
         "java/advanced-internals/JVM-EXECUTION-INTERNALS.md"
       ]
@@ -1636,7 +2320,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 42,
+      "durationMs": 93,
       "pages": [
         "java/JAVA-THREAD-COORDINATION.md"
       ]
@@ -1648,7 +2332,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 82,
+      "durationMs": 31,
       "pages": [
         "java/JAVA-THREAD-CREATION-SCHEDULING.md"
       ]
@@ -1660,7 +2344,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 325,
+      "durationMs": 282,
       "pages": [
         "ai/MCP-SPRING-AI.md"
       ]
@@ -1672,7 +2356,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 349,
+      "durationMs": 425,
       "pages": [
         "ai/LANGCHAIN4J-DEEP-DIVE.md",
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
@@ -1685,7 +2369,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 266,
+      "durationMs": 335,
       "pages": [
         "ai/MCP-SPRING-AI.md"
       ]
@@ -1697,7 +2381,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 410,
+      "durationMs": 391,
       "pages": [
         "ai/AI-MODEL-INTERNALS-SELECTION.md"
       ]
@@ -1709,7 +2393,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 58,
+      "durationMs": 302,
       "pages": [
         "ai/MCP-UMBRELLA.md"
       ]
@@ -1721,7 +2405,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 383,
+      "durationMs": 377,
       "pages": [
         "ai/MCP-SPRING-SHOPVERSE-LAB.md"
       ]
@@ -1733,7 +2417,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 286,
+      "durationMs": 75,
       "pages": [
         "ai/MCP-SPRING-AI.md",
         "ai/MCP-SPRING-SHOPVERSE-LAB.md"
@@ -1746,7 +2430,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 41,
+      "durationMs": 283,
       "pages": [
         "ai/MCP-SPRING-AI.md",
         "ai/MCP-SPRING-SHOPVERSE-LAB.md"
@@ -1759,7 +2443,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 48,
+      "durationMs": 284,
       "pages": [
         "ai/RAG-ENGINEERING.md"
       ]
@@ -1771,7 +2455,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 390,
+      "durationMs": 279,
       "pages": [
         "ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md"
       ]
@@ -1783,7 +2467,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 332,
+      "durationMs": 549,
       "pages": [
         "ai/AGENTS-TOOL-CALLING.md"
       ]
@@ -1795,7 +2479,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 386,
+      "durationMs": 441,
       "pages": [
         "ai/AI-EVALUATION-OPERATIONS.md"
       ]
@@ -1807,7 +2491,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 262,
+      "durationMs": 250,
       "pages": [
         "security/JWT-OAUTH2-SPRING-SECURITY.md",
         "security/spring-security/PRODUCTION-PRACTICES.md"
@@ -1820,7 +2504,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 273,
+      "durationMs": 320,
       "pages": [
         "spring/SPRING-BATCH.md"
       ]
@@ -1832,9 +2516,178 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
+      "durationMs": 259,
+      "pages": [
+        "spring/SPRING-BATCH.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-batch/reference/domain.html",
+      "finalUrl": "https://docs.spring.io/spring-batch/reference/domain.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 263,
+      "pages": [
+        "spring/SPRING-BATCH.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-batch/reference/scalability.html",
+      "finalUrl": "https://docs.spring.io/spring-batch/reference/scalability.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
       "durationMs": 37,
       "pages": [
         "spring/SPRING-BATCH.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-batch/reference/step/chunk-oriented-processing/restart.html",
+      "finalUrl": "https://docs.spring.io/spring-batch/reference/step/chunk-oriented-processing/restart.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 269,
+      "pages": [
+        "spring/SPRING-BATCH.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-batch/reference/testing.html",
+      "finalUrl": "https://docs.spring.io/spring-batch/reference/testing.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 91,
+      "pages": [
+        "spring/SPRING-BATCH.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/api/java/org/springframework/boot/context/properties/ConfigurationProperties.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/api/java/org/springframework/boot/context/properties/ConfigurationProperties.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 283,
+      "pages": [
+        "development/spring-boot-internals/CONFIGURATION-PROPERTIES.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/api/rest/actuator/configprops.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/api/rest/actuator/configprops.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 302,
+      "pages": [
+        "development/spring-boot-internals/CONFIGURATION-PROPERTIES.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/reference/",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/reference/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 291,
+      "pages": [
+        "spring/SPRING-BOOT-4-FRAMEWORK-7.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/reference/actuator/metrics.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/reference/actuator/metrics.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 279,
+      "pages": [
+        "spring/SPRING-RESILIENCE4J.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/reference/features/external-config.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/reference/features/external-config.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 272,
+      "pages": [
+        "development/spring-boot-internals/CONFIGURATION-PROPERTIES.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/reference/features/json.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/reference/features/json.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 260,
+      "pages": [
+        "development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
+        "spring/web/HTTP-MESSAGE-CONVERSION-JACKSON.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/reference/io/caching.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/reference/io/caching.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 273,
+      "pages": [
+        "spring/SPRING-CACHE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/reference/web/graceful-shutdown.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/reference/web/graceful-shutdown.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 296,
+      "pages": [
+        "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/4.0/specification/configuration-metadata/index.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/4.0/specification/configuration-metadata/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 255,
+      "pages": [
+        "development/spring-boot-internals/CONFIGURATION-PROPERTIES.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/api/rest/actuator/prometheus.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/api/rest/actuator/prometheus.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 278,
+      "pages": [
+        "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md"
       ]
     },
     {
@@ -1844,9 +2697,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 405,
+      "durationMs": 264,
       "pages": [
-        "development/spring-boot-internals/PRODUCTION-TUNING.md"
+        "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
       ]
     },
     {
@@ -1856,13 +2709,27 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 273,
+      "durationMs": 101,
       "pages": [
-        "spring/internals-production/HIBERNATE-JDBC-INTERNALS.md",
-        "spring/internals-production/PRODUCTION-LIFECYCLE.md",
-        "spring/internals-production/WEB-HTTP-RUNTIME.md",
+        "development/SPRING-BOOT-INTERNALS.md",
+        "spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md",
+        "spring/SPRING-ARCHITECT-PATH.md",
         "spring/SPRING-BOOT-INTERNALS-PRODUCTION.md",
+        "spring/SPRING-ECOSYSTEM.md",
         "spring/SPRING-PLATFORM-ADVANCED.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/actuator/",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/actuator/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 32,
+      "pages": [
+        "development/spring-boot-internals/PRODUCTION-TUNING.md",
+        "spring/interview/SPRING-WEB-DATA-INTERVIEW.md"
       ]
     },
     {
@@ -1872,9 +2739,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 275,
+      "durationMs": 292,
       "pages": [
-        "operations/SPRING-BOOT-ACTUATOR.md"
+        "operations/SPRING-BOOT-ACTUATOR.md",
+        "spring/internals-production/PRODUCTION-LIFECYCLE.md"
       ]
     },
     {
@@ -1884,9 +2752,13 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 259,
+      "durationMs": 275,
       "pages": [
-        "operations/SPRING-BOOT-ACTUATOR.md"
+        "development/spring-boot-internals/PRODUCTION-TUNING.md",
+        "operations/SPRING-BOOT-ACTUATOR.md",
+        "spring/internals-production/WEB-HTTP-RUNTIME.md",
+        "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md",
+        "spring/web/WEB-EXECUTION-MODELS-CAPACITY.md"
       ]
     },
     {
@@ -1896,9 +2768,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 285,
+      "durationMs": 265,
       "pages": [
         "operations/SPRING-BOOT-ACTUATOR.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/actuator/observability.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/actuator/observability.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 268,
+      "pages": [
+        "spring/internals-production/PRODUCTION-LIFECYCLE.md"
       ]
     },
     {
@@ -1908,9 +2792,34 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 271,
+      "durationMs": 335,
       "pages": [
-        "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md"
+        "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.condition-annotations",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 261,
+      "pages": [
+        "spring/spel/SPEL-SECURITY-PRODUCTION.md",
+        "spring/spel/SPEL-SPRING-INTEGRATIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html#features.developing-auto-configuration.testing",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 34,
+      "pages": [
+        "spring/SPRING-CONTAINER-ARCHITECT.md"
       ]
     },
     {
@@ -1920,35 +2829,73 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 325,
+      "durationMs": 301,
       "pages": [
-        "development/spring-boot-internals/OPERATIONS-INTERNALS.md",
-        "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md",
+        "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md",
         "spring/SPRING-SPEL.md"
       ]
     },
     {
-      "url": "https://docs.spring.io/spring-boot/reference/features/json.html",
-      "finalUrl": "https://docs.spring.io/spring-boot/reference/features/json.html",
+      "url": "https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.typesafe-configuration-properties",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/features/external-config.html",
       "status": 200,
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 316,
+      "durationMs": 279,
       "pages": [
-        "development/spring-boot-internals/OPERATIONS-INTERNALS.md"
+        "spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md"
       ]
     },
     {
-      "url": "https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.virtual-threads",
+      "url": "https://docs.spring.io/spring-boot/reference/features/spring-application.html",
       "finalUrl": "https://docs.spring.io/spring-boot/reference/features/spring-application.html",
       "status": 200,
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 61,
+      "durationMs": 39,
       "pages": [
-        "development/spring-boot-internals/PRODUCTION-TUNING.md"
+        "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.application-availability",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/features/spring-application.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 56,
+      "pages": [
+        "spring/internals-production/PRODUCTION-LIFECYCLE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/features/spring-application.html#features.spring-application.application-startup-tracking",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/features/spring-application.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 35,
+      "pages": [
+        "development/spring-boot-internals/PRODUCTION-TUNING.md",
+        "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md",
+        "spring/SPRING-CONTAINER-ARCHITECT.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/features/task-execution-and-scheduling.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/features/task-execution-and-scheduling.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 291,
+      "pages": [
+        "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md",
+        "spring/SPRING-ASYNC-PRODUCTION-ARCHITECT.md"
       ]
     },
     {
@@ -1958,7 +2905,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 634,
+      "durationMs": 301,
       "pages": [
         "architecture/CACHE-UMBRELLA.md"
       ]
@@ -1970,9 +2917,95 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 68,
+      "durationMs": 32,
       "pages": [
-        "development/spring-boot-internals/PRODUCTION-TUNING.md"
+        "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/testing/index.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/testing/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 283,
+      "pages": [
+        "spring/SPRING-BOOT-TESTING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 267,
+      "pages": [
+        "development/spring-rest/REST-TESTING-INTERVIEW.md",
+        "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html#testing.spring-boot-applications.autoconfigured-rest-client",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 53,
+      "pages": [
+        "spring/testing/HTTP-CLIENT-CONTRACT-TESTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html#testing.spring-boot-applications.autoconfigured-tests",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 43,
+      "pages": [
+        "development/spring-rest/REST-TESTING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html#testing.spring-boot-applications.data-jpa-tests",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 48,
+      "pages": [
+        "spring/testing/SPRING-MVC-REPOSITORY-SECURITY-TESTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html#testing.spring-boot-applications.spring-mvc-tests",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 37,
+      "pages": [
+        "spring/testing/SPRING-MVC-REPOSITORY-SECURITY-TESTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/testing/test-scope-dependencies.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/testing/test-scope-dependencies.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 280,
+      "pages": [
+        "spring/SPRING-BOOT-TESTING.md",
+        "spring/testing/JUNIT-TESTING-FUNDAMENTALS.md"
       ]
     },
     {
@@ -1982,9 +3015,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 46,
+      "durationMs": 266,
       "pages": [
-        "spring/SPRING-INTERNALS-LABS.md"
+        "spring/SPRING-INTERNALS-LABS.md",
+        "spring/testing/INTEGRATION-TESTCONTAINERS.md"
       ]
     },
     {
@@ -1994,9 +3028,12 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 77,
+      "durationMs": 328,
       "pages": [
-        "development/spring-boot-internals/OPERATIONS-INTERNALS.md"
+        "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md",
+        "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md",
+        "spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW.md",
+        "spring/SPRING-CONTAINER-ARCHITECT.md"
       ]
     },
     {
@@ -2006,9 +3043,35 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 285,
+      "durationMs": 274,
       "pages": [
-        "development/spring-boot-internals/PRODUCTION-TUNING.md"
+        "development/spring-boot-internals/PRODUCTION-TUNING.md",
+        "spring/internals-production/PRODUCTION-LIFECYCLE.md",
+        "spring/web/WEB-EXECUTION-MODELS-CAPACITY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-boot/reference/web/servlet.html",
+      "finalUrl": "https://docs.spring.io/spring-boot/reference/web/servlet.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 280,
+      "pages": [
+        "development/SPRING-REST-APIS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-cloud-commons/reference/spring-cloud-commons/loadbalancer.html",
+      "finalUrl": "https://docs.spring.io/spring-cloud-commons/reference/spring-cloud-commons/loadbalancer.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 51,
+      "pages": [
+        "spring/SPRING-OPENFEIGN.md"
       ]
     },
     {
@@ -2018,7 +3081,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 57,
+      "durationMs": 270,
       "pages": [
         "development/SPRING-CLOUD-GATEWAY-ADVANCED.md"
       ]
@@ -2030,7 +3093,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 298,
+      "durationMs": 261,
       "pages": [
         "development/SPRING-CLOUD-GATEWAY-ADVANCED.md"
       ]
@@ -2042,7 +3105,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 286,
+      "durationMs": 280,
       "pages": [
         "development/SPRING-CLOUD-GATEWAY-ADVANCED.md"
       ]
@@ -2054,9 +3117,76 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 70,
+      "durationMs": 265,
       "pages": [
         "development/SPRING-CLOUD-GATEWAY-ADVANCED.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-cloud-openfeign/reference/",
+      "finalUrl": "https://docs.spring.io/spring-cloud-openfeign/reference/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 275,
+      "pages": [
+        "development/spring-rest/REST-CLIENTS-FEIGN.md",
+        "spring/SPRING-BOOT-4-FRAMEWORK-7.md",
+        "spring/testing/HTTP-CLIENT-CONTRACT-TESTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-cloud-openfeign/reference/index.html",
+      "finalUrl": "https://docs.spring.io/spring-cloud-openfeign/reference/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 267,
+      "pages": [
+        "spring/SPRING-OPENFEIGN.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-cloud-openfeign/reference/spring-cloud-openfeign.html",
+      "finalUrl": "https://docs.spring.io/spring-cloud-openfeign/reference/spring-cloud-openfeign.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 266,
+      "pages": [
+        "spring/SPRING-OPENFEIGN.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables",
+      "finalUrl": "https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 271,
+      "pages": [
+        "development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-data/jpa/reference/",
+      "finalUrl": "https://docs.spring.io/spring-data/jpa/reference/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 284,
+      "pages": [
+        "spring/internals-production/HIBERNATE-JDBC-INTERNALS.md",
+        "spring/interview/SPRING-WEB-DATA-INTERVIEW.md",
+        "spring/jpa/JPA-RELATIONSHIPS-JSON.md",
+        "spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md",
+        "spring/SPRING-DATA-JPA.md",
+        "spring/SPRING-JPA-HIBERNATE-ARCHITECT.md"
       ]
     },
     {
@@ -2066,9 +3196,86 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 67,
+      "durationMs": 292,
       "pages": [
-        "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md"
+        "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md",
+        "spring/jpa/JPA-AUDITING-DELETING-TESTING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-data/jpa/reference/jpa/entity-persistence.html",
+      "finalUrl": "https://docs.spring.io/spring-data/jpa/reference/jpa/entity-persistence.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 257,
+      "pages": [
+        "spring/jpa/JPA-BASICS-ENTITY-MAPPING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-data/jpa/reference/jpa/locking.html",
+      "finalUrl": "https://docs.spring.io/spring-data/jpa/reference/jpa/locking.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 310,
+      "pages": [
+        "spring/jpa/JPA-TRANSACTIONS-LOCKING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html",
+      "finalUrl": "https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 274,
+      "pages": [
+        "spring/jpa/JPA-AUDITING-DELETING-TESTING.md",
+        "spring/jpa/JPA-FETCHING-PERFORMANCE.md",
+        "spring/jpa/JPA-REPOSITORIES-QUERIES.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-data/jpa/reference/repositories/definition.html",
+      "finalUrl": "https://docs.spring.io/spring-data/jpa/reference/repositories/definition.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 270,
+      "pages": [
+        "spring/jpa/JPA-REPOSITORIES-QUERIES.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html",
+      "finalUrl": "https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 40,
+      "pages": [
+        "spring/jpa/JPA-FETCHING-PERFORMANCE.md",
+        "spring/jpa/JPA-REPOSITORIES-QUERIES.md",
+        "spring/spel/SPEL-SPRING-INTEGRATIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/task/TaskDecorator.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/task/TaskDecorator.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 290,
+      "pages": [
+        "spring/SPRING-ASYNC-PRODUCTION-ARCHITECT.md"
       ]
     },
     {
@@ -2078,16 +3285,54 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 89,
+      "durationMs": 56,
       "pages": [
         "case-study/COMPLETE-DEMO.mdx",
         "case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT.md",
+        "java/JAVA-SHOPVERSE-CROSSWALK.md",
         "reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md",
-        "spring/internals-production/HIBERNATE-JDBC-INTERNALS.md",
-        "spring/internals-production/PRODUCTION-LIFECYCLE.md",
-        "spring/internals-production/WEB-HTTP-RUNTIME.md",
+        "spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md",
+        "spring/SPRING-ARCHITECT-PATH.md",
+        "spring/SPRING-BOOT-4-FRAMEWORK-7.md",
         "spring/SPRING-BOOT-INTERNALS-PRODUCTION.md",
+        "spring/SPRING-ECOSYSTEM.md",
         "spring/SPRING-PLATFORM-ADVANCED.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/aop.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/aop.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 284,
+      "pages": [
+        "spring/SPRING-AOP.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/advice.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/advice.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 272,
+      "pages": [
+        "spring/SPRING-AOP.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/pointcuts.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/pointcuts.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 272,
+      "pages": [
+        "spring/SPRING-AOP.md"
       ]
     },
     {
@@ -2097,9 +3342,60 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 52,
+      "durationMs": 32,
       "pages": [
-        "spring/internals-production/AOP-TRANSACTION-INTERNALS.md"
+        "spring/internals-production/AOP-TRANSACTION-INTERNALS.md",
+        "spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW.md",
+        "spring/SPRING-AOP.md",
+        "spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 372,
+      "pages": [
+        "development/SPRING-BOOT-INTERNALS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/autowired-qualifiers.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/autowired-qualifiers.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 346,
+      "pages": [
+        "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/autowired.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/autowired.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 277,
+      "pages": [
+        "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/generics-as-qualifiers.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/generics-as-qualifiers.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 314,
+      "pages": [
+        "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md"
       ]
     },
     {
@@ -2109,9 +3405,58 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 114,
+      "durationMs": 34,
       "pages": [
+        "spring/spel/SPEL-SPRING-INTEGRATIONS.md",
         "spring/SPRING-SPEL.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans/basics.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans/basics.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 291,
+      "pages": [
+        "spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans/context-introduction.html#context-functionality-events-annotation",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans/context-introduction.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 257,
+      "pages": [
+        "spring/spel/SPEL-SPRING-INTEGRATIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 280,
+      "pages": [
+        "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-lazy-init.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-lazy-init.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 279,
+      "pages": [
+        "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md"
       ]
     },
     {
@@ -2121,9 +3466,11 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 278,
+      "durationMs": 292,
       "pages": [
-        "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md"
+        "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md",
+        "spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW.md",
+        "spring/SPRING-CONTAINER-ARCHITECT.md"
       ]
     },
     {
@@ -2133,10 +3480,23 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 297,
+      "durationMs": 268,
       "pages": [
-        "development/spring-boot-internals/OPERATIONS-INTERNALS.md",
-        "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md"
+        "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md",
+        "spring/SPRING-CONTAINER-ARCHITECT.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 284,
+      "pages": [
+        "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md",
+        "spring/SPRING-CONTAINER-ARCHITECT.md"
       ]
     },
     {
@@ -2146,9 +3506,82 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 272,
+      "durationMs": 281,
       "pages": [
         "spring/SPRING-SPEL.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/expressions/evaluation.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/expressions/evaluation.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 263,
+      "pages": [
+        "spring/spel/SPEL-LANGUAGE-EVALUATION.md",
+        "spring/spel/SPEL-SECURITY-PRODUCTION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/expressions/evaluation.html#expressions-evaluation-context",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/expressions/evaluation.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 51,
+      "pages": [
+        "spring/spel/SPEL-LANGUAGE-EVALUATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/expressions/evaluation.html#expressions-spel-compilation",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/expressions/evaluation.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 279,
+      "pages": [
+        "spring/spel/SPEL-LANGUAGE-EVALUATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/expressions/language-ref.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/expressions/language-ref.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 283,
+      "pages": [
+        "spring/spel/SPEL-LANGUAGE-EVALUATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 43,
+      "pages": [
+        "spring/validation/BEAN-VALIDATION-FUNDAMENTALS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html#validation-beanvalidation-spring-method",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 287,
+      "pages": [
+        "spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md"
       ]
     },
     {
@@ -2158,13 +3591,19 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 260,
+      "durationMs": 320,
       "pages": [
+        "development/spring-rest/REST-BASICS-CRUD.md",
+        "development/spring-rest/REST-IDEMPOTENT-COMMANDS.md",
+        "development/spring-rest/REST-INTERVIEW-WORKBOOK.md",
         "reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md",
         "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
         "reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md",
         "reliability/RESILIENCE4J-GENERIC.md",
-        "reliability/SHOPVERSE-SAGA-CODE-FLOW.md"
+        "reliability/SHOPVERSE-SAGA-CODE-FLOW.md",
+        "spring/SPRING-DATA-JPA.md",
+        "spring/SPRING-JPA-HIBERNATE-ARCHITECT.md",
+        "spring/SPRING-TRANSACTIONS.md"
       ]
     },
     {
@@ -2174,21 +3613,12 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 308,
+      "durationMs": 260,
       "pages": [
-        "java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS.md"
-      ]
-    },
-    {
-      "url": "https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html",
-      "finalUrl": "https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html",
-      "status": 200,
-      "ok": true,
-      "rateLimited": false,
-      "redirected": false,
-      "durationMs": 50,
-      "pages": [
-        "spring/internals-production/AOP-TRANSACTION-INTERNALS.md"
+        "java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS.md",
+        "spring/internals-production/AOP-TRANSACTION-INTERNALS.md",
+        "spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW.md",
+        "spring/SPRING-TRANSACTIONS.md"
       ]
     },
     {
@@ -2198,9 +3628,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 279,
+      "durationMs": 285,
       "pages": [
-        "spring/internals-production/AOP-TRANSACTION-INTERNALS.md"
+        "spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md"
       ]
     },
     {
@@ -2210,9 +3640,36 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 278,
+      "durationMs": 324,
       "pages": [
-        "spring/internals-production/AOP-TRANSACTION-INTERNALS.md"
+        "spring/jpa/JPA-TRANSACTIONS-LOCKING.md",
+        "spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md",
+        "spring/SPRING-TRANSACTIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/data-access/transaction/event.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/data-access/transaction/event.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 289,
+      "pages": [
+        "spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md",
+        "spring/SPRING-TRANSACTIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/data-access/transaction/programmatic.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/data-access/transaction/programmatic.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 290,
+      "pages": [
+        "spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md"
       ]
     },
     {
@@ -2222,9 +3679,74 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 598,
+      "durationMs": 263,
       "pages": [
-        "architecture/CACHE-UMBRELLA.md"
+        "architecture/CACHE-UMBRELLA.md",
+        "spring/SPRING-CACHE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/integration/cache/annotations.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/integration/cache/annotations.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 296,
+      "pages": [
+        "spring/spel/SPEL-SPRING-INTEGRATIONS.md",
+        "spring/SPRING-CACHE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 45,
+      "pages": [
+        "development/spring-rest/REST-CLIENTS-FEIGN.md",
+        "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md",
+        "spring/SPRING-OPENFEIGN.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-http-interface",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/integration/rest-clients.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 275,
+      "pages": [
+        "spring/testing/HTTP-CLIENT-CONTRACT-TESTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/integration/scheduling.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/integration/scheduling.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 50,
+      "pages": [
+        "spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW.md",
+        "spring/SPRING-ASYNC-PRODUCTION-ARCHITECT.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/integration/scheduling.html#scheduling-annotation-support",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/integration/scheduling.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 273,
+      "pages": [
+        "spring/SPRING-ASYNC-PRODUCTION-ARCHITECT.md"
       ]
     },
     {
@@ -2234,9 +3756,61 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 299,
+      "durationMs": 280,
       "pages": [
-        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md"
+        "spring/SPRING-BOOT-TESTING.md",
+        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
+        "spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-mockitobean.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-mockitobean.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 41,
+      "pages": [
+        "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/testing/mockmvc.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/testing/mockmvc.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 279,
+      "pages": [
+        "development/spring-rest/REST-INTERVIEW-WORKBOOK.md",
+        "development/spring-rest/REST-TESTING-INTERVIEW.md",
+        "development/spring-rest/REST-TESTING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/testing/mockmvc/vs-end-to-end-integration-tests.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/testing/mockmvc/vs-end-to-end-integration-tests.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 34,
+      "pages": [
+        "development/spring-rest/REST-TESTING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/testing/spring-mvc-test-client.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/testing/spring-mvc-test-client.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 44,
+      "pages": [
+        "spring/testing/HTTP-CLIENT-CONTRACT-TESTS.md"
       ]
     },
     {
@@ -2246,9 +3820,59 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 41,
+      "durationMs": 272,
       "pages": [
         "spring/SPRING-INTERNALS-LABS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/ctx-management/caching.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/ctx-management/caching.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 41,
+      "pages": [
+        "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md",
+        "spring/testing/TEST-CI-RELIABILITY-OPERATIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/ctx-management/failure-threshold.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/ctx-management/failure-threshold.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 293,
+      "pages": [
+        "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/tx.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/tx.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 294,
+      "pages": [
+        "spring/SPRING-TRANSACTIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webflux-webclient.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webflux-webclient.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 275,
+      "pages": [
+        "development/spring-rest/REST-CLIENTS-FEIGN.md",
+        "spring/SPRING-REACTIVE.md"
       ]
     },
     {
@@ -2258,9 +3882,213 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 43,
+      "durationMs": 297,
+      "pages": [
+        "spring/internals-production/WEB-HTTP-RUNTIME.md",
+        "spring/SPRING-REACTIVE.md",
+        "spring/web/WEB-EXECUTION-MODELS-CAPACITY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webflux/config.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webflux/config.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 273,
       "pages": [
         "spring/SPRING-REACTIVE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webflux/new-framework.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webflux/new-framework.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 296,
+      "pages": [
+        "spring/SPRING-REACTIVE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 39,
+      "pages": [
+        "development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
+        "development/SPRING-REST-APIS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/filters.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/filters.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 36,
+      "pages": [
+        "spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/filters.html#filters-shallow-etag",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/filters.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 291,
+      "pages": [
+        "development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-async.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-async.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 33,
+      "pages": [
+        "spring/internals-production/WEB-HTTP-RUNTIME.md",
+        "spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md",
+        "spring/web/WEB-EXECUTION-MODELS-CAPACITY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-rest-exceptions.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-rest-exceptions.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 269,
+      "pages": [
+        "development/spring-rest/REST-ERROR-CONTRACTS.md",
+        "spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/message-converters.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/message-converters.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 32,
+      "pages": [
+        "spring/web/HTTP-MESSAGE-CONVERSION-JACKSON.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 285,
+      "pages": [
+        "development/spring-rest/REST-BASICS-CRUD.md",
+        "development/spring-rest/REST-INTERVIEW-WORKBOOK.md",
+        "spring/interview/SPRING-WEB-DATA-INTERVIEW.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-exceptionhandler.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-exceptionhandler.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 276,
+      "pages": [
+        "development/spring-rest/REST-ERROR-CONTRACTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/arguments.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/arguments.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 292,
+      "pages": [
+        "development/spring-rest/REST-CONTROLLER-REQUEST-MAPPING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/multipart-forms.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/multipart-forms.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 47,
+      "pages": [
+        "development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md",
+        "development/spring-rest/REST-SECURE-FILE-TRANSFER.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/responsebody.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/responsebody.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 265,
+      "pages": [
+        "spring/web/HTTP-MESSAGE-CONVERSION-JACKSON.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/responseentity.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/responseentity.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 306,
+      "pages": [
+        "development/spring-rest/REST-CONTROLLER-REQUEST-MAPPING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-requestmapping.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-requestmapping.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 289,
+      "pages": [
+        "development/spring-rest/REST-BASICS-CRUD.md",
+        "development/spring-rest/REST-CONTROLLER-REQUEST-MAPPING.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html",
+      "finalUrl": "https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 294,
+      "pages": [
+        "spring/validation/BEAN-VALIDATION-FUNDAMENTALS.md",
+        "spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md",
+        "spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION.md"
       ]
     },
     {
@@ -2270,9 +4098,208 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 288,
+      "durationMs": 286,
       "pages": [
-        "development/spring-boot-internals/OPERATIONS-INTERNALS.md"
+        "development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET.md",
+        "spring/interview/SPRING-WEB-DATA-INTERVIEW.md",
+        "spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 267,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 272,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/annotation-error-handling.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/annotation-error-handling.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 281,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md",
+        "spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/container-props.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/container-props.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 331,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md",
+        "spring/kafka/SPRING-KAFKA-CONSUMERS.md",
+        "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/events.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/events.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 40,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/exactly-once.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/exactly-once.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 35,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-CONSUMERS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/micrometer.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/micrometer.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 250,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/pause-resume.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/pause-resume.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 267,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md",
+        "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/receiving-messages.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/receiving-messages.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 270,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-CONSUMERS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/receiving-messages/message-listener-container.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/receiving-messages/message-listener-container.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 365,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/receiving-messages/rebalance-listeners.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/receiving-messages/rebalance-listeners.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 314,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md",
+        "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/transactions.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/kafka/transactions.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 101,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-CONSUMERS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/retrytopic.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/retrytopic.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 256,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/dlt-strategies.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/dlt-strategies.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 272,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/features.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/features.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 256,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/retry-config.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/retry-config.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 270,
+      "pages": [
+        "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md"
       ]
     },
     {
@@ -2282,21 +4309,45 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 302,
+      "durationMs": 251,
       "pages": [
-        "spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md"
+        "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md"
       ]
     },
     {
-      "url": "https://docs.spring.io/spring-kafka/reference/retrytopic.html",
-      "finalUrl": "https://docs.spring.io/spring-kafka/reference/retrytopic.html",
+      "url": "https://docs.spring.io/spring-kafka/reference/kafka/transactions.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/kafka/transactions.html",
       "status": 200,
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 287,
+      "durationMs": 280,
       "pages": [
-        "spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md"
+        "spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-kafka/reference/testing.html",
+      "finalUrl": "https://docs.spring.io/spring-kafka/reference/testing.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 38,
+      "pages": [
+        "spring/testing/INTEGRATION-TESTCONTAINERS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-security/reference/",
+      "finalUrl": "https://docs.spring.io/spring-security/reference/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 276,
+      "pages": [
+        "spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md"
       ]
     },
     {
@@ -2306,7 +4357,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 295,
+      "durationMs": 92,
       "pages": [
         "security/spring-security/AUTHENTICATION-INTERNALS.md"
       ]
@@ -2318,7 +4369,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 48,
+      "durationMs": 299,
       "pages": [
         "security/spring-security/AUTHENTICATION-INTERNALS.md"
       ]
@@ -2330,7 +4381,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 270,
+      "durationMs": 291,
       "pages": [
         "security/spring-security/AUTHENTICATION-INTERNALS.md"
       ]
@@ -2342,7 +4393,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 273,
+      "durationMs": 330,
       "pages": [
         "security/spring-security/AUTHENTICATION-INTERNALS.md"
       ]
@@ -2354,7 +4405,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 44,
+      "durationMs": 262,
       "pages": [
         "security/spring-security/AUTHENTICATION-INTERNALS.md"
       ]
@@ -2366,9 +4417,36 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 256,
+      "durationMs": 42,
       "pages": [
-        "security/spring-security/PRODUCTION-PRACTICES.md"
+        "development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
+        "security/spring-security/PRODUCTION-PRACTICES.md",
+        "spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW.md",
+        "spring/web/SECURITY-REQUEST-RUNTIME.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-security/reference/servlet/architecture.html#servlet-exceptiontranslationfilter",
+      "finalUrl": "https://docs.spring.io/spring-security/reference/servlet/architecture.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 30,
+      "pages": [
+        "development/spring-rest/REST-ERROR-CONTRACTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-security/reference/servlet/authentication/architecture.html",
+      "finalUrl": "https://docs.spring.io/spring-security/reference/servlet/authentication/architecture.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 255,
+      "pages": [
+        "spring/web/SECURITY-REQUEST-RUNTIME.md"
       ]
     },
     {
@@ -2390,11 +4468,26 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 307,
+      "durationMs": 274,
       "pages": [
         "security/JWT-OAUTH2-SPRING-SECURITY.md",
         "security/spring-security/PRODUCTION-PRACTICES.md",
-        "spring/SPRING-SPEL.md"
+        "spring/spel/SPEL-SECURITY-PRODUCTION.md",
+        "spring/spel/SPEL-SPRING-INTEGRATIONS.md",
+        "spring/SPRING-SPEL.md",
+        "spring/web/SECURITY-REQUEST-RUNTIME.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-security/reference/servlet/oauth2/client/index.html",
+      "finalUrl": "https://docs.spring.io/spring-security/reference/servlet/oauth2/client/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 267,
+      "pages": [
+        "spring/SPRING-OPENFEIGN.md"
       ]
     },
     {
@@ -2404,7 +4497,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 286,
+      "durationMs": 269,
       "pages": [
         "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md",
         "security/oauth/SSO-AND-OPENID-CONNECT.md"
@@ -2417,7 +4510,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 31,
+      "durationMs": 39,
       "pages": [
         "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md"
       ]
@@ -2429,10 +4522,36 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 34,
+      "durationMs": 286,
       "pages": [
         "security/JWT-OAUTH2-SPRING-SECURITY.md",
-        "security/spring-security/PRODUCTION-PRACTICES.md"
+        "security/spring-security/PRODUCTION-PRACTICES.md",
+        "spring/web/SECURITY-REQUEST-RUNTIME.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-security/reference/servlet/test/index.html",
+      "finalUrl": "https://docs.spring.io/spring-security/reference/servlet/test/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 294,
+      "pages": [
+        "development/spring-rest/REST-TESTING.md",
+        "spring/testing/SPRING-MVC-REPOSITORY-SECURITY-TESTS.md"
+      ]
+    },
+    {
+      "url": "https://docs.spring.io/spring-security/reference/servlet/test/method.html",
+      "finalUrl": "https://docs.spring.io/spring-security/reference/servlet/test/method.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 294,
+      "pages": [
+        "spring/spel/SPEL-SECURITY-PRODUCTION.md"
       ]
     },
     {
@@ -2442,7 +4561,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 2090,
+      "durationMs": 2451,
       "pages": [
         "reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION.md"
       ]
@@ -2454,7 +4573,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 570,
+      "durationMs": 692,
       "pages": [
         "reference/DOCUMENTATION-GUIDE.md"
       ]
@@ -2466,7 +4585,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 196,
+      "durationMs": 5503,
       "pages": [
         "ai/AI-EVALUATION-OPERATIONS.md",
         "ai/MCP-SECURITY-OPERATIONS.md"
@@ -2479,7 +4598,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 23,
+      "durationMs": 86,
       "pages": [
         "ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md"
       ]
@@ -2491,7 +4610,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 162,
+      "durationMs": 3014,
       "pages": [
         "ai/AGENTS-TOOL-CALLING.md"
       ]
@@ -2503,7 +4622,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 745,
+      "durationMs": 529,
       "pages": [
         "architecture/CACHE-PROVIDERS.md"
       ]
@@ -2515,9 +4634,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 756,
+      "durationMs": 624,
       "pages": [
-        "development/spring-boot-internals/PRODUCTION-TUNING.md"
+        "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md",
+        "spring/SPRING-JPA-HIBERNATE-ARCHITECT.md"
       ]
     },
     {
@@ -2527,7 +4647,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 762,
+      "durationMs": 746,
       "pages": [
         "java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS.md"
       ]
@@ -2539,7 +4659,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 823,
+      "durationMs": 715,
       "pages": [
         "java/JAVA-SERIALIZATION.md"
       ]
@@ -2551,7 +4671,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 769,
+      "durationMs": 773,
       "pages": [
         "ai/MCP-UMBRELLA.md"
       ]
@@ -2563,7 +4683,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 660,
+      "durationMs": 615,
       "pages": [
         "java/JAVA-LEAD-ARCHITECT-PATH.md"
       ]
@@ -2575,7 +4695,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1206,
+      "durationMs": 1457,
       "pages": [
         "java/JAVA-CONCURRENT-HASHMAP-OPENJDK.md"
       ]
@@ -2587,9 +4707,57 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 842,
+      "durationMs": 869,
       "pages": [
         "ai/RAG-ENGINEERING.md"
+      ]
+    },
+    {
+      "url": "https://github.com/resilience4j/resilience4j/tree/v2.4.0",
+      "finalUrl": "https://github.com/resilience4j/resilience4j/tree/v2.4.0",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 649,
+      "pages": [
+        "spring/SPRING-RESILIENCE4J.md"
+      ]
+    },
+    {
+      "url": "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide",
+      "finalUrl": "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 627,
+      "pages": [
+        "spring/SPRING-BOOT-4-FRAMEWORK-7.md"
+      ]
+    },
+    {
+      "url": "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Release-Notes",
+      "finalUrl": "https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Release-Notes",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 624,
+      "pages": [
+        "spring/SPRING-BOOT-4-FRAMEWORK-7.md"
+      ]
+    },
+    {
+      "url": "https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-7.0-Release-Notes",
+      "finalUrl": "https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-7.0-Release-Notes",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 1383,
+      "pages": [
+        "spring/SPRING-BOOT-4-FRAMEWORK-7.md"
       ]
     },
     {
@@ -2599,7 +4767,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 495,
+      "durationMs": 480,
       "pages": [
         "architecture/NETWORKING-GRPC-SERVICE-MESH.md"
       ]
@@ -2611,9 +4779,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 969,
+      "durationMs": 1145,
       "pages": [
         "ai/AI-MODEL-INTERNALS-SELECTION.md"
+      ]
+    },
+    {
+      "url": "https://jakarta.ee/specifications/bean-validation/",
+      "finalUrl": "https://jakarta.ee/specifications/bean-validation/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 162,
+      "pages": [
+        "spring/validation/BEAN-VALIDATION-FUNDAMENTALS.md"
       ]
     },
     {
@@ -2623,9 +4803,24 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 327,
+      "durationMs": 199,
       "pages": [
-        "data/hibernate/HIBERNATE-CACHING.md"
+        "data/hibernate/HIBERNATE-CACHING.md",
+        "spring/jpa/JPA-BASICS-ENTITY-MAPPING.md",
+        "spring/jpa/JPA-RELATIONSHIPS-JSON.md"
+      ]
+    },
+    {
+      "url": "https://jakarta.ee/specifications/servlet/",
+      "finalUrl": "https://jakarta.ee/specifications/servlet/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 63,
+      "pages": [
+        "development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET.md",
+        "spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md"
       ]
     },
     {
@@ -2635,9 +4830,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 685,
+      "durationMs": 553,
       "pages": [
-        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md"
+        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
+        "spring/testing/INTEGRATION-TESTCONTAINERS.md"
+      ]
+    },
+    {
+      "url": "https://javadoc.io/doc/io.github.resilience4j/resilience4j-spring-boot4/2.4.0/",
+      "finalUrl": "https://javadoc.io/doc/io.github.resilience4j/resilience4j-spring-boot4/2.4.0/index.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": true,
+      "durationMs": 860,
+      "pages": [
+        "spring/SPRING-RESILIENCE4J.md"
       ]
     },
     {
@@ -2647,9 +4855,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 354,
+      "durationMs": 261,
       "pages": [
-        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md"
+        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
+        "spring/testing/MOCKITO-UNIT-TESTING.md"
       ]
     },
     {
@@ -2659,7 +4868,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 190,
+      "durationMs": 177,
       "pages": [
         "ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md"
       ]
@@ -2671,14 +4880,13 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 88,
+      "durationMs": 87,
       "pages": [
         "reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md",
         "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
         "reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md",
         "reliability/RESILIENCE4J-GENERIC.md",
-        "reliability/SHOPVERSE-SAGA-CODE-FLOW.md",
-        "spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md"
+        "reliability/SHOPVERSE-SAGA-CODE-FLOW.md"
       ]
     },
     {
@@ -2688,7 +4896,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 446,
+      "durationMs": 77,
       "pages": [
         "architecture/MICROSERVICES-INTERNALS-DEEP-DIVE.md",
         "architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS.md",
@@ -2702,7 +4910,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 216,
+      "durationMs": 166,
       "pages": [
         "operations/DEPLOYMENT-STRATEGIES.md",
         "operations/PERFORMANCE-CAPACITY-FINOPS.md",
@@ -2716,7 +4924,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 219,
+      "durationMs": 90,
       "pages": [
         "architecture/NETWORKING-GRPC-SERVICE-MESH.md"
       ]
@@ -2728,7 +4936,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 429,
+      "durationMs": 91,
       "pages": [
         "architecture/MICROSERVICES-INTERNALS-DEEP-DIVE.md"
       ]
@@ -2740,7 +4948,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 427,
+      "durationMs": 107,
       "pages": [
         "ai/MCP-PROTOCOL-LIFECYCLE.md"
       ]
@@ -2752,7 +4960,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 619,
+      "durationMs": 740,
       "pages": [
         "ai/LANGCHAIN4J-DEEP-DIVE.md"
       ]
@@ -2764,7 +4972,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 84,
+      "durationMs": 107,
       "pages": [
         "ai/MCP-UMBRELLA.md"
       ]
@@ -2776,7 +4984,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 117,
+      "durationMs": 179,
       "pages": [
         "ai/MCP-SECURITY-OPERATIONS.md"
       ]
@@ -2788,7 +4996,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 195,
+      "durationMs": 303,
       "pages": [
         "ai/MCP-PROTOCOL-LIFECYCLE.md"
       ]
@@ -2800,7 +5008,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 283,
+      "durationMs": 255,
       "pages": [
         "ai/MCP-SECURITY-OPERATIONS.md"
       ]
@@ -2812,7 +5020,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 304,
+      "durationMs": 306,
       "pages": [
         "ai/MCP-PRIMITIVES-TRANSPORTS.md"
       ]
@@ -2824,7 +5032,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 364,
+      "durationMs": 304,
       "pages": [
         "ai/MCP-PRIMITIVES-TRANSPORTS.md"
       ]
@@ -2836,7 +5044,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 257,
+      "durationMs": 104,
       "pages": [
         "ai/MCP-PRIMITIVES-TRANSPORTS.md"
       ]
@@ -2848,7 +5056,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 366,
+      "durationMs": 284,
       "pages": [
         "ai/AGENTS-TOOL-CALLING.md",
         "ai/MCP-PRIMITIVES-TRANSPORTS.md"
@@ -2861,7 +5069,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 69,
+      "durationMs": 91,
       "pages": [
         "security/oauth/SSO-AND-OPENID-CONNECT.md",
         "security/oauth/TOKEN-LIFECYCLE.md"
@@ -2874,7 +5082,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1898,
+      "durationMs": 843,
       "pages": [
         "java/features-8-to-26/JAVA-8-TO-26.md"
       ]
@@ -2886,7 +5094,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 379,
+      "durationMs": 1027,
       "pages": [
         "java/JAVA-SERIALIZATION-EVOLUTION-SECURITY.md"
       ]
@@ -2898,7 +5106,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1205,
+      "durationMs": 1198,
       "pages": [
         "java/JAVA-GC-COLLECTORS-ARCHITECT.md"
       ]
@@ -2910,13 +5118,15 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1921,
+      "durationMs": 446,
       "pages": [
         "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md",
+        "java/completable-future/COMPLETABLE-FUTURE-PRODUCTION.md",
         "java/features-8-to-26/JAVA-VIRTUAL-THREADS.md",
         "java/JAVA-INTERNALS-LABS.md",
         "java/JAVA-SENIOR-LABS-INTERVIEW.md",
         "java/JAVA-THREAD-CREATION-SCHEDULING.md",
+        "java/JAVA-THREAD-SCHEDULER-DEEP-DIVE.md",
         "java/JAVA-THREADING-MODEL.md",
         "java/JAVA-THREADING-UMBRELLA.md",
         "java/JAVA-VIRTUAL-STRUCTURED-CONCURRENCY.md"
@@ -2929,10 +5139,58 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 891,
+      "durationMs": 1433,
       "pages": [
         "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md",
         "java/JAVA-VIRTUAL-STRUCTURED-CONCURRENCY.md"
+      ]
+    },
+    {
+      "url": "https://openjdk.org/jeps/511",
+      "finalUrl": "https://openjdk.org/jeps/511",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 1284,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
+      ]
+    },
+    {
+      "url": "https://openjdk.org/jeps/512",
+      "finalUrl": "https://openjdk.org/jeps/512",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 1253,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
+      ]
+    },
+    {
+      "url": "https://openjdk.org/jeps/513",
+      "finalUrl": "https://openjdk.org/jeps/513",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 1255,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
+      ]
+    },
+    {
+      "url": "https://openjdk.org/jeps/530",
+      "finalUrl": "https://openjdk.org/jeps/530",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 1286,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
       ]
     },
     {
@@ -2942,7 +5200,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1227,
+      "durationMs": 265,
       "pages": [
         "java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
         "java/JAVA-EXECUTABLE-LABS.md"
@@ -2955,8 +5213,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 948,
+      "durationMs": 323,
       "pages": [
+        "java/advanced-internals/NIO-PERFORMANCE-JMH.md",
         "java/JAVA-EXECUTABLE-LABS.md",
         "java/JAVA-INTERNALS-LABS.md",
         "java/JAVA-SENIOR-LABS-INTERVIEW.md"
@@ -2969,10 +5228,34 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 384,
+      "durationMs": 283,
       "pages": [
         "java/JAVA-EXECUTABLE-LABS.md",
         "java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md"
+      ]
+    },
+    {
+      "url": "https://openjdk.org/projects/jdk/25/",
+      "finalUrl": "https://openjdk.org/projects/jdk/25/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 445,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-RUNTIME.md"
+      ]
+    },
+    {
+      "url": "https://openjdk.org/projects/jdk/26/",
+      "finalUrl": "https://openjdk.org/projects/jdk/26/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 1004,
+      "pages": [
+        "java/features-8-to-26/JAVA-25-26-RUNTIME.md"
       ]
     },
     {
@@ -2982,7 +5265,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1059,
+      "durationMs": 330,
       "pages": [
         "java/JAVA-DYNAMIC-JPMS-PACKAGING.md",
         "java/JAVA-SENIOR-LABS-INTERVIEW.md"
@@ -2995,7 +5278,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 255,
+      "durationMs": 280,
       "pages": [
         "java/JAVA-GC-COLLECTORS-ARCHITECT.md"
       ]
@@ -3007,7 +5290,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 114,
+      "durationMs": 40,
       "pages": [
         "architecture/MICROSERVICES-INTERNALS-DEEP-DIVE.md"
       ]
@@ -3019,7 +5302,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 226,
+      "durationMs": 183,
       "pages": [
         "ai/AI-EVALUATION-OPERATIONS.md"
       ]
@@ -3031,9 +5314,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 317,
+      "durationMs": 291,
       "pages": [
-        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md"
+        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
+        "spring/testing/COVERAGE-TEST-QUALITY.md"
       ]
     },
     {
@@ -3043,7 +5327,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 135,
+      "durationMs": 116,
       "pages": [
         "java/LOMBOK-GUIDE.md"
       ]
@@ -3055,7 +5339,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 143,
+      "durationMs": 131,
       "pages": [
         "java/LOMBOK-GUIDE.md"
       ]
@@ -3067,7 +5351,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 135,
+      "durationMs": 122,
       "pages": [
         "java/LOMBOK-GUIDE.md"
       ]
@@ -3079,7 +5363,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 140,
+      "durationMs": 385,
       "pages": [
         "java/LOMBOK-GUIDE.md"
       ]
@@ -3091,7 +5375,19 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1135,
+      "durationMs": 1089,
+      "pages": [
+        "spring/SPRING-REACTIVE.md"
+      ]
+    },
+    {
+      "url": "https://projectreactor.io/docs/core/release/reference/testing.html",
+      "finalUrl": "https://projectreactor.io/docs/core/release/reference/testing.html",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 1075,
       "pages": [
         "spring/SPRING-REACTIVE.md"
       ]
@@ -3103,7 +5399,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 729,
+      "durationMs": 134,
       "pages": [
         "architecture/CACHE-PROVIDERS.md"
       ]
@@ -3115,9 +5411,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 218,
+      "durationMs": 229,
       "pages": [
         "architecture/CACHE-PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://resilience4j.readme.io/docs/getting-started",
+      "finalUrl": "https://resilience4j.readme.io/docs/getting-started",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 174,
+      "pages": [
+        "spring/SPRING-RESILIENCE4J.md"
       ]
     },
     {
@@ -3127,7 +5435,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 663,
+      "durationMs": 501,
       "pages": [
         "security/SUPPLY-CHAIN-PRIVACY.md"
       ]
@@ -3139,9 +5447,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 94,
+      "durationMs": 77,
       "pages": [
         "reference/DOCUMENTATION-GUIDE.md"
+      ]
+    },
+    {
+      "url": "https://spec.openapis.org/oas/",
+      "finalUrl": "https://spec.openapis.org/oas/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 217,
+      "pages": [
+        "development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md",
+        "development/spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE.md"
       ]
     },
     {
@@ -3151,7 +5472,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 390,
+      "durationMs": 267,
       "pages": [
         "development/REST-API-PRODUCTION-DESIGN.md"
       ]
@@ -3163,7 +5484,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 146,
+      "durationMs": 181,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -3175,12 +5496,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 262,
+      "durationMs": 247,
       "pages": [
-        "spring/internals-production/HIBERNATE-JDBC-INTERNALS.md",
-        "spring/internals-production/PRODUCTION-LIFECYCLE.md",
-        "spring/internals-production/WEB-HTTP-RUNTIME.md",
         "spring/SPRING-BOOT-INTERNALS-PRODUCTION.md",
+        "spring/SPRING-ECOSYSTEM.md",
         "spring/SPRING-PLATFORM-ADVANCED.md"
       ]
     },
@@ -3191,9 +5510,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 180,
+      "durationMs": 136,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
+      ]
+    },
+    {
+      "url": "https://springdoc.org/",
+      "finalUrl": "https://springdoc.org/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 87,
+      "pages": [
+        "development/spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE.md"
       ]
     },
     {
@@ -3203,7 +5534,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 395,
+      "durationMs": 126,
       "pages": [
         "architecture/MICROSERVICES-INTERNALS-DEEP-DIVE.md",
         "architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD.md"
@@ -3216,7 +5547,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 109,
+      "durationMs": 174,
       "pages": [
         "architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD.md"
       ]
@@ -3228,7 +5559,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 407,
+      "durationMs": 200,
       "pages": [
         "architecture/ASYNC-REALTIME-DISTRIBUTED-TIME.md",
         "architecture/DISTRIBUTED-HYBRID-CACHE.md",
@@ -3257,7 +5588,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1530,
+      "durationMs": 1943,
       "pages": [
         "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md"
       ]
@@ -3269,7 +5600,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 877,
+      "durationMs": 724,
       "pages": [
         "data/DATA-PIPELINES-SEARCH-OPERATIONS.md"
       ]
@@ -3281,7 +5612,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 277,
+      "durationMs": 273,
       "pages": [
         "java/JVM-PROFILING-GC-NATIVE.md"
       ]
@@ -3293,9 +5624,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 301,
+      "durationMs": 276,
       "pages": [
-        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md"
+        "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
+        "spring/testing/COVERAGE-TEST-QUALITY.md"
       ]
     },
     {
@@ -3305,7 +5637,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 766,
+      "durationMs": 758,
       "pages": [
         "ai/MCP-PROTOCOL-LIFECYCLE.md"
       ]
@@ -3317,7 +5649,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 840,
+      "durationMs": 742,
       "pages": [
         "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md"
       ]
@@ -3329,7 +5661,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 812,
+      "durationMs": 685,
       "pages": [
         "security/SUPPLY-CHAIN-PRIVACY.md"
       ]
@@ -3341,7 +5673,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 100,
+      "durationMs": 65,
       "pages": [
         "java/JAVA-SERIALIZATION-EVOLUTION-SECURITY.md",
         "java/JAVA-TIME-NUMERIC-SECURITY.md"
@@ -3354,7 +5686,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 668,
+      "durationMs": 764,
       "pages": [
         "reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION.md"
       ]
@@ -3366,7 +5698,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1084,
+      "durationMs": 815,
       "pages": [
         "data/database-selection/CONSISTENCY-MODELS-BASE.md",
         "data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md",
@@ -3381,7 +5713,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 892,
+      "durationMs": 781,
       "pages": [
         "data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md"
       ]
@@ -3393,7 +5725,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 777,
+      "durationMs": 783,
       "pages": [
         "reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md",
         "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
@@ -3409,7 +5741,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 842,
+      "durationMs": 777,
       "pages": [
         "data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md"
       ]
@@ -3421,7 +5753,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 932,
+      "durationMs": 739,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
@@ -3433,7 +5765,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 995,
+      "durationMs": 762,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
@@ -3445,7 +5777,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 296,
+      "durationMs": 301,
       "pages": [
         "spring/SPRING-REACTIVE.md"
       ]
@@ -3457,7 +5789,7 @@
       "ok": true,
       "rateLimited": true,
       "redirected": false,
-      "durationMs": 23,
+      "durationMs": 22,
       "pages": [
         "security/oauth/TOKEN-LIFECYCLE.md"
       ]
@@ -3469,7 +5801,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 423,
+      "durationMs": 325,
       "pages": [
         "architecture/ASYNC-REALTIME-DISTRIBUTED-TIME.md",
         "architecture/DISTRIBUTED-HYBRID-CACHE.md",
@@ -3484,7 +5816,46 @@
         "architecture/system-design-deep-dives/INTERVIEW-RUBRIC.md",
         "architecture/SYSTEM-DESIGN-DEEP-DIVES.md",
         "architecture/SYSTEM-DESIGN.md",
-        "development/REST-API-PRODUCTION-DESIGN.md"
+        "development/REST-API-PRODUCTION-DESIGN.md",
+        "development/spring-rest/REST-INTERVIEW-WORKBOOK.md",
+        "development/spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE.md"
+      ]
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-conditional-requests",
+      "finalUrl": "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "status": 429,
+      "ok": true,
+      "rateLimited": true,
+      "redirected": false,
+      "durationMs": 21,
+      "pages": [
+        "development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md",
+        "development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS.md"
+      ]
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-method-definitions",
+      "finalUrl": "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "status": 429,
+      "ok": true,
+      "rateLimited": true,
+      "redirected": false,
+      "durationMs": 28,
+      "pages": [
+        "development/spring-rest/REST-IDEMPOTENT-COMMANDS.md"
+      ]
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110.html#name-range-requests",
+      "finalUrl": "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "status": 429,
+      "ok": true,
+      "rateLimited": true,
+      "redirected": false,
+      "durationMs": 22,
+      "pages": [
+        "development/spring-rest/REST-SECURE-FILE-TRANSFER.md"
       ]
     },
     {
@@ -3494,7 +5865,7 @@
       "ok": true,
       "rateLimited": true,
       "redirected": false,
-      "durationMs": 84,
+      "durationMs": 24,
       "pages": [
         "reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION.md"
       ]
@@ -3502,11 +5873,11 @@
     {
       "url": "https://www.rfc-editor.org/rfc/rfc9113",
       "finalUrl": "https://www.rfc-editor.org/info/rfc9113/",
-      "status": 429,
+      "status": 200,
       "ok": true,
-      "rateLimited": true,
+      "rateLimited": false,
       "redirected": true,
-      "durationMs": 144,
+      "durationMs": 556,
       "pages": [
         "architecture/NETWORKING-GRPC-SERVICE-MESH.md"
       ]
@@ -3518,9 +5889,10 @@
       "ok": true,
       "rateLimited": true,
       "redirected": false,
-      "durationMs": 67,
+      "durationMs": 24,
       "pages": [
-        "development/REST-API-PRODUCTION-DESIGN.md"
+        "development/REST-API-PRODUCTION-DESIGN.md",
+        "development/spring-rest/REST-ERROR-CONTRACTS.md"
       ]
     },
     {
@@ -3530,7 +5902,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 712,
+      "durationMs": 567,
       "pages": [
         "ai/MCP-SECURITY-OPERATIONS.md",
         "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md",

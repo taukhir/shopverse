@@ -56,6 +56,10 @@ export const API_PATHS = {
     validate: '/api/v1/cart/validate',
     item: (productId: number | string) => `/api/v1/cart/items/${productId}`,
   },
+  admin: {
+    auditEvents: '/api/v1/admin/audit-events',
+    auditEvent: (id: number | string) => `/api/v1/admin/audit-events/${id}`,
+  },
 } as const;
 
 export const PUBLIC_API_MARKERS = ['/auth/', '/public/'] as const;

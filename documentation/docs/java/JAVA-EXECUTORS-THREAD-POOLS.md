@@ -126,11 +126,36 @@ sensitive CPU work in one pool; bulkhead them when their failure modes differ.
 
 ## Tricky Interview Questions
 
-1. Why might a pool never grow beyond core size? Its unbounded queue never rejects insertion.
-2. Does `CallerRunsPolicy` discard work? No; it executes on the submitting thread.
-3. Is `newCachedThreadPool` bounded? Its platform-thread growth is effectively unbounded.
-4. Should virtual threads be put in a fixed pool? Usually no; bound the scarce resource instead.
-5. What is more important than worker count during overload? Queue delay, capacity, rejection, and downstream limits.
+<ExpandableAnswer title="Why might a pool never grow beyond core size?">
+
+Its unbounded queue never rejects insertion.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does CallerRunsPolicy discard work?">
+
+No; it executes on the submitting thread.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is newCachedThreadPool bounded?">
+
+Its platform-thread growth is effectively unbounded.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Should virtual threads be put in a fixed pool?">
+
+Usually no; bound the scarce resource instead.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What is more important than worker count during overload?">
+
+Queue delay, capacity, rejection, and downstream limits.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

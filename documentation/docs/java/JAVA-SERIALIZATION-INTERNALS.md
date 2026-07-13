@@ -130,11 +130,36 @@ interface overrides, and mistakes may silently change behavior.
 
 ## Tricky Interview Questions
 
-1. Does `Serializable` contain a serialize method? No; it is a marker.
-2. Are static fields serialized? No.
-3. Does `transient final` recover its initializer automatically? Do not rely on it; skipped state needs deliberate reconstruction.
-4. Are cycles supported? Yes, through stream handles.
-5. Is the serializable class constructor called normally? No; the first non-serializable superclass constructor is the key constructor step.
+<ExpandableAnswer title="Does Serializable contain a serialize method?">
+
+No; it is a marker.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Are static fields serialized?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does transient final recover its initializer automatically?">
+
+Do not rely on it; skipped state needs deliberate reconstruction.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Are cycles supported?">
+
+Yes, through stream handles.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is the serializable class constructor called normally?">
+
+No; the first non-serializable superclass constructor is the key constructor step.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

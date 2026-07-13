@@ -83,11 +83,36 @@ virtual-thread events and stack inspection.
 
 ## Tricky Interview Questions
 
-1. Does returning from `main` always stop the JVM? No, not while non-daemon threads remain.
-2. Does a scheduled pool guarantee one cluster-wide execution? No.
-3. Is a virtual thread an OS thread? No; it mounts on carrier platform threads.
-4. Does GC run on the main thread? Collectors normally use JVM-managed workers; application threads may assist in some collector paths.
-5. Can more threads increase database throughput indefinitely? No; connections, locks, CPU, and storage are bounded.
+<ExpandableAnswer title="Does returning from main always stop the JVM?">
+
+No, not while non-daemon threads remain.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a scheduled pool guarantee one cluster-wide execution?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is a virtual thread an OS thread?">
+
+No; it mounts on carrier platform threads.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does GC run on the main thread?">
+
+Collectors normally use JVM-managed workers; application threads may assist in some collector paths.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can more threads increase database throughput indefinitely?">
+
+No; connections, locks, CPU, and storage are bounded.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

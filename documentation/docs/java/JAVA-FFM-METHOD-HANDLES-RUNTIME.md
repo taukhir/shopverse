@@ -52,11 +52,36 @@ so computation must tolerate repetition.
 
 ## Tricky Interview Questions
 
-1. Does FFM make native code memory-safe? It bounds Java access, but an incorrect native function can still corrupt/crash the process.
-2. Why does `invokeExact` fail when a cast appears absent? The call-site descriptor must match exactly.
-3. Does a hidden class have no class loader? It is still associated with lookup/loading context.
-4. Why prefer `ClassValue` for per-class metadata? It avoids common strong-key loader retention patterns.
-5. Can closing an arena leave segments usable? No; access after lifetime ends fails.
+<ExpandableAnswer title="Does FFM make native code memory-safe?">
+
+It bounds Java access, but an incorrect native function can still corrupt/crash the process.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why does invokeExact fail when a cast appears absent?">
+
+The call-site descriptor must match exactly.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a hidden class have no class loader?">
+
+It is still associated with lookup/loading context.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why prefer ClassValue for per-class metadata?">
+
+It avoids common strong-key loader retention patterns.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can closing an arena leave segments usable?">
+
+No; access after lifetime ends fails.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

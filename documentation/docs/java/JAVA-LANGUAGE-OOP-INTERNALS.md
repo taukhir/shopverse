@@ -107,10 +107,30 @@ erroneous-class behavior.
 
 ## Senior Interview Questions
 
-1. Why can adding an overload break source compatibility without breaking existing bytecode? Recompilation may select a new most-specific method; old bytecode retains its descriptor.
-2. Can a static method be overridden? No; selection is hiding based on the reference/class expression.
-3. Why is construction-time virtual dispatch dangerous? The child method runs before child initialization completes.
-4. Does an unchecked exception belong to a method signature? No; the `throws` declaration is not used to distinguish overloads.
+<ExpandableAnswer title="Why can adding an overload break source compatibility without breaking existing bytecode?">
+
+Recompilation may select a new most-specific method; old bytecode retains its descriptor.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a static method be overridden?">
+
+No; selection is hiding based on the reference/class expression.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is construction-time virtual dispatch dangerous?">
+
+The child method runs before child initialization completes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does an unchecked exception belong to a method signature?">
+
+No; the `throws` declaration is not used to distinguish overloads.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -68,20 +68,26 @@ User user = optional.orElseGet(this::createGuestUser);
 
 ## Interview Questions
 
-### Can Optional be null?
+<ExpandableAnswer title="Can Optional be null?">
 
 Technically yes, but it defeats the purpose. Never return `null` from a method
 declared as returning `Optional<T>`.
 
-### Why not use Optional in JPA entities?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why not use Optional in JPA entities?">
 
 JPA providers and serializers expect field values, not Optional wrappers.
 Optional fields create mapping and serialization confusion.
 
-### Is `Optional.get()` bad?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is Optional.get() bad?">
 
 It is unsafe unless presence is already guaranteed. Prefer `orElseThrow`,
 `map`, `flatMap`, or `ifPresent`.
+
+</ExpandableAnswer>
 
 ## Runtime And API Design
 
@@ -93,9 +99,24 @@ collection elements unless a specific contract justifies the extra state.
 
 ## Tricky Interview Questions
 
-1. Why can `orElse(expensive())` be slow for present values? Its argument is evaluated first.
-2. Does `map` preserve null? A null mapping result becomes empty.
-3. Is `Optional` serializable? It does not implement `Serializable`.
+<ExpandableAnswer title="Why can orElse(expensive()) be slow for present values?">
+
+Its argument is evaluated first.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does map preserve null?">
+
+A null mapping result becomes empty.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is Optional serializable?">
+
+It does not implement `Serializable`.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

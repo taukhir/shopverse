@@ -1,424 +1,199 @@
-﻿---
-title: JPA Relationships And JSON Serialization
+---
+title: JPA Associations And Ownership
+description: Spring Data JPA association ownership, aggregate mutation, cascades, orphan removal, fetch boundaries, and safe foreign-key rollout.
+difficulty: Intermediate
+page_type: Concept
+status: Generic
+prerequisites: [JPA entity integration, Hibernate lifecycle, Relational foreign keys]
+learning_objectives: [Identify the owning side of an association, Keep aggregate relationships consistent in memory and in SQL, Roll out foreign keys without breaking mixed versions]
+technologies: [Spring Data JPA, Jakarta Persistence, Hibernate ORM, Liquibase]
+last_reviewed: "2026-07-13"
 ---
 
-# JPA Relationships And JSON Serialization
+# JPA Associations And Ownership
 
-Relationship ownership, Jackson relationship annotations, cascades, orphan removal, and fetch-plan basics.
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Associations', tone: 'foundation'},
+  {label: 'Aggregate integrity', tone: 'production'},
+  {label: 'Shopverse current state', tone: 'shopverse'},
+]} />
 
-Back to [Spring Data JPA](../SPRING-DATA-JPA.md).
+An association has three related but distinct owners: the database foreign key,
+the JPA side that writes that key, and the domain aggregate that permits the
+relationship to change. Make all three explicit.
 
-## Relationship Ownership
-
-JPA relationships describe object navigation and foreign-key ownership. They
-must reflect actual query and lifecycle requirements rather than connecting
-every related table.
-
-### One-To-One
-
-```java
-@Entity
-class UserEntity {
-
-    @OneToOne(
-            mappedBy = "user",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private UserProfileEntity profile;
-}
+```mermaid
+erDiagram
+    ORDERS ||--|{ ORDER_ITEMS : "owns lifecycle"
+    ORDERS {
+      bigint id PK
+      varchar order_number UK
+    }
+    ORDER_ITEMS {
+      bigint id PK
+      bigint order_id FK
+      bigint product_id
+    }
 ```
 
-```java
-@Entity
-class UserProfileEntity {
+## Owning Side And Aggregate Mutation
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(
-            name = "user_id",
-            nullable = false,
-            unique = true,
-            foreignKey = @ForeignKey(name = "fk_profile_user")
-    )
-    private UserEntity user;
-}
-```
-
-The side containing `@JoinColumn` owns the relationship. Typical SQL:
-
-```sql
-select u.id, u.username
-from users u
-where u.id = ?;
-
-select p.id, p.user_id, p.display_name
-from user_profiles p
-where p.user_id = ?;
-```
-
-Accessing a lazy profile can trigger the second query. A fetch join or
-projection can load both intentionally.
-
-### Many-To-One
-
-Many order items normally reference one order:
-
-```java
-@ManyToOne(fetch = FetchType.LAZY, optional = false)
-@JoinColumn(
-        name = "order_id",
-        nullable = false,
-        foreignKey = @ForeignKey(name = "fk_order_item_order")
-)
-private OrderEntity order;
-```
-
-Typical insert:
-
-```sql
-insert into order_items
-    (order_id, product_id, quantity, unit_price)
-values (?, ?, ?, ?);
-```
-
-Always specify `LAZY` for `@ManyToOne` and `@OneToOne` when immediate loading is
-not required. Their JPA default is `EAGER`.
-
-### One-To-Many
+The side containing `@JoinColumn` normally owns the relational update. In an
+Order-to-items association, the item writes `order_id`; `mappedBy = "order"` tells
+the parent that the child owns that mapping.
 
 ```java
 @OneToMany(
         mappedBy = "order",
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = true,
+        fetch = FetchType.LAZY
 )
-@OrderColumn(name = "line_position")
 private final List<OrderItemEntity> items = new ArrayList<>();
-```
 
-Maintain both sides:
-
-```java
-public void addItem(OrderItemEntity item) {
-    items.add(item);
-    item.assignTo(this);
-}
-
-public void removeItem(OrderItemEntity item) {
-    items.remove(item);
-    item.assignTo(null);
+public void addItem(ProductSnapshot product, int quantity) {
+    items.add(new OrderItemEntity(this, product.id(), product.name(),
+            quantity, product.unitPrice()));
 }
 ```
 
-Loading one order and then accessing items usually produces:
+The aggregate method establishes both sides in one place and protects invariants.
+Exposing a public collection setter lets callers create an in-memory graph that
+does not match the SQL Hibernate will issue.
 
-```sql
-select o.*
-from orders o
-where o.id = ?;
+<DocCallout type="shopverse" title="Current implementation">
 
-select i.*
-from order_items i
-where i.order_id = ?
-order by i.line_position;
-```
+Shopverse `OrderEntity` owns an `items` collection with cascade-all and orphan
+removal. `OrderItemEntity` owns the foreign key through its lazy `@ManyToOne`, and
+the package-scoped child constructor receives its Order. This is current code, not
+a proposed model.
 
-That is acceptable for one aggregate. It becomes N+1 when repeated across many
-orders.
+</DocCallout>
 
-Avoid an unidirectional `@OneToMany` with a join column unless its generated
-write behavior is understood. A child-owned `@ManyToOne` plus parent
-`mappedBy` is usually clearer and more efficient.
+## Association Decision Table
 
-### Many-To-Many
+| Relationship need | Typical mapping | Production question |
+|---|---|---|
+| child cannot exist without parent | parent `@OneToMany`, child owning `@ManyToOne` | should removal delete or archive the child? |
+| child has an independent lifecycle | reference without broad cascade | which service/use case owns updates? |
+| link has attributes such as role or date | explicit association entity | what is the unique business key? |
+| one optional extension row | one-to-one or shared primary key | does the extra table improve lifecycle and access? |
 
-```java
-@ManyToMany
-@JoinTable(
-        name = "user_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
-)
-private Set<RoleEntity> roles = new HashSet<>();
-```
-
-Typical load:
-
-```sql
-select r.*
-from roles r
-join user_roles ur on ur.role_id = r.id
-where ur.user_id = ?;
-```
-
-Use a direct many-to-many only when the join has no business attributes. If it
-needs `assignedAt`, `assignedBy`, status, or audit data, map the join table as
-its own entity such as `UserRoleEntity`.
-
-
-## Jackson And Entity Relationships
-
-JPA models object graphs, while Jackson serializes object graphs. Returning a
-bidirectional entity relationship directly from a controller can cause:
-
-- infinite JSON recursion;
-- unexpected lazy-loading queries;
-- `LazyInitializationException` after the transaction closes;
-- oversized responses;
-- accidental exposure of passwords, audit fields, or internal identifiers;
-- unsafe deserialization that mutates relationships clients should not own.
-
-The preferred API design is to map entities to explicit response DTOs:
-
-```java
-public record OrderResponse(
-        Long id,
-        String orderNumber,
-        String status,
-        List<OrderItemResponse> items
-) {
-}
-```
-
-```java
-public OrderResponse toResponse(OrderEntity order) {
-    return new OrderResponse(
-            order.getId(),
-            order.getOrderNumber(),
-            order.getStatus().name(),
-            order.getItems().stream()
-                    .map(item -> new OrderItemResponse(
-                            item.getProductId(),
-                            item.getQuantity()
-                    ))
-                    .toList()
-    );
-}
-```
-
-Jackson annotations are still useful for internal models, legacy APIs, or
-carefully bounded entity serialization.
-
-Spring Boot's web starter normally supplies Jackson Databind and its annotation
-module:
-
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-web'
-```
-
-The examples use:
-
-```java
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-```
-
-### `@JsonIgnore`
-
-`@JsonIgnore` excludes a property from both normal serialization and
-deserialization:
-
-```java
-@Entity
-class UserEntity {
-
-    @JsonIgnore
-    @Column(name = "password", nullable = false)
-    private String encodedPassword;
-}
-```
-
-It can also break a recursive relationship by hiding the back link:
-
-```java
-@ManyToOne(fetch = FetchType.LAZY)
-@JoinColumn(name = "order_id", nullable = false)
-@JsonIgnore
-private OrderEntity order;
-```
-
-Use it for a property that must never appear in that JSON model. Do not treat
-it as the only protection for sensitive data; DTO mapping provides a clearer
-allowlist of fields.
-
-### `@JsonManagedReference` And `@JsonBackReference`
-
-These annotations represent a parent-child JSON relationship:
-
-```java
-@Entity
-class OrderEntity {
-
-    @OneToMany(mappedBy = "order")
-    @JsonManagedReference
-    private List<OrderItemEntity> items = new ArrayList<>();
-}
-```
-
-```java
-@Entity
-class OrderItemEntity {
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
-    @JsonBackReference
-    private OrderEntity order;
-}
-```
-
-Jackson serializes the managed, or forward, side:
-
-```json
-{
-  "id": 10,
-  "items": [
-    {
-      "id": 100,
-      "quantity": 2
-    }
-  ]
-}
-```
-
-It omits the `order` back-reference inside every item, preventing:
-
-```text
-order -> items -> order -> items -> ...
-```
-
-Use named references when one class has multiple parent-child relationships:
-
-```java
-@JsonManagedReference("order-items")
-private List<OrderItemEntity> items;
-
-@JsonBackReference("order-items")
-private OrderEntity order;
-```
-
-This approach intentionally produces an asymmetric JSON graph. It is unsuitable
-when clients need both directions represented.
-
-### `@JsonIdentityInfo`
-
-`@JsonIdentityInfo` writes an object fully once and uses its identifier for
-later references:
-
-```java
-@Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
-class OrderEntity {
-
-    @OneToMany(mappedBy = "order")
-    private List<OrderItemEntity> items = new ArrayList<>();
-}
-```
-
-```java
-@Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
-class OrderItemEntity {
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private OrderEntity order;
-}
-```
-
-A repeated Order reference can then be represented as its ID instead of
-recursively serializing the complete object:
-
-```json
-{
-  "id": 10,
-  "items": [
-    {
-      "id": 100,
-      "order": 10
-    }
-  ]
-}
-```
-
-Use identity serialization when graph identity is part of the intended JSON
-contract. It couples the API format to entity identifiers and can be confusing
-for clients, so DTOs remain preferable for public REST APIs.
-
-### Choosing A Strategy
-
-| Requirement | Preferred approach |
-|---|---|
-| Stable public API | response DTOs |
-| Hide one sensitive or internal property | `@JsonIgnore`, preferably plus DTOs |
-| Serialize parent children but omit child parent | managed/back references |
-| Preserve repeated object identity | `@JsonIdentityInfo` |
-| Avoid lazy-loading during serialization | fetch explicitly and map inside the transaction |
-
-Jackson annotations control JSON only. They do not change JPA ownership,
-cascades, fetching, foreign keys, or transaction behavior.
-
+Avoid direct many-to-many mappings when the relationship needs audit fields,
+ordering, status, soft deletion, or independent permissions. Model the join table
+as an entity instead.
 
 ## Cascades And Orphan Removal
 
-| Cascade | Effect |
-|---|---|
-| `PERSIST` | persist related entity with owner |
-| `MERGE` | merge related detached state |
-| `REMOVE` | remove related entity |
-| `REFRESH` | refresh related entity |
-| `DETACH` | detach related entity |
-| `ALL` | applies all cascade operations |
+Cascade controls which entity operation propagates through the object graph.
+`orphanRemoval = true` schedules a child delete when it is removed from the
+parent collection. Neither setting changes database cascade rules automatically.
 
-Cascade is an object-lifecycle rule, not a database cascade. Do not use
-`CascadeType.ALL` automatically, especially across shared entities or
-many-to-many relationships.
+<DocCallout type="mistake" title="CascadeType.ALL is not an aggregate definition">
 
-`orphanRemoval=true` deletes a child removed from the parent's collection. It
-fits privately owned children such as order lines, not shared references.
+Do not cascade merely for convenience. A cascade from one aggregate to another can
+delete or merge more state than the service transaction intends. Apply cascades
+only where lifecycle ownership is real.
 
-Database foreign keys and `ON DELETE` behavior must still be defined in
-Liquibase.
+</DocCallout>
 
+## Fetch Boundary
 
-## Fetch Types And Fetch Plans
+Mapping an association lazy avoids unconditional loading, but it does not define
+the query for a use case. Spring Data repository methods should select an entity
+graph, projection, or explicit query for each read path. See
+[Fetching Performance](./JPA-FETCHING-PERFORMANCE.md).
 
-JPA defaults:
+Do not make every association eager to avoid `LazyInitializationException`. That
+replaces an explicit fetch failure with hidden joins, secondary selects, and
+unbounded object graphs.
 
-| Relationship | Default |
-|---|---|
-| `@OneToMany` | `LAZY` |
-| `@ManyToMany` | `LAZY` |
-| `@ManyToOne` | `EAGER` |
-| `@OneToOne` | `EAGER` |
+## HTTP And JSON Boundary
 
-Treat mapping-level fetch type as a default, not a query plan. Keep
-relationships lazy where practical and choose the required graph per use case.
+Entities should not define the public JSON contract. Serialization can traverse
+lazy associations, expose internal columns, recurse through bidirectional links,
+or trigger database work after the service boundary.
 
-Fetching strategies:
+Use DTOs and explicit mapping. The canonical Jackson, converter, recursion, and
+payload-limit guidance is in
+[HTTP Message Conversion And Jackson](../web/HTTP-MESSAGE-CONVERSION-JACKSON.md).
 
-- JPQL `join fetch`;
-- `@EntityGraph`;
-- interface or DTO projection;
-- batch fetching;
-- separate bounded queries assembled by the service.
+<DocCallout type="production" title="Transaction scope is not a serialization strategy">
 
-Do not make every relationship eager. Large eager graphs can create cartesian
-products, duplicate rows, excessive memory use, and N+1 queries in other
-contexts.
+Keeping a persistence context open until JSON rendering can hide missing fetch
+plans and allow controllers to execute SQL. Fetch the required data in the service
+transaction and return a stable DTO.
 
+</DocCallout>
 
+## Foreign-Key Rollout
 
+For a new required association:
 
+1. add the foreign-key column as nullable;
+2. deploy code that writes it while old replicas remain compatible;
+3. backfill in bounded batches;
+4. find and resolve orphaned or invalid rows;
+5. add the index and foreign key using the engine's safe operational procedure;
+6. make the column non-null only after coverage is proven.
 
+<DocCallout type="code" title="Proposed evolution example">
 
+If Order items later reference a service-owned product snapshot version, add the
+version column through expand-and-contract. Do not replace historical product data
+with a live cross-service entity association; services should not share a database
+aggregate implicitly.
 
+</DocCallout>
 
+## Evidence Checklist
+
+- capture insert, update, and delete SQL for aggregate mutation;
+- assert foreign-key and unique constraints with the production engine;
+- verify removing a child produces the intended delete or archive behavior;
+- count queries for each DTO read path;
+- test collection size and payload limits with representative cardinality;
+- prove old and new application versions can both read the expanded schema.
+
+## Interview Questions
+
+<ExpandableAnswer title="Which side owns a bidirectional JPA association?">
+
+The side that maps the foreign key, normally the side with `@JoinColumn`, owns the
+relational update. The domain aggregate can still own the public mutation method.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can adding an item only to the inverse collection fail?">
+
+The in-memory inverse side changed, but the owning side that writes the foreign key
+did not. A helper method should update both sides consistently.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When is orphanRemoval dangerous?">
+
+When removing an object from a collection should not delete its durable record, or
+when the child is shared or independently owned. It is appropriate only for true
+aggregate children with matching retention rules.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why should Jackson annotations not be the primary N+1 fix?">
+
+They only change serialization traversal. The repository query still needs an
+explicit fetch plan, and the API should return a DTO that does not expose the
+persistence graph.
+
+</ExpandableAnswer>
+
+## Official References
+
+- [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/reference/)
+- [Hibernate ORM association mappings](https://docs.hibernate.org/orm/current/userguide/html_single/)
+- [Jakarta Persistence specification](https://jakarta.ee/specifications/persistence/)
+
+## Recommended Next
+
+Continue with [Repositories, Queries And Projections](./JPA-REPOSITORIES-QUERIES.md).

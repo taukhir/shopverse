@@ -6,3 +6,5 @@ dontinline,*.*_thrpt_jmhStub
 inline,io/shopverse/labs/CollectionBenchmark.iterateArray
 inline,io/shopverse/labs/CollectionBenchmark.iterateLinked
 inline,io/shopverse/labs/CollectionBenchmark.setup
+inline,io/shopverse/labs/ParallelStreamBenchmark.parallel
+inline,io/shopverse/labs/ParallelStreamBenchmark.sequential

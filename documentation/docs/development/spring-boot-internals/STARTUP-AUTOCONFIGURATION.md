@@ -1,12 +1,35 @@
 ﻿---
-title: Spring Boot Startup And Auto Configuration
+title: Spring Boot Startup, Environment And Auto-Configuration
+description: Spring Boot entry point, startup phases, property sources, condition evaluation, back-off, and dependency-driven infrastructure.
+difficulty: Intermediate
+page_type: Guide
+status: Shopverse
+learning_objectives:
+  - Trace Spring Boot startup from main through readiness
+  - Explain property-source precedence and auto-configuration back-off
+  - Diagnose missing or unexpected infrastructure from condition evidence
+technologies: [Spring Boot, Spring Framework]
+last_reviewed: "2026-07-13"
 ---
 
 import {DocFigure} from '@site/src/components/DocumentationLanding';
 
-# Spring Boot Startup And Auto Configuration
+# Spring Boot Startup, Environment And Auto-Configuration
+
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Spring Boot startup', tone: 'foundation'},
+  {label: 'Shopverse context', tone: 'shopverse'},
+]} />
 
 Application entry point, startup lifecycle, environment, property sources, auto-configuration, conditions, and dependency-driven setup.
+
+<DocCallout type="tip" title="Implementation guide versus architect runtime">
+This page explains Boot startup configuration and Shopverse-oriented examples.
+For processor ordering, premature bean creation, early references, AOT, startup
+evidence, and executable container diagnostics, use
+[Spring Container Runtime For Architects](../../spring/SPRING-CONTAINER-ARCHITECT.md).
+</DocCallout>
 
 Back to [Spring Boot Internals](../SPRING-BOOT-INTERNALS.md).
 
@@ -209,12 +232,15 @@ Inventory Service dependencies activate different infrastructure:
 Dependencies provide capabilities, but properties and conditions determine
 whether individual beans are created.
 
+## Official References
 
+- [Spring Boot startup](https://docs.spring.io/spring-boot/reference/features/spring-application.html)
+- [Spring Boot externalized configuration](https://docs.spring.io/spring-boot/reference/features/external-config.html)
+- [Spring Boot auto-configuration](https://docs.spring.io/spring-boot/reference/using/auto-configuration.html)
+- [Developing auto-configuration](https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html)
 
+## Recommended Next
 
-
-
-
-
+Continue with [Spring Dependency Injection And Bean Lifecycle](./DI-BEAN-LIFECYCLE-AOP.md).
 
 

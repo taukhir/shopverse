@@ -49,9 +49,24 @@ flowchart LR
 
 ## Tricky Interview Questions
 
-1. Does implementing `Serializable` validate the graph? No.
-2. Is keeping a UID sufficient for compatibility? No; field and invariant evolution still matter.
-3. Can private fields contain safe-to-expose data by definition? No; serialization crosses encapsulation boundaries.
+<ExpandableAnswer title="Does implementing Serializable validate the graph?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is keeping a UID sufficient for compatibility?">
+
+No; field and invariant evolution still matter.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can private fields contain safe-to-expose data by definition?">
+
+No; serialization crosses encapsulation boundaries.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

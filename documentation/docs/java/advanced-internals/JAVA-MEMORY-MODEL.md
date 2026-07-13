@@ -84,9 +84,24 @@ for illegal outcomes. Document the happens-before proof for the correct designs.
 
 ## Tricky Interview Questions
 
-1. Does `volatile` make `count++` atomic? No.
-2. Is safe publication equivalent to immutability? No.
-3. Are racy programs sequentially consistent? Not necessarily.
+<ExpandableAnswer title="Does volatile make count++ atomic?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is safe publication equivalent to immutability?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Are racy programs sequentially consistent?">
+
+Not necessarily.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

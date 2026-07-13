@@ -1,145 +1,132 @@
-﻿---
-title: Spring Kafka
+---
+title: Spring For Apache Kafka
+description: Canonical Spring Kafka route for templates, listener containers, retry topics, idempotent recovery, capacity, and incident response.
+difficulty: Intermediate
+page_type: Learning Path
+status: Generic
+prerequisites: [Apache Kafka fundamentals, Spring Boot configuration, Transactional outbox]
+learning_objectives: [Trace Spring producer and listener-container behavior, Choose retry acknowledgment and concurrency policies, Operate Kafka consumers from measurable evidence]
+technologies: [Spring for Apache Kafka 4.x, Spring Boot, Apache Kafka, Micrometer]
+last_reviewed: "2026-07-13"
 ---
 
-# Spring Kafka
+# Spring For Apache Kafka
 
-Spring Kafka material is split into focused pages for publishing, consuming, concurrency, retries/DLT, idempotency, operations, and event design.
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Canonical Spring route', tone: 'foundation'},
+  {label: 'Production messaging', tone: 'production'},
+  {label: 'Shopverse evidence', tone: 'shopverse'},
+]} />
 
-## Shopverse Implementation Path
+Spring for Apache Kafka supplies `KafkaTemplate`, listener containers, message
+conversion, acknowledgment/error handling, retry-topic infrastructure,
+transactions, events, and observations. Broker architecture, retention,
+partitions, offsets, and generic Kafka interviews remain in
+[Apache Kafka](../integration/APACHE-KAFKA.md).
 
-After reading the generic Kafka pages, use these Shopverse pages to see the
-same ideas applied in code:
+```mermaid
+flowchart LR
+    Outbox[("Service outbox")] --> Template["KafkaTemplate"]
+    Template --> Broker["Kafka broker"]
+    Broker --> Container["Listener container"]
+    Container --> Listener["@KafkaListener"]
+    Listener --> Tx["Service transaction"]
+    Listener -. failure .-> Retry["Retry-topic containers"]
+    Retry -. exhausted .-> DLT["DLT handler + recovery store"]
+```
 
-| Concept | Shopverse page |
-|---|---|
-| Shared listener JSON parsing | [Kafka Event Parsing](../platform/KAFKA-PARSING.md) |
-| Failed event persistence and replay | [Kafka Recovery Starter](../platform/KAFKA-RECOVERY-STARTER.md) |
-| Outbox-backed event publication | [Outbox Starter](../platform/OUTBOX-STARTER.md) |
-| Kafka idempotency and runtime failures | [Runtime Reliability Problems](../reliability/problems/RUNTIME-RELIABILITY-PROBLEMS.md) |
-| Replay and DLT operational behavior | [Outbox Runtime Problems](../reliability/problems/OUTBOX-RUNTIME-PROBLEMS.md) |
+<DocCallout type="production" title="Spring owns the runtime, the service owns the effect">
 
-Keep the boundary clear: Kafka infrastructure helpers can be shared, but event
-payload records such as order, payment, or inventory events stay service-owned.
+The container can poll, invoke, seek, commit, retry, pause, and publish events. The
+service must still make database effects idempotent, version event contracts, and
+decide whether a failed record is safe to replay.
+
+</DocCallout>
 
 ## Focused Pages
 
-| Page | Covers |
+<TopicCards items={[
+  {title: 'Publishing and event flow', href: '/spring/kafka/SPRING-KAFKA-BASICS', description: 'Configure KafkaTemplate, serializers, outbox acknowledgment, and event compatibility.', icon: 'route', tags: ['Producer', 'Schema']},
+  {title: 'Consumers and delivery', href: '/spring/kafka/SPRING-KAFKA-CONSUMERS', description: 'Trace listener-container invocation, acknowledgment, transactions, and failure boundaries.', icon: 'network', tags: ['Containers', 'Offsets']},
+  {title: 'Listener concurrency', href: '/spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY', description: 'Size child containers, partitions, poll work, retry traffic, and downstream capacity.', icon: 'gauge', tags: ['Capacity', 'Rebalance']},
+  {title: 'Retry, DLT, and recovery', href: '/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY', description: 'Design retry-topic infrastructure, DLT handling, security, and terminal recovery.', icon: 'layers', tags: ['Retry topics', 'DLT']},
+  {title: 'Idempotency and replay', href: '/spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY', description: 'Protect business effects and replay failed events through a durable outbox.', icon: 'security', tags: ['Idempotency', 'Replay']},
+  {title: 'Operations and incidents', href: '/spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE', description: 'Use lag, container events, observations, rollout checks, and incident evidence.', icon: 'experiment', tags: ['Operations', 'Runbook']},
+]} />
+
+## Shopverse Runtime Baseline
+
+<DocCallout type="shopverse" title="Verified current configuration">
+
+Shared configuration disables consumer auto-commit, uses record acknowledgment,
+sets listener concurrency to one by default, limits each poll to 50 records, and
+enables listener/template observations. Producers request `acks=all` and producer
+idempotence. Order, Inventory, and Payment listeners use `@RetryableTopic` with
+three attempts and persist terminal failures for controlled replay.
+
+</DocCallout>
+
+This baseline does not currently configure Kafka container transactions,
+`group.protocol=consumer`, or production SASL/TLS in the shared repository file.
+Those are deployment decisions described as proposed controls, not implemented
+claims.
+
+## Ownership Map
+
+| Concern | Canonical owner |
 |---|---|
-| [Spring Kafka Basics And Event Flow](kafka/SPRING-KAFKA-BASICS.md) | Dependencies, Kafka concepts used by Spring, Shopverse event flow, KafkaTemplate publishing, and pull-model behavior. |
-| [Spring Kafka Consumers And Delivery Semantics](kafka/SPRING-KAFKA-CONSUMERS.md) | Kafka listeners, consumer groups, acknowledgments, delivery semantics, and Spring Kafka transactions. |
-| [Spring Kafka Threads Concurrency And Capacity](kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md) | Listener threads, concurrency, multithreading, partition counts, and consumer counts. |
-| [Spring Kafka Retry DLT And Recovery](kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md) | Retry topics, DLT handlers, poison-event recovery guarantees, and replaying failed events. |
-| [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md) | Idempotent consumers, message-loss checks, consumer lag, slow consumers, commands, observability, event design, and production checklist. |
+| broker partitions, retention, replication, offsets | [Apache Kafka](../integration/APACHE-KAFKA.md) |
+| Spring templates, containers, retry topics, events | this Spring track |
+| shared JSON parsing | [Kafka Event Parsing](../platform/KAFKA-PARSING.md) |
+| Shopverse failed-event persistence/replay library | [Kafka Recovery Starter](../platform/KAFKA-RECOVERY-STARTER.md) |
+| database/Kafka dual-write protection | [Outbox Starter](../platform/OUTBOX-STARTER.md) |
+| saga and runtime failure decisions | [Runtime Reliability Problems](../reliability/problems/RUNTIME-RELIABILITY-PROBLEMS.md) |
 
-## Compatibility Anchors
+## Production Completion Standard
 
-The original long page was split into focused pages. These headings are kept so older links have a stable landing point.
+Before changing a listener or publisher, define:
 
-## Dependencies
+1. event owner, key, schema compatibility, and sensitive-data classification;
+2. listener group, concurrency, acknowledgment, and retry/DLT behavior;
+3. idempotency authority and database transaction boundary;
+4. maximum poll work, downstream pool limits, and recovery throughput;
+5. rolling-deployment and rebalance expectations;
+6. lag, failure, retry, DLT, and non-responsive-container evidence;
+7. a rollback compatible with events already written by the new version.
 
-Moved to [Spring Kafka Basics And Event Flow](kafka/SPRING-KAFKA-BASICS.md).
+## Interview Check
 
-## Kafka Concepts Used By Spring
+<ExpandableAnswer title="What does Spring add beyond the Kafka consumer client?">
 
-Moved to [Spring Kafka Basics And Event Flow](kafka/SPRING-KAFKA-BASICS.md).
+It manages listener-container lifecycle, polling threads, method invocation,
+conversion, acknowledgment/error handling, retry-topic containers, application
+events, transactions, and Micrometer integration.
 
-## Shopverse Event Flow
+</ExpandableAnswer>
 
-Moved to [Spring Kafka Basics And Event Flow](kafka/SPRING-KAFKA-BASICS.md).
+<ExpandableAnswer title="Why is @RetryableTopic not a business idempotency guarantee?">
 
-## Publishing With `KafkaTemplate`
+It schedules additional deliveries through retry topics. The listener's database
+effect can still have committed before a failure or crash, so the service needs a
+stable event identity and idempotent transaction.
 
-Moved to [Spring Kafka Basics And Event Flow](kafka/SPRING-KAFKA-BASICS.md).
+</ExpandableAnswer>
 
-## Kafka Uses A Pull Model
+<ExpandableAnswer title="What must remain compatible during a rolling listener deployment?">
 
-Moved to [Spring Kafka Basics And Event Flow](kafka/SPRING-KAFKA-BASICS.md).
+Old and new replicas can share the group while partitions rebalance. Both versions
+must safely deserialize available events and apply compatible idempotency and
+database rules throughout the overlap window.
 
-## Consuming With `@KafkaListener`
+</ExpandableAnswer>
 
-Moved to [Spring Kafka Consumers And Delivery Semantics](kafka/SPRING-KAFKA-CONSUMERS.md).
+## Official Spring Kafka 4.x References
 
-## Consumer Groups
+- [Spring for Apache Kafka 4.0 reference](https://docs.spring.io/spring-kafka/reference/4.0/)
+- [Using Spring for Apache Kafka](https://docs.spring.io/spring-kafka/reference/4.0/kafka.html)
+- [Spring Kafka 4.0 API](https://docs.spring.io/spring-kafka/docs/4.0.x/api/)
 
-Moved to [Spring Kafka Consumers And Delivery Semantics](kafka/SPRING-KAFKA-CONSUMERS.md).
+## Recommended Next
 
-## Acknowledgments And Delivery Semantics
-
-Moved to [Spring Kafka Consumers And Delivery Semantics](kafka/SPRING-KAFKA-CONSUMERS.md).
-
-## Spring Kafka Transactions
-
-Moved to [Spring Kafka Consumers And Delivery Semantics](kafka/SPRING-KAFKA-CONSUMERS.md).
-
-## Is Kafka A Queue?
-
-Moved to [Spring Kafka Consumers And Delivery Semantics](kafka/SPRING-KAFKA-CONSUMERS.md).
-
-## Listener Threads
-
-Moved to [Spring Kafka Threads Concurrency And Capacity](kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md).
-
-## Concurrency And Multithreading
-
-Moved to [Spring Kafka Threads Concurrency And Capacity](kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md).
-
-## Determining Partition And Consumer Counts
-
-Moved to [Spring Kafka Threads Concurrency And Capacity](kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md).
-
-## Non-Blocking Retry With `@RetryableTopic`
-
-Moved to [Spring Kafka Retry DLT And Recovery](kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md).
-
-## `@DltHandler`
-
-Moved to [Spring Kafka Retry DLT And Recovery](kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md).
-
-## What "One Poison Event Produces One Recovery Record" Means
-
-Moved to [Spring Kafka Retry DLT And Recovery](kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md).
-
-## Idempotent Consumers
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Replaying Failed Events
-
-Moved to [Spring Kafka Retry DLT And Recovery](kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md).
-
-## Are Messages Being Lost?
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Consumer Lag
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Slow Consumer Response
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Useful Kafka Commands
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Observability
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Event Design Practices
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Production Checklist
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Related Guides
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
-
-## Official References
-
-Moved to [Spring Kafka Idempotency And Operations](kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md).
+Start with [Publishing And Event Flow](./kafka/SPRING-KAFKA-BASICS.md).

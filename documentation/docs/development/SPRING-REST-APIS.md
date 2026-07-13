@@ -1,107 +1,151 @@
-﻿---
-title: Spring REST APIs
+---
+title: Spring REST API Learning Guide
+description: Dependency-ordered route through Spring MVC controllers, validation, errors, files, pagination, idempotency, API contracts, clients and testing.
+difficulty: Intermediate
+page_type: Learning Path
+status: Shopverse
+prerequisites: [HTTP and REST fundamentals, Spring container basics]
+learning_objectives: [Design stable Spring REST contracts, Assign validation and error ownership, Prove security idempotency and compatibility behavior]
+technologies: [Spring MVC, Bean Validation, Jackson 3, OpenAPI]
+last_reviewed: "2026-07-13"
 ---
 
-# Spring REST APIs
+# Spring REST API Learning Guide
 
-Spring REST API material is split into controller design, request mapping, validation/errors, file handling, concurrency/idempotency/OpenAPI, REST clients, testing, and interviews.
+<DocLabels items={[
+  {label: 'Intermediate to lead', tone: 'intermediate'},
+  {label: 'Contract-first', tone: 'foundation'},
+  {label: 'Production APIs', tone: 'production'},
+  {label: 'Shopverse', tone: 'shopverse'},
+]} />
 
-## Shopverse Implementation Path
+Controllers adapt HTTP contracts to application use cases. They should not own database
+transactions, persistence entities, provider retries or distributed workflows. Follow the
+guides in contract dependency order.
 
-Shopverse shares a small amount of REST infrastructure:
+```mermaid
+flowchart LR
+    Contract["Resource and API contract"] --> Mapping["Request mapping and conversion"]
+    Mapping --> Validation["Validation and error ownership"]
+    Validation --> Command["Idempotent application command"]
+    Command --> Response["Stable response and pagination"]
+    Response --> Evidence["Contract, security and integration tests"]
+```
 
-| REST Concern | Shopverse page |
+## Core Request And Response Design
+
+<TopicCards items={[
+  {
+    title: 'Controller And CRUD Boundaries',
+    href: './spring-rest/REST-BASICS-CRUD',
+    description: 'Separate transport DTOs, application services and transactions.',
+    icon: 'layers',
+    tags: ['Controllers', 'DTOs'],
+  },
+  {
+    title: 'Request Mapping',
+    href: './spring-rest/REST-CONTROLLER-REQUEST-MAPPING',
+    description: 'Own paths, queries, headers, bodies, forms, conversion and status codes.',
+    icon: 'route',
+    tags: ['HTTP', 'Mapping'],
+  },
+  {
+    title: 'Bean Validation',
+    href: '../spring/SPRING-VALIDATION',
+    description: 'Choose body, method, cross-field, grouped and configuration validation.',
+    icon: 'security',
+    tags: ['Validation', 'Boundaries'],
+  },
+  {
+    title: 'REST Error Contracts',
+    href: './spring-rest/REST-ERROR-CONTRACTS',
+    description: 'Route parsing, validation, domain, security and infrastructure failures.',
+    icon: 'security',
+    tags: ['ProblemDetail', 'ApiErrorResponse'],
+  },
+]} />
+
+## Production Contract Patterns
+
+<TopicCards items={[
+  {
+    title: 'Secure File Transfer',
+    href: './spring-rest/REST-SECURE-FILE-TRANSFER',
+    description: 'Bound streaming, storage, quarantine, scanning, promotion and downloads.',
+    icon: 'boxes',
+    tags: ['Multipart', 'Security'],
+  },
+  {
+    title: 'Pagination And Conditional Requests',
+    href: './spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS',
+    description: 'Design stable sorting, cursors, ETags and optimistic HTTP concurrency.',
+    icon: 'route',
+    tags: ['Pagination', 'ETag'],
+  },
+  {
+    title: 'Idempotent Commands',
+    href: './spring-rest/REST-IDEMPOTENT-COMMANDS',
+    description: 'Handle concurrent first requests, payload identity, replay and retention.',
+    icon: 'network',
+    tags: ['Retries', 'Concurrency'],
+  },
+  {
+    title: 'OpenAPI Contract Governance',
+    href: './spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE',
+    description: 'Review compatibility, generated descriptions, deprecation and rollout.',
+    icon: 'book',
+    tags: ['OpenAPI', 'Evolution'],
+  },
+]} />
+
+## Clients, Testing And Interview Practice
+
+<TopicCards items={[
+  {
+    title: 'Spring HTTP Client Selection',
+    href: './spring-rest/REST-CLIENTS-FEIGN',
+    description: 'Choose RestClient, HTTP Service Clients, WebClient or existing Feign.',
+    icon: 'network',
+    tags: ['Timeouts', 'Pools'],
+  },
+  {
+    title: 'Spring REST Testing',
+    href: './spring-rest/REST-TESTING',
+    description: 'Prove MVC, security, serialization, idempotency and client behavior.',
+    icon: 'experiment',
+    tags: ['MockMvc', 'Integration'],
+  },
+  {
+    title: 'REST Interview Workbook',
+    href: './spring-rest/REST-INTERVIEW-WORKBOOK',
+    description: 'Attempt lead-level API questions before expanding model answers.',
+    icon: 'brain',
+    tags: ['Lead', 'Expandable'],
+  },
+]} />
+
+<DocCallout type="shopverse" title="Distinguish implemented behavior from target hardening">
+
+Shopverse uses shared error and pagination transport helpers, service-owned DTOs and
+idempotency keys in checkout. Payload fingerprinting and upload quarantine/scanning are
+documented as target hardening where the current code does not yet implement them.
+
+</DocCallout>
+
+## Shopverse Implementation Links
+
+| Concern | Repository-specific guide |
 |---|---|
-| Shared API error response record | [Common Error Contract](../platform/COMMON-ERROR.md) |
-| Shared page response and pagination helpers | [Shared Web Pagination](../platform/WEB-PAGINATION.md) |
-| Platform troubleshooting | [Platform Troubleshooting](../platform/TROUBLESHOOTING.md) |
+| Shared API errors | [Common Error Contract](../platform/COMMON-ERROR.md) |
+| Shared page envelopes | [Web Pagination](../platform/WEB-PAGINATION.md) |
+| Security starter | [Security Starter](../platform/SECURITY-STARTER.md) |
+| Runtime failures | [Runtime Reliability Problems](../reliability/problems/RUNTIME-RELIABILITY-PROBLEMS.md) |
 
-Controllers, request DTOs, response DTOs, endpoint sort fields, and exception
-policy remain service-owned. The platform modules standardize transport
-helpers only.
+## Official References
 
-## Focused Pages
+- [Spring MVC reference](https://docs.spring.io/spring-framework/reference/web/webmvc.html)
+- [Spring Boot web reference](https://docs.spring.io/spring-boot/reference/web/servlet.html)
 
-| Page | Covers |
-|---|---|
-| [Spring REST API Basics And CRUD](spring-rest/REST-BASICS-CRUD.md) | Dependencies, request lifecycle, and a clean CRUD structure. |
-| [Spring REST Request Mapping Validation And Errors](spring-rest/REST-MAPPING-VALIDATION-ERRORS.md) | Request data mapping, validation, ResponseEntity, and central error handling. |
-| [Spring REST Files Pagination And Idempotency](spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md) | Multipart uploads, downloads, pagination, conditional requests, idempotent commands, and OpenAPI docs. |
-| [Spring REST Clients And Feign](spring-rest/REST-CLIENTS-FEIGN.md) | RestTemplate, RestClient, WebClient, Feign, and choosing the right HTTP client. |
-| [Spring REST Testing And Interview Guide](spring-rest/REST-TESTING-INTERVIEW.md) | Controller testing, do and do not rules, interview questions, and related guides. |
+## Recommended Next
 
-## Compatibility Anchors
-
-The original long page was split into focused pages. These headings are kept so older links have a stable landing point.
-
-## Required Dependencies
-
-Moved to [Spring REST API Basics And CRUD](spring-rest/REST-BASICS-CRUD.md).
-
-## Request Lifecycle
-
-Moved to [Spring REST API Basics And CRUD](spring-rest/REST-BASICS-CRUD.md).
-
-## A Clean CRUD Structure
-
-Moved to [Spring REST API Basics And CRUD](spring-rest/REST-BASICS-CRUD.md).
-
-## Mapping Request Data
-
-Moved to [Spring REST Request Mapping Validation And Errors](spring-rest/REST-MAPPING-VALIDATION-ERRORS.md).
-
-## Validation
-
-Moved to [Spring REST Request Mapping Validation And Errors](spring-rest/REST-MAPPING-VALIDATION-ERRORS.md).
-
-## `ResponseEntity`
-
-Moved to [Spring REST Request Mapping Validation And Errors](spring-rest/REST-MAPPING-VALIDATION-ERRORS.md).
-
-## Central Error Handling
-
-Moved to [Spring REST Request Mapping Validation And Errors](spring-rest/REST-MAPPING-VALIDATION-ERRORS.md).
-
-## Multipart File Upload
-
-Moved to [Spring REST Files Pagination And Idempotency](spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md).
-
-## File Download
-
-Moved to [Spring REST Files Pagination And Idempotency](spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md).
-
-## Pagination, Sorting, And Filtering
-
-Moved to [Spring REST Files Pagination And Idempotency](spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md).
-
-## Conditional Requests And Optimistic Concurrency
-
-Moved to [Spring REST Files Pagination And Idempotency](spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md).
-
-## Idempotent Commands
-
-Moved to [Spring REST Files Pagination And Idempotency](spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md).
-
-## OpenAPI Documentation
-
-Moved to [Spring REST Files Pagination And Idempotency](spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md).
-
-## Calling Other REST APIs
-
-Moved to [Spring REST Clients And Feign](spring-rest/REST-CLIENTS-FEIGN.md).
-
-## Controller Testing
-
-Moved to [Spring REST Testing And Interview Guide](spring-rest/REST-TESTING-INTERVIEW.md).
-
-## Do And Do Not
-
-Moved to [Spring REST Testing And Interview Guide](spring-rest/REST-TESTING-INTERVIEW.md).
-
-## Lead Engineer Interview Questions
-
-Moved to [Spring REST Testing And Interview Guide](spring-rest/REST-TESTING-INTERVIEW.md).
-
-## Related Guides
-
-Moved to [Spring REST Testing And Interview Guide](spring-rest/REST-TESTING-INTERVIEW.md).
+Start with [Controller And CRUD Boundaries](./spring-rest/REST-BASICS-CRUD.md).

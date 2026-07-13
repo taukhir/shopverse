@@ -5,6 +5,29 @@ description: Time zones, DST, BigDecimal, overflow, randomness, TLS, XML, paths,
 
 # Java Time, Numeric Correctness And Security Boundaries
 
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Correctness boundary', tone: 'production'},
+  {label: 'Security-sensitive', tone: 'advanced'},
+]} />
+
+<DocCallout type="mistake" title="Never infer missing domain context">
+A timestamp without zone intent, an amount without currency, or a path without an
+authorized root is incomplete input—not permission to use a machine default.
+</DocCallout>
+
+```mermaid
+flowchart LR
+    Input["API date, amount, path or token input"] --> Parse["Parse with explicit contract"]
+    Parse --> Type["Instant/ZoneId, Money, Path, secret bytes"]
+    Type --> Validate["Range, currency, ownership and size checks"]
+    Validate --> Domain["Locale-neutral domain operation"]
+    Domain --> Render["Explicit locale, zone and safe diagnostics"]
+```
+
+The boundary converts ambiguous strings into types once. Domain logic should not infer
+a time zone, currency, locale, path root, or security policy from presentation text.
+
 Use `Instant` for a timeline point, `LocalDateTime` for a wall-clock value without
 zone, `OffsetDateTime` when an offset is part of the contract, and `ZonedDateTime`
 when region rules matter. DST creates gaps and overlaps; converting a local time
@@ -18,6 +41,35 @@ Construct decimals from strings for exact decimal intent, define scale and
 rounding at domain boundaries, and model money with currency plus amount. Use
 `Math.addExact`/related operations where primitive overflow must fail rather than
 wrap.
+
+## Shopverse Deadline And Money Example
+
+```java
+record Money(Currency currency, BigDecimal amount) {
+    Money {
+        Objects.requireNonNull(currency, "currency");
+        Objects.requireNonNull(amount, "amount");
+        amount = amount.setScale(currency.getDefaultFractionDigits(),
+                RoundingMode.UNNECESSARY);
+    }
+}
+
+boolean reservationExpired(Instant expiresAt, Clock clock) {
+    return !clock.instant().isBefore(expiresAt);
+}
+
+var fixedClock = Clock.fixed(
+        Instant.parse("2026-07-13T10:15:30Z"), ZoneOffset.UTC);
+assert reservationExpired(Instant.parse("2026-07-13T10:15:30Z"), fixedClock);
+```
+
+Injecting `Clock` makes the boundary deterministic. The money constructor rejects
+unexpected precision instead of silently rounding a payment amount. A separate domain
+operation must also reject arithmetic across different currencies.
+
+For a DST-sensitive delivery promise, persist the intended `ZoneId` with the local
+schedule. Resolve gaps/overlaps deliberately and store the resulting instant used for
+execution.
 
 Security review includes:
 
@@ -37,9 +89,24 @@ Encrypt, access-control, retain briefly and audit their handling.
 
 ## Tricky Interview Questions
 
-1. Why can one local time map to zero or two instants? DST gaps and overlaps.
-2. Why can equal monetary values fail `BigDecimal.equals`? Scale participates.
-3. Does converting a password to `String` preserve wipeability? No; immutable copies can remain until GC.
+<ExpandableAnswer title="Why can one local time map to zero or two instants?">
+
+DST gaps and overlaps.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can equal monetary values fail BigDecimal.equals?">
+
+Scale participates.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does converting a password to String preserve wipeability?">
+
+No; immutable copies can remain until GC.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

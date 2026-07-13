@@ -94,11 +94,36 @@ Without `volatile`, construction can be observed without the required publicatio
 
 ## Interview Traps
 
-1. Does `sleep` release a synchronized lock? No.
-2. Does `wait` release every lock a thread owns? No, only the monitor on which it waits.
-3. Why use `while`, not `if`, around `wait`? Conditions must be rechecked after every wakeup.
-4. Can instance and static synchronized methods execute together? Yes, because they lock different objects.
-5. Does `join` stop the joined thread? No; it blocks the caller until termination.
+<ExpandableAnswer title="Does sleep release a synchronized lock?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does wait release every lock a thread owns?">
+
+No, only the monitor on which it waits.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why use while, not if, around wait?">
+
+Conditions must be rechecked after every wakeup.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can instance and static synchronized methods execute together?">
+
+Yes, because they lock different objects.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does join stop the joined thread?">
+
+No; it blocks the caller until termination.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

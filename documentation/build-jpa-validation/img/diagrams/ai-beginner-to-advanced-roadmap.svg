@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">AI learning roadmap from beginner to advanced</title>
+  <desc id="desc">A four-stage roadmap from LLM basics to advanced production AI systems.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}
+      .stage{fill:#ffffff;stroke:#111827;stroke-width:2;rx:14}
+      .s1{fill:#eff6ff;stroke:#2563eb}
+      .s2{fill:#ecfeff;stroke:#0891b2}
+      .s3{fill:#f0fdf4;stroke:#16a34a}
+      .s4{fill:#fff7ed;stroke:#ea580c}
+      .title{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:25px;fill:#111827;font-weight:700}
+      .text{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:19px;fill:#111827;font-weight:700}
+      .small{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#374151}
+      .line{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="680"/>
+  <text class="title" x="48" y="54">Beginner To Advanced AI Engineering Roadmap</text>
+  <text class="small" x="48" y="84">Master the request flow first, then add RAG, tools, reliability, and evaluation.</text>
+
+  <rect class="stage s1" x="70" y="150" width="240" height="330"/>
+  <text class="text" x="108" y="192">1. Beginner</text>
+  <text class="small" x="96" y="232">LLM basics</text>
+  <text class="small" x="96" y="262">Prompting</text>
+  <text class="small" x="96" y="292">Tokens and context</text>
+  <text class="small" x="96" y="322">Simple Chat API</text>
+  <text class="small" x="96" y="352">JSON extraction</text>
+  <text class="small" x="96" y="396">Output:</text>
+  <text class="small" x="96" y="424">/api/ai/chat works</text>
+
+  <rect class="stage s2" x="350" y="150" width="240" height="330"/>
+  <text class="text" x="396" y="192">2. Intermediate</text>
+  <text class="small" x="376" y="232">Embeddings</text>
+  <text class="small" x="376" y="262">Vector DB</text>
+  <text class="small" x="376" y="292">Chunking</text>
+  <text class="small" x="376" y="322">RAG</text>
+  <text class="small" x="376" y="352">Sources</text>
+  <text class="small" x="376" y="396">Output:</text>
+  <text class="small" x="376" y="424">Policy Q&amp;A works</text>
+
+  <rect class="stage s3" x="630" y="150" width="240" height="330"/>
+  <text class="text" x="682" y="192">3. Advanced</text>
+  <text class="small" x="656" y="232">Tool calling</text>
+  <text class="small" x="656" y="262">Memory</text>
+  <text class="small" x="656" y="292">Hybrid search</text>
+  <text class="small" x="656" y="322">Reranking</text>
+  <text class="small" x="656" y="352">Streaming</text>
+  <text class="small" x="656" y="396">Output:</text>
+  <text class="small" x="656" y="424">Real product assistant</text>
+
+  <rect class="stage s4" x="910" y="150" width="240" height="330"/>
+  <text class="text" x="952" y="192">4. Production</text>
+  <text class="small" x="936" y="232">Evaluation</text>
+  <text class="small" x="936" y="262">Guardrails</text>
+  <text class="small" x="936" y="292">Observability</text>
+  <text class="small" x="936" y="322">Cost control</text>
+  <text class="small" x="936" y="352">Security</text>
+  <text class="small" x="936" y="396">Output:</text>
+  <text class="small" x="936" y="424">Interview-ready system</text>
+
+  <path class="line" d="M 310 315 L 350 315"/>
+  <path class="line" d="M 590 315 L 630 315"/>
+  <path class="line" d="M 870 315 L 910 315"/>
+
+  <text class="small" x="70" y="560">Rule: Do not jump to agents before you can explain chat, embeddings, vector search, RAG, and tool calling clearly.</text>
+</svg>

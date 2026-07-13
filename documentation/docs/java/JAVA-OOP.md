@@ -1,248 +1,87 @@
 ---
-title: Java OOP
+title: Java OOP Learning Guide
 sidebar_position: 1
+description: A concise route through Java object design, relationships, polymorphism, contracts, and language mechanics.
 ---
 
 # Java Object-Oriented Programming
 
-:::info Canonical learning route
-Use this page for the OOP map. Specification-level dispatch, construction and
-compatibility live in [Language And OOP Internals](./JAVA-LANGUAGE-OOP-INTERNALS.md),
-with modern abstraction rules in [Abstract Classes And Interfaces](./JAVA-ABSTRACTION-INTERFACES.md).
-:::
+<DocLabels items={[
+  {label: 'Foundation', tone: 'foundation'},
+  {label: 'Design review', tone: 'intermediate'},
+  {label: 'Shopverse examples', tone: 'shopverse'},
+]} />
 
-Object-oriented programming models behavior and state around collaborating
-objects. Good OOP emphasizes cohesive responsibilities and explicit
-relationships, not merely creating many classes.
+Object-oriented design assigns state and behavior to collaborators with clear
+responsibilities. The goal is not a large class hierarchy; it is a model whose
+invariants, ownership, and extension points remain understandable as Shopverse
+changes.
 
-## Four Main Principles
+## The Design Map
 
-### Encapsulation
-
-Keep state valid by controlling mutation:
-
-```java
-public final class BankAccount {
-    private BigDecimal balance = BigDecimal.ZERO;
-
-    public void deposit(BigDecimal amount) {
-        if (amount.signum() <= 0) {
-            throw new IllegalArgumentException("Amount must be positive");
-        }
-        balance = balance.add(amount);
-    }
-
-    public BigDecimal balance() {
-        return balance;
-    }
-}
+```mermaid
+flowchart LR
+  invariant["Protect domain invariants"] --> object["Cohesive object"]
+  object --> ownership["Choose ownership and lifecycle"]
+  ownership --> contract["Expose a focused contract"]
+  contract --> variants["Substitute domain behaviors"]
+  variants --> verify["Preserve equality and subtype contracts"]
 ```
 
-Encapsulation is not just private fields plus getters/setters. `setBalance()`
-would expose an invalid state transition.
-
-### Abstraction
-
-Expose what a collaborator needs without exposing implementation:
-
-```java
-public interface PaymentGateway {
-    PaymentResult authorize(PaymentCommand command);
-}
-```
-
-The caller depends on the capability, while Stripe, bank, and stub adapters can
-implement it differently.
-
-### Inheritance
-
-Inheritance represents an **is-a** relationship:
-
-```java
-sealed interface PaymentResult
-        permits Authorized, Declined {
-}
-
-record Authorized(String reference) implements PaymentResult {}
-record Declined(String reason) implements PaymentResult {}
-```
-
-Prefer composition when subclasses would inherit behavior they cannot honor.
-
-### Polymorphism
-
-The same contract supports different runtime behavior:
-
-```java
-public final class PaymentService {
-    private final PaymentGateway gateway;
-
-    public PaymentService(PaymentGateway gateway) {
-        this.gateway = gateway;
-    }
-
-    public PaymentResult pay(PaymentCommand command) {
-        return gateway.authorize(command);
-    }
-}
-```
-
-## Association, Aggregation, And Composition
-
-### Association
-
-Objects know or use one another without lifecycle ownership:
-
-```java
-class Doctor {
-    void consult(Patient patient) {
-        // Doctor and patient exist independently.
-    }
-}
-```
-
-### Aggregation
-
-A whole contains parts, but parts can exist independently:
-
-```java
-class Team {
-    private final List<Player> players;
-
-    Team(List<Player> players) {
-        this.players = List.copyOf(players);
-    }
-}
-```
-
-Players can exist or move after the team is removed.
-
-### Composition
-
-The whole owns the lifecycle and invariant of its parts:
-
-```java
-class Order {
-    private final List<OrderLine> lines = new ArrayList<>();
-
-    void addItem(Product product, int quantity) {
-        lines.add(new OrderLine(product.id(), quantity, product.price()));
-    }
-
-    private record OrderLine(long productId, int quantity, BigDecimal price) {}
-}
-```
-
-`OrderLine` belongs to one Order and has no useful independent lifecycle.
-
-## Is-A And Has-A
-
-```text
-AuthorizedPayment is-a PaymentResult
-Order has-a collection of OrderLine
-```
-
-Use inheritance only for a truthful substitutable is-a relationship. Use
-composition for configurable behavior and owned collaborators.
-
-## Overloading And Overriding
-
-### Overloading
-
-Same method name, different parameter list; selected at compile time:
-
-```java
-void send(String message) {}
-void send(String message, Duration timeout) {}
-```
-
-Return type alone cannot overload a method.
-
-### Overriding
-
-A subtype replaces inherited behavior; selected at runtime:
-
-```java
-interface Formatter {
-    String format(Object value);
-}
-
-class JsonFormatter implements Formatter {
-    @Override
-    public String format(Object value) {
-        return value.toString();
-    }
-}
-```
-
-An overriding method cannot reduce visibility and may use a covariant return
-type. Static methods are hidden, not overridden.
-
-## Abstract Class Versus Interface
-
-| Interface | Abstract class |
-|---|---|
-| capability/contract | shared base state and behavior |
-| multiple interfaces allowed | one class superclass |
-| supports default/static/private methods | constructors and instance fields |
-| ideal for ports and strategies | useful for strongly related implementations |
-
-Do not add an abstract base class only to reuse a few utility methods.
-
-## Equality
-
-When overriding `equals`, also override `hashCode`:
-
-```java
-public record ProductId(long value) {}
-```
-
-Records provide value-based equality automatically. Mutable fields used in a
-hash key can make an object unreachable inside `HashMap` or `HashSet`.
-
-## SOLID Connection
-
-- **SRP:** one reason to change.
-- **OCP:** extend behavior through contracts rather than editing conditionals.
-- **LSP:** every subtype must honor the base contract.
-- **ISP:** prefer focused interfaces.
-- **DIP:** depend on abstractions at architectural boundaries.
-
-## Interview And Tricky Questions
-
-### Can A Constructor Be Overridden?
-
-No. Constructors are not inherited. They can be overloaded.
-
-### Can A Private Method Be Overridden?
-
-No. It is not visible to the subclass.
-
-### Why Prefer Composition Over Inheritance?
-
-Composition avoids rigid hierarchies, inherited unwanted behavior, and tight
-coupling. Inheritance remains appropriate for a stable substitutable model.
-
-### Overriding Versus Hiding?
-
-Instance methods are overridden dynamically. Static methods and fields are
-resolved from the declared type and are hidden.
-
-### Can An Abstract Class Have A Constructor?
-
-Yes. Subclass construction invokes it to initialize base state.
-
-## Practices
-
-| Do | Avoid |
-|---|---|
-| model business behavior, not data bags | public mutable fields |
-| preserve invariants inside methods | setter for every field |
-| favor immutable value objects | inheritance only for code reuse |
-| program to focused contracts | deep class hierarchies |
-| use records for immutable data carriers | records for mutable entities |
+| Question | OOP idea | Shopverse example |
+|---|---|---|
+| Who may change this state? | encapsulation | `Order` changes status through named transitions |
+| Who owns this object's lifecycle? | composition | an order creates and owns its order lines |
+| Can every subtype honor the same promises? | inheritance and LSP | every `PaymentProvider` must return the provider-neutral result contract |
+| Can behavior vary without changing the caller? | polymorphism | payment processing calls the configured provider through one port |
+| When are two values logically the same? | object contracts | an immutable order number can use value equality; a persisted entity needs a deliberate identity policy |
+
+## Learning Route
+
+<TopicCards items={[
+  {title: 'Composition and inheritance', href: '/java/oop/OOP-COMPOSITION-INHERITANCE', description: 'Model association, ownership, lifecycle, and truthful subtype relationships.', icon: 'layers', tags: ['Ownership', 'LSP']},
+  {title: 'Polymorphism and contracts', href: '/java/oop/OOP-DOMAIN-POLYMORPHISM-OBJECT-CONTRACTS', description: 'Apply ports and strategies while preserving equality and identity rules.', icon: 'boxes', tags: ['Domain design', 'Equality']},
+  {title: 'Abstraction and interfaces', href: '/java/JAVA-ABSTRACTION-INTERFACES', description: 'Choose Java abstraction tools and resolve interface method conflicts.', icon: 'code', tags: ['Interfaces', 'Functional Java']},
+  {title: 'Overloading resolution', href: '/java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE', description: 'Predict compile-time method selection across conversions and varargs.', icon: 'route', tags: ['Compiler', 'Interview depth']},
+  {title: 'Overriding and hiding', href: '/java/JAVA-OVERRIDING-HIDING-DEEP-DIVE', description: 'Separate runtime dispatch from static method and field resolution.', icon: 'brain', tags: ['Dispatch', 'Tricky cases']},
+  {title: 'Language and OOP internals', href: '/java/JAVA-LANGUAGE-OOP-INTERNALS', description: 'Explore construction, bridge methods, dispatch, and compatibility mechanics.', icon: 'experiment', tags: ['JVM', 'Internals']},
+]} />
+
+## Four Principles In One Review
+
+| Principle | Review test | Warning sign |
+|---|---|---|
+| encapsulation | can invalid state be created without using domain behavior? | public mutation or a setter for every field |
+| abstraction | does a caller see only the capability it needs? | provider or persistence details leak into domain code |
+| inheritance | is the subtype substitutable for the base contract? | inheritance exists only to reuse implementation |
+| polymorphism | can a new valid behavior be added behind the same contract? | caller branches on concrete implementation type |
+
+These principles reinforce one another. A focused abstraction enables
+polymorphism; composition supplies that abstraction to a cohesive object;
+encapsulation keeps the resulting collaboration valid.
+
+<DocCallout type="mistake" title="Inheritance is a behavioral promise">
+A subtype must preserve the base type's valid inputs, outputs, failures, and
+side-effect expectations. Reusing a few methods is not enough to justify an
+inheritance relationship.
+</DocCallout>
+
+## Shopverse Review Checklist
+
+- Put state transitions such as `confirm`, `cancel`, and `refund` beside the
+  state they protect.
+- State whether each relationship means temporary use, shared membership, or
+  lifecycle ownership.
+- Prefer focused ports at service boundaries and keep provider DTOs behind
+  adapters.
+- Require every implementation to preserve success, failure, validation, and
+  side-effect expectations.
+- Make value objects immutable and define entity equality deliberately.
+- Keep class hierarchies shallow; use sealed types when the domain truly has a
+  closed set of alternatives.
 
 ## Official References
 
 - [JLS classes](https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html)
 - [JLS interfaces](https://docs.oracle.com/javase/specs/jls/se25/html/jls-9.html)
+- [`Object` API contracts](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html)

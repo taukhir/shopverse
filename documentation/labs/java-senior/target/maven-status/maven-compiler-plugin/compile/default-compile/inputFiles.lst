@@ -2,10 +2,14 @@ D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopver
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\AdvancedApisLab.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\ClassLoaderIdentityLab.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\CollectionBenchmark.java
+D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\CoreLanguageScenarios.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\DirectMemoryPressureLab.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\FinalFieldPublicationStress.java
+D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\ForkJoinSumLab.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\GcAllocationWorkload.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\ObjectLayoutLab.java
+D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\ParallelStreamBenchmark.java
+D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\RangeSpliterator.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\SelectorEchoLab.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\ThreadPoolSaturationLab.java
 D:\BE Projects\shopverse\documentation\labs\java-senior\src\main\java\io\shopverse\labs\UnsafePublicationStress.java

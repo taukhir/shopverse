@@ -1,146 +1,131 @@
-﻿---
+---
 title: Spring Data JPA
+description: Canonical Spring Data JPA route covering repository integration, fetch plans, transactions, auditing, and production evidence.
+difficulty: Intermediate
+page_type: Learning Path
+status: Generic
+prerequisites: [Hibernate basics, Spring transactions, Relational database fundamentals]
+learning_objectives: [Choose the correct Spring Data repository mechanism, Define explicit fetch and transaction boundaries, Verify persistence behavior with database evidence]
+technologies: [Spring Data JPA, Hibernate ORM, JDBC, Liquibase]
+last_reviewed: "2026-07-13"
 ---
 
 # Spring Data JPA
 
-Spring Data JPA is split into focused pages for entity mapping, relationships, repositories, fetching, locking, and production practices.
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Canonical route', tone: 'foundation'},
+  {label: 'Production data', tone: 'production'},
+  {label: 'Shopverse evidence', tone: 'shopverse'},
+]} />
+
+Spring Data JPA supplies repository composition, query derivation, projections,
+specifications, auditing integration, and transaction participation. Hibernate is
+the ORM provider used by Shopverse, but its object lifecycle and mapping internals
+have a separate canonical home in [Hibernate](../data/HIBERNATE.md).
+
+```mermaid
+flowchart LR
+    API["Service transaction"] --> Repo["Spring Data repository proxy"]
+    Repo --> EM["EntityManager"]
+    EM --> ORM["Hibernate unit of work"]
+    ORM --> JDBC["JDBC connection"]
+    JDBC --> DB[("Relational database")]
+    Repo -. "projection / entity graph / lock" .-> EM
+```
+
+<DocCallout type="production" title="The repository is not the data boundary">
+
+A repository method can generate a query, but the service transaction owns the
+business invariant. Generated SQL, indexes, locks, connection capacity, and schema
+compatibility still determine whether the operation is correct in production.
+
+</DocCallout>
 
 ## Focused Pages
 
-| Page | Covers |
+<TopicCards items={[
+  {title: 'Entity integration', href: '/spring/jpa/JPA-BASICS-ENTITY-MAPPING', description: 'Connect the Spring repository model to deliberate entity and schema contracts.', icon: 'layers', tags: ['Entities', 'Schema']},
+  {title: 'Associations and ownership', href: '/spring/jpa/JPA-RELATIONSHIPS-JSON', description: 'Define the owning side, aggregate mutation rules, cascades, and fetch boundaries.', icon: 'network', tags: ['Ownership', 'Cascades']},
+  {title: 'Repositories and queries', href: '/spring/jpa/JPA-REPOSITORIES-QUERIES', description: 'Choose derived queries, JPQL, projections, specifications, and safe sorting.', icon: 'code', tags: ['Queries', 'Projections']},
+  {title: 'Fetching and evidence', href: '/spring/jpa/JPA-FETCHING-PERFORMANCE', description: 'Control query shape and prove N+1, pagination, and batching behavior.', icon: 'gauge', tags: ['N+1', 'SQL evidence']},
+  {title: 'Transactions and locking', href: '/spring/jpa/JPA-TRANSACTIONS-LOCKING', description: 'Protect invariants with transaction boundaries, versions, locks, and conditional updates.', icon: 'security', tags: ['Concurrency', 'Outbox']},
+  {title: 'Auditing and deletes', href: '/spring/jpa/JPA-AUDITING-DELETING-TESTING', description: 'Populate audit metadata and choose entity, bulk, archive, or soft-delete semantics.', icon: 'book', tags: ['Auditing', 'Deletion']},
+]} />
+
+## Ownership Boundary
+
+| Question | Canonical guide |
 |---|---|
-| [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md) | Core flow, dependencies, entity lifecycle, identifiers, embedded values, composite keys, and enums. |
-| [JPA Relationships And JSON Serialization](jpa/JPA-RELATIONSHIPS-JSON.md) | Relationship ownership, Jackson relationship annotations, cascades, orphan removal, and fetch-plan basics. |
-| [JPA Repositories Queries And Projections](jpa/JPA-REPOSITORIES-QUERIES.md) | Repository interfaces, derived queries, JPQL, native SQL, projections, specifications, and SQL injection prevention. |
-| [JPA Fetching Performance And N Plus One](jpa/JPA-FETCHING-PERFORMANCE.md) | N+1 prevention, batching, pagination, query hints, optimization workflow, and production rules. |
-| [JPA Transactions Locking And Concurrency](jpa/JPA-TRANSACTIONS-LOCKING.md) | Transaction boundaries, optimistic locking, pessimistic locking, atomic conditional updates, and Shopverse concurrency decisions. |
-| [JPA Auditing Deleting And Repository Testing](jpa/JPA-AUDITING-DELETING-TESTING.md) | Auditing, delete behavior, repository tests, and related guides. |
+| How does Spring create and compose repository proxies? | This Spring Data JPA track |
+| Which query abstraction should a repository expose? | [Repositories And Queries](./jpa/JPA-REPOSITORIES-QUERIES.md) |
+| What are managed, detached, and removed states? | [Hibernate Basics And Lifecycle](../data/hibernate/HIBERNATE-BASICS-LIFECYCLE.md) |
+| How does Hibernate dirty checking become SQL? | [Persistence Runtime For Architects](./SPRING-JPA-HIBERNATE-ARCHITECT.md) |
+| How should HTTP JSON be isolated from entities? | [HTTP Message Conversion And Jackson](./web/HTTP-MESSAGE-CONVERSION-JACKSON.md) |
 
-## Compatibility Anchors
+## Shopverse Current State
 
-The original long page was split into focused pages. These headings are kept so older links have a stable landing point.
+<DocCallout type="shopverse" title="Current implementation">
 
-## Core Flow
+Order and User repositories declare entity graphs for known read paths. User and
+Role repositories also expose `JpaSpecificationExecutor`; Inventory protects stock
+with `@Version`; and domain services persist state plus outbox rows in one database
+transaction. These are current repository-backed patterns, not a claim that every
+query or migration is already optimal.
 
-Moved to [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md).
+</DocCallout>
 
-## Dependencies
+## Production Completion Standard
 
-Moved to [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md).
+Before approving a repository change, require:
 
-## Entity Lifecycle And Persistence Context
-
-Moved to [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md).
-
-## Basic Entity Mapping
-
-Moved to [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md).
-
-## Primary Key Strategies
-
-Moved to [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md).
-
-## Embedded Value Objects
-
-Moved to [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md).
-
-## Composite Primary Keys
-
-Moved to [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md).
-
-## Enum Mapping
-
-Moved to [JPA Basics And Entity Mapping](jpa/JPA-BASICS-ENTITY-MAPPING.md).
-
-## Relationship Ownership
-
-Moved to [JPA Relationships And JSON Serialization](jpa/JPA-RELATIONSHIPS-JSON.md).
-
-## Jackson And Entity Relationships
-
-Moved to [JPA Relationships And JSON Serialization](jpa/JPA-RELATIONSHIPS-JSON.md).
-
-## Cascades And Orphan Removal
-
-Moved to [JPA Relationships And JSON Serialization](jpa/JPA-RELATIONSHIPS-JSON.md).
-
-## Fetch Types And Fetch Plans
-
-Moved to [JPA Relationships And JSON Serialization](jpa/JPA-RELATIONSHIPS-JSON.md).
-
-## Repository Interfaces
-
-Moved to [JPA Repositories Queries And Projections](jpa/JPA-REPOSITORIES-QUERIES.md).
-
-## Derived Queries
-
-Moved to [JPA Repositories Queries And Projections](jpa/JPA-REPOSITORIES-QUERIES.md).
-
-## Custom JPQL Queries
-
-Moved to [JPA Repositories Queries And Projections](jpa/JPA-REPOSITORIES-QUERIES.md).
-
-## Native SQL Queries
-
-Moved to [JPA Repositories Queries And Projections](jpa/JPA-REPOSITORIES-QUERIES.md).
-
-## Projections
-
-Moved to [JPA Repositories Queries And Projections](jpa/JPA-REPOSITORIES-QUERIES.md).
-
-## Specifications And Dynamic Queries
-
-Moved to [JPA Repositories Queries And Projections](jpa/JPA-REPOSITORIES-QUERIES.md).
-
-## SQL Injection Risks And Prevention
-
-Moved to [JPA Repositories Queries And Projections](jpa/JPA-REPOSITORIES-QUERIES.md).
-
-## The N+1 Query Problem
-
-Moved to [JPA Fetching Performance And N Plus One](jpa/JPA-FETCHING-PERFORMANCE.md).
-
-## JDBC Batching
-
-Moved to [JPA Fetching Performance And N Plus One](jpa/JPA-FETCHING-PERFORMANCE.md).
-
-## Transactions
-
-Moved to [JPA Transactions Locking And Concurrency](jpa/JPA-TRANSACTIONS-LOCKING.md).
+1. the business invariant and transaction owner;
+2. the intended query and fetch shape;
+3. indexes and expected cardinality;
+4. timeout, lock, and connection-pool behavior;
+5. an expand-and-contract schema rollout when compatibility spans deployments;
+6. integration evidence from the production database engine;
+7. a rollback that remains valid after old and new application versions overlap.
 
 ## Locking And Concurrency
 
-Moved to [JPA Transactions Locking And Concurrency](jpa/JPA-TRANSACTIONS-LOCKING.md).
+The former landing-page anchor remains here for compatibility. Canonical coverage
+is in [JPA Transactions Locking And Concurrency](./jpa/JPA-TRANSACTIONS-LOCKING.md).
 
-## Auditing
+## Interview Check
 
-Moved to [JPA Auditing Deleting And Repository Testing](jpa/JPA-AUDITING-DELETING-TESTING.md).
+<ExpandableAnswer title="Why is a JpaRepository method not automatically a business transaction?">
 
-## Deleting Entities
+Repository methods have transactional behavior for their own operation, but a
+business invariant often spans several reads, writes, and an outbox insert. Put the
+boundary on the service operation that owns the complete invariant.
 
-Moved to [JPA Auditing Deleting And Repository Testing](jpa/JPA-AUDITING-DELETING-TESTING.md).
+</ExpandableAnswer>
 
-## Pagination And Sorting
+<ExpandableAnswer title="When should a Spring Data page link to Hibernate rather than repeat it?">
 
-Moved to [JPA Fetching Performance And N Plus One](jpa/JPA-FETCHING-PERFORMANCE.md).
+Link when the subject is provider lifecycle, dirty checking, proxy behavior, or
+generic mapping mechanics. Keep the Spring page focused on repository composition,
+query declarations, transaction integration, and framework-specific evidence.
 
-## Query Hints And Timeouts
+</ExpandableAnswer>
 
-Moved to [JPA Fetching Performance And N Plus One](jpa/JPA-FETCHING-PERFORMANCE.md).
+<ExpandableAnswer title="What evidence should accompany a new repository query?">
 
-## Testing Repository Behavior
+Capture generated SQL and bind values safely, inspect the execution plan with
+representative cardinality, verify query count and result shape, and test timeouts
+and concurrency against the production database engine.
 
-Moved to [JPA Auditing Deleting And Repository Testing](jpa/JPA-AUDITING-DELETING-TESTING.md).
+</ExpandableAnswer>
 
-## Query Optimization Workflow
+## Official References
 
-Moved to [JPA Fetching Performance And N Plus One](jpa/JPA-FETCHING-PERFORMANCE.md).
+- [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/reference/)
+- [Spring Framework transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
+- [Hibernate ORM user guide](https://docs.hibernate.org/orm/current/userguide/html_single/)
 
-## Production Do And Do Not
+## Recommended Next
 
-Moved to [JPA Fetching Performance And N Plus One](jpa/JPA-FETCHING-PERFORMANCE.md).
-
-## Related Guides
-
-Moved to [JPA Auditing Deleting And Repository Testing](jpa/JPA-AUDITING-DELETING-TESTING.md).
+Start with [Entity Integration](./jpa/JPA-BASICS-ENTITY-MAPPING.md), or use
+[Persistence Runtime For Architects](./SPRING-JPA-HIBERNATE-ARCHITECT.md) for the
+complete runtime synthesis.

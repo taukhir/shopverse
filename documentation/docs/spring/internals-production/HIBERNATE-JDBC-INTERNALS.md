@@ -1,67 +1,60 @@
 ---
-title: Hibernate, JDBC, And Connection Internals
+title: Persistence Runtime Compatibility Route
+description: Compatibility route from the former Hibernate and JDBC internals chapter to the canonical persistence-runtime architecture guide.
 difficulty: Advanced
-page_type: Tutorial
+page_type: Reference
 status: Generic
-keywords: [persistence context, dirty checking, action queue, flush mode, JDBC batching, HikariCP, replica routing]
-learning_objectives: [Trace entity changes to SQL, Prevent fetch and batching pathologies, Size connections and route reads consistently]
-technologies: [Hibernate, JDBC, HikariCP, PostgreSQL, MySQL]
-last_reviewed: "2026-07-12"
+prerequisites: [Spring Data JPA]
+learning_objectives: [Locate the canonical Spring persistence-runtime guide]
+technologies: [Spring Data JPA, Hibernate ORM, JDBC]
+last_reviewed: "2026-07-13"
 ---
 
-# Hibernate, JDBC, And Connection Internals
+# Persistence Runtime Compatibility Route
 
-The persistence context is an identity map and unit of work. Managed entities are
-tracked; dirty checking compares state or enhanced change tracking; flush converts
-changes into an action queue of inserts/updates/deletes and collection operations.
-Flush can occur before commit and before queries whose results could be affected.
+<DocLabels items={[
+  {label: 'Compatibility route', tone: 'foundation'},
+  {label: 'Advanced', tone: 'advanced'},
+]} />
 
-Flush mode controls synchronization timing, not transaction durability. Bulk
-JPQL/SQL bypasses managed entity state; clear/refresh or separate the context to
-avoid stale objects. Large batches need periodic flush/clear to bound memory.
+<DocCallout type="tip" title="This material has one canonical home">
 
-Action ordering and JDBC batching depend on entity identifiers, statement shape,
-versioning, driver rewrite settings, and configured batch/order options. Measure
-round trips and generated SQL; an ORM batch setting alone proves nothing.
+Hibernate dirty checking, flush, query plans, locking, connection capacity, schema
+rollout, and incident evidence now live in
+[Spring Data JPA And Hibernate Runtime For Architects](../SPRING-JPA-HIBERNATE-ARCHITECT.md).
+This URL remains available so existing bookmarks do not lead to duplicated prose.
 
-## Fetching Failures
+</DocCallout>
 
-N+1 results when association access triggers one query per parent. Join fetch can
-solve one path but multiple to-many joins create Cartesian multiplication, memory,
-and pagination errors. Use projections, entity graphs, batch fetching, two-step ID
-pagination, or explicit queries matched to use cases. Never serialize entities
-directly and discover lazy loads during JSON rendering.
+<TopicCards items={[
+  {title: 'Persistence runtime for architects', href: '/spring/SPRING-JPA-HIBERNATE-ARCHITECT', description: 'Use the canonical Spring transaction, Hibernate, JDBC, capacity, and rollout synthesis.', icon: 'layers', tags: ['Canonical', 'Architecture']},
+  {title: 'Hibernate reference track', href: '/data/HIBERNATE', description: 'Review provider-level lifecycle, mapping, fetching, caching, and interview scenarios.', icon: 'book', tags: ['Hibernate', 'Reference']},
+]} />
 
-## Locking And Isolation
+## Route By Symptom
 
-Optimistic versions detect lost updates at flush. Pessimistic locks coordinate
-database rows but can block/deadlock and should not span remote I/O. Conditional
-updates express invariants atomically. Test write skew, nonrepeatable/phantom reads,
-deadlocks, lock timeouts, retry bounds, and actual engine isolation.
+Use the symptom to enter the canonical material instead of reading another copy of
+the same runtime explanation:
 
-## Connections
+| Symptom or decision | Canonical destination |
+|---|---|
+| a read query unexpectedly flushes pending writes | [Runtime Mental Model](../SPRING-JPA-HIBERNATE-ARCHITECT.md#runtime-mental-model) |
+| datasource acquisition time rises with request concurrency | [Connection Capacity](../SPRING-JPA-HIBERNATE-ARCHITECT.md#connection-capacity) |
+| one request emits many association queries | [Fetching Performance](../jpa/JPA-FETCHING-PERFORMANCE.md) |
+| bulk JPQL is followed by stale managed state | [Batching And Bulk Work](../SPRING-JPA-HIBERNATE-ARCHITECT.md#batching-and-bulk-work) |
+| an optimistic conflict or row-lock timeout needs a retry decision | [Transactions Locking And Concurrency](../jpa/JPA-TRANSACTIONS-LOCKING.md) |
+| a column, key, enum, or index must change during rolling deployment | [Schema Evolution And Rollback](../SPRING-JPA-HIBERNATE-ARCHITECT.md#schema-evolution-and-rollback) |
 
-A pool reuses expensive physical sessions and bounds database concurrency. Size
-from measured service time, CPU/I/O/lock behavior, workload mix, total replicas,
-database capacity, and failure headroom. Monitor active/idle/pending/acquisition,
-timeouts, usage, leaks, database sessions and saturation. Leak detection is a clue,
-not a substitute for tracing ownership.
+For an incident, start with the trace or metric that identifies transaction time,
+query count, lock wait, or connection acquisition. Follow only the corresponding
+destination above, capture the stated evidence, and return to the architect synthesis
+when the failure crosses more than one persistence boundary.
 
-Read/write routing must decide before transaction connection acquisition. Replica
-reads are stale; read-after-write may require primary routing, a consistency token,
-or bounded wait. Never route a transaction with writes onto a replica.
+## Official References
 
-## Lab
-
-Capture SQL/statistics for N+1, join explosion, batching, bulk-update stale context,
-optimistic conflict, lock wait, pool saturation, and replica lag simulation.
+- [Spring Data JPA reference](https://docs.spring.io/spring-data/jpa/reference/)
+- [Hibernate ORM user guide](https://docs.hibernate.org/orm/current/userguide/html_single/)
 
 ## Recommended Next Page
 
 [Production Lifecycle, Security, And Observability](./PRODUCTION-LIFECYCLE.md)
-
-## Official References
-
-- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
-- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
-- [Spring project documentation](https://spring.io/projects)

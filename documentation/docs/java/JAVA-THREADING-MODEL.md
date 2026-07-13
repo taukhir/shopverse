@@ -199,9 +199,24 @@ Look for:
 
 ## Tricky Interview Questions
 
-1. Does returning from `main` stop the JVM? Not while non-daemon threads live.
-2. Does `RUNNABLE` mean currently on CPU? It also includes ready execution.
-3. Can priority enforce correctness or QoS? No.
+<ExpandableAnswer title="Does returning from main stop the JVM?">
+
+Not while non-daemon threads live.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does RUNNABLE mean currently on CPU?">
+
+It also includes ready execution.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can priority enforce correctness or QoS?">
+
+No.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

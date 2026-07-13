@@ -154,9 +154,7 @@ Avoid generic parameters that do not add safety or clarity.
 
 ## Interview Questions
 
-### Why use generics?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="Why use generics?">
 
 Generics provide compile-time type safety and allow reusable APIs without
 unsafe casts or duplicated implementations for every element type.
@@ -167,18 +165,14 @@ unsafe casts or duplicated implementations for every element type.
 
 - [JLS types, values and variables](https://docs.oracle.com/javase/specs/jls/se25/html/jls-4.html)
 
-### What is type erasure?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="What is type erasure?">
 
 Generic type parameters are mostly removed from bytecode for backward
 compatibility. The compiler inserts casts and bridge methods where required.
 
 </ExpandableAnswer>
 
-### When should you use `extends` versus `super`?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="When should you use extends versus super?">
 
 Use `extends` for a producer that you primarily read from and `super` for a
 consumer that you write values into: producer extends, consumer super.

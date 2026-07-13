@@ -12,6 +12,34 @@ last_reviewed: "2026-07-10"
 
 # Spring Ecosystem
 
+<DocLabels items={[
+  {label: 'Foundation', tone: 'foundation'},
+  {label: 'Spring Boot 4', tone: 'intermediate'},
+  {label: 'Shopverse context', tone: 'shopverse'},
+]} />
+
+```mermaid
+flowchart TB
+    Boot["Spring Boot: configuration and operations"] --> Framework["Spring Framework: container and programming model"]
+    Framework --> Web["MVC / WebFlux"]
+    Framework --> Data["Transactions / Data access"]
+    Framework --> Integration["Tasks / Cache / Messaging"]
+    Boot --> Portfolio["Spring portfolio"]
+    Portfolio --> Security["Security"]
+    Portfolio --> Cloud["Cloud"]
+    Portfolio --> Kafka["Spring for Apache Kafka"]
+    Portfolio --> Batch["Batch"]
+```
+
+<DocCallout type="production" title="Know which layer owns the behavior">
+
+Spring Boot selects and configures infrastructure; Spring Framework executes the container,
+web and transaction mechanisms; portfolio projects add their own runtime semantics. A
+condition report, proxy inspection or broker/database trace is usually more useful than
+describing all of this as “Boot magic”.
+
+</DocCallout>
+
 ## Why Spring?
 
 Spring solves common enterprise application problems so every service does not
@@ -107,6 +135,10 @@ listeners, scheduling, and supported Spring Data features.
 | Micrometer | vendor-neutral metrics/tracing facade |
 | testing support | slice tests, Spring context tests, MockMvc, Testcontainers integration |
 | devtools | development-time restart support |
+
+Shopverse is pinned to Boot `4.0.6`. Use the
+[Boot 4 And Framework 7 guide](./SPRING-BOOT-4-FRAMEWORK-7.md) before copying examples
+from a different framework generation.
 
 ```java
 @SpringBootApplication
@@ -245,3 +277,15 @@ public methods owned by the appropriate service.
 - [Spring Transactions](SPRING-TRANSACTIONS.md)
 - [Spring Data JPA](SPRING-DATA-JPA.md)
 - [Caching principles](../architecture/CACHING-GENERIC.md)
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Spring project portfolio](https://spring.io/projects)
+
+## Recommended Next
+
+Continue with [Spring Boot Internals](../development/SPRING-BOOT-INTERNALS.md), or use the
+[Spring Runtime Architect Path](./SPRING-ARCHITECT-PATH.md) if the fundamentals are already
+familiar.

@@ -112,11 +112,36 @@ the wire representation from internal fields.
 
 ## Tricky Interview Questions
 
-1. Does changing UID migrate old data? No; it normally rejects it.
-2. Is an unchanged UID proof of compatibility? No.
-3. Is marking a secret `transient` sufficient security? No; protect the entire graph and trust boundary.
-4. Can a filter allow only the root class safely? Not if nested graph types remain unrestricted.
-5. Why use a serialization proxy? To preserve invariants and detach logical wire state from private layout.
+<ExpandableAnswer title="Does changing UID migrate old data?">
+
+No; it normally rejects it.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is an unchanged UID proof of compatibility?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is marking a secret transient sufficient security?">
+
+No; protect the entire graph and trust boundary.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a filter allow only the root class safely?">
+
+Not if nested graph types remain unrestricted.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why use a serialization proxy?">
+
+To preserve invariants and detach logical wire state from private layout.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

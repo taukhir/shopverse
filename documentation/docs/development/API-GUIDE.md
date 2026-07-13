@@ -155,6 +155,8 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 | `POST` | `/api/v1/payments/admin/orders/{orderNumber}/reconcile` | resolve a timed-out payment |
 | `POST` | `/api/v1/payments/admin/orders/{orderNumber}/refund` | refund a payment |
 | `POST` | `/api/v1/payments/webhooks/provider` | provider callback baseline |
+| `GET` | `/api/v1/admin/audit-events` | list immutable admin audit events; Angular falls back to derived signals until implemented |
+| `GET` | `/api/v1/admin/audit-events/{id}` | inspect one admin audit event; planned backend contract |
 | `GET` | `/api/v1/orders/admin/dead-letters` | inspect Order recovery records |
 | `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | replay an Order record |
 | `GET` | `/api/v1/inventory/admin/dead-letters` | inspect Inventory recovery records |

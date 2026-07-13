@@ -8,7 +8,7 @@ const output = resolve(root, 'target/plain-classes');
 const files = ['ThreadPoolSaturationLab.java', 'VirtualThreadPinningLab.java',
   'DirectMemoryPressureLab.java', 'ClassLoaderIdentityLab.java', 'GcAllocationWorkload.java',
   'AdvancedApisLab.java', 'SelectorEchoLab.java', 'CoreLanguageScenarios.java',
-  'ForkJoinSumLab.java', 'RangeSpliterator.java']
+  'ForkJoinSumLab.java', 'RangeSpliterator.java', 'CorePdfExampleAdaptations.java']
   .map((name) => resolve(source, name));
 
 rmSync(output, {recursive: true, force: true});

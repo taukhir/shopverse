@@ -1,9 +1,9 @@
 ---
-title: Reflection, Method Handles, JPMS And Java Packaging
+title: Java Reflection, JPMS And Packaging
 description: Dynamic invocation, proxies, annotations, agents, module boundaries, services, images, and compatibility.
 ---
 
-# Reflection, Method Handles, JPMS And Java Packaging
+# Java Reflection, JPMS And Packaging
 
 Reflection discovers members from runtime metadata and performs access checks;
 cache lookups carefully without retaining unloadable class loaders. Method handles

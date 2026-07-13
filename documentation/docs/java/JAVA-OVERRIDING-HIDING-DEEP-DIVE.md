@@ -5,6 +5,8 @@ description: Runtime dispatch, static hiding, fields, covariant returns, excepti
 
 # Java Overriding, Method Hiding And Field Hiding Deep Dive
 
+![Compile-time overload resolution followed by runtime dispatch](/img/diagrams/java-method-resolution-dispatch.svg)
+
 ## Three Different Mechanisms
 
 | Mechanism | Applies to | Selection |
@@ -91,12 +93,42 @@ can invalidate assumptions and trigger deoptimization.
 
 ## Tricky Interview Questions
 
-1. Can an override throw `Exception` when the parent throws `IOException`? No.
-2. Can a child hide a static method with an instance method? No compatible declaration is allowed.
-3. Does field access use runtime object type? No.
-4. Why might reflection show two child `get` methods? One is a synthetic bridge.
-5. Which wins: superclass concrete method or interface default? The class method.
-6. Does a private same-named child method override? No.
+<ExpandableAnswer title="Can an override throw Exception when the parent throws IOException?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a child hide a static method with an instance method?">
+
+No compatible declaration is allowed.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does field access use runtime object type?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why might reflection show two child get methods?">
+
+One is a synthetic bridge.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Which wins: superclass concrete method or interface default?">
+
+The class method.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a private same-named child method override?">
+
+No.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -1,342 +1,206 @@
-﻿---
+---
 title: JPA Fetching Performance And N Plus One
+description: Spring Data fetch plans using entity graphs, projections, explicit queries, pagination, and production SQL evidence.
+difficulty: Advanced
+page_type: Tutorial
+status: Generic
+prerequisites: [Spring Data repositories, JPA associations, SQL execution plans]
+learning_objectives: [Select a bounded fetch plan for each repository use case, Detect N plus one and row multiplication from evidence, Roll out query and index changes safely]
+technologies: [Spring Data JPA, Hibernate ORM, JDBC, SQL]
+last_reviewed: "2026-07-13"
 ---
 
 # JPA Fetching Performance And N Plus One
 
-N+1 prevention, batching, pagination, query hints, optimization workflow, and production rules.
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Fetch plans', tone: 'foundation'},
+  {label: 'Performance evidence', tone: 'production'},
+  {label: 'Shopverse current state', tone: 'shopverse'},
+]} />
 
-Back to [Spring Data JPA](../SPRING-DATA-JPA.md).
+Spring Data makes fetch-plan choices visible at the repository boundary through
+entity graphs, projections, and explicit queries. The canonical provider-level
+explanation of lazy proxies, batch fetching, and Hibernate internals remains in
+[Hibernate Fetching And Performance](../../data/hibernate/HIBERNATE-FETCHING-PERFORMANCE.md).
 
-## The N+1 Query Problem
-
-N+1 occurs when one query loads parent rows and another query runs for each
-parent relationship:
-
-```java
-List<OrderEntity> orders = repository.findAll();
-
-for (OrderEntity order : orders) {
-    log.info("items={}", order.getItems().size());
-}
+```mermaid
+flowchart TD
+    UseCase["Read use case"] --> Shape{"Required result shape"}
+    Shape -->|"entity + bounded to-one/to-many"| Graph["@EntityGraph"]
+    Shape -->|"small read model"| DTO["DTO projection"]
+    Shape -->|"complex cardinality"| Query["Explicit query / two-step IDs"]
+    Graph --> Verify["Query count + rows + plan"]
+    DTO --> Verify
+    Query --> Verify
+    Verify --> Bound["Page size, timeout, pool capacity"]
 ```
 
-Generated pattern:
+## Recognize N Plus One
 
-```sql
-select * from orders;                    -- 1 query
-select * from order_items where order_id = 1;
-select * from order_items where order_id = 2;
-select * from order_items where order_id = 3;
--- one query for every order
-```
-
-For 100 orders this becomes 101 queries.
-
-### Solution 1: Fetch Join
-
-```java
-@Query("""
-        select distinct o
-        from OrderEntity o
-        left join fetch o.items
-        where o.id = :id
-        """)
-Optional<OrderEntity> findWithItems(@Param("id") Long id);
-```
-
-Generated shape:
-
-```sql
-select o.*, i.*
-from orders o
-left join order_items i on i.order_id = o.id
-where o.id = ?;
-```
-
-Use `distinct` at the JPQL entity level because one order appears once per
-joined item in the SQL result.
-
-Avoid paginating a collection fetch join. The SQL row count represents joined
-rows rather than parent entities, and Hibernate may paginate in memory or
-produce incorrect expectations.
-
-### Solution 2: Entity Graph
-
-```java
-@EntityGraph(attributePaths = {"items"})
-Optional<OrderEntity> findWithItemsById(Long id);
-```
-
-An entity graph describes the relationships required for this repository
-method without embedding the fetch join in JPQL.
-
-Named graph:
-
-```java
-@NamedEntityGraph(
-        name = "Order.summary",
-        attributeNodes = {
-                @NamedAttributeNode("items")
-        }
-)
-@Entity
-class OrderEntity {
-}
-```
-
-```java
-@EntityGraph(value = "Order.summary")
-Optional<OrderEntity> findDetailedById(Long id);
-```
-
-### Solution 3: DTO Projection
-
-If the endpoint needs a report rather than mutable aggregates, query the exact
-shape:
-
-```java
-@Query("""
-        select new com.example.OrderLineView(
-                o.orderNumber,
-                i.productId,
-                i.quantity
-        )
-        from OrderEntity o
-        join o.items i
-        where o.customerUsername = :username
-        """)
-List<OrderLineView> findOrderLines(String username);
-```
-
-This avoids entity graph hydration and lazy traversal.
-
-### Solution 4: Batch Fetching
-
-```yaml
-spring:
-  jpa:
-    properties:
-      hibernate:
-        default_batch_fetch_size: 50
-```
-
-Or per relationship:
-
-```java
-@BatchSize(size = 50)
-@OneToMany(mappedBy = "order")
-private List<OrderItemEntity> items;
-```
-
-Hibernate groups lazy loads:
-
-```sql
-select *
-from order_items
-where order_id in (?, ?, ?, ..., ?);
-```
-
-Batch fetching reduces N+1 to roughly `1 + ceil(N / batchSize)`. It is a useful
-safety net, not a substitute for intentional query design.
-
-### Solution 5: Two-Step Pagination
-
-For paginated parents with child collections:
-
-1. page only parent IDs;
-2. fetch parents and children using those IDs;
-3. restore the requested order in application code.
-
-```java
-Page<Long> ids = repository.findPageIds(username, pageable);
-List<OrderEntity> orders = repository.findAllWithItemsByIdIn(ids.getContent());
-```
-
-This preserves database pagination while avoiding one child query per parent.
-
-### Detecting N+1
-
-- enable SQL and bind-parameter logging only in controlled development;
-- inspect Hibernate statistics;
-- use datasource-proxy or P6Spy in tests;
-- assert query counts for critical repository methods;
-- inspect APM traces and database query-rate spikes;
-- run integration tests with realistic parent and child counts.
-
-Do not solve N+1 by enabling `EAGER` everywhere.
-
-### Which N+1 Solution Should You Use?
-
-Choose the fetch plan for one use case rather than changing the entity mapping
-globally:
-
-| Situation | Best approach | Reason |
-|---|---|---|
-| Login: one user with roles and permissions | `@EntityGraph` or `JOIN FETCH` | load the complete authentication graph in one bounded operation |
-| Need exact join type or query predicate | JPQL `JOIN FETCH` | query controls inner/left join and filtering explicitly |
-| Loading many users and later reading roles | batch fetching | groups lazy collection loads without creating one huge join |
-| Large list or reporting API | DTO projection | selects only fields required by the response |
-| Huge or multiple nested collections | separate bounded queries | avoids cartesian multiplication and excessive managed entities |
-| Pagination with collections | page IDs plus DTO/batch fetch | collection fetch joins distort parent pagination |
-| Simple CRUD that does not use associations | keep relationships lazy | avoids paying for data that the operation never reads |
-
-Shopverse User Service demonstrates a bounded authentication fetch:
-
-```java
-@EntityGraph(attributePaths = {"roles", "roles.permissions"})
-Optional<User> findByUsername(String username);
-```
-
-This is appropriate because login loads exactly one User and immediately needs
-all authorities. Applying the same graph to a page containing thousands of
-users would produce much more duplicated SQL data and memory pressure.
-
-Use this decision sequence:
-
-1. identify the exact response or business operation;
-2. decide whether entities will be modified or only displayed;
-3. count expected parents and children;
-4. preserve database pagination;
-5. select the smallest fetch plan that meets the requirement;
-6. verify query count and result size with realistic data.
-
-
-## JDBC Batching
-
-Batching groups similar insert or update statements into fewer network
-round-trips:
-
-```yaml
-spring:
-  jpa:
-    properties:
-      hibernate:
-        jdbc:
-          batch_size: 50
-        order_inserts: true
-        order_updates: true
-        batch_versioned_data: true
-```
-
-MySQL JDBC commonly benefits from:
+One query loads parent rows, then association access produces one query per parent:
 
 ```text
-jdbc:mysql://mysql:3306/orders?rewriteBatchedStatements=true
+select ... from orders where customer_username = ?
+select ... from order_items where order_id = ?  -- repeated
 ```
 
-Exact driver behavior should be verified for the deployed connector version.
+The failure is a missing use-case fetch plan, not simply the presence of `LAZY`.
+Making every association eager can still issue secondary selects and can make
+unrelated reads load too much data.
 
-### Batched Inserts
+## Spring Data Fetch Options
+
+### Entity Graph
 
 ```java
-@Transactional
-public void importProducts(List<CreateProductCommand> commands) {
-    int batchSize = 50;
+@EntityGraph(attributePaths = "items")
+Optional<OrderEntity> findWithItemsByOrderNumber(String orderNumber);
+```
 
-    for (int index = 0; index < commands.size(); index++) {
-        entityManager.persist(toEntity(commands.get(index)));
+Use an entity graph when the service needs managed entities and the joined
+cardinality is bounded. Graph names or dedicated method names make fetch intent
+reviewable.
 
-        if ((index + 1) % batchSize == 0) {
-            entityManager.flush();
-            entityManager.clear();
-        }
+### DTO Projection
+
+```java
+@Query("""
+       select new com.example.OrderSummary(
+           o.orderNumber, o.status, o.totalAmount, o.createdAt)
+         from OrderEntity o
+        where o.customerUsername = :username
+        order by o.createdAt desc, o.id desc
+       """)
+Page<OrderSummary> findSummaries(String username, Pageable pageable);
+```
+
+Use a projection when no entity mutation is required. It reduces selected columns
+and prevents accidental traversal of a persistence graph.
+
+### Two-Step Pagination
+
+Collection fetch joins can multiply rows and conflict with entity-level pagination.
+For a page with children, first select ordered parent IDs, then fetch details for
+those IDs. Preserve the original order explicitly.
+
+<DocCallout type="mistake" title="distinct does not remove the database cost">
+
+JPQL `distinct` can deduplicate entity references after a join, but the database
+still processes the multiplied rows. Measure rows returned and memory, not only the
+number of Java objects.
+
+</DocCallout>
+
+## Shopverse Current Fetch Plans
+
+<DocCallout type="shopverse" title="Current implementation and current gap">
+
+Order repository methods use `@EntityGraph(attributePaths = "items")`, and User
+repository methods fetch roles and permissions for authorization paths. This is
+current code. Some Order history methods return unpaged lists with items; replacing
+those with bounded pages or summaries is a proposed production hardening, not an
+implemented claim.
+
+</DocCallout>
+
+## Batching And Write Throughput
+
+Spring Data `saveAll` does not prove JDBC batching. Identifier generation,
+statement ordering, SQL shape, flushes, and driver configuration determine the
+actual round trips. For large bounded imports, flush and clear periodically so the
+persistence context does not grow without limit.
+
+<DocCallout type="production" title="Measure the wire behavior">
+
+Enable bounded SQL/statistics diagnostics in a safe environment and compare
+prepared-statement count, batch execution, rows written, transaction duration, and
+connection occupancy. A configuration property alone is not evidence.
+
+</DocCallout>
+
+## Pagination, Timeouts, And Indexes
+
+- cap page size at the API boundary;
+- use a deterministic order with a unique tiebreaker;
+- prefer a `Slice` when an exact total count is unnecessary;
+- consider keyset pagination for very large append-oriented histories;
+- set query timeouts below the request deadline;
+- align predicates and ordering with a measured index.
+
+Introduce a new index before the query that depends on it. Keep the old index
+during mixed-version deployment and rollback; remove it only after query traffic no
+longer uses it.
+
+## Executable Evidence Pattern
+
+```java
+@DataJpaTest
+class OrderFetchPlanTest {
+    @Test
+    void customerPageUsesABoundedQueryPlan() {
+        // Seed several orders and items in a production-engine container.
+        // Reset Hibernate statistics, invoke the repository, and assert:
+        // - bounded result size;
+        // - expected query count;
+        // - initialized fields required by the DTO mapping.
     }
 }
 ```
 
-`flush` sends the current batch. `clear` detaches managed entities so a large
-import does not retain every object in the first-level cache.
+Pair query-count assertions with a production-engine execution plan. A test with
+ten uniform rows cannot prove behavior at production cardinality or skew.
 
-`saveAll` does not guarantee efficient JDBC batching by itself. Efficiency
-depends on ID strategy, Hibernate configuration, statement similarity, flush
-behavior, and driver support.
+## Incident Workflow
 
-### Batching Limitations
+1. correlate endpoint latency with datasource pending/acquisition time;
+2. capture the slow query and the request path that triggered it;
+3. count statements and rows, including serialization-time queries;
+4. inspect the database plan, estimates, locks, and buffer reads;
+5. reproduce with realistic cardinality;
+6. change one fetch/index decision and compare p95/p99 plus database load;
+7. retain a rollback for both query code and schema objects.
 
-- `IDENTITY` generation can prevent insert batching;
-- interleaved entity types can split batches;
-- cascades can produce unexpected statement order;
-- very large transactions consume memory, locks, undo logs, and connections;
-- bulk JPQL or database-native operations may be better for large updates.
+## Interview Questions
 
-Use bounded chunks and define restart or idempotency behavior for imports.
+<ExpandableAnswer title="Why is FetchType.EAGER not a reliable N plus one solution?">
 
+It changes the default loading requirement, not the use-case query plan. Hibernate
+may still issue secondary selects, while unrelated repository methods load more
+data than required.
 
-## Pagination And Sorting
+</ExpandableAnswer>
 
-```java
-Page<OrderSummary> findByCustomerUsername(
-        String username,
-        Pageable pageable
-);
-```
+<ExpandableAnswer title="When should a repository use an entity graph instead of a DTO projection?">
 
-`Page` normally executes a data query and a count query. For expensive queries:
+Use an entity graph when the transaction needs managed entities and a bounded
+association graph. Use a DTO when the path is read-only and should expose only a
+small stable result shape.
 
-- provide an optimized `countQuery`;
-- use `Slice` when the total is unnecessary;
-- use cursor/keyset pagination for deep pages;
-- allow-list sort fields;
-- include a unique tie-breaker such as ID.
+</ExpandableAnswer>
 
-Never expose unbounded `findAll()` operations over production tables.
+<ExpandableAnswer title="Why can a collection fetch join break pagination?">
 
+The database paginates joined rows while the application expects parent entities.
+One parent can occupy several rows, causing missing parents, unstable pages, or
+in-memory pagination.
 
-## Query Hints And Timeouts
+</ExpandableAnswer>
 
-```java
-@QueryHints({
-        @QueryHint(
-                name = "jakarta.persistence.query.timeout",
-                value = "2000"
-        )
-})
-@Query("select o from OrderEntity o where o.orderNumber = :number")
-Optional<OrderEntity> findTimed(@Param("number") String number);
-```
+<ExpandableAnswer title="How do you prove that saveAll is batching inserts?">
 
-Timeout support and units can vary by provider and driver. Apply an end-to-end
-request deadline as well; a query timeout alone does not bound queueing or
-connection acquisition.
+Observe prepared statements and batch executions with the deployed identifier
+strategy and driver. Compare round trips and throughput; do not infer batching from
+the repository method name.
 
+</ExpandableAnswer>
 
-## Query Optimization Workflow
+## Official References
 
-1. Identify the slow API or business operation.
-2. Record query count and total database time.
-3. Inspect generated SQL and bound values.
-4. Run `EXPLAIN` or `EXPLAIN ANALYZE`.
-5. check indexes against filters, joins, and ordering.
-6. reduce selected columns with projections.
-7. eliminate N+1 and unbounded result sets.
-8. validate connection-pool and lock wait behavior.
-9. test with production-like row counts and distributions.
-10. compare metrics before and after the change.
+- [Spring Data JPA entity graphs](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
+- [Spring Data repository projections](https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html)
+- [Hibernate ORM fetching](https://docs.hibernate.org/orm/current/userguide/html_single/)
 
-An index can accelerate reads but increases storage and write cost. Index
-actual access patterns rather than every column.
+## Recommended Next
 
-
-## Production Do And Do Not
-
-| Do | Do not |
-|---|---|
-| Put transaction boundaries in services | Open transactions in controllers |
-| Use migrations for constraints and indexes | Depend on `ddl-auto=update` |
-| Keep associations lazy and query intentionally | Mark every relation eager |
-| Use projections for read models | Return entities from REST APIs |
-| Bind query parameters | Concatenate external values into JPQL or SQL |
-| Cap pages and batches | Load entire production tables |
-| Use database uniqueness for invariants | Rely only on existence checks |
-| Keep locks and transactions short | Perform remote calls while holding locks |
-| Inspect generated SQL and plans | Assume repository names imply efficient SQL |
-| Test with the production database engine | Trust an in-memory database for dialect behavior |
-
-
-
-
-
-
-
-
+Continue with [Transactions, Locking And Concurrency](./JPA-TRANSACTIONS-LOCKING.md).

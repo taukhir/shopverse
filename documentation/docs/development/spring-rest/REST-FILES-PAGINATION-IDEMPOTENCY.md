@@ -1,455 +1,58 @@
-﻿---
+---
 title: Spring REST Files Pagination And Idempotency
+description: Compatibility route to secure file transfer, pagination and conditional requests, idempotent commands, and OpenAPI contract governance.
+difficulty: Advanced
+page_type: Reference
+status: Compatibility route
+learning_objectives:
+  - Select the canonical guide for file, pagination, idempotency, or OpenAPI concerns
+  - Preserve links to the former combined production REST page
+technologies: [Spring MVC, Multipart, Spring Data, HTTP, OpenAPI]
+last_reviewed: "2026-07-13"
 ---
 
 # Spring REST Files Pagination And Idempotency
 
-Multipart uploads, downloads, pagination, conditional requests, idempotent commands, and OpenAPI docs.
+<DocLabels items={[
+  {label: 'Compatibility route', tone: 'intermediate'},
+  {label: 'Production REST', tone: 'production'},
+]} />
 
-Back to [Spring REST APIs](../SPRING-REST-APIS.md).
+File transfer, collection traversal, command retries, and API governance have
+different security, capacity, persistence, and lifecycle models. Each now has one
+focused canonical page.
 
-## Shopverse Links
+Use this retained URL when an older bookmark names several concerns; select the card whose
+failure model matches the incident and leave with a bounded implementation checklist.
 
-Shopverse platform helpers related to this page:
+<TopicCards items={[
+  {title: 'Secure REST file transfer', href: '/development/spring-rest/REST-SECURE-FILE-TRANSFER', description: 'Multipart limits, streaming, quarantine, scanning, promotion, authorized download, and cleanup.', icon: 'security', tags: ['Uploads', 'Object storage']},
+  {title: 'Pagination and conditional requests', href: '/development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS', description: 'Bounded offset, stable keyset cursors, ETag caching, If-Match, and database versions.', icon: 'route', tags: ['Cursors', 'ETag']},
+  {title: 'Idempotent commands', href: '/development/spring-rest/REST-IDEMPOTENT-COMMANDS', description: 'Request fingerprints, atomic claims, concurrent retries, replay, retention, and recovery.', icon: 'layers', tags: ['Retries', 'Transactions']},
+  {title: 'OpenAPI contract governance', href: '/development/spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE', description: 'Generated artifacts, linting, compatibility, provider and consumer evidence, and publication security.', icon: 'book', tags: ['OpenAPI', 'Compatibility']},
+]} />
 
-- [Shared Web Pagination](../../platform/WEB-PAGINATION.md) for `PageResponse`, `PageMapper`, and `PaginationUtils`;
-- [Common Error Contract](../../platform/COMMON-ERROR.md) for consistent pagination validation errors;
-- [Runtime Reliability Problems](../../reliability/problems/RUNTIME-RELIABILITY-PROBLEMS.md) for idempotent checkout and duplicate request handling.
+<DocCallout type="tip" title="Follow the failure model">
+Use the file guide for hostile bytes and storage lifecycle, pagination for stable
+traversal and preconditions, idempotency for repeated side effects, and OpenAPI
+for the published machine contract.
+</DocCallout>
 
-## Multipart File Upload
+## Compatibility Topic Map
 
-Spring MVC supports multipart requests through `MultipartFile`. Use it when a
-client sends a file as part of an API request.
-
-### Controller
-
-```java
-@PostMapping(
-        path = "/documents",
-        consumes = MediaType.MULTIPART_FORM_DATA_VALUE
-)
-public ResponseEntity<DocumentResponse> upload(
-        @RequestPart("metadata") @Valid DocumentMetadata metadata,
-        @RequestPart("file") MultipartFile file
-) {
-    DocumentResponse created = documentService.store(metadata, file);
-    return ResponseEntity.status(HttpStatus.CREATED).body(created);
-}
-```
-
-Example request:
-
-```bash
-curl -X POST http://localhost:8080/api/v1/documents \
-  -H "Authorization: Bearer <token>" \
-  -F 'metadata={"category":"INVOICE"};type=application/json' \
-  -F "file=@invoice.pdf;type=application/pdf"
-```
-
-### Production File-Upload Rules
-
-- enforce request and file size limits;
-- allow-list media types and inspect file signatures, not only extensions;
-- generate server-side storage names;
-- prevent path traversal;
-- scan untrusted files for malware;
-- store large files in object storage rather than application memory or a
-  relational BLOB by default;
-- stream large content and avoid `file.getBytes()`;
-- authorize both upload and later download;
-- return an opaque document ID instead of a filesystem path;
-- apply retention and deletion policies.
-
-Configuration example:
-
-```yaml
-spring:
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 12MB
-```
-
-## Reading Uploaded Files In Controller
-
-When a client sends a file in an API request, the controller receives it as a
-`MultipartFile`.
-
-Basic upload:
-
-```java
-public record FileUploadResponse(
-        String fileName,
-        String contentType,
-        long size
-) {
-}
-```
-
-```java
-@PostMapping(
-        path = "/files",
-        consumes = MediaType.MULTIPART_FORM_DATA_VALUE
-)
-public ResponseEntity<FileUploadResponse> upload(
-        @RequestPart("file") MultipartFile file
-) throws IOException {
-    String originalFileName = file.getOriginalFilename();
-    String contentType = file.getContentType();
-    long size = file.getSize();
-
-    try (InputStream inputStream = file.getInputStream()) {
-        // Process the stream here.
-        // Example: scan, parse, upload to object storage, or save safely.
-    }
-
-    return ResponseEntity.ok(new FileUploadResponse(
-            originalFileName,
-            contentType,
-            size
-    ));
-}
-```
-
-Example request:
-
-```bash
-curl -X POST http://localhost:8080/api/v1/files \
-  -H "Authorization: Bearer <token>" \
-  -F "file=@invoice.pdf;type=application/pdf"
-```
-
-### Reading File Metadata
-
-```java
-String originalFileName = file.getOriginalFilename();
-String contentType = file.getContentType();
-long size = file.getSize();
-boolean empty = file.isEmpty();
-```
-
-Important: treat this metadata as untrusted input. A client can fake file name
-and content type.
-
-### Reading File As Bytes
-
-```java
-byte[] content = file.getBytes();
-```
-
-Use this only for small files. It loads the full file into memory.
-
-### Reading File As Stream
-
-```java
-try (InputStream inputStream = file.getInputStream()) {
-    storageService.store(inputStream);
-}
-```
-
-Prefer streaming for larger files. It avoids loading the entire file into
-application memory.
-
-### Saving File Safely
-
-Do not directly use `originalFilename` as a filesystem path.
-
-Unsafe:
-
-```java
-Path target = Path.of(uploadDir, file.getOriginalFilename());
-file.transferTo(target);
-```
-
-Safer:
-
-```java
-String storageName = UUID.randomUUID() + ".pdf";
-Path uploadRoot = Path.of("/var/app/uploads").toAbsolutePath().normalize();
-Path target = uploadRoot.resolve(storageName).normalize();
-
-if (!target.startsWith(uploadRoot)) {
-    throw new InvalidFileException("Invalid file path");
-}
-
-file.transferTo(target);
-```
-
-In production, object storage such as S3, Azure Blob Storage, or MinIO is
-usually better than writing files to the application container filesystem.
-
-### Multiple File Upload
-
-```java
-@PostMapping(
-        path = "/files/bulk",
-        consumes = MediaType.MULTIPART_FORM_DATA_VALUE
-)
-public ResponseEntity<List<FileUploadResponse>> uploadMany(
-        @RequestPart("files") List<MultipartFile> files
-) {
-    List<FileUploadResponse> responses = files.stream()
-            .map(file -> new FileUploadResponse(
-                    file.getOriginalFilename(),
-                    file.getContentType(),
-                    file.getSize()
-            ))
-            .toList();
-
-    return ResponseEntity.ok(responses);
-}
-```
-
-Example request:
-
-```bash
-curl -X POST http://localhost:8080/api/v1/files/bulk \
-  -H "Authorization: Bearer <token>" \
-  -F "files=@invoice-1.pdf;type=application/pdf" \
-  -F "files=@invoice-2.pdf;type=application/pdf"
-```
-
-### Upload With JSON Metadata
-
-```java
-public record DocumentMetadata(
-        @NotBlank String category,
-        @NotBlank String owner
-) {
-}
-```
-
-```java
-@PostMapping(
-        path = "/documents",
-        consumes = MediaType.MULTIPART_FORM_DATA_VALUE
-)
-public ResponseEntity<DocumentResponse> uploadDocument(
-        @RequestPart("metadata") @Valid DocumentMetadata metadata,
-        @RequestPart("file") MultipartFile file
-) {
-    DocumentResponse response = documentService.store(metadata, file);
-    return ResponseEntity.status(HttpStatus.CREATED).body(response);
-}
-```
-
-Request:
-
-```bash
-curl -X POST http://localhost:8080/api/v1/documents \
-  -H "Authorization: Bearer <token>" \
-  -F 'metadata={"category":"INVOICE","owner":"admin"};type=application/json' \
-  -F "file=@invoice.pdf;type=application/pdf"
-```
-
-### File Upload Validation
-
-Validate at least:
-
-- file is not empty;
-- file size is within limit;
-- content type is allowed;
-- extension is allowed only as a secondary check;
-- file signature/magic bytes match expected type;
-- authenticated user is allowed to upload;
-- generated storage path stays under the allowed root.
-
-Example:
-
-```java
-private static final Set<String> ALLOWED_TYPES =
-        Set.of("application/pdf", "image/png", "image/jpeg");
-
-void validateFile(MultipartFile file) {
-    if (file.isEmpty()) {
-        throw new InvalidFileException("File is required");
-    }
-
-    if (file.getSize() > 5 * 1024 * 1024) {
-        throw new InvalidFileException("File exceeds 5 MB");
-    }
-
-    if (!ALLOWED_TYPES.contains(file.getContentType())) {
-        throw new InvalidFileException("Unsupported file type");
-    }
-}
-```
-
-Content type alone is not enough for hostile input. For sensitive systems,
-inspect the actual file signature and scan user-supplied files.
-
-### Multipart Configuration
-
-```yaml
-spring:
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 5MB
-      max-request-size: 20MB
-      file-size-threshold: 2MB
-```
-
-| Property | Meaning |
+| Former topic | Canonical page |
 |---|---|
-| `enabled` | enables multipart handling |
-| `max-file-size` | maximum size for one uploaded file |
-| `max-request-size` | maximum total multipart request size |
-| `file-size-threshold` | size after which file content may be written to disk |
+| multipart upload and download | [Secure File Transfer](./REST-SECURE-FILE-TRANSFER.md) |
+| pagination, sorting, filtering and conditional requests | [Pagination And Conditional Requests](./REST-PAGINATION-CONDITIONAL-REQUESTS.md) |
+| checkout and command idempotency | [Idempotent Commands](./REST-IDEMPOTENT-COMMANDS.md) |
+| generated OpenAPI documentation | [OpenAPI Contract Governance](./REST-OPENAPI-CONTRACT-GOVERNANCE.md) |
 
-### File Upload Do And Do Not
+## Recommended Next
 
-Do:
+Choose the card matching the production boundary you are designing or debugging.
 
-- authenticate upload APIs unless explicitly public;
-- validate size and type;
-- generate server-side file names;
-- store metadata in the database;
-- stream large files;
-- log metadata, not file contents;
-- scan untrusted files;
-- return an opaque file/document ID;
-- apply retention and deletion policies.
+## Official References
 
-Do not:
-
-- trust `originalFilename`;
-- trust `contentType` blindly;
-- store user files inside the source code directory;
-- expose filesystem paths in API responses;
-- load large files with `getBytes()`;
-- allow arbitrary file extensions;
-- serve uploaded files directly without authorization checks;
-- keep files forever without lifecycle policy.
-
-
-## File Download
-
-```java
-@GetMapping("/documents/{id}/content")
-ResponseEntity<Resource> download(@PathVariable UUID id) {
-    StoredDocument document = documentService.loadAuthorized(id);
-    return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType(document.contentType()))
-            .header(
-                    HttpHeaders.CONTENT_DISPOSITION,
-                    ContentDisposition.attachment()
-                            .filename(document.originalFileName())
-                            .build()
-                            .toString()
-            )
-            .body(document.resource());
-}
-```
-
-Never construct a path directly from untrusted input.
-
-
-## Pagination, Sorting, And Filtering
-
-Spring Data can bind a `Pageable`, but production APIs should cap page size and
-allow-list sorting:
-
-```java
-@GetMapping
-Page<ProductResponse> search(
-        @RequestParam(required = false) String query,
-        @PageableDefault(size = 20, sort = "createdAt")
-        Pageable pageable
-) {
-    return productService.search(query, bounded(pageable));
-}
-```
-
-Offset pagination is simple but can become slow or inconsistent for deep,
-frequently changing result sets. Use cursor or keyset pagination when the
-dataset and access pattern require it.
-
-### Pagination Boundary
-
-A shared pagination helper can own:
-
-- page and size validation;
-- max-size enforcement;
-- shared `PageResponse` shape;
-- mapping from Spring `Page<T>` to API response metadata.
-
-The service should own:
-
-- allowed sort fields;
-- default sort;
-- filter semantics;
-- whether offset, cursor, or keyset pagination is appropriate.
-
-This prevents the web module from becoming a domain query library.
-
-
-## Conditional Requests And Optimistic Concurrency
-
-Expose a resource version through an ETag:
-
-```http
-GET /api/v1/products/42
-ETag: "7"
-```
-
-Require that version for updates:
-
-```http
-PUT /api/v1/products/42
-If-Match: "7"
-```
-
-Return `412 Precondition Failed` when the representation changed. Keep a
-database `@Version` column as the final protection against lost updates.
-
-
-## Idempotent Commands
-
-For checkout, payment, and similar commands:
-
-```java
-@PostMapping("/checkout")
-ResponseEntity<OrderResponse> checkout(
-        @RequestHeader("Idempotency-Key")
-        @NotBlank @Size(max = 100) String key,
-        @Valid @RequestBody CheckoutRequest request
-) {
-    OrderResponse result = orderService.checkout(key, request);
-    return ResponseEntity.status(HttpStatus.CREATED).body(result);
-}
-```
-
-Persist the key with the business result and enforce a unique database
-constraint. Concurrent duplicate requests must resolve to the original result
-or a deliberate `409`, not create duplicate side effects.
-
-
-## OpenAPI Documentation
-
-Document authentication, response codes, examples, validation, and errors:
-
-```java
-@Operation(summary = "Creates an idempotent checkout")
-@ApiResponses({
-        @ApiResponse(responseCode = "201", description = "Order created"),
-        @ApiResponse(responseCode = "400", description = "Invalid request"),
-        @ApiResponse(responseCode = "409", description = "Request conflict")
-})
-@PostMapping("/checkout")
-ResponseEntity<OrderResponse> checkout(...) {
-    // ...
-}
-```
-
-Generated documentation does not replace API design review or contract tests.
-
-
-
-
-
-
-
-
-
-
+- [Spring MVC multipart forms](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/multipart-forms.html)
+- [HTTP conditional requests](https://www.rfc-editor.org/rfc/rfc9110.html#name-conditional-requests)
+- [OpenAPI Specification](https://spec.openapis.org/oas/)

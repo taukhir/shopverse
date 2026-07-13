@@ -1,0 +1,48 @@
+<svg width="1400" height="860" viewBox="0 0 1400 860" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Animated Spring Security HTTP Basic authentication lifecycle</title>
+  <desc id="desc">A moving marker follows an HTTP Basic request through the filter chain, ProviderManager, DaoAuthenticationProvider, UserDetailsService, PasswordEncoder, SecurityContextHolder, authorization, controller, and context cleanup.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L8 3Z" fill="#64748b"/></marker>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <style>
+      .bg{fill:#f8fafc}.title{font:700 34px Arial;fill:#0f172a}.sub{font:400 17px Arial;fill:#475569}.lane{font:700 14px Arial;fill:#475569;letter-spacing:1px}.box{fill:#fff;stroke:#cbd5e1;stroke-width:1.5;rx:16}.filter{fill:#eff6ff;stroke:#60a5fa}.provider{fill:#f5f3ff;stroke:#a78bfa}.dependency{fill:#fffbeb;stroke:#fbbf24}.success{fill:#f0fdf4;stroke:#4ade80}.head{font:700 16px Arial;fill:#0f172a}.txt{font:400 13px Arial;fill:#475569}.arr{stroke:#64748b;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.return{stroke:#16a34a;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.badge{fill:#2563eb}.badgeText{font:700 13px Arial;fill:white}.note{font:700 13px Arial;fill:#334155}
+      @media (prefers-reduced-motion: reduce){.runner{display:none}.static-marker{display:block}}
+    </style>
+    <path id="journey" d="M95 225 H315 H535 H755 H975 H1195 V425 H975 H755 H535 H315 H95 V650 H315 H535 H755 H975 H1195 V770 H975 H755 H535 H315 H95"/>
+  </defs>
+  <rect class="bg" width="1400" height="860"/>
+  <text x="60" y="62" class="title">One Stateless HTTP Basic Request</text>
+  <text x="60" y="96" class="sub">The moving marker follows the call path; the return path produces a trusted context and then clears it</text>
+
+  <text x="60" y="146" class="lane">REQUEST + AUTHENTICATION CALLS</text>
+  <g><rect x="55" y="175" width="170" height="100" class="box filter"/><circle cx="80" cy="201" r="14" class="badge"/><text x="76" y="206" class="badgeText">1</text><text x="102" y="204" class="head">HTTP request</text><text x="78" y="235" class="txt">Basic header</text><text x="78" y="257" class="txt">raw transport bytes</text></g>
+  <g><rect x="275" y="175" width="170" height="100" class="box filter"/><circle cx="300" cy="201" r="14" class="badge"/><text x="296" y="206" class="badgeText">2</text><text x="322" y="204" class="head">Context filter</text><text x="298" y="235" class="txt">loads/defer context</text><text x="298" y="257" class="txt">for this request</text></g>
+  <g><rect x="495" y="175" width="170" height="100" class="box filter"/><circle cx="520" cy="201" r="14" class="badge"/><text x="516" y="206" class="badgeText">3</text><text x="542" y="204" class="head">Basic filter</text><text x="518" y="235" class="txt">extracts credentials</text><text x="518" y="257" class="txt">creates auth token</text></g>
+  <g><rect x="715" y="175" width="170" height="100" class="box provider"/><circle cx="740" cy="201" r="14" class="badge"/><text x="736" y="206" class="badgeText">4</text><text x="762" y="204" class="head">ProviderManager</text><text x="738" y="235" class="txt">selects supporting</text><text x="738" y="257" class="txt">provider</text></g>
+  <g><rect x="935" y="175" width="170" height="100" class="box provider"/><circle cx="960" cy="201" r="14" class="badge"/><text x="956" y="206" class="badgeText">5</text><text x="982" y="204" class="head">DAO provider</text><text x="958" y="235" class="txt">coordinates user</text><text x="958" y="257" class="txt">and password checks</text></g>
+  <g><rect x="1155" y="175" width="190" height="100" class="box dependency"/><circle cx="1180" cy="201" r="14" class="badge"/><text x="1176" y="206" class="badgeText">6</text><text x="1202" y="204" class="head">UserDetailsService</text><text x="1178" y="235" class="txt">loadUserByUsername</text><text x="1178" y="257" class="txt">DB / memory lookup</text></g>
+  <path d="M225 225H275M445 225H495M665 225H715M885 225H935M1105 225H1155" class="arr"/>
+
+  <text x="60" y="346" class="lane">VERIFY + RETURN TRUSTED RESULT</text>
+  <g><rect x="1155" y="375" width="190" height="100" class="box dependency"/><circle cx="1180" cy="401" r="14" class="badge"/><text x="1176" y="406" class="badgeText">7</text><text x="1202" y="404" class="head">PasswordEncoder</text><text x="1178" y="435" class="txt">matches(raw, hash)</text><text x="1178" y="457" class="txt">never decodes</text></g>
+  <g><rect x="935" y="375" width="170" height="100" class="box success"/><circle cx="960" cy="401" r="14" class="badge"/><text x="956" y="406" class="badgeText">8</text><text x="982" y="404" class="head">Trusted token</text><text x="958" y="435" class="txt">principal + authorities</text><text x="958" y="457" class="txt">authenticated = true</text></g>
+  <g><rect x="715" y="375" width="170" height="100" class="box success"/><text x="738" y="414" class="head">Manager return</text><text x="738" y="444" class="txt">erase credentials</text><text x="738" y="466" class="txt">return to filter</text></g>
+  <g><rect x="495" y="375" width="170" height="100" class="box success"/><circle cx="520" cy="401" r="14" class="badge"/><text x="516" y="406" class="badgeText">9</text><text x="542" y="404" class="head">SecurityContext</text><text x="518" y="435" class="txt">filter stores result</text><text x="518" y="457" class="txt">for current request</text></g>
+  <g><rect x="275" y="375" width="170" height="100" class="box success"/><circle cx="300" cy="401" r="14" class="badge"/><text x="294" y="406" class="badgeText">10</text><text x="322" y="404" class="head">Authorization</text><text x="298" y="435" class="txt">checks authorities</text><text x="298" y="457" class="txt">and request rules</text></g>
+  <g><rect x="55" y="375" width="170" height="100" class="box success"/><circle cx="80" cy="401" r="14" class="badge"/><text x="74" y="406" class="badgeText">11</text><text x="102" y="404" class="head">Controller</text><text x="78" y="435" class="txt">business code runs</text><text x="78" y="457" class="txt">with current identity</text></g>
+  <path d="M1250 275V375M1155 425H1105M935 425H885M715 425H665M495 425H445M275 425H225" class="return"/>
+
+  <text x="60" y="570" class="lane">RESPONSE + CLEANUP</text>
+  <rect x="55" y="600" width="390" height="100" class="box filter"/><text x="80" y="638" class="head">Response unwinds through filters</text><text x="80" y="668" class="txt">Status, headers, body; context persistence follows configured strategy</text>
+  <rect x="505" y="600" width="390" height="100" class="box filter"/><text x="530" y="638" class="head">SecurityContextHolder cleared</text><text x="530" y="668" class="txt">Prevents identity leaking to the next request on the reused thread</text>
+  <rect x="955" y="600" width="390" height="100" class="box success"/><text x="980" y="638" class="head">HTTP response</text><text x="980" y="668" class="txt">Container writes bytes to the client</text>
+  <path d="M225 475V600M445 650H505M895 650H955" class="arr"/>
+  <path d="M1345 770H55" class="arr" opacity="0"/>
+
+  <circle class="runner" r="11" fill="#ef4444" filter="url(#glow)">
+    <animateMotion dur="16s" repeatCount="indefinite" calcMode="linear"><mpath href="#journey"/></animateMotion>
+  </circle>
+  <circle class="static-marker" cx="95" cy="225" r="11" fill="#ef4444" style="display:none"/>
+  <text x="60" y="778" class="note">Important: Base64-decoding an HTTP Basic header reveals the transported raw password; PasswordEncoder never decodes a stored hash.</text>
+  <text x="60" y="810" class="note">Failure at authentication → 401 path. Authentication succeeds but authority is insufficient → 403 path.</text>
+</svg>

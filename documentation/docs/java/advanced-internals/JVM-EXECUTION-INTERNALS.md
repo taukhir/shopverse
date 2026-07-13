@@ -11,6 +11,17 @@ last_reviewed: "2026-07-12"
 
 # JVM Execution Internals
 
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'JVM diagnostics', tone: 'production'},
+  {label: 'JFR + javap', tone: 'shopverse'},
+]} />
+
+<DocCallout type="production" title="Optimization is workload evidence">
+JIT compilation, inlining, and deoptimization are adaptive runtime decisions. Confirm
+them with JFR and compiler evidence before changing code or JVM flags.
+</DocCallout>
+
 ## Class Lifecycle
 
 Loading creates a `Class` representation from bytes. Linking verifies bytecode,
@@ -57,6 +68,27 @@ code-cache pressure, compilation threads, and profile pollution affect results.
 Escape analysis may keep object state in registers/stack-like scalar form, but
 Java does not promise stack allocation. Observe allocation rather than assuming it.
 
+## Execution And Optimization Loop
+
+The important loop is not simply "interpret, then compile." Runtime profiles let
+the JIT optimize for the types and branches it has observed, while dependency
+tracking lets the JVM retreat safely when those assumptions stop being true.
+
+```mermaid
+flowchart LR
+    A["Class bytes"] --> B["Load, link, initialize"]
+    B --> C["Bytecode and invocation frames"]
+    C --> D["Interpreter and tiered compilation"]
+    D --> E["Profiles: hotness, branches, receiver types"]
+    E --> F["Optimizing JIT"]
+    F --> G["Inlined optimized machine code"]
+    G --> H{"Compiled assumptions still valid?"}
+    H -->|"yes"| G
+    H -->|"no: new type or changed dependency"| I["Invalidate dependent code"]
+    I --> J["Deoptimize affected frames"]
+    J --> D
+```
+
 ## Memory Areas
 
 - heap stores ordinary objects/arrays;
@@ -76,6 +108,30 @@ biased/monitor operations in relevant JDKs, class redefinition, and diagnostics.
 Time-to-safepoint and operation duration are different. JFR exposes compilation,
 allocation, class loading, locks, GC, and safepoint-related evidence.
 
+## Shopverse Diagnostic: Checkout Slows After A Pricing Deployment
+
+Suppose `PricingService.price()` is hot and its `PricePolicy` call site has seen
+only `StandardPricePolicy`. The JIT can inline that monomorphic call behind a
+type guard. A deployment introduces several promotion policy implementations;
+checkout p99 rises although database time and request volume stay flat.
+
+Capture a representative steady-state window rather than reasoning from source
+shape alone:
+
+```bash
+jcmd <pid> JFR.start name=checkout-jit settings=profile duration=120s filename=checkout-jit.jfr
+javap -c -v -p io.shopverse.pricing.PricingService
+```
+
+Correlate JFR `Compilation`, `Deoptimization`, `Execution Sample`, class-loading,
+and safepoint events with the checkout latency window. Repeated deoptimizations
+in `PricingService` plus multiple observed `PricePolicy` receiver types support
+the profile-instability hypothesis. Long time-to-safepoint with a short VM
+operation points elsewhere, and allocation samples implicate a different cost.
+Only after identifying the dominant evidence should the team reshape the hot
+dispatch path, reduce deployment-time class churn, or leave the design intact;
+repeat the same capture to verify p99, CPU, and deoptimization rate.
+
 ## Lab
 
 Compile a class with interface dispatch, lambda, generic override, and synchronized
@@ -89,9 +145,26 @@ without treating microseconds from one run as a benchmark.
 
 ## Tricky Interview Questions
 
-1. Why can virtual dispatch be fast? Guarded JIT inlining.
-2. Why does deoptimization occur? A compiled assumption becomes invalid.
-3. Does source allocation prove heap allocation? Escape analysis may eliminate it.
+<ExpandableAnswer title="Why can virtual dispatch be fast?">
+
+The JIT can inline an observed target behind a guard. The runtime preserves polymorphic
+correctness and deoptimizes if the assumption stops being valid.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why does deoptimization occur?">
+
+A compiled optimization depended on an assumption that became invalid, such as a new
+loaded subtype changing a formerly monomorphic call site.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does source allocation prove heap allocation?">
+
+No. Escape analysis may scalar-replace an object or eliminate its allocation. Confirm
+allocation with profiling evidence rather than counting `new` expressions.
+
+</ExpandableAnswer>
 
 ## Official References
 

@@ -88,11 +88,36 @@ static void addDefaults(java.util.List<? super Integer> out) { out.add(1); }
 
 ## Tricky Interview Questions
 
-1. Why does `byte + byte` produce `int`? Numeric promotion is defined before assignment.
-2. Does runtime object type choose an overload? No; overriding dispatch is runtime, overloading is compile-time.
-3. Can an override throw `Exception` when its parent throws `IOException`? No.
-4. Can Java swap two caller references through a method? No; it receives copies.
-5. Why is `List<String>` not a `List<Object>`? Otherwise adding an `Integer` would violate its element type.
+<ExpandableAnswer title="Why does byte + byte produce int?">
+
+Numeric promotion is defined before assignment.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does runtime object type choose an overload?">
+
+No; overriding dispatch is runtime, overloading is compile-time.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can an override throw Exception when its parent throws IOException?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can Java swap two caller references through a method?">
+
+No; it receives copies.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is List&lt;String&gt; not a List&lt;Object&gt;?">
+
+Otherwise adding an `Integer` would violate its element type.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -1,0 +1,35 @@
+<svg width="1400" height="820" viewBox="0 0 1400 820" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Spring Security username and password authentication component map</title>
+  <desc id="desc">The HTTP filter creates an authentication request, ProviderManager selects DaoAuthenticationProvider, the provider loads UserDetails and checks the password, then the filter stores the result in SecurityContextHolder before authorization and the controller.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L0 6 L8 3 Z" fill="#64748b"/></marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0f172a" flood-opacity=".10"/></filter>
+    <style>
+      .bg{fill:#f8fafc}.title{font:700 34px Arial,sans-serif;fill:#0f172a}.sub{font:400 17px Arial,sans-serif;fill:#475569}.lane{font:700 14px Arial,sans-serif;fill:#475569;letter-spacing:1px}.card{fill:#fff;stroke:#cbd5e1;stroke-width:1.5;rx:18;filter:url(#shadow)}.blue{fill:#eff6ff;stroke:#60a5fa}.green{fill:#f0fdf4;stroke:#4ade80}.violet{fill:#f5f3ff;stroke:#a78bfa}.amber{fill:#fffbeb;stroke:#fbbf24}.name{font:700 17px Arial,sans-serif;fill:#0f172a}.text{font:400 14px Arial,sans-serif;fill:#475569}.arrow{stroke:#64748b;stroke-width:2.2;fill:none;marker-end:url(#arrow)}.label{font:700 12px Arial,sans-serif;fill:#334155}.num{fill:#2563eb}.numText{font:700 14px Arial,sans-serif;fill:#fff}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="820"/>
+  <text x="64" y="64" class="title">Username + Password Authentication: Who Calls Whom?</text>
+  <text x="64" y="96" class="sub">HTTP extraction, provider selection, account lookup, password verification, context, then authorization</text>
+
+  <text x="64" y="148" class="lane">HTTP / FILTER LAYER</text>
+  <rect x="64" y="170" width="250" height="110" class="card blue"/><circle cx="94" cy="202" r="15" class="num"/><text x="90" y="207" class="numText">1</text><text x="122" y="204" class="name">Authentication filter</text><text x="88" y="236" class="text">Reads form or Basic credentials</text><text x="88" y="258" class="text">Creates unauthenticated token</text>
+  <rect x="390" y="170" width="250" height="110" class="card violet"/><circle cx="420" cy="202" r="15" class="num"/><text x="416" y="207" class="numText">2</text><text x="448" y="204" class="name">ProviderManager</text><text x="414" y="236" class="text">Checks provider supports(token)</text><text x="414" y="258" class="text">Delegates authentication</text>
+  <rect x="716" y="170" width="270" height="110" class="card violet"/><circle cx="746" cy="202" r="15" class="num"/><text x="742" y="207" class="numText">3</text><text x="774" y="204" class="name">DaoAuthenticationProvider</text><text x="740" y="236" class="text">Coordinates account checks</text><text x="740" y="258" class="text">and password verification</text>
+  <path d="M314 225 H390" class="arrow"/><path d="M640 225 H716" class="arrow"/>
+
+  <text x="716" y="340" class="lane">IDENTITY + CREDENTIAL DEPENDENCIES</text>
+  <rect x="716" y="362" width="270" height="110" class="card green"/><text x="740" y="400" class="name">UserDetailsService</text><text x="740" y="430" class="text">loadUserByUsername(name)</text><text x="740" y="452" class="text">DB, memory, JDBC, or custom</text>
+  <rect x="1052" y="362" width="270" height="110" class="card green"/><text x="1076" y="400" class="name">UserDetails</text><text x="1076" y="430" class="text">Hash + flags + authorities</text><text x="1076" y="452" class="text">Security-facing account view</text>
+  <rect x="716" y="522" width="270" height="110" class="card amber"/><text x="740" y="560" class="name">PasswordEncoder</text><text x="740" y="590" class="text">matches(raw, storedHash)</text><text x="740" y="612" class="text">Never decodes the hash</text>
+  <path d="M851 280 V362" class="arrow"/><path d="M986 417 H1052" class="arrow"/><path d="M1187 472 V496 H851 V522" class="arrow"/>
+  <text x="865" y="326" class="label">LOAD ACCOUNT</text><text x="916" y="508" class="label">VERIFY</text>
+
+  <text x="64" y="520" class="lane">TRUSTED RESULT + ACCESS</text>
+  <rect x="64" y="544" width="250" height="110" class="card blue"/><circle cx="94" cy="576" r="15" class="num"/><text x="90" y="581" class="numText">4</text><text x="122" y="578" class="name">Authenticated token</text><text x="88" y="610" class="text">UserDetails principal</text><text x="88" y="632" class="text">Trusted authorities</text>
+  <rect x="390" y="544" width="250" height="110" class="card blue"/><circle cx="420" cy="576" r="15" class="num"/><text x="416" y="581" class="numText">5</text><text x="448" y="578" class="name">SecurityContextHolder</text><text x="414" y="610" class="text">Current request identity</text><text x="414" y="632" class="text">Cleared after request</text>
+  <rect x="390" y="698" width="250" height="78" class="card amber"/><text x="414" y="732" class="name">Authorization</text><text x="414" y="756" class="text">Rules inspect authorities</text>
+  <rect x="716" y="698" width="250" height="78" class="card green"/><text x="740" y="732" class="name">Controller</text><text x="740" y="756" class="text">Runs only after access succeeds</text>
+  <path d="M716 600 H640" class="arrow"/><path d="M390 600 H314" class="arrow"/><path d="M515 654 V698" class="arrow"/><path d="M640 737 H716" class="arrow"/>
+  <text x="652" y="587" class="label">RETURN RESULT</text>
+</svg>

@@ -68,6 +68,23 @@ export interface AdminOverviewData {
   failedEvents: AdminFailedEvent[];
 }
 
+export interface AdminAuditEvent {
+  id: number | string;
+  area: string;
+  action?: string;
+  title?: string;
+  actor: string;
+  result: string;
+  status?: string;
+  message?: string;
+  description?: string;
+  occurredAt: string;
+  subjectType?: string;
+  subjectId?: number | string;
+  link?: string;
+  metadata?: Record<string, unknown>;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AdminApiService {
   private readonly http = inject(HttpClient);
@@ -82,5 +99,9 @@ export class AdminApiService {
       inventoryDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.inventory.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),
       paymentDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.payments.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),
     });
+  }
+
+  loadAuditEvents() {
+    return this.http.get<AdminAuditEvent[]>(API_PATHS.admin.auditEvents);
   }
 }

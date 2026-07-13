@@ -5,6 +5,56 @@ description: Evidence-driven diagnosis of memory, class loading, pools, virtual 
 
 # Java Production Incident Walkthroughs
 
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Incident response', tone: 'production'},
+  {label: 'Interview scenarios', tone: 'shopverse'},
+]} />
+
+<DocCallout type="production" title="Contain first, explain from evidence">
+Preserve a synchronized timeline and make the smallest reversible containment. A nearby
+GC, deployment, or dependency event remains correlation until evidence connects it.
+</DocCallout>
+
+```mermaid
+flowchart TD
+    Alert["Latency, error or memory alert"] --> Contain["Bound impact and preserve evidence"]
+    Contain --> Correlate["Align request, JVM, OS/container and dependency timelines"]
+    Correlate --> Hypotheses{"Competing hypotheses"}
+    Hypotheses --> Experiment["One bounded measurement or reproduction"]
+    Experiment --> Fix["Smallest reversible containment"]
+    Fix --> Verify["Load, failure and rollback verification"]
+    Verify --> Prevent["Durable ownership, limit and alert"]
+```
+
+Start from a synchronized timeline and at least two plausible causes. A nearby GC event,
+thread spike, deployment, or downstream timeout is correlation until evidence connects
+it to the symptom.
+
+## Shopverse Queue-Saturation Evidence Walkthrough
+
+Assume checkout p99 rises while CPU remains moderate. Capture the same five-minute
+window from application metrics, executor metrics, database-pool metrics, traces and
+JFR. The useful sequence is:
+
+| Observation | Supports | Does not prove |
+|---|---|---|
+| executor queue grows before p99 | admission exceeds completion capacity | executor size is too small |
+| active workers stay at maximum | worker resource is saturated | work is CPU-bound |
+| DB connection wait rises with stage duration | database capacity/transactions constrain completion | database is intrinsically slow |
+| rejection counter rises after queue bound | overload policy is active | clients handled rejection correctly |
+
+```powershell
+jcmd <pid> Thread.print -l > thread-dump.txt
+jcmd <pid> JFR.dump name=shopverse filename=checkout-incident.jfr
+jcmd <pid> VM.native_memory summary
+```
+
+Contain by reducing admission or expensive optional work before increasing threads.
+Verify the durable fix with bounded load: queue wait must remain below its budget,
+rejections must be intentional, connection wait must remain bounded, and recovery must
+not create duplicate orders or payments.
+
 ## Native OOM With Healthy Heap
 
 Symptom: container OOM kill while heap is below 60%. Correlate RSS/cgroup limit,

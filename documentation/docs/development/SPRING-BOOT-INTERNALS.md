@@ -1,196 +1,118 @@
-﻿---
-title: Spring Boot Internals
+---
+title: Spring Boot Internals Learning Guide
+description: Focused route through Boot startup, dependency injection, configuration, web runtime, infrastructure and production operations.
+difficulty: Intermediate
+page_type: Learning Path
+status: Shopverse
+prerequisites: [Spring ecosystem fundamentals]
+learning_objectives: [Trace a Boot application from launch to readiness, Select the canonical runtime guide for a symptom, Diagnose configuration and infrastructure from evidence]
+technologies: [Spring Boot 4, Spring Framework 7, Tomcat, Actuator]
+last_reviewed: "2026-07-13"
 ---
 
-# Spring Boot Internals
-
-Spring Boot internals are split by startup, dependency injection, configuration binding, web stack, infrastructure, and operations.
-
-## Focused Pages
-
-| Page | Covers |
-|---|---|
-| [Spring Boot Startup And Auto Configuration](spring-boot-internals/STARTUP-AUTOCONFIGURATION.md) | Application entry point, startup lifecycle, environment, property sources, auto-configuration, conditions, and dependency-driven setup. |
-| [Spring Dependency Injection Bean Lifecycle And AOP](spring-boot-internals/DI-BEAN-LIFECYCLE-AOP.md) | Bean definitions, bean instances, dependency injection, lifecycle callbacks, and AOP proxy behavior. |
-| [Spring Configuration Properties Internals](spring-boot-internals/CONFIGURATION-PROPERTIES.md) | Type-safe configuration binding, validation, metadata, nested properties, and when to prefer ConfigurationProperties over Value. |
-| [Servlets And DispatcherServlet In Spring Boot](spring-boot-internals/SERVLET-DISPATCHER-SERVLET.md) | Ground-up explanation of servlets, HttpServletRequest, filters, DispatcherServlet, the complete MVC request path, and how WebFlux differs. |
-| [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md) | Embedded servlet container, request lifecycle, filters, DispatcherServlet, argument resolution, Jackson, exception handling, and security integration. |
-| [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md) | Transactions, repository proxies, Liquibase, JPA auditing, caching, scheduling, Feign, Kafka, Actuator, tracing, Config Client, Eureka, and Gateway differences. |
-| [Spring Boot Operations Internals](spring-boot-internals/OPERATIONS-INTERNALS.md) | Startup diagnostics, graceful shutdown, production practices, and official references. |
-| [Spring Boot Production Tuning](spring-boot-internals/PRODUCTION-TUNING.md) | Startup measurement, JVM/container memory, GC, concurrency, Hikari and HTTP pools, graceful shutdown, sizing formulas, and metrics. |
-
-## Compatibility Anchors
-
-The original long page was split into focused pages. These headings are kept so older links have a stable landing point.
-
-## Shopverse Entry Point
-
-Moved to [Spring Boot Startup And Auto Configuration](spring-boot-internals/STARTUP-AUTOCONFIGURATION.md).
-
-## `@SpringBootApplication`
-
-Moved to [Spring Boot Startup And Auto Configuration](spring-boot-internals/STARTUP-AUTOCONFIGURATION.md).
-
-## Startup Lifecycle
-
-Moved to [Spring Boot Startup And Auto Configuration](spring-boot-internals/STARTUP-AUTOCONFIGURATION.md).
-
-## Environment And Property Sources
-
-Moved to [Spring Boot Startup And Auto Configuration](spring-boot-internals/STARTUP-AUTOCONFIGURATION.md).
-
-## Auto-Configuration
-
-Moved to [Spring Boot Startup And Auto Configuration](spring-boot-internals/STARTUP-AUTOCONFIGURATION.md).
-
-## Common Conditional Annotations
-
-Moved to [Spring Boot Startup And Auto Configuration](spring-boot-internals/STARTUP-AUTOCONFIGURATION.md).
-
-## Dependency-Driven Configuration
-
-Moved to [Spring Boot Startup And Auto Configuration](spring-boot-internals/STARTUP-AUTOCONFIGURATION.md).
-
-## Bean Definitions Versus Bean Instances
-
-Moved to [Spring Dependency Injection Bean Lifecycle And AOP](spring-boot-internals/DI-BEAN-LIFECYCLE-AOP.md).
-
-## Dependency Injection
-
-Moved to [Spring Dependency Injection Bean Lifecycle And AOP](spring-boot-internals/DI-BEAN-LIFECYCLE-AOP.md).
-
-## Bean Lifecycle
-
-Moved to [Spring Dependency Injection Bean Lifecycle And AOP](spring-boot-internals/DI-BEAN-LIFECYCLE-AOP.md).
-
-## AOP Proxies
-
-Moved to [Spring Dependency Injection Bean Lifecycle And AOP](spring-boot-internals/DI-BEAN-LIFECYCLE-AOP.md).
-
-## Configuration Properties Example
-
-Moved to [Spring Configuration Properties Internals](spring-boot-internals/CONFIGURATION-PROPERTIES.md).
-
-## How Spring Creates `InventoryProperties`
-
-Moved to [Spring Configuration Properties Internals](spring-boot-internals/CONFIGURATION-PROPERTIES.md).
-
-## Using The Bound Bean
-
-Moved to [Spring Configuration Properties Internals](spring-boot-internals/CONFIGURATION-PROPERTIES.md).
-
-## Nested Configuration
-
-Moved to [Spring Configuration Properties Internals](spring-boot-internals/CONFIGURATION-PROPERTIES.md).
-
-## `@ConfigurationProperties` Versus `@Value`
-
-Moved to [Spring Configuration Properties Internals](spring-boot-internals/CONFIGURATION-PROPERTIES.md).
-
-## Configuration Metadata
-
-Moved to [Spring Configuration Properties Internals](spring-boot-internals/CONFIGURATION-PROPERTIES.md).
-
-## Configuration Binding Practices
-
-Moved to [Spring Configuration Properties Internals](spring-boot-internals/CONFIGURATION-PROPERTIES.md).
-
-## Embedded Servlet Container
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## Servlet Request Lifecycle
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## `OncePerRequestFilter`
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## `DispatcherServlet`
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## Controller Argument Resolution
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## Jackson Auto-Configuration
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## Customizing Jackson
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## Exception Handling
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## Spring Security Integration
-
-Moved to [Spring Web MVC Servlet And Filter Internals](spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md).
-
-## Transaction Auto-Configuration
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Spring Data Repository Proxies
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Liquibase And JPA Startup
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## JPA Auditing
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Caching
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Scheduling
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## OpenFeign
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Kafka Infrastructure
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Actuator, Micrometer, And Tracing
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Config Client And Eureka
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Reactive Gateway Difference
-
-Moved to [Spring Infrastructure Internals](spring-boot-internals/INFRASTRUCTURE-INTERNALS.md).
-
-## Startup Diagnostics
-
-Moved to [Spring Boot Operations Internals](spring-boot-internals/OPERATIONS-INTERNALS.md).
-
-## Graceful Shutdown
-
-Moved to [Spring Boot Operations Internals](spring-boot-internals/OPERATIONS-INTERNALS.md).
-
-## Production Practices
-
-Moved to [Spring Boot Operations Internals](spring-boot-internals/OPERATIONS-INTERNALS.md).
-
-## Related Guides
-
-Moved to [Spring Boot Operations Internals](spring-boot-internals/OPERATIONS-INTERNALS.md).
+# Spring Boot Internals Learning Guide
+
+<DocLabels items={[
+  {label: 'Intermediate to architect', tone: 'intermediate'},
+  {label: 'Spring Boot 4', tone: 'foundation'},
+  {label: 'Production internals', tone: 'production'},
+]} />
+
+Spring Boot assembles a Spring application from environment, classpath, definitions,
+conditions and lifecycle callbacks. Follow the pages in dependency order; use the
+[runtime engineering map](../spring/SPRING-BOOT-INTERNALS-PRODUCTION.md) when diagnosing
+an existing production symptom.
+
+```mermaid
+flowchart LR
+    Launch["SpringApplication"] --> Environment["Environment and configuration"]
+    Environment --> Definitions["Definitions and auto-configuration"]
+    Definitions --> Beans["Bean creation and proxies"]
+    Beans --> Web["Server and MVC runtime"]
+    Web --> Infrastructure["Data, cache, messaging and clients"]
+    Infrastructure --> Operations["Readiness, metrics and shutdown"]
+```
+
+## Focused Guides
+
+<TopicCards items={[
+  {
+    title: 'Startup And Auto-Configuration',
+    href: './spring-boot-internals/STARTUP-AUTOCONFIGURATION',
+    description: 'Trace application type, environment, refresh, conditions and readiness.',
+    icon: 'route',
+    tags: ['Startup', 'Conditions'],
+  },
+  {
+    title: 'Dependency Injection And Bean Lifecycle',
+    href: './spring-boot-internals/DI-BEAN-LIFECYCLE-AOP',
+    description: 'Understand definitions, resolution, scopes, callbacks and proxy identity.',
+    icon: 'boxes',
+    tags: ['IoC', 'Lifecycle'],
+  },
+  {
+    title: 'Configuration Properties Internals',
+    href: './spring-boot-internals/CONFIGURATION-PROPERTIES',
+    description: 'Bind, validate and evolve typed external configuration safely.',
+    icon: 'code',
+    tags: ['Binding', 'Validation'],
+  },
+  {
+    title: 'Servlet And MVC Request Runtime',
+    href: '../spring/web/SERVLET-MVC-REQUEST-LIFECYCLE',
+    description: 'Trace filters, dispatch, arguments, controllers and exception ownership.',
+    icon: 'route',
+    tags: ['Servlet', 'MVC'],
+  },
+  {
+    title: 'HTTP Message Conversion',
+    href: '../spring/web/HTTP-MESSAGE-CONVERSION-JACKSON',
+    description: 'Own content negotiation, Jackson, streaming and contract compatibility.',
+    icon: 'layers',
+    tags: ['Jackson', 'Contracts'],
+  },
+  {
+    title: 'Infrastructure Internals',
+    href: './spring-boot-internals/INFRASTRUCTURE-INTERNALS',
+    description: 'Locate transaction, repository, migration, cache, Kafka and client setup.',
+    icon: 'network',
+    tags: ['Data', 'Integration'],
+  },
+  {
+    title: 'Operations Internals',
+    href: './spring-boot-internals/OPERATIONS-INTERNALS',
+    description: 'Diagnose startup, availability, graceful shutdown and production state.',
+    icon: 'gauge',
+    tags: ['Actuator', 'Lifecycle'],
+  },
+  {
+    title: 'Production Tuning',
+    href: './spring-boot-internals/PRODUCTION-TUNING',
+    description: 'Size memory, pools and concurrency from workload evidence.',
+    icon: 'gauge',
+    tags: ['Capacity', 'Performance'],
+  },
+]} />
+
+<DocCallout type="production" title="Auto-configuration is evidence-driven">
+
+When infrastructure is missing or duplicated, inspect the resolved dependency graph,
+condition report, bean definitions and startup steps. Adding exclusions or bean names
+without that evidence can hide the actual compatibility or scan problem.
+
+</DocCallout>
+
+## Boot 4 Compatibility
+
+Shopverse is pinned to Boot `4.0.6` and Java 21. Review focused starter changes, Jakarta
+EE 11 baselines, Jackson 3 and upgrade gates in the
+[Boot 4 And Framework 7 guide](../spring/SPRING-BOOT-4-FRAMEWORK-7.md).
 
 ## Official References
 
-Moved to [Spring Boot Operations Internals](spring-boot-internals/OPERATIONS-INTERNALS.md).
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Spring Framework container](https://docs.spring.io/spring-framework/reference/core/beans.html)
+
+## Recommended Next
+
+Start with [Startup And Auto-Configuration](./spring-boot-internals/STARTUP-AUTOCONFIGURATION.md).

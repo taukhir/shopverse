@@ -1,9 +1,9 @@
 ---
-title: Java Exception, Stream And CompletableFuture Failure Handling
+title: Java Exception Handling Across Streams And Async Workflows
 description: Custom exceptions, suppressed failures, stream exception patterns, executor failures, and CompletableFuture recovery semantics.
 ---
 
-# Java Exception, Stream And CompletableFuture Failure Handling
+# Java Exception Handling Across Streams And Async Workflows
 
 ## Custom Exception Rules
 
@@ -72,11 +72,36 @@ Avoid blocking the common `ForkJoinPool` with slow I/O. Supply a bounded, observ
 
 ## Tricky Interview Questions
 
-1. Can `whenComplete` recover a value? No; use `handle` or `exceptionally`.
-2. Why can `submit` appear to lose an exception? It is stored in an ignored `Future`.
-3. Does `allOf` return all results? No; it returns `CompletableFuture<Void>`.
-4. Does cancelling a future guarantee its HTTP call stops? No.
-5. Should a stream catch every per-element exception and continue? Only when partial success is an explicit, observable contract.
+<ExpandableAnswer title="Can whenComplete recover a value?">
+
+No; use `handle` or `exceptionally`.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can submit appear to lose an exception?">
+
+It is stored in an ignored `Future`.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does allOf return all results?">
+
+No; it returns `CompletableFuture<Void>`.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does cancelling a future guarantee its HTTP call stops?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Should a stream catch every per-element exception and continue?">
+
+Only when partial success is an explicit, observable contract.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -141,25 +141,33 @@ Common forms:
 
 ## Tricky Interview Questions
 
-### Can a functional interface have default methods?
+<ExpandableAnswer title="Can a functional interface have default methods?">
 
 Yes. It can have many default/static methods, but only one abstract method.
 
-### Lambda vs anonymous class?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Lambda vs anonymous class?">
 
 A lambda is concise and does not create a new named class in source. `this`
 inside a lambda refers to the enclosing instance. `this` inside an anonymous
 class refers to the anonymous class instance.
 
-### Why prefer standard functional interfaces?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why prefer standard functional interfaces?">
 
 They are widely understood and compose well with the Java library. Create a
 custom interface only when the domain name improves clarity.
 
-### Is a lambda always better?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is a lambda always better?">
 
 No. If logic is long, branching-heavy, or reused in many places, a named method
 or class is clearer.
+
+</ExpandableAnswer>
 
 ## Official References
 

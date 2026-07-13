@@ -50,8 +50,18 @@ application-level load test in addition to any JMH microbenchmark.
 
 ## Tricky Interview Questions
 
-1. Why is one benchmark run insufficient? Warm-up, forks, variance and environment alter results.
-2. What makes a lab architectural evidence? A falsifiable invariant, controlled variables and rejected alternatives.
+<ExpandableAnswer title="Why is one benchmark run insufficient?">
+
+Warm-up, forks, variance and environment alter results.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What makes a lab architectural evidence?">
+
+A falsifiable invariant, controlled variables and rejected alternatives.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

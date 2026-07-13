@@ -1,9 +1,36 @@
-# Spring Transactions
+---
+title: "Spring Transactions: Boundaries, Propagation, Isolation And Locking"
+description: Practical Spring transaction guide covering declarative boundaries, rollback, propagation, isolation, locking, synchronization, deadlocks, and testing.
+difficulty: Intermediate
+page_type: Guide
+status: Generic
+learning_objectives:
+  - Define local transaction boundaries and rollback rules explicitly
+  - Select propagation, isolation, and locking from a named data invariant
+  - Test commit, rollback, concurrency, synchronization, and cross-resource failure behavior
+technologies: [Spring Framework, Spring Transactions, JPA, JDBC]
+last_reviewed: "2026-07-13"
+---
+
+# Spring Transactions: Boundaries, Propagation, Isolation And Locking
+
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Data consistency', tone: 'foundation'},
+  {label: 'Production transactions', tone: 'production'},
+]} />
 
 A transaction groups operations into one atomic unit: either its changes
 commit or they roll back. This guide focuses on Spring's transaction
 abstraction, declarative `@Transactional` behavior, JPA transaction boundaries,
 propagation, isolation, rollback, locking, and testing.
+
+<DocCallout type="production" title="A local transaction has a physical boundary">
+Name the transaction manager, database connection or resource, and execution
+context before reasoning about atomicity. For advisor chains, logical versus
+physical scopes, pool capacity, async/reactive boundaries, and failure evidence,
+use the [architect runtime guide](./SPRING-PROXY-TRANSACTION-ARCHITECT.md).
+</DocCallout>
 
 Distributed workflows and Kafka consistency require separate patterns. See
 [SAGA and outbox](../reliability/SAGA-GENERIC.md), [Spring Kafka](SPRING-KAFKA.md),
@@ -330,15 +357,15 @@ Do not retry indefinitely or retry a partial non-idempotent side effect.
 1. Put boundaries in service-layer methods.
 2. Keep one local transaction within one service-owned database.
 3. Keep transactions short and free of remote waits.
-4. use database constraints as the final invariant.
-5. use optimistic locking for normal aggregate contention.
-6. use pessimistic locks only for narrow, measured critical sections.
-7. define explicit rollback behavior for checked exceptions.
-8. avoid proxy self-invocation assumptions.
-9. use outbox/SAGA when work crosses database or service boundaries.
-10. make retries and consumers idempotent.
-11. monitor pool use, transaction time, lock waits, and deadlocks.
-12. test failure between every durable step.
+4. Use database constraints as the final invariant.
+5. Use optimistic locking for normal aggregate contention.
+6. Use pessimistic locks only for narrow, measured critical sections.
+7. Define explicit rollback behavior for checked exceptions.
+8. Avoid proxy self-invocation assumptions.
+9. Use outbox/SAGA when work crosses database or service boundaries.
+10. Make retries and consumers idempotent.
+11. Monitor pool use, transaction time, lock waits, and deadlocks.
+12. Test failure between every durable step.
 
 ## Related Guides
 
@@ -347,3 +374,17 @@ Do not retry indefinitely or retry a partial non-idempotent side effect.
 - [Liquibase](../data/LIQUIBASE-GENERIC.md)
 - [Spring Kafka](SPRING-KAFKA.md)
 - [Spring AOP](SPRING-AOP.md)
+- [Spring Proxy And Transaction Runtime For Architects](SPRING-PROXY-TRANSACTION-ARCHITECT.md)
+
+## Official References
+
+- [Spring Framework transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
+- [Declarative transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative.html)
+- [Transaction propagation](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-propagation.html)
+- [Transaction-bound events](https://docs.spring.io/spring-framework/reference/data-access/transaction/event.html)
+- [Testing transaction-managed code](https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/tx.html)
+
+## Recommended Next
+
+Continue with [Proxy And Transaction Runtime For Architects](./SPRING-PROXY-TRANSACTION-ARCHITECT.md)
+or apply the database boundary in [JPA Transactions, Locking And Concurrency](./jpa/JPA-TRANSACTIONS-LOCKING.md).

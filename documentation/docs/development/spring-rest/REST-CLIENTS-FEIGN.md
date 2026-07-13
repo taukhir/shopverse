@@ -1,42 +1,61 @@
-﻿---
-title: Spring REST Clients And Feign
+---
+title: Spring HTTP Client Selection And Runtime
+description: Canonical selection and production runtime guide for RestClient, WebClient, HTTP Service Clients, legacy RestTemplate, and existing Spring Cloud OpenFeign adapters.
+difficulty: Advanced
+page_type: Architecture
+status: Implemented
+learning_objectives:
+  - Choose a Spring HTTP client from execution model and contract ownership
+  - Design pools, deadline phases, cancellation, retries, and context propagation
+  - Evolve current Shopverse Feign clients without duplicating deep Feign or reactive guides
+technologies: [Spring Framework 7, RestClient, WebClient, HTTP Service Clients, OpenFeign]
+last_reviewed: "2026-07-13"
 ---
 
-# Spring REST Clients And Feign
+# Spring HTTP Client Selection And Runtime
 
-RestTemplate, RestClient, WebClient, Feign, and choosing the right HTTP client.
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Dependency runtime', tone: 'production'},
+  {label: 'Shopverse current', tone: 'shopverse'},
+]} />
 
-Back to [Spring REST APIs](../SPRING-REST-APIS.md).
+Choose an HTTP client from the application's execution model, streaming needs,
+contract ownership, and Spring Cloud requirements. The API style does not remove
+the underlying connection pool, deadlines, DNS, TLS, cancellation, or dependency
+capacity.
 
-## Calling Other REST APIs
+<DocCallout type="tip" title="Select the execution model before the syntax">
+Use `RestClient` for new imperative adapters, `WebClient` for end-to-end reactive
+or streaming work, and HTTP Service interfaces when a declarative contract adds
+value. Keep existing Feign clients where they are owned and tested; migrate for a
+reason, not for novelty.
+</DocCallout>
 
-Spring provides several client styles. Choose according to the application's
-execution model, contract ownership, and infrastructure needs.
+## Selection Flow
 
-| Client | Programming model | Status | Typical use |
+```mermaid
+flowchart TD
+    start["New HTTP integration"] --> reactive{"End-to-end reactive or streaming?"}
+    reactive -->|yes| webclient["WebClient"]
+    reactive -->|no| declarative{"Declarative Java contract useful?"}
+    declarative -->|no| restclient["RestClient adapter"]
+    declarative -->|yes| cloud{"Existing Feign / Cloud-specific integration required?"}
+    cloud -->|yes| feign["Maintain focused Feign client"]
+    cloud -->|no| httpservice["HTTP Service Client backed by RestClient"]
+```
+
+## Comparison
+
+| Client | Model | Best fit | Main trap |
 |---|---|---|---|
-| `RestClient` | synchronous fluent API | preferred for new imperative code | direct HTTP integrations |
-| `WebClient` | non-blocking reactive API | preferred for reactive or streaming code | WebFlux, high concurrency, streaming |
-| `RestTemplate` | synchronous template API | maintenance mode | existing applications |
-| Spring Cloud OpenFeign | declarative interface proxy | active Spring Cloud integration | internal service contracts |
+| `RestClient` | synchronous fluent | new imperative integration adapters | assuming connect timeout bounds the whole call |
+| `WebClient` | nonblocking reactive | reactive composition, streaming, high concurrency | blocking event-loop threads or mixing blocking dependencies |
+| HTTP Service Client | annotated proxy over `RestClient` or `WebClient` | stable focused declarative contracts | interfaces growing into remote-service mirrors |
+| Spring Cloud OpenFeign | declarative blocking Cloud integration | existing discovery/load-balancing/interceptor investment | treating feature-complete as the default for new work |
+| `RestTemplate` | synchronous template | maintained legacy code | Spring Framework 7 deprecates it in favor of `RestClient` |
 
-Do not select `WebClient` only because it is newer. Blocking on it in an
-imperative application removes most reactive benefits while adding a more
-complex programming model.
-
-### `RestClient`
-
-Dependency:
-
-<DependencyTabs
-  gradle={<pre><code>{`implementation 'org.springframework.boot:spring-boot-starter-web'`}</code></pre>}
-  maven={<pre><code>{`<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-web</artifactId>
-</dependency>`}</code></pre>}
-/>
-
-Create a client with shared base configuration:
+## RestClient For Imperative Adapters
 
 ```java
 @Configuration(proxyBeanMethods = false)
@@ -53,291 +72,171 @@ class InventoryHttpConfiguration {
 }
 ```
 
-Use it from a focused adapter:
+Keep it behind a domain-focused adapter:
 
 ```java
-@Component
-@RequiredArgsConstructor
-class InventoryHttpClient {
-
-    private final RestClient inventoryRestClient;
-
-    InventoryResponse getInventory(long productId) {
-        return inventoryRestClient.get()
-                .uri("/api/v1/inventory/{productId}", productId)
-                .retrieve()
-                .onStatus(
-                        HttpStatusCode::is5xxServerError,
-                        (request, response) -> {
-                            throw new InventoryUnavailableException();
-                        }
-                )
-                .body(InventoryResponse.class);
-    }
+InventoryResponse getInventory(long productId) {
+    return inventoryRestClient.get()
+            .uri("/api/v1/inventory/{id}", productId)
+            .retrieve()
+            .onStatus(HttpStatusCode::is5xxServerError,
+                    (request, response) -> {
+                        throw new InventoryUnavailableException();
+                    })
+            .body(InventoryResponse.class);
 }
 ```
 
-Internally, `RestClient` uses Spring's `ClientHttpRequestFactory` abstraction.
-The chosen request factory delegates to an underlying synchronous HTTP client.
-The available implementation depends on classpath and configuration, such as a
-JDK, Apache HttpComponents, or Jetty-based request factory.
+`RestClient` delegates to a client request factory backed by a concrete HTTP
+library. Select and configure that transport explicitly when pool, TLS, proxy, or
+timeout behavior matters.
 
-Configure connection, response, and total operation deadlines explicitly. A
-connect timeout alone does not bound how long the complete request can wait.
+## WebClient For Reactive Or Streaming Work
 
-### `RestTemplate`
-
-`RestTemplate` remains supported for existing synchronous applications, but
-new imperative code should generally use `RestClient`.
-
-```java
-@Bean
-RestTemplate restTemplate(RestTemplateBuilder builder) {
-    return builder
-            .connectTimeout(Duration.ofSeconds(2))
-            .readTimeout(Duration.ofSeconds(3))
-            .build();
-}
-```
-
-```java
-InventoryResponse response = restTemplate.getForObject(
-        "https://inventory.example.com/api/v1/inventory/{id}",
-        InventoryResponse.class,
-        productId
-);
-```
-
-Internally, `RestTemplate` also delegates request creation to a
-`ClientHttpRequestFactory` and uses `HttpMessageConverter` instances for
-serialization and deserialization.
-
-Do not create a new `RestTemplate` for every call. Configure and inject one or
-more purpose-specific clients so connections, timeouts, interceptors, and
-observability are consistent.
-
-### `WebClient`
-
-Dependency:
-
-<DependencyTabs
-  gradle={<pre><code>{`implementation 'org.springframework.boot:spring-boot-starter-webflux'`}</code></pre>}
-  maven={<pre><code>{`<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-webflux</artifactId>
-</dependency>`}</code></pre>}
-/>
-
-`WebClient` is non-blocking when used end to end with a non-blocking connector
-and reactive processing:
-
-```java
-@Bean
-WebClient inventoryWebClient(WebClient.Builder builder) {
-    return builder
-            .baseUrl("https://inventory.example.com")
-            .build();
-}
-```
+`WebClient` supports nonblocking I/O and Reactive Streams composition when the
+complete path remains nonblocking:
 
 ```java
 Mono<InventoryResponse> getInventory(long productId) {
     return inventoryWebClient.get()
             .uri("/api/v1/inventory/{id}", productId)
             .retrieve()
-            .onStatus(
-                    HttpStatusCode::is5xxServerError,
-                    response -> Mono.error(
-                            new InventoryUnavailableException()
-                    )
-            )
             .bodyToMono(InventoryResponse.class)
             .timeout(Duration.ofSeconds(3));
 }
 ```
 
-`WebClient` delegates network operations to a `ClientHttpConnector`. Reactor
-Netty is a common connector when present through WebFlux, while other
-connectors can be configured. Reactive types do not make a blocking database
-driver or blocking SDK non-blocking.
+Reactive types do not transform JDBC, a blocking SDK, or `.block()` into
+nonblocking work. Event-loop ownership, backpressure, context, error, and
+cancellation depth belongs in [Spring Reactive And WebFlux](../../spring/SPRING-REACTIVE.md).
 
-Avoid calling `.block()` on event-loop threads. In a normal Spring MVC service,
-use `RestClient` unless reactive composition, streaming, or concurrency
-requirements justify `WebClient`.
-
-### Spring Cloud OpenFeign
-
-Dependency:
-
-<DependencyTabs
-  gradle={<pre><code>{`implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'`}</code></pre>}
-  maven={<pre><code>{`<dependency>
-  <groupId>org.springframework.cloud</groupId>
-  <artifactId>spring-cloud-starter-openfeign</artifactId>
-</dependency>`}</code></pre>}
-/>
-
-Enable and declare a client:
+## HTTP Service Clients
 
 ```java
-@SpringBootApplication
-@EnableFeignClients
-public class OrderServiceApplication {
-}
-```
-
-```java
-@FeignClient(
-        name = "inventory-service",
-        path = "/api/v1/inventory"
-)
-public interface InventoryClient {
-
-    @GetMapping("/{productId}")
-    InventoryResponse getInventory(
-            @PathVariable long productId,
-            @RequestHeader("X-Correlation-Id") String correlationId
-    );
-}
-```
-
-Spring Cloud OpenFeign creates a runtime proxy for the interface. Conceptually:
-
-```mermaid
-flowchart LR
-    Service["Order service"] --> Proxy["Feign proxy"]
-    Proxy --> Contract["Parse Spring MVC annotations"]
-    Contract --> Encoder["Encode request"]
-    Encoder --> LB["Spring Cloud LoadBalancer when used"]
-    LB --> Client["Feign Client implementation"]
-    Client --> HTTP["HTTP request"]
-    HTTP --> Decoder["Decode response"]
-    Decoder --> Service
-```
-
-Feign itself defines a `Client` abstraction. Spring Cloud OpenFeign can
-integrate it with:
-
-- Spring Cloud LoadBalancer for logical service names;
-- Apache HttpClient 5 when its implementation is available and enabled;
-- OkHttp when its implementation is available and enabled;
-- Feign's simpler default client when no specialized client is selected.
-
-The exact client must be verified from dependencies and configuration rather
-than assumed. Feign does not internally call `RestTemplate` or `WebClient` by
-default; it uses its own proxy, contract, encoder, decoder, and selected
-`feign.Client`.
-
-Feign is useful when:
-
-- the remote API has a stable, narrow Java-facing contract;
-- Spring Cloud discovery and load balancing are required;
-- common request interceptors propagate authentication and correlation data.
-
-Avoid interfaces that mirror an entire remote service. Keep clients small and
-owned by the consuming use case.
-
-### HTTP Interface Clients
-
-Spring can also generate clients from annotated interfaces backed by
-`RestClient` or `WebClient`:
-
-```java
-public interface InventoryHttpService {
+interface InventoryHttpService {
 
     @GetExchange("/api/v1/inventory/{productId}")
     InventoryResponse get(@PathVariable long productId);
 }
 ```
 
-```java
-@Bean
-InventoryHttpService inventoryHttpService(RestClient restClient) {
-    RestClientAdapter adapter = RestClientAdapter.create(restClient);
-    HttpServiceProxyFactory factory =
-            HttpServiceProxyFactory.builderFor(adapter).build();
-    return factory.createClient(InventoryHttpService.class);
-}
+Create the proxy with `HttpServiceProxyFactory` backed by `RestClient` for
+imperative return types or `WebClient` for reactive return types. Keep the
+interface narrow, consumer-owned, and independent of the domain model. Test the
+generated request against a mock web server.
+
+## Existing Spring Cloud OpenFeign
+
+Spring Cloud OpenFeign creates a proxy from annotated interfaces and integrates
+Spring MVC contracts, encoding/decoding, load balancing, interceptors, circuit
+breaking, and selected transports. The project is feature-complete and recommends
+Spring HTTP Service Clients for new declarative work.
+
+Shopverse already uses Feign, so this is an evolution signal rather than an
+emergency rewrite. Deep Feign configuration, error decoders, and migration detail
+lives in [Spring Cloud OpenFeign](../../spring/SPRING-OPENFEIGN.md).
+
+## Deadline And Pool Model
+
+```mermaid
+flowchart LR
+    queue["Bulkhead / executor wait"] --> acquire["Connection-pool acquisition"]
+    acquire --> dns["DNS"]
+    dns --> connect["TCP + TLS connect"]
+    connect --> headers["Request / response headers"]
+    headers --> body["Body read or stream"]
+    body --> total["Total operation deadline"]
 ```
 
-This provides a declarative client without requiring Spring Cloud. OpenFeign
-remains useful when Spring Cloud discovery, load balancing, and Feign-specific
-extensions are part of the architecture.
+Configure and observe each relevant phase:
 
-### Client-Side Cross-Cutting Configuration
+- pool maximum, pending-acquisition maximum, and acquisition timeout;
+- connect and TLS timeout;
+- response-header/read timeout;
+- total operation deadline including retries;
+- idle/eviction policy and connection reuse;
+- response and upload size limits;
+- cancellation and resource cleanup;
+- per-dependency concurrency and rejection behavior.
 
-Propagate correlation and authentication through interceptors rather than
-repeating headers at every call:
+Retries consume the same total budget. Retry only selected transient failures and
+operations safe to repeat. Never retry commands without a durable idempotency
+strategy.
 
-```java
-@Bean
-ClientHttpRequestInterceptor correlationInterceptor() {
-    return (request, body, execution) -> {
-        String correlationId = MDC.get("correlationId");
-        if (correlationId != null) {
-            request.getHeaders().set(
-                    "X-Correlation-Id",
-                    correlationId
-            );
-        }
-        return execution.execute(request, body);
-    };
-}
-```
+## Cross-Cutting Context
 
-For Feign:
+Propagate authentication, correlation, trace, locale, and idempotency only when
+the downstream contract owns them. Use interceptors/filters rather than repeating
+headers at every call. Do not propagate inbound credentials to an unrelated
+third party, and never log authorization values.
 
-```java
-@Bean
-RequestInterceptor correlationFeignInterceptor() {
-    return template -> {
-        String correlationId = MDC.get("correlationId");
-        if (correlationId != null) {
-            template.header("X-Correlation-Id", correlationId);
-        }
-    };
-}
-```
+Metrics should use dependency name, normalized route, method, status/outcome,
+attempt, and timeout phase. Complete URLs and resource IDs create high cardinality.
 
-Micrometer Observation can instrument supported clients and propagate trace
-context. Manual correlation IDs and distributed tracing serve related but
-different operational purposes.
+## Shopverse Current And Proposed Evolution
 
-### REST Client Production Practices
+<DocCallout type="shopverse" title="Current: focused Feign clients and correlation propagation">
+Auth Service calls User Service through `UserClient`. Order Service calls public
+Inventory endpoints through `InventoryClient`. `FeignCorrelationConfig` copies
+the bounded correlation header from MDC. Build conventions use Spring Boot
+`4.0.6` and Spring Cloud `2025.1.1`.
+</DocCallout>
 
-- set connect, response, read, and total request deadlines;
-- reuse configured clients and connection pools;
-- validate response status before decoding;
-- cap response and upload sizes;
-- retry only selected transient failures and idempotent operations;
-- combine retries with deadlines, backoff, jitter, and circuit breaking;
-- do not retry `POST` commands without a durable idempotency strategy;
-- propagate authentication, correlation, and trace context intentionally;
-- record route-template, status, latency, and dependency metrics;
-- avoid high-cardinality metrics such as complete URLs or resource IDs;
-- use TLS and validate certificates;
-- isolate third-party DTOs behind an adapter so their schema does not spread
-  into the domain.
+<DocCallout type="production" title="Proposed: contract-test before selecting a migration candidate">
+First add mock-web-server tests for both clients, including header propagation,
+JSON, error decoding, and timeout behavior. For the next narrow imperative
+integration, compare `RestClient` adapter and HTTP Service Client. Migrate existing
+Feign only when reduced dependencies, reactive support, or operational consistency
+justifies the compatibility work.
+</DocCallout>
 
-### REST Client Do And Do Not
+## Production Review Checklist
 
-| Do | Do not |
-|---|---|
-| Use `RestClient` for new imperative clients | Add `WebClient` only because it is newer |
-| Use `WebClient` for reactive composition and streaming | Block an event-loop thread |
-| Keep Feign interfaces small | Mirror every remote controller |
-| Configure bounded timeouts | Use framework defaults without review |
-| Reuse managed clients | Construct a client per request |
-| Handle non-success statuses explicitly | Treat every body as a success |
-| Retry safe/idempotent operations selectively | Retry all exceptions automatically |
-| Test with a stub HTTP server | Mock only the Java method and ignore HTTP mapping |
+- Client style matches the service execution model.
+- Transport implementation and connection pool are known.
+- Every timeout phase and total deadline has an owner.
+- Retry eligibility, attempts, backoff, jitter, and idempotency are explicit.
+- Authentication and trace propagation are allow-listed.
+- DTOs are contained inside the adapter boundary.
+- Response size and streaming lifecycle are bounded.
+- Metrics identify pool wait, connect, response, decoding, and retry failures.
+- Shutdown drains or cancels active calls predictably.
+- Wire behavior is tested with the production transport where required.
 
+## Expandable Interview Checks
 
+<ExpandableAnswer title="Should new imperative code use RestTemplate?">
 
+No. Spring Framework 7 deprecates `RestTemplate` in favor of `RestClient`. Maintain
+existing code safely, but use `RestClient` for new imperative adapters.
 
+</ExpandableAnswer>
 
+<ExpandableAnswer title="Does WebClient make a blocking database call nonblocking?">
 
+No. A blocking driver still blocks its executing thread and can stall an event
+loop unless isolated. Prefer one coherent execution model and bounded transitions.
 
+</ExpandableAnswer>
 
+<ExpandableAnswer title="Why might HTTP Service Clients replace a new Feign interface?">
 
+They provide declarative interfaces backed by Spring's blocking or reactive
+clients without requiring Spring Cloud OpenFeign, which is feature-complete.
+Existing Cloud integration needs may still justify Feign.
 
+</ExpandableAnswer>
+
+## Official References
+
+- [Spring Framework REST clients](https://docs.spring.io/spring-framework/reference/integration/rest-clients.html)
+- [Spring WebClient](https://docs.spring.io/spring-framework/reference/web/webflux-webclient.html)
+- [Spring Cloud OpenFeign](https://docs.spring.io/spring-cloud-openfeign/reference/)
+
+## Recommended Next
+
+<TopicCards items={[
+  {title: 'HTTP client contract tests', href: '/spring/testing/HTTP-CLIENT-CONTRACT-TESTS', description: 'Prove mapping, conversion, timeouts, errors, and retries at the wire boundary.', icon: 'experiment', tags: ['Contracts', 'Mock server']},
+  {title: 'Spring Cloud OpenFeign', href: '/spring/SPRING-OPENFEIGN', description: 'Review current Shopverse Feign internals, configuration, and migration detail.', icon: 'network', tags: ['Feign', 'Spring Cloud']},
+  {title: 'Web execution models', href: '/spring/web/WEB-EXECUTION-MODELS-CAPACITY', description: 'Connect client pools and deadlines to service capacity and saturation.', icon: 'gauge', tags: ['Pools', 'SLOs']},
+]} />

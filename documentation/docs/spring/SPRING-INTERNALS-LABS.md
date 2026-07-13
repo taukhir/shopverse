@@ -10,6 +10,20 @@ last_reviewed: "2026-07-12"
 
 # Spring Internals Hands-On Labs
 
+<DocLabels items={[
+  {label: 'Advanced labs', tone: 'advanced'},
+  {label: 'Failure injection', tone: 'production'},
+  {label: 'Evidence required', tone: 'foundation'},
+]} />
+
+<DocCallout type="production" title="Run destructive scenarios only against disposable dependencies">
+
+Bound duration, memory, threads, connections and retries before injecting failure. Capture
+the baseline and cleanup proof so a saturation, deadlock or shutdown lab cannot escape into
+a shared developer or production environment.
+
+</DocCallout>
+
 ```mermaid
 flowchart LR
   Test --> Spring["Spring test context"] --> Dependencies["Testcontainers / stubs"]

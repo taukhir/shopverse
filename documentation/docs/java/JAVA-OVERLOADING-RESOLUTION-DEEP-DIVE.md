@@ -5,6 +5,8 @@ description: Applicability phases, widening, boxing, varargs, null, generics, la
 
 # Java Overloading And Method Resolution Deep Dive
 
+![Compile-time overload resolution followed by runtime dispatch](/img/diagrams/java-method-resolution-dispatch.svg)
+
 Overloading is a compile-time operation. Runtime receiver type only matters after
 the compiler has selected a descriptor that can participate in overriding.
 
@@ -93,11 +95,36 @@ method and change behavior. API review must test source and binary clients.
 
 ## Compile-Or-Fail Questions
 
-1. Can return type alone overload a method? No.
-2. Can different checked exceptions overload a method? No.
-3. Does `call(null)` prefer `Object` over `String`? No; `String` is more specific.
-4. Can both `call(int[])` and `call(int...)` be declared? No; they have the same signature.
-5. Can generic bounds make erased declarations clash? Yes.
+<ExpandableAnswer title="Can return type alone overload a method?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can different checked exceptions overload a method?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does call(null) prefer Object over String?">
+
+No; `String` is more specific.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can both call(int[]) and call(int...) be declared?">
+
+No; they have the same signature.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can generic bounds make erased declarations clash?">
+
+Yes.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -53,11 +53,36 @@ try (AsynchronousFileChannel channel = AsynchronousFileChannel.open(path, READ))
 
 ## Tricky Interview Questions
 
-1. Is disabling only general entities enough for XXE? No; DTDs, parameter entities, XInclude and provider behavior matter.
-2. Does `normalize()` defeat symlink traversal? No.
-3. Can a buffer be reused immediately after scheduling an async read? No; ownership lasts until completion.
-4. Does future cancellation guarantee an OS operation was cancelled? No; consult implementation/API semantics and design idempotently.
-5. Does a completed file write guarantee persistence after power loss? No.
+<ExpandableAnswer title="Is disabling only general entities enough for XXE?">
+
+No; DTDs, parameter entities, XInclude and provider behavior matter.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does normalize() defeat symlink traversal?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a buffer be reused immediately after scheduling an async read?">
+
+No; ownership lasts until completion.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does future cancellation guarantee an OS operation was cancelled?">
+
+No; consult implementation/API semantics and design idempotently.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a completed file write guarantee persistence after power loss?">
+
+No.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -5,8 +5,21 @@ sidebar_position: 1
 
 # Java 8 To 26 Overview
 
+<DocLabels items={[
+  {label: 'Version guide', tone: 'foundation'},
+  {label: 'Modern backend Java', tone: 'intermediate'},
+  {label: 'Production adoption', tone: 'production'},
+  {label: 'Preview-aware', tone: 'preview'},
+]} />
+
 This page is the umbrella for important Java language and runtime features
 used in modern backend development.
+
+<DocCallout type="production" title="Feature status is part of the contract">
+A feature appearing in a JDK does not make every form of it production-stable.
+Record whether it is final, preview, or incubating, and pin the compiler flags,
+runtime flags, and rollback plan before it enters a deployable code path.
+</DocCallout>
 
 ## Feature Map
 
@@ -29,7 +42,7 @@ used in modern backend development.
 | Sequenced collections | 21 | standard first/last/reversed APIs |
 | Scoped values | 21 preview, 25 final | safer immutable context passing than many `ThreadLocal` use cases |
 | Stream gatherers | 24 | custom intermediate stream operations |
-| Stable values | 25 preview | lazily initialized immutable values |
+| Stable values / lazy constants | 25 preview / 26 second preview | lazily initialized immutable values behind an evolving preview API |
 | Primitive pattern matching | 26 preview | richer pattern matching over primitive values |
 
 ## Java 26 And AI
@@ -56,13 +69,20 @@ backend services.
 
 ## Dedicated Pages
 
-- [Optional](JAVA-OPTIONAL.md)
-- [Lambdas](JAVA-LAMBDAS.md)
+<TopicCards items={[
+  {title: 'Java 25 and 26 language changes', href: '/java/features-8-to-26/JAVA-25-26-LANGUAGE', description: 'Separate final language features from previews and migration-sensitive changes.', icon: 'code', tags: ['Java 25', 'Java 26']},
+  {title: 'Java 25 and 26 runtime changes', href: '/java/features-8-to-26/JAVA-25-26-RUNTIME', description: 'Review runtime evolution, tooling impact, and operational adoption concerns.', icon: 'gauge', tags: ['Runtime', 'Operations']},
+  {title: 'Lambdas', href: '/java/features-8-to-26/JAVA-LAMBDAS', description: 'Understand target typing, capture, method references, and functional boundaries.', icon: 'brain', tags: ['Java 8', 'Functional']},
+  {title: 'Optional', href: '/java/features-8-to-26/JAVA-OPTIONAL', description: 'Model expected absence without spreading wrapper types into every API shape.', icon: 'boxes', tags: ['Java 8', 'API design']},
+  {title: 'Records', href: '/java/features-8-to-26/JAVA-RECORDS', description: 'Use compact data carriers while respecting shallow immutability and invariants.', icon: 'layers', tags: ['Java 16', 'Data modeling']},
+  {title: 'Virtual threads', href: '/java/features-8-to-26/JAVA-VIRTUAL-THREADS', description: 'Scale blocking I/O while retaining limits around scarce downstream resources.', icon: 'network', tags: ['Java 21', 'Concurrency']},
+]} />
+
+Additional focused guides:
+
 - [var](JAVA-VAR.md)
 - [Switch](JAVA-SWITCH.md)
-- [Records](JAVA-RECORDS.md)
 - [Sealed Classes](JAVA-SEALED-CLASSES.md)
-- [Virtual Threads](JAVA-VIRTUAL-THREADS.md)
 
 ## Version-By-Version Highlights
 
@@ -133,7 +153,7 @@ control.
 - Foreign Function and Memory API maturation;
 - stream gatherers for custom intermediate operations;
 - scoped values becoming final in Java 25;
-- stable values and other preview APIs;
+- stable values evolving into the lazy-constants preview API;
 - continued pattern-matching and primitive-pattern work in Java 26 previews.
 
 Preview features require an explicit compiler/runtime flag and may change or be
@@ -166,17 +186,42 @@ Good candidates in backend code:
 
 ## Tricky Interview Questions
 
-1. Does `var` make Java dynamically typed? No; the compiler infers one static type.
-2. Are records deeply immutable? No; their component references are final, but referenced objects may mutate.
-3. Do virtual threads remove the need for connection pools? No; pools protect scarce external resources.
-4. Can a switch expression fall through? Arrow rules do not; colon-style groups require explicit `yield` for a value.
-5. Can production code use preview features without flags? No; compilation and execution require preview enablement.
+<ExpandableAnswer title="Does var make Java dynamically typed?">
+
+No; the compiler infers one static type.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Are records deeply immutable?">
+
+No; their component references are final, but referenced objects may mutate.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Do virtual threads remove the need for connection pools?">
+
+No; pools protect scarce external resources.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a switch expression fall through?">
+
+Arrow rules do not; colon-style groups require explicit `yield` for a value.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can production code use preview features without flags?">
+
+No; compilation and execution require preview enablement.
+
+</ExpandableAnswer>
+
 
 ## Official References
 
-- [Java language changes by release](https://docs.oracle.com/en/java/javase/25/language/java-language-changes.html)
+- [Java language changes through Java 26](https://docs.oracle.com/en/java/javase/26/language/java-language-changes-summary.html)
 - [OpenJDK JEP index](https://openjdk.org/jeps/0)
-- [Java 25 API](https://docs.oracle.com/en/java/javase/25/docs/api/index.html)
+- [Java 26 API](https://docs.oracle.com/en/java/javase/26/docs/api/index.html)
 
 ## Recommended Next
 

@@ -27,6 +27,7 @@ export const routes: Routes = [
   { path: 'admin/inventory', title: 'Inventory - ShopVerse', loadComponent: () => import('./features/admin/inventory-admin.component').then((m) => m.InventoryAdminComponent), canActivate: [adminGuard] },
   { path: 'admin/payments', title: 'Payments - ShopVerse', loadComponent: () => import('./features/admin/payment-admin.component').then((m) => m.PaymentAdminComponent), canActivate: [adminGuard] },
   { path: 'admin/recovery', title: 'Recovery - ShopVerse', loadComponent: () => import('./features/admin/recovery-admin.component').then((m) => m.RecoveryAdminComponent), canActivate: [adminGuard] },
+  { path: 'admin/activity', title: 'Admin activity - ShopVerse', loadComponent: () => import('./features/admin/admin-activity.component').then((m) => m.AdminActivityComponent), canActivate: [adminGuard] },
   { path: 'admin/users/:id', title: 'User profile - ShopVerse', loadComponent: () => import('./features/admin/admin-user-detail.component').then((m) => m.AdminUserDetailComponent), canActivate: [adminGuard] },
   { path: 'admin/:section', title: 'Admin - ShopVerse', loadComponent: () => import('./features/admin/admin-page.component').then((m) => m.AdminPageComponent), canActivate: [adminGuard] },
   { path: '**', redirectTo: '' },

@@ -1,10 +1,41 @@
 ﻿---
 title: Mockito And Unit Testing
+description: Framework-independent test-double foundations for focused Java service tests, interaction evidence, design seams, scoped static mocking, and legacy PowerMock migration.
+difficulty: Foundation
+page_type: Testing
+status: Implemented
+learning_objectives:
+  - Distinguish mocks, stubs, spies, fakes, and real value objects
+  - Stub and verify only collaborator behavior relevant to a business outcome
+  - Prefer injectable seams over static, constructor, and private-method mocking
+technologies: [Mockito, JUnit Jupiter, AssertJ, Java]
+last_reviewed: "2026-07-13"
 ---
 
 # Mockito And Unit Testing
 
+<DocLabels items={[
+  {label: 'Foundation', tone: 'foundation'},
+  {label: 'Framework independent', tone: 'intermediate'},
+  {label: 'Shopverse current', tone: 'shopverse'},
+]} />
+
 Mockito, mock usage, static and constructor mocking, PowerMockito guidance, and service unit tests.
+
+<DocCallout type="tip" title="Keep production behavior real">
+Construct the class under test normally. Replace only collaborators whose
+responses or side effects the scenario must control. Spring context, proxy, SQL,
+HTTP, and Kafka behavior require a broader test rather than deeper mocking.
+</DocCallout>
+
+```mermaid
+flowchart LR
+    test["JUnit test"] --> sut["Real service under test"]
+    sut --> repository["Mock repository boundary"]
+    sut --> client["Mock remote-client boundary"]
+    sut --> clock["Fake or fixed Clock"]
+    sut --> values["Real DTOs and value objects"]
+```
 
 Back to [Spring Boot Testing](../SPRING-BOOT-TESTING.md).
 
@@ -207,57 +238,16 @@ tool, not the preferred design.
 
 ## PowerMock And PowerMockito
 
-PowerMock/PowerMockito historically enabled mocking:
+PowerMock historically used custom class loading and bytecode manipulation for
+static methods, constructors, private methods, and static initializers. That model
+can conflict with modern JUnit, Java modules, coverage agents, IDE runners, and
+Spring TestContext. Do not introduce it into new Boot 4 code.
 
-- static methods;
-- constructors invoked with `new`;
-- private methods;
-- final classes and methods;
-- static initializers.
-
-It achieves this through custom class loading and bytecode manipulation.
-That can conflict with modern JUnit, Java modules, coverage agents, IDE
-runners, and Spring test infrastructure.
-
-PowerMockito-style legacy example:
-
-```java
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(LegacyPaymentFactory.class)
-public class LegacyPaymentServiceTest {
-
-    @Test
-    public void usesStubGateway() throws Exception {
-        PaymentGateway gateway = mock(PaymentGateway.class);
-
-        PowerMockito.mockStatic(LegacyPaymentFactory.class);
-        when(LegacyPaymentFactory.create()).thenReturn(gateway);
-
-        // exercise legacy code
-    }
-}
-```
-
-This is based on JUnit 4 and should not be introduced into new Spring Boot
-code. Use it only when all of the following are true:
-
-1. the code is legacy and cannot yet be refactored;
-2. the behavior is important enough to require a characterization test;
-3. Mockito cannot cover the required seam in the project's current setup;
-4. the team accepts the runner, Java-version, and tooling constraints;
-5. there is a planned refactoring path away from PowerMock.
-
-Prefer:
-
-- constructor injection;
-- wrapper interfaces around static libraries;
-- injectable factories;
-- `Clock` and ID providers;
-- Mockito scoped static mocking as a temporary fallback;
-- integration tests around an immutable legacy boundary.
-
-Do not mock private methods. Test observable behavior or extract the private
-logic into a focused collaborator when it has independent complexity.
+Retain a PowerMock characterization test only for valuable legacy behavior that
+cannot yet expose a seam, and attach an owned refactoring path. Prefer constructor
+injection, wrapper interfaces, factories, `Clock`, ID providers, or a bounded
+integration test. Never mock private methods; test observable behavior or extract
+independently complex logic.
 
 
 ## Service Unit Tests
@@ -293,6 +283,55 @@ void createUserHashesPasswordAndAssignsRoles() {
 
 Do not start Spring for pure business logic. Mockito and direct construction
 give faster and more focused feedback.
+
+## Shopverse Current And Proposed Practice
+
+<DocCallout type="shopverse" title="Current: focused service tests use repository and encoder mocks">
+User Service tests directly construct service implementations and control
+repositories, password encoding, and other collaborators with Mockito. This keeps
+domain branches fast without claiming to prove Spring proxies or persistence.
+</DocCallout>
+
+<DocCallout type="production" title="Proposed: use mutation results to find weak interaction tests">
+Run mutation testing on critical payment, inventory, authorization, and state-
+transition services. Replace call-count-only tests with assertions on business
+state and forbidden side effects when surviving mutations expose weak evidence.
+</DocCallout>
+
+## Expandable Interview Checks
+
+<ExpandableAnswer title="What should usually remain real in a Mockito unit test?">
+
+The class under test, DTOs, value objects, collections, and deterministic domain
+logic. Mock external collaborators whose behavior or side effects must be controlled.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can verifying every collaborator call make a test fragile?">
+
+It encodes internal choreography rather than the business outcome, so harmless
+refactoring breaks the test even when externally observable behavior is unchanged.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When is scoped static mocking acceptable?">
+
+As a bounded migration seam for valuable legacy behavior when refactoring is not
+yet possible. Close it with try-with-resources and prefer an injected abstraction.
+
+</ExpandableAnswer>
+
+## Official References
+
+- [Mockito documentation](https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html)
+- [JUnit extensions](https://docs.junit.org/current/user-guide/#extensions)
+
+## Recommended Next
+
+<TopicCards items={[
+  {title: 'Spring test slices and cache', href: '/spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE', description: 'Move beyond mocks when Spring configuration or proxies are part of the claim.', icon: 'layers', tags: ['TestContext', 'Slices']},
+  {title: 'Coverage and test quality', href: '/spring/testing/COVERAGE-TEST-QUALITY', description: 'Use branch and mutation evidence to review unit-test strength.', icon: 'gauge', tags: ['JaCoCo', 'PIT']},
+]} />
 
 
 

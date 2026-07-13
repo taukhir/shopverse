@@ -108,11 +108,36 @@ try {
 
 ## Tricky Interview Questions
 
-1. What happens when `run()` is called instead of `start()`? No new thread is created.
-2. Does `join()` terminate a thread? No; it waits for termination.
-3. Can concurrency occur on one core? Yes.
-4. Is thread priority portable scheduling control? No.
-5. Why can extra runnable threads reduce throughput? Context switching and cache disruption add overhead.
+<ExpandableAnswer title="What happens when run() is called instead of start()?">
+
+No new thread is created.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does join() terminate a thread?">
+
+No; it waits for termination.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can concurrency occur on one core?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is thread priority portable scheduling control?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can extra runnable threads reduce throughput?">
+
+Context switching and cache disruption add overhead.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

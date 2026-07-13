@@ -1,348 +1,218 @@
-﻿---
+---
 title: JPA Repositories Queries And Projections
+description: Spring Data repository composition, derived queries, JPQL, projections, specifications, pagination, and query evidence.
+difficulty: Intermediate
+page_type: Tutorial
+status: Generic
+prerequisites: [Spring Data JPA, SQL fundamentals, JPA entity integration]
+learning_objectives: [Choose a repository query mechanism by use case, Keep dynamic queries and sorting safe, Prove query behavior with plans and production-engine tests]
+technologies: [Spring Data JPA, Hibernate ORM, JPQL, SQL]
+last_reviewed: "2026-07-13"
 ---
 
 # JPA Repositories Queries And Projections
 
-Repository interfaces, derived queries, JPQL, native SQL, projections, specifications, and SQL injection prevention.
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Repository design', tone: 'foundation'},
+  {label: 'Query evidence', tone: 'production'},
+  {label: 'Shopverse current state', tone: 'shopverse'},
+]} />
 
-Back to [Spring Data JPA](../SPRING-DATA-JPA.md).
+A repository should express the persistence operations required by one domain
+boundary. Choose the simplest query mechanism that keeps SQL shape, result size,
+and compatibility visible.
 
-## Repository Interfaces
+```mermaid
+flowchart TD
+    Need["Use-case query"] --> Choice{"Stable shape?"}
+    Choice -->|"simple predicates"| Derived["Derived method"]
+    Choice -->|"explicit join or update"| JPQL["@Query JPQL"]
+    Choice -->|"read model"| Projection["DTO projection"]
+    Choice -->|"optional filters"| Spec["Specification"]
+    Choice -->|"database feature"| Native["Native SQL"]
+    Derived --> Evidence["SQL + plan + integration test"]
+    JPQL --> Evidence
+    Projection --> Evidence
+    Spec --> Evidence
+    Native --> Evidence
+```
+
+## Repository Composition
 
 ```java
-public interface OrderRepository
-        extends JpaRepository<OrderEntity, Long>,
-                JpaSpecificationExecutor<OrderEntity> {
+public interface UserRepository
+        extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
+
+    @EntityGraph(attributePaths = {"roles", "roles.permissions"})
+    Optional<User> findByUsername(String username);
+
+    boolean existsByEmail(String email);
 }
 ```
 
-Useful base interfaces:
+`JpaRepository` supplies persistence and paging operations. Add
+`JpaSpecificationExecutor` only when the domain really exposes composable filters;
+do not give every repository every abstraction by default.
 
-| Interface | Capability |
-|---|---|
-| `Repository` | marker with explicitly declared methods |
-| `CrudRepository` | basic CRUD |
-| `ListCrudRepository` | CRUD returning lists |
-| `PagingAndSortingRepository` | pagination and sorting |
-| `JpaRepository` | JPA CRUD, paging, flush, batch-oriented methods |
-| `JpaSpecificationExecutor` | dynamic criteria specifications |
+<DocCallout type="shopverse" title="Current implementation">
 
-Expose only operations the domain needs. Extending `JpaRepository` is
-convenient but also exposes broad mutation methods.
+Shopverse User and Role repositories combine `JpaRepository`, specifications, and
+entity graphs. Order repositories declare named read paths for order number,
+idempotency key, and customer history. These are current repository contracts.
 
+</DocCallout>
 
-## Derived Queries
+## Query Mechanisms
 
-Spring Data parses method names:
+### Derived Queries
 
-```java
-List<OrderEntity> findTop20ByCustomerUsernameAndStatusOrderByCreatedAtDesc(
-        String customerUsername,
-        OrderStatus status
-);
-```
-
-Conceptual SQL:
-
-```sql
-select *
-from orders
-where customer_username = ?
-  and status = ?
-order by created_at desc
-limit 20;
-```
-
-Derived methods work well for simple predicates. Use explicit queries when a
-method name becomes difficult to understand.
-
-
-## Custom JPQL Queries
-
-JPQL operates on entities and entity attributes:
+Use concise derived methods for stable predicates:
 
 ```java
-@Query("""
-        select o
-        from OrderEntity o
-        where o.customerUsername = :username
-          and o.status in :statuses
-        order by o.createdAt desc
-        """)
-List<OrderEntity> findCustomerOrders(
-        @Param("username") String username,
-        @Param("statuses") Set<OrderStatus> statuses
-);
+Optional<OrderEntity> findByOrderNumber(String orderNumber);
+boolean existsByIdAndCustomerUsername(Long id, String username);
 ```
 
-Parameters are bound values, not concatenated into the query.
+Long method names that encode several optional branches are harder to review than
+an explicit query or specification.
 
-### Modifying Queries
+### JPQL And Modifying Queries
+
+JPQL operates on entity names and mapped fields:
 
 ```java
 @Modifying(clearAutomatically = true, flushAutomatically = true)
 @Query("""
-        update InventoryItemEntity item
-           set item.availableQuantity = item.availableQuantity - :quantity
-         where item.productId = :productId
-           and item.availableQuantity >= :quantity
-        """)
-int reserveIfAvailable(
-        @Param("productId") Long productId,
-        @Param("quantity") int quantity
-);
+       update UserAddress a
+          set a.defaultAddress = false
+        where a.user.username = :username
+          and a.id <> :addressId
+       """)
+int clearOtherDefaults(String username, Long addressId);
 ```
 
-Call modifying queries inside a transaction. The returned row count provides
-an atomic success signal:
+Bulk DML bypasses managed entity state. Treat the affected-row count as evidence
+and clear or isolate stale persistence-context state.
+
+### Projections
+
+Use a DTO or record projection when a use case needs a small stable read model:
 
 ```java
-if (repository.reserveIfAvailable(productId, quantity) != 1) {
-    throw new InsufficientInventoryException(productId);
-}
-```
+record OrderSummary(String orderNumber, OrderStatus status, BigDecimal total) {}
 
-Bulk JPQL updates bypass normal entity dirty checking and lifecycle callbacks.
-Clear or refresh affected managed entities to avoid stale persistence-context
-state.
-
-
-## Native SQL Queries
-
-```java
-@Query(
-        value = """
-                select o.id, o.order_number, sum(i.quantity * i.unit_price)
-                from orders o
-                join order_items i on i.order_id = o.id
-                where o.created_at >= :from
-                group by o.id, o.order_number
-                """,
-        nativeQuery = true
-)
-List<OrderTotalView> findOrderTotals(@Param("from") Instant from);
-```
-
-Use native SQL for database-specific features, carefully optimized reports, or
-queries that are clearer in SQL. Native queries increase coupling to the
-database dialect and can require explicit count queries for pagination.
-
-
-## Projections
-
-Projections load only the fields required by a use case and avoid exposing
-entities.
-
-### Closed Interface Projection
-
-```java
-public interface OrderSummary {
-    Long getId();
-    String getOrderNumber();
-    OrderStatus getStatus();
-    BigDecimal getTotalAmount();
-}
-```
-
-```java
-Page<OrderSummary> findByCustomerUsername(
-        String customerUsername,
-        Pageable pageable
-);
-```
-
-For a closed projection, Spring Data can select only referenced properties:
-
-```sql
-select id, order_number, status, total_amount
-from orders
-where customer_username = ?
-limit ? offset ?;
-```
-
-### Open Interface Projection
-
-```java
-public interface OrderDisplay {
-
-    String getOrderNumber();
-
-    @Value("#{target.orderNumber + ' - ' + target.status}")
-    String getLabel();
-}
-```
-
-Open projections use SpEL and may require loading more entity state. Prefer
-closed or DTO projections for predictable query performance.
-
-### Record Or Class DTO Projection
-
-```java
-public record OrderSummaryResponse(
-        Long id,
-        String orderNumber,
-        OrderStatus status,
-        BigDecimal totalAmount
-) {
-}
-```
-
-JPQL constructor projection:
-
-```java
 @Query("""
-        select new com.example.order.api.OrderSummaryResponse(
-                o.id,
-                o.orderNumber,
-                o.status,
-                o.totalAmount
-        )
-        from OrderEntity o
+       select new com.example.OrderSummary(o.orderNumber, o.status, o.totalAmount)
+         from OrderEntity o
         where o.customerUsername = :username
-        """)
-Page<OrderSummaryResponse> findSummaries(
-        @Param("username") String username,
-        Pageable pageable
-);
+        order by o.createdAt desc
+       """)
+List<OrderSummary> findSummaries(String username, Pageable page);
 ```
 
-DTO projections provide an explicit contract and work well for read APIs.
+Closed interface projections can be concise. Constructor projections make the
+selected contract and types explicit. Open projections with arbitrary expressions
+can force broader entity loading; verify their SQL.
 
-### Dynamic Projection
+### Specifications
 
-```java
-<T> Optional<T> findByOrderNumber(
-        String orderNumber,
-        Class<T> projectionType
-);
-```
+Specifications fit optional filters and shared predicates. Keep authorization and
+tenant scope mandatory rather than letting callers omit them.
 
 ```java
-OrderSummary summary = repository.findByOrderNumber(
-        orderNumber,
-        OrderSummary.class
-).orElseThrow();
-```
-
-Dynamic projections reduce repository method duplication but can hide which
-query shape a use case expects. Use them selectively.
-
-### Nested Projections
-
-Nested interface projections can traverse relationships:
-
-```java
-interface OrderWithCustomer {
-    String getOrderNumber();
-    CustomerView getCustomer();
+Specification<User> activeInTenant(String tenantId) {
+    return (root, query, cb) -> cb.and(
+            cb.equal(root.get("tenantId"), tenantId),
+            cb.equal(root.get("status"), UserStatus.ACTIVE)
+    );
 }
 ```
 
-They can still produce joins or additional loading. Inspect generated SQL
-rather than assuming the projection is efficient.
+<DocCallout type="production" title="A flexible query is an input surface">
 
+Allow-list filter fields, sort properties, operators, page size, and result shape.
+Parameter binding protects values; it does not make arbitrary column or expression
+selection safe.
 
-## Specifications And Dynamic Queries
+</DocCallout>
 
-Specifications compose optional predicates without unsafe SQL construction:
+## Native SQL Boundary
 
-```java
-public static Specification<OrderEntity> hasStatus(OrderStatus status) {
-    return (root, query, builder) ->
-            status == null
-                    ? builder.conjunction()
-                    : builder.equal(root.get("status"), status);
-}
-```
+Use native SQL for a justified database capability or a query that cannot be
+expressed safely and efficiently otherwise. Native queries increase dialect,
+mapping, count-query, and schema coupling. Cover them with production-engine
+integration tests and an explicit migration owner.
 
-```java
-Specification<OrderEntity> specification =
-        Specification.where(hasStatus(status))
-                .and(createdAfter(from))
-                .and(ownedBy(username));
+## Pagination And Stable Ordering
 
-return repository.findAll(specification, pageable);
-```
+Every paged query needs deterministic ordering, normally including a unique
+tiebreaker. Large offsets can become expensive and unstable under concurrent
+writes. Keyset pagination is a proposed option for large append-oriented histories,
+but it changes the API cursor contract and must be designed rather than silently
+substituted.
 
-For complex read models, Querydsl, Criteria API, jOOQ, or explicit SQL may be
-clearer than a large specification tree. Choose one approach consistently.
+## Schema And Index Rollout
 
+A new predicate or sort can require a new index. Create and validate the index
+before routing production traffic to the new query. During rollback, keep the
+index until no deployed version depends on it; removal is a later contract step.
 
-## SQL Injection Risks And Prevention
+<DocCallout type="code" title="Current versus proposed">
 
-This is safe because values are bound:
+Current Shopverse repositories use pageable and list-based read paths. Keyset
+pagination and additional covering indexes are recommendations for measured large
+histories, not claims about the present implementation.
 
-```java
-@Query("select u from UserEntity u where u.username = :username")
-Optional<UserEntity> findByUsername(@Param("username") String username);
-```
+</DocCallout>
 
-Hibernate sends SQL similar to:
+## Evidence Workflow
 
-```sql
-select *
-from users
-where username = ?;
-```
+1. capture generated SQL and bounded bind diagnostics;
+2. run with representative row counts and skew;
+3. inspect the database execution plan and rows examined;
+4. count queries and returned columns;
+5. test empty, maximum-page, unauthorized, and timeout paths;
+6. verify native SQL and migrations on the production engine.
 
-The username remains data and cannot change the SQL structure.
+## Interview Questions
 
-This is unsafe:
+<ExpandableAnswer title="When is a derived query the wrong Spring Data abstraction?">
 
-```java
-String sql = "select * from users where username = '" + username + "'";
-entityManager.createNativeQuery(sql).getResultList();
-```
+When the name becomes unreadable, filters are optional/composable, the query needs
+explicit joins or a DTO, or database-specific behavior must be visible and tested.
 
-An input such as:
+</ExpandableAnswer>
 
-```text
-' OR '1'='1
-```
+<ExpandableAnswer title="Why can a projection still trigger more SQL than expected?">
 
-can alter query meaning.
+An open projection or nested property traversal can require entity materialization
+or association access. Inspect the generated SQL rather than assuming the return
+type guarantees the query shape.
 
-### Dynamic Sort Injection
+</ExpandableAnswer>
 
-Values can be parameterized; identifiers and SQL keywords generally cannot.
-Never concatenate an arbitrary client sort field:
+<ExpandableAnswer title="Why is dynamic sorting a security and performance concern?">
 
-```java
-String sql = "select * from orders order by " + requestedSort;
-```
+User-selected properties can expose internal data, trigger expensive joins or
+expressions, and create unindexed plans. Allow-list safe fields and bound page size.
 
-Use an allow-list:
+</ExpandableAnswer>
 
-```java
-private static final Map<String, String> ALLOWED_SORTS = Map.of(
-        "createdAt", "created_at",
-        "status", "status",
-        "totalAmount", "total_amount"
-);
-```
+<ExpandableAnswer title="What changes when a repository method uses bulk JPQL update?">
 
-Better still, map client values to typed Spring `Sort` properties validated
-against known entity attributes.
+It executes directly in the database, bypassing dirty checking, callbacks, and
+managed state. Flush first when required, inspect the affected-row count, and clear
+or avoid stale entities.
 
-### Injection Safety Checklist
+</ExpandableAnswer>
 
-- bind every external value with repository parameters;
-- use Criteria API, specifications, or Querydsl for dynamic predicates;
-- allow-list dynamic identifiers, operators, and sort fields;
-- never accept raw JPQL, SQL fragments, or SpEL from clients;
-- use least-privilege database users;
-- validate lengths and formats as defense in depth;
-- do not expose database errors or generated SQL to clients;
-- review stored procedures and custom JDBC code under the same rules.
+## Official References
 
-ORM use does not automatically make every query safe. String concatenation can
-reintroduce injection into JPQL and native SQL.
+- [Defining Spring Data repository interfaces](https://docs.spring.io/spring-data/jpa/reference/repositories/definition.html)
+- [Spring Data JPA query methods](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
+- [Spring Data JPA projections](https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html)
 
+## Recommended Next
 
-
-
-
-
-
-
+Continue with [Fetching Performance And N Plus One](./JPA-FETCHING-PERFORMANCE.md).

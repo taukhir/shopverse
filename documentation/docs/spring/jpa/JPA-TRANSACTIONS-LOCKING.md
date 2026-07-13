@@ -1,300 +1,217 @@
-﻿---
+---
 title: JPA Transactions Locking And Concurrency
+description: Spring transaction ownership, optimistic and pessimistic locking, conditional updates, outbox atomicity, and concurrency evidence.
+difficulty: Advanced
+page_type: Decision Guide
+status: Generic
+prerequisites: [Spring transactions, Spring Data repositories, Database isolation]
+learning_objectives: [Place the transaction around a complete business invariant, Choose versioning row locks or conditional updates, Prove concurrency behavior with production-engine tests]
+technologies: [Spring Data JPA, Spring Transactions, Hibernate ORM, JDBC]
+last_reviewed: "2026-07-13"
 ---
 
 # JPA Transactions Locking And Concurrency
 
-Transaction boundaries, optimistic locking, pessimistic locking, atomic conditional updates, and Shopverse concurrency decisions.
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Concurrency control', tone: 'foundation'},
+  {label: 'Production invariant', tone: 'production'},
+  {label: 'Shopverse current state', tone: 'shopverse'},
+]} />
 
-For scheduler leadership, Outbox polling strategies, `SKIP LOCKED`, leases,
-fencing, and queue/partition ownership, use the
-[Locking And Work Ownership](../../reliability/locking/LOCKING-AND-WORK-OWNERSHIP.md)
-umbrella.
+The service operation owns the invariant. Spring Data repositories participate in
+that transaction; they do not make several repository calls, an HTTP call, and a
+Kafka send one atomic unit.
 
-Back to [Spring Data JPA](../SPRING-DATA-JPA.md).
+```mermaid
+sequenceDiagram
+    participant API as Service proxy
+    participant TM as Transaction manager
+    participant Repo as Repository proxy
+    participant DB as Database
+    API->>TM: begin
+    API->>Repo: load and change state
+    Repo->>DB: SELECT / lock
+    API->>Repo: insert outbox row
+    API->>TM: commit
+    TM->>DB: flush SQL and commit
+    DB-->>TM: success or conflict
+```
 
-## Transactions
-
-Repository calls participate in the surrounding Spring transaction:
+## Transaction Ownership
 
 ```java
 @Transactional
-public OrderResponse checkout(...) {
-    OrderEntity order = repository.save(...);
-    outboxService.enqueue(...);
+public OrderResponse checkout(CheckoutCommand command) {
+    OrderEntity order = createOrder(command);
+    orderRepository.save(order);
+    outboxService.enqueue(OrderCreated.from(order));
     return mapper.toResponse(order);
 }
 ```
 
-The order and its outbox event commit or roll back together because both use
-the same transaction manager and database.
+Domain state and the outbox row can commit together because they use the same
+database and transaction manager. Publication occurs later. A remote call inside
+this transaction is not atomic with the database and holds locks/connections while
+waiting.
 
-Use `@Transactional(readOnly = true)` for read service methods. It communicates
-intent and may enable provider optimizations, but it is not an authorization
-or database-write prohibition.
+`@Transactional(readOnly = true)` communicates intent and may enable provider
+optimizations. It is not an authorization boundary or a universal database write
+prohibition.
 
+## Choose The Smallest Correct Primitive
 
-## Locking And Concurrency
+| Primitive | Best fit | Expected conflict evidence |
+|---|---|---|
+| `@Version` optimistic locking | low/moderate collision, safe full-operation retry | zero-row versioned update and translated stale-object exception |
+| pessimistic row lock | short ownership claim or consistently contended row | lock wait, timeout, deadlock, or skipped row |
+| atomic conditional update | invariant expressible in one statement | affected-row count `1` or `0` |
+| unique constraint | duplicate business identity | constraint violation translated to domain conflict |
 
-### Optimistic Locking
+## Optimistic Locking
 
 ```java
 @Version
 private long version;
 ```
 
-Optimistic locking assumes collisions are uncommon. It does not lock the row
-when it is read. Instead, each transaction remembers the version it loaded and
-proves during update that the row still has that version.
+Two transactions may read version 7. The first update includes version 7 in its
+predicate and advances it. The second affects zero rows and fails. Retry the whole
+idempotent business operation in a new transaction: reload, re-check the invariant,
+apply the decision, and commit. Do not retry only `save(staleEntity)`.
 
-Shopverse Inventory uses this mapping:
+<DocCallout type="shopverse" title="Current inventory protection">
 
-```java
-@Entity
-class InventoryItem {
+Shopverse `InventoryItem` currently has `@Version`, available quantity, and reserved
+quantity. This prevents stale lost updates on that row. Duplicate checkout and
+Kafka delivery are separate problems handled with business keys and idempotent
+operations.
 
-    @Id
-    private Long id;
+</DocCallout>
 
-    private int availableQuantity;
-
-    private int reservedQuantity;
-
-    @Version
-    private long version;
-}
-```
-
-Assume product `101` starts as:
-
-| Field | Value |
-|---|---:|
-| `available_quantity` | 1 |
-| `reserved_quantity` | 0 |
-| `version` | 7 |
-
-Two checkout consumers read the same row:
-
-```mermaid
-sequenceDiagram
-    participant A as Transaction A
-    participant DB as inventory_items
-    participant B as Transaction B
-
-    A->>DB: SELECT product 101
-    DB-->>A: available=1, version=7
-    B->>DB: SELECT product 101
-    DB-->>B: available=1, version=7
-    A->>DB: UPDATE ... WHERE id=101 AND version=7
-    DB-->>A: 1 row updated; version becomes 8
-    B->>DB: UPDATE ... WHERE id=101 AND version=7
-    DB-->>B: 0 rows updated
-    B->>B: optimistic-locking exception
-```
-
-Generated update:
-
-```sql
--- simplified conceptual shape
-update inventory_items
-set available_quantity = ?,
-    reserved_quantity = ?,
-    version = version + 1
-where id = ? and version = ?;
-```
-
-Depending on the Hibernate version and dialect, the new version may instead be
-calculated in Java and bound as `version = ?`. The concurrency guarantee comes
-from the old version in the `WHERE` clause and the affected-row count.
-
-The first transaction updates one row and changes version `7` to `8`. The
-second transaction still asks for version `7`, so the database updates zero
-rows. Hibernate interprets that zero-row result as stale state and raises an
-optimistic-locking exception, commonly exposed as:
-
-- `OptimisticLockException`;
-- `StaleObjectStateException`;
-- Spring's translated `ObjectOptimisticLockingFailureException`.
-
-The failed transaction must roll back. It must not continue using its stale
-entity.
-
-For Shopverse, a safe retry means:
-
-1. start a new transaction;
-2. reload the Inventory item and its current version;
-3. re-check available stock;
-4. check the Order/reservation idempotency key;
-5. execute the complete reservation operation again;
-6. commit only one reservation and one corresponding outbox event.
-
-Do not retry only `repository.save(staleEntity)`. That can repeat stale
-decisions. Retry the complete idempotent business operation with bounded
-attempts and backoff.
-
-Optimistic locking prevents a lost update:
-
-```text
-without @Version:
-Transaction A writes 0 available
-Transaction B writes 0 available using stale state
-both may believe they purchased the last item
-
-with @Version:
-one update succeeds
-the stale update is rejected
-the loser reloads and observes insufficient stock
-```
-
-It does not prevent:
-
-- duplicate API requests by itself;
-- duplicate Kafka event processing;
-- conflicts across rows that do not share a version;
-- overselling caused by code that bypasses the versioned entity;
-- unbounded retry storms under high contention.
-
-Shopverse combines `@Version` with unique Order/reservation business keys,
-idempotent checkout, transactional boundaries, and database constraints.
-
-Use optimistic locking when:
-
-- contention is expected to be low or moderate;
-- reads should not block other transactions;
-- the operation can be retried safely;
-- rejecting stale decisions is more important than waiting for a lock.
-
-Prefer an atomic conditional update or carefully bounded pessimistic lock when
-contention is consistently high and repeated optimistic retries would waste
-resources.
-
-### Pessimistic Locking
+## Pessimistic Claims
 
 ```java
 @Lock(LockModeType.PESSIMISTIC_WRITE)
-@Query("select item from InventoryItemEntity item where item.productId = :id")
-Optional<InventoryItemEntity> findByProductIdForUpdate(
-        @Param("id") Long productId
-);
+@Query("select event from OutboxEvent event where event.id = :id")
+Optional<OutboxEvent> findByIdForUpdate(Long id);
 ```
 
-Typical SQL:
+Keep the locked transaction short and never hold it across remote I/O. Access
+multiple rows in a consistent order, configure bounded lock timeouts, and treat
+deadlocks as an expected database concurrency outcome with a classified retry.
 
-```sql
-select *
-from inventory_items
-where product_id = ?
-for update;
-```
+<DocCallout type="shopverse" title="Current outbox claim">
 
-Pessimistic locking comes into play when the query runs. The database locks
-the selected row immediately and other transactions that need a conflicting
-lock must wait, fail, or skip the row depending on the database and query
-style.
+Order, Inventory, and Payment outbox repositories currently expose a pessimistic
+`findByIdForUpdate` path. The shared runtime also has claim metadata. This documents
+current code; it does not imply every scheduler path has globally unique ownership.
 
-```mermaid
-sequenceDiagram
-    participant A as Transaction A
-    participant DB as Database row
-    participant B as Transaction B
+</DocCallout>
 
-    A->>DB: SELECT ... FOR UPDATE
-    DB-->>A: row returned and locked
-    B->>DB: SELECT ... FOR UPDATE
-    DB-->>B: waits, times out, or skips
-    A->>DB: UPDATE row
-    A->>DB: COMMIT
-    DB-->>B: lock is released
-```
-
-Keep locked transactions short, access rows in a consistent order, and never
-wait for remote HTTP or Kafka operations while holding locks.
-
-### Optimistic Locking Versus Pessimistic Locking
-
-Both techniques protect shared data, but they are not the same.
-
-| Question | Optimistic locking with `@Version` | Pessimistic locking with `@Lock` |
-|---|---|---|
-| When does it act? | during flush, update, or commit | during the read query |
-| Does the first read block others? | no | yes, for conflicting locks |
-| How is conflict detected? | update affects zero rows because version changed | second transaction waits, fails, or skips locked row |
-| Best fit | normal business rows where conflicts are uncommon | worker/job rows where duplicate processing is dangerous |
-| Typical failure | `OptimisticLockException` or Spring translated stale-object exception | lock timeout, deadlock victim, or skipped locked row |
-| Retry style | retry the full idempotent business operation | keep lock scope short; retry after bounded backoff |
-
-The simplest mental model:
-
-```text
-@Version:
-  "I will not block you now, but my update will fail later if the row changed."
-
-Pessimistic lock:
-  "I am taking this row now; another worker must not process it at the same time."
-```
-
-### Shopverse Decision Guide
-
-| Shopverse use case | Preferred protection | Reason |
-|---|---|---|
-| Two customers racing for the last inventory item | `@Version` on `InventoryItem` | both can read, but only one stale-sensitive stock update wins |
-| Repeated checkout request from client/gateway retry | `Idempotency-Key` plus unique database constraint | this is duplicate request protection, not only row-update protection |
-| Duplicate `order.created` Kafka delivery | idempotent consumer lookup by `orderNumber` | Kafka can deliver the same business event more than once |
-| Outbox publisher claiming work | short pessimistic claim or atomic status update | two workers must not publish the same outbox row concurrently |
-| Reservation expiry in multiple Inventory replicas | row claiming, `SKIP LOCKED`, atomic status update, or scheduler lock | every replica can run `@Scheduled`; each expired reservation needs one owner |
-
-In Shopverse, `@Version` protects `InventoryItem` stock from lost updates. It
-does not by itself prove that only one scheduler replica has selected an
-expired reservation. A multi-replica expiry worker needs an ownership step:
+## Atomic Conditional Update
 
 ```java
-@Modifying
+@Modifying(clearAutomatically = true, flushAutomatically = true)
 @Query("""
-        update InventoryReservation reservation
-           set reservation.status = 'EXPIRING'
-         where reservation.id = :id
-           and reservation.status = 'RESERVED'
-           and reservation.expiresAt < :now
-        """)
-int claimExpiredReservation(Long id, Instant now);
-```
-
-Only the transaction that receives `1` updated row owns that expiry. Other
-replicas receive `0` and skip it. The owning transaction can then release
-stock, mark the reservation `EXPIRED`, and enqueue the compensation outbox
-event.
-
-Use pessimistic row locks or atomic status transitions for worker ownership.
-Use optimistic locking for ordinary entity state where the business operation
-can safely retry from a fresh read.
-
-The complete Shopverse current-state analysis, paid-reservation gap,
-atomic-claim transaction, crash behavior, and test plan are documented in
-[Multi-Replica Reservation Expiry](../../reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
-The [four-reservation, two-scheduler walkthrough](../../reliability/problems/runtime/TWO-SCHEDULER-RESERVATION-EXAMPLE.md)
-shows update counts, row-lock waiting, commits, one-record rollback, and retry.
-
-### Atomic Conditional Update
-
-For a simple invariant, one update may be safer and faster than read-modify-write:
-
-```java
-@Modifying
-@Query("""
-        update InventoryItemEntity item
-           set item.availableQuantity = item.availableQuantity - :quantity
-         where item.productId = :productId
-           and item.availableQuantity >= :quantity
-        """)
+       update InventoryItem item
+          set item.availableQuantity = item.availableQuantity - :quantity
+        where item.productId = :productId
+          and item.availableQuantity >= :quantity
+       """)
 int reserve(Long productId, int quantity);
 ```
 
-The database evaluates the condition and update atomically.
+An affected-row count of `1` wins; `0` means the condition no longer holds. This is
+a proposed alternative for a narrow stock invariant, not the current Shopverse
+Inventory implementation. It would need to update every related quantity and
+version rule consistently before adoption.
 
+## Isolation And Multi-Row Invariants
 
+Row locks and versions protect only the state they cover. Write skew across two
+rows, uniqueness across a predicate, or cross-service authority needs a database
+constraint, a different transaction/isolation design, or distributed workflow.
+Test the actual database engine because MVCC and lock behavior differ.
 
+<DocCallout type="production" title="REQUIRES_NEW can consume two connections">
 
+An outer transaction can retain its connection while an inner transaction requests
+another. Under concurrency, a pool sized only for request threads can deadlock on
+connection acquisition. Prefer one clear boundary unless independent commit is a
+real requirement.
 
+</DocCallout>
 
+## Schema Rollout For Versioning
 
+Add a version column through an expand-and-contract migration: introduce it with a
+safe value, deploy code that reads and writes it, backfill/verify old rows, then add
+the final constraint. During mixed deployment, old writers that do not include the
+version predicate can defeat the protection; gate the rollout or preserve
+compatibility until all writers participate.
 
+## Concurrency Evidence
+
+An integration test should run two real transactions on separate connections and
+prove:
+
+- which read or lock happens first;
+- whether the second transaction blocks or proceeds;
+- the exact exception or affected-row count;
+- the committed final state and outbox count;
+- bounded retry and timeout behavior;
+- datasource pending/acquisition metrics under load.
+
+For scheduler claims, leases, fencing, and `SKIP LOCKED`, continue with
+[Locking And Work Ownership](../../reliability/locking/LOCKING-AND-WORK-OWNERSHIP.md).
+
+## Interview Questions
+
+<ExpandableAnswer title="Why must an optimistic-lock retry start a new transaction?">
+
+The failed transaction is rollback-only and its entity state is stale. A correct
+retry reloads current state and re-evaluates the complete idempotent operation.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What does a pessimistic repository lock actually protect?">
+
+It protects matching database rows for the physical transaction according to the
+database lock and isolation rules. It does not protect remote resources or rows the
+query did not lock.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why does saving an entity and sending Kafka inside @Transactional remain unsafe?">
+
+The database transaction manager cannot atomically commit the broker send. A crash
+can leave only one side durable. Store an outbox row with the domain change and
+publish it later.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When is an atomic conditional update better than @Version?">
+
+When the full invariant fits one database statement and the caller only needs a
+win/lose result. It avoids loading stale state and retrying a larger object graph.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How can REQUIRES_NEW exhaust a connection pool?">
+
+The outer transaction retains one connection while each concurrent inner
+transaction waits for another. With insufficient headroom, all outer requests can
+hold the pool and wait indefinitely for connections that cannot become free.
+
+</ExpandableAnswer>
+
+## Official References
+
+- [Spring transaction propagation](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-propagation.html)
+- [Spring Data JPA locking](https://docs.spring.io/spring-data/jpa/reference/jpa/locking.html)
+- [Hibernate ORM locking](https://docs.hibernate.org/orm/current/userguide/html_single/)
+
+## Recommended Next
+
+Continue with [Auditing And Delete Semantics](./JPA-AUDITING-DELETING-TESTING.md).

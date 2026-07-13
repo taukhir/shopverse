@@ -87,9 +87,24 @@ changing ownership or bounds—not by adding arbitrary sleep.
 
 ## Tricky Interview Questions
 
-1. Does AQS guarantee fairness? No; synchronizer policy and scheduling determine it.
-2. Why can common-pool blocking starve unrelated work? Shared workers are occupied.
-3. Do virtual threads remove semaphore limits? No; semaphores protect scarce resources.
+<ExpandableAnswer title="Does AQS guarantee fairness?">
+
+No; synchronizer policy and scheduling determine it.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can common-pool blocking starve unrelated work?">
+
+Shared workers are occupied.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Do virtual threads remove semaphore limits?">
+
+No; semaphores protect scarce resources.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

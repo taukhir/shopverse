@@ -1,66 +1,53 @@
 ---
 title: Spring Web Execution And HTTP Runtime
+description: Compatibility route to the canonical Spring web execution-model and capacity guide.
 difficulty: Advanced
-page_type: Concept
-status: Generic
-keywords: [Tomcat connector, DispatcherServlet, HandlerMethodArgumentResolver, HttpMessageConverter, async MVC, WebFlux, multipart streaming]
-learning_objectives: [Trace a request from socket to response, Locate queues and thread transitions, Choose MVC async WebFlux SSE or WebSocket correctly]
-technologies: [Spring MVC, WebFlux, Tomcat, Netty]
-last_reviewed: "2026-07-12"
+page_type: Reference
+status: Compatibility route
+learning_objectives:
+  - Locate the canonical web execution and HTTP capacity guidance
+  - Preserve existing links to the former combined runtime page
+technologies: [Spring MVC, Spring WebFlux, Tomcat, Netty]
+last_reviewed: "2026-07-13"
 ---
 
 # Spring Web Execution And HTTP Runtime
 
-![Spring internals atlas including MVC dispatch and bounded connection-pool behavior](/img/diagrams/spring-internals-atlas.svg)
+<DocLabels items={[
+  {label: 'Compatibility route', tone: 'intermediate'},
+  {label: 'Production runtime', tone: 'production'},
+]} />
 
-*Use the MVC and pool panels to locate queueing before optimizing controller code.*
+The execution-model, queueing, timeout, streaming, and capacity material now has
+one canonical page.
 
-A request may queue at load balancer, accept backlog, connector, application
-executor, connection pool, database, and downstream client. “Controller latency”
-can exclude earlier waits unless instrumentation spans the full path.
+<TopicCards items={[
+  {title: 'Web execution models and capacity', href: '/spring/web/WEB-EXECUTION-MODELS-CAPACITY', description: 'Locate queues and thread transitions, compare MVC and WebFlux, and design deadlines and overload behavior.', icon: 'gauge', tags: ['Capacity', 'SLOs']},
+  {title: 'Servlet and MVC lifecycle', href: '/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE', description: 'Trace the request mechanics underneath traditional and async MVC.', icon: 'route', tags: ['Servlet', 'Dispatch']},
+]} />
 
-Servlet containers accept connections, parse HTTP, assign request work, manage
-timeouts/keepalive, and write responses. Tomcat is the common Boot servlet default;
-Jetty and Undertow offer different internals/configuration. Netty is event-loop
-based and commonly underpins WebFlux. Compare supported versions and workload
-measurements rather than generic speed claims.
+<DocCallout type="production" title="Start with wait-location evidence">
+Compare edge latency, connector saturation, application spans, executor queues,
+database-pool wait, and downstream-pool acquisition before changing thread counts.
+</DocCallout>
 
-## DispatcherServlet
+## Route By Production Symptom
 
-Filters wrap servlet dispatch and are suitable for edge concerns. DispatcherServlet
-uses handler mappings to select a handler, handler adapters to invoke it, argument
-resolvers to construct parameters, validation/binding, return-value handlers and
-message converters to produce output. Interceptors wrap mapped handler execution;
-controller advice centralizes MVC exceptions/binding.
-
-Jackson visibility, constructors/creators, naming, modules, polymorphism, unknown
-fields, dates, precision, recursion, and lazy ORM proxies affect JSON contracts.
-Use explicit DTOs, size/depth limits, and compatibility tests.
-
-## Execution Models
-
-MVC normally blocks a request thread. Async MVC releases it while work continues
-and redispatches for completion; executor bounds/context propagation still matter.
-WebFlux uses nonblocking streams and event loops, but blocking JDBC or remote calls
-must be isolated and bounded. Virtual threads can simplify blocking MVC without
-making dependencies unlimited.
-
-SSE is server-to-client HTTP streaming; WebSocket is bidirectional. Both require
-authentication renewal, heartbeat, buffer/backpressure, slow-client policy,
-reconnection/resume, and durable message ownership.
-
-HTTP clients need separate connect, acquisition, request/response, idle and total
-deadlines; bounded pools; DNS/TLS observability; cancellation; and idempotent retry.
-
-Multipart uploads should stream to bounded temporary/object storage, enforce size/
-part limits, verify checksum/type, scan asynchronously, and clean abandoned data.
+Use the capacity page when latency rises with worker, executor, connection-pool,
+or downstream saturation; it owns admission, queueing, deadlines, retries,
+cancellation, async MVC, virtual-thread rollout, WebFlux, streaming, and graceful
+shutdown. Use the servlet lifecycle when the uncertainty is which dispatch or
+extension point ran. Use security runtime for authentication/context transitions,
+and message conversion for representation failures after controller return. For
+database-pool or transaction evidence, continue from the capacity map into the
+Hibernate/JDBC internals page rather than increasing HTTP concurrency in isolation.
 
 ## Recommended Next Page
 
-[Hibernate, JDBC, And Connection Internals](./HIBERNATE-JDBC-INTERNALS.md)
+Continue with [Web Execution Models And Capacity](../web/WEB-EXECUTION-MODELS-CAPACITY.md).
 
 ## Official References
 
-- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
-- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
-- [Spring project documentation](https://spring.io/projects)
+- [Spring MVC asynchronous requests](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-async.html)
+- [Spring WebFlux](https://docs.spring.io/spring-framework/reference/web/webflux.html)
+- [Spring Boot metrics](https://docs.spring.io/spring-boot/reference/actuator/metrics.html)
