@@ -1,5 +1,7 @@
 ---
 title: Locking And Work Ownership
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Locking And Work Ownership

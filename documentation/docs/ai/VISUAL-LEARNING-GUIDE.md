@@ -1,6 +1,8 @@
 ---
 title: AI Visual Learning Guide
 sidebar_position: 1.2
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # AI Visual Learning Guide

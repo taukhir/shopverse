@@ -1,5 +1,7 @@
 ---
 title: Reduce Docker Image Size
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Reduce Docker Image Size

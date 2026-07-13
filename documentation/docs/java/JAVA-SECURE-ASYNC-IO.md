@@ -1,6 +1,8 @@
 ---
 title: Secure XML, Regex, Paths And Asynchronous I/O
 description: XXE, ReDoS, path traversal, asynchronous file channels, cancellation, buffer ownership, and safe boundary design.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Secure XML, Regex, Paths And Asynchronous I/O

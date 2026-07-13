@@ -1,5 +1,7 @@
 ---
 title: OAuth2 Grant Types
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # OAuth2 Grant Types

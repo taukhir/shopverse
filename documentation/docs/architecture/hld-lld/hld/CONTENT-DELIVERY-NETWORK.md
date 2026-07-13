@@ -1,5 +1,7 @@
 ---
 title: Content Delivery Network
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Content Delivery Network
@@ -114,21 +116,24 @@ Design questions:
 
 ## Interview Questions
 
-### How Does CDN Improve Latency?
+<ExpandableAnswer title="How Does CDN Improve Latency?">
 
 It serves content from an edge location closer to the user, reducing network
 round trips to the origin.
 
-### How Does CDN Reduce Origin Load?
+</ExpandableAnswer>
+<ExpandableAnswer title="How Does CDN Reduce Origin Load?">
 
 Repeated requests for the same object are served from cache, so the origin
 receives fewer requests.
 
-### What Is Cache Invalidation?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Is Cache Invalidation?">
 
 Invalidation removes stale content from CDN caches before TTL expiry. It is
 useful for urgent updates but can be expensive or rate-limited.
 
+</ExpandableAnswer>
 ## References
 
 - [Content Delivery Network in System Design - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/what-is-content-delivery-networkcdn-in-system-design/)

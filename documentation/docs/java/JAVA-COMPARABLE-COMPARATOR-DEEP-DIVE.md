@@ -1,6 +1,8 @@
 ---
 title: Comparable, Comparator And Sorted Collections Deep Dive
 description: Ordering contracts, composition, overflow, equality consistency, TreeMap uniqueness, PriorityQueue and sorting scenarios.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Comparable, Comparator And Sorted Collections Deep Dive

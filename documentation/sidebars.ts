@@ -1,5 +1,4 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
-
 const sidebars: SidebarsConfig = {
   docsSidebar: [
     'README',
@@ -14,7 +13,15 @@ const sidebars: SidebarsConfig = {
           label: 'Start And Learning Paths',
           items: [
             'reference/LEARNING-PATH',
-            'reference/FEATURES-AND-DEMOS',
+            {
+              type: 'category',
+              label: 'Shopverse Features And Demos',
+              link: {type: 'doc', id: 'reference/FEATURES-AND-DEMOS'},
+              items: [
+                'reference/FEATURES-SECURITY-CHECKOUT',
+                'reference/FEATURES-RELIABILITY-OBSERVABILITY',
+              ],
+            },
           ],
         },
         {
@@ -52,12 +59,28 @@ const sidebars: SidebarsConfig = {
       label: '1. Engineering Foundations',
       collapsed: false,
       items: [
-        'development/ENGINEERING-PRINCIPLES',
+        {
+          type: 'category',
+          label: 'Engineering Principles',
+          link: {type: 'doc', id: 'development/ENGINEERING-PRINCIPLES'},
+          items: [
+            'development/SOLID-JAVA-SHOPVERSE',
+            'development/PRODUCTION-DESIGN-PRINCIPLES',
+          ],
+        },
         {
           type: 'category',
           label: 'Design Patterns',
           items: [
-            'development/DESIGN-PATTERNS',
+            {
+              type: 'category',
+              label: 'Design Patterns',
+              link: {type: 'doc', id: 'development/DESIGN-PATTERNS'},
+              items: [
+                'development/DESIGN-PATTERNS-CREATIONAL-STRUCTURAL',
+                'development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED',
+              ],
+            },
             'development/design-patterns/CREATIONAL-PATTERNS',
             'development/design-patterns/STRUCTURAL-PATTERNS',
             'development/design-patterns/BEHAVIORAL-PATTERNS',
@@ -100,7 +123,24 @@ const sidebars: SidebarsConfig = {
                 'architecture/hld-lld/HLD-FUNDAMENTALS',
                 'architecture/hld-lld/hld/INTRODUCTION-TO-HLD',
                 'architecture/hld-lld/NON-FUNCTIONAL-REQUIREMENTS',
-                'architecture/hld-lld/CAPACITY-PERFORMANCE-ESTIMATION',
+                {
+                  type: 'category',
+                  label: 'Capacity And Performance Estimation',
+                  link: {type: 'doc', id: 'architecture/hld-lld/CAPACITY-PERFORMANCE-ESTIMATION'},
+                  items: [
+                    'architecture/hld-lld/CAPACITY-ESTIMATION-FUNDAMENTALS',
+                    {
+                      type: 'category',
+                      label: 'Performance And Capacity Models',
+                      link: {type: 'doc', id: 'architecture/hld-lld/PERFORMANCE-CAPACITY-MODELS'},
+                      items: [
+                        'architecture/hld-lld/PERFORMANCE-LATENCY-THROUGHPUT-MODELS',
+                        'architecture/hld-lld/CAPACITY-STORAGE-QUEUE-POOL-MODELS',
+                      ],
+                    },
+                    'architecture/hld-lld/SHOPVERSE-CAPACITY-WORKED-EXAMPLE',
+                  ],
+                },
                 'architecture/hld-lld/DATA-PARTITIONING',
                 'architecture/hld-lld/hld/AVAILABILITY',
                 'architecture/hld-lld/hld/CAP-THEOREM',
@@ -132,14 +172,23 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'Data Structures',
+          label: 'Algorithms And Data Structures',
+          link: {type: 'doc', id: 'data-structures/README'},
           items: [
             'data-structures/DATA-STRUCTURES-FUNDAMENTALS',
             'data-structures/LINEAR-DATA-STRUCTURES',
             'data-structures/NON-LINEAR-DATA-STRUCTURES',
           ],
         },
-        'operations/GIT-COMMANDS',
+        {
+          type: 'category',
+          label: 'Git Engineering Guide',
+          link: {type: 'doc', id: 'operations/GIT-COMMANDS'},
+          items: [
+            'operations/GIT-DAILY-SYNC-CONFLICTS',
+            'operations/GIT-HISTORY-RECOVERY-COLLABORATION',
+          ],
+        },
       ],
     },
     {
@@ -599,7 +648,15 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: '4. Data And Persistence',
       items: [
-        'data/DATABASE-ENGINEERING',
+        {
+          type: 'category',
+          label: 'Database Engineering',
+          link: {type: 'doc', id: 'data/DATABASE-ENGINEERING'},
+          items: [
+            'data/RELATIONAL-MODELING-QUERY-PERFORMANCE',
+            'data/DATABASE-CONSISTENCY-SCALING',
+          ],
+        },
         'data/DATABASE-ENGINE-INTERNALS',
         {
           type: 'category',
@@ -664,7 +721,16 @@ const sidebars: SidebarsConfig = {
             'architecture/MICROSERVICES-PATTERNS',
             'architecture/MICROSERVICES-INTERNALS-DEEP-DIVE',
             'architecture/DISTRIBUTED-SYSTEMS-GENERIC',
-            'development/API-GATEWAY-GENERIC',
+            {
+              type: 'category',
+              label: 'API Gateway Engineering',
+              link: {type: 'doc', id: 'development/API-GATEWAY-GENERIC'},
+              items: [
+                'development/API-GATEWAY-ARCHITECTURE',
+                'development/API-GATEWAY-REACTIVE-FILTER-LIFECYCLE',
+                'development/API-GATEWAY-OPERATIONS',
+              ],
+            },
             'development/SPRING-CLOUD-GATEWAY-ADVANCED',
             'architecture/SERVICE-DISCOVERY',
             'architecture/LOAD-BALANCING-GENERIC',
@@ -690,7 +756,15 @@ const sidebars: SidebarsConfig = {
                 'reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP',
               ],
             },
-            'reliability/SAGA-GENERIC',
+            {
+              type: 'category',
+              label: 'SAGA And Transactional Outbox',
+              link: {type: 'doc', id: 'reliability/SAGA-GENERIC'},
+              items: [
+                'reliability/SAGA-CONSISTENCY-COMPENSATION',
+                'reliability/OUTBOX-DELIVERY-OPERATIONS',
+              ],
+            },
             'reliability/OUTBOX-PATTERN',
             'reliability/INBOX-PATTERN',
             'reliability/SAGA-IMPLEMENTATION-GUIDE',
@@ -702,7 +776,16 @@ const sidebars: SidebarsConfig = {
           label: 'Reliability Patterns',
           items: [
             'reliability/IDEMPOTENCY-GENERIC',
-            'reliability/RESILIENCE4J-GENERIC',
+            {
+              type: 'category',
+              label: 'Resilience4j Engineering',
+              link: {type: 'doc', id: 'reliability/RESILIENCE4J-GENERIC'},
+              items: [
+                'reliability/RESILIENCE4J-RATE-LIMITER-BULKHEAD',
+                'reliability/RESILIENCE4J-RETRY-CIRCUIT-TIMEOUT',
+                'reliability/RESILIENCE4J-COMPOSITION-OPERATIONS',
+              ],
+            },
             'reliability/DISTRIBUTED-RATE-LIMITING',
             'reliability/HIGH-AVAILABILITY-SPOF',
             'reliability/DISTRIBUTED-FAILURE-CONSENSUS',
@@ -710,7 +793,8 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'Messaging',
+          label: 'Messaging And Integration',
+          link: {type: 'doc', id: 'integration/README'},
           items: [
             'integration/MESSAGING-PLATFORM-SELECTION',
             'integration/APACHE-KAFKA',
@@ -763,7 +847,15 @@ const sidebars: SidebarsConfig = {
             'security/oauth/OAUTH2-GRANT-TYPES',
             'security/oauth/OIDC-FUNDAMENTALS',
             'security/oauth/SSO-AND-OPENID-CONNECT',
-            'security/oauth/GOOGLE-AUTHENTICATION-SPRING',
+            {
+              type: 'category',
+              label: 'Google Authentication With Spring',
+              link: {type: 'doc', id: 'security/oauth/GOOGLE-AUTHENTICATION-SPRING'},
+              items: [
+                'security/oauth/GOOGLE-OAUTH-CLIENT-SESSION',
+                'security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION',
+              ],
+            },
             'security/oauth/TOKEN-LIFECYCLE',
           ],
         },
@@ -791,8 +883,24 @@ const sidebars: SidebarsConfig = {
           collapsed: true,
           items: [
             'security/SECURITY-IMPLEMENTATION-GUIDE',
-            'security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE',
-            'security/JWT-OAUTH2-SPRING-SECURITY',
+            {
+              type: 'category',
+              label: 'Access, Refresh Token, And API Key Design',
+              link: {type: 'doc', id: 'security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE'},
+              items: [
+                'security/ACCESS-REFRESH-TOKEN-DESIGN',
+                'security/API-KEY-AUTHORIZATION-OPERATIONS',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'JWT, OAuth2, And Spring Security',
+              link: {type: 'doc', id: 'security/JWT-OAUTH2-SPRING-SECURITY'},
+              items: [
+                'security/JWT-LOGIN-VALIDATION-AUTHORITIES',
+                'security/SPRING-SECURITY-FILTERS-OWNERSHIP-ROADMAP',
+              ],
+            },
             'security/oauth/GOOGLE-AUTHENTICATION-SPRING',
           ],
         },
@@ -805,7 +913,15 @@ const sidebars: SidebarsConfig = {
         'observability/LOGGING-GENERIC',
         'observability/PII-SAFE-LOGGING',
         'observability/MDC-GENERIC',
-        'observability/MICROMETER-METRICS',
+        {
+          type: 'category',
+          label: 'Micrometer Metrics',
+          link: {type: 'doc', id: 'observability/MICROMETER-METRICS'},
+          items: [
+            'observability/MICROMETER-COUNTERS',
+            'observability/MICROMETER-TIMERS-TAGS-OPERATIONS',
+          ],
+        },
         'observability/PROMETHEUS',
         'observability/LOKI',
         'observability/PROMTAIL',
@@ -819,7 +935,16 @@ const sidebars: SidebarsConfig = {
       items: [
         'operations/README',
         'operations/KUBERNETES-WORKLOAD-ENGINEERING',
-        'operations/DEPLOYMENT-STRATEGIES',
+        {
+          type: 'category',
+          label: 'Deployment Strategies',
+          link: {type: 'doc', id: 'operations/DEPLOYMENT-STRATEGIES'},
+          items: [
+            'operations/DEPLOYMENT-STRATEGY-SELECTION',
+            'operations/DEPLOYMENT-TRAFFIC-ROLLBACK',
+            'operations/DEPLOYMENT-CONTRACTS-RELEASE-GATES',
+          ],
+        },
         'operations/DOCKER',
         'operations/DOCKER-INTERNALS-LAYERS-STORAGE',
         'operations/MINIO',
@@ -829,7 +954,15 @@ const sidebars: SidebarsConfig = {
         'operations/JENKINS',
         'operations/SHOPVERSE-JENKINS',
         'operations/GITHUB-ACTIONS',
-        'operations/DOCUSAURUS',
+        {
+          type: 'category',
+          label: 'Docusaurus Documentation Engineering',
+          link: {type: 'doc', id: 'operations/DOCUSAURUS'},
+          items: [
+            'operations/DOCUSAURUS-AUTHORING-NAVIGATION',
+            'operations/DOCUSAURUS-COMPONENTS-DEPLOYMENT',
+          ],
+        },
         'operations/DOCUMENT-EXPORTS',
         'operations/SPRING-BOOT-ADMIN',
       ],
@@ -940,7 +1073,15 @@ const sidebars: SidebarsConfig = {
           collapsed: true,
           items: [
             'ai/JAVA-AI-DEVELOPER-GUIDE',
-            'ai/JAVA-AI-CODE-COOKBOOK',
+            {
+              type: 'category',
+              label: 'Java AI Code Cookbook',
+              link: {type: 'doc', id: 'ai/JAVA-AI-CODE-COOKBOOK'},
+              items: [
+                'ai/JAVA-AI-REQUEST-RAG-PATTERNS',
+                'ai/JAVA-AI-TOOLS-SECURITY-PATTERNS',
+              ],
+            },
           ],
         },
         {
@@ -972,7 +1113,16 @@ const sidebars: SidebarsConfig = {
                 'ai/LANGCHAIN4J-TUTORIAL-SPRING-BOOT',
               ],
             },
-            'ai/LANGCHAIN4J-DEEP-DIVE',
+            {
+              type: 'category',
+              label: 'LangChain4j Deep Dive',
+              link: {type: 'doc', id: 'ai/LANGCHAIN4J-DEEP-DIVE'},
+              items: [
+                'ai/LANGCHAIN4J-ARCHITECTURE-AI-SERVICES',
+                'ai/LANGCHAIN4J-TOOLS-MEMORY',
+                'ai/LANGCHAIN4J-RAG-SPRING-OPERATIONS',
+              ],
+            },
           ],
         },
         {
@@ -1003,18 +1153,60 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Overview And Demo',
+          link: {type: 'doc', id: 'case-study/SHOPVERSE'},
           collapsed: false,
           items: [
             'case-study/SHOPVERSE',
-            'case-study/COMPLETE-DEMO',
-            'case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT',
+            {
+              type: 'category',
+              label: 'Complete Shopverse Demo',
+              link: {type: 'doc', id: 'case-study/COMPLETE-DEMO'},
+              items: [
+                {
+                  type: 'category',
+                  label: 'Demo Setup And Checkout',
+                  link: {type: 'doc', id: 'case-study/COMPLETE-DEMO-SETUP-CHECKOUT'},
+                  items: [
+                    'case-study/DEMO-PLATFORM-AUTHENTICATION',
+                    'case-study/DEMO-SEED-CHECKOUT-SAGA',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Recovery And Observability Proof',
+                  link: {type: 'doc', id: 'case-study/COMPLETE-DEMO-RECOVERY-OBSERVABILITY'},
+                  items: [
+                    'case-study/DEMO-IDEMPOTENCY-OUTBOX-RECOVERY',
+                    'case-study/DEMO-OBSERVABILITY-AUTOMATION',
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Shopverse Architecture Audit',
+              link: {type: 'doc', id: 'case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT'},
+              items: [
+                'case-study/SHOPVERSE-ARCHITECTURE-CURRENT-STATE',
+                'case-study/SHOPVERSE-ARCHITECTURE-REFACTORING-READINESS',
+              ],
+            },
           ],
         },
         {
           type: 'category',
           label: 'Architecture And Services',
           items: [
-            'architecture/SYSTEM-DESIGN',
+            {
+              type: 'category',
+              label: 'Shopverse System Design',
+              link: {type: 'doc', id: 'architecture/SYSTEM-DESIGN'},
+              items: [
+                'architecture/SYSTEM-CONTEXT-SERVICE-OWNERSHIP',
+                'architecture/CHECKOUT-SECURITY-EVENT-FLOWS',
+                'architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES',
+              ],
+            },
             {
               type: 'category',
               label: 'Architecture Decisions',
@@ -1026,7 +1218,14 @@ const sidebars: SidebarsConfig = {
               ],
             },
             'architecture/DISTRIBUTED-SYSTEMS',
-            'services/SERVICE-CATALOG',
+            {
+              type: 'category',
+              label: 'Service Landscape',
+              link: {type: 'doc', id: 'services/README'},
+              items: [
+                'services/SERVICE-CATALOG',
+              ],
+            },
           ],
         },
         {
@@ -1094,7 +1293,15 @@ const sidebars: SidebarsConfig = {
           items: [
             'observability/OBSERVABILITY',
             'observability/SHOPVERSE-OBSERVABILITY-OPERATIONS',
-            'observability/MDC-CORRELATION-TRACING',
+            {
+              type: 'category',
+              label: 'Correlation And Trace Propagation',
+              link: {type: 'doc', id: 'observability/MDC-CORRELATION-TRACING'},
+              items: [
+                'observability/CORRELATION-IDENTIFIERS-HTTP-PROPAGATION',
+                'observability/MDC-KAFKA-ASYNC-PROPAGATION',
+              ],
+            },
             'observability/STRUCTURED-LOGGING',
           ],
         },
@@ -1102,8 +1309,25 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           label: 'Operations And Testing',
           items: [
-            'development/TESTING',
-            'development/DEBUGGING',
+            {
+              type: 'category',
+              label: 'Shopverse Testing Strategy',
+              link: {type: 'doc', id: 'development/TESTING'},
+              items: [
+                'development/TESTING-ARCHITECTURE-COVERAGE',
+                'development/TESTING-MODES-CI-TRIAGE',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Shopverse Debugging',
+              link: {type: 'doc', id: 'development/DEBUGGING'},
+              items: [
+                'development/DEBUGGING-REQUEST-PLATFORM',
+                'development/DEBUGGING-DATA-SAGA-KAFKA',
+                'development/DEBUGGING-OBSERVABILITY-RECOVERY',
+              ],
+            },
           ],
         },
         {
@@ -1121,13 +1345,30 @@ const sidebars: SidebarsConfig = {
                 'reliability/problems/runtime/INDEX-AND-LOCKING',
                 'reliability/problems/runtime/DISTRIBUTED-CHECKOUT',
                 'reliability/problems/runtime/QUERYABLE-ORDER-TIMELINE',
-                'reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION',
+                {
+                  type: 'category',
+                  label: 'Resource Ownership Authorization',
+                  link: {type: 'doc', id: 'reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION'},
+                  items: [
+                    'reliability/problems/runtime/RESOURCE-OWNERSHIP-SPEL-RUNTIME',
+                    'reliability/problems/runtime/RESOURCE-OWNERSHIP-TESTS-OPERATIONS',
+                  ],
+                },
                 {
                   type: 'category',
                   label: 'Reservation Expiry And Recovery',
                   items: [
                     'reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY',
-                    'reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM',
+                    {
+                      type: 'category',
+                      label: 'Atomic Inventory Reservation',
+                      link: {type: 'doc', id: 'reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM'},
+                      items: [
+                        'reliability/problems/runtime/RESERVATION-CONTENTION-STATE-MODEL',
+                        'reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM',
+                        'reliability/problems/runtime/RESERVATION-TRANSACTION-IMPLEMENTATION',
+                      ],
+                    },
                     'reliability/problems/runtime/TWO-SCHEDULER-RESERVATION-EXAMPLE',
                     'reliability/problems/runtime/LATE-PAYMENT-AFTER-EXPIRY',
                   ],
@@ -1165,5 +1406,4 @@ const sidebars: SidebarsConfig = {
     },
   ],
 };
-
 export default sidebars;

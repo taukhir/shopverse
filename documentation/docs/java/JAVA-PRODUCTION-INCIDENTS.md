@@ -1,6 +1,8 @@
 ---
 title: Java Production Incident Walkthroughs
 description: Evidence-driven diagnosis of memory, class loading, pools, virtual threads, maps, GC, Unicode, serialization, and sensitive diagnostics.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Production Incident Walkthroughs
@@ -114,6 +116,12 @@ audit access, encrypt and restrict artifacts, shorten retention and prevent sens
 values from diagnostic paths. Treat dumps as production data, not ordinary logs.
 
 ## Architect Interview Questions
+
+<ExpandableAnswer title="What should an architect explain about Java Production Incident Walkthroughs?">
+
+For **Java Production Incident Walkthroughs**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 For every incident state the first evidence, a dangerous premature conclusion,
 the immediate containment, the durable fix, and a rollback/verification plan.

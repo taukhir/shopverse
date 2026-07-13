@@ -1,5 +1,7 @@
 ---
 title: Kafka Event Parsing
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Kafka Event Parsing

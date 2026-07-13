@@ -1,6 +1,8 @@
 ---
 title: CQRS
 sidebar_position: 5
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Command Query Responsibility Segregation

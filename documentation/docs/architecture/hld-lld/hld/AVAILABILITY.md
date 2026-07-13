@@ -1,5 +1,7 @@
 ---
 title: Availability
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Availability In System Design
@@ -114,23 +116,26 @@ Shopverse improves availability through:
 
 ## Interview Questions
 
-### How Do You Design For 99.9% Availability?
+<ExpandableAnswer title="How Do You Design For 99.9% Availability?">
 
 Use multiple instances, health checks, timeouts, retries, circuit breakers,
 database backup/replication, monitoring, and tested recovery. Also define what
 "available" means for the business flow.
 
-### Why Can Adding More Services Reduce Availability?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Can Adding More Services Reduce Availability?">
 
 If every service is mandatory and called synchronously, the combined request
 path availability is lower than each individual service's availability.
 
-### How Do Queues Help Availability?
+</ExpandableAnswer>
+<ExpandableAnswer title="How Do Queues Help Availability?">
 
 Queues let a service accept work even when a downstream consumer is temporarily
 slow or unavailable. They improve decoupling but introduce eventual consistency
 and replay/idempotency requirements.
 
+</ExpandableAnswer>
 ## References
 
 - [Availability in System Design - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/availability-in-system-design/)

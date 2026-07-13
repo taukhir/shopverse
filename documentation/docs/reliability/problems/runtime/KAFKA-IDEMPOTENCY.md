@@ -1,6 +1,9 @@
-﻿---
-title: Kafka Idempotency Problem
 ---
+title: Kafka Idempotency Problem
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Kafka Idempotency Problem
 

@@ -1,5 +1,7 @@
 ---
 title: Behavioral Patterns
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Behavioral Patterns
@@ -297,18 +299,22 @@ Command objects are useful for:
 
 ## Interview Questions
 
-### Strategy Versus State?
+<ExpandableAnswer title="Strategy Versus State?">
 
 Strategy selects an interchangeable algorithm from outside. State changes
 behavior based on the object's internal lifecycle.
 
-### Observer Versus Pub/Sub?
+</ExpandableAnswer>
+<ExpandableAnswer title="Observer Versus Pub/Sub?">
 
 Observer is usually in-process. Pub/sub is distributed and durable when backed
 by a broker such as Kafka. Kafka also adds offsets, replay, consumer groups,
 and retention.
 
-### Chain Of Responsibility Versus Pipeline?
+</ExpandableAnswer>
+<ExpandableAnswer title="Chain Of Responsibility Versus Pipeline?">
 
 They are similar. Chain of Responsibility often allows each handler to decide
 whether to continue. A pipeline usually runs fixed stages in order.
+
+</ExpandableAnswer>

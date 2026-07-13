@@ -320,69 +320,81 @@ Do not reset offsets as the first response.
 
 ## Important Interview Questions
 
-### Why Is Kafka Fast?
+<ExpandableAnswer title="Why Is Kafka Fast?">
 
 Sequential append-oriented storage, batching, compression, zero-copy and
 efficient transfer paths, partition parallelism, and page-cache utilization.
 Performance still depends on durability and workload settings.
 
-### Can Kafka Guarantee Global Ordering?
+</ExpandableAnswer>
+<ExpandableAnswer title="Can Kafka Guarantee Global Ordering?">
 
 No. Kafka guarantees ordering within one partition. Global ordering requires
 one partition, which limits parallelism.
 
-### What Happens When Consumers Exceed Partitions?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Happens When Consumers Exceed Partitions?">
 
 Extra consumers in the same group remain idle because one partition is
 assigned to at most one group member.
 
-### What Is A Rebalance?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Is A Rebalance?">
 
 Partition ownership is reassigned when group membership or subscribed
 partitions change. Processing pauses or shifts and duplicates can occur around
 uncommitted work.
 
-### What Is Consumer Lag?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Is Consumer Lag?">
 
 The difference between a partition's log-end offset and the consumer group's
 committed offset.
 
-### What Is A Hot Partition?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Is A Hot Partition?">
 
 One partition receives disproportionate records or expensive work, commonly
 because of a skewed key. Adding consumers does not split one partition.
 
-### Does Kafka Remove A Record After Consumption?
+</ExpandableAnswer>
+<ExpandableAnswer title="Does Kafka Remove A Record After Consumption?">
 
 No. Retention policy controls storage. Consumer groups only track offsets.
 
-### What Is Idempotent Production?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Is Idempotent Production?">
 
 The producer uses sequence information to prevent duplicates caused by
 supported retries within its producer session. It does not provide end-to-end
 business idempotency.
 
-### What Are Kafka Transactions?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Are Kafka Transactions?">
 
 They atomically publish records and, for consume-process-produce, commit
 consumed offsets within Kafka. They do not atomically commit a separate MySQL
 database.
 
-### How Do You Handle A Poison Record?
+</ExpandableAnswer>
+<ExpandableAnswer title="How Do You Handle A Poison Record?">
 
 Classify the failure, use bounded retry, route terminal failures to a DLT,
 preserve metadata, alert operators, and replay only after fixing the cause.
 
-### Why Must Consumers Be Idempotent?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Must Consumers Be Idempotent?">
 
 At-least-once delivery, crashes, rebalances, retry, and replay can deliver the
 same event more than once.
 
-### Kafka Or RabbitMQ?
+</ExpandableAnswer>
+<ExpandableAnswer title="Kafka Or RabbitMQ?">
 
 Answer from requirements: retained replayable stream and partition scale favor
 Kafka; rich routing and conventional work queues often favor RabbitMQ.
 
+</ExpandableAnswer>
 ## Do And Do Not
 
 | Do | Do not |

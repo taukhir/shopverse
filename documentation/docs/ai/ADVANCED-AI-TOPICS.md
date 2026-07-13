@@ -1,6 +1,8 @@
 ---
 title: Advanced AI Topics
 sidebar_position: 6.6
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Advanced AI Topics

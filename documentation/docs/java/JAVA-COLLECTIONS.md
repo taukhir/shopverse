@@ -2,6 +2,8 @@
 title: Java Collections
 sidebar_position: 2
 description: Canonical guide to Java collection contracts, selection, ownership, and safe mutation.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Collections

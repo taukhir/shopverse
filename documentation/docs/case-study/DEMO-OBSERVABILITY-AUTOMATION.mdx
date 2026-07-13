@@ -1,0 +1,193 @@
+---
+title: "Demo Observability And Automation"
+description: "Demo Observability And Automation with Shopverse examples, failure analysis, and production guidance."
+sidebar_label: "Demo Observability And Automation"
+tags: ["shopverse", "architecture", "production"]
+page_type: "Guide"
+difficulty: "Advanced"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
+# Demo Observability And Automation
+
+<DocLabels items={[{label: 'Advanced', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Production', tone: 'production'}]} />
+
+## 11. Find The Journey In Loki And Grafana
+
+Open Grafana Explore at `http://localhost:3000/explore`, select `Loki`, and
+query the correlation ID created in step 5:
+
+```logql
+{log_type="application"}
+| json
+| correlationId="CORRELATION_ID"
+```
+
+Replace `CORRELATION_ID` with:
+
+```powershell
+$correlationId
+```
+
+Useful queries:
+
+```logql
+{application="ORDER-SERVICE"}
+```
+
+```logql
+{log_type="application"}
+| json
+| level="ERROR"
+```
+
+```logql
+{log_type="application"} |= "ORDER_NUMBER"
+```
+
+Health logs are deliberately separated:
+
+```logql
+{log_type="health"}
+```
+
+Application logs come from each service's rolling JSON file volume. Promtail
+parses those records, promotes bounded fields such as `application` and
+`level` to labels, and pushes batches to Loki. Correlation and trace IDs remain
+JSON fields to avoid high-cardinality labels.
+
+## 12. Inspect Metrics
+
+Open Prometheus at `http://localhost:9090` and run:
+
+```promql
+up{job="shopverse-services"}
+```
+
+```promql
+sum by (stage) (
+  increase(shopverse_saga_transitions_total[15m])
+)
+```
+
+```promql
+sum by (status) (
+  increase(shopverse_payment_outcomes_total[15m])
+)
+```
+
+```promql
+sum by (outcome) (
+  increase(shopverse_outbox_publish_total[15m])
+)
+```
+
+```promql
+sum by (application, status) (
+  rate(http_server_requests_seconds_count[5m])
+)
+```
+
+In Grafana, open the provisioned **Shopverse Commerce Operations** dashboard.
+It includes active SAGA estimates, SAGA transitions, payment outcomes,
+inventory conflicts, and expired reservations.
+
+## 13. Inspect Distributed Traces
+
+Open Zipkin at `http://localhost:9411`:
+
+1. select `API-GATEWAY` or leave the service filter empty;
+2. choose a time range containing the demo request;
+3. select **Run Query**;
+4. open the checkout trace and inspect gateway and HTTP service spans.
+
+Micrometer Tracing propagates W3C trace headers across synchronous HTTP and
+Feign calls. Kafka business events preserve the explicit correlation ID, but
+asynchronous consumer work can start a separate trace. Use:
+
+- `traceId` for one instrumented execution path;
+- `correlationId` for the complete business journey across HTTP, Kafka,
+  retries, outbox publication, and compensation.
+
+## 14. Run The Automated Proof
+
+The repository smoke test performs login, checkout, terminal-state polling, and
+timeline validation:
+
+```powershell
+.\scripts\Smoke-Test.ps1
+```
+
+Credentials can be overridden:
+
+```powershell
+.\scripts\Smoke-Test.ps1 `
+    -Username "admin" `
+    -Password "Admin@123" `
+    -GatewayUrl "http://localhost:8080"
+```
+
+Use bounded verification modes for broader evidence:
+
+```powershell
+.\scripts\Verify-Shopverse.ps1 -Mode Quick -TimeoutMinutes 1
+.\scripts\Verify-Shopverse.ps1 -Mode Integration -TimeoutMinutes 5
+.\scripts\Verify-Shopverse.ps1 -Mode Full -TimeoutMinutes 10
+```
+
+| Mode | Scope | Target |
+|---|---|---:|
+| `Quick` | changed-service compile and unit tests | under 1 minute |
+| `Integration` | MySQL, Kafka, outbox, and Testcontainers | 2-5 minutes |
+| `Full` | Docker SAGA, security, recovery, and observability | under 10 minutes |
+
+## 15. Stop Or Reset
+
+Stop containers while preserving databases and observability volumes:
+
+```powershell
+docker compose down
+```
+
+Remove containers and all named volumes for a clean demonstration:
+
+```powershell
+docker compose down -v
+```
+
+The second command deletes local MySQL, Prometheus, Loki, Grafana, and service
+log data.
+
+## Troubleshooting Order
+
+When a step fails, inspect evidence in this order:
+
+1. `docker compose ps`;
+2. `docker compose logs --tail=200 <service>`;
+3. Eureka registration;
+4. Config Server property output;
+5. Order timeline and service database rows;
+6. outbox status and publish attempts;
+7. Kafka/DLT recovery records;
+8. Loki correlation query;
+9. Zipkin trace;
+10. Prometheus targets and metrics.
+
+Continue with:
+
+- [API guide](../development/API-GUIDE.md) for the complete endpoint catalog;
+- [Features and demonstrations](../reference/FEATURES-AND-DEMOS.md) for the implementation matrix;
+- [SAGA and Outbox](../reliability/SAGA-OUTBOX.md) for transaction and event flow;
+- [Observability operations](../observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md) for more LogQL and PromQL;
+- [Debugging guide](../development/DEBUGGING.md) for failure diagnosis.
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Google Site Reliability Engineering book](https://sre.google/sre-book/table-of-contents/)
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+
+## Recommended Next
+
+Return to [Recovery And Observability Proof](./COMPLETE-DEMO-RECOVERY-OBSERVABILITY.mdx) to select the next focused guide.

@@ -1,6 +1,8 @@
 ---
 title: Non-Linear Data Structures
 sidebar_position: 3
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Non-Linear Data Structures
@@ -79,17 +81,20 @@ Use cases:
 
 ## Interview Questions
 
-### Tree vs graph?
+<ExpandableAnswer title="Tree vs graph?">
 
 A tree is a connected acyclic graph with hierarchy. A graph can have cycles and
 arbitrary relationships.
 
-### Heap vs binary search tree?
+</ExpandableAnswer>
+<ExpandableAnswer title="Heap vs binary search tree?">
 
 Heap gives fast min/max access. BST gives sorted search and range traversal.
 
-### Adjacency list vs matrix?
+</ExpandableAnswer>
+<ExpandableAnswer title="Adjacency list vs matrix?">
 
 Adjacency list is memory efficient for sparse graphs. Matrix gives O(1) edge
 lookup but uses O(V^2) space.
 
+</ExpandableAnswer>

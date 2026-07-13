@@ -1,5 +1,7 @@
 ---
 title: Optimization Baseline
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Optimization Baseline

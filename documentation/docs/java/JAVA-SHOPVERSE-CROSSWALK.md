@@ -1,6 +1,8 @@
 ---
 title: Java Concepts In Shopverse
 description: Maps senior Java concepts to Shopverse service code, Spring boundaries, failure modes, and review questions.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Concepts In Shopverse

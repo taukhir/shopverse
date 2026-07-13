@@ -1,5 +1,7 @@
 ---
 title: "ADR 001: Gateway, Discovery, And Centralized Configuration"
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # ADR 001: Gateway, Discovery, And Centralized Configuration

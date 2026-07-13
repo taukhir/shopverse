@@ -1,6 +1,8 @@
 ---
 title: Shopverse AI POC Plan
 sidebar_position: 7
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Shopverse AI POC Plan
@@ -203,6 +205,12 @@ Interview point:
 > still comes from the inventory service.
 
 ## Feature 4: Interview-Friendly Observability
+
+<ExpandableAnswer title="What should an architect explain about Shopverse AI POC Plan?">
+
+For **Shopverse AI POC Plan**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 Track:
 

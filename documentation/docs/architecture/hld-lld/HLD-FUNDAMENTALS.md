@@ -1,6 +1,9 @@
-﻿---
-title: HLD Fundamentals
 ---
+title: HLD Fundamentals
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # HLD Fundamentals
 
@@ -148,6 +151,12 @@ Questions answered:
 - How is the system scaled and monitored?
 
 ## Common HLD Interview Prompts
+
+<ExpandableAnswer title="What should an architect explain about HLD Fundamentals?">
+
+For **HLD Fundamentals**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 For each prompt, explain requirements, scale, APIs, data model, architecture,
 consistency, failure handling, and trade-offs.

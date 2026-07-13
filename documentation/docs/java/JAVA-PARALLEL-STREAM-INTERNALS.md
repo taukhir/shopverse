@@ -1,6 +1,8 @@
 ---
 title: Java Parallel Stream Internals And Performance Scenarios
 description: ForkJoin execution, splitting, ordering, stateful barriers, reductions, blocking, nested parallelism and benchmarks.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Parallel Stream Internals And Performance Scenarios

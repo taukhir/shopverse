@@ -1,6 +1,8 @@
 ---
 title: Java Lead Interview Revision Sheet
 description: Compact senior Java revision checklist covering language, collections, concurrency, JVM, diagnostics and architecture.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Lead Interview Revision Sheet

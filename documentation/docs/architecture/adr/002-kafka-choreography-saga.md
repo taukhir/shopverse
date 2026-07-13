@@ -1,5 +1,7 @@
 ---
 title: "ADR 002: Kafka Choreography SAGA For Checkout"
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # ADR 002: Kafka Choreography SAGA For Checkout

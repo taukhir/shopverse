@@ -1,5 +1,7 @@
 ---
 title: Structural Patterns
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Structural Patterns
@@ -288,18 +290,22 @@ and delivery channel.
 
 ## Interview Questions
 
-### Adapter Versus Facade?
+<ExpandableAnswer title="Adapter Versus Facade?">
 
 Adapter changes an interface so incompatible code can work together. Facade
 simplifies a subsystem behind a higher-level API.
 
-### Decorator Versus Proxy?
+</ExpandableAnswer>
+<ExpandableAnswer title="Decorator Versus Proxy?">
 
 Decorator adds behavior while keeping the same interface. Proxy controls access
 or lifecycle. In practice they can look similar; intent is the difference.
 
-### Why Does Spring Use Proxies?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Does Spring Use Proxies?">
 
 Proxies allow Spring to add cross-cutting behavior such as transactions,
 security, caching, async execution, and metrics without hardcoding that logic
 inside business methods.
+
+</ExpandableAnswer>

@@ -1,6 +1,8 @@
 ---
 title: Beginner To Advanced AI Guide
 sidebar_position: 1.5
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Beginner To Advanced AI Guide

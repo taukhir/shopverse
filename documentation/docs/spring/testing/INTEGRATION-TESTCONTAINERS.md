@@ -1,4 +1,4 @@
-﻿---
+---
 title: Integration Tests And Testcontainers
 description: Real MySQL and Kafka integration testing for migrations, transactions, outbox behavior, broker contracts, container lifecycle, and bounded end-to-end evidence.
 difficulty: Advanced
@@ -11,6 +11,7 @@ learning_objectives:
 technologies: [Testcontainers 2.0.5, MySQL 8.4, Kafka 3.9.1, Spring Boot 4]
 last_reviewed: "2026-07-13"
 ---
+
 
 # Integration Tests And Testcontainers
 

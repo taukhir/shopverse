@@ -1,6 +1,8 @@
 ---
 title: Java Language Resolution, Initialization And OOP Internals
 description: Senior treatment of overload resolution, overriding, initialization, dispatch, construction, and compatibility.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Language Resolution, Initialization And OOP Internals

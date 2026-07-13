@@ -1,3 +1,16 @@
+---
+title: "Duplicate Logic Solutions"
+description: "Duplicate Logic Solutions: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Duplicate Logic Solutions"
+tags:
+  - "platform"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Duplicate Logic Solutions
 
 Back to [Platform Infrastructure](./README.md).

@@ -1,3 +1,16 @@
+---
+title: "Distributed Systems In Shopverse"
+description: "Distributed Systems In Shopverse: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Distributed Systems In Shopverse"
+tags:
+  - "architecture"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Distributed Systems In Shopverse
 
 A distributed system fails differently from a single application. A service

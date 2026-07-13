@@ -1,6 +1,8 @@
 ---
 title: Java Overloading And Method Resolution Deep Dive
 description: Applicability phases, widening, boxing, varargs, null, generics, lambdas and source compatibility with many scenarios.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Overloading And Method Resolution Deep Dive

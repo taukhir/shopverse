@@ -1,0 +1,289 @@
+---
+title: "Demo Idempotency, Outbox, And Recovery"
+description: "Demo Idempotency, Outbox, And Recovery with Shopverse examples, failure analysis, and production guidance."
+sidebar_label: "Demo Idempotency, Outbox, And Recovery"
+tags: ["shopverse", "architecture", "production"]
+page_type: "Guide"
+difficulty: "Advanced"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
+# Demo Idempotency, Outbox, And Recovery
+
+<DocLabels items={[{label: 'Advanced', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Production', tone: 'production'}]} />
+
+## 7. Prove Duplicate Request Handling
+
+Repeat the exact checkout with the same `Idempotency-Key`:
+
+```powershell
+$duplicate = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/orders/checkout" `
+    -Headers $headers `
+    -ContentType "application/json" `
+    -Body $checkoutBody
+
+[pscustomobject]@{
+    OriginalOrderId  = $order.id
+    DuplicateOrderId = $duplicate.id
+    SameOrder        = $order.id -eq $duplicate.id
+}
+```
+
+`SameOrder` must be `True`. The unique database constraint is the final
+concurrency guard, while the service returns the existing Order for a repeated
+request instead of reserving stock or charging again.
+
+## 8. Inspect Transactional Outbox Evidence
+
+Read the MySQL password from your local `.env` and run:
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SELECT id, aggregate_id, event_type, topic, status, publish_attempts, correlation_id
+    FROM order_service.outbox_events ORDER BY id DESC LIMIT 5;
+    SELECT id, aggregate_id, event_type, topic, status, publish_attempts, correlation_id
+    FROM inventory_service.outbox_events ORDER BY id DESC LIMIT 5;
+    SELECT id, aggregate_id, event_type, topic, status, publish_attempts, correlation_id
+    FROM payment_service.outbox_events ORDER BY id DESC LIMIT 5;
+  "
+'
+```
+
+Expected result: the relevant records progress to `PUBLISHED`. The database
+transaction does not wait for Kafka; it commits domain state and an outbox row,
+then a bounded worker claims and publishes the row separately.
+
+Inspect the Order and timeline rows:
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SELECT id, order_number, customer_username, status, correlation_id, idempotency_key
+    FROM order_service.orders ORDER BY id DESC LIMIT 5;
+    SELECT order_number, stage, detail, occurred_at
+    FROM order_service.order_timeline_events ORDER BY id DESC LIMIT 10;
+  "
+'
+```
+
+### Query One Complete SAGA In MySQL
+
+Use the Order number captured during checkout:
+
+```powershell
+docker compose exec mysql sh -lc "
+  MYSQL_PWD=\"\$MYSQL_ROOT_PASSWORD\" mysql -uroot -e \"
+    SELECT o.id, o.order_number, o.customer_username, o.status,
+           o.total_amount, o.correlation_id, o.payment_reference,
+           i.product_id, i.product_name, i.quantity, i.unit_price
+    FROM order_service.orders o
+    JOIN order_service.order_items i ON i.order_id = o.id
+    WHERE o.order_number = '$orderNumber';
+
+    SELECT stage, detail, occurred_at
+    FROM order_service.order_timeline_events
+    WHERE order_number = '$orderNumber'
+    ORDER BY occurred_at;
+
+    SELECT order_number, customer_username, status, amount,
+           payment_reference, failure_reason
+    FROM payment_service.payments
+    WHERE order_number = '$orderNumber';
+
+    SELECT order_number, product_id, quantity, status, expires_at
+    FROM inventory_service.inventory_reservations
+    WHERE order_number = '$orderNumber';
+  \"
+"
+```
+
+Application services never perform this cross-schema query. It is an
+operations/demo command that correlates independently owned service records by
+`order_number`.
+
+### Query By Correlation ID
+
+```powershell
+docker compose exec mysql sh -lc "
+  MYSQL_PWD=\"\$MYSQL_ROOT_PASSWORD\" mysql -uroot -e \"
+    SELECT order_number, status, correlation_id
+    FROM order_service.orders
+    WHERE correlation_id = '$correlationId';
+
+    SELECT order_number, stage, detail, occurred_at
+    FROM order_service.order_timeline_events
+    WHERE correlation_id = '$correlationId'
+    ORDER BY occurred_at;
+
+    SELECT aggregate_type, aggregate_id, event_type, topic,
+           status, publish_attempts, last_error
+    FROM order_service.outbox_events
+    WHERE correlation_id = '$correlationId';
+  \"
+"
+```
+
+### Inspect Seeded Historical Scenarios
+
+The seed data gives immediate examples before a live checkout is triggered:
+
+| Order | Owner | Final state | Scenario |
+|---|---|---|---|
+| `DEMO-ORD-1001` | `customer1` | `CONFIRMED` | successful payment |
+| `DEMO-ORD-1002` | `customer1` | `PAYMENT_FAILED` | declined payment |
+| `DEMO-ORD-1003` | `customer2` | `INVENTORY_REJECTED` | unavailable stock |
+| `DEMO-ORD-1004` | `customer2` | `PAYMENT_PROCESSING` | timed-out payment awaiting reconciliation |
+| `DEMO-ORD-1005` | `customer1` | `CANCELLED` | administrator cancellation |
+| `DEMO-ORD-1006` | `customer2` | `CONFIRMED` | captured monitor purchase |
+| `DEMO-ORD-1007` | `customer1` | `CONFIRMED` | historical multi-item order |
+| `DEMO-ORD-1008` | `customer2` | `CANCELLED` | refunded payment history |
+| `DEMO-ORD-1009` | `customer1` | `INVENTORY_REJECTED` | expired reservation |
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SELECT o.order_number, o.customer_username, o.status, o.total_amount,
+           GROUP_CONCAT(CONCAT(i.product_name, \" x\", i.quantity)
+                        ORDER BY i.id SEPARATOR \", \") AS items
+    FROM order_service.orders o
+    JOIN order_service.order_items i ON i.order_id = o.id
+    WHERE o.order_number LIKE \"DEMO-ORD-%\"
+    GROUP BY o.id, o.order_number, o.customer_username, o.status, o.total_amount
+    ORDER BY o.order_number;
+  "
+'
+```
+
+These rows are historical examples only. They do not create Kafka or outbox
+events during migration. Use `POST /api/v1/orders/checkout` to demonstrate the
+live choreography SAGA.
+
+Inspect timeline history, reservation state, and matching payment records:
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot -e "
+    SELECT order_number, stage, detail, occurred_at
+    FROM order_service.order_timeline_events
+    WHERE order_number LIKE \"DEMO-ORD-%\"
+    ORDER BY order_number, occurred_at;
+
+    SELECT order_number, product_id, quantity, status, expires_at
+    FROM inventory_service.inventory_reservations
+    WHERE order_number LIKE \"DEMO-ORD-%\"
+    ORDER BY order_number;
+
+    SELECT order_number, customer_username, status, amount,
+           payment_reference, failure_reason
+    FROM payment_service.payments
+    WHERE order_number LIKE \"DEMO-ORD-%\"
+    ORDER BY order_number;
+  "
+'
+```
+
+### Inspect Inventory And Lock Versions
+
+```powershell
+docker compose exec mysql sh -lc '
+  MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot inventory_service -e "
+    SELECT product_id, product_name, unit_price, available_quantity,
+           reserved_quantity, version
+    FROM inventory_items
+    ORDER BY product_id;
+  "
+'
+```
+
+The `version` column is Hibernate's optimistic-lock token. A successful
+reservation changes quantities and increments this value. A stale concurrent
+update whose old version no longer matches affects zero rows and is rejected.
+
+## 9. Demonstrate Payment Failure And Recovery
+
+The in-memory payment stub supports `SUCCESS`, `DECLINE`, and `TIMEOUT`.
+Changing the mode requires the administrator token.
+
+Set timeout mode:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/payments/admin/simulation?mode=TIMEOUT" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+Create another checkout using new correlation and idempotency values. Payment
+will enter `TIMED_OUT`, representing an uncertain external-provider result.
+Then reconcile it:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/payments/admin/orders/<order-number>/reconcile" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+Replace `<order-number>` with the timeout demo Order number. Reconciliation
+publishes completion through the outbox so the Order can finish.
+
+Always restore the default mode after the demo:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/payments/admin/simulation?mode=SUCCESS" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
+For a deterministic inventory failure, submit a checkout for product `101`
+with a quantity larger than the catalog's available quantity. The expected
+Order terminal status is `INVENTORY_REJECTED`; Payment must not be charged.
+
+## 10. Inspect DLT Recovery APIs
+
+Retryable Kafka listeners send exhausted poison events to a DLT. Shopverse
+persists one unresolved recovery record per failed source event and audits
+replay attempts.
+
+```powershell
+$adminHeaders = @{ Authorization = "Bearer $token" }
+
+Invoke-RestMethod "$gateway/api/v1/orders/admin/dead-letters" -Headers $adminHeaders
+Invoke-RestMethod "$gateway/api/v1/inventory/admin/dead-letters" -Headers $adminHeaders
+Invoke-RestMethod "$gateway/api/v1/payments/admin/dead-letters" -Headers $adminHeaders
+```
+
+Replay an existing record:
+
+```powershell
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/orders/admin/dead-letters/<id>/replay" `
+    -Headers $adminHeaders
+```
+
+Use the corresponding Inventory or Payment endpoint for records owned by those
+services. Replay fields include count, timestamp, and operator identity.
+
+:::note
+
+The public application API intentionally does not provide an endpoint that
+injects arbitrary malformed Kafka payloads. DLT creation is demonstrated by
+integration tests or controlled local Kafka tooling.
+
+:::
+
+## Recommended Next
+
+Return to [Recovery And Observability Proof](./COMPLETE-DEMO-RECOVERY-OBSERVABILITY.mdx) to select the next focused guide.
+
+
+## Official References
+
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)

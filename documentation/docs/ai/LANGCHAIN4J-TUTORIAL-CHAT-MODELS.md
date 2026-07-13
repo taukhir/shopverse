@@ -1,6 +1,8 @@
 ---
 title: "LangChain4j Tutorial 1: Chat Models And Messages"
 sidebar_position: 6.27
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # LangChain4j Tutorial 1: Chat Models And Messages
@@ -176,6 +178,12 @@ class LangChain4jChatController {
 | no timeout | add timeout and fallback |
 
 ## Interview Explanation
+
+<ExpandableAnswer title="What should an architect explain about LangChain4j Tutorial 1: Chat Models And Messages?">
+
+For **LangChain4j Tutorial 1: Chat Models And Messages**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > A LangChain4j `ChatModel` is the low-level abstraction for model calls. It
 > accepts messages and returns an AI response. I use system messages for stable

@@ -1,6 +1,8 @@
 ---
 title: High Availability And SPOF Prevention
 sidebar_position: 8
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # High Availability And Single Points Of Failure
@@ -134,24 +136,27 @@ but production HA would require:
 
 ## Interview Questions
 
-### How Do You Prevent A Single Point Of Failure?
+<ExpandableAnswer title="How Do You Prevent A Single Point Of Failure?">
 
 Map the complete dependency path, replicate stateful and stateless components,
 spread them across failure domains, add health-based routing, use quorum and
 fencing for ownership, preserve backups, and test failover. Redundancy without
 automatic and safe recovery is only spare capacity.
 
-### Active-Active Or Active-Passive?
+</ExpandableAnswer>
+<ExpandableAnswer title="Active-Active Or Active-Passive?">
 
 Active-active serves traffic from multiple sites and provides faster failover
 but requires conflict and consistency design. Active-passive is simpler but
 needs capacity readiness, replication, and regularly tested promotion.
 
-### Why Is A Backup Not High Availability?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Is A Backup Not High Availability?">
 
 A backup enables recovery after loss. It does not keep the service serving
 traffic while a live component fails.
 
+</ExpandableAnswer>
 ## Related Guides
 
 - [Distributed Failure And Consensus](DISTRIBUTED-FAILURE-CONSENSUS.md)

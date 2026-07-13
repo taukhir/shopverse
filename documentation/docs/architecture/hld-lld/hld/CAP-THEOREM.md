@@ -1,5 +1,7 @@
 ---
 title: CAP Theorem
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # CAP Theorem
@@ -102,6 +104,12 @@ reads.
 | payment ledger | strong local consistency plus reconciliation |
 
 ## Interview Answer Pattern
+
+<ExpandableAnswer title="What should an architect explain about CAP Theorem?">
+
+For **CAP Theorem**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 When asked about CAP:
 

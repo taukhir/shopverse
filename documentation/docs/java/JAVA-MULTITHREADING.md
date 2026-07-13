@@ -2,6 +2,8 @@
 title: Java Multithreading
 sidebar_position: 5
 description: Concise route map for Java task execution, shared-state safety, context propagation, cancellation, and Shopverse concurrency decisions.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Multithreading

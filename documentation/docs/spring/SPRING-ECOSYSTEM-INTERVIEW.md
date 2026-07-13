@@ -60,7 +60,7 @@ inspection.
 
 </DocCallout>
 
-## How The Banks Differ
+<ExpandableAnswer title="How The Banks Differ">
 
 The Boot/container bank checks definition registration, condition evaluation, dependency
 resolution and lifecycle ownership. The web/data bank checks filter, dispatcher,
@@ -73,6 +73,7 @@ Use a canonical concept page when an answer is weak, then return to the same que
 without notes. A memorized annotation list is level one evidence; a lead answer connects
 the mechanism to a measurable failure and a test that could disprove the explanation.
 
+</ExpandableAnswer>
 ## Recommended Next
 
 Start with [Boot And Container Questions](./interview/SPRING-BOOT-CONTAINER-INTERVIEW.md).

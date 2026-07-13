@@ -1,6 +1,9 @@
-﻿---
-title: Spring Security Authorization And Method Security
 ---
+title: Spring Security Authorization And Method Security
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Spring Security Authorization And Method Security
 
@@ -86,7 +89,7 @@ evaluates them.
 
 For the exact Shopverse `BearerTokenResolver` and role-converter code,
 including empty-prefix behavior with `hasRole`, see
-[Bearer token resolution on public endpoints](../JWT-OAUTH2-SPRING-SECURITY.md#bearer-token-resolution-on-public-endpoints).
+[Bearer token resolution on public endpoints](../JWT-LOGIN-VALIDATION-AUTHORITIES.md#bearer-token-resolution-on-public-endpoints).
 
 
 ## Authorization Models
@@ -249,7 +252,6 @@ boundary so alternate controllers and messaging adapters cannot bypass it.
 ## Recommended Next
 
 Practise combined policies in [Threat-Modelling And Interview Lab](./THREAT-MODELING-INTERVIEW-LAB.md).
-
 
 
 

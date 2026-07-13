@@ -1,5 +1,7 @@
 ---
 title: Scheduler Locking With ShedLock
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Scheduler Locking With ShedLock

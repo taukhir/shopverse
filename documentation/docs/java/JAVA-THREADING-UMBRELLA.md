@@ -1,6 +1,8 @@
 ---
 title: Java Threads, Concurrency And JVM Thread Model
 description: Umbrella guide to application threads, schedulers, JVM service threads, coordination, memory visibility, virtual threads, and async composition.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Threads, Concurrency And JVM Thread Model

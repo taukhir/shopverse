@@ -1,6 +1,9 @@
-﻿---
-title: Hibernate Basics And Lifecycle
 ---
+title: Hibernate Basics And Lifecycle
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Hibernate Basics And Lifecycle
 

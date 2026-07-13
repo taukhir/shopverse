@@ -1,6 +1,8 @@
 ---
 title: Java Functional Interfaces
 sidebar_position: 5
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Functional Interfaces

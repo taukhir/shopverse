@@ -1,5 +1,7 @@
 ---
 title: AWS RDS And DynamoDB
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # AWS RDS And DynamoDB

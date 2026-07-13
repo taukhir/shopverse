@@ -1,6 +1,8 @@
 ---
 title: Local Docker Implementation Guide
 sidebar_position: 4
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Local Docker Implementation Guide

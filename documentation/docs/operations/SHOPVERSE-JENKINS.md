@@ -1,6 +1,8 @@
 ---
 title: Shopverse Jenkins Implementation
 sidebar_position: 5
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Shopverse Jenkins Implementation

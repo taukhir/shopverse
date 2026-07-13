@@ -1,6 +1,9 @@
-﻿---
-title: Payment Timeout Reconciliation Problem
 ---
+title: Payment Timeout Reconciliation Problem
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Payment Timeout Reconciliation Problem
 

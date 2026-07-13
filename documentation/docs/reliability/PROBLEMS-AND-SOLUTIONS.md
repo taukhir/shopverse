@@ -1,6 +1,9 @@
-﻿---
-title: Shopverse Problems And Solutions
 ---
+title: Shopverse Problems And Solutions
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Shopverse Problems And Solutions
 

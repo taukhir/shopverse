@@ -1,6 +1,8 @@
 ---
 title: "LangChain4j Tutorial 5: Spring Boot Integration And Production"
 sidebar_position: 6.31
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # LangChain4j Tutorial 5: Spring Boot Integration And Production
@@ -225,6 +227,12 @@ RAG evaluation:
 - evaluation dataset
 
 ## Interview Explanation
+
+<ExpandableAnswer title="What should an architect explain about LangChain4j Tutorial 5: Spring Boot Integration And Production?">
+
+For **LangChain4j Tutorial 5: Spring Boot Integration And Production**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > In Spring Boot, I would expose normal REST controllers and keep LangChain4j in
 > the service layer. AI Services can be injected like normal beans, tools can

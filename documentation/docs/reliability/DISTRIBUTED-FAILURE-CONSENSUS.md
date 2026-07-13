@@ -1,6 +1,8 @@
 ---
 title: Distributed Failure And Consensus
 sidebar_position: 6
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Distributed Failure And Consensus
@@ -281,34 +283,39 @@ abort conditions.
 
 ## Interview Questions
 
-### How Do You Handle Failures In A Distributed System?
+<ExpandableAnswer title="How Do You Handle Failures In A Distributed System?">
 
 Use redundancy, replication, quorum/consensus where shared decisions are
 required, timeouts, bounded retries, circuit breakers, bulkheads, load
 shedding, durable queues, idempotency, failover, backups, and observability.
 The exact combination depends on correctness and availability requirements.
 
-### What Is Consensus?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Is Consensus?">
 
 A protocol allowing nodes to agree on a value or ordered log despite failures,
 normally requiring a quorum.
 
-### Why Can A Timeout Not Tell Whether Work Succeeded?
+</ExpandableAnswer>
+<ExpandableAnswer title="Why Can A Timeout Not Tell Whether Work Succeeded?">
 
 The request may have reached the server and committed while only the response
 was delayed or lost. Retry therefore needs idempotency or result lookup.
 
-### What Is Split-Brain?
+</ExpandableAnswer>
+<ExpandableAnswer title="What Is Split-Brain?">
 
 Multiple nodes simultaneously act as authoritative leader/owner, risking
 conflicting writes. Quorum and fencing prevent stale ownership.
 
-### Replication Or Backup?
+</ExpandableAnswer>
+<ExpandableAnswer title="Replication Or Backup?">
 
 Replication supports availability and failover. Backup protects against
 logical corruption, deletion, and disasters and must be independently
 restorable.
 
+</ExpandableAnswer>
 ## Related Guides
 
 - [Resilience4j](RESILIENCE4J-GENERIC.md)

@@ -1,5 +1,7 @@
 ---
 title: "ADR 003: JWT And JWKS Security Model"
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # ADR 003: JWT And JWKS Security Model

@@ -1,6 +1,8 @@
 ---
 title: Java Object Layout, Allocation And Garbage Collectors
 description: Object headers, compressed references, TLABs, barriers, collector algorithms, failures, selection, logs, and measurement.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Object Layout, Allocation And Garbage Collectors

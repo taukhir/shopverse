@@ -1,6 +1,8 @@
 ---
 title: Rate Limiting Implementation Guide
 sidebar_position: 9
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Rate Limiting Implementation Guide

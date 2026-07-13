@@ -1,6 +1,8 @@
 ---
 title: AI Learning Plan
 sidebar_position: 2
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # AI Learning Plan
@@ -136,6 +138,12 @@ Request -> validate input -> call model or embedding API -> retrieve data if nee
 ```
 
 ## Final Checklist Before Interview
+
+<ExpandableAnswer title="What should an architect explain about AI Learning Plan?">
+
+For **AI Learning Plan**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 - explain LLM, token, context window, temperature
 - explain embedding and semantic search

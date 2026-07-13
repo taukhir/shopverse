@@ -1,6 +1,8 @@
 ---
 title: Java Runtime Interactions With Spring, Hibernate And Jackson
 description: Virtual threads, transactions, proxies, equality, records, serialization, context propagation, and framework boundaries.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Runtime Interactions With Spring, Hibernate And Jackson

@@ -1,3 +1,16 @@
+---
+title: "Loki"
+description: "Loki: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Loki"
+tags:
+  - "observability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Loki
 
 Loki is Shopverse's centralized log store. It indexes a small set of labels and

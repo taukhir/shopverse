@@ -1,6 +1,8 @@
 ---
 title: API Integration And Prompting
 sidebar_position: 4
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # API Integration And Prompting
@@ -233,6 +235,12 @@ Status:
 | validation | never trust model output blindly |
 
 ## Interview Explanation
+
+<ExpandableAnswer title="What should an architect explain about API Integration And Prompting?">
+
+For **API Integration And Prompting**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 > In Java, I would isolate AI provider calls in a service layer, configure API
 > keys through environment variables, set timeouts and retries, validate

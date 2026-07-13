@@ -1,3 +1,16 @@
+---
+title: "Liquibase Database Migrations"
+description: "Liquibase Database Migrations: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Liquibase Database Migrations"
+tags:
+  - "data"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Liquibase Database Migrations
 
 Liquibase versions database schema and controlled data changes as ordered,

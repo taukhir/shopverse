@@ -33,9 +33,12 @@
 .labels .foundation { background: var(--doc-surface); color: var(--ifm-color-emphasis-800); }
 .labels .intermediate { background: color-mix(in srgb, #2b6cb0 12%, var(--doc-surface)); border-color: color-mix(in srgb, #2b6cb0 35%, var(--doc-border)); color: color-mix(in srgb, #2b6cb0 80%, var(--ifm-font-color-base)); }
 .labels .advanced { background: color-mix(in srgb, #6b46c1 12%, var(--doc-surface)); border-color: color-mix(in srgb, #6b46c1 35%, var(--doc-border)); color: color-mix(in srgb, #6b46c1 80%, var(--ifm-font-color-base)); }
-.labels .production { background: color-mix(in srgb, #b7791f 12%, var(--doc-surface)); border-color: color-mix(in srgb, #b7791f 35%, var(--doc-border)); color: color-mix(in srgb, #b7791f 85%, var(--ifm-font-color-base)); }
-.labels .shopverse { background: color-mix(in srgb, #2f855a 12%, var(--doc-surface)); border-color: color-mix(in srgb, #2f855a 35%, var(--doc-border)); color: color-mix(in srgb, #2f855a 85%, var(--ifm-font-color-base)); }
+.labels .production { background: color-mix(in srgb, #b7791f 12%, var(--doc-surface)); border-color: color-mix(in srgb, #b7791f 35%, var(--doc-border)); color: #754700; }
+.labels .shopverse { background: color-mix(in srgb, #2f855a 12%, var(--doc-surface)); border-color: color-mix(in srgb, #2f855a 35%, var(--doc-border)); color: #155c3d; }
 .labels .preview { background: color-mix(in srgb, #c53030 10%, var(--doc-surface)); border-color: color-mix(in srgb, #c53030 30%, var(--doc-border)); color: color-mix(in srgb, #c53030 82%, var(--ifm-font-color-base)); }
+
+:global([data-theme='dark']) .labels .production { color: #f3c77a; }
+:global([data-theme='dark']) .labels .shopverse { color: #86ddb5; }
 
 .topicCards { display: grid; gap: 0.8rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 1rem 0 1.25rem; }
 .topicCard { align-items: flex-start; background: var(--doc-surface); border: 1px solid var(--doc-border); border-radius: var(--ifm-global-radius); box-shadow: var(--doc-shadow-sm); color: inherit; display: flex; gap: 0.75rem; min-width: 0; padding: 0.9rem; text-decoration: none; transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease; }

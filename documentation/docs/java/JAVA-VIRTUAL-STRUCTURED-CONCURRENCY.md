@@ -1,6 +1,8 @@
 ---
 title: Virtual Threads And Structured Concurrency For Architects
 description: Continuations, carriers, mounting, parking, pinning, scoped values, structured task lifecycles, Spring, JDBC, JFR, and adoption policy.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Virtual Threads And Structured Concurrency For Architects

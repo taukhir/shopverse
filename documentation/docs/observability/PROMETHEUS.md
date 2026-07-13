@@ -1,3 +1,16 @@
+---
+title: "Prometheus"
+description: "Prometheus: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Prometheus"
+tags:
+  - "observability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Prometheus
 
 Prometheus is a pull-based monitoring system and time-series database.

@@ -1,6 +1,8 @@
 ---
 title: Collection Contracts And Selection
 description: Select Java collection abstractions from duplicates, order, lookup, queue, ownership, and concurrency contracts.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Collection Contracts And Selection

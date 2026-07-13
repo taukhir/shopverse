@@ -1,6 +1,8 @@
 ---
 title: Java Timed Mock Interviews
 description: Timed senior and architect Java interview sets with expected evidence and scoring.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Timed Mock Interviews

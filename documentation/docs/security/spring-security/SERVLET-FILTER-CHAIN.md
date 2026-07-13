@@ -1,6 +1,9 @@
-﻿---
-title: Spring Security Servlet Filter Chain
 ---
+title: Spring Security Servlet Filter Chain
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Spring Security Servlet Filter Chain
 

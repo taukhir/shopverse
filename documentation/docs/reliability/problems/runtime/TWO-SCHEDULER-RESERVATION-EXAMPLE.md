@@ -1,5 +1,7 @@
 ---
 title: Two-Scheduler Reservation Expiry Example
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Two-Scheduler Reservation Expiry Example

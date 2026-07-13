@@ -1,6 +1,9 @@
-﻿---
-title: OAuth2 OIDC And Token Flows
 ---
+title: OAuth2 OIDC And Token Flows
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # OAuth2 OIDC And Token Flows
 

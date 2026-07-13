@@ -1,6 +1,8 @@
 ---
 title: Java Senior Labs And Architecture Interview Workbook
 description: Evidence-based labs and interview scenarios for JVM, GC, virtual threads, NIO, reflection, modules, collections, and performance.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Senior Labs And Architecture Interview Workbook

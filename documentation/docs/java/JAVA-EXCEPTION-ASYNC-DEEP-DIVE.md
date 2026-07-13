@@ -1,6 +1,8 @@
 ---
 title: Java Exception Handling Across Streams And Async Workflows
 description: Custom exceptions, suppressed failures, stream exception patterns, executor failures, and CompletableFuture recovery semantics.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Exception Handling Across Streams And Async Workflows

@@ -1,6 +1,8 @@
 ---
 title: HashMap, ConcurrentHashMap And Iterator Internals
 description: Hash contracts, collisions, resizing, duplicate handling, fail-fast iterators, ConcurrentModificationException, and ConcurrentHashMap internals.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # HashMap, ConcurrentHashMap And Iterator Internals

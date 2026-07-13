@@ -1,6 +1,8 @@
 ---
 title: Data Structures Fundamentals
 sidebar_position: 1
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Data Structures Fundamentals
@@ -82,16 +84,20 @@ flowchart TB
 
 ## Interview Questions
 
-### Array vs linked list?
+<ExpandableAnswer title="Array vs linked list?">
 
 Array gives fast indexed access and better cache locality. Linked list gives
 cheap insertion/removal only when you already have the node reference.
 
-### Hash table vs tree?
+</ExpandableAnswer>
+<ExpandableAnswer title="Hash table vs tree?">
 
 Hash table gives average O(1) lookup without ordering. Tree gives O(log n)
 lookup and sorted/range operations.
 
-### Stack vs queue?
+</ExpandableAnswer>
+<ExpandableAnswer title="Stack vs queue?">
 
 Stack is LIFO. Queue is FIFO.
+
+</ExpandableAnswer>

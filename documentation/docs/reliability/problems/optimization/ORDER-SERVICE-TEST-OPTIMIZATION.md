@@ -1,5 +1,7 @@
 ---
 title: Optimize Order Service Tests
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Optimize Order Service Tests

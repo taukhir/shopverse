@@ -1,4 +1,4 @@
-﻿---
+---
 title: Async Contract And Flaky Test Prevention
 description: Bounded asynchronous assertions, REST and event contract fixtures, deterministic data, isolation, parallel execution, and evidence-driven flaky-test prevention.
 difficulty: Advanced
@@ -11,6 +11,7 @@ learning_objectives:
 technologies: [Awaitility, JUnit, Kafka, Contract Testing, Spring]
 last_reviewed: "2026-07-13"
 ---
+
 
 # Async Contract And Flaky Test Prevention
 

@@ -1,5 +1,7 @@
 ---
 title: AWS EventBridge, SQS, SNS And S3
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # AWS EventBridge, SQS, SNS And S3

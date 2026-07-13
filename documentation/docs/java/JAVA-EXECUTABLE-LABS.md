@@ -1,6 +1,8 @@
 ---
 title: Java Architect Executable Labs
 description: Commands, expected observations, safety limits, and evidence templates for the Java senior Maven lab module.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Architect Executable Labs

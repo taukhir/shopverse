@@ -1,6 +1,8 @@
 ---
 title: GitHub Actions
 sidebar_position: 5
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # GitHub Actions
@@ -150,14 +152,16 @@ See [Shopverse workflow guide](https://github.com/taukhir/shopverse/tree/main/.g
 
 ## Interview Questions
 
-### Hosted Or Self-Hosted Runner?
+<ExpandableAnswer title="Hosted Or Self-Hosted Runner?">
 
 Hosted runners are isolated and low-maintenance. Self-hosted runners provide
 private-network access and custom tooling but require patching, isolation,
 capacity management, and protection from untrusted workflow code.
 
-### Cache Or Artifact?
+</ExpandableAnswer>
+<ExpandableAnswer title="Cache Or Artifact?">
 
 A cache accelerates future runs and may be evicted. An artifact is output from
 a specific run retained for download, diagnosis, or promotion.
 
+</ExpandableAnswer>

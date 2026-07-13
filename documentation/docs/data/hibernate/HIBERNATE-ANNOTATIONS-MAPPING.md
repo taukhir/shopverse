@@ -1,6 +1,9 @@
-﻿---
-title: Hibernate Annotations And Mapping
 ---
+title: Hibernate Annotations And Mapping
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Hibernate Annotations And Mapping
 

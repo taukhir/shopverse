@@ -1,6 +1,8 @@
 ---
 title: Java Reflection, JPMS And Packaging
 description: Dynamic invocation, proxies, annotations, agents, module boundaries, services, images, and compatibility.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Reflection, JPMS And Packaging

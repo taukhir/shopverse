@@ -1,5 +1,7 @@
 ---
 title: Consistency
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Consistency In System Design
@@ -137,22 +139,25 @@ payment failed -> release inventory -> mark order failed/compensated
 
 ## Interview Questions
 
-### Strong Versus Eventual Consistency?
+<ExpandableAnswer title="Strong Versus Eventual Consistency?">
 
 Strong consistency makes successful writes immediately visible to later reads.
 Eventual consistency allows temporary stale reads but promises convergence.
 
-### Is Eventual Consistency Bad?
+</ExpandableAnswer>
+<ExpandableAnswer title="Is Eventual Consistency Bad?">
 
 No. It is appropriate for many read models, caches, analytics, feeds, and
 search. It is dangerous only when used for invariants that require immediate
 correctness.
 
-### How Do You Handle Stale Reads?
+</ExpandableAnswer>
+<ExpandableAnswer title="How Do You Handle Stale Reads?">
 
 Use leader reads, version tokens, read-your-writes guarantees, cache
 invalidation, projection lag monitoring, or show pending states in the UI.
 
+</ExpandableAnswer>
 ## References
 
 - [Consistency in System Design - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/consistency-in-system-design/)

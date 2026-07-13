@@ -1,3 +1,16 @@
+---
+title: "Transactional Outbox Pattern"
+description: "Transactional Outbox Pattern: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Transactional Outbox Pattern"
+tags:
+  - "reliability"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Transactional Outbox Pattern
 
 The transactional outbox pattern solves the producer-side reliability problem

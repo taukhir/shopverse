@@ -1,5 +1,7 @@
 ---
 title: Load Balancing
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Load Balancing

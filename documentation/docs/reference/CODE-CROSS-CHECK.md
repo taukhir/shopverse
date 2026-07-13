@@ -1,3 +1,16 @@
+---
+title: "Code Cross-Check"
+description: "Code Cross-Check: practical concepts, Shopverse context, production trade-offs, and operational guidance."
+sidebar_label: "Code Cross-Check"
+tags:
+  - "reference"
+  - "shopverse"
+  - "production"
+page_type: "Guide"
+difficulty: "Intermediate"
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
 # Code Cross-Check
 
 > Audit snapshot: 2026-06-22. This page records a point-in-time review; it is

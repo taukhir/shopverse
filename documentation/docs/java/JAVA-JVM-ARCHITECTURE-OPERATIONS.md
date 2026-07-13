@@ -1,6 +1,8 @@
 ---
 title: JVM Architecture, Runtime Boundaries And Operations
 description: Lead-level JVM map covering class loading, execution, allocation, JIT, GC, native memory, safepoints, containers, and evidence-driven diagnostics.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # JVM Architecture, Runtime Boundaries And Operations

@@ -1,6 +1,8 @@
 ---
 title: JVM Garbage Collectors For Architects
 description: Serial, Parallel, G1, ZGC and Shenandoah algorithms, failure modes, selection, logs, and migration decisions.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # JVM Garbage Collectors For Architects

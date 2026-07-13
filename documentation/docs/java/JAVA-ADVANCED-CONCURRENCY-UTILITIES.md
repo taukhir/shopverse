@@ -1,6 +1,8 @@
 ---
 title: Advanced Java Concurrency Utilities And Reactive Flow
 description: StampedLock, Phaser, Flow, memory ordering, false sharing, coordinated omission, and selection rules.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Advanced Java Concurrency Utilities And Reactive Flow

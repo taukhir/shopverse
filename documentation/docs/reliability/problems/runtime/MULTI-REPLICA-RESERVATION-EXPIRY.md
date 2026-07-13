@@ -1,5 +1,7 @@
 ---
 title: Multi-Replica Reservation Expiry
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Multi-Replica Reservation Expiry

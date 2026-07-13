@@ -1,6 +1,8 @@
 ---
 title: Java Stream Pipeline, Spliterator And Collector Internals
 description: Pipeline construction, sink fusion, stateful operations, spliterators, collector contracts, resources and failures.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Stream Pipeline, Spliterator And Collector Internals

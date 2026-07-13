@@ -1,5 +1,7 @@
 ---
 title: Functional And Non-Functional Requirements
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Functional And Non-Functional Requirements
@@ -135,6 +137,12 @@ NFR-5: Failed Kafka records must be persisted and replayable by administrators.
 ```
 
 ## Functional Requirements In Interviews
+
+<ExpandableAnswer title="What should an architect explain about Functional And Non-Functional Requirements?">
+
+For **Functional And Non-Functional Requirements**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
 
 In a system-design interview, start by confirming the core features. Example
 for "design an e-commerce checkout":

@@ -1,6 +1,8 @@
 ---
 title: ForkJoinPool And Work-Stealing Deep Dive
 description: Worker deques, stealing, joins, thresholds, managed blocking, common-pool interference and scenario examples.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # ForkJoinPool And Work-Stealing Deep Dive

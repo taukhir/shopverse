@@ -1,6 +1,8 @@
 ---
 title: Spring Boot Admin
 sidebar_position: 4
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Spring Boot Admin

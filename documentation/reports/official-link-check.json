@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-07-13T05:09:44.195Z",
+  "generatedAt": "2026-07-13T05:38:16.055Z",
   "summary": {
-    "links": 490,
-    "ok": 490,
+    "links": 496,
+    "ok": 496,
     "failed": 0,
     "redirected": 22,
     "rateLimited": 7
@@ -15,7 +15,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 124,
+      "durationMs": 162,
       "pages": [
         "ai/AI-MODEL-INTERNALS-SELECTION.md"
       ]
@@ -27,7 +27,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 142,
+      "durationMs": 122,
       "pages": [
         "data/database-selection/CONSISTENCY-MODELS-BASE.md",
         "data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md",
@@ -42,7 +42,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 268,
+      "durationMs": 143,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
@@ -54,9 +54,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 155,
+      "durationMs": 364,
       "pages": [
-        "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md"
+        "security/API-KEY-AUTHORIZATION-OPERATIONS.md"
       ]
     },
     {
@@ -66,7 +66,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 136,
+      "durationMs": 386,
       "pages": [
         "development/spring-rest/REST-SECURE-FILE-TRANSFER.md"
       ]
@@ -78,7 +78,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 60,
+      "durationMs": 261,
       "pages": [
         "spring/spel/SPEL-SECURITY-PRODUCTION.md"
       ]
@@ -90,9 +90,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 617,
+      "durationMs": 561,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
+      ]
+    },
+    {
+      "url": "https://cloudevents.io/",
+      "finalUrl": "https://cloudevents.io/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 233,
+      "pages": [
+        "integration/README.md"
       ]
     },
     {
@@ -102,7 +114,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 2135,
+      "durationMs": 1500,
       "pages": [
         "security/platform/SECURITY-ARCHITECT-PATH.md",
         "security/README.md"
@@ -115,7 +127,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 792,
+      "durationMs": 753,
       "pages": [
         "security/platform/SECURITY-INCIDENT-RESPONSE.md"
       ]
@@ -127,7 +139,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 300,
+      "durationMs": 151,
       "pages": [
         "security/SUPPLY-CHAIN-PRIVACY.md"
       ]
@@ -139,7 +151,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 420,
+      "durationMs": 424,
       "pages": [
         "development/spring-rest/REST-IDEMPOTENT-COMMANDS.md"
       ]
@@ -151,12 +163,15 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 324,
+      "durationMs": 399,
       "pages": [
+        "data/DATABASE-CONSISTENCY-SCALING.md",
+        "data/DATABASE-ENGINEERING.md",
         "data/database-selection/CONSISTENCY-MODELS-BASE.md",
         "data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md",
         "data/database-selection/DATABASE-INTERVIEW-EXERCISES.md",
-        "data/database-selection/SCALING-CAP-DISTRIBUTION.md"
+        "data/database-selection/SCALING-CAP-DISTRIBUTION.md",
+        "data/RELATIONAL-MODELING-QUERY-PERFORMANCE.md"
       ]
     },
     {
@@ -166,34 +181,34 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 447,
+      "durationMs": 358,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
     },
     {
       "url": "https://developers.google.com/identity/openid-connect/openid-connect",
-      "finalUrl": "https://developers.google.com/identity/openid-connect/openid-connect?hl=fr",
+      "finalUrl": "https://developers.google.com/identity/openid-connect/openid-connect?hl=fa",
       "status": 200,
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 1261,
+      "durationMs": 1386,
       "pages": [
-        "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md",
+        "security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION.md",
         "security/oauth/SSO-AND-OPENID-CONNECT.md"
       ]
     },
     {
       "url": "https://developers.google.com/identity/protocols/oauth2/web-server",
-      "finalUrl": "https://developers.google.com/identity/protocols/oauth2/web-server?hl=pt-br",
+      "finalUrl": "https://developers.google.com/identity/protocols/oauth2/web-server",
       "status": 200,
       "ok": true,
       "rateLimited": false,
-      "redirected": true,
-      "durationMs": 1216,
+      "redirected": false,
+      "durationMs": 738,
       "pages": [
-        "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md"
+        "security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION.md"
       ]
     },
     {
@@ -203,7 +218,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 362,
+      "durationMs": 439,
       "pages": [
         "architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK.md"
       ]
@@ -215,15 +230,23 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 149,
+      "durationMs": 466,
       "pages": [
         "architecture/ASYNC-REALTIME-DISTRIBUTED-TIME.md",
+        "architecture/CHECKOUT-SECURITY-EVENT-FLOWS.md",
         "architecture/DISTRIBUTED-HYBRID-CACHE.md",
+        "architecture/hld-lld/CAPACITY-ESTIMATION-FUNDAMENTALS.md",
         "architecture/hld-lld/CAPACITY-PERFORMANCE-ESTIMATION.md",
+        "architecture/hld-lld/CAPACITY-STORAGE-QUEUE-POOL-MODELS.md",
+        "architecture/hld-lld/PERFORMANCE-CAPACITY-MODELS.md",
+        "architecture/hld-lld/PERFORMANCE-LATENCY-THROUGHPUT-MODELS.md",
+        "architecture/hld-lld/SHOPVERSE-CAPACITY-WORKED-EXAMPLE.md",
         "architecture/hld-lld/SIXTEEN-SYSTEM-DESIGN-CASE-STUDIES.md",
         "architecture/MICROSERVICES-PATTERNS.md",
         "architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS.md",
         "architecture/shopverse-capstones/README.md",
+        "architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES.md",
+        "architecture/SYSTEM-CONTEXT-SERVICE-OWNERSHIP.md",
         "architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK.md",
         "architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS.md",
         "architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD.md",
@@ -231,8 +254,8 @@
         "architecture/system-design-deep-dives/INTERVIEW-RUBRIC.md",
         "architecture/SYSTEM-DESIGN-DEEP-DIVES.md",
         "architecture/SYSTEM-DESIGN.md",
-        "case-study/COMPLETE-DEMO.mdx",
-        "case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT.md",
+        "case-study/DEMO-OBSERVABILITY-AUTOMATION.mdx",
+        "case-study/SHOPVERSE-ARCHITECTURE-REFACTORING-READINESS.md",
         "reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md"
       ]
     },
@@ -243,7 +266,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 481,
+      "durationMs": 345,
       "pages": [
         "architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS.md"
       ]
@@ -255,9 +278,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 194,
+      "durationMs": 141,
       "pages": [
-        "operations/DEPLOYMENT-STRATEGIES.md",
+        "operations/DEPLOYMENT-CONTRACTS-RELEASE-GATES.md",
         "operations/PERFORMANCE-CAPACITY-FINOPS.md",
         "operations/SRE-DR-CHAOS.md"
       ]
@@ -269,7 +292,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 202,
+      "durationMs": 212,
       "pages": [
         "spring/testing/COVERAGE-TEST-QUALITY.md"
       ]
@@ -281,7 +304,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 64,
+      "durationMs": 51,
       "pages": [
         "spring/testing/TEST-CI-RELIABILITY-OPERATIONS.md"
       ]
@@ -293,7 +316,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 934,
+      "durationMs": 906,
       "pages": [
         "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md"
       ]
@@ -305,7 +328,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 926,
+      "durationMs": 912,
       "pages": [
         "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md"
       ]
@@ -317,7 +340,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 803,
+      "durationMs": 816,
       "pages": [
         "java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS.md",
         "spring/internals-production/HIBERNATE-JDBC-INTERNALS.md",
@@ -337,7 +360,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 2156,
+      "durationMs": 2226,
       "pages": [
         "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md"
       ]
@@ -349,7 +372,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 2298,
+      "durationMs": 1645,
       "pages": [
         "spring/SPRING-INTERNALS-LABS.md"
       ]
@@ -361,7 +384,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 1578,
+      "durationMs": 2221,
       "pages": [
         "data/hibernate/HIBERNATE-CACHING.md"
       ]
@@ -373,7 +396,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 934,
+      "durationMs": 1267,
       "pages": [
         "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
         "spring/testing/JUNIT-TESTING-FUNDAMENTALS.md"
@@ -386,7 +409,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 500,
+      "durationMs": 740,
       "pages": [
         "spring/testing/MOCKITO-UNIT-TESTING.md"
       ]
@@ -398,7 +421,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 258,
+      "durationMs": 430,
       "pages": [
         "spring/testing/TEST-CI-RELIABILITY-OPERATIONS.md"
       ]
@@ -410,9 +433,15 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 148,
+      "durationMs": 350,
       "pages": [
-        "ai/LANGCHAIN4J-DEEP-DIVE.md"
+        "ai/JAVA-AI-CODE-COOKBOOK.md",
+        "ai/JAVA-AI-REQUEST-RAG-PATTERNS.md",
+        "ai/JAVA-AI-TOOLS-SECURITY-PATTERNS.md",
+        "ai/LANGCHAIN4J-ARCHITECTURE-AI-SERVICES.md",
+        "ai/LANGCHAIN4J-DEEP-DIVE.md",
+        "ai/LANGCHAIN4J-RAG-SPRING-OPERATIONS.md",
+        "ai/LANGCHAIN4J-TOOLS-MEMORY.md"
       ]
     },
     {
@@ -422,7 +451,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 43,
+      "durationMs": 255,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -434,7 +463,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 177,
+      "durationMs": 334,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -446,7 +475,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 179,
+      "durationMs": 337,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -458,7 +487,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 174,
+      "durationMs": 321,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -470,7 +499,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 858,
+      "durationMs": 808,
       "pages": [
         "data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md"
       ]
@@ -482,9 +511,26 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 200,
+      "durationMs": 368,
       "pages": [
         "architecture/CACHE-PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://docs.micrometer.io/micrometer/reference/",
+      "finalUrl": "https://docs.micrometer.io/micrometer/reference/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 369,
+      "pages": [
+        "observability/CORRELATION-IDENTIFIERS-HTTP-PROPAGATION.md",
+        "observability/MDC-CORRELATION-TRACING.md",
+        "observability/MDC-KAFKA-ASYNC-PROPAGATION.md",
+        "observability/MICROMETER-COUNTERS.md",
+        "observability/MICROMETER-METRICS.md",
+        "observability/MICROMETER-TIMERS-TAGS-OPERATIONS.md"
       ]
     },
     {
@@ -494,7 +540,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 465,
+      "durationMs": 268,
       "pages": [
         "spring/internals-production/PRODUCTION-LIFECYCLE.md"
       ]
@@ -506,7 +552,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 36,
+      "durationMs": 873,
       "pages": [
         "data/DATA-PIPELINES-SEARCH-OPERATIONS.md"
       ]
@@ -518,7 +564,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 158,
+      "durationMs": 133,
       "pages": [
         "ai/RAG-ENGINEERING.md"
       ]
@@ -530,7 +576,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 71,
+      "durationMs": 76,
       "pages": [
         "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
       ]
@@ -542,7 +588,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 79,
+      "durationMs": 46,
       "pages": [
         "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
       ]
@@ -554,7 +600,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 204,
+      "durationMs": 71,
       "pages": [
         "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
       ]
@@ -566,7 +612,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 26,
+      "durationMs": 78,
       "pages": [
         "java/CORE-JAVA-DEEP-DIVE.md"
       ]
@@ -578,7 +624,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 248,
+      "durationMs": 247,
       "pages": [
         "java/JAVA-REGEX-INTERNATIONALIZATION.md"
       ]
@@ -590,7 +636,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 243,
+      "durationMs": 44,
       "pages": [
         "java/JAVA-REGEX-INTERNATIONALIZATION.md"
       ]
@@ -602,7 +648,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 380,
+      "durationMs": 441,
       "pages": [
         "java/JAVA-REGEX-INTERNATIONALIZATION.md"
       ]
@@ -614,7 +660,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 74,
+      "durationMs": 50,
       "pages": [
         "java/JAVA-REGEX-INTERNATIONALIZATION.md"
       ]
@@ -626,7 +672,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 311,
+      "durationMs": 169,
       "pages": [
         "java/JAVA-REGEX-INTERNATIONALIZATION.md"
       ]
@@ -638,7 +684,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 39,
+      "durationMs": 167,
       "pages": [
         "java/JAVA-REGEX-INTERNATIONALIZATION.md"
       ]
@@ -650,7 +696,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 120,
+      "durationMs": 58,
       "pages": [
         "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
       ]
@@ -662,7 +708,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 122,
+      "durationMs": 184,
       "pages": [
         "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
       ]
@@ -674,7 +720,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 266,
+      "durationMs": 49,
       "pages": [
         "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
       ]
@@ -686,7 +732,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 83,
+      "durationMs": 267,
       "pages": [
         "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
       ]
@@ -698,7 +744,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 182,
+      "durationMs": 50,
       "pages": [
         "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
       ]
@@ -710,7 +756,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 83,
+      "durationMs": 282,
       "pages": [
         "java/JAVA-FFM-METHOD-HANDLES-RUNTIME.md"
       ]
@@ -722,7 +768,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 220,
+      "durationMs": 71,
       "pages": [
         "java/JAVA-SERIALIZATION-UMBRELLA.md"
       ]
@@ -734,7 +780,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 173,
+      "durationMs": 99,
       "pages": [
         "java/advanced-internals/DYNAMIC-JAVA-INTERNALS.md",
         "java/advanced-internals/NIO-PERFORMANCE-JMH.md",
@@ -748,7 +794,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 93,
+      "durationMs": 31,
       "pages": [
         "java/JAVA-SERIALIZATION-EVOLUTION-SECURITY.md"
       ]
@@ -760,7 +806,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 45,
+      "durationMs": 64,
       "pages": [
         "java/JAVA-SERIALIZATION-INTERNALS.md"
       ]
@@ -772,7 +818,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 68,
       "pages": [
         "java/JAVA-FFM-METHOD-HANDLES-RUNTIME.md",
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
@@ -785,7 +831,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 46,
+      "durationMs": 88,
       "pages": [
         "java/JAVA-COMPARABLE-COMPARATOR-DEEP-DIVE.md"
       ]
@@ -797,7 +843,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 244,
+      "durationMs": 122,
       "pages": [
         "java/JAVA-FFM-METHOD-HANDLES-RUNTIME.md"
       ]
@@ -809,7 +855,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 74,
+      "durationMs": 132,
       "pages": [
         "java/features-8-to-26/JAVA-LAMBDAS.md"
       ]
@@ -821,7 +867,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 80,
+      "durationMs": 56,
       "pages": [
         "java/JAVA-FFM-METHOD-HANDLES-RUNTIME.md"
       ]
@@ -833,7 +879,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 117,
+      "durationMs": 40,
       "pages": [
         "java/JAVA-DYNAMIC-JPMS-PACKAGING.md"
       ]
@@ -845,7 +891,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 53,
+      "durationMs": 149,
       "pages": [
         "java/advanced-internals/JAVA-MEMORY-MODEL.md",
         "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md"
@@ -858,7 +904,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 46,
+      "durationMs": 58,
       "pages": [
         "java/JAVA-OBJECTS-STRINGS-GC.md",
         "java/JAVA-OOP.md"
@@ -871,7 +917,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 79,
+      "durationMs": 38,
       "pages": [
         "java/JAVA-THREAD-COORDINATION.md"
       ]
@@ -883,7 +929,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 29,
+      "durationMs": 37,
       "pages": [
         "java/JAVA-OBJECTS-STRINGS-GC.md"
       ]
@@ -895,7 +941,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 22,
+      "durationMs": 341,
       "pages": [
         "java/JAVA-DYNAMIC-JPMS-PACKAGING.md"
       ]
@@ -907,7 +953,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 240,
+      "durationMs": 65,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-RUNTIME.md",
         "java/threading/THREAD-CONTEXT-PROPAGATION.md"
@@ -920,7 +966,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 439,
+      "durationMs": 49,
       "pages": [
         "java/JAVA-OBJECTS-STRINGS-GC.md",
         "java/JAVA-STRINGS-ENCODING-INTERNALS.md"
@@ -933,7 +979,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 57,
+      "durationMs": 78,
       "pages": [
         "java/features-8-to-26/JAVA-VIRTUAL-THREADS.md",
         "java/JAVA-MULTITHREADING.md",
@@ -950,7 +996,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 48,
+      "durationMs": 166,
       "pages": [
         "java/threading/TASK-CANCELLATION-DEADLINES.md"
       ]
@@ -962,7 +1008,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 68,
+      "durationMs": 27,
       "pages": [
         "java/JAVA-THREADING-MODEL.md"
       ]
@@ -974,7 +1020,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 66,
+      "durationMs": 85,
       "pages": [
         "java/threading/THREAD-CONTEXT-PROPAGATION.md"
       ]
@@ -986,7 +1032,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 46,
+      "durationMs": 97,
       "pages": [
         "java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE.md"
       ]
@@ -998,7 +1044,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 346,
+      "durationMs": 48,
       "pages": [
         "java/JAVA-TIME-NUMERIC-SECURITY.md"
       ]
@@ -1010,7 +1056,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 110,
+      "durationMs": 99,
       "pages": [
         "java/JAVA-SECURE-ASYNC-IO.md"
       ]
@@ -1022,7 +1068,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 83,
+      "durationMs": 115,
       "pages": [
         "java/advanced-internals/NIO-PERFORMANCE-JMH.md"
       ]
@@ -1034,7 +1080,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 180,
+      "durationMs": 139,
       "pages": [
         "java/JAVA-NIO-IO-RESOURCE-OWNERSHIP.md"
       ]
@@ -1046,7 +1092,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 281,
+      "durationMs": 33,
       "pages": [
         "java/JAVA-STRINGS-ENCODING-INTERNALS.md"
       ]
@@ -1058,7 +1104,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 543,
+      "durationMs": 218,
       "pages": [
         "java/JAVA-SECURE-ASYNC-IO.md"
       ]
@@ -1070,7 +1116,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 52,
+      "durationMs": 249,
       "pages": [
         "java/JAVA-NIO-IO-RESOURCE-OWNERSHIP.md"
       ]
@@ -1082,7 +1128,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 53,
+      "durationMs": 45,
       "pages": [
         "java/JAVA-STRINGS-ENCODING-INTERNALS.md"
       ]
@@ -1094,7 +1140,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 117,
+      "durationMs": 45,
       "pages": [
         "java/JAVA-TIME-NUMERIC-SECURITY.md"
       ]
@@ -1106,7 +1152,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 139,
+      "durationMs": 53,
       "pages": [
         "java/JAVA-COMPARABLE-COMPARATOR-DEEP-DIVE.md"
       ]
@@ -1118,7 +1164,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 71,
+      "durationMs": 233,
       "pages": [
         "java/JAVA-CONCURRENT-HASHMAP-OPENJDK.md"
       ]
@@ -1130,7 +1176,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 580,
+      "durationMs": 118,
       "pages": [
         "java/JAVA-THREAD-COORDINATION.md"
       ]
@@ -1142,7 +1188,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 245,
+      "durationMs": 36,
       "pages": [
         "java/completable-future/COMPLETABLE-FUTURE-FAILURE-CANCELLATION.md",
         "java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS.md",
@@ -1158,7 +1204,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 129,
+      "durationMs": 43,
       "pages": [
         "java/completable-future/COMPLETABLE-FUTURE-COMPOSITION.md",
         "java/JAVA-COMPLETABLE-FUTURE.md"
@@ -1171,7 +1217,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 53,
+      "durationMs": 125,
       "pages": [
         "java/JAVA-CONCURRENT-HASHMAP-OPENJDK.md",
         "java/JAVA-HASH-COLLECTIONS-DEEP-DIVE.md"
@@ -1184,7 +1230,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 156,
+      "durationMs": 67,
       "pages": [
         "java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS.md"
       ]
@@ -1196,7 +1242,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 92,
+      "durationMs": 144,
       "pages": [
         "java/JAVA-EXECUTORS-THREAD-POOLS.md"
       ]
@@ -1208,7 +1254,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 104,
+      "durationMs": 147,
       "pages": [
         "java/JAVA-EXECUTORS-THREAD-POOLS.md",
         "java/threading/TASK-CANCELLATION-DEADLINES.md"
@@ -1221,7 +1267,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 55,
+      "durationMs": 59,
       "pages": [
         "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md"
       ]
@@ -1233,7 +1279,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 174,
+      "durationMs": 83,
       "pages": [
         "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md",
         "java/JAVA-FORKJOINPOOL-DEEP-DIVE.md",
@@ -1247,7 +1293,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 141,
+      "durationMs": 45,
       "pages": [
         "java/JAVA-FORKJOINPOOL-DEEP-DIVE.md"
       ]
@@ -1259,7 +1305,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 87,
+      "durationMs": 56,
       "pages": [
         "java/completable-future/COMPLETABLE-FUTURE-FAILURE-CANCELLATION.md",
         "java/threading/TASK-CANCELLATION-DEADLINES.md"
@@ -1272,7 +1318,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 90,
+      "durationMs": 85,
       "pages": [
         "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md"
       ]
@@ -1284,7 +1330,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 92,
       "pages": [
         "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md"
       ]
@@ -1296,7 +1342,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 39,
+      "durationMs": 43,
       "pages": [
         "java/JAVA-COLLECTION-IMPLEMENTATIONS-ARCHITECT.md",
         "java/JAVA-COLLECTIONS.md",
@@ -1314,7 +1360,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 75,
       "pages": [
         "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md"
       ]
@@ -1326,7 +1372,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 95,
+      "durationMs": 43,
       "pages": [
         "java/JAVA-THREAD-SCHEDULER-DEEP-DIVE.md",
         "java/JAVA-THREADING-UMBRELLA.md"
@@ -1339,7 +1385,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 245,
+      "durationMs": 127,
       "pages": [
         "java/JAVA-EXECUTORS-THREAD-POOLS.md"
       ]
@@ -1351,7 +1397,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 42,
       "pages": [
         "java/JAVA-HASH-COLLECTIONS-DEEP-DIVE.md"
       ]
@@ -1363,7 +1409,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 150,
+      "durationMs": 32,
       "pages": [
         "java/JAVA-COLLECTION-IMPLEMENTATIONS-ARCHITECT.md",
         "java/JAVA-COLLECTION-INTERNALS.md",
@@ -1377,7 +1423,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 96,
+      "durationMs": 33,
       "pages": [
         "java/JAVA-ENUMS.md"
       ]
@@ -1389,7 +1435,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 237,
+      "durationMs": 53,
       "pages": [
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
       ]
@@ -1401,7 +1447,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 22,
+      "durationMs": 114,
       "pages": [
         "java/JAVA-ABSTRACTION-INTERFACES.md",
         "java/JAVA-FUNCTIONAL-INTERFACES.md"
@@ -1414,7 +1460,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 109,
+      "durationMs": 41,
       "pages": [
         "java/JAVA-COLLECTION-INTERNALS.md",
         "java/JAVA-HASH-COLLECTIONS-DEEP-DIVE.md"
@@ -1427,7 +1473,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 21,
+      "durationMs": 35,
       "pages": [
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
       ]
@@ -1439,7 +1485,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 62,
+      "durationMs": 249,
       "pages": [
         "java/features-8-to-26/JAVA-OPTIONAL.md"
       ]
@@ -1451,8 +1497,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 37,
+      "durationMs": 112,
       "pages": [
+        "data-structures/README.md",
         "java/JAVA-CORE-INTERVIEW-WORKBOOK.md"
       ]
     },
@@ -1463,7 +1510,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 49,
+      "durationMs": 43,
       "pages": [
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
       ]
@@ -1475,7 +1522,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 54,
+      "durationMs": 155,
       "pages": [
         "java/JAVA-EXCEPTIONS-STREAMS-INTERNALS.md",
         "java/JAVA-STREAM-PIPELINE-INTERNALS.md"
@@ -1488,7 +1535,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 102,
+      "durationMs": 56,
       "pages": [
         "java/JAVA-STREAM-PIPELINE-INTERNALS.md"
       ]
@@ -1500,7 +1547,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 85,
+      "durationMs": 28,
       "pages": [
         "java/JAVA-CORE-INTERVIEW-WORKBOOK.md",
         "java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE.md",
@@ -1517,7 +1564,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 82,
+      "durationMs": 54,
       "pages": [
         "java/JAVA-COMPARABLE-COMPARATOR-DEEP-DIVE.md"
       ]
@@ -1529,7 +1576,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 159,
+      "durationMs": 65,
       "pages": [
         "java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md"
       ]
@@ -1541,7 +1588,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 75,
+      "durationMs": 55,
       "pages": [
         "java/JAVA-NIO-IO-RESOURCE-OWNERSHIP.md"
       ]
@@ -1553,7 +1600,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 148,
+      "durationMs": 95,
       "pages": [
         "java/JAVA-SENIOR-LABS-INTERVIEW.md"
       ]
@@ -1565,7 +1612,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 108,
+      "durationMs": 135,
       "pages": [
         "java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md",
         "java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md"
@@ -1578,7 +1625,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 87,
+      "durationMs": 42,
       "pages": [
         "java/advanced-internals/JVM-EXECUTION-INTERNALS.md"
       ]
@@ -1590,7 +1637,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 92,
+      "durationMs": 59,
       "pages": [
         "java/JAVA-SERIALIZATION-UMBRELLA.md",
         "java/JAVA-SERIALIZATION.md"
@@ -1603,7 +1650,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 395,
+      "durationMs": 78,
       "pages": [
         "java/JAVA-SERIALIZATION-INTERNALS.md"
       ]
@@ -1615,7 +1662,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 182,
+      "durationMs": 38,
       "pages": [
         "java/JAVA-SERIALIZATION-INTERNALS.md"
       ]
@@ -1627,7 +1674,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 255,
+      "durationMs": 33,
       "pages": [
         "java/JAVA-SERIALIZATION-EVOLUTION-SECURITY.md"
       ]
@@ -1639,7 +1686,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 132,
+      "durationMs": 89,
       "pages": [
         "java/JAVA-GC-COLLECTORS-ARCHITECT.md",
         "java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md",
@@ -1653,7 +1700,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 81,
+      "durationMs": 23,
       "pages": [
         "java/advanced-internals/JVM-EXECUTION-INTERNALS.md",
         "java/JAVA-PRODUCTION-INCIDENTS.md",
@@ -1667,7 +1714,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 945,
+      "durationMs": 1195,
       "pages": [
         "java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md",
         "java/JAVA-JVM-MEMORY.md",
@@ -1681,7 +1728,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 699,
+      "durationMs": 1218,
       "pages": [
         "java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
         "java/JAVA-SENIOR-LABS-INTERVIEW.md"
@@ -1694,7 +1741,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 92,
+      "durationMs": 79,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
       ]
@@ -1706,7 +1753,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 51,
+      "durationMs": 250,
       "pages": [
         "java/JAVA-SECURE-ASYNC-IO.md"
       ]
@@ -1718,7 +1765,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 43,
+      "durationMs": 100,
       "pages": [
         "java/JAVA-INTERVIEW-PREPARATION.md",
         "java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md",
@@ -1735,7 +1782,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 103,
+      "durationMs": 71,
       "pages": [
         "java/JAVA-INTERNALS-LABS.md"
       ]
@@ -1747,7 +1794,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 155,
+      "durationMs": 183,
       "pages": [
         "java/JAVA-JVM-MEMORY.md"
       ]
@@ -1759,7 +1806,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 59,
+      "durationMs": 120,
       "pages": [
         "java/features-8-to-26/JAVA-8-TO-26.md"
       ]
@@ -1771,7 +1818,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 127,
+      "durationMs": 29,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-LANGUAGE.md",
         "java/features-8-to-26/JAVA-8-TO-26.md"
@@ -1784,7 +1831,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 50,
+      "durationMs": 27,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-RUNTIME.md"
       ]
@@ -1796,7 +1843,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 191,
+      "durationMs": 45,
       "pages": [
         "java/CORE-JAVA-DEEP-DIVE.md"
       ]
@@ -1808,7 +1855,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 151,
+      "durationMs": 116,
       "pages": [
         "java/JAVA-OPERATORS-CONTROL-FLOW.md"
       ]
@@ -1820,7 +1867,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 134,
+      "durationMs": 71,
       "pages": [
         "java/JAVA-ASSERTIONS-TOOLCHAIN.md"
       ]
@@ -1832,7 +1879,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 325,
+      "durationMs": 157,
       "pages": [
         "java/JAVA-NESTED-TYPES.md"
       ]
@@ -1844,7 +1891,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 38,
+      "durationMs": 99,
       "pages": [
         "java/JAVA-OPERATORS-CONTROL-FLOW.md"
       ]
@@ -1856,7 +1903,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 60,
+      "durationMs": 79,
       "pages": [
         "java/JAVA-NESTED-TYPES.md"
       ]
@@ -1868,7 +1915,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 366,
+      "durationMs": 69,
       "pages": [
         "java/JAVA-OPERATORS-CONTROL-FLOW.md"
       ]
@@ -1880,7 +1927,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 49,
+      "durationMs": 404,
       "pages": [
         "java/JAVA-NESTED-TYPES.md"
       ]
@@ -1892,7 +1939,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 103,
+      "durationMs": 136,
       "pages": [
         "java/advanced-internals/DYNAMIC-JAVA-INTERNALS.md",
         "java/advanced-internals/NIO-PERFORMANCE-JMH.md",
@@ -1906,7 +1953,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 104,
+      "durationMs": 59,
       "pages": [
         "java/JAVA-CORE-INTERVIEW-WORKBOOK.md",
         "java/JAVA-FUNDAMENTALS.md",
@@ -1923,7 +1970,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 158,
       "pages": [
         "java/JAVA-EXCEPTIONS-STREAMS-INTERNALS.md"
       ]
@@ -1935,7 +1982,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 221,
+      "durationMs": 45,
       "pages": [
         "java/JAVA-FUNDAMENTALS-SCENARIOS.md",
         "java/JAVA-LANGUAGE-OOP-INTERNALS.md"
@@ -1948,7 +1995,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 479,
+      "durationMs": 89,
       "pages": [
         "java/keywords/JAVA-CONTROL-ERROR-KEYWORDS.md"
       ]
@@ -1960,7 +2007,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 50,
+      "durationMs": 67,
       "pages": [
         "java/features-8-to-26/JAVA-SWITCH.md"
       ]
@@ -1972,7 +2019,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 85,
+      "durationMs": 43,
       "pages": [
         "java/features-8-to-26/JAVA-VAR.md"
       ]
@@ -1984,7 +2031,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 240,
+      "durationMs": 60,
       "pages": [
         "java/keywords/JAVA-CONTROL-ERROR-KEYWORDS.md"
       ]
@@ -1996,7 +2043,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 248,
+      "durationMs": 86,
       "pages": [
         "java/JAVA-LANGUAGE-OOP-INTERNALS.md",
         "java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE.md"
@@ -2009,7 +2056,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 163,
+      "durationMs": 106,
       "pages": [
         "java/features-8-to-26/JAVA-LAMBDAS.md"
       ]
@@ -2021,7 +2068,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 79,
+      "durationMs": 68,
       "pages": [
         "java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
         "java/JAVA-MULTITHREADING.md"
@@ -2034,7 +2081,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 117,
+      "durationMs": 46,
       "pages": [
         "java/advanced-internals/JAVA-MEMORY-MODEL.md",
         "java/keywords/JAVA-STATE-CONCURRENCY-KEYWORDS.md"
@@ -2047,7 +2094,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 343,
+      "durationMs": 216,
       "pages": [
         "java/advanced-internals/JAVA-MEMORY-MODEL.md"
       ]
@@ -2059,7 +2106,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 107,
+      "durationMs": 85,
       "pages": [
         "java/advanced-internals/JAVA-MEMORY-MODEL.md"
       ]
@@ -2071,7 +2118,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 72,
+      "durationMs": 95,
       "pages": [
         "java/JAVA-KEYWORDS.md"
       ]
@@ -2083,7 +2130,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 100,
+      "durationMs": 83,
       "pages": [
         "java/JAVA-GENERICS.md"
       ]
@@ -2095,7 +2142,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 50,
+      "durationMs": 87,
       "pages": [
         "java/JAVA-GENERICS-ERASURE-INTERNALS.md"
       ]
@@ -2107,7 +2154,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 307,
+      "durationMs": 40,
       "pages": [
         "java/JAVA-GENERICS-ERASURE-INTERNALS.md"
       ]
@@ -2119,7 +2166,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 47,
+      "durationMs": 142,
       "pages": [
         "java/JAVA-GENERICS-ERASURE-INTERNALS.md"
       ]
@@ -2131,7 +2178,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 139,
+      "durationMs": 410,
       "pages": [
         "java/JAVA-FUNDAMENTALS-SCENARIOS.md",
         "java/JAVA-LANGUAGE-OOP-INTERNALS.md",
@@ -2145,7 +2192,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 363,
+      "durationMs": 33,
       "pages": [
         "java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS.md"
       ]
@@ -2157,7 +2204,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 139,
+      "durationMs": 398,
       "pages": [
         "java/JAVA-OOP.md",
         "java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS.md"
@@ -2170,7 +2217,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 142,
+      "durationMs": 168,
       "pages": [
         "java/features-8-to-26/JAVA-SEALED-CLASSES.md"
       ]
@@ -2182,7 +2229,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 240,
+      "durationMs": 135,
       "pages": [
         "java/features-8-to-26/JAVA-RECORDS.md"
       ]
@@ -2194,7 +2241,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 43,
       "pages": [
         "java/keywords/JAVA-STATE-CONCURRENCY-KEYWORDS.md"
       ]
@@ -2206,7 +2253,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 135,
+      "durationMs": 534,
       "pages": [
         "java/JAVA-LANGUAGE-SEMANTICS.md"
       ]
@@ -2218,7 +2265,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 302,
+      "durationMs": 434,
       "pages": [
         "java/JAVA-OVERRIDING-HIDING-DEEP-DIVE.md"
       ]
@@ -2230,7 +2277,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 93,
+      "durationMs": 197,
       "pages": [
         "java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE.md"
       ]
@@ -2242,7 +2289,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 111,
+      "durationMs": 311,
       "pages": [
         "java/JAVA-ENUMS.md"
       ]
@@ -2254,7 +2301,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 106,
+      "durationMs": 117,
       "pages": [
         "java/JAVA-ABSTRACTION-INTERFACES.md",
         "java/JAVA-OOP.md",
@@ -2268,7 +2315,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 223,
+      "durationMs": 189,
       "pages": [
         "java/JAVA-OVERRIDING-HIDING-DEEP-DIVE.md"
       ]
@@ -2280,7 +2327,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 129,
+      "durationMs": 70,
       "pages": [
         "java/JAVA-FUNCTIONAL-INTERFACES.md"
       ]
@@ -2292,7 +2339,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 56,
+      "durationMs": 113,
       "pages": [
         "java/JAVA-NESTED-TYPES.md"
       ]
@@ -2304,7 +2351,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 31,
+      "durationMs": 101,
       "pages": [
         "java/advanced-internals/DYNAMIC-JAVA-INTERNALS.md",
         "java/advanced-internals/NIO-PERFORMANCE-JMH.md",
@@ -2318,7 +2365,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 87,
+      "durationMs": 36,
       "pages": [
         "java/JAVA-INTERVIEW-PREPARATION.md",
         "java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md",
@@ -2334,7 +2381,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 113,
+      "durationMs": 55,
       "pages": [
         "java/JAVA-JVM-MEMORY.md"
       ]
@@ -2346,7 +2393,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 89,
+      "durationMs": 70,
       "pages": [
         "java/advanced-internals/JVM-EXECUTION-INTERNALS.md"
       ]
@@ -2358,7 +2405,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 381,
+      "durationMs": 177,
       "pages": [
         "java/advanced-internals/JVM-EXECUTION-INTERNALS.md"
       ]
@@ -2370,7 +2417,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 74,
+      "durationMs": 72,
       "pages": [
         "java/JAVA-THREAD-COORDINATION.md"
       ]
@@ -2382,7 +2429,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 51,
+      "durationMs": 90,
       "pages": [
         "java/JAVA-THREAD-CREATION-SCHEDULING.md"
       ]
@@ -2394,7 +2441,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 352,
+      "durationMs": 307,
       "pages": [
         "ai/MCP-SPRING-AI.md"
       ]
@@ -2406,9 +2453,15 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 144,
+      "durationMs": 127,
       "pages": [
+        "ai/JAVA-AI-CODE-COOKBOOK.md",
+        "ai/JAVA-AI-REQUEST-RAG-PATTERNS.md",
+        "ai/JAVA-AI-TOOLS-SECURITY-PATTERNS.md",
+        "ai/LANGCHAIN4J-ARCHITECTURE-AI-SERVICES.md",
         "ai/LANGCHAIN4J-DEEP-DIVE.md",
+        "ai/LANGCHAIN4J-RAG-SPRING-OPERATIONS.md",
+        "ai/LANGCHAIN4J-TOOLS-MEMORY.md",
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
     },
@@ -2419,7 +2472,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 298,
+      "durationMs": 284,
       "pages": [
         "ai/MCP-SPRING-AI.md"
       ]
@@ -2431,7 +2484,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 385,
+      "durationMs": 154,
       "pages": [
         "ai/AI-MODEL-INTERNALS-SELECTION.md"
       ]
@@ -2443,7 +2496,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 295,
+      "durationMs": 46,
       "pages": [
         "ai/MCP-UMBRELLA.md"
       ]
@@ -2455,7 +2508,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 433,
+      "durationMs": 366,
       "pages": [
         "ai/MCP-SPRING-SHOPVERSE-LAB.md"
       ]
@@ -2467,7 +2520,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 300,
+      "durationMs": 47,
       "pages": [
         "ai/MCP-SPRING-AI.md",
         "ai/MCP-SPRING-SHOPVERSE-LAB.md"
@@ -2480,7 +2533,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 45,
+      "durationMs": 48,
       "pages": [
         "ai/MCP-SPRING-AI.md",
         "ai/MCP-SPRING-SHOPVERSE-LAB.md"
@@ -2493,7 +2546,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 342,
+      "durationMs": 64,
       "pages": [
         "ai/RAG-ENGINEERING.md"
       ]
@@ -2505,7 +2558,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 308,
+      "durationMs": 46,
       "pages": [
         "ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md"
       ]
@@ -2517,7 +2570,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 417,
+      "durationMs": 306,
       "pages": [
         "ai/AGENTS-TOOL-CALLING.md"
       ]
@@ -2529,7 +2582,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 400,
+      "durationMs": 186,
       "pages": [
         "ai/AI-EVALUATION-OPERATIONS.md"
       ]
@@ -2541,10 +2594,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 411,
+      "durationMs": 122,
       "pages": [
-        "security/JWT-OAUTH2-SPRING-SECURITY.md",
-        "security/spring-security/PRODUCTION-PRACTICES.md"
+        "security/spring-security/PRODUCTION-PRACTICES.md",
+        "security/SPRING-SECURITY-FILTERS-OWNERSHIP-ROADMAP.md"
       ]
     },
     {
@@ -2554,7 +2607,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 73,
+      "durationMs": 295,
       "pages": [
         "spring/SPRING-BATCH.md"
       ]
@@ -2566,7 +2619,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 93,
+      "durationMs": 282,
       "pages": [
         "spring/SPRING-BATCH.md"
       ]
@@ -2578,7 +2631,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 85,
+      "durationMs": 310,
       "pages": [
         "spring/SPRING-BATCH.md"
       ]
@@ -2590,7 +2643,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 284,
+      "durationMs": 294,
       "pages": [
         "spring/SPRING-BATCH.md"
       ]
@@ -2602,7 +2655,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 291,
+      "durationMs": 294,
       "pages": [
         "spring/SPRING-BATCH.md"
       ]
@@ -2614,7 +2667,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 329,
+      "durationMs": 57,
       "pages": [
         "spring/SPRING-BATCH.md"
       ]
@@ -2626,7 +2679,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 329,
+      "durationMs": 149,
       "pages": [
         "development/spring-boot-internals/CONFIGURATION-PROPERTIES.md"
       ]
@@ -2638,7 +2691,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 314,
+      "durationMs": 317,
       "pages": [
         "development/spring-boot-internals/CONFIGURATION-PROPERTIES.md"
       ]
@@ -2650,7 +2703,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 288,
+      "durationMs": 297,
       "pages": [
         "spring/SPRING-BOOT-4-FRAMEWORK-7.md"
       ]
@@ -2662,7 +2715,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 67,
+      "durationMs": 366,
       "pages": [
         "spring/SPRING-RESILIENCE4J.md"
       ]
@@ -2674,7 +2727,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 60,
+      "durationMs": 319,
       "pages": [
         "development/spring-boot-internals/CONFIGURATION-PROPERTIES.md"
       ]
@@ -2686,7 +2739,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 317,
+      "durationMs": 308,
       "pages": [
         "development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
         "spring/web/HTTP-MESSAGE-CONVERSION-JACKSON.md"
@@ -2699,7 +2752,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 50,
+      "durationMs": 64,
       "pages": [
         "spring/SPRING-CACHE.md"
       ]
@@ -2711,7 +2764,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 62,
+      "durationMs": 304,
       "pages": [
         "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md"
       ]
@@ -2723,7 +2776,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 217,
+      "durationMs": 143,
       "pages": [
         "development/spring-boot-internals/CONFIGURATION-PROPERTIES.md"
       ]
@@ -2735,7 +2788,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 288,
+      "durationMs": 50,
       "pages": [
         "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md"
       ]
@@ -2747,7 +2800,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 325,
+      "durationMs": 55,
       "pages": [
         "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
       ]
@@ -2759,9 +2812,38 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 382,
+      "durationMs": 314,
       "pages": [
+        "case-study/COMPLETE-DEMO-RECOVERY-OBSERVABILITY.mdx",
+        "case-study/COMPLETE-DEMO-SETUP-CHECKOUT.mdx",
+        "case-study/COMPLETE-DEMO.mdx",
+        "case-study/DEMO-IDEMPOTENCY-OUTBOX-RECOVERY.mdx",
+        "case-study/DEMO-PLATFORM-AUTHENTICATION.mdx",
+        "case-study/DEMO-SEED-CHECKOUT-SAGA.mdx",
+        "case-study/SHOPVERSE-ARCHITECTURE-CURRENT-STATE.md",
+        "case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT.md",
+        "development/API-GATEWAY-ARCHITECTURE.md",
+        "development/API-GATEWAY-GENERIC.md",
+        "development/API-GATEWAY-OPERATIONS.md",
+        "development/API-GATEWAY-REACTIVE-FILTER-LIFECYCLE.md",
+        "development/DEBUGGING-DATA-SAGA-KAFKA.md",
+        "development/DEBUGGING-OBSERVABILITY-RECOVERY.md",
+        "development/DEBUGGING-REQUEST-PLATFORM.md",
+        "development/DEBUGGING.md",
+        "development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED.md",
+        "development/DESIGN-PATTERNS-CREATIONAL-STRUCTURAL.md",
+        "development/DESIGN-PATTERNS.md",
+        "development/ENGINEERING-PRINCIPLES.md",
+        "development/PRODUCTION-DESIGN-PRINCIPLES.md",
+        "development/SOLID-JAVA-SHOPVERSE.md",
         "development/SPRING-BOOT-INTERNALS.md",
+        "development/TESTING-ARCHITECTURE-COVERAGE.md",
+        "development/TESTING-MODES-CI-TRIAGE.md",
+        "development/TESTING.md",
+        "reference/FEATURES-AND-DEMOS.md",
+        "reference/FEATURES-RELIABILITY-OBSERVABILITY.md",
+        "reference/FEATURES-SECURITY-CHECKOUT.md",
+        "services/README.md",
         "spring/decisions/README.md",
         "spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md",
         "spring/SPRING-ARCHITECT-PATH.md",
@@ -2777,7 +2859,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 311,
+      "durationMs": 201,
       "pages": [
         "development/spring-boot-internals/PRODUCTION-TUNING.md",
         "spring/interview/SPRING-WEB-DATA-INTERVIEW.md"
@@ -2790,7 +2872,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 70,
+      "durationMs": 336,
       "pages": [
         "operations/SPRING-BOOT-ACTUATOR.md",
         "spring/internals-production/PRODUCTION-LIFECYCLE.md"
@@ -2803,7 +2885,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 180,
+      "durationMs": 318,
       "pages": [
         "spring/architect-labs/README.md"
       ]
@@ -2815,7 +2897,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 308,
+      "durationMs": 194,
       "pages": [
         "development/spring-boot-internals/PRODUCTION-TUNING.md",
         "operations/SPRING-BOOT-ACTUATOR.md",
@@ -2832,7 +2914,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 151,
+      "durationMs": 289,
       "pages": [
         "operations/SPRING-BOOT-ACTUATOR.md"
       ]
@@ -2844,7 +2926,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 447,
+      "durationMs": 299,
       "pages": [
         "spring/architect-labs/PRODUCTION-INCIDENT-DIAGNOSIS.md",
         "spring/internals-production/PRODUCTION-LIFECYCLE.md"
@@ -2857,7 +2939,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 62,
+      "durationMs": 64,
       "pages": [
         "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md"
       ]
@@ -2869,7 +2951,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 52,
+      "durationMs": 71,
       "pages": [
         "spring/spel/SPEL-SECURITY-PRODUCTION.md",
         "spring/spel/SPEL-SPRING-INTEGRATIONS.md"
@@ -2882,7 +2964,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 62,
+      "durationMs": 60,
       "pages": [
         "spring/SPRING-CONTAINER-ARCHITECT.md"
       ]
@@ -2894,7 +2976,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 285,
+      "durationMs": 316,
       "pages": [
         "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md",
         "spring/SPRING-SPEL.md"
@@ -2907,7 +2989,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 90,
+      "durationMs": 301,
       "pages": [
         "spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md"
       ]
@@ -2919,7 +3001,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 44,
+      "durationMs": 59,
       "pages": [
         "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md"
       ]
@@ -2931,7 +3013,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 68,
+      "durationMs": 283,
       "pages": [
         "spring/internals-production/PRODUCTION-LIFECYCLE.md"
       ]
@@ -2943,7 +3025,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 71,
+      "durationMs": 51,
       "pages": [
         "development/spring-boot-internals/PRODUCTION-TUNING.md",
         "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md",
@@ -2957,7 +3039,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 319,
+      "durationMs": 306,
       "pages": [
         "spring/architect-labs/CAPACITY-THREAD-POOL-LAB.md",
         "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md",
@@ -2971,7 +3053,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 56,
+      "durationMs": 283,
       "pages": [
         "architecture/CACHE-UMBRELLA.md"
       ]
@@ -2983,7 +3065,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 284,
+      "durationMs": 303,
       "pages": [
         "spring/production/STARTUP-JVM-CONTAINER-MEMORY.md"
       ]
@@ -2995,7 +3077,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 317,
+      "durationMs": 288,
       "pages": [
         "spring/SPRING-BOOT-TESTING.md"
       ]
@@ -3007,7 +3089,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 66,
+      "durationMs": 306,
       "pages": [
         "development/spring-rest/REST-TESTING-INTERVIEW.md",
         "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md"
@@ -3020,7 +3102,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 67,
+      "durationMs": 311,
       "pages": [
         "spring/testing/HTTP-CLIENT-CONTRACT-TESTS.md"
       ]
@@ -3032,7 +3114,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 61,
+      "durationMs": 314,
       "pages": [
         "development/spring-rest/REST-TESTING.md"
       ]
@@ -3044,7 +3126,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 71,
+      "durationMs": 62,
       "pages": [
         "spring/testing/SPRING-MVC-REPOSITORY-SECURITY-TESTS.md"
       ]
@@ -3056,7 +3138,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 73,
+      "durationMs": 58,
       "pages": [
         "spring/testing/SPRING-MVC-REPOSITORY-SECURITY-TESTS.md"
       ]
@@ -3068,7 +3150,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 297,
+      "durationMs": 52,
       "pages": [
         "spring/SPRING-BOOT-TESTING.md",
         "spring/testing/JUNIT-TESTING-FUNDAMENTALS.md"
@@ -3081,7 +3163,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 320,
+      "durationMs": 55,
       "pages": [
         "spring/SPRING-INTERNALS-LABS.md",
         "spring/testing/INTEGRATION-TESTCONTAINERS.md"
@@ -3094,7 +3176,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 282,
+      "durationMs": 311,
       "pages": [
         "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md",
         "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md",
@@ -3109,7 +3191,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 57,
+      "durationMs": 317,
       "pages": [
         "development/spring-boot-internals/PRODUCTION-TUNING.md",
         "spring/internals-production/PRODUCTION-LIFECYCLE.md",
@@ -3123,7 +3205,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 49,
+      "durationMs": 67,
       "pages": [
         "development/SPRING-REST-APIS.md"
       ]
@@ -3135,7 +3217,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 300,
+      "durationMs": 277,
       "pages": [
         "spring/SPRING-OPENFEIGN.md"
       ]
@@ -3147,7 +3229,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 315,
+      "durationMs": 299,
       "pages": [
         "development/SPRING-CLOUD-GATEWAY-ADVANCED.md"
       ]
@@ -3159,7 +3241,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 321,
+      "durationMs": 51,
       "pages": [
         "development/SPRING-CLOUD-GATEWAY-ADVANCED.md"
       ]
@@ -3171,7 +3253,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 289,
+      "durationMs": 296,
       "pages": [
         "development/SPRING-CLOUD-GATEWAY-ADVANCED.md"
       ]
@@ -3183,7 +3265,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 318,
+      "durationMs": 291,
       "pages": [
         "development/SPRING-CLOUD-GATEWAY-ADVANCED.md"
       ]
@@ -3195,7 +3277,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 48,
+      "durationMs": 299,
       "pages": [
         "development/spring-rest/REST-CLIENTS-FEIGN.md",
         "spring/decisions/FEIGN-VS-HTTP-SERVICE-CLIENTS.md",
@@ -3210,7 +3292,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 301,
+      "durationMs": 297,
       "pages": [
         "spring/SPRING-OPENFEIGN.md"
       ]
@@ -3222,7 +3304,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 332,
+      "durationMs": 317,
       "pages": [
         "spring/SPRING-OPENFEIGN.md"
       ]
@@ -3234,7 +3316,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 81,
+      "durationMs": 335,
       "pages": [
         "development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS.md"
       ]
@@ -3246,7 +3328,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 301,
+      "durationMs": 57,
       "pages": [
         "spring/internals-production/HIBERNATE-JDBC-INTERNALS.md",
         "spring/interview/SPRING-WEB-DATA-INTERVIEW.md",
@@ -3263,7 +3345,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 312,
+      "durationMs": 292,
       "pages": [
         "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md",
         "spring/jpa/JPA-AUDITING-DELETING-TESTING.md"
@@ -3276,7 +3358,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 60,
+      "durationMs": 52,
       "pages": [
         "spring/jpa/JPA-BASICS-ENTITY-MAPPING.md"
       ]
@@ -3288,7 +3370,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 295,
+      "durationMs": 304,
       "pages": [
         "spring/jpa/JPA-TRANSACTIONS-LOCKING.md"
       ]
@@ -3300,7 +3382,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 330,
+      "durationMs": 64,
       "pages": [
         "spring/jpa/JPA-AUDITING-DELETING-TESTING.md",
         "spring/jpa/JPA-FETCHING-PERFORMANCE.md",
@@ -3314,7 +3396,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 310,
+      "durationMs": 275,
       "pages": [
         "spring/jpa/JPA-REPOSITORIES-QUERIES.md"
       ]
@@ -3326,7 +3408,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 308,
+      "durationMs": 300,
       "pages": [
         "spring/jpa/JPA-FETCHING-PERFORMANCE.md",
         "spring/jpa/JPA-REPOSITORIES-QUERIES.md",
@@ -3340,7 +3422,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 305,
+      "durationMs": 52,
       "pages": [
         "spring/SPRING-ASYNC-PRODUCTION-ARCHITECT.md"
       ]
@@ -3352,10 +3434,27 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 50,
+      "durationMs": 47,
       "pages": [
-        "case-study/COMPLETE-DEMO.mdx",
-        "case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT.md",
+        "case-study/DEMO-OBSERVABILITY-AUTOMATION.mdx",
+        "case-study/SHOPVERSE-ARCHITECTURE-REFACTORING-READINESS.md",
+        "development/API-GATEWAY-ARCHITECTURE.md",
+        "development/API-GATEWAY-GENERIC.md",
+        "development/API-GATEWAY-OPERATIONS.md",
+        "development/API-GATEWAY-REACTIVE-FILTER-LIFECYCLE.md",
+        "development/DEBUGGING-DATA-SAGA-KAFKA.md",
+        "development/DEBUGGING-OBSERVABILITY-RECOVERY.md",
+        "development/DEBUGGING-REQUEST-PLATFORM.md",
+        "development/DEBUGGING.md",
+        "development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED.md",
+        "development/DESIGN-PATTERNS-CREATIONAL-STRUCTURAL.md",
+        "development/DESIGN-PATTERNS.md",
+        "development/ENGINEERING-PRINCIPLES.md",
+        "development/PRODUCTION-DESIGN-PRINCIPLES.md",
+        "development/SOLID-JAVA-SHOPVERSE.md",
+        "development/TESTING-ARCHITECTURE-COVERAGE.md",
+        "development/TESTING-MODES-CI-TRIAGE.md",
+        "development/TESTING.md",
         "java/JAVA-SHOPVERSE-CROSSWALK.md",
         "reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md",
         "spring/decisions/README.md",
@@ -3374,7 +3473,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 342,
+      "durationMs": 285,
       "pages": [
         "spring/SPRING-AOP.md"
       ]
@@ -3386,7 +3485,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 345,
+      "durationMs": 56,
       "pages": [
         "spring/SPRING-AOP.md"
       ]
@@ -3398,7 +3497,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 54,
+      "durationMs": 48,
       "pages": [
         "spring/SPRING-AOP.md"
       ]
@@ -3410,7 +3509,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 334,
+      "durationMs": 127,
       "pages": [
         "spring/internals-production/AOP-TRANSACTION-INTERNALS.md",
         "spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW.md",
@@ -3425,7 +3524,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 320,
+      "durationMs": 67,
       "pages": [
         "development/SPRING-BOOT-INTERNALS.md"
       ]
@@ -3437,7 +3536,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 301,
+      "durationMs": 326,
       "pages": [
         "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md"
       ]
@@ -3449,7 +3548,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 300,
+      "durationMs": 374,
       "pages": [
         "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md"
       ]
@@ -3461,7 +3560,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 427,
+      "durationMs": 63,
       "pages": [
         "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md"
       ]
@@ -3473,7 +3572,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 350,
+      "durationMs": 330,
       "pages": [
         "spring/spel/SPEL-SPRING-INTEGRATIONS.md",
         "spring/SPRING-SPEL.md"
@@ -3486,7 +3585,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 322,
+      "durationMs": 286,
       "pages": [
         "spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW.md"
       ]
@@ -3498,7 +3597,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 305,
+      "durationMs": 73,
       "pages": [
         "spring/spel/SPEL-SPRING-INTEGRATIONS.md"
       ]
@@ -3510,7 +3609,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 437,
+      "durationMs": 55,
       "pages": [
         "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md"
       ]
@@ -3522,7 +3621,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 322,
+      "durationMs": 317,
       "pages": [
         "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md"
       ]
@@ -3534,7 +3633,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 60,
+      "durationMs": 374,
       "pages": [
         "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md",
         "spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW.md",
@@ -3548,7 +3647,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 49,
+      "durationMs": 305,
       "pages": [
         "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md",
         "spring/SPRING-CONTAINER-ARCHITECT.md"
@@ -3561,7 +3660,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 372,
+      "durationMs": 305,
       "pages": [
         "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md",
         "spring/SPRING-CONTAINER-ARCHITECT.md"
@@ -3574,7 +3673,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 308,
+      "durationMs": 293,
       "pages": [
         "spring/SPRING-SPEL.md"
       ]
@@ -3586,7 +3685,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 75,
+      "durationMs": 50,
       "pages": [
         "spring/spel/SPEL-LANGUAGE-EVALUATION.md",
         "spring/spel/SPEL-SECURITY-PRODUCTION.md"
@@ -3599,7 +3698,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 72,
+      "durationMs": 294,
       "pages": [
         "spring/spel/SPEL-LANGUAGE-EVALUATION.md"
       ]
@@ -3611,7 +3710,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 73,
+      "durationMs": 46,
       "pages": [
         "spring/spel/SPEL-LANGUAGE-EVALUATION.md"
       ]
@@ -3623,7 +3722,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 311,
+      "durationMs": 289,
       "pages": [
         "spring/spel/SPEL-LANGUAGE-EVALUATION.md"
       ]
@@ -3635,7 +3734,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 292,
+      "durationMs": 295,
       "pages": [
         "spring/validation/BEAN-VALIDATION-FUNDAMENTALS.md"
       ]
@@ -3647,7 +3746,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 331,
+      "durationMs": 290,
       "pages": [
         "spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md"
       ]
@@ -3659,7 +3758,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 203,
+      "durationMs": 283,
       "pages": [
         "spring/decisions/JPA-VS-JDBC.md"
       ]
@@ -3671,7 +3770,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 384,
+      "durationMs": 280,
       "pages": [
         "spring/decisions/JPA-VS-JDBC.md"
       ]
@@ -3683,15 +3782,15 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 288,
+      "durationMs": 295,
       "pages": [
         "development/spring-rest/REST-BASICS-CRUD.md",
         "development/spring-rest/REST-IDEMPOTENT-COMMANDS.md",
         "development/spring-rest/REST-INTERVIEW-WORKBOOK.md",
         "reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md",
-        "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
-        "reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md",
-        "reliability/RESILIENCE4J-GENERIC.md",
+        "reliability/problems/runtime/RESERVATION-TRANSACTION-IMPLEMENTATION.md",
+        "reliability/problems/runtime/RESOURCE-OWNERSHIP-TESTS-OPERATIONS.md",
+        "reliability/RESILIENCE4J-COMPOSITION-OPERATIONS.md",
         "reliability/SHOPVERSE-SAGA-CODE-FLOW.md",
         "spring/SPRING-DATA-JPA.md",
         "spring/SPRING-JPA-HIBERNATE-ARCHITECT.md",
@@ -3705,7 +3804,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 286,
+      "durationMs": 306,
       "pages": [
         "java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS.md",
         "spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES.md",
@@ -3721,7 +3820,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 340,
+      "durationMs": 322,
       "pages": [
         "spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md"
       ]
@@ -3733,7 +3832,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 316,
+      "durationMs": 288,
       "pages": [
         "spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES.md",
         "spring/jpa/JPA-TRANSACTIONS-LOCKING.md",
@@ -3748,7 +3847,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 316,
+      "durationMs": 284,
       "pages": [
         "spring/architect-labs/DATABASE-CACHE-CONSISTENCY.md",
         "spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md",
@@ -3762,7 +3861,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 337,
+      "durationMs": 56,
       "pages": [
         "spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md"
       ]
@@ -3774,7 +3873,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 283,
+      "durationMs": 286,
       "pages": [
         "architecture/CACHE-UMBRELLA.md",
         "spring/architect-labs/DATABASE-CACHE-CONSISTENCY.md",
@@ -3789,7 +3888,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 68,
+      "durationMs": 387,
       "pages": [
         "spring/decisions/CACHE-ASIDE-VS-WRITE-THROUGH.md",
         "spring/spel/SPEL-SPRING-INTEGRATIONS.md",
@@ -3803,7 +3902,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 299,
+      "durationMs": 64,
       "pages": [
         "development/spring-rest/REST-CLIENTS-FEIGN.md",
         "spring/decisions/KAFKA-VS-SYNCHRONOUS.md",
@@ -3818,7 +3917,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 65,
+      "durationMs": 306,
       "pages": [
         "spring/decisions/FEIGN-VS-HTTP-SERVICE-CLIENTS.md",
         "spring/testing/HTTP-CLIENT-CONTRACT-TESTS.md"
@@ -3831,7 +3930,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 69,
+      "durationMs": 54,
       "pages": [
         "spring/architect-labs/CAPACITY-THREAD-POOL-LAB.md",
         "spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW.md",
@@ -3845,7 +3944,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 59,
+      "durationMs": 291,
       "pages": [
         "spring/SPRING-ASYNC-PRODUCTION-ARCHITECT.md"
       ]
@@ -3857,7 +3956,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 54,
+      "durationMs": 309,
       "pages": [
         "spring/SPRING-BOOT-TESTING.md",
         "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
@@ -3871,7 +3970,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 291,
+      "durationMs": 293,
       "pages": [
         "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md"
       ]
@@ -3883,7 +3982,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 330,
+      "durationMs": 310,
       "pages": [
         "spring/architect-labs/README.md"
       ]
@@ -3895,7 +3994,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 313,
+      "durationMs": 55,
       "pages": [
         "development/spring-rest/REST-INTERVIEW-WORKBOOK.md",
         "development/spring-rest/REST-TESTING-INTERVIEW.md",
@@ -3909,7 +4008,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 318,
+      "durationMs": 328,
       "pages": [
         "development/spring-rest/REST-TESTING.md"
       ]
@@ -3921,7 +4020,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 298,
+      "durationMs": 306,
       "pages": [
         "spring/testing/HTTP-CLIENT-CONTRACT-TESTS.md"
       ]
@@ -3933,7 +4032,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 58,
+      "durationMs": 348,
       "pages": [
         "spring/SPRING-INTERNALS-LABS.md"
       ]
@@ -3945,7 +4044,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 294,
+      "durationMs": 63,
       "pages": [
         "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md",
         "spring/testing/TEST-CI-RELIABILITY-OPERATIONS.md"
@@ -3958,7 +4057,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 65,
+      "durationMs": 276,
       "pages": [
         "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md"
       ]
@@ -3970,7 +4069,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 311,
+      "durationMs": 298,
       "pages": [
         "spring/SPRING-TRANSACTIONS.md"
       ]
@@ -3982,7 +4081,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 317,
+      "durationMs": 299,
       "pages": [
         "development/spring-rest/REST-CLIENTS-FEIGN.md",
         "spring/SPRING-REACTIVE.md"
@@ -3995,7 +4094,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 398,
+      "durationMs": 54,
       "pages": [
         "spring/decisions/MVC-VS-WEBFLUX.md",
         "spring/internals-production/WEB-HTTP-RUNTIME.md",
@@ -4010,7 +4109,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 295,
+      "durationMs": 310,
       "pages": [
         "spring/SPRING-REACTIVE.md"
       ]
@@ -4022,7 +4121,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 301,
+      "durationMs": 59,
       "pages": [
         "spring/SPRING-REACTIVE.md"
       ]
@@ -4034,7 +4133,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 172,
+      "durationMs": 320,
       "pages": [
         "development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
         "development/SPRING-REST-APIS.md",
@@ -4048,7 +4147,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 312,
+      "durationMs": 323,
       "pages": [
         "spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md"
       ]
@@ -4060,7 +4159,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 324,
+      "durationMs": 329,
       "pages": [
         "development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS.md"
       ]
@@ -4072,7 +4171,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 91,
+      "durationMs": 294,
       "pages": [
         "spring/internals-production/WEB-HTTP-RUNTIME.md",
         "spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md",
@@ -4086,7 +4185,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 325,
+      "durationMs": 283,
       "pages": [
         "development/spring-rest/REST-ERROR-CONTRACTS.md",
         "spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION.md"
@@ -4099,7 +4198,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 311,
+      "durationMs": 287,
       "pages": [
         "spring/web/HTTP-MESSAGE-CONVERSION-JACKSON.md"
       ]
@@ -4111,7 +4210,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 312,
       "pages": [
         "development/spring-rest/REST-BASICS-CRUD.md",
         "development/spring-rest/REST-INTERVIEW-WORKBOOK.md",
@@ -4125,7 +4224,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 68,
+      "durationMs": 289,
       "pages": [
         "development/spring-rest/REST-ERROR-CONTRACTS.md"
       ]
@@ -4137,7 +4236,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 78,
+      "durationMs": 292,
       "pages": [
         "development/spring-rest/REST-CONTROLLER-REQUEST-MAPPING.md"
       ]
@@ -4149,7 +4248,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 310,
+      "durationMs": 322,
       "pages": [
         "development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md",
         "development/spring-rest/REST-SECURE-FILE-TRANSFER.md"
@@ -4162,7 +4261,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 325,
+      "durationMs": 75,
       "pages": [
         "spring/web/HTTP-MESSAGE-CONVERSION-JACKSON.md"
       ]
@@ -4174,7 +4273,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 323,
+      "durationMs": 281,
       "pages": [
         "development/spring-rest/REST-CONTROLLER-REQUEST-MAPPING.md"
       ]
@@ -4186,7 +4285,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 311,
+      "durationMs": 138,
       "pages": [
         "development/spring-rest/REST-BASICS-CRUD.md",
         "development/spring-rest/REST-CONTROLLER-REQUEST-MAPPING.md"
@@ -4199,7 +4298,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 343,
+      "durationMs": 297,
       "pages": [
         "spring/validation/BEAN-VALIDATION-FUNDAMENTALS.md",
         "spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md",
@@ -4213,7 +4312,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 138,
+      "durationMs": 303,
       "pages": [
         "development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET.md",
         "spring/interview/SPRING-WEB-DATA-INTERVIEW.md",
@@ -4227,7 +4326,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 143,
+      "durationMs": 309,
       "pages": [
         "spring/decisions/KAFKA-VS-SYNCHRONOUS.md"
       ]
@@ -4239,7 +4338,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 57,
+      "durationMs": 348,
       "pages": [
         "spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md"
       ]
@@ -4251,7 +4350,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 307,
+      "durationMs": 129,
       "pages": [
         "spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md"
       ]
@@ -4263,7 +4362,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 298,
+      "durationMs": 64,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md",
         "spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md"
@@ -4276,7 +4375,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 45,
+      "durationMs": 285,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md",
         "spring/kafka/SPRING-KAFKA-CONSUMERS.md",
@@ -4290,7 +4389,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 313,
+      "durationMs": 288,
       "pages": [
         "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
       ]
@@ -4302,7 +4401,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 67,
+      "durationMs": 57,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONSUMERS.md"
       ]
@@ -4314,7 +4413,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 333,
+      "durationMs": 297,
       "pages": [
         "spring/kafka/SPRING-KAFKA-BASICS.md",
         "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
@@ -4327,7 +4426,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 52,
+      "durationMs": 301,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md",
         "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
@@ -4340,7 +4439,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 317,
+      "durationMs": 52,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONSUMERS.md"
       ]
@@ -4352,7 +4451,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 329,
+      "durationMs": 56,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md"
       ]
@@ -4364,7 +4463,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 308,
+      "durationMs": 51,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md",
         "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md"
@@ -4377,7 +4476,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 280,
+      "durationMs": 306,
       "pages": [
         "spring/kafka/SPRING-KAFKA-BASICS.md"
       ]
@@ -4389,7 +4488,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 345,
+      "durationMs": 299,
       "pages": [
         "spring/kafka/SPRING-KAFKA-BASICS.md"
       ]
@@ -4401,7 +4500,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 430,
+      "durationMs": 284,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONSUMERS.md"
       ]
@@ -4413,7 +4512,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 53,
+      "durationMs": 47,
       "pages": [
         "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md"
       ]
@@ -4425,7 +4524,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 335,
+      "durationMs": 296,
       "pages": [
         "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md"
       ]
@@ -4437,7 +4536,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 182,
+      "durationMs": 46,
       "pages": [
         "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md"
       ]
@@ -4449,7 +4548,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 54,
+      "durationMs": 44,
       "pages": [
         "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md"
       ]
@@ -4461,7 +4560,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 63,
+      "durationMs": 319,
       "pages": [
         "spring/architect-labs/KAFKA-REPLAY-IDEMPOTENCY.md"
       ]
@@ -4473,7 +4572,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 185,
+      "durationMs": 294,
       "pages": [
         "spring/architect-labs/KAFKA-REPLAY-IDEMPOTENCY.md"
       ]
@@ -4485,7 +4584,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 89,
+      "durationMs": 286,
       "pages": [
         "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md"
       ]
@@ -4497,7 +4596,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 298,
+      "durationMs": 279,
       "pages": [
         "spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md"
       ]
@@ -4509,7 +4608,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 312,
+      "durationMs": 306,
       "pages": [
         "spring/testing/INTEGRATION-TESTCONTAINERS.md"
       ]
@@ -4521,8 +4620,14 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 50,
+      "durationMs": 372,
       "pages": [
+        "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md",
+        "security/ACCESS-REFRESH-TOKEN-DESIGN.md",
+        "security/JWT-LOGIN-VALIDATION-AUTHORITIES.md",
+        "security/JWT-OAUTH2-SPRING-SECURITY.md",
+        "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md",
+        "security/oauth/GOOGLE-OAUTH-CLIENT-SESSION.md",
         "spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md"
       ]
     },
@@ -4533,7 +4638,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 312,
+      "durationMs": 290,
       "pages": [
         "security/spring-security/PASSWORD-AUTHENTICATION-RUNTIME.md"
       ]
@@ -4545,7 +4650,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 320,
+      "durationMs": 281,
       "pages": [
         "development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
         "security/spring-security/PRODUCTION-PRACTICES.md",
@@ -4561,7 +4666,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 279,
+      "durationMs": 317,
       "pages": [
         "development/spring-rest/REST-ERROR-CONTRACTS.md"
       ]
@@ -4573,7 +4678,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 316,
+      "durationMs": 326,
       "pages": [
         "security/spring-security/AUTHENTICATION-INTERNALS.md",
         "spring/web/SECURITY-REQUEST-RUNTIME.md"
@@ -4586,7 +4691,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 154,
+      "durationMs": 398,
       "pages": [
         "security/spring-security/SECURITY-CONTEXT-LIFECYCLE.md"
       ]
@@ -4598,7 +4703,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 319,
+      "durationMs": 346,
       "pages": [
         "security/spring-security/PASSWORD-AUTHENTICATION-RUNTIME.md"
       ]
@@ -4610,7 +4715,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 397,
+      "durationMs": 271,
       "pages": [
         "security/spring-security/PRODUCTION-PRACTICES.md"
       ]
@@ -4622,7 +4727,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 52,
+      "durationMs": 306,
       "pages": [
         "security/spring-security/AUTHENTICATION-INTERNALS.md",
         "security/spring-security/SECURITY-CONTEXT-LIFECYCLE.md"
@@ -4635,7 +4740,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 54,
+      "durationMs": 52,
       "pages": [
         "security/spring-security/THREAT-MODELING-INTERVIEW-LAB.md"
       ]
@@ -4647,10 +4752,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 104,
+      "durationMs": 374,
       "pages": [
-        "security/JWT-OAUTH2-SPRING-SECURITY.md",
         "security/spring-security/PRODUCTION-PRACTICES.md",
+        "security/SPRING-SECURITY-FILTERS-OWNERSHIP-ROADMAP.md",
         "spring/spel/SPEL-SECURITY-PRODUCTION.md",
         "spring/spel/SPEL-SPRING-INTEGRATIONS.md",
         "spring/SPRING-SPEL.md",
@@ -4664,7 +4769,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 93,
+      "durationMs": 314,
       "pages": [
         "security/spring-security/CSRF-CORS-BROWSER-SECURITY.md"
       ]
@@ -4676,7 +4781,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 306,
+      "durationMs": 375,
       "pages": [
         "security/spring-security/CSRF-CORS-BROWSER-SECURITY.md"
       ]
@@ -4688,7 +4793,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 306,
+      "durationMs": 315,
       "pages": [
         "spring/SPRING-OPENFEIGN.md"
       ]
@@ -4700,9 +4805,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 201,
+      "durationMs": 297,
       "pages": [
-        "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md",
+        "security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION.md",
         "security/oauth/SSO-AND-OPENID-CONNECT.md"
       ]
     },
@@ -4713,9 +4818,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 382,
+      "durationMs": 316,
       "pages": [
-        "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md"
+        "security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION.md"
       ]
     },
     {
@@ -4725,10 +4830,10 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 316,
+      "durationMs": 323,
       "pages": [
-        "security/JWT-OAUTH2-SPRING-SECURITY.md",
         "security/spring-security/PRODUCTION-PRACTICES.md",
+        "security/SPRING-SECURITY-FILTERS-OWNERSHIP-ROADMAP.md",
         "spring/web/SECURITY-REQUEST-RUNTIME.md"
       ]
     },
@@ -4739,7 +4844,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 288,
+      "durationMs": 300,
       "pages": [
         "development/spring-rest/REST-TESTING.md",
         "spring/testing/SPRING-MVC-REPOSITORY-SECURITY-TESTS.md"
@@ -4752,7 +4857,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 320,
+      "durationMs": 305,
       "pages": [
         "spring/spel/SPEL-SECURITY-PRODUCTION.md"
       ]
@@ -4764,7 +4869,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1981,
+      "durationMs": 2069,
       "pages": [
         "reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION.md"
       ]
@@ -4776,8 +4881,17 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 411,
+      "durationMs": 556,
       "pages": [
+        "operations/DEPLOYMENT-STRATEGIES.md",
+        "operations/DEPLOYMENT-STRATEGY-SELECTION.md",
+        "operations/DEPLOYMENT-TRAFFIC-ROLLBACK.md",
+        "operations/DOCUSAURUS-AUTHORING-NAVIGATION.md",
+        "operations/DOCUSAURUS-COMPONENTS-DEPLOYMENT.md",
+        "operations/DOCUSAURUS.md",
+        "operations/GIT-COMMANDS.md",
+        "operations/GIT-DAILY-SYNC-CONFLICTS.md",
+        "operations/GIT-HISTORY-RECOVERY-COLLABORATION.md",
         "reference/DOCUMENTATION-GUIDE.md"
       ]
     },
@@ -4788,7 +4902,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 132,
+      "durationMs": 215,
       "pages": [
         "ai/AI-EVALUATION-OPERATIONS.md",
         "ai/MCP-SECURITY-OPERATIONS.md"
@@ -4801,7 +4915,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 70,
+      "durationMs": 55,
       "pages": [
         "ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md"
       ]
@@ -4813,9 +4927,29 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 131,
+      "durationMs": 3171,
       "pages": [
         "ai/AGENTS-TOOL-CALLING.md"
+      ]
+    },
+    {
+      "url": "https://git-scm.com/docs",
+      "finalUrl": "https://git-scm.com/docs",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 149,
+      "pages": [
+        "operations/DEPLOYMENT-STRATEGIES.md",
+        "operations/DEPLOYMENT-STRATEGY-SELECTION.md",
+        "operations/DEPLOYMENT-TRAFFIC-ROLLBACK.md",
+        "operations/DOCUSAURUS-AUTHORING-NAVIGATION.md",
+        "operations/DOCUSAURUS-COMPONENTS-DEPLOYMENT.md",
+        "operations/DOCUSAURUS.md",
+        "operations/GIT-COMMANDS.md",
+        "operations/GIT-DAILY-SYNC-CONFLICTS.md",
+        "operations/GIT-HISTORY-RECOVERY-COLLABORATION.md"
       ]
     },
     {
@@ -4825,7 +4959,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 696,
+      "durationMs": 629,
       "pages": [
         "architecture/CACHE-PROVIDERS.md"
       ]
@@ -4837,7 +4971,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 686,
+      "durationMs": 670,
       "pages": [
         "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md",
         "spring/SPRING-JPA-HIBERNATE-ARCHITECT.md"
@@ -4850,7 +4984,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 798,
+      "durationMs": 725,
       "pages": [
         "java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS.md"
       ]
@@ -4862,7 +4996,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 760,
+      "durationMs": 639,
       "pages": [
         "java/JAVA-SERIALIZATION.md"
       ]
@@ -4874,7 +5008,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 721,
+      "durationMs": 733,
       "pages": [
         "ai/MCP-UMBRELLA.md"
       ]
@@ -4886,7 +5020,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 727,
+      "durationMs": 919,
       "pages": [
         "java/JAVA-LEAD-ARCHITECT-PATH.md"
       ]
@@ -4898,7 +5032,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1514,
+      "durationMs": 1282,
       "pages": [
         "java/JAVA-CONCURRENT-HASHMAP-OPENJDK.md"
       ]
@@ -4910,7 +5044,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 821,
+      "durationMs": 783,
       "pages": [
         "ai/RAG-ENGINEERING.md"
       ]
@@ -4922,7 +5056,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 718,
+      "durationMs": 791,
       "pages": [
         "spring/SPRING-RESILIENCE4J.md"
       ]
@@ -4934,7 +5068,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 757,
+      "durationMs": 1084,
       "pages": [
         "spring/SPRING-BOOT-4-FRAMEWORK-7.md"
       ]
@@ -4946,7 +5080,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 766,
+      "durationMs": 1179,
       "pages": [
         "spring/SPRING-BOOT-4-FRAMEWORK-7.md"
       ]
@@ -4958,7 +5092,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 488,
+      "durationMs": 536,
       "pages": [
         "spring/SPRING-BOOT-4-FRAMEWORK-7.md"
       ]
@@ -4970,7 +5104,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 642,
+      "durationMs": 657,
       "pages": [
         "architecture/NETWORKING-GRPC-SERVICE-MESH.md"
       ]
@@ -4982,7 +5116,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 1022,
+      "durationMs": 986,
       "pages": [
         "ai/AI-MODEL-INTERNALS-SELECTION.md"
       ]
@@ -4994,7 +5128,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 202,
+      "durationMs": 159,
       "pages": [
         "spring/validation/BEAN-VALIDATION-FUNDAMENTALS.md"
       ]
@@ -5006,9 +5140,12 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 152,
+      "durationMs": 268,
       "pages": [
+        "data/DATABASE-CONSISTENCY-SCALING.md",
+        "data/DATABASE-ENGINEERING.md",
         "data/hibernate/HIBERNATE-CACHING.md",
+        "data/RELATIONAL-MODELING-QUERY-PERFORMANCE.md",
         "spring/jpa/JPA-BASICS-ENTITY-MAPPING.md",
         "spring/jpa/JPA-RELATIONSHIPS-JSON.md"
       ]
@@ -5020,7 +5157,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 46,
+      "durationMs": 64,
       "pages": [
         "development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET.md",
         "spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md"
@@ -5033,7 +5170,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1330,
+      "durationMs": 784,
       "pages": [
         "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
         "spring/testing/INTEGRATION-TESTCONTAINERS.md"
@@ -5046,7 +5183,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 1103,
+      "durationMs": 1026,
       "pages": [
         "spring/SPRING-RESILIENCE4J.md"
       ]
@@ -5058,7 +5195,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 269,
+      "durationMs": 277,
       "pages": [
         "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
         "spring/testing/MOCKITO-UNIT-TESTING.md"
@@ -5071,7 +5208,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 184,
+      "durationMs": 158,
       "pages": [
         "ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md"
       ]
@@ -5083,12 +5220,35 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 138,
+      "durationMs": 42,
       "pages": [
+        "case-study/COMPLETE-DEMO-RECOVERY-OBSERVABILITY.mdx",
+        "case-study/COMPLETE-DEMO-SETUP-CHECKOUT.mdx",
+        "case-study/COMPLETE-DEMO.mdx",
+        "case-study/DEMO-IDEMPOTENCY-OUTBOX-RECOVERY.mdx",
+        "case-study/DEMO-PLATFORM-AUTHENTICATION.mdx",
+        "case-study/DEMO-SEED-CHECKOUT-SAGA.mdx",
+        "case-study/SHOPVERSE-ARCHITECTURE-CURRENT-STATE.md",
+        "case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT.md",
+        "integration/README.md",
+        "reference/FEATURES-AND-DEMOS.md",
+        "reference/FEATURES-RELIABILITY-OBSERVABILITY.md",
+        "reference/FEATURES-SECURITY-CHECKOUT.md",
         "reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md",
+        "reliability/OUTBOX-DELIVERY-OPERATIONS.md",
+        "reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM.md",
         "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
+        "reliability/problems/runtime/RESERVATION-CONTENTION-STATE-MODEL.md",
+        "reliability/problems/runtime/RESERVATION-TRANSACTION-IMPLEMENTATION.md",
         "reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md",
+        "reliability/problems/runtime/RESOURCE-OWNERSHIP-SPEL-RUNTIME.md",
+        "reliability/problems/runtime/RESOURCE-OWNERSHIP-TESTS-OPERATIONS.md",
+        "reliability/RESILIENCE4J-COMPOSITION-OPERATIONS.md",
         "reliability/RESILIENCE4J-GENERIC.md",
+        "reliability/RESILIENCE4J-RATE-LIMITER-BULKHEAD.md",
+        "reliability/RESILIENCE4J-RETRY-CIRCUIT-TIMEOUT.md",
+        "reliability/SAGA-CONSISTENCY-COMPENSATION.md",
+        "reliability/SAGA-GENERIC.md",
         "reliability/SHOPVERSE-SAGA-CODE-FLOW.md"
       ]
     },
@@ -5099,7 +5259,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 168,
+      "durationMs": 149,
       "pages": [
         "architecture/microservices/MICROSERVICES-INCIDENT-LABS.md"
       ]
@@ -5111,7 +5271,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 148,
+      "durationMs": 135,
       "pages": [
         "architecture/MICROSERVICES-INTERNALS-DEEP-DIVE.md",
         "architecture/shopverse-capstones/CHECKOUT-ORDER-DESIGN.md",
@@ -5126,9 +5286,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 252,
+      "durationMs": 178,
       "pages": [
-        "operations/DEPLOYMENT-STRATEGIES.md",
+        "operations/DEPLOYMENT-CONTRACTS-RELEASE-GATES.md",
         "operations/PERFORMANCE-CAPACITY-FINOPS.md",
         "operations/SRE-DR-CHAOS.md"
       ]
@@ -5152,7 +5312,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 135,
+      "durationMs": 147,
       "pages": [
         "architecture/microservices/MICROSERVICES-ARCHITECT-PATH.md",
         "architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS.md",
@@ -5166,7 +5326,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 151,
+      "durationMs": 109,
       "pages": [
         "architecture/microservices/MICROSERVICES-INCIDENT-LABS.md"
       ]
@@ -5178,7 +5338,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 421,
+      "durationMs": 770,
       "pages": [
         "architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP.md"
       ]
@@ -5190,7 +5350,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 148,
+      "durationMs": 184,
       "pages": [
         "ai/MCP-PROTOCOL-LIFECYCLE.md"
       ]
@@ -5202,9 +5362,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 376,
+      "durationMs": 327,
       "pages": [
-        "ai/LANGCHAIN4J-DEEP-DIVE.md"
+        "ai/LANGCHAIN4J-RAG-SPRING-OPERATIONS.md"
       ]
     },
     {
@@ -5214,7 +5374,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 99,
+      "durationMs": 76,
       "pages": [
         "ai/MCP-UMBRELLA.md"
       ]
@@ -5226,7 +5386,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 121,
+      "durationMs": 122,
       "pages": [
         "ai/MCP-SECURITY-OPERATIONS.md"
       ]
@@ -5238,7 +5398,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 161,
+      "durationMs": 189,
       "pages": [
         "ai/MCP-PROTOCOL-LIFECYCLE.md"
       ]
@@ -5250,7 +5410,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 259,
+      "durationMs": 140,
       "pages": [
         "ai/MCP-SECURITY-OPERATIONS.md"
       ]
@@ -5262,7 +5422,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 168,
+      "durationMs": 149,
       "pages": [
         "ai/MCP-PRIMITIVES-TRANSPORTS.md"
       ]
@@ -5274,7 +5434,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 89,
+      "durationMs": 102,
       "pages": [
         "ai/MCP-PRIMITIVES-TRANSPORTS.md"
       ]
@@ -5286,7 +5446,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 141,
+      "durationMs": 136,
       "pages": [
         "ai/MCP-PRIMITIVES-TRANSPORTS.md"
       ]
@@ -5298,7 +5458,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 203,
+      "durationMs": 218,
       "pages": [
         "ai/AGENTS-TOOL-CALLING.md",
         "ai/MCP-PRIMITIVES-TRANSPORTS.md"
@@ -5311,7 +5471,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 187,
+      "durationMs": 122,
       "pages": [
         "security/oauth/SSO-AND-OPENID-CONNECT.md",
         "security/oauth/TOKEN-LIFECYCLE.md"
@@ -5324,7 +5484,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 458,
+      "durationMs": 336,
       "pages": [
         "java/features-8-to-26/JAVA-8-TO-26.md"
       ]
@@ -5336,7 +5496,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 300,
+      "durationMs": 352,
       "pages": [
         "java/JAVA-SERIALIZATION-EVOLUTION-SECURITY.md"
       ]
@@ -5348,7 +5508,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 303,
+      "durationMs": 365,
       "pages": [
         "java/JAVA-GC-COLLECTORS-ARCHITECT.md"
       ]
@@ -5360,7 +5520,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 624,
+      "durationMs": 317,
       "pages": [
         "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md",
         "java/completable-future/COMPLETABLE-FUTURE-PRODUCTION.md",
@@ -5381,7 +5541,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 356,
+      "durationMs": 512,
       "pages": [
         "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md",
         "java/JAVA-VIRTUAL-STRUCTURED-CONCURRENCY.md"
@@ -5394,7 +5554,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 331,
+      "durationMs": 1221,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
       ]
@@ -5406,7 +5566,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 360,
+      "durationMs": 401,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
       ]
@@ -5418,7 +5578,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 370,
+      "durationMs": 400,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
       ]
@@ -5430,7 +5590,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1316,
+      "durationMs": 340,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-LANGUAGE.md"
       ]
@@ -5442,7 +5602,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 321,
+      "durationMs": 289,
       "pages": [
         "java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
         "java/JAVA-EXECUTABLE-LABS.md"
@@ -5455,7 +5615,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 342,
+      "durationMs": 324,
       "pages": [
         "java/advanced-internals/NIO-PERFORMANCE-JMH.md",
         "java/JAVA-EXECUTABLE-LABS.md",
@@ -5470,8 +5630,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 263,
+      "durationMs": 473,
       "pages": [
+        "data-structures/README.md",
         "java/JAVA-EXECUTABLE-LABS.md",
         "java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md"
       ]
@@ -5483,7 +5644,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 404,
+      "durationMs": 288,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-RUNTIME.md"
       ]
@@ -5495,7 +5656,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 385,
+      "durationMs": 311,
       "pages": [
         "java/features-8-to-26/JAVA-25-26-RUNTIME.md"
       ]
@@ -5507,7 +5668,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 295,
+      "durationMs": 330,
       "pages": [
         "java/JAVA-DYNAMIC-JPMS-PACKAGING.md",
         "java/JAVA-SENIOR-LABS-INTERVIEW.md"
@@ -5520,9 +5681,26 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 289,
+      "durationMs": 275,
       "pages": [
         "java/JAVA-GC-COLLECTORS-ARCHITECT.md"
+      ]
+    },
+    {
+      "url": "https://opentelemetry.io/docs/",
+      "finalUrl": "https://opentelemetry.io/docs/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 567,
+      "pages": [
+        "observability/CORRELATION-IDENTIFIERS-HTTP-PROPAGATION.md",
+        "observability/MDC-CORRELATION-TRACING.md",
+        "observability/MDC-KAFKA-ASYNC-PROPAGATION.md",
+        "observability/MICROMETER-COUNTERS.md",
+        "observability/MICROMETER-METRICS.md",
+        "observability/MICROMETER-TIMERS-TAGS-OPERATIONS.md"
       ]
     },
     {
@@ -5532,7 +5710,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 48,
+      "durationMs": 43,
       "pages": [
         "architecture/microservices/MICROSERVICES-ARCHITECT-PATH.md"
       ]
@@ -5544,7 +5722,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 74,
+      "durationMs": 273,
       "pages": [
         "architecture/MICROSERVICES-INTERNALS-DEEP-DIVE.md"
       ]
@@ -5556,7 +5734,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 116,
+      "durationMs": 362,
       "pages": [
         "ai/AI-EVALUATION-OPERATIONS.md"
       ]
@@ -5568,7 +5746,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 409,
+      "durationMs": 356,
       "pages": [
         "security/platform/SECURITY-ARCHITECT-PATH.md"
       ]
@@ -5580,7 +5758,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 355,
+      "durationMs": 138,
       "pages": [
         "security/platform/SECURITY-INTERVIEW-WORKBOOK.md",
         "security/README.md"
@@ -5593,7 +5771,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 142,
+      "durationMs": 396,
       "pages": [
         "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
         "spring/testing/COVERAGE-TEST-QUALITY.md"
@@ -5606,7 +5784,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 170,
+      "durationMs": 187,
       "pages": [
         "java/LOMBOK-GUIDE.md"
       ]
@@ -5618,7 +5796,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 173,
+      "durationMs": 197,
       "pages": [
         "java/LOMBOK-GUIDE.md"
       ]
@@ -5630,7 +5808,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 214,
+      "durationMs": 169,
       "pages": [
         "java/LOMBOK-GUIDE.md"
       ]
@@ -5642,7 +5820,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 216,
+      "durationMs": 169,
       "pages": [
         "java/LOMBOK-GUIDE.md"
       ]
@@ -5654,7 +5832,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1131,
+      "durationMs": 1139,
       "pages": [
         "spring/SPRING-REACTIVE.md"
       ]
@@ -5666,7 +5844,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 1106,
+      "durationMs": 1127,
       "pages": [
         "spring/SPRING-REACTIVE.md"
       ]
@@ -5678,7 +5856,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 162,
+      "durationMs": 169,
       "pages": [
         "architecture/CACHE-PROVIDERS.md"
       ]
@@ -5690,9 +5868,31 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 198,
+      "durationMs": 193,
       "pages": [
         "architecture/CACHE-PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://resilience4j.readme.io/docs",
+      "finalUrl": "https://resilience4j.readme.io/docs/getting-started",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": true,
+      "durationMs": 1100,
+      "pages": [
+        "reliability/OUTBOX-DELIVERY-OPERATIONS.md",
+        "reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM.md",
+        "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
+        "reliability/problems/runtime/RESERVATION-CONTENTION-STATE-MODEL.md",
+        "reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md",
+        "reliability/problems/runtime/RESOURCE-OWNERSHIP-SPEL-RUNTIME.md",
+        "reliability/RESILIENCE4J-GENERIC.md",
+        "reliability/RESILIENCE4J-RATE-LIMITER-BULKHEAD.md",
+        "reliability/RESILIENCE4J-RETRY-CIRCUIT-TIMEOUT.md",
+        "reliability/SAGA-CONSISTENCY-COMPENSATION.md",
+        "reliability/SAGA-GENERIC.md"
       ]
     },
     {
@@ -5702,7 +5902,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 172,
+      "durationMs": 215,
       "pages": [
         "spring/SPRING-RESILIENCE4J.md"
       ]
@@ -5714,7 +5914,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 623,
+      "durationMs": 490,
       "pages": [
         "security/SUPPLY-CHAIN-PRIVACY.md"
       ]
@@ -5726,7 +5926,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 405,
+      "durationMs": 117,
       "pages": [
         "reference/DOCUMENTATION-GUIDE.md"
       ]
@@ -5738,7 +5938,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 46,
+      "durationMs": 235,
       "pages": [
         "development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md",
         "development/spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE.md"
@@ -5751,7 +5951,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 152,
+      "durationMs": 371,
       "pages": [
         "development/REST-API-PRODUCTION-DESIGN.md"
       ]
@@ -5763,7 +5963,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 139,
+      "durationMs": 99,
       "pages": [
         "security/platform/SERVICE-IDENTITY-ZERO-TRUST.md"
       ]
@@ -5775,7 +5975,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 238,
+      "durationMs": 231,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -5787,7 +5987,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 349,
+      "durationMs": 307,
       "pages": [
         "spring/SPRING-BOOT-INTERNALS-PRODUCTION.md",
         "spring/SPRING-ECOSYSTEM.md",
@@ -5801,7 +6001,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 232,
+      "durationMs": 196,
       "pages": [
         "ai/SPRING-AI-LANGCHAIN4J-JAVA.md"
       ]
@@ -5813,7 +6013,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 140,
+      "durationMs": 137,
       "pages": [
         "development/spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE.md"
       ]
@@ -5825,7 +6025,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 118,
+      "durationMs": 112,
       "pages": [
         "architecture/MICROSERVICES-INTERNALS-DEEP-DIVE.md",
         "architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD.md"
@@ -5850,23 +6050,23 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 243,
+      "durationMs": 217,
       "pages": [
         "architecture/ASYNC-REALTIME-DISTRIBUTED-TIME.md",
         "architecture/DISTRIBUTED-HYBRID-CACHE.md",
-        "architecture/hld-lld/CAPACITY-PERFORMANCE-ESTIMATION.md",
+        "architecture/hld-lld/SHOPVERSE-CAPACITY-WORKED-EXAMPLE.md",
         "architecture/hld-lld/SIXTEEN-SYSTEM-DESIGN-CASE-STUDIES.md",
         "architecture/MICROSERVICES-PATTERNS.md",
         "architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS.md",
+        "architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES.md",
         "architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK.md",
         "architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS.md",
         "architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS.md",
         "architecture/system-design-deep-dives/INTERVIEW-RUBRIC.md",
         "architecture/SYSTEM-DESIGN-DEEP-DIVES.md",
-        "architecture/SYSTEM-DESIGN.md",
-        "case-study/COMPLETE-DEMO.mdx",
-        "case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT.md",
-        "operations/DEPLOYMENT-STRATEGIES.md",
+        "case-study/DEMO-OBSERVABILITY-AUTOMATION.mdx",
+        "case-study/SHOPVERSE-ARCHITECTURE-REFACTORING-READINESS.md",
+        "operations/DEPLOYMENT-CONTRACTS-RELEASE-GATES.md",
         "operations/PERFORMANCE-CAPACITY-FINOPS.md",
         "operations/SRE-DR-CHAOS.md",
         "reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md"
@@ -5879,9 +6079,21 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 510,
+      "durationMs": 1684,
       "pages": [
-        "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md"
+        "security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION.md"
+      ]
+    },
+    {
+      "url": "https://www.domainlanguage.com/ddd/reference/",
+      "finalUrl": "https://www.domainlanguage.com/ddd/reference/",
+      "status": 200,
+      "ok": true,
+      "rateLimited": false,
+      "redirected": false,
+      "durationMs": 2741,
+      "pages": [
+        "services/README.md"
       ]
     },
     {
@@ -5891,7 +6103,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 506,
+      "durationMs": 611,
       "pages": [
         "architecture/shopverse-capstones/CATALOG-SEARCH-DESIGN.md"
       ]
@@ -5903,7 +6115,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 665,
+      "durationMs": 687,
       "pages": [
         "data/DATA-PIPELINES-SEARCH-OPERATIONS.md"
       ]
@@ -5915,7 +6127,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 156,
+      "durationMs": 314,
       "pages": [
         "java/JVM-PROFILING-GC-NATIVE.md"
       ]
@@ -5927,7 +6139,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 176,
+      "durationMs": 373,
       "pages": [
         "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
         "spring/testing/COVERAGE-TEST-QUALITY.md"
@@ -5940,7 +6152,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 736,
+      "durationMs": 730,
       "pages": [
         "ai/MCP-PROTOCOL-LIFECYCLE.md"
       ]
@@ -5952,9 +6164,9 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 813,
+      "durationMs": 739,
       "pages": [
-        "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md"
+        "security/API-KEY-AUTHORIZATION-OPERATIONS.md"
       ]
     },
     {
@@ -5964,7 +6176,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 294,
+      "durationMs": 267,
       "pages": [
         "security/SUPPLY-CHAIN-PRIVACY.md"
       ]
@@ -5976,7 +6188,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 139,
+      "durationMs": 183,
       "pages": [
         "java/JAVA-SERIALIZATION-EVOLUTION-SECURITY.md",
         "java/JAVA-TIME-NUMERIC-SECURITY.md"
@@ -5989,7 +6201,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 806,
+      "durationMs": 805,
       "pages": [
         "reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION.md"
       ]
@@ -6001,7 +6213,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 861,
+      "durationMs": 802,
       "pages": [
         "architecture/shopverse-capstones/PAYMENT-RELIABILITY-DESIGN.md"
       ]
@@ -6013,7 +6225,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 744,
+      "durationMs": 764,
       "pages": [
         "data/database-selection/CONSISTENCY-MODELS-BASE.md",
         "data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md",
@@ -6028,7 +6240,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 750,
+      "durationMs": 732,
       "pages": [
         "data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md"
       ]
@@ -6040,13 +6252,13 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 802,
+      "durationMs": 793,
       "pages": [
         "architecture/shopverse-capstones/INVENTORY-RESERVATION-DESIGN.md",
         "reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md",
-        "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
-        "reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md",
-        "reliability/RESILIENCE4J-GENERIC.md",
+        "reliability/problems/runtime/RESERVATION-TRANSACTION-IMPLEMENTATION.md",
+        "reliability/problems/runtime/RESOURCE-OWNERSHIP-TESTS-OPERATIONS.md",
+        "reliability/RESILIENCE4J-COMPOSITION-OPERATIONS.md",
         "reliability/SHOPVERSE-SAGA-CODE-FLOW.md"
       ]
     },
@@ -6057,7 +6269,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 713,
+      "durationMs": 725,
       "pages": [
         "data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md"
       ]
@@ -6069,7 +6281,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 802,
+      "durationMs": 776,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
@@ -6081,7 +6293,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 765,
+      "durationMs": 924,
       "pages": [
         "data/DATABASE-ENGINE-INTERNALS.md"
       ]
@@ -6093,7 +6305,7 @@
       "ok": true,
       "rateLimited": false,
       "redirected": false,
-      "durationMs": 195,
+      "durationMs": 347,
       "pages": [
         "spring/SPRING-REACTIVE.md"
       ]
@@ -6105,7 +6317,7 @@
       "ok": true,
       "rateLimited": true,
       "redirected": false,
-      "durationMs": 40,
+      "durationMs": 36,
       "pages": [
         "security/oauth/TOKEN-LIFECYCLE.md"
       ]
@@ -6117,14 +6329,22 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 397,
+      "durationMs": 359,
       "pages": [
         "architecture/ASYNC-REALTIME-DISTRIBUTED-TIME.md",
+        "architecture/CHECKOUT-SECURITY-EVENT-FLOWS.md",
         "architecture/DISTRIBUTED-HYBRID-CACHE.md",
+        "architecture/hld-lld/CAPACITY-ESTIMATION-FUNDAMENTALS.md",
         "architecture/hld-lld/CAPACITY-PERFORMANCE-ESTIMATION.md",
+        "architecture/hld-lld/CAPACITY-STORAGE-QUEUE-POOL-MODELS.md",
+        "architecture/hld-lld/PERFORMANCE-CAPACITY-MODELS.md",
+        "architecture/hld-lld/PERFORMANCE-LATENCY-THROUGHPUT-MODELS.md",
+        "architecture/hld-lld/SHOPVERSE-CAPACITY-WORKED-EXAMPLE.md",
         "architecture/hld-lld/SIXTEEN-SYSTEM-DESIGN-CASE-STUDIES.md",
         "architecture/MICROSERVICES-PATTERNS.md",
         "architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS.md",
+        "architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES.md",
+        "architecture/SYSTEM-CONTEXT-SERVICE-OWNERSHIP.md",
         "architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK.md",
         "architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS.md",
         "architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD.md",
@@ -6144,7 +6364,7 @@
       "ok": true,
       "rateLimited": true,
       "redirected": false,
-      "durationMs": 40,
+      "durationMs": 35,
       "pages": [
         "development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md",
         "development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS.md"
@@ -6157,7 +6377,7 @@
       "ok": true,
       "rateLimited": true,
       "redirected": false,
-      "durationMs": 45,
+      "durationMs": 42,
       "pages": [
         "development/spring-rest/REST-IDEMPOTENT-COMMANDS.md"
       ]
@@ -6181,7 +6401,7 @@
       "ok": true,
       "rateLimited": true,
       "redirected": false,
-      "durationMs": 159,
+      "durationMs": 110,
       "pages": [
         "reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION.md"
       ]
@@ -6193,7 +6413,7 @@
       "ok": true,
       "rateLimited": true,
       "redirected": true,
-      "durationMs": 114,
+      "durationMs": 101,
       "pages": [
         "architecture/NETWORKING-GRPC-SERVICE-MESH.md"
       ]
@@ -6205,7 +6425,7 @@
       "ok": true,
       "rateLimited": true,
       "redirected": false,
-      "durationMs": 41,
+      "durationMs": 47,
       "pages": [
         "development/REST-API-PRODUCTION-DESIGN.md",
         "development/spring-rest/REST-ERROR-CONTRACTS.md"
@@ -6218,11 +6438,17 @@
       "ok": true,
       "rateLimited": false,
       "redirected": true,
-      "durationMs": 760,
+      "durationMs": 692,
       "pages": [
         "ai/MCP-SECURITY-OPERATIONS.md",
         "architecture/shopverse-capstones/IDENTITY-ACCESS-DESIGN.md",
         "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md",
+        "security/ACCESS-REFRESH-TOKEN-DESIGN.md",
+        "security/API-KEY-AUTHORIZATION-OPERATIONS.md",
+        "security/JWT-LOGIN-VALIDATION-AUTHORITIES.md",
+        "security/JWT-OAUTH2-SPRING-SECURITY.md",
+        "security/oauth/GOOGLE-AUTHENTICATION-SPRING.md",
+        "security/oauth/GOOGLE-OAUTH-CLIENT-SESSION.md",
         "security/oauth/TOKEN-LIFECYCLE.md",
         "security/platform/SECURITY-INTERVIEW-WORKBOOK.md",
         "security/platform/SERVICE-IDENTITY-ZERO-TRUST.md"

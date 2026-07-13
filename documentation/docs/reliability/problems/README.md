@@ -1,5 +1,7 @@
 ---
 title: Problems And Solutions Index
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Problems And Solutions Index

@@ -1,6 +1,8 @@
 ---
 title: Java Thread Scheduling, Time Slicing And Context Switching
 description: Executor, ForkJoin, virtual-thread and OS scheduling layers with CPU, blocking and diagnostic scenarios.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Thread Scheduling, Time Slicing And Context Switching

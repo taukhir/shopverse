@@ -1,6 +1,8 @@
 ---
 title: Documentation Structure
 sidebar_position: 2
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Documentation Structure

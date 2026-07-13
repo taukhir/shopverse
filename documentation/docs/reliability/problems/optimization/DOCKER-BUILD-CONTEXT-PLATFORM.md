@@ -1,5 +1,7 @@
 ---
 title: Fix Docker Build Context For Platform Modules
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Fix Docker Build Context For Platform Modules

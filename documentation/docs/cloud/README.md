@@ -1,5 +1,7 @@
 ---
 title: Cloud Computing
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Cloud Computing

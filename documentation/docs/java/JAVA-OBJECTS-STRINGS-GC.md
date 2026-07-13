@@ -1,6 +1,8 @@
 ---
 title: Java Objects, Strings, Immutability And Garbage Collection
 description: Equality contracts, immutable classes, string pool, object reachability, static references, and garbage collection.
+status: "maintained"
+last_reviewed: "2026-07-13"
 ---
 
 # Java Objects, Strings, Immutability And Garbage Collection

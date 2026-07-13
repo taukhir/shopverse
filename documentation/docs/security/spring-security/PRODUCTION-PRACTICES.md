@@ -1,6 +1,9 @@
-﻿---
-title: Spring Security Production Practices
 ---
+title: Spring Security Production Practices
+status: "maintained"
+last_reviewed: "2026-07-13"
+---
+
 
 # Spring Security Production Practices
 

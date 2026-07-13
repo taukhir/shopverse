@@ -44,6 +44,12 @@ is rejected before a controller or a method-security proxy changes the result.
 
 ## Common Interview Checks
 
+<ExpandableAnswer title="What should an architect explain about Servlets And DispatcherServlet In Spring Boot?">
+
+For **Servlets And DispatcherServlet In Spring Boot**, a strong answer starts with the runtime responsibility and the invariant that must remain true. It then walks through one Shopverse request or event, names the important boundary, and explains the failure behavior rather than describing only the happy path. Close with the trade-off, the production signal that verifies the design, and the condition that would justify a different approach. This structure demonstrates practical judgment without memorizing isolated definitions.
+
+</ExpandableAnswer>
+
 The six former static answers are preserved as expandable checks in
 [Servlet And Spring MVC Request Lifecycle](../../spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md#expandable-interview-checks).
 
