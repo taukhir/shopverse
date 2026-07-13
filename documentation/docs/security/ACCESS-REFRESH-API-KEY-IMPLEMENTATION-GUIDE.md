@@ -418,7 +418,7 @@ Gateway validates the key.
 Request:
 
 ```http
-X-API-Key: sv_live_8f2a9d1c4b7e4a01_nGzKJx...
+X-API-Key: <redacted-api-key>
 ```
 
 Gateway validation steps:

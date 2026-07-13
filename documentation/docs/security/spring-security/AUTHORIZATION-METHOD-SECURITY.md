@@ -4,6 +4,12 @@ title: Spring Security Authorization And Method Security
 
 # Spring Security Authorization And Method Security
 
+<DocLabels items={[
+  {label: 'Authorization', tone: 'intermediate'},
+  {label: 'Method security', tone: 'advanced'},
+  {label: 'Object ownership', tone: 'production'},
+]} />
+
 Scopes, roles, groups, authorities, JWT authority conversion, RBAC/policy models, method security, URL security, and Shopverse summary.
 
 Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
@@ -226,6 +232,23 @@ Not currently implemented:
 - explicit JWT audience validation in every resource service. Timestamp and
   issuer validation are already applied by Gateway, Auth, User, Order,
   Inventory, and Payment through `JwtValidators.createDefaultWithIssuer(...)`.
+
+## Interview Check
+
+**Why is `hasRole("ADMIN")` insufficient for customer order access?**
+
+<ExpandableAnswer title="Expand answer">
+
+A role expresses coarse capability, not ownership of a particular order. The
+service must also verify that the authenticated subject owns the resource or has
+an explicit privileged permission. Enforce it at the business method or policy
+boundary so alternate controllers and messaging adapters cannot bypass it.
+
+</ExpandableAnswer>
+
+## Recommended Next
+
+Practise combined policies in [Threat-Modelling And Interview Lab](./THREAT-MODELING-INTERVIEW-LAB.md).
 
 
 

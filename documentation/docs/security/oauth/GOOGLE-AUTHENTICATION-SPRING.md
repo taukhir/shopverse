@@ -115,7 +115,7 @@ Local environment variables:
 
 ```powershell
 $env:GOOGLE_CLIENT_ID = "your-client-id.apps.googleusercontent.com"
-$env:GOOGLE_CLIENT_SECRET = "set-this-outside-source-control"
+$env:GOOGLE_CLIENT_SECRET = "<set-in-secret-manager>"
 ```
 
 Use the deployment platform's secret manager in production. Avoid placing

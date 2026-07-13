@@ -10,6 +10,12 @@ last_reviewed: "2026-07-10"
 
 # Security Principles
 
+<DocLabels items={[
+  {label: 'Security foundation', tone: 'foundation'},
+  {label: 'Defense in depth', tone: 'production'},
+  {label: 'Trust boundaries', tone: 'advanced'},
+]} />
+
 Security design starts with boundaries, least privilege, and failure behavior.
 Tools such as JWT, OAuth2, Spring Security, gateways, mTLS, and secret stores
 are implementation choices that support these principles.
@@ -58,3 +64,19 @@ flowchart LR
 - [Microservices security principles](MICROSERVICES-SECURITY-PRINCIPLES.md)
 - [API security principles](API-SECURITY-PRINCIPLES.md)
 - [Spring Security](../SPRING-SECURITY-GENERIC.md)
+
+## Interview Check
+
+**Why is “internal traffic” not a security control?**
+
+<ExpandableAnswer title="Expand answer">
+
+Networks are shared, misconfigured, and reachable after workload compromise. Use
+network policy to reduce paths, but authenticate workload identity and authorize
+the operation at the receiving service. Defense in depth assumes one control fails.
+
+</ExpandableAnswer>
+
+## Recommended Next
+
+Continue with the [Security Architect Path](../platform/SECURITY-ARCHITECT-PATH.md).

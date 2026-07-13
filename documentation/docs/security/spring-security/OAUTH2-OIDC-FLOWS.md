@@ -4,6 +4,12 @@ title: OAuth2 OIDC And Token Flows
 
 # OAuth2 OIDC And Token Flows
 
+<DocLabels items={[
+  {label: 'OAuth2', tone: 'intermediate'},
+  {label: 'OIDC', tone: 'advanced'},
+  {label: 'Flow selection', tone: 'production'},
+]} />
+
 OAuth2 roles, authorization code with PKCE, client credentials, device flow, refresh tokens, password grant, and OIDC.
 
 Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
@@ -90,6 +96,23 @@ and identity claims, including an ID Token and UserInfo endpoint.
 
 Use OIDC when an application needs federated user login. Do not use an access
 token as a substitute for an ID Token in a browser client.
+
+## Interview Check
+
+**Why does PKCE not replace the OAuth2 `state` parameter?**
+
+<ExpandableAnswer title="Expand answer">
+
+PKCE binds the authorization code to the client instance that created the code
+challenge and mitigates code interception. `state` binds the authorization
+response to the browser transaction and mitigates login CSRF/response mix-up.
+They protect different parts of the flow and are commonly used together.
+
+</ExpandableAnswer>
+
+## Recommended Next
+
+Secure browser integration with [CSRF, CORS And Browser Security](./CSRF-CORS-BROWSER-SECURITY.md).
 
 
 

@@ -79,6 +79,18 @@ const sidebars: SidebarsConfig = {
                 'architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK',
                 'architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS',
                 'architecture/system-design-deep-dives/INTERVIEW-RUBRIC',
+                {
+                  type: 'category',
+                  label: 'Shopverse Architect Capstones',
+                  link: {type: 'doc', id: 'architecture/shopverse-capstones/README'},
+                  items: [
+                    'architecture/shopverse-capstones/CHECKOUT-ORDER-DESIGN',
+                    'architecture/shopverse-capstones/INVENTORY-RESERVATION-DESIGN',
+                    'architecture/shopverse-capstones/PAYMENT-RELIABILITY-DESIGN',
+                    'architecture/shopverse-capstones/IDENTITY-ACCESS-DESIGN',
+                    'architecture/shopverse-capstones/CATALOG-SEARCH-DESIGN',
+                  ],
+                },
               ],
             },
             {
@@ -517,6 +529,18 @@ const sidebars: SidebarsConfig = {
             'spring/internals-production/PRODUCTION-LIFECYCLE',
             'operations/SPRING-BOOT-ACTUATOR',
             'spring/SPRING-INTERNALS-LABS',
+            {
+              type: 'category',
+              label: 'Architect Hands-On Labs',
+              link: {type: 'doc', id: 'spring/architect-labs/README'},
+              items: [
+                'spring/architect-labs/PRODUCTION-INCIDENT-DIAGNOSIS',
+                'spring/architect-labs/CAPACITY-THREAD-POOL-LAB',
+                'spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES',
+                'spring/architect-labs/KAFKA-REPLAY-IDEMPOTENCY',
+                'spring/architect-labs/DATABASE-CACHE-CONSISTENCY',
+              ],
+            },
           ],
         },
         {
@@ -524,6 +548,18 @@ const sidebars: SidebarsConfig = {
           label: 'Advanced Platform And Interview Practice',
           items: [
             'spring/SPRING-PLATFORM-ADVANCED',
+            {
+              type: 'category',
+              label: 'Technology Decision Guides',
+              link: {type: 'doc', id: 'spring/decisions/README'},
+              items: [
+                'spring/decisions/MVC-VS-WEBFLUX',
+                'spring/decisions/KAFKA-VS-SYNCHRONOUS',
+                'spring/decisions/JPA-VS-JDBC',
+                'spring/decisions/CACHE-ASIDE-VS-WRITE-THROUGH',
+                'spring/decisions/FEIGN-VS-HTTP-SERVICE-CLIENTS',
+              ],
+            },
             {
               type: 'category',
               label: 'Spring Interview Preparation',
@@ -607,8 +643,18 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '5. Microservices And Distributed Systems',
+      link: {type: 'doc', id: 'architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS'},
       items: [
-        'architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS',
+        {
+          type: 'category',
+          label: 'Architect Path And Practice',
+          link: {type: 'doc', id: 'architecture/microservices/MICROSERVICES-ARCHITECT-PATH'},
+          items: [
+            'architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP',
+            'architecture/microservices/MICROSERVICES-INCIDENT-LABS',
+            'architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK',
+          ],
+        },
         {
           type: 'category',
           label: 'Architecture Basics',
@@ -675,6 +721,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: '6. Security',
+      link: {type: 'doc', id: 'security/README'},
       items: [
         {
           type: 'category',
@@ -685,6 +732,17 @@ const sidebars: SidebarsConfig = {
             'security/principles/MICROSERVICES-SECURITY-PRINCIPLES',
             'security/principles/SERVICE-TO-SERVICE-SECURITY',
             'security/principles/SECRETS-AND-CREDENTIALS',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Security Architecture And Operations',
+          link: {type: 'doc', id: 'security/platform/SECURITY-ARCHITECT-PATH'},
+          items: [
+            'security/platform/SERVICE-IDENTITY-ZERO-TRUST',
+            'security/platform/SECURITY-INCIDENT-RESPONSE',
+            'security/platform/SECURITY-INTERVIEW-WORKBOOK',
+            'security/SUPPLY-CHAIN-PRIVACY',
           ],
         },
         {
@@ -716,13 +774,26 @@ const sidebars: SidebarsConfig = {
             'security/SPRING-SECURITY-GENERIC',
             'security/spring-security/AUTHENTICATION-BASICS',
             'security/spring-security/AUTHENTICATION-INTERNALS',
+            'security/spring-security/PASSWORD-AUTHENTICATION-RUNTIME',
+            'security/spring-security/SECURITY-CONTEXT-LIFECYCLE',
             'security/spring-security/SERVLET-FILTER-CHAIN',
             'security/spring-security/JWT-JWKS-RESOURCE-SERVER',
             'security/spring-security/AUTHORIZATION-METHOD-SECURITY',
             'security/spring-security/OAUTH2-OIDC-FLOWS',
+            'security/spring-security/CSRF-CORS-BROWSER-SECURITY',
+            'security/spring-security/THREAT-MODELING-INTERVIEW-LAB',
             'security/spring-security/PRODUCTION-PRACTICES',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Shopverse Security Implementation',
+          collapsed: true,
+          items: [
             'security/SECURITY-IMPLEMENTATION-GUIDE',
             'security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE',
+            'security/JWT-OAUTH2-SPRING-SECURITY',
+            'security/oauth/GOOGLE-AUTHENTICATION-SPRING',
           ],
         },
       ],

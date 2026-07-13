@@ -92,6 +92,20 @@ flowchart LR
     icon: 'brain',
     tags: ['Questions', 'Scenarios'],
   },
+  {
+    title: 'Architect Hands-On Labs',
+    href: './architect-labs/',
+    description: 'Diagnose incidents and prove capacity, transactions, replay and consistency controls.',
+    icon: 'experiment',
+    tags: ['Executable', 'Production'],
+  },
+  {
+    title: 'Technology Decisions',
+    href: './decisions/',
+    description: 'Choose web, messaging, persistence, caching and HTTP client strategies.',
+    icon: 'layers',
+    tags: ['ADR', 'Migration'],
+  },
 ]} />
 
 ## Step-By-Step Learning Order
