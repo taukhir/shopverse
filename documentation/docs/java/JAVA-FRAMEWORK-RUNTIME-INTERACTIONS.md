@@ -5,6 +5,17 @@ description: Virtual threads, transactions, proxies, equality, records, serializ
 
 # Java Runtime Interactions With Spring, Hibernate And Jackson
 
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Framework boundaries', tone: 'production'},
+  {label: 'Shopverse runtime', tone: 'shopverse'},
+]} />
+
+<DocCallout type="mistake" title="Proxy boundaries change semantics">
+Self-invocation, thread changes, detached entities, and serializer access can bypass the
+transaction, security, lazy-loading, or type assumptions that source code appears to make.
+</DocCallout>
+
 ## Spring Threads And Context
 
 Spring MVC request work can use platform or supported virtual-thread executors.
@@ -18,6 +29,54 @@ made thread-safe.
 `@Transactional` and other AOP advice normally execute through a proxy. Self-
 invocation bypasses that proxy, private/final method constraints depend on proxy
 strategy, and exceptions caught inside the method may prevent rollback signaling.
+
+## Shopverse Checkout Transaction Boundary
+
+Shopverse keeps order creation and its integration event in one database
+transaction. `OrderServiceImpl.checkout` enters through the Spring transaction
+proxy, writes the order and timeline, then calls the separate `OutboxService`
+bean. Its `MANDATORY` propagation joins the existing transaction; it does not
+open an independent commit boundary.
+
+```mermaid
+flowchart LR
+  request["checkout request"] --> orderProxy["OrderService proxy"]
+  orderProxy --> transaction["open transaction"]
+  transaction --> checkout["OrderServiceImpl.checkout"]
+  checkout --> writes["save order + timeline"]
+  writes --> outboxProxy["OutboxService proxy"]
+  outboxProxy --> mandatory{"existing transaction?"}
+  mandatory -->|yes| serialize["Jackson serializes OrderCreatedEvent"]
+  mandatory -->|no| reject["MANDATORY propagation rejects call"]
+  serialize -->|success| outbox["save outbox row"]
+  serialize -->|failure| rollback["IllegalStateException -> rollback"]
+  outbox --> commit["single database commit"]
+```
+
+The production shape is intentionally split across two proxied beans:
+
+```java
+@Transactional
+public OrderResponse checkout(...) {
+    OrderEntity saved = repository.save(order);
+    appendTimeline(saved, OrderTimelineStage.ORDER_CREATED,
+            "Checkout accepted and order persisted");
+    outboxService.enqueue(..., new OrderCreatedEvent(...), correlationId);
+    return OrderMapper.toResponse(saved);
+}
+
+@Transactional(propagation = Propagation.MANDATORY)
+public void enqueue(..., Object event, ...) {
+    repository.save(new OutboxEvent(
+            ..., objectMapper.writeValueAsString(event), ...));
+}
+```
+
+`OutboxService` converts Jackson's checked `JsonProcessingException` to an
+`IllegalStateException`, so Spring's default runtime-exception rule rolls back
+the order, timeline and outbox work together. Moving `enqueue` to an annotated
+helper invoked on `this` would lose this proxy boundary; catching the runtime
+exception in `checkout` could also allow an incomplete transaction to commit.
 
 ## Hibernate Identity And Proxies
 
@@ -47,11 +106,36 @@ forget work needs durable messaging or explicit failure storage—not only loggi
 
 ## Tricky Interview Questions
 
-1. Why may `@Transactional` self-invocation not start a transaction? Proxy advice is bypassed.
-2. Can an entity with generated ID safely be a `HashSet` member before and after persist? Often no; its hash/equality can change.
-3. Do virtual threads make one Hibernate session safe across tasks? No.
-4. Are records deeply immutable? No.
-5. Does `@Async` carry MDC/security/transaction state automatically for every executor? No.
+<ExpandableAnswer title="Why may @Transactional self-invocation not start a transaction?">
+
+Proxy advice is bypassed.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can an entity with generated ID safely be a HashSet member before and after persist?">
+
+Often no; its hash/equality can change.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Do virtual threads make one Hibernate session safe across tasks?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Are records deeply immutable?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does @Async carry MDC/security/transaction state automatically for every executor?">
+
+No.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

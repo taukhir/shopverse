@@ -1,0 +1,33 @@
+name: Java Senior Labs
+
+on:
+  pull_request:
+    paths:
+      - 'documentation/labs/java-senior/**'
+      - '.github/workflows/java-senior-labs.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'documentation/labs/java-senior/**'
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        java: ['24', '25']
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: documentation/labs/java-senior
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: maven
+      - name: Compile and test
+        run: mvn --batch-mode -Dmaven.compiler.release=${{ matrix.java }} test
+      - name: Package benchmark and stress sources
+        run: mvn --batch-mode -Dmaven.compiler.release=${{ matrix.java }} -DskipTests package

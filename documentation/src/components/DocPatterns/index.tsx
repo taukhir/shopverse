@@ -1,7 +1,24 @@
 import React, {type ReactNode} from 'react';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import {AlertTriangle, CheckCircle2, Code2, Lightbulb, ServerCog} from 'lucide-react';
+import Link from '@docusaurus/Link';
+import {
+  AlertTriangle,
+  BookOpen,
+  Boxes,
+  BrainCircuit,
+  CheckCircle2,
+  Code2,
+  FlaskConical,
+  Gauge,
+  Layers3,
+  Lightbulb,
+  Network,
+  Route,
+  ServerCog,
+  ShieldCheck,
+  type LucideIcon,
+} from 'lucide-react';
 import styles from './styles.module.css';
 
 export function DependencyTabs({maven, gradle}: {maven: ReactNode; gradle: ReactNode}) {
@@ -40,4 +57,46 @@ export function DocCallout({type = 'tip', title, children}: {type?: keyof typeof
   const config = calloutConfig[type];
   const Icon = config.icon;
   return <aside className={`${styles.callout} ${styles[type]}`}><Icon aria-hidden="true" /><div><strong>{title ?? config.label}</strong><div>{children}</div></div></aside>;
+}
+
+const topicIcons = {
+  book: BookOpen,
+  boxes: Boxes,
+  brain: BrainCircuit,
+  code: Code2,
+  experiment: FlaskConical,
+  gauge: Gauge,
+  layers: Layers3,
+  network: Network,
+  route: Route,
+  security: ShieldCheck,
+} satisfies Record<string, LucideIcon>;
+
+type TopicIcon = keyof typeof topicIcons;
+type LabelTone = 'foundation' | 'intermediate' | 'advanced' | 'production' | 'shopverse' | 'preview';
+
+export function DocLabels({items}: {items: Array<{label: string; tone?: LabelTone}>}) {
+  return <div className={styles.labels} aria-label="Page labels">{items.map((item) => (
+    <span className={styles[item.tone ?? 'foundation']} key={`${item.tone}-${item.label}`}>{item.label}</span>
+  ))}</div>;
+}
+
+export function TopicCards({items}: {items: Array<{
+  title: string;
+  href: string;
+  description: string;
+  icon?: TopicIcon;
+  tags?: string[];
+}>}) {
+  return <div className={styles.topicCards}>{items.map((item) => {
+    const Icon = topicIcons[item.icon ?? 'book'];
+    return <Link className={styles.topicCard} to={item.href} key={item.href}>
+      <span className={styles.topicIcon}><Icon aria-hidden="true" /></span>
+      <span className={styles.topicBody}>
+        <strong>{item.title}</strong>
+        <span>{item.description}</span>
+        {item.tags?.length ? <span className={styles.topicTags}>{item.tags.map((tag) => <small key={tag}>{tag}</small>)}</span> : null}
+      </span>
+    </Link>;
+  })}</div>;
 }

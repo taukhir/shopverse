@@ -69,19 +69,25 @@ The compiler can verify that every known subtype is handled.
 
 ## Interview Questions
 
-### Why use sealed instead of enum?
+<ExpandableAnswer title="Why use sealed instead of enum?">
 
 Use enum for fixed constants with similar shape. Use sealed types when each
 variant needs different fields or behavior.
 
-### Can sealed classes improve maintainability?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can sealed classes improve maintainability?">
 
 Yes. They make the allowed inheritance model explicit and help exhaustive
 switch checks.
 
-### Can a sealed hierarchy be extended anywhere?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a sealed hierarchy be extended anywhere?">
 
 Only by permitted classes, subject to package/module rules.
+
+</ExpandableAnswer>
 
 ## Runtime And Evolution Depth
 
@@ -93,9 +99,24 @@ previous exhaustiveness assumptions after recompilation.
 
 ## Tricky Interview Questions
 
-1. Does `non-sealed` reopen only that branch? Yes.
-2. Is a sealed type necessarily abstract? No.
-3. Why can adding a subtype break clients? Exhaustive handling assumptions change.
+<ExpandableAnswer title="Does non-sealed reopen only that branch?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is a sealed type necessarily abstract?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can adding a subtype break clients?">
+
+Exhaustive handling assumptions change.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

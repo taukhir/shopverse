@@ -1,341 +1,188 @@
-﻿---
+---
 title: JPA Basics And Entity Mapping
+description: Spring Data JPA entity integration, repository identity decisions, schema contracts, and safe production rollout.
+difficulty: Intermediate
+page_type: Concept
+status: Generic
+prerequisites: [Spring Data JPA, Hibernate lifecycle, Relational schema design]
+learning_objectives: [Connect entity identity to repository behavior, Keep Java mappings compatible with database constraints, Roll out entity changes without breaking mixed application versions]
+technologies: [Spring Data JPA, Jakarta Persistence, Hibernate ORM, Liquibase]
+last_reviewed: "2026-07-13"
 ---
 
 # JPA Basics And Entity Mapping
 
-Core flow, dependencies, entity lifecycle, identifiers, embedded values, composite keys, and enums.
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Entity integration', tone: 'foundation'},
+  {label: 'Schema safety', tone: 'production'},
+  {label: 'Shopverse example', tone: 'shopverse'},
+]} />
 
-Back to [Spring Data JPA](../SPRING-DATA-JPA.md).
-
-## Core Flow
+This page covers the Spring Data boundary around an entity. For transient,
+managed, detached, removed, `persist`, `merge`, and flush mechanics, use the
+canonical [Hibernate Basics And Lifecycle](../../data/hibernate/HIBERNATE-BASICS-LIFECYCLE.md)
+guide. Annotation-by-annotation mapping detail belongs in
+[Hibernate Annotations And Mapping](../../data/hibernate/HIBERNATE-ANNOTATIONS-MAPPING.md).
 
 ```mermaid
 flowchart LR
-    Caller["Service method"] --> Proxy["Spring Data repository proxy"]
-    Proxy --> EM["EntityManager"]
-    EM --> Hibernate["Hibernate ORM"]
-    Hibernate --> JDBC["JDBC driver"]
-    JDBC --> DB["Relational database"]
+    Migration["Liquibase schema"] --> Contract["Table constraints"]
+    Entity["JPA entity mapping"] --> Contract
+    Repository["Spring Data repository"] --> Entity
+    Service["Transactional service"] --> Repository
+    Contract --> Evidence["Integration test on production engine"]
 ```
 
-Spring Data reduces repository boilerplate. It does not remove the need to
-understand SQL, indexes, transaction boundaries, fetching, locking, and
-database constraints.
-
-
-## Dependencies
-
-```gradle
-implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-runtimeOnly 'com.mysql:mysql-connector-j'
-testImplementation 'org.springframework.boot:spring-boot-starter-test'
-```
-
-Use Liquibase or Flyway to own production schema changes. Avoid relying on
-Hibernate schema generation outside disposable development and test databases:
-
-```yaml
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    open-in-view: false
-```
-
-`validate` checks that mappings are compatible with the existing schema.
-`open-in-view=false` keeps database access inside explicit service transaction
-boundaries instead of allowing controllers or serializers to trigger queries.
-
-
-## Entity Lifecycle And Persistence Context
-
-An entity can be:
-
-| State | Meaning |
-|---|---|
-| Transient | normal object not associated with persistence |
-| Managed | tracked by the current persistence context |
-| Detached | previously managed, but no longer tracked |
-| Removed | scheduled for deletion |
-
-Hibernate performs dirty checking on managed entities:
-
-```java
-@Transactional
-public void renameProduct(Long id, String name) {
-    ProductEntity product = repository.findById(id).orElseThrow();
-    product.rename(name);
-}
-```
-
-An explicit `save(product)` is not required for this managed entity. Hibernate
-detects the change and normally issues an `UPDATE` during flush.
-
-Flush synchronizes pending SQL with the database connection. It is not the same
-as commit; the transaction can still roll back.
-
-
-## Basic Entity Mapping
+## Repository Identity Contract
 
 ```java
 @Entity
-@Table(
-        name = "products",
-        uniqueConstraints = @UniqueConstraint(
-                name = "uk_products_sku",
-                columnNames = "sku"
-        ),
-        indexes = {
-                @Index(
-                        name = "idx_products_status_created",
-                        columnList = "status, created_at"
-                )
-        }
-)
-public class ProductEntity {
-
+@Table(name = "orders")
+class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "sku", nullable = false, length = 64)
-    private String sku;
-
-    @Column(name = "name", nullable = false, length = 120)
-    private String name;
-
-    @Column(name = "price", nullable = false, precision = 19, scale = 2)
-    private BigDecimal price;
+    @Column(nullable = false, unique = true, length = 40)
+    private String orderNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 30)
-    private ProductStatus status;
-
-    @Version
-    private long version;
+    @Column(nullable = false, length = 40)
+    private OrderStatus status;
 }
 ```
 
-### Important Entity Annotations
+Spring Data uses entity metadata to decide whether `save` should persist a new
+instance or merge an existing one. Generated nullable IDs usually make that
+decision straightforward. Assigned identifiers, composite keys, and manually
+populated versions need an explicit newness strategy such as `Persistable` when
+the default detection is not valid.
 
-| Annotation | Purpose |
+<DocCallout type="mistake" title="save is not a universal update command">
+
+A managed entity is dirty-checked without another `save` call. Calling `save` on a
+detached graph can invoke merge semantics and copy stale state. Define where the
+entity becomes managed and update it inside that transaction.
+
+</DocCallout>
+
+## Mapping And Database Must Agree
+
+| Java mapping | Database contract to verify |
 |---|---|
-| `@Entity` | marks a persistent JPA entity |
-| `@Table` | configures table, indexes, and unique constraints |
-| `@Id` | marks the primary key |
-| `@GeneratedValue` | configures generated-key strategy |
-| `@Column` | configures column name, length, nullability, precision, and scale |
-| `@Transient` | excludes a field from persistence |
-| `@Version` | enables optimistic concurrency control |
-| `@Enumerated` | controls enum storage |
-| `@Embedded` | embeds a reusable value object |
-| `@EmbeddedId` | uses an embeddable composite primary key |
-| `@Convert` | applies an `AttributeConverter` |
+| `nullable = false` | `NOT NULL` exists after safe backfill |
+| `unique = true` | explicit unique constraint/index has the intended scope |
+| `length = 40` | column length and validation agree |
+| `EnumType.STRING` | stored values, column size, and rename plan are compatible |
+| `BigDecimal` precision/scale | database precision and rounding rule match money policy |
+| generated identifier | engine strategy permits required batching and insert behavior |
 
-Entity classes should:
+Mappings are documentation to the ORM; migrations are the durable schema change.
+Do not rely on automatic schema generation in production.
 
-- have a protected or public no-argument constructor;
-- use stable equality semantics;
-- avoid mutable IDs in `equals` and `hashCode`;
-- avoid generated `toString` methods traversing relationships;
-- keep domain invariants in methods rather than exposing every setter;
-- avoid Lombok `@Data`, which can generate unsafe relationship-aware equality
-  and string methods.
+## Value Objects And Composite Keys
 
-
-## Primary Key Strategies
-
-### Generated Numeric ID
-
-```java
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
-```
-
-`IDENTITY` uses database-generated values and can restrict insert batching
-because Hibernate may need each generated key immediately.
-
-Sequences are often more batching-friendly on databases that support them:
-
-```java
-@Id
-@GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "order_sequence"
-)
-@SequenceGenerator(
-        name = "order_sequence",
-        sequenceName = "order_sequence",
-        allocationSize = 50
-)
-private Long id;
-```
-
-MySQL commonly uses identity columns because traditional MySQL deployments do
-not provide database sequences.
-
-### Natural And External IDs
-
-Business identifiers such as order number can be unique without being the JPA
-primary key:
-
-```java
-@Column(name = "order_number", nullable = false, updatable = false)
-private String orderNumber;
-```
-
-Back the invariant with a database unique constraint. An application-side
-existence check alone cannot prevent concurrent duplicates.
-
-
-## Embedded Value Objects
-
-Use `@Embeddable` for a value object stored in the owning table:
+Use `@Embeddable` for a value whose columns live with its owner. Use `@EmbeddedId`
+or `@IdClass` only when the database really has a composite identity. Key classes
+must be serializable and implement stable equality.
 
 ```java
 @Embeddable
-public record Address(
-        @Column(name = "address_line_1", nullable = false)
-        String line1,
-        @Column(name = "city", nullable = false)
-        String city,
-        @Column(name = "postal_code", nullable = false)
-        String postalCode
-) {
-}
+record InventoryKey(Long warehouseId, Long productId)
+        implements Serializable {}
 ```
 
-```java
-@Embedded
-private Address shippingAddress;
-```
+<DocCallout type="code" title="Proposed pattern, not current Shopverse mapping">
 
-Generated table columns remain part of the owner:
+Shopverse currently gives Inventory items a generated database ID and a separate
+product identifier. The composite warehouse/product key above illustrates a future
+multi-warehouse design; adopting it would require migration and repository API
+changes.
 
-```sql
-select id, address_line_1, city, postal_code
-from orders
-where id = ?
-```
+</DocCallout>
 
-Use `@AttributeOverride` when the same embeddable appears more than once:
+## Shopverse Current Entity Boundary
 
-```java
-@Embedded
-@AttributeOverrides({
-        @AttributeOverride(
-                name = "line1",
-                column = @Column(name = "billing_line_1")
-        ),
-        @AttributeOverride(
-                name = "city",
-                column = @Column(name = "billing_city")
-        ),
-        @AttributeOverride(
-                name = "postalCode",
-                column = @Column(name = "billing_postal_code")
-        )
-})
-private Address billingAddress;
-```
+<DocCallout type="shopverse" title="Current implementation">
 
+`OrderEntity` stores an immutable order number, correlation ID, and idempotency key
+under unique constraints. Inventory uses a generated ID plus `@Version`. These
+mappings are implemented today and align identity, duplicate-request protection,
+and optimistic concurrency with database constraints.
 
-## Composite Primary Keys
+</DocCallout>
 
-Prefer a simple surrogate primary key unless the domain and access patterns
-clearly require a composite identity.
+The application still needs integration tests that prove Liquibase created the
+same constraints expected by the entities. A unit test of an entity class cannot
+prove collation, index selection, generated-key behavior, or dialect-specific SQL.
 
-### `@EmbeddedId`
+## Expand-And-Contract Rollout
 
-```java
-@Embeddable
-public record OrderItemId(
-        Long orderId,
-        Long productId
-) implements Serializable {
-}
-```
+For a new required column:
 
-```java
-@Entity
-@Table(name = "order_items")
-public class OrderItemEntity {
+1. **Expand:** add a nullable column or safe server-side default.
+2. Deploy code that writes both old and new representations.
+3. Backfill in bounded batches with progress and failure metrics.
+4. Verify no nulls and compare old/new values.
+5. **Contract:** add `NOT NULL`, remove compatibility writes, then remove obsolete
+   columns in a later deployment.
 
-    @EmbeddedId
-    private OrderItemId id;
+<DocCallout type="production" title="Rollback must survive mixed versions">
 
-    @Column(nullable = false)
-    private int quantity;
-}
-```
+Changing the entity annotation and schema in one release can break old replicas,
+rolling restarts, and rollback. The database must accept both versions throughout
+the overlap window.
 
-Repository:
+</DocCallout>
 
-```java
-interface OrderItemRepository
-        extends JpaRepository<OrderItemEntity, OrderItemId> {
-}
-```
+## Evidence Checklist
 
-### `@IdClass`
+- start the application with migrations from an empty database and from the last
+  production schema;
+- inspect generated DDL only as a comparison, never as the rollout mechanism;
+- verify unique, nullability, precision, foreign-key, and enum behavior;
+- test generated IDs and batched inserts on the production engine;
+- capture the SQL and affected-row count for representative repository writes.
 
-`@IdClass` keeps key fields directly on the entity:
+## Interview Questions
 
-```java
-@Entity
-@IdClass(OrderItemIdClass.class)
-class OrderItemEntity {
+<ExpandableAnswer title="Why can repository.save(entity) call merge instead of persist?">
 
-    @Id
-    private Long orderId;
+Spring Data determines whether the entity is new from its ID, version, or an
+explicit `Persistable` contract. If it considers the entity existing, the JPA path
+uses merge semantics and returns the managed copy.
 
-    @Id
-    private Long productId;
-}
-```
+</ExpandableAnswer>
 
-`@EmbeddedId` groups identity into one value object and is generally easier to
-pass around. `@IdClass` can make JPQL paths simpler but duplicates key fields
-between entity and ID class. Both key classes must implement stable
-`equals`, `hashCode`, and `Serializable`.
+<ExpandableAnswer title="Why is changing an enum constant a database migration concern?">
 
+`EnumType.STRING` stores the constant name. Renaming it makes existing rows
+unreadable unless old and new values are supported during a data migration.
 
-## Enum Mapping
+</ExpandableAnswer>
 
-```java
-@Enumerated(EnumType.STRING)
-@Column(nullable = false, length = 30)
-private PaymentStatus status;
-```
+<ExpandableAnswer title="Why can nullable = false in an entity still fail only in production?">
 
-Prefer `EnumType.STRING`. `ORDINAL` stores numeric positions, so reordering or
-inserting enum constants silently changes meaning.
+The annotation does not prove the deployed schema matches it. Drift, migration
+ordering, old replicas, and existing null data can violate the assumed contract.
 
-For an external database code, use a converter:
+</ExpandableAnswer>
 
-```java
-@Converter(autoApply = true)
-public class PaymentStatusConverter
-        implements AttributeConverter<PaymentStatus, String> {
+<ExpandableAnswer title="When is a composite key preferable to a surrogate ID?">
 
-    @Override
-    public String convertToDatabaseColumn(PaymentStatus status) {
-        return status == null ? null : status.code();
-    }
+When the database identity is genuinely composite and the full key is stable,
+compact, and used consistently. Otherwise a surrogate ID plus an explicit unique
+business constraint is usually easier to evolve and reference.
 
-    @Override
-    public PaymentStatus convertToEntityAttribute(String code) {
-        return code == null ? null : PaymentStatus.fromCode(code);
-    }
-}
-```
+</ExpandableAnswer>
 
+## Official References
 
+- [Spring Data JPA entity persistence](https://docs.spring.io/spring-data/jpa/reference/jpa/entity-persistence.html)
+- [Hibernate ORM user guide](https://docs.hibernate.org/orm/current/userguide/html_single/)
+- [Jakarta Persistence specification](https://jakarta.ee/specifications/persistence/)
 
+## Recommended Next
 
-
-
-
-
+Continue with [JPA Associations And Ownership](./JPA-RELATIONSHIPS-JSON.md).

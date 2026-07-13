@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Chunking strategy</title><desc id="desc">Comparison of poor and good document chunking for RAG.</desc>
+  <style>.bg{fill:#fbfbf9}.p{fill:#fff;stroke:#111827;stroke-width:2;rx:14}.bad{fill:#fef2f2;stroke:#dc2626;stroke-width:2;rx:10}.good{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:10}.t{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:19px;fill:#111827;font-weight:700}.h{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:25px;fill:#111827;font-weight:700}.s{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#374151}</style>
+  <rect class="bg" width="1200" height="680"/><text class="h" x="50" y="55">Chunking Strategy For RAG</text><text class="s" x="50" y="84">Good chunks contain one coherent idea, useful metadata, and enough context to answer a question.</text>
+  <rect class="p" x="60" y="130" width="500" height="430"/><text class="t" x="90" y="170">Poor Chunking</text>
+  <rect class="bad" x="90" y="210" width="410" height="250"/><text class="s" x="116" y="246">Entire 20-page policy document</text><text class="s" x="116" y="286">Return policy + refund policy + shipping</text><text class="s" x="116" y="326">+ unrelated admin notes + legal text</text><text class="s" x="116" y="386">Problems: noisy retrieval, high token cost,</text><text class="s" x="116" y="416">weak citations, more hallucination risk.</text>
+  <rect class="p" x="640" y="130" width="500" height="430"/><text class="t" x="670" y="170">Good Chunking</text>
+  <rect class="good" x="670" y="205" width="410" height="70"/><text class="s" x="696" y="236">Return Policy: defective products</text><text class="s" x="696" y="258">source=return-policy.md section=defects</text>
+  <rect class="good" x="670" y="305" width="410" height="70"/><text class="s" x="696" y="336">Refund Policy: original payment method</text><text class="s" x="696" y="358">source=refund-policy.md section=payment</text>
+  <rect class="good" x="670" y="405" width="410" height="70"/><text class="s" x="696" y="436">Shipping Policy: delivery timeline</text><text class="s" x="696" y="458">source=shipping-policy.md section=timeline</text>
+  <text class="s" x="670" y="525">Result: better retrieval, better answers, lower cost.</text>
+</svg>

@@ -178,20 +178,24 @@ source.
 `map` transforms one element into one result. `flatMap` transforms one element
 into zero or more results and flattens them.
 
-### Are Streams Always Lazy?
+<ExpandableAnswer title="Are Streams Always Lazy?">
 
 Intermediate operations are lazy; terminal operations trigger processing.
 Some stateful operations such as sorting may buffer elements.
+
+</ExpandableAnswer>
 
 ### `findFirst` Versus `findAny`
 
 `findFirst` preserves encounter-order semantics. `findAny` permits any element
 and may be more flexible for parallel pipelines.
 
-### Why Must Reduce Be Associative?
+<ExpandableAnswer title="Why Must Reduce Be Associative?">
 
 Parallel execution groups elements differently. Non-associative accumulation
 can produce different answers.
+
+</ExpandableAnswer>
 
 ## Practices
 

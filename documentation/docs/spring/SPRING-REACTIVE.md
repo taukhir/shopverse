@@ -1,5 +1,6 @@
 ---
 title: Spring Reactive And WebFlux
+description: Spring WebFlux runtime guide covering event loops, demand and prefetch, cancellation, blocking detection, context, streaming, virtual-thread boundaries, observability, and testing.
 sidebar_position: 10
 difficulty: Advanced
 page_type: Tutorial
@@ -7,10 +8,17 @@ status: Generic
 prerequisites: [Spring ecosystem, Java functional interfaces, Java streams]
 learning_objectives: [Understand reactive streams and backpressure, Build non-blocking WebFlux request pipelines, Avoid blocking and context propagation failures]
 technologies: [Spring WebFlux, Project Reactor, Reactive Streams, R2DBC]
-last_reviewed: "2026-07-11"
+last_reviewed: "2026-07-13"
 ---
 
 # Spring Reactive And WebFlux
+
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Non-blocking runtime', tone: 'production'},
+  {label: 'Shopverse gateway', tone: 'shopverse'},
+  {label: 'Demand and cancellation', tone: 'intermediate'},
+]} />
 
 Reactive programming models asynchronous work as a stream of signals. Spring
 WebFlux uses Project Reactor and the Reactive Streams contract to serve many
@@ -20,6 +28,12 @@ when the entire request path can remain non-blocking.
 Reactive is not automatically faster. It trades a familiar thread-per-request
 model for higher concurrency with more demanding control flow, debugging, and
 context propagation.
+
+<DocCallout type="production" title="One blocking call can consume shared event-loop capacity">
+Name every driver and SDK on the request path and prove whether it blocks. Moving
+a blocking call to another scheduler isolates it; it does not make the dependency
+non-blocking or remove the need for a concurrency and queue bound.
+</DocCallout>
 
 ## The Reactive Types
 
@@ -35,12 +49,22 @@ you.
 
 ```mermaid
 flowchart LR
-    C["WebClient"] --> H["WebFlux handler"]
-    H --> S["Reactive service"]
-    S --> R["R2DBC repository"]
-    R --> DB[("Database")]
-    DB -->|signals| R -->|Mono / Flux| S --> H --> C
+    Client["Gateway client"] --> Loop["Netty event loop"]
+    Loop --> Handler["WebFlux handler pipeline"]
+    Handler --> Demand["Demand, prefetch, bounded flatMap"]
+    Demand --> HTTP["WebClient connection pool"]
+    Demand --> R2DBC["R2DBC connection pool"]
+    HTTP --> Downstream["Inventory / pricing"]
+    R2DBC --> DB[("Database")]
+    Client -. disconnect / timeout .-> Cancel["Cancellation"]
+    Cancel -. release .-> HTTP
+    Cancel -. release .-> R2DBC
 ```
+
+The event loop multiplexes many connections over a small worker set. It should
+schedule non-blocking I/O and short continuations, not wait on JDBC, files, locks,
+remote blocking SDKs, or long CPU work. WebClient and a Reactor Netty server may
+share event-loop resources by default, so client starvation can affect server work.
 
 ## Operator Fundamentals
 
@@ -111,6 +135,16 @@ Flux<Result> enrich(Flux<Item> items) {
 }
 ```
 
+Demand is transformed by operators. Many operators request ahead for throughput,
+and `flatMap` combines concurrency with an operator-specific prefetch. A downstream
+request for a small number of results can therefore coexist with more work already
+in flight. Inspect concurrency, prefetch, buffering, and the actual connection pool
+rather than claiming that backpressure alone protects a remote service.
+
+For a non-cooperative push source, choose an explicit overflow policy: bound and
+buffer, sample, drop with evidence, or fail. An unbounded bridge converts a rate
+mismatch into heap growth.
+
 ## Threading And Schedulers
 
 Reactor pipelines are not inherently multi-threaded. Operators normally run on
@@ -135,6 +169,16 @@ many unrelated requests. Prefer R2DBC and non-blocking HTTP clients. If the
 application is primarily JPA/JDBC, Spring MVC—optionally with virtual
 threads—is usually simpler and safer.
 
+Use BlockHound in suitable tests and correlate event-loop task latency with JFR,
+thread dumps, and dependency spans. `boundedElastic` has a finite task/thread
+policy but can still queue more work than the downstream system can accept.
+
+Current Spring WebFlux can route controller methods classified as blocking to a
+configured `AsyncTaskExecutor`, including a virtual-thread executor on supported
+JDK/Spring versions. That is an explicit blocking boundary, not a conversion of
+JDBC or a blocking SDK into a Reactive Streams source. If most of the path is
+blocking, MVC with virtual threads is normally the clearer evaluation baseline.
+
 ## WebClient
 
 ```java
@@ -155,6 +199,31 @@ Set connection, response, and read/write timeouts at the HTTP client as well as
 an end-to-end policy where appropriate. Retry only idempotent operations and
 transient failures. Add jitter and bound concurrency to avoid amplifying an
 outage.
+
+## Shopverse Gateway And Streaming Examples
+
+A gateway aggregation should preserve one owned pipeline and one deadline:
+
+```java
+Mono<CatalogView> catalog(UUID productId) {
+    Mono<ProductView> product = productClient.get(productId);
+    Mono<InventoryView> inventory = inventoryClient.get(productId);
+
+    return Mono.zip(product, inventory)
+            .map(tuple -> CatalogView.of(tuple.getT1(), tuple.getT2()))
+            .timeout(Duration.ofMillis(800));
+}
+```
+
+`zip` cancels remaining work when completion becomes impossible. Decide whether a
+missing inventory result should fail, degrade to `unknown`, or use a bounded stale
+value; do not apply a generic `onErrorResume` that hides authentication or contract
+failures.
+
+For an order-status SSE or NDJSON stream, bound per-client buffering and total
+connections, send heartbeats only when required by infrastructure, and stop
+upstream database or broker work when the client disconnects. Test through the
+actual proxy/load balancer because intermediary buffering can defeat streaming.
 
 ## Reactive Data And Transactions
 
@@ -198,6 +267,11 @@ event-loop latency, response time, error/timeout rates, cancellation, and
 downstream pool saturation. Use `checkpoint("order-enrichment")` selectively
 to make important pipeline failures easier to locate.
 
+Reactor `Context` flows with the subscription, not with an arbitrary mutable
+thread local. Read it with `deferContextual` at evaluation time and use supported
+Spring Security/Micrometer context propagation. Test context after scheduler
+boundaries and inside inner publishers; assembly-time reads often observe nothing.
+
 ## Error Handling And Cancellation
 
 Handle errors near the layer that understands them. Translate domain errors to
@@ -209,6 +283,11 @@ Cancellation is normal: clients disconnect, timeouts expire, and operators
 such as `take` cancel upstream work. Publishers and resource adapters should
 release resources on cancellation. Use `usingWhen` for asynchronous resource
 acquisition and cleanup.
+
+Observe cancellation with `doFinally` when diagnostics are needed, but keep cleanup
+in resource-aware publishers rather than a best-effort logging callback. Cancellation
+is not rollback of a remote side effect that already completed; idempotency and
+reconciliation still apply.
 
 ## Testing With StepVerifier
 
@@ -229,6 +308,11 @@ ordering, errors, completion, and cancellation. Virtual time makes delayed
 retry and timeout tests fast and deterministic. Integration-test against the
 actual reactive database driver; mocking cannot reveal connection-pool or
 transaction behavior.
+
+Add tests that cancel after resource acquisition, request one item at a time,
+exercise an empty publisher, saturate bounded `flatMap`, and inject a blocking
+call under BlockHound. A load test should record event-loop latency, connection
+pending time, allocation/buffer growth, cancellation count, and downstream demand.
 
 ## MVC Or WebFlux?
 
@@ -255,6 +339,61 @@ an MVC application; its presence does not require a reactive server.
 - apply rate limits and response-size limits to long-lived streams;
 - use BlockHound in suitable tests to detect accidental blocking calls.
 
+## Interview Checks
+
+<ExpandableAnswer title="Why can one block() call stall unrelated WebFlux requests?">
+
+Event-loop workers are shared across many connections. Blocking one prevents it
+from processing other ready I/O and continuations. Prove the diagnosis with thread
+stacks, BlockHound, event-loop latency, and correlated request spans; do not merely
+increase event-loop threads.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can bounded downstream demand still overload an inventory service behind flatMap?">
+
+Operators reshape requests and can prefetch. `flatMap` also creates multiple inner
+subscriptions, so concurrency, prefetch, buffered items, and the HTTP connection
+pool determine in-flight work. Set explicit bounds and validate pending acquisition
+and downstream saturation under load.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What should happen when an SSE client disconnects?">
+
+Cancellation should propagate upstream, stop broker/database consumption owned by
+that subscription, and release connections and buffers. Remote side effects already
+completed are not undone. Verify cleanup with `StepVerifier`, connection metrics,
+and a real disconnect through the deployed proxy path.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why does a ThreadLocal correlation ID disappear after a reactive boundary?">
+
+Signals can execute on different threads, while `ThreadLocal` belongs to one thread.
+Use Reactor `Context` and framework-supported security/observation propagation,
+read it at subscription time, and test inner publishers plus scheduler changes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Do virtual threads make a blocking WebFlux pipeline equivalent to a non-blocking one?">
+
+No. They can make an explicitly isolated blocking method cheaper to represent, but
+the API still blocks, downstream pools remain finite, and Reactive Streams demand
+does not govern it automatically. Compare with MVC plus virtual threads when the
+path is mainly JDBC or blocking SDKs.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do you prove that a reactive gateway is healthy under load?">
+
+Show stable event-loop latency, bounded pending connection acquisition, bounded
+buffers and heap, expected cancellation, preserved security/trace context, and
+downstream saturation below agreed limits. Average HTTP latency alone cannot prove
+the execution model is non-blocking or capacity-safe.
+
+</ExpandableAnswer>
+
 ## Related Guides
 
 - [Spring Ecosystem](./SPRING-ECOSYSTEM.md)
@@ -266,7 +405,11 @@ an MVC application; its presence does not require a reactive server.
 ## Official References
 
 - [Spring WebFlux reference](https://docs.spring.io/spring-framework/reference/web/webflux.html)
+- [Spring WebFlux concurrency model](https://docs.spring.io/spring-framework/reference/web/webflux/new-framework.html)
+- [Spring WebFlux configuration and blocking execution](https://docs.spring.io/spring-framework/reference/web/webflux/config.html)
+- [Spring WebClient reference](https://docs.spring.io/spring-framework/reference/web/webflux-webclient.html)
 - [Project Reactor reference](https://projectreactor.io/docs/core/release/reference/)
+- [Reactor testing](https://projectreactor.io/docs/core/release/reference/testing.html)
 - [Reactive Streams specification](https://www.reactive-streams.org/)
 
 ## Recommended Next Page

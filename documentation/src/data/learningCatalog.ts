@@ -3,8 +3,7 @@ export type LearningPage = {title: string; path: string; stage: string; difficul
 export const learningCatalog: LearningPage[] = [
   {title:'Java Fundamentals',path:'/java/JAVA-FUNDAMENTALS',stage:'Java',difficulty:'Beginner',type:'Concept'},
   {title:'Object-Oriented Programming',path:'/java/JAVA-OOP',stage:'Java',difficulty:'Beginner',type:'Tutorial',prerequisites:['/java/JAVA-FUNDAMENTALS']},
-  {title:'Collections Learning Guide',path:'/java/JAVA-COLLECTIONS-UMBRELLA',stage:'Java',difficulty:'Intermediate',type:'Tutorial',prerequisites:['/java/JAVA-OOP']},
-  {title:'Collections',path:'/java/JAVA-COLLECTIONS',stage:'Java',difficulty:'Intermediate',type:'Concept',prerequisites:['/java/JAVA-COLLECTIONS-UMBRELLA']},
+  {title:'Java Collections Learning Guide',path:'/java/JAVA-COLLECTIONS',stage:'Java',difficulty:'Intermediate',type:'Tutorial',prerequisites:['/java/JAVA-OOP']},
   {title:'Threads And JVM Thread Model',path:'/java/JAVA-THREADING-UMBRELLA',stage:'Java',difficulty:'Intermediate',type:'Tutorial',prerequisites:['/java/JAVA-COLLECTIONS']},
   {title:'Multithreading',path:'/java/JAVA-MULTITHREADING',stage:'Java',difficulty:'Advanced',type:'Concept',prerequisites:['/java/JAVA-THREADING-UMBRELLA']},
   {title:'Advanced Java Internals',path:'/java/ADVANCED-JAVA-INTERNALS',stage:'Java',difficulty:'Advanced',type:'Tutorial',prerequisites:['/java/JAVA-MULTITHREADING']},

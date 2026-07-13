@@ -1,8 +1,8 @@
 ---
-title: JVM Memory Model
+title: JVM Runtime Memory Areas
 ---
 
-# JVM Memory Model
+# JVM Runtime Memory Areas
 
 ![JVM process memory split across managed heap, per-thread areas, and native memory](/img/diagrams/jvm-memory-runtime-areas.svg)
 
@@ -183,35 +183,27 @@ of container memory because the JVM also needs non-heap memory.
 
 ## Interview Questions
 
-### Where are objects stored?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="Where are objects stored?">
 
 Usually on the heap, although the JVM may optimize allocations internally.
 
 </ExpandableAnswer>
 
-### Where are local variables stored?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="Where are local variables stored?">
 
 Primitive local values and object references are held in stack frames; the
 objects referenced by those variables usually live on the heap.
 
 </ExpandableAnswer>
 
-### What causes `OutOfMemoryError`?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="What causes OutOfMemoryError?">
 
 Exhaustion can occur in the heap, metaspace, direct memory, thread or native
 memory, or because the garbage collector exceeds its overhead limit.
 
 </ExpandableAnswer>
 
-### What causes `StackOverflowError`?
-
-<ExpandableAnswer>
+<ExpandableAnswer title="What causes StackOverflowError?">
 
 Deep recursion or excessive call depth exhausts the stack allocated to one
 thread.

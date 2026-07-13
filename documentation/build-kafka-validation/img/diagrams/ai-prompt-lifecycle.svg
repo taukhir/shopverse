@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Prompt lifecycle</title>
+  <desc id="desc">Prompt lifecycle from system rules and user input to context, model call, validation, and response.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.b{fill:#fff;stroke:#111827;stroke-width:2;rx:12}.g{fill:#ecfeff;stroke:#0891b2;stroke-width:2;rx:12}.m{fill:#f5f3ff;stroke:#7c3aed;stroke-width:2;rx:12}.v{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:12}.t{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:19px;fill:#111827;font-weight:700}.s{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#374151}.h{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:25px;fill:#111827;font-weight:700}.l{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#a)}</style></defs>
+  <rect class="bg" width="1200" height="650"/>
+  <text class="h" x="50" y="55">Prompt Lifecycle In A Java AI Backend</text><text class="s" x="50" y="84">A prompt is assembled from trusted rules, user input, retrieved context, and output constraints.</text>
+  <rect class="b" x="60" y="155" width="190" height="90"/><text class="t" x="96" y="190">System Rules</text><text class="s" x="88" y="218">role, safety, format</text>
+  <rect class="b" x="60" y="305" width="190" height="90"/><text class="t" x="96" y="340">User Input</text><text class="s" x="88" y="368">question/request</text>
+  <rect class="g" x="330" y="230" width="210" height="100"/><text class="t" x="374" y="267">Context</text><text class="s" x="360" y="294">RAG chunks/tools</text>
+  <rect class="b" x="620" y="230" width="210" height="100"/><text class="t" x="666" y="267">Prompt</text><text class="s" x="650" y="294">assembled request</text>
+  <rect class="m" x="910" y="230" width="210" height="100"/><text class="t" x="962" y="267">Model</text><text class="s" x="940" y="294">generates output</text>
+  <rect class="v" x="620" y="440" width="210" height="90"/><text class="t" x="662" y="476">Validation</text><text class="s" x="654" y="504">schema, redact, auth</text>
+  <rect class="v" x="910" y="440" width="210" height="90"/><text class="t" x="964" y="476">Response</text><text class="s" x="952" y="504">safe API DTO</text>
+  <path class="l" d="M250 200 C300 200 300 250 330 260"/><path class="l" d="M250 350 C300 350 300 310 330 300"/><path class="l" d="M540 280 L620 280"/><path class="l" d="M830 280 L910 280"/><path class="l" d="M1015 330 C1015 390 850 390 780 440"/><path class="l" d="M830 485 L910 485"/>
+</svg>

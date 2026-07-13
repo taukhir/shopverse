@@ -87,11 +87,36 @@ when profiling justifies it.
 
 ## Tricky Interview Questions
 
-1. Must natural ordering be consistent with equals? Strongly recommended; document exceptions.
-2. Does `TreeMap` call `hashCode`? No.
-3. Is `PriorityQueue` iteration ordered? No.
-4. Why add an ID tie-breaker? To create deterministic total ordering.
-5. Can a comparator safely perform database calls? It is semantically possible but operationally disastrous and can be inconsistent.
+<ExpandableAnswer title="Must natural ordering be consistent with equals?">
+
+Strongly recommended; document exceptions.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does TreeMap call hashCode?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is PriorityQueue iteration ordered?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why add an ID tie-breaker?">
+
+To create deterministic total ordering.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a comparator safely perform database calls?">
+
+It is semantically possible but operationally disastrous and can be inconsistent.
+
+</ExpandableAnswer>
+
 
 ## Official References
 
@@ -101,4 +126,4 @@ when profiling justifies it.
 
 ## Recommended Next
 
-Continue through the [Collections Learning Guide](./JAVA-COLLECTIONS-UMBRELLA.md).
+Continue through the [Collections Learning Guide](./JAVA-COLLECTIONS.md).

@@ -11,6 +11,12 @@ last_reviewed: "2026-07-12"
 
 # Advanced Spring Platform Patterns
 
+<DocLabels items={[
+  {label: 'Architect', tone: 'advanced'},
+  {label: 'Platform decisions', tone: 'foundation'},
+  {label: 'Production trade-offs', tone: 'production'},
+]} />
+
 ![Spring internals atlas connecting proxies, transactions, HTTP execution, persistence, pools, and shutdown](/img/diagrams/spring-internals-atlas.svg)
 
 *Platform abstractions still execute through these concrete runtime boundaries.*
@@ -18,6 +24,14 @@ last_reviewed: "2026-07-12"
 Framework abstractions reduce boilerplate but do not remove protocol, broker,
 module, tenant, or native-runtime semantics. Verify exact dependency compatibility
 against the project's Spring Boot and Spring Cloud release train.
+
+<DocCallout type="production" title="Adopt a platform abstraction with an exit plan">
+
+Record the operational owner, compatibility envelope, failure semantics, observability,
+provider-specific escape hatch and rollback route. Portability claims are hypotheses until
+the same contract and incident tests pass against another implementation.
+
+</DocCallout>
 
 ## Spring And gRPC
 
@@ -78,6 +92,34 @@ collisions, batch jobs, exports, retries, and observability. See the
 - Runtime resources, queues, retries, and tenant boundaries are bounded.
 - SLO, recovery, security, privacy, performance, and cost evidence exists.
 - Platform abstractions have documented failure modes and escape hatches.
+
+## Architect Interview Checks
+
+<ExpandableAnswer title="When should a modular monolith remain one deployment?">
+
+Keep one deployment when modules can share scaling and availability goals, strong local
+transactions are valuable, one release cadence is acceptable and module boundaries can be
+enforced in code/tests. Extract a service only when ownership, independent scaling, failure
+isolation, data sovereignty or release autonomy justifies network and consistency cost.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is a native image not automatically the cheaper deployment?">
+
+It can improve startup and footprint, but build time, closed-world configuration, debugging,
+library compatibility and peak throughput may change total cost. Compare the real JVM and
+native artifacts under representative startup, steady-state, incident and rollout tests.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What is the most dangerous multi-tenancy propagation gap?">
+
+Losing or trusting tenant context across async, reactive, scheduled, cache or persistence
+boundaries can expose another tenant's data. Derive tenant identity after authentication,
+validate membership at data access, include it in keys/queries and run adversarial isolation
+tests across every execution model.
+
+</ExpandableAnswer>
 
 ## Official References
 

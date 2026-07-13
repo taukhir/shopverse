@@ -166,9 +166,24 @@ protect them as sensitive data containing application values and PII.
 
 ## Tricky Interview Questions
 
-1. Can identical binary names be different types? Yes, with different defining loaders.
-2. Does low heap usage rule out process OOM? No.
-3. Is every safepoint pause GC? No.
+<ExpandableAnswer title="Can identical binary names be different types?">
+
+Yes, with different defining loaders.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does low heap usage rule out process OOM?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is every safepoint pause GC?">
+
+No.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

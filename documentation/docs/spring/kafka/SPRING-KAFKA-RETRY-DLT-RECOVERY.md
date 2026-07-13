@@ -1,224 +1,220 @@
-﻿---
+---
 title: Spring Kafka Retry DLT And Recovery
+description: Spring non-blocking retry-topic mechanics, DLT handlers, failure classification, secure terminal recovery, and retry-topic rollout.
+difficulty: Advanced
+page_type: Decision Guide
+status: Generic
+prerequisites: [Spring Kafka listeners, Consumer idempotency, Kafka topic operations]
+learning_objectives: [Trace non-blocking retry-topic infrastructure, Classify retryable and terminal failures, Operate DLT handling without losing evidence or leaking payloads]
+technologies: [Spring for Apache Kafka 4.x, RetryableTopic, DltHandler, Micrometer]
+last_reviewed: "2026-07-13"
 ---
 
 # Spring Kafka Retry DLT And Recovery
 
-Retry topics, DLT handlers, poison-event recovery guarantees, and replaying failed events.
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Retry topics', tone: 'foundation'},
+  {label: 'Terminal recovery', tone: 'production'},
+  {label: 'Shopverse current state', tone: 'shopverse'},
+]} />
 
-Back to [Spring Kafka](../SPRING-KAFKA.md).
-
-## Shopverse Links
-
-Shopverse implements the recovery mechanics with:
-
-- [Kafka Recovery Starter](../../platform/KAFKA-RECOVERY-STARTER.md) for failed-event recording, replay orchestration, and metrics;
-- [Kafka Event Parsing](../../platform/KAFKA-PARSING.md) for consistent payload parsing;
-- [Outbox Starter](../../platform/OUTBOX-STARTER.md) so replay publishes through the same durable outbox path as normal events;
-- [Runtime Optimization](../../reliability/problems/optimization/RUNTIME-OPTIMIZATION.md) for failed-event replay indexes and listener concurrency settings.
-
-The generic retry/DLT mechanism is transport-level recovery. Shopverse adds a
-database recovery record so operators can inspect, audit, and replay failures
-after the root cause is fixed.
-
-## Non-Blocking Retry With `@RetryableTopic`
-
-Shopverse uses:
-
-```java
-@RetryableTopic(attempts = "3")
-@KafkaListener(
-        topics = "${shopverse.kafka.topics.payment-failed}",
-        groupId = "${spring.application.name}"
-)
-public void onPaymentFailed(String payload) {
-    PaymentFailedEvent event = readEvent(payload, PaymentFailedEvent.class);
-    CorrelationContext.run(
-            event.correlationId(),
-            () -> handlePaymentFailed(event)
-    );
-}
-```
-
-`@RetryableTopic` creates non-blocking retry infrastructure. When the listener
-throws, Spring publishes the failed record to a retry topic. A retry consumer
-later invokes the listener again. After attempts are exhausted, Spring
-publishes the record to a dead-letter topic.
+Non-blocking retry moves a failed record to a retry topic and lets the primary
+consumer continue. Spring creates the retry/DLT topic topology and listener
+containers; the service still owns exception classification, idempotency, and
+terminal recovery.
 
 ```mermaid
-flowchart LR
-    M["Main topic"] --> L["Listener attempt"]
-    L -->|"success"| C["Commit progress"]
-    L -->|"failure"| R1["Retry topic"]
-    R1 --> R2["Later retry attempt"]
-    R2 -->|"failure after policy"| D["Dead-letter topic"]
-    D --> H["@DltHandler"]
+sequenceDiagram
+    participant Main as Main listener container
+    participant R1 as Retry topic/container
+    participant R2 as Later retry topic/container
+    participant DLT as DLT container
+    participant Store as Recovery store
+    Main->>Main: listener throws classified failure
+    Main->>R1: publish with delivery metadata
+    R1->>R1: delay then invoke listener
+    R1->>R2: still failing
+    R2->>DLT: attempts exhausted / terminal
+    DLT->>Store: persist bounded failure evidence
 ```
 
-`attempts = "3"` means three total delivery attempts in this policy, including
-the original attempt. Backoff should be explicit in production so transient
-dependencies have time to recover:
+## Annotation Mechanics
 
 ```java
 @RetryableTopic(
         attempts = "3",
-        backoff = @Backoff(delay = 1000, multiplier = 2.0, maxDelay = 10000)
+        backoff = @Backoff(delay = 1_000, multiplier = 2.0),
+        exclude = {ValidationException.class, AuthorizationException.class}
 )
+@KafkaListener(
+        id = "inventory-order-created",
+        topics = "${shopverse.kafka.topics.order-created}",
+        groupId = "${spring.application.name}"
+)
+public void onOrderCreated(String payload) {
+    // parse, restore context, execute idempotent service transaction
+}
 ```
 
-Classify failures:
+Spring bootstraps retry topic names, destinations, and consumer containers. Retry
+containers can have different concurrency from the primary container. Delivery
+metadata is carried in headers and can be included in bounded logs/traces.
 
-- retry transient database, broker, or dependency failures;
-- do not repeatedly retry malformed JSON or permanently invalid business data;
-- use bounded attempts and delay;
-- monitor retry volume and retry-topic lag;
-- keep retry duration compatible with business deadlines.
+<DocCallout type="production" title="Compatibility constraints matter">
 
-Non-blocking retry topics change cross-record ordering because later records on
-the main topic can progress while an earlier record waits on a retry topic.
-Do not use this pattern where strict partition ordering across failures is a
-hard requirement.
+Spring Kafka 4.x non-blocking retries do not combine with container transactions
+and are not supported for batch listeners. Choose transaction, batch, and retry
+semantics together rather than stacking annotations independently.
 
-Spring Kafka non-blocking retries are not compatible with batch listeners or
-container transactions. Choose the retry and transaction model deliberately.
+</DocCallout>
 
+## Failure Classification
 
-## `@DltHandler`
+| Failure | Typical policy |
+|---|---|
+| network timeout or temporary dependency outage | bounded retry with backoff and jitter |
+| database deadlock victim | retry complete idempotent transaction |
+| malformed JSON or unsupported schema | terminal recovery/quarantine |
+| validation or impossible business state | no technical retry; record decision |
+| authentication or authorization failure | alert and fail securely; do not hide with retry |
+| programming defect | terminal recovery plus incident, not infinite attempts |
 
-`@DltHandler` marks the method that Spring Retry Topic infrastructure invokes
-after the configured attempts are exhausted:
+<DocCallout type="mistake" title="Retrying every RuntimeException is outage amplification">
+
+Permanent failures consume retry partitions and downstream capacity while delaying
+the real signal. Maintain explicit include/exclude classification and test it.
+
+</DocCallout>
+
+## Current Shopverse Topology
+
+<DocCallout type="shopverse" title="Verified current behavior">
+
+Order, Inventory, and Payment saga listeners use `@RetryableTopic(attempts = "3")`.
+Order and Inventory DLT handlers receive a `ConsumerRecord`; Payment receives the
+payload. All three persist terminal failures through the shared recovery service.
+
+</DocCallout>
+
+The current annotation uses framework defaults for backoff and exception
+classification. Adding explicit classified exceptions, delay policy, topic
+retention, and retry-container concurrency is proposed hardening and must be load
+tested.
+
+## DLT Handler Boundary
 
 ```java
 @DltHandler
 public void onDeadLetter(ConsumerRecord<String, String> record) {
-    String sourceTopic = record.topic().replaceFirst("-dlt$", "");
-
     failedKafkaEventService.record(
-            sourceTopic,
+            sourceTopic(record),
             record.value(),
-            "Inventory listener failed after retry policy",
-            3
-    );
-
-    log.error(
-            "Inventory event moved to DLT sourceTopic={} partition={} offset={}",
-            sourceTopic,
-            record.partition(),
-            record.offset()
+            "Listener failed after retry policy",
+            deliveryAttempt(record)
     );
 }
 ```
 
-The handler:
+The handler must be idempotent because it can also be retried or redelivered. Store
+the original topic, partition, offset, key/event ID, schema version, attempts,
+exception classification, first/last failure time, and payload reference or safely
+protected payload.
 
-1. receives the record from the DLT;
-2. determines the logical source topic;
-3. persists an unresolved recovery record;
-4. increments a DLT metric;
-5. logs the terminal transport failure;
-6. leaves replay as an explicit administrative action.
+<DocCallout type="mistake" title="Current raw-payload logging needs hardening">
 
-The DLT is a Kafka topic. Shopverse additionally persists a database record so
-operators can query failures, retain replay audit fields, and replay through
-the transactional outbox.
+Current Shopverse DLT handlers log full payload text at error level. That is a
+verified current risk. Proposed remediation is to log metadata and an event/key
+hash, protect stored payloads with access controls and retention, and reveal content
+only through audited recovery tooling.
 
-Prefer metadata from retry/DLT headers or a durable event envelope over
-deriving the original topic by removing a suffix. Topic naming strategies can
-change, and one listener can subscribe to multiple topics.
+</DocCallout>
 
+## Topic And Schema Rollout
 
-## What "One Poison Event Produces One Recovery Record" Means
+Retry and DLT topics need explicit partition count, replication, retention, ACLs,
+and observability. Their partitioning must preserve the ordering guarantee required
+by the business path. An old retry record can outlive the deployment that produced
+it, so new listeners must deserialize old schemas throughout the retention window.
 
-A poison event is a record that fails every attempt, commonly because its
-payload is malformed or its state violates a permanent rule.
+Safe rollout:
 
-This sequence should represent one unresolved incident:
+1. make the new listener read old and new event/retry headers;
+2. provision retry and DLT topics plus ACLs before enabling the annotation;
+3. deploy with bounded retry concurrency;
+4. observe retry age, throughput, and terminal rate;
+5. keep the old handler contract until retained retries expire or migrate;
+6. remove obsolete topics only after replay and rollback no longer need them.
 
-```text
-original attempt fails
-retry attempt fails
-final attempt fails
-DLT handler runs
-one failed_kafka_events row is created
-```
+## Recovery Guarantee
 
-Retry callbacks are delivery attempts, not separate incidents. Persisting a
-row on every attempt would create three operator records for one event and
-could trigger duplicate replay.
+“One poison event produces one recovery record” is an application invariant, not a
+Kafka guarantee. Enforce it with a durable unique identity such as source topic,
+partition, offset or a stable event ID, and test duplicate DLT delivery. Payload
+equality alone is expensive, sensitive, and can collapse intentional equal events.
 
-Shopverse currently checks:
+Current Shopverse recovery stores guard unreplayed duplicates with source topic and
+payload checks. A proposed stronger schema would persist immutable event/record
+identity under a unique database constraint.
 
-```java
-if (repository.existsBySourceTopicAndPayloadAndReplayedFalse(topic, payload)) {
-    return;
-}
-repository.save(new FailedKafkaEvent(topic, payload, reason, retries));
-```
+## Operational Evidence
 
-This suppresses ordinary repeated DLT callbacks for the same unresolved topic
-and payload. It is not a strict exactly-once guarantee: concurrent handlers
-can both pass the existence check because the database has no matching unique
-constraint, and identical payload text is not an ideal event identity.
+- retry and DLT throughput, oldest age, and backlog;
+- delivery attempt and exception classification;
+- primary versus retry-container concurrency;
+- failed recovery-store writes;
+- DLT handler duration and database pool usage;
+- terminal rate by event type and deployment version;
+- payload access and replay audit events.
 
-A production-grade design should include an immutable `eventId` in every event
-envelope and enforce:
+## Interview Questions
 
-```text
-unique(service, consumer_group, event_id, recovery_state)
-```
+<ExpandableAnswer title="How does @RetryableTopic keep the main listener non-blocking?">
 
-Alternatively, use a processed-event/inbox table with a unique event ID and
-insert it in the same local transaction as the business effect. Database
-uniqueness is the final race-safe guarantee.
+The failed record is published to a retry topic. A separate container consumes it
+after the configured delay, so the primary container can continue polling other
+records.
 
-Therefore, the precise current status is:
+</ExpandableAnswer>
 
-- **Implemented:** application-level suppression of common duplicate unresolved
-  recovery records.
-- **Not fully guaranteed under concurrency:** exactly one row without a unique
-  event identity and database constraint.
+<ExpandableAnswer title="Why can non-blocking retry change per-key processing order?">
 
+Later records on the main topic can proceed while an earlier failed record waits on
+a retry topic. A workflow that requires strict per-key order needs another recovery
+design or explicit state-machine protection.
 
-## Replaying Failed Events
+</ExpandableAnswer>
 
-Shopverse administrator APIs load the persisted failure, enqueue its payload
-through the local outbox, and record:
+<ExpandableAnswer title="Why can non-blocking retry not be combined with container transactions?">
 
-- replay count;
-- replayed flag;
-- replaying user;
-- replay timestamp.
+Its failure path publishes to retry infrastructure using different container and
+commit semantics. Spring documents the combination as unsupported; select one
+coherent model and test its effective behavior.
 
-Replay only after fixing the permanent cause. Replaying unchanged poison data
-creates another retry/DLT cycle.
+</ExpandableAnswer>
 
-Replay must use the original event ID and consumer idempotency rules when those
-are introduced. An operator action should never bypass normal validation,
-authorization, outbox, logging, or metrics.
+<ExpandableAnswer title="What makes a DLT handler safe to run more than once?">
 
-### Replay Through Outbox
+A stable record/event identity under a unique constraint and an idempotent recovery
+transaction. Logging or saving the payload without identity does not prove
+deduplication.
 
-Do not replay by directly sending from an admin controller to Kafka. That
-creates another dual-write path and bypasses the same durability guarantees
-used by normal event publication.
+</ExpandableAnswer>
 
-Safer replay flow:
+<ExpandableAnswer title="Why must schema compatibility cover the retry retention window?">
 
-```text
-operator requests replay
-  -> service validates authorization and failed-event state
-  -> recovery service parses the stored payload
-  -> service-owned adapter enqueues replay into the outbox
-  -> outbox publisher sends to Kafka
-  -> failed-event row records replay metadata
-```
+A record produced by an old version can remain delayed or retained until after new
+code deploys. The new retry listener must still read it or route it deliberately.
 
-This preserves auditability, metrics, retry behavior, and correlation handling.
+</ExpandableAnswer>
 
+## Official References
 
+- [Non-blocking retries](https://docs.spring.io/spring-kafka/reference/4.0/retrytopic.html)
+- [Retry-topic configuration](https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/retry-config.html)
+- [DLT strategies](https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/dlt-strategies.html)
+- [Exception classification](https://docs.spring.io/spring-kafka/reference/4.0/retrytopic/features.html)
 
+## Recommended Next
 
-
-
-
-
+Continue with [Consumer Idempotency And Replay](./SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md).

@@ -5,6 +5,17 @@ description: Object headers, compressed references, TLABs, barriers, collector a
 
 # Java Object Layout, Allocation And Garbage Collectors
 
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'JOL + JFR', tone: 'intermediate'},
+  {label: 'Allocation diagnostics', tone: 'production'},
+]} />
+
+<DocCallout type="tip" title="Separate shallow size from retained impact">
+One small object can retain a large graph, while many short-lived objects can create
+high allocation pressure without remaining reachable. Measure both questions.
+</DocCallout>
+
 ## Layout And Allocation
 
 HotSpot objects commonly contain a mark word, class metadata pointer, fields and
@@ -53,6 +64,57 @@ cycle time, allocation/promotion and safepoint time. Average pause alone hides t
 -Xlog:gc*,safepoint:file=gc.log:time,uptime,level,tags
 ```
 
+## Evidence-First GC And Layout Workflow
+
+Object layout, retention, native growth, and collector behavior answer different
+questions. Start from an observed service symptom and choose the measurement that
+can distinguish them.
+
+```mermaid
+flowchart TD
+    A["Latency, RSS, or allocation alert"] --> B["Repeat at a controlled request rate"]
+    B --> C["Correlate application p99, CPU, GC logs, and JFR"]
+    C --> D{"Dominant evidence"}
+    D -->|"Frequent young GC; low post-GC occupancy"| E["Short-lived allocation churn"]
+    E --> F["JFR allocation samples + JOL shallow layout"]
+    D -->|"Post-GC occupancy keeps rising"| G["Growing live set or retention"]
+    G --> H["Class histogram + heap-dump retained paths"]
+    D -->|"RSS grows beyond explained heap"| I["Native-memory pressure"]
+    I --> J["NMT, direct buffers, thread stacks, agents"]
+    D -->|"Pause tail misses SLO with stable live set"| K["Collector and headroom evaluation"]
+    K --> L["Compare collectors under the same workload"]
+    F --> M["Change allocation shape; measure again"]
+    H --> M
+    J --> M
+    L --> M
+```
+
+## Shopverse Diagnostic: Promotion Calculation Allocation Storm
+
+Assume the cart pricing endpoint is held at 600 requests/second and p99 spikes
+regularly. Unified logs show young collections roughly every 300 ms while
+post-collection old occupancy returns to the same baseline. That pattern argues
+for short-lived churn, not a reachable-object leak. A JFR allocation profile
+then identifies temporary `PromotionCandidate` objects and per-item maps as the
+dominant allocation sites.
+
+On a controlled replica, combine runtime evidence with layout inspection:
+
+```bash
+jcmd <pid> JFR.start name=pricing-allocation settings=profile duration=120s filename=pricing-allocation.jfr
+jcmd <pid> GC.class_histogram
+java -jar jol-cli.jar internals io.shopverse.pricing.PromotionCandidate
+```
+
+The histogram estimates live instance counts at that moment; JFR locates
+allocation-producing code; JOL explains the candidate's shallow layout and
+padding. None alone proves retained size. If the team removes unnecessary
+intermediate maps and stops materializing rejected candidates, rerun at the same
+600 requests/second and compare allocation rate, young-GC frequency, CPU, and
+p99. Changing collectors first would not establish whether object churn was the
+cause. Run intrusive histograms or heap dumps only where their pause and I/O cost
+is acceptable.
+
 ## Lab
 
 Run the same allocation/live-set workload with G1 and a low-pause collector.
@@ -62,9 +124,26 @@ retained size; shallow size does not include reachable graphs.
 
 ## Tricky Interview Questions
 
-1. Does shallow size include reachable objects? No.
-2. Can a collector repair a reachable-object leak? No.
-3. Why can object pooling hurt? Coordination and stale mutable state can exceed allocation cost.
+<ExpandableAnswer title="Does shallow size include reachable objects?">
+
+No. Shallow size covers one object's header, fields, references, and padding. Retained
+size concerns the graph kept alive through it.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a collector repair a reachable-object leak?">
+
+No. Collectors reclaim unreachable objects. A cache, listener, thread local, static, or
+class loader that still owns the graph must be fixed at the lifecycle boundary.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can object pooling hurt?">
+
+Pool coordination, stale mutable state, larger live sets, locality loss, and reset bugs
+can cost more than allocating short-lived objects.
+
+</ExpandableAnswer>
 
 ## Official References
 

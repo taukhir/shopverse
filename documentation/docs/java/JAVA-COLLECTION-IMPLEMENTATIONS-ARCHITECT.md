@@ -87,9 +87,24 @@ Comparator<Order> safe = Comparator.comparingLong(Order::totalCents);
 
 ## Tricky Interview Questions
 
-1. Why is `PriorityQueue` iteration unsorted? Only the head is ordered.
-2. Is an unmodifiable view immutable? No; backing aliases can mutate it.
-3. Why can `TreeSet` drop unequal objects? Comparator equality controls uniqueness.
+<ExpandableAnswer title="Why is PriorityQueue iteration unsorted?">
+
+Only the head is ordered.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is an unmodifiable view immutable?">
+
+No; backing aliases can mutate it.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can TreeSet drop unequal objects?">
+
+Comparator equality controls uniqueness.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

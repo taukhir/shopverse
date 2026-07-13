@@ -1,9 +1,9 @@
 ---
-title: Java Exception Propagation And Stream Pipeline Internals
+title: Exception Propagation And Stream Failure Internals
 description: Senior guide to stack unwinding, suppressed failures, stream execution, spliterators, parallelism, and failure contracts.
 ---
 
-# Java Exception Propagation And Stream Pipeline Internals
+# Exception Propagation And Stream Failure Internals
 
 ## Exception Propagation
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Java AI framework module map</title>
+  <desc id="desc">How core abstractions, provider integrations, vector stores, and application code fit together.</desc>
+  <style>
+    .bg{fill:#fbfbf9}.box{fill:#fff;stroke:#111827;stroke-width:2;rx:12}.core{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:12}.int{fill:#ecfeff;stroke:#0891b2;stroke-width:2;rx:12}.app{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:12}.title{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:25px;fill:#111827;font-weight:700}.text{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:18px;fill:#111827;font-weight:700}.small{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#374151}.line{stroke:#64748b;stroke-width:3;fill:none}
+  </style>
+  <rect class="bg" width="1200" height="700"/>
+  <text class="title" x="50" y="54">Java AI Framework Module Map</text>
+  <text class="small" x="50" y="84">Core abstractions stay stable while provider and vector-store integrations can change.</text>
+  <rect class="app" x="420" y="120" width="360" height="90"/><text class="text" x="500" y="158">Shopverse AI Service</text><text class="small" x="468" y="185">controllers, services, DTOs, prompts</text>
+  <rect class="core" x="90" y="300" width="280" height="170"/><text class="text" x="140" y="338">Core APIs</text><text class="small" x="128" y="370">Chat model/client</text><text class="small" x="128" y="398">Embedding model</text><text class="small" x="128" y="426">Messages, tools, memory</text>
+  <rect class="core" x="460" y="300" width="280" height="170"/><text class="text" x="510" y="338">High-Level APIs</text><text class="small" x="498" y="370">ChatClient / AI Services</text><text class="small" x="498" y="398">Advisors / RetrievalAugmentor</text><text class="small" x="498" y="426">Structured outputs</text>
+  <rect class="int" x="830" y="300" width="280" height="170"/><text class="text" x="880" y="338">Integrations</text><text class="small" x="868" y="370">OpenAI, Ollama, Gemini</text><text class="small" x="868" y="398">PGVector, Qdrant, Pinecone</text><text class="small" x="868" y="426">Moderation, reranking</text>
+  <rect class="box" x="250" y="545" width="260" height="80"/><text class="text" x="296" y="582">Model Provider</text><text class="small" x="300" y="606">LLM / embeddings</text>
+  <rect class="box" x="690" y="545" width="260" height="80"/><text class="text" x="752" y="582">Vector DB</text><text class="small" x="742" y="606">chunks + embeddings</text>
+  <path class="line" d="M 600 210 L 230 300"/><path class="line" d="M 600 210 L 600 300"/><path class="line" d="M 600 210 L 970 300"/><path class="line" d="M 370 470 L 380 545"/><path class="line" d="M 970 470 L 820 545"/>
+</svg>

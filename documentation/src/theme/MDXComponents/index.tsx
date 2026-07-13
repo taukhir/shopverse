@@ -4,8 +4,10 @@ import {
   BeforeAfter,
   CommandTabs,
   DependencyTabs,
+  DocLabels,
   DocCallout,
   ExpandableAnswer,
+  TopicCards,
   VersionTabs,
 } from '@site/src/components/DocPatterns';
 
@@ -15,7 +17,9 @@ export default {
   BeforeAfter,
   CommandTabs,
   DependencyTabs,
+  DocLabels,
   DocCallout,
   ExpandableAnswer,
+  TopicCards,
   VersionTabs,
 };

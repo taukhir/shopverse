@@ -102,7 +102,7 @@ ownership, but the transaction must stay short. Shopverse therefore avoids
 holding a database lock while waiting for Kafka.
 
 For the full comparison, SQL shape, diagrams, and Shopverse decision guide,
-see [Spring Data JPA locking and concurrency](../../../spring/SPRING-DATA-JPA.md#locking-and-concurrency).
+see [JPA Transactions, Locking And Concurrency](../../../spring/jpa/JPA-TRANSACTIONS-LOCKING.md).
 
 The complete current-state analysis and target implementation are documented
 in [Multi-Replica Reservation Expiry](MULTI-REPLICA-RESERVATION-EXPIRY.md).

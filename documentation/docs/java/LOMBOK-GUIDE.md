@@ -190,9 +190,24 @@ Confirm keys with the pinned Lombok version.
 
 ## Tricky Interview Questions
 
-1. Why is `@Data` risky on entities? Generated equality/string behavior can traverse mutable IDs and relationships.
-2. Does `@Builder` enforce invariants? No.
-3. What is Lombok's compatibility cost? Compiler integration and generated API shape.
+<ExpandableAnswer title="Why is @Data risky on entities?">
+
+Generated equality/string behavior can traverse mutable IDs and relationships.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does @Builder enforce invariants?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What is Lombok's compatibility cost?">
+
+Compiler integration and generated API shape.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -64,11 +64,36 @@ performance experiments.
 
 ## Tricky Interview Questions
 
-1. Can an optimistic read return inconsistent fields before validation? Yes; never act before successful validation.
-2. Is `StampedLock` reentrant? No.
-3. Does reactive demand bound all memory? No; each buffering boundary must honor a capacity.
-4. Why can a closed-loop benchmark hide pauses? It omits arrivals during the pause.
-5. Does padding always fix false sharing? No; confirm layout and contention experimentally.
+<ExpandableAnswer title="Can an optimistic read return inconsistent fields before validation?">
+
+Yes; never act before successful validation.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is StampedLock reentrant?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does reactive demand bound all memory?">
+
+No; each buffering boundary must honor a capacity.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can a closed-loop benchmark hide pauses?">
+
+It omits arrivals during the pause.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does padding always fix false sharing?">
+
+No; confirm layout and contention experimentally.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

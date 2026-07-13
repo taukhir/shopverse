@@ -64,9 +64,24 @@ Continue with [Advanced Spring Platform Patterns](../spring/SPRING-PLATFORM-ADVA
 
 ## Tricky Interview Questions
 
-1. Why can a heap dump worsen an incident? Pause, disk pressure and sensitive-data exposure.
-2. Does frequent GC prove insufficient heap? No; inspect allocation and live set.
-3. Why can RSS exceed `-Xmx`? Native regions are outside heap.
+<ExpandableAnswer title="Why can a heap dump worsen an incident?">
+
+Pause, disk pressure and sensitive-data exposure.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does frequent GC prove insufficient heap?">
+
+No; inspect allocation and live set.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can RSS exceed -Xmx?">
+
+Native regions are outside heap.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

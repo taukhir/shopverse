@@ -80,19 +80,25 @@ ResponseEntity<OrderResponse> checkout(
 
 ## Interview Questions
 
-### Are records deeply immutable?
+<ExpandableAnswer title="Are records deeply immutable?">
 
 No. Record component references are final. If a component is a mutable list,
 the list itself can still be changed unless copied defensively.
 
-### Can records implement interfaces?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can records implement interfaces?">
 
 Yes.
 
-### Can records be JPA entities?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can records be JPA entities?">
 
 Usually no. JPA entities need identity, lifecycle, proxies, and a no-arg
 constructor model. Use records for DTOs and projections instead.
+
+</ExpandableAnswer>
 
 ## Runtime And Invariant Depth
 
@@ -105,9 +111,24 @@ ordinary serializable classes.
 
 ## Tricky Interview Questions
 
-1. Can a record component reference mutable state? Yes.
-2. Can a record extend another class? No; it extends `Record`.
-3. Does a compact constructor explicitly assign every field? No; assignment is implicit after its body.
+<ExpandableAnswer title="Can a record component reference mutable state?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a record extend another class?">
+
+No; it extends `Record`.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a compact constructor explicitly assign every field?">
+
+No; assignment is implicit after its body.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -80,9 +80,24 @@ ambiguous. Checked exceptions remain constrained by the target SAM signature.
 
 ## Tricky Interview Questions
 
-1. Is a new object guaranteed for every lambda evaluation? No.
-2. What does `this` mean inside a lambda? The lexically enclosing instance.
-3. Can a functional interface contain default methods? Yes; only abstract methods count toward SAM.
+<ExpandableAnswer title="Is a new object guaranteed for every lambda evaluation?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What does this mean inside a lambda?">
+
+The lexically enclosing instance.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a functional interface contain default methods?">
+
+Yes; only abstract methods count toward SAM.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -57,7 +57,7 @@ stream and failure semantics continue in
 
 ### 3. Collections and concurrent data structures
 
-Follow the [Collections Guide](./JAVA-COLLECTIONS-UMBRELLA.md), then the
+Follow the [Collections Guide](./JAVA-COLLECTIONS.md), then the
 [ConcurrentHashMap OpenJDK Walkthrough](./JAVA-CONCURRENT-HASHMAP-OPENJDK.md).
 Reason about locality, allocation, comparator/equality consistency, iterator
 semantics, saturation, compound atomicity, and hot-key contention.

@@ -5,6 +5,8 @@ description: Hash contracts, collisions, resizing, duplicate handling, fail-fast
 
 # HashMap, ConcurrentHashMap And Iterator Internals
 
+![HashMap bucket lookup, resize, and treeification](/img/diagrams/java-hashmap-evolution.svg)
+
 ## HashMap Write And Lookup
 
 `HashMap` spreads the key hash, selects a power-of-two bucket, then compares hash and equality within that bucket. A matching key replaces the value; it does not create a duplicate key. `HashSet` uses keys of an internal map, so an equal element is ignored.
@@ -70,11 +72,36 @@ Compound behavior must use atomic map operations (`putIfAbsent`, `compute`, `mer
 
 ## Tricky Interview Questions
 
-1. Is CME a thread-safety mechanism? No; it is best-effort bug detection.
-2. What happens if only `equals` is overridden? Equal keys can occupy different buckets.
-3. Does `ConcurrentHashMap` lock the whole map? Not for normal reads or independent-bin updates.
-4. Is `map.get(k) + map.put(k, v)` atomic? No.
-5. Can a weakly consistent iterator see newly inserted entries? It may see some; no snapshot guarantee exists.
+<ExpandableAnswer title="Is CME a thread-safety mechanism?">
+
+No; it is best-effort bug detection.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What happens if only equals is overridden?">
+
+Equal keys can occupy different buckets.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does ConcurrentHashMap lock the whole map?">
+
+Not for normal reads or independent-bin updates.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is map.get(k) + map.put(k, v) atomic?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a weakly consistent iterator see newly inserted entries?">
+
+It may see some; no snapshot guarantee exists.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

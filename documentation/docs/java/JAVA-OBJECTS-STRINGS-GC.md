@@ -66,11 +66,36 @@ Soft references are cache hints, weak references do not retain keys, and phantom
 
 ## Interview Traps
 
-1. Can a cycle leak forever? Only if reachable from a root.
-2. Does `final` make a collection immutable? It prevents reassignment, not mutation.
-3. Can unequal objects have identical hashes? Yes.
-4. When can a statically referenced object be collected? After clearing the reference or unloading the defining class loader.
-5. Is a string literal necessarily “outside the heap”? No; the pool is an implementation-managed heap structure in modern JVMs.
+<ExpandableAnswer title="Can a cycle leak forever?">
+
+Only if reachable from a root.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does final make a collection immutable?">
+
+It prevents reassignment, not mutation.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can unequal objects have identical hashes?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When can a statically referenced object be collected?">
+
+After clearing the reference or unloading the defining class loader.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is a string literal necessarily “outside the heap”?">
+
+No; the pool is an implementation-managed heap structure in modern JVMs.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

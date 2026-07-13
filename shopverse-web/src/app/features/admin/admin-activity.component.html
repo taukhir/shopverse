@@ -1,0 +1,119 @@
+<main class="admin-activity">
+  <nav class="admin-local-nav" aria-label="Admin navigation">
+    <div>
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Activity</b>
+    </div>
+    <div class="admin-actions">
+      <a routerLink="/admin">Overview</a>
+      <a routerLink="/admin/recovery">Recovery</a>
+      <button type="button" (click)="logout()">Sign out</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">Operational audit view</p>
+    <h1>Admin activity and system signals.</h1>
+    <p>
+      @if (source() === 'audit') {
+        Showing durable backend audit records from <code>/api/v1/admin/audit-events</code>.
+      } @else {
+        Backend audit records are not available yet, so this page is deriving activity from current Order, Inventory, Payment, and Recovery APIs.
+      }
+    </p>
+  </section>
+
+  @if (loading()) {
+    <app-loading-skeleton [rows]="6" />
+  } @else if (error()) {
+    <app-service-notice
+      eyebrow="ACTIVITY UNAVAILABLE"
+      title="Operational activity could not be loaded."
+      [message]="error()"
+      (retry)="load()"
+    />
+  } @else {
+    <section class="summary-grid" aria-label="Activity summary">
+      <article><span>Total signals</span><strong>{{ summary().total }}</strong></article>
+      <article class="attention"><span>Need attention</span><strong>{{ summary().attention }}</strong></article>
+      <article><span>Order events</span><strong>{{ summary().orders }}</strong></article>
+      <article><span>Recovery events</span><strong>{{ summary().recovery }}</strong></article>
+    </section>
+
+    <section class="filters" aria-label="Activity filters">
+      <label>
+        <span>Area</span>
+        <select [ngModel]="areaFilter()" (ngModelChange)="areaFilter.set($event); page.set(1)">
+          @for (area of areas; track area) {
+            <option [value]="area">{{ area }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        <span>Result</span>
+        <select [ngModel]="resultFilter()" (ngModelChange)="resultFilter.set($event); page.set(1)">
+          @for (result of results; track result) {
+            <option [value]="result">{{ result }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        <span>Actor</span>
+        <select [ngModel]="actorFilter()" (ngModelChange)="actorFilter.set($event); page.set(1)">
+          @for (actor of actors(); track actor) {
+            <option [value]="actor">{{ actor }}</option>
+          }
+        </select>
+      </label>
+      <label class="search">
+        <span>Search</span>
+        <input type="search" [ngModel]="query()" (ngModelChange)="query.set($event); page.set(1)" placeholder="Order, topic, status..." />
+      </label>
+      <button type="button" (click)="resetFilters()">Reset</button>
+    </section>
+
+    @if (!filteredEvents().length) {
+      <section class="empty-state">
+        <p>NO ACTIVITY</p>
+        <h2>No matching operational signals.</h2>
+        <span>Adjust filters or reload after backend services produce orders, payments, inventory, or recovery records.</span>
+        <button type="button" (click)="resetFilters()">Reset filters</button>
+      </section>
+    } @else {
+      <section class="activity-table" aria-label="Admin activity events">
+        <div class="table-head">
+          <span>{{ pageLabel() }}</span>
+          <div>
+            <button type="button" (click)="changePage(-1)" [disabled]="page() === 1">Previous</button>
+            <button type="button" (click)="changePage(1)" [disabled]="page() === pageCount()">Next</button>
+          </div>
+        </div>
+
+        @for (event of visibleEvents(); track event.id) {
+          <article [class]="'event result-' + event.result.toLowerCase()">
+            <div class="event-marker">
+              <span>{{ event.area }}</span>
+              <b>{{ event.result }}</b>
+            </div>
+            <div class="event-body">
+              <div>
+                <h2>{{ event.title }}</h2>
+                <p>{{ event.description }}</p>
+              </div>
+              <dl>
+                <div><dt>Actor</dt><dd>{{ event.actor }}</dd></div>
+                <div><dt>Status</dt><dd>{{ event.status }}</dd></div>
+                <div><dt>Time</dt><dd>{{ event.occurredAt || 'Not provided' }}</dd></div>
+                @if (event.meta) {
+                  <div><dt>Ref</dt><dd>{{ event.meta }}</dd></div>
+                }
+              </dl>
+            </div>
+            @if (event.link) {
+              <a [routerLink]="event.link">Open <span>&rarr;</span></a>
+            }
+          </article>
+        }
+      </section>
+    }
+  }
+</main>

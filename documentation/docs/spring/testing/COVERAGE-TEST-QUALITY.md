@@ -1,10 +1,42 @@
 ﻿---
 title: Coverage And Test Quality
+description: Risk-based JaCoCo coverage, branch and changed-code gates, mutation testing, architecture checks, exclusions, and evidence of assertion strength.
+difficulty: Advanced
+page_type: Quality Guide
+status: Proposed governance
+learning_objectives:
+  - Use coverage to locate untested risk without treating execution as correctness
+  - Apply mutation testing to evaluate whether assertions detect changed behavior
+  - Govern exclusions and gradual service-level quality gates transparently
+technologies: [JaCoCo, PIT, Gradle, JUnit, ArchUnit]
+last_reviewed: "2026-07-13"
 ---
 
 # Coverage And Test Quality
 
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Quality evidence', tone: 'production'},
+  {label: 'Shopverse proposed', tone: 'preview'},
+]} />
+
 Coverage strategy, JaCoCo, other quality tools, exclusions, and testing do/do not guidance.
+
+<DocCallout type="mistake" title="Execution is not detection">
+Line coverage proves that code ran. Mutation testing and boundary assertions help
+prove that the suite notices incorrect behavior. Use both as risk signals, not as
+a substitute for design and review.
+</DocCallout>
+
+```mermaid
+flowchart LR
+    risk["Critical behavior and defect history"] --> tests["Focused tests"]
+    tests --> coverage["Line and branch gaps"]
+    tests --> mutation["Surviving mutations"]
+    coverage --> improve["Add meaningful scenarios"]
+    mutation --> improve
+    improve --> gate["Gradual owned quality gate"]
+```
 
 Back to [Spring Boot Testing](../SPRING-BOOT-TESTING.md).
 
@@ -153,28 +185,10 @@ code, then increase the gate in controlled steps.
 ### Unit And Integration Coverage
 
 If unit and integration tests use separate Gradle tasks, each task can produce
-an execution-data file. Merge those files for one service-level report:
-
-```gradle
-tasks.register('jacocoCombinedReport', JacocoReport) {
-    dependsOn tasks.test, tasks.integrationTest
-
-    executionData(
-            tasks.test,
-            tasks.integrationTest
-    )
-    sourceSets sourceSets.main
-
-    reports {
-        html.required = true
-        xml.required = true
-    }
-}
-```
-
-Exact Gradle configuration depends on how the custom integration source set is
-declared. Ensure the report includes production classes once and execution data
-from all relevant test tasks.
+an execution-data file. Merge them for a service report that includes production
+classes once and execution data from every owned test task. Exact Gradle wiring
+depends on the custom integration source set; verify task dependencies and missing
+execution data rather than publishing a partial report as complete.
 
 For a multi-service repository, publish:
 
@@ -248,6 +262,57 @@ exclusion and its reason.
 | Verify important side effects | Verify every internal method call |
 | Use unique data and idempotency keys | Reuse mutable fixtures across tests |
 | Keep E2E tests few and business-focused | Reproduce every validation case through Docker |
+
+## Shopverse Current And Proposed Evidence
+
+<DocCallout type="shopverse" title="Current: test tasks and reports exist, but no repository-wide JaCoCo gate was found">
+Shopverse separates unit and integration tasks and CI retains selected test
+reports. The scoped build search did not find a shared JaCoCo or PIT convention,
+so the percentage examples on this page are guidance rather than implemented gates.
+</DocCallout>
+
+<DocCallout type="production" title="Proposed: baseline first, then gate changed critical code">
+Publish per-service unit plus integration coverage, record justified exclusions,
+and introduce non-regression before raising thresholds. Run PIT on critical money,
+authorization, inventory, idempotency, and state-transition packages in a scheduled
+or affected-module job.
+</DocCallout>
+
+## Expandable Interview Checks
+
+<ExpandableAnswer title="Can 100 percent line coverage still hide a defect?">
+
+Yes. Tests may execute a line without asserting its result or important branch.
+Mutation testing and negative boundary assertions reveal some of those weak tests.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why should coverage exclusions be reviewed like code?">
+
+Broad exclusions can hide risky controllers, handlers, configuration, and domain
+logic. Every exclusion needs a narrow pattern, owner, reason, and alternative evidence.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why not run full mutation testing on every commit?">
+
+It can be CPU-intensive. Prioritize critical or changed modules on pull requests
+and run broader campaigns on a schedule while keeping surviving mutations visible.
+
+</ExpandableAnswer>
+
+## Official References
+
+- [JaCoCo documentation](https://www.jacoco.org/jacoco/trunk/doc/)
+- [PIT mutation testing](https://pitest.org/)
+- [Gradle JaCoCo plugin](https://docs.gradle.org/current/userguide/jacoco_plugin.html)
+
+## Recommended Next
+
+<TopicCards items={[
+  {title: 'CI reliability operations', href: '/spring/testing/TEST-CI-RELIABILITY-OPERATIONS', description: 'Turn quality reports into transparent delivery gates and artifacts.', icon: 'gauge', tags: ['CI', 'Gates']},
+  {title: 'Mockito and unit testing', href: '/spring/testing/MOCKITO-UNIT-TESTING', description: 'Strengthen behavioral assertions when mutation evidence exposes weak tests.', icon: 'experiment', tags: ['Assertions', 'Mocks']},
+]} />
 
 
 

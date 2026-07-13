@@ -55,11 +55,36 @@ currently executing on a core.
 
 ## Tricky Interview Questions
 
-1. Can priority guarantee execution order? No.
-2. Is context switching only caused by time slices? No; blocking and scheduling events also switch.
-3. Can concurrency exist on one core? Yes.
-4. Does a virtual thread have a permanent carrier? No.
-5. Why can a scheduled task silently stop repeating? An uncaught exception can suppress later executions.
+<ExpandableAnswer title="Can priority guarantee execution order?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is context switching only caused by time slices?">
+
+No; blocking and scheduling events also switch.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can concurrency exist on one core?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a virtual thread have a permanent carrier?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can a scheduled task silently stop repeating?">
+
+An uncaught exception can suppress later executions.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

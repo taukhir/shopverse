@@ -38,7 +38,7 @@ Use these tracks when you do not want to read the full path linearly.
 
 | Track | Read in this order |
 |---|---|
-| Java backend | [Core Java Deep Dive](../java/CORE-JAVA-DEEP-DIVE.md) -> [Collections guide](../java/JAVA-COLLECTIONS-UMBRELLA.md) -> [Threads and concurrency](../java/JAVA-THREADING-UMBRELLA.md) -> [Spring Ecosystem](../spring/SPRING-ECOSYSTEM.md) -> [Spring REST APIs](../development/SPRING-REST-APIS.md) |
+| Java backend | [Core Java Deep Dive](../java/CORE-JAVA-DEEP-DIVE.md) -> [Collections guide](../java/JAVA-COLLECTIONS.md) -> [Threads and concurrency](../java/JAVA-THREADING-UMBRELLA.md) -> [Spring Ecosystem](../spring/SPRING-ECOSYSTEM.md) -> [Spring REST APIs](../development/SPRING-REST-APIS.md) |
 | Advanced Java | [Advanced Java Internals](../java/ADVANCED-JAVA-INTERNALS.md) -> [JVM execution](../java/advanced-internals/JVM-EXECUTION-INTERNALS.md) -> [Memory model](../java/advanced-internals/JAVA-MEMORY-MODEL.md) -> [AQS and virtual threads](../java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md) -> [NIO and JMH](../java/advanced-internals/NIO-PERFORMANCE-JMH.md) |
 | Spring Boot production | [Spring Boot internals](../development/SPRING-BOOT-INTERNALS.md) -> [Spring Data JPA](../spring/SPRING-DATA-JPA.md) -> [Spring transactions](../spring/SPRING-TRANSACTIONS.md) -> [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md) |
 | Spring deep internals | [Deep Spring track](../spring/SPRING-BOOT-INTERNALS-PRODUCTION.md) -> [Container internals](../spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md) -> [AOP and transactions](../spring/internals-production/AOP-TRANSACTION-INTERNALS.md) -> [Web runtime](../spring/internals-production/WEB-HTTP-RUNTIME.md) -> [Hibernate and JDBC](../spring/internals-production/HIBERNATE-JDBC-INTERNALS.md) |
@@ -60,21 +60,25 @@ Use these tracks when you do not want to read the full path linearly.
 | Topic | Study guide | Practical outcome |
 |---|---|---|
 | Object-oriented programming | [Java OOP](../java/JAVA-OOP.md) | Model behavior using encapsulation, abstraction, composition, and polymorphism |
-| Collections | [Java Collections Guide](../java/JAVA-COLLECTIONS-UMBRELLA.md) | Select lists, sets, maps, queues, iterators, hashing, and concurrent collections correctly |
+| Collections | [Java Collections Guide](../java/JAVA-COLLECTIONS.md) | Select lists, sets, maps, queues, iterators, hashing, and concurrent collections correctly |
 | Functional processing | [Java Streams](../java/JAVA-STREAMS.md) | Build lazy, side-effect-controlled pipelines and collectors |
 | Modern Java | [Java Features: 8 to 26](../java/features-8-to-26/JAVA-8-TO-26.md) | Apply lambdas, Optional, records, sealed types, switch patterns, virtual threads, and newer preview features |
 | Concurrency | [Threads And JVM Thread Model](../java/JAVA-THREADING-UMBRELLA.md) | Understand main, scheduler, request, GC, JIT, platform, and virtual threads before applying coordination and cancellation |
 | Engineering design | [Engineering principles](../development/ENGINEERING-PRINCIPLES.md) | Apply SOLID, DRY, cohesion, boundaries, and pragmatic abstraction |
 | REST APIs | [REST API design](../development/REST-API-GENERIC.md) | Design resources, status codes, validation, errors, pagination, and idempotency |
 
-## Stage 2: Spring Ecosystem
+## Stage 2: Spring And Spring Boot
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
+| Guided route | [Spring And Spring Boot Learning Guide](../spring/README.md) | Follow container, web, data, integration, testing, production, and interview material in dependency order |
 | Spring overview | [Spring Ecosystem](../spring/SPRING-ECOSYSTEM.md) | Understand Framework, Boot, Web, Data, Security, Cloud, Actuator, and testing modules |
+| Version boundary | [Boot 4 And Framework 7](../spring/SPRING-BOOT-4-FRAMEWORK-7.md) | Keep Java, Jakarta, starters, Jackson, Cloud, and rollout assumptions compatible with Shopverse |
 | Spring runtime | [Spring Boot internals](../development/SPRING-BOOT-INTERNALS.md) | Understand startup, beans, auto-configuration, MVC, Jackson, and Actuator |
 | Spring REST | [Spring REST APIs](../development/SPRING-REST-APIS.md) | Implement controllers, validation, files, errors, and HTTP clients |
 | Testing | [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md) | Choose unit, slice, integration, Testcontainers, and E2E tests |
+| Architect path | [Spring Runtime Architect Path](../spring/SPRING-ARCHITECT-PATH.md) | Trace proxy, thread, transaction, resource, failure, and multi-replica boundaries |
+| Interview practice | [Spring Interview Preparation](../spring/SPRING-INTERVIEW-PREPARATION.md) | Attempt expandable questions and production incidents before revealing model answers |
 
 ## Stage 3: Data And Persistence
 
@@ -99,7 +103,7 @@ Use these tracks when you do not want to read the full path linearly.
 | Gateway | [API Gateway](../development/API-GATEWAY-GENERIC.md) | Understand routing, edge security, correlation, filters, and metrics |
 | Service discovery | [Service discovery](../architecture/SERVICE-DISCOVERY.md) | Understand registration, leases, Eureka, DNS, Kubernetes, and stale-instance behavior |
 | Load balancing | [Load balancing](../architecture/LOAD-BALANCING-GENERIC.md) | Choose client/server-side algorithms and eligible instances |
-| Synchronous HTTP | [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md) | Build declarative clients with propagation, timeouts, metrics, and resilience |
+| Synchronous HTTP | [Spring Cloud OpenFeign](../spring/SPRING-OPENFEIGN.md) | Operate stable Feign clients and evaluate Spring HTTP Service Clients for new interfaces |
 | Kafka platform | [Apache Kafka](../integration/APACHE-KAFKA.md) | Understand brokers, partitions, consumer groups, offsets, retention, and lag |
 | Spring Kafka | [Spring Kafka](../spring/SPRING-KAFKA.md) | Implement templates, listeners, acknowledgment, retry, DLT, and transactions |
 

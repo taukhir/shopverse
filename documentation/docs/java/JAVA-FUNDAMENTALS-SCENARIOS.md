@@ -129,11 +129,36 @@ defining loader to become unreachable. Static does not mean “stored outside he
 
 ## Tricky Interview Questions
 
-1. Why does `byte + byte` become `int`? Binary numeric promotion.
-2. Does Java pass an object by reference? No; it copies a reference value.
-3. Why can `Integer == Integer` appear inconsistent? Cache/identity versus value equality.
-4. Can a static initializer be retried in the same class loader? Not through normal active use after failure.
-5. Does a final collection become immutable? Only the reference cannot be reassigned.
+<ExpandableAnswer title="Why does byte + byte become int?">
+
+Binary numeric promotion.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does Java pass an object by reference?">
+
+No; it copies a reference value.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can Integer == Integer appear inconsistent?">
+
+Cache/identity versus value equality.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a static initializer be retried in the same class loader?">
+
+Not through normal active use after failure.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a final collection become immutable?">
+
+Only the reference cannot be reassigned.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

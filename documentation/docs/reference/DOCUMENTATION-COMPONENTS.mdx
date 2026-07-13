@@ -23,6 +23,24 @@ import statement is required.
 
 Supported types are `mistake`, `production`, `shopverse`, `tip`, and `code`.
 
+## Page Labels And Topic Cards
+
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Production', tone: 'production'},
+  {label: 'Shopverse example', tone: 'shopverse'},
+]} />
+
+<TopicCards items={[
+  {title: 'Concept guide', href: '/java/CORE-JAVA-DEEP-DIVE', description: 'Follow the canonical Java learning route.', icon: 'book', tags: ['Java', 'Learning path']},
+  {title: 'Executable labs', href: '/java/JAVA-EXECUTABLE-LABS', description: 'Verify runtime behavior with bounded experiments.', icon: 'experiment', tags: ['JFR', 'JMH']},
+]} />
+
+Use labels for difficulty, production status, version state, or repository context.
+Use cards only for two or more meaningful next destinations; do not turn every link
+into a card. Supported card icons are `book`, `boxes`, `brain`, `code`, `experiment`,
+`gauge`, `layers`, `network`, `route`, and `security`.
+
 ## Expandable Answers
 
 <ExpandableAnswer title="Why keep answers collapsed?">

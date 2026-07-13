@@ -5,6 +5,8 @@ description: Worker deques, stealing, joins, thresholds, managed blocking, commo
 
 # ForkJoinPool And Work-Stealing Deep Dive
 
+![Sequential stream fusion and parallel ForkJoin execution](/img/diagrams/java-stream-forkjoin-execution.svg)
+
 Fork/join targets recursively decomposable CPU work. Each worker owns a deque,
 normally processing its own tasks LIFO for locality while idle workers steal older
 tasks from another deque's opposite end to obtain larger chunks.
@@ -82,11 +84,36 @@ with distinct latency, blocking or failure characteristics.
 
 ## Tricky Interview Questions
 
-1. Why local LIFO and stealing FIFO? Locality for owner; older/larger work for thieves.
-2. Is parallelism equal to total threads? No; compensation and lifecycle can differ.
-3. Does `join` always park? Workers can help execute work.
-4. Why is common-pool blocking dangerous? It is shared and sized for CPU-style work.
-5. Should both recursive branches be forked? Often fork one and compute one.
+<ExpandableAnswer title="Why local LIFO and stealing FIFO?">
+
+Locality for owner; older/larger work for thieves.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is parallelism equal to total threads?">
+
+No; compensation and lifecycle can differ.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does join always park?">
+
+Workers can help execute work.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is common-pool blocking dangerous?">
+
+It is shared and sized for CPU-style work.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Should both recursive branches be forked?">
+
+Often fork one and compute one.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

@@ -1,0 +1,154 @@
+<svg width="1280" height="820" viewBox="0 0 1280 820" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Spring Boot Startup Lifecycle</title>
+  <desc id="desc">A readable Spring Boot startup lifecycle diagram from main method to application ready event.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 17px Arial, sans-serif; fill: #475569; }
+    .phaseTitle { font: 700 18px Arial, sans-serif; fill: #0f172a; }
+    .phaseText { font: 400 14px Arial, sans-serif; fill: #475569; }
+    .stepTitle { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+    .stepText { font: 400 13px Arial, sans-serif; fill: #475569; }
+    .num { font: 700 15px Arial, sans-serif; fill: #ffffff; }
+    .laneLabel { font: 700 13px Arial, sans-serif; fill: #334155; letter-spacing: .4px; }
+    .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.4; rx: 18; }
+    .phase { fill: #eef6ff; stroke: #93c5fd; stroke-width: 1.2; rx: 20; }
+    .phase2 { fill: #f0fdf4; stroke: #86efac; stroke-width: 1.2; rx: 20; }
+    .phase3 { fill: #fff7ed; stroke: #fdba74; stroke-width: 1.2; rx: 20; }
+    .phase4 { fill: #f5f3ff; stroke: #c4b5fd; stroke-width: 1.2; rx: 20; }
+    .arrow { stroke: #64748b; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+    .dotBlue { fill: #2563eb; }
+    .dotGreen { fill: #16a34a; }
+    .dotOrange { fill: #ea580c; }
+    .dotPurple { fill: #7c3aed; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1280" height="820"/>
+  <text x="64" y="64" class="title">Spring Boot Startup Lifecycle</text>
+  <text x="64" y="96" class="subtitle">What happens internally after the Java process enters main(...)</text>
+
+  <rect x="64" y="132" width="270" height="94" class="phase"/>
+  <text x="88" y="166" class="phaseTitle">1. Bootstrap</text>
+  <text x="88" y="194" class="phaseText">Create SpringApplication and infer</text>
+  <text x="88" y="214" class="phaseText">the web application type.</text>
+
+  <rect x="365" y="132" width="270" height="94" class="phase2"/>
+  <text x="389" y="166" class="phaseTitle">2. Environment</text>
+  <text x="389" y="194" class="phaseText">Resolve profiles, config files, env</text>
+  <text x="389" y="214" class="phaseText">vars, and Config Server values.</text>
+
+  <rect x="666" y="132" width="270" height="94" class="phase3"/>
+  <text x="690" y="166" class="phaseTitle">3. Context Refresh</text>
+  <text x="690" y="194" class="phaseText">Parse configuration, register bean</text>
+  <text x="690" y="214" class="phaseText">definitions, and create beans.</text>
+
+  <rect x="967" y="132" width="249" height="94" class="phase4"/>
+  <text x="991" y="166" class="phaseTitle">4. Runtime Ready</text>
+  <text x="991" y="194" class="phaseText">Start server, listeners, runners,</text>
+  <text x="991" y="214" class="phaseText">and publish readiness.</text>
+
+  <path d="M334 179 H365" class="arrow"/>
+  <path d="M635 179 H666" class="arrow"/>
+  <path d="M936 179 H967" class="arrow"/>
+
+  <text x="64" y="282" class="laneLabel">DETAILED FLOW</text>
+
+  <rect x="64" y="310" width="220" height="104" class="card"/>
+  <circle cx="94" cy="342" r="14" class="dotBlue"/>
+  <text x="89" y="347" class="num">1</text>
+  <text x="120" y="340" class="stepTitle">main(args)</text>
+  <text x="120" y="368" class="stepText">Java invokes application</text>
+  <text x="120" y="388" class="stepText">entry point.</text>
+
+  <rect x="330" y="310" width="220" height="104" class="card"/>
+  <circle cx="360" cy="342" r="14" class="dotBlue"/>
+  <text x="355" y="347" class="num">2</text>
+  <text x="386" y="340" class="stepTitle">SpringApplication</text>
+  <text x="386" y="368" class="stepText">Creates bootstrap object</text>
+  <text x="386" y="388" class="stepText">and detects app type.</text>
+
+  <rect x="596" y="310" width="220" height="104" class="card"/>
+  <circle cx="626" cy="342" r="14" class="dotGreen"/>
+  <text x="621" y="347" class="num">3</text>
+  <text x="652" y="340" class="stepTitle">Environment</text>
+  <text x="652" y="368" class="stepText">Loads profiles and ordered</text>
+  <text x="652" y="388" class="stepText">property sources.</text>
+
+  <rect x="862" y="310" width="220" height="104" class="card"/>
+  <circle cx="892" cy="342" r="14" class="dotGreen"/>
+  <text x="887" y="347" class="num">4</text>
+  <text x="918" y="340" class="stepTitle">Config Loading</text>
+  <text x="918" y="368" class="stepText">Merges local config, env</text>
+  <text x="918" y="388" class="stepText">vars, and Config Server.</text>
+
+  <path d="M284 362 H330" class="arrow"/>
+  <path d="M550 362 H596" class="arrow"/>
+  <path d="M816 362 H862" class="arrow"/>
+
+  <rect x="64" y="472" width="220" height="104" class="card"/>
+  <circle cx="94" cy="504" r="14" class="dotOrange"/>
+  <text x="89" y="509" class="num">5</text>
+  <text x="120" y="502" class="stepTitle">ApplicationContext</text>
+  <text x="120" y="530" class="stepText">Creates servlet, reactive,</text>
+  <text x="120" y="550" class="stepText">or non-web context.</text>
+
+  <rect x="330" y="472" width="220" height="104" class="card"/>
+  <circle cx="360" cy="504" r="14" class="dotOrange"/>
+  <text x="355" y="509" class="num">6</text>
+  <text x="386" y="502" class="stepTitle">Configuration Parse</text>
+  <text x="386" y="530" class="stepText">Reads @Configuration and</text>
+  <text x="386" y="550" class="stepText">component scan metadata.</text>
+
+  <rect x="596" y="472" width="220" height="104" class="card"/>
+  <circle cx="626" cy="504" r="14" class="dotOrange"/>
+  <text x="621" y="509" class="num">7</text>
+  <text x="652" y="502" class="stepTitle">Auto-Configuration</text>
+  <text x="652" y="530" class="stepText">Evaluates conditions and</text>
+  <text x="652" y="550" class="stepText">registers bean definitions.</text>
+
+  <rect x="862" y="472" width="220" height="104" class="card"/>
+  <circle cx="892" cy="504" r="14" class="dotOrange"/>
+  <text x="887" y="509" class="num">8</text>
+  <text x="918" y="502" class="stepTitle">Bean Creation</text>
+  <text x="918" y="530" class="stepText">Instantiates singletons and</text>
+  <text x="918" y="550" class="stepText">applies proxies/callbacks.</text>
+
+  <path d="M972 414 C972 438 174 438 174 472" class="arrow"/>
+  <path d="M284 524 H330" class="arrow"/>
+  <path d="M550 524 H596" class="arrow"/>
+  <path d="M816 524 H862" class="arrow"/>
+
+  <rect x="196" y="634" width="220" height="104" class="card"/>
+  <circle cx="226" cy="666" r="14" class="dotPurple"/>
+  <text x="221" y="671" class="num">9</text>
+  <text x="252" y="664" class="stepTitle">Infrastructure Starts</text>
+  <text x="252" y="692" class="stepText">Tomcat, Kafka listeners,</text>
+  <text x="252" y="712" class="stepText">schedulers, Actuator.</text>
+
+  <rect x="530" y="634" width="220" height="104" class="card"/>
+  <circle cx="560" cy="666" r="14" class="dotPurple"/>
+  <text x="555" y="671" class="num">10</text>
+  <text x="586" y="664" class="stepTitle">Runners Execute</text>
+  <text x="586" y="692" class="stepText">ApplicationRunner and</text>
+  <text x="586" y="712" class="stepText">CommandLineRunner run.</text>
+
+  <rect x="864" y="634" width="220" height="104" class="card"/>
+  <circle cx="894" cy="666" r="14" class="dotPurple"/>
+  <text x="889" y="671" class="num">11</text>
+  <text x="920" y="664" class="stepTitle">ApplicationReadyEvent</text>
+  <text x="920" y="692" class="stepText">Readiness published when</text>
+  <text x="920" y="712" class="stepText">startup completes.</text>
+
+  <path d="M972 576 C972 608 306 608 306 634" class="arrow"/>
+  <path d="M416 686 H530" class="arrow"/>
+  <path d="M750 686 H864" class="arrow"/>
+
+  <rect x="64" y="770" width="1152" height="1" fill="#cbd5e1"/>
+  <text x="64" y="796" class="stepText">Failure in config binding, Liquibase, bean creation, security setup, or server startup prevents readiness.</text>
+</svg>
+

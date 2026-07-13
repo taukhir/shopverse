@@ -1,301 +1,111 @@
 ---
 title: Java Multithreading
 sidebar_position: 5
+description: Concise route map for Java task execution, shared-state safety, context propagation, cancellation, and Shopverse concurrency decisions.
 ---
 
 # Java Multithreading
 
-:::info Canonical learning route
-The [Threads And Concurrency Guide](./JAVA-THREADING-UMBRELLA.md) owns learning
-order. Use [Concurrency Design Review](./JAVA-CONCURRENCY-DESIGN-REVIEW.md) for
-architectural invariants and the focused executor, JMM and virtual-thread pages
-for implementation depth.
-:::
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Production design', tone: 'production'},
+  {label: 'Shopverse examples', tone: 'shopverse'},
+]} />
 
-Concurrency allows tasks to overlap. Parallelism executes tasks at the same
-time. Correct code must define ownership, visibility, atomicity, cancellation,
-and resource bounds.
+Multithreading is not a reason to start with `Thread`. Start with the work shape,
+the shared-state invariant, and the resource that limits concurrency. Then choose
+an execution model and define context, deadline, cancellation, and shutdown
+ownership.
 
-For deep async composition, see
-[Java CompletableFuture](JAVA-COMPLETABLE-FUTURE.md).
+```mermaid
+flowchart LR
+  Work["Shopverse work"] --> Shape{"Work shape?"}
+  Shape -->|"CPU-bound"| Pool["Bounded platform-thread pool"]
+  Shape -->|"Blocking I/O"| Virtual["Virtual thread per task"]
+  Shape -->|"Async dependency graph"| Future["CompletableFuture + owned executor"]
+  Pool --> Guard["Invariant + capacity + deadline"]
+  Virtual --> Guard
+  Future --> Guard
+  Guard --> Context["Propagate required context"]
+  Guard --> Cancel["Cooperative cancellation"]
+```
 
-## Creating Work
+Concurrency means tasks can make overlapping progress; parallelism means work
+actually runs at the same instant. Neither provides correctness. Correctness
+comes from ownership, safe publication, atomic state transitions, and bounded
+resource use.
 
-### Thread
+## Choose The Focused Guide
+
+<TopicCards items={[
+  {title: 'Thread creation and scheduling', href: '/java/JAVA-THREAD-CREATION-SCHEDULING', description: 'Understand start, join, platform threads, and scheduler behavior.', icon: 'route', tags: ['Lifecycle', 'Scheduling']},
+  {title: 'Java Memory Model', href: '/java/advanced-internals/JAVA-MEMORY-MODEL', description: 'Reason about visibility, ordering, and safe publication through happens-before edges.', icon: 'brain', tags: ['JMM', 'Shared state']},
+  {title: 'Thread coordination', href: '/java/JAVA-THREAD-COORDINATION', description: 'Choose monitors, conditions, queues, and higher-level coordination utilities.', icon: 'network', tags: ['Locks', 'Coordination']},
+  {title: 'Executors and thread pools', href: '/java/JAVA-EXECUTORS-THREAD-POOLS', description: 'Own workers, queues, rejection, saturation metrics, and shutdown.', icon: 'gauge', tags: ['Capacity', 'Lifecycle']},
+  {title: 'CompletableFuture', href: '/java/JAVA-COMPLETABLE-FUTURE', description: 'Compose dependent and independent stages with explicit failure handling.', icon: 'route', tags: ['Async', 'Failures']},
+  {title: 'Virtual threads', href: '/java/features-8-to-26/JAVA-VIRTUAL-THREADS', description: 'Use cheap blocking tasks without forgetting downstream resource limits.', icon: 'layers', tags: ['Java 21+', 'Blocking I/O']},
+  {title: 'Context propagation', href: '/java/threading/THREAD-CONTEXT-PROPAGATION', description: 'Carry correlation, identity, and locale safely across execution boundaries.', icon: 'network', tags: ['Observability', 'Security']},
+  {title: 'Cancellation and deadlines', href: '/java/threading/TASK-CANCELLATION-DEADLINES', description: 'Coordinate timeouts, interruption, cleanup, and durable side effects.', icon: 'security', tags: ['Timeouts', 'Shutdown']},
+  {title: 'Concurrency design review', href: '/java/JAVA-CONCURRENCY-DESIGN-REVIEW', description: 'Prove invariant, admission, cancellation, and lifecycle decisions before release.', icon: 'book', tags: ['Review', 'Production']},
+]} />
+
+This page intentionally does not repeat the dedicated deadlock, race-condition,
+atomic, executor, virtual-thread, or `CompletableFuture` material.
+
+<DocCallout type="production" title="Capacity is still finite">
+More runnable tasks do not create more database connections, sockets, CPU, or
+provider quota. Size concurrency against the tightest downstream limit and
+measure queue delay before increasing it.
+</DocCallout>
+
+## Shopverse Boundary Example
+
+A checkout read can fan out to order, inventory, and payment services because
+the calls are independent reads. The design still needs an overall deadline,
+per-client timeouts, an owned execution mechanism, explicit correlation context,
+and a concurrency limit aligned with connection pools.
 
 ```java
-Thread thread = Thread.ofPlatform()
-        .name("report-worker")
-        .start(this::generateReport);
-thread.join();
-```
+record RequestContext(String correlationId, Instant deadline) {}
 
-### ExecutorService
+RequestContext context = new RequestContext(
+        correlationId, Instant.now().plusMillis(800));
 
-```java
-try (ExecutorService executor = Executors.newFixedThreadPool(8)) {
-    Future<Report> future = executor.submit(this::generateReport);
-    Report report = future.get(2, TimeUnit.SECONDS);
-}
-```
+Future<InventoryView> inventory = ioExecutor.submit(() ->
+        CorrelationContext.call(context.correlationId(),
+                () -> inventoryClient.forOrder(orderId)));
 
-### Virtual Threads
-
-```java
-try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-    List<Future<Result>> futures = tasks.stream()
-            .map(task -> executor.submit(() -> execute(task)))
-            .toList();
-}
-```
-
-For a deeper Java 21 discussion, see
-[Java Virtual Threads](features-8-to-26/JAVA-VIRTUAL-THREADS.md).
-
-### CompletableFuture
-
-```java
-CompletableFuture<User> userFuture =
-        CompletableFuture.supplyAsync(() -> userClient.getUser(userId), executor);
-
-CompletableFuture<List<Order>> orderFuture =
-        CompletableFuture.supplyAsync(() -> orderClient.getOrders(userId), executor);
-
-UserDashboard dashboard = userFuture
-        .thenCombine(orderFuture, UserDashboard::new)
-        .orTimeout(2, TimeUnit.SECONDS)
-        .exceptionally(this::fallbackDashboard)
-        .join();
-```
-
-Always pass an owned executor for server-side blocking work instead of silently
-using the common pool.
-
-## CompletableFuture Composition
-
-This section is a quick reference. The detailed guide is
-[Java CompletableFuture](JAVA-COMPLETABLE-FUTURE.md).
-
-| Method | Meaning |
-|---|---|
-| `thenApply` | synchronously transform a successful result |
-| `thenApplyAsync` | transform on an executor |
-| `thenCompose` | flatten dependent asynchronous operation |
-| `thenCombine` | combine two independent results |
-| `allOf` | wait for all stages |
-| `anyOf` | complete when any stage completes |
-| `exceptionally` | recover from failure |
-| `handle` | observe success or failure and produce result |
-| `whenComplete` | side-effect after completion |
-| `orTimeout` | fail stage after timeout |
-| `completeOnTimeout` | provide fallback value after timeout |
-
-Use `thenCompose` instead of nested futures:
-
-```java
-CompletableFuture<Order> order = loadUser(userId)
-        .thenCompose(user -> loadLatestOrder(user.username()));
-```
-
-## Java Memory Model
-
-Threads may cache/reorder operations unless a happens-before relationship
-provides visibility.
-
-```java
-private volatile boolean shutdown;
-```
-
-`volatile` gives visibility and ordering for that variable, not atomicity for
-compound operations such as `count++`.
-
-Use:
-
-- `synchronized` or `Lock` for mutual exclusion;
-- `AtomicInteger`, `AtomicReference`, `LongAdder` for atomic state;
-- immutable objects and safe publication;
-- concurrent collections for shared containers.
-
-## Synchronization And Atomic Classes
-
-Use `synchronized` when one thread at a time must protect a critical section:
-
-```java
-class Counter {
-    private int value;
-
-    synchronized int incrementAndGet() {
-        return ++value;
-    }
-}
-```
-
-Use atomic classes for simple lock-free state changes:
-
-```java
-AtomicInteger counter = new AtomicInteger();
-int next = counter.incrementAndGet();
-```
-
-Use `LongAdder` for high-write counters such as metrics:
-
-```java
-LongAdder requests = new LongAdder();
-requests.increment();
-long total = requests.sum();
-```
-
-## Race Condition
-
-```java
-if (stock >= quantity) {
-    stock -= quantity;
-}
-```
-
-Two threads can both pass the check. In a database-backed service, enforce the
-invariant atomically with optimistic locking, a conditional update, or a lock:
-
-```sql
-update inventory
-set available = available - :quantity,
-    version = version + 1
-where product_id = :id
-  and available >= :quantity
-  and version = :version;
-```
-
-## Deadlock
-
-```text
-Thread A holds Order, waits for Inventory
-Thread B holds Inventory, waits for Order
-```
-
-Prevent it by:
-
-- acquiring locks in a consistent order;
-- keeping lock scope short;
-- avoiding remote calls while holding locks;
-- using timed `tryLock`;
-- reducing shared mutable state;
-- detecting and retrying database deadlock victims safely.
-
-Example with stable lock ordering:
-
-```java
-void transfer(Account from, Account to, BigDecimal amount) {
-    Account first = from.id() < to.id() ? from : to;
-    Account second = from.id() < to.id() ? to : from;
-
-    synchronized (first) {
-        synchronized (second) {
-            from.debit(amount);
-            to.credit(amount);
-        }
-    }
-}
-```
-
-Thread priority exists, but it is only a scheduler hint:
-
-```java
-thread.setPriority(Thread.NORM_PRIORITY);
-```
-
-Do not rely on priority for correctness or service-level guarantees.
-
-## ThreadLocal And Context
-
-`ThreadLocal` stores one value per carrier thread. Pools reuse threads, so
-values must be cleared:
-
-```java
 try {
-    context.set(correlationId);
-    action.run();
-} finally {
-    context.remove();
+    return inventory.get(millisRemaining(context.deadline()), MILLISECONDS);
+} catch (TimeoutException timeout) {
+    inventory.cancel(true); // a request to stop, not a rollback guarantee
+    throw new CheckoutDeadlineExceeded(orderId, timeout);
 }
 ```
 
-MDC and security context do not automatically cross executors,
-`CompletableFuture`, parallel streams, or arbitrary virtual-thread tasks.
-Propagate only required context and clean it.
+The sketch makes two different contracts visible: `CorrelationContext` scopes
+logging context around the task, while the deadline bounds how long the owner
+waits. The HTTP client and database must also have their own deadlines. If work
+changes inventory or payment state, cancellation requires idempotency and saga
+compensation rather than assuming an interrupt undoes the change.
 
-## Interruption And Cancellation
+## Production Decision Rules
 
-```java
-try {
-    queue.take();
-} catch (InterruptedException exception) {
-    Thread.currentThread().interrupt();
-    return;
-}
-```
-
-Interruption is a cooperative cancellation signal. Do not swallow it.
-`Future.cancel(true)` requests interruption; it cannot guarantee external work
-stopped.
-
-## Platform Versus Virtual Threads
-
-| Platform threads | Virtual threads |
-|---|---|
-| relatively expensive OS-backed threads | lightweight JVM-managed threads |
-| pooled for bounded concurrency | thread-per-task is practical |
-| blocking consumes scarce thread | blocking usually parks virtual thread |
-| appropriate for CPU pools | strong fit for high-concurrency blocking I/O |
-
-Virtual threads do not remove the need for rate limits, bulkheads, datasource
-pools, deadlines, or backpressure.
-
-## Interview And Tricky Questions
-
-### `synchronized` Versus `volatile`
-
-`volatile` provides visibility/order for one variable. `synchronized` also
-provides mutual exclusion and supports compound invariants.
-
-### `sleep` Versus `wait`
-
-`sleep` pauses without releasing monitors. `wait` must be called while owning
-the monitor and releases it until notification/reacquisition.
-
-### `execute` Versus `submit`
-
-`execute` accepts `Runnable` and reports uncaught failure through the thread's
-handler. `submit` returns a `Future`; failure is observed from `get`.
-
-### `join` Versus `get`
-
-`CompletableFuture.join` throws unchecked `CompletionException`. `get` throws
-checked `ExecutionException` and `InterruptedException`.
-
-### Why Can CompletableFuture Hang?
-
-Missing timeouts, common-pool starvation, blocking continuations, unresolved
-manual futures, or cyclic dependencies can prevent completion.
-
-### Is ConcurrentHashMap Enough For Every Compound Invariant?
-
-No. Its atomic methods protect map operations, not multi-resource business
-transactions.
-
-## Production Practices
-
-1. Prefer immutable state and task ownership.
-2. Use bounded executors for platform threads.
-3. Name threads and export pool metrics.
-4. Add timeouts and cancellation.
-5. Never block the reactive event loop.
-6. Avoid common-pool blocking in server code.
-7. Propagate MDC/security context deliberately.
-8. Test races repeatedly and enforce invariants in durable storage.
-9. Capture thread dumps for deadlock/starvation diagnosis.
-10. Load-test virtual threads against real downstream limits.
+1. Prefer immutable task inputs and avoid shared mutable state.
+2. Use bounded platform pools for CPU work; do not hide blocking I/O in the
+   common pool.
+3. Virtual threads make blocking cheaper, not databases, sockets, or providers
+   more scalable.
+4. Carry correlation and identity deliberately across thread, executor, and
+   message boundaries; never carry an open transaction.
+5. Treat interruption as cooperative. Preserve it when the current layer cannot
+   complete cancellation.
+6. Put deadlines at the request, dependency, and blocking-wait boundaries.
+7. Name platform workers, measure queue delay and saturation, and capture thread
+   dumps or JFR evidence before changing pool sizes.
 
 ## Official References
 
 - [`java.util.concurrent`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/package-summary.html)
-- [JLS threads and locks](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html)
+- [JLS 17: Threads And Locks](https://docs.oracle.com/javase/specs/jls/se25/html/jls-17.html)
+- [`Thread` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Thread.html)

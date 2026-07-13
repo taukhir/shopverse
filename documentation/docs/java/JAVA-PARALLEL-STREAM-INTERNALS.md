@@ -5,6 +5,8 @@ description: ForkJoin execution, splitting, ordering, stateful barriers, reducti
 
 # Java Parallel Stream Internals And Performance Scenarios
 
+![Sequential stream fusion and parallel ForkJoin execution](/img/diagrams/java-stream-forkjoin-execution.svg)
+
 Parallel streams recursively split a source `Spliterator`, execute leaf tasks in
 ForkJoin infrastructure, and combine partial results. Parallelism is useful only
 when splitting, work size, operation cost and associative combination amortize
@@ -74,11 +76,36 @@ improvement under container quotas and concurrent traffic.
 
 ## Tricky Interview Questions
 
-1. Does parallel stream create one thread per element? No.
-2. Why can ordered `limit` be expensive? Partitions must coordinate the encounter prefix.
-3. Is a synchronized accumulator sufficient? It may be correct but serialize and defeat parallelism.
-4. Can blocking calls trigger common-pool starvation? Yes.
-5. Why can sequential outperform on 32 cores? Work may be small, unbalanced, memory-bound or coordination-heavy.
+<ExpandableAnswer title="Does parallel stream create one thread per element?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can ordered limit be expensive?">
+
+Partitions must coordinate the encounter prefix.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Is a synchronized accumulator sufficient?">
+
+It may be correct but serialize and defeat parallelism.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can blocking calls trigger common-pool starvation?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can sequential outperform on 32 cores?">
+
+Work may be small, unbalanced, memory-bound or coordination-heavy.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

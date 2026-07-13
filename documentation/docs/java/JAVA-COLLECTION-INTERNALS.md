@@ -163,25 +163,33 @@ lookup semantics ambiguous.
 
 ## Interview Questions
 
-### Why is HashMap average O(1)?
+<ExpandableAnswer title="Why is HashMap average O(1)?">
 
 Because hash distribution maps keys across buckets, so only a small number of
 entries need comparison on average.
 
-### When does HashMap become slow?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When does HashMap become slow?">
 
 Poor hash functions, many collisions, constant resizing, mutable keys, and
 very large maps with poor memory locality can hurt performance.
 
-### HashMap vs Hashtable?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="HashMap vs Hashtable?">
 
 `Hashtable` is legacy and synchronized. Prefer `HashMap` for single-threaded
 use and `ConcurrentHashMap` for concurrent use.
 
-### Why does HashSet not allow duplicates?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why does HashSet not allow duplicates?">
 
 Because it stores values as keys in a backing `HashMap`; keys are unique based
 on `hashCode` and `equals`.
+
+</ExpandableAnswer>
 
 ## Official References
 

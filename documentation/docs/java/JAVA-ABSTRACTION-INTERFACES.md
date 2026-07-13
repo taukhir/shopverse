@@ -58,11 +58,36 @@ Java has no standard `Producer` interface; `Supplier<T>` represents that role. L
 
 ## Interview Traps
 
-1. Can an abstract class have no abstract methods? Yes.
-2. Can an interface have a constructor or instance field? No.
-3. Can a functional interface have many default methods? Yes.
-4. Does a lambda create the same `this` as an anonymous class? No; lambda `this` is lexical.
-5. Why were private interface methods added? To share implementation among default methods without exposing it.
+<ExpandableAnswer title="Can an abstract class have no abstract methods?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can an interface have a constructor or instance field?">
+
+No.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a functional interface have many default methods?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a lambda create the same this as an anonymous class?">
+
+No; lambda `this` is lexical.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why were private interface methods added?">
+
+To share implementation among default methods without exposing it.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

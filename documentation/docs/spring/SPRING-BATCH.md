@@ -1,5 +1,6 @@
 ---
 title: Spring Batch
+description: Restartable Spring Batch jobs, metadata, chunk transactions, side-effect recovery, scaling, security, observability, testing, and operational drills.
 sidebar_position: 9
 difficulty: Advanced
 page_type: Tutorial
@@ -7,16 +8,30 @@ status: Generic
 prerequisites: [Spring ecosystem, Spring transactions, Spring Data JPA]
 learning_objectives: [Design restartable chunk-oriented jobs, Choose readers processors writers and transaction boundaries, Operate and test batch workloads safely]
 technologies: [Spring Batch, Spring Boot, JDBC]
-last_reviewed: "2026-07-11"
+last_reviewed: "2026-07-13"
 ---
 
 # Spring Batch
+
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Restartable workloads', tone: 'production'},
+  {label: 'Shopverse batch', tone: 'shopverse'},
+  {label: 'Operational evidence', tone: 'intermediate'},
+]} />
 
 Spring Batch is a framework for finite, repeatable workloads such as imports,
 exports, reconciliation, billing, report generation, and data migration. It is
 not a scheduler: Kubernetes CronJobs, a platform scheduler, or Spring's
 `@Scheduled` can decide **when** to launch a job; Spring Batch controls **how**
 the work runs, persists progress, retries, skips, and restarts.
+
+<DocCallout type="production" title="Batch metadata is production state">
+The `JobRepository` is not disposable bookkeeping. It defines job identity,
+restart position, concurrency control, and operational history. Back it up,
+migrate its schema with the deployed Batch version, restrict access, and never
+delete active metadata merely to force another launch.
+</DocCallout>
 
 ## Core Model
 
@@ -155,6 +170,41 @@ need idempotency.
 Job and step `ExecutionContext` values must be serializable and small. Readers
 provided by Spring Batch commonly persist their own checkpoint state there.
 
+### Metadata And Restart Semantics
+
+A `JobInstance` is the logical business run. A `JobExecution` is one attempt,
+and each restarted step receives another `StepExecution`. Restart the same
+instance with the same identifying parameters; adding a random identifying
+parameter creates a different instance and abandons the checkpoint contract.
+
+Hard process termination can leave an execution recorded as running because the
+framework could not persist a final status. Recovery must first prove that no
+worker still owns the execution, then use an approved operator procedure to stop,
+abandon, or restart it. Direct metadata-table edits are not a runbook.
+
+Keep business state in business tables. The execution context should contain only
+bounded restart coordinates such as the last committed key, partition range, or
+input offset—not full records, credentials, or an alternate source of truth.
+
+### External Side-Effect Crash Windows
+
+Chunk rollback protects resources participating in its transaction. A remote API,
+email, object-store move, or broker publish may succeed before the checkpoint is
+committed, so restart can repeat it.
+
+| Crash point | Risk | Safer design |
+|---|---|---|
+| after remote success, before checkpoint | duplicate external effect | stable idempotency key and reconciliation |
+| after database commit, before event publish | missing event | transactional outbox |
+| after file move, before step completion | restart cannot find input | manifest/state table plus idempotent move |
+| after output write, before metadata update | duplicate rows or files | unique business key, atomic rename, or compare-and-set |
+
+For Shopverse catalog import, use supplier plus SKU as a business key, stage and
+validate the file, upsert a bounded chunk, and quarantine rejected rows with a
+safe reason. For payment reconciliation, compare provider settlement IDs against
+local payments and emit review cases; do not automatically charge or refund from
+an ambiguous mismatch.
+
 ## Retry, Skip, And Failure Policy
 
 Retry is for transient failures such as a deadlock or temporary connection
@@ -177,6 +227,11 @@ into a nominal success. Do not log secrets or full sensitive records.
 Scale the database and downstream systems before increasing worker count.
 Parallelism that only moves contention to a smaller connection pool makes the
 job slower and less predictable.
+
+Partition ranges must be disjoint, stable, and reproducible on restart. Record the
+range and worker outcome in metadata, then verify that the union covers the input
+exactly once. Size worker concurrency against database connections, lock pressure,
+remote quotas, writer batch size, and the launcher's business deadline.
 
 ## Launching And Scheduling
 
@@ -225,6 +280,32 @@ class ProductImportJobTest {
 Include a restart test: fail after at least one committed chunk, relaunch the
 same job instance, and prove that committed business effects are not duplicated.
 
+## Security, Evidence, And Recovery Drills
+
+Treat job launch and input selection as privileged operations:
+
+- allowlist input locations and reject path traversal, oversized files, unsafe
+  archives, unexpected encodings, and schema drift;
+- keep secrets out of job parameters because parameters and metadata are durable;
+- use least-privilege credentials for metadata and business databases;
+- authorize stop, abandon, restart, and ad hoc launch operations separately;
+- redact sensitive item data from skip logs and execution context;
+- checksum and retain source manifests so a restart uses the intended input.
+
+Operational evidence should include job and step duration, read/write/filter/skip
+counts, commit and rollback counts, last successful business date, queue or launch
+delay, partition skew, connection saturation, retry exhaustion, and reconciliation
+totals. Alert on missed deadlines and stale executions rather than only `FAILED`.
+
+Practice these drills in a production-like environment:
+
+1. terminate after several committed chunks and verify restart without duplicates;
+2. terminate after a remote side effect but before checkpoint and reconcile it;
+3. lose one partition worker and verify ownership plus recovery;
+4. attempt a duplicate launch with the same identifying parameters;
+5. interrupt graceful shutdown and recover a stale recorded execution;
+6. make the metadata database unavailable without corrupting business state.
+
 ## Production Checklist
 
 - use a durable, shared database for the `JobRepository`;
@@ -245,6 +326,50 @@ Use WebFlux when the central problem is high-concurrency non-blocking I/O. A
 scheduled method may be enough for a tiny, stateless task that does not need
 checkpointing, restart, job history, or skip/retry policy.
 
+## Interview Checks
+
+<ExpandableAnswer title="What is the difference between a JobInstance and a JobExecution during restart?">
+
+The instance is the logical job identified by its name and identifying parameters.
+An execution is one attempt. Restarting a failed instance creates another execution
+and uses persisted step state; changing an identifying parameter creates a new
+instance and does not continue the original checkpoint.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="A settlement API succeeded, then the process died before the chunk checkpoint. What must restart do?">
+
+Assume the call may be repeated. Send a stable idempotency key derived from the
+job and business item, persist remote identifiers, and reconcile ambiguous outcomes
+before retry. A local chunk transaction cannot roll back an already completed
+remote effect.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is adding a random run ID a dangerous fix for a failed job?">
+
+If the value is identifying, it creates a new `JobInstance`, bypassing the failed
+instance's restart state and duplicate-effect protections. Use stable business
+parameters and an explicit operator restart or abandonment decision.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What must a partitioning design prove before worker count increases?">
+
+Partitions must be disjoint, collectively complete, stable across restart, and
+individually idempotent. Evidence must also show that database, connection pool,
+remote quota, and metadata contention can support the proposed concurrency.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How should operators recover a job left STARTED after a hard JVM kill?">
+
+First prove no process or worker still owns it. Inspect business effects and the
+last durable checkpoint, then use supported `JobOperator` procedures to stop,
+abandon, or restart according to the runbook. Do not repair status with ad hoc SQL.
+
+</ExpandableAnswer>
+
 ## Related Guides
 
 - [Spring Transactions](./SPRING-TRANSACTIONS.md)
@@ -255,6 +380,10 @@ checkpointing, restart, job history, or skip/retry policy.
 ## Official References
 
 - [Spring Batch reference](https://docs.spring.io/spring-batch/reference/)
+- [Spring Batch job and step domain](https://docs.spring.io/spring-batch/reference/domain.html)
+- [Spring Batch restart configuration](https://docs.spring.io/spring-batch/reference/step/chunk-oriented-processing/restart.html)
+- [Spring Batch scaling and parallel processing](https://docs.spring.io/spring-batch/reference/scalability.html)
+- [Spring Batch testing](https://docs.spring.io/spring-batch/reference/testing.html)
 - [Spring Batch API](https://docs.spring.io/spring-batch/docs/current/api/)
 
 ## Recommended Next Page

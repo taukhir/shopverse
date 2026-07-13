@@ -67,9 +67,24 @@ suppressed exceptions. Preserve causal exceptions and avoid losing suppressed da
 
 ## Tricky Interview Questions
 
-1. Why can reflection caches leak deployments? Strong metadata keys retain defining loaders.
-2. Can self-invocation bypass a dynamic proxy? Yes.
-3. Why use method handles? Typed, adaptable dynamic invocation with optimizable linkage.
+<ExpandableAnswer title="Why can reflection caches leak deployments?">
+
+Strong metadata keys retain defining loaders.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can self-invocation bypass a dynamic proxy?">
+
+Yes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why use method handles?">
+
+Typed, adaptable dynamic invocation with optimizable linkage.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

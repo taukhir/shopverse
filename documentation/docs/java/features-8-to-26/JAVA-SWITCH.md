@@ -57,19 +57,25 @@ This works especially well with sealed hierarchies.
 
 ## Interview Questions
 
-### Switch statement vs switch expression?
+<ExpandableAnswer title="Switch statement vs switch expression?">
 
 A statement performs control flow. An expression returns a value and is usually
 exhaustive.
 
-### Why is modern switch safer?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is modern switch safer?">
 
 Arrow labels avoid fall-through, and expressions force all cases to be handled.
 
-### When use `default`?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When use default?">
 
 Use `default` for open-ended inputs. For enums or sealed types, avoiding
 `default` can let the compiler catch newly added cases.
+
+</ExpandableAnswer>
 
 ## Resolution And Exhaustiveness
 
@@ -81,9 +87,24 @@ you want recompilation to expose new cases.
 
 ## Tricky Interview Questions
 
-1. Is `break value` used in switch expressions? No; use `yield` in colon groups.
-2. Can a guarded broad pattern precede a narrower dominated pattern? Dominance rules may reject it.
-3. Does classic switch accept null safely? It generally throws unless a supported pattern switch handles null explicitly.
+<ExpandableAnswer title="Is break value used in switch expressions?">
+
+No; use `yield` in colon groups.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a guarded broad pattern precede a narrower dominated pattern?">
+
+Dominance rules may reject it.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does classic switch accept null safely?">
+
+It generally throws unless a supported pattern switch handles null explicitly.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

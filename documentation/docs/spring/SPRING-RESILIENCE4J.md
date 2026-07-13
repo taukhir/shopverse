@@ -1,424 +1,303 @@
 ---
-title: Spring Resilience4j
-sidebar_position: 12
+title: Resilience4j With Spring Boot 4
+description: Spring Boot 4 Resilience4j annotations, named registries, aspect composition, fallbacks, Actuator metrics, live tuning, and proxy-based tests.
+difficulty: Advanced
+page_type: Tutorial
+status: Generic
+prerequisites: [Spring AOP proxies, Resilience policy fundamentals, Micrometer and Actuator]
+learning_objectives: [Trace annotation advice through named Resilience4j registries, Test effective policy composition and fallbacks, Operate local policies with feedback-loop and tuning evidence]
+technologies: [Spring Boot 4, Resilience4j 2.4, Spring AOP, Actuator, Micrometer, Reactor]
+last_reviewed: "2026-07-13"
 ---
 
-# Resilience With Spring Boot And Resilience4j
+# Resilience4j With Spring Boot 4
 
-Resilience4j integrates fault-tolerance policies with Spring-managed beans.
-Spring AOP intercepts annotated method calls and obtains the named policy from
-a Resilience4j registry.
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Boot 4 integration', tone: 'foundation'},
+  {label: 'Production resilience', tone: 'production'},
+  {label: 'Shopverse evidence', tone: 'shopverse'},
+]} />
 
-## Dependencies
+This page owns Spring Boot 4 auto-configuration, annotations, AOP composition,
+named instances, metrics, and integration tests. Policy selection and parameter
+theory remain canonical in the generic guide.
+
+<TopicCards items={[
+  {title: 'Resilience policy design', href: '/reliability/RESILIENCE4J-GENERIC', description: 'Choose retry, breaker, limiter, bulkhead, and timeout policies independently of Spring.', icon: 'layers', tags: ['Canonical', 'Policy design']},
+  {title: 'Distributed rate limiting', href: '/reliability/DISTRIBUTED-RATE-LIMITING', description: 'Protect a cluster-wide quota rather than one application process.', icon: 'network', tags: ['Distributed', 'Quota']},
+  {title: 'Micrometer metrics', href: '/observability/MICROMETER-METRICS', description: 'Build bounded dashboards, SLOs, and alerts for resilience outcomes.', icon: 'gauge', tags: ['Metrics', 'Alerts']},
+]} />
+
+## Boot 4 Integration
+
+Shopverse manages Resilience4j 2.4.0 centrally:
 
 ```gradle
 implementation "io.github.resilience4j:resilience4j-spring-boot4:${resilience4jVersion}"
-implementation "org.springframework:spring-aop"
-implementation "org.aspectj:aspectjweaver"
-implementation "org.springframework.boot:spring-boot-starter-actuator"
-runtimeOnly "io.micrometer:micrometer-registry-prometheus"
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
 ```
 
-For Spring Cloud Gateway:
+The Boot integration binds `resilience4j.*` properties, creates registries and
+named instances, registers annotation aspects, health/event contributors when
+configured, and exports Micrometer metrics when the required infrastructure is
+present. Verify the resolved dependency graph rather than mixing Boot 3 and Boot 4
+starters.
 
-```gradle
-implementation "org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j"
-```
-
-Use versions compatible with the Spring Boot and Spring Cloud release train.
-
-## Annotation Flow
+## Proxy And Policy Composition
 
 ```mermaid
-sequenceDiagram
-    participant Caller
-    participant Proxy as Spring AOP proxy
-    participant Aspect as Resilience4j aspect
-    participant Registry
-    participant Method as Target method
-
-    Caller->>Proxy: invoke public method
-    Proxy->>Aspect: apply annotation advice
-    Aspect->>Registry: obtain named policy
-    Registry-->>Aspect: policy instance
-    Aspect->>Method: invoke when permitted
-    Method-->>Aspect: result or exception
-    Aspect-->>Caller: result, failure, rejection, or fallback
+flowchart LR
+    Caller --> Proxy["Spring AOP proxy"]
+    Proxy --> Advisors["Ordered advisors"]
+    Advisors --> RL["RateLimiter aspect"]
+    Advisors --> BH["Bulkhead aspect"]
+    Advisors --> RT["Retry aspect"]
+    Advisors --> CB["CircuitBreaker aspect"]
+    Advisors --> Cache["Cache aspect"]
+    RL --> Target["Target method"]
+    BH --> Target
+    RT --> Target
+    CB --> Target
+    Cache --> Target
+    Target -. failure .-> Fallback["Compatible fallback or exception"]
+    RL -. named instance .-> Registry["Boot-configured registries"]
+    BH -. named instance .-> Registry
+    RT -. named instance .-> Registry
+    CB -. named instance .-> Registry
 ```
 
-Calls made through `this.someAnnotatedMethod()` normally bypass the proxy.
-Move the protected operation to another Spring bean or use programmatic
-decoration when self-invocation cannot be avoided.
+Source-code annotation order does not define runtime nesting. Spring advisor order
+and each Resilience4j aspect order do. A retry outside a breaker records several
+breaker calls; the reverse composition can record one final call. A cache hit may
+bypass downstream policies only if the effective advisor chain places cache lookup
+outside them.
 
-## Annotation Reference
+<DocCallout type="production" title="Test the effective chain">
 
-All annotation `name` values select a configuration instance under the
-corresponding `resilience4j.*.instances` section.
+Do not infer composition from visual annotation order. Run a proxied Spring bean,
+record target invocations and registry events, and assert which policy sees each
+attempt, rejection, fallback, and cache hit.
 
-| Annotation | Purpose | Important annotation attributes |
-|---|---|---|
-| `@Retry` | repeats a classified transient failure | `name`, `fallbackMethod` |
-| `@CircuitBreaker` | rejects calls while a dependency is considered unhealthy | `name`, `fallbackMethod` |
-| `@RateLimiter` | controls call admission per time period | `name`, `fallbackMethod` |
-| `@Bulkhead` | limits concurrent calls or isolates work in a thread pool | `name`, `type`, `fallbackMethod` |
-| `@TimeLimiter` | applies a deadline to supported async/reactive return types | `name`, `fallbackMethod` |
+</DocCallout>
 
-```java
-@Retry(name = "inventory-client", fallbackMethod = "catalogFallback")
-@CircuitBreaker(name = "inventory-client", fallbackMethod = "catalogFallback")
-public CatalogResponse loadCatalog(String category) {
-    return inventoryClient.getCatalog(category);
-}
+Self-invocation and direct construction bypass the aspects. Put protected remote
+operations on a collaborator with a clear public boundary.
 
-private CatalogResponse catalogFallback(
-        String category,
-        Throwable failure
-) {
-    return CatalogResponse.unavailable(category);
-}
+## Named Configuration
+
+```yaml
+resilience4j:
+  retry:
+    instances:
+      inventory-client:
+        max-attempts: 3
+        wait-duration: 200ms
+  circuitbreaker:
+    instances:
+      inventory-client:
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
 ```
 
-The fallback must return a compatible type. It receives original arguments in
-the same order and a compatible exception as its final argument.
-
-## Retry Parameters
-
-| Parameter | One-line description |
-|---|---|
-| `max-attempts` | total calls including the original attempt |
-| `wait-duration` | base delay between attempts |
-| `retry-exceptions` | exception classes explicitly eligible for retry |
-| `ignore-exceptions` | exception classes that must not be retried |
-| `retry-exception-predicate` | custom class deciding whether an exception is retryable |
-| `retry-on-result-predicate` | custom class deciding whether a returned value should be retried |
-| `fail-after-max-attempts` | controls whether max-attempt exhaustion raises a retry-specific failure |
-| `enable-exponential-backoff` | multiplies delay after each failed attempt |
-| `exponential-backoff-multiplier` | factor used to grow exponential delay |
-| `enable-randomized-wait` | randomizes wait to reduce synchronized retry waves where supported |
-| `randomized-wait-factor` | controls random variation around the wait duration |
-
-## Constant Retry
+Annotation `name` selects the instance:
 
 ```java
 @Retry(name = "inventory-client")
-public CatalogResponse loadCatalog() {
-    return inventoryClient.getCatalog();
-}
+@CircuitBreaker(name = "inventory-client", fallbackMethod = "fallbackCatalog")
+@Cacheable(cacheNames = "catalog")
+public List<CatalogItemResponse> getCatalog() { ... }
 ```
 
-```yaml
-resilience4j:
-  retry:
-    instances:
-      inventory-client:
-        max-attempts: 3
-        wait-duration: 250ms
-```
+Use shared base configurations to remove duplication, then override only measured
+differences. Keep configuration names stable across code, metrics, alerts, and
+runbooks.
 
-`max-attempts` includes the first call. This configuration performs one initial
-attempt and at most two retries, each separated by 250 ms.
+## Fallback Contract
 
-Constant delay is suitable for a small, controlled retry budget. It can create
-synchronized retry waves when many callers fail at the same time.
+A fallback must have compatible arguments and return type, with an optional final
+failure parameter. It is part of the public correctness contract, not a convenient
+exception swallow.
 
-## Exponential Backoff
+<DocCallout type="shopverse" title="Current CatalogService behavior">
 
-```yaml
-resilience4j:
-  retry:
-    instances:
-      inventory-client:
-        max-attempts: 4
-        wait-duration: 200ms
-        enable-exponential-backoff: true
-        exponential-backoff-multiplier: 2
-```
+The catalog method composes Retry, CircuitBreaker, and Spring Cache. Its fallback
+throws `ServiceUnavailableException`; it does not return an empty catalog that
+looks authoritative. Current tests prove the fallback and manual cache clear by
+direct construction, but do not yet prove the proxy/aspect/cache ordering.
 
-Approximate delays:
+</DocCallout>
+
+## Current Inventory, Payment, And Gateway Policies
+
+- Order's Inventory client has three configured attempts and a local circuit
+  breaker.
+- Inventory and Payment controller classes have local semaphore bulkheads and rate
+  limiters with zero permit wait.
+- The API Gateway has a reactive downstream circuit breaker, a time limiter, and
+  GET retry configuration.
+- Payment provider operations are not blindly decorated with a generic retry; the
+  domain exposes explicit retry/reconcile paths.
+
+<DocCallout type="mistake" title="Class-level advice also reaches health methods">
+
+Inventory and Payment put rate-limit/bulkhead annotations on controller classes
+that also contain public health endpoints. Verify the effective pointcut and avoid
+letting traffic policies make platform health checks fail unexpectedly.
+
+</DocCallout>
+
+## Local Versus Distributed Limits
+
+Resilience4j registries and semaphore limits are process-local:
 
 ```text
-attempt 1 -> immediate
-attempt 2 -> 200 ms
-attempt 3 -> 400 ms
-attempt 4 -> 800 ms
+cluster allowance ≈ replicas x per-instance allowance
 ```
 
-The full operation budget includes connection acquisition, network timeouts,
-method execution, and retry waits.
+A rolling scale-out changes total rate and concurrency. Use local limits to protect
+each process and its pools. Use a gateway or distributed authority for a global
+customer/tenant quota. Do not describe a local `@RateLimiter` as a cluster-wide
+contract.
 
-## Jitter
+## Feedback Loops And Half-Open Stampede
 
-Jitter randomizes delays so many instances do not retry together:
+Retries at gateway, service, HTTP client, and broker layers multiply. Shopverse's
+Gateway can retry eligible GET requests while `CatalogService` retries Inventory;
+under matching failures this composition can create up to nine downstream attempts
+for one original call. Assign one retry owner and a total deadline.
 
-```text
-delay = exponential delay +/- randomization
-```
+Each replica also owns a circuit breaker. After the open wait elapses, several
+replicas can enter half-open and probe together. Limit permitted half-open calls,
+bound concurrency below downstream recovery capacity, and alert on synchronized
+state transitions.
 
-When configuration support differs by Resilience4j version, define an interval
-function programmatically and keep the rest of the policy in configuration:
+<DocCallout type="production" title="Open is not unhealthy process state">
 
-```java
-IntervalFunction interval = IntervalFunction
-        .ofExponentialRandomBackoff(
-                Duration.ofMillis(200),
-                2.0,
-                0.5
-        );
-```
+An open breaker usually means the dependency is protected. Do not wire it directly
+to liveness and create restart storms. Expose truthful readiness/degradation based
+on the application's routing contract.
 
-Prefer configuration-only policies unless a custom interval or exception
-classifier is genuinely required.
+</DocCallout>
 
-## Exception Classification
+## Reactive Cancellation
 
-Retry transient technical failures:
+Reactive integration needs the Reactor module or Spring Cloud CircuitBreaker
+adapter. A timeout or cancellation stops demand in the decorated publisher, but the
+underlying HTTP/database work stops only if that client propagates cancellation.
+`cancel-running-future` is a request, not proof that remote work ended.
 
-```yaml
-resilience4j:
-  retry:
-    instances:
-      inventory-client:
-        retry-exceptions:
-          - java.net.SocketTimeoutException
-          - org.springframework.web.client.ResourceAccessException
-        ignore-exceptions:
-          - com.shopverse.inventory.ProductNotFoundException
-```
+Test subscription, retry resubscription, cancellation, context propagation, and
+fallback with virtual time. Do not use thread-pool bulkheads as a generic wrapper
+around an event loop.
 
-Do not retry validation, authentication, authorization, insufficient stock, or
-other permanent business outcomes.
+## Live Tuning And Rollback
 
-## Safe Retry Rules
+Treat policy configuration as versioned production code:
 
-Retry only when the operation is:
+1. capture baseline call, rejection, retry, fallback, and downstream metrics;
+2. change one named policy in a canary;
+3. log/expose the effective registry configuration safely;
+4. compare p95/p99, downstream load, and business errors;
+5. roll back automatically when a defined threshold is crossed.
 
-- read-only;
-- naturally idempotent;
-- protected by a stable idempotency key;
-- recoverable through result lookup after an ambiguous timeout.
+Do not assume a Config Server refresh mutates already-created registry objects.
+Prove the deployed refresh/restart mechanism and the resulting effective config.
+For programmatic registry updates, audit who changed what and retain the prior
+configuration.
 
-Never blindly retry a payment charge. The first request may have committed even
-when its response was lost.
+## Metrics And Alerts
 
-## Complete Policy Example
+Expose Actuator/Micrometer metrics with bounded instance names. Alert on:
 
-```java
-@TimeLimiter(name = "payment-provider")
-@CircuitBreaker(
-        name = "payment-provider",
-        fallbackMethod = "paymentUnavailable"
-)
-@Retry(name = "payment-provider")
-public CompletionStage<PaymentResult> authorize(
-        PaymentCommand command
-) {
-    return paymentClient.authorize(command);
-}
-```
+- sustained circuit open/half-open or repeated state transitions;
+- retry amplification and exhausted retries;
+- bulkhead rejections and permit wait;
+- rate-limit denial by approved dimension;
+- slow-call rate and timeout/cancellation;
+- fallback count plus degraded-result type;
+- downstream latency/error versus policy state.
 
-```yaml
-resilience4j:
-  retry:
-    instances:
-      payment-provider:
-        max-attempts: 3
-        wait-duration: 200ms
-        enable-exponential-backoff: true
-        exponential-backoff-multiplier: 2
-  circuitbreaker:
-    instances:
-      payment-provider:
-        sliding-window-size: 20
-        minimum-number-of-calls: 10
-        failure-rate-threshold: 50
-        slow-call-duration-threshold: 1s
-        slow-call-rate-threshold: 50
-        wait-duration-in-open-state: 15s
-  timelimiter:
-    instances:
-      payment-provider:
-        timeout-duration: 2s
-```
+Avoid enabling every event endpoint publicly or tagging metrics with user IDs,
+paths containing IDs, or exception messages.
 
-Annotation ordering is controlled by configured aspect order. Test the effective
-composition instead of assuming source-code order.
+## Test Evidence
 
-## Circuit Breaker Parameters
+- obtain the bean from Spring and prove self-invocation/direct construction differs;
+- stub the HTTP dependency and assert exact attempt count and deadline;
+- force breaker open/half-open through the registry and verify fallback/rejection;
+- saturate the semaphore and assert HTTP mapping plus metrics;
+- prove a cache hit does or does not enter the resilience aspects as intended;
+- test reactive cancellation with virtual time and client cleanup;
+- verify effective configuration after refresh/restart;
+- run a load test to ensure policy limits stay below datasource/HTTP capacity.
 
-| Parameter | One-line description |
-|---|---|
-| `sliding-window-type` | uses `COUNT_BASED` calls or a `TIME_BASED` interval |
-| `sliding-window-size` | number of calls or seconds retained in the evaluation window |
-| `minimum-number-of-calls` | observations required before thresholds can open the circuit |
-| `failure-rate-threshold` | failed-call percentage that opens the circuit |
-| `slow-call-rate-threshold` | slow-call percentage that opens the circuit |
-| `slow-call-duration-threshold` | duration after which a call is considered slow |
-| `wait-duration-in-open-state` | time before OPEN can transition to HALF_OPEN |
-| `permitted-number-of-calls-in-half-open-state` | trial calls allowed during HALF_OPEN |
-| `max-wait-duration-in-half-open-state` | maximum HALF_OPEN duration before reevaluation |
-| `automatic-transition-from-open-to-half-open-enabled` | schedules transition without requiring a new caller |
-| `record-exceptions` | exceptions counted as failures |
-| `ignore-exceptions` | exceptions excluded from failure calculation |
-| `record-failure-predicate` | custom failure classifier |
+## Interview Questions
 
-## Rate Limiter Parameters
+<ExpandableAnswer title="Why can annotation order in source disagree with Resilience4j execution order?">
 
-| Parameter | One-line description |
-|---|---|
-| `limit-for-period` | permissions created during each refresh period |
-| `limit-refresh-period` | interval at which the permission budget refreshes |
-| `timeout-duration` | maximum wait for permission before rejection |
-| `register-health-indicator` | exposes policy health when supported/configured |
-| `event-consumer-buffer-size` | number of recent events retained for event consumers |
+Spring invokes ordered advisors/aspects around the proxy. Java annotation placement
+does not define their nesting; inspect configuration and prove it with registry
+events and target invocation counts.
 
-`timeout-duration: 0` fails fast instead of occupying request threads while
-waiting for the next permission window.
+</ExpandableAnswer>
 
-## Bulkhead Types
+<ExpandableAnswer title="Why does a local @RateLimiter not enforce a customer-wide cluster quota?">
 
-### Semaphore Bulkhead
+Each application instance owns its own registry and permissions. Replica count
+changes the aggregate allowance, so a distributed/gateway authority is required
+for a global quota.
 
-```java
-@Bulkhead(
-        name = "inventory-api",
-        type = Bulkhead.Type.SEMAPHORE
-)
-```
+</ExpandableAnswer>
 
-A semaphore bulkhead executes on the caller thread and limits simultaneous
-method executions.
+<ExpandableAnswer title="How can Gateway and service retries create nine Inventory calls?">
 
-| Parameter | One-line description |
-|---|---|
-| `max-concurrent-calls` | maximum calls allowed to execute at once |
-| `max-wait-duration` | maximum wait for a semaphore permit |
+If the Gateway performs the original call plus two retries and each Order request
+performs up to three Inventory attempts, the layers multiply to three times three.
 
-Use it for synchronous controller/service calls where only concurrency must be
-bounded.
+</ExpandableAnswer>
 
-### Thread-Pool Bulkhead
+<ExpandableAnswer title="Why can half-open state overload a recovering dependency?">
 
-```java
-@Bulkhead(
-        name = "report-provider",
-        type = Bulkhead.Type.THREADPOOL
-)
-public CompletionStage<Report> generateReport() {
-    return CompletableFuture.supplyAsync(this::loadReport);
-}
-```
+Every replica has an independent breaker and can permit trial calls at roughly the
+same time. Aggregate probes can exceed the dependency's reduced recovery capacity.
 
-Thread-pool bulkhead isolates execution in a dedicated executor and bounded
-queue.
+</ExpandableAnswer>
 
-| Parameter | One-line description |
-|---|---|
-| `core-thread-pool-size` | baseline worker thread count |
-| `max-thread-pool-size` | maximum worker thread count |
-| `queue-capacity` | waiting tasks accepted before rejection |
-| `keep-alive-duration` | idle time before excess threads terminate |
-| `writable-stack-trace-enabled` | controls rejection-exception stack traces |
+<ExpandableAnswer title="Why is cancel-running-future not proof that remote work stopped?">
 
-Use it when dedicated executor isolation is required. It adds queueing,
-context-propagation, cancellation, and thread-management concerns.
+Cancellation is cooperative. The decorated future/publisher can be cancelled while
+the underlying socket, query, or remote service continues unless its client honors
+and propagates cancellation.
 
-### Choosing The Type
+</ExpandableAnswer>
 
-| Semaphore | Thread pool |
-|---|---|
-| low overhead | stronger executor isolation |
-| caller thread executes | dedicated worker executes |
-| natural for synchronous methods | natural for async return types |
-| no queue unless permit wait is configured | bounded queue available |
-| MDC/security context remains on caller thread | context must be propagated |
+<ExpandableAnswer title="What is missing from a unit test that calls a fallback directly?">
 
-Virtual threads reduce thread cost but do not replace a bulkhead. The
-downstream connection pool and service capacity are still finite.
+It proves fallback code only. It does not prove Spring proxy interception, named
+configuration, aspect order, attempt count, breaker events, or Micrometer output.
 
-## Time Limiter Parameters
+</ExpandableAnswer>
 
-| Parameter | One-line description |
-|---|---|
-| `timeout-duration` | maximum permitted asynchronous execution time |
-| `cancel-running-future` | requests cancellation when timeout occurs |
+<ExpandableAnswer title="How should a live policy change be rolled out?">
 
-Cancellation is cooperative. A timed-out remote request or database operation
-may continue unless the underlying client supports cancellation and has its own
-network/query timeout.
+Version it, prove how effective registry state changes, canary one instance, compare
+business and downstream metrics, and retain an automatic rollback to the prior
+configuration.
 
-## Capacity-Aware Bulkheads
+</ExpandableAnswer>
 
-An upper estimate for concurrent work is:
+## Official References
 
-```text
-concurrency = arrival rate per second x average service time in seconds
-```
+- [Resilience4j project documentation](https://resilience4j.readme.io/docs/getting-started)
+- [Resilience4j Spring Boot 4 API 2.4.0](https://javadoc.io/doc/io.github.resilience4j/resilience4j-spring-boot4/2.4.0/)
+- [Resilience4j 2.4.0 source](https://github.com/resilience4j/resilience4j/tree/v2.4.0)
+- [Spring Boot 4 Actuator metrics](https://docs.spring.io/spring-boot/4.0/reference/actuator/metrics.html)
 
-At 80 requests/second and 250 ms:
+## Recommended Next
 
-```text
-80 x 0.25 = 20 concurrent requests
-```
-
-Add measured headroom, but keep the bulkhead below downstream limits such as
-the datasource pool or HTTP connection pool.
-
-## HTTP Mapping
-
-```java
-@RestControllerAdvice
-class ResilienceExceptionHandler {
-
-    @ExceptionHandler(RequestNotPermitted.class)
-    ResponseEntity<ProblemDetail> rateLimited() {
-        var problem = ProblemDetail.forStatus(429);
-        problem.setDetail("Request rate limit exceeded");
-        return ResponseEntity.status(429).body(problem);
-    }
-
-    @ExceptionHandler({
-            BulkheadFullException.class,
-            CallNotPermittedException.class
-    })
-    ResponseEntity<ProblemDetail> unavailable() {
-        var problem = ProblemDetail.forStatus(503);
-        problem.setDetail("Service capacity is temporarily unavailable");
-        return ResponseEntity.status(503).body(problem);
-    }
-}
-```
-
-## Production Practices
-
-1. Establish deadlines before adding retries.
-2. Keep retries at one owning layer where possible.
-3. Use exponential backoff and jitter for shared remote dependencies.
-4. Classify retryable exceptions.
-5. Protect side effects with idempotency.
-6. Size bulkheads from measured downstream capacity.
-7. Keep rejection immediate or tightly bounded.
-8. Make fallbacks truthful and observable.
-9. Export Actuator/Micrometer metrics.
-10. Test outage, recovery, saturation, and half-open behavior.
-
-## Do And Do Not
-
-| Do | Do not |
-|---|---|
-| configure named policies centrally | create policy beans for every endpoint without need |
-| retry idempotent transient work | retry validation, authorization, or permanent business failure |
-| use backoff and jitter | retry immediately across every architecture layer |
-| set HTTP/database timeouts too | assume `@TimeLimiter` stops all underlying work |
-| map rejection to `429`/`503` | expose generic `500` for expected capacity rejection |
-| measure limits with load tests | copy arbitrary permit and pool numbers |
-| keep fallback truthful | return empty data that looks authoritative |
-| call annotated methods through a proxy | rely on self-invocation |
-| monitor retries, rejections, and breaker state | hide degradation from operators |
-| test the composed order | infer execution order from annotation placement |
-
-## Related Guides
-
-- [Generic Resilience4j Patterns](../reliability/RESILIENCE4J-GENERIC.md)
-- [Distributed Rate Limiting](../reliability/DISTRIBUTED-RATE-LIMITING.md)
-- [Shopverse Resilience4j](../reliability/RESILIENCE4J.md)
-- [Micrometer Metrics](../observability/MICROMETER-METRICS.md)
+Use [Generic Resilience4j Patterns](../reliability/RESILIENCE4J-GENERIC.md) for
+policy selection, then verify Shopverse behavior through
+[Micrometer Metrics](../observability/MICROMETER-METRICS.md).

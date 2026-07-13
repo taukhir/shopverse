@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Java AI component map</title>
+  <desc id="desc">A component map comparing common AI application concepts across plain Java, Spring AI, and LangChain4j.</desc>
+  <defs>
+    <style>
+      .bg{fill:#fbfbf9}
+      .header{fill:#111827}
+      .cell{fill:#fff;stroke:#cbd5e1;stroke-width:1.5}
+      .alt{fill:#f8fafc;stroke:#cbd5e1;stroke-width:1.5}
+      .title{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:25px;fill:#111827;font-weight:700}
+      .htext{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:16px;fill:#fff;font-weight:700}
+      .text{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#111827}
+      .small{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px;fill:#374151}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="700"/>
+  <text class="title" x="50" y="52">Java AI Component Map</text>
+  <text class="small" x="50" y="82">Same concepts, different framework names. Learn the concept first.</text>
+
+  <rect class="header" x="50" y="120" width="260" height="50"/>
+  <rect class="header" x="310" y="120" width="290" height="50"/>
+  <rect class="header" x="600" y="120" width="290" height="50"/>
+  <rect class="header" x="890" y="120" width="260" height="50"/>
+  <text class="htext" x="80" y="152">Concept</text>
+  <text class="htext" x="340" y="152">Plain Java</text>
+  <text class="htext" x="630" y="152">Spring AI</text>
+  <text class="htext" x="920" y="152">LangChain4j</text>
+
+  <g>
+    <rect class="cell" x="50" y="170" width="260" height="58"/><rect class="cell" x="310" y="170" width="290" height="58"/><rect class="cell" x="600" y="170" width="290" height="58"/><rect class="cell" x="890" y="170" width="260" height="58"/>
+    <text class="text" x="80" y="205">Chat</text><text class="text" x="340" y="205">HTTP client</text><text class="text" x="630" y="205">ChatClient</text><text class="text" x="920" y="205">ChatModel / AI Service</text>
+    <rect class="alt" x="50" y="228" width="260" height="58"/><rect class="alt" x="310" y="228" width="290" height="58"/><rect class="alt" x="600" y="228" width="290" height="58"/><rect class="alt" x="890" y="228" width="260" height="58"/>
+    <text class="text" x="80" y="263">Embeddings</text><text class="text" x="340" y="263">Provider API</text><text class="text" x="630" y="263">EmbeddingModel</text><text class="text" x="920" y="263">EmbeddingModel</text>
+    <rect class="cell" x="50" y="286" width="260" height="58"/><rect class="cell" x="310" y="286" width="290" height="58"/><rect class="cell" x="600" y="286" width="290" height="58"/><rect class="cell" x="890" y="286" width="260" height="58"/>
+    <text class="text" x="80" y="321">Vector search</text><text class="text" x="340" y="321">DB client</text><text class="text" x="630" y="321">VectorStore</text><text class="text" x="920" y="321">EmbeddingStore</text>
+    <rect class="alt" x="50" y="344" width="260" height="58"/><rect class="alt" x="310" y="344" width="290" height="58"/><rect class="alt" x="600" y="344" width="290" height="58"/><rect class="alt" x="890" y="344" width="260" height="58"/>
+    <text class="text" x="80" y="379">RAG</text><text class="text" x="340" y="379">manual orchestration</text><text class="text" x="630" y="379">Advisors / VectorStore</text><text class="text" x="920" y="379">RetrievalAugmentor</text>
+    <rect class="cell" x="50" y="402" width="260" height="58"/><rect class="cell" x="310" y="402" width="290" height="58"/><rect class="cell" x="600" y="402" width="290" height="58"/><rect class="cell" x="890" y="402" width="260" height="58"/>
+    <text class="text" x="80" y="437">Tools</text><text class="text" x="340" y="437">method dispatch</text><text class="text" x="630" y="437">tools/functions</text><text class="text" x="920" y="437">@Tool methods</text>
+    <rect class="alt" x="50" y="460" width="260" height="58"/><rect class="alt" x="310" y="460" width="290" height="58"/><rect class="alt" x="600" y="460" width="290" height="58"/><rect class="alt" x="890" y="460" width="260" height="58"/>
+    <text class="text" x="80" y="495">Typed output</text><text class="text" x="340" y="495">JSON + ObjectMapper</text><text class="text" x="630" y="495">structured outputs</text><text class="text" x="920" y="495">return types</text>
+    <rect class="cell" x="50" y="518" width="260" height="58"/><rect class="cell" x="310" y="518" width="290" height="58"/><rect class="cell" x="600" y="518" width="290" height="58"/><rect class="cell" x="890" y="518" width="260" height="58"/>
+    <text class="text" x="80" y="553">Memory</text><text class="text" x="340" y="553">custom store</text><text class="text" x="630" y="553">chat memory</text><text class="text" x="920" y="553">chat memory</text>
+  </g>
+</svg>

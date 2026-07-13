@@ -1,80 +1,35 @@
 ---
 title: Container, Bean Factory, And Auto-Configuration Internals
+description: Compatibility route to the canonical Spring container runtime guide for architects.
 difficulty: Advanced
-page_type: Concept
+page_type: Learning Path
 status: Generic
-keywords: [ApplicationContext refresh, BeanDefinition, BeanFactoryPostProcessor, BeanPostProcessor, circular dependency, conditional auto-configuration]
-learning_objectives: [Trace context refresh phases, Distinguish definition and instance post-processing, Diagnose dependency and auto-configuration selection]
 technologies: [Spring Framework, Spring Boot]
-last_reviewed: "2026-07-12"
+last_reviewed: "2026-07-13"
 ---
 
 # Container, Bean Factory, And Auto-Configuration Internals
 
-![Spring context refresh phases from metadata loading through post-processors, singleton creation, proxies, and readiness](/img/diagrams/spring-context-refresh.svg)
+<DocLabels items={[
+  {label: 'Compatibility route', tone: 'foundation'},
+  {label: 'Architect', tone: 'advanced'},
+]} />
 
-*Factory post-processors operate on definitions before normal beans exist. Bean
-post-processors operate on instances and may return a proxy.*
+The canonical material now lives in
+[Spring Container Runtime For Architects](../SPRING-CONTAINER-ARCHITECT.md).
+This page remains at its existing URL so bookmarks and the original production
+internals learning path continue to resolve.
 
-`ApplicationContext` refresh prepares the bean factory, loads/merges definitions,
-invokes factory post-processors, registers bean post-processors, initializes event/
-message infrastructure, creates remaining non-lazy singletons, and publishes
-completion events. Exact extension ordering uses `PriorityOrdered`, `Ordered`, then
-unordered registration and should not depend on incidental scanning order.
-
-`BeanFactoryPostProcessor` changes bean definitions before ordinary instances.
-`BeanDefinitionRegistryPostProcessor` can add definitions. `BeanPostProcessor`
-wraps or changes instances around initialization and is the basis of many proxies.
-Instantiating infrastructure too early can make beans ineligible for full processing.
-
-## Dependency Resolution
-
-Resolution considers type, generic qualifiers, `@Qualifier`, `@Primary`, priority,
-name fallback, optional/provider semantics, and collection ordering. Constructor
-injection exposes cycles and supports immutable required dependencies. Providers
-or events can break legitimate lifecycle coupling; setter cycles usually signal
-poor boundaries.
-
-Spring's singleton creation uses caches for complete instances and early references.
-Early proxy exposure can resolve some setter/field cycles, but constructor cycles
-cannot be constructed and early exposure can produce subtle identity/lifecycle
-behavior. Do not design around circular dependency support.
-
-## Lifecycle
-
-Order includes construction, dependency population, aware callbacks, before-
-initialization processors, `@PostConstruct`, initializing callbacks/custom init,
-after-initialization processors/proxying, use, then destruction callbacks. Prototype
-destruction is not managed automatically after creation.
-
-Events and runners occur at different readiness phases. Long remote work in bean
-initialization delays startup and can create fragile dependency coupling.
-
-## Boot Auto-Configuration
-
-Boot discovers auto-configuration imports and evaluates conditions on classes,
-beans, properties, resources, web application type, and other facts. Most auto-
-configuration backs off when the application supplies its own bean. Conditions
-are evaluated in phases and ordering is not normal bean startup ordering.
-
-Use the condition evaluation report and configuration-properties binding errors
-to diagnose why configuration matched. Environment/property sources have explicit
-precedence; relaxed binding does not excuse ambiguous keys. Generate metadata and
-validate typed configuration at startup.
-
-## Lab
-
-Create custom registry/factory/bean post-processors that log phases, one proxied
-bean, conditional auto-configuration, and conflicting candidates. Predict then
-verify ordering with the condition report and context startup logs.
-
-## Recommended Next Page
-
-[AOP Proxies And Transaction Internals](./AOP-TRANSACTION-INTERNALS.md)
+The canonical chapter includes context refresh, definition and instance
+post-processors, dependency resolution, scopes, early references, lifecycle,
+auto-configuration, AOT, diagnostics, an executable lab, and interview checks.
 
 ## Official References
 
-- [Spring Framework — Container Extension Points](https://docs.spring.io/spring-framework/reference/core/beans/factory-extension.html)
-- [Spring Framework — Bean Lifecycle Callbacks](https://docs.spring.io/spring-framework/reference/core/beans/factory-nature.html)
-- [Spring Boot — Creating Auto-Configuration](https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html)
-- [Spring Boot — Externalized Configuration](https://docs.spring.io/spring-boot/reference/features/external-config.html)
+- [Spring Framework container extension points](https://docs.spring.io/spring-framework/reference/core/beans/factory-extension.html)
+- [Spring Boot auto-configuration](https://docs.spring.io/spring-boot/reference/using/auto-configuration.html)
+
+## Recommended Next
+
+1. Read [Spring Container Runtime For Architects](../SPRING-CONTAINER-ARCHITECT.md).
+2. Continue with [Spring Proxy And Transaction Runtime For Architects](../SPRING-PROXY-TRANSACTION-ARCHITECT.md).

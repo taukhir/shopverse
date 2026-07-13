@@ -102,24 +102,32 @@ object allocation rate.
 
 ## Common Interview Questions
 
-### Is Java compiled or interpreted?
+<ExpandableAnswer title="Is Java compiled or interpreted?">
 
 Both. Source code is compiled to bytecode. The JVM interprets bytecode and can
 JIT compile hot paths into native machine code.
 
-### Why is Java platform independent?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is Java platform independent?">
 
 Because Java compiles to bytecode that runs on a platform-specific JVM.
 
-### Difference between JDK and JRE?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Difference between JDK and JRE?">
 
 JDK is for development and includes compiler/tools. JRE is for running compiled
 Java applications.
 
-### What does the JVM do?
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What does the JVM do?">
 
 It loads classes, verifies bytecode, executes code, manages memory, runs GC,
 and coordinates threads.
+
+</ExpandableAnswer>
 
 ## Recommended Next Page
 

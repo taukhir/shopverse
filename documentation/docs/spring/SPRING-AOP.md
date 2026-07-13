@@ -1,13 +1,36 @@
 ---
-title: Spring AOP
+title: "Spring AOP: Proxies, Pointcuts And Advice"
+description: Practical Spring AOP guide covering advice, pointcuts, custom aspects, proxy boundaries, ordering, testing, and safe production use.
 sidebar_position: 4
+difficulty: Intermediate
+page_type: Guide
+status: Generic
+learning_objectives:
+  - Build narrow, testable Spring AOP advice for cross-cutting concerns
+  - Explain proxy boundaries, self-invocation, and interceptor ordering
+  - Select AOP, servlet filters, MVC interceptors, or weaving by execution boundary
+technologies: [Spring Framework, Spring AOP]
+last_reviewed: "2026-07-13"
 ---
 
-# Spring AOP
+# Spring AOP: Proxies, Pointcuts And Advice
+
+<DocLabels items={[
+  {label: 'Intermediate', tone: 'intermediate'},
+  {label: 'Practical AOP', tone: 'foundation'},
+  {label: 'Production boundaries', tone: 'production'},
+]} />
 
 Aspect-oriented programming separates cross-cutting behavior from core
 business logic. Spring AOP applies advice around eligible Spring bean method
 calls through proxies.
+
+<DocCallout type="tip" title="This is the implementation guide">
+Use this page for pointcuts, advice, custom aspects, and focused tests. For
+advisor-chain construction, transaction resource ownership, async/reactive
+boundaries, and incident diagnostics, continue to the
+[architect runtime guide](./SPRING-PROXY-TRANSACTION-ARCHITECT.md).
+</DocCallout>
 
 Common proxy-based features include:
 
@@ -276,5 +299,19 @@ class MeasuredOperationAspectTest {
 - [Spring Boot Internals](../development/SPRING-BOOT-INTERNALS.md)
 - [Spring Cache](SPRING-CACHE.md)
 - [Spring Transactions](SPRING-TRANSACTIONS.md)
+- [Spring Proxy And Transaction Runtime For Architects](SPRING-PROXY-TRANSACTION-ARCHITECT.md)
 - [Spring Security](../security/SPRING-SECURITY-GENERIC.md)
 - [Resilience4j](../reliability/RESILIENCE4J-GENERIC.md)
+
+## Official References
+
+- [Spring Framework AOP](https://docs.spring.io/spring-framework/reference/core/aop.html)
+- [Spring AOP proxying mechanisms](https://docs.spring.io/spring-framework/reference/core/aop/proxying.html)
+- [Spring AOP advice](https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/advice.html)
+- [Spring AOP pointcut expressions](https://docs.spring.io/spring-framework/reference/core/aop/ataspectj/pointcuts.html)
+
+## Recommended Next
+
+Continue with [Spring Transactions](./SPRING-TRANSACTIONS.md), then use the
+[Proxy And Transaction Runtime For Architects](./SPRING-PROXY-TRANSACTION-ARCHITECT.md)
+for advisor ordering, physical resources, failure evidence and production diagnostics.

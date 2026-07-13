@@ -1,382 +1,270 @@
 ---
-title: Spring Cache
-sidebar_position: 5
+title: Spring Cache Abstraction
+description: Spring cache proxy mechanics, SpEL keys, provider integration, transaction timing, stampede controls, migrations, outages, and test evidence.
+difficulty: Advanced
+page_type: Tutorial
+status: Generic
+prerequisites: [Spring AOP proxies, Spring Boot configuration, Cache architecture fundamentals]
+learning_objectives: [Trace Spring cache interception and key evaluation, Integrate bounded providers without hiding consistency boundaries, Test invalidation migration and outage behavior]
+technologies: [Spring Framework 7, Spring Boot 4, Spring Cache, Caffeine, Redis]
+last_reviewed: "2026-07-13"
 ---
 
-# Spring Cache
+# Spring Cache Abstraction
 
-Spring Cache provides an annotation-driven abstraction over cache providers.
-Application code uses Spring's cache API while configuration selects a local
-provider such as Caffeine or a distributed provider such as Redis.
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Spring integration', tone: 'foundation'},
+  {label: 'Production cache', tone: 'production'},
+  {label: 'Shopverse evidence', tone: 'shopverse'},
+]} />
 
-Start with the [Cache Umbrella](../architecture/CACHE-UMBRELLA.md) for cache
-levels, storage, keys, provider selection, and hybrid caching.
+Spring Cache adds method interception and a common `CacheManager`/`Cache` SPI. It
+does not define provider topology, replication, eviction algorithms, or consistency.
+Keep those decisions in the canonical cache architecture guides.
 
-## What Is The Default Cache?
+<TopicCards items={[
+  {title: 'Cache architecture', href: '/architecture/CACHE-UMBRELLA', description: 'Choose cache level, ownership, consistency, keys, and invalidation.', icon: 'layers', tags: ['Canonical', 'Architecture']},
+  {title: 'Provider selection', href: '/architecture/CACHE-PROVIDERS', description: 'Compare Caffeine, Redis, Memcached, and provider operational behavior.', icon: 'boxes', tags: ['Providers', 'Operations']},
+  {title: 'Distributed and hybrid cache', href: '/architecture/DISTRIBUTED-HYBRID-CACHE', description: 'Design shared, near-cache, and multi-replica invalidation.', icon: 'network', tags: ['Distributed', 'Consistency']},
+]} />
 
-| Situation | Behavior |
-|---|---|
-| `@EnableCaching` absent | Cache annotations are not intercepted; methods execute normally |
-| Caching enabled, no provider library/bean detected | Spring Boot uses the simple in-process `ConcurrentMapCacheManager` backed by concurrent maps |
-| `spring.cache.type=none` | Spring Boot configures a no-op cache manager, useful when an environment must disable storage |
-
-The simple provider creates caches on demand and is useful for learning, but it
-has no production-grade size/TTL controls and each replica has unrelated data.
-Choose Caffeine for a bounded local cache or Redis for a shared cache.
-
-## Dependencies
-
-<DependencyTabs
-  gradle={<pre><code>{`implementation 'org.springframework.boot:spring-boot-starter-cache'
-implementation 'com.github.ben-manes.caffeine:caffeine'
-implementation 'org.springframework.boot:spring-boot-starter-data-redis'`}</code></pre>}
-  maven={<pre><code>{`<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-cache</artifactId>
-</dependency>
-<dependency>
-  <groupId>com.github.ben-manes.caffeine</groupId>
-  <artifactId>caffeine</artifactId>
-</dependency>
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-data-redis</artifactId>
-</dependency>`}</code></pre>}
-/>
-
-Use versions managed by the Spring Boot dependency platform where possible.
-
-## Enable Caching
-
-```java
-@Configuration(proxyBeanMethods = false)
-@EnableCaching
-public class CacheConfiguration {
-}
-```
-
-`@EnableCaching` imports infrastructure that detects cache annotations and
-wraps eligible beans with Spring AOP proxies.
+## Proxy And Provider Flow
 
 ```mermaid
 flowchart LR
     Caller --> Proxy["Spring cache proxy"]
-    Proxy --> Lookup{"Cache entry?"}
-    Lookup -->|"Hit"| Return["Return cached value"]
-    Lookup -->|"Miss"| Method["Invoke target method"]
-    Method --> Store["Store result"]
+    Proxy --> Key["SpEL / KeyGenerator"]
+    Key --> Cache{"Cache lookup"}
+    Cache -->|"hit"| Return["Return cached value"]
+    Cache -->|"miss"| Target["Invoke target method"]
+    Target --> Store["Put unless vetoed"]
     Store --> Return
+    Write["Successful state change"] --> Evict["Evict after chosen transaction boundary"]
+    Evict --> Cache
 ```
 
-As with other proxy-based features, self-invocation does not pass through the
-proxy:
+`@EnableCaching` imports the infrastructure that detects cache annotations and
+wraps eligible Spring beans. Calls through `this` bypass ordinary proxy interception.
+Private methods and manually constructed instances are not cache-advised.
 
-```java
-this.getProduct(id); // @Cacheable on getProduct is normally bypassed
-```
+<DocCallout type="mistake" title="A cache annotation is inactive without a proxy call">
 
-Move the cached operation to an appropriate collaborator or invoke it through
-a deliberately designed proxy boundary.
+Move the cached operation to an appropriate collaborator. Do not hide self-proxy
+lookups merely to make an annotation fire.
 
-## Core Annotations
+</DocCallout>
 
-### `@Cacheable`
-
-Reads from cache before invoking the method:
+## Annotation And SpEL Boundary
 
 ```java
 @Cacheable(
-        cacheNames = "products",
+        cacheNames = "inventory",
         key = "#productId",
-        unless = "#result == null"
+        condition = "#productId > 0",
+        unless = "#result == null",
+        sync = true
 )
-public ProductResponse getProduct(Long productId) {
-    return repository.findById(productId)
-            .map(mapper::toResponse)
-            .orElseThrow(() -> new ProductNotFoundException(productId));
-}
+public InventoryResponse getByProductId(Long productId) { ... }
 ```
 
-On a hit, the method is skipped. On a miss, the result is stored.
+| Element | Evaluation point |
+|---|---|
+| `key` / `keyGenerator` | before lookup; defines identity |
+| `condition` | before method invocation; decides whether caching applies |
+| `unless` | after invocation; can veto storing `#result` |
+| `cacheManager` / `cacheResolver` | selects provider/cache at runtime |
+| `sync=true` | requests provider-supported same-key load synchronization |
 
-### `@CachePut`
+Use explicit keys when tenant, locale, authorization scope, representation version,
+or normalization affects the response. SpEL is code: keep expressions short and
+test null, case, and parameter-name behavior. Use a `KeyGenerator` for shared rules.
 
-Always invokes the method and stores its result:
+## Boot 4 Provider Integration
 
-```java
-@Transactional
-@CachePut(cacheNames = "products", key = "#result.id()")
-public ProductResponse update(
-        Long productId,
-        UpdateProductRequest request
-) {
-    return mapper.toResponse(updateEntity(productId, request));
-}
+```gradle
+implementation 'org.springframework.boot:spring-boot-starter-cache'
+implementation 'com.github.ben-manes.caffeine:caffeine'
 ```
 
-Use it when the returned value is the authoritative replacement for one cache
-entry.
-
-### `@CacheEvict`
-
-Removes stale entries:
-
-```java
-@Transactional
-@CacheEvict(cacheNames = "products", key = "#productId")
-public void delete(Long productId) {
-    repository.deleteById(productId);
-}
-```
-
-Collection caches often need broader invalidation:
-
-```java
-@CacheEvict(cacheNames = "productCatalog", allEntries = true)
-public ProductResponse create(CreateProductRequest request) {
-    // ...
-}
-```
-
-Evicting before successful persistence can expose stale or missing values when
-the transaction later rolls back. Coordinate invalidation with transaction
-completion for important data.
-
-### `@Caching`
-
-Groups several operations:
-
-```java
-@Caching(
-        put = @CachePut(cacheNames = "products", key = "#result.id()"),
-        evict = @CacheEvict(
-                cacheNames = "productCatalog",
-                allEntries = true
-        )
-)
-public ProductResponse update(...) {
-    // ...
-}
-```
-
-### `@CacheConfig`
-
-Declares shared class-level defaults:
-
-```java
-@Service
-@CacheConfig(cacheNames = "products")
-class ProductQueryService {
-
-    @Cacheable(key = "#id")
-    ProductResponse get(Long id) {
-        // ...
-    }
-}
-```
-
-## Keys, Conditions, And Results
-
-Spring Expression Language can reference arguments and results:
-
-```java
-@Cacheable(
-        cacheNames = "customerOrders",
-        key = "#customerId + ':' + #pageable.pageNumber",
-        condition = "#pageable.pageSize <= 100",
-        unless = "#result.empty"
-)
-```
-
-- `key` chooses the cache key;
-- `condition` decides whether caching is attempted before invocation;
-- `unless` vetoes storing the returned result;
-- `sync=true` asks a supporting provider to synchronize concurrent loading for
-  the same key.
-
-Prefer a custom `KeyGenerator` when expressions become long or duplicated.
-Include tenant, locale, permission context, or representation version whenever
-they affect the returned value.
-
-## Local Cache With Caffeine
+When caching is enabled, Boot selects a provider from classpath/configuration or a
+user-supplied `CacheManager`. Force the intended provider with `spring.cache.type`
+rather than relying on an accidental dependency. The simple concurrent-map provider
+is useful for learning/tests but has no production size or TTL policy.
 
 ```yaml
 spring:
   cache:
     type: caffeine
-    cache-names: products,productCatalog
+    cache-names: catalog,orders
     caffeine:
-      spec: maximumSize=10000,expireAfterWrite=5m
+      spec: maximumSize=500,expireAfterWrite=60s
 ```
 
-Caffeine is fast and process-local. Each service replica has independent
-entries, so invalidation and freshness can differ between instances.
+TTL, maximum weight, serialization, distributed locks, and failure behavior are
+provider capabilities, not portable Spring Cache semantics.
 
-Use local caching for:
+## Shopverse Current State
 
-- immutable or slowly changing reference data;
-- very hot values where a network cache hop is undesirable;
-- data whose temporary per-replica inconsistency is acceptable.
+<DocCallout type="shopverse" title="Current implementation">
 
-## Redis Cache With Spring
+Order uses a bounded Caffeine manager for `catalog` and `orders`. `CatalogService`
+caches its zero-argument catalog call under the default empty key and exposes a
+programmatic clear. Inventory and Payment use `spring.cache.type=simple`, cache
+individual reads, and broadly evict all entries after writes. These are current
+facts, not a recommendation to use the simple provider in production.
 
-Configuration:
+</DocCallout>
 
-```yaml
-spring:
-  cache:
-    type: redis
-    redis:
-      time-to-live: 5m
-      cache-null-values: false
-      key-prefix: "shopverse:"
-      use-key-prefix: true
-  data:
-    redis:
-      host: ${REDIS_HOST:localhost}
-      port: ${REDIS_PORT:6379}
-      connect-timeout: 2s
-      timeout: 1s
-```
+The Catalog fallback throws an explicit unavailable response rather than caching an
+empty authoritative-looking list. Inventory and Payment simple caches remain
+per-replica and unbounded; replacing them with bounded Caffeine or a deliberately
+designed shared provider is proposed hardening.
 
-Spring Boot configures a Redis connection factory and `RedisCacheManager` when
-the Redis dependencies and configuration are present.
-
-For provider-specific TTLs and JSON serialization:
-
-```java
-@Bean
-RedisCacheManagerBuilderCustomizer redisCaches(ObjectMapper objectMapper) {
-    var serializer = new GenericJackson2JsonRedisSerializer(objectMapper);
-    var pair = RedisSerializationContext.SerializationPair
-            .fromSerializer(serializer);
-
-    return builder -> builder
-            .withCacheConfiguration(
-                    "products",
-                    RedisCacheConfiguration.defaultCacheConfig()
-                            .entryTtl(Duration.ofMinutes(10))
-                            .disableCachingNullValues()
-                            .serializeValuesWith(pair)
-            )
-            .withCacheConfiguration(
-                    "customerOrders",
-                    RedisCacheConfiguration.defaultCacheConfig()
-                            .entryTtl(Duration.ofSeconds(30))
-                            .disableCachingNullValues()
-                            .serializeValuesWith(pair)
-            );
-}
-```
-
-Be deliberate about polymorphic JSON typing and trusted classes. Cache values
-are internal data, but unsafe deserialization configuration can still create a
-security risk.
-
-## Centralized Redis For Multiple Services
-
-Multiple replicas can use one Redis deployment:
+## Stampede, Hot Keys, And Memory
 
 ```mermaid
-flowchart LR
-    O1["Order instance 1"] --> R["Redis cluster"]
-    O2["Order instance 2"] --> R
-    I1["Inventory instance 1"] --> R
-    R --> M["Metrics and alerts"]
+sequenceDiagram
+    participant A as Request A
+    participant B as Request B
+    participant C as Request C
+    participant Cache
+    participant Source
+    A->>Cache: miss key=hot
+    B->>Cache: miss key=hot
+    C->>Cache: miss key=hot
+    alt no coalescing
+      A->>Source: load
+      B->>Source: load
+      C->>Source: load
+    else provider supports sync=true
+      A->>Source: one local load
+      B-->>Cache: wait for same key
+      C-->>Cache: wait for same key
+    end
 ```
 
-Centralize infrastructure operations, not domain ownership. Each service
-should own its namespace and serialization contract:
+`sync=true` can coalesce same-key work only within the effective provider boundary.
+A local Caffeine cache does not coordinate other replicas. For hot keys, combine
+bounded coalescing with source bulkheads, jittered expiry or refresh policy, and a
+truthful stale-data decision.
+
+Measure entry count/weight, value size, hit/miss/load latency, evictions, and source
+load. A high hit rate can still hide one oversized value, a hot key, or an unbounded
+simple cache consuming heap.
+
+## Transaction And Invalidation Timing
+
+`@Transactional` does not make a database and cache one atomic resource. Cache
+advice order and provider transaction awareness determine when put/evict occurs.
+If correctness requires after-commit behavior, use a transaction-aware cache manager
+or an explicit after-commit/domain-event invalidation and test rollback.
+
+<DocCallout type="production" title="Current broad eviction needs evidence">
+
+Inventory and Payment currently use `allEntries=true` on many writes. It avoids
+some stale keys but creates miss bursts and does not coordinate replicas. Measure
+source amplification and replace with key-specific or event-driven invalidation
+only when the full affected-key set is known.
+
+</DocCallout>
+
+## Key And Serializer Migration
+
+Version keys and serialized values during incompatible changes:
 
 ```text
-order:v1:summary:{orderId}
-inventory:v1:product:{productId}
-user:v2:permissions:{userId}
+catalog:v1:all
+catalog:v2:all
+payment:v2:{orderNumber}
 ```
 
-Recommended controls:
+Deploy readers that tolerate old/new values, dual-read or dual-write only for a
+bounded window, warm the new namespace, switch traffic, then expire the old data.
+Never change a Redis serializer in place while old entries remain unreadable.
 
-- authentication and TLS;
-- separate credentials or ACLs by service;
-- memory limit and chosen eviction policy;
-- high availability appropriate to cache importance;
-- bounded connection pools and timeouts;
-- metrics for latency, errors, memory, evictions, and hit rate;
-- schema-versioned keys for safe deployment;
-- no assumption that a cached value is durable.
+Include tenant and authorization scope in the key when they change the result.
+Never cache secrets, raw tokens, or mutable JPA entities.
 
-Redis persistence can improve restart behavior, but a cache should remain
-rebuildable. Do not turn Redis into an undocumented source of truth.
+## Outage Behavior
 
-## Transactions And Cache Consistency
+Define per cache whether provider failure should fall through to the source, reject
+to protect the source, serve a bounded stale value, or fail closed. Keep cache
+timeouts far below the request deadline and prevent retries from turning a cache
+outage into a database outage.
 
-The cache and database are normally separate resources. `@Transactional` does
-not make a Redis update atomic with a database commit.
+Order's local Caffeine provider has no network outage mode, but an empty cache plus
+Inventory outage returns an explicit unavailable response. A future Redis design
+must define its own failure handler; it is not current Shopverse behavior.
 
-Safer write flow:
+## Test Evidence
 
-```text
-begin database transaction
-  update source of truth
-commit
-  evict or replace cache
-```
+- invoke a proxied bean twice and prove one source call;
+- prove self-invocation/manual construction does not activate caching;
+- assert key isolation for tenant, case, locale, and representation version;
+- run concurrent same-key misses and measure source calls;
+- roll back a write and prove cache state remains correct;
+- test TTL/eviction/serialization with the real provider;
+- inject provider failure and measure source protection;
+- compare heap/source load before and after configuration changes.
 
-For cross-service invalidation, publish a durable event through an outbox after
-the same database transaction and let consumers evict affected entries
-idempotently.
+Current `CatalogServiceTest` directly constructs the service and verifies manual
+clear and truthful fallback. It does not prove annotation or multi-aspect ordering;
+add a Spring proxy integration test for that behavior.
 
-Short-lived stale reads may still occur. Define the permitted consistency
-window instead of claiming strong consistency.
+## Interview Questions
 
-## Failure Handling
+<ExpandableAnswer title="Why can @Cacheable appear to do nothing during a unit test?">
 
-Decide whether a Redis outage should:
+The test may construct the class directly or invoke a self-call, so no Spring cache
+proxy intercepts the method. Test annotation behavior with a proxied Spring bean.
 
-- fall back to the source of truth;
-- fail closed for security-sensitive data;
-- serve a local near-cache;
-- reject requests to protect the source.
+</ExpandableAnswer>
 
-Do not add long retries around cache access. A cache timeout should be much
-shorter than the total request deadline.
+<ExpandableAnswer title="What does sync=true protect in a multi-replica service?">
 
-## Metrics And Testing
+Only the synchronization scope implemented by the selected cache provider. With a
+local cache it coalesces within one process, not across replicas.
 
-Enable cache metrics through Actuator and the provider's instrumentation.
-Track:
+</ExpandableAnswer>
 
-- hit and miss count;
-- load duration and failures;
-- eviction count;
-- Redis command latency and errors;
-- connection pool saturation;
-- source load during cache outage.
+<ExpandableAnswer title="Why can allEntries eviction cause a production spike?">
 
-Tests should verify hits, misses, key isolation, invalidation, TTL, serialization
-compatibility, and fallback behavior. Use Testcontainers for Redis integration
-tests when provider behavior matters.
+Every key becomes a miss at once, so concurrent requests reload the source and can
+overwhelm its database or remote dependency.
 
-## Do And Do Not
+</ExpandableAnswer>
 
-| Do | Do not |
-|---|---|
-| Cache stable query results | Cache every method by default |
-| Define TTL per data type | Use one arbitrary global TTL |
-| Include authorization context in keys | Share user-specific values accidentally |
-| Evict after successful state changes | Cache failed dependency responses |
-| Use bounded Redis timeouts | Retry cache access indefinitely |
-| Version keys and serializers | Assume old values always deserialize |
-| Measure source load and cache efficiency | Optimize only for hit percentage |
-| Treat Redis as disposable cache | Store irreplaceable business state implicitly |
+<ExpandableAnswer title="Why is cache eviction on a transactional method not automatically after commit?">
 
-## Related Guides
+Cache and transaction advice are separate, and the provider may not be
+transaction-aware. Verify advisor ordering or schedule invalidation explicitly
+after successful commit.
 
-- [Cache umbrella](../architecture/CACHE-UMBRELLA.md)
-- [Caffeine, Redis and Memcached](../architecture/CACHE-PROVIDERS.md)
-- [Distributed and hybrid cache](../architecture/DISTRIBUTED-HYBRID-CACHE.md)
-- [Hibernate caching](../data/hibernate/HIBERNATE-CACHING.md)
-- [Caching principles](../architecture/CACHING-GENERIC.md)
-- [Spring AOP](SPRING-AOP.md)
-- [Spring Transactions](SPRING-TRANSACTIONS.md)
-- [Micrometer metrics](../observability/MICROMETER-METRICS.md)
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do you migrate a Redis cache value schema safely?">
+
+Use a versioned namespace/serializer, deploy tolerant readers, warm or dual-read for
+a bounded window, switch traffic, and expire old entries after rollback closes.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can an unbounded simple cache fail even with a high hit rate?">
+
+Hit rate says nothing about entry count, value size, or retained heap. Without size
+or TTL bounds, the cache can grow until memory pressure dominates.
+
+</ExpandableAnswer>
+
+## Official References
+
+- [Spring Framework cache abstraction](https://docs.spring.io/spring-framework/reference/integration/cache.html)
+- [Spring cache annotations](https://docs.spring.io/spring-framework/reference/integration/cache/annotations.html)
+- [Spring Boot 4 caching](https://docs.spring.io/spring-boot/4.0/reference/io/caching.html)
+
+## Recommended Next
+
+Use [Cache Architecture](../architecture/CACHE-UMBRELLA.md) for provider/topology
+decisions, then review [Spring Resilience4j](./SPRING-RESILIENCE4J.md) for source
+protection during cache misses and outages.

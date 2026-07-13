@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">RAG request and ingestion flow</title>
+  <desc id="desc">Diagram showing document ingestion into a vector database and user question answering through retrieval augmented generation.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}
+      .box{fill:#ffffff;stroke:#1f2937;stroke-width:2;rx:12}
+      .store{fill:#ecfeff;stroke:#0f766e;stroke-width:2;rx:12}
+      .model{fill:#eef2ff;stroke:#4338ca;stroke-width:2;rx:12}
+      .text{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:19px;fill:#111827}
+      .small{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#374151}
+      .label{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px;fill:#1d4ed8;font-weight:600}
+      .line{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#arrow)}
+      .muted{stroke:#94a3b8;stroke-width:2;stroke-dasharray:6 6;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1200" height="620"/>
+  <text class="text" x="46" y="48" font-weight="700">Retrieval Augmented Generation in Shopverse</text>
+  <text class="small" x="46" y="78">Two flows exist: offline ingestion prepares knowledge, runtime retrieval grounds the answer.</text>
+
+  <rect class="box" x="52" y="138" width="190" height="86"/>
+  <text class="text" x="82" y="172">Documents</text>
+  <text class="small" x="82" y="198">FAQ, policy, guides</text>
+
+  <rect class="box" x="312" y="138" width="190" height="86"/>
+  <text class="text" x="350" y="172">Chunking</text>
+  <text class="small" x="344" y="198">Split by sections</text>
+
+  <rect class="model" x="572" y="138" width="190" height="86"/>
+  <text class="text" x="604" y="172">Embedding</text>
+  <text class="small" x="618" y="198">Text to vector</text>
+
+  <rect class="store" x="832" y="138" width="220" height="86"/>
+  <text class="text" x="872" y="172">Vector DB</text>
+  <text class="small" x="866" y="198">Chunks + metadata</text>
+
+  <path class="muted" d="M 242 181 L 312 181"/>
+  <path class="muted" d="M 502 181 L 572 181"/>
+  <path class="muted" d="M 762 181 L 832 181"/>
+  <text class="label" x="54" y="118">Ingestion flow</text>
+
+  <rect class="box" x="52" y="374" width="190" height="86"/>
+  <text class="text" x="86" y="408">Question</text>
+  <text class="small" x="86" y="434">User asks API</text>
+
+  <rect class="model" x="312" y="374" width="190" height="86"/>
+  <text class="text" x="344" y="408">Embed query</text>
+  <text class="small" x="344" y="434">Same vector space</text>
+
+  <rect class="store" x="572" y="374" width="190" height="86"/>
+  <text class="text" x="604" y="408">Retrieve</text>
+  <text class="small" x="604" y="434">Top-k chunks</text>
+
+  <rect class="box" x="832" y="374" width="220" height="86"/>
+  <text class="text" x="858" y="408">Prompt builder</text>
+  <text class="small" x="858" y="434">Question + context</text>
+
+  <rect class="model" x="832" y="506" width="220" height="72"/>
+  <text class="text" x="888" y="548">LLM answer</text>
+
+  <path class="line" d="M 242 417 L 312 417"/>
+  <path class="line" d="M 502 417 L 572 417"/>
+  <path class="line" d="M 762 417 L 832 417"/>
+  <path class="line" d="M 942 460 L 942 506"/>
+  <path class="line" d="M 942 374 C 942 310 942 270 942 224"/>
+  <text class="label" x="54" y="354">Runtime question flow</text>
+  <text class="small" x="620" y="508">Grounding rule: answer only from retrieved context.</text>
+</svg>

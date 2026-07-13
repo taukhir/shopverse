@@ -1,136 +1,90 @@
-﻿---
+---
 title: Spring Kafka Consumers And Delivery Semantics
+description: Spring listener-container lifecycle, method conversion, acknowledgment modes, transactions, context propagation, and failure boundaries.
+difficulty: Advanced
+page_type: Concept
+status: Generic
+prerequisites: [Apache Kafka consumer groups, Spring Boot configuration, Database transactions]
+learning_objectives: [Trace a record from poll to listener completion, Choose acknowledgment and transaction semantics deliberately, Keep listener business effects idempotent and observable]
+technologies: [Spring for Apache Kafka 4.x, KafkaListener, Listener Containers, Micrometer]
+last_reviewed: "2026-07-13"
 ---
 
 # Spring Kafka Consumers And Delivery Semantics
 
-Kafka listeners, consumer groups, acknowledgments, delivery semantics, and Spring Kafka transactions.
+<DocLabels items={[
+  {label: 'Advanced', tone: 'advanced'},
+  {label: 'Listener containers', tone: 'foundation'},
+  {label: 'Delivery boundary', tone: 'production'},
+  {label: 'Shopverse current state', tone: 'shopverse'},
+]} />
 
-Back to [Spring Kafka](../SPRING-KAFKA.md).
+Generic group, offset, and delivery definitions live in
+[Apache Kafka](../../integration/APACHE-KAFKA.md). Spring adds managed containers
+that own polling, record conversion, listener invocation, offset handling, error
+processing, lifecycle, events, and observations.
 
-## Shopverse Links
+```mermaid
+sequenceDiagram
+    participant C as Listener container
+    participant K as Kafka consumer
+    participant M as Message converter
+    participant L as @KafkaListener
+    participant DB as Service database
+    C->>K: poll()
+    K-->>C: ConsumerRecords
+    C->>M: convert record
+    M->>L: invoke method
+    L->>DB: idempotent transaction
+    DB-->>L: commit or rollback
+    L-->>C: return or throw
+    C->>K: commit / seek / recover by policy
+```
 
-Shopverse applies these consumer concepts through:
-
-- [Kafka Event Parsing](../../platform/KAFKA-PARSING.md) for shared listener JSON parsing;
-- [Kafka Recovery Starter](../../platform/KAFKA-RECOVERY-STARTER.md) for failed-event persistence and replay;
-- [Spring Kafka Retry DLT And Recovery](./SPRING-KAFKA-RETRY-DLT-RECOVERY.md) for retry and dead-letter behavior;
-- [Runtime Reliability Problems](../../reliability/problems/RUNTIME-RELIABILITY-PROBLEMS.md) for duplicate delivery and idempotency decisions.
-
-The shared parser removes repeated `ObjectMapper` try/catch blocks. It does
-not make listener business effects idempotent; that still needs service-owned
-state checks, unique keys, or an inbox/processed-event table.
-
-## Consuming With `@KafkaListener`
+## Container Registration And Lifecycle
 
 ```java
 @KafkaListener(
-        topics = "${shopverse.kafka.topics.payment-failed}",
+        id = "order-payment-completed",
+        topics = "${shopverse.kafka.topics.payment-completed}",
         groupId = "${spring.application.name}"
 )
-public void onPaymentFailed(String payload) {
-    PaymentFailedEvent event = readEvent(payload, PaymentFailedEvent.class);
-    CorrelationContext.run(
-            event.correlationId(),
-            () -> handlePaymentFailed(event)
-    );
+public void onPaymentCompleted(String payload) {
+    PaymentCompletedEvent event = eventParser.parse(
+            payload, PaymentCompletedEvent.class);
+    correlationContext.run(event.correlationId(),
+            () -> orderService.confirm(event));
 }
 ```
 
-`@KafkaListener` marks the method as the endpoint for a Spring-managed message
-listener container. Spring Boot supplies the default container factory from
-`spring.kafka.*` properties.
+Spring registers a listener endpoint, creates a message listener container from the
+selected factory, starts its consumer thread, and invokes the method after
+conversion. Use a stable listener `id` when operators need to locate, pause, or
+inspect a specific container through `KafkaListenerEndpointRegistry`.
 
-At startup Spring:
+<DocCallout type="shopverse" title="Current listener boundary">
 
-1. finds the annotation;
-2. creates a listener endpoint and container;
-3. creates a Kafka consumer;
-4. subscribes it to the topic using the group ID;
-5. starts a polling thread;
-6. converts each record to the method arguments;
-7. invokes the listener on the consumer-container thread.
+Order, Inventory, and Payment saga listeners currently parse service-owned JSON
+records through the shared parser, restore correlation context, and delegate to a
+transactional service. Group IDs use `${spring.application.name}`, so replicas of
+one service cooperate while different services retain independent progress.
 
-`topics` selects the input topic. `groupId` identifies independent processing
-progress. Property placeholders keep names in centralized configuration.
+</DocCallout>
 
-Use `ConsumerRecord<K,V>` when topic, key, partition, offset, timestamp, or
-headers are needed:
+## Method Signature And Conversion
 
-```java
-@KafkaListener(topics = "orders", groupId = "inventory-service")
-public void consume(ConsumerRecord<String, String> record) {
-    log.info(
-            "Kafka record received topic={} partition={} offset={} key={}",
-            record.topic(),
-            record.partition(),
-            record.offset(),
-            record.key()
-    );
-}
-```
+Use a payload argument for simple application handling. Request
+`ConsumerRecord<K,V>` when topic, partition, offset, key, timestamp, or headers are
+required for idempotency and evidence. Do not let transport metadata leak through
+every domain service method.
 
-Do not log sensitive payloads by default.
+Header and payload limits, trusted type information, deserialization failure, and
+unknown schema versions need explicit recovery policy. A poison record that fails
+before the listener is invoked must still reach an error handler or recoverer.
 
-### Listener Parsing Boundary
+## Acknowledgment Modes
 
-A listener normally has three responsibilities:
-
-1. parse the transport payload;
-2. restore tracing/correlation context;
-3. run service-owned business handling.
-
-Only the first responsibility is a good shared-library candidate. Business
-handling and event records belong to the service because they are part of that
-service's domain contract.
-
-```java
-InventoryReservedEvent event = eventParser.parse(
-        payload,
-        InventoryReservedEvent.class
-);
-
-CorrelationContext.run(
-        event.correlationId(),
-        () -> handleInventoryReserved(event)
-);
-```
-
-This keeps the listener small while avoiding a large shared domain library.
-
-
-## Consumer Groups
-
-Consumers with the same group ID cooperate. One partition is assigned to at
-most one consumer in that group:
-
-```text
-Topic: 3 partitions
-
-inventory-service group
-  consumer A -> partition 0
-  consumer B -> partition 1
-  consumer C -> partition 2
-
-analytics group
-  consumer X -> partitions 0, 1, 2
-```
-
-The Inventory and Analytics groups both receive the records because their
-group IDs differ. Within Inventory, each partition is handled by one member.
-
-When a consumer starts, stops, or becomes unhealthy, Kafka rebalances
-partitions across surviving group members. Rebalances temporarily pause
-processing and may expose duplicates when completed work was not yet committed.
-
-Shopverse uses `${spring.application.name}` as the group ID, so each service
-receives the event types it subscribes to while replicas of that service share
-the work.
-
-
-## Acknowledgments And Delivery Semantics
-
-Shopverse central configuration uses:
+Shopverse currently disables consumer auto-commit and uses record acknowledgment:
 
 ```yaml
 spring:
@@ -138,148 +92,121 @@ spring:
     consumer:
       enable-auto-commit: false
       auto-offset-reset: earliest
+      properties:
+        max.poll.records: 50
     listener:
       ack-mode: record
 ```
 
-- auto-commit is disabled, so the container controls offset commits;
-- `RECORD` commits the offset after a record listener completes successfully;
-- `earliest` applies only when a group has no valid committed offset.
+| Mode | Spring container boundary | Main risk |
+|---|---|---|
+| `RECORD` | handle and commit each record for a record listener | more commit overhead |
+| `BATCH` | handle records returned by a poll before commit | larger redelivery set |
+| `MANUAL` | listener acknowledges; container applies its commit semantics | missing/incorrect acknowledgment paths |
+| `MANUAL_IMMEDIATE` | attempts immediate commit when called on the consumer thread | behavior differs if called from another thread |
 
-A failure before a successful commit can cause redelivery. A crash after the
-database commit but before the offset commit can also redeliver the record.
-Shopverse therefore has at-least-once consumption and must make business
-effects idempotent.
+<DocCallout type="mistake" title="Manual acknowledgment is not database atomicity">
 
-Manual acknowledgment is useful only when application-controlled offset timing
-is genuinely required:
+Acknowledging after a database call still leaves a crash window between the
+database commit and offset commit. Protect the business effect with an event ID or
+business key inside the same database transaction.
 
-```java
-@KafkaListener(topics = "orders", groupId = "worker")
-public void consume(String payload, Acknowledgment acknowledgment) {
-    process(payload);
-    acknowledgment.acknowledge();
-}
-```
+</DocCallout>
 
-It requires a manual acknowledgment mode. It does not itself make database
-work and offset commits atomic.
+## Database And Kafka Transactions
 
-### Manual Acknowledgment Modes
+A container configured with a Kafka-aware transaction manager can begin a Kafka
+transaction before invoking the listener. Template sends and consumed offsets can
+then commit together for a read-process-write flow within Kafka.
 
-```yaml
-spring:
-  kafka:
-    listener:
-      ack-mode: manual
-```
+This does not turn a database transaction and Kafka transaction into one atomic
+resource. When both are composed, commit ordering and compensation must be defined;
+the transactional outbox remains the clearest boundary for durable database state
+plus later Kafka publication.
 
-Common container modes include:
+<DocCallout type="code" title="Not current Shopverse configuration">
 
-| Mode | General behavior |
-|---|---|
-| `RECORD` | commit after each successfully handled record |
-| `BATCH` | commit after records returned by one poll are processed |
-| `MANUAL` | listener acknowledges; commit is queued by container semantics |
-| `MANUAL_IMMEDIATE` | attempt commit immediately when acknowledgment occurs on the consumer thread |
+Shared Shopverse configuration does not currently define a producer transaction ID
+prefix or container transaction manager. The documented runtime is record-ack,
+at-least-once consumption with idempotent service handling and outbox publication.
 
-Exact behavior depends on record versus batch listeners and transaction
-configuration. Manual acknowledgment should not be used merely because it
-looks more controlled. It adds responsibility for every success, failure, and
-threading path.
+</DocCallout>
 
+Spring Kafka exactly-once semantics apply to the Kafka read-process-write sequence.
+The read and application processing can still be attempted more than once; external
+effects require their own idempotency.
 
-## Spring Kafka Transactions
+## Thread, Context, And Cancellation Boundary
 
-Configure a transactional producer ID prefix:
+The listener runs on a container consumer thread. Restore tracing/correlation
+context for each record and clear it afterward. Avoid `@Async` on the listener: a
+returned method can let the container commit while detached work later fails, and
+it breaks partition order, retry ownership, and graceful shutdown.
 
-```yaml
-spring:
-  kafka:
-    producer:
-      transaction-id-prefix: ${spring.application.name}-${INSTANCE_ID:local}-
-```
+Long processing must remain below the consumer poll interval budget or be redesigned
+with smaller poll batches, bounded handoff plus explicit ownership, or a different
+work model. See [Listener Concurrency And Capacity](./SPRING-KAFKA-CONCURRENCY-CAPACITY.md).
 
-Each running instance requires unique transactional IDs.
+## Failure And Security Boundary
 
-Spring can execute several Kafka sends atomically:
+- classify deserialization, validation, transient dependency, and permanent
+  business failures separately;
+- never log authentication material or full sensitive payloads;
+- record topic, partition, offset, listener ID, event ID, attempt, and exception
+  class using bounded-cardinality metrics;
+- authorize recovery endpoints independently from ordinary consumer credentials;
+- use service-specific topic ACLs in production.
 
-```java
-kafkaTemplate.executeInTransaction(operations -> {
-    operations.send("order.created", orderNumber, createdPayload);
-    operations.send("order.audit", orderNumber, auditPayload);
-    return null;
-});
-```
+## Evidence Checklist
 
-Either both records become visible to `read_committed` consumers or neither
-does.
+- effective container configuration at startup;
+- listener success/failure duration and delivery-attempt count;
+- offset progress, lag, poll age, and rebalance events;
+- database effect plus idempotency row under duplicate delivery;
+- container stop/drain behavior during termination;
+- Testcontainers test for success, throw, redelivery, and recovery.
 
-For a consume-process-produce flow, a Kafka-aware listener container can bind
-the consumed offsets and outgoing records to one Kafka transaction:
+## Interview Questions
 
-```text
-poll input record
-  -> begin Kafka transaction
-  -> invoke listener
-  -> publish output record
-  -> send consumed offset to transaction
-  -> commit Kafka transaction
-```
+<ExpandableAnswer title="What happens after an @KafkaListener method returns normally?">
 
-Kafka transactions provide exactly-once semantics within Kafka boundaries.
-They do not make a MySQL transaction and Kafka transaction one atomic commit.
+The container applies its configured acknowledgment, transaction, and error-handler
+semantics. With record acknowledgment and no container transaction, it can commit
+that record's offset after successful listener completion.
 
-Unsafe dual write:
+</ExpandableAnswer>
 
-```java
-@Transactional
-public void createOrder() {
-    orderRepository.save(order);
-    kafkaTemplate.send("order.created", payload);
-}
-```
+<ExpandableAnswer title="Why can a database effect occur twice even with record acknowledgment?">
 
-Use a transactional outbox when database state and event publication must
-survive independent failures:
+The database may commit and the process may crash before the offset commit. Kafka
+redelivers the record, so the service transaction must recognize the event or
+business operation as already applied.
 
-```java
-@Transactional
-public void createOrder() {
-    orderRepository.save(order);
-    outboxRepository.save(OutboxEvent.orderCreated(order));
-}
-```
+</ExpandableAnswer>
 
-Non-blocking retry topics and container transactions have compatibility
-constraints. Select retry and transaction semantics together rather than
-combining annotations without verifying behavior.
+<ExpandableAnswer title="Why is @Async usually unsafe on a Kafka listener?">
 
+The container sees the listener return before detached work finishes. It can commit
+the offset while the async task later fails, and ordering, retry, context, and
+shutdown ownership become ambiguous.
 
-## Is Kafka A Queue?
+</ExpandableAnswer>
 
-Kafka can model competing work by using one consumer group:
+<ExpandableAnswer title="What does Spring Kafka exactly-once semantics not cover?">
 
-```text
-one topic + one consumer group
-  -> each partition record handled by one group member
-```
+It does not make an external database, HTTP call, or other side effect atomic with
+Kafka. Those resources still need idempotency, outbox, compensation, or another
+explicit coordination design.
 
-But Kafka retains records after processing and supports multiple groups and
-replay, so its fundamental model is a distributed log rather than a
-traditional destructive queue.
+</ExpandableAnswer>
 
-Use separate topics or explicit routing when different work types require
-independent retry, retention, ownership, or scaling.
+## Official References
 
-For the ownership comparison between Kafka groups, competing queues, static
-shards, lease tables, and database row claims, see
-[Partition And Queue Ownership](../../reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP.md).
+- [Receiving messages](https://docs.spring.io/spring-kafka/reference/4.0/kafka/receiving-messages.html)
+- [Listener container properties](https://docs.spring.io/spring-kafka/reference/4.0/kafka/container-props.html)
+- [Transactions](https://docs.spring.io/spring-kafka/reference/4.0/kafka/transactions.html)
+- [Exactly-once semantics](https://docs.spring.io/spring-kafka/reference/4.0/kafka/exactly-once.html)
 
+## Recommended Next
 
-
-
-
-
-
-
+Continue with [Listener Concurrency And Capacity](./SPRING-KAFKA-CONCURRENCY-CAPACITY.md).

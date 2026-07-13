@@ -5,6 +5,8 @@ description: Pipeline construction, sink fusion, stateful operations, spliterato
 
 # Java Stream Pipeline, Spliterator And Collector Internals
 
+![Sequential stream fusion and parallel ForkJoin execution](/img/diagrams/java-stream-forkjoin-execution.svg)
+
 A stream is a single-use computation description. Intermediate operations link
 pipeline stages; a terminal operation builds/wraps a sink chain and drives source
 traversal. Values generally flow through fused stages one element at a time.
@@ -70,11 +72,36 @@ already performed by sibling tasks.
 
 ## Tricky Interview Questions
 
-1. Does every intermediate operation allocate a collection? No; stages are normally fused.
-2. Why is a stream single-use? Its pipeline/source consumption state is not reusable.
-3. Can `peek` be omitted by optimization? Do not assign required side effects to it.
-4. Why does subtraction fail as parallel reduction? It is not associative.
-5. What happens with duplicate `toMap` keys? It throws unless a merge policy is supplied.
+<ExpandableAnswer title="Does every intermediate operation allocate a collection?">
+
+No; stages are normally fused.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is a stream single-use?">
+
+Its pipeline/source consumption state is not reusable.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can peek be omitted by optimization?">
+
+Do not assign required side effects to it.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why does subtraction fail as parallel reduction?">
+
+It is not associative.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What happens with duplicate toMap keys?">
+
+It throws unless a merge policy is supplied.
+
+</ExpandableAnswer>
+
 
 ## Official References
 

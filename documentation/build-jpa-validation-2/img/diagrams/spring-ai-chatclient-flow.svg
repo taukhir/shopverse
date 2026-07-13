@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Spring AI ChatClient flow</title><desc id="desc">Spring MVC controller to service to ChatClient to model provider.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10z" fill="#2563eb"/></marker><style>.bg{fill:#f8fafc}.b{fill:#fff;stroke:#111827;stroke-width:2;rx:12}.sai{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:12}.m{fill:#f5f3ff;stroke:#7c3aed;stroke-width:2;rx:12}.h{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:25px;fill:#111827;font-weight:700}.t{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:18px;fill:#111827;font-weight:700}.s{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px;fill:#374151}.l{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#a)}</style></defs>
+  <rect class="bg" width="1200" height="620"/><text class="h" x="50" y="55">Spring AI ChatClient Flow</text><text class="s" x="50" y="84">Use normal Spring layers; keep provider-specific details out of controllers.</text>
+  <rect class="b" x="70" y="250" width="180" height="90"/><text class="t" x="112" y="286">Client</text><text class="s" x="100" y="314">Web/Postman</text>
+  <rect class="b" x="320" y="250" width="180" height="90"/><text class="t" x="360" y="286">Controller</text><text class="s" x="350" y="314">HTTP DTOs</text>
+  <rect class="b" x="570" y="250" width="180" height="90"/><text class="t" x="622" y="286">Service</text><text class="s" x="600" y="314">prompt + validation</text>
+  <rect class="sai" x="820" y="250" width="180" height="90"/><text class="t" x="868" y="286">ChatClient</text><text class="s" x="855" y="314">Spring AI API</text>
+  <rect class="m" x="820" y="420" width="180" height="80"/><text class="t" x="860" y="454">Provider</text><text class="s" x="858" y="480">OpenAI/Ollama/etc</text>
+  <path class="l" d="M250 295 L320 295"/><path class="l" d="M500 295 L570 295"/><path class="l" d="M750 295 L820 295"/><path class="l" d="M910 340 L910 420"/>
+</svg>

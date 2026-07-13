@@ -172,11 +172,36 @@ functions block or when the common pool is shared by unrelated latency paths.
 
 ## Tricky Interview Questions
 
-1. Are reads always lock-free in every internal path? Normal reads avoid locking, but describe API guarantees rather than claiming a universal implementation theorem.
-2. Why can `maximum` concurrency still collapse? Hot bins, mapping-function duration, CPU, allocation and downstream work remain shared bottlenecks.
-3. Does `computeIfAbsent` guarantee its function never runs concurrently for different keys? No; coordination is scoped to relevant map state, not global execution.
-4. Can `size()` authorize a capacity-sensitive business action? No; concurrent aggregate observations are not a transaction.
-5. Does a concurrent map make a local cache coherent across replicas? No.
+<ExpandableAnswer title="Are reads always lock-free in every internal path?">
+
+Normal reads avoid locking, but describe API guarantees rather than claiming a universal implementation theorem.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can maximum concurrency still collapse?">
+
+Hot bins, mapping-function duration, CPU, allocation and downstream work remain shared bottlenecks.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does computeIfAbsent guarantee its function never runs concurrently for different keys?">
+
+No; coordination is scoped to relevant map state, not global execution.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can size() authorize a capacity-sensitive business action?">
+
+No; concurrent aggregate observations are not a transaction.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a concurrent map make a local cache coherent across replicas?">
+
+No.
+
+</ExpandableAnswer>
+
 
 ## Official References
 
