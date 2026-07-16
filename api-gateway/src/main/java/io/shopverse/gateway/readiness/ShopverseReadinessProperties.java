@@ -9,7 +9,7 @@ import java.util.List;
 public record ShopverseReadinessProperties(
         List<String> requiredServices,
         List<String> requiredRouteIds,
-        int minimumSeedProducts,
+        int minimumCatalogProducts,
         Duration timeout,
         String minioObjectBaseUrl
 ) {
@@ -28,7 +28,7 @@ public record ShopverseReadinessProperties(
                 "payment-service",
                 "inventory-service"
         ));
-        minimumSeedProducts = minimumSeedProducts > 0 ? minimumSeedProducts : 5;
+        minimumCatalogProducts = minimumCatalogProducts > 0 ? minimumCatalogProducts : 5;
         timeout = timeout != null ? timeout : Duration.ofSeconds(3);
         minioObjectBaseUrl = minioObjectBaseUrl == null ? "" : trimTrailingSlash(minioObjectBaseUrl);
     }

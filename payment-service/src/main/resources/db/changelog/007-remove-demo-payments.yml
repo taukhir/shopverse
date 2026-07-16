@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-remove-demo-payments
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              DELETE FROM payments
+              WHERE order_number LIKE 'DEMO-ORD-%';

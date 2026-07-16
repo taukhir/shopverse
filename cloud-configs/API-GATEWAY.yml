@@ -57,7 +57,7 @@ security:
 shopverse:
   readiness:
     timeout: ${SHOPVERSE_READINESS_TIMEOUT:3s}
-    minimum-seed-products: ${SHOPVERSE_READINESS_MINIMUM_SEED_PRODUCTS:5}
+    minimum-catalog-products: ${SHOPVERSE_READINESS_MINIMUM_CATALOG_PRODUCTS:5}
     minio-object-base-url: ${SHOPVERSE_READINESS_MINIO_OBJECT_BASE_URL:}
     required-services:
       - AUTH-SERVICE

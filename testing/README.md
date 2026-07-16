@@ -95,7 +95,7 @@ curl.exe http://localhost:8080/actuator/shopverse-readiness
 
 `/actuator/shopverse-readiness` is stricter than `/actuator/health`. It checks
 required discovery registrations, required gateway route IDs, downstream
-service health, seeded inventory catalog data, and configured MiniIO product
+service health, baseline inventory catalog data, and configured MiniIO product
 image object reachability. `Test-ShopverseFullStack.ps1` waits for this
 endpoint before running checkout smoke tests.
 
@@ -167,7 +167,7 @@ The suites verify:
 `@Testcontainers(disabledWithoutDocker = true)` lets unit-only development
 continue when Docker is unavailable. CI runners are expected to provide Docker.
 
-## API Demo Data Seeder
+## API Local Data Seeder
 
 `scripts/Seed-ShopverseData.ps1` populates a running local stack through the
 API Gateway. It deliberately exercises the same authentication, authorization,
@@ -176,10 +176,21 @@ and tracing paths used by a normal client. It is not a Liquibase migration and
 must never be used against a production environment.
 
 The default data set contains 20 named customer accounts, 20 realistic catalog
-items, and 120 one-item checkout requests. User creation accepts duplicate
+items, and 50 one-item checkout requests. User creation accepts duplicate
 users, product creation is a `PUT` upsert, and every checkout has a stable
 `Idempotency-Key`. This means a rerun resumes the same data set instead of
-silently creating another 120 logical checkouts.
+silently creating another 50 logical checkouts.
+
+To wipe all local database/object-store data and recreate the current baseline:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Reset-ShopverseLocalData.ps1 `
+  -CustomerCount 20 -ProductCount 20 -OrderCount 50
+```
+
+The reset script runs `docker compose --profile apps --profile assets down -v`,
+starts a fresh stack, waits for `/actuator/shopverse-readiness`, and then calls
+`Seed-ShopverseData.ps1`.
 
 Stable verification credentials and records:
 
@@ -189,9 +200,36 @@ Stable verification credentials and records:
 | Customer one | `customer1 / Customer@123` |
 | Customer two | `customer2 / Buyer@123` |
 | Always-used smoke product | `101` |
-| Confirmed demo order | `DEMO-ORD-1001` |
-| Declined-payment demo order | `DEMO-ORD-1002` |
-| Inventory-rejected demo order | `DEMO-ORD-1003` |
+
+Fresh local resets no longer keep legacy `DEMO-ORD-*` rows. Use
+`.tmp/shopverse-api-seed-manifest.json` for the current order numbers,
+correlation IDs, and idempotency keys.
+
+Current API-seeded customer accounts are also written to the ignored maintained
+credentials file `shopverse-local-credentials.md`.
+
+| Username | Password |
+|---|---|
+| `john.smith` | `Shopverse!2026` |
+| `emily.johnson` | `Shopverse!2026` |
+| `michael.brown` | `Shopverse!2026` |
+| `sarah.williams` | `Shopverse!2026` |
+| `david.jones` | `Shopverse!2026` |
+| `jessica.garcia` | `Shopverse!2026` |
+| `daniel.miller` | `Shopverse!2026` |
+| `laura.davis` | `Shopverse!2026` |
+| `robert.martinez` | `Shopverse!2026` |
+| `amanda.wilson` | `Shopverse!2026` |
+| `christopher.anderson` | `Shopverse!2026` |
+| `olivia.thomas` | `Shopverse!2026` |
+| `matthew.taylor` | `Shopverse!2026` |
+| `sophia.moore` | `Shopverse!2026` |
+| `andrew.jackson` | `Shopverse!2026` |
+| `natalie.white` | `Shopverse!2026` |
+| `joshua.harris` | `Shopverse!2026` |
+| `rachel.martin` | `Shopverse!2026` |
+| `kevin.thompson` | `Shopverse!2026` |
+| `megan.clark` | `Shopverse!2026` |
 
 Start the Compose stack and seed it:
 
@@ -210,7 +248,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Seed-ShopverseData
 
 The script prompts for the administrator password when neither
 `-AdminPassword` nor `SHOPVERSE_ADMIN_PASSWORD` is set. It writes generated
-customer credentials to the ignored root file `demo-credentials.local.md` and
+customer credentials to the ignored root file `shopverse-local-credentials.md` and
 the full result, order identifiers, correlation IDs, and idempotency keys to
 the ignored `.tmp/shopverse-api-seed-manifest.json`.
 

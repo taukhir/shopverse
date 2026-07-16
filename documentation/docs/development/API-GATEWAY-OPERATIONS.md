@@ -100,7 +100,7 @@ It checks:
 - required service registrations in Eureka;
 - required gateway route IDs;
 - downstream service actuator health;
-- seeded inventory catalog availability;
+- baseline inventory catalog availability;
 - product image metadata;
 - configured MiniIO seeded product image object reachability.
 
