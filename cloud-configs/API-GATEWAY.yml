@@ -54,6 +54,24 @@ security:
   jwt:
     issuer: ${JWT_ISSUER:shopverse-auth-service}
 
+shopverse:
+  readiness:
+    timeout: ${SHOPVERSE_READINESS_TIMEOUT:3s}
+    minimum-seed-products: ${SHOPVERSE_READINESS_MINIMUM_SEED_PRODUCTS:5}
+    minio-object-base-url: ${SHOPVERSE_READINESS_MINIO_OBJECT_BASE_URL:}
+    required-services:
+      - AUTH-SERVICE
+      - USER-SERVICE
+      - ORDER-SERVICE
+      - PAYMENT-SERVICE
+      - INVENTORY-SERVICE
+    required-route-ids:
+      - auth-service
+      - user-service
+      - order-service
+      - payment-service
+      - inventory-service
+
 resilience4j:
   circuitbreaker:
     instances:

@@ -85,6 +85,40 @@ custom start/completion logs and counter are skipped.
 This avoids allowing probe traffic to hide application requests or distort the
 custom business-facing gateway metric.
 
+## Shopverse Readiness
+
+API Gateway exposes a production readiness endpoint:
+
+```text
+GET /actuator/shopverse-readiness
+```
+
+It is intentionally stricter than `/actuator/health`. The response returns
+HTTP `200` only when Shopverse can route customer traffic through the gateway.
+It checks:
+
+- required service registrations in Eureka;
+- required gateway route IDs;
+- downstream service actuator health;
+- seeded inventory catalog availability;
+- product image metadata;
+- configured MiniIO seeded product image object reachability.
+
+If any required check fails, the endpoint returns HTTP `503` with a bounded
+component summary. The endpoint does not expose credentials or stack traces.
+
+Docker sets `SHOPVERSE_READINESS_MINIO_OBJECT_BASE_URL` for API Gateway so the
+MiniIO object check uses the internal container URL instead of the browser-facing
+`localhost` image URLs.
+
+The full-stack verification script waits for this endpoint before running the
+checkout smoke:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFullStack.ps1 `
+  -Mode Smoke -TimeoutMinutes 35
+```
+
 ## Filter Ordering
 
 The filter implements `Ordered`:

@@ -24,6 +24,9 @@ prints its final 160 stdout/stderr lines before the summary.
 | Infrastructure | `integrationTest` | Real MySQL migrations, transaction rollback, outbox persistence, and Kafka publishing through Testcontainers |
 | Smoke | `Smoke-Test.ps1` | Authenticated checkout and SAGA timeline against an already running stack |
 | Full | `Verify-Shopverse.ps1 -Mode Full` | Isolated lightweight Compose stack plus the authenticated SAGA smoke test |
+| Web quick | `npm run check:web:quick` in `shopverse-web` | Angular production build, unit tests, mocked E2E, accessibility, and Lighthouse |
+| Full-stack web | `Test-ShopverseFullStack.ps1 -Mode Smoke` | Isolated Docker stack plus API SAGA smoke and real Angular/nginx browser smoke |
+| Release checklist | `Test-ShopverseRelease.ps1 -Mode Full` | One go-live command that runs frontend/docs verification, full-stack verification, and writes a JSON report |
 
 Unit tests and integration tests are separate Gradle tasks. A normal `test`
 run never starts Docker containers.
@@ -78,6 +81,24 @@ Run checkout verification against the normal local stack:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Smoke-Test.ps1
 ```
 
+Verify every direct local service health endpoint:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseHealthEndpoints.ps1
+```
+
+Verify the API Gateway production readiness contract:
+
+```powershell
+curl.exe http://localhost:8080/actuator/shopverse-readiness
+```
+
+`/actuator/shopverse-readiness` is stricter than `/actuator/health`. It checks
+required discovery registrations, required gateway route IDs, downstream
+service health, seeded inventory catalog data, and configured MiniIO product
+image object reachability. `Test-ShopverseFullStack.ps1` waits for this
+endpoint before running checkout smoke tests.
+
 Run a fresh isolated stack and checkout verification:
 
 ```powershell
@@ -91,6 +112,43 @@ Shopverse environments at once. The forced isolated gate uses
 `docker-compose.test.yml`, publishes only API Gateway on `localhost:18080`, and
 does not start Prometheus, Loki, Promtail, or Grafana. Stop the development
 stack first on lower-memory machines.
+
+Run a fresh isolated stack with Angular and documentation containers:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFullStack.ps1 `
+  -Mode Smoke -TimeoutMinutes 35
+```
+
+This publishes only test ports:
+
+| Surface | URL |
+|---|---|
+| API Gateway | `http://127.0.0.1:18080` |
+| Angular storefront/admin | `http://127.0.0.1:14200` |
+| Docusaurus documentation | `http://127.0.0.1:13001` |
+
+Use `-SkipBrowser` for backend-only Docker smoke, `-SkipDocs` to avoid building
+the docs image, and `-KeepStack` when a failure needs manual inspection.
+
+Run the structured release checklist:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseRelease.ps1 `
+  -Mode Full -TimeoutMinutes 60
+```
+
+The release checklist writes `testing/reports/shopverse-release-report.json`
+with start/end timestamps, Git branch/commit, dirty-file count, phase results,
+duration, and any failure message. Use these focused variants when needed:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseRelease.ps1 `
+  -Mode Quick -SkipFullStack -SkipBrowsers
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseRelease.ps1 `
+  -Mode Quick -SkipFrontend -SkipBrowsers
+```
 
 ## Testcontainers Coverage
 
@@ -122,6 +180,18 @@ items, and 120 one-item checkout requests. User creation accepts duplicate
 users, product creation is a `PUT` upsert, and every checkout has a stable
 `Idempotency-Key`. This means a rerun resumes the same data set instead of
 silently creating another 120 logical checkouts.
+
+Stable verification credentials and records:
+
+| Purpose | Value |
+|---|---|
+| Administrator | `admin / Admin@123` |
+| Customer one | `customer1 / Customer@123` |
+| Customer two | `customer2 / Buyer@123` |
+| Always-used smoke product | `101` |
+| Confirmed demo order | `DEMO-ORD-1001` |
+| Declined-payment demo order | `DEMO-ORD-1002` |
+| Inventory-rejected demo order | `DEMO-ORD-1003` |
 
 Start the Compose stack and seed it:
 

@@ -1059,6 +1059,7 @@ const sidebars: SidebarsConfig = {
       collapsed: true,
       items: [
         'ai/README',
+        'ai/ENTERPRISE-AI-ARCHITECTURE',
         {
           type: 'category',
           label: 'Start Here',
@@ -1100,6 +1101,15 @@ const sidebars: SidebarsConfig = {
             'ai/AGENTS-TOOL-CALLING',
             'ai/AI-EVALUATION-OPERATIONS',
             'ai/AI-SECURITY-GUARDRAILS',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Spring Cloud And Production AI',
+          link: {type: 'doc', id: 'ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM'},
+          collapsed: true,
+          items: [
+            'ai/SECURE-AI-AGENTS-DATA-PERFORMANCE',
           ],
         },
         {

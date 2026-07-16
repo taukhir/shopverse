@@ -81,6 +81,7 @@ back to `index.html` for Angular client-side routes.
 | `npm run build:dev` | development build |
 | `npm test` | Angular unit/component tests through the Angular Vitest runner |
 | `npm run e2e:quick` | mocked Playwright coverage for critical customer/admin flows |
+| `npm run e2e:full-stack` | real-stack Playwright smoke, enabled by `SHOPVERSE_FULL_STACK=1` |
 | `npm run a11y` | Playwright plus axe accessibility checks |
 | `npm run lighthouse` | production Lighthouse budget against the Angular app |
 | `npm run visual:update` | update visual regression snapshots intentionally |
@@ -117,6 +118,12 @@ If local execution policy blocks scripts, run:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
+```
+
+Run real Docker-backed UI verification from the repository root:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFullStack.ps1 -Mode Smoke -TimeoutMinutes 35
 ```
 
 ## Runtime Notes

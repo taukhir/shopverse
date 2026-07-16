@@ -433,6 +433,7 @@ services:
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       TRACING_SAMPLING_PROBABILITY: ${API_GATEWAY_TRACING_SAMPLING_PROBABILITY:-0.1}
+      SHOPVERSE_READINESS_MINIO_OBJECT_BASE_URL: http://minio:9000/shopverse-product-images
       LOG_FILE: /app/logs/api-gateway.log
     ports:
       - "8080:8080"
