@@ -12,6 +12,7 @@ tmp/
 .env.*
 !.env.example
 demo-credentials.local.md
+shopverse-local-credentials.md
 
 # IDE/editor metadata
 .idea/

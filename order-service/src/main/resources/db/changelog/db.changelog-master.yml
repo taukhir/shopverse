@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/005-failed-event-indexes.yml
   - include:
       file: db/changelog/006-order-shipping-address.yml
+  - include:
+      file: db/changelog/007-remove-demo-orders.yml

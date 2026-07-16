@@ -263,7 +263,7 @@ Then:
 4. Query the order timeline to observe SAGA state changes.
 5. Open Zipkin/Grafana/Prometheus to inspect traces, metrics, and service health.
 
-## MySQL Demo Data
+## MySQL Local Data
 
 Compose exposes MySQL on host port `3307`; containers use `mysql:3306`.
 Shopverse maintains separate schemas:
@@ -275,15 +275,28 @@ Shopverse maintains separate schemas:
 | `inventory_service` | catalog, stock, reservations, outbox, DLT recovery |
 | `payment_service` | payments, outbox, DLT recovery |
 
-Liquibase seeds:
+Liquibase and the local API seeder create a realistic baseline data set:
 
-- `admin`, `customer1`, and `customer2`;
-- catalog products `101` through `106` with product metadata and MinIO-backed image references;
-- confirmed, payment-failed, and inventory-rejected historical orders;
-- matching payment examples for the successful and declined orders.
+- `admin`, `customer1`, and `customer2` from Liquibase;
+- realistic catalog products `101` through `120` with brand, model, category,
+  descriptions, stock, pricing, and MinIO-backed image references;
+- optional API-seeded customer accounts and orders for dashboard/order-history
+  testing.
+
+Reset the local stack to clean volumes and seed the current baseline through
+the APIs:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Reset-ShopverseLocalData.ps1 `
+  -CustomerCount 20 -ProductCount 20 -OrderCount 50
+```
+
+The reset removes local Compose volumes, starts a fresh stack, waits for
+`/actuator/shopverse-readiness`, then creates 20 customer accounts, upserts 20
+catalog products, and creates 50 idempotent checkout orders.
 
 Local account passwords are in the Git-ignored
-`demo-credentials.local.md`. Customer passwords are stored as delegated BCrypt
+`shopverse-local-credentials.md`. Customer passwords are stored as delegated BCrypt
 hashes. Production credentials still belong in managed secret and identity
 systems rather than repository documentation.
 
@@ -411,7 +424,7 @@ curl.exe http://localhost:8080/actuator/shopverse-readiness
 ```
 
 It returns HTTP `200` only when required discovery registrations, gateway
-routes, downstream service health, seeded catalog data, and configured MiniIO
+routes, downstream service health, baseline catalog data, and configured MiniIO
 product image objects are ready. The full-stack smoke gate validates this
 endpoint automatically.
 

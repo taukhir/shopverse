@@ -1,0 +1,166 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-realistic-catalog-data
+      author: shopverse
+      changes:
+        - sql:
+            sql: |
+              UPDATE inventory_items
+              SET product_name = CASE product_id
+                    WHEN 101 THEN 'Compact Wireless Keyboard K380'
+                    WHEN 102 THEN 'USB-C 8-in-1 Travel Dock'
+                    WHEN 103 THEN 'Hybrid Active Noise Cancelling Headphones'
+                    WHEN 104 THEN '27-inch 4K IPS Monitor'
+                    WHEN 105 THEN 'Ergonomic Silent Wireless Mouse'
+                    WHEN 106 THEN 'Hot-Swappable Mechanical Keyboard'
+                    WHEN 107 THEN '1080p Autofocus Webcam'
+                    WHEN 108 THEN 'Adjustable Aluminium Laptop Stand'
+                    WHEN 109 THEN 'Portable NVMe SSD 1TB'
+                    WHEN 110 THEN 'Ergonomic Mesh Office Chair'
+                    WHEN 111 THEN 'GaN USB-C Charging Station 100W'
+                    WHEN 112 THEN 'Dimmable LED Desk Lamp'
+                    WHEN 113 THEN 'Portable Bluetooth Speaker'
+                    WHEN 114 THEN 'Weather-Resistant Laptop Backpack 25L'
+                    WHEN 115 THEN 'Wireless Presentation Remote'
+                    WHEN 116 THEN 'Single Monitor Arm With Gas Spring'
+                    WHEN 117 THEN 'Bluetooth Mechanical Number Pad'
+                    WHEN 118 THEN 'Adjustable 1080p Video Ring Light'
+                    WHEN 119 THEN 'USB-C Noise Isolating Earphones'
+                    WHEN 120 THEN 'Compact Thermal Label Printer'
+                  END,
+                  brand = CASE product_id
+                    WHEN 101 THEN 'NorthKey'
+                    WHEN 102 THEN 'Portsmith'
+                    WHEN 103 THEN 'Auralane'
+                    WHEN 104 THEN 'Viewcrest'
+                    WHEN 105 THEN 'ErgoNest'
+                    WHEN 106 THEN 'NorthKey'
+                    WHEN 107 THEN 'Frameo'
+                    WHEN 108 THEN 'Deskwise'
+                    WHEN 109 THEN 'Vaulton'
+                    WHEN 110 THEN 'PostureWorks'
+                    WHEN 111 THEN 'VoltEdge'
+                    WHEN 112 THEN 'LumaNest'
+                    WHEN 113 THEN 'Auralane'
+                    WHEN 114 THEN 'CarryGrid'
+                    WHEN 115 THEN 'MeetMate'
+                    WHEN 116 THEN 'Deskwise'
+                    WHEN 117 THEN 'NorthKey'
+                    WHEN 118 THEN 'Frameo'
+                    WHEN 119 THEN 'Auralane'
+                    WHEN 120 THEN 'Labelry'
+                  END,
+                  model = CASE product_id
+                    WHEN 101 THEN 'NK-K380-WL'
+                    WHEN 102 THEN 'PS-D8C-GRY'
+                    WHEN 103 THEN 'AL-HYB700-BLK'
+                    WHEN 104 THEN 'VC-IPS4K-27'
+                    WHEN 105 THEN 'EN-MX2-SIL'
+                    WHEN 106 THEN 'NK-MK84-HS'
+                    WHEN 107 THEN 'FR-CAM1080-AF'
+                    WHEN 108 THEN 'DW-LIFT-A2'
+                    WHEN 109 THEN 'VT-NVME-1TB'
+                    WHEN 110 THEN 'PW-MESH-PRO'
+                    WHEN 111 THEN 'VE-GAN100-4P'
+                    WHEN 112 THEN 'LN-DESK-DIM'
+                    WHEN 113 THEN 'AL-BT360-MINI'
+                    WHEN 114 THEN 'CG-COMMUTE-25'
+                    WHEN 115 THEN 'MM-CLICK-RF'
+                    WHEN 116 THEN 'DW-ARM-GS1'
+                    WHEN 117 THEN 'NK-NPAD-BT'
+                    WHEN 118 THEN 'FR-RING-1080'
+                    WHEN 119 THEN 'AL-CBUDS-C'
+                    WHEN 120 THEN 'LB-PRINT-4X6'
+                  END,
+                  category = CASE product_id
+                    WHEN 101 THEN 'Computer Accessories'
+                    WHEN 102 THEN 'Computer Accessories'
+                    WHEN 103 THEN 'Audio'
+                    WHEN 104 THEN 'Monitors'
+                    WHEN 105 THEN 'Computer Accessories'
+                    WHEN 106 THEN 'Computer Accessories'
+                    WHEN 107 THEN 'Computer Accessories'
+                    WHEN 108 THEN 'Workspace'
+                    WHEN 109 THEN 'Storage'
+                    WHEN 110 THEN 'Workspace'
+                    WHEN 111 THEN 'Power and Charging'
+                    WHEN 112 THEN 'Workspace'
+                    WHEN 113 THEN 'Audio'
+                    WHEN 114 THEN 'Bags and Travel'
+                    WHEN 115 THEN 'Computer Accessories'
+                    WHEN 116 THEN 'Workspace'
+                    WHEN 117 THEN 'Computer Accessories'
+                    WHEN 118 THEN 'Lighting'
+                    WHEN 119 THEN 'Audio'
+                    WHEN 120 THEN 'Office Equipment'
+                  END,
+                  description = CASE product_id
+                    WHEN 101 THEN 'A compact wireless keyboard for everyday desk setups, tablets, and travel workspaces.'
+                    WHEN 102 THEN 'A portable USB-C dock with HDMI, USB-A, Ethernet, card reader, and pass-through charging support.'
+                    WHEN 103 THEN 'Over-ear headphones with active noise cancellation, transparency mode, and long battery life for focused work.'
+                    WHEN 104 THEN 'A 27-inch 4K IPS monitor with slim bezels, wide viewing angles, and USB-C friendly workstation support.'
+                    WHEN 105 THEN 'A silent ergonomic wireless mouse designed for long work sessions and precise everyday navigation.'
+                    WHEN 106 THEN 'A hot-swappable mechanical keyboard with compact layout, tactile switches, and customizable keycaps.'
+                    WHEN 107 THEN 'A 1080p webcam with autofocus and low-light correction for meetings, learning, and livestreaming.'
+                    WHEN 108 THEN 'An aluminium laptop stand that improves screen height, airflow, and desk ergonomics.'
+                    WHEN 109 THEN 'A rugged portable NVMe SSD for fast backups, media projects, and secure file transfer.'
+                    WHEN 110 THEN 'A breathable mesh office chair with lumbar support, adjustable arms, and tilt control.'
+                    WHEN 111 THEN 'A 100W GaN charging station for laptops, phones, tablets, earbuds, and desk accessories.'
+                    WHEN 112 THEN 'A dimmable LED desk lamp with warm and cool modes for reading, calls, and late-night work.'
+                    WHEN 113 THEN 'A compact Bluetooth speaker with balanced sound, splash resistance, and all-day portability.'
+                    WHEN 114 THEN 'A 25L laptop backpack with weather-resistant fabric, padded device storage, and organized compartments.'
+                    WHEN 115 THEN 'A wireless presentation remote with slide controls, pointer support, and plug-and-play receiver.'
+                    WHEN 116 THEN 'A gas-spring monitor arm for cleaner desks, flexible screen positioning, and improved posture.'
+                    WHEN 117 THEN 'A Bluetooth mechanical number pad for finance workflows, spreadsheets, and compact keyboards.'
+                    WHEN 118 THEN 'An adjustable ring light for video calls, product photos, and content recording.'
+                    WHEN 119 THEN 'USB-C wired earphones with passive noise isolation, inline controls, and clear voice pickup.'
+                    WHEN 120 THEN 'A compact thermal label printer for shipping labels, inventory tags, and small business dispatch workflows.'
+                  END,
+                  unit_price = CASE product_id
+                    WHEN 101 THEN 2799.00
+                    WHEN 102 THEN 5499.00
+                    WHEN 103 THEN 9499.00
+                    WHEN 104 THEN 18999.00
+                    WHEN 105 THEN 1799.00
+                    WHEN 106 THEN 6999.00
+                    WHEN 107 THEN 3299.00
+                    WHEN 108 THEN 2199.00
+                    WHEN 109 THEN 8299.00
+                    WHEN 110 THEN 21999.00
+                    WHEN 111 THEN 3999.00
+                    WHEN 112 THEN 2499.00
+                    WHEN 113 THEN 3199.00
+                    WHEN 114 THEN 3999.00
+                    WHEN 115 THEN 1999.00
+                    WHEN 116 THEN 4599.00
+                    WHEN 117 THEN 2699.00
+                    WHEN 118 THEN 1899.00
+                    WHEN 119 THEN 1599.00
+                    WHEN 120 THEN 6499.00
+                  END,
+                  available_quantity = CASE product_id
+                    WHEN 101 THEN 34
+                    WHEN 102 THEN 18
+                    WHEN 103 THEN 14
+                    WHEN 104 THEN 9
+                    WHEN 105 THEN 46
+                    WHEN 106 THEN 21
+                    WHEN 107 THEN 27
+                    WHEN 108 THEN 32
+                    WHEN 109 THEN 16
+                    WHEN 110 THEN 7
+                    WHEN 111 THEN 24
+                    WHEN 112 THEN 28
+                    WHEN 113 THEN 22
+                    WHEN 114 THEN 19
+                    WHEN 115 THEN 31
+                    WHEN 116 THEN 12
+                    WHEN 117 THEN 26
+                    WHEN 118 THEN 33
+                    WHEN 119 THEN 39
+                    WHEN 120 THEN 15
+                  END,
+                  image_key = CONCAT('products/', product_id, '.png'),
+                  image_url = CONCAT('http://localhost:9000/shopverse-product-images/products/', product_id, '.png'),
+                  updated_at = CURRENT_TIMESTAMP(6)
+              WHERE product_id BETWEEN 101 AND 120;

@@ -56,14 +56,14 @@ public class ShopverseReadinessService {
                         checkDiscovery(),
                         checkRoutes(),
                         checkDownstreamHealth(),
-                        checkSeedCatalog()
+                        checkBaselineCatalog()
                 )
                 .flatMap(tuple -> checkMinioFromCatalog(tuple.getT4()).map(minio -> {
                     Map<String, ReadinessCheck> checks = new LinkedHashMap<>();
                     checks.put("discovery", tuple.getT1());
                     checks.put("routes", tuple.getT2());
                     checks.put("downstreamHealth", tuple.getT3());
-                    checks.put("seedCatalog", tuple.getT4());
+                    checks.put("baselineCatalog", tuple.getT4());
                     checks.put("minioProductImages", minio);
 
                     boolean ready = checks.entrySet().stream()
@@ -179,7 +179,7 @@ public class ShopverseReadinessService {
                 )));
     }
 
-    private Mono<ReadinessCheck> checkSeedCatalog() {
+    private Mono<ReadinessCheck> checkBaselineCatalog() {
         return firstInstanceUri("INVENTORY-SERVICE")
                 .flatMap(uri -> webClient.get()
                         .uri(uri.resolve("/api/v1/inventory/public/items"))
@@ -194,26 +194,26 @@ public class ShopverseReadinessService {
                             .findFirst();
                     Map<String, Object> details = new LinkedHashMap<>();
                     details.put("productCount", items.size());
-                    details.put("minimumSeedProducts", properties.minimumSeedProducts());
+                    details.put("minimumCatalogProducts", properties.minimumCatalogProducts());
                     details.put("productsWithImageMetadata", productsWithImageMetadata);
                     firstWithImageKey.ifPresent(item -> details.put("sampleImageKey", item.get("imageKey")));
 
-                    if (items.size() < properties.minimumSeedProducts()) {
-                        return ReadinessCheck.down("Seed catalog does not contain enough products.", details);
+                    if (items.size() < properties.minimumCatalogProducts()) {
+                        return ReadinessCheck.down("Baseline catalog does not contain enough products.", details);
                     }
                     if (productsWithImageMetadata == 0) {
-                        return ReadinessCheck.down("Seed catalog has no product image metadata.", details);
+                        return ReadinessCheck.down("Baseline catalog has no product image metadata.", details);
                     }
-                    return ReadinessCheck.up("Seed catalog is available.", details);
+                    return ReadinessCheck.up("Baseline catalog is available.", details);
                 })
                 .timeout(properties.timeout())
                 .onErrorResume(error -> Mono.just(ReadinessCheck.down(
-                        "Seed catalog check failed.",
+                        "Baseline catalog check failed.",
                         Map.of("error", safeMessage(error))
                 )));
     }
 
-    private Mono<ReadinessCheck> checkMinioFromCatalog(ReadinessCheck seedCatalogCheck) {
+    private Mono<ReadinessCheck> checkMinioFromCatalog(ReadinessCheck catalogCheck) {
         if (!isMinioRequired()) {
             return Mono.just(ReadinessCheck.warn(
                     "MiniIO object check is not configured. Set shopverse.readiness.minio-object-base-url to require it.",
@@ -221,9 +221,9 @@ public class ShopverseReadinessService {
             ));
         }
 
-        Object imageKey = seedCatalogCheck.details().get("sampleImageKey");
+        Object imageKey = catalogCheck.details().get("sampleImageKey");
         if (!hasText(imageKey)) {
-            return Mono.just(ReadinessCheck.down("MiniIO object check could not find a seeded product image key.", Map.of(
+            return Mono.just(ReadinessCheck.down("MiniIO object check could not find a baseline catalog image key.", Map.of(
                     "minioObjectBaseUrl", properties.minioObjectBaseUrl()
             )));
         }
@@ -237,11 +237,11 @@ public class ShopverseReadinessService {
                 )))
                 .toBodilessEntity()
                 .timeout(properties.timeout())
-                .thenReturn(ReadinessCheck.up("Seeded product image object is reachable in MiniIO.", Map.of(
+                .thenReturn(ReadinessCheck.up("Baseline catalog product image object is reachable in MiniIO.", Map.of(
                         "configured", true,
                         "sampleImageKey", imageKey
                 )))
-                .onErrorResume(error -> Mono.just(ReadinessCheck.down("Seeded product image object is not reachable in MiniIO.", Map.of(
+                .onErrorResume(error -> Mono.just(ReadinessCheck.down("Baseline catalog product image object is not reachable in MiniIO.", Map.of(
                         "configured", true,
                         "sampleImageKey", imageKey,
                         "error", safeMessage(error)
