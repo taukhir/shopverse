@@ -44,11 +44,25 @@ flowchart LR
     tags: ['Startup', 'Conditions'],
   },
   {
+    title: 'Startup Extension Points',
+    href: './spring-boot-internals/STARTUP-EXTENSION-POINTS',
+    description: 'Order listeners, initializers, processors, runners, readiness and shutdown.',
+    icon: 'route',
+    tags: ['Events', 'Runners'],
+  },
+  {
     title: 'Dependency Injection And Bean Lifecycle',
     href: './spring-boot-internals/DI-BEAN-LIFECYCLE-AOP',
     description: 'Understand definitions, resolution, scopes, callbacks and proxy identity.',
     icon: 'boxes',
     tags: ['IoC', 'Lifecycle'],
+  },
+  {
+    title: 'Autowiring And Circular References',
+    href: './spring-boot-internals/AUTOWIRING-CIRCULAR-REFERENCE-INTERNALS',
+    description: 'Trace injection metadata, candidate resolution, early references and cycle failures.',
+    icon: 'boxes',
+    tags: ['Autowired', 'Internals'],
   },
   {
     title: 'Configuration Properties Internals',

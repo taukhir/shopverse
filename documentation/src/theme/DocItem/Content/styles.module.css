@@ -73,3 +73,37 @@
 }
 
 @media print { .learningHeader { box-shadow: none; } }
+
+.topicOverview {
+  background: linear-gradient(135deg, var(--doc-accent-soft), var(--doc-surface));
+  border: 1px solid var(--doc-border);
+  border-left: 4px solid var(--ifm-color-primary);
+  border-radius: var(--ifm-global-radius);
+  margin: 0.8rem 0 1.5rem;
+  padding: 0.9rem 1rem;
+}
+
+.topicOverviewTitle {
+  align-items: center;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.topicOverviewTitle svg { height: 18px; width: 18px; }
+.topicOverviewTitle span { color: var(--ifm-color-emphasis-600); font-size: 0.72rem; margin-left: auto; }
+.topicOverview ul { display: flex; flex-wrap: wrap; gap: 0.45rem; list-style: none; margin: 0.7rem 0 0; padding: 0; }
+.topicOverview li { margin: 0; }
+.topicOverview a {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--doc-border);
+  border-radius: 999px;
+  color: var(--ifm-color-emphasis-800);
+  display: inline-block;
+  font-size: 0.76rem;
+  line-height: 1.25;
+  padding: 0.35rem 0.6rem;
+  text-decoration: none;
+}
+.topicOverview a:hover { border-color: var(--ifm-color-primary); color: var(--ifm-color-primary); }
+
+@media print { .topicOverview { background: none; break-inside: avoid; } }

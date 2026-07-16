@@ -30,6 +30,7 @@ Back to [Shopverse Problems And Solutions](../PROBLEMS-AND-SOLUTIONS.md).
 | Runtime | Product detail and related products depended on broad catalog reads | Inventory public item detail, categories, and related-product APIs |
 | Runtime | Customer payment retry/refund and return actions were placeholders | owner-protected payment retry/refund and order return-request endpoints |
 | Runtime | Operations could not progress confirmed orders through fulfillment | admin pack, ship/out-for-delivery, and deliver transitions |
+| Security | Admin/account changes had no durable audit API | User Service admin audit events API plus backend-first Angular Admin Activity page |
 | Runtime | Provider payment callbacks had no API surface | payment webhook baseline endpoint with provider-signature verification marked as hardening |
 | Security | Services could run as container root | dedicated non-root `shopverse` user |
 | Build | Parallel builds shared Gradle cache metadata | unique BuildKit cache ID per service |
@@ -56,7 +57,6 @@ Back to [Shopverse Problems And Solutions](../PROBLEMS-AND-SOLUTIONS.md).
 - [Complete Shopverse demo](../../case-study/COMPLETE-DEMO.mdx)
 - [Observability operations](../../observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
 - [Docker guide](https://github.com/taukhir/shopverse/tree/main/docker)
-
 
 
 

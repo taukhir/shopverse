@@ -83,8 +83,10 @@ const config: Config = {
     docxExportEndpoint: process.env.DOCS_DOCX_EXPORT_ENDPOINT ?? '',
   },
 
-  onBrokenLinks: 'warn',
-  onBrokenAnchors: 'warn',
+  // CI must reject navigation defects; compatibility routes should be explicit
+  // pages, never silent broken-link warnings.
+  onBrokenLinks: 'throw',
+  onBrokenAnchors: 'throw',
 
   markdown: {
     mermaid: true,

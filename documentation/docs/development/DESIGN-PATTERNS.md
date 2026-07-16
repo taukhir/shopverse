@@ -12,32 +12,59 @@ last_reviewed: "2026-07-13"
 <!-- split-guide-index -->
 # Design Patterns
 
-<DocLabels items={[{label: 'Focused guides', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Architect route', tone: 'production'}]} />
+<DocLabels items={[{label: 'Pattern catalog', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Architect route', tone: 'production'}]} />
 
-Select and apply object, behavioral, integration, and reliability patterns. The original long-form material is preserved without duplication across the focused pages below.
+Select and apply object, behavioral, integration, and reliability patterns. Use the
+category guides for comparison and the dedicated pattern pages for implementation,
+runtime mechanics, trade-offs, testing, and interview preparation.
+
+## Browse by Pattern Family
 
 ```mermaid
-flowchart LR
-    P1["Creational And Structural Patterns"]
-    P2["Behavioral And Distributed Patterns"]
-    P1 --> P2
+flowchart TD
+    D["Design Patterns"] --> C["Creational"]
+    D --> S["Structural"]
+    D --> B["Behavioral"]
+    C --> C1["Factory · Builder · Singleton"]
+    S --> S1["Adapter · Bridge · Decorator · Proxy"]
+    B --> B1["Strategy · Observer · Chain of Responsibility · Template Method"]
 ```
 
 <TopicCards items={[
-  {title: 'Creational And Structural Patterns', href: '/development/DESIGN-PATTERNS-CREATIONAL-STRUCTURAL', description: 'Part 1 of the focused Design Patterns learning route.', icon: 'route', tags: ['Focused', 'Advanced']},
-  {title: 'Behavioral And Distributed Patterns', href: '/development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED', description: 'Part 2 of the focused Design Patterns learning route.', icon: 'security', tags: ['Focused', 'Advanced']},
+  {title: 'Creational Patterns', href: '/development/design-patterns/CREATIONAL-PATTERNS', description: 'Control how objects are selected, constructed, and scoped.', icon: 'boxes', tags: ['Factory', 'Builder', 'Singleton']},
+  {title: 'Structural Patterns', href: '/development/design-patterns/STRUCTURAL-PATTERNS', description: 'Compose objects and adapt boundaries without rigid inheritance.', icon: 'layers', tags: ['Adapter', 'Bridge', 'Decorator', 'Proxy']},
+  {title: 'Behavioral Patterns', href: '/development/design-patterns/BEHAVIORAL-PATTERNS', description: 'Organize algorithms, events, workflows, and ordered responsibility.', icon: 'route', tags: ['Strategy', 'Observer', 'Chain', 'Template Method']},
 ]} />
 
-<DocCallout type="tip" title="Use the index as the stable entry point">
+<DocCallout type="production" title="Highest-priority patterns for Spring interviews">
 
-Each focused page owns one concern. Cross-links point to the canonical explanation instead of repeating the same material.
+Give extra attention to **Strategy, Factory, Proxy, Observer, Chain of
+Responsibility, Adapter, and Template Method**. They appear repeatedly in Spring
+architecture discussions because the container, AOP infrastructure, event model,
+web stack, and extension points make these patterns visible in real applications.
+
+For each one, be ready to explain the problem it solves, a Spring implementation,
+one framework example, its main trade-off, and when a simpler design is better.
 
 </DocCallout>
 
+## Spring Interview Deep Dives
+
+<TopicCards items={[
+  {title: 'Strategy', href: '/development/design-patterns/strategy', description: 'Select interchangeable behavior with injected Spring beans.', icon: 'route', tags: ['Interview priority', 'Behavioral']},
+  {title: 'Factory', href: '/development/design-patterns/factory', description: 'Centralize creation or runtime implementation selection.', icon: 'boxes', tags: ['Interview priority', 'Creational']},
+  {title: 'Proxy', href: '/development/design-patterns/proxy', description: 'Understand AOP, transactions, caching, security, and self-invocation.', icon: 'security', tags: ['Interview priority', 'Structural']},
+  {title: 'Observer', href: '/development/design-patterns/observer', description: 'Publish in-process events and choose safe transaction boundaries.', icon: 'network', tags: ['Interview priority', 'Behavioral']},
+  {title: 'Chain of Responsibility', href: '/development/design-patterns/chain-of-responsibility', description: 'Build ordered handlers like filters, validators, and security chains.', icon: 'layers', tags: ['Interview priority', 'Behavioral']},
+  {title: 'Adapter', href: '/development/design-patterns/adapter', description: 'Keep vendor APIs and DTOs outside the application core.', icon: 'code', tags: ['Interview priority', 'Structural']},
+  {title: 'Template Method', href: '/development/design-patterns/template-method', description: 'Hold a workflow stable while selected steps vary.', icon: 'brain', tags: ['Interview priority', 'Behavioral']},
+]} />
+
 ## Recommended Learning Order
 
-1. [Creational And Structural Patterns](./DESIGN-PATTERNS-CREATIONAL-STRUCTURAL.md)
-2. [Behavioral And Distributed Patterns](./DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED.md)
+1. [Creational Patterns](./design-patterns/CREATIONAL-PATTERNS.md)
+2. [Structural Patterns](./design-patterns/STRUCTURAL-PATTERNS.md)
+3. [Behavioral Patterns](./design-patterns/BEHAVIORAL-PATTERNS.md)
 
 
 ## Reading Strategy

@@ -210,3 +210,8 @@ and isolate failures better.
 
 - [ShedLock project](https://github.com/lukas-krecan/ShedLock)
 
+## Related Guides
+
+- [Spring Distributed Locking Options](SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)
+- [Distributed Schedulers And Safe Work Claiming](../DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md)
+- [Database Locking And Work Claims](DATABASE-LOCKING-AND-CLAIMS.md)

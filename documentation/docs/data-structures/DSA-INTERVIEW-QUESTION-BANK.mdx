@@ -1,0 +1,386 @@
+---
+title: Java DSA Interview Question Bank
+description: Searchable Java interview handbook with 245 questions across arrays, strings, windows, hashing, lists, stacks, queues, heaps, binary search, and trees.
+difficulty: Advanced
+page_type: Interview Workbook
+status: Generic
+keywords: [Java interview, DSA, arrays, strings, two pointers, hashing, linked list, heap, priority queue]
+learning_objectives:
+  - Practice 245 curated problems across eleven high-frequency interview topics
+  - Filter questions by LeetCode number, difficulty, pattern, priority, description, and reported company association
+  - Explain constraints, alternatives, complexity, edge cases, and production-quality Java choices
+technologies: [Java, Array, HashMap, HashSet, LinkedList, Deque, PriorityQueue, Tree]
+last_reviewed: "2026-07-13"
+---
+
+# Java DSA Interview Question Bank
+
+<DocLabels items={[
+  {label: '245 questions', tone: 'advanced'},
+  {label: 'Top 50 must prepare', tone: 'intermediate'},
+  {label: 'Searchable tables', tone: 'production'},
+  {label: 'Java 7+ years', tone: 'shopverse'},
+]} />
+
+This workbook contains **245 questions** across Arrays, Strings, Two Pointers,
+Sliding Window, Hashing, Linked Lists, Stack, Queue/Deque, Heap/Priority Queue,
+Binary Search, and Trees/BST. A consolidated Top 50 view provides the highest-ROI
+starting route. The goal for an experienced Java
+developer is not merely to reach accepted output; it is to communicate the
+decision process, prove complexity, handle failure-prone boundaries, and produce
+clear code under interview constraints.
+
+<DocCallout type="production" title="How to interpret company labels">
+
+Company tags are community-reported associations collected by interview-practice
+platforms and public preparation lists. They are useful for prioritization, but
+they are not verified statements that a company currently asks an exact question.
+Hiring loops, roles, regions, and question banks change. Practice transferable
+patterns rather than memorizing company-tagged answers.
+
+</DocCallout>
+
+## How To Use The Tables
+
+Each table has its own full-width search field. Search by problem name, `LC 238`,
+topic, data structure, algorithmic pattern, description, priority, difficulty, or
+company. Difficulty buttons and the priority selector narrow only that table. The
+result count updates without affecting other topics. Questions initially sort by
+**Easy → Medium → Hard**, with **Essential → High → Practice** inside each
+difficulty. Select the Difficulty or Priority column heading to change the primary
+sort or reverse its direction.
+
+| Label | Meaning |
+|---|---|
+| Essential | repeat until the approach, proof, edge cases, and Java code are fluent |
+| High | common or pattern-rich; solve and revisit at least twice |
+| Practice | useful breadth after essential and high-priority problems |
+| Reported companies | public/community association, not an official current hiring claim |
+
+Every problem row includes its LeetCode number, canonical difficulty, topic,
+preparation priority, primary data structure, algorithm/pattern, short description,
+and community-reported company associations. Some problems fit several categories;
+the topic column names the learning lens used in that table.
+
+For every problem, use this response sequence:
+
+1. clarify input, output, constraints, mutability, duplicates, sorting, and overflow;
+2. describe a simple correct approach and its cost;
+3. derive the optimized approach from a data-structure or invariant;
+4. state time, auxiliary space, output space, and amortized cost where relevant;
+5. walk through one normal case and one adversarial edge case;
+6. write production-quality Java with meaningful names and safe APIs;
+7. test null/empty policy, smallest size, duplicates, extremes, and overflow;
+8. discuss an alternative and when it becomes preferable.
+
+## Top 50 Must Prepare
+
+Start here when interview time is limited. This consolidated view covers the core
+array, string, window, hashing, linked-list, stack, heap, binary-search, tree, graph,
+dynamic-programming, and backtracking patterns expected in senior coding rounds.
+
+<SearchableQuestionTable topic="Top 50" />
+
+## Arrays
+
+Arrays test indexing, in-place mutation, prefix state, interval reasoning, and
+matrix boundaries. Be explicit about whether the input may be modified and whether
+sorting changes the required order.
+
+<SearchableQuestionTable topic="Arrays" />
+
+### Array mastery checkpoints
+
+- derive Kadane's recurrence instead of memorizing two assignments;
+- explain why prefix/suffix products avoid division and handle zeroes;
+- distinguish prefix-sum value from prefix-sum frequency;
+- prove interval merge ordering and touching-boundary policy;
+- explain the index-as-hash technique and its mutation cost;
+- justify the binary-search partition invariants for two sorted arrays.
+
+## Strings
+
+String problems combine indexing, parsing, frequency state, sliding windows,
+Unicode assumptions, and allocation behavior. Clarify whether “character” means a
+UTF-16 code unit, Unicode code point, normalized grapheme, or restricted alphabet.
+
+<SearchableQuestionTable topic="Strings" />
+
+### String mastery checkpoints
+
+- separate fixed-size ASCII frequency arrays from general Unicode maps;
+- explain the validity condition that permits a sliding window to shrink;
+- compare center expansion with dynamic programming for palindromes;
+- define parser behavior for whitespace, sign, invalid suffix, and overflow;
+- choose stack versus recursion with input-depth limits;
+- explain why minimum-window state tracks required counts, not mere membership.
+
+## Two Pointers
+
+Two-pointer solutions require a monotonic argument. Do not move a pointer because
+“that is the pattern”; explain why the discarded search space cannot contain a
+better or valid answer.
+
+<SearchableQuestionTable topic="Two Pointers" />
+
+### Two-pointer mastery checkpoints
+
+```text
+Opposite direction:  left ->       <- right
+Same direction:      slow ->  fast ----->
+Fixed gap:            lead ----k---- follow
+Three-way partition:  low | unknown | high
+```
+
+- prove pointer movement for Container With Most Water;
+- skip duplicates correctly in 3Sum without losing valid triples;
+- distinguish same-direction compaction from a variable sliding window;
+- derive Floyd cycle entry rather than quoting the algorithm name;
+- recognize when negative numbers break a normal window and require prefix sums
+  plus a monotonic deque.
+
+## Sliding Window
+
+Sliding-window problems maintain a valid contiguous range while one or both
+boundaries move. State the invariant, the condition that makes the window invalid,
+and why shrinking restores validity. Separate fixed-size windows, at-most/exactly-k
+counting, multiplicative windows, and monotonic-deque optimization.
+
+<SearchableQuestionTable topic="Sliding Window" />
+
+## Hashing, HashMap, And HashSet
+
+Hashing trades additional memory for expected constant-time lookup. State that
+Java collection operations are expected/amortized rather than unconditional worst
+case, and discuss key immutability, equality, hashing, collisions, and iteration
+order when relevant.
+
+<SearchableQuestionTable topic="Hashing" />
+
+### Hashing mastery checkpoints
+
+- distinguish value-to-index, membership, frequency, and canonical-key maps;
+- prove why only sequence starts are expanded in Longest Consecutive Sequence;
+- derive the prefix-frequency equation for Subarray Sum Equals K;
+- combine an array with a map to achieve amortized O(1) random deletion;
+- maintain map/list invariants for LRU Cache and All O(1);
+- normalize slope sign and greatest-common-divisor representation safely.
+
+## Linked Lists
+
+Linked-list interviews expose pointer ownership and mutation reasoning. Draw the
+nodes, preserve the next reference before rewiring, and state whether the operation
+may mutate input nodes.
+
+<SearchableQuestionTable topic="Linked Lists" />
+
+### Linked-list mastery checkpoints
+
+```java
+ListNode reverse(ListNode head) {
+    ListNode previous = null;
+    ListNode current = head;
+    while (current != null) {
+        ListNode next = current.next;
+        current.next = previous;
+        previous = current;
+        current = next;
+    }
+    return previous;
+}
+```
+
+- use a dummy node when the head may change or be removed;
+- explain slow/fast pointer termination for even and odd lengths;
+- prove pointer switching for intersection;
+- split, reverse, and merge Reorder List without forming a cycle;
+- compare map-based and interweaving copies of random-pointer lists;
+- bound recursion depth and prefer iterative rewiring for large inputs.
+
+## Stack
+
+Stack problems model nested structure, deferred work, expression evaluation, and
+nearest greater/smaller boundaries. In Java, prefer `ArrayDeque` for ordinary stack
+operations; state how duplicates and equality affect monotonic-stack boundaries.
+
+<SearchableQuestionTable topic="Stack" />
+
+### Stack mastery checkpoints
+
+- parse balanced delimiters and nested encoded strings;
+- preserve operator precedence and associativity;
+- derive monotonic-stack pop conditions for temperatures and histograms;
+- store indexes when distance or boundary width matters;
+- explain why each element is pushed and popped at most once;
+- distinguish an explicit stack from recursion-stack memory.
+
+## Queue And Deque
+
+Queues model arrival order and breadth-first exploration. Deques support both ends
+and enable monotonic-window algorithms. Define enqueue/dequeue ownership, capacity,
+duplicate-state suppression, and when a priority queue is required instead.
+
+<SearchableQuestionTable topic="Queue / Deque" />
+
+### Queue and deque mastery checkpoints
+
+- derive amortized O(1) queue operations from two stacks;
+- implement circular indexes without full/empty ambiguity;
+- process BFS level boundaries and multi-source starts;
+- expire stale timestamps or window indexes promptly;
+- maintain monotonic deque order and remove out-of-window indexes;
+- distinguish FIFO traversal from best-first heap traversal.
+
+## Heap And Priority Queue
+
+A heap is valuable when only the next minimum/maximum or a bounded top-k set matters.
+Do not use it automatically when sorting once is simpler or Quickselect provides a
+better average-time trade-off.
+
+<SearchableQuestionTable topic="Heap" />
+
+### Java PriorityQueue essentials
+
+```java
+PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+PriorityQueue<Task> byPriority =
+        new PriorityQueue<>(Comparator.comparingInt(Task::priority));
+```
+
+Avoid subtraction comparators because they can overflow:
+
+```java
+// Unsafe when values span the integer range
+(left, right) -> left.value() - right.value()
+
+// Safe comparison contract
+(left, right) -> Integer.compare(left.value(), right.value())
+```
+
+Be ready to explain:
+
+- why a size-k min heap retains the k largest elements;
+- heap construction versus repeated insertion complexity;
+- lazy deletion for values not efficiently removable from `PriorityQueue`;
+- the lower/upper heap size and ordering invariants for streaming median;
+- multiway merge complexity in terms of total elements and number of sources;
+- when counting/buckets or Quickselect is preferable to a heap.
+
+## Binary Search
+
+Binary search applies to a monotonic decision, not only a sorted array. Define the
+search interval, loop invariant, midpoint calculation, boundary movement, and final
+postcondition. For “search on answer,” write and prove the feasibility function first.
+
+<SearchableQuestionTable topic="Binary Search" />
+
+### Binary-search mastery checkpoints
+
+- implement lower bound and upper bound without off-by-one errors;
+- identify the sorted half of a rotated array;
+- search row/column matrices using the correct ordering model;
+- prove the monotonic predicate for capacity and rate problems;
+- prevent midpoint and sum overflow;
+- explain partition invariants for the median of two sorted arrays.
+
+## Trees And BST
+
+Tree interviews test recursive contracts, traversal order, state propagation, and
+global invariants. Clarify whether the structure is a general binary tree or a BST,
+whether values are unique, and whether recursion depth is safe for a skewed tree.
+
+<SearchableQuestionTable topic="Trees / BST" />
+
+### Tree and BST mastery checkpoints
+
+- write recursive base cases and return-state contracts explicitly;
+- convert DFS recursion to an iterative stack when depth is unbounded;
+- use BFS for level, minimum-depth, and first-hit questions;
+- validate a BST with global bounds rather than parent-only checks;
+- derive postorder state for height, diameter, path gain, cameras, and tree DP;
+- preserve stable serialization and null markers;
+- exploit inorder ordering for rank, iterator, recovery, and greater-tree problems.
+
+## Recommended Preparation Order
+
+### Phase 1: foundations
+
+Solve Two Sum, Valid Anagram, Reverse Linked List, Move Zeroes, Valid Palindrome,
+Merge Two Sorted Lists, and Kth Largest Element in a Stream. The objective is clean
+Java, accurate complexity, and a reliable edge-case checklist.
+
+### Phase 2: core patterns
+
+Prioritize Maximum Subarray, Product of Array Except Self, 3Sum, Longest Substring
+Without Repeating Characters, Group Anagrams, Subarray Sum Equals K, Linked List
+Cycle II, Top K Frequent Elements, K Closest Points, and Merge Intervals.
+
+### Phase 3: senior-level design and invariants
+
+Practice LRU Cache, Reorder List, Copy List with Random Pointer, Task Scheduler,
+Meeting Rooms II, Find Median from Data Stream, Minimum Window Substring, Trapping
+Rain Water, First Missing Positive, and Reverse Nodes in K-Group.
+
+## Ten-Day Practice Plan
+
+| Day | Focus | Outcome |
+|---:|---|---|
+| 1 | Top 50: arrays and strings | 10 timed explanations and implementations |
+| 2 | Sliding Window and Two Pointers | movement and validity invariants |
+| 3 | Hashing and Linked Lists | identity, frequency, and pointer ownership |
+| 4 | Stack and Deque | monotonic and nested-state patterns |
+| 5 | Heap and Binary Search | top-k, scheduling, and monotonic predicates |
+| 6 | Trees/BST foundations | DFS, BFS, ordering, and returned state |
+| 7 | Trees/BST advanced | construction, codecs, path DP, and recovery |
+| 8 | Medium-priority gaps | 10 problems selected from the search filters |
+| 9 | Hard problems | representative hard problem from every pattern family |
+| 10 | Mock interview and revision | two 45-minute rounds plus review log |
+
+A strong target is the Top 50 plus 20-30 gap-driven problems understood deeply and
+revised repeatedly before expanding to all 245. Track the reason for failure: pattern recognition, invariant,
+implementation, edge case, complexity, or communication.
+
+## Senior Java Interview Checklist
+
+### Clarify constraints
+
+- null and empty input contract;
+- duplicates, negative values, sorted state, and stable ordering;
+- maximum input size and numeric range;
+- permission to mutate input;
+- concurrency or streaming requirements;
+- expected memory limit and recursion depth.
+
+### Explain complexity accurately
+
+- distinguish expected hash lookup from worst-case behavior;
+- identify sorting cost before a two-pointer scan;
+- count heap operations as O(log k), not O(1);
+- separate auxiliary space from returned output;
+- explain amortized operations in dynamic arrays and hash tables;
+- include recursion stack and temporary collection memory.
+
+### Write production-quality Java
+
+- use descriptive names and correct generics;
+- avoid overflow-prone arithmetic and comparators;
+- use `long` for sums when constraints require it;
+- avoid unnecessary substring and boxing allocation on hot paths;
+- keep helpers focused and invariants visible;
+- state the input contract instead of adding arbitrary null behavior;
+- add tests that target the algorithm's failure boundaries.
+
+## Recommended Next
+
+Continue with [Java Collections](../java/JAVA-COLLECTIONS.md), then use the
+[Java Timed Mock Interviews](../java/JAVA-TIMED-MOCK-INTERVIEWS.md) to practice
+communication and implementation under realistic limits.
+
+## Official References
+
+- [Java `PriorityQueue`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/PriorityQueue.html)
+- [Java `HashMap`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/HashMap.html)
+- [Java `LinkedList`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/LinkedList.html)
+- [HackerRank preparation kits](https://www.hackerrank.com/interview/preparation-kits)
+- [GeeksforGeeks practice filters](https://www.geeksforgeeks.org/dsa/geeksforgeeks-practice-best-online-coding-platform/)

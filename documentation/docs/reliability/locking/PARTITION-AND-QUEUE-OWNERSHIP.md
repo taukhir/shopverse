@@ -190,3 +190,9 @@ throughput, processing time, key distribution, growth, and recovery goals.
 | reservation expiry | database deadline scan and conditional claim target |
 | one simple global scheduler | optional ShedLock alternative |
 
+## Related Guides
+
+- [Distributed Schedulers And Safe Work Claiming](../DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md)
+- [Spring Distributed Locking Options](SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)
+- [Database Locking And Work Claims](DATABASE-LOCKING-AND-CLAIMS.md)
+- [Change Data Capture In Microservices](../../architecture/CHANGE-DATA-CAPTURE.md)

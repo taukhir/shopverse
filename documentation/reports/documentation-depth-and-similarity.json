@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-13T05:37:52.371Z",
+  "generatedAt": "2026-07-13T12:22:14.256Z",
   "summary": {
-    "pages": 578,
-    "level0": 0,
-    "level1": 75,
-    "level2": 312,
-    "level3": 191,
+    "pages": 605,
+    "level0": 2,
+    "level1": 73,
+    "level2": 311,
+    "level3": 219,
     "belowTarget": 0,
     "nearDuplicatePairs": 0
   },
@@ -18,6 +18,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -40,6 +41,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -62,6 +64,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -84,6 +87,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -106,6 +110,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -128,6 +133,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -150,6 +156,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -172,6 +179,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -194,6 +202,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -216,6 +225,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -238,6 +248,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -260,6 +271,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -282,6 +294,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -304,6 +317,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -326,6 +340,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -348,6 +363,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -370,6 +386,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -392,6 +409,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -414,6 +432,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -436,6 +455,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -458,6 +478,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -480,6 +501,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -502,6 +524,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -524,6 +547,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -546,6 +570,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -568,6 +593,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -590,6 +616,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -612,6 +639,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -634,6 +662,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -656,6 +685,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -678,6 +708,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -700,6 +731,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -722,6 +754,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -744,6 +777,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -766,6 +800,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -788,6 +823,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -810,6 +846,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -832,6 +869,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -854,6 +892,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -876,6 +915,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -898,6 +938,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -920,6 +961,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -942,6 +984,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -964,6 +1007,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -986,6 +1030,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1008,6 +1053,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -1030,6 +1076,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1052,6 +1099,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1074,6 +1122,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1096,6 +1145,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1118,6 +1168,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1140,6 +1191,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1162,6 +1214,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1184,6 +1237,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -1206,6 +1260,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1228,6 +1283,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1250,6 +1306,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1272,6 +1329,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1294,6 +1352,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1316,6 +1375,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1338,6 +1398,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1360,6 +1421,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1382,6 +1444,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1404,6 +1467,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1426,6 +1490,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1448,6 +1513,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1470,6 +1536,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1492,6 +1559,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1514,6 +1582,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1536,6 +1605,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1558,6 +1628,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1580,6 +1651,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1602,6 +1674,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1624,6 +1697,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1646,6 +1720,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1668,6 +1743,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1690,6 +1766,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1712,6 +1789,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1734,6 +1812,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1756,6 +1835,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -1778,6 +1858,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1800,6 +1881,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1822,6 +1904,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1844,6 +1927,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -1866,6 +1950,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -1888,6 +1973,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1910,6 +1996,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1932,6 +2019,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1954,6 +2042,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1976,6 +2065,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -1998,6 +2088,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2020,6 +2111,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2042,6 +2134,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2064,6 +2157,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2086,6 +2180,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2108,6 +2203,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2130,6 +2226,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2152,6 +2249,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2174,6 +2272,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2196,6 +2295,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -2218,6 +2318,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2240,6 +2341,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2262,6 +2364,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2284,6 +2387,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2306,6 +2410,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2328,6 +2433,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2350,6 +2456,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -2372,6 +2479,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2394,6 +2502,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2416,6 +2525,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2438,6 +2548,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2460,6 +2571,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2482,6 +2594,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2504,6 +2617,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2522,10 +2636,11 @@
       "path": "case-study/DEMO-SEED-CHECKOUT-SAGA.mdx",
       "pageType": "\"Guide\"",
       "difficulty": "\"Advanced\"",
-      "words": 463,
+      "words": 524,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2548,6 +2663,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2570,6 +2686,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2592,6 +2709,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2614,6 +2732,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2636,6 +2755,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2658,6 +2778,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2680,6 +2801,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2702,6 +2824,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2724,6 +2847,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2746,6 +2870,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2768,6 +2893,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2790,6 +2916,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2812,6 +2939,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2834,6 +2962,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2856,6 +2985,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2878,6 +3008,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -2900,6 +3031,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -2922,6 +3054,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2944,6 +3077,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2966,6 +3100,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -2988,6 +3123,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3010,6 +3146,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3025,6 +3162,29 @@
       }
     },
     {
+      "path": "data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK.md",
+      "pageType": "Runbook",
+      "difficulty": "Advanced",
+      "words": 1241,
+      "score": 3,
+      "target": 2,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": false,
+        "operations": true,
+        "lab": false,
+        "interview": false,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
       "path": "data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md",
       "pageType": "Runbook",
       "difficulty": "Advanced",
@@ -3032,6 +3192,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3054,6 +3215,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3076,6 +3238,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3098,6 +3261,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3116,13 +3280,14 @@
       "path": "data/database-selection/INDEXES-QUERY-PLANS.md",
       "pageType": "Practical Guide",
       "difficulty": "Intermediate",
-      "words": 1089,
+      "words": 1559,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
-        "internals": false,
+        "internals": true,
         "example": true,
         "failureModes": false,
         "performance": true,
@@ -3142,6 +3307,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3164,6 +3330,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3186,6 +3353,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3208,6 +3376,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3230,6 +3399,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3248,10 +3418,11 @@
       "path": "data/DATABASE-SELECTION-GUIDE.md",
       "pageType": "Learning Path",
       "difficulty": "Beginner",
-      "words": 555,
+      "words": 569,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3274,6 +3445,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3296,6 +3468,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3318,6 +3491,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3340,6 +3514,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3362,6 +3537,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3380,10 +3556,11 @@
       "path": "data/hibernate/HIBERNATE-FETCHING-PERFORMANCE.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 279,
-      "score": 2,
+      "words": 673,
+      "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3394,8 +3571,8 @@
         "operations": true,
         "lab": false,
         "interview": false,
-        "official": false,
-        "visual": false
+        "official": true,
+        "visual": true
       }
     },
     {
@@ -3406,6 +3583,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3428,6 +3606,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3450,6 +3629,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3472,6 +3652,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3494,6 +3675,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3509,6 +3691,29 @@
       }
     },
     {
+      "path": "data-structures/DSA-INTERVIEW-QUESTION-BANK.mdx",
+      "pageType": "Interview Workbook",
+      "difficulty": "Advanced",
+      "words": 1606,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": false,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": false,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
       "path": "data-structures/LINEAR-DATA-STRUCTURES.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
@@ -3516,6 +3721,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -3538,6 +3744,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -3560,6 +3767,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -3569,7 +3777,7 @@
         "security": false,
         "operations": false,
         "lab": false,
-        "interview": false,
+        "interview": true,
         "official": true,
         "visual": true
       }
@@ -3582,6 +3790,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3604,6 +3813,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -3626,6 +3836,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3648,6 +3859,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3670,6 +3882,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3688,10 +3901,11 @@
       "path": "development/API-GUIDE.md",
       "pageType": "Reference",
       "difficulty": "Intermediate",
-      "words": 1184,
+      "words": 1225,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3714,6 +3928,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3736,6 +3951,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3758,6 +3974,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -3780,6 +3997,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -3795,13 +4013,37 @@
       }
     },
     {
-      "path": "development/design-patterns/BEHAVIORAL-PATTERNS.md",
-      "pageType": "Unclassified",
-      "difficulty": "Unclassified",
-      "words": 382,
+      "path": "development/design-patterns/adapter.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 295,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": false,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": true,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/BEHAVIORAL-PATTERNS.md",
+      "pageType": "\"Category Overview\"",
+      "difficulty": "\"Advanced\"",
+      "words": 412,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3812,18 +4054,88 @@
         "operations": false,
         "lab": false,
         "interview": true,
-        "official": false,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/bridge.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 295,
+      "score": 2,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": false,
+        "example": true,
+        "failureModes": false,
+        "performance": true,
+        "security": false,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/builder.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Intermediate\"",
+      "words": 282,
+      "score": 2,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": false,
+        "example": true,
+        "failureModes": false,
+        "performance": false,
+        "security": false,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": false
+      }
+    },
+    {
+      "path": "development/design-patterns/chain-of-responsibility.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 325,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": false,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": true,
+        "operations": false,
+        "lab": false,
+        "interview": true,
+        "official": true,
         "visual": true
       }
     },
     {
       "path": "development/design-patterns/CREATIONAL-PATTERNS.md",
-      "pageType": "Unclassified",
-      "difficulty": "Unclassified",
-      "words": 628,
-      "score": 2,
+      "pageType": "\"Category Overview\"",
+      "difficulty": "\"Advanced\"",
+      "words": 662,
+      "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3834,18 +4146,19 @@
         "operations": true,
         "lab": false,
         "interview": true,
-        "official": false,
+        "official": true,
         "visual": true
       }
     },
     {
-      "path": "development/design-patterns/STRUCTURAL-PATTERNS.md",
-      "pageType": "Unclassified",
-      "difficulty": "Unclassified",
-      "words": 422,
-      "score": 2,
+      "path": "development/design-patterns/decorator.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 318,
+      "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3856,22 +4169,184 @@
         "operations": true,
         "lab": false,
         "interview": true,
-        "official": false,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/factory.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 299,
+      "score": 2,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": false,
+        "operations": false,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/observer.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 307,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": false,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": false,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/proxy.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 347,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": true,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/singleton.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 379,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": false,
+        "performance": true,
+        "security": false,
+        "operations": false,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/strategy.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 306,
+      "score": 2,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": false,
+        "example": true,
+        "failureModes": false,
+        "performance": false,
+        "security": false,
+        "operations": false,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/STRUCTURAL-PATTERNS.md",
+      "pageType": "\"Category Overview\"",
+      "difficulty": "\"Advanced\"",
+      "words": 455,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": true,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "development/design-patterns/template-method.md",
+      "pageType": "\"Deep Dive\"",
+      "difficulty": "\"Advanced\"",
+      "words": 337,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": false,
+        "operations": false,
+        "lab": false,
+        "interview": true,
+        "official": true,
         "visual": true
       }
     },
     {
       "path": "development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED.md",
-      "pageType": "\"Guide\"",
+      "pageType": "\"Compatibility Page\"",
       "difficulty": "\"Advanced\"",
-      "words": 317,
-      "score": 2,
-      "target": 1,
+      "words": 52,
+      "score": 0,
+      "target": 0,
       "belowTarget": false,
+      "excluded": true,
       "criteria": {
-        "mentalModel": true,
-        "internals": true,
-        "example": true,
+        "mentalModel": false,
+        "internals": false,
+        "example": false,
         "failureModes": true,
         "performance": false,
         "security": true,
@@ -3884,34 +4359,36 @@
     },
     {
       "path": "development/DESIGN-PATTERNS-CREATIONAL-STRUCTURAL.md",
-      "pageType": "\"Guide\"",
+      "pageType": "\"Compatibility Page\"",
       "difficulty": "\"Advanced\"",
-      "words": 489,
-      "score": 3,
-      "target": 1,
+      "words": 49,
+      "score": 0,
+      "target": 0,
       "belowTarget": false,
+      "excluded": true,
       "criteria": {
-        "mentalModel": true,
-        "internals": true,
-        "example": true,
-        "failureModes": true,
+        "mentalModel": false,
+        "internals": false,
+        "example": false,
+        "failureModes": false,
         "performance": false,
-        "security": true,
-        "operations": true,
+        "security": false,
+        "operations": false,
         "lab": false,
-        "interview": false,
+        "interview": true,
         "official": true,
-        "visual": true
+        "visual": false
       }
     },
     {
       "path": "development/DESIGN-PATTERNS.md",
       "pageType": "\"Learning Path\"",
       "difficulty": "\"Advanced\"",
-      "words": 180,
+      "words": 239,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -3934,6 +4411,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -3956,6 +4434,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -3978,6 +4457,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4000,6 +4480,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4022,6 +4503,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -4044,6 +4526,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -4059,6 +4542,29 @@
       }
     },
     {
+      "path": "development/spring-boot-internals/AUTOWIRING-CIRCULAR-REFERENCE-INTERNALS.md",
+      "pageType": "Concept",
+      "difficulty": "Advanced",
+      "words": 821,
+      "score": 3,
+      "target": 2,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": true,
+        "operations": false,
+        "lab": false,
+        "interview": false,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
       "path": "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md",
       "pageType": "Tutorial",
       "difficulty": "Intermediate",
@@ -4066,6 +4572,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4088,6 +4595,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4106,10 +4614,11 @@
       "path": "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md",
       "pageType": "Tutorial",
       "difficulty": "Intermediate",
-      "words": 553,
+      "words": 560,
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4132,6 +4641,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4154,6 +4664,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4176,6 +4687,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4198,6 +4710,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4220,6 +4733,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4238,10 +4752,11 @@
       "path": "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md",
       "pageType": "Guide",
       "difficulty": "Intermediate",
-      "words": 547,
+      "words": 554,
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4257,6 +4772,29 @@
       }
     },
     {
+      "path": "development/spring-boot-internals/STARTUP-EXTENSION-POINTS.md",
+      "pageType": "Concept",
+      "difficulty": "Advanced",
+      "words": 742,
+      "score": 3,
+      "target": 2,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": false,
+        "operations": true,
+        "lab": false,
+        "interview": false,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
       "path": "development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
       "pageType": "Reference",
       "difficulty": "Advanced",
@@ -4264,6 +4802,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4286,11 +4825,12 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
         "example": true,
-        "failureModes": false,
+        "failureModes": true,
         "performance": true,
         "security": false,
         "operations": true,
@@ -4308,6 +4848,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4330,6 +4871,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4352,6 +4894,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4374,6 +4917,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4396,6 +4940,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4418,6 +4963,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4436,10 +4982,11 @@
       "path": "development/spring-rest/REST-IDEMPOTENT-COMMANDS.md",
       "pageType": "Architecture",
       "difficulty": "Architect",
-      "words": 583,
+      "words": 855,
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -4462,6 +5009,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4484,6 +5032,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -4506,6 +5055,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4528,6 +5078,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -4550,6 +5101,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4572,6 +5124,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4594,6 +5147,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4616,6 +5170,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -4638,6 +5193,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -4660,6 +5216,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -4682,6 +5239,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -4704,6 +5262,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -4726,6 +5285,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4748,6 +5308,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -4770,6 +5331,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4792,6 +5354,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4814,6 +5377,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4836,6 +5400,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4858,6 +5423,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4880,6 +5446,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -4902,6 +5469,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4924,6 +5492,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4946,6 +5515,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -4968,6 +5538,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -4990,6 +5561,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5012,6 +5584,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5034,6 +5607,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5056,6 +5630,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5078,6 +5653,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5100,6 +5676,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5122,6 +5699,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5144,6 +5722,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5166,6 +5745,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -5188,6 +5768,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -5210,6 +5791,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -5232,6 +5814,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -5254,6 +5837,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -5276,6 +5860,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -5298,6 +5883,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5320,6 +5906,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -5342,6 +5929,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5364,6 +5952,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5386,6 +5975,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5408,6 +5998,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5430,6 +6021,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5452,6 +6044,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5474,6 +6067,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -5496,6 +6090,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5518,6 +6113,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5540,6 +6136,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5562,6 +6159,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -5584,6 +6182,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -5606,6 +6205,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5628,6 +6228,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5650,6 +6251,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5672,6 +6274,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5694,6 +6297,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5716,6 +6320,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5738,6 +6343,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5760,6 +6366,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5782,6 +6389,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -5804,6 +6412,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5826,6 +6435,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -5848,6 +6458,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5870,6 +6481,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5892,6 +6504,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5914,6 +6527,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5936,6 +6550,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -5958,6 +6573,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -5980,6 +6596,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6002,6 +6619,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6024,6 +6642,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -6046,6 +6665,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6068,6 +6688,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6090,6 +6711,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6112,6 +6734,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6134,6 +6757,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6156,6 +6780,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6178,6 +6803,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6200,6 +6826,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6222,6 +6849,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6244,6 +6872,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6266,6 +6895,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6288,6 +6918,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6310,6 +6941,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6332,6 +6964,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6354,6 +6987,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6376,6 +7010,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -6398,6 +7033,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6420,6 +7056,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6442,6 +7079,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6464,6 +7102,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6486,6 +7125,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -6508,6 +7148,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6530,6 +7171,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6552,6 +7194,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6574,6 +7217,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6596,6 +7240,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6618,6 +7263,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6640,6 +7286,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6662,6 +7309,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6684,6 +7332,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6706,6 +7355,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6728,6 +7378,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6750,6 +7401,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6772,6 +7424,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6794,6 +7447,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6816,6 +7470,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6838,6 +7493,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -6860,6 +7516,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -6882,6 +7539,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -6904,6 +7562,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6926,6 +7585,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6948,6 +7608,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -6970,6 +7631,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -6992,6 +7654,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7007,16 +7670,224 @@
       }
     },
     {
-      "path": "observability/CORRELATION-IDENTIFIERS-HTTP-PROPAGATION.md",
-      "pageType": "\"Guide\"",
-      "difficulty": "\"Advanced\"",
-      "words": 615,
+      "path": "leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS.md",
+      "pageType": "Decision Guide",
+      "difficulty": "Advanced",
+      "words": 1135,
+      "score": 3,
+      "target": 2,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "leadership/ENGINEERING-LEADERSHIP-PRACTICES.md",
+      "pageType": "Guide",
+      "difficulty": "Advanced",
+      "words": 1392,
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": true,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK.md",
+      "pageType": "Interview Workbook",
+      "difficulty": "Advanced",
+      "words": 2734,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": false,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": true,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "leadership/LEADERSHIP-ARCHITECTURE-SCENARIOS.md",
+      "pageType": "Learning Path",
+      "difficulty": "Advanced",
+      "words": 899,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": true,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION.md",
+      "pageType": "Migration Guide",
+      "difficulty": "Advanced",
+      "words": 1543,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": true,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "leadership/MONOLITH-TO-MICROSERVICES-STRATEGY.md",
+      "pageType": "Decision Guide",
+      "difficulty": "Advanced",
+      "words": 1347,
+      "score": 3,
+      "target": 2,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": true,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY.md",
+      "pageType": "Operations Guide",
+      "difficulty": "Advanced",
+      "words": 1667,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": false,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": true,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "leadership/ZERO-DOWNTIME-DELIVERY.md",
+      "pageType": "Deployment Guide",
+      "difficulty": "Advanced",
+      "words": 1237,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": true,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "observability/CORRELATION-IDENTIFIERS-HTTP-PROPAGATION.md",
+      "pageType": "\"Guide\"",
+      "difficulty": "\"Advanced\"",
+      "words": 1042,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": false,
+        "interview": true,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
+      "path": "observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE.md",
+      "pageType": "\"Guide\"",
+      "difficulty": "\"Advanced\"",
+      "words": 1454,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
         "example": true,
         "failureModes": true,
         "performance": true,
@@ -7036,6 +7907,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7058,6 +7930,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7080,6 +7953,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7098,16 +7972,17 @@
       "path": "observability/MDC-CORRELATION-TRACING.md",
       "pageType": "\"Learning Path\"",
       "difficulty": "\"Advanced\"",
-      "words": 189,
+      "words": 195,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
-        "internals": false,
+        "internals": true,
         "example": true,
         "failureModes": true,
-        "performance": false,
+        "performance": true,
         "security": true,
         "operations": true,
         "lab": false,
@@ -7120,17 +7995,18 @@
       "path": "observability/MDC-GENERIC.md",
       "pageType": "\"Guide\"",
       "difficulty": "\"Intermediate\"",
-      "words": 796,
+      "words": 1070,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
         "example": true,
         "failureModes": true,
-        "performance": false,
-        "security": false,
+        "performance": true,
+        "security": true,
         "operations": true,
         "lab": false,
         "interview": false,
@@ -7142,10 +8018,11 @@
       "path": "observability/MDC-KAFKA-ASYNC-PROPAGATION.md",
       "pageType": "\"Guide\"",
       "difficulty": "\"Advanced\"",
-      "words": 595,
-      "score": 2,
+      "words": 1022,
+      "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7153,11 +8030,11 @@
         "failureModes": true,
         "performance": true,
         "security": true,
-        "operations": true,
+        "operations": false,
         "lab": false,
         "interview": false,
         "official": true,
-        "visual": false
+        "visual": true
       }
     },
     {
@@ -7168,6 +8045,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7190,6 +8068,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -7212,6 +8091,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7230,13 +8110,14 @@
       "path": "observability/OBSERVABILITY-IMPLEMENTATION-GUIDE.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 1060,
+      "words": 1067,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
-        "internals": false,
+        "internals": true,
         "example": true,
         "failureModes": true,
         "performance": true,
@@ -7252,10 +8133,11 @@
       "path": "observability/OBSERVABILITY.md",
       "pageType": "\"Guide\"",
       "difficulty": "\"Intermediate\"",
-      "words": 652,
+      "words": 659,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7278,6 +8160,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7300,6 +8183,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7322,6 +8206,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7344,6 +8229,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7366,6 +8252,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7388,6 +8275,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7410,6 +8298,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7432,6 +8321,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -7454,6 +8344,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7476,6 +8367,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7498,6 +8390,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7520,6 +8413,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7542,6 +8436,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -7564,6 +8459,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7586,6 +8482,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7608,6 +8505,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -7630,6 +8528,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -7652,6 +8551,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7674,6 +8574,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7696,6 +8597,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7718,6 +8620,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7740,6 +8643,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7762,6 +8666,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7784,6 +8689,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7806,6 +8712,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -7828,6 +8735,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7850,6 +8758,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -7872,6 +8781,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7894,6 +8804,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7916,6 +8827,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -7938,6 +8850,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -7960,6 +8873,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -7982,6 +8896,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8004,6 +8919,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8026,6 +8942,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -8048,6 +8965,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -8070,6 +8988,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -8092,6 +9011,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8114,6 +9034,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -8136,6 +9057,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8158,6 +9080,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8180,6 +9103,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8202,6 +9126,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8224,6 +9149,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8246,6 +9172,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -8268,6 +9195,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8290,6 +9218,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8312,6 +9241,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8334,6 +9264,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -8356,6 +9287,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -8378,6 +9310,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8400,6 +9333,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8422,6 +9356,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8444,6 +9379,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -8462,10 +9398,11 @@
       "path": "reference/FEATURES-RELIABILITY-OBSERVABILITY.md",
       "pageType": "\"Guide\"",
       "difficulty": "\"Advanced\"",
-      "words": 867,
+      "words": 956,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8488,6 +9425,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8510,6 +9448,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8532,6 +9471,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8554,6 +9494,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8576,6 +9517,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -8598,6 +9540,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8620,6 +9563,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8642,6 +9586,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8664,6 +9609,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8686,6 +9632,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8708,6 +9655,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8730,6 +9678,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8752,6 +9701,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8774,6 +9724,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8796,6 +9747,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -8818,6 +9770,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8840,6 +9793,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8862,6 +9816,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8884,6 +9839,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8906,6 +9862,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8924,10 +9881,11 @@
       "path": "reliability/problems/CURRENT-PROBLEMS-AND-SOLUTIONS.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 969,
+      "words": 1054,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8950,6 +9908,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8972,6 +9931,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -8994,6 +9954,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9016,6 +9977,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9038,6 +10000,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9060,6 +10023,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9082,6 +10046,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -9104,6 +10069,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9126,6 +10092,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9148,6 +10115,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9170,6 +10138,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9192,6 +10161,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -9214,6 +10184,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9236,6 +10207,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9254,10 +10226,11 @@
       "path": "reliability/problems/PROBLEMS-SUMMARY-LINKS.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 423,
+      "words": 443,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9280,6 +10253,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -9302,6 +10276,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9324,6 +10299,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -9346,6 +10322,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -9368,6 +10345,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9390,6 +10368,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9412,6 +10391,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9434,6 +10414,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9456,6 +10437,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9478,6 +10460,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9500,6 +10483,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9522,6 +10506,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9544,6 +10529,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9566,6 +10552,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9588,6 +10575,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -9610,6 +10598,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9632,6 +10621,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9654,6 +10644,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9676,6 +10667,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9698,6 +10690,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9720,6 +10713,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -9742,6 +10736,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9764,6 +10759,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -9786,6 +10782,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -9808,6 +10805,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9830,6 +10828,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -9852,6 +10851,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9874,6 +10874,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -9896,6 +10897,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -9918,6 +10920,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9940,6 +10943,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -9962,6 +10966,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -9984,6 +10989,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10006,6 +11012,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -10028,6 +11035,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10050,6 +11058,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10072,6 +11081,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10094,6 +11104,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10116,6 +11127,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10138,6 +11150,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10160,6 +11173,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10182,6 +11196,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10204,6 +11219,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10226,6 +11242,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10242,23 +11259,24 @@
     },
     {
       "path": "security/oauth/OAUTH2-FUNDAMENTALS.md",
-      "pageType": "Unclassified",
-      "difficulty": "Unclassified",
-      "words": 80,
-      "score": 1,
+      "pageType": "\"Guide\"",
+      "difficulty": "\"Foundation\"",
+      "words": 1042,
+      "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
-        "mentalModel": false,
-        "internals": false,
+        "mentalModel": true,
+        "internals": true,
         "example": true,
         "failureModes": false,
-        "performance": false,
+        "performance": true,
         "security": true,
         "operations": false,
         "lab": false,
-        "interview": false,
-        "official": false,
+        "interview": true,
+        "official": true,
         "visual": true
       }
     },
@@ -10266,10 +11284,11 @@
       "path": "security/oauth/OAUTH2-GRANT-TYPES.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 95,
-      "score": 1,
+      "words": 186,
+      "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10292,6 +11311,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10314,6 +11334,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10336,6 +11357,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10358,6 +11380,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10380,6 +11403,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10402,6 +11426,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10424,6 +11449,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10446,6 +11472,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10468,6 +11495,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10490,6 +11518,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10512,6 +11541,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10534,6 +11564,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10552,10 +11583,11 @@
       "path": "security/README.md",
       "pageType": "Learning Path",
       "difficulty": "Intermediate",
-      "words": 114,
+      "words": 134,
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10574,10 +11606,11 @@
       "path": "security/SECURITY-IMPLEMENTATION-GUIDE.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 561,
+      "words": 574,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10596,10 +11629,11 @@
       "path": "security/spring-security/AUTHENTICATION-BASICS.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 545,
+      "words": 751,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10622,6 +11656,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -10640,21 +11675,45 @@
       "path": "security/spring-security/AUTHORIZATION-METHOD-SECURITY.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 500,
+      "words": 522,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
         "example": true,
-        "failureModes": false,
+        "failureModes": true,
         "performance": false,
         "security": true,
         "operations": true,
         "lab": false,
         "interview": true,
         "official": false,
+        "visual": true
+      }
+    },
+    {
+      "path": "security/spring-security/BOOT-AUTOCONFIGURATION-LIFECYCLE.md",
+      "pageType": "Concept",
+      "difficulty": "Advanced",
+      "words": 688,
+      "score": 3,
+      "target": 2,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": true,
+        "operations": false,
+        "lab": false,
+        "interview": true,
+        "official": true,
         "visual": true
       }
     },
@@ -10666,6 +11725,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -10681,16 +11741,40 @@
       }
     },
     {
+      "path": "security/spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE.md",
+      "pageType": "\"Architecture Guide\"",
+      "difficulty": "\"Advanced\"",
+      "words": 1086,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": true,
+        "security": true,
+        "operations": true,
+        "lab": false,
+        "interview": false,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
       "path": "security/spring-security/JWT-JWKS-RESOURCE-SERVER.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 955,
+      "words": 1441,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
-        "internals": false,
+        "internals": true,
         "example": true,
         "failureModes": true,
         "performance": true,
@@ -10703,13 +11787,37 @@
       }
     },
     {
+      "path": "security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION.md",
+      "pageType": "\"Implementation Guide\"",
+      "difficulty": "\"Advanced\"",
+      "words": 803,
+      "score": 3,
+      "target": 1,
+      "belowTarget": false,
+      "excluded": false,
+      "criteria": {
+        "mentalModel": true,
+        "internals": true,
+        "example": true,
+        "failureModes": true,
+        "performance": false,
+        "security": true,
+        "operations": true,
+        "lab": true,
+        "interview": false,
+        "official": true,
+        "visual": true
+      }
+    },
+    {
       "path": "security/spring-security/OAUTH2-OIDC-FLOWS.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 306,
-      "score": 2,
+      "words": 1022,
+      "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -10720,7 +11828,7 @@
         "operations": true,
         "lab": false,
         "interview": true,
-        "official": false,
+        "official": true,
         "visual": true
       }
     },
@@ -10732,6 +11840,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10754,6 +11863,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -10776,6 +11886,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10794,15 +11905,16 @@
       "path": "security/spring-security/SERVLET-FILTER-CHAIN.md",
       "pageType": "Unclassified",
       "difficulty": "Unclassified",
-      "words": 476,
+      "words": 742,
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
         "example": true,
-        "failureModes": false,
+        "failureModes": true,
         "performance": false,
         "security": true,
         "operations": false,
@@ -10820,6 +11932,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10842,6 +11955,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10860,10 +11974,11 @@
       "path": "security/SPRING-SECURITY-GENERIC.md",
       "pageType": "Learning Path",
       "difficulty": "Intermediate",
-      "words": 852,
+      "words": 913,
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10886,6 +12001,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10908,6 +12024,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -10930,6 +12047,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -10952,6 +12070,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -10974,6 +12093,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -10996,6 +12116,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11018,6 +12139,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11040,6 +12162,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -11062,6 +12185,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -11084,6 +12208,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -11106,6 +12231,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11128,6 +12254,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11150,6 +12277,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -11172,6 +12300,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11194,6 +12323,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11216,6 +12346,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11238,6 +12369,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11260,6 +12392,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11282,6 +12415,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11304,6 +12438,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11326,6 +12461,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11348,6 +12484,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11370,6 +12507,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11392,6 +12530,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11414,6 +12553,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11432,17 +12572,18 @@
       "path": "spring/jpa/JPA-FETCHING-PERFORMANCE.md",
       "pageType": "Tutorial",
       "difficulty": "Advanced",
-      "words": 584,
+      "words": 1140,
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
         "example": true,
         "failureModes": true,
         "performance": true,
-        "security": true,
+        "security": false,
         "operations": false,
         "lab": false,
         "interview": true,
@@ -11458,6 +12599,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11480,6 +12622,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11498,10 +12641,11 @@
       "path": "spring/jpa/JPA-TRANSACTIONS-LOCKING.md",
       "pageType": "Decision Guide",
       "difficulty": "Advanced",
-      "words": 671,
+      "words": 876,
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11524,6 +12668,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11546,6 +12691,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11568,6 +12714,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11590,6 +12737,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11612,6 +12760,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -11634,6 +12783,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11656,6 +12806,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11678,6 +12829,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11700,6 +12852,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11722,6 +12875,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11744,6 +12898,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11766,6 +12921,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11788,6 +12944,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11810,6 +12967,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11832,6 +12990,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11854,6 +13013,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11876,6 +13036,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11898,6 +13059,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -11920,6 +13082,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -11942,6 +13105,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11964,6 +13128,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -11986,6 +13151,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -12008,6 +13174,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12030,6 +13197,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12052,6 +13220,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -12074,6 +13243,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12096,6 +13266,7 @@
       "score": 2,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12118,6 +13289,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -12140,6 +13312,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12162,6 +13335,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12184,6 +13358,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -12206,6 +13381,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12228,6 +13404,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12250,6 +13427,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12272,6 +13450,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12294,6 +13473,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -12316,6 +13496,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": true,
@@ -12334,10 +13515,11 @@
       "path": "spring/SPRING-TRANSACTIONS.md",
       "pageType": "Guide",
       "difficulty": "Intermediate",
-      "words": 1130,
+      "words": 1666,
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -12360,6 +13542,7 @@
       "score": 1,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": false,
         "internals": false,
@@ -12382,6 +13565,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12404,6 +13588,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12426,6 +13611,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -12448,6 +13634,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12470,6 +13657,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12492,6 +13680,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12514,6 +13703,7 @@
       "score": 2,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -12536,6 +13726,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12558,6 +13749,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12580,6 +13772,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12598,10 +13791,11 @@
       "path": "spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md",
       "pageType": "Guide",
       "difficulty": "Advanced",
-      "words": 449,
+      "words": 636,
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": false,
@@ -12624,6 +13818,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12642,10 +13837,11 @@
       "path": "spring/web/HTTP-MESSAGE-CONVERSION-JACKSON.md",
       "pageType": "Concept",
       "difficulty": "Advanced",
-      "words": 639,
+      "words": 864,
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12668,6 +13864,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12690,6 +13887,7 @@
       "score": 3,
       "target": 2,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,
@@ -12712,6 +13910,7 @@
       "score": 3,
       "target": 1,
       "belowTarget": false,
+      "excluded": false,
       "criteria": {
         "mentalModel": true,
         "internals": true,

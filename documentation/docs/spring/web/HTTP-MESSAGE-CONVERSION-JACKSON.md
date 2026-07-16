@@ -148,6 +148,46 @@ Evidence should include:
 5. response size and object depth;
 6. the DTO mapping and fetch plan that should replace entity exposure.
 
+## Bidirectional References And Jackson Annotations
+
+A parent-to-children association plus a child-to-parent association forms a
+cycle. If both directions are exposed, serialization can repeatedly walk
+`Department -> employees -> department`, fail with a recursion or depth error,
+or create a payload far larger than the API intended.
+
+Jackson provides several ways to shape such an object graph:
+
+| Approach | Serialization behavior | Main trade-off |
+|---|---|---|
+| `@JsonManagedReference` on the forward/parent property plus `@JsonBackReference` on the matching child property | serializes the managed direction and omits the back property; deserialization restores the link | Jackson-specific coupling and asymmetric JSON |
+| `@JsonIgnore` on one property | ignores that logical property | simple, but also removes information and can affect deserialization depending on placement/configuration |
+| `@JsonIdentityInfo` | writes object identity so later occurrences can be references rather than expanded objects | preserves graph identity but exposes an identity-shaped wire contract that clients must understand |
+| explicit request/response DTOs | serializes only fields selected for the API | requires mapping, but gives the clearest contract and avoids persistence-graph leakage |
+
+```java
+class Department {
+    @JsonManagedReference
+    private List<Employee> employees;
+}
+
+class Employee {
+    @JsonBackReference
+    private Department department;
+}
+```
+
+The managed property is the forward side included in JSON. The back-reference
+property is not serialized; during deserialization Jackson links it back to the
+object that owns the managed property. When a type has multiple reference pairs,
+give each pair a distinct logical name, such as
+`@JsonManagedReference("department-employees")` and the matching
+`@JsonBackReference("department-employees")`.
+
+These annotations prevent traversal; they do not fix an N+1 query, choose a safe
+fetch plan, or define a stable public schema. Shopverse APIs should continue to
+prefer DTOs, using reference annotations only for a deliberately Jackson-shaped
+internal contract.
+
 ## Testing The Contract
 
 - Use `@JsonTest` for mapper modules and exact JSON shape.
@@ -174,6 +214,9 @@ and use-case-specific fetching avoid both accidental outcomes.
 - [Spring MVC HTTP message conversion](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/message-converters.html)
 - [Spring MVC annotated controller responses](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/responsebody.html)
 - [Spring Boot JSON support](https://docs.spring.io/spring-boot/4.0/reference/features/json.html)
+- [Jackson `@JsonManagedReference`](https://fasterxml.github.io/jackson-annotations/javadoc/2.14/com/fasterxml/jackson/annotation/JsonManagedReference.html)
+- [Jackson `@JsonBackReference`](https://fasterxml.github.io/jackson-annotations/javadoc/2.14/com/fasterxml/jackson/annotation/JsonBackReference.html)
+- [Jackson `@JsonIdentityInfo`](https://fasterxml.github.io/jackson-annotations/javadoc/2.14/com/fasterxml/jackson/annotation/JsonIdentityInfo.html)
 
 ## Recommended Next
 

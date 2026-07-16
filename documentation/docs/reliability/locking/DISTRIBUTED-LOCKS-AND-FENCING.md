@@ -219,8 +219,8 @@ eliminates the need for idempotency.
 
 ## Related Guides
 
+- [Spring Distributed Locking Options](SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)
 - [Scheduler Locking With ShedLock](SCHEDULER-LOCKING-SHEDLOCK.md)
 - [Database Locking And Work Claims](DATABASE-LOCKING-AND-CLAIMS.md)
 - [Distributed Transactions](../DISTRIBUTED-TRANSACTIONS-LOCKS.md)
 - [High Availability And SPOF](../HIGH-AVAILABILITY-SPOF.md)
-

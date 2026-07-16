@@ -242,6 +242,6 @@ whether individual beans are created.
 
 ## Recommended Next
 
-Continue with [Spring Dependency Injection And Bean Lifecycle](./DI-BEAN-LIFECYCLE-AOP.md).
-
+Continue with [Startup Extension Points And Events](./STARTUP-EXTENSION-POINTS.md),
+then [Spring Dependency Injection And Bean Lifecycle](./DI-BEAN-LIFECYCLE-AOP.md).
 

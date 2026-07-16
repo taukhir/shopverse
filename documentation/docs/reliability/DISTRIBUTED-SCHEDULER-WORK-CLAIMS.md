@@ -78,6 +78,45 @@ job builds one indivisible report, singleton leadership may be appropriate.
 | queue/Kafka partitions | event-driven independent work | high | redelivery and ordering scope |
 | singleton distributed lock | one global job must run | one | lock loss, pauses, split brain |
 
+## Efficiency Ranking For Outbox Work
+
+For a relational transactional outbox, the usual architect-level order is:
+
+| Rank | Strategy | Choose it when | Escalate when |
+|---:|---|---|---|
+| 1 | bounded `SKIP LOCKED` batch claim | independent rows, medium/high throughput, supported database | ordering or shared-index contention becomes dominant |
+| 2 | conditional atomic claim | `SKIP LOCKED` is unavailable or portability matters | failed claim attempts create measurable contention |
+| 3 | partition ownership | strict aggregate ordering or very high sustained throughput matters | operating rebalancing and hot partitions becomes too costly |
+| 4 | CDC plus broker partitions | event relay is a shared platform capability | connector, log-retention, and schema operations are not mature |
+| 5 | singleton scheduler lock | the whole job is indivisible and one worker can meet the SLO | backlog exceeds one worker's capacity |
+| 6 | clustered scheduler | persisted triggers, calendars, misfires, and job administration are requirements | the workload is merely a frequent table poll |
+
+This ranking is not a universal product ranking. It selects the smallest
+coordination mechanism that satisfies ownership, throughput, ordering, and
+operational constraints.
+
+### Batching Does Not Establish Ownership
+
+`LIMIT 100` reduces query and network overhead, but two schedulers can still
+select the same 100 rows. A safe batch combines bounded selection with an
+atomic claim: row locks plus a committed status/token, a conditional update,
+or exclusive partition ownership.
+
+```mermaid
+flowchart TD
+    START{"Must the whole job have one owner?"}
+    START -->|Yes| COMPLEX{"Are schedules persistent or user-configurable?"}
+    COMPLEX -->|Yes| QUARTZ["Clustered scheduler such as Quartz"]
+    COMPLEX -->|No| SINGLETON["ShedLock, advisory lock, or leader election"]
+    START -->|No| ROWS{"Can work be divided into independent rows?"}
+    ROWS -->|Yes| SKIP{"Does the database support SKIP LOCKED?"}
+    SKIP -->|Yes| CLAIM["Atomic bounded batch claim"]
+    SKIP -->|No| CONDITIONAL["Conditional claim update"]
+    ROWS -->|No| ORDER{"Is ordered partition ownership natural?"}
+    ORDER -->|Yes| PARTITION["Partition leases or broker consumer group"]
+    ORDER -->|No| REDESIGN["Redefine the ownership unit"]
+```
+
 ## Fix 1: Atomic Conditional Transition
 
 For one record, make eligibility and ownership one database statement:
@@ -229,8 +268,9 @@ without exposing PII.
 
 ## Recommended Next Pages
 
-Read [Database Locking And Claims](./locking/DATABASE-LOCKING-AND-CLAIMS.md) for
-engine-specific SQL, [Partition And Queue Ownership](./locking/PARTITION-AND-QUEUE-OWNERSHIP.md)
+Read [Spring Distributed Locking Options](./locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)
+for library and platform selection, [Database Locking And Claims](./locking/DATABASE-LOCKING-AND-CLAIMS.md)
+for engine-specific SQL, [Partition And Queue Ownership](./locking/PARTITION-AND-QUEUE-OWNERSHIP.md)
 for dynamic shard assignment, and [Idempotency](./IDEMPOTENCY-GENERIC.md) for safe retries.
 
 ## Official References

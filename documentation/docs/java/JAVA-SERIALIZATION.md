@@ -1,7 +1,7 @@
 ---
 title: Java Serialization
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-16"
 ---
 
 # Java Serialization
@@ -16,6 +16,8 @@ Serialization converts an object into a transport or storage format.
 In modern backend systems, JSON serialization through Jackson is more common
 than Java native serialization.
 
+## Format Selection
+
 Common serialization formats:
 
 | Format | Common use |
@@ -23,8 +25,21 @@ Common serialization formats:
 | JSON | REST APIs, logs, configuration, Kafka messages |
 | Avro/Protobuf | schema-based event streaming and RPC |
 | XML | legacy integrations, SOAP |
-| Java native serialization | legacy Java-only object serialization |
-| MessagePack/CBOR | compact binary payloads |
+| Java native serialization | controlled legacy Java-only object graphs |
+| MessagePack/CBOR | compact language-neutral structured payloads |
+
+| Requirement | Usually prefer | Reason |
+|---|---|---|
+| public REST or browser API | JSON | interoperable, inspectable, ubiquitous tooling |
+| high-volume governed Kafka events | Avro or Protobuf | explicit schema and compatibility tooling |
+| internal RPC | Protobuf or another IDL | generated cross-language contracts |
+| compact schemaless document | CBOR or MessagePack | smaller binary representation than textual JSON |
+| trusted legacy Java session/snapshot | native Java serialization | reconstructs Java object identity and cycles |
+
+Native serialization has historically appeared in RMI, application-server
+session replication, legacy messaging, desktop state, and Java-only caches.
+Those are not endorsements for new distributed contracts: durability and trust
+boundaries make its class coupling and deserialization behavior expensive.
 
 ## Native Java Serialization
 
@@ -34,6 +49,51 @@ class UserSession implements Serializable {
     private String username;
 }
 ```
+
+### Complete Round Trip
+
+```java
+import java.io.*;
+import java.nio.file.*;
+
+final class Employee implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private final String name;
+    private final int level;
+    private transient String accessToken;
+
+    Employee(String name, int level, String accessToken) {
+        this.name = name;
+        this.level = level;
+        this.accessToken = accessToken;
+    }
+}
+
+Path file = Path.of("employee.ser");
+Employee original = new Employee("Ahmed", 7, "runtime-only");
+
+try (ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(Files.newOutputStream(file)))) {
+    out.writeObject(original);
+}
+
+Employee restored;
+try (ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(Files.newInputStream(file)))) {
+    restored = (Employee) in.readObject();
+}
+```
+
+`writeObject` accepts `Object`, so graph eligibility is checked at runtime.
+`readObject` returns `Object`, so callers validate/cast the expected root type.
+The runtime type is serialized: an `Employee` instance referenced through a
+`Person` variable is still written as `Employee`.
+
+The resulting file is protocol data, not a JVM heap image. It contains a stream
+header, class descriptors, field state, object/array contents, and references to
+previous handles. It does not contain method implementations.
 
 Native serialization is rarely recommended for public APIs because it is Java
 specific, fragile across versions, and has a long security history.

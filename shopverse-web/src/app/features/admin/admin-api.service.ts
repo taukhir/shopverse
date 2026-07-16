@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { catchError, forkJoin, of } from 'rxjs';
+import { catchError, forkJoin, map, of } from 'rxjs';
 
 import { API_PATHS } from '../../core/api/api-paths';
 
@@ -102,6 +102,6 @@ export class AdminApiService {
   }
 
   loadAuditEvents() {
-    return this.http.get<AdminAuditEvent[]>(API_PATHS.admin.auditEvents);
+    return this.http.get<Page<AdminAuditEvent>>(API_PATHS.admin.auditEvents).pipe(map((page) => page.content ?? []));
   }
 }

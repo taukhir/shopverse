@@ -35,6 +35,15 @@ test('individual sections can be bookmarked and reopened', async ({page}) => {
   await expect(page).toHaveURL(new RegExp(`#${headingId}$`));
 });
 
+test('each content page summarizes and links its top-level topics', async ({page}) => {
+  await page.goto('./spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION');
+  const overview = page.getByRole('navigation', {name: 'Topics covered'});
+  await expect(overview).toBeVisible();
+  await expect(overview.getByRole('link', {name: 'Valid Versus Validated'})).toBeVisible();
+  await overview.getByRole('link', {name: 'Groups And Sequences'}).click();
+  await expect(page).toHaveURL(/#groups-and-sequences$/);
+});
+
 test('reading mode and Word export work', async ({page}) => {
   await page.goto('./architecture/SYSTEM-DESIGN');
   const downloadPromise = page.waitForEvent('download');

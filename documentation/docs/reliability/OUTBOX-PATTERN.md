@@ -274,3 +274,4 @@ events through business keys or the inbox pattern.
 - [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [Database locking and Outbox claim strategies](locking/DATABASE-LOCKING-AND-CLAIMS.md)
 - [Locking and work ownership](locking/LOCKING-AND-WORK-OWNERSHIP.md)
+- [Change Data Capture in microservices](../architecture/CHANGE-DATA-CAPTURE.md)

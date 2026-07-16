@@ -219,6 +219,8 @@ Verification checklist:
 ## Related Guides
 
 - [JWT, OAuth2, and Spring Security](JWT-OAUTH2-SPRING-SECURITY.md)
+- [Keycloak and Spring OAuth2 implementation](spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION.md)
+- [Distributed authorization at permission scale](spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE.md)
 - [Access token, refresh token, and API key implementation](ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md)
 - [Spring Security](SPRING-SECURITY-GENERIC.md)
 - [JWT fundamentals](jwt/JWT-FUNDAMENTALS.md)

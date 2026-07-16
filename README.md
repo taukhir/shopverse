@@ -356,9 +356,11 @@ Recently implemented runtime surfaces include:
 | Order actions | `POST /api/v1/orders/{id}/cancel`, `POST /api/v1/orders/{id}/return-request` |
 | Admin fulfillment | `POST /api/v1/orders/admin/{id}/pack`, `POST /api/v1/orders/admin/{id}/ship`, `POST /api/v1/orders/admin/{id}/deliver`, `POST /api/v1/orders/admin/{id}/cancel`, `POST /api/v1/orders/admin/catalog-cache/evict` |
 | Payments | `POST /api/v1/payments/intent`, `POST /api/v1/payments/orders/{orderNumber}/retry`, `POST /api/v1/payments/orders/{orderNumber}/refund`, `GET /api/v1/payments/orders/{orderNumber}`, `POST /api/v1/payments/webhooks/provider` |
+| Admin audit | `GET /api/v1/admin/audit-events`, `GET /api/v1/admin/audit-events/{id}` |
 
-Payment provider webhook signature verification, refund audit depth, and
-inventory-aware cart validation remain hardening items.
+Cross-service audit event publishing, payment provider webhook signature
+verification, refund audit depth, and inventory-aware cart validation remain
+hardening items.
 
 ## Documentation
 
@@ -376,6 +378,39 @@ cd documentation
 npm install
 npm start
 ```
+
+## Frontend And Documentation Automation
+
+Run the Angular storefront and Docusaurus documentation gates from the
+repository root:
+
+```powershell
+.\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -TimeoutMinutes 30
+```
+
+Common focused runs:
+
+```powershell
+.\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
+.\scripts\Test-ShopverseSites.ps1 -Target Docs -Mode Quick
+.\scripts\Test-ShopverseSites.ps1 -Target Docs -Mode Full -SkipBrowsers
+.\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -Install
+```
+
+If PowerShell script execution is locked down locally, use:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseSites.ps1 -Target All -Mode Quick -SkipBrowsers
+```
+
+The web gate runs Angular development and production builds, Angular
+unit/component tests, mocked Playwright E2E flows, axe accessibility checks, and
+a Lighthouse budget against the production build. The documentation gate runs
+type-checking, document validation, Docusaurus build, performance budget, and
+Playwright rendering/accessibility tests unless `-SkipBrowsers` is used.
+The GitHub Actions workflow
+[frontend-sites.yml](.github/workflows/frontend-sites.yml) runs the same root
+automation on relevant frontend and documentation changes.
 
 | Area | Guide |
 |---|---|

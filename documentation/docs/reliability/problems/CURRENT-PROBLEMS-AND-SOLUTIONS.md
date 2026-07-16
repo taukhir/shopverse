@@ -34,6 +34,7 @@ solved, what is partially solved, and what still needs production-grade follow-u
 | Solved baseline | Account details were read-only in the UI | `GET/PUT/PATCH /api/v1/users/me` plus Angular account editing | add field-level validation messages and profile history if required |
 | Solved baseline | Address book was missing from customer account | `GET/POST/PUT/DELETE /api/v1/users/me/addresses` | add default-address constraints and richer address formats |
 | Solved baseline | Admin inventory images needed a backend surface | `POST /api/v1/inventory/admin/items/{productId}/image` stores media through MinIO-backed Inventory flow | add image size/type policy and image cleanup for replacements |
+| Solved baseline | Admin/account actions had no durable operational audit API | User Service `admin_audit_events` table plus `GET /api/v1/admin/audit-events` and `GET /api/v1/admin/audit-events/{id}` | emit audit events from Order, Inventory, Payment, and DLT recovery workflows or extract a dedicated audit service |
 | Solved baseline | Catalog cache could become stale after inventory changes | `POST /api/v1/orders/admin/catalog-cache/evict` | replace manual eviction with event-driven cache invalidation |
 | Partial | Webhook endpoint is public by necessity | endpoint is isolated under `/api/v1/payments/webhooks/provider` | require provider signatures and idempotent event storage before production payment use |
 
@@ -56,6 +57,7 @@ solved, what is partially solved, and what still needs production-grade follow-u
 | Solved baseline | Product images could slow catalog rendering | lazy product images, responsive dimensions, and fallbacks | serve optimized image variants from object storage/CDN |
 | Solved baseline | Checkout success lacked operational transaction details | post-checkout transaction card with order number, transaction ID, idempotency key, correlation ID, and copy actions | align transaction metadata with final payment provider fields |
 | Solved baseline | Long admin tables required excessive scrolling | reusable paginated table controls | add server-side pagination for very large datasets |
+| Solved baseline | Admin activity UI was derived only from current state | Admin Activity loads backend audit events first and keeps a derived fallback for partial backend availability | add browser smoke coverage and cross-service audit event sources |
 | Partial | UI polish is broad and ongoing | shared components, common styles, admin/customer layouts, breadcrumbs, and empty states | complete visual QA on mobile/tablet and production Lighthouse budget |
 
 ## Build, Docker, And Verification
@@ -76,10 +78,11 @@ The latest local verification for the documented API-contract update:
 
 | Area | Command | Result |
 |---|---|---|
-| User Service | `.\gradlew.bat test --no-daemon` | passed |
+| User Service | `.\gradlew.bat test --no-daemon --console=plain --max-workers=1` | passed |
 | Order Service | `.\gradlew.bat test --no-daemon --console=plain` | passed |
 | Inventory Service | `.\gradlew.bat test --no-daemon` | passed |
 | Payment Service | `.\gradlew.bat test --no-daemon` | passed |
+| Shopverse Web | `npm.cmd run build` | passed |
 | Docs changed-page validation | `npm.cmd run check:docs:changed` | passed |
 
 ## Related Pages

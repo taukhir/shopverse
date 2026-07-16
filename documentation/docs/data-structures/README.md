@@ -29,6 +29,7 @@ flowchart LR
   {title: 'Selection fundamentals', href: '/data-structures/DATA-STRUCTURES-FUNDAMENTALS', description: 'Complexity, invariants, and selection workflow.', icon: 'route', tags: ['Complexity', 'Selection']},
   {title: 'Linear structures', href: '/data-structures/LINEAR-DATA-STRUCTURES', description: 'Arrays, lists, stacks, queues, and deques.', icon: 'layers', tags: ['Sequence', 'Queue']},
   {title: 'Non-linear structures', href: '/data-structures/NON-LINEAR-DATA-STRUCTURES', description: 'Trees, heaps, graphs, and traversal choices.', icon: 'network', tags: ['Tree', 'Graph']},
+  {title: 'Java DSA interview bank', href: '/data-structures/DSA-INTERVIEW-QUESTION-BANK', description: 'Search 245 curated questions across eleven pattern families plus a consolidated Top 50.', icon: 'brain', tags: ['Interview', 'Searchable']},
 ]} />
 
 <DocCallout type="shopverse" title="Choose from the workload">

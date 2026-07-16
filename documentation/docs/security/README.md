@@ -47,6 +47,8 @@ flowchart LR
 | Spring filters, providers and method security | [Spring Security](./SPRING-SECURITY-GENERIC.md) |
 | concrete Shopverse configuration | [Platform security starter](../platform/SECURITY-STARTER.md) |
 | OAuth2/OIDC protocols | [OAuth2 fundamentals](./oauth/OAUTH2-FUNDAMENTALS.md) |
+| Standards-based OAuth2 implementation | [Keycloak and Spring OAuth2](./spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION.md) |
+| Large role and permission models | [Distributed authorization at permission scale](./spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE.md) |
 | supply chain and privacy | [Supply-chain and privacy](./SUPPLY-CHAIN-PRIVACY.md) |
 
 <DocCallout type="production" title="Default deny at every reachable boundary">

@@ -230,4 +230,5 @@ or pass data as a method argument. The goal is unidirectional ownership.
 
 ## Recommended Next
 
-Continue with [Bean Scopes And Lifecycle](./BEAN-SCOPES-LIFECYCLE.md).
+Continue with [Autowiring And Circular Reference Internals](./AUTOWIRING-CIRCULAR-REFERENCE-INTERNALS.md),
+then [Bean Scopes And Lifecycle](./BEAN-SCOPES-LIFECYCLE.md).

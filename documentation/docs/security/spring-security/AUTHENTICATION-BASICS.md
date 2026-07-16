@@ -330,7 +330,20 @@ Optional<User> findByUsername(String username);
 ```
 
 This loads the user, roles, and permissions for authentication without a
-separate lazy query for each relationship.
+separate lazy query for each relationship. The graph requires those associations
+to be fetched, but it does not guarantee that Hibernate will always use one SQL
+statement or a particular join type.
+
+<DocCallout type="shopverse" title="Current fetch scope is broader than authentication">
+Shopverse currently places the same deep graph on the general
+`findByUsername` method and on `findById`. Those methods are also used outside
+authentication, so roles and permissions can be fetched for callers that do not
+need them. A dedicated `findForAuthenticationByUsername` graph method would make
+the use-case boundary explicit; that split is proposed, not currently implemented.
+</DocCallout>
+
+The canonical [JPA Fetching Performance And N Plus One](../../spring/jpa/JPA-FETCHING-PERFORMANCE.md#shopverse-current-fetch-plans)
+guide records the current repository scope and the proposed split.
 
 Spring Boot can assemble a DAO provider when a `UserDetailsService` and
 `PasswordEncoder` are available:
@@ -375,6 +388,37 @@ role.getPermissions().forEach(permission ->
 
 This permits coarse role checks and finer permission checks.
 
+### Custom DatabaseUserDetails Adapter
+
+The built-in `User` builder above is sufficient when the principal needs only
+standard fields. A dedicated adapter is useful when application code needs a
+stable internal user ID or other safe, immutable principal data:
+
+```java
+public final class DatabaseUserDetails implements UserDetails {
+    private final Long userId;
+    private final String username;
+    private final String passwordHash;
+    private final boolean enabled;
+    private final boolean accountNonLocked;
+    private final Set<GrantedAuthority> authorities;
+
+    // Constructor defensively copies authorities; standard UserDetails getters follow.
+}
+```
+
+`DatabaseUserDetailsService` should load the required roles and permissions in
+its transaction, map the entity to this detached security principal, and return
+it. Keep the password value as the stored hash for `PasswordEncoder.matches`.
+Do not expose that hash through API serialization or logs.
+
+Avoid making a JPA entity implement `UserDetails` by default. Doing so couples
+authentication to lazy-loading, persistence proxies, entity equality and API
+serialization. The adapter also gives a deliberate place to normalize
+`ROLE_*` values, permissions and account-state flags. If no extra principal
+data is needed, prefer the framework's built-in immutable `User` rather than a
+custom class with no additional value.
+
 ## Interview Check
 
 **Why should a JPA user entity not implement `UserDetails` by default?**
@@ -392,8 +436,5 @@ explicit and tested.
 ## Recommended Next
 
 Trace the complete call path in [Authentication Internals](./AUTHENTICATION-INTERNALS.md).
-
-
-
 
 

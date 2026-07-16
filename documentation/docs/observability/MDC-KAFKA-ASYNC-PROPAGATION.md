@@ -163,6 +163,116 @@ automatically inherit MDC. If an asynchronous task is necessary, explicitly
 pass the identifier or use a controlled context-propagation mechanism and
 restore/clear the scope in the worker.
 
+### Controlled Spring Executor With TaskDecorator
+
+A decorator captures context when the task is submitted and installs it only for
+the task execution. It must restore the worker's previous state, not blindly
+erase context owned by an outer scope:
+
+```java
+@Bean
+TaskDecorator mdcTaskDecorator() {
+    return task -> {
+        Map<String, String> caller = MDC.getCopyOfContextMap();
+        return () -> {
+            Map<String, String> previous = MDC.getCopyOfContextMap();
+            try {
+                installMdc(caller);
+                task.run();
+            } finally {
+                installMdc(previous);
+            }
+        };
+    };
+}
+
+private static void installMdc(Map<String, String> context) {
+    if (context == null || context.isEmpty()) {
+        MDC.clear();
+    } else {
+        MDC.setContextMap(context);
+    }
+}
+```
+
+Attach it to the owned `ThreadPoolTaskExecutor`; defining a `TaskDecorator` bean
+does not guarantee that every executor automatically uses it. A
+`CompletableFuture` must use that controlled executor explicitly:
+
+```java
+CompletableFuture.runAsync(action, applicationExecutor);
+```
+
+Do not capture request payloads or mutable security state in the snapshot. Context
+propagation supplies diagnostics, not authentication; the task must receive its
+authorized business inputs explicitly.
+
+### Why InheritableThreadLocal Is Not The Fix
+
+Thread pools usually create workers before a request and reuse them, so inherited
+values are stale or absent. Inheritance also makes cleanup and security ownership
+unclear. Pass or propagate a bounded context at task submission instead.
+
+### Virtual Threads
+
+MDC is still associated with the current thread when code runs on a virtual
+thread. A fresh virtual thread does not automatically receive arbitrary MDC from
+its submitting thread. Thread-per-task execution reduces pooled-thread reuse but
+does not remove the need for scoped cleanup, explicit propagation and safe field
+selection. Do not assume context follows structured tasks unless the chosen
+framework propagation mechanism explicitly provides that contract.
+
+## Reactor And WebFlux
+
+Reactive execution does not preserve a one-request/one-thread relationship.
+Putting MDC in a WebFilter and leaving it set around `chain.filter(...)` is
+incorrect because subscription signals can execute later on different threads.
+Store application correlation data in Reactor Context:
+
+```java
+return chain.filter(exchange)
+        .contextWrite(context -> context.put("correlationId", correlationId));
+```
+
+Reactor Context is subscriber-associated and flows upstream through the reactive
+chain. It does not automatically populate SLF4J MDC. For a local log statement,
+open the MDC scope only while the signal/callback executes:
+
+```java
+return Mono.deferContextual(contextView -> {
+    String id = contextView.getOrDefault("correlationId", "-");
+    try (var ignored = MDC.putCloseable("correlationId", id)) {
+        log.info("Reactive operation subscribed");
+    }
+    return service.execute();
+});
+```
+
+That scope covers the synchronous log statement, not every later signal. For
+application-wide bridging, use framework-supported Micrometer Context Propagation
+and tracing instrumentation with registered accessors/hooks rather than a custom
+global Reactor hook copied from a blog post. Verify cancellation, error, scheduler
+switch and parallel-rail cleanup; a bridge that sets MDC without restoring the
+prior value can leak between subscribers sharing a worker.
+
+Micrometer tracing normally owns `traceId` and `spanId` propagation. A separate
+business correlation ID still needs an explicit Reactor/event contract when it
+must survive across several traces.
+
+## Propagation Test Matrix
+
+Test more than “value appears once”:
+
+| Boundary | Required assertion |
+|---|---|
+| servlet/filter success and exception | correct ID inside; absent/restored afterward |
+| pooled executor with two consecutive tasks | task B never sees task A's ID |
+| nested task/context | previous worker/outer context is restored |
+| `CompletableFuture` with controlled versus common pool | configured executor propagates; unconfigured path is not assumed |
+| Kafka success, retry and DLT/replay | durable correlation restored for every delivery and cleared afterward |
+| WebFlux scheduler switch, error and cancellation | Reactor value survives; MDC bridge never leaks between subscribers |
+| tracing enabled/disabled and sampling changes | application correlation remains correct; trace fields follow instrumentation policy |
+
 ## Production Practices
 
 1. Accept or generate the ID at the first trusted boundary.
@@ -178,7 +288,8 @@ restore/clear the scope in the worker.
 10. Let Micrometer own `traceId` and `spanId`.
 11. Test missing headers, supplied headers, downstream propagation, exception
     cleanup, Kafka restoration, and asynchronous boundaries.
-12. Use low-cardinality correlation fields in logs, not metric labels.
+12. Keep high-cardinality correlation/trace identifiers as structured log fields,
+    never Prometheus labels or Loki stream labels.
 
 The current Shopverse filters accept any nonblank caller value. Adding a
 length and allowed-character policy is a production hardening item.

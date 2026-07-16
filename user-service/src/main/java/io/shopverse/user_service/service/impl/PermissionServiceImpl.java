@@ -14,6 +14,7 @@ import io.shopverse.user_service.model.PermissionFilter;
 import io.shopverse.user_service.model.UpdatePermissionRequest;
 import io.shopverse.user_service.repository.PermissionRepository;
 import io.shopverse.user_service.repository.specification.PermissionSpecifications;
+import io.shopverse.user_service.service.AdminAuditEventService;
 import io.shopverse.user_service.service.PermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PermissionServiceImpl implements PermissionService {
 
     private final PermissionRepository permissionRepository;
+    private final AdminAuditEventService adminAuditEventService;
 
     @Override
     public PageResponse<PermissionResponse> getPermissions(PermissionFilter filter, Pageable pageable) {
@@ -55,7 +57,9 @@ public class PermissionServiceImpl implements PermissionService {
                 .moduleName(request.moduleName())
                 .build();
 
-        return UserMapper.toPermissionResponse(permissionRepository.save(permission));
+        Permission savedPermission = permissionRepository.save(permission);
+        recordPermissionAudit(savedPermission, "PERMISSION_CREATED", "Permission created");
+        return UserMapper.toPermissionResponse(savedPermission);
     }
 
     @Override
@@ -79,7 +83,9 @@ public class PermissionServiceImpl implements PermissionService {
             permission.setModuleName(request.moduleName());
         }
 
-        return UserMapper.toPermissionResponse(permissionRepository.save(permission));
+        Permission savedPermission = permissionRepository.save(permission);
+        recordPermissionAudit(savedPermission, "PERMISSION_UPDATED", "Permission updated");
+        return UserMapper.toPermissionResponse(savedPermission);
     }
 
     @Override
@@ -91,6 +97,23 @@ public class PermissionServiceImpl implements PermissionService {
             throw new ResourceInUseException("Permission is assigned to one or more roles");
         }
         permissionRepository.delete(permission);
+        recordPermissionAudit(permission, "PERMISSION_DELETED", "Permission deleted");
+    }
+
+    private void recordPermissionAudit(Permission permission, String action, String title) {
+        adminAuditEventService.record(
+                "USERS",
+                action,
+                title,
+                "SUCCESS",
+                permission.getPermissionName(),
+                title + ": " + permission.getPermissionName(),
+                title + ": " + permission.getPermissionName(),
+                "PERMISSION",
+                String.valueOf(permission.getId()),
+                null,
+                java.util.Map.of("permissionName", permission.getPermissionName())
+        );
     }
 
     private Permission findPermission(Long id) {

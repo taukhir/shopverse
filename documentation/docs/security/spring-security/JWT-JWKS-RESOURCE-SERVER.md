@@ -217,6 +217,14 @@ String token = jwtEncoder.encode(
 
 The private key must remain only in the issuer.
 
+### When To Customize JwtEncoder
+
+Customize encoding only in a component that issues tokens. Typical reasons are
+selecting a signing key during rotation, choosing approved headers/algorithms,
+or standardizing claims. Resource services that only validate incoming tokens
+do not need a `JwtEncoder`. Refresh tokens are often opaque random values; do
+not assume that every refresh token should be a JWT.
+
 
 ## JWKS Publication
 
@@ -259,6 +267,70 @@ The decoder:
 
 Every resource service should also validate expected audience and restrict
 accepted algorithms.
+
+## JWT Customization Decision Guide
+
+Choose the narrowest extension point that owns the required behavior:
+
+| Requirement | Customize | Do not replace merely for this reason |
+|---|---|---|
+| Different JWKS URI, public key, algorithm policy or claim validation | `JwtDecoder` and `OAuth2TokenValidator<Jwt>` | `JwtAuthenticationProvider` |
+| Validate `aud`, tenant, token type or a required custom claim | compose token validators on the decoder | authority converter |
+| Read roles/permissions from custom claims | `JwtAuthenticationConverter` or its granted-authorities converter | decoder or provider |
+| Use `email`, `preferred_username` or another claim as principal name | `JwtAuthenticationConverter` | encoder or provider |
+| Read bearer credentials from an approved non-default location | `BearerTokenResolver` | decoder |
+| Select issuer/decoder from request or token metadata in a multi-tenant system | `AuthenticationManagerResolver<HttpServletRequest>` or trusted-issuer resolver | one decoder that trusts arbitrary issuers |
+| Issue and sign access tokens | `JwtEncoder` in the issuer | resource-server provider |
+| Replace the entire JWT authentication contract or return a different authentication model not achievable by conversion | custom provider, only after narrower hooks prove insufficient | default provider as a first choice |
+
+`JwtAuthenticationProvider` already coordinates decoding, validation and
+conversion. Most applications should keep it and customize its collaborators.
+A custom provider inherits responsibility for supported-token checks, error
+translation, authenticated-state construction, credentials handling and tests.
+
+### Audience Validation Shape
+
+Issuer validation answers who minted the token. Audience validation answers
+whether the token was minted for this API. A token from a trusted issuer but for
+another service must be rejected. Compose the framework timestamp/issuer
+validators with an application validator that requires the expected `aud` value;
+do not replace the defaults accidentally.
+
+### Multi-Tenant JWT Validation
+
+For multiple trusted issuers, tenant selection is part of authentication, not
+just authority mapping:
+
+1. derive the tenant from a trusted request boundary or parse only enough token
+   metadata to select a candidate issuer;
+2. allowlist the issuer—never construct a decoder for any issuer supplied by the token;
+3. select a tenant-specific authentication manager/decoder;
+4. verify the signature and validate issuer, audience, timestamps and tenant claims;
+5. map tenant-specific roles only after validation succeeds;
+6. bound decoder/JWKS caches and define tenant removal and key-rotation behavior.
+
+Use `AuthenticationManagerResolver` when authentication-manager selection must
+happen per request. Separate `SecurityFilterChain` beans can be clearer when
+tenants occupy distinct hostnames or paths and have materially different policy.
+
+## JWT Decode And Verification Internals
+
+Decoding is not the same as trusting. A Nimbus-based decoder conceptually:
+
+1. splits the compact JWS into header, payload and signature segments;
+2. Base64URL-decodes and parses the header and claims;
+3. rejects disallowed structures and algorithms;
+4. reads `kid` and selects a candidate verification key from the configured or cached JWKS;
+5. verifies the JWS signature over the original encoded header and payload;
+6. creates the `Jwt` value;
+7. runs timestamp, issuer, audience and custom validators;
+8. returns trusted claims only if all verification and validation succeeds.
+
+Base64URL decoding alone proves nothing and does not require a key. Signature
+verification proves integrity and possession of an approved signing key;
+validators then enforce whether this otherwise valid token is acceptable in the
+current service. Encryption is a separate JWE concern and is not provided by
+ordinary signed-JWT resource-server configuration.
 
 ### Shared Resource-Server Boundary
 
@@ -386,7 +458,6 @@ because they can indicate rotation drift, cache problems or forged tokens.
 ## Recommended Next
 
 Review user and service flows in [OAuth2 And OIDC](./OAUTH2-OIDC-FLOWS.md).
-
 
 
 

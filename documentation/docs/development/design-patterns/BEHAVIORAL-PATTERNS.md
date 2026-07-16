@@ -1,5 +1,10 @@
 ---
 title: Behavioral Patterns
+description: "Choose and implement Strategy, Observer, Chain of Responsibility, Template Method, and related behavioral patterns in Spring."
+sidebar_label: "Behavioral Patterns"
+tags: ["spring", "design-patterns", "behavioral"]
+page_type: "Category Overview"
+difficulty: "Advanced"
 status: "maintained"
 last_reviewed: "2026-07-13"
 ---
@@ -9,6 +14,22 @@ last_reviewed: "2026-07-13"
 Behavioral patterns describe how objects communicate and how responsibility is
 distributed. They are most useful when business behavior has multiple variants,
 state transitions, ordered processing, retries, or event-driven reactions.
+
+## Dedicated Pattern Guides
+
+<TopicCards items={[
+  {title: 'Strategy', href: '/development/design-patterns/strategy', description: 'Select interchangeable behavior with injected Spring beans.', icon: 'route', tags: ['Interview priority', 'Algorithms']},
+  {title: 'Observer', href: '/development/design-patterns/observer', description: 'Publish typed events with explicit transaction semantics.', icon: 'network', tags: ['Interview priority', 'Events']},
+  {title: 'Chain of Responsibility', href: '/development/design-patterns/chain-of-responsibility', description: 'Run ordered handlers that may continue or stop processing.', icon: 'layers', tags: ['Interview priority', 'Filters']},
+  {title: 'Template Method', href: '/development/design-patterns/template-method', description: 'Protect a workflow skeleton while selected steps vary.', icon: 'brain', tags: ['Interview priority', 'Workflow']},
+]} />
+
+<DocCallout type="tip" title="Use this page for comparison">
+
+This category page compares behavioral intent. Follow the cards for each core
+pattern's canonical Spring implementation and interview guidance.
+
+</DocCallout>
 
 ## Strategy
 
@@ -318,3 +339,8 @@ They are similar. Chain of Responsibility often allows each handler to decide
 whether to continue. A pipeline usually runs fixed stages in order.
 
 </ExpandableAnswer>
+
+## Official References
+
+- [Spring application events](https://docs.spring.io/spring-framework/reference/core/beans/context-introduction.html#context-functionality-events)
+- [Spring transaction-bound events](https://docs.spring.io/spring-framework/reference/data-access/transaction/event.html)

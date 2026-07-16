@@ -12,7 +12,7 @@ import { uniqueSorted } from '../../shared/utils/collection';
 import { formatInr } from '../../shared/utils/formatters';
 import { AdminApiService, AdminAuditEvent, AdminFailedEvent, AdminInventoryItem, AdminOrder, AdminPayment } from './admin-api.service';
 
-type ActivityArea = 'ALL' | 'ORDERS' | 'INVENTORY' | 'PAYMENTS' | 'RECOVERY';
+type ActivityArea = 'ALL' | 'ORDERS' | 'INVENTORY' | 'PAYMENTS' | 'RECOVERY' | 'USERS';
 type ActivityResult = 'ALL' | 'SUCCESS' | 'ATTENTION' | 'FAILED' | 'PENDING';
 
 interface AdminActivityEvent {
@@ -53,7 +53,7 @@ export class AdminActivityComponent {
   protected readonly page = signal(1);
   protected readonly pageSize = 12;
 
-  protected readonly areas: ActivityArea[] = ['ALL', 'ORDERS', 'INVENTORY', 'PAYMENTS', 'RECOVERY'];
+  protected readonly areas: ActivityArea[] = ['ALL', 'ORDERS', 'INVENTORY', 'PAYMENTS', 'RECOVERY', 'USERS'];
   protected readonly results: ActivityResult[] = ['ALL', 'SUCCESS', 'ATTENTION', 'FAILED', 'PENDING'];
   protected readonly actors = computed(() => ['ALL', ...uniqueSorted(this.events().map((event) => event.actor))]);
   protected readonly filteredEvents = computed(() => {
@@ -263,7 +263,7 @@ export class AdminActivityComponent {
 
   private normalizeArea(area: string): Exclude<ActivityArea, 'ALL'> {
     const normalized = area?.toUpperCase();
-    if (normalized === 'ORDERS' || normalized === 'INVENTORY' || normalized === 'PAYMENTS' || normalized === 'RECOVERY') return normalized;
+    if (normalized === 'ORDERS' || normalized === 'INVENTORY' || normalized === 'PAYMENTS' || normalized === 'RECOVERY' || normalized === 'USERS') return normalized;
     return 'RECOVERY';
   }
 

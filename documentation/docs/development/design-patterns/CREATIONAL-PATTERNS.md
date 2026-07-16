@@ -1,5 +1,10 @@
 ---
 title: Creational Patterns
+description: "Choose and implement Factory, Builder, Singleton, and related object-creation patterns in Spring applications."
+sidebar_label: "Creational Patterns"
+tags: ["spring", "design-patterns", "creational"]
+page_type: "Category Overview"
+difficulty: "Advanced"
 status: "maintained"
 last_reviewed: "2026-07-13"
 ---
@@ -13,6 +18,21 @@ constraints, or environment-specific choices.
 Do not use a creational pattern just because `new` appears in code. Use one
 when construction decisions are leaking into places that should only express
 business intent.
+
+## Dedicated Pattern Guides
+
+<TopicCards items={[
+  {title: 'Factory', href: '/development/design-patterns/factory', description: 'Centralize runtime construction or selection without hiding dependencies.', icon: 'boxes', tags: ['Interview priority', 'Spring DI']},
+  {title: 'Builder', href: '/development/design-patterns/builder', description: 'Construct readable immutable objects while protecting invariants.', icon: 'code', tags: ['Object creation', 'Domain design']},
+  {title: 'Singleton', href: '/development/design-patterns/singleton', description: 'Understand Spring singleton scope, lifecycle, and thread-safety.', icon: 'layers', tags: ['Bean scope', 'Concurrency']},
+]} />
+
+<DocCallout type="tip" title="Use this page for comparison">
+
+This category page explains how creational patterns relate. Follow the cards for
+the canonical Spring implementation and interview guidance for each core pattern.
+
+</DocCallout>
 
 ## The Problem Creational Patterns Solve
 
@@ -353,3 +373,8 @@ Spring's `BeanFactory` and `ApplicationContext` are factory/container
 implementations. They create, configure, wire, proxy, and manage bean lifecycle.
 
 </ExpandableAnswer>
+
+## Official References
+
+- [Spring container overview](https://docs.spring.io/spring-framework/reference/core/beans/basics.html)
+- [Spring bean scopes](https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html)

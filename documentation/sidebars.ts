@@ -2,6 +2,7 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   docsSidebar: [
     'README',
+    'DOCUMENTATION-INDEX',
     {
       type: 'category',
       label: 'Documentation Guide',
@@ -71,19 +72,40 @@ const sidebars: SidebarsConfig = {
         {
           type: 'category',
           label: 'Design Patterns',
+          link: {type: 'doc', id: 'development/DESIGN-PATTERNS'},
           items: [
             {
               type: 'category',
-              label: 'Design Patterns',
-              link: {type: 'doc', id: 'development/DESIGN-PATTERNS'},
+              label: 'Creational Patterns',
+              link: {type: 'doc', id: 'development/design-patterns/CREATIONAL-PATTERNS'},
               items: [
-                'development/DESIGN-PATTERNS-CREATIONAL-STRUCTURAL',
-                'development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED',
+                'development/design-patterns/factory',
+                'development/design-patterns/builder',
+                'development/design-patterns/singleton',
               ],
             },
-            'development/design-patterns/CREATIONAL-PATTERNS',
-            'development/design-patterns/STRUCTURAL-PATTERNS',
-            'development/design-patterns/BEHAVIORAL-PATTERNS',
+            {
+              type: 'category',
+              label: 'Structural Patterns',
+              link: {type: 'doc', id: 'development/design-patterns/STRUCTURAL-PATTERNS'},
+              items: [
+                'development/design-patterns/adapter',
+                'development/design-patterns/bridge',
+                'development/design-patterns/decorator',
+                'development/design-patterns/proxy',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Behavioral Patterns',
+              link: {type: 'doc', id: 'development/design-patterns/BEHAVIORAL-PATTERNS'},
+              items: [
+                'development/design-patterns/strategy',
+                'development/design-patterns/observer',
+                'development/design-patterns/chain-of-responsibility',
+                'development/design-patterns/template-method',
+              ],
+            },
           ],
         },
         {
@@ -163,6 +185,20 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'Leadership And Architecture',
+          link: {type: 'doc', id: 'leadership/LEADERSHIP-ARCHITECTURE-SCENARIOS'},
+          items: [
+            'leadership/MONOLITH-TO-MICROSERVICES-STRATEGY',
+            'leadership/ENGINEERING-LEADERSHIP-PRACTICES',
+            'leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS',
+            'leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY',
+            'leadership/ZERO-DOWNTIME-DELIVERY',
+            'leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION',
+            'leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK',
+          ],
+        },
+        {
+          type: 'category',
           label: 'REST API Design',
           items: [
             'development/REST-API-GENERIC',
@@ -178,6 +214,7 @@ const sidebars: SidebarsConfig = {
             'data-structures/DATA-STRUCTURES-FUNDAMENTALS',
             'data-structures/LINEAR-DATA-STRUCTURES',
             'data-structures/NON-LINEAR-DATA-STRUCTURES',
+            'data-structures/DSA-INTERVIEW-QUESTION-BANK',
           ],
         },
         {
@@ -433,8 +470,10 @@ const sidebars: SidebarsConfig = {
           link: {type: 'doc', id: 'development/SPRING-BOOT-INTERNALS'},
           items: [
             'development/spring-boot-internals/STARTUP-AUTOCONFIGURATION',
+            'development/spring-boot-internals/STARTUP-EXTENSION-POINTS',
             'development/spring-boot-internals/DI-BEAN-LIFECYCLE-AOP',
             'development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION',
+            'development/spring-boot-internals/AUTOWIRING-CIRCULAR-REFERENCE-INTERNALS',
             'development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE',
             'development/spring-boot-internals/CONFIGURATION-PROPERTIES',
             {
@@ -672,6 +711,7 @@ const sidebars: SidebarsConfig = {
             'data/database-selection/INDEXES-QUERY-PLANS',
             'data/database-selection/DATABASE-QUERY-OPTIMIZATION',
             'data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE',
+            'data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK',
             'data/database-selection/CONSISTENCY-MODELS-BASE',
             'data/database-selection/SCALING-CAP-DISTRIBUTION',
             'data/database-selection/SYSTEM-DESIGN-SCENARIOS',
@@ -719,6 +759,7 @@ const sidebars: SidebarsConfig = {
             'architecture/ARCHITECTURE-STYLES',
             'architecture/MICROSERVICES-GENERIC',
             'architecture/MICROSERVICES-PATTERNS',
+            'architecture/CHANGE-DATA-CAPTURE',
             'architecture/MICROSERVICES-INTERNALS-DEEP-DIVE',
             'architecture/DISTRIBUTED-SYSTEMS-GENERIC',
             {
@@ -750,6 +791,7 @@ const sidebars: SidebarsConfig = {
               items: [
                 'reliability/locking/LOCKING-AND-WORK-OWNERSHIP',
                 'reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS',
+                'reliability/locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS',
                 'reliability/locking/DATABASE-LOCKING-AND-CLAIMS',
                 'reliability/locking/SCHEDULER-LOCKING-SHEDLOCK',
                 'reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING',
@@ -846,6 +888,7 @@ const sidebars: SidebarsConfig = {
             'security/oauth/OAUTH2-FUNDAMENTALS',
             'security/oauth/OAUTH2-GRANT-TYPES',
             'security/oauth/OIDC-FUNDAMENTALS',
+            'security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION',
             'security/oauth/SSO-AND-OPENID-CONNECT',
             {
               type: 'category',
@@ -865,13 +908,16 @@ const sidebars: SidebarsConfig = {
           items: [
             'security/SPRING-SECURITY-GENERIC',
             'security/spring-security/AUTHENTICATION-BASICS',
+            'security/spring-security/BOOT-AUTOCONFIGURATION-LIFECYCLE',
             'security/spring-security/AUTHENTICATION-INTERNALS',
             'security/spring-security/PASSWORD-AUTHENTICATION-RUNTIME',
             'security/spring-security/SECURITY-CONTEXT-LIFECYCLE',
             'security/spring-security/SERVLET-FILTER-CHAIN',
             'security/spring-security/JWT-JWKS-RESOURCE-SERVER',
             'security/spring-security/AUTHORIZATION-METHOD-SECURITY',
+            'security/spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE',
             'security/spring-security/OAUTH2-OIDC-FLOWS',
+            'security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION',
             'security/spring-security/CSRF-CORS-BROWSER-SECURITY',
             'security/spring-security/THREAT-MODELING-INTERVIEW-LAB',
             'security/spring-security/PRODUCTION-PRACTICES',
@@ -927,6 +973,7 @@ const sidebars: SidebarsConfig = {
         'observability/PROMTAIL',
         'observability/GRAFANA',
         'observability/OBSERVABILITY-IMPLEMENTATION-GUIDE',
+        'observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE',
       ],
     },
     {
@@ -1300,6 +1347,7 @@ const sidebars: SidebarsConfig = {
               items: [
                 'observability/CORRELATION-IDENTIFIERS-HTTP-PROPAGATION',
                 'observability/MDC-KAFKA-ASYNC-PROPAGATION',
+                'observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE',
               ],
             },
             'observability/STRUCTURED-LOGGING',

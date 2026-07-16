@@ -20,12 +20,14 @@ Propagate identity across gateway, servlet, HTTP, Kafka, and asynchronous bounda
 flowchart LR
     P1["Correlation Identifiers And HTTP Propagation"]
     P2["MDC, Kafka, And Async Propagation"]
-    P1 --> P2
+    P3["Distributed Tracing Internals And Performance"]
+    P1 --> P2 --> P3
 ```
 
 <TopicCards items={[
   {title: 'Correlation Identifiers And HTTP Propagation', href: '/observability/CORRELATION-IDENTIFIERS-HTTP-PROPAGATION', description: 'Part 1 of the focused Correlation And Trace Propagation learning route.', icon: 'route', tags: ['Focused', 'Advanced']},
   {title: 'MDC, Kafka, And Async Propagation', href: '/observability/MDC-KAFKA-ASYNC-PROPAGATION', description: 'Part 2 of the focused Correlation And Trace Propagation learning route.', icon: 'security', tags: ['Focused', 'Advanced']},
+  {title: 'Distributed Tracing Internals And Performance', href: '/observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE', description: 'Part 3: span creation, propagation, sampling, backends, bottleneck analysis, and exporter troubleshooting.', icon: 'gauge', tags: ['Focused', 'Advanced']},
 ]} />
 
 <DocCallout type="tip" title="Use the index as the stable entry point">
@@ -38,6 +40,7 @@ Each focused page owns one concern. Cross-links point to the canonical explanati
 
 1. [Correlation Identifiers And HTTP Propagation](./CORRELATION-IDENTIFIERS-HTTP-PROPAGATION.md)
 2. [MDC, Kafka, And Async Propagation](./MDC-KAFKA-ASYNC-PROPAGATION.md)
+3. [Distributed Tracing Internals And Performance](./DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE.md)
 
 
 ## Reading Strategy

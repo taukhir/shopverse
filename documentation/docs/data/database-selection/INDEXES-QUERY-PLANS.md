@@ -84,6 +84,117 @@ operations, index intersection, statistics, and engine capabilities vary.
 Avoid redundant prefixes such as both `(tenant_id)` and
 `(tenant_id, status)` unless measurements show the smaller index is valuable.
 
+## Partial And Filtered Indexes
+
+A partial or filtered index stores entries only for rows satisfying a fixed
+predicate. It is useful when a small, operationally important subset receives
+most queries—for example pending outbox work among millions of published rows.
+
+```text
+full index:     every outbox row -> (status, created_at)
+partial index:  only PENDING rows -> (created_at)
+```
+
+Benefits can include a smaller index, better cache residency, cheaper scans,
+and less write maintenance for rows outside the predicate. The trade-offs are
+engine portability, predicate restrictions, and the requirement that the query
+predicate logically imply the index predicate.
+
+### PostgreSQL Partial Index
+
+```sql
+CREATE INDEX idx_outbox_pending_created
+    ON outbox_events (created_at, id)
+    WHERE status = 'PENDING';
+
+SELECT id, event_type, created_at
+FROM outbox_events
+WHERE status = 'PENDING'
+  AND created_at < :cutoff
+ORDER BY created_at, id
+LIMIT 100;
+```
+
+The planner can use the index because the query contains the filtered condition.
+An index such as `WHERE deleted_at IS NULL` is also common for active-row access.
+Keep the predicate immutable and simple. Parameterized or differently expressed
+conditions may prevent the planner from proving implication; verify the actual
+plan used by the application's prepared statement, not only a hand-written literal.
+
+### SQL Server Filtered Index
+
+SQL Server calls this a filtered index:
+
+```sql
+CREATE INDEX idx_outbox_pending_created
+    ON dbo.outbox_events (created_at, id)
+    INCLUDE (event_type)
+    WHERE status = 'PENDING';
+```
+
+Filtered statistics can improve estimates for the subset. Session settings,
+parameterization, included columns, supported predicate forms, and data-type
+conversions affect eligibility, so confirm through the actual execution plan
+and Query Store.
+
+### MongoDB Partial Index
+
+MongoDB supports `partialFilterExpression`:
+
+```javascript
+db.outbox_events.createIndex(
+  {createdAt: 1, _id: 1},
+  {partialFilterExpression: {status: "PENDING"}}
+)
+```
+
+The query must include a compatible filter. Partial and sparse indexes are not
+the same: a sparse index is primarily based on field presence, while a partial
+index uses an explicit supported filter expression.
+
+### MySQL And MariaDB Alternatives
+
+MySQL does not provide PostgreSQL-style `CREATE INDEX ... WHERE ...` partial
+indexes. Do not paste partial-index syntax into Shopverse migrations. Choose an
+alternative from the measured workload:
+
+| Alternative | Use when | Cost or limitation |
+|---|---|---|
+| composite index such as `(status, created_at, id)` | the status prefix is selective enough or the index size/write cost is acceptable | includes every row and every status |
+| generated conditional column plus index | one subset is small and queries can use the generated access path | schema/query coupling; expression and type must be maintained |
+| functional index on a conditional expression where supported | the optimizer can match the exact expression | version and expression restrictions; less portable |
+| separate active/work table with completed-row archival | hot operational rows have a distinct lifecycle | transactional movement, foreign keys, recovery, retention and operational complexity |
+| table partitioning with pruning | data naturally partitions by time/tenant and lifecycle operations dominate | not a substitute for a selective row index; key/uniqueness constraints change |
+
+A generated-column shape for MySQL is:
+
+```sql
+ALTER TABLE outbox_events
+  ADD COLUMN pending_created_at DATETIME
+    GENERATED ALWAYS AS (
+      CASE WHEN status = 'PENDING' THEN created_at ELSE NULL END
+    ) STORED,
+  ADD INDEX idx_outbox_pending_created (pending_created_at, id);
+```
+
+Only pending rows have a non-null generated value, but the application query must
+use a compatible predicate/order for the optimizer to use this access path. Test
+write amplification, transition cost when status changes, cardinality estimates,
+and the real prepared query. A normal composite index is often simpler and should
+be the default until evidence justifies the generated-column complexity.
+
+### Selection Checklist
+
+Before adding a partial/filtered index:
+
+1. prove the target subset is materially smaller and frequently queried;
+2. capture the exact application query, bind behavior and current actual plan;
+3. confirm the engine/version supports the predicate and desired uniqueness;
+4. estimate build time, storage, replication and write overhead;
+5. test rows entering and leaving the predicate under concurrency;
+6. deploy with a rollback path and monitor plan, latency and index usage;
+7. document an engine-specific fallback for portability.
+
 ## Under-Indexing
 
 Symptoms include:

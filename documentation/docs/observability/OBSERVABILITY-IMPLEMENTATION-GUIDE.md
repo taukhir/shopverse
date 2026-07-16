@@ -405,3 +405,4 @@ runbooks are updated together.
 - [Grafana](GRAFANA.md)
 - [Structured logging](STRUCTURED-LOGGING.md)
 - [MDC, correlation IDs, and tracing](MDC-CORRELATION-TRACING.md)
+- [Distributed tracing internals and performance analysis](DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE.md)

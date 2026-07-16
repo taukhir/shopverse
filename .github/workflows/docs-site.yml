@@ -28,7 +28,7 @@ jobs:
   build:
     name: Build Docusaurus
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     defaults:
       run:
         working-directory: documentation
@@ -44,6 +44,13 @@ jobs:
           node-version: "20"
           cache: npm
           cache-dependency-path: documentation/package-lock.json
+
+      - name: Set up Java for executable documentation examples
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "24"
+          cache: gradle
 
       - name: Install dependencies
         run: npm ci
@@ -69,14 +76,29 @@ jobs:
           DOCS_BASE_SHA: ${{ steps.validation.outputs.base }}
         run: node scripts/validate-docs.mjs --${{ steps.validation.outputs.mode }}
 
+      - name: Enforce documentation maintenance, structure, depth, and governance
+        run: |
+          npm run check:maintenance
+          npm run check:docs:audit
+          npm run check:docs:depth
+          npm run check:docs:governance
+
+      - name: Compile executable Java and Spring documentation examples
+        run: |
+          npm run check:java-labs
+          npm run check:spring-labs
+
       - name: Build documentation
         run: npm run build
+
+      - name: Crawl generated routes, assets, metadata, and anchors
+        run: npm run check:built-site
 
       - name: Enforce performance budget
         run: npm run check:performance
 
       - name: Install browser for UI tests
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Run changed-page rendering, responsive, image, Mermaid, and accessibility tests
         if: github.event_name == 'pull_request'
@@ -84,9 +106,25 @@ jobs:
           DOCS_BASE_SHA: ${{ steps.validation.outputs.base }}
         run: npm run test:changed
 
+      - name: Run Firefox and WebKit smoke tests
+        if: github.event_name == 'pull_request'
+        run: npm run test:cross-browser
+
       - name: Run full documentation UI and accessibility tests
         if: github.event_name != 'pull_request'
         run: npm run test:ui
+
+      - name: Check official external references
+        if: github.event_name == 'schedule'
+        run: npm run check:docs:official-links
+
+      - name: Upload browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-browser-failures
+          path: documentation/test-results
+          if-no-files-found: ignore
 
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'

@@ -57,17 +57,19 @@ backup, security, monitoring, upgrade, incident, and data-consistency work.
    measure bottlenecks, optimize queries and engines, and understand Bloom filters.
 9. **[Database Concurrency, Latency, And Backpressure](./database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md):**
    size connection pools, protect database capacity, and control overload.
-10. **[Consistency Models And BASE](./database-selection/CONSISTENCY-MODELS-BASE.md):**
+10. **[Database Load Incident Runbook](./database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK.md):**
+    diagnose, contain, remediate, verify, and escalate database saturation.
+11. **[Consistency Models And BASE](./database-selection/CONSISTENCY-MODELS-BASE.md):**
    distinguish strong, weak, eventual, session, causal, and bounded consistency.
-11. **[Scaling, CAP, And Data Distribution](./database-selection/SCALING-CAP-DISTRIBUTION.md):**
+12. **[Scaling, CAP, And Data Distribution](./database-selection/SCALING-CAP-DISTRIBUTION.md):**
    separate replication, partitioning, sharding, consistency, and availability.
-12. **[System Design Scenarios](./database-selection/SYSTEM-DESIGN-SCENARIOS.md):**
+13. **[System Design Scenarios](./database-selection/SYSTEM-DESIGN-SCENARIOS.md):**
    apply the choices to commerce, telemetry, search, analytics, graph, and RAG systems.
-13. **[Database Migrations And Operations](./database-selection/DATABASE-MIGRATIONS-OPERATIONS.md):**
+14. **[Database Migrations And Operations](./database-selection/DATABASE-MIGRATIONS-OPERATIONS.md):**
     plan safe schema evolution, recovery, replication, CDC, retention, and upgrades.
-14. **[Database Hands-On Labs](./database-selection/DATABASE-HANDS-ON-LABS.md):**
+15. **[Database Hands-On Labs](./database-selection/DATABASE-HANDS-ON-LABS.md):**
     verify plans, indexes, pagination, overload, partition keys, OLAP, and vectors.
-15. **[Database Interview Exercises](./database-selection/DATABASE-INTERVIEW-EXERCISES.md):**
+16. **[Database Interview Exercises](./database-selection/DATABASE-INTERVIEW-EXERCISES.md):**
     defend choices and rejected alternatives for four real-world-style systems.
 
 ## Quick Selection Flow

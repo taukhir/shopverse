@@ -1,0 +1,112 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 018-create-admin-audit-events-table
+      author: tauqeer
+
+      changes:
+
+        - createTable:
+            tableName: admin_audit_events
+
+            columns:
+
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: area
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: action
+                  type: VARCHAR(120)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: title
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: actor
+                  type: VARCHAR(120)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: result
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: VARCHAR(80)
+
+              - column:
+                  name: message
+                  type: VARCHAR(500)
+
+              - column:
+                  name: description
+                  type: TEXT
+
+              - column:
+                  name: occurred_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: subject_type
+                  type: VARCHAR(80)
+
+              - column:
+                  name: subject_id
+                  type: VARCHAR(120)
+
+              - column:
+                  name: link
+                  type: VARCHAR(300)
+
+              - column:
+                  name: metadata
+                  type: TEXT
+
+        - createIndex:
+            tableName: admin_audit_events
+            indexName: idx_admin_audit_occurred_at
+            columns:
+              - column:
+                  name: occurred_at
+
+        - createIndex:
+            tableName: admin_audit_events
+            indexName: idx_admin_audit_area
+            columns:
+              - column:
+                  name: area
+
+        - createIndex:
+            tableName: admin_audit_events
+            indexName: idx_admin_audit_actor
+            columns:
+              - column:
+                  name: actor
+
+        - createIndex:
+            tableName: admin_audit_events
+            indexName: idx_admin_audit_result
+            columns:
+              - column:
+                  name: result

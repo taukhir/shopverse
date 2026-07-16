@@ -149,7 +149,9 @@ Trade-offs:
 - connector offsets, schema evolution, and failure recovery must be managed.
 
 Debezium is a common CDC implementation, but the pattern is not tied to one
-product.
+product. See [Change Data Capture In Microservices](../architecture/CHANGE-DATA-CAPTURE.md)
+for direct-table versus outbox CDC, snapshots, connector offsets, ordering,
+log-retention failures, and the Shopverse migration decision.
 
 ## Delivery Guarantee
 

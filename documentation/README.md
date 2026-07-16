@@ -40,6 +40,38 @@ npm run serve
 
 The generated static site is written to `documentation/build`.
 
+## Automated Verification
+
+Run the same complete gate used by the main and scheduled CI workflows:
+
+```powershell
+npm run check
+```
+
+The gate validates all source pages, governed terminology, metadata, sidebar
+registration, depth and duplicate-content rules, executable Java and Spring
+examples, TypeScript, strict Docusaurus links and anchors, the production build,
+all generated routes and assets, performance budgets, accessibility, responsive
+layout, images, Mermaid diagrams, reader features, and Chromium, Firefox, and
+WebKit behavior.
+
+Useful narrower commands:
+
+```powershell
+npm run check:fast           # changed content and TypeScript
+npm run check:content-quality
+npm run check:build          # strict build, generated-site crawl, performance
+npm run test:changed         # changed/representative routes on desktop + mobile
+npm run test:cross-browser   # Firefox + WebKit smoke coverage
+npm run test:visual          # committed Chromium screenshot baselines
+npm run check:scheduled      # complete gate plus live official-link validation
+```
+
+Pull requests run changed-page and representative UI coverage. Pushes and the
+weekly schedule run the complete suite. UI/theme changes also trigger visual
+regression, and the schedule checks official external references. Browser failure
+traces, screenshots, and diffs are uploaded by GitHub Actions.
+
 ## Content Rules
 
 - Add reusable project and study material under `documentation/docs/`.
