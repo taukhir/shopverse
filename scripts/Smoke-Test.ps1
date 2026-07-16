@@ -35,6 +35,16 @@ $requestBody = @{
             quantity = 1
         }
     )
+    shippingAddress = @{
+        recipientName = "Smoke Test"
+        phoneNumber = "+910000000000"
+        line1 = "Automation Street 1"
+        line2 = "Verification Floor"
+        city = "Bengaluru"
+        state = "Karnataka"
+        postalCode = "560001"
+        country = "IN"
+    }
 } | ConvertTo-Json -Depth 5
 
 $checkoutDeadline = [DateTimeOffset]::UtcNow.AddSeconds($TimeoutSeconds)
@@ -64,10 +74,20 @@ if (-not $order) {
 
 $deadline = [DateTimeOffset]::UtcNow.AddSeconds($TimeoutSeconds)
 do {
-    $current = Invoke-RestMethod `
-        -Uri "$GatewayUrl/api/v1/orders/$($order.id)" `
-        -Headers @{ Authorization = "Bearer $($login.token)" } `
-        -TimeoutSec 5
+    try {
+        $current = Invoke-RestMethod `
+            -Uri "$GatewayUrl/api/v1/orders/$($order.id)" `
+            -Headers @{ Authorization = "Bearer $($login.token)" } `
+            -TimeoutSec 5
+    } catch {
+        $statusCode = [int]$_.Exception.Response.StatusCode
+        if ($statusCode -notin @(502, 503, 504) -or [DateTimeOffset]::UtcNow -ge $deadline) {
+            throw
+        }
+
+        Start-Sleep -Milliseconds 500
+        continue
+    }
 
     if ($current.status -eq "CONFIRMED") {
         break
@@ -84,10 +104,27 @@ if ($current.status -ne "CONFIRMED") {
     throw "Checkout $($order.orderNumber) did not reach CONFIRMED within ${TimeoutSeconds}s. Last state: $($current.status)"
 }
 
-$timeline = Invoke-RestMethod `
-    -Uri "$GatewayUrl/api/v1/orders/$($order.id)/timeline" `
-    -Headers @{ Authorization = "Bearer $($login.token)" } `
-    -TimeoutSec 5
+$timelineDeadline = [DateTimeOffset]::UtcNow.AddSeconds($TimeoutSeconds)
+do {
+    try {
+        $timeline = Invoke-RestMethod `
+            -Uri "$GatewayUrl/api/v1/orders/$($order.id)/timeline" `
+            -Headers @{ Authorization = "Bearer $($login.token)" } `
+            -TimeoutSec 5
+        break
+    } catch {
+        $statusCode = [int]$_.Exception.Response.StatusCode
+        if ($statusCode -notin @(502, 503, 504) -or [DateTimeOffset]::UtcNow -ge $timelineDeadline) {
+            throw
+        }
+
+        Start-Sleep -Milliseconds 500
+    }
+} while ([DateTimeOffset]::UtcNow -lt $timelineDeadline)
+
+if (-not $timeline) {
+    throw "Checkout timeline route did not become available within ${TimeoutSeconds}s."
+}
 
 $expectedStages = @(
     "ORDER_CREATED",

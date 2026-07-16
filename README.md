@@ -397,6 +397,36 @@ Common focused runs:
 .\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -Install
 ```
 
+Run real Docker-backed integration only when you need release confidence:
+
+```powershell
+.\scripts\Test-ShopverseFullStack.ps1 -Mode Smoke -TimeoutMinutes 35
+.\scripts\Test-ShopverseFullStack.ps1 -Mode Full -TimeoutMinutes 45 -KeepStack
+```
+
+API Gateway also exposes a stronger production readiness contract:
+
+```powershell
+curl.exe http://localhost:8080/actuator/shopverse-readiness
+```
+
+It returns HTTP `200` only when required discovery registrations, gateway
+routes, downstream service health, seeded catalog data, and configured MiniIO
+product image objects are ready. The full-stack smoke gate validates this
+endpoint automatically.
+
+Run the structured go-live checklist when you want one release report:
+
+```powershell
+.\scripts\Test-ShopverseRelease.ps1 -Mode Full -TimeoutMinutes 60
+```
+
+For a faster orchestration check without Docker:
+
+```powershell
+.\scripts\Test-ShopverseRelease.ps1 -Mode Quick -SkipFullStack -SkipBrowsers
+```
+
 If PowerShell script execution is locked down locally, use:
 
 ```powershell
@@ -408,9 +438,16 @@ unit/component tests, mocked Playwright E2E flows, axe accessibility checks, and
 a Lighthouse budget against the production build. The documentation gate runs
 type-checking, document validation, Docusaurus build, performance budget, and
 Playwright rendering/accessibility tests unless `-SkipBrowsers` is used.
+The release checklist combines the frontend/documentation gate and the
+Docker-backed full-stack gate, then writes a JSON report to
+`testing/reports/shopverse-release-report.json`.
 The GitHub Actions workflow
 [frontend-sites.yml](.github/workflows/frontend-sites.yml) runs the same root
 automation on relevant frontend and documentation changes.
+The full-stack gate starts an isolated Compose project, publishes API Gateway
+on `http://127.0.0.1:18080`, Angular on `http://127.0.0.1:14200`, and
+documentation on `http://127.0.0.1:13001`, then runs API SAGA smoke plus a real
+browser smoke through the nginx-served Angular app.
 
 | Area | Guide |
 |---|---|

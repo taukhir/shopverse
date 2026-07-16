@@ -40,7 +40,8 @@ public class SecurityConfig {
                                 "/actuator/health",
                                 "/actuator/health/**",
                                 "/actuator/info",
-                                "/actuator/prometheus"
+                                "/actuator/prometheus",
+                                "/actuator/shopverse-readiness"
                         ).permitAll()
                         .anyExchange().authenticated()
                 )

@@ -11,6 +11,9 @@ This track is for interview preparation and hands-on practice around LLMs,
 Generative AI, RAG, vector databases, Spring AI, Java AI integration, API
 integration, and LangChain4j.
 
+For the full architecture spanning Spring Cloud, MCP, agents, tenant-safe data,
+accuracy and latency, begin with [Enterprise AI Architecture With Spring](ENTERPRISE-AI-ARCHITECTURE.md).
+
 The target level is basics to practical beginner: you should be able to explain
 core concepts clearly, draw the request flow, and demonstrate one working POC
 inside Shopverse.
@@ -77,6 +80,7 @@ If you have limited time, focus on these five flows:
 
 | Document | Use it for |
 |---|---|
+| [Enterprise AI architecture with Spring](ENTERPRISE-AI-ARCHITECTURE.md) | umbrella for the complete Spring AI, Spring Cloud, MCP, LangChain4j, security and operations track |
 | [Beginner to advanced AI guide](BEGINNER-TO-ADVANCED-GUIDE.md) | Full roadmap from basics to production AI |
 | [AI visual learning guide](VISUAL-LEARNING-GUIDE.md) | images, animations, flow diagrams, sequence diagrams, and architecture diagrams |
 | [AI learning plan](AI-LEARNING-PLAN.md) | Daily plan, milestones, and outcomes |
@@ -119,6 +123,8 @@ If you have limited time, focus on these five flows:
 |---|---|
 | [Spring AI vs LangChain4j](SPRING-AI-VS-LANGCHAIN4J.md) | framework comparison and interview decision guide |
 | [AI security and guardrails](AI-SECURITY-GUARDRAILS.md) | prompt injection, secure RAG, role filters, tool authorization, abuse control, data isolation |
+| [Spring Cloud AI and MCP ecosystem](SPRING-CLOUD-AI-MCP-ECOSYSTEM.md) | Gateway, Config, Stream, discovery, resilience, streaming and deployment |
+| [Secure AI agents, data and fast accurate delivery](SECURE-AI-AGENTS-DATA-PERFORMANCE.md) | agent containment, cross-tenant safety, DLP, accuracy gates and latency engineering |
 | [Shopverse AI POC plan](SHOPVERSE-AI-POC-PLAN.md) | concrete POC design for this project |
 | [Hands-on labs](HANDS-ON-LABS.md) | small exercises to build confidence |
 | [Interview Q&A](INTERVIEW-QA.md) | short answers for common interview questions |

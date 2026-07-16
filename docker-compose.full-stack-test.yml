@@ -1,0 +1,20 @@
+# Isolated frontend/docs overlay for full-stack verification.
+#
+# Intended for scripts/Test-ShopverseFullStack.ps1, not daily development.
+
+services:
+  minio:
+    container_name: ${COMPOSE_PROJECT_NAME}-minio
+
+  minio-init:
+    container_name: ${COMPOSE_PROJECT_NAME}-minio-init
+
+  shopverse-web:
+    container_name: ${COMPOSE_PROJECT_NAME}-shopverse-web
+    ports: !override
+      - "${SHOPVERSE_WEB_TEST_PORT:-14200}:80"
+
+  documentation:
+    container_name: ${COMPOSE_PROJECT_NAME}-documentation
+    ports: !override
+      - "${SHOPVERSE_DOCS_TEST_PORT:-13001}:80"

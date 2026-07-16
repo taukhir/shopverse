@@ -46,6 +46,7 @@ export const learningCatalog: LearningPage[] = [
   {title:'SRE Disaster Recovery And Chaos',path:'/operations/SRE-DR-CHAOS',stage:'Platform',difficulty:'Advanced',type:'Runbook',prerequisites:['/operations/KUBERNETES-WORKLOAD-ENGINEERING']},
   {title:'Performance Capacity And FinOps',path:'/operations/PERFORMANCE-CAPACITY-FINOPS',stage:'Platform',difficulty:'Advanced',type:'Tutorial',prerequisites:['/operations/SRE-DR-CHAOS']},
   {title:'AI Learning Track',path:'/ai/',stage:'AI',difficulty:'Beginner',type:'Tutorial'},
+  {title:'Enterprise AI Architecture With Spring',path:'/ai/ENTERPRISE-AI-ARCHITECTURE',stage:'AI',difficulty:'Intermediate',type:'Tutorial',prerequisites:['/ai/']},
   {title:'LLM Fundamentals',path:'/ai/LLM-GENERATIVE-AI-FUNDAMENTALS',stage:'AI',difficulty:'Beginner',type:'Concept',prerequisites:['/ai/']},
   {title:'AI Model Internals And Selection',path:'/ai/AI-MODEL-INTERNALS-SELECTION',stage:'AI',difficulty:'Intermediate',type:'Concept',prerequisites:['/ai/LLM-GENERATIVE-AI-FUNDAMENTALS']},
   {title:'Prompt Engineering And Structured Output',path:'/ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT',stage:'AI',difficulty:'Intermediate',type:'Tutorial',prerequisites:['/ai/AI-MODEL-INTERNALS-SELECTION']},
@@ -57,6 +58,8 @@ export const learningCatalog: LearningPage[] = [
   {title:'Spring AI MCP Shopverse Lab',path:'/ai/MCP-SPRING-SHOPVERSE-LAB',stage:'AI',difficulty:'Advanced',type:'Tutorial',prerequisites:['/ai/MCP-SECURITY-OPERATIONS']},
   {title:'Embeddings And RAG',path:'/ai/EMBEDDINGS-VECTOR-DB-RAG',stage:'AI',difficulty:'Intermediate',type:'Concept',prerequisites:['/ai/LLM-GENERATIVE-AI-FUNDAMENTALS']},
   {title:'AI Security And Guardrails',path:'/ai/AI-SECURITY-GUARDRAILS',stage:'AI',difficulty:'Advanced',type:'Reference',prerequisites:['/ai/EMBEDDINGS-VECTOR-DB-RAG']},
+  {title:'Spring Cloud AI And MCP Ecosystem',path:'/ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM',stage:'AI',difficulty:'Advanced',type:'Tutorial',prerequisites:['/ai/ENTERPRISE-AI-ARCHITECTURE']},
+  {title:'Secure AI Agents Data And Fast Accurate Delivery',path:'/ai/SECURE-AI-AGENTS-DATA-PERFORMANCE',stage:'AI',difficulty:'Advanced',type:'Reference',prerequisites:['/ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM']},
 ];
 
 export const learningStages = Array.from(new Set(learningCatalog.map((page) => page.stage)));
