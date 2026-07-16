@@ -34,9 +34,10 @@ Spring Security material is split into focused pages for authentication basics, 
 
 <TopicCards items={[
   {title: 'Authentication', href: './spring-security/AUTHENTICATION-BASICS', description: 'Credentials, managers, providers, password storage and user details.', icon: 'security', tags: ['Start here', 'Identity']},
+  {title: 'Boot Auto-Configuration', href: './spring-security/BOOT-AUTOCONFIGURATION-LIFECYCLE', description: 'Understand conditional beans, back-off and runtime chain assembly.', icon: 'layers', tags: ['Boot', 'Lifecycle']},
   {title: 'Filter And Context Runtime', href: './spring-security/SERVLET-FILTER-CHAIN', description: 'Trace filter-chain selection, context persistence and exception translation.', icon: 'route', tags: ['Servlet', 'Runtime']},
   {title: 'JWT And Resource Server', href: './spring-security/JWT-JWKS-RESOURCE-SERVER', description: 'Validate JWT/JWKS, claims, rotation and stateless resource access.', icon: 'code', tags: ['Tokens', 'APIs']},
-  {title: 'OAuth2 And OIDC', href: './spring-security/OAUTH2-OIDC-FLOWS', description: 'Choose user, service and device authorization flows correctly.', icon: 'network', tags: ['PKCE', 'Federation']},
+  {title: 'OAuth2 And OIDC', href: './spring-security/OAUTH2-OIDC-FLOWS', description: 'Choose user, service, device, assertion and delegation flows correctly.', icon: 'network', tags: ['PKCE', 'Federation']},
   {title: 'CSRF, CORS And Browsers', href: './spring-security/CSRF-CORS-BROWSER-SECURITY', description: 'Secure session, bearer and mixed browser credential boundaries.', icon: 'security', tags: ['Browser', 'Threats']},
   {title: 'Threat And Interview Lab', href: './spring-security/THREAT-MODELING-INTERVIEW-LAB', description: 'Work through Shopverse threats and expandable architect answers.', icon: 'brain', tags: ['Architect', 'Interview']},
 ]} />
@@ -69,13 +70,16 @@ For generic security study material, start with:
 | Page | Covers |
 |---|---|
 | [Spring Security Authentication Basics](spring-security/AUTHENTICATION-BASICS.md) | Authentication, authorization, dependencies, authentication managers, providers, form login, HTTP Basic, database-backed users, and UserDetails. |
+| [Spring Boot Security Auto-Configuration Lifecycle](spring-security/BOOT-AUTOCONFIGURATION-LIFECYCLE.md) | Conditional beans, back-off rules, HttpSecurity build lifecycle, resource-server assembly, and troubleshooting. |
 | [Username Password Authentication Internals](spring-security/AUTHENTICATION-INTERNALS.md) | Complete request flow through filters, ProviderManager, DaoAuthenticationProvider, UserDetailsService, password verification, SecurityContextHolder, in-memory users, failures, and context cleanup. |
 | [Password Authentication Provider Runtime](spring-security/PASSWORD-AUTHENTICATION-RUNTIME.md) | Focused manager/provider, user-lookup, password verification, upgrade and failure path. |
 | [SecurityContext Lifecycle](spring-security/SECURITY-CONTEXT-LIFECYCLE.md) | Context creation, persistence, cleanup, session/stateless behavior and async boundaries. |
 | [Spring Security Servlet Filter Chain](spring-security/SERVLET-FILTER-CHAIN.md) | Servlet security architecture, core classes, SecurityContext, multiple chains, exceptions, sessions, CSRF, and CORS. |
 | [JWT JWKS And Resource Server Security](spring-security/JWT-JWKS-RESOURCE-SERVER.md) | Bearer JWT authentication, JWT parts, JWS/JWE/JWK/JWKS, symmetric/asymmetric signing, Shopverse encoding/decoding, claims, revocation, and production practices. |
 | [Spring Security Authorization And Method Security](spring-security/AUTHORIZATION-METHOD-SECURITY.md) | Scopes, roles, groups, authorities, JWT authority conversion, RBAC/policy models, method security, URL security, and Shopverse summary. |
-| [OAuth2 OIDC And Token Flows](spring-security/OAUTH2-OIDC-FLOWS.md) | OAuth2 roles, authorization code with PKCE, client credentials, device flow, refresh tokens, password grant, and OIDC. |
+| [Distributed Authorization At Permission Scale](spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE.md) | Role explosion, compact tokens, permission catalogs, tenant bindings, authorization versions, cache invalidation, policy engines, and failure behavior. |
+| [OAuth2 OIDC And Token Flows](spring-security/OAUTH2-OIDC-FLOWS.md) | Spring OAuth2 application roles, grant selection, protocol examples, delegation, legacy grants, and OIDC. |
+| [Keycloak And Spring OAuth2 Implementation](spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION.md) | Authorization Code with PKCE, OIDC/BFF login, Keycloak role/audience mapping, resource servers, and Client Credentials. |
 | [CSRF, CORS And Browser Security](spring-security/CSRF-CORS-BROWSER-SECURITY.md) | Credential transport, CSRF decisions, CORS ownership, mixed authentication and verification. |
 | [Threat-Modelling And Interview Lab](spring-security/THREAT-MODELING-INTERVIEW-LAB.md) | Trust boundaries, Shopverse threats, operational controls and expandable architect scenarios. |
 | [Spring Security Production Practices](spring-security/PRODUCTION-PRACTICES.md) | Password security, related guides, and official references. |

@@ -156,6 +156,10 @@ for controlled replication or analytics, but tightly couples consumers to the
 producer's physical schema and can expose writes that are not meaningful domain
 events.
 
+For connector internals, snapshots, offsets, ordering, recovery, operations, and
+the polling-versus-CDC decision, see
+[Change Data Capture In Microservices](CHANGE-DATA-CAPTURE.md).
+
 ## Two-Phase Commit (2PC)
 
 2PC coordinates one atomic outcome across transactional participants.

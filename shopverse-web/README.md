@@ -29,7 +29,7 @@ The UI is wired to the API Gateway through `/api` and `/auth`.
 | Orders | History, detail, timeline, delivery snapshot, cancel, return request | `GET /api/v1/orders`, `GET /api/v1/orders/{id}`, `GET /api/v1/orders/{id}/timeline`, `POST /api/v1/orders/{id}/cancel`, `POST /api/v1/orders/{id}/return-request` |
 | Payments | Customer retry/refund actions and admin payment operations | `GET /api/v1/payments/orders/{orderNumber}`, `POST /api/v1/payments/orders/{orderNumber}/retry`, `POST /api/v1/payments/orders/{orderNumber}/refund` |
 | Admin fulfillment | Pack, ship/out-for-delivery, deliver, cancel | `POST /api/v1/orders/admin/{id}/pack`, `POST /api/v1/orders/admin/{id}/ship`, `POST /api/v1/orders/admin/{id}/deliver`, `POST /api/v1/orders/admin/{id}/cancel` |
-| Admin activity | Filterable operational activity with backend-audit-first fallback behavior | `GET /api/v1/admin/audit-events`, then derived from existing admin APIs if unavailable |
+| Admin activity | Filterable operational activity with backend-audit-first fallback behavior | paged `GET /api/v1/admin/audit-events`, then derived from existing admin APIs if unavailable |
 
 ## Local Development
 
@@ -79,9 +79,45 @@ back to `index.html` for Angular client-side routes.
 | `npm start` | run Angular dev server |
 | `npm run build` | production build |
 | `npm run build:dev` | development build |
-| `npm test` | Angular unit-test command |
+| `npm test` | Angular unit/component tests through the Angular Vitest runner |
+| `npm run e2e:quick` | mocked Playwright coverage for critical customer/admin flows |
+| `npm run a11y` | Playwright plus axe accessibility checks |
+| `npm run lighthouse` | production Lighthouse budget against the Angular app |
+| `npm run visual:update` | update visual regression snapshots intentionally |
+| `npm run check:web:quick` | production build, unit tests, critical E2E, accessibility, and Lighthouse |
+| `npm run check:web:full` | development build, production build, unit tests, full Playwright suite, and Lighthouse |
 
-No end-to-end test runner is configured yet.
+The default E2E suite is API-mocked so it does not depend on a running backend
+stack and replaces repetitive manual browser checks for the main customer and
+admin journeys.
+
+Automated coverage now replaces these routine manual checks:
+
+- customer login redirect, cart restore after refresh, checkout, and receipt references;
+- order history, order detail timeline, and payment status visibility;
+- admin overview and admin activity backed by Order, Inventory, and Payment audit signals;
+- accessibility smoke checks on home, catalog, cart, account, and admin pages;
+- Lighthouse budget on the production build;
+- visual snapshots for home, catalog, and admin activity when `npm run visual`
+  or `npm run visual:update` is run intentionally.
+
+From the repository root, run the frontend automation wrapper:
+
+```powershell
+.\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
+```
+
+Use `-Install` when dependencies need to be restored:
+
+```powershell
+.\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full -Install
+```
+
+If local execution policy blocks scripts, run:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
+```
 
 ## Runtime Notes
 
@@ -97,8 +133,8 @@ No end-to-end test runner is configured yet.
   when the current backend status allows them.
 - Admin fulfillment actions are state-gated:
   `CONFIRMED -> PACKING -> SHIPPED -> OUT_FOR_DELIVERY -> DELIVERED`.
-- Admin activity tries `GET /api/v1/admin/audit-events` first. Until that
-  backend endpoint exists, it derives a timeline from existing admin APIs.
+- Admin activity tries paged `GET /api/v1/admin/audit-events` first. If that
+  endpoint is unavailable, it derives a timeline from existing admin APIs.
 - Protected API calls attach `Authorization: Bearer <token>`.
 
 ## Validation
@@ -106,17 +142,17 @@ No end-to-end test runner is configured yet.
 Build before handing off frontend changes:
 
 ```powershell
-npm.cmd run build
+npm.cmd run check:web:quick
 ```
 
 Expected output:
 
 ```text
-dist/shopverse-web
+production build, unit tests, mocked E2E, accessibility, and Lighthouse pass
 ```
 
-No end-to-end test runner is configured yet. For now, smoke-test with the full
-backend stack:
+For full-stack release confidence, still run a backend smoke once before
+shipping externally:
 
 1. Sign in as a customer.
 2. Add or edit an account address.

@@ -14,6 +14,7 @@ import {
     GitBranch,
     GraduationCap,
     KeyRound,
+    ListTree,
     Network,
     SearchCheck,
     ServerCog,
@@ -237,6 +238,19 @@ export function KnowledgeHome() {
         </Link>
       </section>
       <LearningExplorer />
+      <section className={styles.pathBand}>
+        <div>
+          <ListTree aria-hidden="true" />
+          <span>
+            <strong>Need the complete directory?</strong>
+            Browse every umbrella, subpage group, and focused topic from one searchable index.
+          </span>
+        </div>
+        <Link to="/documentation-index">
+          Open documentation index
+          <ArrowRight size={17} aria-hidden="true" />
+        </Link>
+      </section>
     </>
   );
 }
@@ -328,7 +342,7 @@ const learningStages = [
     number: '02',
     title: 'Spring ecosystem',
     description: 'Boot internals, web APIs, validation, dependency injection, and testing.',
-    href: '#stage-2-spring-ecosystem',
+    href: '#stage-2-spring-and-spring-boot',
     icon: <Code2 aria-hidden="true" />,
   },
   {

@@ -102,6 +102,36 @@ class OrderService {
 Class-level read-only behavior makes the default explicit. Write methods
 override it.
 
+## JPA Dirty Checking Save And Flush
+
+Within an active persistence context, a loaded entity is managed. Changing its
+state is detected and converted to SQL during flush; calling `save()` after every
+setter is normally unnecessary:
+
+```java
+@Transactional
+public void renameOrder(Long id, String reference) {
+    Order order = repository.findById(id).orElseThrow();
+    order.rename(reference); // managed-state dirty checking
+}
+```
+
+Spring Data JPA `save(entity)` commonly delegates to `EntityManager.persist` for
+a new entity and `merge` for an entity considered existing. `merge` returns the
+managed copy; the passed detached instance does not itself become managed.
+
+| Operation | Meaning | Not guaranteed |
+|---|---|---|
+| mutate managed entity | dirty state is considered at flush | immediate SQL |
+| `save` | persist new or merge existing according to entity-state detection | immediate SQL or commit |
+| `flush` | synchronize pending persistence-context changes with the database | durable commit |
+| `saveAndFlush` | perform `save` semantics, then request a flush | independent transaction or permanent commit |
+
+Use explicit flush when subsequent work in the same transaction must observe
+database effects or when a test/algorithm deliberately needs constraints checked
+at that point. Do not use `saveAndFlush()` habitually: early SQL can reduce
+batching, increase lock duration and still fail again at commit.
+
 ## Annotation Parameters
 
 ```java
@@ -164,6 +194,19 @@ public void update() {
 After a participating operation marks a transaction rollback-only, catching
 the exception does not restore the transaction. A later commit can throw
 `UnexpectedRollbackException`.
+
+### Rollback Rule Precedence
+
+Type-safe rules such as `rollbackFor = MyCheckedException.class` are preferable
+to exception-name patterns. When several rules match an exception, Spring uses
+the strongest/most specific matching rule. Name patterns use substring-style
+matching and can unintentionally match similarly named or nested classes.
+
+Avoid overlapping `rollbackFor` and `noRollbackFor` rules whose outcome depends
+on subtle inheritance or declaration order. State the domain policy with the
+smallest specific type set and test subclass/wrapped-exception behavior. Spring
+evaluates the exception that leaves the proxied method; it does not automatically
+unwrap every domain cause inside an unrelated wrapper.
 
 ## Manual And Programmatic Rollback
 
@@ -270,6 +313,18 @@ deadlocks.
 Move a method needing distinct propagation into another Spring bean or invoke
 it through a deliberately designed proxied collaborator.
 
+### Transaction Annotation Precedence
+
+Transaction metadata is resolved for the invoked target method. A method-level
+annotation on the most specific target method overrides a class-level default.
+Class-level metadata supplies defaults for eligible methods of that class.
+
+Do not rely on an annotation discovered only on an interface, non-public helper,
+or distant superclass without verifying the configured proxy mode and concrete
+method. Put the contract on the concrete public service boundary when behavior
+must be unambiguous. Meta-annotations can define a consistent domain transaction
+policy, but their composed attributes and overrides still need tests.
+
 ## Read-Only Transactions
 
 `readOnly=true` communicates intent and can enable driver or ORM optimization.
@@ -307,6 +362,20 @@ This selects one manager; it does not make different resources atomic.
 JTA/XA can coordinate supported resources through two-phase commit but adds
 coupling, operational cost, and failure modes. Microservices commonly prefer
 local transactions plus SAGA/outbox consistency.
+
+### Common Transaction Manager Implementations
+
+| Manager family | Resource boundary | Important behavior |
+|---|---|---|
+| `JpaTransactionManager` | one JPA `EntityManagerFactory`, usually exposing its JDBC connection too | coordinates persistence context, flush and JDBC participation for that datasource |
+| `DataSourceTransactionManager` / `JdbcTransactionManager` | one JDBC `DataSource` | binds a JDBC connection; JDBC-focused manager adds translated commit/rollback exceptions |
+| `JtaTransactionManager` | JTA-capable resources | coordinates global transactions with operational and availability cost |
+| reactive transaction manager implementations | reactive resource/context | use Reactor context; imperative thread-bound assumptions do not apply |
+
+A manager coordinates only resources it owns. Two local managers selected in
+one call path do not become atomic. When several manager beans exist, select the
+intended one explicitly or define a deliberate default and test the physical
+resource participation.
 
 ## Transaction Synchronization
 
@@ -351,6 +420,23 @@ Do not retry indefinitely or retry a partial non-idempotent side effect.
   test-managed transaction that automatically rolls back.
 - Concurrency tests should use separate transactions and connections.
 - Outbox tests should verify domain and event rows commit or roll back together.
+
+`@Transactional` on a Spring Test method usually creates a test-managed
+transaction and rolls it back after the test. This is convenient cleanup, but it
+can hide flush/commit constraints and after-commit behavior. Use `TestTransaction`
+or a deliberately non-transactional test when an actual commit boundary is the
+subject, and clean data explicitly.
+
+Preemptive timeout mechanisms can execute the test body on another thread; that
+thread may not participate in the test-managed transaction. Similarly, a
+`@SpringBootTest` using a real/random-port HTTP client invokes server code on a
+server thread with its own transaction. Rolling back the test thread does not
+undo data committed by the server request.
+
+For concurrency, propagation and `REQUIRES_NEW` tests, use distinct proxied calls,
+threads/connections and the production database engine. Assert durable rows and
+side effects after transaction completion rather than only inspecting the
+test-owned persistence context.
 
 ## Production Practices
 

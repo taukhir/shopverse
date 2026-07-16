@@ -27,6 +27,26 @@ Common MDC fields include:
 
 Trace libraries may also place `traceId` and `spanId` in the logging context. Application code should generally let the tracing library manage those fields.
 
+### Choose Fields By Classification
+
+MDC values are copied into logs, exported and retained. They are not an excuse to
+log every piece of request metadata:
+
+| Candidate | Default posture | Reason |
+|---|---|---|
+| validated `correlationId` | appropriate | opaque support/business-journey reference |
+| framework-managed `traceId` / `spanId` | appropriate | connects logs to tracing without application ownership |
+| bounded `operation` or outcome code | appropriate | useful, controlled vocabulary |
+| tenant/account internal ID | policy-dependent | can be identifying and high-cardinality; authorize log access |
+| user ID | minimize/tokenize where possible | personal/account data with access and retention impact |
+| client IP or country | normally omit unless justified | IP can be personal/security data; derived geography can be inaccurate |
+| session ID, cookie, JWT or API key | forbidden | credential/session takeover risk |
+| URI query, request headers or payload | forbidden by default | can contain secrets, personal data and unbounded content |
+
+Prefer a safe opaque support identifier and retrieve sensitive business context
+from an authorized system when needed. Apply the same classification, masking,
+retention and access policy used by [PII-Safe Logging](./PII-SAFE-LOGGING.md).
+
 ## Why MDC Is Useful
 
 Without contextual fields, logs from concurrent requests appear mixed together:
@@ -72,7 +92,11 @@ flowchart LR
     C --> E["Worker thread returns to pool clean"]
 ```
 
-MDC behaves like thread-local state in traditional servlet applications. Values placed on one thread do not automatically appear on another thread.
+MDC behaves like thread-local state in traditional servlet applications. SLF4J
+is a facade and delegates storage to its active MDC adapter; Logback's behavior
+is thread-associated. Values placed on one thread do not automatically appear on
+another thread, and application code should not depend on a provider's private
+storage implementation.
 
 ## `putCloseable` And Automatic Cleanup
 
@@ -323,6 +347,22 @@ A correlation ID may survive retries, delayed messages, or several traces. A tra
 - manually overwriting tracing-library fields;
 - putting high-volume values in formatted messages instead of structured fields;
 - using MDC as business state rather than logging context.
+
+## Cost And Cardinality
+
+Each emitted log event can capture and serialize MDC fields. Large maps, long
+values and high log volume increase allocation, CPU, network, storage and indexing
+cost. An asynchronous appender captures context with the event; changing MDC
+later should not be treated as editing an already-created event.
+
+Correlation, trace, span, user and tenant IDs are high-cardinality values. Keep
+them as structured log fields or trace attributes when justified, not Prometheus
+labels or Loki stream labels. Use bounded fields such as service, level, operation
+and outcome for labels, then filter parsed JSON fields at query time.
+
+Tracing sampling does not automatically sample application logs. Define log
+levels, event sampling and retention separately, while preserving required audit
+and failure evidence.
 
 ## Testing Cleanup
 

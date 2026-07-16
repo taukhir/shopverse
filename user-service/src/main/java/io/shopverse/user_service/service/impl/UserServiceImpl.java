@@ -16,6 +16,7 @@ import io.shopverse.user_service.mapper.UserMapper;
 import io.shopverse.user_service.model.*;
 import io.shopverse.user_service.repository.UserRepository;
 import io.shopverse.user_service.repository.specification.UserSpecifications;
+import io.shopverse.user_service.service.AdminAuditEventService;
 import io.shopverse.user_service.service.LookupService;
 import io.shopverse.user_service.service.PasswordHistoryService;
 import io.shopverse.user_service.service.UserAuditService;
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final PasswordHistoryService passwordHistoryService;
     private final UserAuditService userAuditService;
+    private final AdminAuditEventService adminAuditEventService;
     private final LookupService lookupService;
 
     @Override
@@ -112,6 +114,7 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.save(user);
         userAuditService.record(savedUser, AuditActions.USER_UPDATED, AuditDetails.USER_ACCOUNT_UPDATED);
+        recordUserAudit(savedUser, "USER_PROFILE_UPDATED", "User profile updated", "User updated their account profile");
         log.info("Updated authenticated profile userId={}", savedUser.getId());
         return UserMapper.toUserResponse(savedUser);
     }
@@ -168,6 +171,7 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         passwordHistoryService.record(savedUser, encodedPassword);
         userAuditService.record(savedUser, AuditActions.USER_CREATED, AuditDetails.USER_ACCOUNT_CREATED);
+        recordUserAudit(savedUser, AuditActions.USER_CREATED, "User created", AuditDetails.USER_ACCOUNT_CREATED);
 
         log.info("Created user id={}, username={}", savedUser.getId(), savedUser.getUsername());
         return UserMapper.toUserResponse(savedUser);
@@ -220,6 +224,7 @@ public class UserServiceImpl implements UserService {
 
         User savedUser = userRepository.save(user);
         userAuditService.record(savedUser, AuditActions.USER_UPDATED, AuditDetails.USER_ACCOUNT_UPDATED);
+        recordUserAudit(savedUser, AuditActions.USER_UPDATED, "User updated", AuditDetails.USER_ACCOUNT_UPDATED);
 
         log.info("Updated user id={}", savedUser.getId());
         return UserMapper.toUserResponse(savedUser);
@@ -258,6 +263,7 @@ public class UserServiceImpl implements UserService {
         user.setAccountNonLocked(false);
         User savedUser = userRepository.save(user);
         userAuditService.record(savedUser, AuditActions.USER_DELETED, AuditDetails.USER_ACCOUNT_SOFT_DELETED);
+        recordUserAudit(savedUser, AuditActions.USER_DELETED, "User soft deleted", AuditDetails.USER_ACCOUNT_SOFT_DELETED);
         log.info("Soft deleted user id={}", savedUser.getId());
     }
 
@@ -304,6 +310,23 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         passwordHistoryService.record(savedUser, encodedPassword);
         userAuditService.record(savedUser, auditAction, auditDetails);
+        recordUserAudit(savedUser, auditAction, "User password changed", auditDetails);
+    }
+
+    private void recordUserAudit(User user, String action, String title, String message) {
+        adminAuditEventService.record(
+                "USERS",
+                action,
+                title,
+                "SUCCESS",
+                user.getStatus() == null ? null : user.getStatus().name(),
+                message,
+                message,
+                "USER",
+                String.valueOf(user.getId()),
+                "/admin/users/" + user.getId(),
+                java.util.Map.of("username", user.getUsername())
+        );
     }
 
     private String normalizeEmail(String email) {

@@ -1,5 +1,10 @@
 ---
 title: Structural Patterns
+description: "Choose and implement Adapter, Bridge, Decorator, Proxy, and related composition patterns in Spring applications."
+sidebar_label: "Structural Patterns"
+tags: ["spring", "design-patterns", "structural"]
+page_type: "Category Overview"
+difficulty: "Advanced"
 status: "maintained"
 last_reviewed: "2026-07-13"
 ---
@@ -12,6 +17,22 @@ detail.
 
 Use structural patterns when integration boundaries, wrappers, compatibility
 layers, or simplified APIs make the system easier to evolve.
+
+## Dedicated Pattern Guides
+
+<TopicCards items={[
+  {title: 'Adapter', href: '/development/design-patterns/adapter', description: 'Translate vendor APIs into application-owned contracts.', icon: 'code', tags: ['Interview priority', 'Integration']},
+  {title: 'Bridge', href: '/development/design-patterns/bridge', description: 'Separate two independent dimensions of variation.', icon: 'network', tags: ['Composition', 'Two axes']},
+  {title: 'Decorator', href: '/development/design-patterns/decorator', description: 'Compose explicit behavior around a stable interface.', icon: 'layers', tags: ['Wrapping', 'Composition']},
+  {title: 'Proxy', href: '/development/design-patterns/proxy', description: 'Understand Spring AOP interception and proxy boundaries.', icon: 'security', tags: ['Interview priority', 'Spring AOP']},
+]} />
+
+<DocCallout type="tip" title="Use this page for comparison">
+
+This category page compares structural intent. Follow the cards for the canonical
+Spring implementation, runtime mechanics, tests, and interview guidance.
+
+</DocCallout>
 
 ## Adapter
 
@@ -309,3 +330,8 @@ security, caching, async execution, and metrics without hardcoding that logic
 inside business methods.
 
 </ExpandableAnswer>
+
+## Official References
+
+- [Spring AOP reference](https://docs.spring.io/spring-framework/reference/core/aop.html)
+- [Spring MVC special bean types](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-servlet/special-bean-types.html)

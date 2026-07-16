@@ -107,6 +107,61 @@ The database unique constraint is the arbitration point:
 A check-then-insert without loser recovery can still return a transient conflict
 even though the key is unique. Test with simultaneous requests and a real database.
 
+## One Persistent Order Algorithm
+
+Two storage shapes are valid:
+
+| Shape | Best fit | Atomic guarantee |
+|---|---|---|
+| unique scoped idempotency key and fingerprint on `orders` | order creation completes in one local transaction | the Order row is both result and idempotency record |
+| separate idempotency ledger referencing `order_id` | long-running commands, stored response replay, leases or explicit failure states | claim/result transitions must be coordinated with Order and outbox writes |
+
+For a single-transaction order creation path:
+
+```text
+validate key and authenticated caller
+  -> canonicalize command and calculate fingerprint
+  -> look up (caller scope, operation, key)
+  -> matching existing success: return the same Order
+  -> existing key with different fingerprint: reject conflict
+  -> absent: insert Order with scoped key + fingerprint
+  -> insert OrderCreated outbox row
+  -> commit both atomically
+```
+
+The schema, not the preliminary lookup, arbitrates concurrent first requests:
+
+```sql
+ALTER TABLE orders
+  ADD CONSTRAINT uk_order_idempotency
+  UNIQUE (customer_id, operation_name, idempotency_key);
+```
+
+If two transactions race, one insert commits. The loser must roll back its
+failed transaction, then read the winning record in a new transaction and apply
+the same fingerprint/owner checks. Catching the constraint exception and
+querying inside the already-failed transaction is not reliable.
+
+The durable result and outbox record must commit together. Calling Inventory,
+Payment, email, or Kafka directly inside the Order transaction creates an
+unknown or duplicated side-effect window. Publish through the transactional
+outbox, and give downstream commands their own business idempotency keys.
+
+### Replay Contract
+
+| Situation | Required behavior | Typical HTTP contract |
+|---|---|---|
+| first accepted command | create exactly one Order | `201 Created` |
+| completed matching retry | return the same logical Order and stable location | replay the documented success status/body and optionally identify replay |
+| same scoped key, different fingerprint | never return or mutate the old Order | `409 Conflict` or documented `422` |
+| matching command still in progress | never start a second execution | `202`, `409`, or `425` plus documented retry guidance |
+| missing/malformed required key | reject before business work | `400 Bad Request` |
+| expired key outside retention window | follow the published retention contract | treat as new only if the client contract makes that safe |
+
+HTTP status selection can vary, but the semantic outcome must not. Persist
+enough response metadata to reproduce the contract, and never allow the same
+key to mean a different command after a timeout.
+
 ## Transaction And Side-Effect Ownership
 
 Persist the idempotency claim, local business result, and outbox event in the same

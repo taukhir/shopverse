@@ -133,6 +133,7 @@ for (const file of markdownFiles) {
 }
 
 for (const file of registrationFiles) {
+  if (/^sidebar_exclude:\s*true\s*$/m.test(fs.readFileSync(file, 'utf8'))) continue;
   const id = docId(file);
   if (!sidebar.includes(`'${id}'`) && !sidebar.includes(`id: '${id}'`)) {
     errors.push(`${relative(file)}: page is not registered in sidebars.ts as ${id}`);

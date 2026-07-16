@@ -12,6 +12,7 @@ import io.shopverse.user_service.model.CreateRoleRequest;
 import io.shopverse.user_service.model.RoleFilter;
 import io.shopverse.user_service.model.UpdateRoleRequest;
 import io.shopverse.user_service.repository.RoleRepository;
+import io.shopverse.user_service.service.AdminAuditEventService;
 import io.shopverse.user_service.service.LookupService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,11 +43,14 @@ class RoleServiceImplTest {
     @Mock
     private LookupService lookupService;
 
+    @Mock
+    private AdminAuditEventService adminAuditEventService;
+
     private RoleServiceImpl roleService;
 
     @BeforeEach
     void setUp() {
-        roleService = new RoleServiceImpl(roleRepository, lookupService);
+        roleService = new RoleServiceImpl(roleRepository, lookupService, adminAuditEventService);
     }
 
     @Test

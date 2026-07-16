@@ -63,6 +63,7 @@ flowchart TD
 | Guide | Scope |
 |---|---|
 | [Distributed Schedulers And Safe Work Claiming](../DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md) | end-to-end choice among singleton jobs, row claims, leases, ranges, queues, locks, and idempotency |
+| [Spring Distributed Locking Options](SPRING-DISTRIBUTED-LOCKING-OPTIONS.md) | `@Scheduled`, ShedLock, Spring Integration `LockRegistry`, Redisson, Quartz, advisory locks, leader election, and selection rules |
 | [Database Locking And Work Claims](DATABASE-LOCKING-AND-CLAIMS.md) | conditional updates, pessimistic locks, `SKIP LOCKED`, MySQL/PostgreSQL batch claims, outbox and expiry decisions |
 | [Scheduler Locking With ShedLock](SCHEDULER-LOCKING-SHEDLOCK.md) | one scheduled method execution across replicas, JDBC lock table, leases, crash behavior |
 | [Distributed Locks And Fencing](DISTRIBUTED-LOCKS-AND-FENCING.md) | Redis/database/coordinator leases, stale owners, fencing tokens, deadlocks |

@@ -61,6 +61,18 @@ Cart validation is structural in User Service. Inventory-aware validation
 belongs at the Inventory/checkout boundary because User Service does not own
 product availability rules.
 
+Admin audit endpoints:
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/api/v1/admin/audit-events` | list paged immutable admin audit events |
+| `GET` | `/api/v1/admin/audit-events/{id}` | inspect one admin audit event |
+
+The first implementation records User Service administrative/account actions
+such as user, role, permission, and password changes. Other services can later
+write to the same audit contract or move the contract into a dedicated audit
+service without changing the Angular route.
+
 Swagger is available at `/swagger-ui/index.html`; use the **Authorize** action with `Bearer <token>`.
 
 ## Persistence

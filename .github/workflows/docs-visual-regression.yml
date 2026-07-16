@@ -1,6 +1,30 @@
 name: Documentation Linux Visual Baselines
 
 on:
+  pull_request:
+    paths:
+      - "documentation/src/**"
+      - "documentation/static/**"
+      - "documentation/docusaurus.config.ts"
+      - "documentation/playwright.config.ts"
+      - "documentation/package.json"
+      - "documentation/package-lock.json"
+      - "documentation/tests/visual-regression.spec.ts"
+      - ".github/workflows/docs-visual-regression.yml"
+  push:
+    branches:
+      - master
+    paths:
+      - "documentation/src/**"
+      - "documentation/static/**"
+      - "documentation/docusaurus.config.ts"
+      - "documentation/playwright.config.ts"
+      - "documentation/package.json"
+      - "documentation/package-lock.json"
+      - "documentation/tests/visual-regression.spec.ts"
+      - ".github/workflows/docs-visual-regression.yml"
+  schedule:
+    - cron: "45 3 * * 1"
   workflow_dispatch:
     inputs:
       update_baselines:
@@ -31,7 +55,7 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - name: Compare or update Linux baselines
-        run: npm run test:visual -- ${{ inputs.update_baselines && '--update-snapshots' || '' }}
+        run: npm run test:visual -- ${{ github.event_name == 'workflow_dispatch' && inputs.update_baselines && '--update-snapshots' || '' }}
       - name: Upload baseline or failure evidence
         if: always()
         uses: actions/upload-artifact@v4

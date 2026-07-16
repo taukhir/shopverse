@@ -44,6 +44,73 @@ Each chain contains ordered filters for concerns such as CSRF, sessions,
 Basic authentication, bearer tokens, anonymous authentication, exception
 translation, and authorization.
 
+## Representative Filter Order And Ownership
+
+The precise list varies with enabled configurers and Spring Security version.
+Inspect the startup/debug filter list instead of copying a fixed numeric order.
+For a typical servlet application, reason about these relative stages:
+
+| Relative stage | Common filter | Responsibility |
+|---|---|---|
+| context setup | `SecurityContextHolderFilter` | obtains a deferred or empty context for the request; explicit authentication mechanisms save it when required |
+| response headers | `HeaderWriterFilter` | writes configured security headers |
+| cross-origin | `CorsFilter` | handles CORS, including preflight, before authentication rejection |
+| browser exploit protection | `CsrfFilter` | validates CSRF tokens when the accepted credential transport requires it |
+| logout | `LogoutFilter` | recognizes logout and invokes logout handlers before login filters |
+| username/password | `UsernamePasswordAuthenticationFilter` | extracts form credentials and authenticates a username/password token |
+| HTTP Basic | `BasicAuthenticationFilter` | decodes the Basic header and authenticates it |
+| bearer token | `BearerTokenAuthenticationFilter` | resolves a bearer token and submits it for authentication |
+| anonymous fallback | `AnonymousAuthenticationFilter` | supplies an anonymous authentication when no mechanism authenticated the request |
+| exception boundary | `ExceptionTranslationFilter` | translates downstream authentication/access-denied exceptions into entry-point or denied-handler responses |
+| request authorization | `AuthorizationFilter` | uses an `AuthorizationManager` for the matched HTTP request |
+
+Not every chain contains every filter. Form, Basic and bearer filters appear
+only when their mechanisms are enabled. Multiple credential filters can exist,
+but accepting several credential transports at one boundary increases ambiguity
+and must be tested explicitly.
+
+`ExceptionTranslationFilter` does not authenticate or authorize. It catches
+specific exceptions thrown later in the chain. An anonymous or unauthenticated
+caller that needs authentication is sent to an `AuthenticationEntryPoint`
+(normally `401` or a login redirect); an authenticated caller lacking authority
+is sent to an `AccessDeniedHandler` (normally `403`).
+
+## Complete Request Timeline
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant D as DelegatingFilterProxy
+    participant F as FilterChainProxy
+    participant S as Selected SecurityFilterChain
+    participant M as AuthenticationManager
+    participant P as AuthenticationProvider
+    participant A as AuthorizationFilter
+    participant X as ExceptionTranslationFilter
+    participant API as Controller
+
+    C->>D: HTTP request
+    D->>F: delegate to springSecurityFilterChain
+    F->>F: choose first matching chain
+    F->>S: invoke ordered filters
+    S->>M: submit unauthenticated Authentication
+    M->>P: select provider using supports(type)
+    P-->>M: authenticated Authentication or exception
+    M-->>S: authentication result
+    S->>S: place result in SecurityContext
+    S->>X: continue through exception boundary
+    X->>A: authorize request
+    A->>API: allowed request
+    API-->>C: response
+    S->>S: save context if configured and clear thread holder
+```
+
+If authentication itself fails inside an authentication filter, that filter can
+invoke its configured failure handler or entry point directly. If request
+authorization fails downstream, `ExceptionTranslationFilter` handles the
+exception. This distinction explains why not every `AuthenticationException`
+travels through the same filter.
+
 
 ## Important Interfaces And Classes
 
@@ -181,7 +248,6 @@ selected authentication mechanism and authorization rules.
 ## Recommended Next
 
 Deepen browser controls in [CSRF, CORS And Browser Security](./CSRF-CORS-BROWSER-SECURITY.md).
-
 
 
 

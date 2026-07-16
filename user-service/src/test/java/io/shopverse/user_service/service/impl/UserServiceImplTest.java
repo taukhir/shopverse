@@ -10,6 +10,7 @@ import io.shopverse.user_service.exceptions.DuplicateResourceException;
 import io.shopverse.user_service.exceptions.ResourceNotFoundException;
 import io.shopverse.user_service.model.*;
 import io.shopverse.user_service.repository.UserRepository;
+import io.shopverse.user_service.service.AdminAuditEventService;
 import io.shopverse.user_service.service.LookupService;
 import io.shopverse.user_service.service.PasswordHistoryService;
 import io.shopverse.user_service.service.UserAuditService;
@@ -52,6 +53,9 @@ class UserServiceImplTest {
     @Mock
     private UserAuditService userAuditService;
 
+    @Mock
+    private AdminAuditEventService adminAuditEventService;
+
     private UserServiceImpl userService;
 
     @BeforeEach
@@ -61,6 +65,7 @@ class UserServiceImplTest {
                 passwordEncoder,
                 passwordHistoryService,
                 userAuditService,
+                adminAuditEventService,
                 lookupService
         );
     }

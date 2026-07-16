@@ -80,6 +80,92 @@ predicate and advances it. The second affects zero rows and fails. Retry the who
 idempotent business operation in a new transaction: reload, re-check the invariant,
 apply the decision, and commit. Do not retry only `save(staleEntity)`.
 
+Hibernate commonly raises `jakarta.persistence.OptimisticLockException` at
+flush or commit. Spring's exception translation exposes the portable
+`ObjectOptimisticLockingFailureException`/`OptimisticLockingFailureException`
+family to application code. The exact throw point matters: a repository call may
+appear successful until the persistence context flushes.
+
+### Inventory Reservation With Version Checking
+
+```java
+@Entity
+class InventoryItem {
+    @Id
+    private Long productId;
+
+    private int availableQuantity;
+    private int reservedQuantity;
+
+    @Version
+    private long version;
+
+    void reserve(int quantity) {
+        if (quantity <= 0) throw new IllegalArgumentException("quantity");
+        if (availableQuantity < quantity) throw new InsufficientStockException();
+        availableQuantity -= quantity;
+        reservedQuantity += quantity;
+    }
+}
+```
+
+One transaction loads the item, rechecks stock, mutates the managed entity, and
+flushes. Hibernate produces the equivalent of:
+
+```sql
+UPDATE inventory_items
+   SET available_quantity = ?,
+       reserved_quantity = ?,
+       version = version + 1
+ WHERE product_id = ?
+   AND version = ?;
+```
+
+An update count of zero means another transaction changed the row. It does not
+mean “out of stock”; the losing operation must reload state before deciding
+whether the command can now succeed.
+
+### Retry In A Fresh Transaction
+
+Never continue using the failed transaction or stale entity. The transaction is
+normally rollback-only. Put each attempt in a new transaction using a separate
+proxied bean, `TransactionTemplate`, or a correctly ordered retry interceptor:
+
+```java
+public ReservationResult reserveWithRetry(ReserveCommand command) {
+    for (int attempt = 1; attempt <= 3; attempt++) {
+        try {
+            return transactionTemplate.execute(status -> reserveOnce(command));
+        } catch (ObjectOptimisticLockingFailureException conflict) {
+            if (attempt == 3) throw new InventoryContentionException(conflict);
+            backoffWithJitter(attempt);
+        }
+    }
+    throw new IllegalStateException("unreachable");
+}
+
+private ReservationResult reserveOnce(ReserveCommand command) {
+    InventoryItem item = repository.findById(command.productId())
+            .orElseThrow(InventoryNotFoundException::new);
+    item.reserve(command.quantity());
+    repository.flush(); // conflict is observed inside this attempt
+    return ReservationResult.reserved(item.getVersion());
+}
+```
+
+Do not call a same-class `@Transactional` method through `this`; proxy-based
+transaction interception will be bypassed. Bound attempts, use jitter, record
+conflict/exhaustion metrics, and retry only classified transient conflicts.
+Under sustained contention, repeated optimistic retries amplify database load;
+prefer an atomic conditional update, serialized partition/queue ownership, or a
+carefully scoped pessimistic lock.
+
+The command also needs a stable business identity. Otherwise a retry after an
+unknown client or message outcome can create two reservation rows or outbox
+events even though each inventory-row update was version-safe. Enforce a unique
+reservation/command key and make reservation state plus outbox persistence part
+of the same local transaction.
+
 <DocCallout type="shopverse" title="Current inventory protection">
 
 Shopverse `InventoryItem` currently has `@Version`, available quantity, and reserved

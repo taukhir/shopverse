@@ -1,13 +1,19 @@
 import React, {useEffect, useRef, useState, type ReactNode} from 'react';
 import OriginalDocItemContent from '@theme-original/DocItem/Content';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
-import {Bookmark, BookOpen, CalendarCheck, Check, Clock3} from 'lucide-react';
+import {Bookmark, BookOpen, CalendarCheck, Check, Clock3, ListTree} from 'lucide-react';
 import {normalizeReaderPath, readReaderState, READER_EVENT, toggleSavedPage, writeReaderState} from '@site/src/utils/readerLibrary';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import type {Props} from '@theme/DocItem/Content';
 import styles from './styles.module.css';
 
 const WORDS_PER_MINUTE = 220;
+const NON_TOPIC_HEADINGS = new Set([
+  'official references',
+  'references',
+  'recommended next',
+  'further reading',
+]);
 
 type LearningFrontMatter = {
   difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
@@ -20,7 +26,7 @@ type LearningFrontMatter = {
 };
 
 export default function DocItemContent({children}: Props): ReactNode {
-  const {frontMatter, metadata} = useDoc();
+  const {frontMatter, metadata, toc} = useDoc();
   const {siteConfig} = useDocusaurusContext();
   const baseUrl = siteConfig.baseUrl;
   const learning = frontMatter as LearningFrontMatter;
@@ -96,6 +102,9 @@ export default function DocItemContent({children}: Props): ReactNode {
     learning.difficulty || learning.page_type || learning.status || learning.prerequisites?.length ||
     learning.learning_objectives?.length || learning.technologies?.length || learning.last_reviewed,
   );
+  const pageTopics = toc
+    .filter((item) => item.level === 2 && !NON_TOPIC_HEADINGS.has(item.value.toLocaleLowerCase()))
+    .map((item) => ({...item, label: item.value.replace(/<[^>]*>/g, '')}));
 
   return (
     <div ref={containerRef}>
@@ -123,6 +132,20 @@ export default function DocItemContent({children}: Props): ReactNode {
           )}
           {learning.technologies?.length && <div className={styles.technologies}>{learning.technologies.map((item) => <span key={item}>{item}</span>)}</div>}
         </aside>
+      )}
+      {pageTopics.length > 0 && (
+        <nav className={styles.topicOverview} aria-labelledby="topics-covered-title">
+          <div className={styles.topicOverviewTitle} id="topics-covered-title">
+            <ListTree aria-hidden="true" />
+            <strong>Topics covered</strong>
+            <span>{pageTopics.length} sections</span>
+          </div>
+          <ul>
+            {pageTopics.map((topic) => (
+              <li key={topic.id}><a href={`#${topic.id}`}>{topic.label}</a></li>
+            ))}
+          </ul>
+        </nav>
       )}
       <OriginalDocItemContent>{children}</OriginalDocItemContent>
     </div>

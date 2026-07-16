@@ -62,6 +62,85 @@ Use an entity graph when the service needs managed entities and the joined
 cardinality is bounded. Graph names or dedicated method names make fetch intent
 reviewable.
 
+Keep associations lazy in the mapping unless they are part of almost every use
+case. The entity mapping supplies the default; an entity graph is a query-specific
+fetch plan that overrides that default for one repository method.
+
+```java
+@ManyToMany(fetch = FetchType.LAZY)
+private Set<Role> roles;
+
+@EntityGraph(attributePaths = {"roles", "roles.permissions"})
+Optional<User> findForAuthenticationByUsername(String username);
+```
+
+The dotted path is a nested graph: `roles` is an attribute node on `User`, and
+`permissions` is an attribute node in the `Role` subgraph. It is semantically
+equivalent to building a graph through the Jakarta Persistence API:
+
+```java
+EntityGraph<User> graph = entityManager.createEntityGraph(User.class);
+Subgraph<Role> roles = graph.addSubgraph("roles");
+roles.addAttributeNodes("permissions");
+```
+
+#### Fetch Graph Versus Load Graph
+
+Spring Data exposes both Jakarta Persistence graph interpretations:
+
+| Spring Data type | Query hint | Attributes in the graph | Attributes not in the graph |
+|---|---|---|---|
+| `EntityGraphType.FETCH` | `jakarta.persistence.fetchgraph` | treated as eager for this operation | treated as lazy for this operation |
+| `EntityGraphType.LOAD` | `jakarta.persistence.loadgraph` | treated as eager for this operation | retain their mapping/default fetch type |
+
+`@EntityGraph` defaults to `EntityGraphType.FETCH`. Primary-key and version state
+is always available, and the persistence provider is allowed to fetch additional
+state. Treat graph membership as the minimum required fetch plan, not a promise
+that no other column or association can be read.
+
+```java
+@EntityGraph(
+    type = EntityGraph.EntityGraphType.LOAD,
+    attributePaths = {"roles", "roles.permissions"}
+)
+Optional<User> findWithMappedDefaultsByUsername(String username);
+```
+
+#### A Graph Does Not Specify SQL Join Shape
+
+An entity graph says **what must be fetched**, not whether Hibernate must use one
+`LEFT JOIN`, an inner join, a secondary select, batch loading, or another provider
+strategy. A nested graph may often produce SQL resembling this, but the SQL is
+illustrative rather than contractual:
+
+```sql
+select u.*, r.*, p.*
+from users u
+left join user_roles ur on ur.user_id = u.id
+left join roles r on r.id = ur.role_id
+left join role_permissions rp on rp.role_id = r.id
+left join permissions p on p.id = rp.permission_id
+where u.username = ?
+```
+
+If the query contract requires explicit join semantics, express them in JPQL and
+verify the generated SQL and plan:
+
+```java
+@Query("""
+       select distinct u
+         from User u
+         join fetch u.roles r
+         left join fetch r.permissions
+        where u.username = :username
+       """)
+Optional<User> findWithExplicitJoins(String username);
+```
+
+`join fetch` expresses an inner join; `left join fetch` preserves a root whose
+association is absent. Neither form makes an unbounded multi-collection graph
+safe. Measure row count and cardinality.
+
 ### DTO Projection
 
 ```java
@@ -92,15 +171,51 @@ number of Java objects.
 
 </DocCallout>
 
+## N Plus One Solution Matrix
+
+There is no universal “avoid joins” setting. Choose the result shape and query
+count deliberately:
+
+| Situation | Preferred starting point | SQL shape and trade-off |
+|---|---|---|
+| one aggregate with a small bounded graph | entity graph or JPQL fetch join | commonly one joined query; watch row multiplication |
+| exact inner/outer join behavior or predicates on joined data | JPQL fetch join | query owns join semantics; still risky for pagination and multiple collections |
+| many parents whose lazy children are needed | Hibernate batch fetching | parent query plus bounded `IN (...)` child queries; provider-specific tuning |
+| one parent result set followed by one collection load | Hibernate subselect fetching | parent query plus a child query that reuses the parent selection; provider-specific and context-sensitive |
+| read-only list, report, or API summary | DTO projection | only required columns; may still join, but avoids managed graph traversal |
+| very large or differently filtered relationships | explicit separate/two-step queries | more round trips but bounded row shapes and no giant Cartesian result |
+| paged parents with children | page IDs/DTOs, then fetch details | preserves entity-level pagination and bounds the second query |
+| simple CRUD that does not need associations | keep associations lazy | no extra association query unless the relationship is traversed |
+
+Batch fetching and subselect fetching mitigate repeated secondary selects without
+one wide join, but they remain Hibernate-specific fetch behavior. See
+[Hibernate Fetching And Performance](../../data/hibernate/HIBERNATE-FETCHING-PERFORMANCE.md#association-batch-fetching)
+for configuration, SQL shapes, and limitations.
+
+<DocCallout type="production" title="Join cost is cardinality dependent">
+A join is not inherently too expensive. Cost grows with scanned rows, missing
+indexes, skew, selected width, and multiplication across collections. For one
+authenticated user with a few roles and permissions, a joined graph can be a good
+bounded plan. Applying the same deep graph to a user listing can create a large
+result and break pagination assumptions.
+</DocCallout>
+
 ## Shopverse Current Fetch Plans
 
 <DocCallout type="shopverse" title="Current implementation and current gap">
 
-Order repository methods use `@EntityGraph(attributePaths = "items")`, and User
-repository methods fetch roles and permissions for authorization paths. This is
-current code. Some Order history methods return unpaged lists with items; replacing
-those with bounded pages or summaries is a proposed production hardening, not an
-implemented claim.
+Order repository methods use `@EntityGraph(attributePaths = "items")`. The User
+repository applies `@EntityGraph(attributePaths = {"roles", "roles.permissions"})`
+to both `findByUsername` and the overridden `findById`. This is broader than an
+authentication-only fetch method: callers in profile, cart, address, and other
+paths can receive the same deep graph when they use those repository methods.
+Role mappings themselves remain lazy.
+
+Dedicated methods such as `findForAuthenticationByUsername` and an ungraphed
+`findByUsername` would make the use-case exception explicit. That split is a
+proposed hardening, not current Shopverse behavior. Some Order history methods
+also return unpaged lists with items; replacing those with bounded pages or
+summaries is proposed rather than implemented.
 
 </DocCallout>
 
@@ -198,6 +313,8 @@ the repository method name.
 ## Official References
 
 - [Spring Data JPA entity graphs](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
+- [Spring Data `@EntityGraph` API](https://docs.spring.io/spring-data/data-jpa/docs/current/api/org/springframework/data/jpa/repository/EntityGraph.html)
+- [Jakarta Persistence entity-graph semantics](https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2)
 - [Spring Data repository projections](https://docs.spring.io/spring-data/jpa/reference/repositories/projections.html)
 - [Hibernate ORM fetching](https://docs.hibernate.org/orm/current/userguide/html_single/)
 

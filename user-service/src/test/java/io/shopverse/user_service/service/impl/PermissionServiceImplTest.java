@@ -11,6 +11,7 @@ import io.shopverse.user_service.model.CreatePermissionRequest;
 import io.shopverse.user_service.model.PermissionFilter;
 import io.shopverse.user_service.model.UpdatePermissionRequest;
 import io.shopverse.user_service.repository.PermissionRepository;
+import io.shopverse.user_service.service.AdminAuditEventService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,11 +38,14 @@ class PermissionServiceImplTest {
     @Mock
     private PermissionRepository permissionRepository;
 
+    @Mock
+    private AdminAuditEventService adminAuditEventService;
+
     private PermissionServiceImpl permissionService;
 
     @BeforeEach
     void setUp() {
-        permissionService = new PermissionServiceImpl(permissionRepository);
+        permissionService = new PermissionServiceImpl(permissionRepository, adminAuditEventService);
     }
 
     @Test

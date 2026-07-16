@@ -256,6 +256,35 @@ Invoke-RestMethod `
     -Headers $adminHeaders
 ```
 
+### Inspect Admin Audit Events
+
+User Service persists immutable audit events for account, role, permission, and
+user administration changes. Query the latest events as an administrator:
+
+```powershell
+$auditEvents = Invoke-RestMethod `
+    -Uri "$gateway/api/v1/admin/audit-events?area=USERS&size=10&sortBy=occurredAt&direction=DESC" `
+    -Headers $adminHeaders
+
+$auditEvents.content |
+    Select-Object id, area, action, actor, result, subjectType, subjectId, occurredAt |
+    Format-Table -AutoSize
+```
+
+Inspect one event when the list is not empty:
+
+```powershell
+$auditId = $auditEvents.content[0].id
+
+Invoke-RestMethod `
+    -Uri "$gateway/api/v1/admin/audit-events/$auditId" `
+    -Headers $adminHeaders
+```
+
+The Angular Admin Activity page uses this backend audit API first. If the API is
+unavailable, it falls back to derived operational signals so the admin page
+still has useful context during partial backend rollout.
+
 ### Prove Resource Ownership Authorization
 
 Use the seeded `DEMO-ORD-1001` record to prove that authentication alone does

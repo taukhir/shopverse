@@ -219,4 +219,5 @@ as parsed JSON fields rather than indexed labels.
 - [Grafana](GRAFANA.md)
 - [Structured logging](STRUCTURED-LOGGING.md)
 - [MDC and tracing](MDC-CORRELATION-TRACING.md)
+- [Distributed tracing internals and performance analysis](DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE.md)
 - [Operational deployment](https://github.com/taukhir/shopverse/tree/main/observability)

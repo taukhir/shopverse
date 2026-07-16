@@ -25,6 +25,23 @@ Back to [Locking And Work Ownership](LOCKING-AND-WORK-OWNERSHIP.md).
 No approach provides end-to-end exactly-once processing. Crash after broker
 acceptance and before database finalization can still cause republishing.
 
+## Batching Is Efficiency, Not Ownership
+
+Batching reduces round trips, transaction setup, and broker overhead. It does
+not stop two replicas from reading the same rows:
+
+```sql
+SELECT id
+FROM outbox_events
+WHERE status = 'PENDING'
+ORDER BY created_at, id
+LIMIT 100;
+```
+
+Every batch needs an atomic ownership mechanism. Use a conditional state
+transition, select-and-update under row locks, or a partition lease. Never
+describe a plain bounded query as a claim.
+
 ## Per-Row Conditional Claim
 
 ```sql
@@ -197,6 +214,24 @@ short finalization transaction
 
 Never hold a database row lock while waiting for a broker acknowledgement.
 
+Finalization must prove that the worker still owns the claim. An instance can
+pause past its lease, resume after another instance reclaimed the event, and
+otherwise overwrite the newer result.
+
+```sql
+UPDATE outbox_events
+SET status = 'PUBLISHED',
+    published_at = CURRENT_TIMESTAMP
+WHERE id = :id
+  AND status = 'PROCESSING'
+  AND claimed_by = :instanceId
+  AND claim_token = :claimToken;
+```
+
+Treat update count `0` as lost ownership. For stronger stale-worker rejection,
+increment a numeric `claim_version` on every claim and require the same version
+on completion. That version acts as a fencing generation inside the database.
+
 ## Crash Windows
 
 | Crash point | Durable state | Recovery |
@@ -223,6 +258,25 @@ claim batch, commit, process each claimed row separately:
 Do not publish an entire claimed batch in one database transaction. Remote
 latency would extend locks, and one failure could roll back unrelated rows.
 
+## Batch Size And Backpressure
+
+Start with a measured bounded batch, commonly tens to low hundreds of rows, and
+tune from production evidence rather than a universal number.
+
+| Signal | Batch/concurrency response |
+|---|---|
+| low backlog and mostly empty polls | reduce batch or back off polling with jitter |
+| growing backlog with healthy database and broker | increase bounded batch or worker count gradually |
+| connection-pool wait or lock latency rises | reduce claiming concurrency and batch size |
+| broker latency or downstream lag rises | cap in-flight sends; do not claim faster than work completes |
+| long-tail records exceed the lease | isolate slow work or renew leases with ownership checks |
+
+Choose a lease longer than normal processing at a high percentile plus jitter,
+but short enough to meet crash-recovery objectives. Monitor oldest pending age,
+claim latency, reclaimed claims, attempts, in-flight sends, and database/broker
+saturation. Adaptive batching is useful only when it remains bounded and uses
+these signals.
+
 ## Shopverse Recommendation
 
 | Workload | Recommendation |
@@ -243,3 +297,4 @@ Detailed Shopverse examples:
 - [Transactional Outbox](../OUTBOX-PATTERN.md)
 - [Inbox and idempotent consumers](../INBOX-PATTERN.md)
 - [Scheduler Locking With ShedLock](SCHEDULER-LOCKING-SHEDLOCK.md)
+- [Spring distributed locking options](SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)

@@ -155,8 +155,8 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 | `POST` | `/api/v1/payments/admin/orders/{orderNumber}/reconcile` | resolve a timed-out payment |
 | `POST` | `/api/v1/payments/admin/orders/{orderNumber}/refund` | refund a payment |
 | `POST` | `/api/v1/payments/webhooks/provider` | provider callback baseline |
-| `GET` | `/api/v1/admin/audit-events` | list immutable admin audit events; Angular falls back to derived signals until implemented |
-| `GET` | `/api/v1/admin/audit-events/{id}` | inspect one admin audit event; planned backend contract |
+| `GET` | `/api/v1/admin/audit-events` | list paged immutable admin audit events |
+| `GET` | `/api/v1/admin/audit-events/{id}` | inspect one admin audit event |
 | `GET` | `/api/v1/orders/admin/dead-letters` | inspect Order recovery records |
 | `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | replay an Order record |
 | `GET` | `/api/v1/inventory/admin/dead-letters` | inspect Inventory recovery records |
@@ -228,6 +228,7 @@ service returns it consistently.
 | Customer order actions were placeholders | Customer cancel, payment retry, refund request, and return request are wired | split refund request from direct refund execution for production |
 | Admin fulfillment was missing | Admin pack, ship/out-for-delivery, deliver, and cancel transitions exist | add admin audit comments and carrier/tracking metadata |
 | Payment retry/refund lacked customer-facing APIs | Payment retry/refund endpoints now exist and emit terminal outbox events | provider idempotency keys, webhook signature verification, retry limits |
+| Admin activity was derived only from current state | User Service persists immutable admin audit events and Angular Admin Activity reads the audit API first | emit audit events from Order, Inventory, Payment, and recovery workflows |
 
 ## Complete POC Demo
 
@@ -250,7 +251,8 @@ service returns it consistently.
 17. Move a confirmed order through pack, ship, out-for-delivery, and deliver.
 18. Request a return as the owning customer after delivery.
 19. Cancel another reserved order and verify Inventory releases stock.
-20. Inspect and replay a persisted dead-letter record after correcting its cause.
+20. Inspect admin audit events through `GET /api/v1/admin/audit-events?area=USERS&size=10&sortBy=occurredAt&direction=DESC`.
+21. Inspect and replay a persisted dead-letter record after correcting its cause.
 
 See [Features and demos](../reference/FEATURES-AND-DEMOS.md) for failure demonstrations.
 

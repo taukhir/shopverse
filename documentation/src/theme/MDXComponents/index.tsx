@@ -10,6 +10,7 @@ import {
   TopicCards,
   VersionTabs,
 } from '@site/src/components/DocPatterns';
+import {SearchableQuestionTable} from '@site/src/components/SearchableQuestionTable';
 
 export default {
   ...OriginalMDXComponents,
@@ -22,4 +23,5 @@ export default {
   ExpandableAnswer,
   TopicCards,
   VersionTabs,
+  SearchableQuestionTable,
 };

@@ -54,7 +54,8 @@ const missingNext = pages.filter((page) => ['Learning Path', 'Tutorial', 'Decisi
 const sidebar = await readFile(join(root, 'sidebars.ts'), 'utf8');
 const orphanPages = pages.filter((page) => {
   const id = page.path.replace(/\.(md|mdx)$/, '');
-  return !sidebar.includes(`'${id}'`) && !sidebar.includes(`id: '${id}'`) && !page.path.includes('/adr/');
+  const intentionallyUnlisted = /^sidebar_exclude:\s*true\s*$/m.test(page.content);
+  return !intentionallyUnlisted && !sidebar.includes(`'${id}'`) && !sidebar.includes(`id: '${id}'`) && !page.path.includes('/adr/');
 });
 
 console.log(`Documentation structure audit: ${pages.length} pages`);
@@ -76,4 +77,6 @@ sample('Text-heavy without images', textHeavy);
 sample('Missing recommended next', missingNext);
 sample('Potential sidebar orphans', orphanPages);
 
-if (process.argv.includes('--strict') && (duplicateGroups.length || orphanPages.length)) process.exitCode = 1;
+if (process.argv.includes('--strict')
+    && (duplicateGroups.length || missingOfficial.length || textHeavy.length
+      || missingNext.length || orphanPages.length)) process.exitCode = 1;

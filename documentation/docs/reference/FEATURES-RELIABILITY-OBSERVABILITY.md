@@ -216,6 +216,24 @@ CircuitBreaker with fallbacks on selected boundaries.
 4. Confirm Hibernate validation succeeds.
 5. Create/update entities and inspect audit timestamps.
 
+### Admin Audit Events
+
+**Purpose:** keep operator-facing account and administration changes queryable
+without depending only on logs or the current UI state.
+
+**Demo**
+
+1. Log in as an administrator.
+2. Perform a User Service administration or account change.
+3. Query `GET /api/v1/admin/audit-events?area=USERS&size=10`.
+4. Open one record through `GET /api/v1/admin/audit-events/{id}`.
+5. Open the Angular Admin Activity page and confirm it uses backend audit data
+   before falling back to derived operational signals.
+
+The current implementation records User Service account, user, role, and
+permission events. Extending the same audit surface to Order, Inventory,
+Payment, and DLT recovery workflows remains a production hardening item.
+
 ## Testing And Delivery
 
 Shopverse contains unit, controller/security, integration, and Testcontainers

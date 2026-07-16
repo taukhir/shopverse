@@ -136,6 +136,11 @@ The publisher should not hold a database lock while waiting for Kafka:
 
 This protects the database from slow Kafka brokers and keeps row locks short.
 
+Shopverse currently loads a bounded set of pending IDs and claims each event
+with a per-row pessimistic lock before publishing. The higher-throughput target
+is an atomic bounded `SKIP LOCKED` batch claim; batching a plain `SELECT` alone
+would not prevent two replicas from selecting the same records.
+
 ```mermaid
 sequenceDiagram
     participant Publisher
@@ -228,4 +233,6 @@ Verification checklist:
 - [SAGA implementation guide](SAGA-IMPLEMENTATION-GUIDE.md)
 - [Choreography SAGA and transactional outbox](SAGA-OUTBOX.md)
 - [Database locking and work claims](locking/DATABASE-LOCKING-AND-CLAIMS.md)
+- [Spring distributed locking options](locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)
+- [Change data capture in microservices](../architecture/CHANGE-DATA-CAPTURE.md)
 - [Micrometer metrics](../observability/MICROMETER-METRICS.md)

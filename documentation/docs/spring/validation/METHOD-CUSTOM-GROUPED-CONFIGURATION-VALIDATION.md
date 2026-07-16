@@ -24,6 +24,33 @@ Method validation, custom constraints, groups, and configuration validation solv
 different problems. Use each only when the simpler DTO constraint model cannot
 express the required boundary clearly.
 
+## Valid Versus Validated
+
+Both annotations can ask Spring MVC to validate a bound request object, but they
+have different ownership and capabilities.
+
+| Concern | `@Valid` | `@Validated` |
+|---|---|---|
+| Declared by | Jakarta Validation | Spring Framework |
+| Default-group request DTO validation | yes | yes |
+| Select validation groups | no | yes, for example `@Validated(OnCreate.class)` |
+| Cascade into a nested property | place `@Valid` on that property or type use | does not replace the nested `@Valid` cascade marker |
+| Proxy-based service method validation | marks cascaded arguments; does not activate the proxy | class-level annotation commonly activates method-validation advice and can select groups |
+| Modern Spring MVC method validation | direct constraints trigger built-in method validation | class-level use selects the older AOP-proxy path; remove it to use MVC's built-in Spring Framework 6.1+ path |
+
+For a simple `@RequestBody`, prefer `@Valid`. Use `@Validated` when a genuine
+group must be selected or when a non-MVC Spring bean intentionally uses
+proxy-based method validation. Neither annotation makes nested validation happen
+automatically: each nested boundary that must be traversed still needs `@Valid`.
+
+<DocCallout type="mistake" title="Method validation is version and boundary dependent">
+The common interview shortcut “`@Valid` cannot validate method parameters, while
+`@Validated` can” is too broad. In Spring Framework 6.1+, MVC has built-in method
+validation when constraints are declared directly on controller parameters or
+return values. Service method validation still normally relies on a Spring proxy
+activated with class-level `@Validated`.
+</DocCallout>
+
 ## Version-Aware MVC Method Validation
 
 Spring Framework 6.1 and later provides built-in MVC validation for controller

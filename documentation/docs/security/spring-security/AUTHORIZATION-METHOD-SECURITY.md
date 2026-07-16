@@ -151,6 +151,10 @@ They are useful when policies span many languages or services, but add network,
 availability, policy-versioning, and audit complexity. Shopverse does not
 currently use an external policy engine.
 
+For role explosion, oversized JWTs, tenant-scoped bindings, authorization
+versions, permission caches, invalidation, and policy-decision failure behavior,
+see [Distributed Authorization At Permission Scale](DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE.md).
+
 
 ## Method Security
 
@@ -252,7 +256,6 @@ boundary so alternate controllers and messaging adapters cannot bypass it.
 ## Recommended Next
 
 Practise combined policies in [Threat-Modelling And Interview Lab](./THREAT-MODELING-INTERVIEW-LAB.md).
-
 
 
 

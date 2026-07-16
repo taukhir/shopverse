@@ -65,15 +65,85 @@ The correlation ID is especially important for a SAGA because the business
 journey can continue after the original HTTP request and technical trace have
 finished.
 
-## Three Identifiers
+## Four Different Identifiers
 
 | Identifier | Scope | Created by | Main use |
 |---|---|---|---|
+| Idempotency key | One retryable business command | Client or command producer | Ensure retries return one durable business outcome |
 | Correlation ID | Business journey | Gateway/service or caller | Find all checkout logs and events |
 | Trace ID | One distributed technical trace | Micrometer Tracing | Connect HTTP/Kafka spans in Zipkin |
 | Span ID | One operation in a trace | Micrometer Tracing | Identify a specific server, client, or messaging operation |
 
 A SAGA can outlive one HTTP trace. Its correlation ID remains stable while trace IDs may differ between delayed Kafka operations.
+
+These values are not substitutes merely because they are UUID-like:
+
+- an idempotency key changes database/business behavior and must be persisted
+  with a scoped command fingerprint and outcome;
+- a correlation ID groups a business journey for support, logs, events and
+  recovery, but does not prevent duplicate work;
+- a trace ID groups one instrumented technical execution tree and is propagated
+  using tracing standards such as W3C `traceparent`;
+- a span ID identifies the current operation inside that trace and normally
+  changes at every server, client, database or messaging span.
+
+The `traceparent` header transports trace context, including a trace ID and the
+upstream parent span ID. The receiving tracing library creates its own local
+span ID. Application code should not invent or copy span IDs manually.
+
+## Idempotency Key Is Not An Observability Identifier
+
+For order creation:
+
+```http
+POST /api/v1/orders/checkout
+Idempotency-Key: <stable-key-for-this-command>
+X-Correlation-Id: <business-journey-reference>
+traceparent: 00-<trace-id>-<parent-span-id>-01
+```
+
+If the client times out and retries, it reuses the idempotency key for the same
+command. A retry can start a new trace and therefore have a different trace ID.
+Shopverse can retain the same correlation ID when the retry belongs to the same
+checkout journey, while each service operation receives a new span ID.
+
+Do not use a trace ID or correlation ID as the database uniqueness key for an
+Order. Trace sampling, retries, async boundaries and support workflows have
+different lifecycles from the business command. Conversely, do not use the
+idempotency key as a tracing parent or metric label.
+
+## Do We Need All Four?
+
+| Context | Recommended identifiers |
+|---|---|
+| simple synchronous read in a small service | trace/span when tracing is enabled; separate correlation ID is optional |
+| synchronous mutation that cannot cause duplicate harm | trace/span; correlation ID if a client support reference is valuable |
+| retryable order, payment, booking or reservation command | idempotency key plus trace/span |
+| long-running Shopverse checkout SAGA | idempotency key, correlation ID, trace ID and span ID |
+| scheduled or message-driven business workflow | stable command/message idempotency key, business correlation ID, and instrumentation-owned trace/span context |
+
+You do not add all four headers manually to every endpoint. Require an
+idempotency key only on retry-sensitive commands. Keep a separate correlation ID
+when a business journey can cross multiple traces or must be exposed to support.
+Let Micrometer/OpenTelemetry create and propagate trace and span IDs whenever
+distributed tracing is enabled. In a small synchronous system, the trace ID can
+also serve log-correlation needs, eliminating a separate correlation ID.
+
+For Shopverse checkout, all four concepts are useful because they answer four
+different questions:
+
+| Question | Identifier |
+|---|---|
+| Did this retry already create an Order? | idempotency key |
+| Which logs/events belong to the complete checkout SAGA? | correlation ID |
+| Where did this particular execution travel and spend time? | trace ID |
+| Which exact call/listener/database operation was slow or failed? | span ID |
+
+Treat all incoming identifiers as untrusted metadata: validate accepted
+correlation/idempotency formats and lengths, allowlist tracing propagation
+formats, and never use any identifier for authentication or authorization.
+Keep high-cardinality IDs out of metric labels; retain them in logs, traces and
+appropriately indexed business records.
 
 ## Why Correlation ID Is Not Just A Trace ID
 

@@ -15,6 +15,7 @@ import io.shopverse.user_service.model.RoleFilter;
 import io.shopverse.user_service.model.UpdateRoleRequest;
 import io.shopverse.user_service.repository.RoleRepository;
 import io.shopverse.user_service.repository.specification.RoleSpecifications;
+import io.shopverse.user_service.service.AdminAuditEventService;
 import io.shopverse.user_service.service.LookupService;
 import io.shopverse.user_service.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
     private final LookupService lookupService;
+    private final AdminAuditEventService adminAuditEventService;
 
     @Override
     public PageResponse<RoleResponse> getRoles(RoleFilter filter, Pageable pageable) {
@@ -61,7 +63,9 @@ public class RoleServiceImpl implements RoleService {
                 .permissions(resolvePermissions(request.permissions()))
                 .build();
 
-        return UserMapper.toRoleResponse(roleRepository.save(role));
+        Role savedRole = roleRepository.save(role);
+        recordRoleAudit(savedRole, "ROLE_CREATED", "Role created");
+        return UserMapper.toRoleResponse(savedRole);
     }
 
     @Override
@@ -85,7 +89,9 @@ public class RoleServiceImpl implements RoleService {
             role.setPermissions(resolvePermissions(request.permissions()));
         }
 
-        return UserMapper.toRoleResponse(roleRepository.save(role));
+        Role savedRole = roleRepository.save(role);
+        recordRoleAudit(savedRole, "ROLE_UPDATED", "Role updated");
+        return UserMapper.toRoleResponse(savedRole);
     }
 
     @Override
@@ -97,6 +103,23 @@ public class RoleServiceImpl implements RoleService {
             throw new ResourceInUseException("Role is assigned to one or more users");
         }
         roleRepository.delete(role);
+        recordRoleAudit(role, "ROLE_DELETED", "Role deleted");
+    }
+
+    private void recordRoleAudit(Role role, String action, String title) {
+        adminAuditEventService.record(
+                "USERS",
+                action,
+                title,
+                "SUCCESS",
+                role.getRoleName(),
+                title + ": " + role.getRoleName(),
+                title + ": " + role.getRoleName(),
+                "ROLE",
+                String.valueOf(role.getId()),
+                null,
+                java.util.Map.of("roleName", role.getRoleName())
+        );
     }
 
     private Role findRole(Long id) {
