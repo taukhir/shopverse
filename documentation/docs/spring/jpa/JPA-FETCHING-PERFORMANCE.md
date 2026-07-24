@@ -12,6 +12,9 @@ last_reviewed: "2026-07-13"
 
 # JPA Fetching Performance And N Plus One
 
+Use the [PostgreSQL JPA Performance And Concurrency Lab](../architect-labs/POSTGRES-JPA-PERFORMANCE-LAB.md)
+to validate indexing, pagination and pool conclusions against a real PostgreSQL engine.
+
 <DocLabels items={[
   {label: 'Advanced', tone: 'advanced'},
   {label: 'Fetch plans', tone: 'foundation'},

@@ -60,6 +60,8 @@ const sidebars: SidebarsConfig = {
       label: '1. Engineering Foundations',
       collapsed: false,
       items: [
+        'development/ENGINEERING-FOUNDATIONS-OVERVIEW',
+        'architecture/ARCHITECTURE-OVERVIEW',
         {
           type: 'category',
           label: 'Engineering Principles',
@@ -80,10 +82,13 @@ const sidebars: SidebarsConfig = {
               link: {type: 'doc', id: 'development/design-patterns/CREATIONAL-PATTERNS'},
               items: [
                 'development/design-patterns/factory',
+                'development/design-patterns/abstract-factory',
                 'development/design-patterns/builder',
+                'development/design-patterns/prototype',
                 'development/design-patterns/singleton',
               ],
             },
+            'development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET',
             {
               type: 'category',
               label: 'Structural Patterns',
@@ -122,6 +127,7 @@ const sidebars: SidebarsConfig = {
                 'architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD',
                 'architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS',
                 'architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK',
+                'architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG',
                 'architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS',
                 'architecture/system-design-deep-dives/INTERVIEW-RUBRIC',
                 {
@@ -142,6 +148,7 @@ const sidebars: SidebarsConfig = {
               type: 'category',
               label: 'HLD',
               items: [
+                'architecture/hld-lld/HLD-INTERVIEW-WORKBOOK',
                 'architecture/hld-lld/HLD-FUNDAMENTALS',
                 'architecture/hld-lld/hld/INTRODUCTION-TO-HLD',
                 'architecture/hld-lld/NON-FUNCTIONAL-REQUIREMENTS',
@@ -175,6 +182,7 @@ const sidebars: SidebarsConfig = {
               type: 'category',
               label: 'LLD',
               items: [
+                'architecture/hld-lld/LLD-INTERVIEW-WORKBOOK',
                 'architecture/hld-lld/LLD-EXAMPLES-DIAGRAMS',
                 'architecture/hld-lld/UML-DIAGRAMS',
                 'architecture/hld-lld/ERD-DIAGRAMS',
@@ -188,6 +196,28 @@ const sidebars: SidebarsConfig = {
           label: 'Leadership And Architecture',
           link: {type: 'doc', id: 'leadership/LEADERSHIP-ARCHITECTURE-SCENARIOS'},
           items: [
+            {
+              type: 'category',
+              label: 'Architect Practice And Evidence',
+              link: {type: 'doc', id: 'leadership/ARCHITECT-PRACTICE-EVIDENCE-PATH'},
+              items: [
+                'leadership/architect-practice/ARCHITECT-RUNTIME-DESIGN-REASONING',
+                'leadership/architect-practice/ARCHITECT-FAILURE-DIAGNOSIS',
+                'leadership/architect-practice/ARCHITECT-SCALE-SECURITY-TRADEOFFS',
+                'leadership/architect-practice/ARCHITECT-PRODUCTION-EVIDENCE-WORKBOOK',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Architecture Portfolio And Mock Interviews',
+              link: {type: 'doc', id: 'leadership/ARCHITECTURE-PORTFOLIO-MOCK-INTERVIEW-PROGRAM'},
+              items: [
+                'leadership/interview-program/ARCHITECTURE-PORTFOLIO-BUILDING',
+                'leadership/interview-program/MOCK-INTERVIEW-FORMATS-QUESTION-BANK',
+                'leadership/interview-program/SYSTEM-DESIGN-BEHAVIORAL-LEADERSHIP-ROUNDS',
+                'leadership/interview-program/TWELVE-WEEK-PREPARATION-PROGRAM',
+              ],
+            },
             'leadership/MONOLITH-TO-MICROSERVICES-STRATEGY',
             'leadership/ENGINEERING-LEADERSHIP-PRACTICES',
             'leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS',
@@ -214,6 +244,26 @@ const sidebars: SidebarsConfig = {
             'data-structures/DATA-STRUCTURES-FUNDAMENTALS',
             'data-structures/LINEAR-DATA-STRUCTURES',
             'data-structures/NON-LINEAR-DATA-STRUCTURES',
+            {
+              type: 'category',
+              label: 'Java Programming Interviews',
+              link: {type: 'doc', id: 'data-structures/programming/JAVA-PROGRAMMING-INTERVIEW-PATH'},
+              items: [
+                {
+                  type: 'category',
+                  label: 'Arrays',
+                  link: {type: 'doc', id: 'data-structures/programming/arrays/ARRAYS-OVERVIEW'},
+                  items: [
+                    'data-structures/programming/arrays/TWO-SUM-FAMILY',
+                    'data-structures/programming/arrays/ARRAY-PROBLEMS-01-10',
+                    'data-structures/programming/arrays/ARRAY-PROBLEMS-11-20',
+                    'data-structures/programming/arrays/ARRAY-PROBLEMS-21-30',
+                    'data-structures/programming/arrays/ARRAY-30-PROBLEM-ROADMAP',
+                    'data-structures/programming/arrays/ARRAY-INTERVIEW-REVISION',
+                  ],
+                },
+              ],
+            },
             'data-structures/DSA-INTERVIEW-QUESTION-BANK',
           ],
         },
@@ -326,6 +376,48 @@ const sidebars: SidebarsConfig = {
           link: {type: 'doc', id: 'java/JAVA-COLLECTIONS'},
           items: [
             'java/collections/COLLECTION-CONTRACTS-AND-SELECTION',
+            {
+              type: 'category',
+              label: 'List',
+              link: {type: 'doc', id: 'java/collections/list/LIST-OVERVIEW'},
+              items: [
+                'java/collections/list/ARRAYLIST-INTERNALS',
+                'java/collections/list/LINKEDLIST-INTERNALS',
+                'java/collections/list/COPYONWRITEARRAYLIST-INTERNALS',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Set',
+              link: {type: 'doc', id: 'java/collections/set/SET-OVERVIEW'},
+              items: [
+                'java/collections/set/HASHSET-INTERNALS',
+                'java/collections/set/LINKEDHASHSET-INTERNALS',
+                'java/collections/set/TREESET-INTERNALS',
+                'java/collections/set/ENUMSET-INTERNALS',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Map',
+              link: {type: 'doc', id: 'java/collections/map/MAP-OVERVIEW'},
+              items: [
+                'java/collections/map/HASHMAP-INTERNALS',
+                'java/collections/map/LINKEDHASHMAP-INTERNALS',
+                'java/collections/map/TREEMAP-INTERNALS',
+                'java/collections/map/ENUMMAP-INTERNALS',
+                'java/JAVA-CONCURRENT-HASHMAP-OPENJDK',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Queue And Deque',
+              link: {type: 'doc', id: 'java/collections/queue/QUEUE-DEQUE-OVERVIEW'},
+              items: [
+                'java/collections/queue/ARRAYDEQUE-INTERNALS',
+                'java/collections/queue/PRIORITYQUEUE-INTERNALS',
+              ],
+            },
             'java/collections/LIST-SET-MAP-CHOICES',
             'java/collections/SAFE-COLLECTION-MUTATION',
             'java/JAVA-COLLECTION-INTERNALS',
@@ -333,7 +425,6 @@ const sidebars: SidebarsConfig = {
             'java/JAVA-COLLECTION-IMPLEMENTATIONS-ARCHITECT',
             'java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS',
             'java/JAVA-HASH-COLLECTIONS-DEEP-DIVE',
-            'java/JAVA-CONCURRENT-HASHMAP-OPENJDK',
           ],
         },
         {
@@ -466,6 +557,21 @@ const sidebars: SidebarsConfig = {
         'spring/SPRING-ARCHITECT-PATH',
         {
           type: 'category',
+          label: 'Spring Cloud Architect Path',
+          link: {type: 'doc', id: 'spring/SPRING-CLOUD-ARCHITECT-PATH'},
+          items: [
+            'spring/cloud/SPRING-CLOUD-CONFIG',
+            'spring/cloud/SPRING-CLOUD-DISCOVERY-CLIENTS',
+            'spring/cloud/SPRING-CLOUD-RESILIENCE-GATEWAY',
+            'spring/cloud/SPRING-CLOUD-RUNTIME-INTERNALS',
+            'spring/cloud/SPRING-CLOUD-KUBERNETES-CONTRACT',
+            'spring/cloud/SPRING-CLOUD-ECOSYSTEM-GOVERNANCE',
+            'spring/cloud/SPRING-CLOUD-OPERATIONS',
+            'spring/cloud/SPRING-CLOUD-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Container And Configuration',
           link: {type: 'doc', id: 'development/SPRING-BOOT-INTERNALS'},
           items: [
@@ -542,16 +648,45 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'Data JPA And Hibernate',
-          link: {type: 'doc', id: 'spring/SPRING-DATA-JPA'},
+          label: 'Spring Data Architect Path',
+          link: {type: 'doc', id: 'spring/SPRING-DATA-ARCHITECT-PATH'},
           items: [
-            'spring/jpa/JPA-BASICS-ENTITY-MAPPING',
-            'spring/jpa/JPA-RELATIONSHIPS-JSON',
-            'spring/jpa/JPA-REPOSITORIES-QUERIES',
-            'spring/jpa/JPA-FETCHING-PERFORMANCE',
-            'spring/jpa/JPA-TRANSACTIONS-LOCKING',
-            'spring/jpa/JPA-AUDITING-DELETING-TESTING',
-            'spring/SPRING-JPA-HIBERNATE-ARCHITECT',
+            'spring/data/SPRING-DATA-COMMONS-INTERNALS',
+            'spring/data/SPRING-DATA-REPOSITORIES-PAGING-AUDITING',
+            {
+              type: 'category',
+              label: 'Data JPA And Hibernate',
+              link: {type: 'doc', id: 'spring/SPRING-DATA-JPA'},
+              items: [
+                'spring/jpa/JPA-BASICS-ENTITY-MAPPING',
+                'spring/jpa/JPA-RELATIONSHIPS-JSON',
+                'spring/jpa/JPA-REPOSITORIES-QUERIES',
+                'spring/jpa/JPA-FETCHING-PERFORMANCE',
+                'spring/jpa/JPA-TRANSACTIONS-LOCKING',
+                'spring/jpa/JPA-AUDITING-DELETING-TESTING',
+                'spring/jpa/JPA-ADVANCED-REPOSITORIES-ROUTING',
+                'spring/SPRING-JPA-HIBERNATE-ARCHITECT',
+              ],
+            },
+            'spring/data/SPRING-DATA-JDBC',
+            'spring/data/SPRING-DATA-R2DBC',
+            {
+              type: 'category',
+              label: 'Spring Data Cassandra',
+              link: {type: 'doc', id: 'spring/SPRING-DATA-CASSANDRA'},
+              items: [
+                'spring/cassandra/SPRING-CASSANDRA-MAPPING-REPOSITORIES',
+                'spring/cassandra/SPRING-CASSANDRA-PRODUCTION-REACTIVE-TESTING',
+                'spring/cassandra/SPRING-CASSANDRA-ADVANCED-DRIVER',
+              ],
+            },
+            'spring/data/SPRING-DATA-MONGODB',
+            'spring/data/SPRING-DATA-REDIS',
+            'spring/data/SPRING-DATA-ELASTICSEARCH',
+            'spring/data/SPRING-DATA-MULTISTORE-CONSISTENCY',
+            'spring/data/SPRING-DATA-TESTING-OPERATIONS',
+            'spring/data/SPRING-DATA-OPTIONAL-MODULES',
+            'spring/data/SPRING-DATA-INTERVIEW-REVISION',
           ],
         },
         {
@@ -573,6 +708,7 @@ const sidebars: SidebarsConfig = {
                 'spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY',
                 'spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY',
                 'spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE',
+                'spring/kafka/SPRING-KAFKA-ADVANCED',
               ],
             },
           ],
@@ -593,6 +729,17 @@ const sidebars: SidebarsConfig = {
           label: 'Spring Testing And Quality',
           link: {type: 'doc', id: 'spring/SPRING-BOOT-TESTING'},
           items: [
+            {
+              type: 'category',
+              label: 'TDD And BDD Engineering',
+              link: {type: 'doc', id: 'spring/TDD-BDD-ENGINEERING-PATH'},
+              items: [
+                'spring/testing/TDD-WORKFLOW-DESIGN',
+                'spring/testing/BDD-DISCOVERY-SPECIFICATIONS',
+                'spring/testing/TDD-BDD-SPRING-PRODUCTION',
+                'spring/testing/TDD-BDD-INTERVIEW-REVISION',
+              ],
+            },
             'spring/testing/JUNIT-TESTING-FUNDAMENTALS',
             'spring/testing/MOCKITO-UNIT-TESTING',
             'spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE',
@@ -627,6 +774,9 @@ const sidebars: SidebarsConfig = {
                 'spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES',
                 'spring/architect-labs/KAFKA-REPLAY-IDEMPOTENCY',
                 'spring/architect-labs/DATABASE-CACHE-CONSISTENCY',
+                'spring/architect-labs/SPRING-DATA-REPOSITORY-INTERNALS-LAB',
+                'spring/architect-labs/POSTGRES-JPA-PERFORMANCE-LAB',
+                'spring/architect-labs/TRANSACTIONAL-OUTBOX-INBOX-CDC-LAB',
               ],
             },
           ],
@@ -653,6 +803,7 @@ const sidebars: SidebarsConfig = {
               label: 'Spring Interview Preparation',
               link: {type: 'doc', id: 'spring/SPRING-INTERVIEW-PREPARATION'},
               items: [
+                'spring/SPRING-REVISION-SHEET',
                 'spring/SPRING-ECOSYSTEM-INTERVIEW',
                 'spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW',
                 'spring/interview/SPRING-WEB-DATA-INTERVIEW',
@@ -681,12 +832,15 @@ const sidebars: SidebarsConfig = {
             'spring/SPRING-MVC-SECURITY-RUNTIME',
           ],
         },
+        'architecture/ARCHITECTURE-REVISION-SHEET',
+        'development/ENGINEERING-FOUNDATIONS-REVISION',
       ],
     },
     {
       type: 'category',
       label: '4. Data And Persistence',
       items: [
+        'data/DATA-PERSISTENCE-OVERVIEW',
         {
           type: 'category',
           label: 'Database Engineering',
@@ -722,6 +876,40 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'Apache Cassandra Architect Path',
+          link: {type: 'doc', id: 'data/CASSANDRA-ARCHITECT-PATH'},
+          items: [
+            'data/cassandra/CASSANDRA-ARCHITECTURE-CONSISTENCY',
+            'data/cassandra/CASSANDRA-CQL-DATA-MODELING',
+            'data/cassandra/CASSANDRA-STORAGE-INDEXES',
+            'data/cassandra/CASSANDRA-OPERATIONS-CAPACITY',
+            'data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Oracle Database Architect Path',
+          link: {type: 'doc', id: 'data/ORACLE-DATABASE-ARCHITECT-PATH'},
+          items: [
+            'data/oracle/ORACLE-ARCHITECTURE-STORAGE-INTERNALS',
+            'data/oracle/ORACLE-SQL-OPTIMIZER-CONCURRENCY',
+            'data/oracle/ORACLE-HA-OPERATIONS',
+            'data/oracle/ORACLE-SPRING-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Elasticsearch Architect Path',
+          link: {type: 'doc', id: 'data/ELASTICSEARCH-ARCHITECT-PATH'},
+          items: [
+            'data/elasticsearch/ELASTICSEARCH-INTERNALS-MAPPING',
+            'data/elasticsearch/ELASTICSEARCH-QUERY-RELEVANCE',
+            'data/elasticsearch/ELASTICSEARCH-OPERATIONS',
+            'data/elasticsearch/ELASTICSEARCH-SPRING-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Hibernate',
           items: [
             'data/HIBERNATE',
@@ -735,6 +923,7 @@ const sidebars: SidebarsConfig = {
         },
         'data/LIQUIBASE-GENERIC',
         'architecture/CACHING-GENERIC',
+        'data/DATABASE-REVISION-SHEET',
       ],
     },
     {
@@ -742,6 +931,7 @@ const sidebars: SidebarsConfig = {
       label: '5. Microservices And Distributed Systems',
       link: {type: 'doc', id: 'architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS'},
       items: [
+        'reliability/RELIABILITY-OVERVIEW',
         {
           type: 'category',
           label: 'Architect Path And Practice',
@@ -840,8 +1030,61 @@ const sidebars: SidebarsConfig = {
           items: [
             'integration/MESSAGING-PLATFORM-SELECTION',
             'integration/APACHE-KAFKA',
+            {
+              type: 'category',
+              label: 'Event Streaming Application Platforms',
+              link: {type: 'doc', id: 'integration/EVENT-STREAMING-APPLICATION-PATH'},
+              items: [
+                {
+                  type: 'category',
+                  label: 'Spring Cloud Stream',
+                  link: {type: 'doc', id: 'integration/streaming/SPRING-CLOUD-STREAM-OVERVIEW'},
+                  items: [
+                    'integration/streaming/SPRING-CLOUD-STREAM-FUNCTIONS-BINDINGS',
+                    'integration/streaming/SPRING-CLOUD-STREAM-KAFKA-PRODUCTION',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Kafka Streams',
+                  link: {type: 'doc', id: 'integration/streaming/KAFKA-STREAMS-OVERVIEW'},
+                  items: [
+                    'integration/streaming/KAFKA-STREAMS-STATEFUL-PRODUCTION',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Kafka Connect',
+                  link: {type: 'doc', id: 'integration/streaming/KAFKA-CONNECT-OVERVIEW'},
+                  items: [
+                    'integration/streaming/KAFKA-CONNECT-CDC-PRODUCTION',
+                  ],
+                },
+                'integration/streaming/EVENT-STREAMING-INTERVIEW-REVISION',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Kafka Architect Path',
+              link: {type: 'doc', id: 'integration/KAFKA-ARCHITECT-PATH'},
+              items: [
+                'integration/KAFKA-ARCHITECT-OVERVIEW',
+                'integration/kafka/KAFKA-INTERNALS',
+                'integration/kafka/KAFKA-SECURITY-OPERATIONS',
+                'integration/kafka/KAFKA-ECOSYSTEM',
+                'integration/kafka/KAFKA-ARCHITECT-LABS',
+                'integration/KAFKA-REVISION-SHEET',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'RabbitMQ And Spring AMQP',
+              link: {type: 'doc', id: 'integration/RABBITMQ-SPRING-AMQP-ARCHITECT-PATH'},
+              items: ['integration/rabbitmq/RABBITMQ-OPERATIONS-INTERVIEW'],
+            },
           ],
         },
+        'reliability/RELIABILITY-REVISION-SHEET',
       ],
     },
     {
@@ -849,6 +1092,7 @@ const sidebars: SidebarsConfig = {
       label: '6. Security',
       link: {type: 'doc', id: 'security/README'},
       items: [
+        'security/SECURITY-REVISION-SHEET',
         {
           type: 'category',
           label: 'Security Principles',
@@ -870,6 +1114,12 @@ const sidebars: SidebarsConfig = {
             'security/platform/SECURITY-INTERVIEW-WORKBOOK',
             'security/SUPPLY-CHAIN-PRIVACY',
           ],
+        },
+        {
+          type: 'category',
+          label: 'Vault And Kubernetes Secrets',
+          link: {type: 'doc', id: 'security/VAULT-KUBERNETES-SECRETS-PATH'},
+          items: ['security/secrets/SECRETS-IMPLEMENTATION-OPERATIONS-INTERVIEW'],
         },
         {
           type: 'category',
@@ -956,6 +1206,8 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: '7. Logging And Observability',
       items: [
+        'observability/OBSERVABILITY-OVERVIEW',
+        'observability/OBSERVABILITY',
         'observability/LOGGING-GENERIC',
         'observability/PII-SAFE-LOGGING',
         'observability/MDC-GENERIC',
@@ -974,6 +1226,7 @@ const sidebars: SidebarsConfig = {
         'observability/GRAFANA',
         'observability/OBSERVABILITY-IMPLEMENTATION-GUIDE',
         'observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE',
+        'observability/OBSERVABILITY-REVISION-SHEET',
       ],
     },
     {
@@ -981,7 +1234,121 @@ const sidebars: SidebarsConfig = {
       label: '8. Delivery, Containers And CI/CD',
       items: [
         'operations/README',
-        'operations/KUBERNETES-WORKLOAD-ENGINEERING',
+        {
+          type: 'category',
+          label: 'Maven Engineering Path',
+          link: {type: 'doc', id: 'operations/MAVEN-ENGINEERING-PATH'},
+          items: [
+            'operations/maven/MAVEN-POM-LIFECYCLE-PLUGINS',
+            'operations/maven/MAVEN-DEPENDENCIES-REACTOR',
+            'operations/maven/MAVEN-CI-SECURITY-REPRODUCIBILITY',
+            'operations/maven/MAVEN-TROUBLESHOOTING-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Terraform And OpenTofu IaC',
+          link: {type: 'doc', id: 'operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH'},
+          items: ['operations/iac/IAC-IMPLEMENTATION-OPERATIONS-INTERVIEW'],
+        },
+        {
+          type: 'category',
+          label: 'Performance And Chaos Engineering',
+          link: {type: 'doc', id: 'operations/PERFORMANCE-CHAOS-ENGINEERING-PATH'},
+          items: ['operations/performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW'],
+        },
+        {
+          type: 'category',
+          label: 'Platform Engineering And Golden Paths',
+          link: {type: 'doc', id: 'operations/PLATFORM-ENGINEERING-GOLDEN-PATH'},
+          items: ['operations/platform-engineering/PLATFORM-OPERATIONS-INTERVIEW'],
+        },
+        'operations/SHELL-AUTOMATION-ENGINEERING-PATH',
+        {
+          type: 'category',
+          label: 'Helm, GitOps And Argo CD',
+          link: {type: 'doc', id: 'operations/HELM-GITOPS-ARGOCD-PATH'},
+          items: [
+            'operations/helm-gitops/HELM-CHART-ENGINEERING',
+            'operations/helm-gitops/GITOPS-DELIVERY-DESIGN',
+            'operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS',
+            'operations/helm-gitops/HELM-GITOPS-ARGOCD-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Linux Production Troubleshooting',
+          link: {type: 'doc', id: 'operations/LINUX-PRODUCTION-TROUBLESHOOTING-PATH'},
+          items: [
+            'operations/linux/LINUX-PROCESS-CPU-MEMORY',
+            'operations/linux/LINUX-FILESYSTEM-STORAGE',
+            'operations/linux/LINUX-SERVICES-NETWORK-CONTAINERS',
+            'operations/linux/LINUX-INCIDENT-LABS-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Kubernetes Beginner-To-Architect',
+          link: {type: 'doc', id: 'operations/KUBERNETES-ARCHITECT-PATH'},
+          items: [
+            {
+              type: 'category',
+              label: '1. Foundations And Client Access',
+              items: [
+                'operations/KUBERNETES-WORKLOAD-ENGINEERING',
+                'operations/kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS',
+                'operations/kubernetes/KUBERNETES-KUBECONFIG-ACCESS',
+                'operations/kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS',
+              ],
+            },
+            {
+              type: 'category',
+              label: '2. Workloads And Data Plane',
+              items: [
+                'operations/kubernetes/KUBERNETES-WORKLOADS-SCHEDULING',
+                'operations/kubernetes/KUBERNETES-NETWORKING-SERVICES',
+                'operations/kubernetes/KUBERNETES-STORAGE-STATEFUL',
+              ],
+            },
+            {
+              type: 'category',
+              label: '3. Security And Platform Operations',
+              items: [
+                'operations/kubernetes/KUBERNETES-SECURITY-MULTITENANCY',
+                'operations/kubernetes/KUBERNETES-CLUSTER-OPERATIONS',
+              ],
+            },
+            {
+              type: 'category',
+              label: '4. Infrastructure And TKGI',
+              items: [
+                'operations/kubernetes/KUBERNETES-CONTAINERS-VMS-BOSH',
+                {
+                  type: 'category',
+                  label: 'TKGI Beginner-To-Architect',
+                  link: {type: 'doc', id: 'operations/kubernetes/TKGI-OVERVIEW-PATH'},
+                  items: [
+                    'operations/kubernetes/TKGI-CONTROL-PLANE-ARCHITECTURE',
+                    'operations/kubernetes/TKGI-API-SERVER-LIFECYCLE',
+                    'operations/kubernetes/TKGI-UAA-SECURITY',
+                    'operations/kubernetes/TKGI-DATABASE-STATE',
+                    'operations/kubernetes/TKGI-BOSH-LIFECYCLE',
+                    'operations/kubernetes/TKGI-HARBOR-REGISTRY',
+                    'operations/kubernetes/TKGI-CONSOLE-MONITORING',
+                    'operations/kubernetes/TKGI-ARCHITECTURE-OPERATIONS',
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'category',
+              label: '5. Troubleshooting And Revision',
+              items: [
+                'operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION',
+              ],
+            },
+          ],
+        },
         {
           type: 'category',
           label: 'Deployment Strategies',
@@ -992,8 +1359,20 @@ const sidebars: SidebarsConfig = {
             'operations/DEPLOYMENT-CONTRACTS-RELEASE-GATES',
           ],
         },
-        'operations/DOCKER',
-        'operations/DOCKER-INTERNALS-LAYERS-STORAGE',
+        {
+          type: 'category',
+          label: 'Docker Beginner-To-Architect',
+          link: {type: 'doc', id: 'operations/DOCKER-ARCHITECT-PATH'},
+          items: [
+            'operations/DOCKER',
+            'operations/DOCKER-INTERNALS-LAYERS-STORAGE',
+            'operations/docker/DOCKER-ENGINE-RUNTIME-INTERNALS',
+            'operations/docker/DOCKER-IMAGES-BUILDKIT-SUPPLY-CHAIN',
+            'operations/docker/DOCKER-STORAGE-NETWORKING-INTERNALS',
+            'operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS',
+            'operations/docker/DOCKER-TROUBLESHOOTING-INTERVIEW-REVISION',
+          ],
+        },
         'operations/MINIO',
         'operations/SHOPVERSE-DOCKER',
         'operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE',
@@ -1033,8 +1412,15 @@ const sidebars: SidebarsConfig = {
             'cloud/aws/AWS-EVENTS-STORAGE',
             'cloud/aws/AWS-LAMBDA-SERVERLESS',
             'cloud/aws/AWS-CLOUDWATCH',
+            {
+              type: 'category',
+              label: 'Amazon EKS Production Engineering',
+              link: {type: 'doc', id: 'cloud/aws/EKS-PRODUCTION-ARCHITECT-PATH'},
+              items: ['cloud/aws/eks/EKS-OPERATIONS-INTERVIEW'],
+            },
           ],
         },
+        'cloud/CLOUD-AWS-REVISION-SHEET',
       ],
     },
     {
@@ -1042,8 +1428,58 @@ const sidebars: SidebarsConfig = {
       label: '10. Production Platform Engineering',
       link: {type: 'doc', id: 'architecture/PRODUCTION-PLATFORM-ENGINEERING'},
       items: [
+        {
+          type: 'category',
+          label: 'Integrated Production Capstone',
+          link: {type: 'doc', id: 'case-study/PRODUCTION-CAPSTONE-PATH'},
+          items: ['case-study/production-capstone/CAPSTONE-IMPLEMENTATION-EVIDENCE'],
+        },
         'architecture/API-EVENT-COMPATIBILITY',
         'architecture/NETWORKING-GRPC-SERVICE-MESH',
+        {
+          type: 'category',
+          label: 'API And Event Schema Governance',
+          link: {type: 'doc', id: 'architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH'},
+          items: [
+            'architecture/governance/API-CONTRACT-GOVERNANCE',
+            'architecture/governance/EVENT-SCHEMA-REGISTRY-GOVERNANCE',
+            'architecture/governance/CONTRACT-GOVERNANCE-OPERATIONS',
+            'architecture/governance/SCHEMA-GOVERNANCE-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'DNS, TCP, TLS And HTTP/2 Diagnosis',
+          link: {type: 'doc', id: 'architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH'},
+          items: [
+            'architecture/networking/DNS-RESOLUTION-DIAGNOSIS',
+            'architecture/networking/TCP-CONNECTION-DIAGNOSIS',
+            'architecture/networking/TLS-HTTP2-DIAGNOSIS',
+            'architecture/networking/NETWORK-INCIDENT-LABS-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'gRPC And Protocol Buffers',
+          link: {type: 'doc', id: 'architecture/GRPC-PROTOBUF-ARCHITECT-PATH'},
+          items: [
+            'architecture/grpc/PROTOBUF-CONTRACT-EVOLUTION',
+            'architecture/grpc/GRPC-RUNTIME-RELIABILITY',
+            'architecture/grpc/SPRING-GRPC-PRODUCTION',
+            'architecture/grpc/GRPC-PROTOBUF-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Service Mesh',
+          link: {type: 'doc', id: 'architecture/SERVICE-MESH-ARCHITECT-PATH'},
+          items: [
+            'architecture/service-mesh/SERVICE-MESH-ARCHITECTURE-SELECTION',
+            'architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY',
+            'architecture/service-mesh/SERVICE-MESH-PRODUCTION-OPERATIONS',
+            'architecture/service-mesh/SERVICE-MESH-INTERVIEW-REVISION',
+          ],
+        },
         'architecture/ASYNC-REALTIME-DISTRIBUTED-TIME',
         'architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS',
         'data/DATA-PIPELINES-SEARCH-OPERATIONS',
@@ -1060,6 +1496,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'ai/README',
         'ai/ENTERPRISE-AI-ARCHITECTURE',
+        'ai/AI-REVISION-SHEET',
         {
           type: 'category',
           label: 'Start Here',
@@ -1246,6 +1683,7 @@ const sidebars: SidebarsConfig = {
               items: [
                 'case-study/SHOPVERSE-ARCHITECTURE-CURRENT-STATE',
                 'case-study/SHOPVERSE-ARCHITECTURE-REFACTORING-READINESS',
+                'case-study/SHOPVERSE-ARCHITECTURE-REVISION',
               ],
             },
           ],

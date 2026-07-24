@@ -1,7 +1,7 @@
 ---
 title: LLD Examples And Diagrams
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-16"
 ---
 
 
@@ -10,6 +10,10 @@ last_reviewed: "2026-07-13"
 LLD contents, class example, sequence example, and state diagram example.
 
 Back to [HLD And LLD](../HLD-LLD.md).
+
+For complete interview preparation, use the
+[LLD Interview Workbook](./LLD-INTERVIEW-WORKBOOK.md). For the full UML taxonomy
+and diagram-selection guide, use [UML Diagrams](./UML-DIAGRAMS.md).
 
 ## LLD Contents
 
@@ -99,7 +103,6 @@ State transitions should identify:
 - transaction boundary;
 - idempotent duplicate behavior;
 - failure and compensation.
-
 
 
 

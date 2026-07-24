@@ -6,7 +6,7 @@ tags: ["shopverse", "architecture", "production"]
 page_type: "Learning Path"
 difficulty: "Advanced"
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-23"
 ---
 
 <!-- split-guide-index -->
@@ -15,6 +15,10 @@ last_reviewed: "2026-07-13"
 <DocLabels items={[{label: 'Focused guides', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Architect route', tone: 'production'}]} />
 
 Relational design, query performance, distributed trade-offs, and production correctness. The original long-form material is preserved without duplication across the focused pages below.
+
+Start with the [Data And Persistence Overview](./DATA-PERSISTENCE-OVERVIEW.md) for
+the complete mental model. After the deep dives, use the
+[Database Revision Sheet](./DATABASE-REVISION-SHEET.md) for rapid recall.
 
 ```mermaid
 flowchart LR

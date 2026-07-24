@@ -6,12 +6,15 @@ tags: ["shopverse", "architecture", "production"]
 page_type: "Guide"
 difficulty: "Advanced"
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-23"
 ---
 
 # Shopverse Architecture Current State
 
 <DocLabels items={[{label: 'Advanced', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Production', tone: 'production'}]} />
+
+For a compact interview-ready summary, use the
+[Shopverse Architecture Revision Sheet](./SHOPVERSE-ARCHITECTURE-REVISION.md).
 
 ## Executive Summary
 

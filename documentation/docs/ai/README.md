@@ -2,7 +2,7 @@
 title: AI Learning Track
 sidebar_position: 1
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-23"
 ---
 
 # AI Learning Track
@@ -17,6 +17,9 @@ accuracy and latency, begin with [Enterprise AI Architecture With Spring](ENTERP
 The target level is basics to practical beginner: you should be able to explain
 core concepts clearly, draw the request flow, and demonstrate one working POC
 inside Shopverse.
+
+Use the [AI Revision Sheet](./AI-REVISION-SHEET.md) after the topic routes and
+before [Interview Q&A](./INTERVIEW-QA.md).
 
 ![Shopverse AI assistant architecture](/img/diagrams/ai-shopverse-architecture.svg)
 

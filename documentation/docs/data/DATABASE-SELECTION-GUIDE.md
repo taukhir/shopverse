@@ -47,6 +47,8 @@ backup, security, monitoring, upgrade, incident, and data-consistency work.
    SQL Server, MariaDB, and SQLite.
 4. **[Distributed SQL And NoSQL](./database-selection/DISTRIBUTED-SQL-NOSQL.md):**
    learn when CockroachDB, Cassandra, MongoDB, or DynamoDB justify their model.
+   For complete Cassandra implementation and operations, continue with the
+   **[Apache Cassandra Architect Path](./CASSANDRA-ARCHITECT-PATH.md)**.
 5. **[Specialized Databases](./database-selection/SPECIALIZED-DATABASES.md):**
    use Redis, search engines, Neo4j, and ClickHouse for specific workloads.
 6. **[Vector Databases](./database-selection/VECTOR-DATABASES.md):**

@@ -38,6 +38,9 @@ flowchart LR
   {title: 'Transaction Boundary Failures', href: './TRANSACTION-BOUNDARY-FAILURES', description: 'Reproduce rollback, proxy, propagation and remote-call failure modes.', icon: 'layers', tags: ['AOP', 'Consistency']},
   {title: 'Kafka Replay And Idempotency', href: './KAFKA-REPLAY-IDEMPOTENCY', description: 'Recover poison records and replay safely without duplicating effects.', icon: 'network', tags: ['DLT', 'Recovery']},
   {title: 'Database And Cache Consistency', href: './DATABASE-CACHE-CONSISTENCY', description: 'Choose staleness bounds and repair paths for price and inventory reads.', icon: 'boxes', tags: ['Cache', 'Data']},
+  {title: 'Spring Data Repository Internals', href: './SPRING-DATA-REPOSITORY-INTERNALS-LAB', description: 'Trace repository proxies, queries, paging, auditing and optimistic conflicts with compiled tests.', icon: 'experiment', tags: ['Spring Data', 'JPA']},
+  {title: 'PostgreSQL JPA Performance', href: './POSTGRES-JPA-PERFORMANCE-LAB', description: 'Measure real plans, keysets, pools, atomic updates, deadlocks and bulk-state hazards.', icon: 'gauge', tags: ['PostgreSQL', 'Testcontainers']},
+  {title: 'Transactional Outbox, Inbox And CDC', href: './TRANSACTIONAL-OUTBOX-INBOX-CDC-LAB', description: 'Prove atomic publication intent, relay recovery, duplicates, ordering and reconciliation.', icon: 'network', tags: ['Outbox', 'Kafka']},
 ]} />
 
 ## Evidence Contract

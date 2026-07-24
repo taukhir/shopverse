@@ -11,6 +11,10 @@ last_reviewed: "2026-07-12"
 
 # Kubernetes Workload Engineering
 
+This is the concise workload primer. For API/control-plane internals, scheduling,
+networking, CSI storage, security, cluster operations, recovery, labs, interviews,
+and revision, use the [Kubernetes Beginner-To-Architect Path](./KUBERNETES-ARCHITECT-PATH.md).
+
 Kubernetes reconciles declared state; it does not make an application stateless,
 correct, secure, or highly available automatically.
 
@@ -77,7 +81,6 @@ durable work ownership. CronJob scheduling may duplicate or miss starts under
 failure; business processing still needs the
 [distributed scheduler design](../reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md).
 
-## Recommended Next Page
+## Recommended Next
 
-Read [Networking, gRPC, And Service Mesh](../architecture/NETWORKING-GRPC-SERVICE-MESH.md)
-to understand the traffic beneath Services and Gateways.
+Continue with [API Machinery, Control Plane, Nodes, And Reconciliation](./kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS.md).

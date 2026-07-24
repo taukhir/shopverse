@@ -1,15 +1,15 @@
 ---
-title: "Builder Pattern in Spring"
-description: "Build readable immutable objects, preserve domain invariants, and distinguish builders from Spring bean construction."
+title: "Builder Pattern in Java and Spring"
+description: "Compare manual, staged, Lombok, and Spring builders while preserving required fields, defaults, and domain invariants."
 sidebar_label: "Builder"
-tags: ["spring", "design-patterns", "interview"]
+tags: ["java", "spring", "design-patterns", "creational", "interview"]
 page_type: "Deep Dive"
 difficulty: "Intermediate"
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-24"
 ---
 
-# Builder Pattern in Spring
+# Builder Pattern in Java and Spring
 
 <DocLabels items={[{label: 'Core pattern', tone: 'intermediate'}, {label: 'Creational', tone: 'foundation'}, {label: 'Domain design', tone: 'production'}]} />
 
@@ -17,7 +17,20 @@ Builder constructs an object step by step through named operations. It is useful
 for immutable objects with many optional values, staged configuration, or
 construction invariants.
 
-## Make Construction Readable
+## The Problem
+
+Telescoping constructors make optional values and same-typed arguments hard to
+read:
+
+```java
+new SearchOrdersQuery(customerId, Set.of(), null, null, 50, true, false);
+```
+
+A JavaBean with setters is readable but can be observed half-built, makes
+immutability difficult, and may postpone validation until much later. Builder
+separates mutable construction state from the final valid product.
+
+## Implementation 1: Manual Immutable Builder
 
 ```java
 public final class SearchOrdersQuery {
@@ -75,7 +88,81 @@ public final class SearchOrdersQuery {
 Required data enters the builder constructor, optional data has defaults, mutable
 collections are copied, and `build()` rejects invalid combinations.
 
-## Builders in Spring APIs
+### Drawbacks And Solutions
+
+- Boilerplate grows with the product. Generate only mechanical code, but keep
+  validation and API design explicit.
+- Callers may not know which values are required. Put required values in the
+  entry method or use a staged builder.
+- A reusable builder carries stale mutable state. Treat builders as single-use
+  or add an explicit safe reset.
+
+## Implementation 2: Staged Builder
+
+Interfaces can make required construction steps compile-time visible:
+
+```java
+public final class ApiRequest {
+    public interface MethodStep {
+        UriStep method(HttpMethod method);
+    }
+    public interface UriStep {
+        OptionalStep uri(URI uri);
+    }
+    public interface OptionalStep {
+        OptionalStep header(String name, String value);
+        ApiRequest build();
+    }
+
+    public static MethodStep builder() {
+        return new Steps();
+    }
+
+    private static final class Steps
+            implements MethodStep, UriStep, OptionalStep {
+        // state and interface implementations
+    }
+}
+```
+
+The call order is enforced:
+
+```java
+ApiRequest request = ApiRequest.builder()
+        .method(HttpMethod.POST)
+        .uri(URI.create("/orders"))
+        .header("Idempotency-Key", key)
+        .build();
+```
+
+### Drawback And Solution
+
+Staged builders add several types and become awkward with many optional branches.
+Use them only when construction order or mandatory stages are genuinely complex;
+otherwise required constructor arguments plus one normal builder are clearer.
+
+## Implementation 3: Lombok `@Builder`
+
+```java
+@Builder
+public record ProductSearch(
+        @NonNull String query,
+        Set<Category> categories,
+        @Builder.Default int pageSize
+) {
+    public ProductSearch {
+        categories = categories == null ? Set.of() : Set.copyOf(categories);
+        if (pageSize < 1 || pageSize > 100) {
+            throw new IllegalArgumentException("pageSize must be 1..100");
+        }
+    }
+}
+```
+
+Lombok removes mechanics, but the record constructor must still enforce the
+invariants because callers, reflection, or deserializers may bypass the builder.
+
+## Implementation 4: Builders In Spring APIs
 
 Spring commonly exposes builders for staged client or request configuration:
 
@@ -90,7 +177,7 @@ Prefer injecting a configured `WebClient.Builder` when application-wide filters,
 observability, codecs, or customizers should be retained. Calling a static builder
 everywhere can silently discard platform configuration.
 
-## Lombok and JPA Cautions
+## JPA And Domain-Model Cautions
 
 Lombok `@Builder` removes boilerplate but does not design the construction API. On
 a JPA entity it may expose fields that should change only through domain methods,
@@ -112,12 +199,19 @@ builder merely makes invalid objects easier to create.
 
 </DocCallout>
 
-## Testing and Trade-offs
+## Drawbacks, Remedies, And Tests
 
-Test defaults, required values, invalid combinations, and defensive copies.
-Builders improve call-site readability and evolution, but add boilerplate and may
-hide which fields are mandatory. Records and named constructors remain better for
-small, stable value objects.
+| Risk | Remedy | Proving test |
+|---|---|---|
+| required field is omitted | require it in the entry method or staged interface | missing required data cannot build |
+| mutable input leaks into product | defensive-copy at setter and construction boundaries | mutate source collection after `build()` |
+| default silently changes | define it once and assert it | default-value test |
+| invalid field combination passes | validate cross-field rules in `build()` or constructor | parameterized invalid-combination tests |
+| builder hides a tiny object | replace with a record or named constructor | compare call-site clarity |
+
+Builders improve call-site readability and evolution, but add indirection and
+boilerplate. Records and named constructors remain better for small, stable
+value objects.
 
 ## Interview-Ready Answer
 
@@ -131,6 +225,8 @@ small, stable value objects.
 
 - [Factory](./factory.md) decides which product to create; Builder assembles one
   product.
+- [Prototype](./prototype.md) starts from an existing configured instance;
+  `toBuilder()` is a hybrid when many copied fields may change.
 - [Singleton](./singleton.md) may be the scope of a configured client produced by
   a builder.
 

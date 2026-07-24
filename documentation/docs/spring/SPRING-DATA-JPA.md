@@ -12,6 +12,10 @@ last_reviewed: "2026-07-13"
 
 # Spring Data JPA
 
+This store-specific track is part of the
+[Spring Data Architect Learning Path](./SPRING-DATA-ARCHITECT-PATH.md). Complete the
+shared Commons internals first when preparing for lead or architect interviews.
+
 <DocLabels items={[
   {label: 'Intermediate', tone: 'intermediate'},
   {label: 'Canonical route', tone: 'foundation'},
@@ -43,6 +47,8 @@ compatibility still determine whether the operation is correct in production.
 </DocCallout>
 
 ## Focused Pages
+
+- [Advanced Repositories, Routing, Multi-Tenancy, Envers, And OSIV](./jpa/JPA-ADVANCED-REPOSITORIES-ROUTING.md)
 
 <TopicCards items={[
   {title: 'Entity integration', href: '/spring/jpa/JPA-BASICS-ENTITY-MAPPING', description: 'Connect the Spring repository model to deliberate entity and schema contracts.', icon: 'layers', tags: ['Entities', 'Schema']},

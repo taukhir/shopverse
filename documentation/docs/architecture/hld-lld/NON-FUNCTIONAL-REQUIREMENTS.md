@@ -1,7 +1,7 @@
 ---
 title: Functional And Non-Functional Requirements
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-16"
 ---
 
 # Functional And Non-Functional Requirements
@@ -73,6 +73,40 @@ NFRs drive architecture more strongly than service count.
 | Maintainability | new payment method without changing checkout core | Strategy pattern, interfaces |
 | Compliance | sensitive values not committed to Git | `.env`, secrets manager, audit |
 
+## Operational And Extended Requirements
+
+Some teams label monitoring, analytics, disaster recovery, rate limiting, and
+experimentation as **extended requirements**. In architecture work they should
+not become optional leftovers: classify each as a functional capability or a
+measurable NFR and assign an owner.
+
+| Concern | Requirement example | Evidence |
+|---|---|---|
+| logging | every checkout failure records a safe reason and correlation ID | structured-log query |
+| monitoring and alerting | page when checkout success falls below the SLO for 10 minutes | alert test and dashboard |
+| analytics | record consented checkout-funnel events without payment data | schema and privacy review |
+| backup and disaster recovery | restore confirmed orders to the five-minute RPO within 30 minutes | timed restore exercise |
+| rate limiting | enforce customer and client quotas without exceeding dependency capacity | load and failure test |
+| feature flags and experiments | disable a rollout without redeploying and preserve cohort assignment | audit log and rollback drill |
+
+## Discovering And Prioritizing Requirements
+
+| Technique | Best for | Output |
+|---|---|---|
+| stakeholder interview | goals, constraints, exceptions, compliance | actor and decision notes |
+| user observation or support review | actual workflow and recurring failure | journey and pain-point list |
+| workshop/event storming | cross-team workflows and ownership | commands, events, invariants |
+| survey or product analytics | broad preference and behavior evidence | quantified usage assumptions |
+| benchmark/load test | latency, throughput, and saturation limits | measured capacity baseline |
+| threat modeling | assets, actors, abuse paths, controls | security requirements |
+| incident and restore exercise | recovery and operational gaps | RTO/RPO and runbook requirements |
+
+Prioritize with business impact, user harm, legal obligation, likelihood, cost,
+and dependency order. Record unresolved conflict explicitly—for example, a
+stronger consistency requirement may increase latency or reduce availability.
+Requirements change, so version assumptions and attach an acceptance test or
+production signal to every critical requirement.
+
 ## Making NFRs Measurable
 
 Avoid vague requirements such as:
@@ -112,6 +146,9 @@ that ID.
 | Constraint | what latency, security, consistency, or capacity target applies? |
 | Failure behavior | what happens when a dependency fails? |
 | Testability | how will we prove it works? |
+| Priority | is it mandatory, target, or deferred, and who decided? |
+| Ownership | which team/component owns delivery and evidence? |
+| Traceability | which test, metric, threat, or business goal justifies it? |
 
 ## Example: Checkout Requirements
 

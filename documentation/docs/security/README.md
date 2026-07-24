@@ -7,7 +7,7 @@ status: Shopverse
 prerequisites: [HTTP, Basic distributed systems]
 learning_objectives: [Model trust boundaries, Select identity and authorization controls, Operate security incidents]
 technologies: [OAuth2, OIDC, JWT, Spring Security 7, Kubernetes]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-23"
 ---
 
 # Application And Platform Security Learning Guide
@@ -20,6 +20,9 @@ last_reviewed: "2026-07-13"
 
 Security is a chain of identity, authorization, data, software-supply-chain, and
 operational controls. A valid JWT or gateway check is one control—not the boundary.
+
+Use the [Security Revision Sheet](./SECURITY-REVISION-SHEET.md) after the deep
+dives and before the platform interview workbook.
 
 ```mermaid
 flowchart LR

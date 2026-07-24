@@ -48,10 +48,12 @@ the design is not ready for production review.
 | 1 | [Container And Bean Creation](./SPRING-CONTAINER-ARCHITECT.md) | trace refresh, definitions, post-processors, scopes, AOT and early references |
 | 2 | [Proxies And Transactions](./SPRING-PROXY-TRANSACTION-ARCHITECT.md) | prove advisor order, propagation, rollback, pool use and async boundaries |
 | 3 | [MVC And Security Runtime](./SPRING-MVC-SECURITY-RUNTIME.md) | trace request, filter-chain, dispatch, conversion and exception ownership |
-| 4 | [JPA And Hibernate Runtime](./SPRING-JPA-HIBERNATE-ARCHITECT.md) | reason about persistence context, flush, fetch plans, locks, schemas and pools |
-| 5 | [Task Execution And Scheduling](./SPRING-ASYNC-PRODUCTION-ARCHITECT.md) | bound executors/schedulers and prove context, failure and multi-replica behavior |
-| 6 | [Production Lifecycle](./internals-production/PRODUCTION-LIFECYCLE.md) | own startup, readiness, admission, drain, observability and rollback |
-| 7 | [Architect Interview Workbook](./SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md) | diagnose realistic proxy, transaction, ORM and production failures |
+| 4 | [Spring Data Architect Path](./SPRING-DATA-ARCHITECT-PATH.md) | trace repository internals and select JPA, JDBC, reactive and NoSQL stores deliberately |
+| 5 | [JPA And Hibernate Runtime](./SPRING-JPA-HIBERNATE-ARCHITECT.md) | reason about persistence context, flush, fetch plans, locks, schemas and pools |
+| 6 | [Spring Data Cassandra](./SPRING-DATA-CASSANDRA.md) | preserve query-first distributed database semantics through repositories, templates and reactive access |
+| 7 | [Task Execution And Scheduling](./SPRING-ASYNC-PRODUCTION-ARCHITECT.md) | bound executors/schedulers and prove context, failure and multi-replica behavior |
+| 8 | [Production Lifecycle](./internals-production/PRODUCTION-LIFECYCLE.md) | own startup, readiness, admission, drain, observability and rollback |
+| 9 | [Architect Interview Workbook](./SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md) | diagnose realistic proxy, transaction, ORM and production failures |
 
 ## Architect Evidence Pack
 

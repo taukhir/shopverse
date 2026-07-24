@@ -7,7 +7,7 @@ status: Generic
 prerequisites: [Asynchronous messaging fundamentals]
 learning_objectives: [Understand Kafka partitions groups and delivery semantics, Design reliable event-driven workflows]
 technologies: [Apache Kafka, Spring Kafka]
-last_reviewed: "2026-07-11"
+last_reviewed: "2026-07-23"
 ---
 
 # Apache Kafka
@@ -410,6 +410,14 @@ Kafka; rich routing and conventional work queues often favor RabbitMQ.
 
 ## Related Guides
 
+- [Kafka And Spring Kafka Architect Overview](./KAFKA-ARCHITECT-OVERVIEW.md)
+- [Kafka Architect Learning Path](./KAFKA-ARCHITECT-PATH.md)
+- [Kafka Internals](./kafka/KAFKA-INTERNALS.md)
+- [Kafka Security And Operations](./kafka/KAFKA-SECURITY-OPERATIONS.md)
+- [Kafka Connect, Streams, Share Groups, And Multi-Cluster](./kafka/KAFKA-ECOSYSTEM.md)
+- [Event Streaming Application Path](./EVENT-STREAMING-APPLICATION-PATH.md)
+- [Event Streaming Interview And Revision](./streaming/EVENT-STREAMING-INTERVIEW-REVISION.md)
+- [Kafka Architect Labs](./kafka/KAFKA-ARCHITECT-LABS.md)
 - [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [SAGA And Outbox](../reliability/SAGA-GENERIC.md)
 - [Distributed Systems](../architecture/DISTRIBUTED-SYSTEMS.md)

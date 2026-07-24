@@ -7,7 +7,7 @@ status: Generic
 prerequisites: [Apache Kafka fundamentals, Spring Boot configuration, Transactional outbox]
 learning_objectives: [Trace Spring producer and listener-container behavior, Choose retry acknowledgment and concurrency policies, Operate Kafka consumers from measurable evidence]
 technologies: [Spring for Apache Kafka 4.x, Spring Boot, Apache Kafka, Micrometer]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-23"
 ---
 
 # Spring For Apache Kafka
@@ -53,6 +53,7 @@ decide whether a failed record is safe to replay.
   {title: 'Retry, DLT, and recovery', href: '/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY', description: 'Design retry-topic infrastructure, DLT handling, security, and terminal recovery.', icon: 'layers', tags: ['Retry topics', 'DLT']},
   {title: 'Idempotency and replay', href: '/spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY', description: 'Protect business effects and replay failed events through a durable outbox.', icon: 'security', tags: ['Idempotency', 'Replay']},
   {title: 'Operations and incidents', href: '/spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE', description: 'Use lag, container events, observations, rollout checks, and incident evidence.', icon: 'experiment', tags: ['Operations', 'Runbook']},
+  {title: 'Advanced containers and transactions', href: '/spring/kafka/SPRING-KAFKA-ADVANCED', description: 'Master acknowledgment, partial batches, transactions, schemas, request/reply, shutdown, and failure testing.', icon: 'layers', tags: ['Advanced', 'Transactions']},
 ]} />
 
 ## Shopverse Runtime Baseline
@@ -123,10 +124,12 @@ database rules throughout the overlap window.
 
 ## Official Spring Kafka 4.x References
 
-- [Spring for Apache Kafka 4.0 reference](https://docs.spring.io/spring-kafka/reference/4.0/)
-- [Using Spring for Apache Kafka](https://docs.spring.io/spring-kafka/reference/4.0/kafka.html)
-- [Spring Kafka 4.0 API](https://docs.spring.io/spring-kafka/docs/4.0.x/api/)
+- [Spring for Apache Kafka reference](https://docs.spring.io/spring-kafka/reference/)
+- [Using Spring for Apache Kafka](https://docs.spring.io/spring-kafka/reference/kafka.html)
+- [Spring Kafka current API](https://docs.spring.io/spring-kafka/docs/current/api/)
 
 ## Recommended Next
 
-Start with [Publishing And Event Flow](./kafka/SPRING-KAFKA-BASICS.md).
+Start with [Publishing And Event Flow](./kafka/SPRING-KAFKA-BASICS.md), then finish
+with [Advanced Spring Kafka](./kafka/SPRING-KAFKA-ADVANCED.md) and the
+[Kafka Architect Labs](../integration/kafka/KAFKA-ARCHITECT-LABS.md).

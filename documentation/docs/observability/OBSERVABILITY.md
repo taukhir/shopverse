@@ -9,7 +9,7 @@ tags:
 page_type: "Guide"
 difficulty: "Intermediate"
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-23"
 ---
 # Shopverse Observability Architecture
 
@@ -18,6 +18,10 @@ import {DocFigure, ReadingGuide} from '@site/src/components/DocumentationLanding
 Observability answers questions about a running system using signals emitted by
 the system. Shopverse combines metrics, logs, traces, and persistent business
 state.
+
+This page is the Shopverse implementation view. Begin with the generic
+[Observability Engineering Overview](./OBSERVABILITY-OVERVIEW.md) and finish with
+the [Observability Revision Sheet](./OBSERVABILITY-REVISION-SHEET.md).
 
 <DocFigure
   src="/img/diagrams/shopverse-observability-flow.svg"

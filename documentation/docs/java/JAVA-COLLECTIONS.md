@@ -1,9 +1,9 @@
 ---
 title: Java Collections
 sidebar_position: 2
-description: Canonical guide to Java collection contracts, selection, ownership, and safe mutation.
+description: Java Collections hierarchy and learning path from List, Set, Map, Queue, and Deque contracts to dedicated implementation internals.
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-24"
 ---
 
 # Java Collections
@@ -24,7 +24,46 @@ Only then choose an implementation; a familiar collection can still encode the
 wrong domain behavior.
 </DocCallout>
 
-## Focused Learning Route
+## Collections Hierarchy
+
+```mermaid
+flowchart TB
+    iterable["Iterable"] --> collection["Collection"]
+    collection --> list["List: ordered, indexed, duplicates"]
+    collection --> set["Set: unique elements"]
+    collection --> queue["Queue: head-based processing"]
+    queue --> deque["Deque: both ends"]
+    map["Map: key-value pairs; not a Collection"]
+
+    list --> arrayList["ArrayList"]
+    list --> linkedList["LinkedList"]
+    list --> cowList["CopyOnWriteArrayList"]
+    set --> hashSet["HashSet"]
+    set --> linkedHashSet["LinkedHashSet"]
+    set --> treeSet["TreeSet"]
+    set --> enumSet["EnumSet"]
+    map --> hashMap["HashMap"]
+    map --> linkedHashMap["LinkedHashMap"]
+    map --> treeMap["TreeMap"]
+    map --> concurrentMap["ConcurrentHashMap"]
+    deque --> arrayDeque["ArrayDeque"]
+    queue --> priorityQueue["PriorityQueue"]
+```
+
+`Map` is a separate hierarchy because it stores key-value associations rather
+than individual elements. `LinkedList` implements both `List` and `Deque`, but
+`ArrayList` is normally the better list and `ArrayDeque` the better deque.
+
+## Browse By Family
+
+<TopicCards items={[
+  {title: 'List', href: '/java/collections/list/LIST-OVERVIEW', description: 'Indexed sequences that preserve duplicates and encounter order.', icon: 'layers', tags: ['ArrayList', 'LinkedList', 'CopyOnWrite']},
+  {title: 'Set', href: '/java/collections/set/SET-OVERVIEW', description: 'Unique elements with hash, encounter-order, sorted, or enum semantics.', icon: 'boxes', tags: ['HashSet', 'TreeSet', 'EnumSet']},
+  {title: 'Map', href: '/java/collections/map/MAP-OVERVIEW', description: 'Key-value lookup with hash, ordered, sorted, and concurrent implementations.', icon: 'network', tags: ['HashMap', 'TreeMap', 'ConcurrentHashMap']},
+  {title: 'Queue and Deque', href: '/java/collections/queue/QUEUE-DEQUE-OVERVIEW', description: 'FIFO, LIFO, priority, and producer-consumer processing contracts.', icon: 'route', tags: ['ArrayDeque', 'PriorityQueue', 'BlockingQueue']},
+]} />
+
+## Cross-Cutting Learning Route
 
 <TopicCards items={[
   {title: 'Contracts and selection', href: '/java/collections/COLLECTION-CONTRACTS-AND-SELECTION', description: 'Define duplicates, order, lookup, queue behavior, ownership, and concurrency.', icon: 'route', tags: ['Start here', 'Contracts']},
@@ -35,18 +74,6 @@ wrong domain behavior.
   {title: 'Architect collection choices', href: '/java/JAVA-COLLECTION-IMPLEMENTATIONS-ARCHITECT', description: 'Evaluate memory, ordering, backpressure, and specialized implementations.', icon: 'gauge', tags: ['Architecture', 'Performance']},
   {title: 'ConcurrentHashMap internals', href: '/java/JAVA-CONCURRENT-HASHMAP-OPENJDK', description: 'Understand atomic map operations and the mechanics of concurrent hashing.', icon: 'network', tags: ['Concurrency', 'OpenJDK']},
 ]} />
-
-## Contract Map
-
-```mermaid
-flowchart TB
-    iterable["Iterable: can be traversed"] --> collection["Collection: group of values"]
-    collection --> list["List: position and duplicates"]
-    collection --> set["Set: uniqueness"]
-    collection --> queue["Queue: head-based processing"]
-    queue --> deque["Deque: both ends"]
-    map["Map: key to value; separate hierarchy"]
-```
 
 `Collection` and `Map` are contracts. `Collections` is a utility class containing
 algorithms and wrappers. Ordering is also not one promise: insertion order,

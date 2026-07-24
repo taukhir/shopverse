@@ -7,7 +7,7 @@ status: Generic
 prerequisites: [Distributed systems consistency messaging and reliability]
 learning_objectives: [Explain distributed systems trade-offs clearly, Practice senior-level failure and consistency scenarios]
 technologies: [Distributed Systems, Kafka, Databases]
-last_reviewed: "2026-07-11"
+last_reviewed: "2026-07-23"
 ---
 
 # Distributed Systems Interview Questions
@@ -19,6 +19,10 @@ invariants and data ownership, analyze failure, then defend alternatives.*
 
 These questions emphasize precise guarantees and trade-offs. Strong answers
 state assumptions instead of naming a technology as a universal solution.
+
+Use the [Architecture Revision Sheet](../architecture/ARCHITECTURE-REVISION-SHEET.md)
+and [Reliability Revision Sheet](../reliability/RELIABILITY-REVISION-SHEET.md) for
+rapid recall before answering the scenarios here.
 
 ## Foundations
 
