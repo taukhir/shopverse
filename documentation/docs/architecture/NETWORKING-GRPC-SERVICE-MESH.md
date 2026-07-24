@@ -11,6 +11,13 @@ last_reviewed: "2026-07-12"
 
 # Networking, gRPC, And Service Mesh
 
+This page is the orientation map. Use the dedicated tracks for implementation,
+internals, incident labs, production decisions, interviews, and revision:
+
+1. [DNS, TCP, TLS, And HTTP/2 Diagnosis](./NETWORK-PROTOCOL-DIAGNOSIS-PATH.md)
+2. [gRPC And Protocol Buffers Architect Path](./GRPC-PROTOBUF-ARCHITECT-PATH.md)
+3. [Service Mesh Architect Path](./SERVICE-MESH-ARCHITECT-PATH.md)
+
 A request normally crosses DNS resolution, connection establishment, TLS,
 load-balancing/proxy hops, protocol parsing, application queues, and dependencies.
 Each layer adds latency, limits, caching, retries, and failure modes.
@@ -61,9 +68,10 @@ Define one retry owner per call, budgets and deadlines, outlier handling, circui
 breaking, connection limits, and mTLS identity. A mesh cannot fix non-idempotent
 operations, missing authorization, poor SLOs, or a saturated database.
 
-## Recommended Next Page
+## Recommended Next
 
-Continue with [Asynchronous And Real-Time Systems](./ASYNC-REALTIME-DISTRIBUTED-TIME.md).
+Begin with [DNS, TCP, TLS, And HTTP/2 Diagnosis](./NETWORK-PROTOCOL-DIAGNOSIS-PATH.md),
+then continue to gRPC and service mesh after the transport model is clear.
 
 ## Official References
 

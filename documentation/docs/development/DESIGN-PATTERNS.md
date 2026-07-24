@@ -6,7 +6,7 @@ tags: ["shopverse", "architecture", "production"]
 page_type: "Learning Path"
 difficulty: "Advanced"
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-24"
 ---
 
 <!-- split-guide-index -->
@@ -17,6 +17,24 @@ last_reviewed: "2026-07-13"
 Select and apply object, behavioral, integration, and reliability patterns. Use the
 category guides for comparison and the dedicated pattern pages for implementation,
 runtime mechanics, trade-offs, testing, and interview preparation.
+
+## Start With The Design Pressure
+
+A pattern is a named response to a recurring design pressure, not a target for
+the codebase. Before choosing one, write down:
+
+1. **The problem:** what change, dependency, or invariant is difficult today?
+2. **The variation point:** what must be allowed to change independently?
+3. **The stable boundary:** what should callers be able to rely on?
+4. **The simplest baseline:** would a constructor, method, or small composition
+   solve the problem without a pattern?
+5. **The cost:** which new types, indirection, lifecycle rules, or debugging
+   difficulties will the pattern introduce?
+6. **The evidence:** which test proves the pattern protects the intended
+   behavior?
+
+Every dedicated guide uses this reasoning model: **problem → naive design →
+pattern implementation → alternatives → drawbacks → mitigations → tests**.
 
 ## Browse by Pattern Family
 
@@ -31,7 +49,8 @@ flowchart TD
 ```
 
 <TopicCards items={[
-  {title: 'Creational Patterns', href: '/development/design-patterns/CREATIONAL-PATTERNS', description: 'Control how objects are selected, constructed, and scoped.', icon: 'boxes', tags: ['Factory', 'Builder', 'Singleton']},
+  {title: 'Pattern Selection Cheat Sheet', href: '/development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET', description: 'Choose across all GoF patterns from the design pressure, trade-off, and closest alternatives.', icon: 'brain', tags: ['Decision guide', 'GoF']},
+  {title: 'Creational Patterns', href: '/development/design-patterns/CREATIONAL-PATTERNS', description: 'Control how objects are selected, assembled, copied, and scoped.', icon: 'boxes', tags: ['Five GoF patterns', 'Java + Spring']},
   {title: 'Structural Patterns', href: '/development/design-patterns/STRUCTURAL-PATTERNS', description: 'Compose objects and adapt boundaries without rigid inheritance.', icon: 'layers', tags: ['Adapter', 'Bridge', 'Decorator', 'Proxy']},
   {title: 'Behavioral Patterns', href: '/development/design-patterns/BEHAVIORAL-PATTERNS', description: 'Organize algorithms, events, workflows, and ordered responsibility.', icon: 'route', tags: ['Strategy', 'Observer', 'Chain', 'Template Method']},
 ]} />
@@ -62,9 +81,10 @@ one framework example, its main trade-off, and when a simpler design is better.
 
 ## Recommended Learning Order
 
-1. [Creational Patterns](./design-patterns/CREATIONAL-PATTERNS.md)
-2. [Structural Patterns](./design-patterns/STRUCTURAL-PATTERNS.md)
-3. [Behavioral Patterns](./design-patterns/BEHAVIORAL-PATTERNS.md)
+1. [Pattern Selection Cheat Sheet](./design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET.md)
+2. [Creational Patterns](./design-patterns/CREATIONAL-PATTERNS.md)
+3. [Structural Patterns](./design-patterns/STRUCTURAL-PATTERNS.md)
+4. [Behavioral Patterns](./design-patterns/BEHAVIORAL-PATTERNS.md)
 
 
 ## Reading Strategy

@@ -13,7 +13,7 @@ last_reviewed: "2026-07-13"
 
 <DocLabels items={[{label: 'Foundation', tone: 'foundation'}, {label: 'Java', tone: 'intermediate'}, {label: 'Shopverse examples', tone: 'shopverse'}]} />
 
-Use this track to move from complexity and selection rules to concrete linear and non-linear structures. The goal is not memorizing implementations: it is choosing a structure from access pattern, ordering, mutation, concurrency, and memory requirements.
+Use this track to move from complexity and selection rules to concrete linear and non-linear structures, then apply those ideas in guided Java programming interviews. The goal is not memorizing implementations: it is choosing a structure from access pattern, ordering, mutation, concurrency, and memory requirements.
 
 ```mermaid
 flowchart LR
@@ -29,6 +29,7 @@ flowchart LR
   {title: 'Selection fundamentals', href: '/data-structures/DATA-STRUCTURES-FUNDAMENTALS', description: 'Complexity, invariants, and selection workflow.', icon: 'route', tags: ['Complexity', 'Selection']},
   {title: 'Linear structures', href: '/data-structures/LINEAR-DATA-STRUCTURES', description: 'Arrays, lists, stacks, queues, and deques.', icon: 'layers', tags: ['Sequence', 'Queue']},
   {title: 'Non-linear structures', href: '/data-structures/NON-LINEAR-DATA-STRUCTURES', description: 'Trees, heaps, graphs, and traversal choices.', icon: 'network', tags: ['Tree', 'Graph']},
+  {title: 'Java programming interview path', href: '/data-structures/programming/JAVA-PROGRAMMING-INTERVIEW-PATH', description: 'Pattern-first worked curriculum beginning with 30 essential array questions and the complete Two Sum family.', icon: 'code', tags: ['Programming', 'Arrays']},
   {title: 'Java DSA interview bank', href: '/data-structures/DSA-INTERVIEW-QUESTION-BANK', description: 'Search 245 curated questions across eleven pattern families plus a consolidated Top 50.', icon: 'brain', tags: ['Interview', 'Searchable']},
 ]} />
 
@@ -40,7 +41,7 @@ For checkout commands, ordering and bounded waiting may dominate. For catalog tr
 
 ## Recommended Next
 
-Continue with [Java Collections](../java/JAVA-COLLECTIONS.md) to connect abstract structures to Java contracts and production implementations.
+Start the [Java Programming Interview Path](./programming/JAVA-PROGRAMMING-INTERVIEW-PATH.md) for worked problems, or continue with [Java Collections](../java/JAVA-COLLECTIONS.md) to connect abstract structures to Java contracts and production implementations.
 
 ## Official References
 

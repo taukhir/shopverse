@@ -102,3 +102,9 @@ set of enforceable decisions, not a diagram of fashionable labels.
 ## Recommended Next Page
 
 Continue with [System Design Deep Dives](./SYSTEM-DESIGN-DEEP-DIVES.md).
+
+## References
+
+- [Analysis of Monolithic and Distributed Systems - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/analysis-of-monolithic-and-distributed-systems-learn-system-design/)
+- [Distributed Systems Fundamentals](./DISTRIBUTED-SYSTEMS-GENERIC.md)
+- [Monolith To Microservices Strategy](../leadership/MONOLITH-TO-MICROSERVICES-STRATEGY.md)

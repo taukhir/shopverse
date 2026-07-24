@@ -11,6 +11,10 @@ last_reviewed: "2026-07-10"
 
 # Docker
 
+This page teaches first use. For Engine/containerd/OCI runtime internals, BuildKit,
+networking, security, production incidents, labs, interviews, and revision, use the
+[Docker Beginner-To-Architect Path](./DOCKER-ARCHITECT-PATH.md).
+
 Docker packages an application and its runtime dependencies into an image.
 Containers are isolated processes created from that image.
 
@@ -270,6 +274,6 @@ Use the project guide for exact commands and line-by-line Compose explanations:
 - [Docker Compose profiles](../reliability/problems/optimization/DOCKER-COMPOSE-PROFILES.md)
 - [Runtime optimization](../reliability/problems/optimization/RUNTIME-OPTIMIZATION.md)
 
-## Recommended Next Page
+## Recommended Next
 
 Continue with [Docker Internals, Layers, And Storage](./DOCKER-INTERNALS-LAYERS-STORAGE.md).

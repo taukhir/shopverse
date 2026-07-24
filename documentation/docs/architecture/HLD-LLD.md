@@ -1,7 +1,7 @@
 ---
 title: HLD And LLD
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-16"
 ---
 
 # HLD And LLD
@@ -34,6 +34,7 @@ behavior.
 
 | Page | Use it for |
 |---|---|
+| [HLD Interview Workbook](hld-lld/HLD-INTERVIEW-WORKBOOK.md) | 50 HLD concept questions covering scale, communication, data, consistency, availability, security, and operations |
 | [HLD Fundamentals](hld-lld/HLD-FUNDAMENTALS.md) | HLD process, architecture building blocks, availability, CDN, and interview prompts |
 | [Introduction To HLD](hld-lld/hld/INTRODUCTION-TO-HLD.md) | HLD purpose, inputs, outputs, process, and common mistakes |
 | [Functional And Non-Functional Requirements](hld-lld/NON-FUNCTIONAL-REQUIREMENTS.md) | functional scope, NFRs, measurable targets, and requirement quality |
@@ -43,6 +44,7 @@ behavior.
 | [CAP Theorem](hld-lld/hld/CAP-THEOREM.md) | consistency, availability, partition tolerance, CP/AP examples, and PACELC |
 | [Consistency](hld-lld/hld/CONSISTENCY.md) | strong consistency, eventual consistency, read-your-writes, and SAGA consistency |
 | [Content Delivery Network](hld-lld/hld/CONTENT-DELIVERY-NETWORK.md) | CDN caching, cache hit/miss, object storage, public/private content, and invalidation |
+| [System Design Interview Problem Catalog](system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG.md) | common media, social, messaging, search, location, commerce, storage, infrastructure, and compact design prompts |
 
 ## LLD Umbrella
 
@@ -50,6 +52,7 @@ Read these pages when you are designing implementation details.
 
 | Page | Use it for |
 |---|---|
+| [LLD Interview Workbook](hld-lld/LLD-INTERVIEW-WORKBOOK.md) | 50 concept questions, answer checkpoints, applied exercises, diagrams, and scoring rubric |
 | [LLD Examples And Diagrams](hld-lld/LLD-EXAMPLES-DIAGRAMS.md) | class, sequence, and state examples for implementation design |
 | [UML Diagrams](hld-lld/UML-DIAGRAMS.md) | UML diagram types, when to use them, and LLD interview usage |
 | [ERD Diagrams](hld-lld/ERD-DIAGRAMS.md) | tables, keys, relationships, cardinality, and constraints |
@@ -59,18 +62,21 @@ Read these pages when you are designing implementation details.
 
 For system-design interviews:
 
-1. [Functional And Non-Functional Requirements](hld-lld/NON-FUNCTIONAL-REQUIREMENTS.md)
-2. [Capacity And Performance Estimation](hld-lld/CAPACITY-PERFORMANCE-ESTIMATION.md)
-3. [Introduction To HLD](hld-lld/hld/INTRODUCTION-TO-HLD.md)
-4. [Availability](hld-lld/hld/AVAILABILITY.md)
-5. [CAP Theorem](hld-lld/hld/CAP-THEOREM.md)
-6. [Consistency](hld-lld/hld/CONSISTENCY.md)
-7. [Content Delivery Network](hld-lld/hld/CONTENT-DELIVERY-NETWORK.md)
-8. [Data Partitioning](hld-lld/DATA-PARTITIONING.md)
-9. [UML Diagrams](hld-lld/UML-DIAGRAMS.md)
-10. [ERD Diagrams](hld-lld/ERD-DIAGRAMS.md)
-11. [LLD Examples And Diagrams](hld-lld/LLD-EXAMPLES-DIAGRAMS.md)
-12. [Database LLD And Design Process](hld-lld/DATABASE-LLD-DESIGN-PROCESS.md)
+1. [HLD Interview Workbook](hld-lld/HLD-INTERVIEW-WORKBOOK.md)
+2. [Functional And Non-Functional Requirements](hld-lld/NON-FUNCTIONAL-REQUIREMENTS.md)
+3. [Capacity And Performance Estimation](hld-lld/CAPACITY-PERFORMANCE-ESTIMATION.md)
+4. [Introduction To HLD](hld-lld/hld/INTRODUCTION-TO-HLD.md)
+5. [Availability](hld-lld/hld/AVAILABILITY.md)
+6. [CAP Theorem](hld-lld/hld/CAP-THEOREM.md)
+7. [Consistency](hld-lld/hld/CONSISTENCY.md)
+8. [Content Delivery Network](hld-lld/hld/CONTENT-DELIVERY-NETWORK.md)
+9. [Data Partitioning](hld-lld/DATA-PARTITIONING.md)
+10. [System Design Interview Problem Catalog](system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG.md)
+11. [LLD Interview Workbook](hld-lld/LLD-INTERVIEW-WORKBOOK.md)
+12. [UML Diagrams](hld-lld/UML-DIAGRAMS.md)
+13. [ERD Diagrams](hld-lld/ERD-DIAGRAMS.md)
+14. [LLD Examples And Diagrams](hld-lld/LLD-EXAMPLES-DIAGRAMS.md)
+15. [Database LLD And Design Process](hld-lld/DATABASE-LLD-DESIGN-PROCESS.md)
 
 ## How To Decide Whether A Topic Is HLD Or LLD
 

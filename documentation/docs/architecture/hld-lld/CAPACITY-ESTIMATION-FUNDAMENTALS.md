@@ -6,7 +6,7 @@ tags: ["shopverse", "architecture", "production"]
 page_type: "Guide"
 difficulty: "Advanced"
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-16"
 ---
 
 # Capacity Estimation Fundamentals
@@ -46,6 +46,24 @@ Use this sequence before choosing infrastructure:
 9. Add headroom for failures, deploys, retries, and bursts.
 10. Validate with load testing.
 
+## Inputs And Factors
+
+| Factor | Questions to answer |
+|---|---|
+| workload | DAU/MAU, request mix, read/write ratio, object size, concurrency, think time? |
+| variability | hourly/weekly seasonality, promotions, flash crowds, growth scenarios? |
+| software efficiency | algorithmic cost, serialization, cache hit ratio, DB query plan, retry amplification? |
+| compute | CPU time/request, safe utilization, cores, throttling, runtime/GC behavior? |
+| memory | live set, per-request buffer, cache, heap/native split, OOM headroom? |
+| storage | data growth, indexes, WAL/log, replication, retention, backup, compaction? |
+| network | ingress/egress, protocol overhead, compression, fan-out, cross-zone/region traffic? |
+| database | operations/request, connection hold time, locks, IOPS, query latency, replica lag? |
+| failure | N-1 instance/zone capacity, failover surge, replay backlog, degraded dependencies? |
+| objectives | latency percentiles, throughput, availability, RTO/RPO, cost ceiling? |
+
+Use ranges rather than false precision. State a base, expected, and stress
+scenario, plus the date and evidence behind each assumption.
+
 ```mermaid
 flowchart LR
     Users["Users / traffic"] --> RPS["RPS / TPS"]
@@ -74,6 +92,35 @@ flowchart LR
 
 Keep units consistent. Most mistakes come from mixing milliseconds and seconds,
 or average traffic and peak traffic.
+
+## Component Capacity Checklist
+
+| Component | Estimate | Validate with |
+|---|---|---|
+| application compute | CPU/request, concurrency, safe RPS/instance, failure headroom | profiling plus load test |
+| memory | base runtime, live objects, buffers, caches, native memory | heap/native telemetry and soak test |
+| database | rows/bytes, QPS, IOPS, connections, lock time, replication | production-shaped data and query plans |
+| cache | working set, value size, hit rate, eviction, replication | cold/warm tests and failure test |
+| broker/queue | records/sec, bytes/sec, partitions, retention, consumer rate | producer/consumer benchmark and lag recovery |
+| object storage | objects/day, average/max size, retention, request rate | upload/download benchmark and lifecycle policy |
+| network | payload plus protocol overhead and fan-out | interface/egress metrics under peak |
+
+## Forecast, Test, And Reconcile
+
+Capacity planning is a loop, not a one-time interview calculation:
+
+1. forecast from historical demand and known business events;
+2. load-test expected peak plus headroom using realistic request mix and data;
+3. stress-test to locate the first saturation point and degraded behavior;
+4. soak-test for leaks, compaction, queue buildup, and thermal throttling;
+5. test N-1 instance/zone, deploy, backup, and rebalance conditions;
+6. compare predicted and observed CPU, memory, I/O, latency, errors, and cost;
+7. revise the model and alert before usable capacity is exhausted.
+
+Tools are evidence collectors rather than estimation methods. JMeter, Gatling,
+or k6 can generate load; Prometheus/Grafana and cloud telemetry expose response,
+resource, and saturation signals. Always document the traffic model, environment,
+data shape, coordinated-omission risk, and pass/fail thresholds.
 
 ## Example Interview Calculation
 
@@ -124,5 +171,7 @@ Return to [Capacity And Performance Estimation](./CAPACITY-PERFORMANCE-ESTIMATIO
 
 ## Official References
 
+- [Capacity Estimation in Systems Design - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/capacity-estimation-in-systems-design/)
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 - [RFC 9110: HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
+- [Performance, Capacity, And FinOps](../../operations/PERFORMANCE-CAPACITY-FINOPS.md)

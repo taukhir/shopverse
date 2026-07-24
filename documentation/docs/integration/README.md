@@ -6,7 +6,7 @@ tags: ["integration", "kafka", "microservices"]
 page_type: "Learning Path"
 difficulty: "Advanced"
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-23"
 ---
 
 # Messaging And Integration
@@ -29,6 +29,7 @@ flowchart LR
 <TopicCards items={[
   {title: 'Platform selection', href: '/integration/MESSAGING-PLATFORM-SELECTION', description: 'Compare communication models and migration costs.', icon: 'route', tags: ['Decision', 'Trade-offs']},
   {title: 'Apache Kafka', href: '/integration/APACHE-KAFKA', description: 'Partitions, consumer groups, delivery, and Shopverse flows.', icon: 'network', tags: ['Kafka', 'Events']},
+  {title: 'Event streaming applications', href: '/integration/EVENT-STREAMING-APPLICATION-PATH', description: 'Dedicated Spring Cloud Stream, Kafka Streams, and Kafka Connect tracks with production and interview coverage.', icon: 'layers', tags: ['Learning path', 'Lead']},
   {title: 'Kafka versus synchronous', href: '/spring/decisions/KAFKA-VS-SYNCHRONOUS', description: 'Decide when asynchronous integration creates real value.', icon: 'layers', tags: ['Decision guide']},
 ]} />
 
@@ -40,7 +41,10 @@ Avoid Kafka when the caller requires an immediate authoritative answer, the work
 
 ## Recommended Next
 
-Continue with [SAGA And Transactional Outbox](../reliability/SAGA-GENERIC.md) for durable cross-service workflow design.
+Use the [Event Streaming Application Path](./EVENT-STREAMING-APPLICATION-PATH.md)
+for Spring Cloud Stream, Kafka Streams, and Kafka Connect, or continue with
+[SAGA And Transactional Outbox](../reliability/SAGA-GENERIC.md) for durable
+cross-service workflow design.
 
 ## Official References
 

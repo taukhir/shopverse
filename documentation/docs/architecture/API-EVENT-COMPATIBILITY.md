@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # API And Event Compatibility
 
+This page is the concise compatibility primer. For design ownership, OpenAPI and
+AsyncAPI workflows, registry policy, security, operational metrics, migrations,
+incident labs, interviews, and revision, use the
+[API And Event Schema Governance Path](./API-EVENT-SCHEMA-GOVERNANCE-PATH.md).
+
 Compatibility is a deployment property: producers, consumers, stored data, and
 in-flight messages often run different versions simultaneously.
 
@@ -73,7 +78,7 @@ improve isolation but require reconciliation and a clear source of truth.
 - Include authorization, idempotency, pagination, errors, and rate limits.
 - Record version ownership, adoption, deprecation, replay, and rollback evidence.
 
-## Recommended Next Page
+## Recommended Next
 
-Continue with [Kubernetes Workload Engineering](../operations/KUBERNETES-WORKLOAD-ENGINEERING.md)
-to run compatible versions together safely.
+Continue with the [API And Event Schema Governance Path](./API-EVENT-SCHEMA-GOVERNANCE-PATH.md)
+before running mixed versions with [Kubernetes Workload Engineering](../operations/KUBERNETES-WORKLOAD-ENGINEERING.md).

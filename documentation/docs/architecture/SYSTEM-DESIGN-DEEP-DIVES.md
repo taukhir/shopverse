@@ -6,7 +6,7 @@ status: Generic
 keywords: [system design method, capacity estimation, component internals, system design case study, interview rubric]
 learning_objectives: [Apply one repeatable design method, Derive components from invariants and access patterns, Defend trade-offs with calculations and failure analysis]
 technologies: [Java, Spring Boot, Kafka, PostgreSQL, Redis]
-last_reviewed: "2026-07-12"
+last_reviewed: "2026-07-16"
 ---
 
 # System Design Deep Dives
@@ -20,8 +20,10 @@ and explain why plausible alternatives were rejected.
 1. [End-To-End System Design Method](./system-design-deep-dives/END-TO-END-DESIGN-METHOD.md)
 2. [Distributed Component Internals](./system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS.md)
 3. [Case-Study Design Workbook](./system-design-deep-dives/CASE-STUDY-WORKBOOK.md)
-4. [Interview Evaluation Rubric](./system-design-deep-dives/INTERVIEW-RUBRIC.md)
-5. [Sixteen System Design Case Studies](./hld-lld/SIXTEEN-SYSTEM-DESIGN-CASE-STUDIES.md)
+4. [System Design Interview Problem Catalog](./system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG.md)
+5. [Fifteen Visual Blueprints](./system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS.md)
+6. [Interview Evaluation Rubric](./system-design-deep-dives/INTERVIEW-RUBRIC.md)
+7. [Sixteen System Design Case Studies](./hld-lld/SIXTEEN-SYSTEM-DESIGN-CASE-STUDIES.md)
 
 Use supporting chapters for [capacity estimation](./hld-lld/CAPACITY-PERFORMANCE-ESTIMATION.md),
 [data partitioning](./hld-lld/DATA-PARTITIONING.md), [database selection](../data/DATABASE-SELECTION-GUIDE.md),

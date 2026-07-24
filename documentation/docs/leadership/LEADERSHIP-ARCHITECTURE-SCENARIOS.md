@@ -27,6 +27,11 @@ whether a candidate can turn an ambiguous business problem into a safe decision,
 align people around it, deliver it incrementally, and prove the result in
 production. The same standard applies to architecture work outside an interview.
 
+Use the [Architect Practice And Evidence Path](./ARCHITECT-PRACTICE-EVIDENCE-PATH.md)
+after each technology track. It provides the reusable seven-question worksheet for
+runtime internals, design selection, failure and diagnosis, scaling and security,
+rejected alternatives, and measurable production proof.
+
 ```mermaid
 flowchart LR
     Understand["Understand outcome and constraints"] --> Measure["Measure the current system"]
@@ -50,6 +55,7 @@ decision worked.
 
 | Interview scenario | Primary guide | Architect emphasis |
 |---|---|---|
+| Convert technical knowledge into architect evidence | [Architect Practice And Evidence](./ARCHITECT-PRACTICE-EVIDENCE-PATH.md) | runtime trace, decisions, failure diagnosis, scale, security, trade-offs, production proof |
 | Split a monolith into microservices | [Monolith To Microservices Strategy](./MONOLITH-TO-MICROSERVICES-STRATEGY.md) | boundaries, data ownership, incremental extraction, platform cost |
 | Conduct code reviews | [Engineering Leadership Practices](./ENGINEERING-LEADERSHIP-PRACTICES.md) | scalable quality system, risk, learning, ownership |
 | Mentor senior developers | [Engineering Leadership Practices](./ENGINEERING-LEADERSHIP-PRACTICES.md) | judgment, influence, succession, measurable growth |
@@ -176,13 +182,15 @@ Before accepting an answer or design, verify that it contains:
 
 ## Recommended Learning Order
 
-1. [Monolith To Microservices Strategy](./MONOLITH-TO-MICROSERVICES-STRATEGY.md)
-2. [Engineering Leadership Practices](./ENGINEERING-LEADERSHIP-PRACTICES.md)
-3. [Architecture Decisions And Disagreements](./ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS.md)
-4. [Production Performance And Availability](./PRODUCTION-PERFORMANCE-AND-AVAILABILITY.md)
-5. [Zero-Downtime Delivery](./ZERO-DOWNTIME-DELIVERY.md)
-6. [Legacy To Spring Boot Modernization](./LEGACY-TO-SPRING-BOOT-MODERNIZATION.md)
-7. [Leadership And Architecture Interview Workbook](./LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK.md)
+1. [Architect Practice And Evidence Path](./ARCHITECT-PRACTICE-EVIDENCE-PATH.md)
+2. [Architecture Portfolio And Mock Interview Programme](./ARCHITECTURE-PORTFOLIO-MOCK-INTERVIEW-PROGRAM.md)
+3. [Monolith To Microservices Strategy](./MONOLITH-TO-MICROSERVICES-STRATEGY.md)
+4. [Engineering Leadership Practices](./ENGINEERING-LEADERSHIP-PRACTICES.md)
+5. [Architecture Decisions And Disagreements](./ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS.md)
+6. [Production Performance And Availability](./PRODUCTION-PERFORMANCE-AND-AVAILABILITY.md)
+7. [Zero-Downtime Delivery](./ZERO-DOWNTIME-DELIVERY.md)
+8. [Legacy To Spring Boot Modernization](./LEGACY-TO-SPRING-BOOT-MODERNIZATION.md)
+9. [Leadership And Architecture Interview Workbook](./LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK.md)
 
 ## Related Canonical Guides
 
@@ -194,8 +202,9 @@ Before accepting an answer or design, verify that it contains:
 
 ## Recommended Next
 
-Begin with [Monolith To Microservices Strategy](./MONOLITH-TO-MICROSERVICES-STRATEGY.md),
-then follow the learning order above before attempting the interview workbook.
+Begin with [Architect Practice And Evidence](./ARCHITECT-PRACTICE-EVIDENCE-PATH.md),
+then apply its seven-question worksheet throughout the learning order before attempting
+the interview workbook.
 
 ## Official References
 

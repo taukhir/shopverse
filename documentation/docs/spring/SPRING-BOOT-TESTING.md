@@ -25,6 +25,11 @@ them first, then add Spring TestContext and slices only when configuration,
 proxies, conversion, persistence, security, or infrastructure are part of the
 claim.
 
+For development workflow and collaborative behavior discovery, use the
+[TDD And BDD Engineering Path](./TDD-BDD-ENGINEERING-PATH.md). It complements
+this test-technology path with red-green-refactor, example mapping, domain
+language, production scenarios, adoption, and revision material.
+
 ```mermaid
 flowchart LR
     junit["1. JUnit"] --> mockito["2. Mockito"]
@@ -47,6 +52,7 @@ transport behavior matters. Larger scope is not automatically stronger evidence.
 ## 1. Framework-Independent Foundations
 
 <TopicCards items={[
+  {title: 'TDD and BDD engineering', href: '/spring/TDD-BDD-ENGINEERING-PATH', description: 'Design feedback, behavior discovery, Spring production boundaries, labs, and interviews.', icon: 'route', tags: ['TDD', 'BDD']},
   {title: 'JUnit testing fundamentals', href: '/spring/testing/JUNIT-TESTING-FUNDAMENTALS', description: 'Lifecycle, assertions, parameterized tests, structure, tags, and deterministic execution.', icon: 'book', tags: ['Foundation', 'JUnit']},
   {title: 'Mockito and unit testing', href: '/spring/testing/MOCKITO-UNIT-TESTING', description: 'Test doubles, stubbing, verification, captors, design seams, and focused service tests.', icon: 'experiment', tags: ['Foundation', 'Mockito']},
 ]} />

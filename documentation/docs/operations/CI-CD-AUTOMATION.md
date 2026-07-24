@@ -185,9 +185,9 @@ instead of running duplicate CI systems without purpose.
 
 ## Related Guides
 
+- [Helm, GitOps, And Argo CD Architect Path](./HELM-GITOPS-ARGOCD-PATH.md)
 - [Docker](DOCKER.md)
 - [Jenkins](JENKINS.md)
 - [GitHub Actions](GITHUB-ACTIONS.md)
 - [Deployment Strategies](DEPLOYMENT-STRATEGIES.md)
 - [Spring Boot Testing](../spring/SPRING-BOOT-TESTING.md)
-

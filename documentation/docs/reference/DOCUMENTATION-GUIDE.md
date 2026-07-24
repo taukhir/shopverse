@@ -5,7 +5,7 @@ page_type: Learning Path
 status: Generic
 learning_objectives: [Choose the correct documentation path, Distinguish concepts labs runbooks and implementation pages, Maintain canonical content safely]
 technologies: [Docusaurus]
-last_reviewed: "2026-07-12"
+last_reviewed: "2026-07-23"
 ---
 
 # Documentation Guide
@@ -35,6 +35,28 @@ rules across reference pages.
 
 Generic pages own reusable explanations. Shopverse pages own repository code,
 configuration, evidence and known gaps. Labs prove behavior; runbooks operate it.
+
+## Overview And Revision Pages
+
+An **overview page** is the first read for a large domain. It owns the domain mental
+model, a brief topic map, important decisions and misconceptions, the recommended
+learning order, and links to canonical deep dives. It explains how subjects relate
+without copying their full implementation details.
+
+A **revision page** is a compact recall aid used after the deep dives. It owns
+one-sentence definitions, comparison tables, guarantee boundaries, common failure
+prompts, rapid interview answers, and a final checklist. Revision pages link back
+to canonical explanations instead of becoming a second source of truth.
+
+Use this route consistently:
+
+```text
+Overview -> Fundamentals -> Deep dives -> Production/Labs -> Revision -> Interview practice
+```
+
+Do not add a new overview or revision page when an existing landing page or
+cheatsheet already serves that purpose. Strengthen and link the existing canonical
+page instead.
 
 ## Authoring And Quality
 

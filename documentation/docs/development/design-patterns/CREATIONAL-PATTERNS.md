@@ -1,12 +1,12 @@
 ---
 title: Creational Patterns
-description: "Choose and implement Factory, Builder, Singleton, and related object-creation patterns in Spring applications."
+description: "Choose among all five GoF creational patterns and follow dedicated Java and Spring implementation guides."
 sidebar_label: "Creational Patterns"
 tags: ["spring", "design-patterns", "creational"]
 page_type: "Category Overview"
 difficulty: "Advanced"
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-24"
 ---
 
 # Creational Patterns
@@ -22,15 +22,37 @@ business intent.
 ## Dedicated Pattern Guides
 
 <TopicCards items={[
-  {title: 'Factory', href: '/development/design-patterns/factory', description: 'Centralize runtime construction or selection without hiding dependencies.', icon: 'boxes', tags: ['Interview priority', 'Spring DI']},
-  {title: 'Builder', href: '/development/design-patterns/builder', description: 'Construct readable immutable objects while protecting invariants.', icon: 'code', tags: ['Object creation', 'Domain design']},
-  {title: 'Singleton', href: '/development/design-patterns/singleton', description: 'Understand Spring singleton scope, lifecycle, and thread-safety.', icon: 'layers', tags: ['Bean scope', 'Concurrency']},
+  {title: 'Factory Method', href: '/development/design-patterns/factory', description: 'Move product selection and construction behind a stable product contract.', icon: 'boxes', tags: ['Runtime selection', 'Spring registry']},
+  {title: 'Abstract Factory', href: '/development/design-patterns/abstract-factory', description: 'Create compatible families of related products without leaking vendor types.', icon: 'layers', tags: ['Product families', 'Environment variants']},
+  {title: 'Builder', href: '/development/design-patterns/builder', description: 'Construct readable immutable objects while protecting required fields and cross-field invariants.', icon: 'code', tags: ['Stepwise construction', 'Domain design']},
+  {title: 'Prototype', href: '/development/design-patterns/prototype', description: 'Derive independent objects from a configured template without unsafe shallow copies.', icon: 'experiment', tags: ['Copy semantics', 'Templates']},
+  {title: 'Singleton', href: '/development/design-patterns/singleton', description: 'Understand Java and Spring singleton implementations, lifecycle, testability, and thread-safety.', icon: 'layers', tags: ['Bean scope', 'Concurrency']},
 ]} />
 
 <DocCallout type="tip" title="Use this page for comparison">
 
-This category page explains how creational patterns relate. Follow the cards for
-the canonical Spring implementation and interview guidance for each core pattern.
+This page compares the patterns. Each card opens a dedicated guide containing
+the problem, a naive implementation, multiple Java or Spring solutions, their
+drawbacks, mitigations, tests, and an interview-ready summary.
+
+</DocCallout>
+
+## Pattern Map
+
+| Design pressure | Pattern | Core question | Prefer something simpler when |
+|---|---|---|---|
+| the concrete product varies | Factory Method | which implementation should the caller receive? | one constructor call is stable and obvious |
+| several related products vary together | Abstract Factory | which compatible product family should be used? | only one product varies |
+| construction has many named steps or optional values | Builder | how can callers assemble one valid product readably? | a record or named constructor is clear |
+| a configured template must be copied | Prototype | how can a variation start from existing state safely? | construction is cheap and has little shared state |
+| exactly one process-local instance is required | Singleton | who owns instance cardinality and lifecycle? | normal dependency injection already manages scope |
+
+<DocCallout type="mistake" title="These patterns solve different problems">
+
+Factory chooses a product, Builder assembles a product, Prototype copies a
+product, Abstract Factory chooses a compatible family, and Singleton controls
+instance cardinality. Similar-looking code does not make their intent
+interchangeable.
 
 </DocCallout>
 
@@ -334,6 +356,16 @@ spring.datasource.hikari.maximum-pool-size=20
 
 Connection pools must be bounded. An unbounded pool hides backpressure and can
 crash the database.
+
+<DocCallout type="tip" title="Object Pool is related, but not one of the five GoF creational patterns">
+
+Pooling is a lifecycle and resource-capacity technique. Prefer mature pools such
+as HikariCP or an HTTP client's connection manager. Pool correctness also
+requires bounded capacity, acquisition timeouts, validation, leak detection,
+and guaranteed release—concerns that are intentionally outside the five
+dedicated GoF guides.
+
+</DocCallout>
 
 ## Choosing The Right Creational Pattern
 

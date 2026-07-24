@@ -1,7 +1,7 @@
 ---
 title: Cloud Computing
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-23"
 ---
 
 # Cloud Computing
@@ -10,6 +10,9 @@ Cloud computing provides infrastructure, platforms, and complete applications
 over a network with on-demand capacity, metered cost, and automation. This
 section starts with the provider-neutral service models and then maps them to
 AWS.
+
+Use the [Cloud And AWS Revision Sheet](./CLOUD-AWS-REVISION-SHEET.md) after the
+provider and service deep dives.
 
 ## Read In This Order
 

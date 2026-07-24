@@ -33,6 +33,10 @@ latency. PostgreSQL wire compatibility is not complete PostgreSQL equivalence.
 
 Cassandra writes to a commit log and memtable, flushes immutable SSTables, and
 uses compaction and repair to maintain replicas. Model tables from queries:
+
+Use the [Apache Cassandra Architect Learning Path](../CASSANDRA-ARCHITECT-PATH.md)
+for dedicated architecture, CQL modeling, storage, indexing, operations, labs,
+interview questions, and Spring integration.
 choose a high-cardinality partition key, bound partition growth—often with time
 buckets—and use clustering columns for ordered reads. It has no relational joins
 and is a poor fit for ad hoc filtering or frequent multi-row transactions.

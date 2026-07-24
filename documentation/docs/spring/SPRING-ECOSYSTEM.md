@@ -276,6 +276,8 @@ public methods owned by the appropriate service.
 - [Spring Cache](SPRING-CACHE.md)
 - [Spring Transactions](SPRING-TRANSACTIONS.md)
 - [Spring Data JPA](SPRING-DATA-JPA.md)
+- [Spring Data Cassandra](SPRING-DATA-CASSANDRA.md)
+- [Spring Cloud Stream Overview](../integration/streaming/SPRING-CLOUD-STREAM-OVERVIEW.md)
 - [Caching principles](../architecture/CACHING-GENERIC.md)
 
 ## Official References

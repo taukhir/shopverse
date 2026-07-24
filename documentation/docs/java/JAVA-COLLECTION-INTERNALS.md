@@ -2,7 +2,7 @@
 title: Java Collection Internals
 sidebar_position: 4
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-24"
 ---
 
 # Java Collection Internals
@@ -16,6 +16,17 @@ OpenJDK-level mechanics.
 
 Collections are API abstractions, but performance depends on their internal
 data structures.
+
+## Dedicated Implementation Guides
+
+This page remains a compact revision sheet. Use the dedicated guides for
+storage diagrams, defaults, capacity/load factor, methods, operation flows,
+trade-offs, and selection:
+
+- [List implementations](./collections/list/LIST-OVERVIEW.md)
+- [Set implementations](./collections/set/SET-OVERVIEW.md)
+- [Map implementations](./collections/map/MAP-OVERVIEW.md)
+- [Queue and Deque implementations](./collections/queue/QUEUE-DEQUE-OVERVIEW.md)
 
 ## ArrayList
 
