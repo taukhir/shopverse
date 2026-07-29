@@ -106,3 +106,9 @@ failure.
 
 Use the [Current-State Architecture](./SHOPVERSE-ARCHITECTURE-CURRENT-STATE.md) and
 [Architecture Audit](./SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT.md) for detail.
+
+## Official References
+
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Kubernetes concepts](https://kubernetes.io/docs/concepts/)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)

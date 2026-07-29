@@ -287,7 +287,10 @@ sensitive payloads by default.
 
 ## Recommended Next
 
-Return to [SAGA And Transactional Outbox](./SAGA-GENERIC.md) to select the next focused guide.
+Continue with [Outbox Production Failure Modes](./OUTBOX-PRODUCTION-FAILURE-MODES.md)
+for relay crash windows, stuck claims, ordering, poison rows, backlog growth,
+cleanup, CDC, and reconciliation. Then return to
+[SAGA And Transactional Outbox](./SAGA-GENERIC.md).
 
 
 ## Official References

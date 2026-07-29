@@ -12,6 +12,10 @@ last_reviewed: "2026-07-24"
 
 # Architecture Portfolio And Mock Interview Programme
 
+Start from the canonical
+[Lead And Architect Preparation Dashboard](./interview-program/LEAD-ARCHITECT-PREPARATION-DASHBOARD.md)
+to select a role route, schedule, revision cadence, and readiness gates before building the portfolio.
+
 This track converts knowledge into interview performance. A portfolio proves that you can
 make and validate decisions; mock interviews prove that you can explain those decisions
 under time pressure, incomplete information, and follow-up questioning.
@@ -59,4 +63,3 @@ no repeated critical weakness across the last three scored interviews.
 ## Recommended Next
 
 Begin with [Build A Defensible Architecture Portfolio](./interview-program/ARCHITECTURE-PORTFOLIO-BUILDING.md).
-

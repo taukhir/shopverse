@@ -54,6 +54,36 @@ flowchart TB
 than individual elements. `LinkedList` implements both `List` and `Deque`, but
 `ArrayList` is normally the better list and `ArrayDeque` the better deque.
 
+<InteractiveTopicTree
+  title="Java Collections explorer"
+  items={[
+    {title: 'Collection', description: 'Root contract for groups of individual elements', children: [
+      {title: 'List', description: 'Ordered, indexed, duplicates allowed', href: '/java/collections/list/LIST-OVERVIEW', children: [
+        {title: 'ArrayList', description: 'Resizable array; usual general-purpose list'},
+        {title: 'LinkedList', description: 'Linked nodes; also implements Deque'},
+        {title: 'CopyOnWriteArrayList', description: 'Read-heavy snapshots with expensive writes'},
+      ]},
+      {title: 'Set', description: 'Unique elements', href: '/java/collections/set/SET-OVERVIEW', children: [
+        {title: 'HashSet', description: 'Hash-based uniqueness'},
+        {title: 'LinkedHashSet', description: 'Uniqueness plus encounter order'},
+        {title: 'TreeSet', description: 'Sorted and navigable uniqueness'},
+        {title: 'EnumSet', description: 'Compact set for one enum type'},
+      ]},
+      {title: 'Queue and Deque', description: 'Head-based and double-ended processing', href: '/java/collections/queue/QUEUE-DEQUE-OVERVIEW', children: [
+        {title: 'ArrayDeque', description: 'Efficient stack and queue'},
+        {title: 'PriorityQueue', description: 'Head chosen by priority'},
+        {title: 'BlockingQueue', description: 'Producer-consumer coordination'},
+      ]},
+    ]},
+    {title: 'Map', description: 'Separate key-value hierarchy', href: '/java/collections/map/MAP-OVERVIEW', children: [
+      {title: 'HashMap', description: 'General hash lookup'},
+      {title: 'LinkedHashMap', description: 'Predictable encounter/access order'},
+      {title: 'TreeMap', description: 'Sorted and navigable keys'},
+      {title: 'ConcurrentHashMap', description: 'Atomic concurrent map operations'},
+    ]},
+  ]}
+/>
+
 ## Browse By Family
 
 <TopicCards items={[

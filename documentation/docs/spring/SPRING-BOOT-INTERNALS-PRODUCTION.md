@@ -11,6 +11,11 @@ last_reviewed: "2026-07-12"
 
 # Spring Boot Runtime Engineering Map
 
+For the complete production checklist, use
+[Spring Boot Production Mastery](./boot/SPRING-BOOT-PRODUCTION-MASTERY.md). For
+end-to-end queue, pool and JVM diagnosis, continue with
+[Spring Boot Runtime Performance](./boot/SPRING-BOOT-RUNTIME-PERFORMANCE.md).
+
 <DocLabels items={[
   {label: 'Advanced', tone: 'advanced'},
   {label: 'Diagnostic map', tone: 'foundation'},

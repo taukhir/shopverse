@@ -102,3 +102,8 @@ For every remote call, queue, database, cache, and scheduler ask:
 - design compatible evolution, migration, rollback, and recovery;
 - show how tests and telemetry prove the design;
 - compare alternatives rather than presenting one inevitable solution.
+
+## Recommended Next
+
+Continue with [HLD And LLD](./HLD-LLD.md), then practise with the
+[System Design Deep Dives](./SYSTEM-DESIGN-DEEP-DIVES.md).

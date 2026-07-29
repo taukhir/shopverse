@@ -16,6 +16,10 @@ Spring Data is a family of store-specific projects built on shared repository, m
 conversion, auditing, paging, and lifecycle infrastructure. It reduces adapter code; it
 does not erase the database's consistency, query, transaction, indexing, or capacity model.
 
+Use this path for Spring's persistence abstractions. Pair it with
+[Database Production Mastery](../data/DATABASE-PRODUCTION-MASTERY.md) for optimizer,
+pool, failover, backup, recovery, Oracle, Cassandra, and database-incident depth.
+
 ```mermaid
 flowchart LR
   App["Application service"] --> Proxy["Repository proxy or operations template"]

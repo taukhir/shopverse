@@ -1,5 +1,9 @@
 ---
-title: AI Learning Track
+title: AI, RAG, And Java AI Overview
+description: Beginner overview and learning route for LLMs, prompting, embeddings, vector databases, RAG, agents, Spring AI, LangChain4j, security, and evaluation.
+sidebar_label: AI And RAG Overview
+difficulty: Beginner
+page_type: Learning Path
 sidebar_position: 1
 status: "maintained"
 last_reviewed: "2026-07-23"
@@ -166,3 +170,8 @@ Better answers:
 - "A vector DB stores embeddings for similarity search."
 - "RAG is usually better for private and changing knowledge."
 - "For products, the model extracts intent and the backend fetches real data."
+
+## Recommended Next
+
+Start with [LLM And Generative AI Fundamentals](./LLM-GENERATIVE-AI-FUNDAMENTALS.md), then
+continue through the [Beginner-To-Advanced AI Guide](./BEGINNER-TO-ADVANCED-GUIDE.md).

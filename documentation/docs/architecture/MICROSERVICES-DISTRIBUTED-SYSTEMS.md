@@ -12,6 +12,10 @@ last_reviewed: "2026-07-13"
 
 # Microservices And Distributed Systems Learning Guide
 
+For payment, ledger, reconciliation, settlement, financial controls, and banking-style
+production scenarios, follow the dedicated
+[Financial Systems Architecture](./financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH.md) track.
+
 <DocLabels items={[
   {label: 'Foundation to architect', tone: 'foundation'},
   {label: 'Distributed failure', tone: 'production'},

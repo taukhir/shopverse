@@ -9,6 +9,7 @@ export default defineConfig({
   use: {baseURL: 'http://127.0.0.1:3000/shopverse/', trace: 'retain-on-failure'},
   projects: [
     {name: 'desktop-chromium', use: {...devices['Desktop Chrome']}},
+    {name: 'tablet-chromium', testMatch: /responsive-matrix\.spec\.ts/, use: {...devices['iPad Pro 11']}},
     {name: 'mobile-chromium', use: {...devices['Pixel 7']}},
     {
       name: 'desktop-firefox',

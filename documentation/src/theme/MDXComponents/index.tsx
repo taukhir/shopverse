@@ -11,6 +11,7 @@ import {
   VersionTabs,
 } from '@site/src/components/DocPatterns';
 import {SearchableQuestionTable} from '@site/src/components/SearchableQuestionTable';
+import {CodeWalkthrough, CopyableCommandGroup, InteractiveTopicTree, InterviewPractice, PatternComparison, StepByStepDryRun} from '@site/src/components/LearningTools';
 
 export default {
   ...OriginalMDXComponents,
@@ -24,4 +25,10 @@ export default {
   TopicCards,
   VersionTabs,
   SearchableQuestionTable,
+  CodeWalkthrough,
+  CopyableCommandGroup,
+  InteractiveTopicTree,
+  InterviewPractice,
+  PatternComparison,
+  StepByStepDryRun,
 };

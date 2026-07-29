@@ -153,4 +153,17 @@ promise. For interview analysis, `O(n)` expected time is the conventional answer
 > contain extreme integers.
 
 Continue with [The Two Sum Family](./TWO-SUM-FAMILY.md), then work through the
+[Kadane Algorithm Family](./KADANE-FAMILY.md) and the
 [30-Problem Roadmap](./ARRAY-30-PROBLEM-ROADMAP.md).
+
+## Core Problem Families
+
+<TopicCards items={[
+  {title: 'Two Sum Family', href: '/data-structures/programming/arrays/TWO-SUM-FAMILY', description: 'Eight complement and two-pointer variants with samples, Java solutions, and dry runs.', icon: 'route', tags: ['Hashing', 'Two pointers', '3Sum']},
+  {title: 'Kadane Family', href: '/data-structures/programming/arrays/KADANE-FAMILY', description: 'Maximum, printed, minimum, circular subarrays, and stock profit from one ending-here invariant.', icon: 'gauge', tags: ['Dynamic programming', 'Greedy']},
+]} />
+
+## Official References
+
+- [Java arrays tutorial](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html)
+- [Java `Arrays` API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Arrays.html)

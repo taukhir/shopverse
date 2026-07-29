@@ -84,3 +84,9 @@ tests—not only clean structure.
 - state and work have clear ownership;
 - resources and failure are bounded;
 - tests and production evidence cover critical boundaries.
+
+## Official References
+
+- [Java language specification](https://docs.oracle.com/javase/specs/jls/se21/html/)
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Google SRE books](https://sre.google/books/)

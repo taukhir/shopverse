@@ -81,3 +81,9 @@ margin blindly.
 - multi-AZ/region design proves RPO and RTO;
 - identities, secrets, encryption, audit, and backups are operated;
 - cost is attributed and balanced against SLOs.
+
+## Official References
+
+- [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+- [AWS Architecture Center](https://aws.amazon.com/architecture/)
+- [AWS shared responsibility model](https://aws.amazon.com/compliance/shared-responsibility-model/)

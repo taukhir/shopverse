@@ -96,3 +96,8 @@ row, or compensation request without an operator path is unfinished design.
 - design overload behavior before resource exhaustion;
 - define compensation and reconciliation from business invariants;
 - prove recovery with durable evidence and failure tests.
+
+## Recommended Next
+
+Continue with [Idempotency](./IDEMPOTENCY-GENERIC.md), then practise the failure and
+recovery workflows linked from this overview.

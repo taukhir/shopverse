@@ -1,6 +1,7 @@
 ---
-title: Spring Autowiring And Circular Reference Internals
-description: Follow injection metadata, dependency descriptors, candidate selection, injection styles, early singleton references, proxy hazards, and cycle diagnosis.
+title: Spring Autowiring, Injection Types, Ambiguity, And Circular Dependencies
+description: Use constructor, setter, field, method, collection, qualifier, primary, lazy, and provider injection; trace bean resolution; fix ambiguity and circular dependencies safely.
+sidebar_label: Autowiring, Ambiguity And Circular Dependencies
 difficulty: Advanced
 page_type: Concept
 status: Generic
@@ -9,7 +10,7 @@ technologies: [Spring Framework 7, Spring Boot 4]
 last_reviewed: "2026-07-13"
 ---
 
-# Spring Autowiring And Circular Reference Internals
+# Spring Autowiring, Injection Types, Ambiguity, And Circular Dependencies
 
 <DocLabels items={[
   {label: 'Dependency resolution', tone: 'advanced'},
@@ -108,6 +109,75 @@ OrderFactory orderFactory(Clock clock, ObjectProvider<AuditPublisher> audit) {
 }
 ```
 
+## Autowiring Types With Examples
+
+### Constructor Injection: Required Dependencies
+
+```java
+@Service
+final class OrderService {
+    private final OrderRepository orders;
+    private final PaymentGateway payments;
+
+    OrderService(OrderRepository orders, PaymentGateway payments) {
+        this.orders = orders;
+        this.payments = payments;
+    }
+}
+```
+
+A single constructor does not need `@Autowired`. This is the default for required collaborators:
+the object cannot exist incompletely, fields can be final, tests can construct it directly, and a
+cycle is exposed immediately.
+
+### Setter Or Method Injection: Truly Optional/Reconfigurable Input
+
+```java
+@Autowired(required = false)
+void setAuditPublisher(AuditPublisher publisher) {
+    this.publisher = publisher;
+}
+```
+
+Use sparingly. The object must remain valid when the method is never called. Setter injection is not
+a sound way to hide a required constructor cycle.
+
+### Field Injection: Supported But Usually Avoided
+
+```java
+@Autowired
+private OrderRepository orders;
+```
+
+Field injection hides the construction contract, prevents final fields, encourages reflection-based
+tests, and makes manual construction invalid. It remains useful in narrow framework-managed legacy
+cases, but constructor injection should be the application default.
+
+### Collection And Generic Injection
+
+```java
+CheckoutService(List<FraudRule> rules, Map<String, PaymentGateway> gateways) {
+    this.rules = List.copyOf(rules);
+    this.gateways = Map.copyOf(gateways);
+}
+```
+
+Spring injects all matching beans. Use `@Order` or `Ordered` only when handler order is part of the
+contract. The map keys are bean names; do not expose them directly as untrusted business input.
+Generic types can narrow candidates, such as `Repository<Order>` versus `Repository<Customer>`.
+
+### Deferred And Scoped Injection
+
+```java
+ReportService(ObjectProvider<ReportWorkspace> workspaces) {
+    this.workspaces = workspaces;
+}
+```
+
+Use `ObjectProvider` for deliberate deferred, optional, ordered, or repeated scoped lookup. `@Lazy`
+injects a proxy that resolves the target on first use. Both can hide failures until runtime, so they
+should represent a real lifecycle requirement rather than conceal poor ownership.
+
 ## By Type Name And Qualifier
 
 `@Autowired` is type/generic driven, then candidate rules narrow the set. An
@@ -193,6 +263,171 @@ factory product type, test/auto-configuration origin and condition report.
 Use a semantic qualifier when callers need different strategies, one `@Primary`
 for a real default, collections when all implementations participate, and
 profiles/conditions only when availability truly depends on environment/config.
+
+## Fixing Autowiring Ambiguity
+
+Given two implementations:
+
+```java
+@Component("stripeGateway")
+final class StripeGateway implements PaymentGateway {}
+
+@Component("walletGateway")
+final class WalletGateway implements PaymentGateway {}
+```
+
+Choose a fix from the meaning of the dependency:
+
+| Intent | Correct mechanism |
+|---|---|
+| one implementation is the genuine application default | mark exactly one `@Primary` |
+| this injection point requires a semantic variant | use `@Qualifier("stripeGateway")` or a custom qualifier |
+| every implementation participates | inject `List<PaymentGateway>` |
+| choose at runtime from trusted domain key | build an explicit registry with duplicate/unknown validation |
+| implementation exists only under configuration/environment | `@Conditional...` or profile, with condition tests |
+| bean should not be an autowire candidate | set `autowireCandidate=false` where configuration owns it |
+
+```java
+@Target({FIELD, PARAMETER, METHOD, TYPE})
+@Retention(RUNTIME)
+@Qualifier
+public @interface CardPayments {}
+
+@CardPayments
+@Component
+final class StripeGateway implements PaymentGateway {}
+
+CheckoutService(@CardPayments PaymentGateway gateway) {
+    this.gateway = gateway;
+}
+```
+
+Custom qualifiers avoid coupling domain meaning to a class or arbitrary bean name. Do not solve
+ambiguity by renaming a constructor parameter and relying on name fallback for critical behavior.
+
+<ExpandableAnswer title="Dry run: how Spring resolves an ambiguous PaymentGateway">
+
+1. Spring builds a `DependencyDescriptor` containing `PaymentGateway`, generics, annotations, name,
+   and required status.
+2. The bean factory finds `stripeGateway` and `walletGateway` by assignable type.
+3. Qualifier metadata removes nonmatching candidates.
+4. If several remain, one valid primary or priority candidate may win.
+5. With no unique winner, resolution fails with `NoUniqueBeanDefinitionException`; Spring does not
+   randomly select a bean.
+6. Add a semantic qualifier for point-specific meaning, or one primary only when a global default
+   really exists.
+
+</ExpandableAnswer>
+
+## Fixing Circular Dependencies Architecturally
+
+### Extract The Workflow Owner
+
+```java
+// Before: OrderService -> PaymentService -> OrderService
+
+@Service
+final class CheckoutCoordinator {
+    private final OrderService orders;
+    private final PaymentService payments;
+
+    CheckoutResult checkout(CheckoutCommand command) {
+        Order order = orders.prepare(command);
+        Payment payment = payments.authorize(order.paymentRequest());
+        return orders.confirm(order.id(), payment.reference());
+    }
+}
+```
+
+`OrderService` and `PaymentService` now own cohesive capabilities; the coordinator owns sequencing.
+Other valid fixes are passing required data as a method argument, extracting a smaller read-only
+port, reversing an incorrectly directed dependency, or publishing a fact when eventual consistency
+and asynchronous ownership are genuinely acceptable.
+
+### Temporary Mechanisms And Their Limits
+
+| Mechanism | When legitimate | Why it is not the architectural fix |
+|---|---|---|
+| `@Lazy` | dependency is truly deferred/expensive | cycle still exists and failure moves to first call |
+| `ObjectProvider` | optional/scoped/repeated lookup | hides dependency and can become service locator |
+| setter injection | collaborator is genuinely optional | permits incomplete state and early references |
+| allow circular references property | time-bounded legacy migration | proxy identity and initialization hazards remain |
+| application event | optional or asynchronous reaction to a fact | wrong for a required synchronous return value |
+
+<ExpandableAnswer title="Dry run: constructor cycle and the correct fix">
+
+1. Creating `OrderService` requires a complete `PaymentService`.
+2. Creating `PaymentService` requires a complete `OrderService`.
+3. Neither instance exists, so there is no early object Spring can inject.
+4. Switching to fields may allow early singleton exposure in some cases but creates a partially
+   initialized graph and possible raw/proxy mismatch.
+5. Extracting `CheckoutCoordinator` removes both reverse edges and gives the workflow one owner.
+6. A context test proves startup, and an architecture test prevents the dependency cycle returning.
+
+</ExpandableAnswer>
+
+## Code Explanation And Tests
+
+<ExpandableAnswer title="Why constructor injection is the safest default">
+
+The constructor lists every required collaborator, allows final fields, and produces a usable object
+in both production and plain unit tests. It also makes dependency cycles fail at startup instead of
+leaving a partially initialized instance. Optional or deferred behavior should be explicit in its
+type or provider, not hidden in nullable fields.
+
+</ExpandableAnswer>
+
+```java
+@SpringBootTest
+class WiringTest {
+    @Autowired ApplicationContext context;
+
+    @Test
+    void cardGatewayIsTheSelectedSemanticCandidate() {
+        CheckoutService service = context.getBean(CheckoutService.class);
+        assertThat(AopUtils.getTargetClass(service.gateway()))
+            .isEqualTo(StripeGateway.class);
+    }
+}
+```
+
+Add focused context tests for qualifier choice, missing candidates, duplicate candidates, collection
+order, proxy presence, conditional configuration, and absence of cycles. Unit tests alone do not
+exercise container resolution.
+
+## Interview Questions
+
+<ExpandableAnswer title="What injection type should be the default?">
+
+Single-constructor injection for required dependencies. It makes the contract explicit, supports
+final fields and ordinary tests, and exposes cycles. Use setters, providers, or lazy proxies only
+when optionality or lifecycle genuinely requires them.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do @Primary and @Qualifier differ?">
+
+`@Primary` identifies the default among multiple candidates. `@Qualifier` semantically narrows the
+candidates for a particular injection point. Prefer a qualifier when two variants are intentionally
+used for different purposes; use primary only when one real default exists.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does changing a circular dependency to field injection fix it?">
+
+No. It may let Spring expose an early singleton reference for some cycles, but ownership remains
+cyclic and the bean can be observed before initialization or without its final proxy. Refactor the
+dependency graph.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When is @Lazy appropriate in dependency injection?">
+
+When delayed creation or access is an intentional lifecycle contract, such as an expensive optional
+capability. It is not a general circular-dependency fix because it defers resolution and failure
+rather than removing the cycle.
+
+</ExpandableAnswer>
 
 ## Official References
 

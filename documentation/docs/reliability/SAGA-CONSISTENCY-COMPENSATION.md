@@ -212,7 +212,9 @@ concurrency. Strong idempotency should be enforced by durable storage.
 
 ## Recommended Next
 
-Return to [SAGA And Transactional Outbox](./SAGA-GENERIC.md) to select the next focused guide.
+Continue with [Saga Liveness, Timeout, And Recovery](./SAGA-LIVENESS-TIMEOUT-RECOVERY.md)
+for missing replies, durable deadlines, late outcomes, reconciliation, and failed
+compensation. Then return to [SAGA And Transactional Outbox](./SAGA-GENERIC.md).
 
 
 ## Official References

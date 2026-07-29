@@ -180,11 +180,10 @@ network/authentication/downstream boundary and avoid changing workloads based on
 and lifecycle SLOs, UAA/database/BOSH evidence, Kubernetes control-plane/node/system
 health, registry health and application user-facing SLIs.
 
-## References
+## Official References
 
 - [Broadcom TKGI 1.25 Management Console cluster operations](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/console-monitor-manage-clusters.html)
 - [Broadcom: Management Console cannot display cluster details](https://knowledge.broadcom.com/external/article/388430/tkgi-management-console-does-not-display.html)
 - [Broadcom: Management Console and API certificate rotation](https://knowledge.broadcom.com/external/article/327473)
 - [Broadcom: Management Console token errors](https://knowledge.broadcom.com/external/article/394632)
 - [Broadcom: Ops Manager placement shown as down in console](https://knowledge.broadcom.com/external/article/418622)
-

@@ -12,6 +12,10 @@ last_reviewed: "2026-07-23"
 
 # Data And Persistence Overview
 
+For lead/architect preparation across engine internals, SQL and plans, transactions,
+ORM behavior, pools, Oracle, Cassandra, scaling, failover, and recovery, follow
+[Database Production Mastery](./DATABASE-PRODUCTION-MASTERY.md).
+
 Data architecture begins with invariants, access patterns, ownership, consistency,
 volume, and lifecycle. A database product is selected after those requirements are
 clear.
@@ -106,3 +110,8 @@ JPA does not eliminate SQL or database behavior. Architects must understand:
 - select storage from access and consistency requirements;
 - design compatible migration, backup, restore, and observability;
 - calculate connections, throughput, storage, and growth headroom.
+
+## Recommended Next
+
+Continue with [Database Engineering](./DATABASE-ENGINEERING.md), then use the storage-specific
+paths for relational, NoSQL, search, cache, and analytical workloads.

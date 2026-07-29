@@ -1,18 +1,25 @@
 export type SavedPage = {title: string; path: string; visitedAt: number};
+export type ReadingStatus = 'started' | 'read' | 'completed' | 'needs-review';
+export type PageProgress = SavedPage & {percent: number; status: ReadingStatus; lastHeading?: string; updatedAt: number};
 export type ReaderState = {
+  schemaVersion: 2;
   bookmarks: SavedPage[];
   completed: SavedPage[];
   recent: SavedPage[];
   fontScale: number;
   focusMode: boolean;
+  practiceMode: boolean;
+  notes: Record<string, string>;
   studyDays: string[];
   analyticsConsent: boolean;
+  progress: Record<string, PageProgress>;
 };
 
-export const READER_STORAGE_KEY = 'shopverse-reader-library-v1';
+export const READER_STORAGE_KEY = 'shopverse-reader-library-v2';
+const LEGACY_STORAGE_KEY = 'shopverse-reader-library-v1';
 export const READER_EVENT = 'shopverse-reader-library-change';
 
-export const defaultReaderState: ReaderState = {bookmarks: [], completed: [], recent: [], fontScale: 1, focusMode: false, studyDays: [], analyticsConsent: false};
+export const defaultReaderState: ReaderState = {schemaVersion: 2, bookmarks: [], completed: [], recent: [], fontScale: 1, focusMode: false, practiceMode: false, notes: {}, studyDays: [], analyticsConsent: false, progress: {}};
 
 export function localDateKey(date = new Date()) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
@@ -43,7 +50,19 @@ export function studyStreak(days: string[]) {
 export function readReaderState(): ReaderState {
   if (typeof window === 'undefined') return defaultReaderState;
   try {
-    return {...defaultReaderState, ...JSON.parse(localStorage.getItem(READER_STORAGE_KEY) ?? '{}')};
+    const stored = localStorage.getItem(READER_STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY) ?? '{}';
+    const parsed = JSON.parse(stored) as Partial<ReaderState>;
+    const migrated: ReaderState = {...defaultReaderState, ...parsed, schemaVersion: 2, progress: {...(parsed.progress ?? {})}};
+    migrated.recent.forEach((page) => {
+      const path = normalizeReaderPath(page.path);
+      migrated.progress[path] ??= {...page, path, percent: 1, status: 'started', updatedAt: page.visitedAt};
+    });
+    migrated.completed.forEach((page) => {
+      const path = normalizeReaderPath(page.path);
+      migrated.progress[path] = {...page, ...migrated.progress[path], path, percent: 100, status: 'completed', updatedAt: migrated.progress[path]?.updatedAt ?? page.visitedAt};
+    });
+    if (!localStorage.getItem(READER_STORAGE_KEY)) localStorage.setItem(READER_STORAGE_KEY, JSON.stringify(migrated));
+    return migrated;
   } catch {
     return defaultReaderState;
   }
@@ -58,5 +77,19 @@ export function toggleSavedPage(collection: 'bookmarks' | 'completed', page: Sav
   const state = readReaderState();
   const pagePath = normalizeReaderPath(page.path, baseUrl);
   const exists = state[collection].some((item) => normalizeReaderPath(item.path, baseUrl) === pagePath);
-  return {...state, [collection]: exists ? state[collection].filter((item) => normalizeReaderPath(item.path, baseUrl) !== pagePath) : [{...page, path: pagePath}, ...state[collection]]};
+  const next = {...state, [collection]: exists ? state[collection].filter((item) => normalizeReaderPath(item.path, baseUrl) !== pagePath) : [{...page, path: pagePath}, ...state[collection]]};
+  if (collection === 'completed') next.progress = {...state.progress, [pagePath]: {...page, ...state.progress[pagePath], path: pagePath, percent: exists ? Math.min(state.progress[pagePath]?.percent ?? 99, 99) : 100, status: exists ? 'read' : 'completed', updatedAt: Date.now()}};
+  return next;
+}
+
+export function updatePageProgress(page: SavedPage, percent: number, lastHeading?: string, baseUrl = '/') {
+  const state = readReaderState();
+  const path = normalizeReaderPath(page.path, baseUrl);
+  const previous = state.progress[path];
+  const nextPercent = Math.max(previous?.percent ?? 0, Math.min(100, Math.round(percent)));
+  const status: ReadingStatus = previous?.status === 'completed' || previous?.status === 'needs-review'
+    ? previous.status : nextPercent >= 70 ? 'read' : 'started';
+  const next = {...state, progress: {...state.progress, [path]: {...page, path, percent: nextPercent, status, lastHeading: lastHeading || previous?.lastHeading, updatedAt: Date.now()}}};
+  writeReaderState(next);
+  return next;
 }

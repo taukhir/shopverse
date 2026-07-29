@@ -1,5 +1,9 @@
 ---
-title: Operations
+title: Delivery, Containers, CI/CD, And Operations Overview
+description: Overview and learning map for builds, infrastructure as code, Linux, containers, Kubernetes, Helm, GitOps, CI/CD, deployment strategies, and operational tooling.
+sidebar_label: Delivery And Operations Overview
+difficulty: Beginner
+page_type: Learning Path
 status: "maintained"
 last_reviewed: "2026-07-13"
 ---
@@ -22,9 +26,14 @@ interviews, and labs, use the [Maven Engineering Learning Path](./MAVEN-ENGINEER
 | Goal | Page |
 |---|---|
 | Master Maven builds and dependency governance | [Maven Engineering Path](./MAVEN-ENGINEERING-PATH.md) |
+| Learn Maven basics, POMs, lifecycles, dependencies, plugins, and repositories | [Maven Overview](./MAVEN-OVERVIEW.md) |
+| Learn Linux basics, processes, filesystems, permissions, services, and networking | [Linux Overview](./LINUX-OVERVIEW.md) |
+| Learn Infrastructure as Code, Terraform/OpenTofu configuration, state, plans, and applies | [Infrastructure As Code Overview](./INFRASTRUCTURE-AS-CODE-OVERVIEW.md) |
+| Understand Helm charts, GitOps, and Argo CD responsibilities | [Helm, GitOps, And Argo CD Overview](./HELM-GITOPS-ARGOCD-OVERVIEW.md) |
 | Package Kubernetes applications and operate declarative delivery | [Helm, GitOps, And Argo CD](./HELM-GITOPS-ARGOCD-PATH.md) |
 | Diagnose Linux CPU, memory, storage, service, network, and container incidents | [Linux Production Troubleshooting](./LINUX-PRODUCTION-TROUBLESHOOTING-PATH.md) |
 | Master Kubernetes from API internals through recovery and interviews | [Kubernetes Beginner-To-Architect Path](./KUBERNETES-ARCHITECT-PATH.md) |
+| Learn Kubernetes basics, clusters, nodes, Pods, and core objects | [Kubernetes Overview](./kubernetes/KUBERNETES-OVERVIEW.md) |
 | Use kubectl and author/query YAML or JSON manifests | [kubectl Commands And Configuration](./kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS.md) |
 | Manage kubeconfig, contexts, authentication and multi-cluster access safely | [Kubeconfig And Cluster Access](./kubernetes/KUBERNETES-KUBECONFIG-ACCESS.md) |
 | Understand VMs, Pods, containers, BOSH, and TKGI cluster lifecycle | [TKGI Beginner-To-Architect Overview](./kubernetes/TKGI-OVERVIEW-PATH.md) |

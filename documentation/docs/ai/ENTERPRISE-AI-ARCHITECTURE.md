@@ -167,3 +167,7 @@ fallbacks, cost ownership and an incident kill switch.
 - [MCP specification](https://modelcontextprotocol.io/specification/2025-11-25)
 - [OWASP GenAI Security Project](https://genai.owasp.org/)
 
+## Recommended Next
+
+Begin with the [AI Beginner-To-Advanced Guide](./BEGINNER-TO-ADVANCED-GUIDE.md), then use the
+[Spring AI track](./SPRING-AI-UMBRELLA.md) for implementation depth.

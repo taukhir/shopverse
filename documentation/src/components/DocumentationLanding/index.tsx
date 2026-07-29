@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import styles from './styles.module.css';
 import {learningCatalog, learningStages as catalogStages} from '@site/src/data/learningCatalog';
+import FullLibraryExplorer from '@site/src/components/FullLibraryExplorer';
 
 type Topic = {
   title: string;
@@ -238,6 +239,7 @@ export function KnowledgeHome() {
         </Link>
       </section>
       <LearningExplorer />
+      <FullLibraryExplorer />
       <section className={styles.pathBand}>
         <div>
           <ListTree aria-hidden="true" />
@@ -255,10 +257,38 @@ export function KnowledgeHome() {
   );
 }
 
-function LearningExplorer() {
+function LegacyLearningExplorer() {
   const [stage,setStage]=useState('All'); const [query,setQuery]=useState('');
   const pages=useMemo(()=>learningCatalog.filter(page=>(stage==='All'||page.stage===stage)&&(!query||`${page.title} ${page.difficulty} ${page.type}`.toLowerCase().includes(query.toLowerCase()))),[stage,query]);
   return <section className={styles.explorer}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>Find your next guide</span><h2>Learning directory</h2></div><p>Filter the curated path by domain or search its metadata.</p></div><div className={styles.explorerControls}><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search learning pages…" aria-label="Search learning directory"/><div>{['All',...catalogStages].map(item=><button className={stage===item?styles.activeFilter:''} type="button" key={item} onClick={()=>setStage(item)}>{item}</button>)}</div></div><div className={styles.explorerGrid}>{pages.map(page=><Link key={page.path} to={page.path}><span>{page.stage}</span><strong>{page.title}</strong><small>{page.difficulty} · {page.type}</small></Link>)}</div></section>;
+}
+
+function LearningExplorer() {
+  const [stage, setStage] = useState('All');
+  const [difficulty, setDifficulty] = useState('All');
+  const [pageType, setPageType] = useState('All');
+  const [query, setQuery] = useState('');
+  const pages = useMemo(() => learningCatalog.filter((page) =>
+    (stage === 'All' || page.stage === stage) &&
+    (difficulty === 'All' || page.difficulty === difficulty) &&
+    (pageType === 'All' || page.type === pageType) &&
+    (!query || `${page.title} ${page.stage} ${page.difficulty} ${page.type}`.toLowerCase().includes(query.toLowerCase())),
+  ), [difficulty, pageType, query, stage]);
+  const clear = () => { setStage('All'); setDifficulty('All'); setPageType('All'); setQuery(''); };
+  return <section className={styles.explorer}>
+    <div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>Find your next guide</span><h2>Learning directory</h2></div><p>Filter by domain, level, and learning format.</p></div>
+    <div className={styles.explorerControls}>
+      <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search learning pages…" aria-label="Search learning directory" />
+      <div className={styles.filterGroup}><strong>Domain</strong><div>{['All', ...catalogStages].map((item) => <button className={stage === item ? styles.activeFilter : ''} type="button" key={item} onClick={() => setStage(item)}>{item}</button>)}</div></div>
+      <div className={styles.filterGrid}>
+        <div className={styles.filterGroup}><strong>Difficulty</strong><div>{['All', 'Beginner', 'Intermediate', 'Advanced'].map((item) => <button className={difficulty === item ? styles.activeFilter : ''} type="button" key={item} onClick={() => setDifficulty(item)}>{item}</button>)}</div></div>
+        <div className={styles.filterGroup}><strong>Format</strong><div>{['All', 'Concept', 'Tutorial', 'Reference', 'Runbook', 'Case Study'].map((item) => <button className={pageType === item ? styles.activeFilter : ''} type="button" key={item} onClick={() => setPageType(item)}>{item}</button>)}</div></div>
+      </div>
+      <div className={styles.resultSummary}><span>{pages.length} matching guides</span><button type="button" onClick={clear}>Clear filters</button></div>
+    </div>
+    <div className={styles.explorerGrid}>{pages.map((page) => <Link key={page.path} to={page.path}><span>{page.stage}</span><strong>{page.title}</strong><small>{page.difficulty} · {page.type}</small></Link>)}</div>
+    {!pages.length && <div className={styles.explorerEmpty}><strong>No guides match these filters.</strong><button type="button" onClick={clear}>Reset filters</button></div>}
+  </section>;
 }
 
 export function ShopverseHome() {

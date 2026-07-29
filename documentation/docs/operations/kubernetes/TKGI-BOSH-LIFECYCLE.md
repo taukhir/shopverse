@@ -171,11 +171,10 @@ disruption rules and failure timing.
 desired state. A direct BOSH edit can desynchronize TKGI database/config state and later
 be overwritten. It is appropriate only inside a supported recovery with resynchronization.
 
-## References
+## Official References
 
 - [BOSH components](https://bosh.io/docs/bosh-components/)
 - [BOSH releases](https://bosh.io/docs/release/)
 - [BOSH packages](https://bosh.io/docs/packages/)
 - [Broadcom: TKGI cluster update configuration hierarchy](https://knowledge.broadcom.com/external/article/437404/tkgi-cluster-update-and-bosh-tile-apply.html)
 - [Containers, VMs, Kubernetes And BOSH](./KUBERNETES-CONTAINERS-VMS-BOSH.md)
-

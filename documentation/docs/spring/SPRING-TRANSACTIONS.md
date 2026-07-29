@@ -9,7 +9,7 @@ learning_objectives:
   - Select propagation, isolation, and locking from a named data invariant
   - Test commit, rollback, concurrency, synchronization, and cross-resource failure behavior
 technologies: [Spring Framework, Spring Transactions, JPA, JDBC]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-29"
 ---
 
 # Spring Transactions: Boundaries, Propagation, Isolation And Locking
@@ -24,6 +24,10 @@ A transaction groups operations into one atomic unit: either its changes
 commit or they roll back. This guide focuses on Spring's transaction
 abstraction, declarative `@Transactional` behavior, JPA transaction boundaries,
 propagation, isolation, rollback, locking, and testing.
+
+For the definitive explanation of public, private, static and final methods,
+self-invocation, proxy mechanics and six ways to create explicit boundaries, read
+[Spring Transaction Proxy Mechanics And Boundary Design](./transactions/SPRING-TRANSACTION-PROXY-BOUNDARY-DESIGN.md).
 
 <DocCallout type="production" title="A local transaction has a physical boundary">
 Name the transaction manager, database connection or resource, and execution

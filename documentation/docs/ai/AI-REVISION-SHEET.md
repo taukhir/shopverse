@@ -92,3 +92,9 @@ model/provider remains replaceable.
 - business decisions do not depend on unverified free-form output.
 
 Continue with [AI Interview Q&A](./INTERVIEW-QA.md) and [Hands-On Labs](./HANDS-ON-LABS.md).
+
+## Official References
+
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
+- [OWASP GenAI Security Project](https://genai.owasp.org/)
+- [Spring AI reference](https://docs.spring.io/spring-ai/reference/)

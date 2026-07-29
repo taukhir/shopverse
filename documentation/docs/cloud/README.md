@@ -1,5 +1,9 @@
 ---
-title: Cloud Computing
+title: Cloud Computing And AWS Overview
+description: Beginner overview of cloud computing, service and responsibility models, core infrastructure concepts, and the AWS learning path.
+sidebar_label: Cloud And AWS Overview
+difficulty: Beginner
+page_type: Learning Path
 status: "maintained"
 last_reviewed: "2026-07-23"
 ---
@@ -45,3 +49,8 @@ flowchart LR
 
 These are generic reference designs, not claims about the current Shopverse
 deployment.
+
+## Recommended Next
+
+Continue with [Cloud Fundamentals](./CLOUD-FUNDAMENTALS.md), then use the
+[AWS Umbrella](./aws/AWS-UMBRELLA.md) to select a service-specific route.

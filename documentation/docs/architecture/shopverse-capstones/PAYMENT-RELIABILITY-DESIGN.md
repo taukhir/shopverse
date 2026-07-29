@@ -62,6 +62,8 @@ pending rather than creating a second financial effect.
 
 ## Canonical Detail
 
+- [Financial Systems Architecture](../financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH.md)
+- [Payment Lifecycle, Idempotency, And Uncertain Outcomes](../financial/PAYMENT-LIFECYCLE-IDEMPOTENCY.md)
 - [Payment timeout reconciliation](../../reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION.md)
 - [Late payment after expiry](../../reliability/problems/runtime/LATE-PAYMENT-AFTER-EXPIRY.md)
 

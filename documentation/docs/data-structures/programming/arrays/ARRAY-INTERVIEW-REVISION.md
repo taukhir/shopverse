@@ -182,3 +182,9 @@ the pattern is interview-ready.
 
 Return to the [30-Problem Roadmap](./ARRAY-30-PROBLEM-ROADMAP.md) or expand practice
 through the [full DSA question bank](../../DSA-INTERVIEW-QUESTION-BANK.mdx).
+
+## Official References
+
+- [Java arrays tutorial](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html)
+- [Java `Arrays` API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Arrays.html)
+- [Java collections framework](https://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html)

@@ -106,3 +106,8 @@ tokens, passwords, private keys, or unnecessary personal data.
 - build actionable alerts and runbooks;
 - diagnose a distributed incident from evidence;
 - balance fidelity, retention, sampling, and cost.
+
+## Recommended Next
+
+Continue with [Observability Fundamentals](./OBSERVABILITY.md), then study correlation and
+distributed tracing through the linked runtime pages.

@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Link from '@docusaurus/Link';
 import {useLocation} from '@docusaurus/router';
-import {ArrowRight, Bookmark, CheckCircle2, Download, Flame, Focus, History, Library, Minus, Plus, RotateCcw, Trash2, Upload, X} from 'lucide-react';
+import {ArrowRight, Bookmark, Brain, CheckCircle2, Download, Flame, Focus, History, Library, Minus, Pause, Play, Plus, RotateCcw, StickyNote, TimerReset, Trash2, Upload, X} from 'lucide-react';
 import {defaultReaderState, localDateKey, normalizeReaderPath, readReaderState, READER_EVENT, studyStreak, type ReaderState, writeReaderState} from '@site/src/utils/readerLibrary';
 import {learningCatalog, learningStages, nextLearningPage} from '@site/src/data/learningCatalog';
+import docCatalog from '@site/src/data/generatedDocCatalog.json';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './styles.module.css';
 
@@ -11,6 +12,8 @@ export default function ReaderLibrary() {
   const location = useLocation();
   const [state, setState] = useState<ReaderState>(defaultReaderState);
   const [open, setOpen] = useState(false);
+  const [timerSeconds, setTimerSeconds] = useState(25 * 60);
+  const [timerRunning, setTimerRunning] = useState(false);
   const {siteConfig}=useDocusaurusContext(); const analyticsAvailable=Boolean(siteConfig.customFields?.analyticsDomain); const baseUrl=siteConfig.baseUrl;
   const triggerRef = useRef<HTMLButtonElement>(null); const drawerRef = useRef<HTMLElement>(null); const importRef = useRef<HTMLInputElement>(null);
 
@@ -38,7 +41,34 @@ export default function ReaderLibrary() {
   useEffect(() => {
     document.documentElement.style.setProperty('--reader-font-scale', String(state.fontScale));
     document.body.classList.toggle('reader-focus-mode', state.focusMode);
-  }, [state.fontScale, state.focusMode]);
+    document.body.classList.toggle('reader-practice-mode', state.practiceMode);
+    if (state.practiceMode) document.querySelectorAll<HTMLDetailsElement>('.theme-doc-markdown details[class*="answer"]').forEach((item) => { item.open = false; });
+  }, [state.fontScale, state.focusMode, state.practiceMode, location.pathname]);
+
+  useEffect(() => {
+    const completed = new Set(state.completed.map((item) => normalizeReaderPath(item.path, baseUrl)));
+    const timer = window.setTimeout(() => {
+      document.querySelectorAll<HTMLAnchorElement>('.theme-doc-sidebar-menu a[href]').forEach((link) => {
+        link.classList.toggle('reader-completed-link', completed.has(normalizeReaderPath(link.pathname, baseUrl)));
+      });
+      document.querySelectorAll<HTMLElement>('.theme-doc-sidebar-menu li.theme-doc-sidebar-item-category').forEach((group) => {
+        const links = Array.from(group.querySelectorAll<HTMLAnchorElement>('a[href]'));
+        const allDone = links.length > 0 && links.every((link) => completed.has(normalizeReaderPath(link.pathname, baseUrl)));
+        const collapse = group.querySelector<HTMLButtonElement>('button[aria-label^="Collapse sidebar category"]');
+        if (allDone && collapse && !group.querySelector('.menu__link--active')) collapse.click();
+      });
+    }, 100);
+    return () => window.clearTimeout(timer);
+  }, [baseUrl, location.pathname, state.completed]);
+
+  useEffect(() => {
+    if (!timerRunning) return undefined;
+    const timer = window.setInterval(() => setTimerSeconds((seconds) => {
+      if (seconds <= 1) { setTimerRunning(false); return 0; }
+      return seconds - 1;
+    }), 1000);
+    return () => window.clearInterval(timer);
+  }, [timerRunning]);
 
   useEffect(()=>{if(!open)return;const previous=document.activeElement as HTMLElement;drawerRef.current?.querySelector<HTMLElement>('button')?.focus();const onKey=(event:KeyboardEvent)=>{if(event.key==='Escape')setOpen(false);if(event.key==='Tab'){const items=drawerRef.current?.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled)');if(!items?.length)return;const first=items[0],last=items[items.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}}};document.addEventListener('keydown',onKey);return()=>{document.removeEventListener('keydown',onKey);previous?.focus();};},[open]);
 
@@ -51,6 +81,13 @@ export default function ReaderLibrary() {
   const exportData=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='shopverse-reading-progress.json';link.click();URL.revokeObjectURL(url);};
   const importData=async(event:React.ChangeEvent<HTMLInputElement>)=>{const file=event.target.files?.[0];if(!file)return;try{const parsed=JSON.parse(await file.text());update({...defaultReaderState,...parsed});}catch{window.alert('This is not a valid Shopverse reader-data file.');}event.target.value='';};
   const resetAll=()=>{if(window.confirm('Clear all bookmarks, completion progress, recent pages, and reading preferences?'))update(defaultReaderState);};
+  const currentPath = normalizeReaderPath(location.pathname, baseUrl);
+  const timerLabel = `${String(Math.floor(timerSeconds / 60)).padStart(2, '0')}:${String(timerSeconds % 60).padStart(2, '0')}`;
+  const topicProgress = Array.from(new Set(docCatalog.map((item) => item.topic))).map((topic) => {
+    const pages = docCatalog.filter((item) => item.topic === topic);
+    const total = pages.reduce((sum, item) => sum + (state.progress[item.path]?.percent ?? 0), 0);
+    return {topic, percent: Math.round(total / pages.length)};
+  }).filter((item) => item.percent > 0).sort((a, b) => b.percent - a.percent);
 
   return <>
     <button ref={triggerRef} className={styles.trigger} type="button" onClick={() => setOpen(true)} aria-label="Open my reading library">
@@ -63,12 +100,24 @@ export default function ReaderLibrary() {
         <section className={styles.preferences}>
           <div><span>Reading size</span><div><button type="button" onClick={() => scale(-0.1)} disabled={state.fontScale <= 0.9} aria-label="Decrease reading size"><Minus /></button><strong>{Math.round(state.fontScale * 100)}%</strong><button type="button" onClick={() => scale(0.1)} disabled={state.fontScale >= 1.2} aria-label="Increase reading size"><Plus /></button></div></div>
           <button className={state.focusMode ? styles.active : ''} type="button" onClick={() => update({...state, focusMode: !state.focusMode})}><Focus />Reading mode</button>
+          <button className={state.practiceMode ? styles.active : ''} type="button" onClick={() => update({...state, practiceMode: !state.practiceMode})}><Brain />Interview mode</button>
+        </section>
+        <section className={styles.focusSession}>
+          <h2><TimerReset />Focus session <span>{timerLabel}</span></h2>
+          <p>Use a short, interruption-free reading block, then take a break and recall the key ideas.</p>
+          <div><button type="button" onClick={() => setTimerRunning((value) => !value)}>{timerRunning ? <Pause /> : <Play />}{timerRunning ? 'Pause' : 'Start'}</button><button type="button" onClick={() => {setTimerRunning(false); setTimerSeconds(25 * 60);}}><RotateCcw />Reset</button></div>
+        </section>
+        <section className={styles.notes}>
+          <h2><StickyNote />Notes for this page</h2>
+          <textarea value={state.notes[currentPath] ?? ''} onChange={(event) => update({...state, notes: {...state.notes, [currentPath]: event.target.value}})} placeholder="Write a summary, question, or interview reminder…" aria-label="Personal notes for this page" />
+          <small>Saved only in this browser and included in reader-data export.</small>
         </section>
         <section className={styles.dashboard}>
           <h2><CheckCircle2 />Learning dashboard <span>{completedPaths.length}/{learningCatalog.length}</span></h2>
           <div className={styles.streak}><Flame /><strong>{studyStreak(state.studyDays)} day streak</strong><span>{state.studyDays.length} study days</span></div>
           {nextPage && <Link className={styles.continue} to={nextPage.path} onClick={() => setOpen(false)}><span><small>Continue learning</small><strong>{nextPage.title}</strong></span><ArrowRight /></Link>}
           <div className={styles.stages}>{learningStages.map((stage) => { const pages=learningCatalog.filter((page)=>page.stage===stage); const done=pages.filter((page)=>completedPaths.includes(page.path)).length; const percent=Math.round(done/pages.length*100); return <div key={stage}><div><strong>{stage}</strong><span>{done}/{pages.length}</span><button type="button" disabled={!done} onClick={()=>resetStage(stage)} aria-label={`Reset ${stage} progress`}><RotateCcw /></button></div><div className={styles.progress}><span style={{width:`${percent}%`}}/><strong>{percent}%</strong></div></div>;})}</div>
+          {topicProgress.length > 0 && <div className={styles.topicProgress}><strong>Progress by topic</strong>{topicProgress.slice(0, 8).map((item) => <div key={item.topic}><span>{item.topic}</span><progress max="100" value={item.percent}/><small>{item.percent}%</small></div>)}</div>}
         </section>
         <PageList icon={<Bookmark />} title="Bookmarks" pages={state.bookmarks} empty="Bookmark a guide to keep it here." onNavigate={() => setOpen(false)} />
         <PageList icon={<History />} title="Recently viewed" pages={state.recent} empty="Pages you read will appear here." onNavigate={() => setOpen(false)} />

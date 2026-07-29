@@ -87,3 +87,8 @@ recovery and remaining limitations.
 - cross-system workflows use durable intent and reconciliation;
 - stale ownership is fenced;
 - every terminal failure has an owned recovery path.
+
+## Official References
+
+- [Google SRE books](https://sre.google/books/)
+- [AWS Well-Architected Reliability Pillar](https://docs.aws.amazon.com/wellarchitected/latest/reliability-pillar/welcome.html)

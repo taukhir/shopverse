@@ -7,7 +7,7 @@ status: Generic
 prerequisites: [Kubernetes fundamentals, Virtual machines, Networking fundamentals]
 learning_objectives: [Explain how TKGI delivers Kubernetes as a service, Separate TKGI BOSH and Kubernetes failure domains, Navigate the detailed TKGI pages, Diagnose lifecycle and console failures systematically]
 technologies: [TKGI, Kubernetes, BOSH, UAA, Harbor, Operations Manager, vSphere, NSX]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-28"
 ---
 
 # TKGI Beginner-To-Architect Overview
@@ -109,10 +109,13 @@ can continue because their image layers are already present on a node.
 6. [TKGI And Harbor Registry](./TKGI-HARBOR-REGISTRY.md)
 7. [TKGI Management Console, Monitoring And Operations](./TKGI-CONSOLE-MONITORING.md)
 8. [TKGI End-To-End Architecture, Services, Concourse And Operations](./TKGI-ARCHITECTURE-OPERATIONS.md)
+9. [TKGI Production Platform Operations Path](./TKGI-PRODUCTION-OPERATIONS-PATH.md)
 
 Use the end-to-end architecture page after the focused pages. It connects product
 internals to BOSH deployments, NSX, cluster manifests, Concourse pipelines, Go/BOSH
-packages, upgrades and production interview scenarios.
+packages, upgrades and production interview scenarios. Then use the production path
+for installation prerequisites, capacity, load balancers, controlled upgrades, layered
+recovery, telemetry internals and evidence-led incident response.
 
 ## Request-To-Running-Pod Trace
 
@@ -158,7 +161,7 @@ that require TKGI can fail.
 service/integration. Its topology, lifecycle and failure domain must be designed and
 operated explicitly.
 
-## Official Version Context
+## Official References
 
 This track uses the user-provided TKGI 1.25 documentation as its version anchor. Exact
 process names, deployment layouts and console features vary by TKGI release and enabled
@@ -167,3 +170,9 @@ manifests, BOSH deployments and supported Broadcom procedures.
 
 - [Broadcom TKGI 1.25 control-plane documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/control-plane.html)
 - [Broadcom TKGI 1.25 Management Console cluster operations](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/console-monitor-manage-clusters.html)
+
+## Recommended Next
+
+Begin with [TKGI Control Plane Architecture](./TKGI-CONTROL-PLANE-ARCHITECTURE.md), follow
+the component pages in the order listed above, and finish with
+[TKGI Production Platform Operations](./TKGI-PRODUCTION-OPERATIONS-PATH.md).

@@ -150,7 +150,7 @@ Use the [Interview Evaluation Rubric](./INTERVIEW-RUBRIC.md) to score the result
 - [End-To-End Design Method](./END-TO-END-DESIGN-METHOD.md)
 - [Shopverse Capstones](../shopverse-capstones/README.md)
 
-## References
+## Official References
 
 - [Most Commonly Asked System Design Interview Questions - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/most-commonly-asked-system-design-interview-problems-questions/)
 - [System Design Interview Questions And Answers - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/top-low-level-system-designlld-interview-questions-2024/)

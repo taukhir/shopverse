@@ -108,6 +108,21 @@ body.reader-focus-mode .theme-doc-markdown {
   max-width: 920px;
 }
 
+body.reader-practice-mode .theme-doc-markdown details[class*="answer"] {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
+}
+
+body.reader-practice-mode .theme-doc-markdown details[class*="answer"] summary::after {
+  color: var(--ifm-color-primary);
+  content: "Recall first, then reveal";
+  float: right;
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  margin-left: 0.75rem;
+  text-transform: uppercase;
+}
+
 body.reader-focus-mode .theme-doc-markdown > p,
 body.reader-focus-mode .theme-doc-markdown > ul,
 body.reader-focus-mode .theme-doc-markdown > ol {

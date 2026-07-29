@@ -64,6 +64,11 @@ threads, pools, queues, database plans/locks, Kafka lag, network retransmission 
 Use JFR/profilers during controlled tests. Change one variable at a time and retain raw results, versions,
 configuration and uncertainty.
 
+For a live incident, follow the dedicated
+[Production Slowness Diagnosis And Rapid Mitigation Runbook](./performance-chaos/PRODUCTION-SLOWNESS-DIAGNOSIS-RUNBOOK.md).
+It provides a first-five-minute checklist, layer evidence matrix, Spring/JVM/database/Kubernetes
+commands, mitigation decision table, and recovery proof.
+
 ## Chaos Safety
 
 State hypothesis, blast radius, target selectors, duration, abort condition, owner and rollback. Start in a
@@ -85,4 +90,3 @@ recovery time and concrete decision. Use the companion workbook for labs and int
 ## Recommended Next
 
 Continue with [Performance And Chaos Labs, CI, Incidents, And Interviews](./performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW.md).
-
