@@ -7,7 +7,7 @@ status: Shopverse
 prerequisites: [Core Java, HTTP and SQL fundamentals]
 learning_objectives: [Choose the correct Spring learning route, Trace framework abstractions to runtime boundaries, Apply concepts to Shopverse without duplicating implementation guides]
 technologies: [Spring Framework 7, Spring Boot 4, Spring Cloud, Spring Data JPA, Spring Data Cassandra, Spring Security]
-last_reviewed: "2026-07-23"
+last_reviewed: "2026-07-29"
 ---
 
 # Spring And Spring Boot Learning Guide
@@ -53,6 +53,20 @@ flowchart LR
     description: 'Use the correct generation, starter, Jakarta and migration assumptions.',
     icon: 'route',
     tags: ['Compatibility', 'Migration'],
+  },
+  {
+    title: 'Spring Boot Beginner-To-Architect',
+    href: './SPRING-BOOT-ARCHITECT-PATH',
+    description: 'Progress through configuration, auto-configuration, web/data, testing, production, packaging and interviews.',
+    icon: 'layers',
+    tags: ['Spring Boot', 'Complete route'],
+  },
+  {
+    title: 'Spring Boot Annotations',
+    href: './SPRING-BOOT-ANNOTATIONS-PATH',
+    description: 'Understand important annotations by processor, lifecycle, proxy boundary, failure mode and interview trap.',
+    icon: 'code',
+    tags: ['Annotations', 'Internals'],
   },
   {
     title: 'Lead And Architect Path',
@@ -131,7 +145,7 @@ flowchart LR
 | Stage | Outcome | Entry page |
 |---:|---|---|
 | 1 | Distinguish Framework, Boot, Data, Security and Cloud | [Spring Ecosystem](./SPRING-ECOSYSTEM.md) |
-| 2 | Explain startup, bean creation and configuration | [Spring Boot Internals](../development/SPRING-BOOT-INTERNALS.md) |
+| 2 | Learn Boot configuration, startup, deployment and production behavior | [Spring Boot Beginner-To-Architect](./SPRING-BOOT-ARCHITECT-PATH.md) |
 | 3 | Trace interception and transaction behavior | [Proxy And Transaction Internals](./SPRING-PROXY-TRANSACTION-ARCHITECT.md) |
 | 4 | Trace filters, dispatch, validation and serialization | [MVC And Security Runtime](./SPRING-MVC-SECURITY-RUNTIME.md) |
 | 5 | Trace repositories and select relational or NoSQL persistence deliberately | [Spring Data Architect Path](./SPRING-DATA-ARCHITECT-PATH.md) |

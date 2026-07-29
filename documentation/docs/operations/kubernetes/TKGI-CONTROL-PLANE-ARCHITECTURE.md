@@ -625,7 +625,7 @@ Standard: 1 API VM + 1 DB VM
 HA: 2/3 API VMs + 3 DB VMs in TKGI 1.25 supported configuration
 ```
 
-## Official Reference
+## Official References
 
 - [Broadcom TKGI 1.25: Overview of TKGI architecture](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/control-plane.html)
 - [Broadcom TKGI 1.25: API authentication](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/api-auth.html)
@@ -637,4 +637,3 @@ HA: 2/3 API VMs + 3 DB VMs in TKGI 1.25 supported configuration
 Continue with [TKGI API Server And Cluster Lifecycle](./TKGI-API-SERVER-LIFECYCLE.md),
 then the focused UAA, database, BOSH, Harbor and Management Console pages in the
 [TKGI Beginner-To-Architect Overview](./TKGI-OVERVIEW-PATH.md).
-

@@ -7,7 +7,7 @@ status: Generic
 prerequisites: [Kubernetes internals, BOSH fundamentals, vSphere networking]
 learning_objectives: [Trace TKGI cluster provisioning end to end, Distinguish TKGI BOSH and Kubernetes control planes, Identify version-dependent TKGI services, Diagnose cluster lifecycle failures, Explain Concourse and Go packaging in a TKGI delivery workflow]
 technologies: [TKGI, Kubernetes, BOSH, Operations Manager, vSphere, NSX, Concourse, Go]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-28"
 ---
 
 # TKGI Architecture, Services, BOSH, Concourse, And Operations
@@ -17,6 +17,10 @@ This is the end-to-end deep dive in the
 pages first when you need API, UAA, database, BOSH, Harbor or Management Console depth.
 The [TKGI Control Plane Architecture](./TKGI-CONTROL-PLANE-ARCHITECTURE.md) page is the
 canonical TKGI 1.25 source-aligned explanation of the two VM groups and request paths.
+
+After this architecture page, continue with the
+[TKGI Production Platform Operations Path](./TKGI-PRODUCTION-OPERATIONS-PATH.md) for
+installation, sizing, networking, upgrades, recovery, telemetry and incident revision.
 
 VMware Tanzu Kubernetes Grid Integrated Edition (TKGI), formerly Enterprise PKS
 and Pivotal Container Service, provides on-demand, conformant Kubernetes clusters.
@@ -538,7 +542,7 @@ different layers.
 Container Service, and internal compatibility names, deployment paths, jobs, and service
 IDs often retain historical identifiers.
 
-## Official And Primary References
+## Official References
 
 - [Broadcom TKGI 1.25 control-plane documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/control-plane.html)
 - [Broadcom TKGI 1.25 Management Console cluster operations](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/console-monitor-manage-clusters.html)

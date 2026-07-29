@@ -114,3 +114,14 @@ After the array track, use the question bank in this order:
 The goal is pattern transfer. Two Sum teaches prefix lookup; 3Sum adds sorting and
 two pointers; Subarray Sum Equals K changes the state from values to prefix-sum
 frequencies. Recognizing that distinction is more valuable than memorizing code.
+
+## Official References
+
+- [Java collections framework](https://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html)
+- [Java `Arrays` API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Arrays.html)
+- [Java language specification](https://docs.oracle.com/javase/specs/jls/se21/html/)
+
+## Recommended Next
+
+Begin with the [Arrays Overview](./arrays/ARRAYS-OVERVIEW.md), complete its problem families,
+then expand into the [DSA Interview Question Bank](../DSA-INTERVIEW-QUESTION-BANK.mdx).

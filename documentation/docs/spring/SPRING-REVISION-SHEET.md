@@ -92,3 +92,9 @@ non-blocking.
 - design graceful startup, deployment, and shutdown.
 
 Continue with the [Spring Architect Interview Workbook](./SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md).
+
+## Official References
+
+- [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
+- [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+- [Spring Data reference](https://docs.spring.io/spring-data/commons/reference/)

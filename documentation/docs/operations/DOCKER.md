@@ -1,5 +1,7 @@
 ---
-title: Docker
+title: Docker Overview - Images, Containers, Volumes, Networks, And Compose
+description: Beginner introduction to Docker, images, containers, registries, Dockerfiles, volumes, networks, Compose, the Engine runtime flow, and essential commands.
+sidebar_label: Docker Overview
 sidebar_position: 2
 difficulty: Beginner
 page_type: Tutorial
@@ -9,7 +11,7 @@ technologies: [Docker, Docker Compose]
 last_reviewed: "2026-07-10"
 ---
 
-# Docker
+# Docker Overview: Images, Containers, Volumes, Networks, And Compose
 
 This page teaches first use. For Engine/containerd/OCI runtime internals, BuildKit,
 networking, security, production incidents, labs, interviews, and revision, use the
@@ -17,6 +19,42 @@ networking, security, production incidents, labs, interviews, and revision, use 
 
 Docker packages an application and its runtime dependencies into an image.
 Containers are isolated processes created from that image.
+
+## What Problem Does Docker Solve?
+
+An application may behave differently across laptops, CI agents, test hosts, and production
+because operating-system packages, runtime versions, files, users, and startup commands differ.
+Docker provides a repeatable image format and runtime interface so the same packaged application
+can be built, distributed, and started consistently.
+
+Docker does not create a virtual machine for every container. On Linux, containers normally share
+the host kernel while namespaces provide isolated views and cgroups control resources. The image
+supplies the application filesystem and metadata; the container is the runtime process and its
+writable layer.
+
+## Docker Architecture
+
+```mermaid
+flowchart LR
+  CLI["docker CLI or Compose"] --> API["Docker Engine API"]
+  API --> Daemon["dockerd"]
+  Daemon --> Images["local image and layer store"]
+  Daemon --> Runtime["containerd and OCI runtime"]
+  Runtime --> Container["isolated host process"]
+  Registry["image registry"] <--> Daemon
+```
+
+| Component | Responsibility |
+|---|---|
+| Docker CLI | sends build, image, container, network, volume, and Compose requests |
+| Docker Engine API | interface used by the CLI and other clients |
+| Docker daemon | manages Docker objects and coordinates build/runtime operations |
+| BuildKit | executes modern image builds and cache decisions |
+| containerd/OCI runtime | manages container lifecycle and creates the isolated process |
+| registry | distributes image manifests, configuration, and layers |
+
+The client can address a local or remote Engine. Access to the Docker API is highly privileged;
+mounting the Docker socket into an ordinary application effectively grants host-level control.
 
 For namespaces, cgroups, containers versus VMs, copy-on-write layers, shared
 image storage, BuildKit cache, pruning, and multi-image optimization, continue
@@ -43,6 +81,20 @@ flowchart LR
 | Bind mount | host path mounted into a container |
 | Network | isolated connectivity and DNS between containers |
 | Compose | declarative multi-container application definition |
+
+<ExpandableAnswer title="Dry run: docker run an image">
+
+1. The CLI sends the requested image, command, ports, mounts, environment, and limits to the
+   Docker Engine API.
+2. The daemon checks the local image store and pulls missing image content from a registry.
+3. Docker prepares the image layers plus a writable container layer, selected mounts, networking,
+   and metadata.
+4. The runtime configures namespaces, cgroups, mounts, capabilities, and the container process.
+5. Published ports arrange host-to-container traffic; `EXPOSE` alone does not publish a port.
+6. The container remains alive while its main process runs. When that process exits, the container
+   stops; removing it does not remove its image or independently managed volume data.
+
+</ExpandableAnswer>
 
 ## Dockerfile Instructions
 
@@ -273,6 +325,13 @@ Use the project guide for exact commands and line-by-line Compose explanations:
 - [Docker image size optimization](../reliability/problems/optimization/DOCKER-IMAGE-SIZE-OPTIMIZATION.md)
 - [Docker Compose profiles](../reliability/problems/optimization/DOCKER-COMPOSE-PROFILES.md)
 - [Runtime optimization](../reliability/problems/optimization/RUNTIME-OPTIMIZATION.md)
+
+## Official References
+
+- [Docker overview](https://docs.docker.com/get-started/docker-overview/)
+- [Docker Engine](https://docs.docker.com/engine/)
+- [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
 ## Recommended Next
 

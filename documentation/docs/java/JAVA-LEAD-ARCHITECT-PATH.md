@@ -2,10 +2,14 @@
 title: Java Lead And Architect Learning Path
 description: Senior-level Java curriculum for design reviews, runtime reasoning, performance, concurrency, compatibility, and production architecture.
 status: "maintained"
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-28"
 ---
 
 # Java Lead And Architect Learning Path
+
+Use [Java Production Mastery](./JAVA-PRODUCTION-MASTERY.md) as the complete
+language, collections, concurrency, JVM, GC, I/O, diagnostics and container
+coverage checklist.
 
 This track assumes production experience with Java, Spring, relational data,
 distributed services, and basic concurrency. Its goal is architectural judgment:
@@ -41,6 +45,9 @@ Study [Language Semantics](./JAVA-LANGUAGE-SEMANTICS.md),
 
 Exit exercise: review a public interface change and classify source, binary,
 behavioral, serialization, and operational compatibility risks.
+
+Use [Java API Design Evolution And Compatibility](./JAVA-API-DESIGN-COMPATIBILITY.md)
+to turn those classifications into a versioning, deprecation and client-test policy.
 
 ### 2. Objects, identity and data contracts
 
@@ -85,6 +92,23 @@ Use [JVM Architecture And Operations](./JAVA-JVM-ARCHITECTURE-OPERATIONS.md),
 Exit exercise: diagnose a latency regression using JFR and GC/thread evidence,
 separating allocation pressure, lock contention, downstream waits, compilation
 warm-up, and CPU saturation.
+
+Continue with [Java Performance Engineering Capacity And Evidence](./JAVA-PERFORMANCE-ENGINEERING-CAPACITY.md)
+to connect JFR/JMH evidence to queueing, bounded pools and load-test design.
+Use [Java Performance Diagnostics And Tooling](./JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING.md)
+for the production command sequence, symptom matrix and incident workflow, then
+[Java Containers And Resource Limits](./JAVA-CONTAINERS-RESOURCE-LIMITS.md) for
+cgroup, throttling, native-memory and `OOMKilled` boundaries.
+
+### 6. Runtime metaprogramming and framework boundaries
+
+Study [Reflection, Annotations, Proxies And Class Loaders](./JAVA-REFLECTION-ANNOTATIONS-CLASSLOADERS.md)
+and [Dynamic Java Internals](./advanced-internals/DYNAMIC-JAVA-INTERNALS.md). Explain class
+identity, initialization, annotation retention, proxy limitations, JPMS access and why
+redeploying frameworks can leak class loaders.
+
+Exit exercise: diagnose a framework proxy that does not intercept and a plugin redeploy
+whose metaspace usage never returns.
 
 ## Architecture Review Questions
 

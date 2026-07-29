@@ -156,9 +156,8 @@ authentication, not permission for every lifecycle action.
 They can use different trust stores or retained configuration. The console's configured
 TKGI API certificate/key/trust may not have been synchronized with the tile change.
 
-## References
+## Official References
 
 - [Broadcom: Management Console and expired TKGI API certificate](https://knowledge.broadcom.com/external/article/327473)
 - [Broadcom: Management Console token verification failures](https://knowledge.broadcom.com/external/article/394632)
 - [TKGI API Server And Lifecycle](./TKGI-API-SERVER-LIFECYCLE.md)
-

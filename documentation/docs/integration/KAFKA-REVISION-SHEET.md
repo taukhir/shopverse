@@ -99,3 +99,8 @@ and timeouts.
 - secure, monitor, upgrade, replay, and recover the platform.
 
 Practice with the [Kafka Architect Labs](./kafka/KAFKA-ARCHITECT-LABS.md).
+
+## Official References
+
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [Apache Kafka design](https://kafka.apache.org/documentation/#design)

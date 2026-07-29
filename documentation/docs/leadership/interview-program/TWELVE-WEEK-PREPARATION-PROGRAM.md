@@ -12,6 +12,11 @@ last_reviewed: "2026-07-24"
 
 # Twelve-Week Architecture Interview Preparation Programme
 
+This is the detailed twelve-week execution schedule. Use the
+[Lead And Architect Preparation Dashboard](./LEAD-ARCHITECT-PREPARATION-DASHBOARD.md) to select
+role priorities and the [Revision And Readiness Scorecard](./REVISION-READINESS-SCORECARD.md) to
+measure progress.
+
 Use six focused days and one recovery/review day per week. A normal study day has 45 minutes
 of concept recall, 90 minutes of implementation or diagnosis, 30 minutes of spoken
 explanation and 15 minutes updating evidence and the weakness log.
@@ -85,4 +90,3 @@ drill, and avoid changing the entire programme from a single data point.
 ## Recommended Next
 
 Return to the [Architecture Portfolio And Mock Interview Programme](../ARCHITECTURE-PORTFOLIO-MOCK-INTERVIEW-PROGRAM.md), select a Week 1 baseline mock, and record the rubric before studying further.
-

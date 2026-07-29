@@ -133,6 +133,58 @@ or disable policy as the first diagnostic step.
 | DNS latency spike | query rate, search expansion, CoreDNS CPU/queue/upstream |
 | policy works in one cluster only | CNI enforcement and version/policy capability |
 
+## Interview Questions
+
+<ExpandableAnswer title="Why does Kubernetes need Services if Pods are directly reachable?">
+
+Pods are replaceable and their IP addresses change. A Service provides stable discovery and a
+virtual address while EndpointSlices track the current ready backends. The Service does not keep
+Pods alive; a workload controller does that.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do ClusterIP, NodePort and LoadBalancer Services differ?">
+
+ClusterIP exposes a Service inside the cluster. NodePort also opens a port on nodes. LoadBalancer
+asks an integrated provider or implementation for an external load balancer, usually building on
+the other Service mechanisms. Availability and source-IP behavior depend on the implementation.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="A Service has no endpoints. What do you check?">
+
+Compare its selector with Pod labels, confirm the Pods exist in the same namespace, inspect
+readiness, and verify `targetPort` against the container listener. Then inspect EndpointSlices and
+controller events rather than changing DNS or the CNI first.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do Ingress and Gateway API differ?">
+
+Ingress is a mature, relatively compact HTTP(S) routing API implemented by an ingress controller.
+Gateway API has explicit infrastructure, routing and application roles and supports richer route
+types and attachment policy. Both require a compatible controller; creating an object alone does
+not create a data plane.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why might a NetworkPolicy object have no effect?">
+
+NetworkPolicy needs a network plugin that enforces the policy API. Also verify selectors,
+namespaces, ingress versus egress direction, ports and DNS allowances. Policy behavior should be
+tested from representative source and destination Pods.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What is a useful DNS troubleshooting sequence?">
+
+Check the name and namespace search rules, query from the affected Pod, inspect Service and
+EndpointSlices, test the full and short names, then inspect CoreDNS health, configuration, logs and
+upstream resolution. Separate name-resolution failure from a successful lookup followed by a
+connection failure.
+
+</ExpandableAnswer>
+
 ## Official References
 
 - [Kubernetes cluster networking](https://kubernetes.io/docs/concepts/cluster-administration/networking/)
@@ -143,4 +195,3 @@ or disable policy as the first diagnostic step.
 ## Recommended Next
 
 Continue with [Persistent Storage, Stateful Workloads, And CSI](./KUBERNETES-STORAGE-STATEFUL.md).
-

@@ -12,6 +12,9 @@ last_reviewed: "2026-07-23"
 
 # Kafka And Spring Kafka Architect Overview
 
+For the full 20-area production checklist and focused routes, use
+[Kafka Production Mastery](./kafka/KAFKA-PRODUCTION-MASTERY.md).
+
 This page is the short orientation for the complete Kafka curriculum. Use it to
 understand how the important topics fit together, revise before an interview, and
 choose the correct deep-dive page.

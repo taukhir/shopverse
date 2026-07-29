@@ -113,7 +113,7 @@ A strong spoken answer:
 - [Consistency](./hld/CONSISTENCY.md)
 - [System Design Interview Problem Catalog](../system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG.md)
 
-## References
+## Official References
 
 - [System Design Interview Questions And Answers - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/top-low-level-system-designlld-interview-questions-2024/)
 - [Most Commonly Asked System Design Interview Questions - GeeksforGeeks](https://www.geeksforgeeks.org/system-design/most-commonly-asked-system-design-interview-problems-questions/)

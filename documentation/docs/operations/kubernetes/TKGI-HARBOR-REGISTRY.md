@@ -171,9 +171,8 @@ trust are independent. The node runtime must trust the registry's certificate ch
 new Pods, new nodes, rescheduling or rollouts fail unless the needed layers are already
 cached; cached layers are not a reliable availability strategy.
 
-## References
+## Official References
 
 - [Harbor documentation](https://goharbor.io/docs/)
 - [Broadcom: Harbor garbage collection and disk reclamation](https://knowledge.broadcom.com/external/article/379792)
 - [TKGI Overview](./TKGI-OVERVIEW-PATH.md)
-

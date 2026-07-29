@@ -1,74 +1,283 @@
 ---
 title: Two Sum Family In Java
-description: In-depth interview guide to exact, sorted, closest, counting, unique-pair, streaming data-structure, difference, 3Sum, and K-sum patterns.
+description: Eight Two Sum variants with contracts, Java implementations, input/output examples, complexity, edge cases, and collapsible dry runs.
 sidebar_label: Two Sum Family
 sidebar_position: 2
 difficulty: Foundation to Advanced
 page_type: Deep Dive
 status: maintained
 last_reviewed: "2026-07-24"
-keywords: [Two Sum Java, 3Sum, HashMap, two pointers, coding interview]
+keywords: [Two Sum Java, all pairs, pair count, closest sum, 3Sum, HashMap, two pointers]
 ---
 
 # Two Sum Family In Java
 
-Two Sum is a family of contracts, not one problem. Before choosing an algorithm,
-clarify whether the interviewer wants indices, values, all index combinations,
-unique value combinations, a count, the closest sum, or repeated `add/find` calls.
+Two Sum is not one problem. The algorithm changes when the output changes from
+one pair to every index pair, every value pair, a count, unique combinations, or
+a closest result.
 
-## Contract Matrix
+## Family Map
 
-| Contract | Preferred Technique | Expected Time | Auxiliary Space |
-|---|---|---:|---:|
-| first indices, unsorted | value-to-index map | `O(n)` | `O(n)` |
-| first values, unsorted | membership set | `O(n)` | `O(n)` |
-| first pair, sorted | opposite pointers | `O(n)` | `O(1)` |
-| count all index pairs | frequency map | `O(n)` | `O(n)` |
-| all index pairs | value-to-list-of-indices map | `O(n + output)` | `O(n + output)` |
-| unique value pairs | sort and skip duplicates | `O(n log n)` | sort-dependent |
-| closest pair | sort and two pointers | `O(n log n)` | sort-dependent |
-| maximum sum below `k` | sort and two pointers | `O(n log n)` | sort-dependent |
-| repeated `add` and `find` | frequency map | add `O(1)`, find `O(u)` | `O(u)` |
-| three values sum to target | fix one plus two pointers | `O(n^2)` | sort-dependent |
+| # | Contract | Technique | Time | Extra Space |
+|---:|---|---|---:|---:|
+| 1 | unsorted, return first indices | complement → earlier index map | expected `O(n)` | `O(n)` |
+| 2 | unsorted, return all index pairs | complement → all earlier indices | `O(n + p)` | `O(n + p)` |
+| 3 | unsorted, return all value pairs | earlier value frequencies | `O(n + p)` | `O(u + p)` |
+| 4 | count all index pairs | earlier value frequencies | expected `O(n)` | `O(u)` |
+| 5 | sorted, return one pair | opposite pointers | `O(n)` | `O(1)` |
+| 6 | closest pair | sort + opposite pointers | `O(n log n)` | copy-dependent |
+| 7 | unique value pairs | sort + duplicate skipping | `O(n log n)` | copy-dependent |
+| 8 | three values sum to target | sort + fix one + two pointers | `O(n²)` | copy-dependent |
 
-## 1. First Pair Of Indices In Unsorted Input
+Here `p` is the number of returned pairs and `u` the number of unique values.
+Output-sensitive algorithms cannot beat `O(p)` when they must materialize `p`
+answers.
 
-### Invariant
-
-Before index `i` is inserted, the map represents only earlier indices. If the
-complement exists, the returned pair contains two distinct positions.
+## Shared Result Types
 
 ```java
-static int[] twoSumIndices(int[] nums, int target) {
-    if (nums == null || nums.length < 2) {
-        return new int[]{-1, -1};
-    }
+record IndexPair(int firstIndex, int secondIndex) {}
+record IntPair(int firstValue, int secondValue) {}
+record IntTriple(int first, int second, int third) {}
+```
 
-    Map<Integer, Integer> indexByValue = new HashMap<>();
+Value records provide structural equality, unlike raw `int[]` elements inside a
+`List`.
+
+## 1. Two Sum Unsorted — First Pair Of Indices
+
+### Contract And Sample
+
+```text
+Input:  nums = [2, 7, 11, 15], target = 9
+Output: [0, 1]
+Reason: nums[0] + nums[1] = 2 + 7 = 9
+```
+
+### Logic
+
+Before processing index `i`, store only values from earlier indices. Look up
+`target - nums[i]` before inserting the current value, so one index cannot be
+used twice.
+
+```java
+static int[] twoSumUnsorted(int[] nums, int target) {
+    Map<Integer, Integer> earlierIndexByValue = new HashMap<>();
 
     for (int i = 0; i < nums.length; i++) {
         long complement = (long) target - nums[i];
-
         if (complement >= Integer.MIN_VALUE
                 && complement <= Integer.MAX_VALUE) {
-            Integer earlierIndex = indexByValue.get((int) complement);
-            if (earlierIndex != null) {
-                return new int[]{earlierIndex, i};
+            Integer earlier = earlierIndexByValue.get((int) complement);
+            if (earlier != null) {
+                return new int[]{earlier, i};
             }
         }
-
-        indexByValue.put(nums[i], i);
+        earlierIndexByValue.putIfAbsent(nums[i], i);
     }
-
     return new int[]{-1, -1};
 }
 ```
 
-Checking before `put` matters for `[3, 3]` and target `6`: the first `3` is stored,
-then the second `3` matches it. Inserting and checking the current entry can reuse
-the same index incorrectly.
+<ExpandableAnswer title="How the unsorted Two Sum code works">
 
-## 2. First Pair In Sorted Input
+- The map contains only earlier values and their earliest indices.
+- For each value, compute `target - value` in `long` and look for that
+  complement before inserting the current index.
+- A match therefore uses two distinct indices; `putIfAbsent` keeps deterministic
+  earliest-index behavior.
+- If the scan ends without a match, return the documented no-result pair.
+
+</ExpandableAnswer>
+
+Expected `O(n)` time and `O(n)` space. `putIfAbsent` preserves the earliest
+index when several valid answers exist.
+
+<ExpandableAnswer title="Dry run: [3, 2, 4], target 6">
+
+| `i` | value | complement | earlier map before check | action |
+|---:|---:|---:|---|---|
+| 0 | 3 | 3 | `{}` | no match; store `3→0` |
+| 1 | 2 | 4 | `{3→0}` | no match; store `2→1` |
+| 2 | 4 | 2 | `{3→0, 2→1}` | find index `1`; return `[1,2]` |
+
+Checking before insertion also handles `[3,3]`, target `6`: the second `3`
+matches the first rather than reusing itself.
+
+</ExpandableAnswer>
+
+## 2. Two Sum Unsorted — All Index Pairs
+
+### Contract And Sample
+
+```text
+Input:  nums = [1, 1, 2, 2], target = 3
+Output: [(0,2), (1,2), (0,3), (1,3)]
+```
+
+Each distinct index combination is a result. A single index per value would lose
+duplicate combinations, so store every earlier index.
+
+```java
+static List<IndexPair> allIndexPairs(int[] nums, int target) {
+    Map<Integer, List<Integer>> earlierIndicesByValue = new HashMap<>();
+    List<IndexPair> pairs = new ArrayList<>();
+
+    for (int i = 0; i < nums.length; i++) {
+        long complement = (long) target - nums[i];
+        if (complement >= Integer.MIN_VALUE
+                && complement <= Integer.MAX_VALUE) {
+            for (int earlier : earlierIndicesByValue.getOrDefault(
+                    (int) complement, List.of())) {
+                pairs.add(new IndexPair(earlier, i));
+            }
+        }
+        earlierIndicesByValue
+                .computeIfAbsent(nums[i], ignored -> new ArrayList<>())
+                .add(i);
+    }
+    return pairs;
+}
+```
+
+<ExpandableAnswer title="How all index-pair generation works">
+
+- Map each value to every earlier index where it occurred.
+- At index `i`, each stored index for the complement forms one distinct pair
+  with `i`, so append all of them.
+- Store `i` only after emitting matches, preventing self-pairs and duplicates.
+- Runtime includes output size because every returned pair must be materialized.
+
+</ExpandableAnswer>
+
+Time is `O(n + p)` and total space is `O(n + p)`, including output.
+
+<ExpandableAnswer title="Dry run: [1, 1, 2, 2], target 3">
+
+- At indices `0` and `1`, store both positions under value `1`.
+- At index `2`, value `2` needs `1`; emit `(0,2)` and `(1,2)`.
+- Store index `2` under value `2`.
+- At index `3`, emit `(0,3)` and `(1,3)`.
+- No pair repeats, because only earlier indices are consulted.
+
+</ExpandableAnswer>
+
+## 3. Two Sum Unsorted — All Value Pairs
+
+### Contract And Sample
+
+This version returns one value pair for every valid index pair, so duplicates
+remain visible:
+
+```text
+Input:  nums = [1, 1, 2, 2], target = 3
+Output: [(1,2), (1,2), (1,2), (1,2)]
+```
+
+```java
+static List<IntPair> allValuePairs(int[] nums, int target) {
+    Map<Integer, Integer> earlierFrequency = new HashMap<>();
+    List<IntPair> pairs = new ArrayList<>();
+
+    for (int value : nums) {
+        long complement = (long) target - value;
+        if (complement >= Integer.MIN_VALUE
+                && complement <= Integer.MAX_VALUE) {
+            int other = (int) complement;
+            int occurrences = earlierFrequency.getOrDefault(other, 0);
+            for (int copy = 0; copy < occurrences; copy++) {
+                pairs.add(new IntPair(other, value));
+            }
+        }
+        earlierFrequency.merge(value, 1, Integer::sum);
+    }
+    return pairs;
+}
+```
+
+<ExpandableAnswer title="How all value-pair generation works">
+
+- `earlierFrequency` counts how many earlier indices hold each value.
+- For current `value`, every earlier occurrence of its complement represents a
+  distinct index pair, so append that many value-pair copies.
+- Increment the current frequency afterward to avoid pairing an element with
+  itself.
+- This preserves multiplicity; it intentionally differs from unique pairs.
+
+</ExpandableAnswer>
+
+Time is `O(n + p)`; working space is `O(u)` excluding output. If the requirement
+means unique value combinations instead, use problem 7.
+
+<ExpandableAnswer title="Dry run: [1, 1, 2, 2], target 3">
+
+The earlier frequency of `1` becomes two. Each later `2` therefore emits two
+copies of `(1,2)`. Two later `2`s × two earlier `1`s = four value-pair results.
+
+</ExpandableAnswer>
+
+## 4. Two Sum Pair Count
+
+### Contract And Sample
+
+```text
+Input:  nums = [1, 1, 1, 1], target = 2
+Output: 6
+Reason: four indices form 4 choose 2 distinct pairs
+```
+
+Instead of materializing matches, add the number of earlier complements.
+
+```java
+static long countTwoSumPairs(int[] nums, int target) {
+    Map<Integer, Integer> earlierFrequency = new HashMap<>();
+    long count = 0;
+
+    for (int value : nums) {
+        long complement = (long) target - value;
+        if (complement >= Integer.MIN_VALUE
+                && complement <= Integer.MAX_VALUE) {
+            count += earlierFrequency.getOrDefault((int) complement, 0);
+        }
+        earlierFrequency.merge(value, 1, Integer::sum);
+    }
+    return count;
+}
+```
+
+<ExpandableAnswer title="How pair counting works">
+
+- Keep frequencies only for values at earlier indices.
+- The number of earlier complements is exactly the number of new index pairs
+  ending at the current element, so add that frequency to `count`.
+- Record the current value after counting.
+- Use `long` because the number of pairs can be quadratic even though the scan
+  itself is linear.
+
+</ExpandableAnswer>
+
+Expected `O(n)` time and `O(u)` space. Use `long`: the pair count can exceed
+`Integer.MAX_VALUE`.
+
+<ExpandableAnswer title="Dry run: [1, 1, 1, 1], target 2">
+
+The four values contribute `0 + 1 + 2 + 3 = 6` earlier matches. Each unordered
+index pair is counted exactly when its later index is processed.
+
+</ExpandableAnswer>
+
+## 5. Two Sum Sorted
+
+### Contract And Sample
+
+```text
+Input:  nums = [1, 2, 4, 6, 10], target = 8
+Output: [1, 3]
+Reason: nums[1] + nums[3] = 2 + 6
+```
+
+If the sum is too small, discard the left value; pairing it with any smaller
+right value cannot help. If too large, discard the right value symmetrically.
 
 ```java
 static int[] twoSumSorted(int[] nums, int target) {
@@ -77,7 +286,6 @@ static int[] twoSumSorted(int[] nums, int target) {
 
     while (left < right) {
         long sum = (long) nums[left] + nums[right];
-
         if (sum == target) {
             return new int[]{left, right};
         }
@@ -87,426 +295,255 @@ static int[] twoSumSorted(int[] nums, int target) {
             right--;
         }
     }
-
     return new int[]{-1, -1};
 }
 ```
 
-### Pointer Proof
+<ExpandableAnswer title="How sorted Two Sum works">
 
-If `nums[left] + nums[right]` is below the target, pairing `nums[left]` with any
-smaller right-side value is also too small. Therefore `left` cannot participate
-in a solution within the current range and may be discarded. The greater-than
-case is symmetric.
+- Start with the smallest and largest remaining values.
+- If their sum is too small, the current left value cannot work with any smaller
+  right value, so advance `left`.
+- If too large, the current right value cannot work with any larger left value,
+  so retreat `right`.
+- Equality returns the pair; pointer convergence proves no pair exists.
 
-## 3. Count Every Index Pair
+</ExpandableAnswer>
 
-This counts multiplicity. For `[1, 1, 1, 1]` and target `2`, the answer is six,
-not one, because four distinct indices form `4 choose 2` pairs.
+Time is `O(n)` and extra space `O(1)`.
+
+<ExpandableAnswer title="Dry run: [1, 2, 4, 6, 10], target 8">
+
+| left/right values | sum | decision |
+|---|---:|---|
+| `1 + 10` | 11 | too large → move right |
+| `1 + 6` | 7 | too small → move left |
+| `2 + 6` | 8 | return indices `[1,3]` |
+
+</ExpandableAnswer>
+
+## 6. Two Sum Closest
+
+### Contract And Sample
+
+```text
+Input:  nums = [-1, 2, 4, 8], target = 6
+Output: (2, 4), sum = 6, absolute difference = 0
+```
+
+For unsorted input, sort a copy and run two pointers while tracking the smallest
+absolute `long` difference. This version returns values; attach original indices
+to values before sorting if indices are required.
 
 ```java
-static long countPairs(int[] nums, int target) {
-    Map<Integer, Integer> frequency = new HashMap<>();
-    long count = 0;
-
-    for (int value : nums) {
-        long complement = (long) target - value;
-        if (complement >= Integer.MIN_VALUE
-                && complement <= Integer.MAX_VALUE) {
-            count += frequency.getOrDefault((int) complement, 0);
-        }
-        frequency.merge(value, 1, Integer::sum);
+static IntPair twoSumClosest(int[] nums, int target) {
+    if (nums.length < 2) {
+        throw new IllegalArgumentException("At least two values are required");
     }
 
-    return count;
+    int[] sorted = Arrays.copyOf(nums, nums.length);
+    Arrays.sort(sorted);
+    int left = 0;
+    int right = sorted.length - 1;
+    IntPair best = new IntPair(sorted[left], sorted[right]);
+    long bestDifference = Long.MAX_VALUE;
+
+    while (left < right) {
+        long sum = (long) sorted[left] + sorted[right];
+        long difference = Math.abs(sum - (long) target);
+        if (difference < bestDifference) {
+            bestDifference = difference;
+            best = new IntPair(sorted[left], sorted[right]);
+        }
+        if (sum < target) {
+            left++;
+        } else if (sum > target) {
+            right--;
+        } else {
+            break;
+        }
+    }
+    return best;
 }
 ```
 
-Use `long` for the count: an array with many duplicates can produce more than
-`Integer.MAX_VALUE` pairs.
+<ExpandableAnswer title="How closest Two Sum works">
 
-## 4. All Index Pairs
+- Sort a copy so pointer movement changes the sum predictably without mutating
+  caller input.
+- At every pointer pair, compare its absolute `long` distance from the target
+  with the best distance seen.
+- Move left for a small sum and right for a large sum; an exact match is optimal.
+- The strict comparison preserves the first equally close pair as the tie rule.
 
-A single value-to-index map loses earlier duplicate indices. Store every earlier
-index per value and append one result for each matching earlier index.
+</ExpandableAnswer>
 
-```java
-record IndexPair(int first, int second) {}
+Time is `O(n log n)` and the copy uses `O(n)` space. The strict `<` keeps the
+first pair on equal differences; document another tie-breaker if required.
 
-static List<IndexPair> allIndexPairs(int[] nums, int target) {
-    Map<Integer, List<Integer>> indicesByValue = new HashMap<>();
-    List<IndexPair> result = new ArrayList<>();
+<ExpandableAnswer title="Dry run: [-1, 2, 4, 8], target 6">
 
-    for (int i = 0; i < nums.length; i++) {
-        long complement = (long) target - nums[i];
-        if (complement >= Integer.MIN_VALUE
-                && complement <= Integer.MAX_VALUE) {
-            for (int earlier : indicesByValue.getOrDefault(
-                    (int) complement, List.of())) {
-                result.add(new IndexPair(earlier, i));
-            }
-        }
-        indicesByValue.computeIfAbsent(nums[i], ignored -> new ArrayList<>())
-                .add(i);
-    }
+`-1+8=7` gives difference `1`, so it becomes best. Move right. `-1+4=3` gives
+difference `3`; keep the previous best and move left. `2+4=6` gives difference
+`0`, which is optimal, so return `(2,4)`.
 
-    return result;
-}
+</ExpandableAnswer>
+
+## 7. Unique Value Pairs
+
+### Contract And Sample
+
+```text
+Input:  nums = [1, 1, 2, 2, 3, 4], target = 5
+Output: [(1,4), (2,3)]
 ```
 
-The time is `O(n + output)`. No algorithm can return `p` pairs in less than
-`O(p)` output time.
-
-## 5. Unique Value Pairs
-
-Sorting makes duplicate semantics explicit. This implementation preserves caller
-input by sorting a copy.
+Sort a copy. After recording a match, skip every duplicate of both matched
+values.
 
 ```java
-record IntPair(int first, int second) {}
-
 static List<IntPair> uniqueValuePairs(int[] nums, int target) {
     int[] sorted = Arrays.copyOf(nums, nums.length);
     Arrays.sort(sorted);
-
-    List<IntPair> result = new ArrayList<>();
+    List<IntPair> pairs = new ArrayList<>();
     int left = 0;
     int right = sorted.length - 1;
 
     while (left < right) {
         long sum = (long) sorted[left] + sorted[right];
-
         if (sum == target) {
-            int leftValue = sorted[left];
-            int rightValue = sorted[right];
-            result.add(new IntPair(leftValue, rightValue));
-
-            while (left < right && sorted[left] == leftValue) {
-                left++;
-            }
-            while (left < right && sorted[right] == rightValue) {
-                right--;
-            }
+            int low = sorted[left];
+            int high = sorted[right];
+            pairs.add(new IntPair(low, high));
+            while (left < right && sorted[left] == low) left++;
+            while (left < right && sorted[right] == high) right--;
         } else if (sum < target) {
             left++;
         } else {
             right--;
         }
     }
-
-    return result;
+    return pairs;
 }
 ```
 
-## 6. Closest Pair
+<ExpandableAnswer title="How unique value-pair generation works">
 
-The common bug is comparing signed differences:
+- Sorting groups equal values and enables opposite-pointer elimination.
+- On a match, emit the two values once, remember them, and advance past every
+  duplicate on both sides.
+- On a small or large sum, move only the pointer that can correct it.
+- Duplicate skipping makes the output unique by values rather than indices.
 
-```java
-// Wrong: a very negative value appears artificially better.
-int difference = sum - target;
+</ExpandableAnswer>
+
+Time is `O(n log n)` and the copy uses `O(n)` space.
+
+<ExpandableAnswer title="Dry run: [1, 1, 2, 2, 3, 4], target 5">
+
+- `1+4=5`: emit `(1,4)`, skip both `1`s and the `4`.
+- `2+3=5`: emit `(2,3)`, skip both `2`s and the `3`.
+- Pointers meet; output contains each value combination once.
+
+</ExpandableAnswer>
+
+## 8. Three Sum
+
+### Contract And Sample
+
+```text
+Input:  nums = [-1, 0, 1, 2, -1, -4], target = 0
+Output: [(-1,-1,2), (-1,0,1)]
 ```
 
-Compare absolute `long` differences instead.
+Sort, fix one value, and solve a sorted Two Sum on its suffix. Skip duplicate
+fixed and pointer values so triples are unique.
 
 ```java
-static int[] closestPairIndicesInSortedArray(int[] nums, int target) {
-    if (nums == null || nums.length < 2) {
-        throw new IllegalArgumentException("At least two values are required");
-    }
-
-    int left = 0;
-    int right = nums.length - 1;
-    int bestLeft = left;
-    int bestRight = right;
-    long bestDifference = Long.MAX_VALUE;
-
-    while (left < right) {
-        long sum = (long) nums[left] + nums[right];
-        long difference = Math.abs(sum - (long) target);
-
-        if (difference < bestDifference) {
-            bestDifference = difference;
-            bestLeft = left;
-            bestRight = right;
-        }
-
-        if (sum == target) {
-            return new int[]{left, right};
-        }
-        if (sum < target) {
-            left++;
-        } else {
-            right--;
-        }
-    }
-
-    return new int[]{bestLeft, bestRight};
-}
-```
-
-Define tie-breaking explicitly. With `<`, the first equally close pair remains.
-Using `<=` selects the later pair encountered. A production API may instead prefer
-the smaller sum, lexicographically smaller pair, or earlier original indices.
-
-### Preserve Original Indices When Sorting
-
-```java
-record Element(int value, int originalIndex) {}
-```
-
-Create an `Element[]`, sort by value, run two pointers, and return the stored
-original indices. This costs `O(n)` additional space.
-
-## 7. Maximum Pair Sum Strictly Below K
-
-```java
-static long twoSumLessThanK(int[] nums, int k) {
+static List<IntTriple> threeSum(int[] nums, int target) {
     int[] sorted = Arrays.copyOf(nums, nums.length);
     Arrays.sort(sorted);
-
-    int left = 0;
-    int right = sorted.length - 1;
-    long best = Long.MIN_VALUE;
-
-    while (left < right) {
-        long sum = (long) sorted[left] + sorted[right];
-        if (sum < k) {
-            best = Math.max(best, sum);
-            left++;
-        } else {
-            right--;
-        }
-    }
-
-    return best;
-}
-```
-
-Do not use `-1` as a universal no-result marker if negative sums are valid. An
-`OptionalLong` or documented sentinel is safer in a production API.
-
-## 8. Pair Difference Equals K
-
-For unique value pairs satisfying `|a - b| = k`, `k` cannot be negative. The
-`k == 0` case needs a frequency of at least two.
-
-```java
-static List<IntPair> pairsWithDifference(int[] nums, int k) {
-    if (k < 0) {
-        return List.of();
-    }
-
-    Map<Integer, Integer> frequency = new HashMap<>();
-    for (int value : nums) {
-        frequency.merge(value, 1, Integer::sum);
-    }
-
-    List<IntPair> result = new ArrayList<>();
-    for (Map.Entry<Integer, Integer> entry : frequency.entrySet()) {
-        int value = entry.getKey();
-        if (k == 0) {
-            if (entry.getValue() >= 2) {
-                result.add(new IntPair(value, value));
-            }
-        } else {
-            long other = (long) value + k;
-            if (other <= Integer.MAX_VALUE
-                    && frequency.containsKey((int) other)) {
-                result.add(new IntPair(value, (int) other));
-            }
-        }
-    }
-    return result;
-}
-```
-
-## 9. Two Sum Data Structure
-
-The operation ratio determines the design.
-
-### Fast Add, Linear Find
-
-```java
-final class TwoSumIndex {
-    private final Map<Integer, Integer> frequency = new HashMap<>();
-
-    void add(int number) {
-        frequency.merge(number, 1, Integer::sum);
-    }
-
-    boolean find(int target) {
-        for (Map.Entry<Integer, Integer> entry : frequency.entrySet()) {
-            int number = entry.getKey();
-            long complement = (long) target - number;
-
-            if (complement < Integer.MIN_VALUE
-                    || complement > Integer.MAX_VALUE) {
-                continue;
-            }
-
-            int other = (int) complement;
-            if (number != other && frequency.containsKey(other)) {
-                return true;
-            }
-            if (number == other && entry.getValue() >= 2) {
-                return true;
-            }
-        }
-        return false;
-    }
-}
-```
-
-If `u` is the number of unique values, `add` is expected `O(1)`, `find` is `O(u)`,
-and memory is `O(u)`.
-
-### Precomputed Pair Sums
-
-Precomputing every new sum makes `find` expected `O(1)`, but `add` becomes `O(n)`
-and pair-sum storage can grow to `O(n^2)`. This only makes sense when queries
-greatly outnumber inserts and the memory bound is acceptable. It must retain
-duplicates so adding a second `3` creates sum `6`.
-
-### Concurrency Follow-up
-
-`HashMap` is not thread-safe. A concurrent implementation needs an explicit
-consistency contract. A read/write lock can protect atomic `add` and `find`, while
-a `ConcurrentHashMap` alone does not make the multi-step `find` snapshot atomic.
-Ask whether weakly consistent answers are permitted before choosing.
-
-## 10. 3Sum
-
-3Sum reduces one dimension: sort, fix `nums[i]`, then solve a sorted Two Sum for
-the remaining target. Duplicate skipping is part of correctness, not decoration.
-
-```java
-static List<List<Integer>> threeSum(int[] nums) {
-    int[] sorted = Arrays.copyOf(nums, nums.length);
-    Arrays.sort(sorted);
-    List<List<Integer>> result = new ArrayList<>();
+    List<IntTriple> triples = new ArrayList<>();
 
     for (int i = 0; i < sorted.length - 2; i++) {
-        if (sorted[i] > 0) {
-            break;
-        }
-        if (i > 0 && sorted[i] == sorted[i - 1]) {
-            continue;
-        }
-
+        if (i > 0 && sorted[i] == sorted[i - 1]) continue;
         int left = i + 1;
         int right = sorted.length - 1;
 
         while (left < right) {
             long sum = (long) sorted[i] + sorted[left] + sorted[right];
-
-            if (sum == 0) {
-                result.add(List.of(sorted[i], sorted[left], sorted[right]));
-                int leftValue = sorted[left];
-                int rightValue = sorted[right];
-
-                while (left < right && sorted[left] == leftValue) {
-                    left++;
-                }
-                while (left < right && sorted[right] == rightValue) {
-                    right--;
-                }
-            } else if (sum < 0) {
+            if (sum == target) {
+                triples.add(new IntTriple(sorted[i], sorted[left], sorted[right]));
+                int low = sorted[left];
+                int high = sorted[right];
+                while (left < right && sorted[left] == low) left++;
+                while (left < right && sorted[right] == high) right--;
+            } else if (sum < target) {
                 left++;
             } else {
                 right--;
             }
         }
     }
-
-    return result;
+    return triples;
 }
 ```
 
-The total time is `O(n^2)` after sorting; auxiliary space depends on the sorting
-and input-preservation choice, excluding output.
+<ExpandableAnswer title="How Three Sum works">
 
-## 11. 3Sum Closest, 4Sum, And K-Sum
+- Sort a copy, fix one value at index `i`, and solve a sorted Two Sum on the
+  suffix for `target - sorted[i]`.
+- Pointer comparisons move toward the required total.
+- After a match, skip repeated left/right values; the outer loop also skips a
+  repeated fixed value.
+- Fixing `n` candidates with a linear pointer scan yields `O(n²)` time.
 
-- **3Sum Closest:** fix one element and run the closest-pair algorithm on the suffix.
-- **4Sum:** fix two elements and run sorted Two Sum on the remaining suffix.
-- **K-Sum:** recursively fix one element until the base case is sorted Two Sum.
+</ExpandableAnswer>
 
-For K-Sum, use `long` for the remaining target, skip duplicates at each recursion
-depth, and prune using the smallest and largest possible sums.
+Time is `O(n²)` after sorting; the preserved-input copy uses `O(n)` space,
+excluding output.
 
-## Important Non-Variants
+<ExpandableAnswer title="Dry run: [-1, 0, 1, 2, -1, -4], target 0">
 
-### Subarray Sum Equals K
+Sorted input is `[-4,-1,-1,0,1,2]`. Fix `-4`: no pair reaches `4`. Fix the first
+`-1`: pointers discover `(-1,-1,2)` and `(-1,0,1)`. Skip the second fixed `-1`
+because it would reproduce the same triples. Later fixed values produce none.
 
-This is not Two Sum over array values. It asks for a contiguous range and uses
-prefix-sum frequencies:
+</ExpandableAnswer>
 
-```text
-prefix[j] - prefix[i] = k
-therefore prefix[i] = prefix[j] - k
-```
+## Decision And Edge-Case Checklist
 
-### Pair Product Equals K
+- Clarify indices versus values, one result versus all, and multiplicity versus
+  unique combinations.
+- Use `long` for sums, complements, absolute differences, and pair counts.
+- Check before inserting so the current index cannot match itself.
+- Do not sort caller input unless mutation is part of the contract.
+- Test empty/singleton inputs, `[3,3]`, many duplicates, negatives, zeroes,
+  extreme integers, no result, several valid answers, and closest-pair ties.
+- A sentinel such as `-1` is unsafe when negative sums are valid; prefer a
+  result type or `Optional` for production APIs.
 
-Division introduces zero, sign, and divisibility edge cases. It is less reusable
-than the additive family; define zero handling before implementing it.
+## Related But Different
 
-## Common Bugs In Candidate Solutions
-
-- using signed rather than absolute difference for closest sum;
-- using `int` for sum, complement, difference, or pair count;
-- returning all pairs with only a `Set`, thereby losing multiplicity;
-- failing to distinguish unique value pairs from distinct index pairs;
-- sorting the input without declaring mutation;
-- inserting before checking and reusing the current index;
-- forgetting that equal values require two occurrences;
-- skipping duplicates before recording a valid 3Sum result;
-- claiming hash operations are guaranteed worst-case `O(1)`;
-- returning a sentinel that is also a valid answer.
-
-## Top Interview Questions
-
-### Why Map Instead Of Set?
-
-A set answers membership. A map additionally stores an index, frequency, or all
-indices. Choose based on the required output rather than habit.
-
-### Hashing Or Sorting?
-
-Hashing gives expected `O(n)` time and preserves original indices at `O(n)` space.
-Sorting costs `O(n log n)`, enables `O(1)` two-pointer state, groups duplicates,
-and may mutate input or require a copy.
-
-### How Would You Handle A Stream?
-
-For one fixed target, maintain seen values or frequencies and report matches as
-new numbers arrive. For arbitrary future targets, use the Two Sum data structure;
-the insert/query trade-off depends on workload and memory.
-
-### What If The Data Does Not Fit In Memory?
-
-Options include external sorting plus a two-pointer-style merge process, hash
-partitioning values by a target-compatible scheme, or a distributed batch job.
-The exact design depends on whether one target or many targets are queried and
-whether exact results are mandatory.
-
-### How Do You Test It?
-
-Cover no result, first/last pair, duplicate equal values, many duplicates, negative
-values, zeroes, multiple valid answers, extreme integers, mutation expectations,
-and deterministic tie-breaking for closest pairs.
+`Subarray Sum Equals K` is a contiguous-range problem solved with prefix-sum
+frequencies, not Two Sum over individual values. Repeated `add/find`, difference
+equals `k`, maximum sum below `k`, 4Sum, and K-Sum are useful follow-ups after
+the eight core contracts above.
 
 ## Revision Summary
 
 ```text
-Unsorted exact pair       -> HashMap
-Sorted exact pair         -> Two pointers
-Count index pairs         -> Frequency map
-All index pairs           -> Map<Value, List<Index>>
-Unique value pairs        -> Sort + skip duplicates
-Closest / less than K     -> Sort + two pointers
-Repeated add/find         -> Operation-ratio data-structure trade-off
-3Sum                      -> Fix one + sorted Two Sum
-Subarray Sum Equals K     -> Prefix frequencies, not Two Sum
+First unsorted indices -> value to earlier index
+All index pairs         -> value to all earlier indices
+All value pairs         -> earlier frequency + materialize multiplicity
+Pair count              -> earlier frequency + add multiplicity
+Sorted pair             -> opposite pointers
+Closest pair            -> sort + pointers + best absolute difference
+Unique value pairs      -> sort + pointers + duplicate skipping
+Three Sum               -> sort + fix one + Two Sum
 ```
+
+## Official References
+
+- [Java `HashMap` API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/HashMap.html)
+- [Java `Arrays` API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Arrays.html)

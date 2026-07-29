@@ -144,9 +144,8 @@ actual IaaS resources. A vendor-supported fix must include reconciliation and va
 an isolated, version-compatible restore that meets RPO/RTO and passes management API,
 BOSH, cluster credential and Kubernetes workload checks.
 
-## References
+## Official References
 
 - [Broadcom: plan metadata inconsistency affecting cluster listing](https://knowledge.broadcom.com/external/article/313133)
 - [Broadcom: layered TKGI and BOSH configuration consistency](https://knowledge.broadcom.com/external/article/437404/tkgi-cluster-update-and-bosh-tile-apply.html)
 - [TKGI Overview](./TKGI-OVERVIEW-PATH.md)
-

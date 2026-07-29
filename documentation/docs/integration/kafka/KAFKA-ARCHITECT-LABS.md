@@ -212,3 +212,9 @@ from brand familiarity.
 
 Return to the [Kafka Architect Learning Path](../KAFKA-ARCHITECT-PATH.md) and close
 every completion-evidence item before claiming mastery.
+
+## Official References
+
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [Apache Kafka operations](https://kafka.apache.org/documentation/#operations)
+- [Kafka protocol guide](https://kafka.apache.org/protocol.html)

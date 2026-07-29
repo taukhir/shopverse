@@ -12,6 +12,10 @@ last_reviewed: "2026-07-13"
 
 # Microservices Architect Path
 
+Use [Microservices Production Mastery](./MICROSERVICES-PRODUCTION-MASTERY.md) as
+the complete checklist for boundaries, communication, consistency, resilience,
+APIs, security, observability, delivery and regional recovery.
+
 <DocLabels items={[
   {label: 'Lead and architect', tone: 'advanced'},
   {label: 'Production trade-offs', tone: 'production'},
@@ -74,4 +78,6 @@ repeated calls after failure detection but does not replace capacity controls.
 
 ## Recommended Next
 
-Practise failure reasoning in [Microservices Incident Labs](./MICROSERVICES-INCIDENT-LABS.md).
+Study [Cascading-Failure Prevention](./MICROSERVICES-CASCADING-FAILURE-PREVENTION.md),
+then practise failure reasoning in
+[Microservices Incident Labs](./MICROSERVICES-INCIDENT-LABS.md).

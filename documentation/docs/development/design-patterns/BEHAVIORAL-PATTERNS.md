@@ -307,6 +307,86 @@ Command objects are useful for:
 - undo workflows;
 - validation.
 
+## Iterator
+
+Iterator traverses a collection without exposing its representation. Java's `Iterable` and
+`Iterator` are the normal implementation; custom iterators matter for paged or domain traversal.
+
+```java
+for (Order order : orderHistory) {
+    reconcile(order);
+}
+```
+
+A remote-page iterator must define lazy I/O, failure, close, retry, and consistency semantics.
+Do not hide expensive network calls behind innocent-looking iteration without documenting them.
+
+## Mediator
+
+Mediator centralizes interaction rules that would otherwise create a many-to-many collaborator
+graph. An application service often acts as the mediator for a use case.
+
+```java
+public final class CheckoutMediator {
+    Receipt checkout(Cart cart) {
+        reservation.reserve(cart);
+        Payment payment = payments.authorize(cart.total());
+        return orders.place(cart, payment);
+    }
+}
+```
+
+It makes workflow ownership explicit, but can become a god object. Keep domain decisions in domain
+objects and split mediators by cohesive use case.
+
+## Memento
+
+Memento captures state that can later be restored without exposing an object's internals.
+
+```java
+public record CartMemento(List<CartLine> lines) {
+    public CartMemento { lines = List.copyOf(lines); }
+}
+```
+
+Use immutable snapshots for editor undo, workflow checkpoints, or tests. Large snapshots cost
+memory; persisted business recovery normally needs versioned events or durable state, not an
+in-memory undo stack.
+
+## Interpreter
+
+Interpreter represents a small grammar as composable expressions.
+
+```java
+sealed interface Rule permits AndRule, MinimumTotalRule {
+    boolean matches(Order order);
+}
+
+record AndRule(Rule left, Rule right) implements Rule {
+    public boolean matches(Order order) {
+        return left.matches(order) && right.matches(order);
+    }
+}
+```
+
+It works for a small stable rules language. Grammar growth, precedence, diagnostics, security, and
+performance quickly justify a parser library or established rules engine instead.
+
+## Visitor
+
+Visitor adds an operation across a stable object hierarchy without putting that operation into
+every caller.
+
+```java
+sealed interface Promotion permits Percentage, FreeShipping {
+    <R> R accept(PromotionVisitor<R> visitor);
+}
+```
+
+Adding operations is easy; adding a new element type requires changing every visitor. With sealed
+Java hierarchies, exhaustive pattern-matching `switch` may be simpler for a small number of
+operations.
+
 ## Behavioral Pattern Selection
 
 | Problem | Pattern |
@@ -317,6 +397,11 @@ Command objects are useful for:
 | enforce lifecycle transitions | State |
 | fixed workflow with variable steps | Template Method |
 | represent an action as data | Command |
+| traverse without exposing representation | Iterator |
+| coordinate many collaborators | Mediator |
+| capture restorable state | Memento |
+| evaluate a small grammar | Interpreter |
+| add operations across a stable hierarchy | Visitor |
 
 ## Interview Questions
 

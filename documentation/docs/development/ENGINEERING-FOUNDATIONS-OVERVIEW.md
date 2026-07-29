@@ -82,3 +82,8 @@ Review a design from the bottom up:
 - identify transaction, concurrency, security, and failure boundaries;
 - create a test, rollout, observability, and rollback strategy;
 - communicate decisions and alternatives clearly.
+
+## Recommended Next
+
+Continue with [Engineering Principles](./ENGINEERING-PRINCIPLES.md), then study
+[Design Patterns](./DESIGN-PATTERNS.md) and [Architecture Overview](../architecture/ARCHITECTURE-OVERVIEW.md).

@@ -48,6 +48,7 @@ decide whether a failed record is safe to replay.
 
 <TopicCards items={[
   {title: 'Publishing and event flow', href: '/spring/kafka/SPRING-KAFKA-BASICS', description: 'Configure KafkaTemplate, serializers, outbox acknowledgment, and event compatibility.', icon: 'route', tags: ['Producer', 'Schema']},
+  {title: 'Runtime internals and failures', href: '/spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES', description: 'Trace KafkaTemplate and listener containers through serialization, polling, commits, retries, DLT, transactions, and shutdown.', icon: 'network', tags: ['Internals', 'Failures']},
   {title: 'Consumers and delivery', href: '/spring/kafka/SPRING-KAFKA-CONSUMERS', description: 'Trace listener-container invocation, acknowledgment, transactions, and failure boundaries.', icon: 'network', tags: ['Containers', 'Offsets']},
   {title: 'Listener concurrency', href: '/spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY', description: 'Size child containers, partitions, poll work, retry traffic, and downstream capacity.', icon: 'gauge', tags: ['Capacity', 'Rebalance']},
   {title: 'Retry, DLT, and recovery', href: '/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY', description: 'Design retry-topic infrastructure, DLT handling, security, and terminal recovery.', icon: 'layers', tags: ['Retry topics', 'DLT']},

@@ -12,6 +12,10 @@ last_reviewed: "2026-07-24"
 
 # Docker Beginner-To-Architect Path
 
+Use [Docker Production Mastery](./docker/DOCKER-PRODUCTION-MASTERY.md) as the
+complete checklist for runtime internals, Dockerfiles, Java containers, storage,
+networking, security, resources, commands and incident scenarios.
+
 Docker is a client/API/daemon ecosystem that builds OCI-compatible image content and starts
 isolated Linux processes through a runtime stack. A container is not a small VM: it shares a
 kernel and receives isolated views and resource controls from that kernel.
@@ -55,4 +59,3 @@ when Docker/Compose is sufficient versus when orchestration is justified.
 ## Recommended Next
 
 Begin with [Engine, containerd, OCI Runtime, And Linux Isolation](./docker/DOCKER-ENGINE-RUNTIME-INTERNALS.md).
-

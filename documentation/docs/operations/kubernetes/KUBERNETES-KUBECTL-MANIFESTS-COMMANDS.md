@@ -383,6 +383,56 @@ context/identity -> object spec/status -> conditions -> events
 Preserve evidence before deleting or restarting a failing Pod. Replacement can
 erase the most useful previous logs, events, exit status, and node association.
 
+## Interview Questions
+
+<ExpandableAnswer title="What is the difference between get, describe and logs?">
+
+`get` reads object lists or structured API fields, `describe` combines important fields with
+related events for human diagnosis, and `logs` reads container output. Start with `get` and
+conditions, use `describe` for context and events, then inspect current or previous container logs.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does a successful kubectl apply mean the application is ready?">
+
+No. It means the API server accepted the desired state. Controllers must create dependent objects,
+the scheduler must place Pods, kubelets must start containers, and readiness must pass. Verify
+conditions with `kubectl rollout status`, `kubectl wait`, object status and application evidence.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do you reduce the risk of running a command against production?">
+
+Inspect `kubectl config current-context`, print the active namespace, use explicit `--context` and
+`-n`, prefer read-only commands first, run server-side dry-run and `kubectl diff`, and wait for
+observed conditions after applying. Avoid relying on terminal prompt colour as a safety control.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What is the difference between client-side and server-side dry-run?">
+
+Client dry-run builds the object locally. Server dry-run sends it through API defaulting,
+validation and admission without persisting it, so it catches more cluster-specific behavior.
+Neither proves that scheduling, image pulls, dependencies or readiness will succeed.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How would you investigate CrashLoopBackOff?">
+
+Confirm context and namespace, inspect Pod status and events, read `kubectl logs --previous`, check
+the exit code, command, configuration, probes, resource limits and dependencies, and correlate the
+failure with the owning workload and recent rollout. Preserve evidence before replacing the Pod.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When should you patch an object?">
+
+Use an intentional merge, strategic-merge or JSON patch for a precise operational change when its
+ownership is understood. For durable configuration, also update the authoritative manifest or
+GitOps source; otherwise reconciliation may overwrite the patch or configuration will drift.
+
+</ExpandableAnswer>
+
 ## Official References
 
 - [kubectl command reference](https://kubernetes.io/docs/reference/kubectl/)

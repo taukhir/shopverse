@@ -21,6 +21,10 @@ business intent.
 
 ## Dedicated Pattern Guides
 
+- [Immutable Classes, Defensive Copies, And Clone Safety](./immutable-class.md) explains the
+  object-construction rules that keep created values safe to share. Immutability is a supporting
+  design technique, not one of the five GoF creational patterns.
+
 <TopicCards items={[
   {title: 'Factory Method', href: '/development/design-patterns/factory', description: 'Move product selection and construction behind a stable product contract.', icon: 'boxes', tags: ['Runtime selection', 'Spring registry']},
   {title: 'Abstract Factory', href: '/development/design-patterns/abstract-factory', description: 'Create compatible families of related products without leaking vendor types.', icon: 'layers', tags: ['Product families', 'Environment variants']},

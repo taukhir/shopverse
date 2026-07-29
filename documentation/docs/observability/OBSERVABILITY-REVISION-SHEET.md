@@ -76,3 +76,9 @@ recovery condition. Avoid alerting on every transient internal event.
 - sensitive telemetry is protected;
 - deploy/config/business events are correlated;
 - incident recovery is measurable and documented.
+
+## Official References
+
+- [OpenTelemetry documentation](https://opentelemetry.io/docs/)
+- [Prometheus documentation](https://prometheus.io/docs/)
+- [Grafana documentation](https://grafana.com/docs/)

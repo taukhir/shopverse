@@ -107,3 +107,12 @@
 .topicOverview a:hover { border-color: var(--ifm-color-primary); color: var(--ifm-color-primary); }
 
 @media print { .topicOverview { background: none; break-inside: avoid; } }
+
+.pageProgress { align-self: center; color: var(--ifm-color-emphasis-600); font-size: .73rem; font-weight: 700; margin-left: auto; }
+.freshness { align-items: center; background: var(--doc-accent-soft); border: 1px solid var(--doc-border); border-radius: 8px; display: flex; font-size: .78rem; gap: .55rem; margin: 0 0 .8rem; padding: .55rem .7rem; }
+.freshness svg { flex: none; height: 16px; width: 16px; }
+.freshness.outdated { background: #fff4d8; border-color: #e8cb7b; color: #765612; }
+[data-theme='dark'] .freshness.outdated { background: #403516; border-color: #735f25; color: #f2d27a; }
+.continueSection { display: inline-block; font-size: .8rem; font-weight: 700; margin: 0 0 .8rem; }
+.prerequisiteWarning { align-items: center; border-left: 3px solid var(--ifm-color-warning-dark); display: flex; flex-wrap: wrap; font-size: .8rem; gap: .55rem; margin: 0 0 1rem; padding: .45rem .7rem; }
+:global(.table-of-contents__link.reader-active-section) { color: var(--ifm-color-primary); font-weight: 800; }

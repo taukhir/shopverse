@@ -33,30 +33,31 @@ flowchart LR
 
 ### 1. Foundations And Client Access
 
-1. [Kubernetes Workload Engineering Primer](./KUBERNETES-WORKLOAD-ENGINEERING.md)
-2. [kubectl Commands, YAML, JSON, And API Configuration](./kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS.md)
-3. [Kubeconfig, Contexts, Authentication, And Cluster Access](./kubernetes/KUBERNETES-KUBECONFIG-ACCESS.md)
-4. [API Machinery, Control Plane, Nodes, And Reconciliation](./kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS.md)
+1. [Kubernetes Overview: Clusters, Nodes, Pods, And Core Concepts](./kubernetes/KUBERNETES-OVERVIEW.md)
+2. [Kubernetes Workload Engineering Primer](./KUBERNETES-WORKLOAD-ENGINEERING.md)
+3. [kubectl Commands, YAML, JSON, And API Configuration](./kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS.md)
+4. [Kubeconfig, Contexts, Authentication, And Cluster Access](./kubernetes/KUBERNETES-KUBECONFIG-ACCESS.md)
+5. [API Machinery, Control Plane, Nodes, And Reconciliation](./kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS.md)
 
 ### 2. Workloads And Data Plane
 
-5. [Pods, Containers, Workloads, Lifecycle, And Scheduling](./kubernetes/KUBERNETES-WORKLOADS-SCHEDULING.md)
-6. [Networking, Services, DNS, Ingress, And Gateway API](./kubernetes/KUBERNETES-NETWORKING-SERVICES.md)
-7. [Persistent Storage, Stateful Workloads, And CSI](./kubernetes/KUBERNETES-STORAGE-STATEFUL.md)
+6. [Pods, Containers, Workloads, Lifecycle, And Scheduling](./kubernetes/KUBERNETES-WORKLOADS-SCHEDULING.md)
+7. [Networking, Services, DNS, Ingress, And Gateway API](./kubernetes/KUBERNETES-NETWORKING-SERVICES.md)
+8. [Persistent Storage, Stateful Workloads, And CSI](./kubernetes/KUBERNETES-STORAGE-STATEFUL.md)
 
 ### 3. Security And Platform Operations
 
-8. [Security, Admission, Policy, And Multi-Tenancy](./kubernetes/KUBERNETES-SECURITY-MULTITENANCY.md)
-9. [Cluster Operations, Capacity, Upgrades, HA, And Recovery](./kubernetes/KUBERNETES-CLUSTER-OPERATIONS.md)
+9. [Security, Admission, Policy, And Multi-Tenancy](./kubernetes/KUBERNETES-SECURITY-MULTITENANCY.md)
+10. [Cluster Operations, Capacity, Upgrades, HA, And Recovery](./kubernetes/KUBERNETES-CLUSTER-OPERATIONS.md)
 
 ### 4. Infrastructure And TKGI
 
-10. [Containers, Virtual Machines, Kubernetes, And BOSH](./kubernetes/KUBERNETES-CONTAINERS-VMS-BOSH.md)
-11. [TKGI Beginner-To-Architect Overview And Dedicated Component Pages](./kubernetes/TKGI-OVERVIEW-PATH.md)
+11. [Containers, Virtual Machines, Kubernetes, And BOSH](./kubernetes/KUBERNETES-CONTAINERS-VMS-BOSH.md)
+12. [TKGI Beginner-To-Architect Overview And Dedicated Component Pages](./kubernetes/TKGI-OVERVIEW-PATH.md)
 
 ### 5. Troubleshooting And Revision
 
-12. [Troubleshooting, Incident Labs, Interviews, And Revision](./kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION.md)
+13. [Troubleshooting, Incident Labs, Interviews, And Revision](./kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION.md)
 
 Use [Kubernetes Workload Engineering](./KUBERNETES-WORKLOAD-ENGINEERING.md) as the concise
 primer, then follow this route for complete professional coverage.
@@ -71,7 +72,8 @@ security, production incidents, and interview revision.
 
 | Question | Canonical Page |
 |---|---|
-| What is Kubernetes and how does reconciliation work? | [Control Plane Internals](./kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS.md) |
+| What are Kubernetes, clusters, nodes, Pods, and core objects? | [Kubernetes Overview](./kubernetes/KUBERNETES-OVERVIEW.md) |
+| How does reconciliation work internally? | [Control Plane Internals](./kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS.md) |
 | How do YAML and JSON manifests map to API objects? | [kubectl And Configuration](./kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS.md) |
 | Which `kubectl` commands should an engineer know? | [kubectl And Configuration](./kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS.md) |
 | How do kubeconfig, contexts, users, clusters and namespaces work? | [Kubeconfig And Cluster Access](./kubernetes/KUBERNETES-KUBECONFIG-ACCESS.md) |
@@ -161,4 +163,4 @@ perform a safe upgrade and etcd recovery exercise; and defend when not to use Ku
 
 ## Recommended Next
 
-Begin with [API Machinery, Control Plane, Nodes, And Reconciliation](./kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS.md).
+Begin with [Kubernetes Overview: Clusters, Nodes, Pods, And Core Concepts](./kubernetes/KUBERNETES-OVERVIEW.md).

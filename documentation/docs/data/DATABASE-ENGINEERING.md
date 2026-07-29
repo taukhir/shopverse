@@ -12,6 +12,9 @@ last_reviewed: "2026-07-23"
 <!-- split-guide-index -->
 # Database Engineering
 
+For the complete lead/architect learning sequence, production scenarios, and coverage
+map, start with [Database Production Mastery](./DATABASE-PRODUCTION-MASTERY.md).
+
 <DocLabels items={[{label: 'Focused guides', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Architect route', tone: 'production'}]} />
 
 Relational design, query performance, distributed trade-offs, and production correctness. The original long-form material is preserved without duplication across the focused pages below.

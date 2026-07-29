@@ -298,6 +298,28 @@ abstract class Notification {
 Use Bridge when you have two dimensions of variation, such as notification type
 and delivery channel.
 
+## Flyweight
+
+Flyweight shares intrinsic, reusable state across many logical objects while callers supply
+extrinsic state for each use. It is useful only when measurement shows that repeated object state
+causes material memory pressure.
+
+```java
+public record ProductStyle(String icon, String color) {}
+
+public final class ProductStyleFactory {
+    private final ConcurrentMap<String, ProductStyle> styles = new ConcurrentHashMap<>();
+
+    public ProductStyle style(String category) {
+        return styles.computeIfAbsent(category, this::loadImmutableStyle);
+    }
+}
+```
+
+The cached flyweight must be immutable or safely shared. Product ID, price, and screen position are
+extrinsic and stay outside it. The drawbacks are identity confusion, cache lifecycle, lookup cost,
+and hidden shared-state races; use ordinary objects until profiling justifies the complexity.
+
 ## Pattern Selection
 
 | Problem | Pattern |
@@ -308,6 +330,7 @@ and delivery channel.
 | add access control/lifecycle behavior | Proxy |
 | model tree/group and leaf uniformly | Composite |
 | separate two independent variation dimensions | Bridge |
+| share repeated immutable intrinsic state | Flyweight |
 
 ## Interview Questions
 

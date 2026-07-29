@@ -84,3 +84,9 @@ material is unusable and every workload reconnects.
 - security events are auditable and incident response is tested.
 
 Continue with the [Security Interview Workbook](./platform/SECURITY-INTERVIEW-WORKBOOK.md).
+
+## Official References
+
+- [OWASP Application Security Verification Standard](https://owasp.org/www-project-application-security-verification-standard/)
+- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)

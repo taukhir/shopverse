@@ -186,7 +186,7 @@ storage or a later add-on errand can fail independently of raw CPU capacity.
 have their own API and credentials. The TKGI management API/UAA/database can be
 unavailable without immediately stopping every independent workload cluster.
 
-## References
+## Official References
 
 - [Broadcom TKGI 1.25 control-plane documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/control-plane.html)
 - [Broadcom: cluster update and BOSH configuration hierarchy](https://knowledge.broadcom.com/external/article/437404/tkgi-cluster-update-and-bosh-tile-apply.html)

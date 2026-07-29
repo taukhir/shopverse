@@ -148,6 +148,48 @@ workload revision, not irreversible data or external side effects.
 | Ready false | exact probe output, timeout, dependency policy and endpoint membership |
 | rollout stalled | unavailable replicas, probes, quota, PDB and capacity |
 
+## Interview Questions
+
+<ExpandableAnswer title="How do you choose between Deployment, StatefulSet, DaemonSet and Job?">
+
+Use a Deployment for interchangeable long-running replicas, StatefulSet for stable identity or
+per-replica storage, DaemonSet for one eligible Pod per node, and Job for finite work. CronJob
+creates Jobs on a schedule. Choose from lifecycle and identity requirements, not application name.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do readiness, liveness and startup probes differ?">
+
+Readiness controls whether a Pod receives traffic. Liveness can restart a stuck container. A
+startup probe delays liveness and readiness evaluation for slow initialization. A dependency
+failure often belongs in readiness, not liveness, to avoid restart storms.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What is the difference between requests and limits?">
+
+The scheduler uses requests to reserve capacity and place Pods. The runtime enforces limits: CPU
+is normally throttled and memory exhaustion can cause an OOM kill. Bad requests cause poor packing
+or Pending Pods; bad limits can hide saturation or destabilize the workload.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What happens during graceful Pod termination?">
+
+Deletion records a grace period, endpoint readiness and routing begin to converge, a preStop hook
+may run, and the runtime sends the termination signal. The process must stop accepting work, drain
+in-flight operations and exit before the grace period ends or it is force-killed.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can a Pod remain Pending even when the cluster has free CPU?">
+
+No single eligible node may satisfy all requests and constraints. Inspect scheduler events for
+memory, taints, affinity, topology spread, volume zone, host ports, quota and node selectors; total
+cluster capacity alone does not prove schedulable capacity.
+
+</ExpandableAnswer>
+
 ## Official References
 
 - [Kubernetes workloads](https://kubernetes.io/docs/concepts/workloads/)
@@ -158,4 +200,3 @@ workload revision, not irreversible data or external side effects.
 ## Recommended Next
 
 Continue with [Networking, Services, DNS, Ingress, And Gateway API](./KUBERNETES-NETWORKING-SERVICES.md).
-

@@ -88,3 +88,9 @@ Always add peak, failure, maintenance, retry, growth, and recovery headroom.
 - timeout, duplicate, overload, and partial failure are handled;
 - security and privacy follow data flow;
 - SLOs, alerts, runbooks, rollout, rollback, and DR are testable.
+
+## Official References
+
+- [AWS Architecture Center](https://aws.amazon.com/architecture/)
+- [Google Cloud Architecture Framework](https://cloud.google.com/architecture/framework)
+- [Microsoft Azure Architecture Center](https://learn.microsoft.com/azure/architecture/)

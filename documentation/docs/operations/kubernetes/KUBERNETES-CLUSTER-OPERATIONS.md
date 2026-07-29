@@ -123,6 +123,58 @@ headroom and SLO. Spot/preemptible capacity needs disruption-tolerant workloads 
 - Can we restore cluster state and application data in dependency order?
 - What evidence proves recovery met RPO/RTO and correctness invariants?
 
+## Interview Questions
+
+<ExpandableAnswer title="What is the difference between cordon and drain?">
+
+`cordon` marks a node unschedulable for new Pods but leaves existing Pods running. `drain` also
+evicts suitable workloads while respecting controls such as PodDisruptionBudgets. After maintenance,
+`uncordon` makes the node schedulable again.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why does etcd quorum matter for control-plane availability?">
+
+etcd commits writes through consensus, so a majority of members must communicate. An odd-sized,
+failure-domain-aware cluster tolerates member loss according to its remaining majority. Adding
+members without planning latency and quorum can reduce reliability rather than improve it.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What is a safe Kubernetes upgrade sequence?">
+
+Read version-skew and deprecation guidance, test workloads and add-ons, back up and rehearse
+rollback, upgrade the control plane within supported skew, then rotate or drain and upgrade nodes
+in bounded failure domains. Verify APIs, controllers, networking, storage and application SLOs at
+each stage.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do HPA and cluster autoscaling differ?">
+
+HPA changes workload replica count from metrics. Cluster autoscaling changes node capacity when
+Pods cannot be scheduled or nodes can be removed safely. They form one latency chain; neither can
+fix invalid constraints, a saturated dependency or a metric unrelated to load.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How would you investigate a NotReady node?">
+
+Inspect node conditions, leases and events, then kubelet, container runtime, network and storage
+components plus disk, inode, memory and PID pressure. Determine whether the API path or node itself
+failed, preserve evidence, and cordon or drain according to impact and disruption policy.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What belongs in an etcd recovery plan?">
+
+Automated, encrypted snapshots are only the start. Record version-compatible restore steps,
+certificates and encryption keys, control-plane bootstrap order, endpoint changes and post-restore
+reconciliation. Rehearse the procedure and verify both Kubernetes state and external application
+data against RPO and RTO.
+
+</ExpandableAnswer>
+
 ## Official References
 
 - [Kubernetes cluster administration](https://kubernetes.io/docs/concepts/cluster-administration/)
@@ -133,4 +185,3 @@ headroom and SLO. Spot/preemptible capacity needs disruption-tolerant workloads 
 ## Recommended Next
 
 Finish with [Troubleshooting, Incident Labs, Interviews, And Revision](./KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION.md).
-

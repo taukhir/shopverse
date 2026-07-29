@@ -115,6 +115,56 @@ Provision a claim, write checksum data, delete/recreate the Pod, expand the clai
 backup/snapshot, restore to another namespace and reconcile checksums. Then simulate a zone/attach
 constraint and document the exact controller and node events.
 
+## Interview Questions
+
+<ExpandableAnswer title="What are PV, PVC and StorageClass?">
+
+A PersistentVolume represents storage available to the cluster. A PersistentVolumeClaim is a
+workload's request for capacity, access mode and class. A StorageClass describes a provisioning
+and policy profile that can dynamically create a matching PV through a CSI driver.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How does dynamic volume provisioning work?">
+
+The PVC selects a StorageClass. Its CSI provisioner creates provider storage and a PV, Kubernetes
+binds the claim, scheduling respects topology, and CSI node components stage and mount the volume
+on the chosen node. Events at each layer show where the flow stopped.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What do ReadWriteOnce and ReadWriteMany guarantee?">
+
+They describe supported attachment and mount access, not application-level concurrency safety.
+ReadWriteOnce normally allows read-write use from one node; ReadWriteMany supports multiple nodes
+when the driver and backend implement it. Check the precise access-mode and driver semantics.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What does a StatefulSet guarantee, and what does it not guarantee?">
+
+It provides stable ordinal identity, ordered lifecycle options and stable claim templates. It does
+not provide database replication, leader election, consistency, backup, restore validation or safe
+schema evolution; the application or an operator must implement those concerns.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do you investigate a Pending PVC?">
+
+Inspect PVC events, its requested class and access modes, the StorageClass and CSI provisioner,
+quota and provider capacity. With delayed binding, also inspect the consuming Pod's scheduler and
+topology events because volume selection waits for a suitable node.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why is a storage snapshot not automatically a complete backup?">
+
+A snapshot may be crash-consistent rather than application-consistent, may share the same failure
+domain and credentials, and may omit external state. A backup design needs RPO/RTO, retention,
+immutability, dependency ordering and regularly tested restoration with correctness checks.
+
+</ExpandableAnswer>
+
 ## Official References
 
 - [Kubernetes storage](https://kubernetes.io/docs/concepts/storage/)
@@ -125,4 +175,3 @@ constraint and document the exact controller and node events.
 ## Recommended Next
 
 Continue with [Security, Admission, Policy, And Multi-Tenancy](./KUBERNETES-SECURITY-MULTITENANCY.md).
-

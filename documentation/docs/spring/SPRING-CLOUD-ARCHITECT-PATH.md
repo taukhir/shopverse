@@ -7,7 +7,7 @@ status: Generic
 prerequisites: [Spring Boot, Microservices fundamentals, HTTP]
 learning_objectives: [Choose Spring Cloud components deliberately, Trace their runtime failure boundaries, Operate a secure resilient microservice platform]
 technologies: [Spring Cloud, Spring Boot, Config, Gateway, OpenFeign, LoadBalancer, CircuitBreaker]
-last_reviewed: "2026-07-23"
+last_reviewed: "2026-07-28"
 ---
 
 # Spring Cloud Architect Learning Path
@@ -48,7 +48,10 @@ flowchart LR
 5. [Spring Cloud Kubernetes And Contract](./cloud/SPRING-CLOUD-KUBERNETES-CONTRACT.md)
 6. [Optional Ecosystem Selection And Governance](./cloud/SPRING-CLOUD-ECOSYSTEM-GOVERNANCE.md)
 7. [Bus, Security, Observability, Kubernetes, Upgrades, And Operations](./cloud/SPRING-CLOUD-OPERATIONS.md)
-8. [Architect Interviews, Production Scenarios, Labs, And Revision](./cloud/SPRING-CLOUD-INTERVIEW-REVISION.md)
+8. [Security, Identity, Token Relay, mTLS And Rotation](./cloud/SPRING-CLOUD-SECURITY-IDENTITY.md)
+9. [Testing, Deployment And Release-Train Upgrades](./cloud/SPRING-CLOUD-TESTING-DEPLOYMENT.md)
+10. [Production Scenarios And Architect Interview Bank](./cloud/SPRING-CLOUD-PRODUCTION-SCENARIOS.md)
+11. [Architect Interviews, Labs And Revision](./cloud/SPRING-CLOUD-INTERVIEW-REVISION.md)
 
 ## Existing Focused Guides
 

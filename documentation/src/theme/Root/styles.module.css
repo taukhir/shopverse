@@ -39,6 +39,7 @@
 .backToTop svg { height: 20px; width: 20px; }
 .backToTop.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
 .backToTop:hover { background: var(--ifm-color-primary); }
+.shortcutTrigger{align-items:center;background:var(--ifm-background-color);border:1px solid var(--doc-border);border-radius:50%;bottom:1.25rem;box-shadow:var(--doc-shadow-sm);color:var(--ifm-color-emphasis-700);cursor:pointer;display:flex;height:44px;justify-content:center;position:fixed;right:4.65rem;width:44px;z-index:var(--ifm-z-index-fixed)}.shortcutTrigger:hover{border-color:var(--ifm-color-primary);color:var(--ifm-color-primary)}.shortcutTrigger svg{height:19px;width:19px}.shortcutBackdrop{align-items:center;background:rgb(5 14 12 / 55%);display:flex;inset:0;justify-content:center;padding:1rem;position:fixed;z-index:calc(var(--ifm-z-index-fixed) + 9)}.shortcutDialog{background:var(--ifm-background-color);border:1px solid var(--doc-border);border-radius:14px;box-shadow:var(--doc-shadow-md);max-width:440px;overflow:hidden;width:100%}.shortcutDialog header{align-items:center;background:var(--doc-surface);border-bottom:1px solid var(--doc-border);display:flex;justify-content:space-between;padding:.8rem 1rem}.shortcutDialog header div,.shortcutDialog header button,.shortcutDialog dd{align-items:center;display:flex;gap:.5rem}.shortcutDialog header svg,.shortcutDialog dd svg{height:18px;width:18px}.shortcutDialog header button{background:transparent;border:0;color:inherit;cursor:pointer;height:38px;justify-content:center;width:38px}.shortcutDialog dl{display:grid;margin:0;padding:.7rem}.shortcutDialog dl>div{align-items:center;border-top:1px solid var(--doc-border);display:grid;grid-template-columns:120px 1fr;padding:.65rem}.shortcutDialog dl>div:first-child{border-top:0}.shortcutDialog dt,.shortcutDialog dd{margin:0}.shortcutDialog kbd{background:var(--doc-surface);border:1px solid var(--doc-border);border-bottom-width:2px;border-radius:5px;font-size:.68rem;padding:.2rem .38rem}.shortcutDialog dd{font-size:.8rem}
 
 .mobileContents {
   align-items: center;
@@ -70,6 +71,7 @@
   .mobileContents { display: inline-flex; }
   .mobileContents.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
   .backToTop { bottom: 1.25rem; right: 1rem; }
+  .shortcutTrigger { display: none; }
 }
 
 .lightbox {

@@ -91,3 +91,9 @@ sorts, locks, cache, I/O, returned data, and application mapping.
 - migrations support overlapping versions and rollback;
 - pools, locks, latency, storage, replicas, and backups are monitored;
 - restoration and reconciliation are tested.
+
+## Official References
+
+- [PostgreSQL documentation](https://www.postgresql.org/docs/)
+- [Oracle Database documentation](https://docs.oracle.com/en/database/)
+- [MongoDB documentation](https://www.mongodb.com/docs/)
