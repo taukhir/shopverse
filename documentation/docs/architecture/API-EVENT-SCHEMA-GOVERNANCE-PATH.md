@@ -3,11 +3,15 @@ title: API And Event Schema Governance Path
 description: Complete route through API lifecycle and OpenAPI, event contracts and schema registries, Avro Protobuf JSON Schema compatibility, ownership, security, policy, deprecation, incidents, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [REST fundamentals, Event-driven architecture fundamentals]
 learning_objectives: [Govern contracts without blocking delivery, Evolve APIs and events safely, Build measurable ownership and deprecation processes]
 technologies: [OpenAPI, AsyncAPI, Avro, Protocol Buffers, JSON Schema, Schema Registry]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # API And Event Schema Governance Path

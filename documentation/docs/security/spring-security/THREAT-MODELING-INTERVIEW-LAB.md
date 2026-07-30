@@ -3,11 +3,15 @@ title: Spring Security Threat-Modelling And Interview Lab
 description: Architect-level Shopverse threat analysis with expandable authentication and authorization answers.
 difficulty: Advanced
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Spring Security, OAuth2 and OIDC, JWT]
 learning_objectives: [Build a trust-boundary model, Distinguish authentication from authorization failures, Defend controls under interview pressure]
 technologies: [Spring Security 7, OAuth2, OIDC, JWT, JWKS]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Security Threat-Modelling And Interview Lab

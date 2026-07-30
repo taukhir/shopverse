@@ -3,10 +3,14 @@ title: Database Load Incident Runbook
 description: Diagnose, contain, remediate, verify, and escalate database saturation without amplifying the incident.
 difficulty: Advanced
 page_type: Runbook
-status: Generic
+status: maintained
 prerequisites: [Database query plans, connection pools, application observability]
 technologies: [MySQL, PostgreSQL, Spring Boot, HikariCP, Micrometer]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Load Incident Runbook

@@ -3,10 +3,14 @@ title: "Singleton Pattern in Java and Spring"
 description: "Compare Java singleton implementations with Spring scope, then address concurrency, lifecycle, testability, and distributed-system drawbacks."
 sidebar_label: "Singleton"
 tags: ["java", "spring", "design-patterns", "creational", "interview", "concurrency"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Singleton Pattern in Java and Spring

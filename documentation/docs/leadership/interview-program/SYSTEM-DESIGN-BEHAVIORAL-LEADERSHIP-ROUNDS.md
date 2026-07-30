@@ -3,11 +3,15 @@ title: System Design, Troubleshooting, And Leadership Rounds
 description: Frameworks and drills for architecture, incident diagnosis, influence, delivery, conflict, and executive communication interviews.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Mock Interview Formats, Question Bank, And Scoring]
 learning_objectives: [Structure system-design answers, Diagnose from evidence, Demonstrate technical leadership, Communicate decisions at multiple altitudes]
 technologies: [Distributed Systems, Observability, Architecture]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # System Design, Troubleshooting, And Leadership Rounds

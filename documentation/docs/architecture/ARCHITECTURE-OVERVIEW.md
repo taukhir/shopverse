@@ -3,11 +3,15 @@ title: Software And Systems Architecture Overview
 description: First-read overview of HLD, LLD, distributed systems, microservices, capacity, data, messaging, security, and operational architecture.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Backend engineering fundamentals]
 learning_objectives: [Frame architecture from requirements and invariants, Connect system components to quality attributes, Navigate the architect deep-dive route]
 technologies: [Distributed Systems, Microservices, Databases, Kafka, Cloud]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Software And Systems Architecture Overview

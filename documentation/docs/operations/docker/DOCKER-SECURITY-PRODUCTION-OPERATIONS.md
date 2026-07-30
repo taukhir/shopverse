@@ -3,11 +3,15 @@ title: Docker Security, Compose, Resources, Logging, And Production Operations
 description: Harden Docker daemon and containers, use rootless and user namespaces, secure secrets and sockets, operate Compose, resources, health, logging, upgrades, cleanup, and recovery.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Docker storage and networking internals]
 learning_objectives: [Threat-model Docker, Harden daemon images and containers, Operate Compose and resources safely, Govern logs upgrades cleanup and recovery]
 technologies: [Docker Engine, Docker Compose, rootless mode, seccomp]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker Security, Compose, Resources, Logging, And Production Operations

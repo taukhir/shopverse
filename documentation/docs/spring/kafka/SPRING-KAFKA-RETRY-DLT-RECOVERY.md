@@ -3,11 +3,15 @@ title: Spring Kafka Retry DLT And Recovery
 description: Spring non-blocking retry-topic mechanics, DLT handlers, failure classification, secure terminal recovery, and retry-topic rollout.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Spring Kafka listeners, Consumer idempotency, Kafka topic operations]
 learning_objectives: [Trace non-blocking retry-topic infrastructure, Classify retryable and terminal failures, Operate DLT handling without losing evidence or leaking payloads]
 technologies: [Spring for Apache Kafka 4.x, RetryableTopic, DltHandler, Micrometer]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Kafka Retry DLT And Recovery

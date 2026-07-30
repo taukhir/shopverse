@@ -2,12 +2,16 @@
 title: Linux Filesystems, Disk, And Block I/O Troubleshooting
 description: Diagnose capacity, inodes, mounts, permissions, deleted-open files, page cache, writeback, block devices, I/O latency, filesystem errors, and recovery risks.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Linux Processes CPU Memory And OOM]
 learning_objectives: [Distinguish filesystem and block symptoms, Diagnose space and latency safely, Protect data during storage incidents]
 technologies: [Linux filesystems, block layer, LVM]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Linux Filesystems, Disk, And Block I/O Troubleshooting

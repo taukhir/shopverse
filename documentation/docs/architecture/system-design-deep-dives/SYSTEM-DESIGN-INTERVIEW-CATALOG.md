@@ -7,6 +7,10 @@ page_type: Workbook
 difficulty: Advanced
 status: maintained
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # System Design Interview Problem Catalog

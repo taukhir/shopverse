@@ -3,10 +3,14 @@ title: "HashSet Internals and Usage"
 description: "HashSet HashMap backing, defaults, load factor, collisions, equality, methods, complexity, sizing, and selection guidance."
 sidebar_label: "HashSet"
 tags: [java, collections, set, hashset, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # HashSet Internals and Usage

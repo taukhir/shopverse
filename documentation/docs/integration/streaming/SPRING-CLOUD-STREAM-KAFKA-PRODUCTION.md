@@ -2,12 +2,16 @@
 title: Spring Cloud Stream Kafka Binder Production Engineering
 description: Production coverage of partitioning, retries, DLQ, offsets, transactions, idempotency, security, observability, tuning, deployment, and incident diagnosis.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Spring Cloud Stream functions and bindings, Kafka consumer groups]
 learning_objectives: [Configure Kafka binder reliability, Diagnose lag and recovery failures, Explain exactly-once boundaries]
 technologies: [Spring Cloud Stream, Kafka Binder, Spring Kafka, Apache Kafka]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Stream Kafka Binder Production Engineering

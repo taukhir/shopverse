@@ -3,10 +3,14 @@ title: "Builder Pattern in Java and Spring"
 description: "Compare manual, staged, Lombok, and Spring builders while preserving required fields, defaults, and domain invariants."
 sidebar_label: "Builder"
 tags: ["java", "spring", "design-patterns", "creational", "interview"]
-page_type: "Deep Dive"
-difficulty: "Intermediate"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Intermediate
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Builder Pattern in Java and Spring

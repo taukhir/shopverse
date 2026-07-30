@@ -3,10 +3,14 @@ title: "Debugging Requests And Platform Dependencies"
 description: "Debugging Requests And Platform Dependencies with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Debugging Requests And Platform Dependencies"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Debugging Requests And Platform Dependencies

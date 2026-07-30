@@ -9,6 +9,10 @@ prerequisites: [Java garbage collection, Spring dependency injection]
 learning_objectives: [Trace bean creation and publication, Explain when beans become GC eligible, Diagnose static and ThreadLocal retention, Separate destruction from garbage collection]
 technologies: [Spring Framework, Spring Boot, JVM, JFR]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Bean Lifecycle, Garbage Collection, And Static References

@@ -3,11 +3,15 @@ title: Spring Data MongoDB In Depth
 description: Document mapping, repositories, MongoTemplate, aggregation, indexes, transactions, change streams, reactive access, sharding, and incidents.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [MongoDB fundamentals, Spring Data Commons]
 learning_objectives: [Model bounded documents, Implement repository and template queries, Operate indexes transactions and sharding]
 technologies: [Spring Data MongoDB, MongoDB, Spring Boot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data MongoDB In Depth

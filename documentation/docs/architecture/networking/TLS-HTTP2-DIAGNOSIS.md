@@ -3,11 +3,15 @@ title: TLS, Certificates, HTTP/1.1, And HTTP/2 Diagnosis
 description: Trace TLS 1.2/1.3, PKI chains, hostname validation, SNI, ALPN, mTLS, rotation, HTTP semantics, HTTP/2 frames, streams, flow control, and failures.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TCP Connection Diagnosis]
 learning_objectives: [Explain secure connection negotiation, Diagnose certificates and trust, Operate HTTP/2 pools and streams safely]
 technologies: [TLS 1.3, X.509, HTTP/1.1, HTTP/2]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TLS, Certificates, HTTP/1.1, And HTTP/2 Diagnosis

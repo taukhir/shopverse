@@ -3,11 +3,15 @@ title: Spring Cloud Config, Refresh, And Secrets
 description: Design Config Server and Client repositories, precedence, startup behavior, refresh scope, encryption, secrets, HA, and incident recovery.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Cloud Architect Learning Path]
 learning_objectives: [Trace configuration resolution, Design safe refresh and rollback, Secure and operate Config Server]
 technologies: [Spring Cloud Config, Spring Boot Actuator]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Config, Refresh, And Secrets

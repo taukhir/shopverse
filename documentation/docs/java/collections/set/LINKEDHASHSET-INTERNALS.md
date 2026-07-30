@@ -3,10 +3,14 @@ title: "LinkedHashSet Internals and Usage"
 description: "LinkedHashSet insertion-order links, hash-table defaults, complexity, methods, memory cost, and selection guidance."
 sidebar_label: "LinkedHashSet"
 tags: [java, collections, set, linkedhashset, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # LinkedHashSet Internals and Usage

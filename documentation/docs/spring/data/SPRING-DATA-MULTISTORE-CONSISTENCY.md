@@ -2,12 +2,16 @@
 title: Spring Data Multi Store Consistency And Schema Evolution
 description: Transaction boundaries, outbox, CDC, idempotency, dual running, migrations, routing, privacy, backup, and datastore replacement.
 difficulty: Architect
-page_type: Architecture Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Transactions, event-driven architecture, Spring Data modules]
 learning_objectives: [Design cross-store workflows, Evolve schemas safely, Plan datastore migrations and recovery]
 technologies: [Spring Data, SQL, NoSQL, Kafka, Liquibase]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Multi Store Consistency And Schema Evolution

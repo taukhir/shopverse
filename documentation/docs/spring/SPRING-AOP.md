@@ -4,13 +4,17 @@ description: Practical Spring AOP guide covering advice, pointcuts, custom aspec
 sidebar_position: 4
 difficulty: Intermediate
 page_type: Guide
-status: Generic
+status: maintained
 learning_objectives:
   - Build narrow, testable Spring AOP advice for cross-cutting concerns
   - Explain proxy boundaries, self-invocation, and interceptor ordering
   - Select AOP, servlet filters, MVC interceptors, or weaving by execution boundary
 technologies: [Spring Framework, Spring AOP]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring AOP: Proxies, Pointcuts And Advice

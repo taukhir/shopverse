@@ -2,14 +2,19 @@
 title: REST Idempotent Commands
 description: Durable idempotency-key records, canonical request fingerprints, concurrent first requests, replay behavior, retention, security, and current Shopverse checkout gaps.
 difficulty: Architect
-page_type: Architecture
-status: Partially implemented
+page_type: Concept
+status: maintained
 learning_objectives:
   - Bind an idempotency key to caller scope and canonical request identity
   - Resolve concurrent first requests through an atomic database outcome
   - Define in-progress, success, failure, retention, replay, and recovery semantics
 technologies: [Spring MVC, Spring Transactions, Database Uniqueness, HTTP]
 last_reviewed: "2026-07-13"
+implementation_status: partial
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # REST Idempotent Commands

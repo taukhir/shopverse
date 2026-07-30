@@ -2,12 +2,16 @@
 title: Docker Engine, containerd, OCI Runtime, And Linux Isolation
 description: Trace Docker client requests through dockerd, containerd, shims and OCI runtimes into namespaces, cgroups, mounts, capabilities, seccomp, lifecycle, signals, and exit status.
 difficulty: Advanced
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Linux process fundamentals, Docker basics]
 learning_objectives: [Trace docker run internally, Explain kernel isolation and limits, Diagnose runtime lifecycle and signal failures]
 technologies: [Docker Engine, containerd, runc, OCI, Linux]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker Engine, containerd, OCI Runtime, And Linux Isolation

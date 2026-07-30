@@ -2,11 +2,15 @@
 title: System Design Interview Evaluation Rubric
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 keywords: [system design interview, scoring rubric, trade-off evaluation]
 learning_objectives: [Evaluate designs consistently, Identify shallow box-diagram answers, Improve trade-off communication]
 technologies: [System Design]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # System Design Interview Evaluation Rubric

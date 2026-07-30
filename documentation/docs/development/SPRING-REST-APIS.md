@@ -3,11 +3,15 @@ title: Spring REST API Learning Guide
 description: Dependency-ordered route through Spring MVC controllers, validation, errors, files, pagination, idempotency, API contracts, clients and testing.
 difficulty: Intermediate
 page_type: Learning Path
-status: Shopverse
+status: maintained
 prerequisites: [HTTP and REST fundamentals, Spring container basics]
 learning_objectives: [Design stable Spring REST contracts, Assign validation and error ownership, Prove security idempotency and compatibility behavior]
 technologies: [Spring MVC, Bean Validation, Jackson 3, OpenAPI]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST API Learning Guide

@@ -3,10 +3,14 @@ title: "Algorithms And Data Structures"
 description: "A focused Shopverse learning path for selecting, analyzing, and applying data structures."
 sidebar_label: "Algorithms And Data Structures"
 tags: ["data structures", "java", "shopverse"]
-page_type: "Learning Path"
-difficulty: "Foundation"
-status: "maintained"
+page_type: Learning Path
+difficulty: Beginner
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Algorithms And Data Structures

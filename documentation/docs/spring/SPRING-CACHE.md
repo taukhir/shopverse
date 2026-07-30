@@ -3,11 +3,15 @@ title: Spring Cache Abstraction
 description: Spring cache proxy mechanics, SpEL keys, provider integration, transaction timing, stampede controls, migrations, outages, and test evidence.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring AOP proxies, Spring Boot configuration, Cache architecture fundamentals]
 learning_objectives: [Trace Spring cache interception and key evaluation, Integrate bounded providers without hiding consistency boundaries, Test invalidation migration and outage behavior]
 technologies: [Spring Framework 7, Spring Boot 4, Spring Cache, Caffeine, Redis]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cache Abstraction

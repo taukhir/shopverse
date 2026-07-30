@@ -3,11 +3,15 @@ title: Kafka Consumer Multithreading And Parallel Processing
 description: Safe Kafka consumer ownership, worker pools, partition ordering, completion watermarks, backpressure, and Spring Kafka concurrency.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 prerequisites: [Kafka offset commits, Java concurrency]
 learning_objectives: [Explain why KafkaConsumer is not thread safe, Design safe parallel processing, Preserve partition ordering and commit correctness]
 technologies: [Apache Kafka 4.x, Java Executors, Spring Kafka]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Consumer Multithreading And Parallel Processing

@@ -3,11 +3,15 @@ title: Kafka Consumer Offset Commits In Depth
 description: commitSync, commitAsync, offset ownership, rebalance safety, shutdown, duplicate windows, and production commit patterns.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 prerequisites: [Kafka consumers, partitions, consumer groups]
 learning_objectives: [Explain committed offsets precisely, Select commitSync or commitAsync safely, Prevent loss and stale offset commits]
 technologies: [Apache Kafka 4.x, KafkaConsumer, Spring Kafka]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Consumer Offset Commits In Depth

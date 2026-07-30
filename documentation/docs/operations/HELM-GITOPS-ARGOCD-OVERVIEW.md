@@ -3,12 +3,16 @@ title: Helm, GitOps, And Argo CD Overview
 description: Beginner introduction to Helm charts and releases, GitOps desired-state practices, Argo CD reconciliation, and how the three fit into Kubernetes delivery.
 sidebar_label: Helm, GitOps And Argo CD Overview
 difficulty: Beginner
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Git fundamentals, Kubernetes overview]
 learning_objectives: [Distinguish Helm GitOps and Argo CD, Explain charts values templates and releases, Trace a GitOps deployment, Recognize ownership and rollback boundaries]
 technologies: [Helm, GitOps, Argo CD, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Helm, GitOps, And Argo CD Overview

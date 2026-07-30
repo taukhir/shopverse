@@ -2,12 +2,16 @@
 title: Spring Data Cassandra Reactive Consistency Testing And Production
 description: Reactive and async access, execution profiles, consistency, retries, idempotency, paging, security, observability, Testcontainers, capacity, and incident handling.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Spring Data Cassandra mapping and repositories]
 learning_objectives: [Choose execution models, Configure safe production behavior, Test and diagnose Cassandra integration]
 technologies: [Reactive Cassandra, Spring Boot, DataStax Java Driver, Testcontainers]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Cassandra Reactive Consistency Testing And Production

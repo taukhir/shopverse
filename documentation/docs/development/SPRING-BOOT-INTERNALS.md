@@ -3,11 +3,15 @@ title: Spring Boot Internals Learning Guide
 description: Focused route through Boot startup, dependency injection, configuration, web runtime, infrastructure and production operations.
 difficulty: Intermediate
 page_type: Learning Path
-status: Shopverse
+status: maintained
 prerequisites: [Spring ecosystem fundamentals]
 learning_objectives: [Trace a Boot application from launch to readiness, Select the canonical runtime guide for a symptom, Diagnose configuration and infrastructure from evidence]
 technologies: [Spring Boot 4, Spring Framework 7, Tomcat, Actuator]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Internals Learning Guide

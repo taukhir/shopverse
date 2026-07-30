@@ -3,11 +3,15 @@ title: Transaction-Boundary Failure Lab
 description: Reproduce rollback, proxy interception, propagation, and remote-side-effect failures.
 difficulty: Advanced
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Spring AOP, JDBC transactions, JPA]
 learning_objectives: [Locate the real transaction boundary, Predict rollback, Remove remote calls from database transactions]
 technologies: [Spring Boot 4, Spring Framework 7, Hibernate, H2]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Transaction-Boundary Failure Lab

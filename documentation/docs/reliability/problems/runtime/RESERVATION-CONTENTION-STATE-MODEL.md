@@ -3,10 +3,14 @@ title: "Reservation Contention And State Model"
 description: "Reservation Contention And State Model with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Reservation Contention And State Model"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Reservation Contention And State Model

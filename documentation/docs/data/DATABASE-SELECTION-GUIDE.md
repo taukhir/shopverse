@@ -3,10 +3,14 @@ title: Database Design And Selection
 sidebar_position: 2
 difficulty: Beginner
 page_type: Learning Path
-status: Generic
+status: maintained
 learning_objectives: [Choose a database category from system requirements, Navigate database design trade-offs, Plan an evidence-based database evaluation]
 technologies: [MySQL, PostgreSQL, Oracle Database, Db2, SQL Server, MariaDB, SQLite, CockroachDB, Cassandra, MongoDB, DynamoDB, Redis, Elasticsearch, OpenSearch, Neo4j, ClickHouse, pgvector]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Design And Selection

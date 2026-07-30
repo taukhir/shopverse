@@ -3,12 +3,16 @@ title: Maven Overview - POM, Lifecycle, Dependencies, Plugins, And Repositories
 description: Beginner introduction to Maven, the POM, coordinates, standard project layout, build lifecycles, plugin goals, dependency resolution, repositories, and essential commands.
 sidebar_label: Maven Overview
 difficulty: Beginner
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Java fundamentals]
 learning_objectives: [Explain what Maven solves, Read a basic POM, Distinguish phases from plugin goals, Trace dependency resolution and artifact production]
 technologies: [Apache Maven, Java]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Maven Overview: POM, Lifecycle, Dependencies, Plugins, And Repositories

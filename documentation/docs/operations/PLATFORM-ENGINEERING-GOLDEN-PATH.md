@@ -3,11 +3,15 @@ title: Platform Engineering, Golden Paths, And Self-Service Architect Path
 description: Design internal developer platforms using product thinking, platform APIs, golden paths, Backstage, templates, Helm and Kustomize, Argo and Flux, Crossplane, policy, tenancy, scorecards, SLOs, adoption, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Kubernetes, GitOps, Infrastructure as Code]
 learning_objectives: [Treat platform as a product, Design safe self-service APIs, Compare platform tools, Measure adoption and outcomes]
 technologies: [Backstage, Crossplane, Helm, Kustomize, Argo CD, Flux]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Platform Engineering, Golden Paths, And Self-Service Architect Path

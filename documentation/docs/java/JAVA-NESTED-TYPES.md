@@ -3,9 +3,13 @@ title: Java Nested Types, Local Classes And Lambdas
 description: Static nested classes, inner classes, local and anonymous classes, capture, lifecycle, and Shopverse-oriented design guidance.
 difficulty: Intermediate
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [Java 24, JVM]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Nested Types, Local Classes And Lambdas

@@ -3,11 +3,15 @@ title: TKGI API Server And Cluster Lifecycle
 description: Deep dive into the TKGI API, plans, brokered asynchronous operations, cluster creation, scaling, updating, deletion, credentials, internal state transitions, failures, evidence, and interview questions.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TKGI overview, HTTP and OAuth2, Kubernetes fundamentals]
 learning_objectives: [Trace a TKGI lifecycle request, Explain plans and broker operations, Diagnose stuck cluster actions, Separate TKGI and Kubernetes APIs]
 technologies: [TKGI, UAA, BOSH, Kubernetes, Operations Manager]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI API Server And Cluster Lifecycle

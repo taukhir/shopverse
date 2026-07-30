@@ -3,11 +3,15 @@ title: Distributed Reliability Overview
 description: First-read map of timeouts, retries, idempotency, circuit breakers, transactions, locking, sagas, outbox, backpressure, and recovery.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [HTTP, Database transactions, Distributed systems fundamentals]
 learning_objectives: [Model partial failure explicitly, Select reliability patterns from failure semantics, Design evidence-driven recovery]
 technologies: [Spring Boot, Resilience4j, Kafka, SQL]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed Reliability Overview

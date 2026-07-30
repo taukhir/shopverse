@@ -3,12 +3,17 @@ title: Spring Bean Validation
 description: Learning-path landing for Bean Validation fundamentals, method and custom validation, groups and configuration, and production error testing.
 difficulty: Intermediate
 page_type: Learning Path
-status: Implemented
+status: maintained
 learning_objectives:
   - Select the focused Spring validation guide for the current boundary
   - Progress from constraint fundamentals to proxy, error, and production behavior
 technologies: [Jakarta Validation, Spring MVC, Spring Boot]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Bean Validation

@@ -1,0 +1,37 @@
+{
+  "scenario_id": "checkout-architecture-discovery",
+  "answer": "ShopVerse checkout enters through the gateway and is owned by Order, while Inventory owns reservations and Payment owns payment state. Kafka choreography carries per-order transitions. Each service uses a local transaction with a transactional outbox rather than a shared database transaction. At-least-once duplicate delivery requires idempotent business transitions. Failure produces compensation rather than a global rollback.",
+  "claims": [
+    {
+      "id": "service_ownership",
+      "statement": "Order, Inventory, and Payment retain separate state ownership.",
+      "evidence": ["README.md#service-ports"]
+    },
+    {
+      "id": "outbox_atomicity",
+      "statement": "Domain state and integration intent use a local transactional outbox boundary.",
+      "evidence": ["documentation/docs/reliability/SAGA-OUTBOX.md"]
+    },
+    {
+      "id": "ordering_boundary",
+      "statement": "Ordering is required per order aggregate key rather than globally.",
+      "evidence": ["documentation/docs/architecture/adr/002-kafka-choreography-saga.md"]
+    },
+    {
+      "id": "duplicate_delivery",
+      "statement": "Consumers must tolerate at-least-once duplicate delivery.",
+      "evidence": ["documentation/docs/reliability/INBOX-PATTERN.md"]
+    },
+    {
+      "id": "compensation",
+      "statement": "Failure is handled through auditable compensation transitions.",
+      "evidence": ["documentation/docs/reliability/SAGA-OUTBOX.md"]
+    }
+  ],
+  "changed_files": [],
+  "commands": [],
+  "metrics": {},
+  "risks": [
+    "The fixture does not prove that every consumer has a durable inbox table."
+  ]
+}

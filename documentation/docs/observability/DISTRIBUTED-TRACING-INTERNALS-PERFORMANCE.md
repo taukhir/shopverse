@@ -3,10 +3,14 @@ title: "Distributed Tracing Internals And Performance Analysis"
 description: "Understand Micrometer tracing internals, context propagation, custom spans, sampling, backends, bottleneck analysis, and exporter troubleshooting."
 sidebar_label: "Tracing Internals And Performance"
 tags: ["shopverse", "observability", "tracing", "micrometer", "opentelemetry"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed Tracing Internals And Performance Analysis

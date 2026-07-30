@@ -3,11 +3,15 @@ title: Microservices Architect Path
 description: Lead-level decision framework for communication, consistency, resilience, and platform ownership.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Microservices fundamentals, Distributed systems]
 learning_objectives: [Select boundary contracts, Bound failure propagation, Define platform responsibilities]
 technologies: [HTTP, Kafka, Kubernetes, OpenTelemetry]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Architect Path

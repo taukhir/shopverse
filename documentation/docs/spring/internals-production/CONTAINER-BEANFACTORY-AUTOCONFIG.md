@@ -3,9 +3,13 @@ title: Container, Bean Factory, And Auto-Configuration Internals
 description: Compatibility route to the canonical Spring container runtime guide for architects.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 technologies: [Spring Framework, Spring Boot]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Container, Bean Factory, And Auto-Configuration Internals

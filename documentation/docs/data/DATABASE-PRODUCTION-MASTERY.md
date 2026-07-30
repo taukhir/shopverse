@@ -3,10 +3,14 @@ title: Database Production Mastery
 description: Lead and architect roadmap for relational internals, transactions, query diagnosis, ORM behavior, resilience, Cassandra, Oracle, and database incidents.
 difficulty: Advanced
 page_type: Learning Path
-status: Complete
+status: maintained
 prerequisites: [SQL, transactions, Spring Data fundamentals]
 technologies: [PostgreSQL, Oracle, Cassandra, Hibernate, HikariCP, Spring Data]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Production Mastery
@@ -148,3 +152,12 @@ You are ready for a lead/architect interview when you can:
 Finish with [Database Revision Sheet](./DATABASE-REVISION-SHEET.md) and
 [Database Interview Exercises](./database-selection/DATABASE-INTERVIEW-EXERCISES.md).
 
+## Recommended Next
+
+Use the [Database Revision Sheet](./DATABASE-REVISION-SHEET.md), then complete a
+timed incident drill from [Database Interview Exercises](./database-selection/DATABASE-INTERVIEW-EXERCISES.md).
+
+## Official References
+
+- [PostgreSQL performance tips](https://www.postgresql.org/docs/current/performance-tips.html)
+- [MySQL Reference Manual](https://dev.mysql.com/doc/refman/8.4/en/)

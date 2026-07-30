@@ -3,11 +3,15 @@ title: JPA Repositories Queries And Projections
 description: Spring Data repository composition, derived queries, JPQL, projections, specifications, pagination, and query evidence.
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring Data JPA, SQL fundamentals, JPA entity integration]
 learning_objectives: [Choose a repository query mechanism by use case, Keep dynamic queries and sorting safe, Prove query behavior with plans and production-engine tests]
 technologies: [Spring Data JPA, Hibernate ORM, JPQL, SQL]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JPA Repositories Queries And Projections

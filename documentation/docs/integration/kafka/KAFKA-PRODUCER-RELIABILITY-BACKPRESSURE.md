@@ -3,11 +3,15 @@ title: Kafka Producer Reliability And Backpressure
 description: Producer internals, acknowledgments, idempotence, retries, timeouts, buffer pressure, transactions, and outage containment.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 prerequisites: [Kafka topics, partitions, replication]
 learning_objectives: [Trace the producer runtime, Configure durability and latency deliberately, Contain overload and ambiguous outcomes]
 technologies: [Apache Kafka 4.x, KafkaProducer, Spring Kafka]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Producer Reliability And Backpressure

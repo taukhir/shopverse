@@ -3,11 +3,15 @@ title: Performance And Chaos Engineering Architect Path
 description: Workload modelling, k6 and JVM testing, smoke/load/stress/spike/soak/breakpoint tests, coordinated omission, thresholds, distributed generation, profiling, fault injection, chaos safety, CI, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Observability, SLOs, Distributed systems]
 learning_objectives: [Design valid performance experiments, Correlate bottlenecks across layers, Run safe chaos experiments, Produce defensible capacity evidence]
 technologies: [k6, Gatling, JFR, Prometheus, Toxiproxy, Chaos Mesh]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Performance And Chaos Engineering Architect Path

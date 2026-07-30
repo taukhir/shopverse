@@ -2,14 +2,19 @@
 title: REST Pagination And Conditional Requests
 description: Bounded offset and keyset pagination, stable ordering, opaque cursors, ETag caching, If-Match concurrency control, database versions, and Shopverse evidence.
 difficulty: Advanced
-page_type: Architecture
-status: Implemented
+page_type: Concept
+status: maintained
 learning_objectives:
   - Choose offset or keyset pagination from consistency and query-plan evidence
   - Design stable unique ordering and opaque tamper-resistant cursors
   - Combine HTTP preconditions with database concurrency guarantees
 technologies: [Spring MVC, Spring Data, HTTP ETag, JPA Version]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # REST Pagination And Conditional Requests

@@ -3,11 +3,15 @@ title: TKGI Telemetry Sinks And Observability
 description: Deep guide to TKGI platform telemetry, cluster log and metric sinks, Fluent Bit, Telegraf, Node Exporter, observability-manager reconciliation, SLIs, alerts, evidence, and failure diagnosis.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TKGI production operations path, Kubernetes observability, Networking fundamentals]
 learning_objectives: [Distinguish CEIP telemetry from operator observability, Explain log and metric sink architecture, Design platform SLIs and alerts, Trace missing telemetry, Validate end-to-end evidence]
 technologies: [TKGI 1.25, Kubernetes, Fluent Bit, Telegraf, Node Exporter, Prometheus, Syslog]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Telemetry Sinks And Observability

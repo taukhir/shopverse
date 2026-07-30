@@ -3,10 +3,14 @@ title: "Rate Limiter And Bulkhead"
 description: "Rate Limiter And Bulkhead with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Rate Limiter And Bulkhead"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Rate Limiter And Bulkhead

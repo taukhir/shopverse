@@ -3,10 +3,14 @@ title: Database System Design Scenarios
 sidebar_position: 7
 difficulty: Intermediate
 page_type: Case Study
-status: Generic
+status: maintained
 learning_objectives: [Apply database choices to real workloads, Evaluate polyglot persistence]
 technologies: [PostgreSQL, MySQL, CockroachDB, Cassandra, DynamoDB, Redis, Elasticsearch, Neo4j, ClickHouse, pgvector]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database System Design Scenarios

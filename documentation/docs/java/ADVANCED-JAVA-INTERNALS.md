@@ -2,11 +2,15 @@
 title: Advanced Java Internals
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 keywords: [JVM internals, Java Memory Model, AQS, virtual threads, bytecode, JIT, NIO, JMH]
 learning_objectives: [Understand Java execution beneath language syntax, Diagnose concurrency and memory failures, Measure performance without misleading benchmarks]
 technologies: [Java, JVM, JFR, JMH]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Advanced Java Internals

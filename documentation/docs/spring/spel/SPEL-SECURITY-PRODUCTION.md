@@ -2,14 +2,18 @@
 title: SpEL Security, Production And Interview Guide
 description: SpEL trust boundaries, injection prevention, cost and side-effect controls, observability, testing, incident response, and expandable interview checks.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives:
   - Threat-model expression sources, evaluation capabilities, roots, and results
   - Bound expression cost and diagnose failures without exposing sensitive data
   - Test language and annotation behavior and answer lead-level SpEL interview scenarios
 technologies: [Spring Framework, Spring Security, Spring Boot Testing]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # SpEL Security, Production And Interview Guide

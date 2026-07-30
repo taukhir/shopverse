@@ -3,10 +3,14 @@ title: "Atomic Inventory Reservation"
 description: "Design contention-safe reservation ownership, transaction boundaries, and recovery."
 sidebar_label: "Atomic Inventory Reservation"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -54,3 +58,7 @@ Within **Atomic Inventory Reservation**, apply the Shopverse guidance incrementa
 
 - [Resilience4j documentation](https://resilience4j.readme.io/docs)
 - [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+
+## Recommended Next Page
+
+Continue with [Multi-Replica Reservation Expiry](./MULTI-REPLICA-RESERVATION-EXPIRY.md).

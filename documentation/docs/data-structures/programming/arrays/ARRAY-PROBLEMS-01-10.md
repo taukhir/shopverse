@@ -3,10 +3,14 @@ title: Array Problems 1-10 - Core Patterns
 description: Worked Java solutions for Two Sum, stock profit, sorted deduplication, zero compaction, Kadane, duplicate detection, rotation, merge, product except self, and majority vote.
 sidebar_label: Problems 1-10
 sidebar_position: 3
-difficulty: Easy to Medium
-page_type: Programming Guide
+difficulty: All Levels
+page_type: Guide
 status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Array Problems 1-10: Core Patterns

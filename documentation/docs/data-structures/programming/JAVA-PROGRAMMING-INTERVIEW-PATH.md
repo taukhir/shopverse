@@ -3,11 +3,15 @@ title: Java Programming Interview Path
 description: Pattern-first coding interview curriculum for senior and lead Java engineers, beginning with arrays and expanding into the full DSA question bank.
 sidebar_label: Programming Interview Path
 sidebar_position: 1
-difficulty: Foundation to Advanced
+difficulty: All Levels
 page_type: Learning Path
 status: maintained
 last_reviewed: "2026-07-24"
 keywords: [Java programming interview, arrays, algorithms, senior Java, coding patterns]
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Programming Interview Path

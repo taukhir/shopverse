@@ -2,11 +2,15 @@
 title: Caffeine, Redis And Memcached
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Cache umbrella]
 learning_objectives: [Compare local and remote providers, Explain Redis and Memcached protocols, Configure bounded caches]
 technologies: [Caffeine, Redis, Memcached]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Caffeine, Redis And Memcached

@@ -3,11 +3,15 @@ title: Cloud And AWS Revision Sheet
 description: Rapid revision of cloud responsibility, networking, compute, storage, databases, events, high availability, security, and cost.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Cloud Computing]
 learning_objectives: [Recall cloud architecture concepts quickly, Map requirements to AWS services, Review availability security and cost trade-offs]
 technologies: [AWS, VPC, EC2, ECS, Lambda, S3, RDS, DynamoDB]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-cloud
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cloud And AWS Revision Sheet

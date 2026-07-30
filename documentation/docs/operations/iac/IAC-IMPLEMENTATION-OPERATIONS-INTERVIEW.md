@@ -3,11 +3,15 @@ title: IaC Implementation, Operations, Incidents, Labs, And Interviews
 description: Practical HCL, modules, remote state, testing, policy, CI, imports, refactors, drift, partial failure, recovery, production scenarios, and architect questions.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Terraform And OpenTofu Architect Path]
 learning_objectives: [Write governed modules, Build a safe automation pipeline, Diagnose state and provider incidents, Complete architect labs]
 technologies: [Terraform, OpenTofu, AWS, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # IaC Implementation, Operations, Incidents, Labs, And Interviews

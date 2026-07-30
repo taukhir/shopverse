@@ -1,0 +1,11 @@
+{
+  "id": "discovery-registration-churn",
+  "title": "Diagnose Discovery Registration Churn",
+  "prompt_path": "../prompts/incident-investigation.md",
+  "fixture_paths": ["fixtures/discovery-churn-evidence.md"],
+  "expected_path": "expected/discovery-registration-churn.json",
+  "authority": {"reads": ["provided fixture"], "writes": [], "external_actions": []},
+  "task": "Diagnose registration churn and stale routing while separating registry, readiness, network, client cache, and application evidence. Do not change lease settings or topology.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["Live registry or network evidence is required"]
+}

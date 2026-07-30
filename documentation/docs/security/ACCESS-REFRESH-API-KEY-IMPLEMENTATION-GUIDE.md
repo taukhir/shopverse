@@ -3,10 +3,14 @@ title: "Access, Refresh Token, And API Key Design"
 description: "Separate access-token, session, API-key, authorization, and operational responsibilities."
 sidebar_label: "Access, Refresh Token, And API Key Design"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Access, Refresh Token, And API Key Design**, apply the Shopverse guidan
 
 - [Spring Security reference](https://docs.spring.io/spring-security/reference/)
 - [OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
+
+## Recommended Next Page
+
+Continue with the [Security Architect Path](./platform/SECURITY-ARCHITECT-PATH.md).

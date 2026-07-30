@@ -3,10 +3,14 @@ title: "Micrometer Timers, Tags, And Operations"
 description: "Micrometer Timers, Tags, And Operations with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Micrometer Timers, Tags, And Operations"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Micrometer Timers, Tags, And Operations

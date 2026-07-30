@@ -2,11 +2,15 @@
 title: MCP Protocol Lifecycle And Architecture
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 keywords: [MCP initialize, capability negotiation, MCP lifecycle, cancellation, progress]
 learning_objectives: [Trace initialization and shutdown, Explain capability negotiation, Handle concurrency cancellation and version compatibility]
 technologies: [MCP, JSON-RPC]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # MCP Protocol Lifecycle And Architecture

@@ -2,14 +2,19 @@
 title: Async Contract And Flaky Test Prevention
 description: Bounded asynchronous assertions, REST and event contract fixtures, deterministic data, isolation, parallel execution, and evidence-driven flaky-test prevention.
 difficulty: Advanced
-page_type: Testing
-status: Implemented
+page_type: Guide
+status: maintained
 learning_objectives:
   - Replace fixed sleeps with bounded condition-based assertions and timeout evidence
   - Protect REST, Kafka, security, and configuration compatibility contracts
   - Remove shared state and timing assumptions before enabling parallel execution
 technologies: [Awaitility, JUnit, Kafka, Contract Testing, Spring]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 

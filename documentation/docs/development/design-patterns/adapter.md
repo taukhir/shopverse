@@ -3,10 +3,14 @@ title: "Adapter Pattern in Spring"
 description: "Protect application contracts from vendor SDKs with Spring adapters, translation boundaries, and contract tests."
 sidebar_label: "Adapter"
 tags: ["spring", "design-patterns", "interview", "integration"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Adapter Pattern in Spring

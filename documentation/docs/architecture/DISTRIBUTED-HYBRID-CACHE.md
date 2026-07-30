@@ -2,11 +2,15 @@
 title: Distributed And Hybrid Cache
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Cache umbrella, Distributed systems fundamentals]
 learning_objectives: [Design distributed cache ownership, Implement L1 and L2 caching, Prevent stale and stampeding failures]
 technologies: [Caffeine, Redis, Kafka]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed And Hybrid Cache

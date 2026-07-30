@@ -2,11 +2,15 @@
 title: Hibernate Caching
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Hibernate basics and lifecycle, Cache umbrella]
 learning_objectives: [Distinguish Hibernate cache levels, Configure L2 and query caching, Select concurrency strategies]
 technologies: [Hibernate ORM, JPA, JCache]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Hibernate Caching

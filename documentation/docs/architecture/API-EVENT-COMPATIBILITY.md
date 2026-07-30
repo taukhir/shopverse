@@ -2,11 +2,15 @@
 title: API And Event Compatibility
 difficulty: Intermediate
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [API versioning, backward compatibility, consumer-driven contracts, Avro, Protobuf, JSON Schema, schema registry, event upcasting]
 learning_objectives: [Evolve APIs without breaking clients, Apply event schema compatibility rules, Plan deprecation and migration]
 technologies: [REST, Kafka, Avro, Protobuf, JSON Schema]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # API And Event Compatibility

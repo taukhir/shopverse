@@ -3,11 +3,15 @@ title: Terraform And OpenTofu Infrastructure-As-Code Architect Path
 description: Complete IaC route through HCL, providers, dependency graphs, state, modules, environments, testing, security, automation, drift, imports, recovery, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Cloud fundamentals, Git, CI/CD]
 learning_objectives: [Model infrastructure declaratively, Govern state and modules, Automate safe plans and applies, Recover drift and state incidents]
 technologies: [Terraform, OpenTofu, HCL, AWS, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Terraform And OpenTofu Infrastructure-As-Code Architect Path

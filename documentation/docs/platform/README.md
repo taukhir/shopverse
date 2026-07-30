@@ -1,7 +1,13 @@
 ---
 title: Platform Infrastructure
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-platform
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Platform Infrastructure

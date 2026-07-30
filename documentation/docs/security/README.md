@@ -3,11 +3,15 @@ title: Application And Platform Security Learning Guide
 description: Route through security principles, identity, API and service controls, Spring Security, operations, and incident response.
 difficulty: Intermediate
 page_type: Learning Path
-status: Shopverse
+status: maintained
 prerequisites: [HTTP, Basic distributed systems]
 learning_objectives: [Model trust boundaries, Select identity and authorization controls, Operate security incidents]
 technologies: [OAuth2, OIDC, JWT, Spring Security 7, Kubernetes]
 last_reviewed: "2026-07-23"
+scope: shopverse
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Application And Platform Security Learning Guide

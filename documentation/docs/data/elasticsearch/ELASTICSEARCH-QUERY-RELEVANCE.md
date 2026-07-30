@@ -3,11 +3,15 @@ title: Elasticsearch Analysis, Query DSL, Relevance, And Aggregations
 description: Design analyzers, compose queries and filters, tune scoring, use aggregations, and paginate safely with search_after and point-in-time snapshots.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Elasticsearch Internals And Mapping]
 learning_objectives: [Choose analyzers from language behavior, Build efficient queries, Explain and tune relevance and pagination]
 technologies: [Elasticsearch Query DSL, Lucene]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Elasticsearch Analysis, Query DSL, Relevance, And Aggregations

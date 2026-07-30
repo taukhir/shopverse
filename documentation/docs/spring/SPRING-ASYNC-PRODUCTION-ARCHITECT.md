@@ -2,8 +2,8 @@
 title: Spring Task Execution And Scheduling For Production
 description: Production design for @Async proxies, executor ownership, TaskDecorator context cleanup, scheduling semantics, replica coordination, fencing, virtual threads, observability, testing, and shutdown.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives:
   - Trace @Async submission through the proxy and the selected TaskExecutor
   - Bound executor and scheduler work against downstream resource capacity
@@ -11,6 +11,10 @@ learning_objectives:
   - Verify context cleanup, failure handling, cancellation, and shutdown
 technologies: [Spring Framework, Spring Boot, TaskExecutor, TaskScheduler]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Task Execution And Scheduling For Production

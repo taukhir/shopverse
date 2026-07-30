@@ -3,9 +3,13 @@ title: Java Control Flow, Expression And Error Keywords
 description: Branching, loops, switch, exceptions, assertions, object creation, type tests, and return semantics.
 difficulty: Intermediate
 page_type: Reference
-status: Generic
+status: maintained
 technologies: [Java 25, JLS]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Control Flow, Expression And Error Keywords

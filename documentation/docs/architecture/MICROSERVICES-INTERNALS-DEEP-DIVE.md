@@ -2,11 +2,15 @@
 title: Microservices Internals And Failure Engineering
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [service boundary, temporal coupling, deadlines, retry storm, workload identity, microservices lab]
 learning_objectives: [Choose service boundaries from ownership, Trace communication and partial failure, Design overload consistency security and operations together]
 technologies: [Spring Boot, Kafka, gRPC, Kubernetes]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Internals And Failure Engineering

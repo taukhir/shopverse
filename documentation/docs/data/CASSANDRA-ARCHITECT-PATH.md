@@ -3,11 +3,15 @@ title: Apache Cassandra Architect Learning Path
 description: Complete route from Cassandra fundamentals through query-first modeling, distributed internals, storage, indexing, repair, capacity, incidents, and Spring integration.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Distributed systems fundamentals, Database fundamentals]
 learning_objectives: [Model Cassandra tables from queries, Explain consistency and storage internals, Operate and troubleshoot Cassandra safely]
 technologies: [Apache Cassandra, CQL, Spring Data Cassandra]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Apache Cassandra Architect Learning Path

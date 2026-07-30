@@ -3,10 +3,14 @@ title: Docker Internals, Layers, And Storage
 sidebar_position: 3
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 learning_objectives: [Explain container isolation, Compare containers with virtual machines, Manage image layers build cache and Docker storage]
 technologies: [Docker, BuildKit, Linux, OverlayFS, Docker Compose]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker Internals, Layers, And Storage

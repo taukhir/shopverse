@@ -2,8 +2,14 @@
 title: Java OOP Learning Guide
 sidebar_position: 1
 description: A concise route through Java object design, relationships, polymorphism, contracts, and language mechanics.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Object-Oriented Programming

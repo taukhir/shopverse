@@ -2,11 +2,15 @@
 title: Production Platform Engineering
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 keywords: [platform engineering, Kubernetes, SRE, gRPC, schema evolution, multi-tenancy, data pipeline, chaos engineering]
 learning_objectives: [Navigate production platform topics in dependency order, Connect application design to runtime operations, Identify operational evidence required before launch]
 technologies: [Java, Spring Boot, Kubernetes, Kafka, PostgreSQL]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Production Platform Engineering

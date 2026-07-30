@@ -2,12 +2,16 @@
 title: Spring Boot Runtime Performance And Capacity
 description: End-to-end performance ownership across embedded servers, MVC and WebFlux, executors, HikariCP, HTTP clients, Kafka, serialization, JVM, containers, metrics, and load tests.
 difficulty: Architect
-page_type: Performance Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Spring Boot internals, Java performance, Database fundamentals]
 learning_objectives: [Trace every queue in a Boot request, Identify the true bottleneck, Size and verify bounded resources]
 technologies: [Spring Boot 4, Tomcat, Reactor Netty, HikariCP, Micrometer, JFR]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Runtime Performance And Capacity

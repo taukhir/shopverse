@@ -3,11 +3,15 @@ title: Spring Boot And Container Interview Questions
 description: Expandable interview questions about Spring Boot startup, auto-configuration, dependency injection, bean selection and lifecycle design.
 difficulty: Intermediate
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Spring ecosystem fundamentals]
 learning_objectives: [Explain Boot startup and condition evaluation, Choose injection and bean-selection mechanisms, Diagnose lifecycle and dependency problems]
 technologies: [Spring Boot 4, Spring Framework 7]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot And Container Interview Questions

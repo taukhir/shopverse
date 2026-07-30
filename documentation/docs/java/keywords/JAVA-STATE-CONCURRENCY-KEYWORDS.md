@@ -3,9 +3,13 @@ title: Java State, Concurrency And Lifecycle Keywords
 description: final, volatile, synchronized, transient, native and strictfp semantics with production examples.
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 technologies: [Java 25, JMM, Serialization]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java State, Concurrency And Lifecycle Keywords

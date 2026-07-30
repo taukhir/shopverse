@@ -3,12 +3,16 @@ title: Spring REST Request Mapping Validation And Errors
 description: Compatibility route to canonical request mapping, Bean Validation, and REST error-contract guides.
 difficulty: Intermediate
 page_type: Reference
-status: Compatibility route
+status: maintained
 learning_objectives:
   - Select the focused guide for request mapping, validation, or errors
   - Preserve links to the former combined REST page
 technologies: [Spring MVC, Jakarta Validation, ProblemDetail]
 last_reviewed: "2026-07-13"
+scope: compatibility
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST Request Mapping Validation And Errors

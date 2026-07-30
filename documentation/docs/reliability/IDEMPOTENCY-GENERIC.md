@@ -2,11 +2,15 @@
 title: Idempotency In APIs And Distributed Systems
 sidebar_position: 3
 difficulty: Intermediate
-page_type: Practical Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives: [Design an idempotent API, Distinguish transport and business idempotency, Handle concurrent duplicate requests]
 technologies: [HTTP, SQL, Kafka, Spring Boot]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Idempotency In APIs And Distributed Systems

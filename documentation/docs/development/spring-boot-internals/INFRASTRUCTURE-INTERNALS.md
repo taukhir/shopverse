@@ -3,12 +3,16 @@ title: Spring Infrastructure Diagnostic Route Map
 description: Route map from Spring Boot infrastructure symptoms to canonical transaction, persistence, task, HTTP, messaging, observability, and reactive runtime guides.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 learning_objectives:
   - Identify which Spring infrastructure component owns a runtime symptom
   - Continue to one canonical diagnostic guide without duplicating implementation detail
 technologies: [Spring Boot, Spring Framework]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Infrastructure Diagnostic Route Map

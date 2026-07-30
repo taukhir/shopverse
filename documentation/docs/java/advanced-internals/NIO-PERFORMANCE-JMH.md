@@ -2,11 +2,15 @@
 title: NIO, Zero-Copy, And JMH Benchmarking
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [Java NIO, ByteBuffer, channel, selector, zero-copy, JMH, dead-code elimination]
 learning_objectives: [Choose blocking asynchronous or selector I/O, Manage buffers and partial operations correctly, Build trustworthy JVM microbenchmarks]
 technologies: [Java, JMH]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # NIO, Zero-Copy, And JMH Benchmarking

@@ -2,12 +2,16 @@
 title: Linux Production Incident Labs, Interview Questions, And Revision
 description: Use safe diagnostic workflows, incident scenarios, hands-on labs, interview questions, and a revision sheet for Linux production engineering.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Linux Services Network And Containers]
 learning_objectives: [Run Linux incident triage, Complete diagnostic labs, Answer production troubleshooting interviews]
 technologies: [Linux, systemd, procfs, cgroups]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Linux Production Incident Labs, Interview Questions, And Revision

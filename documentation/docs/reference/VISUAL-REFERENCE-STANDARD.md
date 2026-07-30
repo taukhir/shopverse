@@ -2,10 +2,14 @@
 title: Documentation Visual And Reference Standard
 difficulty: Beginner
 page_type: Reference
-status: Generic
+status: maintained
 learning_objectives: [Choose an appropriate visual format, Make diagrams accessible and maintainable, Cite authoritative technical sources]
 technologies: [Docusaurus, SVG, Mermaid]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-reference
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Documentation Visual And Reference Standard

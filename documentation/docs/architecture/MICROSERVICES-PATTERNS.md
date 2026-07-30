@@ -2,11 +2,15 @@
 title: Microservices Architecture Patterns
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Microservices fundamentals, Distributed systems fundamentals]
 learning_objectives: [Select patterns by problem, Compare consistency and communication trade-offs, Avoid common distributed-system pattern mistakes]
 technologies: [REST, Kafka, CDC, Service Mesh]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Architecture Patterns

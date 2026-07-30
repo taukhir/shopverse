@@ -2,14 +2,19 @@
 title: Integration Tests And Testcontainers
 description: Real MySQL and Kafka integration testing for migrations, transactions, outbox behavior, broker contracts, container lifecycle, and bounded end-to-end evidence.
 difficulty: Advanced
-page_type: Testing
-status: Implemented
+page_type: Guide
+status: maintained
 learning_objectives:
   - Use Testcontainers when a database or broker protocol is part of the claim
   - Coordinate container and Spring TestContext lifecycles safely
   - Prove transaction, migration, Kafka, and critical journey behavior with deadlines
 technologies: [Testcontainers 2.0.5, MySQL 8.4, Kafka 3.9.1, Spring Boot 4]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 

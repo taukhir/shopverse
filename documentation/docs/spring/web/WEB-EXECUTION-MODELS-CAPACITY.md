@@ -2,14 +2,19 @@
 title: Spring Web Execution Models And Capacity
 description: Architect guide to servlet threads, async MVC, virtual threads, WebFlux event loops, queues, deadlines, backpressure, graceful shutdown, and saturation evidence.
 difficulty: Architect
-page_type: Operations
-status: Implemented
+page_type: Guide
+status: maintained
 learning_objectives:
   - Locate every queue and thread transition in a Spring web request
   - Choose MVC, async MVC, virtual threads, or WebFlux from workload evidence
   - Design bounded capacity, deadlines, cancellation, and graceful shutdown
 technologies: [Spring MVC, Spring WebFlux, Tomcat, Reactor Netty, Virtual Threads, Micrometer]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Web Execution Models And Capacity

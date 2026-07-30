@@ -3,10 +3,14 @@ title: "Availability, Storage, Queue, And Pool Models"
 description: "Availability, Storage, Queue, And Pool Models with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Availability, Storage, Queue, And Pool Models"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Availability, Storage, Queue, And Pool Models

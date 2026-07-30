@@ -3,13 +3,17 @@ title: Spring Boot Production Tuning
 description: Learning path for evidence-driven Spring Boot startup, JVM/container memory, resource-pool capacity, concurrency, readiness, and lifecycle operations.
 difficulty: Advanced
 page_type: Learning Path
-status: Shopverse
+status: maintained
 learning_objectives:
   - Establish a reproducible tuning baseline before changing parameters
   - Route startup and memory symptoms separately from capacity and lifecycle failures
   - Document measured changes, rollback, and production evidence
 technologies: [Spring Boot, JVM, Micrometer, Containers]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Production Tuning

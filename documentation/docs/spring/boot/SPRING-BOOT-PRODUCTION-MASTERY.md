@@ -3,11 +3,15 @@ title: Spring Boot Production Mastery
 description: Complete lead and architect coverage map for startup, auto-configuration, beans, proxies, web runtimes, transactions, pools, configuration, Actuator, shutdown, AOT, containers, and incidents.
 difficulty: Architect
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Core Spring, Spring Boot, Java, HTTP, SQL]
 learning_objectives: [Cover every Spring Boot production competency, Trace ownership across runtime layers, Diagnose and defend production decisions]
 technologies: [Spring Boot 4, Spring Framework 7, Actuator, Micrometer, Docker, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Production Mastery

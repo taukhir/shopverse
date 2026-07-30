@@ -3,10 +3,14 @@ title: Behavioral Patterns
 description: "Choose and implement Strategy, Observer, Chain of Responsibility, Template Method, and related behavioral patterns in Spring."
 sidebar_label: "Behavioral Patterns"
 tags: ["spring", "design-patterns", "behavioral"]
-page_type: "Category Overview"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Reference
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Behavioral Patterns

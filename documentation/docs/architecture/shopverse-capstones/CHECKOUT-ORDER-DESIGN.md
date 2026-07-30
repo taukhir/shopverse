@@ -3,11 +3,15 @@ title: Checkout And Order System Design
 description: Design reliable Shopverse order acceptance across inventory, payment, Kafka, and PostgreSQL.
 difficulty: Advanced
 page_type: Case Study
-status: Shopverse
+status: maintained
 prerequisites: [Saga, Outbox, Idempotency]
 learning_objectives: [Define acceptance semantics, Size the critical path, Design recovery]
 technologies: [Spring Boot, Kafka, PostgreSQL]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Checkout And Order System Design

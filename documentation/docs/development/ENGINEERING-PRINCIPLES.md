@@ -3,10 +3,14 @@ title: "Engineering Principles"
 description: "Apply SOLID and production design principles to Shopverse code reviews."
 sidebar_label: "Engineering Principles"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Engineering Principles**, apply the Shopverse guidance incrementally: v
 
 - [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
 - [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+
+## Recommended Next Page
+
+Continue with [Testing Strategy](./TESTING.md).

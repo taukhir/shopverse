@@ -3,11 +3,15 @@ title: Spring Transaction Proxy Mechanics And Boundary Design
 description: Definitive guide to how Spring transactions work, method eligibility, public/private/static/final methods, self-invocation, rollback, propagation, explicit TransactionTemplate boundaries, reactive transactions, and production design.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring container, AOP proxies, Database transactions]
 learning_objectives: [Trace TransactionInterceptor end to end, Predict which methods are intercepted, Explain self-invocation failure, Create explicit transaction boundaries, Diagnose rollback and resource failures]
 technologies: [Spring Framework 7, Spring Boot 4, Spring Transactions, JPA, JDBC, Reactor]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Transaction Proxy Mechanics And Boundary Design

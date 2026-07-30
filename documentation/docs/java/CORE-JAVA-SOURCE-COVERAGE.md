@@ -3,9 +3,13 @@ title: Core Java Source Coverage And Adaptation Ledger
 description: Traceability from the 22 reviewed Core Java source chapters to canonical Shopverse Java guides and executable examples.
 difficulty: Intermediate
 page_type: Reference
-status: Generic
+status: maintained
 technologies: [Java 8, Java 24]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Core Java Source Coverage And Adaptation Ledger

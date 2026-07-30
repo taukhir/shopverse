@@ -3,11 +3,15 @@ title: BDD Discovery, Specifications, And Domain Examples
 description: Discover behavior through examples, define ubiquitous language, write Given-When-Then specifications, and maintain executable business documentation.
 difficulty: Intermediate
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TDD Workflow And Design Feedback]
 learning_objectives: [Facilitate example discovery, Express rules through concrete scenarios, Prevent specification drift]
 technologies: [Java, JUnit 5]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # BDD Discovery, Specifications, And Domain Examples

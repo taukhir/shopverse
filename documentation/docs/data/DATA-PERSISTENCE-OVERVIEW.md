@@ -3,11 +3,15 @@ title: Data And Persistence Overview
 description: First-read map of relational modeling, transactions, indexes, JPA, distributed databases, migration, caching, and production data operations.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [SQL fundamentals]
 learning_objectives: [Select storage from access and consistency needs, Define safe transaction and schema boundaries, Navigate database implementation and operations guides]
 technologies: [SQL, MySQL, Oracle Database, JPA, Hibernate, Cassandra, Elasticsearch, NoSQL, Liquibase]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Data And Persistence Overview

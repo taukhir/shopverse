@@ -3,11 +3,15 @@ title: Transactional Outbox Inbox And CDC Lab
 description: Prove atomic publication intent, leased relay recovery, acknowledgment-loss duplicates, inbox idempotency, version ordering, and reconciliation.
 difficulty: Architect
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Spring transactions, Spring Data repository lab, Kafka fundamentals]
 learning_objectives: [Eliminate database broker dual writes, Recover relay crash windows, Make consumer effects duplicate and replay safe]
 technologies: [Java 21, Spring Boot 4, Spring Data JPA, Kafka, Debezium]
 last_reviewed: "2026-07-24"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Transactional Outbox Inbox And CDC Lab

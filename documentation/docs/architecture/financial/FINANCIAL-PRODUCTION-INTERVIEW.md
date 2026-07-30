@@ -3,10 +3,14 @@ title: Financial Production Scenarios And Interview Workbook
 description: Lead and architect questions for ledgers, payments, reconciliation, settlement, batch, controls, incidents, scaling, and disaster recovery.
 difficulty: Advanced
 page_type: Interview
-status: Complete
+status: maintained
 prerequisites: [Financial systems architecture path]
 technologies: [Java, Spring Boot, Kafka, SQL, Spring Batch]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Financial Production Scenarios And Interview Workbook
@@ -185,3 +189,7 @@ claiming impossible end-to-end exactly-once guarantees.
 Return to [Financial Systems Architecture](./FINANCIAL-SYSTEMS-ARCHITECT-PATH.md), then use the
 [Architecture Portfolio And Mock Interview Program](../../leadership/ARCHITECTURE-PORTFOLIO-MOCK-INTERVIEW-PROGRAM.md).
 
+## Official References
+
+- [PCI Security Standards Council](https://www.pcisecuritystandards.org/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)

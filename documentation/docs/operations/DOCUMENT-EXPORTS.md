@@ -2,8 +2,13 @@
 title: Documentation Export Architecture
 page_type: Reference
 difficulty: Intermediate
-status: Implemented
+status: maintained
 last_reviewed: "2026-07-10"
+implementation_status: implemented
+scope: shopverse
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Documentation Export Architecture

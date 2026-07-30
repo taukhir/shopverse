@@ -3,10 +3,14 @@ title: Payment Lifecycle, Idempotency, And Uncertain Outcomes
 description: Design guarded payment state machines, safe retries, provider callbacks, outbox delivery, refunds, disputes, and timeout reconciliation.
 difficulty: Advanced
 page_type: Guide
-status: Complete
+status: maintained
 prerequisites: [Idempotency, Saga, transactional outbox, ledger fundamentals]
 technologies: [Spring Boot, Kafka, PostgreSQL, Payment APIs]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Payment Lifecycle, Idempotency, And Uncertain Outcomes

@@ -3,11 +3,15 @@ title: Username And Password Authentication Internals
 description: Compatibility route to focused provider/runtime and SecurityContext lifecycle guides.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Spring Security authentication basics]
 learning_objectives: [Choose the focused runtime guide, Trace authentication without a monolithic page]
 technologies: [Spring Security 7, Spring Boot 4]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Username And Password Authentication Internals

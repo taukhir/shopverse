@@ -2,8 +2,8 @@
 title: Spring Distributed Locking Options
 description: Architect comparison of Spring scheduling, ShedLock, LockRegistry, Redisson, Quartz, advisory locks, leader election, database work claims, leases, and fencing.
 difficulty: Advanced
-page_type: Architecture Guide
-status: Generic
+page_type: Guide
+status: maintained
 keywords: [Spring distributed lock, ShedLock, LockRegistry, Redisson, Quartz, advisory lock, leader election, fencing]
 learning_objectives:
   - Separate scheduler coordination from record ownership and duplicate-delivery safety
@@ -11,6 +11,10 @@ learning_objectives:
   - Explain leases, stale owners, fencing, idempotency, and operational trade-offs
 technologies: [Spring Boot, Spring Integration, ShedLock, Quartz, Redis, JDBC, Kubernetes]
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Distributed Locking Options

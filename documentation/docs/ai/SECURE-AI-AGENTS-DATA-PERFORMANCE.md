@@ -1,12 +1,16 @@
 ---
 title: Secure AI Agents, Data And Fast Accurate Delivery
 difficulty: Advanced
-page_type: Production Guide
-status: Maintained
+page_type: Guide
+status: maintained
 keywords: [AI agent security, tenant isolation, prompt injection, DLP, latency, accuracy]
 learning_objectives: [Contain abusive and exploited agents, Prevent cross-tenant and sensitive-data leakage, Design risk-based accuracy and latency pipelines]
 technologies: [Spring Security, Spring AI, MCP, RAG, Micrometer]
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Secure AI Agents, Data And Fast Accurate Delivery

@@ -2,12 +2,16 @@
 title: Oracle Partitioning, Availability, Recovery, And Operations
 description: Operate Oracle with partitioning, materialized views, RMAN, Data Guard, RAC, security, upgrades, capacity, and incident runbooks.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Oracle SQL Optimizer And Concurrency]
 learning_objectives: [Choose HA and DR controls, Design recoverable operations, Diagnose production capacity and failure scenarios]
 technologies: [Oracle Database, RMAN, Data Guard, RAC]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Oracle Partitioning, Availability, Recovery, And Operations

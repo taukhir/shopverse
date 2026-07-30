@@ -3,11 +3,15 @@ title: Linux Processes, CPU, Scheduler, Memory, And OOM
 description: Diagnose process lifecycle, threads, load, CPU states, scheduling, virtual memory, page cache, pressure, swapping, leaks, and OOM kills.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Linux Production Troubleshooting Path]
 learning_objectives: [Interpret CPU and load evidence, Trace process and thread state, Diagnose host and cgroup memory pressure]
 technologies: [Linux, procfs, PSI, cgroups]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Linux Processes, CPU, Scheduler, Memory, And OOM

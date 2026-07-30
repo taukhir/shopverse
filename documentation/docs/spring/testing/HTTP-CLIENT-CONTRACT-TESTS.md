@@ -2,14 +2,18 @@
 title: Spring HTTP Client Contract Tests
 description: Contract and transport tests for RestClient, WebClient, HTTP Service Clients, and existing Feign adapters across mapping, conversion, timeouts, retries, and compatibility.
 difficulty: Advanced
-page_type: Testing
-status: Proposed coverage
+page_type: Guide
+status: maintained
 learning_objectives:
   - Prove actual HTTP requests and responses instead of mocking only Java methods
   - Select Boot client slices or mock web servers from the transport claim
   - Test timeout, retry, cancellation, error decoding, and compatibility behavior
 technologies: [RestClient, WebClient, HTTP Service Clients, OpenFeign, Mock Web Server]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring HTTP Client Contract Tests

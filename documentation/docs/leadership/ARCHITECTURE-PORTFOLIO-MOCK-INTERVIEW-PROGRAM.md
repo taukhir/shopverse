@@ -3,11 +3,15 @@ title: Architecture Portfolio And Mock Interview Programme
 description: A structured programme for turning engineering work into a defensible architecture portfolio and practising realistic Lead and Architect interview rounds.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Architect Practice And Evidence Path, One completed technical capstone]
 learning_objectives: [Build evidence-backed case studies, Run realistic mock interviews, Improve answers through scored feedback, Prepare across technical and leadership rounds]
 technologies: [Java, Spring, Kafka, Databases, Kubernetes, Observability]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Architecture Portfolio And Mock Interview Programme

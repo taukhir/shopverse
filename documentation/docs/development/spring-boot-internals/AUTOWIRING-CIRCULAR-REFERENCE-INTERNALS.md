@@ -4,10 +4,14 @@ description: Use constructor, setter, field, method, collection, qualifier, prim
 sidebar_label: Autowiring, Ambiguity And Circular Dependencies
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Spring dependency injection, bean lifecycle]
 technologies: [Spring Framework 7, Spring Boot 4]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Autowiring, Injection Types, Ambiguity, And Circular Dependencies

@@ -3,11 +3,15 @@ title: Spring And Spring Boot Interview Questions
 description: Focused interview route for Boot startup, dependency injection, web, data and senior production runtime questions.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Spring ecosystem fundamentals]
 learning_objectives: [Explain Spring mechanisms before annotations, Practise questions with hidden model answers, Progress from fundamentals to production reasoning]
 technologies: [Spring Framework, Spring Boot, Spring MVC, Spring Data JPA]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring And Spring Boot Interview Questions

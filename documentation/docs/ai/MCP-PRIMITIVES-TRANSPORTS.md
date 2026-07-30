@@ -2,11 +2,15 @@
 title: MCP Primitives, Transports, And Sessions
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 keywords: [MCP tools, MCP resources, MCP prompts, STDIO, Streamable HTTP]
 learning_objectives: [Choose tools resources or prompts, Operate STDIO and HTTP transports, Bound sessions pagination subscriptions and results]
 technologies: [MCP, Streamable HTTP]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # MCP Primitives, Transports, And Sessions

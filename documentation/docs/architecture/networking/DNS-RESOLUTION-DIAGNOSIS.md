@@ -3,11 +3,15 @@ title: DNS Resolution, Caching, Discovery, And Diagnosis
 description: Trace stub, recursive and authoritative DNS, records, TTL, negative caching, split horizon, DNSSEC, Kubernetes DNS, failures, and safe diagnostics.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Network Protocol Diagnosis Path]
 learning_objectives: [Explain DNS resolution and caching, Design resilient service naming, Diagnose DNS failures precisely]
 technologies: [DNS, CoreDNS, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # DNS Resolution, Caching, Discovery, And Diagnosis

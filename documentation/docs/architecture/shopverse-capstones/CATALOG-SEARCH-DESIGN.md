@@ -3,11 +3,15 @@ title: Catalog And Search System Design
 description: Separate authoritative product writes from scalable browse and search projections.
 difficulty: Advanced
 page_type: Case Study
-status: Shopverse
+status: maintained
 prerequisites: [Caching, Search indexes, Event-driven systems]
 learning_objectives: [Model read scale, Define projection freshness, Recover index drift]
 technologies: [PostgreSQL, Elasticsearch, Redis, Kafka, CDN]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Catalog And Search System Design

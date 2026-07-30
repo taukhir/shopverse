@@ -2,11 +2,15 @@
 title: JVM Execution Internals
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 keywords: [class loading, bytecode, stack frame, JIT, inlining, escape analysis, safepoint, deoptimization]
 learning_objectives: [Trace class loading and initialization, Explain bytecode execution and JIT optimization, Diagnose safepoint and deoptimization behavior]
 technologies: [Java, JVM, javap, JFR]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JVM Execution Internals

@@ -2,12 +2,16 @@
 title: Java Performance Diagnostics And Tooling
 description: Evidence-first runbook for CPU, latency, heap, native memory, GC, allocation, contention, pools, I/O, file descriptors, containers, JFR, JMC, and async-profiler.
 difficulty: Advanced
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [JVM memory, Java concurrency, Linux fundamentals]
 learning_objectives: [Collect safe production evidence, Select the correct JVM and OS tool, Diagnose and verify common Java performance failures]
 technologies: [Java, JFR, JMC, jcmd, async-profiler, Linux, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Performance Diagnostics And Tooling

@@ -3,13 +3,18 @@ title: Spring Testing Learning Guide
 description: Dependency-ordered learning path from JUnit and Mockito foundations through Spring test slices, TestContext, infrastructure, contracts, quality gates, and CI reliability.
 difficulty: Intermediate
 page_type: Learning Path
-status: Implemented
+status: maintained
 learning_objectives:
   - Choose the smallest test boundary that can prove a production claim
   - Progress from framework-independent foundations to Spring and infrastructure tests
   - Connect test evidence to CI reliability and incident regression ownership
 technologies: [JUnit, Mockito, Spring Test, Spring Boot 4, Testcontainers, Kafka]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Testing Learning Guide

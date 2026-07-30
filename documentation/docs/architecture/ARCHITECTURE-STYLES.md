@@ -3,10 +3,14 @@ title: Software Architecture Styles
 sidebar_position: 5
 difficulty: Intermediate
 page_type: Decision Guide
-status: Generic
+status: maintained
 learning_objectives: [Compare architecture styles, Combine structural and runtime patterns safely, Avoid false either-or choices]
 technologies: [Java, Spring Boot, Kafka, Serverless]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Software Architecture Styles

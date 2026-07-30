@@ -3,10 +3,14 @@ title: Spring Boot Security Auto-Configuration Lifecycle
 description: Understand how Spring Boot and Spring Security discover beans, build filter chains, back off, and configure JWT resource servers.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Spring Boot auto-configuration, Spring Security authentication basics]
 technologies: [Spring Security 7, Spring Boot 4]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Security Auto-Configuration Lifecycle

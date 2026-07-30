@@ -3,10 +3,14 @@ title: Day-Zero Assessor Scoring And Documentation Routing
 description: Expected answer signals, critical errors, scoring, weak-domain routing, and placement into the four-, six-, or twelve-week preparation programme.
 difficulty: Advanced
 page_type: Reference
-status: Complete
+status: maintained
 prerequisites: [Completed Day-Zero Diagnostic Assessment]
 technologies: [Interview Assessment, Java, Spring, Kafka, Architecture]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Day-Zero Assessor Scoring And Documentation Routing
@@ -239,3 +243,7 @@ baseline is low, narrow the target role and job scope rather than relabeling the
 Enter the results in the [Preparation Dashboard](./LEAD-ARCHITECT-PREPARATION-DASHBOARD.md) and
 begin the assigned [Role-Based Route](./ROLE-BASED-PREPARATION-ROUTES.md).
 
+## Official References
+
+- [US OPM structured interviews](https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews/)
+- [US OPM assessment and selection](https://www.opm.gov/policy-data-oversight/assessment-and-selection/)

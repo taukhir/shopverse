@@ -3,10 +3,14 @@ title: "EnumSet Internals and Usage"
 description: "EnumSet bit-vector storage, regular and jumbo forms, operations, complexity, methods, safety, and enum-policy use cases."
 sidebar_label: "EnumSet"
 tags: [java, collections, set, enumset, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # EnumSet Internals and Usage

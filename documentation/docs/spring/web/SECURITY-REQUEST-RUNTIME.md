@@ -3,13 +3,18 @@ title: Spring Security Request Runtime
 description: Canonical servlet security trace for chain matching, authentication, authorization, SecurityContext lifecycle, MVC exception boundaries, and Shopverse multi-chain behavior.
 difficulty: Advanced
 page_type: Concept
-status: Implemented
+status: maintained
 learning_objectives:
   - Explain how FilterChainProxy selects and executes one SecurityFilterChain
   - Trace authentication and authorization failures to the correct translator
   - Review Shopverse Basic and JWT chain ordering with production evidence
 technologies: [Spring Security, OAuth2 Resource Server, JWT, Jakarta Servlet]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Security Request Runtime

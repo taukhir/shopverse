@@ -1,0 +1,11 @@
+{
+  "scenario_id": "gateway-route-jwt-propagation",
+  "pass_threshold": 80,
+  "criteria": [
+    {"id":"structure","type":"required_fields","weight":10,"paths":["answer","claims","changed_files","risks"]},
+    {"id":"terms","type":"answer_terms","weight":25,"all_terms":["internal route","JWT","issuer","reactive","readiness"]},
+    {"id":"claims","type":"required_claims","weight":40,"claim_ids":["cart_and_admin_routes","internal_route_excluded","service_authorization_required","get_only_retry","nonblocking_filter","dependency_readiness_tests"],"minimum_evidence_per_claim":1,"allowed_evidence_prefixes":["fixtures/gateway-"]},
+    {"id":"scope","type":"file_scope","weight":15,"require_changes":false,"maximum_changes":0,"allowed_patterns":[]},
+    {"id":"forbidden","type":"forbidden_terms","weight":10,"terms":["gateway authentication replaces service authorization","retry all methods","blocking call is safe"]}
+  ]
+}

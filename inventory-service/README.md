@@ -152,6 +152,10 @@ files under `assets/products/products`.
 
 Listeners use `@RetryableTopic(attempts = "3")`. An unresolved event reaches `@DltHandler`, is persisted once with retry/replay audit, and can be replayed through the admin API.
 
+The current expiry worker is a single-worker baseline. Do not run unrestricted
+multi-replica expiry until work ownership is protected with a database claim,
+fencing/lease mechanism, or another proven single-owner design.
+
 ## Configuration
 
 `cloud-configs/INVENTORY-SERVICE.yml` defines datasource, cache, JWT, reservation TTL, expiry scan delay, RateLimiter, and Bulkhead.
@@ -170,6 +174,16 @@ Testcontainers for Liquibase, transaction, outbox, and publication checks.
 {log_type="application", application="INVENTORY-SERVICE"}
 ```
 
+Alert on negative-stock invariant violations, optimistic-lock conflicts,
+reservation failure rate, expired reservations awaiting release, outbox/DLT age,
+MinIO failures, and datasource saturation. Reconciliation should compare active
+reservations, order terminal state, and available stock before an operator changes
+inventory.
+
+Known POC limits: expiry ownership is not multi-replica safe and inbox tables are
+not implemented. The deterministic AI suite reviews concurrency/expiry reasoning;
+service-level Testcontainers concurrency evidence is still required.
+
 ## Run
 
 ```powershell
@@ -182,6 +196,24 @@ docker compose build inventory-service
 docker compose up -d inventory-service
 ```
 
+## AI-Assisted Development
+
+This module has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
+[`CLAUDE.md`](CLAUDE.md). Useful reviewed workflows include:
+
+- [Kafka consumer review](../ai-workflows/prompts/review-kafka-consumer.md)
+- [Distributed checkout debugging](../ai-workflows/prompts/debug-distributed-checkout.md)
+- [Performance optimization](../ai-workflows/prompts/optimize-performance.md)
+- [Incident investigation](../ai-workflows/prompts/incident-investigation.md)
+
+AI changes must preserve non-negative stock, concurrency-safe reservation,
+replay-safe release/expiry, local transaction plus outbox behavior, and
+administrative authorization. Use database/Testcontainers evidence for locking
+or transaction claims; an in-memory check is not proof against overselling.
+
+Evaluation coverage includes duplicate Kafka handling and a deterministic
+reservation/expiry scenario. It does not replace a concurrent database fixture.
+
 ## Related Guides
 
 - [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
@@ -189,7 +221,6 @@ docker compose up -d inventory-service
 - [Inbox pattern](../documentation/docs/reliability/INBOX-PATTERN.md)
 - [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
 - [Multi-replica reservation expiry](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
-- [Four reservations and two schedulers walkthrough](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md#worked-example-four-reservations-and-two-schedulers)
 - [Locking and work ownership](../documentation/docs/reliability/locking/LOCKING-AND-WORK-OWNERSHIP.md)
 - [Scheduler locking with ShedLock](../documentation/docs/reliability/locking/SCHEDULER-LOCKING-SHEDLOCK.md)
 - [Shopverse transaction boundaries](../documentation/docs/reliability/TRANSACTIONS.md)

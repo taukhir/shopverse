@@ -3,11 +3,15 @@ title: GitOps Repository, Promotion, And Drift Design
 description: Apply declarative desired state, pull reconciliation, immutable promotion, repository patterns, secrets, policy, drift, and safe change workflows.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Helm Chart Engineering]
 learning_objectives: [Design GitOps repositories and promotion, Define reconciliation and drift policy, Keep secrets and migrations outside unsafe Git workflows]
 technologies: [GitOps, Git, Kubernetes, Helm]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # GitOps Repository, Promotion, And Drift Design

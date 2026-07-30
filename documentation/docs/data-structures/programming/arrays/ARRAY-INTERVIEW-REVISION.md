@@ -3,10 +3,14 @@ title: Array Interview Revision And Production Questions
 description: Compact Java array revision sheet with pattern triggers, invariants, common bugs, senior follow-ups, and model interview answers.
 sidebar_label: Revision And Interview Questions
 sidebar_position: 7
-difficulty: Intermediate to Advanced
-page_type: Revision Sheet
+difficulty: Advanced
+page_type: Reference
 status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Array Interview Revision And Production Questions

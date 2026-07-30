@@ -2,14 +2,19 @@
 title: Spring Validation Errors Testing And Production
 description: Exception ownership, ProblemDetail and Shopverse error shapes, validation testing, entity and database boundaries, observability, and production hardening.
 difficulty: Advanced
-page_type: Testing
-status: Implemented
+page_type: Guide
+status: maintained
 learning_objectives:
   - Map each validation mode to its Spring exception and translation owner
   - Distinguish generic RFC 9457 ProblemDetail guidance from Shopverse ApiErrorResponse
   - Test validation paths without exposing rejected secrets or provider internals
 technologies: [Spring MVC, Jakarta Validation, ProblemDetail, MockMvc, JPA]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Validation Errors Testing And Production

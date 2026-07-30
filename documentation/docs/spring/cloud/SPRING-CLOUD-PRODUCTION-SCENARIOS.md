@@ -2,12 +2,16 @@
 title: Spring Cloud Production Scenarios And Architect Interview Bank
 description: Lead-level scenarios for Config, discovery, LoadBalancer, HTTP clients, Gateway, resilience, Bus, Kubernetes, identity, observability, capacity, and regional failure.
 difficulty: Advanced
-page_type: Revision Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Spring Cloud architect path]
 learning_objectives: [Diagnose distributed failures, Structure architect answers, Explain trade-offs, Choose evidence, Design preventive controls]
 technologies: [Spring Cloud, Config, Gateway, LoadBalancer, OpenFeign, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Production Scenarios And Architect Interview Bank
@@ -138,3 +142,7 @@ Return to [Spring Cloud Architect Learning Path](../SPRING-CLOUD-ARCHITECT-PATH.
 explain one request from gateway through discovery/load balancing, identity, resilience and
 the downstream service with all timeout and evidence boundaries.
 
+## Official References
+
+- [Spring Cloud project and reference documentation](https://spring.io/projects/spring-cloud)
+- [Spring Cloud Gateway](https://docs.spring.io/spring-cloud-gateway/reference/)

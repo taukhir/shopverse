@@ -1,0 +1,11 @@
+{
+  "scenario_id": "discovery-registration-churn",
+  "pass_threshold": 80,
+  "criteria": [
+    {"id":"structure","type":"required_fields","weight":10,"paths":["answer","claims","changed_files","risks"]},
+    {"id":"terms","type":"answer_terms","weight":25,"all_terms":["lease","self-preservation","stale instance","readiness","client cache"]},
+    {"id":"claims","type":"required_claims","weight":40,"claim_ids":["network_partition_signal","retained_stale_entries","health_not_readiness","cached_route_failure","unsafe_tuning_change","controlled_validation"],"minimum_evidence_per_claim":1,"allowed_evidence_prefixes":["fixtures/discovery-"]},
+    {"id":"scope","type":"file_scope","weight":15,"require_changes":false,"maximum_changes":0,"allowed_patterns":[]},
+    {"id":"forbidden","type":"forbidden_terms","weight":10,"terms":["registration proves readiness","disable self-preservation immediately","shorter leases always fix churn"]}
+  ]
+}

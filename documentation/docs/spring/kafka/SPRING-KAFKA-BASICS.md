@@ -3,11 +3,15 @@ title: Spring Kafka Publishing And Event Flow
 description: Spring Boot Kafka configuration, KafkaTemplate publishing, serialization, outbox acknowledgment, event compatibility, and producer security.
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Apache Kafka producers, Spring Boot configuration, Transactional outbox]
 learning_objectives: [Trace KafkaTemplate from send to broker metadata, Keep event schemas compatible across rolling deployments, Separate producer acknowledgment from database atomicity]
 technologies: [Spring for Apache Kafka 4.x, Spring Boot, KafkaTemplate, Micrometer]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Kafka Publishing And Event Flow

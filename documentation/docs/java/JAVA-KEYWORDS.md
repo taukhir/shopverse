@@ -3,9 +3,13 @@ title: Java Keywords Learning Guide
 description: Grouped reference for Java reserved and contextual keywords, with links to focused semantic guides.
 difficulty: Beginner
 page_type: Reference
-status: Generic
+status: maintained
 technologies: [Java 25, JLS]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Keywords Learning Guide

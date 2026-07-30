@@ -3,11 +3,15 @@ title: JPA Associations And Ownership
 description: Spring Data JPA association ownership, aggregate mutation, cascades, orphan removal, fetch boundaries, and safe foreign-key rollout.
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [JPA entity integration, Hibernate lifecycle, Relational foreign keys]
 learning_objectives: [Identify the owning side of an association, Keep aggregate relationships consistent in memory and in SQL, Roll out foreign keys without breaking mixed versions]
 technologies: [Spring Data JPA, Jakarta Persistence, Hibernate ORM, Liquibase]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JPA Associations And Ownership

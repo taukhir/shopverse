@@ -3,11 +3,15 @@ title: Spring Security Messaging And Testing Annotations
 description: Important Spring method-security, Kafka listener/retry, event, Boot testing, test-slice, mock, profile, SQL, Testcontainers, and dynamic-property annotations with runtime and test-boundary explanations.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Security, Spring Kafka, Spring Boot testing]
 learning_objectives: [Use method security correctly, Explain listener annotations, Select test scopes, Avoid context-cache and mock traps, Prove integration behavior]
 technologies: [Spring Security, Spring Kafka, Spring Boot Test, JUnit 5, Testcontainers]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Security Messaging And Testing Annotations

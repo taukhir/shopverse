@@ -3,12 +3,16 @@ title: Spring Web MVC Servlet And Filter Internals
 description: Compatibility route to focused servlet lifecycle, security runtime, and HTTP message-conversion guides.
 difficulty: Advanced
 page_type: Reference
-status: Compatibility route
+status: maintained
 learning_objectives:
   - Select the canonical guide for servlet filters, security filters, or message conversion
   - Preserve existing Spring Boot internals links without duplicating runtime prose
 technologies: [Spring MVC, Spring Security, Jackson, Spring Boot]
 last_reviewed: "2026-07-13"
+scope: compatibility
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Web MVC Servlet And Filter Internals

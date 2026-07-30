@@ -2,10 +2,14 @@
 title: Java Internals Hands-On Labs
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 learning_objectives: [Prove JVM and concurrency behavior with diagnostics, Avoid misleading microbenchmarks, Connect evidence to production decisions]
 technologies: [Java, JFR, javap, JMH]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Internals Hands-On Labs

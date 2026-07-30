@@ -3,11 +3,15 @@ title: Resilience4j With Spring Boot 4
 description: Spring Boot 4 Resilience4j annotations, named registries, aspect composition, fallbacks, Actuator metrics, live tuning, and proxy-based tests.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring AOP proxies, Resilience policy fundamentals, Micrometer and Actuator]
 learning_objectives: [Trace annotation advice through named Resilience4j registries, Test effective policy composition and fallbacks, Operate local policies with feedback-loop and tuning evidence]
 technologies: [Spring Boot 4, Resilience4j 2.4, Spring AOP, Actuator, Micrometer, Reactor]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Resilience4j With Spring Boot 4

@@ -1,8 +1,14 @@
 ---
 title: Java Concurrency Architecture And Design Review
 description: Lead-level method for proving invariants, publication, executor bounds, cancellation, shutdown, and observability in concurrent Java systems.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Concurrency Architecture And Design Review

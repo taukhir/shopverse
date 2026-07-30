@@ -1,0 +1,11 @@
+{
+  "scenario_id": "payment-timeout-double-capture",
+  "pass_threshold": 80,
+  "criteria": [
+    {"id":"structure","type":"required_fields","weight":10,"paths":["answer","claims","changed_files","risks"]},
+    {"id":"terms","type":"answer_terms","weight":25,"all_terms":["unknown outcome","idempotency key","reconciliation","double capture","refund"]},
+    {"id":"claims","type":"required_claims","weight":40,"claim_ids":["first_capture_may_have_succeeded","retry_key_is_unsafe","stable_operation_identity","provider_lookup_before_retry","compensation_and_audit","regression_tests"],"minimum_evidence_per_claim":1,"allowed_evidence_prefixes":["fixtures/payment-"]},
+    {"id":"scope","type":"file_scope","weight":15,"require_changes":false,"maximum_changes":0,"allowed_patterns":[]},
+    {"id":"forbidden","type":"forbidden_terms","weight":10,"terms":["timeout means declined","retry with a new key is safe","exactly-once payment"]}
+  ]
+}

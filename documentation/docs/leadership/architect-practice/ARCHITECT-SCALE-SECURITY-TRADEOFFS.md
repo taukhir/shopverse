@@ -3,11 +3,15 @@ title: Architect Scaling, Security, And Rejected Trade-Offs
 description: Build quantitative scaling and security models, protect multi-tenant systems, compare alternatives, document rejected trade-offs, and define reconsideration triggers.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Architect Failure Modeling And Diagnosis]
 learning_objectives: [Scale from bottleneck evidence, Integrate security into architecture, Defend rejected alternatives honestly]
 technologies: [Distributed Systems, Security, Capacity Engineering]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Architect Scaling, Security, And Rejected Trade-Offs

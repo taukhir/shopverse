@@ -3,10 +3,14 @@ title: "Docusaurus Components And Deployment"
 description: "Docusaurus Components And Deployment with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Docusaurus Components And Deployment"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docusaurus Components And Deployment

@@ -3,11 +3,15 @@ title: DNS, TCP, TLS, And HTTP/2 Diagnosis Path
 description: Complete network path from name resolution through TCP, TLS, HTTP/1.1, HTTP/2, proxies, load balancers, packet evidence, incidents, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [HTTP fundamentals, Linux command-line fundamentals]
 learning_objectives: [Trace an application request through network layers, Diagnose protocol failures from evidence, Design deadlines pools and secure connectivity]
 technologies: [DNS, TCP, TLS, HTTP/1.1, HTTP/2]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # DNS, TCP, TLS, And HTTP/2 Diagnosis Path

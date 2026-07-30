@@ -3,10 +3,14 @@ title: Role-Based Preparation Routes And Schedules
 description: Select mandatory depth, specializations, six-week or twelve-week pacing, and interview evidence for Senior Java, Lead, Architect, and financial-platform roles.
 difficulty: Intermediate
 page_type: Learning Path
-status: Complete
+status: maintained
 prerequisites: [Lead And Architect Preparation Dashboard]
 technologies: [Java, Spring, Kafka, Databases, Kubernetes, Architecture]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Role-Based Preparation Routes And Schedules

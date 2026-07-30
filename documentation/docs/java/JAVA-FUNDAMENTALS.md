@@ -3,10 +3,14 @@ title: Java Fundamentals
 sidebar_position: 1
 difficulty: Beginner
 page_type: Tutorial
-status: Generic
+status: maintained
 learning_objectives: [Understand the Java type and execution model, Build a foundation for collections streams and concurrency]
 technologies: [Java, JVM]
 last_reviewed: "2026-07-10"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Fundamentals

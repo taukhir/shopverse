@@ -125,6 +125,19 @@ See [Resource ownership authorization](../documentation/docs/reliability/problem
 for the problem statement, `@PreAuthorize` flow, targeted repository query,
 expected API outcomes, and method-security tests.
 
+## Provider Security And Double-Capture Boundary
+
+- Treat provider webhooks as untrusted: verify signature, timestamp, event identity,
+  amount, currency, merchant/account context, and replay tolerance before transition.
+- Use a stable provider idempotency key per payment operation. A transport retry must
+  not create a second capture or refund.
+- Never log PAN, CVV, provider credentials, full webhook bodies, or customer-sensitive
+  payment metadata.
+- An HTTP timeout is an unknown outcome, not a decline. Reconcile with the provider
+  before retrying a side effect.
+- Manual reconciliation/refund requires authorization plus actor, reason, previous
+  state, provider evidence, and resulting state in the audit trail.
+
 Liquibase includes matching historical payments for captured, declined,
 timed-out, and refunded scenarios across the `DEMO-ORD-*` records:
 
@@ -153,6 +166,12 @@ docker compose exec mysql sh -lc '
 {log_type="application", application="PAYMENT-SERVICE"}
 ```
 
+Alert on duplicate-operation conflicts, captures after terminal state, timed-out
+payments beyond the reconciliation SLO, refund failures, webhook verification
+failures, outbox/DLT age, and provider latency/error rate. The current simulator is
+not proof of a real provider's idempotency, settlement, dispute, or availability
+guarantees.
+
 ## Run
 
 ```powershell
@@ -164,6 +183,24 @@ docker compose exec mysql sh -lc '
 docker compose build payment-service
 docker compose up -d payment-service
 ```
+
+## AI-Assisted Development
+
+This module has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
+[`CLAUDE.md`](CLAUDE.md). Use the reviewed
+[Kafka consumer](../ai-workflows/prompts/review-kafka-consumer.md),
+[security](../ai-workflows/prompts/security-review.md),
+[checkout debugging](../ai-workflows/prompts/debug-distributed-checkout.md), and
+[incident](../ai-workflows/prompts/incident-investigation.md) workflows.
+
+AI output must not expose provider secrets or payment-sensitive data, invent a
+real payment-provider guarantee, weaken ownership, or make retries capable of
+double completion. Review stable business identity, terminal transitions,
+transaction/outbox boundaries, timeout, replay audit, and compensation evidence.
+
+Evaluation coverage includes duplicate delivery and a deterministic provider
+timeout/double-capture scenario. A real-provider sandbox contract test remains a
+separate integration requirement.
 
 ## Related Guides
 

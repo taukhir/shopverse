@@ -3,11 +3,15 @@ title: Kubernetes Beginner-To-Architect Path
 description: Complete Kubernetes route through API machinery, control plane, workloads, scheduling, networking, storage, security, operations, troubleshooting, labs, interviews, and revision.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Linux fundamentals, Containers, Networking fundamentals]
 learning_objectives: [Trace Kubernetes reconciliation internally, Design secure production workloads and clusters, Diagnose control-plane node network and storage failures, Defend architecture trade-offs]
 technologies: [Kubernetes, containerd, CNI, CSI, CoreDNS, Gateway API]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Beginner-To-Architect Path

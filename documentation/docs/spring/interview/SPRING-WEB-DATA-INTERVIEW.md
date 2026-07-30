@@ -3,11 +3,15 @@ title: Spring Web And Data Interview Questions
 description: Expandable Spring MVC, request-filter, message-conversion, JPA and Actuator interview questions with production boundaries.
 difficulty: Intermediate
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Spring MVC basics, JPA basics]
 learning_objectives: [Trace a servlet request through MVC, Explain persistence-context failures at the web boundary, Separate operational endpoints from business APIs]
 technologies: [Spring MVC, Spring Data JPA, Spring Boot Actuator]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Web And Data Interview Questions

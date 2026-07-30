@@ -3,10 +3,14 @@ title: "Capacity And Performance Estimation"
 description: "Estimate demand, translate it into resource budgets, and validate the design with operational signals."
 sidebar_label: "Capacity And Performance Estimation"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -54,3 +58,7 @@ Within **Capacity And Performance Estimation**, apply the Shopverse guidance inc
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 - [RFC 9110: HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
+
+## Recommended Next Page
+
+Continue with [End-To-End System Design Method](../system-design-deep-dives/END-TO-END-DESIGN-METHOD.md).

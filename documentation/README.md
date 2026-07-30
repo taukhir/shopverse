@@ -48,12 +48,17 @@ Run the same complete gate used by the main and scheduled CI workflows:
 npm run check
 ```
 
-The gate validates all source pages, governed terminology, metadata, sidebar
+The gate validates canonical README mirrors, cloud configuration contracts, all
+source pages, governed terminology, normalized ownership/lifecycle metadata, sidebar
 registration, depth and duplicate-content rules, executable Java and Spring
 examples, TypeScript, strict Docusaurus links and anchors, the production build,
 all generated routes and assets, performance budgets, accessibility, responsive
 layout, images, Mermaid diagrams, reader features, and Chromium, Firefox, and
 WebKit behavior.
+
+The repository-level documentation workflow additionally validates the deterministic
+AI engineering evaluation suite whenever documentation, canonical READMEs, scoped
+AI instructions, or `ai-workflows/` change.
 
 Useful narrower commands:
 

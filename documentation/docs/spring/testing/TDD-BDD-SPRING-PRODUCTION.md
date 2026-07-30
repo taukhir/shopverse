@@ -2,12 +2,16 @@
 title: TDD And BDD With Spring In Production
 description: Apply behavior-driven design across Spring domain, MVC, persistence, messaging, contract, integration, and production reliability boundaries.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [BDD Discovery And Specifications, Spring Boot Testing]
 learning_objectives: [Select Spring test boundaries, Drive adapters from contracts, Adopt TDD and BDD in legacy and production systems]
 technologies: [Spring Boot Test, MockMvc, Testcontainers, JUnit 5]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TDD And BDD With Spring In Production

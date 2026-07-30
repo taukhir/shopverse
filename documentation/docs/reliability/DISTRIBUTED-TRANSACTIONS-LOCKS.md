@@ -1,8 +1,14 @@
 ---
 title: Distributed Transactions
 sidebar_position: 3
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed Transactions

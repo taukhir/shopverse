@@ -1,0 +1,21 @@
+{
+  "id": "bounded-checkout-validation-change",
+  "title": "Implement A Bounded Checkout Validation Change",
+  "prompt_path": "../prompts/implement-feature.md",
+  "fixture_paths": ["fixtures/bounded-validation-task.md"],
+  "expected_path": "expected/bounded-checkout-validation-change.json",
+  "authority": {
+    "reads": ["order-service"],
+    "writes": [
+      "order-service/src/main/java/io/shopverse/order/dto/**",
+      "order-service/src/test/java/io/shopverse/order/**"
+    ],
+    "external_actions": []
+  },
+  "task": "Add request validation that checkout quantity must be between 1 and 20 inclusive. Preserve public compatibility and add focused boundary tests. Do not change event records, persistence, migrations, dependencies, or other services.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": [
+    "The existing API contract defines a conflicting quantity range",
+    "A migration or event contract change appears necessary"
+  ]
+}

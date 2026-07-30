@@ -3,11 +3,15 @@ title: Kafka KRaft Storage Producer And Consumer Internals
 description: Runtime internals of KRaft metadata, broker storage, replication, producers, consumers, groups, offsets, and transactions.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Kafka topics partitions replication and consumer groups]
 learning_objectives: [Trace a write through Kafka internals, Explain visibility durability and progress boundaries, Diagnose producer and consumer protocol failures]
 technologies: [Apache Kafka 4.x, KRaft, Kafka Producer, Kafka Consumer]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka KRaft Storage Producer And Consumer Internals

@@ -375,6 +375,31 @@ Cross-service audit event publishing, payment provider webhook signature
 verification, refund audit depth, and inventory-aware cart validation remain
 hardening items.
 
+## AI-Assisted Engineering
+
+Shopverse includes repository-owned guidance for using Codex, Claude Code, or
+another approved coding assistant. These are developer productivity capabilities;
+they are not runtime AI features exposed to Shopverse customers.
+
+| Capability | Source |
+|---|---|
+| durable architecture, safety, and verification rules | [`AGENTS.md`](AGENTS.md) |
+| Claude Code project entry point | [`CLAUDE.md`](CLAUDE.md) |
+| service-specific rules | nested `AGENTS.md` and `CLAUDE.md` where available |
+| reusable implementation, debugging, security, performance, UX, docs, and incident prompts | [`ai-workflows/`](ai-workflows/README.md) |
+| deterministic evaluation scenarios and scoring | [`ai-workflows/evals/`](ai-workflows/evals/README.md) |
+| complete learning track and practical workbook | [AI-assisted development docs](documentation/docs/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY.md) |
+
+Start a task by choosing the smallest relevant prompt, completing the
+[task-context template](ai-workflows/templates/task-context.md), and giving the
+assistant explicit read/write authority. Generated code is not completion:
+review the diff, run focused and broader checks, and record evidence and residual
+risk. Never provide secrets, payment data, customer-sensitive information, or
+unapproved production content to an AI tool.
+
+Service-level AI capabilities, coverage gaps, and site-native README mirrors are
+tracked in the [service README and AI capability matrix](documentation/docs/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX.md).
+
 ## Documentation
 
 Start with the [documentation index](documentation/docs/README.mdx).

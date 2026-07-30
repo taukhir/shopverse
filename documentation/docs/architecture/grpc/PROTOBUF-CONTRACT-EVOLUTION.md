@@ -3,11 +3,15 @@ title: Protocol Buffers Wire Format, Modeling, And Contract Evolution
 description: Understand Protobuf tags and wire types, messages, enums, maps, oneof, presence, unknown fields, JSON, code generation, compatibility, governance, and migration.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [gRPC And Protocol Buffers Architect Path]
 learning_objectives: [Explain Protobuf encoding, Model stable service messages, Evolve schemas without corrupting old clients or stored data]
 technologies: [Protocol Buffers, protoc, Buf]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Protocol Buffers Wire Format, Modeling, And Contract Evolution

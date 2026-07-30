@@ -3,10 +3,14 @@ title: "Strategy Pattern in Spring"
 description: "Implement interchangeable algorithms with Spring beans, explicit keys, safe resolution, and focused tests."
 sidebar_label: "Strategy"
 tags: ["spring", "design-patterns", "interview"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Strategy Pattern in Spring

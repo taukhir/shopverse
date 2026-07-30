@@ -3,11 +3,15 @@ title: Kafka Capacity And Performance Planning
 description: Quantitative planning for partitions, consumers, producers, storage, network, recovery, retention, and downstream limits.
 difficulty: Architect
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Kafka partitions, producer batching, consumer groups]
 learning_objectives: [Calculate initial Kafka capacity, Validate scaling against bottlenecks, Plan backlog and failure recovery headroom]
 technologies: [Apache Kafka 4.x, Spring Kafka, Prometheus]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Capacity And Performance Planning

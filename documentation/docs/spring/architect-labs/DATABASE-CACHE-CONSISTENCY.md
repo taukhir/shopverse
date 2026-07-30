@@ -3,11 +3,15 @@ title: Database And Cache Consistency Lab
 description: Choose a staleness budget and repair strategy for Shopverse price and inventory reads.
 difficulty: Advanced
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Spring Cache, Database transactions, Distributed systems]
 learning_objectives: [Model stale windows, Place eviction correctly, Design reconciliation]
 technologies: [Spring Cache, Redis, PostgreSQL, Java 21]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database And Cache Consistency Lab

@@ -3,10 +3,14 @@ title: Kafka vs RabbitMQ vs ActiveMQ Artemis vs JMS
 sidebar_position: 2
 difficulty: Intermediate
 page_type: Decision Guide
-status: Generic
+status: maintained
 learning_objectives: [Choose a messaging platform from delivery requirements, Distinguish JMS from a broker, Design reliable consumers]
 technologies: [Apache Kafka, RabbitMQ, ActiveMQ Artemis, Jakarta Messaging, JMS]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka vs RabbitMQ vs ActiveMQ Artemis vs JMS

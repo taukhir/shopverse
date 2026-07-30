@@ -1,8 +1,14 @@
 ---
 title: Java Sealed Classes
 sidebar_position: 6
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Sealed Classes

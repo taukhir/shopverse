@@ -2,12 +2,16 @@
 title: gRPC And Protobuf Architect Interview, Labs, And Revision
 description: Practise protocol design, reliability and production scenarios, build hands-on labs, compare alternatives, and revise gRPC and Protobuf rapidly.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Spring gRPC Production]
 learning_objectives: [Answer architect gRPC interviews, Complete compatibility and streaming labs, Defend protocol trade-offs]
 technologies: [gRPC, Protocol Buffers, Spring gRPC]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # gRPC And Protobuf Architect Interview, Labs, And Revision

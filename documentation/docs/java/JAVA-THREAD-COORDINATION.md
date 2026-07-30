@@ -1,8 +1,14 @@
 ---
 title: Java Thread Coordination, Monitors And Lazy Initialization
 description: synchronized forms, object and class locks, wait-notify, monitor failures, producer-consumer, join, sleep, and safe lazy initialization.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Thread Coordination, Monitors And Lazy Initialization

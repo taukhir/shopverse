@@ -3,10 +3,14 @@ title: "TreeMap Internals and Usage"
 description: "TreeMap red-black tree storage, comparator identity, navigation, methods, complexity, backed range views, and selection guidance."
 sidebar_label: "TreeMap"
 tags: [java, collections, map, treemap, red-black-tree, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TreeMap Internals and Usage

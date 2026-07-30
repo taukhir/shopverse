@@ -2,10 +2,14 @@
 title: Spring Internals Hands-On Labs
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 learning_objectives: [Observe container proxy web and persistence internals, Reproduce common production failures, Verify fixes with bounded tests]
 technologies: [Spring Boot, Hibernate, Testcontainers]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Internals Hands-On Labs

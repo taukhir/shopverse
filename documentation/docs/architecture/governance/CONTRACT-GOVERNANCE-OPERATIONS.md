@@ -2,12 +2,16 @@
 title: Contract Governance Operating Model And Production Operations
 description: Build federated ownership, standards, catalogs, policy gates, exception processes, registry security and availability, consumer inventory, metrics, and incident response.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Event Schema Registry Governance]
 learning_objectives: [Design a scalable governance operating model, Secure and operate contract infrastructure, Measure adoption and compatibility health]
 technologies: [API Catalog, Schema Registry, OpenAPI, AsyncAPI]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Contract Governance Operating Model And Production Operations

@@ -3,10 +3,14 @@ title: Financial Controls, Security, And Auditability
 description: Design maker-checker approval, entitlements, sensitive-data boundaries, tamper-evident audit evidence, retention, and secure financial operations.
 difficulty: Advanced
 page_type: Guide
-status: Complete
+status: maintained
 prerequisites: [Spring Security, threat modeling, ledger and payment fundamentals]
 technologies: [OAuth2, Spring Security, Vault, Kubernetes, PostgreSQL]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Financial Controls, Security, And Auditability

@@ -2,11 +2,15 @@
 title: REST API HTTP Contracts And Representations
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [REST API design fundamentals]
 learning_objectives: [Choose correct HTTP methods and status codes, Design stable DTO and error contracts]
 technologies: [HTTP, REST, JSON]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # REST API HTTP Contracts And Representations

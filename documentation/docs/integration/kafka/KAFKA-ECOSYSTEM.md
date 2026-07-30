@@ -3,11 +3,15 @@ title: Kafka Connect Streams Share Groups And Multi-Cluster Architecture
 description: Architect coverage of Kafka Connect and CDC, Kafka Streams stateful processing, Kafka share groups, replication, and regional recovery.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Kafka internals, Kafka security and operations]
 learning_objectives: [Select Kafka ecosystem components correctly, Design stateful and CDC pipelines, Defend queue and multi-region trade-offs]
 technologies: [Kafka Connect, Kafka Streams, Share Groups, MirrorMaker 2]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Connect Streams Share Groups And Multi-Cluster Architecture

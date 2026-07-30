@@ -2,12 +2,16 @@
 title: Kafka Connect CDC And Production Operations
 description: Production coverage of CDC and outbox, offsets, errors and DLQ, plugin isolation, scaling, security, upgrades, monitoring, and connector incidents.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Kafka Connect overview, database transactions]
 learning_objectives: [Design reliable CDC pipelines, Operate distributed Connect clusters, Diagnose connector and data-quality incidents]
 technologies: [Kafka Connect, Debezium, CDC, Transactional Outbox, DLQ]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Connect CDC And Production Operations

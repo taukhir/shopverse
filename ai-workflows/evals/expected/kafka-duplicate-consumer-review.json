@@ -1,0 +1,41 @@
+{
+  "scenario_id": "kafka-duplicate-consumer-review",
+  "pass_threshold": 80,
+  "criteria": [
+    {
+      "id": "required-structure",
+      "type": "required_fields",
+      "weight": 10,
+      "paths": ["answer", "claims", "changed_files", "risks"]
+    },
+    {
+      "id": "reliability-language",
+      "type": "answer_terms",
+      "weight": 25,
+      "all_terms": ["at least once", "eventId", "idempotency", "unique constraint", "transaction"],
+      "any_term_groups": [["inbox", "processed event"], ["concurrent", "race"]]
+    },
+    {
+      "id": "required-analysis",
+      "type": "required_claims",
+      "weight": 40,
+      "claim_ids": ["duplicate_capture_risk", "crash_window", "concurrency_risk", "durable_deduplication", "provider_idempotency", "regression_tests"],
+      "minimum_evidence_per_claim": 1,
+      "allowed_evidence_prefixes": ["fixtures/kafka-"]
+    },
+    {
+      "id": "read-only-scope",
+      "type": "file_scope",
+      "weight": 15,
+      "require_changes": false,
+      "maximum_changes": 0,
+      "allowed_patterns": []
+    },
+    {
+      "id": "no-weak-deduplication",
+      "type": "forbidden_terms",
+      "weight": 10,
+      "terms": ["in-memory set is sufficient", "Kafka guarantees global exactly-once"]
+    }
+  ]
+}

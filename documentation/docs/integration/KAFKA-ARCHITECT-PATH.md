@@ -3,11 +3,15 @@ title: Kafka Architect Learning Path
 description: Complete Apache Kafka and Spring Kafka route from first principles through internals, security, operations, Streams, Connect, multi-cluster design, and production incident handling.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Java, Spring Boot, Distributed systems fundamentals]
 learning_objectives: [Explain Kafka from protocol to cluster architecture, Build reliable Spring Kafka applications, Operate and defend production Kafka designs]
 technologies: [Apache Kafka 4.x, Spring for Apache Kafka 4.x, Kafka Connect, Kafka Streams, KRaft]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Architect Learning Path

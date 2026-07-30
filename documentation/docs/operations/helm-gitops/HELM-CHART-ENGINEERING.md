@@ -3,11 +3,15 @@ title: Helm Chart Engineering And Testing
 description: Design chart structure, values schemas, templates, dependencies, hooks, libraries, tests, upgrades, and secure packaging.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Helm GitOps And Argo CD Architect Path]
 learning_objectives: [Design stable chart APIs, Render and test manifests safely, Evolve releases without hidden side effects]
 technologies: [Helm, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Helm Chart Engineering And Testing

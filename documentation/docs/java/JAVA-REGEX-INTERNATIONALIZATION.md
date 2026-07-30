@@ -3,9 +3,13 @@ title: Java Regex And Internationalization
 description: Safe pattern matching, locale-aware messages, numbers, money, dates, and Shopverse input boundaries.
 difficulty: Intermediate
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [Java 24, Unicode, I18N]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Regex And Internationalization

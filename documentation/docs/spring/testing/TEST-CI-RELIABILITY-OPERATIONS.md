@@ -2,14 +2,19 @@
 title: Test CI Reliability Operations
 description: Changed-service matrices, balanced sharding, quarantine governance, retry evidence, failure triage, artifacts, and incident-to-regression ownership for Spring services.
 difficulty: Architect
-page_type: Operations
-status: Implemented
+page_type: Guide
+status: maintained
 learning_objectives:
   - Reduce CI duration without destroying TestContext or infrastructure reuse
   - Govern flaky-test quarantine as temporary risk with an owner and expiry
   - Convert production incidents into focused regression evidence at the correct layer
 technologies: [GitHub Actions, Gradle, JUnit XML, Spring TestContext, Testcontainers]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Test CI Reliability Operations

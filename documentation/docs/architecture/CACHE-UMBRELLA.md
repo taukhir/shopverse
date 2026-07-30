@@ -2,11 +2,15 @@
 title: Cache Umbrella
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Application and database fundamentals]
 learning_objectives: [Choose cache layers and patterns, Explain cache keys and storage, Design safe local distributed and hybrid caching]
 technologies: [Spring Cache, Caffeine, Redis, Memcached, Hibernate]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cache Umbrella

@@ -2,12 +2,16 @@
 title: Microservices Observability SLOs And Incident Evidence
 description: Logs, metrics, traces, RED and USE signals, SLOs, cardinality, sampling, business evidence, and incident timelines.
 difficulty: Advanced
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Microservices, OpenTelemetry fundamentals]
 learning_objectives: [Define actionable service evidence, Design SLO alerts, Reconstruct distributed failures]
 technologies: [OpenTelemetry, Prometheus, Grafana]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Observability SLOs And Incident Evidence

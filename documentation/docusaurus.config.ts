@@ -102,7 +102,10 @@ const config: Config = {
         indexBlog: false,
         docsDir: 'docs',
         docsRouteBasePath: '/',
-        highlightSearchTermsOnTargetPage: true,
+        // Keep full-text prose search while avoiding a duplicated index of large
+        // command/code blocks. Code remains visible and searchable on each page.
+        ignoreCssSelectors: ['pre', '.theme-code-block'],
+        highlightSearchTermsOnTargetPage: false,
         explicitSearchResultPath: true,
       },
     ],

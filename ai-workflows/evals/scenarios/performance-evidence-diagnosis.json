@@ -1,0 +1,15 @@
+{
+  "id": "performance-evidence-diagnosis",
+  "title": "Diagnose Order History Performance",
+  "prompt_path": "../prompts/optimize-performance.md",
+  "fixture_paths": ["fixtures/performance-evidence.json", "fixtures/performance-query-plan.md"],
+  "expected_path": "expected/performance-evidence-diagnosis.json",
+  "authority": {
+    "reads": ["provided fixtures"],
+    "writes": [],
+    "external_actions": []
+  },
+  "task": "Identify the measured bottleneck, recommend the smallest experiment, and evaluate the supplied after measurement against the target and guardrails. Do not propose unmeasured infrastructure scaling or edit files.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["Before and after workloads are not comparable"]
+}

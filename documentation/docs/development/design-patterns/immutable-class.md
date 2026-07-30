@@ -3,10 +3,14 @@ title: "Immutable Classes in Java: Rules, Defensive Copies, and Clone Safety"
 description: "Design deeply immutable Java classes, protect mutable inputs and outputs, avoid clone leaks, preserve invariants, and choose records, builders, or copy methods safely."
 sidebar_label: "Immutable Classes And Defensive Copies"
 tags: ["java", "design-patterns", "immutability", "defensive-copy", "interview"]
-page_type: "Deep Dive"
-difficulty: "Intermediate"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Intermediate
+status: maintained
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Immutable Classes in Java: Rules, Defensive Copies, and Clone Safety

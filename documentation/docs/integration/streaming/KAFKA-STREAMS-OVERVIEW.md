@@ -2,12 +2,16 @@
 title: Kafka Streams Overview
 description: A beginner-to-lead overview of topologies, KStream, KTable, GlobalKTable, keys, Serdes, stateless and stateful processing, and technology selection.
 difficulty: Intermediate
-page_type: Overview
-status: Generic
+page_type: Reference
+status: maintained
 prerequisites: [Kafka topics, partitions, keys, consumer groups]
 learning_objectives: [Explain the Kafka Streams execution model, Build a basic topology, Choose Streams instead of listeners or Connect]
 technologies: [Kafka Streams, KStream, KTable, State Stores]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Streams Overview
@@ -173,9 +177,8 @@ what happens when an instance dies.
 
 - [Kafka Streams documentation](https://kafka.apache.org/documentation/streams/)
 - [Kafka Streams core concepts](https://kafka.apache.org/documentation/streams/core-concepts/)
-- [Spring Cloud Stream Kafka Streams binder](https://docs.spring.io/spring-cloud-stream/reference/kafka/kafka-streams-binder/index.html)
+- [Spring Cloud Stream Kafka Streams binder configuration](https://docs.spring.io/spring-cloud-stream/reference/kafka/kafka-streams-binder/configuration-options.html)
 
 ## Recommended Next
 
 Continue with [Stateful Processing And Production Operations](./KAFKA-STREAMS-STATEFUL-PRODUCTION.md).
-

@@ -3,11 +3,15 @@ title: Spring Dependency Injection And Bean Resolution
 description: Constructor injection, candidate selection, qualifiers, collections, providers, circular failures, and wiring diagnostics.
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring bean definitions, Java interfaces and constructors]
 learning_objectives: [Trace dependency candidate selection, Choose explicit injection contracts, Diagnose missing ambiguous and circular dependencies]
 technologies: [Spring Framework 7, Spring Boot 4]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Dependency Injection And Bean Resolution

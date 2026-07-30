@@ -3,11 +3,15 @@ title: Secrets Implementation, Rotation, Incidents, Labs, And Interviews
 description: Implement Vault policy and Kubernetes auth, dynamic credentials, PKI, External Secrets and CSI, then practise rotation, outages, compromise, backup, recovery, labs, and interview scenarios.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Vault And Kubernetes Secrets Architect Path]
 learning_objectives: [Implement least privilege, Design reload-safe rotation, Diagnose secret-delivery failures, Complete recovery and interview labs]
 technologies: [Vault, Kubernetes, External Secrets, CSI]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Secrets Implementation, Rotation, Incidents, Labs, And Interviews

@@ -6,6 +6,10 @@ difficulty: Beginner
 page_type: Reference
 status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-reference
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Documentation Overview Coverage Audit

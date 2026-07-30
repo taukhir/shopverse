@@ -2,12 +2,16 @@
 title: Architect Failure Modeling And Evidence-Led Diagnosis
 description: Predict partial failures, overload and data anomalies, then diagnose incidents through hypotheses, telemetry, containment, experiments, and root-cause evidence.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Architect Runtime And Design Reasoning]
 learning_objectives: [Build failure models, Diagnose without guessing, Separate containment from permanent correction]
 technologies: [Observability, Distributed Systems, SRE]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Architect Failure Modeling And Evidence-Led Diagnosis

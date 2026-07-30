@@ -2,12 +2,16 @@
 title: Maven Testing, Repositories, Security, Reproducibility, And CI
 description: Configure Surefire and Failsafe, repository mirrors and credentials, reproducible archives, supply-chain controls, caching, and release pipelines.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Maven Dependencies Reactors And Profiles]
 learning_objectives: [Separate test lifecycles, Secure artifact resolution, Produce verifiable CI artifacts]
 technologies: [Apache Maven, Surefire, Failsafe, CI/CD]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Maven Testing, Repositories, Security, Reproducibility, And CI

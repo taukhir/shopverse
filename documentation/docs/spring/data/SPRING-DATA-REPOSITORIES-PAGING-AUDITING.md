@@ -3,11 +3,15 @@ title: Spring Data Repositories Paging Auditing And Events
 description: Repository contracts, projections, paging, scrolling, auditing, callbacks, domain events, and safe API boundaries.
 difficulty: Intermediate
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Data Commons internals]
 learning_objectives: [Choose repository return types, Design stable pagination, Use auditing callbacks and domain events safely]
 technologies: [Spring Data Commons, Java]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Repositories Paging Auditing And Events

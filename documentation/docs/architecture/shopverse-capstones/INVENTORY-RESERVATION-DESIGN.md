@@ -3,11 +3,15 @@ title: Inventory Reservation System Design
 description: Prevent overselling with authoritative stock, expiring reservations, idempotency, and reconciliation.
 difficulty: Advanced
 page_type: Case Study
-status: Shopverse
+status: maintained
 prerequisites: [Database concurrency, Kafka]
 learning_objectives: [Protect stock invariants, Size hot SKUs, Recover expired reservations]
 technologies: [PostgreSQL, Kafka, Redis]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Inventory Reservation System Design

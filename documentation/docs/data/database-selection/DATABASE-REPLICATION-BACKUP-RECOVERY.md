@@ -3,10 +3,14 @@ title: Database Replication, Backup, And Recovery
 description: Design and operate replicas, failover, fencing, backups, point-in-time recovery, multi-region resilience, and disaster-recovery verification.
 difficulty: Advanced
 page_type: Guide
-status: Complete
+status: maintained
 prerequisites: [Transactions, database internals, distributed systems]
 technologies: [PostgreSQL, Oracle, Cassandra, Spring Data]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Replication, Backup, And Recovery
@@ -227,7 +231,7 @@ business operations—not merely TCP connectivity.
 **Failover versus failback?** Failover restores service on a new authority. Failback is a separate,
 risk-bearing migration of authority after the old environment is repaired and resynchronized.
 
-## Engine Paths And Official References
+## Official References
 
 - [PostgreSQL high availability, load balancing, and replication](https://www.postgresql.org/docs/current/high-availability.html)
 - [PostgreSQL backup and restore](https://www.postgresql.org/docs/current/backup.html)
@@ -244,4 +248,3 @@ and [Cassandra Architect Path](../CASSANDRA-ARCHITECT-PATH.md).
 
 Practise containment and recovery with the [Database Load Incident Runbook](./DATABASE-LOAD-INCIDENT-RUNBOOK.md)
 and review the complete [Database Production Mastery](../DATABASE-PRODUCTION-MASTERY.md) map.
-

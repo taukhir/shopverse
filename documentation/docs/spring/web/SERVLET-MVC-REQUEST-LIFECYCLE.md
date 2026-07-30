@@ -3,13 +3,18 @@ title: Servlet And Spring MVC Request Lifecycle
 description: Canonical request trace from the servlet container through filters, DispatcherServlet, controller arguments, service boundaries, response conversion, and exception routing.
 difficulty: Advanced
 page_type: Concept
-status: Implemented
+status: maintained
 learning_objectives:
   - Trace a Shopverse MVC request from connector admission to response completion
   - Distinguish servlet filters from Spring MVC mappings, adapters, interceptors, and advice
   - Locate concurrency, dispatch, response-commit, and observability failure boundaries
 technologies: [Jakarta Servlet, Spring MVC, Spring Boot, Tomcat, Micrometer]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Servlet And Spring MVC Request Lifecycle

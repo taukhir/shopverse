@@ -3,11 +3,15 @@ title: Spring Data JDBC In Depth
 description: Aggregate mapping, repositories, templates, transactions, SQL control, batching, testing, performance, and production decisions.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [SQL, transactions, Spring Data Commons]
 learning_objectives: [Model JDBC aggregates, Choose repositories or templates, Diagnose SQL pool and transaction failures]
 technologies: [Spring Data JDBC, Spring JDBC, Spring Boot, SQL]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data JDBC In Depth

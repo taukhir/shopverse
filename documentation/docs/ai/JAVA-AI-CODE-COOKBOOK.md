@@ -3,10 +3,14 @@ title: "Java AI Code Cookbook"
 description: "Production-oriented Java patterns for model integration, RAG, tools, and safety."
 sidebar_label: "Java AI Code Cookbook"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Java AI Code Cookbook**, apply the Shopverse guidance incrementally: ve
 
 - [LangChain4j documentation](https://docs.langchain4j.dev/)
 - [Spring AI reference](https://docs.spring.io/spring-ai/reference/)
+
+## Recommended Next Page
+
+Continue with [AI Development Interview Workbook](./AI-DEVELOPMENT-INTERVIEW-WORKBOOK.md).

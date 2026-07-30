@@ -3,7 +3,7 @@ title: Leadership And Architecture Scenarios
 description: A lead and architect learning path for decomposition, engineering leadership, architecture decisions, production recovery, availability, delivery, and modernization.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 keywords: [technical leadership, software architect, code review, mentoring, microservices, high availability, zero downtime, modernization]
 learning_objectives:
   - Structure lead and architect answers around outcomes, evidence, trade-offs, ownership, and safe change
@@ -11,6 +11,10 @@ learning_objectives:
   - Practice eight common leadership and architecture interview scenarios in depth
 technologies: [Java, Spring Boot, PostgreSQL, Kafka, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Leadership And Architecture Scenarios

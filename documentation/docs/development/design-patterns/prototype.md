@@ -3,10 +3,14 @@ title: "Prototype Pattern in Java"
 description: "Copy configured templates safely with explicit deep-copy semantics, immutable variants, and Spring prototype-scope guidance."
 sidebar_label: "Prototype"
 tags: ["java", "spring", "design-patterns", "creational", "interview"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Prototype Pattern in Java

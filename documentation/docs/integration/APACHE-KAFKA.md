@@ -3,11 +3,15 @@ title: Apache Kafka
 sidebar_position: 5
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Asynchronous messaging fundamentals]
 learning_objectives: [Understand Kafka partitions groups and delivery semantics, Design reliable event-driven workflows]
 technologies: [Apache Kafka, Spring Kafka]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Apache Kafka

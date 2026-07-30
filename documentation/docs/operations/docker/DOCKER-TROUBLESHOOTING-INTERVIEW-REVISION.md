@@ -3,11 +3,15 @@ title: Docker Troubleshooting, Incident Labs, Interviews, And Revision
 description: Evidence-led Docker diagnosis, runtime build storage network and security incidents, practical labs, architect interviews, and complete revision checklist.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Docker production operations]
 learning_objectives: [Diagnose Docker incidents, Complete internals and recovery labs, Answer Lead and Architect questions, Revise the complete container path]
 technologies: [Docker Engine, BuildKit, Compose, Linux]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker Troubleshooting, Incident Labs, Interviews, And Revision

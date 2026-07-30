@@ -3,10 +3,14 @@ title: "Keycloak And Spring OAuth2 Implementation"
 description: "Implement Authorization Code with PKCE, OIDC login, JWT resource servers, Keycloak role mapping, audience validation, and Client Credentials in Spring Boot."
 sidebar_label: "Keycloak And Spring OAuth2"
 tags: ["oauth2", "oidc", "keycloak", "spring-security", "microservices"]
-page_type: "Implementation Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Keycloak And Spring OAuth2 Implementation

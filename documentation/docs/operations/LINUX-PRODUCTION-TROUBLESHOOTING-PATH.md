@@ -3,11 +3,15 @@ title: Linux Production Troubleshooting Path
 description: Complete route through Linux process, scheduler, memory, filesystems, storage I/O, services, networking, containers, security, incidents, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Command-line fundamentals, Operating-system fundamentals]
 learning_objectives: [Diagnose Linux production symptoms safely, Interpret kernel and resource evidence, Build repeatable incident runbooks]
 technologies: [Linux, systemd, procfs, cgroups, containers]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Linux Production Troubleshooting Path

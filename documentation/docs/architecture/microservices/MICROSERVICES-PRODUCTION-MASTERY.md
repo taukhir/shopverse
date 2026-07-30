@@ -3,11 +3,15 @@ title: Microservices Production Mastery
 description: Complete lead and architect coverage map for boundaries, communication, consistency, resilience, APIs, security, observability, deployment, and production incidents.
 difficulty: Architect
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Distributed systems, REST, Messaging, Kubernetes]
 learning_objectives: [Cover every production microservices competency, Select canonical deep dives, Defend failure and recovery decisions]
 technologies: [Spring Boot, HTTP, gRPC, Kafka, Kubernetes, OpenTelemetry]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Production Mastery

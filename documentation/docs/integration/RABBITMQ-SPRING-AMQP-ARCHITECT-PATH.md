@@ -3,11 +3,15 @@ title: RabbitMQ And Spring AMQP Beginner-To-Architect Path
 description: Complete RabbitMQ route through AMQP routing, exchanges, queues, acknowledgements, confirms, quorum queues, retries, DLX, ordering, clusters, security, operations, Spring AMQP, incidents, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Messaging fundamentals, Spring Boot]
 learning_objectives: [Design RabbitMQ routing and reliability, Implement Spring AMQP safely, Operate and diagnose clusters, Choose RabbitMQ versus Kafka]
 technologies: [RabbitMQ, AMQP 0-9-1, Spring AMQP, Spring Boot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # RabbitMQ And Spring AMQP Beginner-To-Architect Path

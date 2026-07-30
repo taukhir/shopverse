@@ -2,12 +2,16 @@
 title: TKGI Networking, NSX, Antrea And Load Balancers
 description: TKGI network architecture covering management, node, Pod and Service networks, Antrea and NSX paths, API/cluster/workload load balancers, DNAT, ingress, network profiles, NSX lifecycle, IPAM, DNS, packet diagnosis, failures, and interviews.
 difficulty: Advanced
-page_type: Architecture Deep Dive
-status: Generic
+page_type: Deep Dive
+status: maintained
 prerequisites: [TKGI control-plane architecture, Kubernetes networking, TCP and TLS]
 learning_objectives: [Trace every TKGI traffic path, Compare NSX and non-NSX load balancing, Design IP and LB capacity, Diagnose network failures by hop]
 technologies: [TKGI, NSX, Antrea, Kubernetes, DNS, Load Balancing]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Networking, NSX, Antrea And Load Balancers
@@ -161,7 +165,6 @@ application workload/Ingress exposure.
 **Why can NSX show resources while TKGI creation failed?** NSX realization occurs before
 the proxy forwards the request to the broker/BOSH; a later distributed step can fail.
 
-## Official Reference
+## Official References
 
 - [Broadcom TKGI 1.25 load balancers](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/about-lb.html)
-

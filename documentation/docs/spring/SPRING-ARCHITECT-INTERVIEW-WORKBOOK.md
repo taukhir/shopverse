@@ -2,14 +2,18 @@
 title: Spring And Spring Boot Architect Interview Workbook
 description: Applied container, proxy, transaction, MVC, security, JPA, async, and production incidents with evidence-based model answers.
 difficulty: Advanced
-page_type: Interview Workbook
-status: Generic
+page_type: Workbook
+status: maintained
 learning_objectives:
   - Diagnose Spring incidents from runtime boundaries and reproducible evidence
   - Explain rejected alternatives, overload behavior, recovery, and multi-replica implications
   - Design a cross-service workflow with explicit transaction and resource ownership
 technologies: [Spring Framework, Spring Boot, Spring Security, JPA]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring And Spring Boot Architect Interview Workbook

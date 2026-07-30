@@ -3,10 +3,14 @@ title: Connection Pools, Overload, And Database Failover
 description: HikariCP internals, capacity sizing, acquisition incidents, leaks, failover recovery, and Spring Boot production diagnostics.
 difficulty: Advanced
 page_type: Guide
-status: Complete
+status: maintained
 prerequisites: [JDBC, transactions, database observability]
 technologies: [Spring Boot, HikariCP, JDBC, Micrometer]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Connection Pools, Overload, And Database Failover

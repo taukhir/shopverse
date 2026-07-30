@@ -3,13 +3,18 @@ title: Spring REST Controller And Request Mapping
 description: Canonical guide to controller parameters, path and query mapping, headers, bodies, forms, ResponseEntity, binding security, and Shopverse transport boundaries.
 difficulty: Intermediate
 page_type: Guide
-status: Implemented
+status: maintained
 learning_objectives:
   - Map each piece of request data to the correct HTTP and Spring MVC abstraction
   - Bound conversion, filtering, sorting, and header trust at the controller edge
   - Keep transport concerns separate from service authorization and transactions
 technologies: [Spring MVC, HTTP, Jakarta Validation, Spring Boot]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST Controller And Request Mapping

@@ -3,11 +3,15 @@ title: Java Production Mastery
 description: Complete Lead and Architect map for language semantics, collections, concurrency, JVM, GC, I/O, networking, performance diagnostics, and production incidents.
 difficulty: Architect
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Core Java, JVM fundamentals]
 learning_objectives: [Cover every production Java competency, Navigate canonical deep dives, Diagnose Java incidents from evidence]
 technologies: [Java 21+, JVM, JFR, JMC, async-profiler]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Production Mastery

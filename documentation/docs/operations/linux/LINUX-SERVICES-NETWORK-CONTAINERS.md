@@ -2,12 +2,16 @@
 title: Linux Services, Logs, Networking, Security, And Containers
 description: Diagnose systemd units, journald, sockets, namespaces, firewall and routing, security denials, cgroups, containers, and Kubernetes node symptoms.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Linux Filesystems And Storage]
 learning_objectives: [Diagnose service lifecycle and logs, Inspect sockets and namespaces, Connect container symptoms to host cgroups and kernel]
 technologies: [systemd, journald, iproute2, nftables, namespaces, cgroups]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Linux Services, Logs, Networking, Security, And Containers

@@ -3,11 +3,15 @@ title: PostgreSQL JPA Performance And Concurrency Lab
 description: Execute real PostgreSQL query-plan, keyset pagination, Hikari pool, atomic update, deadlock, and bulk-JPQL experiments with Testcontainers.
 difficulty: Architect
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Spring Data repository lab, PostgreSQL, Docker or compatible container runtime]
 learning_objectives: [Prove query and index behavior, Diagnose pool and lock failures, Compare safe concurrency and bulk mutation techniques]
 technologies: [Java 21, Spring Boot 4, Spring Data JPA, PostgreSQL 17, Testcontainers 2]
 last_reviewed: "2026-07-24"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # PostgreSQL JPA Performance And Concurrency Lab

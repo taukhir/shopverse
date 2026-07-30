@@ -3,10 +3,14 @@ title: "Shopverse Architecture Audit"
 description: "Review current architecture, risks, refactoring priorities, and production readiness."
 sidebar_label: "Shopverse Architecture Audit"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-case-study
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Shopverse Architecture Audit**, apply the Shopverse guidance incrementa
 
 - [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
 - [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+
+## Recommended Next Page
+
+Continue with [Shopverse System Design](../architecture/SYSTEM-DESIGN.md).

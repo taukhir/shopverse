@@ -1,8 +1,14 @@
 ---
 title: Java Collection Implementations For Architects
 description: Internal layout, concurrency, ordering, memory, and selection trade-offs across Java collection implementations.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Collection Implementations For Architects

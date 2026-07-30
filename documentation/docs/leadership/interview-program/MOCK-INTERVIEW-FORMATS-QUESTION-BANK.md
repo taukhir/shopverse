@@ -3,11 +3,15 @@ title: Mock Interview Formats, Question Bank, And Scoring
 description: Run repeatable technical mocks with realistic timing, progressive follow-ups, evidence-based scoring, and targeted remediation.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Architecture portfolio outline]
 learning_objectives: [Run structured mocks, Ask progressive follow-ups, Score observable behaviour, Convert feedback into drills]
 technologies: [Java, Spring, Kafka, SQL, Cassandra, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Mock Interview Formats, Question Bank, And Scoring

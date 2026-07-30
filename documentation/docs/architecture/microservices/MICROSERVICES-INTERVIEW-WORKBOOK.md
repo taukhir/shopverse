@@ -3,11 +3,15 @@ title: Microservices Architect Interview Workbook
 description: Expandable scenario answers covering boundaries, communication, consistency, resilience, and operations.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Microservices architect path]
 learning_objectives: [Answer through trade-offs, Use production evidence, Avoid pattern-name responses]
 technologies: [HTTP, Kafka, Databases, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Architect Interview Workbook

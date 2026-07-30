@@ -3,11 +3,15 @@ title: OpenFeign Versus Spring HTTP Service Clients
 description: Choose and migrate declarative synchronous HTTP clients on Spring Boot 4 and Framework 7.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [HTTP clients, Spring Cloud]
 learning_objectives: [Compare client models, Avoid annotation coupling, Migrate incrementally]
 technologies: [Spring Cloud OpenFeign, Spring HTTP Service Clients, RestClient]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # OpenFeign Versus Spring HTTP Service Clients

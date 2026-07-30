@@ -3,11 +3,15 @@ title: Spring Cloud Architect Learning Path
 description: Complete Spring-owned route through distributed configuration, discovery, client-side load balancing, HTTP clients, circuit breakers, gateway, bus, security, observability, operations, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Spring Boot, Microservices fundamentals, HTTP]
 learning_objectives: [Choose Spring Cloud components deliberately, Trace their runtime failure boundaries, Operate a secure resilient microservice platform]
 technologies: [Spring Cloud, Spring Boot, Config, Gateway, OpenFeign, LoadBalancer, CircuitBreaker]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Architect Learning Path

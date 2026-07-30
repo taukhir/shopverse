@@ -3,11 +3,15 @@ title: Java API Design Evolution And Compatibility
 description: Lead-level Java API design covering contracts, immutability, errors, generics, binary compatibility, serialization, deprecation, modules, and safe library evolution.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Java language semantics, Generics, Object contracts]
 learning_objectives: [Design durable Java APIs, Classify compatibility risks, Evolve interfaces safely, Separate domain and wire contracts, Review published libraries]
 technologies: [Java 21+, JLS, JVM, JPMS, Javadoc]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java API Design Evolution And Compatibility

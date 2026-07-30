@@ -3,10 +3,14 @@ title: "Observer Pattern in Spring"
 description: "Use Spring application events safely with transaction phases, async listeners, durable messaging boundaries, and tests."
 sidebar_label: "Observer"
 tags: ["spring", "design-patterns", "interview", "events"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Observer Pattern in Spring

@@ -2,12 +2,16 @@
 title: Docker Storage, Volumes, OverlayFS, Networking, And DNS
 description: Trace image snapshots and copy-on-write, volumes, bind and tmpfs mounts, backups, bridge and host networking, veth, NAT, port publishing, embedded DNS, IPv6, MTU, and failures.
 difficulty: Advanced
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Docker Engine internals]
 learning_objectives: [Explain filesystem and packet paths, Select storage and network modes, Back up persistent data, Diagnose disk DNS NAT firewall and MTU failures]
 technologies: [Docker, OverlayFS, containerd snapshotter, volumes, bridge networking]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker Storage, Volumes, OverlayFS, Networking, And DNS

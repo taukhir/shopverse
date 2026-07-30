@@ -3,11 +3,15 @@ title: Payment Reliability System Design
 description: Handle payment timeouts, duplicate callbacks, idempotency, ledger evidence, and reconciliation.
 difficulty: Advanced
 page_type: Case Study
-status: Shopverse
+status: maintained
 prerequisites: [Idempotency, Distributed failure]
 learning_objectives: [Model ambiguous outcomes, Protect financial invariants, Design reconciliation]
 technologies: [PostgreSQL, Kafka, Payment Provider APIs]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Payment Reliability System Design

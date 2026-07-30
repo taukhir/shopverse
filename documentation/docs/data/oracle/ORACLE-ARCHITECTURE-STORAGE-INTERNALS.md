@@ -3,11 +3,15 @@ title: Oracle Architecture, Storage, And Recovery Internals
 description: Trace Oracle instances, processes, memory, files, blocks, redo, undo, checkpoints, and crash recovery.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Oracle Database Architect Learning Path]
 learning_objectives: [Distinguish instance and database, Trace reads and commits, Explain crash recovery and storage structures]
 technologies: [Oracle Database]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Oracle Architecture, Storage, And Recovery Internals

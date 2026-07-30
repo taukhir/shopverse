@@ -4,11 +4,15 @@ description: Spring WebFlux runtime guide covering event loops, demand and prefe
 sidebar_position: 10
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring ecosystem, Java functional interfaces, Java streams]
 learning_objectives: [Understand reactive streams and backpressure, Build non-blocking WebFlux request pipelines, Avoid blocking and context propagation failures]
 technologies: [Spring WebFlux, Project Reactor, Reactive Streams, R2DBC]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Reactive And WebFlux

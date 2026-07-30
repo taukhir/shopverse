@@ -1,0 +1,11 @@
+{
+  "id": "inventory-concurrency-expiry",
+  "title": "Review Concurrent Reservation And Expiry",
+  "prompt_path": "../prompts/debug-distributed-checkout.md",
+  "fixture_paths": ["fixtures/inventory-concurrency-evidence.md"],
+  "expected_path": "expected/inventory-concurrency-expiry.json",
+  "authority": {"reads": ["provided fixture"], "writes": [], "external_actions": []},
+  "task": "Review concurrent reservations and two expiry workers for oversell, duplicate release, and ownership risk. Define the smallest durable design and executable tests. Do not edit files.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["The business reservation invariant is undefined"]
+}

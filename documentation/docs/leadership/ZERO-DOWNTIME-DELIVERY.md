@@ -2,8 +2,8 @@
 title: Zero-Downtime Delivery
 description: A complete guide to mixed-version compatibility, controlled rollout, safe data evolution, graceful shutdown, and recovery.
 difficulty: Advanced
-page_type: Deployment Guide
-status: Generic
+page_type: Guide
+status: maintained
 keywords: [zero downtime, rolling deployment, blue green, canary, expand contract, feature flag, graceful shutdown]
 learning_objectives:
   - Design application, API, event, schema, and configuration changes for mixed-version operation
@@ -11,6 +11,10 @@ learning_objectives:
   - Plan health gates, graceful shutdown, rollback, roll-forward, and reconciliation
 technologies: [Spring Boot, Kubernetes, PostgreSQL, Kafka, Liquibase]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Zero-Downtime Delivery

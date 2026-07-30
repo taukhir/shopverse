@@ -3,11 +3,15 @@ title: "Legacy Pattern Guide: Creational and Structural"
 description: "Compatibility route pointing to the canonical Creational and Structural pattern categories."
 sidebar_label: "Legacy Creational and Structural Guide"
 tags: ["design-patterns", "legacy-route"]
-page_type: "Compatibility Page"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Reference
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
 sidebar_exclude: true
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Creational and Structural Pattern Guides

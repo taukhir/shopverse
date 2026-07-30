@@ -3,11 +3,15 @@ title: TKGI Production Platform Operations Path
 description: Production TKGI learning path covering installation foundations, plans and sizing, networking and load balancers, upgrades, backup and disaster recovery, telemetry and sinks, incidents, commands, and interview revision.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [TKGI control-plane architecture, Kubernetes operations, BOSH fundamentals]
 learning_objectives: [Design a production TKGI foundation, Size and network clusters, Upgrade and recover safely, Build evidence-driven operations, Answer platform interview scenarios]
 technologies: [TKGI 1.25, Operations Manager, BOSH, vSphere, NSX, Antrea, BBR, Velero, Fluent Bit, Telegraf]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Production Platform Operations Path
@@ -66,3 +70,12 @@ Concrete values and product behavior are anchored to TKGI 1.25 documentation. Va
 the exact release notes, compatibility matrix and installed tile before changing a real
 environment.
 
+## Recommended Next
+
+Start with [TKGI Plans, Profiles, VM Sizing And Capacity](./TKGI-PLANS-SIZING-CAPACITY.md),
+then work through one lifecycle incident using the production revision guide.
+
+## Official References
+
+- [Broadcom TKGI 1.25 documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/index.html)
+- [Kubernetes documentation](https://kubernetes.io/docs/)

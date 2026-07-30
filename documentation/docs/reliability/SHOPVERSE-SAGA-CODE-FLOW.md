@@ -3,7 +3,7 @@ title: Shopverse SAGA Code Flow
 sidebar_position: 13
 difficulty: Advanced
 page_type: Case Study
-status: Implemented
+status: maintained
 prerequisites:
   - SAGA and transactional outbox fundamentals
   - Kafka consumer basics
@@ -12,6 +12,11 @@ learning_objectives:
   - Understand compensation and idempotent event handling
 technologies: [Spring Boot, Kafka, PostgreSQL, Transactional Outbox]
 last_reviewed: "2026-07-10"
+implementation_status: implemented
+scope: shopverse
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Shopverse SAGA Code Flow

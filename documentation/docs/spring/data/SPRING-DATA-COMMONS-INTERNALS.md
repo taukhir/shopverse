@@ -3,11 +3,15 @@ title: Spring Data Commons Internals
 description: Repository proxy creation, metadata, mapping, conversion, query lookup, callbacks, exception translation, and multi-store registration.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring container, AOP proxies, Java reflection]
 learning_objectives: [Trace repository startup and invocation, Explain shared mapping infrastructure, Diagnose repository registration and conversion failures]
 technologies: [Spring Data Commons, Spring Framework, Java]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Commons Internals

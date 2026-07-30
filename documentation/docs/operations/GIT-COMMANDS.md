@@ -3,10 +3,14 @@ title: "Git Engineering Guide"
 description: "Use Git safely for daily delivery, history management, recovery, and collaboration."
 sidebar_label: "Git Engineering Guide"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Git Engineering Guide**, apply the Shopverse guidance incrementally: ve
 
 - [Docusaurus documentation](https://docusaurus.io/docs)
 - [Git documentation](https://git-scm.com/docs)
+
+## Recommended Next Page
+
+Continue with [GitHub Actions](./GITHUB-ACTIONS.md).

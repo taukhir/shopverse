@@ -4,8 +4,12 @@ description: Beginner overview of cloud computing, service and responsibility mo
 sidebar_label: Cloud And AWS Overview
 difficulty: Beginner
 page_type: Learning Path
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-cloud
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cloud Computing

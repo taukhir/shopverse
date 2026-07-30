@@ -2,12 +2,16 @@
 title: Helm, GitOps, And Argo CD Interview, Labs, And Revision
 description: Practise architect scenarios, hands-on labs, troubleshooting, design trade-offs, and rapid revision for Helm, GitOps, and Argo CD.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Argo CD Production Operations]
 learning_objectives: [Answer platform delivery interviews, Complete failure labs, Revise Helm and Argo CD production decisions]
 technologies: [Helm, GitOps, Argo CD, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Helm, GitOps, And Argo CD Interview, Labs, And Revision

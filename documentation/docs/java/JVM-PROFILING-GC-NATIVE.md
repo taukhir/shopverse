@@ -2,11 +2,15 @@
 title: JVM Profiling, Garbage Collection, And Native Images
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [Java Flight Recorder, JFR, async-profiler, heap dump, garbage collector, G1, ZGC, GraalVM native image]
 learning_objectives: [Diagnose JVM CPU memory lock and allocation problems, Choose and tune garbage collection from evidence, Evaluate native-image trade-offs]
 technologies: [Java, JFR, JDK Mission Control, GraalVM]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JVM Profiling, Garbage Collection, And Native Images

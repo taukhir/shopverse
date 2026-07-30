@@ -3,13 +3,18 @@ title: Spring Method Custom Grouped And Configuration Validation
 description: Version-aware MVC and service method validation, custom constraints, validation groups and sequences, and fail-fast configuration properties.
 difficulty: Advanced
 page_type: Guide
-status: Implemented
+status: maintained
 learning_objectives:
   - Choose MVC built-in or proxy-based method validation deliberately
   - Build deterministic cross-field and reusable constraints
   - Apply groups sparingly and fail startup on invalid configuration
 technologies: [Spring MVC, Spring AOP, Jakarta Validation, Configuration Properties]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Method Custom Grouped And Configuration Validation

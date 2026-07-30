@@ -3,9 +3,13 @@ title: Java Assertions, Compilation And Packaging Toolchain
 description: Correct assertion use, javac/java class paths, JAR inspection, javadoc, javap, and modern Shopverse build practices.
 difficulty: Intermediate
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [Java 24, Gradle, JAR]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Assertions, Compilation And Packaging Toolchain

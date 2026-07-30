@@ -3,11 +3,15 @@ title: Spring Cloud Security Identity And Trust Boundaries
 description: Distributed Spring security covering OAuth2/OIDC, gateway token relay, workload identity, mTLS, service authorization, secrets, headers, multi-tenancy, rotation, and incident diagnosis.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Security fundamentals, OAuth2 and TLS, Spring Cloud Gateway]
 learning_objectives: [Design service trust boundaries, Distinguish user and workload identity, Propagate tokens safely, Rotate trust without downtime, Diagnose authentication and authorization failures]
 technologies: [Spring Cloud, Spring Security, OAuth2, OIDC, mTLS, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Security Identity And Trust Boundaries

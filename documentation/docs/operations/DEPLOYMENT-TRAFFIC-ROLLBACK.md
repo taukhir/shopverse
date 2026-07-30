@@ -3,10 +3,14 @@ title: "Traffic Control And Rollback"
 description: "Traffic Control And Rollback with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Traffic Control And Rollback"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Traffic Control And Rollback

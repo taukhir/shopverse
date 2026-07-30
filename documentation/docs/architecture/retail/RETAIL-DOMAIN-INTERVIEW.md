@@ -2,11 +2,15 @@
 title: Retail Domain Interview Questions
 description: Important retail and e-commerce interview questions with concise answer signals for backend, senior engineer, lead, and architect roles.
 difficulty: Intermediate
-page_type: Interview Guide
-status: Complete
+page_type: Interview
+status: maintained
 prerequisites: [Retail domain and commerce architecture]
 technologies: [Java, Spring Boot, Kafka, SQL, Redis, Elasticsearch]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Retail Domain Interview Questions

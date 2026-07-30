@@ -3,11 +3,15 @@ title: TKGI And Harbor Registry
 description: Detailed guide to using Harbor with TKGI for private OCI images, projects, authentication, TLS trust, scanning, signing policy, retention, replication, garbage collection, availability, troubleshooting, and interviews.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TKGI overview, OCI images, Kubernetes Secrets, TLS]
 learning_objectives: [Explain Harbor's role with TKGI, Secure image pulls, Design scanning retention and replication, Diagnose registry failures]
 technologies: [TKGI, Harbor, OCI, Kubernetes, Trivy, TLS]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI And Harbor Registry

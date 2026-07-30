@@ -2,11 +2,15 @@
 title: Prompt Engineering And Structured Output
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [prompt hierarchy, few-shot, JSON Schema, structured output, prompt versioning]
 learning_objectives: [Design maintainable prompt contracts, Validate structured model output, Test prompt changes against versioned examples]
 technologies: [Spring AI, JSON Schema]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Prompt Engineering And Structured Output

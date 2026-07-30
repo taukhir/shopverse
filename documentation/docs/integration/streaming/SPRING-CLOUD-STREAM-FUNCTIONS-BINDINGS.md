@@ -3,11 +3,15 @@ title: Spring Cloud Stream Functions Bindings And Internals
 description: Functional applications, StreamBridge, conversion, headers, composition, multiple binders, configuration layers, and runtime internals.
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring Cloud Stream overview]
 learning_objectives: [Build functional producers and consumers, Trace binding startup and message conversion, Apply the correct configuration layer]
 technologies: [Spring Cloud Stream, Spring Cloud Function, StreamBridge, Kafka Binder]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Stream Functions Bindings And Internals
@@ -209,10 +213,9 @@ design.
 ## Official References
 
 - [Producing and consuming messages](https://docs.spring.io/spring-cloud-stream/reference/spring-cloud-stream/producing-and-consuming-messages.html)
-- [Binder abstraction](https://docs.spring.io/spring-cloud-stream/reference/spring-cloud-stream/binder_abstract.html)
-- [Content type negotiation](https://docs.spring.io/spring-cloud-stream/reference/spring-cloud-stream/content-type-management.html)
+- [Binder abstraction](https://docs.spring.io/spring-cloud-stream/reference/spring-cloud-stream/binders.html)
+- [Binding properties and content type](https://docs.spring.io/spring-cloud-stream/reference/spring-cloud-stream/binding-properties.html)
 
 ## Recommended Next
 
 Continue with [Kafka Binder Production Engineering](./SPRING-CLOUD-STREAM-KAFKA-PRODUCTION.md).
-

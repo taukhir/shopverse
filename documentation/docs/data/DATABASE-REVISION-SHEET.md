@@ -3,11 +3,15 @@ title: Database Engineering Revision Sheet
 description: Rapid revision of modeling, indexes, transactions, isolation, locking, SQL performance, JPA, scaling, migration, and recovery.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Data And Persistence Overview]
 learning_objectives: [Recall database concepts quickly, Diagnose common persistence failures, Defend database and ORM decisions]
 technologies: [SQL, JPA, Hibernate, MySQL, Distributed Databases]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Engineering Revision Sheet

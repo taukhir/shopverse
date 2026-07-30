@@ -3,11 +3,15 @@ title: Database Decision Worksheet
 sidebar_position: 2
 difficulty: Beginner
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [OLTP, online transaction processing, OLAP, online analytical processing, NoSQL, non-relational database, sharding, horizontal partitioning, vector database, embeddings]
 learning_objectives: [Turn workload requirements into database criteria, Produce and validate a database shortlist, Record rejected alternatives]
 technologies: [MySQL, PostgreSQL, CockroachDB, Cassandra, MongoDB, DynamoDB, ClickHouse, pgvector]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Decision Worksheet

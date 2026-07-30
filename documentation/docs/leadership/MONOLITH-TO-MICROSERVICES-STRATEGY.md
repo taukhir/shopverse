@@ -3,7 +3,7 @@ title: Monolith To Microservices Strategy
 description: An architect-level method for deciding, bounding, and safely executing incremental monolith decomposition.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [monolith, microservices, modular monolith, bounded context, strangler fig, data ownership, saga, outbox]
 learning_objectives:
   - Decide whether decomposition solves a material business or engineering constraint
@@ -11,6 +11,10 @@ learning_objectives:
   - Execute a Strangler migration with compatibility, reconciliation, and measurable outcomes
 technologies: [Spring Boot, Spring Modulith, Kafka, PostgreSQL, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Monolith To Microservices Strategy

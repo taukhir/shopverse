@@ -3,10 +3,14 @@ title: "OAuth2 Fundamentals"
 description: "Learn OAuth2 from delegation and actors through tokens, consent, security boundaries, distributed systems, and production design."
 sidebar_label: "OAuth2 Fundamentals"
 tags: ["oauth2", "oidc", "authorization", "security"]
-page_type: "Guide"
-difficulty: "Foundation"
-status: "maintained"
+page_type: Guide
+difficulty: Beginner
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # OAuth2 Fundamentals

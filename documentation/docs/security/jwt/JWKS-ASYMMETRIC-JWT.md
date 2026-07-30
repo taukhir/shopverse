@@ -1,7 +1,13 @@
 ---
 title: JWKS And Asymmetric JWT
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JWKS And Asymmetric JWT

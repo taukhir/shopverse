@@ -3,10 +3,14 @@ title: Array Problems 21-30 - Search, Prefix State, Stacks, And Intervals
 description: Worked Java solutions for matrix rotation and zeroing, rotated search, peaks, prefix-frequency counting, circular Kadane, rain water, next greater values, and intervals.
 sidebar_label: Problems 21-30
 sidebar_position: 5
-difficulty: Medium
-page_type: Programming Guide
+difficulty: Intermediate
+page_type: Guide
 status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Array Problems 21-30: Search, Prefix State, Stacks, And Intervals

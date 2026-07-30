@@ -2,11 +2,15 @@
 title: Indexes And Query Plans
 sidebar_position: 5
 difficulty: Intermediate
-page_type: Practical Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives: [Choose an index type from a query, Detect under-indexing and over-indexing, Verify index effectiveness with query plans and statistics]
 technologies: [PostgreSQL, MySQL, MariaDB, SQL Server, Oracle Database, Db2, MongoDB, Cassandra]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Indexes And Query Plans

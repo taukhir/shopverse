@@ -3,11 +3,15 @@ title: Maven Engineering Learning Path
 description: Beginner-to-architect guide to Maven lifecycle, POM inheritance, dependency mediation, plugins, multi-module reactors, testing, repositories, security, CI, and troubleshooting.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Java fundamentals]
 learning_objectives: [Explain Maven's effective build model, Build reproducible multi-module systems, Diagnose dependency and CI failures]
 technologies: [Apache Maven, Java, Spring Boot]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Maven Engineering Learning Path

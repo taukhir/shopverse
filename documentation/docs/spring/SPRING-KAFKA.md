@@ -3,11 +3,15 @@ title: Spring For Apache Kafka
 description: Canonical Spring Kafka route for templates, listener containers, retry topics, idempotent recovery, capacity, and incident response.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Apache Kafka fundamentals, Spring Boot configuration, Transactional outbox]
 learning_objectives: [Trace Spring producer and listener-container behavior, Choose retry acknowledgment and concurrency policies, Operate Kafka consumers from measurable evidence]
 technologies: [Spring for Apache Kafka 4.x, Spring Boot, Apache Kafka, Micrometer]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring For Apache Kafka

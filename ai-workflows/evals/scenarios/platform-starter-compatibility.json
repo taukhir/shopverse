@@ -1,0 +1,11 @@
+{
+  "id": "platform-starter-compatibility",
+  "title": "Review Platform Starter Compatibility",
+  "prompt_path": "../prompts/implement-feature.md",
+  "fixture_paths": ["fixtures/platform-compatibility-evidence.md"],
+  "expected_path": "expected/platform-starter-compatibility.json",
+  "authority": {"reads": ["provided fixture"], "writes": [], "external_actions": []},
+  "task": "Review a proposed shared starter change across adopters. Identify compatibility surfaces, migration and rollback requirements, and the test matrix without editing files.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["The adopter inventory is incomplete"]
+}

@@ -3,11 +3,15 @@ title: Spring Container Dependency Injection And Conditional Annotations
 description: In-depth guide to Spring stereotypes, configuration, bean registration, injection, scopes, lifecycle, events, ordering, Boot application annotations, configuration properties, and conditions.
 difficulty: Intermediate
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring container fundamentals]
 learning_objectives: [Explain bean registration annotations, Trace dependency selection, Use lifecycle annotations safely, Diagnose conditions, Build explicit Boot configuration]
 technologies: [Spring Boot 4, Spring Framework 7]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Container Dependency Injection And Conditional Annotations

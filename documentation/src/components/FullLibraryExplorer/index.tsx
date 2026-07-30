@@ -20,6 +20,8 @@ export default function FullLibraryExplorer() {
   const [type, setType] = useState('All');
   const [technology, setTechnology] = useState('All');
   const [status, setStatus] = useState('All');
+  const [scope, setScope] = useState('All');
+  const [owner, setOwner] = useState('All');
   const [feature, setFeature] = useState('All');
   const [freshness, setFreshness] = useState('All');
   const [reviewedAfter, setReviewedAfter] = useState('');
@@ -32,9 +34,11 @@ export default function FullLibraryExplorer() {
   const types = values('pageType');
   const technologies = ['All', ...Array.from(new Set(catalog.flatMap((item) => item.technologies))).sort()];
   const statuses = values('status');
+  const scopes = values('scope');
+  const owners = values('owner');
 
   const pages = useMemo(() => catalog.filter((item) => {
-    const text = `${item.title} ${item.topic} ${item.pageType} ${item.technologies.join(' ')}`.toLowerCase();
+    const text = `${item.title} ${item.topic} ${item.pageType} ${item.scope} ${item.owner} ${item.technologies.join(' ')}`.toLowerCase();
     const days = item.lastReviewed
       ? Math.floor((Date.now() - new Date(`${item.lastReviewed}T00:00:00`).getTime()) / 86_400_000)
       : Number.POSITIVE_INFINITY;
@@ -54,13 +58,15 @@ export default function FullLibraryExplorer() {
       && (type === 'All' || item.pageType === type)
       && (technology === 'All' || item.technologies.includes(technology))
       && (status === 'All' || item.status === status)
+      && (scope === 'All' || item.scope === scope)
+      && (owner === 'All' || item.owner === owner)
       && (!reviewedAfter || Boolean(item.lastReviewed && item.lastReviewed >= reviewedAfter))
       && featureMatch && freshMatch;
-  }), [difficulty, feature, freshness, query, reviewedAfter, status, technology, topic, type]);
+  }), [difficulty, feature, freshness, owner, query, reviewedAfter, scope, status, technology, topic, type]);
 
   const reset = () => {
     setQuery(''); setTopic('All'); setDifficulty('All'); setType('All');
-    setTechnology('All'); setStatus('All'); setFeature('All'); setFreshness('All'); setReviewedAfter('');
+    setTechnology('All'); setStatus('All'); setScope('All'); setOwner('All'); setFeature('All'); setFreshness('All'); setReviewedAfter('');
   };
 
   return <section className={styles.library}>
@@ -71,6 +77,7 @@ export default function FullLibraryExplorer() {
         <Filter label="Topic" value={topic} values={topics} set={setTopic}/><Filter label="Difficulty" value={difficulty} values={difficulties} set={setDifficulty}/>
         <Filter label="Page type" value={type} values={types} set={setType}/><Filter label="Technology" value={technology} values={technologies} set={setTechnology}/>
         <Filter label="Status" value={status} values={statuses} set={setStatus}/><Filter label="Freshness" value={freshness} values={freshnessOptions} set={setFreshness}/>
+        <Filter label="Scope" value={scope} values={scopes} set={setScope}/><Filter label="Owner" value={owner} values={owners} set={setOwner}/>
         <label><span>Reviewed after</span><input type="date" value={reviewedAfter} onChange={(event) => setReviewedAfter(event.target.value)} /></label>
         <Filter label="Contains" value={feature} values={['All', 'Interview', 'Code', 'Labs', 'Runbooks', 'Officially verified']} set={setFeature}/>
       </div>
@@ -78,7 +85,7 @@ export default function FullLibraryExplorer() {
     </div>
     <div className={styles.results}>{pages.slice(0, 120).map((item) => <Link to={item.path} key={item.path}>
       <span className={styles.meta}>{item.topic} &middot; {item.difficulty}</span><strong>{item.title}</strong>
-      <small>{item.pageType} &middot; {item.status}{item.lastReviewed ? ` · reviewed ${item.lastReviewed}` : ''}</small>
+      <small>{item.pageType} &middot; {item.status} &middot; {item.scope} &middot; {item.owner}{item.lastReviewed ? ` · reviewed ${item.lastReviewed}` : ''}</small>
       <span className={styles.flags}>{item.hasCode && <i><Code2/>Code</i>}{item.hasInterview && <i><CheckCircle2/>Interview</i>}{item.isLab && <i><FlaskConical/>Lab</i>}{item.verifiedOfficial && <i><ShieldCheck/>Verified</i>}</span>
     </Link>)}</div>
     {pages.length > 120 && <p className={styles.limit}>Showing the first 120 matches. Narrow the filters to find a specific guide.</p>}

@@ -3,11 +3,15 @@ title: Spring Kafka Consumers And Delivery Semantics
 description: Spring listener-container lifecycle, method conversion, acknowledgment modes, transactions, context propagation, and failure boundaries.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Apache Kafka consumer groups, Spring Boot configuration, Database transactions]
 learning_objectives: [Trace a record from poll to listener completion, Choose acknowledgment and transaction semantics deliberately, Keep listener business effects idempotent and observable]
 technologies: [Spring for Apache Kafka 4.x, KafkaListener, Listener Containers, Micrometer]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Kafka Consumers And Delivery Semantics

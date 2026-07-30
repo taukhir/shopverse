@@ -3,11 +3,15 @@ title: gRPC And Protocol Buffers Architect Path
 description: Complete route through Protobuf wire contracts, gRPC HTTP/2 internals, unary and streaming RPC, deadlines, errors, retries, load balancing, security, Spring gRPC, operations, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Java, HTTP/2 fundamentals, Distributed systems fundamentals]
 learning_objectives: [Design compatible Protobuf contracts, Operate reliable gRPC services, Implement and troubleshoot gRPC with Spring]
 technologies: [gRPC, Protocol Buffers, HTTP/2, Spring gRPC, Java]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # gRPC And Protocol Buffers Architect Path

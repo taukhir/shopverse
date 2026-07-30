@@ -3,11 +3,15 @@ title: TKGI Upgrade Architecture And Lifecycle
 description: In-depth TKGI upgrade guide covering management-plane and workload-cluster sequencing, BOSH canaries, compatibility, failure handling, rollback boundaries, evidence, and interview scenarios.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TKGI production operations path, BOSH lifecycle, Kubernetes availability]
 learning_objectives: [Plan full and staged TKGI upgrades, Explain BOSH rolling changes and canaries, Protect workload availability, Diagnose failed upgrades, Define rollback and acceptance evidence]
 technologies: [TKGI 1.25, Operations Manager, BOSH, Kubernetes, UAA, TKGI Database]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Upgrade Architecture And Lifecycle
@@ -156,7 +160,6 @@ before the next product upgrade.
 Success requires healthy platform reconciliation plus working networking, storage,
 observability and representative business transactions under the target SLO.
 
-## Official Reference
+## Official References
 
 - [Broadcom TKGI 1.25 understanding upgrades](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/understanding-upgrades.html)
-

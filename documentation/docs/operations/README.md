@@ -4,8 +4,12 @@ description: Overview and learning map for builds, infrastructure as code, Linux
 sidebar_label: Delivery And Operations Overview
 difficulty: Beginner
 page_type: Learning Path
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Operations

@@ -2,11 +2,15 @@
 title: Retrieval-Augmented Generation Engineering
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 keywords: [RAG, ingestion, retrieval, reranking, citation, evaluation]
 learning_objectives: [Design ingestion and runtime pipelines, Compare retrieval and reranking strategies, Operate authorization-aware RAG]
 technologies: [pgvector, OpenSearch, Spring AI]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Retrieval-Augmented Generation Engineering

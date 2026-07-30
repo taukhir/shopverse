@@ -3,11 +3,15 @@ title: Spring Architect Hands-On Labs
 description: Evidence-driven Shopverse exercises for incidents, capacity, transactions, Kafka replay, and data consistency.
 difficulty: Advanced
 page_type: Learning Path
-status: Shopverse
+status: maintained
 prerequisites: [Spring runtime fundamentals, SQL, Kafka]
 learning_objectives: [Diagnose from evidence, Quantify capacity, Defend consistency and recovery decisions]
 technologies: [Java 21, Spring Boot 4, Hibernate, Kafka, Resilience4j]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Architect Hands-On Labs

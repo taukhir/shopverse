@@ -2,12 +2,16 @@
 title: API And Event Schema Governance Interview, Labs, And Revision
 description: Practise governance designs, compatibility incidents, migration labs, architect interview questions, evidence, and rapid revision.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Contract Governance Operations]
 learning_objectives: [Answer governance interviews, Complete mixed-version and registry labs, Defend lifecycle trade-offs]
 technologies: [OpenAPI, AsyncAPI, Avro, Protobuf, JSON Schema, Schema Registry]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # API And Event Schema Governance Interview, Labs, And Revision

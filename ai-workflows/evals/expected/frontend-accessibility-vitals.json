@@ -1,0 +1,11 @@
+{
+  "scenario_id": "frontend-accessibility-vitals",
+  "pass_threshold": 80,
+  "criteria": [
+    {"id":"structure","type":"required_fields","weight":10,"paths":["answer","claims","changed_files","metrics","risks"]},
+    {"id":"terms","type":"answer_terms","weight":25,"all_terms":["keyboard","accessible name","200%","LCP","CLS","duplicate submission"]},
+    {"id":"claims","type":"required_claims","weight":35,"claim_ids":["focus_regression","error_semantics","responsive_reflow","pending_submission_guard","vitals_regression","browser_validation"],"minimum_evidence_per_claim":1,"allowed_evidence_prefixes":["fixtures/frontend-"]},
+    {"id":"metrics","type":"metrics","weight":15,"checks":[{"path":"metrics.before_lcp_seconds","operator":"eq","value":2.1},{"path":"metrics.after_lcp_seconds","operator":"eq","value":3.4},{"path":"metrics.after_cls","operator":"eq","value":0.19}]},
+    {"id":"scope","type":"file_scope","weight":15,"require_changes":false,"maximum_changes":0,"allowed_patterns":[]}
+  ]
+}

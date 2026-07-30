@@ -1,8 +1,14 @@
 ---
 title: Java Executors And Thread-Pool Engineering
 description: Executor abstractions, ThreadPoolExecutor configuration, pool types, queues, idle workers, saturation, rejection policies, shutdown, and sizing.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Executors And Thread-Pool Engineering

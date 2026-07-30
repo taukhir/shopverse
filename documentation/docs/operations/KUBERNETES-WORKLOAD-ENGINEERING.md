@@ -2,11 +2,15 @@
 title: Kubernetes Workload Engineering
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [Kubernetes, Pod, Deployment, Service, Gateway API, HPA, StatefulSet, CronJob, operator]
 learning_objectives: [Map application needs to Kubernetes resources, Configure safe scheduling and rollout controls, Diagnose health capacity and stateful-workload risks]
 technologies: [Kubernetes, Docker, Spring Boot]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Workload Engineering

@@ -3,9 +3,13 @@ title: Java 25 And 26 Runtime Changes
 description: Concurrency, AOT, GC, JFR, HTTP/3, cryptographic, and preview/incubator changes in JDK 25 and 26.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [JDK 25, JDK 26, HotSpot]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java 25 And 26 Runtime Changes

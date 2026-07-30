@@ -3,11 +3,15 @@ title: Advanced Spring Kafka Containers Transactions Schemas And Testing
 description: Advanced Spring Kafka runtime guide for containers, acknowledgments, retries, transactions, serialization, request reply, observability, shutdown, and testing.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring Kafka publishing consumers retry and idempotency]
 learning_objectives: [Configure listener containers from explicit guarantees, Apply retry and transaction boundaries correctly, Verify Kafka applications under failure]
 technologies: [Spring for Apache Kafka 4.1, Spring Boot, Testcontainers, Micrometer]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Advanced Spring Kafka Containers Transactions Schemas And Testing

@@ -2,12 +2,16 @@
 title: Kafka Connect Overview
 description: A beginner-to-lead overview of workers, connectors, tasks, source and sink flows, distributed mode, converters, offsets, SMTs, and selection.
 difficulty: Intermediate
-page_type: Overview
-status: Generic
+page_type: Reference
+status: maintained
 prerequisites: [Kafka topics and partitions]
 learning_objectives: [Explain Connect architecture, Configure source and sink connectors, Choose Connect instead of application code]
 technologies: [Kafka Connect, Source Connector, Sink Connector, Converters]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Connect Overview

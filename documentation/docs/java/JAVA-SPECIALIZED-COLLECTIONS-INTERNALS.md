@@ -1,8 +1,14 @@
 ---
 title: Specialized And Concurrent Java Collections Internals
 description: EnumMap, EnumSet, IdentityHashMap, WeakHashMap, sequenced collections, skip lists, copy-on-write, queues, and lifecycle trade-offs.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Specialized And Concurrent Java Collections Internals

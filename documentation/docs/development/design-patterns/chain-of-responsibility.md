@@ -3,10 +3,14 @@ title: "Chain of Responsibility Pattern in Spring"
 description: "Build ordered Spring handler chains with explicit continuation, short-circuiting, failure policy, and observability."
 sidebar_label: "Chain of Responsibility"
 tags: ["spring", "design-patterns", "interview"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Chain of Responsibility Pattern in Spring

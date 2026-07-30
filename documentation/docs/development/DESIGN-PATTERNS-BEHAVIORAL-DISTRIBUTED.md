@@ -3,11 +3,15 @@ title: "Legacy Pattern Guide: Behavioral and Distributed"
 description: "Compatibility route pointing to canonical Behavioral Patterns and distributed-systems guides."
 sidebar_label: "Legacy Behavioral and Distributed Guide"
 tags: ["design-patterns", "legacy-route"]
-page_type: "Compatibility Page"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Reference
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
 sidebar_exclude: true
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Behavioral and Distributed Pattern Guides

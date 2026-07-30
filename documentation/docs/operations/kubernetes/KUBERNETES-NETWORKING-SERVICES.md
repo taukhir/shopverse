@@ -2,12 +2,16 @@
 title: Kubernetes Networking, Services, DNS, Ingress, And Gateway API
 description: Trace Pod networking, CNI, IPAM, Services, EndpointSlices, kube-proxy or eBPF data planes, CoreDNS, NetworkPolicy, ingress, Gateway API, and packet-level failures.
 difficulty: Advanced
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [DNS TCP TLS fundamentals, Kubernetes workloads]
 learning_objectives: [Trace a packet end to end, Explain Service and DNS behavior, Design network isolation and external routing, Diagnose network failures]
 technologies: [Kubernetes, CNI, CoreDNS, Gateway API, NetworkPolicy]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Networking, Services, DNS, Ingress, And Gateway API

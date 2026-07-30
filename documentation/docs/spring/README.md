@@ -3,11 +3,15 @@ title: Spring And Spring Boot Learning Guide
 description: Dependency-ordered route through Spring fundamentals, runtime internals, data, integration, testing and production architecture.
 difficulty: Beginner
 page_type: Learning Path
-status: Shopverse
+status: maintained
 prerequisites: [Core Java, HTTP and SQL fundamentals]
 learning_objectives: [Choose the correct Spring learning route, Trace framework abstractions to runtime boundaries, Apply concepts to Shopverse without duplicating implementation guides]
 technologies: [Spring Framework 7, Spring Boot 4, Spring Cloud, Spring Data JPA, Spring Data Cassandra, Spring Security]
 last_reviewed: "2026-07-29"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring And Spring Boot Learning Guide

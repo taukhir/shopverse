@@ -3,11 +3,15 @@ title: Microservices Production Incident Labs
 description: Evidence-driven Shopverse exercises for retry storms, consumer lag, partial failure, and ownership drift.
 difficulty: Advanced
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Microservices architect path, Observability]
 learning_objectives: [Build causal graphs, Contain distributed failure, Design permanent controls]
 technologies: [Kafka, PostgreSQL, OpenTelemetry, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Production Incident Labs

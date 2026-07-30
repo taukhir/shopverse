@@ -2,11 +2,15 @@
 title: Production REST API Design
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [REST API HTTP contracts and representations]
 learning_objectives: [Design secure observable and resilient APIs, Evolve public contracts without breaking clients]
 technologies: [HTTP, REST, OpenAPI]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Production REST API Design

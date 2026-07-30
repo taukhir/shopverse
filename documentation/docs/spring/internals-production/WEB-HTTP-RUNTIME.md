@@ -3,12 +3,16 @@ title: Spring Web Execution And HTTP Runtime
 description: Compatibility route to the canonical Spring web execution-model and capacity guide.
 difficulty: Advanced
 page_type: Reference
-status: Compatibility route
+status: maintained
 learning_objectives:
   - Locate the canonical web execution and HTTP capacity guidance
   - Preserve existing links to the former combined runtime page
 technologies: [Spring MVC, Spring WebFlux, Tomcat, Netty]
 last_reviewed: "2026-07-13"
+scope: compatibility
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Web Execution And HTTP Runtime

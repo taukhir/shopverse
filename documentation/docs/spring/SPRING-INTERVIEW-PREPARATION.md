@@ -3,11 +3,15 @@ title: Spring Interview Preparation
 description: Structured Spring and Spring Boot interview route from fundamentals to lead and architect production scenarios.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Spring ecosystem fundamentals]
 learning_objectives: [Practise Spring questions before revealing model answers, Progress from framework mechanics to production architecture, Evaluate answers with evidence-based criteria]
 technologies: [Spring Framework, Spring Boot, Spring MVC, Spring Data JPA, Spring Kafka]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Interview Preparation

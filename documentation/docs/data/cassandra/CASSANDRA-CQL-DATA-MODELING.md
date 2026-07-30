@@ -3,11 +3,15 @@ title: Cassandra CQL And Query-First Data Modeling
 description: Query-first tables, partition and clustering keys, denormalization, bucketing, CQL types, TTL, batches, paging, and modeling failure modes.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Cassandra architecture and consistency]
 learning_objectives: [Derive tables from access patterns, Bound partition size, Write safe CQL queries and mutations]
 technologies: [Apache Cassandra, CQL]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cassandra CQL And Query-First Data Modeling

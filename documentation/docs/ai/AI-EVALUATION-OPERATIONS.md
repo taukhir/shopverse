@@ -2,11 +2,15 @@
 title: AI Evaluation, Observability, And Operations
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [AI evaluation, Recall@k, faithfulness, tool accuracy, token cost, model observability]
 learning_objectives: [Build layered AI evaluations, Define production AI telemetry safely, Gate model prompt retrieval and tool changes]
 technologies: [Spring AI, OpenTelemetry]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # AI Evaluation, Observability, And Operations

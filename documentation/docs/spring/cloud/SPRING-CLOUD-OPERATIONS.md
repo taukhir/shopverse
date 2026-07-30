@@ -2,12 +2,16 @@
 title: Spring Cloud Bus, Security, Observability, And Operations
 description: Operate Spring Cloud components with refresh events, security, health, traces, graceful shutdown, Kubernetes, compatibility, upgrades, and incident runbooks.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Spring Cloud Resilience And Gateway]
 learning_objectives: [Operate distributed Spring Cloud services, Secure management and control planes, Plan upgrades and Kubernetes deployment]
 technologies: [Spring Cloud Bus, Spring Boot Actuator, Micrometer, Kubernetes]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Bus, Security, Observability, And Operations

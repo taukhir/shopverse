@@ -2,8 +2,12 @@
 title: Backend Engineering Glossary
 page_type: Reference
 difficulty: Beginner
-status: Generic
+status: maintained
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-reference
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Backend Engineering Glossary

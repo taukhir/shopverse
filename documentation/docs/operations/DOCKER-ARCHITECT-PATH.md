@@ -3,11 +3,15 @@ title: Docker Beginner-To-Architect Path
 description: Complete Docker route through Engine and OCI runtime internals, images, BuildKit, storage, networking, Compose, security, production operations, troubleshooting, labs, interviews, and revision.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Linux process fundamentals, Networking fundamentals]
 learning_objectives: [Trace a container from CLI to kernel, Build reproducible secure images, Diagnose storage network resource and runtime incidents, Design a governed container platform]
 technologies: [Docker Engine, containerd, OCI, runc, BuildKit, Compose]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker Beginner-To-Architect Path

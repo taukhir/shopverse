@@ -1,8 +1,14 @@
 ---
 title: Java AI Developer Guide
 sidebar_position: 6.1
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java AI Developer Guide

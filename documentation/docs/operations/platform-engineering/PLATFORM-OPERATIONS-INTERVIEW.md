@@ -3,11 +3,15 @@ title: Platform Implementation, Operations, Labs, And Interviews
 description: Implement catalog, templates, platform APIs, golden-path upgrades, tenancy, policy, reliability, scorecards, incident response, adoption experiments, and architect interviews.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Platform Engineering And Golden Paths]
 learning_objectives: [Build one complete golden path, Operate platform control planes, Measure adoption, Defend tool and abstraction choices]
 technologies: [Backstage, Crossplane, Kustomize, Flux, Argo CD]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Platform Implementation, Operations, Labs, And Interviews
@@ -42,10 +46,9 @@ policy conformance, active adoption and qualitative developer outcomes.
 ## Official References
 
 - [Backstage software templates](https://backstage.io/docs/features/software-templates/)
-- [Crossplane concepts](https://docs.crossplane.io/latest/concepts/)
+- [Crossplane documentation](https://docs.crossplane.io/)
 - [Argo CD documentation](https://argo-cd.readthedocs.io/)
 
 ## Recommended Next
 
 Return to [Platform Engineering, Golden Paths, And Self-Service](../PLATFORM-ENGINEERING-GOLDEN-PATH.md) and integrate the successful path into the capstone.
-

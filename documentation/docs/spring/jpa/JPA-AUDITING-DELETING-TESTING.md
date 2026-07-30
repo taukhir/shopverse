@@ -3,11 +3,15 @@ title: Spring Data Auditing And Delete Semantics
 description: Spring Data auditing integration, entity and bulk delete behavior, retention choices, and safe schema rollout.
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Spring Data JPA, Spring Security context, Database constraints]
 learning_objectives: [Populate trustworthy audit metadata, Choose deletion semantics deliberately, Verify bulk operations and retention behavior]
 technologies: [Spring Data JPA, Spring Security, Hibernate ORM, Liquibase]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Auditing And Delete Semantics

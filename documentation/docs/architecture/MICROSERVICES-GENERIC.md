@@ -3,11 +3,15 @@ title: Microservices Fundamentals
 sidebar_position: 1
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [REST and database fundamentals]
 learning_objectives: [Design service boundaries and ownership, Evaluate communication consistency and operational trade-offs]
 technologies: [Spring Boot, REST, Kafka]
 last_reviewed: "2026-07-10"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Fundamentals

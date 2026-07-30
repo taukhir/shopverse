@@ -2,11 +2,15 @@
 title: Database Concurrency, Latency, And Backpressure
 sidebar_position: 7
 difficulty: Advanced
-page_type: Practical Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives: [Size database concurrency from measurements, Prevent application scaling from overwhelming a database, Interpret query latency in context]
 technologies: [SQL, HikariCP, PostgreSQL, MySQL, Spring Boot]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Concurrency, Latency, And Backpressure

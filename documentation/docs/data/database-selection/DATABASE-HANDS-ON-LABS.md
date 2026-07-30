@@ -3,11 +3,15 @@ title: Database Hands-On Labs
 sidebar_position: 11
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [EXPLAIN ANALYZE, indexing, connection pool, keyset pagination, Cassandra partition key, ClickHouse OLAP, pgvector similarity search]
 learning_objectives: [Compare query plans and indexes with evidence, Exercise bounded database overload safely, Model specialist database access patterns]
 technologies: [MySQL, PostgreSQL, Cassandra, ClickHouse, pgvector]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Hands-On Labs

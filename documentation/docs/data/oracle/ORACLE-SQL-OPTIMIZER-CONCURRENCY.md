@@ -3,11 +3,15 @@ title: Oracle SQL, PL/SQL, Optimizer, And Concurrency
 description: Design SQL and PL/SQL, interpret execution plans, maintain statistics, and reason about Oracle transactions and locks.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Oracle Architecture Storage Internals]
 learning_objectives: [Tune SQL using measured plans, Design safe transactions, Use PL/SQL and indexing deliberately]
 technologies: [Oracle SQL, PL/SQL]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Oracle SQL, PL/SQL, Optimizer, And Concurrency

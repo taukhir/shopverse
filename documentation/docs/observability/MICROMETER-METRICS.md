@@ -3,10 +3,14 @@ title: "Micrometer Metrics"
 description: "Design counters, timers, tags, queries, and production metric operations."
 sidebar_label: "Micrometer Metrics"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Micrometer Metrics**, apply the Shopverse guidance incrementally: verif
 
 - [Micrometer documentation](https://docs.micrometer.io/micrometer/reference/)
 - [OpenTelemetry documentation](https://opentelemetry.io/docs/)
+
+## Recommended Next Page
+
+Continue with [Prometheus](./PROMETHEUS.md).

@@ -3,11 +3,15 @@ title: Spring Cloud Kubernetes And Contract In Depth
 description: Kubernetes discovery/config/reload/leader election plus HTTP and messaging contract testing, generated stubs, CI, security, and production decisions.
 difficulty: Architect
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Kubernetes, Spring Cloud, API and event contracts]
 learning_objectives: [Choose platform-native or Spring integrations, Configure secure Kubernetes discovery and reload, Implement producer-owned contract tests]
 technologies: [Spring Cloud Kubernetes, Spring Cloud Contract, Kubernetes, Spring Boot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Kubernetes And Contract In Depth

@@ -3,9 +3,13 @@ title: CompletableFuture Composition And Fan-Out
 description: Mapping, flattening, combining, racing, allOf, dynamic collections, and bounded Shopverse fan-out.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [Java 24, CompletionStage]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # CompletableFuture Composition And Fan-Out

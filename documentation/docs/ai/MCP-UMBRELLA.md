@@ -2,11 +2,15 @@
 title: Model Context Protocol
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 keywords: [MCP, Model Context Protocol, MCP host, MCP client, MCP server]
 learning_objectives: [Navigate MCP from protocol through production, Distinguish tools resources and prompts, Build a secured Spring MCP integration]
 technologies: [MCP, Spring AI, Spring Boot]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Model Context Protocol

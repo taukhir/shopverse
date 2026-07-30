@@ -1,8 +1,14 @@
 ---
 title: Exception Propagation And Stream Failure Internals
 description: Senior guide to stack unwinding, suppressed failures, stream execution, spliterators, parallelism, and failure contracts.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Exception Propagation And Stream Failure Internals

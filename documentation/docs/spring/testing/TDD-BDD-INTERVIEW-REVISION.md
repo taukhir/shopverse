@@ -2,12 +2,16 @@
 title: TDD And BDD Interview, Labs, And Revision
 description: Lead-level questions, production scenarios, practical exercises, and a compact revision sheet for TDD and BDD.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [TDD And BDD With Spring In Production]
 learning_objectives: [Defend testing decisions, Diagnose brittle and slow suites, Practise TDD and BDD with production scenarios]
 technologies: [Java, JUnit 5, Spring Boot Test]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TDD And BDD Interview, Labs, And Revision

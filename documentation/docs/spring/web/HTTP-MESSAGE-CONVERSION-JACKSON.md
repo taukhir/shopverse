@@ -3,13 +3,18 @@ title: Spring HTTP Message Conversion And Jackson
 description: Canonical guide to request decoding, content negotiation, response serialization, Jackson configuration, compatibility, and production failure evidence.
 difficulty: Advanced
 page_type: Concept
-status: Implemented
+status: maintained
 learning_objectives:
   - Trace request and response bodies through Spring MVC HttpMessageConverter selection
   - Separate malformed representations, validation failures, negotiation failures, and serialization failures
   - Review Shopverse Jackson 2 compatibility usage against Spring Boot 4 Jackson 3 defaults
 technologies: [Spring MVC, Spring Boot 4, Jackson 3, Jackson 2, JSON]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring HTTP Message Conversion And Jackson

@@ -3,11 +3,15 @@ title: Kubernetes kubectl Commands, YAML, JSON, And API Configuration
 description: Operational kubectl handbook covering contexts, discovery, Pods and containers, workloads, networking, storage, RBAC, JSON output, JSONPath, patches, declarative apply, and safe diagnosis.
 difficulty: Intermediate
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Kubernetes workload fundamentals]
 learning_objectives: [Operate Kubernetes safely with kubectl, Read and author YAML and JSON API objects, Query and patch structured output, Diagnose workloads without losing evidence]
 technologies: [Kubernetes, kubectl, YAML, JSON, JSONPath, Helm]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes kubectl Commands, YAML, JSON, And API Configuration

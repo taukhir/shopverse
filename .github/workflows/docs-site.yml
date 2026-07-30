@@ -6,10 +6,24 @@ on:
       - master
     paths:
       - "documentation/**"
+      - "README.md"
+      - "*/README.md"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "*/AGENTS.md"
+      - "*/CLAUDE.md"
+      - "ai-workflows/**"
       - ".github/workflows/docs-site.yml"
   pull_request:
     paths:
       - "documentation/**"
+      - "README.md"
+      - "*/README.md"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "*/AGENTS.md"
+      - "*/CLAUDE.md"
+      - "ai-workflows/**"
       - ".github/workflows/docs-site.yml"
   workflow_dispatch:
   schedule:
@@ -76,12 +90,23 @@ jobs:
           DOCS_BASE_SHA: ${{ steps.validation.outputs.base }}
         run: node scripts/validate-docs.mjs --${{ steps.validation.outputs.mode }}
 
-      - name: Enforce documentation maintenance, structure, depth, and governance
+      - name: Enforce README mirrors and documentation quality
         run: |
+          npm run check:service-readmes
+          npm run check:cloud-configs
           npm run check:maintenance
+          npm run check:language
           npm run check:docs:audit
           npm run check:docs:depth
+          npm run check:docs:overviews
+          npm run check:docs:kubernetes
+          npm run check:docs:design-patterns
+          npm run check:docs:java-spring-production
+          npm run check:ui:reader
           npm run check:docs:governance
+
+      - name: Validate AI workflow evaluation suite
+        run: node ../ai-workflows/evals/scripts/validate-suite.mjs
 
       - name: Compile executable Java and Spring documentation examples
         run: |

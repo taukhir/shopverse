@@ -3,13 +3,17 @@ title: SpEL Language And Evaluation Internals
 description: SpEL syntax, parsing, expression trees, evaluation contexts, property and method resolution, type conversion, compilation, performance, failures, and executable labs.
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 learning_objectives:
   - Parse and evaluate SpEL against explicit roots and variables
   - Select StandardEvaluationContext or SimpleEvaluationContext from required capabilities
   - Diagnose parsing, resolution, conversion, null, and performance failures
 technologies: [Spring Framework, Spring Expression]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # SpEL Language And Evaluation Internals

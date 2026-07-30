@@ -9,6 +9,10 @@ prerequisites: [HTTP, JVM, databases, observability fundamentals]
 learning_objectives: [Triage latency in minutes, Localize the saturated layer, Choose reversible mitigation, Prove recovery and root cause]
 technologies: [Spring Boot, Micrometer, OpenTelemetry, Prometheus, Kubernetes, JFR]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Production Slowness Diagnosis And Rapid Mitigation Runbook

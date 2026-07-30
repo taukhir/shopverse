@@ -3,11 +3,15 @@ title: Security Architect Interview Workbook
 description: Expandable scenarios for identity, authorization, tokens, secrets, zero trust, and incident response.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Security architect path]
 learning_objectives: [Answer with threat reasoning, Separate controls, Explain failure response]
 technologies: [OAuth2, OIDC, JWT, mTLS]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Security Architect Interview Workbook

@@ -2,11 +2,15 @@
 title: Reflection, Proxies, Generics, And Serialization
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 keywords: [reflection, MethodHandle, dynamic proxy, annotation processing, type erasure, bridge method, serialization compatibility]
 learning_objectives: [Compare runtime and compile-time metaprogramming, Explain erasure and bridge methods, Design explicit secure serialization contracts]
 technologies: [Java]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Reflection, Proxies, Generics, And Serialization

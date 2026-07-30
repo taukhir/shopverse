@@ -2,12 +2,16 @@
 title: Multi-Region Microservices Recovery
 description: Service, data, messaging, identity, routing, failover, failback, split-brain, reconciliation, RPO, and RTO for regional outages.
 difficulty: Architect
-page_type: Architecture Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Microservices, Distributed data, Kubernetes, Disaster recovery]
 learning_objectives: [Design whole-system regional recovery, Prevent conflicting writers, Prove RPO RTO and failback]
 technologies: [Kubernetes, DNS, Kafka, Databases, OAuth 2.0]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Multi-Region Microservices Recovery

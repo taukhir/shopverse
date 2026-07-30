@@ -2,12 +2,16 @@
 title: Elasticsearch With Spring, Interview Scenarios, Labs, And Revision
 description: Integrate Spring Data Elasticsearch, design Kafka-to-search projections, and prepare with production scenarios, labs, and a compact revision sheet.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Elasticsearch Operations, Spring Boot]
 learning_objectives: [Use Spring Data without hiding Elasticsearch semantics, Build reliable search projections, Answer architect interview scenarios]
 technologies: [Spring Data Elasticsearch, Elasticsearch, Kafka]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Elasticsearch With Spring, Interview Scenarios, Labs, And Revision

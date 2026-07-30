@@ -3,10 +3,14 @@ title: "Factory Method Pattern in Java and Spring"
 description: "Solve runtime product selection with Factory Method, simple factories, Spring registries, FactoryBean, and ObjectProvider."
 sidebar_label: "Factory Method"
 tags: ["java", "spring", "design-patterns", "creational", "interview"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Factory Method Pattern in Java and Spring

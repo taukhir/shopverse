@@ -3,10 +3,14 @@ title: Spring Boot Startup Extension Points And Events
 description: Trace SpringApplication listeners, initializers, context refresh processors, runners, readiness, failure, and graceful shutdown in lifecycle order.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Spring Boot startup, Spring container lifecycle]
 technologies: [Spring Boot 4, Spring Framework 7]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Startup Extension Points And Events

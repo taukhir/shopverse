@@ -3,11 +3,15 @@ title: Java Performance Engineering Capacity And Evidence
 description: Production Java performance method covering workload models, queues, CPU, allocation, GC, locks, I/O, JFR, JMH, capacity calculations, load tests, and incident proof.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [JVM architecture, Concurrency, GC fundamentals]
 learning_objectives: [Build a performance model, Distinguish bottleneck classes, Use JFR and JMH correctly, Size bounded resources, Prove improvements experimentally]
 technologies: [Java 21+, JFR, JMC, jcmd, JMH, JVM]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Performance Engineering Capacity And Evidence

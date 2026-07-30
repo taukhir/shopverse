@@ -3,11 +3,15 @@ title: Kubernetes Pods, Workloads, Lifecycle, And Scheduling
 description: Design Pods, Deployments, StatefulSets, DaemonSets, Jobs, lifecycle hooks, probes, resources, placement, disruption, autoscaling, and graceful rollout behavior.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Kubernetes control-plane internals]
 learning_objectives: [Select workload controllers, Engineer safe Pod lifecycle, Control placement and disruption, Scale from meaningful signals]
 technologies: [Kubernetes, HPA, VPA, Cluster Autoscaler]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Pods, Workloads, Lifecycle, And Scheduling

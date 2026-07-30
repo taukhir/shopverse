@@ -3,11 +3,15 @@ title: Kafka Consumer Groups Rebalancing And Ordering
 description: Coordinators, generations, heartbeats, assignors, static membership, rebalance storms, partition keys, skew, expansion, and ordered recovery.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 prerequisites: [Kafka consumer groups, partitions, offsets]
 learning_objectives: [Trace consumer group membership, Diagnose rebalance storms, Preserve required ordering while scaling and retrying]
 technologies: [Apache Kafka 4.x, KafkaConsumer, Spring Kafka]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Consumer Groups Rebalancing And Ordering

@@ -3,10 +3,14 @@ title: "Capacity Estimation Fundamentals"
 description: "Capacity Estimation Fundamentals with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Capacity Estimation Fundamentals"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Capacity Estimation Fundamentals

@@ -3,11 +3,15 @@ title: Kadane Algorithm Family In Java
 description: Maximum sum, printed maximum, minimum sum, printed minimum, circular subarray, and stock-profit variants with Java code, samples, logic, and dry runs.
 sidebar_label: Kadane Family
 sidebar_position: 3
-difficulty: Foundation to Advanced
+difficulty: All Levels
 page_type: Deep Dive
 status: maintained
 last_reviewed: "2026-07-24"
 keywords: [Kadane Java, maximum subarray, minimum subarray, circular subarray, stock profit]
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kadane Algorithm Family In Java

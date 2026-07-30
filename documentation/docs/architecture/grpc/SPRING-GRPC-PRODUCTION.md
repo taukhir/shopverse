@@ -2,12 +2,16 @@
 title: Spring gRPC Implementation, Security, Testing, And Production
 description: Build Spring Boot 4 gRPC servers and clients with generated services, channels, interceptors, validation, TLS and OAuth2, observability, tests, graceful shutdown, and operations.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [gRPC Runtime And Reliability, Spring Boot]
 learning_objectives: [Implement Spring gRPC boundaries, Secure and observe RPCs, Test and operate services in production]
 technologies: [Spring gRPC, Spring Boot 4, Java, Netty]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring gRPC Implementation, Security, Testing, And Production

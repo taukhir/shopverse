@@ -3,11 +3,15 @@ title: Security Architect Path
 description: Lead-level decisions across trust boundaries, identity, authorization, data, supply chain, and operations.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Security principles, OAuth2 and JWT fundamentals]
 learning_objectives: [Create control architecture, Assign ownership, Verify security evidence]
 technologies: [OAuth2, OIDC, JWT, mTLS, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Security Architect Path

@@ -2,12 +2,16 @@
 title: Microservices Cascading-Failure Prevention
 description: Deadlines, retry budgets, bulkheads, admission control, backpressure, brownouts, hedging, pool isolation, and recovery from dependency failure.
 difficulty: Architect
-page_type: Reliability Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Microservices communication, Resilience patterns]
 learning_objectives: [Model failure propagation, Contain dependency overload, Recover without retry amplification]
 technologies: [HTTP, gRPC, Kafka, Resilience4j, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices Cascading-Failure Prevention

@@ -3,10 +3,14 @@ title: "Design Patterns"
 description: "Select and apply object, behavioral, integration, and reliability patterns."
 sidebar_label: "Design Patterns"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -207,3 +211,7 @@ not describe every library object as a pattern participant.
 
 - [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
 - [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+
+## Recommended Next Page
+
+Continue with [Design Pattern Selection Cheatsheet](./design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET.md).

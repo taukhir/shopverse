@@ -2,8 +2,8 @@
 title: Leadership And Architecture Interview Workbook
 description: Eight complete lead and architect scenarios with model answers, follow-up probes, weak-answer traps, and scoring guidance.
 difficulty: Advanced
-page_type: Interview Workbook
-status: Generic
+page_type: Workbook
+status: maintained
 keywords: [architect interview, leadership interview, microservices, code review, mentoring, production, availability, modernization]
 learning_objectives:
   - Answer eight leadership and architecture scenarios through structured reasoning
@@ -11,6 +11,10 @@ learning_objectives:
   - Distinguish lead-level execution from architect-level system and organization ownership
 technologies: [Spring Boot, Kafka, PostgreSQL, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Leadership And Architecture Interview Workbook

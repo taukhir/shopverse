@@ -3,9 +3,13 @@ title: Java Operators And Control Flow
 description: Numeric promotion, evaluation order, short-circuiting, branching, loops, reachability, and Shopverse-safe examples.
 difficulty: Intermediate
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [Java 24, JLS]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Operators And Control Flow

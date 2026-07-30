@@ -3,12 +3,16 @@ title: Servlets And DispatcherServlet In Spring Boot
 description: Compatibility route to the canonical Servlet and Spring MVC request-lifecycle guide.
 difficulty: Intermediate
 page_type: Reference
-status: Compatibility route
+status: maintained
 learning_objectives:
   - Find the canonical servlet and DispatcherServlet lifecycle explanation
   - Preserve existing links from the Spring Boot internals learning path
 technologies: [Jakarta Servlet, Spring MVC, Spring Boot]
 last_reviewed: "2026-07-13"
+scope: compatibility
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Servlets And `DispatcherServlet` In Spring Boot

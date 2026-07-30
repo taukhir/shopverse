@@ -3,10 +3,14 @@ title: "Shopverse System Design"
 description: "The complete Shopverse system context, runtime flows, data ownership, and operational boundaries."
 sidebar_label: "Shopverse System Design"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -54,3 +58,7 @@ Within **Shopverse System Design**, apply the Shopverse guidance incrementally: 
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 - [RFC 9110: HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
+
+## Recommended Next Page
+
+Continue with [Shopverse Case Study](../case-study/SHOPVERSE.mdx).

@@ -6,10 +6,14 @@ tags:
   - "reference"
   - "shopverse"
   - "production"
-page_type: "Guide"
-difficulty: "Intermediate"
-status: "maintained"
+page_type: Guide
+difficulty: Intermediate
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reference
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 # Code Cross-Check
 

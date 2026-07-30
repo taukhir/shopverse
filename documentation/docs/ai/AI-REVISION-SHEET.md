@@ -3,11 +3,15 @@ title: AI RAG Agents And Java AI Revision Sheet
 description: Rapid revision of LLMs, prompting, embeddings, RAG, tool calling, agents, evaluation, security, Spring AI, and LangChain4j.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [AI Learning Track]
 learning_objectives: [Recall AI application concepts quickly, Review RAG and agent architectures, Defend accuracy security latency and cost decisions]
 technologies: [LLMs, RAG, MCP, Spring AI, LangChain4j]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # AI RAG Agents And Java AI Revision Sheet

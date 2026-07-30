@@ -2,9 +2,13 @@
 title: Native Java Serialization Internals And Object Graphs
 description: How ObjectOutputStream and ObjectInputStream process descriptors, handles, graphs, constructors, transient state, and customization hooks.
 difficulty: Advanced
-page_type: Internals Deep Dive
-status: "maintained"
+page_type: Deep Dive
+status: maintained
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Native Java Serialization Internals And Object Graphs

@@ -3,11 +3,15 @@ title: Kafka Security Administration Capacity And Incident Operations
 description: Production controls for Kafka authentication, authorization, tenant isolation, administration, capacity, upgrades, monitoring, and incident recovery.
 difficulty: Advanced
 page_type: Runbook
-status: Generic
+status: maintained
 prerequisites: [Kafka KRaft storage producer and consumer internals]
 learning_objectives: [Design least-privilege Kafka access, Operate cluster changes safely, Diagnose capacity replication and client incidents]
 technologies: [Apache Kafka 4.x, TLS, SASL, ACLs, JMX]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Security Administration Capacity And Incident Operations

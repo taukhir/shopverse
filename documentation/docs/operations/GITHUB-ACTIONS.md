@@ -1,8 +1,14 @@
 ---
 title: GitHub Actions
 sidebar_position: 5
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # GitHub Actions

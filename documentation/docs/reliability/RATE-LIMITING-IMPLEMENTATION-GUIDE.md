@@ -1,8 +1,14 @@
 ---
 title: Rate Limiting Implementation Guide
 sidebar_position: 9
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Rate Limiting Implementation Guide

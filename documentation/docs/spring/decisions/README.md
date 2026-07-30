@@ -3,11 +3,15 @@ title: Spring Technology Decision Guides
 description: Evidence-based choices and migration paths for Spring web, messaging, persistence, caching, and HTTP clients.
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Spring Boot fundamentals, Distributed systems]
 learning_objectives: [Choose from workload constraints, Identify avoidance signals, Plan reversible migrations]
 technologies: [Spring Boot 4, Spring Framework 7, Spring Kafka, Spring Data]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Technology Decision Guides

@@ -3,11 +3,15 @@ title: Kafka Production Mastery
 description: Canonical map for producer, consumer, storage, security, operations, Streams, Connect, reliability, disaster recovery, and Kubernetes production mastery.
 difficulty: Architect
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Kafka fundamentals, Java, Distributed systems]
 learning_objectives: [Navigate complete Kafka production coverage, Connect runtime failures to controls, Prepare architect-level interview explanations]
 technologies: [Apache Kafka 4.x, Spring Kafka 4.x, Kafka Streams, Kafka Connect]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Production Mastery

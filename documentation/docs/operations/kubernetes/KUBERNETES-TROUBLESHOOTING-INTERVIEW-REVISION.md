@@ -3,11 +3,15 @@ title: Kubernetes Troubleshooting, Incident Labs, Interviews, And Revision
 description: Evidence-led Kubernetes diagnosis, failure matrices, practical labs, architect interview scenarios, revision questions, and completion checklist.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Kubernetes cluster operations]
 learning_objectives: [Diagnose incidents systematically, Complete destructive-safe labs, Answer architect scenarios, Revise the complete platform]
 technologies: [Kubernetes, kubectl, Linux, Prometheus]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Troubleshooting, Incident Labs, Interviews, And Revision

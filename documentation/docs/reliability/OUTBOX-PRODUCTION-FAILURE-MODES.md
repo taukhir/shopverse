@@ -2,12 +2,16 @@
 title: Transactional Outbox Production Failure Modes
 description: Relay crashes, duplicates, stuck claims, ordering, poison rows, backlog, cleanup, CDC, and reconciliation for production outboxes.
 difficulty: Architect
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Transactional outbox, Kafka producer reliability, database transactions]
 learning_objectives: [Explain the outbox delivery guarantee, Operate a scalable relay, Recover every major production outbox failure]
 technologies: [Spring Boot, Apache Kafka, SQL, Debezium]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Transactional Outbox Production Failure Modes
