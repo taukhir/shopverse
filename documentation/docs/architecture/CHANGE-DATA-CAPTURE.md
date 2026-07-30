@@ -2,13 +2,17 @@
 title: Change Data Capture In Microservices
 sidebar_label: Change Data Capture (CDC)
 difficulty: Advanced
-page_type: Concept And Decision Guide
-status: Generic
+page_type: Decision Guide
+status: maintained
 prerequisites: [Microservices patterns, Transactional outbox, Kafka fundamentals]
 learning_objectives: [Explain the problems CDC solves, Compare direct table CDC with outbox CDC, Design snapshots offsets ordering recovery and operations, Decide when polling or CDC is the better relay]
 technologies: [Debezium, Kafka Connect, Kafka, MySQL, PostgreSQL]
 keywords: [CDC, change data capture, Debezium, binlog, WAL, transactional outbox, Kafka Connect, snapshot, connector offset]
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Change Data Capture In Microservices
@@ -259,3 +263,7 @@ cut over with one authoritative relay to avoid unintended duplicate publication.
 - [Debezium PostgreSQL connector and replication slots](https://debezium.io/documentation/reference/stable/connectors/postgresql.html)
 - [Debezium outbox event router](https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html)
 - [Apache Kafka Connect documentation](https://kafka.apache.org/documentation/#connect)
+
+## Recommended Next Page
+
+Continue with [Transactional Outbox Pattern](../reliability/OUTBOX-PATTERN.md).

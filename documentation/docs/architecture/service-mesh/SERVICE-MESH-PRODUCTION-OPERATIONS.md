@@ -2,12 +2,16 @@
 title: Service Mesh Production Operations And Multicluster
 description: Install, capacity-plan, upgrade, migrate, back up, diagnose, and recover sidecar or ambient service meshes across clusters and networks.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Service Mesh Traffic Security]
 learning_objectives: [Operate mesh control and data planes, Design multicluster topology, Execute safe upgrades and incident response]
 technologies: [Istio, Linkerd, Kubernetes, Envoy]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Service Mesh Production Operations And Multicluster
@@ -99,9 +103,8 @@ restore trust without creating parallel unauthorized issuers, reconnect data pla
 - [Istio deployment](https://istio.io/latest/docs/ops/deployment/)
 - [Istio deployment models](https://istio.io/latest/docs/ops/deployment/deployment-models/)
 - [Istio ambient migration](https://istio.io/latest/docs/ambient/migrate/)
-- [Linkerd production deployment](https://linkerd.io/2/tasks/going-to-production/)
+- [Linkerd installation and production verification](https://linkerd.io/docs/tasks/install/)
 
 ## Recommended Next
 
 Finish with [Labs, Architect Interviews, Trade-Offs, And Revision](./SERVICE-MESH-INTERVIEW-REVISION.md).
-

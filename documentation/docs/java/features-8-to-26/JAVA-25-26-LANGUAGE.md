@@ -3,9 +3,13 @@ title: Java 25 And 26 Language Changes
 description: Final and preview language changes in Java 25 and 26, with adoption guidance and Shopverse-oriented examples.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [Java 25, Java 26, JLS]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java 25 And 26 Language Changes

@@ -9,6 +9,10 @@ prerequisites: [Java classes and methods]
 learning_objectives: [Choose checked or unchecked exceptions, Design stable custom exception types, Preserve and translate causes, Expose safe API errors]
 technologies: [Java, Spring Boot]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Custom Exceptions, Checked And Unchecked Rules

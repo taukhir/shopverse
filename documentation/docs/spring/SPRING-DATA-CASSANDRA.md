@@ -3,11 +3,15 @@ title: Spring Data Cassandra Learning Path
 description: Complete Spring Boot and Spring Data Cassandra route covering driver configuration, mapping, repositories, templates, reactive access, consistency, testing, observability, and production design.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Apache Cassandra architect path, Spring Boot fundamentals]
 learning_objectives: [Configure Cassandra safely in Spring Boot, Implement query-first repositories and templates, Operate reactive and imperative Cassandra access]
 technologies: [Spring Boot, Spring Data Cassandra, Apache Cassandra, Java Driver]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Cassandra Learning Path

@@ -3,11 +3,15 @@ title: Spring Kafka Listener Concurrency And Capacity
 description: Spring concurrent listener containers, poll budgets, partition capacity, retry traffic, rebalances, and rolling-deployment safety.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Spring Kafka listener containers, Kafka partition assignment, Downstream capacity limits]
 learning_objectives: [Size listener concurrency from measured service time, Keep poll work below container and downstream limits, Plan rebalances and rolling deployments safely]
 technologies: [Spring for Apache Kafka 4.x, ConcurrentMessageListenerContainer, Micrometer, Apache Kafka]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Kafka Listener Concurrency And Capacity

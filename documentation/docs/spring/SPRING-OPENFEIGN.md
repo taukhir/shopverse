@@ -4,7 +4,7 @@ description: Synchronous OpenFeign client design covering feature-complete statu
 sidebar_position: 8
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 prerequisites: [Spring ecosystem, HTTP semantics, service discovery]
 learning_objectives:
   - Decide when to retain OpenFeign and when to evaluate Spring HTTP Service Clients
@@ -12,6 +12,10 @@ learning_objectives:
   - Bound synchronous client capacity and prove timeout, pool, DNS, TLS, OAuth, AOT, and shutdown behavior
 technologies: [Spring Cloud OpenFeign, Spring Cloud LoadBalancer, Spring Security OAuth2, HTTP]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud OpenFeign

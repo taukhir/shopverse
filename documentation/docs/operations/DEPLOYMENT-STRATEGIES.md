@@ -3,10 +3,14 @@ title: "Deployment Strategies"
 description: "Select, operate, and verify safe deployment strategies for Shopverse services."
 sidebar_label: "Deployment Strategies"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -54,3 +58,7 @@ Within **Deployment Strategies**, apply the Shopverse guidance incrementally: ve
 
 - [Docusaurus documentation](https://docusaurus.io/docs)
 - [Git documentation](https://git-scm.com/docs)
+
+## Recommended Next Page
+
+Continue with the [Kubernetes Architect Path](./KUBERNETES-ARCHITECT-PATH.md).

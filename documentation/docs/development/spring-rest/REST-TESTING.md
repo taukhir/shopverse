@@ -2,14 +2,19 @@
 title: Spring REST Testing
 description: Focused testing strategy for controllers, security filters, validation, JSON conversion, error contracts, live HTTP behavior, and Shopverse production boundaries.
 difficulty: Advanced
-page_type: Testing
-status: Implemented
+page_type: Guide
+status: maintained
 learning_objectives:
   - Select standalone, MVC-slice, full-context, and live-server tests by claim
   - Verify negative HTTP contracts across security, conversion, validation, and errors
   - Identify current Shopverse coverage and the next evidence-producing tests
 technologies: [Spring MVC Test, MockMvc, Spring Boot Test, JUnit, Spring Security Test]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST Testing

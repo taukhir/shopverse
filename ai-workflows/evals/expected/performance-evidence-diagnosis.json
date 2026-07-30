@@ -1,0 +1,45 @@
+{
+  "scenario_id": "performance-evidence-diagnosis",
+  "pass_threshold": 80,
+  "criteria": [
+    {
+      "id": "required-structure",
+      "type": "required_fields",
+      "weight": 10,
+      "paths": ["answer", "claims", "changed_files", "metrics", "risks"]
+    },
+    {
+      "id": "performance-language",
+      "type": "answer_terms",
+      "weight": 20,
+      "all_terms": ["N+1", "p95", "query", "comparable", "correctness"]
+    },
+    {
+      "id": "performance-claims",
+      "type": "required_claims",
+      "weight": 30,
+      "claim_ids": ["database_bottleneck", "n_plus_one", "controlled_change", "target_met", "guardrails_preserved"],
+      "minimum_evidence_per_claim": 1,
+      "allowed_evidence_prefixes": ["fixtures/performance-"]
+    },
+    {
+      "id": "measured-results",
+      "type": "metrics",
+      "weight": 25,
+      "checks": [
+        {"path": "metrics.before_p95_ms", "operator": "eq", "value": 1800},
+        {"path": "metrics.after_p95_ms", "operator": "lte", "value": 500},
+        {"path": "metrics.after_error_rate_percent", "operator": "lte", "value": 0.2},
+        {"path": "metrics.after_sql_statements_per_request", "operator": "eq", "value": 2}
+      ]
+    },
+    {
+      "id": "read-only-scope",
+      "type": "file_scope",
+      "weight": 15,
+      "require_changes": false,
+      "maximum_changes": 0,
+      "allowed_patterns": []
+    }
+  ]
+}

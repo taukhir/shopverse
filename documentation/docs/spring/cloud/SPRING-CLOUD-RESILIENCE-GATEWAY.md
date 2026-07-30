@@ -2,12 +2,16 @@
 title: Spring Cloud Circuit Breaker, Gateway, And Resilience Composition
 description: Compose timeouts, retries, circuit breakers, bulkheads, rate limits, fallbacks, gateway filters, and capacity controls without causing retry storms.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Spring Cloud Discovery And Clients]
 learning_objectives: [Compose resilience controls, Protect gateway trust boundaries, Size concurrency from capacity]
 technologies: [Spring Cloud CircuitBreaker, Spring Cloud Gateway, Resilience4j]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Circuit Breaker, Gateway, And Resilience Composition

@@ -3,13 +3,17 @@ title: Spring Expression Language (SpEL)
 description: Learning path for SpEL language evaluation, Spring annotation integrations, security, performance, testing, and production diagnostics.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 learning_objectives:
   - Choose the correct SpEL guide for language, integration, or production concerns
   - Distinguish external configuration placeholders from expression evaluation
   - Keep dynamic expressions inside an explicit trust and performance boundary
 technologies: [Spring Framework, Spring Boot, Spring Security, Spring Data]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Expression Language (SpEL)

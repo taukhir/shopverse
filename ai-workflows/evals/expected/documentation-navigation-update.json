@@ -1,0 +1,45 @@
+{
+  "scenario_id": "documentation-navigation-update",
+  "pass_threshold": 85,
+  "criteria": [
+    {
+      "id": "required-structure",
+      "type": "required_fields",
+      "weight": 10,
+      "paths": ["answer", "claims", "changed_files", "commands", "risks"]
+    },
+    {
+      "id": "documentation-language",
+      "type": "answer_terms",
+      "weight": 15,
+      "all_terms": ["metadata", "sidebar", "generated route", "production build"]
+    },
+    {
+      "id": "documentation-claims",
+      "type": "required_claims",
+      "weight": 20,
+      "claim_ids": ["page_added", "overview_linked", "sidebar_linked", "route_verified"],
+      "minimum_evidence_per_claim": 1,
+      "allowed_evidence_prefixes": ["documentation/"]
+    },
+    {
+      "id": "bounded-files",
+      "type": "file_scope",
+      "weight": 25,
+      "require_changes": true,
+      "maximum_changes": 3,
+      "allowed_patterns": [
+        "^documentation/docs/ai/AI-ASSISTANT-TROUBLESHOOTING\\.md$",
+        "^documentation/docs/ai/README\\.md$",
+        "^documentation/sidebars\\.ts$"
+      ]
+    },
+    {
+      "id": "documentation-checks",
+      "type": "commands",
+      "weight": 30,
+      "required_all": ["validate-docs.mjs --full", "check-language.mjs", "tsc --noEmit", "docusaurus.mjs build"],
+      "required_any_groups": [["Test-Path", "route exists", "ROUTE_EXISTS"]]
+    }
+  ]
+}

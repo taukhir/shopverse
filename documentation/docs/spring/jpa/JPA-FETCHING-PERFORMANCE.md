@@ -3,11 +3,15 @@ title: JPA Fetching Performance And N Plus One
 description: Spring Data fetch plans using entity graphs, projections, explicit queries, pagination, and production SQL evidence.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring Data repositories, JPA associations, SQL execution plans]
 learning_objectives: [Select a bounded fetch plan for each repository use case, Detect N plus one and row multiplication from evidence, Roll out query and index changes safely]
 technologies: [Spring Data JPA, Hibernate ORM, JDBC, SQL]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JPA Fetching Performance And N Plus One

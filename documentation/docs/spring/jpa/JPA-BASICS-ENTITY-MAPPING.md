@@ -3,11 +3,15 @@ title: JPA Basics And Entity Mapping
 description: Spring Data JPA entity integration, repository identity decisions, schema contracts, and safe production rollout.
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Spring Data JPA, Hibernate lifecycle, Relational schema design]
 learning_objectives: [Connect entity identity to repository behavior, Keep Java mappings compatible with database constraints, Roll out entity changes without breaking mixed application versions]
 technologies: [Spring Data JPA, Jakarta Persistence, Hibernate ORM, Liquibase]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JPA Basics And Entity Mapping

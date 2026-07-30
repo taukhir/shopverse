@@ -3,10 +3,14 @@ title: Reconciliation, Settlement, And Restartable Batch
 description: Match internal and external financial records, manage breaks, control settlement, and design restartable Spring Batch processing.
 difficulty: Advanced
 page_type: Guide
-status: Complete
+status: maintained
 prerequisites: [Ledger fundamentals, payment lifecycle, SQL transactions]
 technologies: [Spring Batch, PostgreSQL, Kafka, Object Storage]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Reconciliation, Settlement, And Restartable Batch

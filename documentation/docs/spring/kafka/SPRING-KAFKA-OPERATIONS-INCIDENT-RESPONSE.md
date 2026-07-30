@@ -3,11 +3,15 @@ title: Spring Kafka Operations And Incident Response
 description: Listener-container observations, lag and poll evidence, pause and drain controls, rebalance-safe rollouts, security, and incident workflows.
 difficulty: Advanced
 page_type: Runbook
-status: Generic
+status: maintained
 prerequisites: [Spring Kafka listener containers, Kafka consumer lag, Production observability]
 learning_objectives: [Diagnose Spring listener incidents from container and broker evidence, Operate pause resume drain and rolling deployment safely, Protect Kafka credentials payloads and recovery surfaces]
 technologies: [Spring for Apache Kafka 4.x, Micrometer, Actuator, KafkaListenerEndpointRegistry]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Kafka Operations And Incident Response

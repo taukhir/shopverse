@@ -2,12 +2,16 @@
 title: Saga Liveness Timeout And Recovery
 description: Missing replies, crashed participants, durable deadlines, reconciliation, late events, compensation failure, and production Saga operations.
 difficulty: Architect
-page_type: Reliability Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Saga pattern, transactional outbox, idempotent consumers]
 learning_objectives: [Recover a Saga with a missing outcome, Design durable timeouts and probes, Handle late events and failed compensation safely]
 technologies: [Apache Kafka, Spring Boot, Relational Database]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Saga Liveness Timeout And Recovery

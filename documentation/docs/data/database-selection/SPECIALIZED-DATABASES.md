@@ -2,11 +2,15 @@
 title: Specialized Databases
 sidebar_position: 3
 difficulty: Intermediate
-page_type: Comparison
-status: Generic
+page_type: Reference
+status: maintained
 learning_objectives: [Choose workload-specific databases, Keep derived stores rebuildable]
 technologies: [Redis, Elasticsearch, OpenSearch, Neo4j, ClickHouse]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Specialized Databases

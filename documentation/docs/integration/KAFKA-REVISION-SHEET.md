@@ -3,11 +3,15 @@ title: Apache Kafka And Spring Kafka Revision Sheet
 description: Rapid revision of Kafka architecture, partitions, producers, consumers, reliability, Spring containers, operations, Streams, and Connect.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Kafka And Spring Kafka Architect Overview]
 learning_objectives: [Recall Kafka internals quickly, Diagnose producer and consumer failures, Answer architect-level Kafka questions concisely]
 technologies: [Apache Kafka 4.x, Spring Kafka 4.x, Kafka Streams, Kafka Connect]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Apache Kafka And Spring Kafka Revision Sheet

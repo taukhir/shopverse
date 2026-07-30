@@ -2,11 +2,15 @@
 title: MCP With Spring AI
 sidebar_position: 3
 difficulty: Intermediate
-page_type: Practical Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives: [Explain MCP architecture, Build a Spring AI MCP client or server, Secure model-triggered tools]
 technologies: [Spring AI, Model Context Protocol, Spring Boot, OAuth 2.0]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # MCP With Spring AI

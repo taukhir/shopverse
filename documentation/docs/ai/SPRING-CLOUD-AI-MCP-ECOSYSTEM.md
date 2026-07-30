@@ -1,12 +1,16 @@
 ---
 title: Spring Cloud AI And MCP Ecosystem
 difficulty: Advanced
-page_type: Architecture Guide
-status: Maintained
+page_type: Guide
+status: maintained
 keywords: [Spring Cloud, Spring AI, MCP, Gateway, Config, Stream, Resilience4j]
 learning_objectives: [Place AI services and MCP adapters in Spring Cloud, Design streaming resilient and event-driven AI flows, Propagate identity deadlines and telemetry safely]
 technologies: [Spring Cloud Gateway, Spring Cloud Config, Spring Cloud Stream, Spring AI, MCP]
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud AI And MCP Ecosystem

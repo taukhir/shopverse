@@ -3,10 +3,14 @@ title: "Decorator Pattern in Spring"
 description: "Compose explicit logging, metrics, validation, and resilience around Spring services while avoiding proxy confusion."
 sidebar_label: "Decorator"
 tags: ["spring", "design-patterns", "interview"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Decorator Pattern in Spring

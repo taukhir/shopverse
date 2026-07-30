@@ -3,10 +3,14 @@ title: "ArrayList Internals and Usage"
 description: "ArrayList storage, default capacity, growth, shifting, complexity, methods, iteration, memory, and selection guidance."
 sidebar_label: "ArrayList"
 tags: [java, collections, list, arraylist, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # ArrayList Internals and Usage

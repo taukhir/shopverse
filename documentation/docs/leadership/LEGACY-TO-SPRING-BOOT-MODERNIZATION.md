@@ -2,8 +2,8 @@
 title: Legacy To Spring Boot Modernization
 description: An incremental, risk-controlled approach to modernizing legacy Java applications with Spring Boot.
 difficulty: Advanced
-page_type: Migration Guide
-status: Generic
+page_type: Guide
+status: maintained
 keywords: [legacy modernization, Spring Boot migration, strangler fig, characterization test, application server, Java upgrade]
 learning_objectives:
   - Assess legacy business behavior, coupling, risk, and modernization economics
@@ -11,6 +11,10 @@ learning_objectives:
   - Sequence Spring Boot, data, security, integration, and operational migration safely
 technologies: [Java, Spring Boot, Spring Security, Liquibase, Docker]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Legacy To Spring Boot Modernization

@@ -3,10 +3,14 @@ title: "LinkedHashMap Internals and Usage"
 description: "LinkedHashMap hash-table and order-chain storage, defaults, access order, eviction hooks, methods, complexity, and use cases."
 sidebar_label: "LinkedHashMap"
 tags: [java, collections, map, linkedhashmap, cache, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # LinkedHashMap Internals and Usage

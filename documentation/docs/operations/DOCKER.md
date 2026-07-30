@@ -5,10 +5,14 @@ sidebar_label: Docker Overview
 sidebar_position: 2
 difficulty: Beginner
 page_type: Tutorial
-status: Generic
+status: maintained
 learning_objectives: [Build reproducible container images, Operate and troubleshoot containerized services]
 technologies: [Docker, Docker Compose]
 last_reviewed: "2026-07-10"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker Overview: Images, Containers, Volumes, Networks, And Compose

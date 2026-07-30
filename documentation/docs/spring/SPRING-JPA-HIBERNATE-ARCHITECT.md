@@ -3,11 +3,15 @@ title: Spring Data JPA And Hibernate Runtime For Architects
 description: Canonical persistence-runtime synthesis covering unit-of-work behavior, query plans, concurrency, connection capacity, schema rollout, and incident evidence.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Spring Data JPA, Hibernate lifecycle, Spring transactions, Database isolation]
 learning_objectives: [Trace a repository call through flush and commit, Design bounded query concurrency and schema evolution, Diagnose persistence incidents from SQL lock pool and runtime evidence]
 technologies: [Spring Data JPA, Hibernate ORM, JDBC, HikariCP, Liquibase]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data JPA And Hibernate Runtime For Architects

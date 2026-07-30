@@ -7,6 +7,10 @@ page_type: Reference
 difficulty: Intermediate
 status: maintained
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Design Pattern Selection Cheat Sheet

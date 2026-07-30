@@ -1,8 +1,14 @@
 ---
 title: Service Catalog
 sidebar_position: 1
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: shopverse
+owner: docs-services
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Shopverse Service Catalog
@@ -12,9 +18,9 @@ commands remain in each service README.
 
 | Component | Port | Responsibility | Key dependencies |
 |---|---:|---|---|
-| API Gateway | 8080 | routing, edge JWT validation, correlation, request metrics | Eureka, Config Server, Auth JWKS |
+| API Gateway | 8080 | routing, edge JWT validation, correlation, request metrics, dependency readiness | Eureka, Config Server, Auth JWKS |
 | Auth Service | 8081 | login, RSA JWT signing, JWKS publication | User Service, Eureka, Config Server |
-| User Service | 8082 | users, roles, permissions, internal credential lookup | MySQL, Eureka, Config Server |
+| User Service | 8082 | users, roles, permissions, credential lookup, addresses, persisted carts, admin audit | MySQL, Eureka, Config Server |
 | Order Service | 8083 | idempotent checkout, order state, timeline, SAGA participation | MySQL, Inventory HTTP, Kafka |
 | Payment Service | 8084 | payment lifecycle, simulation, reconciliation, refund | MySQL, Kafka |
 | Inventory Service | 8086 | stock, reservation, expiry, compensation | MySQL, Kafka |
@@ -82,13 +88,16 @@ comes through APIs and events.
 
 ## Service Documentation
 
-- [API Gateway README](https://github.com/taukhir/shopverse/tree/main/api-gateway)
-- [Auth Service README](https://github.com/taukhir/shopverse/tree/main/auth-service)
-- [User Service README](https://github.com/taukhir/shopverse/tree/main/user-service)
-- [Order Service README](https://github.com/taukhir/shopverse/tree/main/order-service)
-- [Inventory Service README](https://github.com/taukhir/shopverse/tree/main/inventory-service)
-- [Payment Service README](https://github.com/taukhir/shopverse/tree/main/payment-service)
-- [Config Server README](https://github.com/taukhir/shopverse/tree/main/config-server)
-- [Discovery Server README](https://github.com/taukhir/shopverse/tree/main/discovery-server)
-- [Angular Storefront README](https://github.com/taukhir/shopverse/tree/main/shopverse-web)
-- [Documentation README](https://github.com/taukhir/shopverse/tree/main/documentation)
+- [Service README Index](./SERVICE-README-INDEX.md)
+- [API Gateway README](./readmes/API-GATEWAY-README.md)
+- [Auth Service README](./readmes/AUTH-SERVICE-README.md)
+- [User Service README](./readmes/USER-SERVICE-README.md)
+- [Order Service README](./readmes/ORDER-SERVICE-README.md)
+- [Inventory Service README](./readmes/INVENTORY-SERVICE-README.md)
+- [Payment Service README](./readmes/PAYMENT-SERVICE-README.md)
+- [Config Server README](./readmes/CONFIG-SERVER-README.md)
+- [Cloud Configuration README](./readmes/CLOUD-CONFIGS-README.md)
+- [Discovery Server README](./readmes/DISCOVERY-SERVER-README.md)
+- [Shopverse Platform README](./readmes/SHOPVERSE-PLATFORM-README.md)
+- [Angular Storefront README](./readmes/SHOPVERSE-WEB-README.md)
+- [README And AI Capability Gap Matrix](./SERVICE-README-AI-CAPABILITY-GAP-MATRIX.md)

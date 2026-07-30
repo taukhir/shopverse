@@ -1,0 +1,28 @@
+{
+  "journey": "GET /api/v1/orders/history?page=0&size=20",
+  "environment": "synthetic-performance-fixture",
+  "dataset_orders": 500000,
+  "concurrency": 40,
+  "before": {
+    "p50_ms": 620,
+    "p95_ms": 1800,
+    "p99_ms": 2400,
+    "throughput_rps": 38,
+    "error_rate_percent": 0.1,
+    "sql_statements_per_request": 41,
+    "database_cpu_percent": 82
+  },
+  "after": {
+    "p50_ms": 180,
+    "p95_ms": 430,
+    "p99_ms": 610,
+    "throughput_rps": 91,
+    "error_rate_percent": 0.1,
+    "sql_statements_per_request": 2,
+    "database_cpu_percent": 49
+  },
+  "target": {
+    "p95_ms_max": 500,
+    "error_rate_percent_max": 0.2
+  }
+}

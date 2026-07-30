@@ -3,13 +3,17 @@ title: SpEL Spring Integrations
 description: SpEL and placeholder behavior in @Value, method security, caching, events, scheduling, conditional configuration, and Spring Data.
 difficulty: Intermediate
 page_type: Guide
-status: Generic
+status: maintained
 learning_objectives:
   - Identify the root objects and variables supplied by major Spring integrations
   - Use placeholders, SpEL, and ConfigurationProperties for the correct configuration shape
   - Diagnose lifecycle, authorization, cache-key, event, scheduling, and query-performance failures
 technologies: [Spring Framework, Spring Boot, Spring Security, Spring Cache, Spring Data]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # SpEL Spring Integrations

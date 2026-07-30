@@ -2,11 +2,15 @@
 title: Performance, Capacity, And FinOps
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [load testing, coordinated omission, soak test, stress test, capacity planning, FinOps, cost per request]
 learning_objectives: [Design representative load tests, Turn saturation into capacity limits, Attribute and optimize unit cost safely]
 technologies: [Java, PostgreSQL, Kafka, Kubernetes]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Performance, Capacity, And FinOps

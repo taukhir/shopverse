@@ -2,12 +2,16 @@
 title: Spring Cloud Stream Overview
 description: A beginner-friendly mental model of messages, functions, bindings, destinations, binders, groups, and framework selection.
 difficulty: Beginner
-page_type: Overview
-status: Generic
+page_type: Reference
+status: maintained
 prerequisites: [Java functions, Spring Boot basics]
 learning_objectives: [Explain Spring Cloud Stream without jargon, Map functions to broker destinations, Choose between Spring Cloud Stream and Spring Kafka]
 technologies: [Spring Cloud Stream, Spring Cloud Function, Kafka Binder]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Stream Overview

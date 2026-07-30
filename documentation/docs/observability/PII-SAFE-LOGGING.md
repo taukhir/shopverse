@@ -2,11 +2,15 @@
 title: PII-Safe Logging And Data Classification
 sidebar_position: 2
 difficulty: Intermediate
-page_type: Practical Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives: [Identify PII in application data, Design privacy-preserving logs, Respond to sensitive-data logging incidents]
 technologies: [SLF4J, Logback, Loki, OpenTelemetry]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # PII-Safe Logging And Data Classification

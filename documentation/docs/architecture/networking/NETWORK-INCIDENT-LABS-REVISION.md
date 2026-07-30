@@ -2,12 +2,16 @@
 title: Network Diagnosis Incidents, Labs, Interviews, And Revision
 description: Diagnose end-to-end DNS, TCP, TLS, HTTP/2, proxy, load-balancer and Kubernetes failures using timing, sockets, packet capture, labs, and a revision sheet.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [TLS And HTTP2 Diagnosis]
 learning_objectives: [Run evidence-led network triage, Complete safe protocol labs, Answer production networking interviews]
 technologies: [DNS, TCP, TLS, HTTP/2, Wireshark, tcpdump]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Network Diagnosis Incidents, Labs, Interviews, And Revision

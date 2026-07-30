@@ -1,8 +1,14 @@
 ---
 title: LangChain4j Track
 sidebar_position: 6.25
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # LangChain4j Track

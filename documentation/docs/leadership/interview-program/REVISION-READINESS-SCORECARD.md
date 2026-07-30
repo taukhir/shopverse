@@ -3,10 +3,14 @@ title: Revision And Interview Readiness Scorecard
 description: Reusable scoring, weakness logging, spaced revision, mock evaluation, critical-error gates, and final interview readiness criteria.
 difficulty: Intermediate
 page_type: Practice
-status: Complete
+status: maintained
 prerequisites: [Lead And Architect Preparation Dashboard]
 technologies: [Interview Practice, Spaced Retrieval, Architecture]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Revision And Interview Readiness Scorecard

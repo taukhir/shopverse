@@ -3,11 +3,15 @@ title: Vault And Kubernetes Secrets Architect Path
 description: Complete secrets route through Vault architecture, seal and HA, auth, policies, engines, leases, dynamic credentials, PKI, Kubernetes integration, External Secrets, CSI, rotation, audit, recovery, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Kubernetes security, TLS, Identity fundamentals]
 learning_objectives: [Design secret lifecycle and trust bootstrap, Operate Vault and Kubernetes integrations, Rotate credentials without downtime, Diagnose and recover secrets incidents]
 technologies: [Vault, Kubernetes, External Secrets Operator, Secrets Store CSI]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Vault And Kubernetes Secrets Architect Path

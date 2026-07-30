@@ -3,11 +3,15 @@ title: Capstone Implementation, Failure Programme, And Portfolio Defence
 description: Concrete repository layout, delivery gates, failure programme, evidence matrix, architecture decisions, review rubric, and interview defence for the integrated capstone.
 difficulty: Advanced
 page_type: Practice
-status: Shopverse-specific
+status: maintained
 prerequisites: [ShopVerse Integrated Production Architecture Capstone]
 learning_objectives: [Structure implementation artifacts, Execute failure and recovery drills, Prove architecture claims, Defend decisions under interview questioning]
 technologies: [ShopVerse, Kubernetes, Kafka, Terraform, Vault, k6]
 last_reviewed: "2026-07-24"
+scope: shopverse
+owner: docs-case-study
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Capstone Implementation, Failure Programme, And Portfolio Defence

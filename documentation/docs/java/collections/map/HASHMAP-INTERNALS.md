@@ -3,10 +3,14 @@ title: "HashMap Internals and Usage"
 description: "HashMap buckets, defaults, load factor, resize, collisions, treeification, methods, key safety, complexity, and selection."
 sidebar_label: "HashMap"
 tags: [java, collections, map, hashmap, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # HashMap Internals and Usage

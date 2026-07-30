@@ -3,10 +3,14 @@ title: "TreeSet Internals and Usage"
 description: "TreeSet red-black tree backing, comparator identity, navigation, methods, complexity, ranges, and selection guidance."
 sidebar_label: "TreeSet"
 tags: [java, collections, set, treeset, red-black-tree, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TreeSet Internals and Usage

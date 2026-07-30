@@ -16,7 +16,7 @@ API Gateway runs on port `8080` and is the normal client entry point.
 | Prefix | Destination |
 |---|---|
 | `/auth/**` | Auth Service |
-| `/api/v1/users/**`, `/api/v1/roles/**`, `/api/v1/permissions/**` | User Service |
+| `/api/v1/users/**`, `/api/v1/cart/**`, `/api/v1/roles/**`, `/api/v1/permissions/**`, `/api/v1/admin/**` | User Service |
 | `/api/v1/orders/**` | Order Service |
 | `/api/v1/payments/**` | Payment Service |
 | `/api/v1/inventory/**` | Inventory Service |
@@ -59,6 +59,23 @@ and can be queried with:
 {log_type="application", application="API-GATEWAY"}
 ```
 
+Use `GET /actuator/shopverse-readiness` for the Shopverse dependency check. It
+verifies required Eureka registrations, configured route IDs, catalog reachability,
+and the optional MinIO object boundary. A healthy gateway process is not sufficient
+evidence that the storefront journey is ready.
+
+## Failure And Security Boundaries
+
+- The default retry applies only to `GET`; never retry checkout, payment, or other
+  mutation requests at the gateway without an idempotency contract.
+- Circuit-breaker fallback must return an explicit unavailable response and must
+  not fabricate a successful downstream result.
+- Public route configuration is an edge policy. Every downstream service still
+  validates JWT authorities and resource ownership.
+- Keep `/api/v1/internal/**` outside gateway routing.
+- Diagnose failures in this order: readiness result, route ID, Eureka instance,
+  downstream health, JWT/JWKS validation, then timeout/circuit-breaker metrics.
+
 ## Run
 
 ```powershell
@@ -69,6 +86,27 @@ and can be queried with:
 docker compose build api-gateway
 docker compose up -d api-gateway
 ```
+
+## AI-Assisted Development
+
+This module has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
+[`CLAUDE.md`](CLAUDE.md). AI tools can help trace routes and filter order, review JWT and correlation
+propagation, diagnose discovery/load-balancing failures, inspect reactive latency,
+and generate focused gateway tests. Start with the repository
+[`AGENTS.md`](../AGENTS.md) and use these reviewed workflows:
+
+- [Implement a bounded feature](../ai-workflows/prompts/implement-feature.md)
+- [Security review](../ai-workflows/prompts/security-review.md)
+- [Optimize performance](../ai-workflows/prompts/optimize-performance.md)
+- [Incident investigation](../ai-workflows/prompts/incident-investigation.md)
+
+Keep route configuration, gateway code, and downstream authorization boundaries
+distinct. AI must not expose internal-only routes, weaken JWT validation, log
+tokens, or treat edge authentication as a replacement for service ownership
+checks. Validate focused tests and the complete gateway Gradle test suite.
+
+The deterministic evaluation suite includes gateway route exposure, JWT,
+non-blocking filter, retry, and dependency-readiness review.
 
 ## Related Guides
 

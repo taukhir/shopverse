@@ -2,8 +2,8 @@
 title: Spring Resource Pools, Concurrency And Capacity
 description: Evidence-driven capacity planning for Spring request admission, virtual threads, executors, Hikari, HTTP clients, Kafka consumers, schedulers, replica budgets, saturation, observability, and failure drills.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives:
   - Convert workload and latency into bounded concurrency estimates
   - Align request, executor, database, HTTP, Kafka, and scheduler capacity
@@ -11,6 +11,10 @@ learning_objectives:
   - Verify overload, retry, scaling, and replica behavior with executable drills
 technologies: [Spring Boot, HikariCP, Micrometer, Kafka, HTTP Clients]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Resource Pools, Concurrency And Capacity

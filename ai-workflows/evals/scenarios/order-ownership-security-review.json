@@ -1,0 +1,15 @@
+{
+  "id": "order-ownership-security-review",
+  "title": "Find An Order Ownership Vulnerability",
+  "prompt_path": "../prompts/security-review.md",
+  "fixture_paths": ["fixtures/order-ownership-controller.java", "fixtures/order-ownership-requirement.md"],
+  "expected_path": "expected/order-ownership-security-review.json",
+  "authority": {
+    "reads": ["provided fixtures"],
+    "writes": [],
+    "external_actions": []
+  },
+  "task": "Review the synthetic order endpoint for object-level authorization. Report actionable findings with attack path, impact, remediation, and a negative regression test. Do not edit files.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["The ownership contract cannot be established"]
+}

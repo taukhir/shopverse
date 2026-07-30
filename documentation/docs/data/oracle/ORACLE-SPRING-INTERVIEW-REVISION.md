@@ -2,12 +2,16 @@
 title: Oracle With Spring, Interview Scenarios, Labs, And Revision
 description: Integrate Oracle with Spring Boot/JPA safely and revise architect-level Oracle scenarios through practical labs.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Oracle HA And Operations, Spring Data JPA]
 learning_objectives: [Configure Spring Oracle access, Prevent ORM and pool failures, Answer production scenario questions]
 technologies: [Oracle Database, Spring Boot, JDBC, Hibernate]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Oracle With Spring, Interview Scenarios, Labs, And Revision

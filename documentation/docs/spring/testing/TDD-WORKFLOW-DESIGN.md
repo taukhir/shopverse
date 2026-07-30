@@ -3,11 +3,15 @@ title: TDD Workflow And Design Feedback
 description: Practise red-green-refactor, test selection, state and interaction testing, triangulation, test doubles, and outside-in versus inside-out development.
 difficulty: Intermediate
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [JUnit Testing Fundamentals]
 learning_objectives: [Run a disciplined TDD loop, Use tests as design feedback, Avoid over-mocking and brittle implementation coupling]
 technologies: [Java, JUnit 5, Mockito]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TDD Workflow And Design Feedback

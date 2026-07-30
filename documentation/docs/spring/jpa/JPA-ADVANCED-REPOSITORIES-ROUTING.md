@@ -3,11 +3,15 @@ title: Advanced JPA Repositories Routing And Provider Features
 description: Querydsl, scrolling, stored procedures, bulk DML, routing, multi-tenancy, filters, Envers, domain events, callbacks, OSIV, and advanced production decisions.
 difficulty: Architect
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Data JPA, Hibernate internals]
 learning_objectives: [Implement advanced repository queries, Design tenant and datasource routing, Avoid provider lifecycle and bulk update hazards]
 technologies: [Spring Data JPA, Hibernate, Querydsl, Spring Boot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Advanced JPA Repositories Routing And Provider Features

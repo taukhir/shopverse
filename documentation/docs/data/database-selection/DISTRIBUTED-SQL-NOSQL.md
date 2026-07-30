@@ -2,11 +2,15 @@
 title: Distributed SQL And NoSQL
 sidebar_position: 2
 difficulty: Intermediate
-page_type: Comparison
-status: Generic
+page_type: Reference
+status: maintained
 learning_objectives: [Compare distributed SQL wide-column document and key-value models, Design partition-key-driven access]
 technologies: [CockroachDB, Cassandra, MongoDB, DynamoDB]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed SQL And NoSQL

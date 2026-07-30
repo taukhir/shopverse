@@ -3,11 +3,15 @@ title: TCP Connections, Congestion, NAT, And Socket Diagnosis
 description: Understand TCP state, sequence and acknowledgement, retransmission, flow and congestion control, keepalive, queues, ports, NAT, load balancers, and packet evidence.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [DNS Resolution Diagnosis]
 learning_objectives: [Trace TCP connection lifecycle, Explain latency and loss behavior, Diagnose socket and port failures]
 technologies: [TCP, Linux sockets, NAT]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TCP Connections, Congestion, NAT, And Socket Diagnosis

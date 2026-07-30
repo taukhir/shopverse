@@ -3,13 +3,17 @@ title: Spring Boot Production Lifecycle And Incident Runbook
 description: Canonical Spring Boot runbook for startup, availability, readiness, admission, graceful drain, forced termination, Actuator security, observability, incident evidence, and recovery drills.
 difficulty: Advanced
 page_type: Runbook
-status: Generic
+status: maintained
 learning_objectives:
   - Separate liveness, readiness, startup completion, and business availability
   - Coordinate admission, drain, resource closure, and forced-termination recovery
   - Build secure low-cardinality observations and an evidence-first incident workflow
 technologies: [Spring Boot, Actuator, Micrometer, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Production Lifecycle And Incident Runbook

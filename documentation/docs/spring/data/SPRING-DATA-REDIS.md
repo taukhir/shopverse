@@ -3,11 +3,15 @@ title: Spring Data Redis In Depth
 description: RedisTemplate, repositories, serialization, TTL, caching, locking, Pub/Sub, Streams, clustering, testing, and production incidents.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Redis fundamentals, Spring Data Commons]
 learning_objectives: [Select Redis access APIs, Design key TTL and serialization contracts, Diagnose memory latency and cluster failures]
 technologies: [Spring Data Redis, Redis, Spring Boot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Redis In Depth

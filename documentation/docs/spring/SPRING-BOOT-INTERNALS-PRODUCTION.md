@@ -2,11 +2,15 @@
 title: Spring Boot Runtime Engineering Map
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 keywords: [ApplicationContext internals, BeanPostProcessor, Spring proxy, DispatcherServlet, Hibernate dirty checking, transaction synchronization]
 learning_objectives: [Find the canonical runtime guide from a failure symptom, Trace Spring startup and request execution, Tune production lifecycle from evidence]
 technologies: [Spring Boot, Spring Framework, Hibernate, Tomcat]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Runtime Engineering Map

@@ -6,10 +6,14 @@ tags:
   - "reliability"
   - "shopverse"
   - "production"
-page_type: "Guide"
-difficulty: "Intermediate"
-status: "maintained"
+page_type: Guide
+difficulty: Intermediate
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 # Choreography SAGA And Transactional Outbox
 

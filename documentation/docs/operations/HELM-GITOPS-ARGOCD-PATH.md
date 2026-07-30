@@ -3,11 +3,15 @@ title: Helm, GitOps, And Argo CD Architect Path
 description: Complete route through Helm chart engineering, GitOps principles, Argo CD reconciliation, progressive delivery, security, operations, incidents, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Git, Containers, Kubernetes fundamentals, CI/CD fundamentals]
 learning_objectives: [Build maintainable Helm charts, Design pull-based GitOps delivery, Operate and secure Argo CD at scale]
 technologies: [Helm, GitOps, Argo CD, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Helm, GitOps, And Argo CD Architect Path

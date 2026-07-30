@@ -3,10 +3,14 @@ title: "Shopverse Service Landscape"
 description: "A service-ownership map connecting Shopverse capabilities, data, APIs, events, and operations."
 sidebar_label: "Shopverse Service Landscape"
 tags: ["shopverse", "services", "ownership"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-services
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Shopverse Service Landscape
@@ -35,6 +39,8 @@ flowchart TB
 
 <TopicCards items={[
   {title: 'Service catalog', href: '/services/SERVICE-CATALOG', description: 'Ports, responsibilities, dependencies, data, and signals.', icon: 'layers', tags: ['Inventory', 'Operations']},
+  {title: 'Service README index', href: '/services/SERVICE-README-INDEX', description: 'Searchable site mirrors of every canonical component README.', icon: 'book', tags: ['Source', 'Operations']},
+  {title: 'README and AI gap matrix', href: '/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX', description: 'AI workflow, scoped guidance, evaluation, and documentation coverage by component.', icon: 'brain', tags: ['AI', 'Governance']},
   {title: 'Service boundaries', href: '/architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP', description: 'Derive boundaries from invariants and ownership.', icon: 'security', tags: ['DDD', 'Ownership']},
   {title: 'System design', href: '/architecture/SYSTEM-DESIGN', description: 'Connect services through runtime and failure flows.', icon: 'network', tags: ['Architecture']},
 ]} />

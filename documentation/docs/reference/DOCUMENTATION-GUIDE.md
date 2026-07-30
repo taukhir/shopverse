@@ -2,10 +2,14 @@
 title: Documentation Guide
 difficulty: Beginner
 page_type: Learning Path
-status: Generic
+status: maintained
 learning_objectives: [Choose the correct documentation path, Distinguish concepts labs runbooks and implementation pages, Maintain canonical content safely]
 technologies: [Docusaurus]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-reference
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Documentation Guide

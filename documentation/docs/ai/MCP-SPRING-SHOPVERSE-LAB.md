@@ -2,11 +2,15 @@
 title: Spring AI MCP And Shopverse Lab
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [Spring AI MCP client, Spring Boot MCP server, Shopverse MCP, MCP testing]
 learning_objectives: [Build a read-only Spring MCP server, Propagate identity and authorize tools, Test protocol failure injection and observability]
 technologies: [Spring AI, MCP, Spring Boot, Shopverse]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring AI MCP And Shopverse Lab

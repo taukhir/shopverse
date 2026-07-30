@@ -2,12 +2,16 @@
 title: TKGI Control Plane Architecture And Component Interactions
 description: Canonical TKGI 1.25 control-plane architecture guide covering API and database VM groups, UAA, TKGI API, Broker, On-Demand Service Broker, Service Adapter, BOSH, NSX Proxy Broker, MySQL, billing, telemetry, request flows, endpoint exposure, high availability, failures, operations, and interviews.
 difficulty: Advanced
-page_type: Architecture Deep Dive
-status: Generic
+page_type: Deep Dive
+status: maintained
 prerequisites: [TKGI overview, Kubernetes control plane, BOSH fundamentals, OAuth2]
 learning_objectives: [Explain every TKGI control-plane component, Trace read credential and mutation requests, Distinguish TKGI BOSH and Kubernetes control planes, Diagnose failures by interaction boundary, Defend standard and HA topology]
 technologies: [TKGI 1.25, UAA, BOSH, MySQL, vSphere, NSX, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Control Plane Architecture And Component Interactions

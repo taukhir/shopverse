@@ -3,11 +3,15 @@ title: Maven Dependencies, BOMs, Reactors, And Profiles
 description: Master dependency scopes and mediation, exclusions, BOM imports, multi-module ordering, partial builds, and profile design.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Maven POM Lifecycle And Plugins]
 learning_objectives: [Predict dependency resolution, Govern versions through BOMs, Operate large reactors efficiently]
 technologies: [Apache Maven]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Maven Dependencies, BOMs, Reactors, And Profiles

@@ -3,10 +3,14 @@ title: System Design Concepts Roadmap
 sidebar_position: 2
 difficulty: Beginner
 page_type: Learning Path
-status: Generic
+status: maintained
 learning_objectives: [Sequence system design concepts, Connect requirements to architecture decisions]
 technologies: [HTTP, Kafka, Redis, Docker, JWT]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # System Design Concepts Roadmap

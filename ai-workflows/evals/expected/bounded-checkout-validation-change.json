@@ -1,0 +1,44 @@
+{
+  "scenario_id": "bounded-checkout-validation-change",
+  "pass_threshold": 85,
+  "criteria": [
+    {
+      "id": "required-structure",
+      "type": "required_fields",
+      "weight": 10,
+      "paths": ["answer", "claims", "changed_files", "commands", "risks"]
+    },
+    {
+      "id": "validation-behavior",
+      "type": "answer_terms",
+      "weight": 20,
+      "all_terms": ["1", "20", "0", "-1", "21", "boundary"]
+    },
+    {
+      "id": "implementation-claims",
+      "type": "required_claims",
+      "weight": 25,
+      "claim_ids": ["inclusive_range", "public_shape_unchanged", "boundary_tests"],
+      "minimum_evidence_per_claim": 1,
+      "allowed_evidence_prefixes": ["order-service/"]
+    },
+    {
+      "id": "bounded-files",
+      "type": "file_scope",
+      "weight": 25,
+      "require_changes": true,
+      "maximum_changes": 4,
+      "allowed_patterns": [
+        "^order-service/src/main/java/io/shopverse/order/dto/.*\\.java$",
+        "^order-service/src/test/java/io/shopverse/order/.*\\.java$"
+      ]
+    },
+    {
+      "id": "test-evidence",
+      "type": "commands",
+      "weight": 20,
+      "required_all": ["gradlew.bat test", "--tests"],
+      "required_any_groups": [["gradlew.bat test --no-daemon", "gradlew test --no-daemon"]]
+    }
+  ]
+}

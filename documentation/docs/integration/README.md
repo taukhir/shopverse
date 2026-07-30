@@ -3,10 +3,14 @@ title: "Messaging And Integration"
 description: "A decision-first route for Kafka and synchronous or asynchronous service integration."
 sidebar_label: "Messaging And Integration"
 tags: ["integration", "kafka", "microservices"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Messaging And Integration

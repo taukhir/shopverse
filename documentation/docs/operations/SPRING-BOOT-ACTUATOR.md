@@ -2,11 +2,15 @@
 title: Spring Boot Actuator
 difficulty: Intermediate
 page_type: Guide
-status: Generic with Shopverse mapping
+status: maintained
 prerequisites: [Spring Boot fundamentals]
 learning_objectives: [Explain Actuator endpoints, Configure health metrics and probes, Secure management access]
 technologies: [Spring Boot Actuator, Micrometer, Prometheus]
 last_reviewed: "2026-07-11"
+scope: hybrid
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Actuator

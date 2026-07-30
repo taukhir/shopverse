@@ -2,12 +2,16 @@
 title: TKGI Production Incidents CLI And Interview Revision
 description: Evidence-first TKGI incident runbook with safe CLI inspection, cross-plane correlation, production scenarios, escalation evidence, rapid revision, and lead-level interview questions.
 difficulty: Advanced
-page_type: Revision Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [TKGI production operations path, TKGI architecture, BOSH CLI, kubectl]
 learning_objectives: [Triage incidents by control plane, Use TKGI BOSH and kubectl evidence safely, Diagnose common failures, Build escalation packages, Answer production interview questions]
 technologies: [TKGI 1.25, TKGI CLI, BOSH CLI, kubectl, Kubernetes, NSX, UAA]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Production Incidents CLI And Interview Revision
@@ -220,9 +224,13 @@ configuration, capacity or dependencies.
 | Telegraf | metric forwarding agent in documented sink architecture |
 | canary | first BOSH instance used to detect rollout failure early |
 
-## Next Revision
+## Recommended Next
 
 Return to [TKGI Beginner-To-Architect Overview](./TKGI-OVERVIEW-PATH.md), then practise
 explaining one request and one incident from client DNS/TLS through TKGI, BOSH, IaaS,
 Kubernetes and the application SLO.
 
+## Official References
+
+- [Broadcom TKGI 1.25 documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/index.html)
+- [Kubernetes debugging documentation](https://kubernetes.io/docs/tasks/debug/)

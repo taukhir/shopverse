@@ -3,12 +3,16 @@ title: Spring Boot Operations Diagnostic Route Map
 description: Route map for Spring Boot startup, memory, resource capacity, readiness, graceful drain, observability, and incident diagnostics.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 learning_objectives:
   - Route an operational symptom to its canonical production guide
   - Preserve the existing operations URL without duplicating tuning and lifecycle guidance
 technologies: [Spring Boot, Actuator, Micrometer, JVM]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Operations Diagnostic Route Map

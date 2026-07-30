@@ -2,11 +2,15 @@
 title: Retail Domain And Commerce Architecture
 description: Retail domain guide covering products, offers, inventory, carts, checkout, orders, payments, fulfillment, returns, channels, invariants, events, and production metrics.
 difficulty: Intermediate
-page_type: Domain Guide
-status: Complete
+page_type: Guide
+status: maintained
 prerequisites: [Microservices fundamentals, database transactions, event-driven architecture]
 technologies: [Java, Spring Boot, Kafka, SQL, Redis, Elasticsearch]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Retail Domain And Commerce Architecture

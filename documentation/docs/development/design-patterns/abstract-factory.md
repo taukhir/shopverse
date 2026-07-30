@@ -3,10 +3,14 @@ title: "Abstract Factory Pattern in Java and Spring"
 description: "Create compatible product families, compare Java and Spring implementations, and manage Abstract Factory trade-offs."
 sidebar_label: "Abstract Factory"
 tags: ["java", "spring", "design-patterns", "creational", "interview"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Abstract Factory Pattern in Java and Spring

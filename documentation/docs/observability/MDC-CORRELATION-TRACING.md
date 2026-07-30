@@ -3,10 +3,14 @@ title: "Correlation And Trace Propagation"
 description: "Propagate identity across gateway, servlet, HTTP, Kafka, and asynchronous boundaries."
 sidebar_label: "Correlation And Trace Propagation"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -53,3 +57,7 @@ Within **Correlation And Trace Propagation**, apply the Shopverse guidance incre
 
 - [Micrometer documentation](https://docs.micrometer.io/micrometer/reference/)
 - [OpenTelemetry documentation](https://opentelemetry.io/docs/)
+
+## Recommended Next Page
+
+Continue with [Micrometer Metrics](./MICROMETER-METRICS.md).

@@ -2,11 +2,15 @@
 title: Networking, gRPC, And Service Mesh
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 keywords: [DNS, TCP, TLS, HTTP2, HTTP3, gRPC, service mesh, Istio, Linkerd, mTLS]
 learning_objectives: [Trace a request through network layers, Choose REST gRPC or asynchronous messaging, Evaluate service-mesh benefits and failure modes]
 technologies: [HTTP, gRPC, TLS, Istio, Linkerd]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Networking, gRPC, And Service Mesh

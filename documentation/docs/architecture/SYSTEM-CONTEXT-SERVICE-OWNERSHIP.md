@@ -3,10 +3,14 @@ title: "System Context And Service Ownership"
 description: "System Context And Service Ownership with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "System Context And Service Ownership"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # System Context And Service Ownership

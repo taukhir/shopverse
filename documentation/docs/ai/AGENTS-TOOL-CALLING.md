@@ -2,11 +2,15 @@
 title: Agents And Tool Calling
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [AI agent, ReAct, planner executor, tool calling, human approval]
 learning_objectives: [Choose deterministic workflows or agents, Build bounded tool loops, Secure and evaluate tool execution]
 technologies: [Spring AI, MCP]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Agents And Tool Calling

@@ -2,14 +2,19 @@
 title: Spring Test Slices And TestContext Cache
 description: Spring Boot 4 focused test modules, slice ownership, TestContext cache keys, failure thresholds, context diagnostics, bean overrides, and suite startup performance.
 difficulty: Advanced
-page_type: Testing
-status: Implemented
+page_type: Guide
+status: maintained
 learning_objectives:
   - Choose a Boot test slice whose loaded boundary matches the claim
   - Diagnose context-cache fragmentation and repeated startup failures
   - Use bean overrides, profiles, dynamic properties, and DirtiesContext deliberately
 technologies: [Spring Boot 4, Spring TestContext, JUnit, MockitoBean]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Test Slices And TestContext Cache

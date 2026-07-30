@@ -3,11 +3,15 @@ title: Kafka Replay And Idempotency Lab
 description: Design retry, DLT recovery, replay admission, and idempotent Shopverse effects.
 difficulty: Advanced
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Kafka consumer groups, Spring Kafka error handling]
 learning_objectives: [Classify failures, Prove idempotency, Operate controlled replay]
 technologies: [Spring Kafka, Java 21, PostgreSQL]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Replay And Idempotency Lab

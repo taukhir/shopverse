@@ -3,11 +3,15 @@ title: Application And Platform Security Revision Sheet
 description: Rapid revision of threat modeling, authentication, authorization, OAuth2, OIDC, JWT, service identity, secrets, and incident operations.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Application And Platform Security Learning Guide]
 learning_objectives: [Recall security boundaries quickly, Review distributed authorization designs, Answer security architect scenarios]
 technologies: [Spring Security 7, OAuth2, OIDC, JWT, Kubernetes]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Application And Platform Security Revision Sheet

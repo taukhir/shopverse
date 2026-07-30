@@ -2,12 +2,16 @@
 title: Containers, Virtual Machines, Kubernetes, And BOSH
 description: Compare processes, containers, Pods, virtual machines, Kubernetes, and BOSH; understand isolation, scheduling, lifecycle ownership, BOSH stemcells, releases, jobs, packages, and managed VMs.
 difficulty: Intermediate
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Linux fundamentals, Container fundamentals]
 learning_objectives: [Distinguish runtime and orchestration layers, Compare VM container Pod and cluster boundaries, Explain BOSH lifecycle management, Diagnose failures at the correct control plane]
 technologies: [Kubernetes, Linux containers, Virtual Machines, BOSH, vSphere]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Containers, Virtual Machines, Kubernetes, And BOSH

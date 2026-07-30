@@ -3,11 +3,15 @@ title: Kubernetes Persistent Storage, Stateful Workloads, And CSI
 description: Design ephemeral and persistent storage with PVs, PVCs, StorageClasses, CSI, topology, snapshots, expansion, StatefulSets, backups, and failure diagnosis.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Kubernetes workloads and scheduling]
 learning_objectives: [Select storage correctly, Trace provisioning attach and mount, Operate stateful workloads safely, Recover storage failures]
 technologies: [Kubernetes, CSI, StatefulSet, VolumeSnapshot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Persistent Storage, Stateful Workloads, And CSI

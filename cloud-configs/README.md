@@ -47,3 +47,47 @@ Service-specific files override or add settings for individual services.
 `API-GATEWAY.yml` exposes public client routes such as `/auth/**`, `/api/v1/orders/**`, `/api/v1/users/**`, `/api/v1/roles/**`, and `/api/v1/permissions/**`.
 
 Internal User Service routes such as `/api/v1/internal/users/authenticated` are not routed through API Gateway. Auth Service calls that endpoint directly through Eureka/OpenFeign for internal Basic credential validation during login.
+
+## Ownership, Validation, And Rollback
+
+- Platform owners maintain shared defaults in `application.yml`; each service owner
+  approves changes to its service-specific file.
+- Secrets must be environment placeholders. Literal passwords, tokens, private keys,
+  or production endpoints are rejected.
+- From `documentation/`, run `npm run check:cloud-configs` to parse every YAML file,
+  verify the required service set and ports, protect internal routes, and check secret
+  placeholders.
+- Review effective configuration through Config Server before rollout, but never
+  paste sensitive environment output into issues or AI prompts.
+- Roll back by reverting the reviewed configuration commit, validating it, and then
+  restarting or securely refreshing every affected replica. Record the old/new commit,
+  affected services, operator, validation result, and residual risk.
+- Treat route, actuator, datasource, Kafka identity, JWT/JWKS, timeout, retry, and
+  consumer-group changes as contract changes with service-specific tests.
+
+## Known Limits
+
+The repository does not yet have typed schemas for every property, distributed
+refresh through Spring Cloud Bus, or automated deployment of configuration commits.
+The validation command provides structural and safety gates, not semantic proof that
+every value is suitable for a production environment.
+
+## AI-Assisted Development
+
+Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
+AI tools can compare service configuration, locate duplicated properties, trace
+which runtime owns a value, and review route or observability changes. Follow the
+root [`AGENTS.md`](../AGENTS.md) and use the
+[security-review](../ai-workflows/prompts/security-review.md),
+[documentation-update](../ai-workflows/prompts/documentation-update.md), and
+[incident-investigation](../ai-workflows/prompts/incident-investigation.md)
+workflows.
+
+Treat configuration as a high-impact trust boundary. Never send real secrets,
+private keys, credentials, or environment dumps to an AI tool. Require human
+approval for route exposure, actuator exposure, security changes, Kafka topic or
+consumer settings, database endpoints, and production configuration writes.
+
+The repository now has scoped instructions, structural/route/secret validation,
+and a deterministic configuration safety scenario. Typed property schemas remain
+a future strengthening step.

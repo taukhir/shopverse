@@ -3,11 +3,15 @@ title: API Contract Lifecycle, OpenAPI, Versioning, And Deprecation
 description: Govern HTTP and RPC APIs from design through lint, generation, compatibility, security, consumer testing, versioning, deprecation, retirement, and production telemetry.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [API And Event Schema Governance Path]
 learning_objectives: [Design stable API contracts, Automate meaningful compatibility checks, Deprecate and retire versions safely]
 technologies: [OpenAPI, REST, gRPC]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # API Contract Lifecycle, OpenAPI, Versioning, And Deprecation

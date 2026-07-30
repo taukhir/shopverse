@@ -3,9 +3,13 @@ title: CompletableFuture Failure, Timeout And Cancellation
 description: Failure propagation, recovery methods, deadlines, interruption, cancellation limits, and typed error handling.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [Java 24, CompletionException]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # CompletableFuture Failure, Timeout And Cancellation

@@ -2,10 +2,14 @@
 title: Application Logging
 difficulty: Beginner
 page_type: Concept
-status: Generic
+status: maintained
 learning_objectives: [Design useful structured application logs, Balance diagnostic value privacy and storage cost]
 technologies: [SLF4J, Logback, Loki]
 last_reviewed: "2026-07-10"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Application Logging

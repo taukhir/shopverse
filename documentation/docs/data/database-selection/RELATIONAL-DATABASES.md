@@ -2,11 +2,15 @@
 title: Relational Databases
 sidebar_position: 1
 difficulty: Intermediate
-page_type: Comparison
-status: Generic
+page_type: Reference
+status: maintained
 learning_objectives: [Compare relational database engines, Choose a relational database for an OLTP workload]
 technologies: [MySQL, PostgreSQL, Oracle Database, Db2, SQL Server, MariaDB, SQLite]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Relational Databases

@@ -3,11 +3,15 @@ title: ShopVerse Integrated Production Architecture Capstone
 description: A portfolio-grade capstone integrating Spring services, databases, Kafka, Docker, Kubernetes, Helm, Argo CD, Terraform, Vault, observability, security, load, chaos, recovery, evidence, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Shopverse-specific
+status: maintained
 prerequisites: [Java and Spring paths, Kafka path, Kubernetes path, IaC path]
 learning_objectives: [Integrate the complete platform, Produce production evidence, Rehearse failures and recovery, Build a defensible architecture portfolio]
 technologies: [Spring Boot, Kafka, PostgreSQL, Cassandra, Elasticsearch, Docker, Kubernetes, Helm, Argo CD, Terraform, Vault]
 last_reviewed: "2026-07-24"
+scope: shopverse
+owner: docs-case-study
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # ShopVerse Integrated Production Architecture Capstone

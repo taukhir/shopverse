@@ -1,8 +1,14 @@
 ---
 title: Java I/O, NIO And Resource Ownership
 description: Streams, buffers, channels, selectors, direct memory, files, sockets, HTTP, cancellation, and architectural ownership.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java I/O, NIO And Resource Ownership

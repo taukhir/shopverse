@@ -3,11 +3,15 @@ title: Distributed Schedulers And Safe Work Claiming
 sidebar_position: 2
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [distributed scheduler, scheduled job, duplicate processing, SKIP LOCKED, row claim, distributed lock, lease, fencing token, range partitioning]
 learning_objectives: [Explain why schedulers duplicate work across replicas, Choose an ownership and claiming strategy, Recover expired work without stale-owner corruption]
 technologies: [Java, Spring Boot, PostgreSQL, MySQL, Redis, Kafka]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed Schedulers And Safe Work Claiming

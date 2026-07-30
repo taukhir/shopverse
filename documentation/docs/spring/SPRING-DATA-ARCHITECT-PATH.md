@@ -3,11 +3,15 @@ title: Spring Data Architect Learning Path
 description: Complete route through Spring Data Commons, relational and NoSQL modules, consistency, testing, operations, production incidents, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Spring container fundamentals, SQL and distributed database fundamentals]
 learning_objectives: [Trace repository calls to store drivers, Select the correct Spring Data module, Prove consistency performance and operability]
 technologies: [Spring Data, Spring Boot, JPA, JDBC, R2DBC, Cassandra, MongoDB, Redis, Elasticsearch]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Architect Learning Path

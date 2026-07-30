@@ -2,10 +2,14 @@
 title: Java Task Cancellation, Deadlines And Shutdown
 description: Cooperative interruption, end-to-end deadlines, Future cancellation, cleanup, durable side effects, and graceful Java executor shutdown.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 technologies: [Java 25, ExecutorService, Future]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Task Cancellation, Deadlines And Shutdown

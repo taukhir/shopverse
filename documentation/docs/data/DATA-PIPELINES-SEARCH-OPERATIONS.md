@@ -2,11 +2,15 @@
 title: Data Pipelines And Search Operations
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 keywords: [ETL, ELT, batch processing, stream processing, watermark, late event, search relevance, zero-downtime reindex]
 learning_objectives: [Choose batch streaming ETL or ELT, Design replayable quality-controlled pipelines, Operate search indexes safely]
 technologies: [Kafka, ClickHouse, Elasticsearch, OpenSearch]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Data Pipelines And Search Operations

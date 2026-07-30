@@ -2,8 +2,14 @@
 title: Java Collections
 sidebar_position: 2
 description: Java Collections hierarchy and learning path from List, Set, Map, Queue, and Deque contracts to dedicated implementation internals.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-24"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Collections

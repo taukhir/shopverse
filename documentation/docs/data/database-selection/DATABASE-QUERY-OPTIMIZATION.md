@@ -2,11 +2,15 @@
 title: Database And Query Optimization
 sidebar_position: 6
 difficulty: Intermediate
-page_type: Practical Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives: [Optimize databases from measured bottlenecks, Rewrite inefficient queries, Explain and apply Bloom filters]
 technologies: [PostgreSQL, MySQL, Cassandra, MongoDB, SQL]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database And Query Optimization

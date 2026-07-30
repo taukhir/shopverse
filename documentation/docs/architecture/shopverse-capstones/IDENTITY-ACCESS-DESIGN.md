@@ -3,11 +3,15 @@ title: Identity And Access System Design
 description: Design login, token issuance, JWT validation, authorization, key rotation, and incident controls.
 difficulty: Advanced
 page_type: Case Study
-status: Shopverse
+status: maintained
 prerequisites: [OAuth2, OIDC, JWT, Spring Security]
 learning_objectives: [Separate identity roles, Size authentication controls, Design revocation and rotation]
 technologies: [Spring Security 7, OAuth2, OIDC, JWT, JWKS]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Identity And Access System Design

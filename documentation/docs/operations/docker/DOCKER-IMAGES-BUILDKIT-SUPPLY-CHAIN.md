@@ -3,11 +3,15 @@ title: Docker OCI Images, Dockerfiles, BuildKit, Cache, And Registries
 description: Understand OCI manifests, indexes, config, layers, content addressing, Dockerfile execution, BuildKit graphs and caches, multi-platform builds, reproducibility, SBOMs, provenance, signing, and registry lifecycle.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Docker runtime internals]
 learning_objectives: [Inspect OCI image structure, Engineer fast reproducible builds, Build multi-platform safely, Govern the image supply chain]
 technologies: [Docker, OCI Image, BuildKit, buildx, Registry]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker OCI Images, Dockerfiles, BuildKit, Cache, And Registries

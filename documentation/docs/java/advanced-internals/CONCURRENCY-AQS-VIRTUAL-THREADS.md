@@ -2,11 +2,15 @@
 title: Concurrency Primitives, AQS, And Virtual Threads
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 keywords: [AQS, ReentrantLock, semaphore, CountDownLatch, ForkJoinPool, work stealing, virtual thread pinning, structured concurrency]
 learning_objectives: [Choose synchronization primitives by invariant, Explain AQS and work stealing, Operate virtual threads without multiplying downstream load]
 technologies: [Java]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Concurrency Primitives, AQS, And Virtual Threads

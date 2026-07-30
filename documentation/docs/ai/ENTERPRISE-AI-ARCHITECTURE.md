@@ -2,11 +2,15 @@
 title: Enterprise AI Architecture With Spring
 difficulty: Intermediate
 page_type: Learning Path
-status: Maintained
+status: maintained
 keywords: [enterprise AI, Spring AI, Spring Cloud, MCP, LangChain4j, RAG, agents]
 learning_objectives: [Navigate the complete enterprise AI track, Place probabilistic and deterministic responsibilities correctly, Select RAG tools MCP workflows and agents]
 technologies: [Spring AI, Spring Cloud, LangChain4j, MCP, Java]
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Enterprise AI Architecture With Spring

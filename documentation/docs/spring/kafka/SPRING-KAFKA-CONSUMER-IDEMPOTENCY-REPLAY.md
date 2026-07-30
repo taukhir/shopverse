@@ -3,11 +3,15 @@ title: Spring Kafka Consumer Idempotency And Replay
 description: Idempotent listener transactions, durable failed-event identity, audited replay through an outbox, and recovery schema evolution.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring Kafka consumers, Database uniqueness, Transactional outbox]
 learning_objectives: [Protect listener business effects from redelivery, Persist terminal failures with durable identity, Replay through an audited transactional outbox]
 technologies: [Spring for Apache Kafka 4.x, Spring Data JPA, Transactional Outbox, Liquibase]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Kafka Consumer Idempotency And Replay

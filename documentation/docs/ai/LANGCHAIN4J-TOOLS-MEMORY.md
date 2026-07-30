@@ -3,10 +3,14 @@ title: "LangChain4j Tools And Memory"
 description: "LangChain4j Tools And Memory with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "LangChain4j Tools And Memory"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # LangChain4j Tools And Memory

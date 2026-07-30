@@ -3,10 +3,14 @@ title: Scaling, CAP, And Data Distribution
 sidebar_position: 6
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 learning_objectives: [Distinguish replication partitioning and sharding, Apply CAP without static product labels, Choose safe partition keys]
 technologies: [CockroachDB, Cassandra, MongoDB, DynamoDB, Redis, Elasticsearch, OpenSearch]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Scaling, CAP, And Data Distribution

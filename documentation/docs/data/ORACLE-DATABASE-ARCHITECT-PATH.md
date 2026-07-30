@@ -3,11 +3,15 @@ title: Oracle Database Architect Learning Path
 description: Beginner-to-architect route through Oracle architecture, SQL and PL/SQL, optimizer behavior, concurrency, availability, recovery, operations, and Spring integration.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [SQL fundamentals, Relational database fundamentals]
 learning_objectives: [Explain Oracle runtime and storage internals, Tune SQL from evidence, Design resilient Oracle-backed Spring services]
 technologies: [Oracle Database, SQL, PL/SQL, JDBC, Spring Boot, Spring Data JPA]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Oracle Database Architect Learning Path

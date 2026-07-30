@@ -89,3 +89,38 @@ Run service tests from each service:
 ```powershell
 .\payment-service\gradlew.bat -p payment-service test --no-daemon
 ```
+
+## Versioning, Compatibility, And Release
+
+- Starters follow semantic versioning once published; configuration properties,
+  auto-configuration conditions, public Java types, metrics, and error contracts are
+  compatibility surfaces.
+- A breaking change requires a migration guide and coordinated adopter release. Do
+  not silently alter service-owned authorization, state transitions, entities, event
+  schemas, or database tables from a starter.
+- Verify every adopter listed above, including context startup, condition backoff,
+  configuration binding, and one representative integration behavior.
+- Publish an adoption matrix containing service version, starter version, enabled
+  modules, compatibility result, owner, and rollback path.
+- Release from a clean, reproducible build; retain dependency/SBOM and test evidence.
+  Local composite-build success is not proof that a published artifact is compatible.
+
+Current limitation: modules use `0.0.1-SNAPSHOT` and do not yet have an automated
+cross-adopter compatibility job or a published artifact repository workflow.
+
+## AI-Assisted Development
+
+AI is useful for locating duplicated cross-service logic, comparing starter
+adoption, reviewing compatibility, and generating migration/test matrices. Follow
+scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md), then use the
+[bounded-feature workflow](../ai-workflows/prompts/implement-feature.md),
+[Kafka review](../ai-workflows/prompts/review-kafka-consumer.md), and
+[security review](../ai-workflows/prompts/security-review.md).
+
+Platform changes have a broad blast radius. Require an adoption inventory,
+service-owned adapter analysis, binary/configuration compatibility, and tests for
+every consuming service. Do not move service entities, repositories, event
+contracts, or domain decisions into a starter merely to remove duplication.
+
+The deterministic platform evaluation now covers adopter inventory, compatibility,
+migration, release, and rollback. Executable cross-adopter builds remain required.

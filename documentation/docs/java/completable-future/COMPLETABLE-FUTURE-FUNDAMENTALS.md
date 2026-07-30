@@ -3,9 +3,13 @@ title: CompletableFuture Fundamentals And Execution
 description: Creation, manual completion, Future comparison, blocking boundaries, executor selection, and stage execution semantics.
 difficulty: Intermediate
 page_type: Guide
-status: Generic
+status: maintained
 technologies: [Java 24, CompletableFuture, Executor]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # CompletableFuture Fundamentals And Execution

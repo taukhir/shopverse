@@ -1,8 +1,14 @@
 ---
 title: Java String, Unicode And Encoding Internals
 description: Senior guide to String representation, pooling, concatenation, Unicode, charsets, normalization, security, and diagnostics.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java String, Unicode And Encoding Internals

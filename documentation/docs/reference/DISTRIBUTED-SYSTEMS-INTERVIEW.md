@@ -3,11 +3,15 @@ title: Distributed Systems Interview Questions
 sidebar_position: 7
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Distributed systems consistency messaging and reliability]
 learning_objectives: [Explain distributed systems trade-offs clearly, Practice senior-level failure and consistency scenarios]
 technologies: [Distributed Systems, Kafka, Databases]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-reference
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed Systems Interview Questions

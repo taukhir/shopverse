@@ -1,7 +1,13 @@
 ---
 title: LLD Examples And Diagrams
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-16"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 

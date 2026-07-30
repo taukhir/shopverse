@@ -3,11 +3,15 @@ title: Spring Data Cassandra Configuration Mapping Repositories And Templates
 description: Spring Boot configuration, CqlSession, composite-key mapping, converters, repositories, CassandraTemplate, CqlTemplate, paging, auditing, and schema management.
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring Data Cassandra overview, Cassandra CQL modeling]
 learning_objectives: [Map query-first tables, Choose repository or template APIs, Configure sessions and schema safely]
 technologies: [Spring Data Cassandra, CassandraTemplate, CqlTemplate, CqlSession]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Cassandra Configuration Mapping Repositories And Templates
@@ -215,11 +219,10 @@ make retries and partial failures difficult to reason about.
 ## Official References
 
 - [Spring Data Cassandra support](https://docs.spring.io/spring-data/cassandra/reference/cassandra.html)
-- [Mapping](https://docs.spring.io/spring-data/cassandra/reference/cassandra/mapping.html)
+- [Mapping](https://docs.spring.io/spring-data/cassandra/reference/object-mapping.html)
 - [Repositories](https://docs.spring.io/spring-data/cassandra/reference/repositories.html)
 - [CQL Template](https://docs.spring.io/spring-data/cassandra/reference/cassandra/cql-template.html)
 
 ## Recommended Next
 
 Continue with [Reactive, Consistency, Testing, And Production](./SPRING-CASSANDRA-PRODUCTION-REACTIVE-TESTING.md).
-

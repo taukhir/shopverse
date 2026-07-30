@@ -3,11 +3,15 @@ title: Distributed Reliability Revision Sheet
 description: Rapid revision of deadlines, retries, circuit breakers, idempotency, sagas, outbox, locking, backpressure, and recovery.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Distributed Reliability Overview]
 learning_objectives: [Recall reliability pattern boundaries, Diagnose partial failure, Defend recovery and consistency decisions]
 technologies: [Resilience4j, Kafka, SQL, Spring Boot]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed Reliability Revision Sheet

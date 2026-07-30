@@ -3,10 +3,14 @@ title: Money, Ledger, And Accounting Invariants
 description: Model currency and rounding safely and implement append-only, balanced ledger transactions, postings, reversals, and balance projections.
 difficulty: Advanced
 page_type: Guide
-status: Complete
+status: maintained
 prerequisites: [Java value objects, SQL transactions, domain modeling]
 technologies: [Java, BigDecimal, PostgreSQL, Spring Data JPA]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Money, Ledger, And Accounting Invariants

@@ -3,13 +3,17 @@ title: Spring Boot Startup, Environment And Auto-Configuration
 description: Spring Boot entry point, startup phases, property sources, condition evaluation, back-off, and dependency-driven infrastructure.
 difficulty: Intermediate
 page_type: Guide
-status: Shopverse
+status: maintained
 learning_objectives:
   - Trace Spring Boot startup from main through readiness
   - Explain property-source precedence and auto-configuration back-off
   - Diagnose missing or unexpected infrastructure from condition evidence
 technologies: [Spring Boot, Spring Framework]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 

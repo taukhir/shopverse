@@ -2,12 +2,16 @@
 title: Kafka Streams Stateful Processing And Production
 description: Deep coverage of state stores, changelogs, windows, joins, late events, exactly-once processing, restoration, testing, observability, and incidents.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Kafka Streams overview]
 learning_objectives: [Design correct stateful topologies, Plan restoration and upgrades, Diagnose late data and state failures]
 technologies: [Kafka Streams, RocksDB, State Stores, Windowing, Exactly Once]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Streams Stateful Processing And Production

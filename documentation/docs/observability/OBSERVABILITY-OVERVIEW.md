@@ -3,11 +3,15 @@ title: Observability Engineering Overview
 description: First-read map of metrics, logs, traces, profiles, business state, SLOs, alerts, correlation, and production investigation.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [HTTP and distributed systems fundamentals]
 learning_objectives: [Select telemetry from operational questions, Design safe correlated signals, Navigate observability implementation and incident guides]
 technologies: [Micrometer, OpenTelemetry, Prometheus, Grafana, Loki]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Observability Engineering Overview

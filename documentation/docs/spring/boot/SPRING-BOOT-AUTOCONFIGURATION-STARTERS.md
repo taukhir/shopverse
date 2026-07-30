@@ -3,11 +3,15 @@ title: Spring Boot Auto-Configuration Starters And Extension Design
 description: Deep dive into Boot starters, auto-configuration imports, conditional beans, ordering, backing off, condition diagnostics, custom starters, metadata, tests, and compatibility.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring container, Bean lifecycle, Spring Boot startup]
 learning_objectives: [Trace auto-configuration selection, Explain conditional back-off, Build safe starters, Test auto-configuration, Diagnose dependency conflicts]
 technologies: [Spring Boot 4, Spring Framework 7, ApplicationContextRunner]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Auto-Configuration Starters And Extension Design

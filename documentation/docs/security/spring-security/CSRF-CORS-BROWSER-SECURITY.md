@@ -3,11 +3,15 @@ title: CSRF, CORS And Browser Security
 description: Configure Spring Security for cookie sessions, bearer APIs, browser origins, and mixed authentication safely.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [HTTP cookies and headers, Spring Security filter chain]
 learning_objectives: [Decide when CSRF applies, Configure CORS at the security boundary, Avoid mixed-authentication bypasses]
 technologies: [Spring Security 7, Spring Boot 4, Browser Security]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # CSRF, CORS And Browser Security

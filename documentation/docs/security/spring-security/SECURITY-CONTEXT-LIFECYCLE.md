@@ -3,11 +3,15 @@ title: Spring SecurityContext Lifecycle
 description: Trace authenticated identity through request persistence, cleanup, sessions, stateless APIs and async work.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Servlet filter chain, Authentication providers]
 learning_objectives: [Trace context creation and cleanup, Compare persistence models, Propagate identity safely]
 technologies: [Spring Security 7, Servlet API, Java 21]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring SecurityContext Lifecycle

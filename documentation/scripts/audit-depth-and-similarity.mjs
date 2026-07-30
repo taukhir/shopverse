@@ -16,6 +16,7 @@ function has(c,re){return re.test(c);}
 const pages=[];
 for(const file of files){const content=await readFile(file,'utf8');const path=relative(docsRoot,file).replaceAll('\\','/');const t=tokens(content);const pageType=content.match(/^page_type:\s*(.+)$/m)?.[1]?.trim()??'Unclassified';const difficulty=content.match(/^difficulty:\s*(.+)$/m)?.[1]?.trim()??'Unclassified';const excluded=/^sidebar_exclude:\s*true\s*$/m.test(content);const criteria={
   mentalModel:t.length>=250,
+  interactive:has(content,/<(?:McqPracticeCenter|DocumentationIndex)\b/),
   internals:has(content,/\binternals?\b|how it works|execution model|lifecycle/i),
   example:has(content,/```|## (?:Example|Lab|Hands-On)/i),
   failureModes:has(content,/failure|common mistake|pitfall|timeout|overload/i),
@@ -26,7 +27,7 @@ for(const file of files){const content=await readFile(file,'utf8');const path=re
   interview:has(content,/interview|question|rubric/i),
   official:has(content,/## Official References/i),
   visual:has(content,/```mermaid|!\[[^\]]*\]\([^)]+\)|^\|.+\|\r?\n\|/m),
-};const depthSignals=['internals','example','failureModes','performance','security','operations','lab','interview'].filter((key)=>criteria[key]).length;const score=t.length<80?0:(t.length>=300&&criteria.visual&&criteria.official&&depthSignals>=4)?3:(t.length>=180&&(criteria.visual||criteria.example)&&depthSignals>=2)?2:1;const target=excluded?0:['Tutorial','Decision Guide','Concept','Case Study','Runbook'].includes(pageType)?2:1;pages.push({path,pageType,difficulty,words:t.length,score,target,belowTarget:score<target,excluded,criteria,shingles:shingles(t)});}
+};const depthSignals=['internals','example','failureModes','performance','security','operations','lab','interview'].filter((key)=>criteria[key]).length;const score=criteria.interactive?1:t.length<80?0:(t.length>=300&&criteria.visual&&criteria.official&&depthSignals>=4)?3:(t.length>=180&&(criteria.visual||criteria.example)&&depthSignals>=2)?2:1;const target=excluded?0:['Tutorial','Decision Guide','Concept','Case Study','Runbook'].includes(pageType)?2:1;pages.push({path,pageType,difficulty,words:t.length,score,target,belowTarget:score<target,excluded,criteria,shingles:shingles(t)});}
 const pairs=[];for(let i=0;i<pages.length;i++)for(let j=i+1;j<pages.length;j++){if(pages[i].words<300||pages[j].words<300)continue;const similarity=jaccard(pages[i].shingles,pages[j].shingles);if(similarity>=0.42)pairs.push({left:pages[i].path,right:pages[j].path,similarity:Number(similarity.toFixed(3))});}
 pairs.sort((a,b)=>b.similarity-a.similarity);
 const report={generatedAt:new Date().toISOString(),summary:{pages:pages.length,level0:pages.filter(p=>p.score===0).length,level1:pages.filter(p=>p.score===1).length,level2:pages.filter(p=>p.score===2).length,level3:pages.filter(p=>p.score===3).length,belowTarget:pages.filter(p=>p.belowTarget).length,nearDuplicatePairs:pairs.length},pages:pages.map(({shingles,...p})=>p),nearDuplicates:pairs};

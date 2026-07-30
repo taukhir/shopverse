@@ -3,11 +3,15 @@ title: Service Boundaries And Data Ownership
 description: Define cohesive microservice boundaries and prevent shared-database distributed monoliths.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Domain modelling, Database transactions]
 learning_objectives: [Find capability boundaries, Assign write ownership, Plan extraction]
 technologies: [DDD, REST, Kafka, PostgreSQL]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Service Boundaries And Data Ownership

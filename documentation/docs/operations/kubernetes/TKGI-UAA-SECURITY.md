@@ -3,11 +3,15 @@ title: TKGI UAA Authentication And Authorization
 description: Deep dive into TKGI UAA identity, OAuth2 token flow, scopes, certificates, Kubernetes RBAC boundaries, service credentials, rotation, troubleshooting, and security interview scenarios.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TKGI overview, TLS, OAuth2 fundamentals, Kubernetes RBAC]
 learning_objectives: [Trace TKGI authentication, Distinguish UAA scopes from Kubernetes RBAC, Secure service credentials, Diagnose login and token failures]
 technologies: [TKGI, UAA, OAuth2, TLS, Kubernetes RBAC]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI UAA Authentication And Authorization

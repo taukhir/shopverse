@@ -3,11 +3,15 @@ title: TKGI BOSH Provisioning, Healing And Upgrades
 description: Deep dive into how BOSH provisions TKGI clusters, CPI and Agent behavior, releases, stemcells, manifests, cloud configs, VM healing, scaling, rolling upgrades, errands, troubleshooting, and architecture questions.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TKGI overview, BOSH fundamentals, Virtualization]
 learning_objectives: [Trace TKGI requests into BOSH deployments, Explain BOSH reconciliation and healing, Diagnose CPI job and errand failures, Plan safe upgrades]
 technologies: [TKGI, BOSH, vSphere, CPI, Stemcell, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI BOSH Provisioning, Healing And Upgrades

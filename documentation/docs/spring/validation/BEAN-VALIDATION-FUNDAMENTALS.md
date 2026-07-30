@@ -3,13 +3,18 @@ title: Spring Bean Validation Fundamentals
 description: Constraint semantics, Valid cascading, nested and container-element validation, null handling, and boundary ownership in Spring applications.
 difficulty: Intermediate
 page_type: Concept
-status: Implemented
+status: maintained
 learning_objectives:
   - Select constraints whose supported types and null semantics match the contract
   - Apply Valid at every object-graph boundary that must be traversed
   - Separate transport structure, business invariants, and database guarantees
 technologies: [Jakarta Validation, Spring Boot, Hibernate Validator, Spring MVC]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Bean Validation Fundamentals

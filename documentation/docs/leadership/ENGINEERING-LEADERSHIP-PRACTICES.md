@@ -3,7 +3,7 @@ title: Engineering Leadership Practices
 description: A practical lead-level operating model for effective code reviews and mentoring senior engineers.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 keywords: [code review, technical leadership, mentoring, senior engineer, feedback, delegation, succession]
 learning_objectives:
   - Run code review as a scalable quality and knowledge-sharing system
@@ -11,6 +11,10 @@ learning_objectives:
   - Measure team capability without turning engineering leadership into activity metrics
 technologies: [Git, CI, Static Analysis, Spring Boot]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Engineering Leadership Practices

@@ -3,11 +3,15 @@ title: Spring MVC Versus WebFlux
 description: Choose a Spring web execution model from dependency behavior, concurrency, and team constraints.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [HTTP, Threads, Reactive streams]
 learning_objectives: [Compare execution models, Recognize blocking contamination, Plan migration]
 technologies: [Spring MVC, Spring WebFlux, Reactor, Java 21]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring MVC Versus WebFlux

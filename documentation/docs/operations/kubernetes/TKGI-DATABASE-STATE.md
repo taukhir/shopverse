@@ -3,11 +3,15 @@ title: TKGI Database, State And Consistency
 description: Deep dive into TKGI management data, cluster and plan metadata, state ownership, consistency with BOSH and IaaS, backup, recovery, troubleshooting, and safe operational practices.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TKGI overview, Relational database fundamentals, BOSH fundamentals]
 learning_objectives: [Identify TKGI database responsibilities, Separate TKGI BOSH and etcd state, Diagnose cross-plane inconsistency, Design safe backup and recovery]
 technologies: [TKGI, MariaDB, Galera, BOSH, Kubernetes, BBR]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Database, State And Consistency

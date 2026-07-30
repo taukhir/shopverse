@@ -3,7 +3,7 @@ title: Architecture Decisions And Disagreements
 description: A decision-governance method for resolving architecture disagreements with evidence, accountable ownership, and durable records.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [architecture decision, disagreement, ADR, governance, trade-off, decision rights, technical leadership]
 learning_objectives:
   - Turn architecture conflict into an explicit decision with shared criteria
@@ -11,6 +11,10 @@ learning_objectives:
   - Preserve accountability, psychological safety, and organizational learning
 technologies: [ADR, Prototyping, Load Testing]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Architecture Decisions And Disagreements

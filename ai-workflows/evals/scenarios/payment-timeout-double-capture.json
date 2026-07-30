@@ -1,0 +1,11 @@
+{
+  "id": "payment-timeout-double-capture",
+  "title": "Review Payment Timeout And Double Capture",
+  "prompt_path": "../prompts/debug-distributed-checkout.md",
+  "fixture_paths": ["fixtures/payment-timeout-evidence.md"],
+  "expected_path": "expected/payment-timeout-double-capture.json",
+  "authority": {"reads": ["provided fixture"], "writes": [], "external_actions": []},
+  "task": "Diagnose an unknown payment-provider outcome followed by a retry and late callback. Prevent double capture, define reconciliation/refund behavior, and specify evidence. Do not edit files or call a provider.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["A real provider lookup or refund would be required"]
+}

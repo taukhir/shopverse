@@ -3,10 +3,14 @@ title: Sixteen HLD Case Studies
 sidebar_position: 7
 difficulty: Advanced
 page_type: Case Study
-status: Generic
+status: maintained
 learning_objectives: [Apply HLD concepts to real product categories, Identify the dominant design problem in a system]
 technologies: [Kafka, CDN, Redis, Search, Object Storage, WebSocket]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Sixteen HLD Case Studies

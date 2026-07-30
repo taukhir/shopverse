@@ -3,10 +3,14 @@ title: "Access And Refresh Token Design"
 description: "Access And Refresh Token Design with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Access And Refresh Token Design"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Access And Refresh Token Design

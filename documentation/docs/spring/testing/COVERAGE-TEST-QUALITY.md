@@ -2,14 +2,18 @@
 title: Coverage And Test Quality
 description: Risk-based JaCoCo coverage, branch and changed-code gates, mutation testing, architecture checks, exclusions, and evidence of assertion strength.
 difficulty: Advanced
-page_type: Quality Guide
-status: Proposed governance
+page_type: Guide
+status: maintained
 learning_objectives:
   - Use coverage to locate untested risk without treating execution as correctness
   - Apply mutation testing to evaluate whether assertions detect changed behavior
   - Govern exclusions and gradual service-level quality gates transparently
 technologies: [JaCoCo, PIT, Gradle, JUnit, ArchUnit]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 

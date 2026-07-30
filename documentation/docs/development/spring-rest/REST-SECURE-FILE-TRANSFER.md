@@ -2,14 +2,19 @@
 title: Secure Spring REST File Transfer
 description: Multipart upload, quarantine, validation, malware scanning, object-storage promotion, authorized download, range behavior, cleanup, and capacity evidence.
 difficulty: Advanced
-page_type: Security Guide
-status: Partially implemented
+page_type: Guide
+status: maintained
 learning_objectives:
   - Design an upload lifecycle that never treats unscanned content as trusted
   - Bound memory, temporary storage, scanner queues, and download concurrency
   - Authorize opaque document identifiers without exposing filesystem paths
 technologies: [Spring MVC, MultipartFile, Object Storage, Malware Scanning, HTTP Range]
 last_reviewed: "2026-07-13"
+implementation_status: partial
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Secure Spring REST File Transfer

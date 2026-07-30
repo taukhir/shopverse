@@ -130,6 +130,36 @@ Important notes:
 - Shared actuator exposure for health, info, and Prometheus; refresh is enabled only in secured service-specific configuration
 - Micrometer tracing and Zipkin export
 - log file path and trace/span correlation pattern
+
+## Run, Test, And Roll Back
+
+```powershell
+./gradlew test
+./gradlew bootRun
+```
+
+From `documentation/`, validate the source repository with:
+
+```powershell
+npm run check:cloud-configs
+```
+
+For rollback, revert to a reviewed `cloud-configs` commit, run the validation,
+restart or securely refresh every affected instance, and verify effective values,
+health, metrics, logs, and one representative business request. A successful Config
+Server response does not prove that every client consumed the intended revision.
+
+## Troubleshooting And Security
+
+1. Confirm Config Server health and the requested application/profile URL.
+2. Inspect the client's bootstrap import and application name.
+3. Compare effective property origin and profile precedence without exposing secrets.
+4. Distinguish startup-only properties from refreshable beans.
+5. For multi-replica services, verify every instance received the same revision.
+
+Do not expose repository contents or broad environment endpoints publicly. Protect
+refresh with JWT authorization, retain an audit trail for production changes, and
+prefer immutable restart/rollout for high-risk security or connectivity settings.
 - Kafka bootstrap server
 - Kafka topic names for the Order/Inventory/Payment choreography SAGA
 
@@ -175,3 +205,21 @@ More Docker commands, flags, Dockerfile details, and the Config Server Compose b
 
 - Docker does not need internet access for runtime config because the config folder is mounted locally.
 - Config Server can provide runtime properties, but it cannot provide Gradle dependencies.
+
+## AI-Assisted Development
+
+Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
+AI tools can trace configuration lookup precedence, diagnose startup and refresh
+failures, compare native and Git-backed behavior, and review actuator, Docker,
+and observability configuration. Use the root [`AGENTS.md`](../AGENTS.md),
+[incident workflow](../ai-workflows/prompts/incident-investigation.md), and
+[security review](../ai-workflows/prompts/security-review.md).
+
+Do not expose environment values or mounted configuration contents containing
+secrets. AI must distinguish Config Server availability from application
+dependency resolution and must ask before changing search locations, repository
+credentials, refresh exposure, or production configuration sources.
+
+Configuration validation now checks YAML structure, required service contracts,
+route boundaries, and literal-secret exposure. The deterministic configuration
+evaluation covers precedence, refresh, rollback, and diagnostic leakage.

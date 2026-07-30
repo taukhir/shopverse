@@ -2,12 +2,16 @@
 title: Spring Cloud Ecosystem Selection And Governance
 description: Consul, Vault, Function, Task, release trains, compatibility, AOT, security, ownership, adoption and retirement decisions.
 difficulty: Architect
-page_type: Architecture Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Spring Cloud Architect Path]
 learning_objectives: [Select optional Spring Cloud projects, Govern compatibility and upgrades, Avoid overlapping platform ownership]
 technologies: [Spring Cloud, Consul, Vault, Spring Cloud Function, Spring Cloud Task]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Ecosystem Selection And Governance

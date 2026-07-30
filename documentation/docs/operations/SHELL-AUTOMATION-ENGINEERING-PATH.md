@@ -3,11 +3,15 @@ title: Bash, PowerShell, And Operational Automation Engineering Path
 description: Safe shell scripting through parsing, strict error handling, pipelines, JSON and YAML, concurrency, signals, credentials, idempotency, testing, runbook automation, incidents, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Linux troubleshooting, Git]
 learning_objectives: [Write safe portable automation, Handle failure and signals correctly, Protect credentials and destructive targets, Test and operate runbook scripts]
 technologies: [Bash, PowerShell, jq, yq, ShellCheck, Pester]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Bash, PowerShell, And Operational Automation Engineering Path

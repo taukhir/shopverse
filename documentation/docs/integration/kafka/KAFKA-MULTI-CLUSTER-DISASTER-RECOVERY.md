@@ -2,12 +2,16 @@
 title: Kafka Multi-Cluster Disaster Recovery
 description: Active-passive and active-active Kafka, MirrorMaker 2, RPO/RTO, offset translation, failover, failback, residency, and split-brain prevention.
 difficulty: Architect
-page_type: Architecture Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Kafka replication, consumer groups, disaster recovery fundamentals]
 learning_objectives: [Select a multi-cluster topology, Design safe failover and failback, Prove regional RPO and RTO]
 technologies: [Apache Kafka 4.x, MirrorMaker 2, Kafka Connect]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Multi-Cluster Disaster Recovery

@@ -1,7 +1,13 @@
 ---
 title: Current Problems And Solutions
 last_reviewed: "2026-07-13"
-status: "maintained"
+status: maintained
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Current Problems And Solutions

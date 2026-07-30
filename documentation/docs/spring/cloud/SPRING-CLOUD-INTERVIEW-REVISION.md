@@ -2,12 +2,16 @@
 title: Spring Cloud Architect Interview, Labs, And Revision
 description: Top lead and architect interview questions, production scenarios, hands-on labs, and compact revision across Spring Cloud.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Spring Cloud Operations]
 learning_objectives: [Answer architecture questions, Diagnose cross-component failures, Validate Spring Cloud designs through labs]
 technologies: [Spring Cloud]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Architect Interview, Labs, And Revision

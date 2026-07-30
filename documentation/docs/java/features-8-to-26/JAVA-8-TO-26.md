@@ -1,8 +1,14 @@
 ---
 title: Java 8 To 26 Overview
 sidebar_position: 1
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java 8 To 26 Overview

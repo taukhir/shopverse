@@ -1,8 +1,14 @@
 ---
 title: Abstract Classes, Interfaces And Functional Java
 description: Abstract types, modern interface methods, marker interfaces, lambdas, and design interview traps.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Abstract Classes, Interfaces And Functional Java

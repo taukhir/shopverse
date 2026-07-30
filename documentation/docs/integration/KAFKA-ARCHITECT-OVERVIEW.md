@@ -3,11 +3,15 @@ title: Kafka And Spring Kafka Architect Overview
 description: Concise overview of the most important Apache Kafka and Spring Kafka concepts, guarantees, production concerns, and architect decisions.
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Event-driven architecture fundamentals]
 learning_objectives: [Recognize the major Kafka concepts and their relationships, Explain Kafka reliability boundaries, Navigate the complete architect learning path]
 technologies: [Apache Kafka 4.x, Spring for Apache Kafka 4.x, Kafka Connect, Kafka Streams]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka And Spring Kafka Architect Overview

@@ -3,10 +3,14 @@ title: "API Gateway Engineering"
 description: "Understand gateway responsibilities, reactive execution, and production operations."
 sidebar_label: "API Gateway Engineering"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -54,3 +58,7 @@ Within **API Gateway Engineering**, apply the Shopverse guidance incrementally: 
 
 - [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
 - [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+
+## Recommended Next Page
+
+Continue with [Service Discovery](../architecture/SERVICE-DISCOVERY.md).

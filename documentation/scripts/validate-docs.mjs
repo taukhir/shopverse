@@ -59,6 +59,14 @@ const filesToCheck = full || globalChange || selected.length === 0 ? (full || gl
 const failures = [];
 const warnings = [];
 const titles = new Map();
+const requiredMetadata = ['difficulty', 'page_type', 'status', 'scope', 'owner', 'reviewer', 'review_evidence', 'last_reviewed'];
+const allowedMetadata = {
+  difficulty: new Set(['Beginner', 'Intermediate', 'Advanced', 'Architect', 'All Levels']),
+  page_type: new Set(['Guide', 'Learning Path', 'Deep Dive', 'Concept', 'Reference', 'Decision Guide', 'Tutorial', 'Interview', 'Workbook', 'Practice', 'Lab', 'Runbook', 'Case Study']),
+  status: new Set(['maintained', 'draft', 'proposed', 'deprecated']),
+  scope: new Set(['generic', 'shopverse', 'hybrid', 'compatibility']),
+};
+const metadataValue = (value = '') => value.replace(/^['"]|['"]$/g, '');
 
 for (const file of docs) {
   const content = await readFile(file, 'utf8');
@@ -83,8 +91,12 @@ for (const file of filesToCheck) {
 
   if (!metadata.get('title') && !/^#\s+\S.+$/m.test(content)) failures.push(`${path}: missing page title`);
   if (/\]\(http:\/\//i.test(content)) failures.push(`${path}: insecure HTTP link`);
-  if (words >= 2000) for (const field of ['difficulty', 'page_type', 'status', 'last_reviewed']) {
-    if (!metadata.get(field)) failures.push(`${path}: ${words} words but missing ${field} metadata`);
+  for (const field of requiredMetadata) {
+    if (!metadata.get(field)) failures.push(`${path}: missing ${field} metadata`);
+  }
+  for (const [field, allowed] of Object.entries(allowedMetadata)) {
+    const value = metadataValue(metadata.get(field));
+    if (value && !allowed.has(value)) failures.push(`${path}: unsupported ${field} value "${value}"`);
   }
   if (words > 3500) failures.push(`${path}: ${words} words exceeds 3,500-word split threshold`);
   if (h2 > 28 && words > 2500) failures.push(`${path}: ${h2} top-level sections exceeds navigation threshold`);

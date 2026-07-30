@@ -3,10 +3,14 @@ title: "Database Engineering"
 description: "Relational design, query performance, distributed trade-offs, and production correctness."
 sidebar_label: "Database Engineering"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -57,3 +61,7 @@ Within **Database Engineering**, apply the Shopverse guidance incrementally: ver
 
 - [MySQL reference manual](https://dev.mysql.com/doc/refman/8.4/en/)
 - [Jakarta Persistence specification](https://jakarta.ee/specifications/persistence/)
+
+## Recommended Next Page
+
+Continue with [Database Production Mastery](./DATABASE-PRODUCTION-MASTERY.md).

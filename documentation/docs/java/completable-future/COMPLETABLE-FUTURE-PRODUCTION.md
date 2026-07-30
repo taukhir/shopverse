@@ -2,10 +2,14 @@
 title: CompletableFuture Production Architecture
 description: Capacity, context propagation, transactions, observability, virtual-thread trade-offs, and Shopverse aggregation design.
 difficulty: Advanced
-page_type: Architecture
-status: Generic
+page_type: Concept
+status: maintained
 technologies: [Java 24, CompletableFuture, Virtual Threads]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # CompletableFuture Production Architecture

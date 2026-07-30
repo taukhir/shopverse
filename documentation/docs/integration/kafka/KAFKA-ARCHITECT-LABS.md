@@ -3,11 +3,15 @@ title: Kafka Architect Labs And Interview Workbook
 description: Failure-driven Kafka and Spring Kafka labs, design scenarios, interview rubrics, and mastery gates.
 difficulty: Advanced
 page_type: Lab
-status: Generic
+status: maintained
 prerequisites: [Kafka architect learning path]
 learning_objectives: [Prove Kafka behavior under failure, Diagnose incidents from evidence, Defend architecture decisions in interviews]
 technologies: [Apache Kafka 4.x, Spring Kafka 4.x, Testcontainers, Prometheus]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Architect Labs And Interview Workbook

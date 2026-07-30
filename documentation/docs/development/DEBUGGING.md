@@ -3,10 +3,14 @@ title: "Shopverse Debugging"
 description: "Evidence-first diagnosis across routing, security, data, messaging, and observability."
 sidebar_label: "Shopverse Debugging"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -54,3 +58,7 @@ Within **Shopverse Debugging**, apply the Shopverse guidance incrementally: veri
 
 - [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
 - [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+
+## Recommended Next Page
+
+Continue with [Debugging Data, Saga, And Kafka](./DEBUGGING-DATA-SAGA-KAFKA.md).

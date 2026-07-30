@@ -3,10 +3,14 @@ title: "Template Method Pattern in Spring"
 description: "Define invariant workflows with customizable steps, Spring template APIs, hooks, and composition alternatives."
 sidebar_label: "Template Method"
 tags: ["spring", "design-patterns", "interview"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Template Method Pattern in Spring

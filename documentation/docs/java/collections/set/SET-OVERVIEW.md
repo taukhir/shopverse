@@ -3,10 +3,14 @@ title: "Java Set Collections Overview"
 description: "Choose among HashSet, LinkedHashSet, TreeSet, EnumSet, immutable sets, and concurrent set implementations."
 sidebar_label: "Set Overview"
 tags: [java, collections, set]
-page_type: "Category Overview"
-difficulty: "Intermediate"
-status: "maintained"
+page_type: Reference
+difficulty: Intermediate
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Set Collections Overview

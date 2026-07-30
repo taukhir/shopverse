@@ -3,11 +3,15 @@ title: Database System-Design Interview Exercises
 sidebar_position: 12
 difficulty: Advanced
 page_type: Case Study
-status: Generic
+status: maintained
 keywords: [database interview, Uber system design, WhatsApp storage, Stripe idempotency, Amazon inventory, rejected alternatives]
 learning_objectives: [Choose databases from access patterns and invariants, Explain scaling and consistency trade-offs, Defend rejected alternatives]
 technologies: [PostgreSQL, MySQL, Cassandra, Redis, OpenSearch, ClickHouse]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database System-Design Interview Exercises

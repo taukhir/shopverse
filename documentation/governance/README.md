@@ -1,5 +1,23 @@
 # Spring Documentation Governance
 
+Every Markdown/MDX page carries normalized governance metadata:
+
+```yaml
+difficulty: Beginner | Intermediate | Advanced | Architect | All Levels
+page_type: Guide | Learning Path | Deep Dive | Concept | Reference | Decision Guide | Tutorial | Interview | Workbook | Practice | Lab | Runbook | Case Study
+status: maintained | draft | proposed | deprecated
+scope: generic | shopverse | hybrid | compatibility
+owner: docs-domain-or-component
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit-or-review-artifact
+last_reviewed: YYYY-MM-DD
+```
+
+Use `npm run normalize:metadata` only for a deliberate repository-wide migration;
+ordinary page changes should edit metadata explicitly. The full validator rejects
+missing or unsupported values, and the library explorer exposes lifecycle, scope,
+owner, difficulty, and page type as filters.
+
 `npm run check:spring-quality` is the required local gate for Spring documentation.
 
 - `check:docs:governance` validates internal links, duplicate sections, sidebar

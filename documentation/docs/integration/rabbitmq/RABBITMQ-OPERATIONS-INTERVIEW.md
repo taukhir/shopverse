@@ -3,11 +3,15 @@ title: RabbitMQ Production Operations, Labs, And Interviews
 description: Operate RabbitMQ clusters and Spring AMQP applications through capacity, quorum, upgrades, security, observability, flow control, retries, incidents, recovery, labs, and interview questions.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [RabbitMQ And Spring AMQP Architect Path]
 learning_objectives: [Diagnose broker and consumer incidents, Build reliable Spring AMQP flows, Recover queues and clusters, Answer architect scenarios]
 technologies: [RabbitMQ, Quorum Queues, Spring AMQP]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # RabbitMQ Production Operations, Labs, And Interviews

@@ -3,11 +3,15 @@ title: Spring Kafka Idempotency And Operations Compatibility Route
 description: Compatibility route from the former combined idempotency and operations chapter to focused canonical pages.
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Spring Kafka consumers]
 learning_objectives: [Locate the canonical idempotency and operations guides]
 technologies: [Spring for Apache Kafka 4.x]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Kafka Idempotency And Operations Compatibility Route

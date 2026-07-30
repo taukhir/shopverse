@@ -3,11 +3,15 @@ title: Spring Security Learning Guide
 description: Dependency-ordered Spring Security route through authentication, filters, JWT, OAuth2/OIDC, authorization, browser controls, testing, and production threats.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [HTTP, Spring web fundamentals]
 learning_objectives: [Trace authentication and authorization, Secure browser and API boundaries, Defend architecture decisions]
 technologies: [Spring Security 7, Spring Boot 4, OAuth2, OIDC, JWT]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 

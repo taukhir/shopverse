@@ -2,11 +2,15 @@
 title: Distributed Component Internals
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 keywords: [load balancer internals, consistent hashing, distributed ID, cache invalidation, quorum, replication repair, CDN]
 learning_objectives: [Explain component behavior beneath architecture boxes, Identify scaling and failure limits, Choose components from access and consistency requirements]
 technologies: [Kafka, Redis, CDN, Object Storage]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed Component Internals

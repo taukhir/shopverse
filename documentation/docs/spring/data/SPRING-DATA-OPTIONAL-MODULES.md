@@ -3,11 +3,15 @@ title: Optional Spring Data Modules And Adjacent Tools
 description: Spring Data REST, Envers, Neo4j, Couchbase, LDAP and adjacent SQL tools with selection, security, and production guidance.
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Spring Data Architect Path]
 learning_objectives: [Recognize optional modules, Select them deliberately, Avoid unsafe repository exposure and abstraction mismatch]
 technologies: [Spring Data REST, Envers, Neo4j, Couchbase, LDAP, jOOQ]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Optional Spring Data Modules And Adjacent Tools

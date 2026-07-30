@@ -2,12 +2,16 @@
 title: Kubernetes Cluster Operations, Capacity, Upgrades, HA, And Recovery
 description: Operate control planes, nodes, add-ons, quotas, autoscaling, upgrades, certificates, etcd backup and restore, observability, disaster recovery, and cost.
 difficulty: Advanced
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Kubernetes security and internals]
 learning_objectives: [Design cluster topology and capacity, Operate nodes and upgrades safely, Define observability and SLOs, Rehearse backup and disaster recovery]
 technologies: [Kubernetes, etcd, kubeadm, Prometheus]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Cluster Operations, Capacity, Upgrades, HA, And Recovery

@@ -3,11 +3,15 @@ title: Spring Boot Beginner-To-Architect Learning Path
 description: Complete Spring Boot route from application structure and configuration through auto-configuration, web/data integration, testing, observability, containers, AOT, production incidents, and interviews.
 difficulty: Beginner
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Core Java, Maven or Gradle, HTTP fundamentals]
 learning_objectives: [Build and explain a Boot application, Trace startup and auto-configuration, Operate Boot safely, Design deployment and observability, Answer architect scenarios]
 technologies: [Spring Boot 4, Spring Framework 7, Actuator, Micrometer, Docker, Kubernetes]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Beginner-To-Architect Learning Path
@@ -107,6 +111,11 @@ You should be able to answer:
 - how container limits relate to heap, native memory, pools and concurrency;
 - when AOT/native compilation helps and which dynamic behavior it constrains;
 - what evidence distinguishes Boot startup, JVM, dependency and platform failures.
+
+## Recommended Next
+
+Complete the [Production Interview And Revision](./boot/SPRING-BOOT-PRODUCTION-INTERVIEW-REVISION.md)
+and validate one startup or latency incident with the production playbook.
 
 ## Official References
 

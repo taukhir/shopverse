@@ -2,12 +2,16 @@
 title: Event Streaming Interview And Revision
 description: High-value revision tables, interview answers, production scenarios, design exercises, and readiness checks across Spring Cloud Stream, Kafka Streams, and Kafka Connect.
 difficulty: Advanced
-page_type: Revision Sheet
-status: Generic
+page_type: Reference
+status: maintained
 prerequisites: [Spring Cloud Stream track, Kafka Streams track, Kafka Connect track]
 learning_objectives: [Recall critical concepts quickly, Answer Lead interviews with precise boundaries, Diagnose production scenarios systematically]
 technologies: [Spring Cloud Stream, Kafka Streams, Kafka Connect, Apache Kafka]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Event Streaming Interview And Revision

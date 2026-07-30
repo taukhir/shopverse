@@ -2,14 +2,19 @@
 title: Spring REST Interview Workbook
 description: Expandable senior and architect answers for controller boundaries, transactions, idempotency, long-running APIs, distributed failure, pagination, evolution, logging, and error handling.
 difficulty: Advanced
-page_type: Interview Workbook
-status: Implemented
+page_type: Workbook
+status: maintained
 learning_objectives:
   - Attempt each REST architecture question before revealing the answer
   - Explain rules with runtime mechanisms, failure boundaries, and evidence
   - Connect generic REST decisions to current and proposed Shopverse behavior
 technologies: [Spring MVC, Spring Transactions, JPA, HTTP, OpenAPI]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST Interview Workbook

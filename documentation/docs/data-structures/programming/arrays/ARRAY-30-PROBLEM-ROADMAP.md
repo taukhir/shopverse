@@ -3,10 +3,14 @@ title: 30 Essential Array Problems - Roadmap
 description: Prioritized seven-day Java array preparation plan with pattern mapping, mastery levels, repetition schedule, and senior interview evidence.
 sidebar_label: 30-Problem Roadmap
 sidebar_position: 6
-difficulty: Easy to Medium
-page_type: Learning Plan
+difficulty: All Levels
+page_type: Learning Path
 status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # 30 Essential Array Problems: Roadmap
@@ -150,3 +154,7 @@ Select five random problems. You are ready to move to the next topic when you ca
 
 Use [Array Revision And Interview Questions](./ARRAY-INTERVIEW-REVISION.md) before
 each mock round.
+
+## Recommended Next Page
+
+Continue with [Array Problems 1-10](./ARRAY-PROBLEMS-01-10.md).

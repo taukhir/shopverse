@@ -1,8 +1,14 @@
 ---
 title: Java Language Semantics And Interview Traps
 description: Deep guide to conversion, overload resolution, overriding, pass-by-value, generics variance, and compiler traps.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Language Semantics And Interview Traps

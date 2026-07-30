@@ -2,11 +2,15 @@
 title: AI Model Internals And Selection
 difficulty: Intermediate
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [tokenization, transformer, attention, sampling, quantization, model selection]
 learning_objectives: [Explain transformer inference at a practical level, Predict sampling and context trade-offs, Select a model from quality latency privacy and cost]
 technologies: [Transformers, LLM]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # AI Model Internals And Selection

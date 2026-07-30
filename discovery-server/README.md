@@ -32,6 +32,7 @@ http://localhost:8761
 ```powershell
 curl http://localhost:8761/actuator/health
 curl http://localhost:8761/actuator/prometheus
+curl http://localhost:8761/api/health
 ```
 
 ## Docker
@@ -88,4 +89,35 @@ service checks with:
 
 ```powershell
 ./gradlew test
+./gradlew bootRun
 ```
+
+## Failure Modes And Production Limits
+
+- Registration proves lease activity, not application readiness, authorization, or
+  successful routing. Correlate Eureka state with gateway readiness and service health.
+- Diagnose stale instances using lease timestamps, client refresh state, DNS/network
+  reachability, and actual load-balanced requests before changing lease timings.
+- Self-preservation reduces mass eviction during network failure but can retain stale
+  entries; document the trade-off before changing it.
+- This POC runs one registry. Production requires an explicit HA topology, peer
+  behavior, failure-domain placement, dashboard access control, and capacity/SLOs.
+- Alert on registration churn, renewals below threshold, unavailable registry peers,
+  stale-instance routing, and client lookup latency/failures.
+
+## AI-Assisted Development
+
+Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
+AI can help diagnose registration, heartbeat, stale-instance, startup-order,
+health, and load-balancing symptoms by correlating Eureka state with service logs
+and configuration. Follow the root [`AGENTS.md`](../AGENTS.md) and use the
+[incident](../ai-workflows/prompts/incident-investigation.md) and
+[performance](../ai-workflows/prompts/optimize-performance.md) workflows.
+
+Do not treat the Eureka dashboard alone as proof that an application is ready or
+authorized. Require evidence from health, client discovery, routing, and service
+behavior. Ask before changing lease timings, self-preservation, exposure, or
+production topology.
+
+The deterministic discovery evaluation covers registration churn, stale instances,
+self-preservation, readiness, and routing evidence.

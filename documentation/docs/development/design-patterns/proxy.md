@@ -3,10 +3,14 @@ title: "Proxy Pattern in Spring"
 description: "Understand Spring AOP proxies behind transactions, caching, security, async execution, and their interception boundaries."
 sidebar_label: "Proxy"
 tags: ["spring", "design-patterns", "interview", "aop"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Proxy Pattern in Spring

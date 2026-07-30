@@ -2,12 +2,16 @@
 title: Cassandra Interview Labs And Revision
 description: Architect interview answers, production scenarios, hands-on exercises, calculations, and a completion checklist for Cassandra.
 difficulty: Advanced
-page_type: Revision Sheet
-status: Generic
+page_type: Reference
+status: maintained
 prerequisites: [Cassandra architecture, modeling, storage, and operations]
 learning_objectives: [Recall Cassandra internals, Defend design choices, Practise production diagnosis]
 technologies: [Apache Cassandra, CQL, nodetool]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cassandra Interview Labs And Revision

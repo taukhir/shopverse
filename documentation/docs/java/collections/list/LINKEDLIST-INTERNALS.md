@@ -3,10 +3,14 @@ title: "LinkedList Internals and Usage"
 description: "LinkedList node storage, traversal, deque operations, complexity, methods, memory cost, and practical selection guidance."
 sidebar_label: "LinkedList"
 tags: [java, collections, list, linkedlist, deque, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # LinkedList Internals and Usage

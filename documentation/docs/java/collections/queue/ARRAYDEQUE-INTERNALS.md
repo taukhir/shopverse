@@ -3,10 +3,14 @@ title: "ArrayDeque Internals and Usage"
 description: "ArrayDeque circular-array storage, default size, growth, head and tail operations, methods, complexity, and stack/queue guidance."
 sidebar_label: "ArrayDeque"
 tags: [java, collections, queue, deque, arraydeque, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # ArrayDeque Internals and Usage

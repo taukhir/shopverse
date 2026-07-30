@@ -3,11 +3,15 @@ title: Service Mesh Architecture And Selection
 description: Compare library, gateway, sidecar, ambient and Linkerd-style meshes; trace control/data planes, traffic capture, xDS, discovery, and decision criteria.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Service Mesh Architect Path]
 learning_objectives: [Explain mesh internals, Compare data-plane models, Make an evidence-based mesh decision]
 technologies: [Istio, Envoy, Linkerd]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Service Mesh Architecture And Selection

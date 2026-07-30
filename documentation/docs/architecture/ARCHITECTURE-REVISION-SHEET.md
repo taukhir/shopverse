@@ -3,11 +3,15 @@ title: Architecture Revision Sheet
 description: Rapid revision of system design, distributed systems, capacity, consistency, availability, caching, messaging, security, and recovery.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Software And Systems Architecture Overview]
 learning_objectives: [Recall architect concepts quickly, Structure a system design answer, Defend quality and failure trade-offs]
 technologies: [Distributed Systems, Microservices, Databases, Kafka, Cloud]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Architecture Revision Sheet

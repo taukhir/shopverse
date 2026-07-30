@@ -3,10 +3,14 @@ title: "PriorityQueue Internals and Usage"
 description: "PriorityQueue binary-heap storage, default capacity, growth, sift operations, methods, complexity, ordering traps, and use cases."
 sidebar_label: "PriorityQueue"
 tags: [java, collections, queue, priorityqueue, heap, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # PriorityQueue Internals and Usage

@@ -3,10 +3,14 @@ title: Structural Patterns
 description: "Choose and implement Adapter, Bridge, Decorator, Proxy, and related composition patterns in Spring applications."
 sidebar_label: "Structural Patterns"
 tags: ["spring", "design-patterns", "structural"]
-page_type: "Category Overview"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Reference
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Structural Patterns

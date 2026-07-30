@@ -3,9 +3,13 @@ title: AOP Proxy And Transaction Internals
 description: Compatibility route to the canonical Spring proxy and transaction runtime guide for architects.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 technologies: [Spring Framework, Spring AOP, JDBC]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # AOP Proxy And Transaction Internals

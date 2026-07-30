@@ -1,8 +1,14 @@
 ---
 title: Java Time, Numeric Correctness And Security Boundaries
 description: Time zones, DST, BigDecimal, overflow, randomness, TLS, XML, paths, commands, regex, secrets, and diagnostic data.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Time, Numeric Correctness And Security Boundaries

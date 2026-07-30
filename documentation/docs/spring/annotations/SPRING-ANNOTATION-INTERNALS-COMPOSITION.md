@@ -2,12 +2,16 @@
 title: Spring Annotation Internals Composition Proxies And Interview Traps
 description: Architect-level explanation of annotation metadata, retention, targets, scanning, merged annotations, aliases, composed annotations, post-processors, proxies, ordering, inheritance, AOT, debugging, and interview traps.
 difficulty: Advanced
-page_type: Revision Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Java reflection and annotations, Spring container, Spring AOP]
 learning_objectives: [Explain how Spring discovers annotations, Build composed annotations safely, Predict proxy behavior, Diagnose missing effects, Answer annotation interview questions]
 technologies: [Spring Framework 7, Spring Boot 4, Reflection, AOP, AOT]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Annotation Internals Composition Proxies And Interview Traps

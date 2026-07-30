@@ -3,10 +3,14 @@ title: "LangChain4j Deep Dive"
 description: "A focused route through LangChain4j architecture, AI services, tools, memory, and RAG."
 sidebar_label: "LangChain4j Deep Dive"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -54,3 +58,7 @@ Within **LangChain4j Deep Dive**, apply the Shopverse guidance incrementally: ve
 
 - [LangChain4j documentation](https://docs.langchain4j.dev/)
 - [Spring AI reference](https://docs.spring.io/spring-ai/reference/)
+
+## Recommended Next Page
+
+Continue with [LangChain4j Tutorials](./LANGCHAIN4J-TUTORIALS.md).

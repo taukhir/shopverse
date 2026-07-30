@@ -2,12 +2,16 @@
 title: Service Mesh Architect Interview, Labs, And Revision
 description: Practise mesh decisions, failure scenarios, hands-on traffic and security labs, production evidence, and concise revision.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Service Mesh Production Operations]
 learning_objectives: [Defend mesh adoption decisions, Complete security and traffic labs, Answer production incident interviews]
 technologies: [Istio, Linkerd, Envoy, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Service Mesh Architect Interview, Labs, And Revision
@@ -89,7 +93,7 @@ this is a major identity incident, not a simple restart.
 
 - [Istio diagnostic tools](https://istio.io/latest/docs/ops/diagnostic-tools/)
 - [Istio security model](https://istio.io/latest/docs/ops/deployment/security-model/)
-- [Linkerd production runbook](https://linkerd.io/2/runbooks/)
+- [Linkerd troubleshooting](https://linkerd.io/docs/tasks/troubleshooting/)
 
 ## Recommended Next
 

@@ -3,11 +3,15 @@ title: TKGI Backup Restore And Disaster Recovery
 description: Layered TKGI resilience guide for management-plane, cluster, workload, data, networking, infrastructure, restore testing, RPO/RTO, and disaster-recovery design.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [TKGI production operations path, Kubernetes storage, BOSH fundamentals]
 learning_objectives: [Map backup tools to state owners, Design RPO and RTO, Restore TKGI layers safely, Test disaster recovery, Avoid false confidence from partial backups]
 technologies: [TKGI 1.25, BBR, Velero, Kubernetes, BOSH, NSX, vSphere]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Backup Restore And Disaster Recovery
@@ -155,7 +159,6 @@ restore success and achieved RPO/RTO are stronger evidence.
 side effects may represent different points in time. Recovery needs idempotency and an
 explicit offset/reconciliation plan.
 
-## Official Reference
+## Official References
 
 - [Broadcom TKGI 1.25 backup and restore](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/backup-and-restore.html)
-

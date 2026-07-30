@@ -3,11 +3,15 @@ title: Security Incident Response Runbook
 description: Contain and recover from token theft, key exposure, authorization bypass, and workload compromise.
 difficulty: Advanced
 page_type: Runbook
-status: Shopverse
+status: maintained
 prerequisites: [Security architecture, Observability]
 learning_objectives: [Triage signals, Contain without destroying evidence, Verify recovery]
 technologies: [JWT, JWKS, OAuth2, Kubernetes, Audit logging]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Security Incident Response Runbook

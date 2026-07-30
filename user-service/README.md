@@ -24,6 +24,7 @@ The internal endpoint supports Auth Service credential validation. Public APIs u
 | users | `/api/v1/users` | permission authorities |
 | roles | `/api/v1/roles` | `ADMIN_ACCESS` |
 | permissions | `/api/v1/permissions` | `ADMIN_ACCESS` |
+| admin audit | `/api/v1/admin/audit-events` | `ADMIN_ACCESS` |
 
 User authorities:
 
@@ -94,7 +95,7 @@ Generate a delegated development hash with the tooling-only Gradle task. The
 utility is compiled from test sources and is not included in the service JAR:
 
 ```powershell
-$env:SHOPVERSE_HASH_PASSWORD = 'temporary-local-password'
+$env:SHOPVERSE_HASH_PASSWORD = '<LOCAL_PASSWORD_PLACEHOLDER>'
 .\gradlew.bat generatePasswordHash --no-daemon
 Remove-Item Env:SHOPVERSE_HASH_PASSWORD
 ```
@@ -133,6 +134,19 @@ password, lookup, role, permission, and audit behavior. Dedicated method-securit
 tests should be added for permission allow/deny cases; the standalone MockMvc
 controller test does not load the Spring Security filter chain.
 
+## Observability And Operational Limits
+
+- Query `/actuator/health` and `/actuator/prometheus`; correlate requests through
+  `X-Correlation-Id`, trace IDs, and `{log_type="application", application="USER-SERVICE"}`.
+- Alert on authentication lookup latency/failures, authorization denials, account
+  lockouts, cache load failures, Liquibase failures, and datasource saturation.
+- The role/permission cache is local to each replica; eviction is not distributed.
+- Audit retention and export are POC-level and need an explicit production policy.
+- Internal Basic authentication is a local baseline and should become workload
+  identity or mTLS in a deployed environment.
+- Dedicated method-security allow/deny tests remain required before treating the
+  authorization boundary as production-proven.
+
 ## Run
 
 ```powershell
@@ -144,6 +158,24 @@ controller test does not load the Spring Security filter chain.
 docker compose build user-service
 docker compose up -d user-service
 ```
+
+## AI-Assisted Development
+
+AI tools can trace identity, role, permission, ownership, caching, audit, and
+migration behavior; generate negative authorization cases; and review sensitive
+logging. Follow scoped [`AGENTS.md`](AGENTS.md), imported by
+[`CLAUDE.md`](CLAUDE.md), and use the
+[security-review](../ai-workflows/prompts/security-review.md),
+[feature](../ai-workflows/prompts/implement-feature.md), and
+[incident](../ai-workflows/prompts/incident-investigation.md) workflows.
+
+Never provide passwords, password hashes, internal credentials, access tokens,
+or real user records to an AI tool. Require service-layer authorization evidence;
+standalone controller tests and hidden UI controls do not prove method security.
+
+The deterministic identity-security evaluation covers method-security, credential,
+JWKS, and secret boundaries. Executable cache-invalidation and full filter-chain
+allow/deny coverage remains required in the service test suite.
 
 ## Related Guides
 

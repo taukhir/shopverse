@@ -2,12 +2,16 @@
 title: TKGI Installation Foundations And Platform Topology
 description: Architecture-first TKGI installation guide covering prerequisites, Operations Manager, BOSH Director, vSphere, NSX and Antrea topology, DNS, NTP, certificates, networking, storage, permissions, configuration workflow, validation, and failures.
 difficulty: Advanced
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [TKGI control-plane architecture, vSphere fundamentals, Networking and TLS]
 learning_objectives: [Design TKGI prerequisites, Explain installation dependency order, Validate a deployment, Diagnose Apply Changes failures]
 technologies: [TKGI, Operations Manager, BOSH, vSphere, NSX, Antrea]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Installation Foundations And Platform Topology

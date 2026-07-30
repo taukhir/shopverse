@@ -3,11 +3,15 @@ title: Production Incident Diagnosis Lab
 description: Diagnose a Shopverse checkout latency incident from signals to permanent controls.
 difficulty: Advanced
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Actuator and Micrometer, Distributed tracing, JVM fundamentals]
 learning_objectives: [Separate saturation from dependency latency, Build a timeline, Select safe containment]
 technologies: [Spring Boot 4, Micrometer, OpenTelemetry, PostgreSQL, Kafka]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Production Incident Diagnosis Lab

@@ -164,6 +164,24 @@ cache, Feign, resilience, metrics, tracing, and logging settings.
 {log_type="application", application="ORDER-SERVICE"}
 ```
 
+Operational alerts should cover checkout rejection/error rate, invalid state
+transitions, outbox backlog/oldest age, DLT backlog, catalog dependency latency,
+and sagas without a terminal outcome inside the declared timeout.
+
+## Failure And Recovery Matrix
+
+| Failure | Required behavior | Evidence |
+|---|---|---|
+| duplicate checkout | return the customer-scoped existing order | idempotency-key row and response |
+| inventory rejection | transition to `INVENTORY_REJECTED` | timeline plus inventory event |
+| payment failure | transition to `PAYMENT_FAILED`; release inventory | order and reservation timelines |
+| late or stale event | reject or ignore invalid transition without regression | state/version guard and audit |
+| outbox publish failure | keep row pending for bounded retry | backlog age, attempts, last error |
+| poison event | persist once in DLT store; replay with actor and reason | replay audit and resulting state |
+
+Cancellation, return, fulfillment, and late-payment compensation are still POC
+boundaries and require executable transition/replay scenarios before production use.
+
 ## Run
 
 ```powershell
@@ -175,6 +193,25 @@ cache, Feign, resilience, metrics, tracing, and logging settings.
 docker compose build order-service
 docker compose up -d order-service
 ```
+
+## AI-Assisted Development
+
+This module has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
+[`CLAUDE.md`](CLAUDE.md). Start with:
+
+- [Implement a bounded feature](../ai-workflows/prompts/implement-feature.md)
+- [Debug distributed checkout](../ai-workflows/prompts/debug-distributed-checkout.md)
+- [Review a Kafka consumer](../ai-workflows/prompts/review-kafka-consumer.md)
+- [Security review](../ai-workflows/prompts/security-review.md)
+
+AI changes must preserve customer-scoped idempotency, ownership authorization,
+valid order transitions, timeline auditability, event compatibility, and atomic
+order/timeline/outbox persistence. Require focused replay, conflict, ownership,
+transition, and integration evidence before accepting a change.
+
+Current evaluation coverage includes checkout architecture, ownership review,
+and bounded validation. Remaining gaps include executable cancellation,
+fulfillment, return, and late-event compensation scenarios.
 
 ## Related Guides
 

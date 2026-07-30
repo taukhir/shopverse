@@ -3,11 +3,15 @@ title: Spring Runtime Architect Path
 description: Lead-level dependency-ordered route through Spring container, proxies, transactions, web, security, persistence, async execution and operations.
 difficulty: Advanced
 page_type: Learning Path
-status: Shopverse
+status: maintained
 prerequisites: [Spring Boot fundamentals, Java concurrency, HTTP, SQL and transactions]
 learning_objectives: [Trace Spring abstractions to runtime ownership, Diagnose incidents with evidence, Make bounded multi-replica architecture decisions]
 technologies: [Spring Boot 4, Spring Framework 7, Hibernate, Spring Security]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Runtime Architect Path

@@ -2,12 +2,16 @@
 title: Build A Defensible Architecture Portfolio
 description: Create sanitized, evidence-backed architecture case studies that demonstrate decisions, implementation depth, production reasoning, and measurable outcomes.
 difficulty: Advanced
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [One completed project or substantial lab]
 learning_objectives: [Select credible case studies, Structure architecture narratives, Protect confidential information, Attach measurable engineering evidence]
 technologies: [C4, ADR, Git, Markdown]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Build A Defensible Architecture Portfolio

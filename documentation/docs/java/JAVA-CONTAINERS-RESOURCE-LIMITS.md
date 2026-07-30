@@ -2,12 +2,16 @@
 title: Java Containers Resource Limits And Production Diagnostics
 description: JVM container awareness, heap and native budgets, CPU quota, GC, threads, direct memory, OOMKilled, signals, JFR, dumps, filesystems, and Kubernetes limits.
 difficulty: Advanced
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [JVM memory, Docker, Kubernetes]
 learning_objectives: [Budget JVM memory inside cgroups, Diagnose throttling and OOMKilled, Operate graceful Java containers]
 technologies: [Java, Docker, Kubernetes, cgroups]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Containers Resource Limits And Production Diagnostics

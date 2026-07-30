@@ -3,11 +3,15 @@ title: Array Programming Overview And Pattern Map
 description: Beginner-to-senior guide to recognizing array interview patterns, invariants, complexity, mutation, duplicates, and Java-specific risks.
 sidebar_label: Array Overview
 sidebar_position: 1
-difficulty: Foundation to Advanced
-page_type: Overview
+difficulty: All Levels
+page_type: Reference
 status: maintained
 last_reviewed: "2026-07-24"
 keywords: [Java arrays, array patterns, two pointers, prefix sum, Kadane, matrix]
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Array Programming Overview And Pattern Map

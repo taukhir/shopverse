@@ -3,10 +3,14 @@ title: Consistency Models And BASE
 sidebar_position: 7
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 learning_objectives: [Distinguish consistency models, Explain BASE and soft state, Choose consistency from business invariants]
 technologies: [Cassandra, MongoDB, DynamoDB, CockroachDB, Redis]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Consistency Models And BASE

@@ -3,11 +3,15 @@ title: Service Mesh Traffic, Identity, Security, And Observability
 description: Design workload identity, certificate lifecycle, mTLS, authorization, ingress/egress, routing, retries, outlier detection, flow control, and telemetry.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Service Mesh Architecture And Selection]
 learning_objectives: [Design mesh identity and policy, Compose traffic controls safely, Build useful low-cardinality observability]
 technologies: [mTLS, SPIFFE, Istio, Linkerd, Envoy]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Service Mesh Traffic, Identity, Security, And Observability

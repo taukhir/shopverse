@@ -3,11 +3,15 @@ title: TDD And BDD Engineering Path
 description: In-depth route through test-driven development, behavior-driven design, Spring examples, test architecture, production adoption, interviews, and revision.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Java, JUnit, Basic Spring Boot testing]
 learning_objectives: [Drive design through executable feedback, Specify business behavior collaboratively, Apply TDD and BDD sustainably in production teams]
 technologies: [Java, JUnit 5, Mockito, Spring Boot Test, Testcontainers]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TDD And BDD Engineering Path

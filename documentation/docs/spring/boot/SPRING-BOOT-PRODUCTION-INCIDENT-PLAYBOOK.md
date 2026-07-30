@@ -2,12 +2,16 @@
 title: Spring Boot Production Incident Playbook
 description: Evidence-first diagnosis for startup, beans, proxies, transactions, HTTP, pools, dependencies, memory, CPU, Actuator, shutdown, AOT, and deployment incidents.
 difficulty: Architect
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Spring Boot runtime, Java diagnostics, Observability]
 learning_objectives: [Locate the owning Spring runtime, Contain incidents without data loss, Prove recovery and prevention]
 technologies: [Spring Boot 4, Spring Framework 7, Actuator, JFR, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Production Incident Playbook

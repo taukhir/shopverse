@@ -3,10 +3,14 @@ title: "EnumMap Internals and Usage"
 description: "EnumMap ordinal-indexed array storage, methods, complexity, null rules, declaration-order iteration, and enum-key use cases."
 sidebar_label: "EnumMap"
 tags: [java, collections, map, enummap, internals]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # EnumMap Internals and Usage

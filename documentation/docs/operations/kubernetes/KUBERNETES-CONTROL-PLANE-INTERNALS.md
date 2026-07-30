@@ -2,12 +2,16 @@
 title: Kubernetes API Machinery, Control Plane, Nodes, And Reconciliation
 description: Trace Kubernetes objects through authentication, authorization, admission, etcd, watches, controllers, scheduling, kubelet, CRI, garbage collection, and node health.
 difficulty: Advanced
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Kubernetes workload fundamentals]
 learning_objectives: [Trace an API request, Explain reconciliation and optimistic concurrency, Diagnose control-plane and node lifecycle failures]
 technologies: [Kubernetes API, etcd, kube-scheduler, kubelet, CRI]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes API Machinery, Control Plane, Nodes, And Reconciliation

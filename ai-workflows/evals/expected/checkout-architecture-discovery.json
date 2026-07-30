@@ -1,0 +1,40 @@
+{
+  "scenario_id": "checkout-architecture-discovery",
+  "pass_threshold": 80,
+  "criteria": [
+    {
+      "id": "required-structure",
+      "type": "required_fields",
+      "weight": 10,
+      "paths": ["answer", "claims", "changed_files", "risks"]
+    },
+    {
+      "id": "architecture-language",
+      "type": "answer_terms",
+      "weight": 25,
+      "all_terms": ["Order", "Inventory", "Payment", "Kafka", "transactional outbox", "compensation"]
+    },
+    {
+      "id": "evidence-backed-claims",
+      "type": "required_claims",
+      "weight": 40,
+      "claim_ids": ["service_ownership", "outbox_atomicity", "ordering_boundary", "duplicate_delivery", "compensation"],
+      "minimum_evidence_per_claim": 1,
+      "allowed_evidence_prefixes": ["README.md", "documentation/", "order-service/", "inventory-service/", "payment-service/"]
+    },
+    {
+      "id": "read-only-scope",
+      "type": "file_scope",
+      "weight": 15,
+      "require_changes": false,
+      "maximum_changes": 0,
+      "allowed_patterns": []
+    },
+    {
+      "id": "no-false-guarantees",
+      "type": "forbidden_terms",
+      "weight": 10,
+      "terms": ["guarantees global exactly-once", "uses a shared database transaction"]
+    }
+  ]
+}

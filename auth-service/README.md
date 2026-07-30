@@ -33,6 +33,19 @@ directly.
 
 The token contains issuer, subject, issue/expiry time, ID, roles, and permissions. The issuer is `shopverse-auth-service`.
 
+## Key Lifecycle And Failure Contract
+
+- RSA private-key material remains an Auth Service secret; only public JWK values
+  are exposed.
+- Rotate keys by publishing the new public key before issuing tokens with it, keep
+  the previous public key available for the remaining token lifetime, then retire it.
+- Resource services validate signature, issuer, and timestamps. Clock skew and
+  token lifetime must remain bounded and configuration-reviewed.
+- Invalid credentials return an authentication failure without revealing whether
+  the username exists. Dependency or signing failures must not produce a token.
+- Rate-limit login attempts and alert on abnormal failures, JWKS retrieval errors,
+  signing errors, and User Service authentication latency.
+
 ## Feign And Tracing
 
 The client uses the Eureka name `USER-SERVICE`. Spring Cloud LoadBalancer chooses an instance. `FeignCorrelationConfig` forwards `X-Correlation-Id`; Micrometer instrumentation propagates trace headers.
@@ -75,7 +88,29 @@ docker compose up -d auth-service
 
 ## Limitations
 
-Shopverse uses JWT bearer tokens and Resource Server validation. This service is not a complete OAuth2 Authorization Server and does not currently issue refresh tokens.
+Shopverse uses JWT bearer tokens and Resource Server validation. This service is
+not a complete OAuth2 Authorization Server and does not currently issue refresh
+tokens, provide revocation/consent, or automate signing-key rotation. Production
+deployments should move signing keys to a secret manager or KMS/HSM-backed boundary.
+
+## AI-Assisted Development
+
+Use AI to trace login and JWKS flows, review token claims and expiry, diagnose
+Auth-to-User calls, generate negative authentication tests, and inspect sensitive
+logging. Follow scoped [`AGENTS.md`](AGENTS.md), imported by
+[`CLAUDE.md`](CLAUDE.md), and the reviewed
+[security-review](../ai-workflows/prompts/security-review.md),
+[feature](../ai-workflows/prompts/implement-feature.md), and
+[incident](../ai-workflows/prompts/incident-investigation.md) workflows.
+
+Never provide private keys, credentials, bearer tokens, or real user records to
+an AI tool. Require evidence before changing issuer, audience, signing, JWKS,
+internal authentication, or public error behavior. Shopverse is not a complete
+OAuth2 Authorization Server; AI output must not describe refresh-token or consent
+features as implemented.
+
+The deterministic identity-security evaluation covers method authorization,
+JWKS rotation, internal authentication, and secret leakage boundaries.
 
 ## Related Guides
 

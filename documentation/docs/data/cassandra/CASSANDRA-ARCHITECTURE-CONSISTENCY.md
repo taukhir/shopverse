@@ -3,11 +3,15 @@ title: Cassandra Architecture Replication And Consistency
 description: Peer-to-peer architecture, coordinators, tokens, replicas, gossip, failure detection, consistency levels, quorums, repair mechanisms, and lightweight transactions.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Distributed systems, CAP theorem]
 learning_objectives: [Trace Cassandra reads and writes, Select replication and consistency levels, Explain replica convergence and LWT boundaries]
 technologies: [Apache Cassandra, Gossip, Consistent Hashing, Paxos]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cassandra Architecture Replication And Consistency

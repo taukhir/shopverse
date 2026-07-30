@@ -3,10 +3,14 @@ title: Vector Databases
 sidebar_position: 4
 difficulty: Intermediate
 page_type: Decision Guide
-status: Generic
+status: maintained
 learning_objectives: [Choose pgvector or a dedicated vector database, Separate authoritative data from vector indexes]
 technologies: [pgvector, PostgreSQL, CockroachDB]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Vector Databases

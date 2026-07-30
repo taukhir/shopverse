@@ -2,11 +2,15 @@
 title: Fifteen System Design Visual Blueprints
 difficulty: Advanced
 page_type: Case Study
-status: Generic
+status: maintained
 keywords: [system design diagrams, URL shortener, chat, feed, video, ride matching, payment ledger]
 learning_objectives: [Recognize dominant ownership boundaries, Trace critical read and write paths, Identify derived versus authoritative data]
 technologies: [Kafka, PostgreSQL, Redis, CDN, Object Storage]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Fifteen System Design Visual Blueprints

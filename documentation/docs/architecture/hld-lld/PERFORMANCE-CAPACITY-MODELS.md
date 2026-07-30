@@ -3,10 +3,14 @@ title: "Performance And Capacity Models"
 description: "Quantitative models for latency, throughput, saturation, storage, queues, and recovery."
 sidebar_label: "Performance And Capacity Models"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Performance And Capacity Models**, apply the Shopverse guidance increme
 
 - [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
 - [RFC 9110: HTTP Semantics](https://www.rfc-editor.org/rfc/rfc9110)
+
+## Recommended Next Page
+
+Continue with [Capacity And Performance Estimation](./CAPACITY-PERFORMANCE-ESTIMATION.md).

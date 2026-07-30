@@ -3,11 +3,15 @@ title: Maven POM, Lifecycle, Plugins, And Effective Model
 description: Understand Maven coordinates, POM composition, lifecycle phases, plugin goals, executions, configuration, and packaging.
 difficulty: Intermediate
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Maven Engineering Learning Path]
 learning_objectives: [Read an effective POM, Predict lifecycle execution, Configure plugins safely]
 technologies: [Apache Maven]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Maven POM, Lifecycle, Plugins, And Effective Model

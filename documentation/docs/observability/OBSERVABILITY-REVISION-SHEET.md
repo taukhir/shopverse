@@ -3,11 +3,15 @@ title: Observability Engineering Revision Sheet
 description: Rapid revision of metrics, logs, traces, SLOs, cardinality, correlation, alerting, and incident investigation.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Observability Engineering Overview]
 learning_objectives: [Recall telemetry selection quickly, Diagnose incidents systematically, Defend observability cost and security decisions]
 technologies: [Micrometer, Prometheus, Grafana, Loki, OpenTelemetry]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Observability Engineering Revision Sheet

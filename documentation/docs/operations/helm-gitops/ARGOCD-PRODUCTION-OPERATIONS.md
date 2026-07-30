@@ -2,12 +2,16 @@
 title: Argo CD Architecture, Security, And Production Operations
 description: Trace Argo CD controllers, Applications, Projects, generators, sync phases, health, RBAC, multi-cluster operations, progressive delivery, backup, and incidents.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [GitOps Delivery Design]
 learning_objectives: [Explain Argo CD internals, Secure multi-tenant delivery, Diagnose and recover reconciliation failures]
 technologies: [Argo CD, Argo Rollouts, Helm, Kubernetes]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Argo CD Architecture, Security, And Production Operations

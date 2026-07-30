@@ -2,11 +2,15 @@
 title: Multi-Tenancy, Object Storage, And Feature Flags
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [multi-tenancy, noisy neighbor, presigned URL, multipart upload, object storage, feature flag]
 learning_objectives: [Choose a tenant isolation model, Design secure object upload and lifecycle flows, Operate feature flags safely]
 technologies: [PostgreSQL, S3, MinIO, Spring Boot]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Multi-Tenancy, Object Storage, And Feature Flags

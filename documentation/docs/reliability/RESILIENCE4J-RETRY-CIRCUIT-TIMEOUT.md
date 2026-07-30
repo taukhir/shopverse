@@ -3,10 +3,14 @@ title: "Retry, Circuit Breaker, And Timeout"
 description: "Retry, Circuit Breaker, And Timeout with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Retry, Circuit Breaker, And Timeout"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Retry, Circuit Breaker, And Timeout

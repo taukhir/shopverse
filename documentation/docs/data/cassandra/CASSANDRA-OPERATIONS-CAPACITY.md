@@ -2,12 +2,16 @@
 title: Cassandra Operations Capacity Repair Backup And Incidents
 description: Production topology, capacity, security, monitoring, repair, backup and restore, node lifecycle, upgrades, and incident runbooks.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Cassandra storage internals]
 learning_objectives: [Size and operate clusters, Plan repair and recovery, Diagnose production incidents safely]
 technologies: [Apache Cassandra, nodetool, JMX]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cassandra Operations Capacity Repair Backup And Incidents
@@ -177,9 +181,8 @@ writes could propagate incorrect data.
 - [Operating Cassandra](https://cassandra.apache.org/doc/latest/cassandra/managing/operating/index.html)
 - [Repair](https://cassandra.apache.org/doc/latest/cassandra/managing/operating/repair.html)
 - [Backups](https://cassandra.apache.org/doc/latest/cassandra/managing/operating/backups.html)
-- [Security](https://cassandra.apache.org/doc/latest/cassandra/managing/security/index.html)
+- [Security](https://cassandra.apache.org/doc/stable/cassandra/managing/operating/security.html)
 
 ## Recommended Next
 
 Continue with [Cassandra Interview, Labs, And Revision](./CASSANDRA-INTERVIEW-LABS-REVISION.md).
-

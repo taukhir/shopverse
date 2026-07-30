@@ -3,11 +3,15 @@ title: Spring And Spring Boot Revision Sheet
 description: Rapid revision of the Spring container, Boot auto-configuration, AOP, transactions, MVC, data, testing, Kafka, security, and production behavior.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Spring And Spring Boot Learning Guide]
 learning_objectives: [Recall Spring runtime behavior quickly, Diagnose framework boundary failures, Structure senior and architect interview answers]
 technologies: [Spring Framework 7, Spring Boot 4, Spring Data, Spring Kafka]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring And Spring Boot Revision Sheet

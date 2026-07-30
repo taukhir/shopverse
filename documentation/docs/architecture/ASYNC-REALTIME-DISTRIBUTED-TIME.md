@@ -2,11 +2,15 @@
 title: Asynchronous And Real-Time Distributed Systems
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [priority queue, delayed queue, visibility timeout, WebSocket, SSE, Snowflake ID, ULID, clock skew, logical clock]
 learning_objectives: [Choose queue and real-time communication semantics, Select distributed identifiers safely, Handle clocks ordering and late events]
 technologies: [Kafka, RabbitMQ, WebSocket, SSE]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Asynchronous And Real-Time Distributed Systems

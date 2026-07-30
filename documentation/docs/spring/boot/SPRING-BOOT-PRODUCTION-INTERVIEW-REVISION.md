@@ -2,12 +2,16 @@
 title: Spring Boot Production Interview And Revision
 description: Spring Boot rapid revision and lead-level scenario bank covering startup, conditions, configuration, web runtime, data, pools, Actuator, containers, incidents, and design trade-offs.
 difficulty: Advanced
-page_type: Revision Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Spring Boot architect path]
 learning_objectives: [Revise Boot internals quickly, Structure lead-level answers, Diagnose production scenarios, Explain evidence and trade-offs]
 technologies: [Spring Boot 4, Spring Framework 7, Actuator, JVM, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Production Interview And Revision
@@ -133,3 +137,7 @@ Return to [Spring Boot Beginner-To-Architect Path](../SPRING-BOOT-ARCHITECT-PATH
 practise explaining one startup incident, one request-latency incident and one failed
 deployment with evidence.
 
+## Official References
+
+- [Spring Boot Reference Documentation](https://docs.spring.io/spring-boot/reference/)
+- [Spring Boot Actuator](https://docs.spring.io/spring-boot/reference/actuator/)

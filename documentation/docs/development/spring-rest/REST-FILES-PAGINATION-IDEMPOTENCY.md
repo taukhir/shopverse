@@ -3,12 +3,16 @@ title: Spring REST Files Pagination And Idempotency
 description: Compatibility route to secure file transfer, pagination and conditional requests, idempotent commands, and OpenAPI contract governance.
 difficulty: Advanced
 page_type: Reference
-status: Compatibility route
+status: maintained
 learning_objectives:
   - Select the canonical guide for file, pagination, idempotency, or OpenAPI concerns
   - Preserve links to the former combined production REST page
 technologies: [Spring MVC, Multipart, Spring Data, HTTP, OpenAPI]
 last_reviewed: "2026-07-13"
+scope: compatibility
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST Files Pagination And Idempotency

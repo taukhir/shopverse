@@ -2,12 +2,16 @@
 title: Spring Data Interview Labs And Revision
 description: Lead and architect interview questions, production scenarios, hands-on labs, selection matrix, and rapid revision sheet.
 difficulty: Architect
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Spring Data Architect Learning Path]
 learning_objectives: [Answer internals and design questions, Diagnose production data incidents, Demonstrate decisions with executable evidence]
 technologies: [Spring Data, JPA, JDBC, R2DBC, Cassandra, MongoDB, Redis, Elasticsearch]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Interview Labs And Revision

@@ -1,8 +1,14 @@
 ---
 title: Beginner To Advanced AI Guide
 sidebar_position: 1.5
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Beginner To Advanced AI Guide

@@ -3,11 +3,15 @@ title: Kubernetes Kubeconfig, Contexts, Authentication, And Cluster Access
 description: Complete kubeconfig guide covering file structure, clusters, users, contexts, namespaces, precedence, merging, certificates, tokens, exec credential plugins, OIDC, TKGI credentials, RBAC, impersonation, security, rotation, and troubleshooting.
 difficulty: Intermediate
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [kubectl fundamentals, TLS basics, Authentication and authorization basics]
 learning_objectives: [Read and build kubeconfig safely, Operate multiple clusters and contexts, Explain authentication and RBAC boundaries, Diagnose access failures without leaking credentials]
 technologies: [Kubernetes, kubectl, kubeconfig, OIDC, X.509, RBAC, TKGI]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Kubeconfig, Contexts, Authentication, And Cluster Access

@@ -1,0 +1,15 @@
+{
+  "id": "kafka-duplicate-consumer-review",
+  "title": "Review Duplicate Kafka Delivery",
+  "prompt_path": "../prompts/review-kafka-consumer.md",
+  "fixture_paths": ["fixtures/kafka-duplicate-consumer.java", "fixtures/kafka-consumer-notes.md"],
+  "expected_path": "expected/kafka-duplicate-consumer-review.json",
+  "authority": {
+    "reads": ["provided fixtures"],
+    "writes": [],
+    "external_actions": []
+  },
+  "task": "Review the synthetic InventoryReserved consumer for duplicate and concurrent delivery risk. Explain transaction and acknowledgment boundaries, propose the smallest durable remediation, and specify regression tests. Do not edit files.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["A cross-service event contract change is required"]
+}

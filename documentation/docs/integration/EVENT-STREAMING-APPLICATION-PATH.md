@@ -3,11 +3,15 @@ title: Event Streaming Application Path
 description: One umbrella learning path for Spring Cloud Stream, Kafka Streams, and Kafka Connect from beginner concepts to production architecture and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Kafka fundamentals, Java, Spring Boot]
 learning_objectives: [Choose the correct Kafka application model, Build and operate event-driven applications, Defend production architecture decisions]
 technologies: [Spring Cloud Stream, Kafka Streams, Kafka Connect, Apache Kafka]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Event Streaming Application Path

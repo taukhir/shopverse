@@ -3,10 +3,14 @@ title: Financial Systems Architecture
 description: Lead and architect path for money, ledgers, payment lifecycles, reconciliation, settlement, controls, resilience, and financial-system interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Complete
+status: maintained
 prerequisites: [Transactions, microservices, Kafka, database reliability, security]
 technologies: [Java, Spring Boot, PostgreSQL, Kafka, Spring Batch]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Financial Systems Architecture
@@ -131,3 +135,7 @@ You are ready when you can design and defend:
 
 Begin with [Money, Ledger, And Accounting Invariants](./MONEY-LEDGER-ACCOUNTING-INVARIANTS.md).
 
+## Official References
+
+- [PCI SSC document library](https://www.pcisecuritystandards.org/document_library/)
+- [Federal Reserve payment systems](https://www.federalreserve.gov/paymentsystems.htm)

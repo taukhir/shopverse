@@ -4,11 +4,15 @@ description: Restartable Spring Batch jobs, metadata, chunk transactions, side-e
 sidebar_position: 9
 difficulty: Advanced
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring ecosystem, Spring transactions, Spring Data JPA]
 learning_objectives: [Design restartable chunk-oriented jobs, Choose readers processors writers and transaction boundaries, Operate and test batch workloads safely]
 technologies: [Spring Batch, Spring Boot, JDBC]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Batch

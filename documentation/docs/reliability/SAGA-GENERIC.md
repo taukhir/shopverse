@@ -3,10 +3,14 @@ title: "SAGA And Transactional Outbox"
 description: "Design distributed transactions, compensation, outbox delivery, and operations."
 sidebar_label: "SAGA And Transactional Outbox"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **SAGA And Transactional Outbox**, apply the Shopverse guidance increment
 
 - [Resilience4j documentation](https://resilience4j.readme.io/docs)
 - [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+
+## Recommended Next Page
+
+Continue with [Shopverse Saga And Outbox](./SAGA-OUTBOX.md).

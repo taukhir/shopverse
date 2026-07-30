@@ -3,10 +3,14 @@ title: "Reliability And Observability Demonstrations"
 description: "Reliability And Observability Demonstrations with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Reliability And Observability Demonstrations"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reference
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Reliability And Observability Demonstrations

@@ -3,13 +3,17 @@ title: Spring Container Runtime For Architects
 description: ApplicationContext refresh, bean definition and instance extension points, dependency resolution, scopes, early references, auto-configuration, AOT, diagnostics, and production evidence.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 learning_objectives:
   - Trace context refresh and bean creation without confusing definition and instance phases
   - Diagnose dependency resolution, proxy eligibility, scope, lifecycle, and auto-configuration failures
   - Prove container behavior with startup evidence and isolated executable tests
 technologies: [Spring Framework, Spring Boot]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Container Runtime For Architects

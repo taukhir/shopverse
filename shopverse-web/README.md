@@ -144,6 +144,25 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFull
   endpoint is unavailable, it derives a timeline from existing admin APIs.
 - Protected API calls attach `Authorization: Bearer <token>`.
 
+## Browser, Environment, And UX Budgets
+
+- Validate the current stable Chromium, Firefox, and WebKit engines through the
+  Playwright projects before release; document any intentionally unsupported browser.
+- Keep API base URL, asset origin, and build/runtime environment values outside
+  components. Do not put secrets in Angular environment files or browser storage.
+- Accessibility acceptance includes keyboard-only completion, visible focus, semantic
+  names, error association, landmark/headings order, contrast, zoom/reflow, and screen
+  reader smoke coverage for critical journeys.
+- Lighthouse and bundle budgets are release gates, not advisory screenshots. Record
+  before/after LCP, CLS, INP/TBT proxy, accessibility score, and transferred JavaScript
+  when changing a critical page.
+- Every API-backed view needs loading, empty, partial, success, validation, authorization,
+  unavailable, retry, and duplicate-submission behavior without leaking internal errors.
+
+Known POC limits: access tokens use `sessionStorage` and visual snapshots cover
+selected routes rather than every responsive state. The deterministic AI evaluation
+uses synthetic accessibility and Web Vitals evidence; browser tests remain authoritative.
+
 ## Validation
 
 Build before handing off frontend changes:
@@ -168,6 +187,26 @@ shipping externally:
 5. Open order detail and verify timeline/payment/delivery sections.
 6. Use admin order detail to pack, ship, and deliver.
 7. Use customer order detail to request return when delivered.
+
+## AI-Assisted Development
+
+This application has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
+[`CLAUDE.md`](CLAUDE.md). Use:
+
+- [UX and accessibility review](../ai-workflows/prompts/ux-accessibility-review.md)
+- [Performance optimization](../ai-workflows/prompts/optimize-performance.md)
+- [Implement a bounded feature](../ai-workflows/prompts/implement-feature.md)
+- [Security review](../ai-workflows/prompts/security-review.md)
+
+AI can accelerate state-matrix creation, Angular implementation, test generation,
+browser inspection, accessibility review, responsive QA, and performance
+analysis. It must preserve idempotent checkout behavior, backend authorization,
+user-safe errors, signals/OnPush conventions, privacy, and existing shared UI
+patterns. Inspect screenshots and behavior before updating visual baselines.
+
+The deterministic evaluation suite now covers accessibility, responsive state,
+duplicate submission, and measured LCP/CLS reasoning. Browser automation remains
+the acceptance evidence for actual UI changes.
 
 ## Related Docs
 

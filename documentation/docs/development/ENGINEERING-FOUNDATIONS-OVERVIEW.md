@@ -3,11 +3,15 @@ title: Engineering Foundations Overview
 description: First-read map connecting design principles, patterns, APIs, data structures, system design, testing, and technical leadership.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Core Java fundamentals]
 learning_objectives: [Connect software design topics into one engineering model, Choose the correct deep dive for a design problem, Review implementations from correctness through operability]
 technologies: [Java, HTTP, SQL, Git, CI]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Engineering Foundations Overview

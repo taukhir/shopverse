@@ -1,8 +1,14 @@
 ---
 title: High Availability And SPOF Prevention
 sidebar_position: 8
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # High Availability And Single Points Of Failure

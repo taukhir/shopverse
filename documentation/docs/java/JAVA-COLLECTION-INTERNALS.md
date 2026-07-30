@@ -1,8 +1,14 @@
 ---
 title: Java Collection Internals
 sidebar_position: 4
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-24"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Collection Internals

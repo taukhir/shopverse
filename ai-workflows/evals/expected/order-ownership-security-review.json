@@ -1,0 +1,40 @@
+{
+  "scenario_id": "order-ownership-security-review",
+  "pass_threshold": 80,
+  "criteria": [
+    {
+      "id": "required-structure",
+      "type": "required_fields",
+      "weight": 10,
+      "paths": ["answer", "claims", "changed_files", "risks"]
+    },
+    {
+      "id": "security-language",
+      "type": "answer_terms",
+      "weight": 25,
+      "all_terms": ["object-level authorization", "customerId", "authenticated", "404", "negative test"]
+    },
+    {
+      "id": "required-finding",
+      "type": "required_claims",
+      "weight": 40,
+      "claim_ids": ["ownership_bypass", "enumeration_control", "scoped_lookup", "negative_regression_test"],
+      "minimum_evidence_per_claim": 1,
+      "allowed_evidence_prefixes": ["fixtures/order-ownership-"]
+    },
+    {
+      "id": "read-only-scope",
+      "type": "file_scope",
+      "weight": 15,
+      "require_changes": false,
+      "maximum_changes": 0,
+      "allowed_patterns": []
+    },
+    {
+      "id": "no-ui-auth",
+      "type": "forbidden_terms",
+      "weight": 10,
+      "terms": ["hiding the button is sufficient", "authentication alone prevents access"]
+    }
+  ]
+}

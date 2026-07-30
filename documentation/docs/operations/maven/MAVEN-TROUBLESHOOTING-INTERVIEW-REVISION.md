@@ -2,12 +2,16 @@
 title: Maven Troubleshooting, Interview Questions, Labs, And Revision
 description: Diagnose Maven model, resolution, compilation, testing, packaging, and CI failures with lead-level scenarios and exercises.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Maven CI Security And Reproducibility]
 learning_objectives: [Troubleshoot Maven systematically, Complete practical labs, Answer lead-level build questions]
 technologies: [Apache Maven]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Maven Troubleshooting, Interview Questions, Labs, And Revision

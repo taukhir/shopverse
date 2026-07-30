@@ -3,11 +3,15 @@ title: Spring Data Transaction Async Scheduling And Cache Annotations
 description: Deep guide to Spring Data repository, JPA, transaction, events, async, scheduling, retry and cache annotations with proxy boundaries, consistency, concurrency, and production failures.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring AOP, Transactions, Spring Data fundamentals]
 learning_objectives: [Use persistence annotations deliberately, Explain transaction metadata, Bound async and scheduled work, Design caching safely, Diagnose proxy failures]
 technologies: [Spring Framework 7, Spring Boot 4, Spring Data JPA, Spring Cache]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Transaction Async Scheduling And Cache Annotations

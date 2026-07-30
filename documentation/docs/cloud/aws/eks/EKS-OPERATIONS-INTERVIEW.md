@@ -3,11 +3,15 @@ title: EKS Operations, Incidents, Labs, And Interviews
 description: Implement and diagnose EKS identity, VPC CNI, nodes, add-ons, ingress, CSI, autoscaling, upgrades, security, cost, and disaster recovery with practical labs and interview questions.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Amazon EKS Production Architect Path]
 learning_objectives: [Diagnose AWS-specific failures, Operate upgrades and capacity, Secure workload identity, Complete production labs]
 technologies: [EKS, IAM, VPC CNI, Karpenter, EBS CSI]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-cloud
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # EKS Operations, Incidents, Labs, And Interviews

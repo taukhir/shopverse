@@ -3,11 +3,15 @@ title: Spring MVC REST Binding Validation And Error Annotations
 description: Detailed Spring MVC annotation guide covering controllers, mappings, arguments, binding, conversion, validation, response status, advice, exceptions, CORS, and safe API contracts.
 difficulty: Intermediate
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [HTTP, Spring MVC request lifecycle]
 learning_objectives: [Map requests precisely, Distinguish binding sources, Validate request and method contracts, Centralize errors, Avoid mass-assignment and ambiguity]
 technologies: [Spring Framework 7, Spring Boot 4, Jakarta Validation]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring MVC REST Binding Validation And Error Annotations

@@ -2,14 +2,19 @@
 title: Spring REST Error Contracts
 description: Canonical error ownership and public contract guidance across security filters, MVC conversion, validation, domain rules, resilience, and database failures.
 difficulty: Advanced
-page_type: Architecture
-status: Implemented
+page_type: Concept
+status: maintained
 learning_objectives:
   - Route failures to the translator that owns their runtime boundary
   - Choose and govern one documented public error schema per API
   - Preserve diagnostic evidence without exposing secrets or implementation detail
 technologies: [Spring MVC, Spring Security, ProblemDetail, Shopverse ApiErrorResponse]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST Error Contracts

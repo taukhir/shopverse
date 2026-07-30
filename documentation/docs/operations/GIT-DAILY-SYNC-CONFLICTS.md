@@ -3,10 +3,14 @@ title: "Git Daily Workflow, Sync, And Conflicts"
 description: "Git Daily Workflow, Sync, And Conflicts with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Git Daily Workflow, Sync, And Conflicts"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Git Daily Workflow, Sync, And Conflicts

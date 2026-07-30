@@ -2,11 +2,15 @@
 title: SRE, Disaster Recovery, And Chaos Engineering
 difficulty: Advanced
 page_type: Runbook
-status: Generic
+status: maintained
 keywords: [SLI, SLO, error budget, incident management, postmortem, disaster recovery, chaos engineering, game day]
 learning_objectives: [Define user-centered reliability targets, Coordinate incidents and learning, Prove recovery with controlled failure experiments]
 technologies: [Prometheus, Grafana, Kubernetes]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # SRE, Disaster Recovery, And Chaos Engineering

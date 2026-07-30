@@ -2,10 +2,14 @@
 title: REST API Design
 difficulty: Beginner
 page_type: Concept
-status: Generic
+status: maintained
 learning_objectives: [Design predictable resource-oriented HTTP APIs, Apply method status validation and idempotency semantics]
 technologies: [HTTP, REST, JSON]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # REST API Design

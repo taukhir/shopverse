@@ -3,11 +3,15 @@ title: Spring Boot 4 Configuration Properties
 description: Typed binding, constructor records, validation, precedence, secrets, metadata, refresh behavior, compatibility rollout, and tests.
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring dependency injection, Spring Boot configuration data]
 learning_objectives: [Model configuration as a validated typed contract, Diagnose property source and binding failures, Roll out property and secret changes compatibly]
 technologies: [Spring Boot 4, ConfigurationProperties, Jakarta Validation, Spring Cloud Config]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot 4 Configuration Properties

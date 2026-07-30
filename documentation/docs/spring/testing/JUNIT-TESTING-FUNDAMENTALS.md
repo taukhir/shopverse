@@ -1,15 +1,20 @@
 ---
 title: JUnit Testing Fundamentals
 description: Framework-independent JUnit Platform and Jupiter foundations for deterministic lifecycle, assertions, parameterized tests, tags, and test structure before Spring-specific testing.
-difficulty: Foundation
-page_type: Testing
-status: Implemented
+difficulty: Beginner
+page_type: Guide
+status: maintained
 learning_objectives:
   - Explain JUnit Platform, Jupiter engine, and test-instance lifecycle
   - Write deterministic behavior-focused assertions and parameterized boundaries
   - Tag and structure tests for later Spring and CI ownership
 technologies: [JUnit Platform, JUnit Jupiter, AssertJ, Gradle]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 

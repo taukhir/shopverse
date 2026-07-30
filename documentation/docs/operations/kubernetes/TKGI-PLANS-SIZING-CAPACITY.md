@@ -3,11 +3,15 @@ title: TKGI Plans, Profiles, VM Sizing And Capacity
 description: TKGI 1.25 planning guide covering plans, compute/network/Kubernetes profiles, control-plane sizing, worker calculations, Pod density, upgrade and failure headroom, IP/storage/load-balancer capacity, skew, quotas, evidence, and interviews.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [TKGI installation, Kubernetes resources, Capacity planning]
 learning_objectives: [Design TKGI plans, Calculate worker and control-plane capacity, Preserve upgrade and failure headroom, Diagnose capacity failures]
 technologies: [TKGI 1.25, BOSH, vSphere, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Plans, Profiles, VM Sizing And Capacity
@@ -153,7 +157,11 @@ DaemonSets, network and volume limits can become binding before Pod count.
 **Why reserve at least one extra worker for upgrades?** A worker can be drained and
 recreated only if remaining nodes can schedule disrupted Pods within availability rules.
 
-## Official Reference
+## Recommended Next
+
+Continue with [TKGI Upgrade Lifecycle](./TKGI-UPGRADE-LIFECYCLE.md) and validate
+the proposed headroom against a drain, control-plane upgrade, and failed-node scenario.
+
+## Official References
 
 - [Broadcom TKGI 1.25 VM sizing](https://techdocs.broadcom.com/us/en/vmware-tanzu/standalone-components/tanzu-kubernetes-grid-integrated-edition/1-25/tkgi/vm-sizing.html)
-

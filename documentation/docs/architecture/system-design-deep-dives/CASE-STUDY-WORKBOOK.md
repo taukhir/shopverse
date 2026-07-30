@@ -2,11 +2,15 @@
 title: System Design Case-Study Workbook
 difficulty: Advanced
 page_type: Case Study
-status: Generic
+status: maintained
 keywords: [URL shortener, notification service, chat design, feed design, video streaming, payment ledger]
 learning_objectives: [Practice complete system designs, Compare workload-specific trade-offs, Record rejected alternatives]
 technologies: [System Design]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # System Design Case-Study Workbook

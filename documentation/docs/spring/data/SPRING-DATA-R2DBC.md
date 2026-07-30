@@ -3,11 +3,15 @@ title: Spring Data R2DBC In Depth
 description: Reactive relational repositories, templates, transactions, backpressure, pooling, testing, and production failure analysis.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Reactive Streams, Reactor, SQL, Spring Data Commons]
 learning_objectives: [Trace reactive database execution, Design reactive transaction boundaries, Diagnose pool starvation and blocking]
 technologies: [Spring Data R2DBC, Reactor, R2DBC, Spring Boot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data R2DBC In Depth

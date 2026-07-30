@@ -3,11 +3,15 @@ title: Shopverse System-Design Capstones
 description: Interview-ready designs connecting requirements, capacity, APIs, data, events, failure, security, and operations.
 difficulty: Advanced
 page_type: Learning Path
-status: Shopverse
+status: maintained
 prerequisites: [HLD fundamentals, Microservices, Databases]
 learning_objectives: [Design end to end, Quantify trade-offs, Defend evolution decisions]
 technologies: [Spring Boot, Kafka, PostgreSQL, Redis, OpenTelemetry]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Shopverse System-Design Capstones

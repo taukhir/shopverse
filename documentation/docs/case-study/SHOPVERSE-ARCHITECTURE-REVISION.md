@@ -3,11 +3,15 @@ title: Shopverse Architecture Revision Sheet
 description: Interview-ready revision of Shopverse boundaries, checkout flow, Kafka saga, security, reliability, observability, strengths, and production gaps.
 difficulty: Advanced
 page_type: Case Study
-status: Shopverse
+status: maintained
 prerequisites: [Shopverse Architecture Current State]
 learning_objectives: [Explain Shopverse architecture concisely, Trace checkout and recovery flows, Discuss strengths gaps and next decisions honestly]
 technologies: [Spring Boot, Kafka, MySQL, Redis, Docker, Prometheus, Grafana]
 last_reviewed: "2026-07-23"
+scope: shopverse
+owner: docs-case-study
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Shopverse Architecture Revision Sheet

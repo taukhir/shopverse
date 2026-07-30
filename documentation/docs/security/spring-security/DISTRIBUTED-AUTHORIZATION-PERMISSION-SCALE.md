@@ -3,10 +3,14 @@ title: "Distributed Authorization At Permission Scale"
 description: "Design large role and permission models without oversized JWTs, stale access, role explosion, unsafe caches, or a fragile central policy dependency."
 sidebar_label: "Authorization At Permission Scale"
 tags: ["authorization", "rbac", "abac", "jwt", "microservices"]
-page_type: "Architecture Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Distributed Authorization At Permission Scale

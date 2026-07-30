@@ -2,10 +2,14 @@
 title: Java Thread Context Propagation
 description: Safe correlation, identity, locale, and observability context across executors, virtual threads, HTTP calls, and Shopverse Kafka listeners.
 difficulty: Advanced
-page_type: Architecture
-status: Generic
+page_type: Concept
+status: maintained
 technologies: [Java 25, SLF4J MDC, Spring]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Thread Context Propagation

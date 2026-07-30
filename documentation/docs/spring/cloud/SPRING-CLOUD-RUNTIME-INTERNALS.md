@@ -3,11 +3,15 @@ title: Spring Cloud Config LoadBalancer And Gateway Internals
 description: Config Data startup, repository and refresh lifecycle, service-instance selection, gateway filter chains, OAuth token relay, capacity, and diagnosis.
 difficulty: Architect
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Boot startup, HTTP, reactive fundamentals]
 learning_objectives: [Trace configuration and request runtime paths, Customize load balancing safely, Diagnose gateway and discovery failures]
 technologies: [Spring Cloud Config, Spring Cloud LoadBalancer, Spring Cloud Gateway, Spring Boot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Config LoadBalancer And Gateway Internals

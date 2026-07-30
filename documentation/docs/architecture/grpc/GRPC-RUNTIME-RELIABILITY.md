@@ -3,11 +3,15 @@ title: gRPC Runtime, Streaming, Deadlines, Errors, And Reliability
 description: Trace channels, name resolution, load balancing, HTTP/2 streams, metadata, unary and streaming RPC, deadlines, cancellation, status, retries, health, keepalive, and graceful shutdown.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Protocol Buffers Contract Evolution]
 learning_objectives: [Trace gRPC calls internally, Design reliable streaming and retry, Diagnose channel and HTTP/2 behavior]
 technologies: [gRPC, HTTP/2]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # gRPC Runtime, Streaming, Deadlines, Errors, And Reliability

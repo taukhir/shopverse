@@ -3,13 +3,17 @@ title: Spring Proxy And Transaction Runtime For Architects
 description: Advisor chains, proxy eligibility, interceptor ordering, physical and logical transactions, propagation, synchronization, async boundaries, diagnostics, and production evidence.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 learning_objectives:
   - Prove whether a call crosses an eligible Spring proxy and advisor chain
   - Trace logical and physical transactions through propagation, rollback, synchronization, and connection ownership
   - Diagnose transaction failures across async, reactive, database, and messaging boundaries
 technologies: [Spring Framework, Spring AOP, Spring Transactions, JDBC]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Proxy And Transaction Runtime For Architects

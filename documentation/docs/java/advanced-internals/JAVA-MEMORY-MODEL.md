@@ -2,11 +2,15 @@
 title: Java Memory Model And Safe Publication
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 keywords: [Java Memory Model, happens-before, volatile, final field, safe publication, data race, false sharing]
 learning_objectives: [Reason with happens-before instead of timing, Publish objects safely, Identify visibility ordering and atomicity failures]
 technologies: [Java]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Memory Model And Safe Publication

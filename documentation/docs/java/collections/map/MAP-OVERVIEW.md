@@ -3,10 +3,14 @@ title: "Java Map Collections Overview"
 description: "Choose among HashMap, LinkedHashMap, TreeMap, ConcurrentHashMap, EnumMap, and specialized map implementations."
 sidebar_label: "Map Overview"
 tags: [java, collections, map]
-page_type: "Category Overview"
-difficulty: "Intermediate"
-status: "maintained"
+page_type: Reference
+difficulty: Intermediate
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Map Collections Overview

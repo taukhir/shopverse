@@ -3,11 +3,15 @@ title: Persistence Runtime Compatibility Route
 description: Compatibility route from the former Hibernate and JDBC internals chapter to the canonical persistence-runtime architecture guide.
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Spring Data JPA]
 learning_objectives: [Locate the canonical Spring persistence-runtime guide]
 technologies: [Spring Data JPA, Hibernate ORM, JDBC]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Persistence Runtime Compatibility Route

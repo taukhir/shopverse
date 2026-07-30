@@ -3,11 +3,15 @@ title: Cassandra Storage Compaction Tombstones And Indexes
 description: Commit log, memtables, SSTables, read path, caches, Bloom filters, compaction strategies, tombstones, SAI, secondary indexes, and materialized views.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Cassandra CQL data modeling]
 learning_objectives: [Trace storage paths, Select compaction and indexing, Diagnose tombstone and SSTable amplification]
 technologies: [Apache Cassandra, SSTable, Bloom Filter, SAI]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cassandra Storage Compaction Tombstones And Indexes

@@ -2,11 +2,15 @@
 title: Lombok Guide
 difficulty: Beginner
 page_type: Guide
-status: Generic with Shopverse mapping
+status: maintained
 prerequisites: [Java classes and annotations]
 learning_objectives: [Explain Lombok generation, Select important annotations, Avoid entity logging equality and builder pitfalls]
 technologies: [Java, Lombok, Gradle]
 last_reviewed: "2026-07-11"
+scope: hybrid
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Lombok Guide

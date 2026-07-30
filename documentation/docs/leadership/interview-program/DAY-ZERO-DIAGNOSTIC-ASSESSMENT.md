@@ -3,10 +3,14 @@ title: Day-Zero Lead And Architect Diagnostic Assessment
 description: Closed-book timed baseline across Java, Spring, data, Kafka, microservices, platform diagnosis, system design, incidents, leadership, and financial systems.
 difficulty: Advanced
 page_type: Practice
-status: Complete
+status: maintained
 prerequisites: [Target role selected, uninterrupted assessment window]
 technologies: [Java, Spring, Kafka, SQL, Kubernetes, Architecture]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Day-Zero Lead And Architect Diagnostic Assessment
@@ -281,3 +285,7 @@ idempotent execution, immutable correction, secrets, audit evidence, and inciden
 Record section timing, unanswered prompts, moments where structure failed, and claims made without
 evidence. Only now open the [Day-Zero Assessor Guide](./DAY-ZERO-ASSESSOR-SCORING-ROUTING.md).
 
+## Official References
+
+- [US OPM structured interviews](https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews/)
+- [US OPM assessment strategy](https://www.opm.gov/policy-data-oversight/assessment-and-selection/)

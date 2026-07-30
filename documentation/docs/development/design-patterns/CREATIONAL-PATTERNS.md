@@ -3,10 +3,14 @@ title: Creational Patterns
 description: "Choose among all five GoF creational patterns and follow dedicated Java and Spring implementation guides."
 sidebar_label: "Creational Patterns"
 tags: ["spring", "design-patterns", "creational"]
-page_type: "Category Overview"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Reference
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Creational Patterns

@@ -3,11 +3,15 @@ title: Advanced Spring Cassandra Driver And Data Types
 description: UDTs, tuples, LWT, batches, request tracking, paging security, multi-datacenter profiles, callbacks, migrations, and failure labs.
 difficulty: Architect
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Data Cassandra, Cassandra architecture]
 learning_objectives: [Map advanced Cassandra types, Configure safe driver execution, Diagnose LWT paging and datacenter failures]
 technologies: [Spring Data Cassandra, Apache Cassandra, DataStax Java Driver]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Advanced Spring Cassandra Driver And Data Types

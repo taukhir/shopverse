@@ -3,12 +3,16 @@ title: Spring MVC And Security Request Runtime
 description: Compatibility route to the canonical servlet lifecycle, Spring Security runtime, HTTP message conversion, and web capacity guides.
 difficulty: Advanced
 page_type: Reference
-status: Compatibility route
+status: maintained
 learning_objectives:
   - Select the focused runtime guide for a Spring web question
   - Preserve existing links to the former combined MVC and security page
 technologies: [Spring MVC, Spring Security, Spring Boot]
 last_reviewed: "2026-07-13"
+scope: compatibility
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring MVC And Security Request Runtime

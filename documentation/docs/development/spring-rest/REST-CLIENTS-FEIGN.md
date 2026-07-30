@@ -2,14 +2,19 @@
 title: Spring HTTP Client Selection And Runtime
 description: Canonical selection and production runtime guide for RestClient, WebClient, HTTP Service Clients, legacy RestTemplate, and existing Spring Cloud OpenFeign adapters.
 difficulty: Advanced
-page_type: Architecture
-status: Implemented
+page_type: Concept
+status: maintained
 learning_objectives:
   - Choose a Spring HTTP client from execution model and contract ownership
   - Design pools, deadline phases, cancellation, retries, and context propagation
   - Evolve current Shopverse Feign clients without duplicating deep Feign or reactive guides
 technologies: [Spring Framework 7, RestClient, WebClient, HTTP Service Clients, OpenFeign]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring HTTP Client Selection And Runtime

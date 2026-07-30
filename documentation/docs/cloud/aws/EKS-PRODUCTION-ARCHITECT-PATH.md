@@ -3,11 +3,15 @@ title: Amazon EKS Production Architect Path
 description: Production EKS architecture covering accounts, VPC and Pod networking, access and workload identity, nodes, add-ons, ingress, storage, autoscaling, upgrades, observability, security, cost, DR, incidents, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [AWS fundamentals, Kubernetes Architect Path, Terraform]
 learning_objectives: [Design secure EKS foundations, Operate networking identity and nodes, Upgrade and recover clusters, Diagnose AWS-specific incidents]
 technologies: [Amazon EKS, VPC CNI, EKS Pod Identity, EC2, IAM]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-cloud
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Amazon EKS Production Architect Path

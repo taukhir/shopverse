@@ -3,11 +3,15 @@ title: Spring Dependency Injection And Bean Lifecycle
 description: Learning route for dependency resolution, bean scopes, lifecycle callbacks, diagnostics, and proxy publication boundaries.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Spring container fundamentals]
 learning_objectives: [Choose the focused dependency-resolution or bean-lifecycle guide, Keep AOP and container internals in their canonical guides]
 technologies: [Spring Framework 7, Spring Boot 4]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Dependency Injection And Bean Lifecycle

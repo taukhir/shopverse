@@ -2,8 +2,8 @@
 title: Production Performance And Availability
 description: An architect and incident-lead guide to evidence-led performance recovery and high-availability design.
 difficulty: Advanced
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 keywords: [performance, incident response, latency, high availability, SLO, RTO, RPO, failover, graceful degradation]
 learning_objectives:
   - Stabilize and diagnose slow production systems without guessing
@@ -11,6 +11,10 @@ learning_objectives:
   - Validate capacity, failover, restore, and degraded operation with production evidence
 technologies: [Spring Boot, JVM, PostgreSQL, Kafka, Kubernetes, Prometheus]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Production Performance And Availability

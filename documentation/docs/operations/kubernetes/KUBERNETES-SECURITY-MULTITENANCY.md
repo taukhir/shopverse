@@ -3,11 +3,15 @@ title: Kubernetes Security, Admission, Policy, And Multi-Tenancy
 description: Secure API access, RBAC, service accounts, Pod Security, admission, secrets, supply chain, network policy, runtime, nodes, audit, and tenant boundaries.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Kubernetes API and networking]
 learning_objectives: [Threat-model a cluster, Apply least privilege and workload hardening, Govern admission and supply chain, Design defensible tenancy boundaries]
 technologies: [Kubernetes RBAC, Pod Security Standards, OIDC, NetworkPolicy]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Security, Admission, Policy, And Multi-Tenancy

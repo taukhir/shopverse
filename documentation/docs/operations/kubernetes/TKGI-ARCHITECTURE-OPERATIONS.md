@@ -3,11 +3,15 @@ title: TKGI Architecture, Services, BOSH, Concourse, And Operations
 description: In-depth Tanzu Kubernetes Grid Integrated Edition guide covering management and workload planes, TKGI API, UAA, broker, BOSH deployments, vSphere and NSX integration, cluster lifecycle, Concourse pipelines, Go and BOSH packages, commands, failures, and interviews.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Kubernetes internals, BOSH fundamentals, vSphere networking]
 learning_objectives: [Trace TKGI cluster provisioning end to end, Distinguish TKGI BOSH and Kubernetes control planes, Identify version-dependent TKGI services, Diagnose cluster lifecycle failures, Explain Concourse and Go packaging in a TKGI delivery workflow]
 technologies: [TKGI, Kubernetes, BOSH, Operations Manager, vSphere, NSX, Concourse, Go]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Architecture, Services, BOSH, Concourse, And Operations

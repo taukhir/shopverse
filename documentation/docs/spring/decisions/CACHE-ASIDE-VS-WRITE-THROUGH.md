@@ -3,11 +3,15 @@ title: Cache-Aside Versus Write-Through
 description: Choose a cache write policy from ownership, stale windows, and failure recovery.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Caching, Transactions]
 learning_objectives: [Compare ownership, Quantify staleness, Design repair]
 technologies: [Spring Cache, Redis, PostgreSQL]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Cache-Aside Versus Write-Through

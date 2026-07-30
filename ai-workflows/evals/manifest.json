@@ -1,0 +1,93 @@
+{
+  "suite": "shopverse-ai-engineering",
+  "version": "1.0.0",
+  "minimum_node_major": 20,
+  "default_pass_threshold": 80,
+  "result_contract_version": "1.0",
+  "scenarios": [
+    {
+      "id": "checkout-architecture-discovery",
+      "file": "scenarios/checkout-architecture-discovery.json",
+      "category": "architecture",
+      "mode": "read-only"
+    },
+    {
+      "id": "kafka-duplicate-consumer-review",
+      "file": "scenarios/kafka-duplicate-consumer-review.json",
+      "category": "reliability",
+      "mode": "read-only"
+    },
+    {
+      "id": "order-ownership-security-review",
+      "file": "scenarios/order-ownership-security-review.json",
+      "category": "security",
+      "mode": "read-only"
+    },
+    {
+      "id": "bounded-checkout-validation-change",
+      "file": "scenarios/bounded-checkout-validation-change.json",
+      "category": "implementation",
+      "mode": "local-edits"
+    },
+    {
+      "id": "documentation-navigation-update",
+      "file": "scenarios/documentation-navigation-update.json",
+      "category": "documentation",
+      "mode": "documentation-edits"
+    },
+    {
+      "id": "performance-evidence-diagnosis",
+      "file": "scenarios/performance-evidence-diagnosis.json",
+      "category": "performance",
+      "mode": "read-only"
+    },
+    {
+      "id": "payment-timeout-double-capture",
+      "file": "scenarios/payment-timeout-double-capture.json",
+      "category": "payments",
+      "mode": "read-only"
+    },
+    {
+      "id": "inventory-concurrency-expiry",
+      "file": "scenarios/inventory-concurrency-expiry.json",
+      "category": "inventory",
+      "mode": "read-only"
+    },
+    {
+      "id": "identity-authorization-secret-handling",
+      "file": "scenarios/identity-authorization-secret-handling.json",
+      "category": "security",
+      "mode": "read-only"
+    },
+    {
+      "id": "gateway-route-jwt-propagation",
+      "file": "scenarios/gateway-route-jwt-propagation.json",
+      "category": "gateway",
+      "mode": "read-only"
+    },
+    {
+      "id": "frontend-accessibility-vitals",
+      "file": "scenarios/frontend-accessibility-vitals.json",
+      "category": "frontend",
+      "mode": "read-only"
+    },
+    {
+      "id": "platform-starter-compatibility",
+      "file": "scenarios/platform-starter-compatibility.json",
+      "category": "platform",
+      "mode": "read-only"
+    },
+    {
+      "id": "configuration-route-secret-safety",
+      "file": "scenarios/configuration-route-secret-safety.json",
+      "category": "configuration",
+      "mode": "read-only"
+    },
+    {
+      "id": "discovery-registration-churn",
+      "file": "scenarios/discovery-registration-churn.json",
+      "category": "discovery",
+      "mode": "read-only"
+    }
+  ]
+}

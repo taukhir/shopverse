@@ -3,10 +3,14 @@ title: Lead And Architect Preparation Dashboard
 description: Canonical control center for role selection, topic priority, study sequencing, revision, mocks, evidence, and interview-readiness decisions.
 difficulty: Intermediate
 page_type: Learning Path
-status: Complete
+status: maintained
 prerequisites: [A target role and realistic weekly study capacity]
 technologies: [Java, Spring, Kafka, Databases, Kubernetes, Architecture]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Lead And Architect Preparation Dashboard

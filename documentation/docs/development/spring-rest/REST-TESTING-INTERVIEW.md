@@ -3,12 +3,16 @@ title: Spring REST Testing And Interview Guide
 description: Compatibility route to focused Spring REST testing and expandable interview-workbook pages.
 difficulty: Advanced
 page_type: Reference
-status: Compatibility route
+status: maintained
 learning_objectives:
   - Choose between the executable testing guide and interview workbook
   - Preserve links to the former combined testing and interview page
 technologies: [Spring MVC Test, MockMvc, HTTP]
 last_reviewed: "2026-07-13"
+scope: compatibility
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST Testing And Interview Guide

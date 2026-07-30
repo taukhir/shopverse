@@ -1,0 +1,11 @@
+{
+  "id": "frontend-accessibility-vitals",
+  "title": "Review Frontend Accessibility And Web Vitals",
+  "prompt_path": "../prompts/ux-accessibility-review.md",
+  "fixture_paths": ["fixtures/frontend-accessibility-evidence.md"],
+  "expected_path": "expected/frontend-accessibility-vitals.json",
+  "authority": {"reads": ["provided fixture"], "writes": [], "external_actions": []},
+  "task": "Review a checkout UI regression using accessibility, state, responsive, and measured Core Web Vitals evidence. Prioritize corrections and validation without editing files.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["Required browser evidence is absent"]
+}

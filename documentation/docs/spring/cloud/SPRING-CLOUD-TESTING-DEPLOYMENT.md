@@ -3,11 +3,15 @@ title: Spring Cloud Testing Deployment And Upgrade Strategy
 description: In-depth testing and delivery guide for Config, discovery, clients, Gateway, resilience, Kubernetes, contracts, fault injection, release trains, canaries, and rollback.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Cloud architect path, Spring Boot testing, Kubernetes deployments]
 learning_objectives: [Test distributed integrations at the correct level, Validate configuration and routing, Deploy components safely, Govern release-train compatibility, Prove rollback]
 technologies: [Spring Cloud, Spring Boot, Gateway, Config, Kubernetes, Testcontainers]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Testing Deployment And Upgrade Strategy

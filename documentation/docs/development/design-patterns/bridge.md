@@ -3,10 +3,14 @@ title: "Bridge Pattern in Spring"
 description: "Separate independent dimensions of variation with composition and Spring dependency injection."
 sidebar_label: "Bridge"
 tags: ["spring", "design-patterns", "interview"]
-page_type: "Deep Dive"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Deep Dive
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Bridge Pattern in Spring

@@ -2,11 +2,15 @@
 title: Advanced Spring Platform Patterns
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [Spring gRPC, Spring Cloud Stream, Spring WebSocket, Spring SSE, Spring Modulith, GraalVM, Spring multi-tenancy]
 learning_objectives: [Choose advanced Spring integration models, Structure a modular monolith, Prepare Spring applications for native and multi-tenant operation]
 technologies: [Spring Boot, Spring Modulith, Spring Cloud Stream, GraalVM]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Advanced Spring Platform Patterns

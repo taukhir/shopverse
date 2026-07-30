@@ -2,14 +2,19 @@
 title: REST OpenAPI And Contract Governance
 description: OpenAPI generation, schema ownership, error and header documentation, compatibility checks, consumer evidence, publication security, and Shopverse rollout governance.
 difficulty: Advanced
-page_type: Architecture
-status: Partially implemented
+page_type: Concept
+status: maintained
 learning_objectives:
   - Treat the OpenAPI document as a versioned public artifact rather than a UI feature
   - Detect incompatible success, error, security, pagination, and header changes
   - Combine generated specifications with runtime and consumer contract evidence
 technologies: [OpenAPI, springdoc-openapi, Spring MVC, Contract Testing]
 last_reviewed: "2026-07-13"
+implementation_status: partial
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # REST OpenAPI And Contract Governance

@@ -3,10 +3,14 @@ title: "Resilience4j Engineering"
 description: "Apply resilience patterns with explicit budgets, composition rules, and operational evidence."
 sidebar_label: "Resilience4j Engineering"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-reliability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -54,3 +58,7 @@ Within **Resilience4j Engineering**, apply the Shopverse guidance incrementally:
 
 - [Resilience4j documentation](https://resilience4j.readme.io/docs)
 - [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+
+## Recommended Next Page
+
+Continue with [Shopverse Resilience4j](./RESILIENCE4J.md).

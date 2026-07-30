@@ -3,13 +3,17 @@ title: "Spring Transactions: Boundaries, Propagation, Isolation And Locking"
 description: Practical Spring transaction guide covering declarative boundaries, rollback, propagation, isolation, locking, synchronization, deadlocks, and testing.
 difficulty: Intermediate
 page_type: Guide
-status: Generic
+status: maintained
 learning_objectives:
   - Define local transaction boundaries and rollback rules explicitly
   - Select propagation, isolation, and locking from a named data invariant
   - Test commit, rollback, concurrency, synchronization, and cross-resource failure behavior
 technologies: [Spring Framework, Spring Transactions, JPA, JDBC]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Transactions: Boundaries, Propagation, Isolation And Locking

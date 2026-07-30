@@ -3,11 +3,15 @@ title: Spring Data Elasticsearch In Depth
 description: Mapping, repositories, ElasticsearchOperations, queries, pagination, bulk indexing, aliases, consistency, testing, and production operations.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Elasticsearch architect path, Spring Data Commons]
 learning_objectives: [Map search documents safely, Choose repository or operations APIs, Build replayable observable search projections]
 technologies: [Spring Data Elasticsearch, Elasticsearch, Spring Boot]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Elasticsearch In Depth

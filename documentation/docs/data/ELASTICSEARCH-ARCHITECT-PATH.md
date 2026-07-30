@@ -3,11 +3,15 @@ title: Elasticsearch Architect Learning Path
 description: Beginner-to-architect route through distributed search internals, mappings, analyzers, Query DSL, scoring, aggregations, pagination, scaling, ILM, security, Spring Data, and incidents.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [JSON, HTTP, Distributed systems fundamentals]
 learning_objectives: [Model searchable documents correctly, Explain Lucene and cluster internals, Operate and troubleshoot Elasticsearch in production]
 technologies: [Elasticsearch, Lucene, Spring Data Elasticsearch]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Elasticsearch Architect Learning Path

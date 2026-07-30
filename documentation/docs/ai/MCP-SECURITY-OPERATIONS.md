@@ -2,11 +2,15 @@
 title: MCP Security And Production Operations
 difficulty: Advanced
 page_type: Runbook
-status: Generic
+status: maintained
 keywords: [MCP security, confused deputy, SSRF, tool authorization, MCP observability]
 learning_objectives: [Threat-model MCP boundaries, Enforce least privilege per capability, Monitor and respond to MCP failures]
 technologies: [MCP, OAuth 2.0, OpenTelemetry]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # MCP Security And Production Operations

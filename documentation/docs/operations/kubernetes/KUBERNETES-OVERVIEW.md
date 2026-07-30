@@ -4,12 +4,16 @@ description: Beginner-friendly introduction to Kubernetes, clusters, control pla
 sidebar_label: Kubernetes Overview
 sidebar_position: 1
 difficulty: Beginner
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Containers and basic networking]
 learning_objectives: [Explain why Kubernetes exists, Distinguish clusters nodes Pods and containers, Select basic Kubernetes objects, Trace a Deployment from manifest to running application]
 technologies: [Kubernetes, kubectl, Containers]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kubernetes Overview: Clusters, Nodes, Pods, And Core Concepts

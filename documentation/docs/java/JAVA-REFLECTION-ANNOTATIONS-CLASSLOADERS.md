@@ -3,11 +3,15 @@ title: Java Reflection Annotations Proxies And Class Loaders
 description: Java runtime metaprogramming internals covering class loading, initialization, reflection, annotations, dynamic proxies, MethodHandles, caching, modules, leaks, and framework failures.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [JVM architecture, Java language semantics, Interfaces]
 learning_objectives: [Trace class identity and initialization, Use reflection safely, Explain runtime annotation discovery, Compare proxies and MethodHandles, Diagnose class-loader leaks]
 technologies: [Java 21+, Reflection, MethodHandles, JPMS, JVM]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Reflection Annotations Proxies And Class Loaders

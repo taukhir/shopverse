@@ -3,10 +3,14 @@ title: "Docusaurus Documentation Engineering"
 description: "Author, organize, customize, deploy, and validate the Shopverse documentation site."
 sidebar_label: "Docusaurus Documentation Engineering"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Docusaurus Documentation Engineering**, apply the Shopverse guidance in
 
 - [Docusaurus documentation](https://docusaurus.io/docs)
 - [Git documentation](https://git-scm.com/docs)
+
+## Recommended Next Page
+
+Continue with [Docusaurus Authoring And Navigation](./DOCUSAURUS-AUTHORING-NAVIGATION.md).

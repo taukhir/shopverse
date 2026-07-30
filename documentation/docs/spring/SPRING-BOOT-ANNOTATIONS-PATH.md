@@ -3,11 +3,15 @@ title: Spring Boot Annotations Beginner-To-Architect Path
 description: Complete annotation route covering Spring container, Boot auto-configuration, MVC, validation, data, transactions, async, caching, security, messaging, testing, meta-annotations, proxies, and interview traps.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Core Java annotations, Spring Boot fundamentals]
 learning_objectives: [Classify Spring annotations by processor, Explain runtime effects, Avoid proxy and lifecycle traps, Select test annotations, Design composed annotations]
 technologies: [Spring Boot 4, Spring Framework 7, Spring Data, Spring Security, Spring Kafka]
 last_reviewed: "2026-07-29"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Annotations Beginner-To-Architect Path
@@ -78,6 +82,11 @@ For every important annotation, explain:
 5. proxy, ordering, inheritance and self-invocation behavior;
 6. how to test that its effect actually happened;
 7. what failure evidence appears when it does not.
+
+## Recommended Next
+
+Continue with the [Spring Boot Architect Path](./SPRING-BOOT-ARCHITECT-PATH.md),
+then explain one annotation from discovery through runtime interception and test evidence.
 
 ## Official References
 

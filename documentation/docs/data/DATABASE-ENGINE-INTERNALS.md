@@ -2,11 +2,15 @@
 title: Database Engine Internals
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 keywords: [buffer pool, WAL, MVCC, query optimizer, join algorithm, B-tree, LSM tree]
 learning_objectives: [Trace a transaction through storage and recovery, Explain optimizer and index decisions, Compare relational LSM and distributed internals]
 technologies: [PostgreSQL, MySQL, Cassandra, ClickHouse]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Engine Internals

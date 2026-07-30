@@ -1,0 +1,18 @@
+{
+  "id": "checkout-architecture-discovery",
+  "title": "Discover The ShopVerse Checkout Architecture",
+  "prompt_path": "../prompts/debug-distributed-checkout.md",
+  "fixture_paths": ["fixtures/checkout-architecture-evidence.md"],
+  "expected_path": "expected/checkout-architecture-discovery.json",
+  "authority": {
+    "reads": ["provided fixture", "ShopVerse repository"],
+    "writes": [],
+    "external_actions": []
+  },
+  "task": "Explain the successful and compensated checkout paths with file-backed evidence. Identify service ownership, local transaction boundaries, event ordering scope, duplicate-delivery handling, and observability. Do not edit files.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": [
+    "Evidence is insufficient for a material claim",
+    "A source conflicts with current implementation"
+  ]
+}

@@ -3,11 +3,15 @@ title: Password Authentication Provider Runtime
 description: Call-by-call Spring Security password authentication through managers, providers, user lookup and encoding.
 difficulty: Advanced
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Spring Security authentication basics]
 learning_objectives: [Trace the provider call path, Locate user lookup, Explain safe password verification]
 technologies: [Spring Security 7, Spring Boot 4, Java 21]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Password Authentication Provider Runtime

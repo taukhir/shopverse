@@ -3,11 +3,15 @@ title: Spring Kafka Runtime Internals And Failure Paths
 description: How KafkaTemplate, producer factories, listener containers, conversion, commits, error handlers, retries, and DLT publishing work internally.
 difficulty: Advanced
 page_type: Guide
-status: Generic
+status: maintained
 prerequisites: [Spring Boot, Apache Kafka producer and consumer fundamentals]
 learning_objectives: [Trace a Spring Kafka send and receive, Locate producer and consumer failure boundaries, Select recovery behavior from the actual runtime path]
 technologies: [Spring for Apache Kafka 4.x, Spring Boot, Apache Kafka]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Kafka Runtime Internals And Failure Paths

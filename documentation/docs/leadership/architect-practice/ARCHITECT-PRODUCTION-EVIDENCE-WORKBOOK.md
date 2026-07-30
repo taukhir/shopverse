@@ -2,12 +2,16 @@
 title: Architect Production Evidence, Portfolio, Labs, And Interview Workbook
 description: Define proof that a design works, build an evidence portfolio, run architecture labs, and practise seven-question interview answers with scoring rubrics.
 difficulty: Advanced
-page_type: Interview Guide
-status: Generic
+page_type: Interview
+status: maintained
 prerequisites: [Architect Scaling Security And Trade-Offs]
 learning_objectives: [Define production proof, Build portfolio artifacts, Practise and score architect answers]
 technologies: [SLOs, Observability, Load Testing, Chaos Engineering, ADRs]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Architect Production Evidence, Portfolio, Labs, And Interview Workbook

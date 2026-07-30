@@ -3,11 +3,15 @@ title: Spring Cloud Discovery, LoadBalancer, And HTTP Clients
 description: Trace registry membership, health, cache staleness, client-side instance selection, OpenFeign behavior, deadlines, retries, and Kubernetes alternatives.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Cloud Config]
 learning_objectives: [Operate service discovery, Design safe HTTP clients, Diagnose stale instances and retry failures]
 technologies: [Spring Cloud Netflix Eureka, Spring Cloud LoadBalancer, OpenFeign]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Cloud Discovery, LoadBalancer, And HTTP Clients

@@ -3,9 +3,13 @@ title: Java CompletableFuture Learning Guide
 description: Canonical learning path for CompletableFuture execution, composition, failure, cancellation, and production architecture.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 technologies: [Java 24, CompletableFuture]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java CompletableFuture Learning Guide

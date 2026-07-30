@@ -3,11 +3,15 @@ title: Capacity And Thread-Pool Calculation Lab
 description: Size admission, concurrency, pools and queues from measured Shopverse demand and latency.
 difficulty: Advanced
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Concurrency, Percentiles, Load testing]
 learning_objectives: [Apply Little’s Law, Align dependent pools, Design rejection behavior]
 technologies: [Spring MVC, ThreadPoolTaskExecutor, HikariCP, Java 21]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Capacity And Thread-Pool Calculation Lab

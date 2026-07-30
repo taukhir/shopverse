@@ -3,11 +3,15 @@ title: Docker Production Mastery
 description: Complete coverage map for Engine and OCI internals, Dockerfiles, BuildKit, Java containers, storage, networking, security, resources, commands, and incidents.
 difficulty: Architect
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Linux fundamentals, Networking]
 learning_objectives: [Cover every Docker production competency, Navigate canonical deep dives, Diagnose container failures from runtime evidence]
 technologies: [Docker Engine, containerd, runc, OCI, BuildKit, Linux]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Docker Production Mastery

@@ -3,10 +3,14 @@ title: "Correlation Identifiers And HTTP Propagation"
 description: "Correlation Identifiers And HTTP Propagation with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Correlation Identifiers And HTTP Propagation"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-observability
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Correlation Identifiers And HTTP Propagation

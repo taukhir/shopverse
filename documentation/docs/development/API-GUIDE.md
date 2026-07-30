@@ -2,11 +2,16 @@
 title: Shopverse API Guide
 difficulty: Intermediate
 page_type: Reference
-status: Implemented
+status: maintained
 prerequisites: [Running Shopverse stack, Valid demo credentials]
 learning_objectives: [Discover Shopverse endpoints and authorization rules, Run the main API demonstration flows]
 technologies: [REST, JWT, Spring MVC]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # API Guide

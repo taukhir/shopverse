@@ -3,11 +3,15 @@ title: Service Identity And Zero-Trust Boundaries
 description: Authenticate workloads and authorize service communication without trusting network location.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [OAuth2 client credentials, TLS, Microservices]
 learning_objectives: [Separate user and workload identity, Choose credentials, Prevent confused deputies]
 technologies: [mTLS, OAuth2, SPIFFE, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Service Identity And Zero-Trust Boundaries

@@ -2,12 +2,16 @@
 title: Spring Data Testing Observability Capacity And Incidents
 description: Test pyramid, Testcontainers, query evidence, metrics, tracing, capacity calculations, security, and production runbooks across data modules.
 difficulty: Architect
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Spring Data modules, database operations]
 learning_objectives: [Build meaningful persistence tests, Instrument database access, Diagnose and scale production workloads]
 technologies: [Spring Data, Testcontainers, Micrometer, OpenTelemetry]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Testing Observability Capacity And Incidents

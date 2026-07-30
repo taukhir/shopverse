@@ -3,10 +3,14 @@ title: "Java AI Tools And Security Patterns"
 description: "Java AI Tools And Security Patterns with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Java AI Tools And Security Patterns"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java AI Tools And Security Patterns

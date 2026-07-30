@@ -1,0 +1,18 @@
+{
+  "id": "documentation-navigation-update",
+  "title": "Add A Focused Documentation Page",
+  "prompt_path": "../prompts/documentation-update.md",
+  "fixture_paths": ["fixtures/documentation-task.md"],
+  "expected_path": "expected/documentation-navigation-update.json",
+  "authority": {
+    "reads": ["documentation", "provided fixture"],
+    "writes": [
+      "documentation/docs/ai/**",
+      "documentation/sidebars.ts"
+    ],
+    "external_actions": []
+  },
+  "task": "Add the requested synthetic AI troubleshooting page, link it from the AI overview and sidebar, run the required documentation checks, and verify its generated route. Do not modify runtime services.",
+  "output_contract": "result-contract-1.0",
+  "stop_conditions": ["The new page duplicates an existing canonical page"]
+}

@@ -3,11 +3,15 @@ title: Service Mesh Architect Path
 description: Complete route through service-mesh need, control and data planes, sidecar and ambient models, identity and mTLS, routing, resilience, observability, multicluster, operations, labs, and interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Kubernetes, DNS TCP TLS HTTP fundamentals, Microservices]
 learning_objectives: [Decide whether a mesh is justified, Explain mesh data and control planes, Secure and operate mesh traffic safely]
 technologies: [Istio, Envoy, Linkerd, Kubernetes Gateway API, SPIFFE]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Service Mesh Architect Path

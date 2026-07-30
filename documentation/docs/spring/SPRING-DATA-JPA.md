@@ -3,11 +3,15 @@ title: Spring Data JPA
 description: Canonical Spring Data JPA route covering repository integration, fetch plans, transactions, auditing, and production evidence.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Hibernate basics, Spring transactions, Relational database fundamentals]
 learning_objectives: [Choose the correct Spring Data repository mechanism, Define explicit fetch and transaction boundaries, Verify persistence behavior with database evidence]
 technologies: [Spring Data JPA, Hibernate ORM, JDBC, Liquibase]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data JPA

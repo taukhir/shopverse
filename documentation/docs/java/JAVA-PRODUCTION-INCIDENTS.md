@@ -1,8 +1,14 @@
 ---
 title: Java Production Incident Walkthroughs
 description: Evidence-driven diagnosis of memory, class loading, pools, virtual threads, maps, GC, Unicode, serialization, and sensitive diagnostics.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-13"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Production Incident Walkthroughs

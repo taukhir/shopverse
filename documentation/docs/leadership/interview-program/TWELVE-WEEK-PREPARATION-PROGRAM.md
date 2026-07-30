@@ -3,11 +3,15 @@ title: Twelve-Week Architecture Interview Preparation Programme
 description: A twelve-week schedule combining technical depth, hands-on evidence, portfolio production, revision, and progressively harder mock interviews.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Architecture Portfolio And Mock Interview Programme]
 learning_objectives: [Plan balanced preparation, Produce evidence each week, Use spaced revision, Reach interview readiness through measured mocks]
 technologies: [Java, Spring, Kafka, Databases, Kubernetes, Architecture]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Twelve-Week Architecture Interview Preparation Programme

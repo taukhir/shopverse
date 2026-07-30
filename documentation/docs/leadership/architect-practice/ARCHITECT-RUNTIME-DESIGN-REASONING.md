@@ -3,11 +3,15 @@ title: Architect Runtime Internals And Design Selection
 description: Trace systems through runtime layers and justify designs from outcomes, constraints, invariants, workloads, and explicit decisions.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Architect Practice And Evidence Path]
 learning_objectives: [Draw accurate runtime paths, Connect internals to architecture decisions, Avoid pattern-first design answers]
 technologies: [Java, Spring Boot, Distributed Systems]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Architect Runtime Internals And Design Selection
@@ -137,10 +141,9 @@ decision as reversible until evidence improves.
 
 ## Official References
 
-- [AWS Architecture Decision Records guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/welcome.html)
+- [AWS Architecture Decision Records guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/introduction.html)
 - [OpenTelemetry traces](https://opentelemetry.io/docs/concepts/signals/traces/)
 
 ## Recommended Next
 
 Continue with [Failure Modeling, Diagnosis, And Incident Reasoning](./ARCHITECT-FAILURE-DIAGNOSIS.md).
-

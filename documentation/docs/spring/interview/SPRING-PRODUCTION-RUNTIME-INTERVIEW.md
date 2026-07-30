@@ -3,11 +3,15 @@ title: Spring Production Runtime Interview Questions
 description: Expandable senior questions about proxies, transactions, async execution, singleton safety, security chains and secrets.
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 prerequisites: [Spring AOP, transactions, Spring Security]
 learning_objectives: [Diagnose proxy-boundary failures, Reason about thread and resource ownership, Explain secure multi-replica production behavior]
 technologies: [Spring AOP, Spring Transactions, Spring Security, Spring Async]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Production Runtime Interview Questions

@@ -1,15 +1,20 @@
 ---
 title: Mockito And Unit Testing
 description: Framework-independent test-double foundations for focused Java service tests, interaction evidence, design seams, scoped static mocking, and legacy PowerMock migration.
-difficulty: Foundation
-page_type: Testing
-status: Implemented
+difficulty: Beginner
+page_type: Guide
+status: maintained
 learning_objectives:
   - Distinguish mocks, stubs, spies, fakes, and real value objects
   - Stub and verify only collaborator behavior relevant to a business outcome
   - Prefer injectable seams over static, constructor, and private-method mocking
 technologies: [Mockito, JUnit Jupiter, AssertJ, Java]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 

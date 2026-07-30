@@ -3,10 +3,14 @@ title: Array Problems 11-20 - Marking, DP, Two Pointers, And Matrices
 description: Worked Java solutions for missing values, duplicates, intersections, Dutch flag partitioning, consecutive sequences, product DP, water, 3Sum, and spiral traversal.
 sidebar_label: Problems 11-20
 sidebar_position: 4
-difficulty: Easy to Medium
-page_type: Programming Guide
+difficulty: All Levels
+page_type: Guide
 status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Array Problems 11-20: Marking, DP, Two Pointers, And Matrices
@@ -30,7 +34,7 @@ static int missingNumber(int[] nums) {
 - Start with `nums.length`, the one domain value that is not also an array index.
 - For each position, XOR both its index and stored value into `missing`.
 - Every present value in `0..n` cancels with its equal index because `x ^ x = 0`;
-  order does not matter because XOR is associative and commutative.
+  XOR is associative and commutative.
 - Only the value without a matching occurrence remains. The scan is `O(n)` time
   and `O(1)` space with no sum overflow.
 

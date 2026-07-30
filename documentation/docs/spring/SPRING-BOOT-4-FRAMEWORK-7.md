@@ -3,11 +3,15 @@ title: Spring Boot 4 And Spring Framework 7 Upgrade Guide
 description: Lead-level compatibility, migration, rollout and architecture guide for Spring Boot 4, Spring Framework 7 and the Shopverse platform.
 difficulty: Advanced
 page_type: Decision Guide
-status: Shopverse
+status: maintained
 prerequisites: [Spring Boot fundamentals, Gradle dependency management, integration testing]
 learning_objectives: [Plan a Boot 4 migration without accidental dependency drift, Review the Framework 7 runtime baselines, Roll out framework changes with measurable compatibility gates]
 technologies: [Spring Boot 4, Spring Framework 7, Java 21, Jakarta EE 11, Jackson 3]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot 4 And Spring Framework 7 Upgrade Guide

@@ -3,9 +3,13 @@ title: Java Interview Preparation
 description: Interactive learning route for Java revision, timed practice, senior question banks, architecture scenarios, and executable evidence.
 difficulty: Intermediate
 page_type: Learning Path
-status: Generic
+status: maintained
 technologies: [Java, JVM, JFR, JMH]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Interview Preparation

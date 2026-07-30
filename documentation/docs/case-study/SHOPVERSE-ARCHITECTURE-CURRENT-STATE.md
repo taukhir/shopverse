@@ -3,10 +3,14 @@ title: "Shopverse Architecture Current State"
 description: "Shopverse Architecture Current State with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Shopverse Architecture Current State"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-23"
+scope: shopverse
+owner: docs-case-study
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Shopverse Architecture Current State

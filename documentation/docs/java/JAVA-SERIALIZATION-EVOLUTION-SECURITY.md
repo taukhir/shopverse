@@ -1,8 +1,14 @@
 ---
 title: Java Serialization Versioning, Security And Safe Evolution
 description: serialVersionUID behavior, compatible evolution, filters, gadget risks, serialization proxies, validation, and migration alternatives.
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-16"
+page_type: Guide
+difficulty: Intermediate
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java Serialization Versioning, Security And Safe Evolution

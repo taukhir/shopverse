@@ -2,12 +2,16 @@
 title: TKGI Management Console, Monitoring And Operations
 description: Detailed guide to the TKGI Management Console, cluster views, deployment configuration, health interpretation, monitoring architecture, operational evidence, common console failures, runbooks, and interview preparation.
 difficulty: Advanced
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [TKGI overview, Kubernetes operations, Observability fundamentals]
 learning_objectives: [Explain Management Console data paths, Interpret cluster and platform health, Diagnose console failures without treating UI as source of truth, Build production TKGI alerts and runbooks]
 technologies: [TKGI Management Console, TKGI, Kubernetes, BOSH, Prometheus, vSphere]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Management Console, Monitoring And Operations

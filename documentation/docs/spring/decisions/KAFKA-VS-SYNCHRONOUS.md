@@ -3,11 +3,15 @@ title: Kafka Versus Synchronous Communication
 description: Choose request-response or durable asynchronous messaging from business acknowledgement and recovery needs.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [HTTP, Kafka delivery semantics]
 learning_objectives: [Model temporal coupling, Define acknowledgement, Select recovery]
 technologies: [Spring Kafka, Spring MVC, HTTP]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Versus Synchronous Communication

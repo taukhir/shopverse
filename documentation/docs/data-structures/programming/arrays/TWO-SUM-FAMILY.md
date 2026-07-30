@@ -3,11 +3,15 @@ title: Two Sum Family In Java
 description: Eight Two Sum variants with contracts, Java implementations, input/output examples, complexity, edge cases, and collapsible dry runs.
 sidebar_label: Two Sum Family
 sidebar_position: 2
-difficulty: Foundation to Advanced
+difficulty: All Levels
 page_type: Deep Dive
 status: maintained
 last_reviewed: "2026-07-24"
 keywords: [Two Sum Java, all pairs, pair count, closest sum, 3Sum, HashMap, two pointers]
+scope: generic
+owner: docs-data-structures
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Two Sum Family In Java

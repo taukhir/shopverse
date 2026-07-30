@@ -3,10 +3,14 @@ title: "JWT, OAuth2, And Spring Security"
 description: "Understand Shopverse token validation, filter chains, authorization, and security roadmap."
 sidebar_label: "JWT, OAuth2, And Spring Security"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **JWT, OAuth2, And Spring Security**, apply the Shopverse guidance increm
 
 - [Spring Security reference](https://docs.spring.io/spring-security/reference/)
 - [OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
+
+## Recommended Next Page
+
+Continue with [OAuth2 And OIDC Flows](./spring-security/OAUTH2-OIDC-FLOWS.md).

@@ -3,13 +3,18 @@ title: Spring REST API Basics And CRUD
 description: Focused controller, DTO, service, transaction, and persistence boundaries for Spring MVC CRUD APIs without duplicating servlet runtime internals.
 difficulty: Intermediate
 page_type: Guide
-status: Implemented
+status: maintained
 learning_objectives:
   - Keep HTTP mapping, business transactions, and persistence responsibilities separate
   - Design stable request and response DTOs with accurate HTTP semantics
   - Review Shopverse controller boundaries using implementation evidence
 technologies: [Spring MVC, Spring Boot, Jakarta Validation, Spring Data JPA]
 last_reviewed: "2026-07-13"
+implementation_status: implemented
+scope: shopverse
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring REST API Basics And CRUD

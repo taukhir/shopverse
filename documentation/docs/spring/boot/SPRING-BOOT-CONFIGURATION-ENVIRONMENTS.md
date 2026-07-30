@@ -3,11 +3,15 @@ title: Spring Boot Configuration Profiles And Environments
 description: In-depth Spring Boot configuration guide covering ConfigData, precedence, profiles, typed binding, validation, secrets, imports, refresh boundaries, tests, and production incidents.
 difficulty: Intermediate
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring fundamentals, YAML and properties]
 learning_objectives: [Explain configuration precedence, Bind and validate typed settings, Use profiles safely, Protect secrets, Diagnose unexpected values]
 technologies: [Spring Boot 4, ConfigData, ConfigurationProperties, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Configuration Profiles And Environments

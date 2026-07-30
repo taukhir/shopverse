@@ -2,11 +2,15 @@
 title: Supply-Chain Security And Privacy Engineering
 difficulty: Advanced
 page_type: Reference
-status: Generic
+status: maintained
 keywords: [SBOM, SLSA, artifact signing, provenance, admission policy, data classification, consent, anonymization, legal hold]
 learning_objectives: [Secure software from source to deployment, Design enforceable privacy controls, Verify deletion and retention across derived data]
 technologies: [GitHub Actions, Docker, Kubernetes]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Supply-Chain Security And Privacy Engineering

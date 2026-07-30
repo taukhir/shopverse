@@ -3,11 +3,15 @@ title: Database Quick Choice
 sidebar_position: 1
 difficulty: Beginner
 page_type: Decision Guide
-status: Generic
+status: maintained
 keywords: [OLTP, online transaction processing, OLAP, online analytical processing, NoSQL, non-relational database, sharding, horizontal partitioning, vector database, vector store, embeddings]
 learning_objectives: [Distinguish OLTP and OLAP, Choose a database from workload strengths, Recognize database scaling and support trade-offs]
 technologies: [MySQL, PostgreSQL, Oracle Database, Db2, SQL Server, MariaDB, SQLite, CockroachDB, Cassandra, MongoDB, DynamoDB, Redis, Elasticsearch, OpenSearch, Neo4j, ClickHouse, pgvector]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Quick Choice

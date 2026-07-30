@@ -2,12 +2,16 @@
 title: Kafka Production Failure Prevention And Incident Playbook
 description: Cascading failures, lag, batching, retries, duplicates, hot partitions, broker outages, and evidence-driven recovery.
 difficulty: Architect
-page_type: Operations Guide
-status: Generic
+page_type: Guide
+status: maintained
 prerequisites: [Kafka consumers, producer reliability, observability]
 learning_objectives: [Prevent Kafka-driven cascading failures, Diagnose lag and batch failures, Recover without causing loss or duplicate business effects]
 technologies: [Apache Kafka 4.x, Spring Kafka, Micrometer, OpenTelemetry]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-integration
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Kafka Production Failure Prevention And Incident Playbook

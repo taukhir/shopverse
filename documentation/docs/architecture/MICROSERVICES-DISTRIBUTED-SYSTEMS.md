@@ -3,11 +3,15 @@ title: Microservices And Distributed Systems Learning Guide
 description: Dependency-ordered route from service boundaries through communication, consistency, resilience, observability, and production architecture.
 difficulty: Intermediate
 page_type: Learning Path
-status: Shopverse
+status: maintained
 prerequisites: [HTTP, Databases, Basic messaging]
 learning_objectives: [Design service boundaries, Select communication and consistency controls, Operate distributed failure safely]
 technologies: [Spring Cloud, Kafka, PostgreSQL, Kubernetes]
 last_reviewed: "2026-07-13"
+scope: shopverse
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Microservices And Distributed Systems Learning Guide

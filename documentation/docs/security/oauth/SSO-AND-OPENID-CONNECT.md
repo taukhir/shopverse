@@ -2,11 +2,15 @@
 title: SSO And OpenID Connect
 difficulty: Intermediate
 page_type: Concept
-status: Generic
+status: maintained
 prerequisites: [Authentication basics, OAuth2 fundamentals]
 learning_objectives: [Explain SSO OAuth2 and OIDC, Trace authorization code login, Validate identity claims and sessions]
 technologies: [OAuth 2.0, OpenID Connect, JWT, Spring Security]
 last_reviewed: "2026-07-11"
+scope: generic
+owner: docs-security
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # SSO And OpenID Connect

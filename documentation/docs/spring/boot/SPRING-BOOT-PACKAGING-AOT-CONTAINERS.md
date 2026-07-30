@@ -3,11 +3,15 @@ title: Spring Boot Packaging Layering AOT Native And Containers
 description: Production Spring Boot packaging guide covering executable archives, layers, buildpacks, Docker, AOT, native images, JVM containers, Kubernetes lifecycle, supply chain, and deployment trade-offs.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Spring Boot startup, Docker fundamentals, Kubernetes fundamentals]
 learning_objectives: [Choose a packaging model, Build reproducible secure images, Explain AOT constraints, Configure container resources, Design zero-loss rollout evidence]
 technologies: [Spring Boot 4, Docker, Cloud Native Buildpacks, GraalVM Native Image, Kubernetes]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Packaging Layering AOT Native And Containers

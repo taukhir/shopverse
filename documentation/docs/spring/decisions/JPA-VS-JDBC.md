@@ -3,11 +3,15 @@ title: JPA Versus JDBC
 description: Choose aggregate mapping or explicit SQL control by persistence workload.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [SQL, Transactions, JPA]
 learning_objectives: [Match tool to workload, Identify ORM risk, Plan coexistence]
 technologies: [Spring Data JPA, Hibernate, Spring JDBC]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JPA Versus JDBC

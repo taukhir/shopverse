@@ -2,8 +2,8 @@
 title: Spring Boot Startup, JVM And Container Memory
 description: Evidence-driven Spring Boot startup and JVM/container memory tuning covering startup steps, class loading, AOT/CDS, heap and native budgets, GC, direct buffers, thread stacks, diagnostics, security, and failure drills.
 difficulty: Advanced
-page_type: Production Guide
-status: Generic
+page_type: Guide
+status: maintained
 learning_objectives:
   - Attribute startup time to an owned Spring or JVM phase
   - Budget heap and native memory inside a container limit
@@ -11,6 +11,10 @@ learning_objectives:
   - Reproduce startup and OOM failures with bounded evidence
 technologies: [Spring Boot, JVM, JFR, Containers]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Boot Startup, JVM And Container Memory

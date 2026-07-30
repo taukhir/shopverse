@@ -3,11 +3,15 @@ title: Engineering Foundations Revision Sheet
 description: Rapid revision for design principles, patterns, APIs, data structures, testing, delivery, and technical review.
 difficulty: Advanced
 page_type: Interview
-status: Generic
+status: maintained
 prerequisites: [Engineering Foundations Overview]
 learning_objectives: [Recall core engineering decisions quickly, Review a design across quality boundaries, Answer foundational architect questions concisely]
 technologies: [Java, HTTP, SQL, Git, CI]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Engineering Foundations Revision Sheet

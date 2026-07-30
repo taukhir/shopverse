@@ -3,11 +3,15 @@ title: JPA Transactions Locking And Concurrency
 description: Spring transaction ownership, optimistic and pessimistic locking, conditional updates, outbox atomicity, and concurrency evidence.
 difficulty: Advanced
 page_type: Decision Guide
-status: Generic
+status: maintained
 prerequisites: [Spring transactions, Spring Data repositories, Database isolation]
 learning_objectives: [Place the transaction around a complete business invariant, Choose versioning row locks or conditional updates, Prove concurrency behavior with production-engine tests]
 technologies: [Spring Data JPA, Spring Transactions, Hibernate ORM, JDBC]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # JPA Transactions Locking And Concurrency

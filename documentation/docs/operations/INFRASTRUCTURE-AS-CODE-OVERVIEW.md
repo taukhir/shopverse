@@ -3,12 +3,16 @@ title: Infrastructure As Code Overview - Terraform And OpenTofu Basics
 description: Beginner introduction to Infrastructure as Code, declarative configuration, Terraform and OpenTofu, providers, resources, data sources, modules, state, plans, applies, and safe workflows.
 sidebar_label: Infrastructure As Code Overview
 difficulty: Beginner
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Cloud fundamentals, Git fundamentals]
 learning_objectives: [Explain Infrastructure as Code, Read basic HCL, Distinguish configuration state plan and remote infrastructure, Follow a safe plan and apply workflow]
 technologies: [Terraform, OpenTofu, HCL]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Infrastructure As Code Overview: Terraform And OpenTofu Basics

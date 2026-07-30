@@ -3,10 +3,14 @@ title: "Java List Collections Overview"
 description: "Choose among ArrayList, LinkedList, CopyOnWriteArrayList, immutable lists, and specialized list implementations."
 sidebar_label: "List Overview"
 tags: [java, collections, list]
-page_type: "Category Overview"
-difficulty: "Intermediate"
-status: "maintained"
+page_type: Reference
+difficulty: Intermediate
+status: maintained
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-java
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Java List Collections Overview

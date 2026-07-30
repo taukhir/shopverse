@@ -3,11 +3,15 @@ title: Performance And Chaos Labs, CI, Incidents, And Interviews
 description: Build a test strategy, automate k6 thresholds, profile bottlenecks, inject safe faults with proxies or Kubernetes tools, run experiments, analyse results, and practise architect interviews.
 difficulty: Advanced
 page_type: Practice
-status: Generic
+status: maintained
 prerequisites: [Performance And Chaos Engineering Path]
 learning_objectives: [Implement repeatable tests, Find bottlenecks, Run guarded faults, Defend results in interviews]
 technologies: [k6, JFR, Prometheus, Toxiproxy, Chaos Mesh]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Performance And Chaos Labs, CI, Incidents, And Interviews

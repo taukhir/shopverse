@@ -3,11 +3,15 @@ title: Architect Practice And Evidence Path
 description: A reusable preparation system for explaining internals, design decisions, failures, diagnosis, scale, security, rejected alternatives, and production proof.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Backend engineering fundamentals, One completed technology track]
 learning_objectives: [Convert knowledge into architect reasoning, Produce evidence-backed design answers, Build a defensible engineering portfolio]
 technologies: [Java, Spring Boot, Kafka, Databases, Kubernetes, Observability]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Architect Practice And Evidence Path

@@ -3,11 +3,15 @@ title: Database Migrations And Operations
 sidebar_position: 11
 difficulty: Advanced
 page_type: Runbook
-status: Generic
+status: maintained
 keywords: [schema evolution, zero-downtime migration, expand contract, backup, restore drill, replication lag, failover, CDC, data retention, database upgrade]
 learning_objectives: [Evolve schemas without breaking mixed application versions, Prove backup restore and failover behavior, Operate CDC retention and upgrades safely]
 technologies: [PostgreSQL, MySQL, Liquibase, Debezium]
 last_reviewed: "2026-07-12"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Database Migrations And Operations

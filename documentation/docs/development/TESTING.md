@@ -3,10 +3,14 @@ title: "Shopverse Testing Strategy"
 description: "Choose verification modes, integration boundaries, CI controls, and failure triage."
 sidebar_label: "Shopverse Testing Strategy"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Learning Path"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Learning Path
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 <!-- split-guide-index -->
@@ -50,3 +54,7 @@ Within **Shopverse Testing Strategy**, apply the Shopverse guidance incrementall
 
 - [Spring Framework reference](https://docs.spring.io/spring-framework/reference/)
 - [Spring Boot reference](https://docs.spring.io/spring-boot/reference/)
+
+## Recommended Next Page
+
+Continue with [Testing Modes And CI Triage](./TESTING-MODES-CI-TRIAGE.md).

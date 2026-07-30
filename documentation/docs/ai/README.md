@@ -5,8 +5,12 @@ sidebar_label: AI And RAG Overview
 difficulty: Beginner
 page_type: Learning Path
 sidebar_position: 1
-status: "maintained"
+status: maintained
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-ai
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # AI Learning Track
@@ -88,6 +92,15 @@ If you have limited time, focus on these five flows:
 | Document | Use it for |
 |---|---|
 | [Enterprise AI architecture with Spring](ENTERPRISE-AI-ARCHITECTURE.md) | umbrella for the complete Spring AI, Spring Cloud, MCP, LangChain4j, security and operations track |
+| [AI-assisted SDLC and developer productivity](AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY.md) | practical daily workflows for requirements, design, coding, testing, review, delivery, incidents, documentation and learning |
+| [AI developer toolkit](AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS.md) | current Codex and Claude commands, better prompt templates, connector workflows, and coding, debugging, performance and UX playbooks |
+| [AI context engineering](AI-CONTEXT-ENGINEERING-GUIDE.md) | durable instructions, task context packets, source precedence, module routing, and context maintenance |
+| [AI security and prompt injection](AI-SECURITY-PROMPT-INJECTION-PLAYBOOK.md) | threat models, connector safety, least privilege, generated-code review, and incident response |
+| [AI evaluation and productivity metrics](AI-EVALUATION-COST-PRODUCTIVITY-METRICS.md) | representative evals, quality rubrics, developer outcomes, latency, token cost, and adoption gates |
+| [RAG for engineering documentation](RAG-FOR-ENGINEERING-DOCUMENTATION.md) | grounded retrieval across ADRs, runbooks, contracts, incidents, and code metadata with ACLs and citations |
+| [Advanced agentic workflows](ADVANCED-AGENTIC-WORKFLOWS-WORKTREES.md) | safe task decomposition, subagents, worktrees, parallel review, integration, and recovery limits |
+| [ShopVerse AI practical workbook](SHOPVERSE-AI-PRACTICAL-WORKBOOK.md) | hands-on ShopVerse labs, reusable prompts, evidence checklists, self-assessment, and AI-focused interview preparation |
+| [AI development interview workbook](AI-DEVELOPMENT-INTERVIEW-WORKBOOK.md) | scenario-based interview questions and strong-answer frameworks for AI-assisted engineering |
 | [Beginner to advanced AI guide](BEGINNER-TO-ADVANCED-GUIDE.md) | Full roadmap from basics to production AI |
 | [AI visual learning guide](VISUAL-LEARNING-GUIDE.md) | images, animations, flow diagrams, sequence diagrams, and architecture diagrams |
 | [AI learning plan](AI-LEARNING-PLAN.md) | Daily plan, milestones, and outcomes |

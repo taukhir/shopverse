@@ -3,10 +3,14 @@ title: "Debugging Data, SAGA, And Kafka"
 description: "Debugging Data, SAGA, And Kafka with Shopverse examples, failure analysis, and production guidance."
 sidebar_label: "Debugging Data, SAGA, And Kafka"
 tags: ["shopverse", "architecture", "production"]
-page_type: "Guide"
-difficulty: "Advanced"
-status: "maintained"
+page_type: Guide
+difficulty: Advanced
+status: maintained
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Debugging Data, SAGA, And Kafka

@@ -3,11 +3,15 @@ title: TKGI Beginner-To-Architect Overview
 description: Overview and learning path for Tanzu Kubernetes Grid Integrated Edition, its management plane, UAA, database, BOSH lifecycle, Harbor integration, Management Console, monitoring, failures, and interview preparation.
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 prerequisites: [Kubernetes fundamentals, Virtual machines, Networking fundamentals]
 learning_objectives: [Explain how TKGI delivers Kubernetes as a service, Separate TKGI BOSH and Kubernetes failure domains, Navigate the detailed TKGI pages, Diagnose lifecycle and console failures systematically]
 technologies: [TKGI, Kubernetes, BOSH, UAA, Harbor, Operations Manager, vSphere, NSX]
 last_reviewed: "2026-07-28"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # TKGI Beginner-To-Architect Overview

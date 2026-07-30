@@ -3,11 +3,15 @@ title: Elasticsearch Internals, Indexing, And Mapping
 description: Trace nodes, clusters, primary and replica shards, routing, Lucene segments, refresh, translog, merge, mappings, and document modeling.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [Elasticsearch Architect Learning Path]
 learning_objectives: [Trace write and read internals, Design explicit mappings, Prevent shard and document modeling failures]
 technologies: [Elasticsearch, Lucene]
 last_reviewed: "2026-07-23"
+scope: generic
+owner: docs-data
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Elasticsearch Internals, Indexing, And Mapping

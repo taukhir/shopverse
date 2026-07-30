@@ -3,11 +3,15 @@ title: Spring Bean Scopes And Lifecycle
 description: Singleton, prototype and web scopes, lifecycle callbacks, resource ownership, graceful shutdown, and lifecycle diagnostics.
 difficulty: Intermediate
 page_type: Tutorial
-status: Generic
+status: maintained
 prerequisites: [Spring dependency injection, ApplicationContext basics]
 learning_objectives: [Choose bean scope from state ownership, Trace initialization through published identity, Prove resource cleanup during graceful shutdown]
 technologies: [Spring Framework 7, Spring Boot 4]
 last_reviewed: "2026-07-13"
+scope: generic
+owner: docs-development
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Bean Scopes And Lifecycle

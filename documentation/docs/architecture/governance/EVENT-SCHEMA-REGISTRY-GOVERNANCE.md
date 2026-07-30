@@ -3,11 +3,15 @@ title: Event Contracts, Schema Registry, Avro, Protobuf, And JSON Schema
 description: Govern event semantics, envelopes, keys, ordering, schema subjects and IDs, compatibility modes, Avro resolution, Protobuf evolution, JSON Schema, replay, and migrations.
 difficulty: Advanced
 page_type: Deep Dive
-status: Generic
+status: maintained
 prerequisites: [API Contract Governance]
 learning_objectives: [Design durable event contracts, Select schema and compatibility strategy, Preserve mixed-version and replay behavior]
 technologies: [Kafka, Avro, Protocol Buffers, JSON Schema, Schema Registry, AsyncAPI]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Event Contracts, Schema Registry, Avro, Protobuf, And JSON Schema

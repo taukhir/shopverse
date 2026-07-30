@@ -3,12 +3,16 @@ title: Linux Overview - Kernel, Processes, Filesystems, Permissions, And Network
 description: Beginner introduction to Linux, distributions, shells, processes, users, permissions, filesystems, services, packages, networking, logs, resources, and essential commands.
 sidebar_label: Linux Overview
 difficulty: Beginner
-page_type: Explanation
-status: Generic
+page_type: Concept
+status: maintained
 prerequisites: [Basic command-line familiarity]
 learning_objectives: [Explain the Linux kernel and user space, Inspect processes files services and networking, Understand users permissions and packages, Follow a safe diagnostic workflow]
 technologies: [Linux, systemd, procfs]
 last_reviewed: "2026-07-24"
+scope: generic
+owner: docs-operations
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Linux Overview: Kernel, Processes, Filesystems, Permissions, And Networking

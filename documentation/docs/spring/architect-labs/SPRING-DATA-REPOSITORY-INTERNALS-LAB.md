@@ -3,11 +3,15 @@ title: Spring Data Repository Internals Lab
 description: Trace repository proxy dispatch, compare query mechanisms and paging cost, verify auditing, and reproduce optimistic locking with compiled Spring Boot tests.
 difficulty: Advanced
 page_type: Lab
-status: Shopverse
+status: maintained
 prerequisites: [Spring Data Commons, Spring Data JPA, SQL transactions]
 learning_objectives: [Inspect repository proxy behavior, Measure paging and query evidence, Reproduce auditing and optimistic concurrency]
 technologies: [Java 21, Spring Boot 4, Spring Data JPA, Hibernate, H2]
 last_reviewed: "2026-07-24"
+scope: shopverse
+owner: docs-spring
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # Spring Data Repository Internals Lab

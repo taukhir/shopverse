@@ -2,11 +2,15 @@
 title: System Design Deep Dives
 difficulty: Advanced
 page_type: Learning Path
-status: Generic
+status: maintained
 keywords: [system design method, capacity estimation, component internals, system design case study, interview rubric]
 learning_objectives: [Apply one repeatable design method, Derive components from invariants and access patterns, Defend trade-offs with calculations and failure analysis]
 technologies: [Java, Spring Boot, Kafka, PostgreSQL, Redis]
 last_reviewed: "2026-07-16"
+scope: generic
+owner: docs-architecture
+reviewer: documentation-maintainers
+review_evidence: repository-content-audit
 ---
 
 # System Design Deep Dives

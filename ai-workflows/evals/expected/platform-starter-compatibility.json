@@ -1,0 +1,11 @@
+{
+  "scenario_id": "platform-starter-compatibility",
+  "pass_threshold": 80,
+  "criteria": [
+    {"id":"structure","type":"required_fields","weight":10,"paths":["answer","claims","changed_files","risks"]},
+    {"id":"terms","type":"answer_terms","weight":25,"all_terms":["compatibility","adopter","migration","rollback","deprecation"]},
+    {"id":"claims","type":"required_claims","weight":40,"claim_ids":["authority_prefix_is_breaking","property_is_contract","complete_adopter_matrix","context_and_integration_tests","versioned_migration","release_and_rollback"],"minimum_evidence_per_claim":1,"allowed_evidence_prefixes":["fixtures/platform-"]},
+    {"id":"scope","type":"file_scope","weight":15,"require_changes":false,"maximum_changes":0,"allowed_patterns":[]},
+    {"id":"forbidden","type":"forbidden_terms","weight":10,"terms":["starter unit test is sufficient","silent breaking change","gateway must adopt servlet starter"]}
+  ]
+}
