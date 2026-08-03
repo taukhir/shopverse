@@ -1,0 +1,63 @@
+{
+  "id": "development/design-patterns/observer",
+  "title": "Observer Pattern in Spring",
+  "description": "Use Spring application events safely with transaction phases, async listeners, durable messaging boundaries, and tests.",
+  "source": "@site/docs/development/design-patterns/observer.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/observer",
+  "permalink": "/shopverse/development/design-patterns/observer",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/observer.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    },
+    {
+      "inline": true,
+      "label": "events",
+      "permalink": "/shopverse/tags/events"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Observer Pattern in Spring",
+    "description": "Use Spring application events safely with transaction phases, async listeners, durable messaging boundaries, and tests.",
+    "sidebar_label": "Observer",
+    "tags": [
+      "spring",
+      "design-patterns",
+      "interview",
+      "events"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Strategy",
+    "permalink": "/shopverse/development/design-patterns/strategy"
+  },
+  "next": {
+    "title": "Chain of Responsibility",
+    "permalink": "/shopverse/development/design-patterns/chain-of-responsibility"
+  }
+}

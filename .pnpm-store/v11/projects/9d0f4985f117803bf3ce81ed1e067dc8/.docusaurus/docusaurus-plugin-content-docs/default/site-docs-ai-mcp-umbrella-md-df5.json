@@ -1,0 +1,51 @@
+{
+  "id": "ai/MCP-UMBRELLA",
+  "title": "Model Context Protocol",
+  "description": "MCP standardizes discovery and invocation of tools, resources and prompts between",
+  "source": "@site/docs/ai/MCP-UMBRELLA.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/MCP-UMBRELLA",
+  "permalink": "/shopverse/ai/MCP-UMBRELLA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/MCP-UMBRELLA.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Model Context Protocol",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "keywords": [
+      "MCP",
+      "Model Context Protocol",
+      "MCP host",
+      "MCP client",
+      "MCP server"
+    ],
+    "learning_objectives": [
+      "Navigate MCP from protocol through production",
+      "Distinguish tools resources and prompts",
+      "Build a secured Spring MCP integration"
+    ],
+    "technologies": [
+      "MCP",
+      "Spring AI",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Secure AI Agents, Data And Fast Accurate Delivery",
+    "permalink": "/shopverse/ai/SECURE-AI-AGENTS-DATA-PERFORMANCE"
+  },
+  "next": {
+    "title": "MCP Protocol Lifecycle And Architecture",
+    "permalink": "/shopverse/ai/MCP-PROTOCOL-LIFECYCLE"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "operations/kubernetes/KUBERNETES-OVERVIEW",
+  "title": "Kubernetes Overview - Clusters, Nodes, Pods, And Core Concepts",
+  "description": "Beginner-friendly introduction to Kubernetes, clusters, control planes, worker nodes, Pods, workloads, Services, configuration, storage, namespaces, manifests, and reconciliation.",
+  "source": "@site/docs/operations/kubernetes/KUBERNETES-OVERVIEW.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/KUBERNETES-OVERVIEW",
+  "permalink": "/shopverse/operations/kubernetes/KUBERNETES-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/KUBERNETES-OVERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Kubernetes Overview - Clusters, Nodes, Pods, And Core Concepts",
+    "description": "Beginner-friendly introduction to Kubernetes, clusters, control planes, worker nodes, Pods, workloads, Services, configuration, storage, namespaces, manifests, and reconciliation.",
+    "sidebar_label": "Kubernetes Overview",
+    "sidebar_position": 1,
+    "difficulty": "Beginner",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Containers and basic networking"
+    ],
+    "learning_objectives": [
+      "Explain why Kubernetes exists",
+      "Distinguish clusters nodes Pods and containers",
+      "Select basic Kubernetes objects",
+      "Trace a Deployment from manifest to running application"
+    ],
+    "technologies": [
+      "Kubernetes",
+      "kubectl",
+      "Containers"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Linux Production Incident Labs, Interview Questions, And Revision",
+    "permalink": "/shopverse/operations/linux/LINUX-INCIDENT-LABS-REVISION"
+  },
+  "next": {
+    "title": "Kubernetes Beginner-To-Architect Path",
+    "permalink": "/shopverse/operations/KUBERNETES-ARCHITECT-PATH"
+  }
+}

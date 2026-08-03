@@ -1,0 +1,36 @@
+{
+  "id": "reliability/OUTBOX-IMPLEMENTATION-GUIDE",
+  "title": "Outbox Implementation Guide",
+  "description": "This guide explains how Shopverse implements the transactional outbox pattern.",
+  "source": "@site/docs/reliability/OUTBOX-IMPLEMENTATION-GUIDE.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/OUTBOX-IMPLEMENTATION-GUIDE",
+  "permalink": "/shopverse/reliability/OUTBOX-IMPLEMENTATION-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/OUTBOX-IMPLEMENTATION-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "title": "Outbox Implementation Guide",
+    "sidebar_position": 8,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "SAGA Implementation Guide",
+    "permalink": "/shopverse/reliability/SAGA-IMPLEMENTATION-GUIDE"
+  },
+  "next": {
+    "title": "Idempotency In APIs And Distributed Systems",
+    "permalink": "/shopverse/reliability/IDEMPOTENCY-GENERIC"
+  }
+}

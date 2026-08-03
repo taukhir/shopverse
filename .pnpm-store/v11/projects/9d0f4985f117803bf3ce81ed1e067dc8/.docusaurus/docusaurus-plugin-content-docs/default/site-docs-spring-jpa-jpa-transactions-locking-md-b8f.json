@@ -1,0 +1,51 @@
+{
+  "id": "spring/jpa/JPA-TRANSACTIONS-LOCKING",
+  "title": "JPA Transactions Locking And Concurrency",
+  "description": "Spring transaction ownership, optimistic and pessimistic locking, conditional updates, outbox atomicity, and concurrency evidence.",
+  "source": "@site/docs/spring/jpa/JPA-TRANSACTIONS-LOCKING.md",
+  "sourceDirName": "spring/jpa",
+  "slug": "/spring/jpa/JPA-TRANSACTIONS-LOCKING",
+  "permalink": "/shopverse/spring/jpa/JPA-TRANSACTIONS-LOCKING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/jpa/JPA-TRANSACTIONS-LOCKING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JPA Transactions Locking And Concurrency",
+    "description": "Spring transaction ownership, optimistic and pessimistic locking, conditional updates, outbox atomicity, and concurrency evidence.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring transactions",
+      "Spring Data repositories",
+      "Database isolation"
+    ],
+    "learning_objectives": [
+      "Place the transaction around a complete business invariant",
+      "Choose versioning row locks or conditional updates",
+      "Prove concurrency behavior with production-engine tests"
+    ],
+    "technologies": [
+      "Spring Data JPA",
+      "Spring Transactions",
+      "Hibernate ORM",
+      "JDBC"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JPA Fetching Performance And N Plus One",
+    "permalink": "/shopverse/spring/jpa/JPA-FETCHING-PERFORMANCE"
+  },
+  "next": {
+    "title": "Spring Data Auditing And Delete Semantics",
+    "permalink": "/shopverse/spring/jpa/JPA-AUDITING-DELETING-TESTING"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "ai/LANGCHAIN4J-TUTORIAL-TOOLS-MEMORY",
+  "title": "LangChain4j Tutorial 3: Tools, Memory And Guardrails",
+  "description": "Tools and memory turn a simple chatbot into an application assistant. They also",
+  "source": "@site/docs/ai/LANGCHAIN4J-TUTORIAL-TOOLS-MEMORY.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/LANGCHAIN4J-TUTORIAL-TOOLS-MEMORY",
+  "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-TOOLS-MEMORY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/LANGCHAIN4J-TUTORIAL-TOOLS-MEMORY.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.29,
+  "frontMatter": {
+    "title": "LangChain4j Tutorial 3: Tools, Memory And Guardrails",
+    "sidebar_position": 6.29,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "LangChain4j Tutorial 2: AI Services And Structured Outputs",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-AI-SERVICES"
+  },
+  "next": {
+    "title": "LangChain4j Tutorial 4: RAG And Embedding Stores",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-RAG"
+  }
+}

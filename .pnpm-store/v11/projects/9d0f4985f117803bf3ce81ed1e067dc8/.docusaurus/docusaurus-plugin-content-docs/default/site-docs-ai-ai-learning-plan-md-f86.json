@@ -1,0 +1,36 @@
+{
+  "id": "ai/AI-LEARNING-PLAN",
+  "title": "AI Learning Plan",
+  "description": "Goal",
+  "source": "@site/docs/ai/AI-LEARNING-PLAN.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-LEARNING-PLAN",
+  "permalink": "/shopverse/ai/AI-LEARNING-PLAN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-LEARNING-PLAN.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "AI Learning Plan",
+    "sidebar_position": 2,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI Visual Learning Guide",
+    "permalink": "/shopverse/ai/VISUAL-LEARNING-GUIDE"
+  },
+  "next": {
+    "title": "AI Frameworks From Zero",
+    "permalink": "/shopverse/ai/AI-FRAMEWORKS-FROM-ZERO"
+  }
+}

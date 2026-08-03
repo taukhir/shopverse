@@ -1,0 +1,50 @@
+{
+  "id": "architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY",
+  "title": "Service Mesh Traffic, Identity, Security, And Observability",
+  "description": "Design workload identity, certificate lifecycle, mTLS, authorization, ingress/egress, routing, retries, outlier detection, flow control, and telemetry.",
+  "source": "@site/docs/architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY.md",
+  "sourceDirName": "architecture/service-mesh",
+  "slug": "/architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY",
+  "permalink": "/shopverse/architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Service Mesh Traffic, Identity, Security, And Observability",
+    "description": "Design workload identity, certificate lifecycle, mTLS, authorization, ingress/egress, routing, retries, outlier detection, flow control, and telemetry.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Service Mesh Architecture And Selection"
+    ],
+    "learning_objectives": [
+      "Design mesh identity and policy",
+      "Compose traffic controls safely",
+      "Build useful low-cardinality observability"
+    ],
+    "technologies": [
+      "mTLS",
+      "SPIFFE",
+      "Istio",
+      "Linkerd",
+      "Envoy"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Service Mesh Architecture And Selection",
+    "permalink": "/shopverse/architecture/service-mesh/SERVICE-MESH-ARCHITECTURE-SELECTION"
+  },
+  "next": {
+    "title": "Service Mesh Production Operations And Multicluster",
+    "permalink": "/shopverse/architecture/service-mesh/SERVICE-MESH-PRODUCTION-OPERATIONS"
+  }
+}

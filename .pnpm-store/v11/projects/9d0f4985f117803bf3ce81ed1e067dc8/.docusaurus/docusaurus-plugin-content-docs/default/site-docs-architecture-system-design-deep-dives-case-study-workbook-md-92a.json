@@ -1,0 +1,50 @@
+{
+  "id": "architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK",
+  "title": "System Design Case-Study Workbook",
+  "description": "Use the fifteen visual blueprints to inspect",
+  "source": "@site/docs/architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK.md",
+  "sourceDirName": "architecture/system-design-deep-dives",
+  "slug": "/architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK",
+  "permalink": "/shopverse/architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "System Design Case-Study Workbook",
+    "difficulty": "Advanced",
+    "page_type": "Case Study",
+    "status": "maintained",
+    "keywords": [
+      "URL shortener",
+      "notification service",
+      "chat design",
+      "feed design",
+      "video streaming",
+      "payment ledger"
+    ],
+    "learning_objectives": [
+      "Practice complete system designs",
+      "Compare workload-specific trade-offs",
+      "Record rejected alternatives"
+    ],
+    "technologies": [
+      "System Design"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Component Internals",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS"
+  },
+  "next": {
+    "title": "Interview Problem Catalog",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG"
+  }
+}

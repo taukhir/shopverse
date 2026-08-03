@@ -1,0 +1,42 @@
+{
+  "id": "operations/KUBERNETES-MCQ-PRACTICE",
+  "title": "Kubernetes MCQ Practice",
+  "description": "Timed Kubernetes MCQs covering workloads, networking, storage, security, scheduling, operations, and diagnosis.",
+  "source": "@site/docs/operations/KUBERNETES-MCQ-PRACTICE.mdx",
+  "sourceDirName": "operations",
+  "slug": "/operations/KUBERNETES-MCQ-PRACTICE",
+  "permalink": "/shopverse/operations/KUBERNETES-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/KUBERNETES-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kubernetes MCQ Practice",
+    "description": "Timed Kubernetes MCQs covering workloads, networking, storage, security, scheduling, operations, and diagnosis.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Kubernetes Architect Path"
+    ],
+    "technologies": [
+      "Kubernetes",
+      "kubectl"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kubernetes Beginner-To-Architect Path",
+    "permalink": "/shopverse/operations/KUBERNETES-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Kubernetes Workload Engineering",
+    "permalink": "/shopverse/operations/KUBERNETES-WORKLOAD-ENGINEERING"
+  }
+}

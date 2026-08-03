@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-CONCURRENT-HASHMAP-OPENJDK",
+  "title": "ConcurrentHashMap OpenJDK Internals And Design Review",
+  "description": "Senior walkthrough of ConcurrentHashMap nodes, CAS insertion, bin locking, tree bins, cooperative resizing, counters, visibility, and architectural limits.",
+  "source": "@site/docs/java/JAVA-CONCURRENT-HASHMAP-OPENJDK.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-CONCURRENT-HASHMAP-OPENJDK",
+  "permalink": "/shopverse/java/JAVA-CONCURRENT-HASHMAP-OPENJDK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-CONCURRENT-HASHMAP-OPENJDK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "ConcurrentHashMap OpenJDK Internals And Design Review",
+    "description": "Senior walkthrough of ConcurrentHashMap nodes, CAS insertion, bin locking, tree bins, cooperative resizing, counters, visibility, and architectural limits.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "EnumMap",
+    "permalink": "/shopverse/java/collections/map/ENUMMAP-INTERNALS"
+  },
+  "next": {
+    "title": "Queue And Deque Overview",
+    "permalink": "/shopverse/java/collections/queue/QUEUE-DEQUE-OVERVIEW"
+  }
+}

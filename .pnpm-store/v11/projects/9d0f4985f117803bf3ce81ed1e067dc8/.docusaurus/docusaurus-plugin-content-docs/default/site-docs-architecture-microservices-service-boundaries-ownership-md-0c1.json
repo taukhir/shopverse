@@ -1,0 +1,50 @@
+{
+  "id": "architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP",
+  "title": "Service Boundaries And Data Ownership",
+  "description": "Define cohesive microservice boundaries and prevent shared-database distributed monoliths.",
+  "source": "@site/docs/architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP.md",
+  "sourceDirName": "architecture/microservices",
+  "slug": "/architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP",
+  "permalink": "/shopverse/architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Service Boundaries And Data Ownership",
+    "description": "Define cohesive microservice boundaries and prevent shared-database distributed monoliths.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Domain modelling",
+      "Database transactions"
+    ],
+    "learning_objectives": [
+      "Find capability boundaries",
+      "Assign write ownership",
+      "Plan extraction"
+    ],
+    "technologies": [
+      "DDD",
+      "REST",
+      "Kafka",
+      "PostgreSQL"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Microservices Production Mastery",
+    "permalink": "/shopverse/architecture/microservices/MICROSERVICES-PRODUCTION-MASTERY"
+  },
+  "next": {
+    "title": "Microservices Cascading-Failure Prevention",
+    "permalink": "/shopverse/architecture/microservices/MICROSERVICES-CASCADING-FAILURE-PREVENTION"
+  }
+}

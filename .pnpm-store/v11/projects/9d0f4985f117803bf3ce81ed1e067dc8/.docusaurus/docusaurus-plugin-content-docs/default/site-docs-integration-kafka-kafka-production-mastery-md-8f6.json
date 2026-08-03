@@ -1,0 +1,51 @@
+{
+  "id": "integration/kafka/KAFKA-PRODUCTION-MASTERY",
+  "title": "Kafka Production Mastery",
+  "description": "Canonical map for producer, consumer, storage, security, operations, Streams, Connect, reliability, disaster recovery, and Kubernetes production mastery.",
+  "source": "@site/docs/integration/kafka/KAFKA-PRODUCTION-MASTERY.md",
+  "sourceDirName": "integration/kafka",
+  "slug": "/integration/kafka/KAFKA-PRODUCTION-MASTERY",
+  "permalink": "/shopverse/integration/kafka/KAFKA-PRODUCTION-MASTERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/integration/kafka/KAFKA-PRODUCTION-MASTERY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kafka Production Mastery",
+    "description": "Canonical map for producer, consumer, storage, security, operations, Streams, Connect, reliability, disaster recovery, and Kubernetes production mastery.",
+    "difficulty": "Architect",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Kafka fundamentals",
+      "Java",
+      "Distributed systems"
+    ],
+    "learning_objectives": [
+      "Navigate complete Kafka production coverage",
+      "Connect runtime failures to controls",
+      "Prepare architect-level interview explanations"
+    ],
+    "technologies": [
+      "Apache Kafka 4.x",
+      "Spring Kafka 4.x",
+      "Kafka Streams",
+      "Kafka Connect"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-integration",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kafka And Spring Kafka Architect Overview",
+    "permalink": "/shopverse/integration/KAFKA-ARCHITECT-OVERVIEW"
+  },
+  "next": {
+    "title": "Kafka KRaft Storage Producer And Consumer Internals",
+    "permalink": "/shopverse/integration/kafka/KAFKA-INTERNALS"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "java/features-8-to-26/JAVA-8-TO-26",
+  "title": "Java 8 To 26 Overview",
+  "description": "<DocLabels items={[",
+  "source": "@site/docs/java/features-8-to-26/JAVA-8-TO-26.md",
+  "sourceDirName": "java/features-8-to-26",
+  "slug": "/java/features-8-to-26/JAVA-8-TO-26",
+  "permalink": "/shopverse/java/features-8-to-26/JAVA-8-TO-26",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/features-8-to-26/JAVA-8-TO-26.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Java 8 To 26 Overview",
+    "sidebar_position": 1,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Core, Collections, Threads And Streams Interview Workbook",
+    "permalink": "/shopverse/java/JAVA-CORE-INTERVIEW-WORKBOOK"
+  },
+  "next": {
+    "title": "Java 25 And 26 Language Changes",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-25-26-LANGUAGE"
+  }
+}

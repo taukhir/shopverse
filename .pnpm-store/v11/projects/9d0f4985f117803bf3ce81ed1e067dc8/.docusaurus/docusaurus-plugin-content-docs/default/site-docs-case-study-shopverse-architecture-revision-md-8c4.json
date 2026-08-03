@@ -1,0 +1,52 @@
+{
+  "id": "case-study/SHOPVERSE-ARCHITECTURE-REVISION",
+  "title": "Shopverse Architecture Revision Sheet",
+  "description": "Interview-ready revision of Shopverse boundaries, checkout flow, Kafka saga, security, reliability, observability, strengths, and production gaps.",
+  "source": "@site/docs/case-study/SHOPVERSE-ARCHITECTURE-REVISION.md",
+  "sourceDirName": "case-study",
+  "slug": "/case-study/SHOPVERSE-ARCHITECTURE-REVISION",
+  "permalink": "/shopverse/case-study/SHOPVERSE-ARCHITECTURE-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/case-study/SHOPVERSE-ARCHITECTURE-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse Architecture Revision Sheet",
+    "description": "Interview-ready revision of Shopverse boundaries, checkout flow, Kafka saga, security, reliability, observability, strengths, and production gaps.",
+    "difficulty": "Advanced",
+    "page_type": "Case Study",
+    "status": "maintained",
+    "prerequisites": [
+      "Shopverse Architecture Current State"
+    ],
+    "learning_objectives": [
+      "Explain Shopverse architecture concisely",
+      "Trace checkout and recovery flows",
+      "Discuss strengths gaps and next decisions honestly"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Kafka",
+      "MySQL",
+      "Redis",
+      "Docker",
+      "Prometheus",
+      "Grafana"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "shopverse",
+    "owner": "docs-case-study",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Shopverse Refactoring And Production Readiness",
+    "permalink": "/shopverse/case-study/SHOPVERSE-ARCHITECTURE-REFACTORING-READINESS"
+  },
+  "next": {
+    "title": "Shopverse System Design",
+    "permalink": "/shopverse/architecture/SYSTEM-DESIGN"
+  }
+}

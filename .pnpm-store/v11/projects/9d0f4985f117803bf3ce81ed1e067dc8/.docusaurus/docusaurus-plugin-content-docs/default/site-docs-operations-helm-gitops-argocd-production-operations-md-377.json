@@ -1,0 +1,49 @@
+{
+  "id": "operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS",
+  "title": "Argo CD Architecture, Security, And Production Operations",
+  "description": "Trace Argo CD controllers, Applications, Projects, generators, sync phases, health, RBAC, multi-cluster operations, progressive delivery, backup, and incidents.",
+  "source": "@site/docs/operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS.md",
+  "sourceDirName": "operations/helm-gitops",
+  "slug": "/operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS",
+  "permalink": "/shopverse/operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Argo CD Architecture, Security, And Production Operations",
+    "description": "Trace Argo CD controllers, Applications, Projects, generators, sync phases, health, RBAC, multi-cluster operations, progressive delivery, backup, and incidents.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "GitOps Delivery Design"
+    ],
+    "learning_objectives": [
+      "Explain Argo CD internals",
+      "Secure multi-tenant delivery",
+      "Diagnose and recover reconciliation failures"
+    ],
+    "technologies": [
+      "Argo CD",
+      "Argo Rollouts",
+      "Helm",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "GitOps Repository, Promotion, And Drift Design",
+    "permalink": "/shopverse/operations/helm-gitops/GITOPS-DELIVERY-DESIGN"
+  },
+  "next": {
+    "title": "Helm, GitOps, And Argo CD Interview, Labs, And Revision",
+    "permalink": "/shopverse/operations/helm-gitops/HELM-GITOPS-ARGOCD-INTERVIEW-REVISION"
+  }
+}

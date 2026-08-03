@@ -1,0 +1,47 @@
+{
+  "id": "architecture/SYSTEM-DESIGN-CONCEPTS",
+  "title": "System Design Concepts Roadmap",
+  "description": "System design is a reasoning process: define behavior and scale, identify the",
+  "source": "@site/docs/architecture/SYSTEM-DESIGN-CONCEPTS.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/SYSTEM-DESIGN-CONCEPTS",
+  "permalink": "/shopverse/architecture/SYSTEM-DESIGN-CONCEPTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/SYSTEM-DESIGN-CONCEPTS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "System Design Concepts Roadmap",
+    "sidebar_position": 2,
+    "difficulty": "Beginner",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "learning_objectives": [
+      "Sequence system design concepts",
+      "Connect requirements to architecture decisions"
+    ],
+    "technologies": [
+      "HTTP",
+      "Kafka",
+      "Redis",
+      "Docker",
+      "JWT"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "HLD And LLD",
+    "permalink": "/shopverse/architecture/HLD-LLD"
+  },
+  "next": {
+    "title": "System Design Deep Dives",
+    "permalink": "/shopverse/architecture/SYSTEM-DESIGN-DEEP-DIVES"
+  }
+}

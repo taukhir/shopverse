@@ -1,0 +1,57 @@
+{
+  "id": "development/TESTING-MODES-CI-TRIAGE",
+  "title": "Testing Modes, CI, And Triage",
+  "description": "Testing Modes, CI, And Triage with Shopverse examples, failure analysis, and production guidance.",
+  "source": "@site/docs/development/TESTING-MODES-CI-TRIAGE.md",
+  "sourceDirName": "development",
+  "slug": "/development/TESTING-MODES-CI-TRIAGE",
+  "permalink": "/shopverse/development/TESTING-MODES-CI-TRIAGE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/TESTING-MODES-CI-TRIAGE.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Testing Modes, CI, And Triage",
+    "description": "Testing Modes, CI, And Triage with Shopverse examples, failure analysis, and production guidance.",
+    "sidebar_label": "Testing Modes, CI, And Triage",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Testing Architecture And Coverage",
+    "permalink": "/shopverse/development/TESTING-ARCHITECTURE-COVERAGE"
+  },
+  "next": {
+    "title": "Shopverse Debugging",
+    "permalink": "/shopverse/development/DEBUGGING"
+  }
+}

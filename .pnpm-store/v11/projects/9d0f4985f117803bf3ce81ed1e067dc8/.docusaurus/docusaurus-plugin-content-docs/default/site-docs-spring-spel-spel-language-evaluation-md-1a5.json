@@ -1,0 +1,44 @@
+{
+  "id": "spring/spel/SPEL-LANGUAGE-EVALUATION",
+  "title": "SpEL Language And Evaluation Internals",
+  "description": "SpEL syntax, parsing, expression trees, evaluation contexts, property and method resolution, type conversion, compilation, performance, failures, and executable labs.",
+  "source": "@site/docs/spring/spel/SPEL-LANGUAGE-EVALUATION.md",
+  "sourceDirName": "spring/spel",
+  "slug": "/spring/spel/SPEL-LANGUAGE-EVALUATION",
+  "permalink": "/shopverse/spring/spel/SPEL-LANGUAGE-EVALUATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/spel/SPEL-LANGUAGE-EVALUATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "SpEL Language And Evaluation Internals",
+    "description": "SpEL syntax, parsing, expression trees, evaluation contexts, property and method resolution, type conversion, compilation, performance, failures, and executable labs.",
+    "difficulty": "Intermediate",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Parse and evaluate SpEL against explicit roots and variables",
+      "Select StandardEvaluationContext or SimpleEvaluationContext from required capabilities",
+      "Diagnose parsing, resolution, conversion, null, and performance failures"
+    ],
+    "technologies": [
+      "Spring Framework",
+      "Spring Expression"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Expression Language (SpEL)",
+    "permalink": "/shopverse/spring/SPRING-SPEL"
+  },
+  "next": {
+    "title": "SpEL Spring Integrations",
+    "permalink": "/shopverse/spring/spel/SPEL-SPRING-INTEGRATIONS"
+  }
+}

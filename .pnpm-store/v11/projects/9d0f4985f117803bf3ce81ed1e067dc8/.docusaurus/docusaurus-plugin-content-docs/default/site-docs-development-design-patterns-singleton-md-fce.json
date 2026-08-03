@@ -1,0 +1,75 @@
+{
+  "id": "development/design-patterns/singleton",
+  "title": "Singleton Pattern in Java and Spring",
+  "description": "Compare Java singleton implementations with Spring scope, then address concurrency, lifecycle, testability, and distributed-system drawbacks.",
+  "source": "@site/docs/development/design-patterns/singleton.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/singleton",
+  "permalink": "/shopverse/development/design-patterns/singleton",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/singleton.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "creational",
+      "permalink": "/shopverse/tags/creational"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    },
+    {
+      "inline": true,
+      "label": "concurrency",
+      "permalink": "/shopverse/tags/concurrency"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Singleton Pattern in Java and Spring",
+    "description": "Compare Java singleton implementations with Spring scope, then address concurrency, lifecycle, testability, and distributed-system drawbacks.",
+    "sidebar_label": "Singleton",
+    "tags": [
+      "java",
+      "spring",
+      "design-patterns",
+      "creational",
+      "interview",
+      "concurrency"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Prototype",
+    "permalink": "/shopverse/development/design-patterns/prototype"
+  },
+  "next": {
+    "title": "Pattern Selection Cheat Sheet",
+    "permalink": "/shopverse/development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET"
+  }
+}

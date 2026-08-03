@@ -1,0 +1,57 @@
+{
+  "id": "architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS",
+  "title": "ClickHouse For Large-Scale Retail Analytics",
+  "description": "Dedicated guide to ClickHouse internals, Walmart-scale storage tiers, timestamp modeling, daily and monthly order-metric queries, partitioning, aggregation, retention, and production trade-offs.",
+  "source": "@site/docs/architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS.md",
+  "sourceDirName": "architecture/retail",
+  "slug": "/architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS",
+  "permalink": "/shopverse/architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "ClickHouse For Large-Scale Retail Analytics",
+    "description": "Dedicated guide to ClickHouse internals, Walmart-scale storage tiers, timestamp modeling, daily and monthly order-metric queries, partitioning, aggregation, retention, and production trade-offs.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Retail order metrics architecture",
+      "SQL",
+      "OLTP and OLAP fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain why ClickHouse fits analytical workloads",
+      "Design hot warm and cold retail storage",
+      "Model event and business time",
+      "Query today and monthly metrics efficiently",
+      "Operate and scale ClickHouse safely"
+    ],
+    "technologies": [
+      "ClickHouse",
+      "PostgreSQL",
+      "Kafka",
+      "Kafka Streams",
+      "Java",
+      "Spring Boot",
+      "Parquet",
+      "Object Storage"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "retail-clickhouse-design-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Retail Order Metrics And Analytics At Scale",
+    "permalink": "/shopverse/architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS"
+  },
+  "next": {
+    "title": "Redis For Retail Caching And Session Storage",
+    "permalink": "/shopverse/architecture/retail/REDIS-RETAIL-CACHING-SESSIONS"
+  }
+}

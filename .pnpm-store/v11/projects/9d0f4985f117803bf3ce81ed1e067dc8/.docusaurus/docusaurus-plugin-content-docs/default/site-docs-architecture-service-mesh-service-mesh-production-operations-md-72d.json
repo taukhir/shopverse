@@ -1,0 +1,49 @@
+{
+  "id": "architecture/service-mesh/SERVICE-MESH-PRODUCTION-OPERATIONS",
+  "title": "Service Mesh Production Operations And Multicluster",
+  "description": "Install, capacity-plan, upgrade, migrate, back up, diagnose, and recover sidecar or ambient service meshes across clusters and networks.",
+  "source": "@site/docs/architecture/service-mesh/SERVICE-MESH-PRODUCTION-OPERATIONS.md",
+  "sourceDirName": "architecture/service-mesh",
+  "slug": "/architecture/service-mesh/SERVICE-MESH-PRODUCTION-OPERATIONS",
+  "permalink": "/shopverse/architecture/service-mesh/SERVICE-MESH-PRODUCTION-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/service-mesh/SERVICE-MESH-PRODUCTION-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Service Mesh Production Operations And Multicluster",
+    "description": "Install, capacity-plan, upgrade, migrate, back up, diagnose, and recover sidecar or ambient service meshes across clusters and networks.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Service Mesh Traffic Security"
+    ],
+    "learning_objectives": [
+      "Operate mesh control and data planes",
+      "Design multicluster topology",
+      "Execute safe upgrades and incident response"
+    ],
+    "technologies": [
+      "Istio",
+      "Linkerd",
+      "Kubernetes",
+      "Envoy"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Service Mesh Traffic, Identity, Security, And Observability",
+    "permalink": "/shopverse/architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY"
+  },
+  "next": {
+    "title": "Service Mesh Architect Interview, Labs, And Revision",
+    "permalink": "/shopverse/architecture/service-mesh/SERVICE-MESH-INTERVIEW-REVISION"
+  }
+}

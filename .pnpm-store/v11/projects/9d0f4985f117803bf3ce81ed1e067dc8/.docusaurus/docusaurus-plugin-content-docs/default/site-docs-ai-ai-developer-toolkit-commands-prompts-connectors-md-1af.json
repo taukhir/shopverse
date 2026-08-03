@@ -1,0 +1,48 @@
+{
+  "id": "ai/AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS",
+  "title": "AI Developer Toolkit With Codex, Claude, Prompts, And Connectors",
+  "description": "Practical Codex and Claude Code commands, high-efficiency prompting templates, connector workflows, and AI playbooks for coding, debugging, performance, and user experience.",
+  "source": "@site/docs/ai/AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS",
+  "permalink": "/shopverse/ai/AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AI Developer Toolkit With Codex, Claude, Prompts, And Connectors",
+    "description": "Practical Codex and Claude Code commands, high-efficiency prompting templates, connector workflows, and AI playbooks for coding, debugging, performance, and user experience.",
+    "sidebar_label": "Commands, Prompts, And Connectors",
+    "difficulty": "Beginner",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "AI-assisted SDLC and developer productivity"
+    ],
+    "technologies": [
+      "Codex",
+      "Claude Code",
+      "MCP",
+      "GitHub",
+      "Java",
+      "Spring Boot",
+      "Browser Testing"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI-Assisted SDLC",
+    "permalink": "/shopverse/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY"
+  },
+  "next": {
+    "title": "Context Engineering",
+    "permalink": "/shopverse/ai/AI-CONTEXT-ENGINEERING-GUIDE"
+  }
+}

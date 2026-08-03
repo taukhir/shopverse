@@ -1,0 +1,63 @@
+{
+  "id": "data/database-selection/DATABASE-DECISION-WORKSHEET",
+  "title": "Database Decision Worksheet",
+  "description": "Complete this worksheet before comparing products. A database wins because it",
+  "source": "@site/docs/data/database-selection/DATABASE-DECISION-WORKSHEET.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-DECISION-WORKSHEET",
+  "permalink": "/shopverse/data/database-selection/DATABASE-DECISION-WORKSHEET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-DECISION-WORKSHEET.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Database Decision Worksheet",
+    "sidebar_position": 2,
+    "difficulty": "Beginner",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "keywords": [
+      "OLTP",
+      "online transaction processing",
+      "OLAP",
+      "online analytical processing",
+      "NoSQL",
+      "non-relational database",
+      "sharding",
+      "horizontal partitioning",
+      "vector database",
+      "embeddings"
+    ],
+    "learning_objectives": [
+      "Turn workload requirements into database criteria",
+      "Produce and validate a database shortlist",
+      "Record rejected alternatives"
+    ],
+    "technologies": [
+      "MySQL",
+      "PostgreSQL",
+      "CockroachDB",
+      "Cassandra",
+      "MongoDB",
+      "DynamoDB",
+      "ClickHouse",
+      "pgvector"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Quick Choice",
+    "permalink": "/shopverse/data/database-selection/DATABASE-QUICK-CHOICE"
+  },
+  "next": {
+    "title": "Relational Databases",
+    "permalink": "/shopverse/data/database-selection/RELATIONAL-DATABASES"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "security/oauth/OAUTH2-FUNDAMENTALS",
+  "title": "OAuth2 Fundamentals",
+  "description": "Learn OAuth2 from delegation and actors through tokens, consent, security boundaries, distributed systems, and production design.",
+  "source": "@site/docs/security/oauth/OAUTH2-FUNDAMENTALS.md",
+  "sourceDirName": "security/oauth",
+  "slug": "/security/oauth/OAUTH2-FUNDAMENTALS",
+  "permalink": "/shopverse/security/oauth/OAUTH2-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/oauth/OAUTH2-FUNDAMENTALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "oauth2",
+      "permalink": "/shopverse/tags/oauth-2"
+    },
+    {
+      "inline": true,
+      "label": "oidc",
+      "permalink": "/shopverse/tags/oidc"
+    },
+    {
+      "inline": true,
+      "label": "authorization",
+      "permalink": "/shopverse/tags/authorization"
+    },
+    {
+      "inline": true,
+      "label": "security",
+      "permalink": "/shopverse/tags/security"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "OAuth2 Fundamentals",
+    "description": "Learn OAuth2 from delegation and actors through tokens, consent, security boundaries, distributed systems, and production design.",
+    "sidebar_label": "OAuth2 Fundamentals",
+    "tags": [
+      "oauth2",
+      "oidc",
+      "authorization",
+      "security"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Beginner",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JWT Best Practices",
+    "permalink": "/shopverse/security/jwt/JWT-BEST-PRACTICES"
+  },
+  "next": {
+    "title": "OAuth2 Fundamentals",
+    "permalink": "/shopverse/security/oauth/OAUTH2-FUNDAMENTALS"
+  }
+}

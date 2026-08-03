@@ -1,0 +1,49 @@
+{
+  "id": "operations/maven/MAVEN-CI-SECURITY-REPRODUCIBILITY",
+  "title": "Maven Testing, Repositories, Security, Reproducibility, And CI",
+  "description": "Configure Surefire and Failsafe, repository mirrors and credentials, reproducible archives, supply-chain controls, caching, and release pipelines.",
+  "source": "@site/docs/operations/maven/MAVEN-CI-SECURITY-REPRODUCIBILITY.md",
+  "sourceDirName": "operations/maven",
+  "slug": "/operations/maven/MAVEN-CI-SECURITY-REPRODUCIBILITY",
+  "permalink": "/shopverse/operations/maven/MAVEN-CI-SECURITY-REPRODUCIBILITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/maven/MAVEN-CI-SECURITY-REPRODUCIBILITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Maven Testing, Repositories, Security, Reproducibility, And CI",
+    "description": "Configure Surefire and Failsafe, repository mirrors and credentials, reproducible archives, supply-chain controls, caching, and release pipelines.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Maven Dependencies Reactors And Profiles"
+    ],
+    "learning_objectives": [
+      "Separate test lifecycles",
+      "Secure artifact resolution",
+      "Produce verifiable CI artifacts"
+    ],
+    "technologies": [
+      "Apache Maven",
+      "Surefire",
+      "Failsafe",
+      "CI/CD"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Maven Dependencies, BOMs, Reactors, And Profiles",
+    "permalink": "/shopverse/operations/maven/MAVEN-DEPENDENCIES-REACTOR"
+  },
+  "next": {
+    "title": "Maven Troubleshooting, Interview Questions, Labs, And Revision",
+    "permalink": "/shopverse/operations/maven/MAVEN-TROUBLESHOOTING-INTERVIEW-REVISION"
+  }
+}

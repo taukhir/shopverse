@@ -1,0 +1,51 @@
+{
+  "id": "ai/MCP-SPRING-SHOPVERSE-LAB",
+  "title": "Spring AI MCP And Shopverse Lab",
+  "description": "Build the first Shopverse MCP boundary as read-only. Annotation and starter names",
+  "source": "@site/docs/ai/MCP-SPRING-SHOPVERSE-LAB.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/MCP-SPRING-SHOPVERSE-LAB",
+  "permalink": "/shopverse/ai/MCP-SPRING-SHOPVERSE-LAB",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/MCP-SPRING-SHOPVERSE-LAB.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring AI MCP And Shopverse Lab",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "keywords": [
+      "Spring AI MCP client",
+      "Spring Boot MCP server",
+      "Shopverse MCP",
+      "MCP testing"
+    ],
+    "learning_objectives": [
+      "Build a read-only Spring MCP server",
+      "Propagate identity and authorize tools",
+      "Test protocol failure injection and observability"
+    ],
+    "technologies": [
+      "Spring AI",
+      "MCP",
+      "Spring Boot",
+      "Shopverse"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "MCP Security And Production Operations",
+    "permalink": "/shopverse/ai/MCP-SECURITY-OPERATIONS"
+  },
+  "next": {
+    "title": "Java AI Developer Guide",
+    "permalink": "/shopverse/ai/JAVA-AI-DEVELOPER-GUIDE"
+  }
+}

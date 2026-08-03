@@ -1,0 +1,34 @@
+{
+  "id": "security/spring-security/PRODUCTION-PRACTICES",
+  "title": "Spring Security Production Practices",
+  "description": "<DocLabels items={[",
+  "source": "@site/docs/security/spring-security/PRODUCTION-PRACTICES.md",
+  "sourceDirName": "security/spring-security",
+  "slug": "/security/spring-security/PRODUCTION-PRACTICES",
+  "permalink": "/shopverse/security/spring-security/PRODUCTION-PRACTICES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/spring-security/PRODUCTION-PRACTICES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Security Production Practices",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Security Threat-Modelling And Interview Lab",
+    "permalink": "/shopverse/security/spring-security/THREAT-MODELING-INTERVIEW-LAB"
+  },
+  "next": {
+    "title": "Security Implementation Guide",
+    "permalink": "/shopverse/security/SECURITY-IMPLEMENTATION-GUIDE"
+  }
+}

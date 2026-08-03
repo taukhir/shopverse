@@ -1,0 +1,51 @@
+{
+  "id": "operations/linux/LINUX-SERVICES-NETWORK-CONTAINERS",
+  "title": "Linux Services, Logs, Networking, Security, And Containers",
+  "description": "Diagnose systemd units, journald, sockets, namespaces, firewall and routing, security denials, cgroups, containers, and Kubernetes node symptoms.",
+  "source": "@site/docs/operations/linux/LINUX-SERVICES-NETWORK-CONTAINERS.md",
+  "sourceDirName": "operations/linux",
+  "slug": "/operations/linux/LINUX-SERVICES-NETWORK-CONTAINERS",
+  "permalink": "/shopverse/operations/linux/LINUX-SERVICES-NETWORK-CONTAINERS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/linux/LINUX-SERVICES-NETWORK-CONTAINERS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Linux Services, Logs, Networking, Security, And Containers",
+    "description": "Diagnose systemd units, journald, sockets, namespaces, firewall and routing, security denials, cgroups, containers, and Kubernetes node symptoms.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Linux Filesystems And Storage"
+    ],
+    "learning_objectives": [
+      "Diagnose service lifecycle and logs",
+      "Inspect sockets and namespaces",
+      "Connect container symptoms to host cgroups and kernel"
+    ],
+    "technologies": [
+      "systemd",
+      "journald",
+      "iproute2",
+      "nftables",
+      "namespaces",
+      "cgroups"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Linux Filesystems, Disk, And Block I/O Troubleshooting",
+    "permalink": "/shopverse/operations/linux/LINUX-FILESYSTEM-STORAGE"
+  },
+  "next": {
+    "title": "Linux Production Incident Labs, Interview Questions, And Revision",
+    "permalink": "/shopverse/operations/linux/LINUX-INCIDENT-LABS-REVISION"
+  }
+}

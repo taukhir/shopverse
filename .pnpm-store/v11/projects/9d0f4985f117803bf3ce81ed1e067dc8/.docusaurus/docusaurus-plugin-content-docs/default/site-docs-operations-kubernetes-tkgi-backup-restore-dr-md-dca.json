@@ -1,0 +1,56 @@
+{
+  "id": "operations/kubernetes/TKGI-BACKUP-RESTORE-DR",
+  "title": "TKGI Backup Restore And Disaster Recovery",
+  "description": "Layered TKGI resilience guide for management-plane, cluster, workload, data, networking, infrastructure, restore testing, RPO/RTO, and disaster-recovery design.",
+  "source": "@site/docs/operations/kubernetes/TKGI-BACKUP-RESTORE-DR.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-BACKUP-RESTORE-DR",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-BACKUP-RESTORE-DR",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-BACKUP-RESTORE-DR.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI Backup Restore And Disaster Recovery",
+    "description": "Layered TKGI resilience guide for management-plane, cluster, workload, data, networking, infrastructure, restore testing, RPO/RTO, and disaster-recovery design.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "TKGI production operations path",
+      "Kubernetes storage",
+      "BOSH fundamentals"
+    ],
+    "learning_objectives": [
+      "Map backup tools to state owners",
+      "Design RPO and RTO",
+      "Restore TKGI layers safely",
+      "Test disaster recovery",
+      "Avoid false confidence from partial backups"
+    ],
+    "technologies": [
+      "TKGI 1.25",
+      "BBR",
+      "Velero",
+      "Kubernetes",
+      "BOSH",
+      "NSX",
+      "vSphere"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Upgrade Architecture And Lifecycle",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-UPGRADE-LIFECYCLE"
+  },
+  "next": {
+    "title": "TKGI Telemetry Sinks And Observability",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-TELEMETRY-SINKS-OBSERVABILITY"
+  }
+}

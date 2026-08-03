@@ -1,0 +1,54 @@
+{
+  "id": "java/JAVA-API-DESIGN-COMPATIBILITY",
+  "title": "Java API Design Evolution And Compatibility",
+  "description": "Lead-level Java API design covering contracts, immutability, errors, generics, binary compatibility, serialization, deprecation, modules, and safe library evolution.",
+  "source": "@site/docs/java/JAVA-API-DESIGN-COMPATIBILITY.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-API-DESIGN-COMPATIBILITY",
+  "permalink": "/shopverse/java/JAVA-API-DESIGN-COMPATIBILITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-API-DESIGN-COMPATIBILITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java API Design Evolution And Compatibility",
+    "description": "Lead-level Java API design covering contracts, immutability, errors, generics, binary compatibility, serialization, deprecation, modules, and safe library evolution.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Java language semantics",
+      "Generics",
+      "Object contracts"
+    ],
+    "learning_objectives": [
+      "Design durable Java APIs",
+      "Classify compatibility risks",
+      "Evolve interfaces safely",
+      "Separate domain and wire contracts",
+      "Review published libraries"
+    ],
+    "technologies": [
+      "Java 21+",
+      "JLS",
+      "JVM",
+      "JPMS",
+      "Javadoc"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Core Java Source Coverage And Adaptation Ledger",
+    "permalink": "/shopverse/java/CORE-JAVA-SOURCE-COVERAGE"
+  },
+  "next": {
+    "title": "Java Fundamentals",
+    "permalink": "/shopverse/java/JAVA-FUNDAMENTALS"
+  }
+}

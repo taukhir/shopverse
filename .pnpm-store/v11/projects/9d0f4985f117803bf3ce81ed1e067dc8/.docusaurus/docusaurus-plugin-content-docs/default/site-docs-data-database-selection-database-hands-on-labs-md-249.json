@@ -1,0 +1,57 @@
+{
+  "id": "data/database-selection/DATABASE-HANDS-ON-LABS",
+  "title": "Database Hands-On Labs",
+  "description": "Run these labs only against disposable local databases. Pin approved image",
+  "source": "@site/docs/data/database-selection/DATABASE-HANDS-ON-LABS.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-HANDS-ON-LABS",
+  "permalink": "/shopverse/data/database-selection/DATABASE-HANDS-ON-LABS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-HANDS-ON-LABS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 11,
+  "frontMatter": {
+    "title": "Database Hands-On Labs",
+    "sidebar_position": 11,
+    "difficulty": "Intermediate",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "keywords": [
+      "EXPLAIN ANALYZE",
+      "indexing",
+      "connection pool",
+      "keyset pagination",
+      "Cassandra partition key",
+      "ClickHouse OLAP",
+      "pgvector similarity search"
+    ],
+    "learning_objectives": [
+      "Compare query plans and indexes with evidence",
+      "Exercise bounded database overload safely",
+      "Model specialist database access patterns"
+    ],
+    "technologies": [
+      "MySQL",
+      "PostgreSQL",
+      "Cassandra",
+      "ClickHouse",
+      "pgvector"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Migrations And Operations",
+    "permalink": "/shopverse/data/database-selection/DATABASE-MIGRATIONS-OPERATIONS"
+  },
+  "next": {
+    "title": "Database System-Design Interview Exercises",
+    "permalink": "/shopverse/data/database-selection/DATABASE-INTERVIEW-EXERCISES"
+  }
+}

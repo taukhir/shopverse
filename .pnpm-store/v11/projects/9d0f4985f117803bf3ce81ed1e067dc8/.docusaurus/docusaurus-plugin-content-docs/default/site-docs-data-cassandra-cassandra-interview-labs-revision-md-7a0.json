@@ -1,0 +1,51 @@
+{
+  "id": "data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION",
+  "title": "Cassandra Interview Labs And Revision",
+  "description": "Architect interview answers, production scenarios, hands-on exercises, calculations, and a completion checklist for Cassandra.",
+  "source": "@site/docs/data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION.md",
+  "sourceDirName": "data/cassandra",
+  "slug": "/data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION",
+  "permalink": "/shopverse/data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cassandra Interview Labs And Revision",
+    "description": "Architect interview answers, production scenarios, hands-on exercises, calculations, and a completion checklist for Cassandra.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Cassandra architecture",
+      "modeling",
+      "storage",
+      "and operations"
+    ],
+    "learning_objectives": [
+      "Recall Cassandra internals",
+      "Defend design choices",
+      "Practise production diagnosis"
+    ],
+    "technologies": [
+      "Apache Cassandra",
+      "CQL",
+      "nodetool"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Cassandra Operations Capacity Repair Backup And Incidents",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-OPERATIONS-CAPACITY"
+  },
+  "next": {
+    "title": "Cassandra Production Interview Scenarios",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-PRODUCTION-INTERVIEW-SCENARIOS"
+  }
+}

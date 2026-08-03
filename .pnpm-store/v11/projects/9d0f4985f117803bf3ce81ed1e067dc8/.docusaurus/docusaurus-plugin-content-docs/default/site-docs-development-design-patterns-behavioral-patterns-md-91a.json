@@ -1,0 +1,57 @@
+{
+  "id": "development/design-patterns/BEHAVIORAL-PATTERNS",
+  "title": "Behavioral Patterns",
+  "description": "Choose and implement Strategy, Observer, Chain of Responsibility, Template Method, and related behavioral patterns in Spring.",
+  "source": "@site/docs/development/design-patterns/BEHAVIORAL-PATTERNS.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/BEHAVIORAL-PATTERNS",
+  "permalink": "/shopverse/development/design-patterns/BEHAVIORAL-PATTERNS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/BEHAVIORAL-PATTERNS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "behavioral",
+      "permalink": "/shopverse/tags/behavioral"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Behavioral Patterns",
+    "description": "Choose and implement Strategy, Observer, Chain of Responsibility, Template Method, and related behavioral patterns in Spring.",
+    "sidebar_label": "Behavioral Patterns",
+    "tags": [
+      "spring",
+      "design-patterns",
+      "behavioral"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Proxy",
+    "permalink": "/shopverse/development/design-patterns/proxy"
+  },
+  "next": {
+    "title": "Strategy",
+    "permalink": "/shopverse/development/design-patterns/strategy"
+  }
+}

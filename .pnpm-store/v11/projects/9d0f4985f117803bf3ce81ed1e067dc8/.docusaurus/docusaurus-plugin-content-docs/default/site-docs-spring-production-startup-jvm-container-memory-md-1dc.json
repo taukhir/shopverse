@@ -1,0 +1,47 @@
+{
+  "id": "spring/production/STARTUP-JVM-CONTAINER-MEMORY",
+  "title": "Spring Boot Startup, JVM And Container Memory",
+  "description": "Evidence-driven Spring Boot startup and JVM/container memory tuning covering startup steps, class loading, AOT/CDS, heap and native budgets, GC, direct buffers, thread stacks, diagnostics, security, and failure drills.",
+  "source": "@site/docs/spring/production/STARTUP-JVM-CONTAINER-MEMORY.md",
+  "sourceDirName": "spring/production",
+  "slug": "/spring/production/STARTUP-JVM-CONTAINER-MEMORY",
+  "permalink": "/shopverse/spring/production/STARTUP-JVM-CONTAINER-MEMORY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/production/STARTUP-JVM-CONTAINER-MEMORY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot Startup, JVM And Container Memory",
+    "description": "Evidence-driven Spring Boot startup and JVM/container memory tuning covering startup steps, class loading, AOT/CDS, heap and native budgets, GC, direct buffers, thread stacks, diagnostics, security, and failure drills.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Attribute startup time to an owned Spring or JVM phase",
+      "Budget heap and native memory inside a container limit",
+      "Select GC and diagnostics from measured allocation, live set, latency, and security constraints",
+      "Reproduce startup and OOM failures with bounded evidence"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "JVM",
+      "JFR",
+      "Containers"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Production Tuning",
+    "permalink": "/shopverse/development/spring-boot-internals/PRODUCTION-TUNING"
+  },
+  "next": {
+    "title": "Spring Resource Pools, Concurrency And Capacity",
+    "permalink": "/shopverse/spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "reference/FEATURES-AND-DEMOS",
+  "title": "Shopverse Features And Demos",
+  "description": "Trace implemented capabilities to reproducible demonstrations and honest roadmap status.",
+  "source": "@site/docs/reference/FEATURES-AND-DEMOS.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/FEATURES-AND-DEMOS",
+  "permalink": "/shopverse/reference/FEATURES-AND-DEMOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/FEATURES-AND-DEMOS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse Features And Demos",
+    "description": "Trace implemented capabilities to reproducible demonstrations and honest roadmap status.",
+    "sidebar_label": "Shopverse Features And Demos",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Backend Engineering Learning Path",
+    "permalink": "/shopverse/reference/LEARNING-PATH"
+  },
+  "next": {
+    "title": "Security And Checkout Demonstrations",
+    "permalink": "/shopverse/reference/FEATURES-SECURITY-CHECKOUT"
+  }
+}

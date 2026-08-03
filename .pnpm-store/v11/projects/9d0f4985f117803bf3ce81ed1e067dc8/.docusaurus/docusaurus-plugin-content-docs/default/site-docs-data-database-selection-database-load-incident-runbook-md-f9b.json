@@ -1,0 +1,47 @@
+{
+  "id": "data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK",
+  "title": "Database Load Incident Runbook",
+  "description": "Diagnose, contain, remediate, verify, and escalate database saturation without amplifying the incident.",
+  "source": "@site/docs/data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK",
+  "permalink": "/shopverse/data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Database Load Incident Runbook",
+    "description": "Diagnose, contain, remediate, verify, and escalate database saturation without amplifying the incident.",
+    "difficulty": "Advanced",
+    "page_type": "Runbook",
+    "status": "maintained",
+    "prerequisites": [
+      "Database query plans",
+      "connection pools",
+      "application observability"
+    ],
+    "technologies": [
+      "MySQL",
+      "PostgreSQL",
+      "Spring Boot",
+      "HikariCP",
+      "Micrometer"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Replication, Backup, And Recovery",
+    "permalink": "/shopverse/data/database-selection/DATABASE-REPLICATION-BACKUP-RECOVERY"
+  },
+  "next": {
+    "title": "Consistency Models And BASE",
+    "permalink": "/shopverse/data/database-selection/CONSISTENCY-MODELS-BASE"
+  }
+}

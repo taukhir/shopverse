@@ -1,0 +1,45 @@
+{
+  "id": "spring/cloud/SPRING-CLOUD-MCQ-PRACTICE",
+  "title": "Spring Cloud MCQ Practice",
+  "description": "Timed Spring Cloud interview MCQs covering configuration, discovery, Gateway, resilience, clients, Stream, observability, and Kubernetes.",
+  "source": "@site/docs/spring/cloud/SPRING-CLOUD-MCQ-PRACTICE.mdx",
+  "sourceDirName": "spring/cloud",
+  "slug": "/spring/cloud/SPRING-CLOUD-MCQ-PRACTICE",
+  "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/cloud/SPRING-CLOUD-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Cloud MCQ Practice",
+    "description": "Timed Spring Cloud interview MCQs covering configuration, discovery, Gateway, resilience, clients, Stream, observability, and Kubernetes.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Cloud Architect Path"
+    ],
+    "technologies": [
+      "Spring Cloud",
+      "Gateway",
+      "OpenFeign",
+      "Spring Cloud Stream",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Cloud Architect Learning Path",
+    "permalink": "/shopverse/spring/SPRING-CLOUD-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Spring Cloud Config, Refresh, And Secrets",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-CONFIG"
+  }
+}

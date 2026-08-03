@@ -1,0 +1,36 @@
+{
+  "id": "reference/DOCUMENTATION-MAINTENANCE-MAP",
+  "title": "Documentation Maintenance Map",
+  "description": "Use this page when adding, moving, or consolidating documentation.",
+  "source": "@site/docs/reference/DOCUMENTATION-MAINTENANCE-MAP.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/DOCUMENTATION-MAINTENANCE-MAP",
+  "permalink": "/shopverse/reference/DOCUMENTATION-MAINTENANCE-MAP",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/DOCUMENTATION-MAINTENANCE-MAP.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Documentation Maintenance Map",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Documentation Structure",
+    "permalink": "/shopverse/reference/DOCUMENTATION-STRUCTURE"
+  },
+  "next": {
+    "title": "Reusable Documentation Components",
+    "permalink": "/shopverse/reference/DOCUMENTATION-COMPONENTS"
+  }
+}

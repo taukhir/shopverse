@@ -1,0 +1,50 @@
+{
+  "id": "operations/docker/DOCKER-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "title": "Docker Troubleshooting, Incident Labs, Interviews, And Revision",
+  "description": "Evidence-led Docker diagnosis, runtime build storage network and security incidents, practical labs, architect interviews, and complete revision checklist.",
+  "source": "@site/docs/operations/docker/DOCKER-TROUBLESHOOTING-INTERVIEW-REVISION.md",
+  "sourceDirName": "operations/docker",
+  "slug": "/operations/docker/DOCKER-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "permalink": "/shopverse/operations/docker/DOCKER-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/docker/DOCKER-TROUBLESHOOTING-INTERVIEW-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Docker Troubleshooting, Incident Labs, Interviews, And Revision",
+    "description": "Evidence-led Docker diagnosis, runtime build storage network and security incidents, practical labs, architect interviews, and complete revision checklist.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Docker production operations"
+    ],
+    "learning_objectives": [
+      "Diagnose Docker incidents",
+      "Complete internals and recovery labs",
+      "Answer Lead and Architect questions",
+      "Revise the complete container path"
+    ],
+    "technologies": [
+      "Docker Engine",
+      "BuildKit",
+      "Compose",
+      "Linux"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker Security, Compose, Resources, Logging, And Production Operations",
+    "permalink": "/shopverse/operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS"
+  },
+  "next": {
+    "title": "MinIO Object Storage",
+    "permalink": "/shopverse/operations/MINIO"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "spring/cloud/SPRING-CLOUD-CONFIG",
+  "title": "Spring Cloud Config, Refresh, And Secrets",
+  "description": "Design Config Server and Client repositories, precedence, startup behavior, refresh scope, encryption, secrets, HA, and incident recovery.",
+  "source": "@site/docs/spring/cloud/SPRING-CLOUD-CONFIG.md",
+  "sourceDirName": "spring/cloud",
+  "slug": "/spring/cloud/SPRING-CLOUD-CONFIG",
+  "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-CONFIG",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/cloud/SPRING-CLOUD-CONFIG.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Cloud Config, Refresh, And Secrets",
+    "description": "Design Config Server and Client repositories, precedence, startup behavior, refresh scope, encryption, secrets, HA, and incident recovery.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Cloud Architect Learning Path"
+    ],
+    "learning_objectives": [
+      "Trace configuration resolution",
+      "Design safe refresh and rollback",
+      "Secure and operate Config Server"
+    ],
+    "technologies": [
+      "Spring Cloud Config",
+      "Spring Boot Actuator"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Cloud MCQ Practice",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-MCQ-PRACTICE"
+  },
+  "next": {
+    "title": "Spring Cloud Discovery, LoadBalancer, And HTTP Clients",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-DISCOVERY-CLIENTS"
+  }
+}

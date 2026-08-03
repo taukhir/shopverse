@@ -1,0 +1,69 @@
+{
+  "id": "development/design-patterns/prototype",
+  "title": "Prototype Pattern in Java",
+  "description": "Copy configured templates safely with explicit deep-copy semantics, immutable variants, and Spring prototype-scope guidance.",
+  "source": "@site/docs/development/design-patterns/prototype.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/prototype",
+  "permalink": "/shopverse/development/design-patterns/prototype",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/prototype.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "creational",
+      "permalink": "/shopverse/tags/creational"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Prototype Pattern in Java",
+    "description": "Copy configured templates safely with explicit deep-copy semantics, immutable variants, and Spring prototype-scope guidance.",
+    "sidebar_label": "Prototype",
+    "tags": [
+      "java",
+      "spring",
+      "design-patterns",
+      "creational",
+      "interview"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Builder",
+    "permalink": "/shopverse/development/design-patterns/builder"
+  },
+  "next": {
+    "title": "Singleton",
+    "permalink": "/shopverse/development/design-patterns/singleton"
+  }
+}

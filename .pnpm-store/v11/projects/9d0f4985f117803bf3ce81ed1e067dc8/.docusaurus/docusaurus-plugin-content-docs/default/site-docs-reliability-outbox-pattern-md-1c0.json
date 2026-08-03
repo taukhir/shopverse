@@ -1,0 +1,57 @@
+{
+  "id": "reliability/OUTBOX-PATTERN",
+  "title": "Transactional Outbox Pattern",
+  "description": "Transactional Outbox Pattern: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/reliability/OUTBOX-PATTERN.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/OUTBOX-PATTERN",
+  "permalink": "/shopverse/reliability/OUTBOX-PATTERN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/OUTBOX-PATTERN.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "reliability",
+      "permalink": "/shopverse/tags/reliability"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Transactional Outbox Pattern",
+    "description": "Transactional Outbox Pattern: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Transactional Outbox Pattern",
+    "tags": [
+      "reliability",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Transactional Outbox Production Failure Modes",
+    "permalink": "/shopverse/reliability/OUTBOX-PRODUCTION-FAILURE-MODES"
+  },
+  "next": {
+    "title": "Inbox Pattern And Idempotent Consumers",
+    "permalink": "/shopverse/reliability/INBOX-PATTERN"
+  }
+}

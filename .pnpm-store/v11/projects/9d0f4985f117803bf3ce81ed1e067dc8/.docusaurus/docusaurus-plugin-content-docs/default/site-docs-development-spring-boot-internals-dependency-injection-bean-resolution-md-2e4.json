@@ -1,0 +1,50 @@
+{
+  "id": "development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION",
+  "title": "Spring Dependency Injection And Bean Resolution",
+  "description": "Container APIs, factory beans, constructor selection, injection annotations, bean initialization order, qualifiers, providers, and wiring diagnostics.",
+  "source": "@site/docs/development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md",
+  "sourceDirName": "development/spring-boot-internals",
+  "slug": "/development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION",
+  "permalink": "/shopverse/development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Dependency Injection And Bean Resolution",
+    "description": "Container APIs, factory beans, constructor selection, injection annotations, bean initialization order, qualifiers, providers, and wiring diagnostics.",
+    "difficulty": "Intermediate",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring bean definitions",
+      "Java interfaces and constructors"
+    ],
+    "learning_objectives": [
+      "Distinguish container and factory contracts",
+      "Trace constructor and candidate selection",
+      "Choose explicit injection contracts",
+      "Distinguish dependency initialization from ordered injection",
+      "Diagnose missing ambiguous and circular dependencies"
+    ],
+    "technologies": [
+      "Spring Framework 7",
+      "Spring Boot 4"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Dependency Injection And Bean Lifecycle",
+    "permalink": "/shopverse/development/spring-boot-internals/DI-BEAN-LIFECYCLE-AOP"
+  },
+  "next": {
+    "title": "Autowiring, Ambiguity And Circular Dependencies",
+    "permalink": "/shopverse/development/spring-boot-internals/AUTOWIRING-CIRCULAR-REFERENCE-INTERNALS"
+  }
+}

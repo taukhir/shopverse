@@ -1,0 +1,35 @@
+{
+  "id": "operations/DOCUMENT-EXPORTS",
+  "title": "Documentation Export Architecture",
+  "description": "Every guide supports browser print-to-PDF and a browser-generated",
+  "source": "@site/docs/operations/DOCUMENT-EXPORTS.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/DOCUMENT-EXPORTS",
+  "permalink": "/shopverse/operations/DOCUMENT-EXPORTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/DOCUMENT-EXPORTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Documentation Export Architecture",
+    "page_type": "Reference",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-10",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docusaurus Components And Deployment",
+    "permalink": "/shopverse/operations/DOCUSAURUS-COMPONENTS-DEPLOYMENT"
+  },
+  "next": {
+    "title": "Spring Boot Admin",
+    "permalink": "/shopverse/operations/SPRING-BOOT-ADMIN"
+  }
+}

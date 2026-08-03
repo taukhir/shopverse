@@ -1,0 +1,57 @@
+{
+  "id": "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE",
+  "title": "Access, Refresh Token, And API Key Design",
+  "description": "Separate access-token, session, API-key, authorization, and operational responsibilities.",
+  "source": "@site/docs/security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md",
+  "sourceDirName": "security",
+  "slug": "/security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE",
+  "permalink": "/shopverse/security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Access, Refresh Token, And API Key Design",
+    "description": "Separate access-token, session, API-key, authorization, and operational responsibilities.",
+    "sidebar_label": "Access, Refresh Token, And API Key Design",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Security Implementation Guide",
+    "permalink": "/shopverse/security/SECURITY-IMPLEMENTATION-GUIDE"
+  },
+  "next": {
+    "title": "Access And Refresh Token Design",
+    "permalink": "/shopverse/security/ACCESS-REFRESH-TOKEN-DESIGN"
+  }
+}

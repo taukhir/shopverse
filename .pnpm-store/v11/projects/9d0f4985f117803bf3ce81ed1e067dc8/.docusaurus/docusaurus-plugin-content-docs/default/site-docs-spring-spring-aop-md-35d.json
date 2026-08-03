@@ -1,0 +1,46 @@
+{
+  "id": "spring/SPRING-AOP",
+  "title": "Spring AOP: Proxies, Pointcuts And Advice",
+  "description": "Practical Spring AOP guide covering advice, pointcuts, custom aspects, proxy boundaries, ordering, testing, and safe production use.",
+  "source": "@site/docs/spring/SPRING-AOP.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-AOP",
+  "permalink": "/shopverse/spring/SPRING-AOP",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-AOP.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Spring AOP: Proxies, Pointcuts And Advice",
+    "description": "Practical Spring AOP guide covering advice, pointcuts, custom aspects, proxy boundaries, ordering, testing, and safe production use.",
+    "sidebar_position": 4,
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Build narrow, testable Spring AOP advice for cross-cutting concerns",
+      "Explain proxy boundaries, self-invocation, and interceptor ordering",
+      "Select AOP, servlet filters, MVC interceptors, or weaving by execution boundary"
+    ],
+    "technologies": [
+      "Spring Framework",
+      "Spring AOP"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Container Runtime For Architects",
+    "permalink": "/shopverse/spring/SPRING-CONTAINER-ARCHITECT"
+  },
+  "next": {
+    "title": "Spring Transactions: Boundaries, Propagation, Isolation And Locking",
+    "permalink": "/shopverse/spring/SPRING-TRANSACTIONS"
+  }
+}

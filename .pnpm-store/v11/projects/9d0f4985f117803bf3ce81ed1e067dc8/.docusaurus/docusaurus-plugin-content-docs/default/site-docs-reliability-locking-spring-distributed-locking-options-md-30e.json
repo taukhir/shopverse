@@ -1,0 +1,59 @@
+{
+  "id": "reliability/locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS",
+  "title": "Spring Distributed Locking Options",
+  "description": "Architect comparison of Spring scheduling, ShedLock, LockRegistry, Redisson, Quartz, advisory locks, leader election, database work claims, leases, and fencing.",
+  "source": "@site/docs/reliability/locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS.md",
+  "sourceDirName": "reliability/locking",
+  "slug": "/reliability/locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS",
+  "permalink": "/shopverse/reliability/locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Distributed Locking Options",
+    "description": "Architect comparison of Spring scheduling, ShedLock, LockRegistry, Redisson, Quartz, advisory locks, leader election, database work claims, leases, and fencing.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "keywords": [
+      "Spring distributed lock",
+      "ShedLock",
+      "LockRegistry",
+      "Redisson",
+      "Quartz",
+      "advisory lock",
+      "leader election",
+      "fencing"
+    ],
+    "learning_objectives": [
+      "Separate scheduler coordination from record ownership and duplicate-delivery safety",
+      "Select a Spring-compatible coordination mechanism from workload and failure semantics",
+      "Explain leases, stale owners, fencing, idempotency, and operational trade-offs"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Spring Integration",
+      "ShedLock",
+      "Quartz",
+      "Redis",
+      "JDBC",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-16",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Schedulers And Safe Work Claiming",
+    "permalink": "/shopverse/reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS"
+  },
+  "next": {
+    "title": "Database Locking And Work Claims",
+    "permalink": "/shopverse/reliability/locking/DATABASE-LOCKING-AND-CLAIMS"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "operations/PERFORMANCE-CAPACITY-FINOPS",
+  "title": "Performance, Capacity, And FinOps",
+  "description": "Workload Model",
+  "source": "@site/docs/operations/PERFORMANCE-CAPACITY-FINOPS.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/PERFORMANCE-CAPACITY-FINOPS",
+  "permalink": "/shopverse/operations/PERFORMANCE-CAPACITY-FINOPS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/PERFORMANCE-CAPACITY-FINOPS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Performance, Capacity, And FinOps",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "keywords": [
+      "load testing",
+      "coordinated omission",
+      "soak test",
+      "stress test",
+      "capacity planning",
+      "FinOps",
+      "cost per request"
+    ],
+    "learning_objectives": [
+      "Design representative load tests",
+      "Turn saturation into capacity limits",
+      "Attribute and optimize unit cost safely"
+    ],
+    "technologies": [
+      "Java",
+      "PostgreSQL",
+      "Kafka",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "SRE, Disaster Recovery, And Chaos Engineering",
+    "permalink": "/shopverse/operations/SRE-DR-CHAOS"
+  },
+  "next": {
+    "title": "Supply-Chain Security And Privacy Engineering",
+    "permalink": "/shopverse/security/SUPPLY-CHAIN-PRIVACY"
+  }
+}

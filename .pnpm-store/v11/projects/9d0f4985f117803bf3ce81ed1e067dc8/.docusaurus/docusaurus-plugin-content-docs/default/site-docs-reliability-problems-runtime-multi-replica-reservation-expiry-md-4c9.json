@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY",
+  "title": "Multi-Replica Reservation Expiry",
+  "description": "Inventory reservation expiry exists in Shopverse, but the current worker is",
+  "source": "@site/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md",
+  "sourceDirName": "reliability/problems/runtime",
+  "slug": "/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY",
+  "permalink": "/shopverse/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Multi-Replica Reservation Expiry",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Resource Ownership Tests And Operations",
+    "permalink": "/shopverse/reliability/problems/runtime/RESOURCE-OWNERSHIP-TESTS-OPERATIONS"
+  },
+  "next": {
+    "title": "Atomic Inventory Reservation",
+    "permalink": "/shopverse/reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM"
+  }
+}

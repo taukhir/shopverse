@@ -1,0 +1,51 @@
+{
+  "id": "spring/cloud/SPRING-CLOUD-RUNTIME-INTERNALS",
+  "title": "Spring Cloud Config LoadBalancer And Gateway Internals",
+  "description": "Config Data startup, repository and refresh lifecycle, service-instance selection, gateway filter chains, OAuth token relay, capacity, and diagnosis.",
+  "source": "@site/docs/spring/cloud/SPRING-CLOUD-RUNTIME-INTERNALS.md",
+  "sourceDirName": "spring/cloud",
+  "slug": "/spring/cloud/SPRING-CLOUD-RUNTIME-INTERNALS",
+  "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-RUNTIME-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/cloud/SPRING-CLOUD-RUNTIME-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Cloud Config LoadBalancer And Gateway Internals",
+    "description": "Config Data startup, repository and refresh lifecycle, service-instance selection, gateway filter chains, OAuth token relay, capacity, and diagnosis.",
+    "difficulty": "Architect",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Boot startup",
+      "HTTP",
+      "reactive fundamentals"
+    ],
+    "learning_objectives": [
+      "Trace configuration and request runtime paths",
+      "Customize load balancing safely",
+      "Diagnose gateway and discovery failures"
+    ],
+    "technologies": [
+      "Spring Cloud Config",
+      "Spring Cloud LoadBalancer",
+      "Spring Cloud Gateway",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Cloud Circuit Breaker, Gateway, And Resilience Composition",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-RESILIENCE-GATEWAY"
+  },
+  "next": {
+    "title": "Spring Cloud Kubernetes And Contract In Depth",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-KUBERNETES-CONTRACT"
+  }
+}

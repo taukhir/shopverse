@@ -1,0 +1,55 @@
+{
+  "id": "security/SUPPLY-CHAIN-PRIVACY",
+  "title": "Supply-Chain Security And Privacy Engineering",
+  "description": "Software Supply Chain",
+  "source": "@site/docs/security/SUPPLY-CHAIN-PRIVACY.md",
+  "sourceDirName": "security",
+  "slug": "/security/SUPPLY-CHAIN-PRIVACY",
+  "permalink": "/shopverse/security/SUPPLY-CHAIN-PRIVACY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/SUPPLY-CHAIN-PRIVACY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Supply-Chain Security And Privacy Engineering",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "keywords": [
+      "SBOM",
+      "SLSA",
+      "artifact signing",
+      "provenance",
+      "admission policy",
+      "data classification",
+      "consent",
+      "anonymization",
+      "legal hold"
+    ],
+    "learning_objectives": [
+      "Secure software from source to deployment",
+      "Design enforceable privacy controls",
+      "Verify deletion and retention across derived data"
+    ],
+    "technologies": [
+      "GitHub Actions",
+      "Docker",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Security Architect Interview Workbook",
+    "permalink": "/shopverse/security/platform/SECURITY-INTERVIEW-WORKBOOK"
+  },
+  "next": {
+    "title": "Vault And Kubernetes Secrets Architect Path",
+    "permalink": "/shopverse/security/VAULT-KUBERNETES-SECRETS-PATH"
+  }
+}

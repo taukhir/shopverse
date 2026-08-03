@@ -1,0 +1,73 @@
+{
+  "id": "data/database-selection/DATABASE-QUICK-CHOICE",
+  "title": "Database Quick Choice",
+  "description": "Database Selection Funnel",
+  "source": "@site/docs/data/database-selection/DATABASE-QUICK-CHOICE.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-QUICK-CHOICE",
+  "permalink": "/shopverse/data/database-selection/DATABASE-QUICK-CHOICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-QUICK-CHOICE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Database Quick Choice",
+    "sidebar_position": 1,
+    "difficulty": "Beginner",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "keywords": [
+      "OLTP",
+      "online transaction processing",
+      "OLAP",
+      "online analytical processing",
+      "NoSQL",
+      "non-relational database",
+      "sharding",
+      "horizontal partitioning",
+      "vector database",
+      "vector store",
+      "embeddings"
+    ],
+    "learning_objectives": [
+      "Distinguish OLTP and OLAP",
+      "Choose a database from workload strengths",
+      "Recognize database scaling and support trade-offs"
+    ],
+    "technologies": [
+      "MySQL",
+      "PostgreSQL",
+      "Oracle Database",
+      "Db2",
+      "SQL Server",
+      "MariaDB",
+      "SQLite",
+      "CockroachDB",
+      "Cassandra",
+      "MongoDB",
+      "DynamoDB",
+      "Redis",
+      "Elasticsearch",
+      "OpenSearch",
+      "Neo4j",
+      "ClickHouse",
+      "pgvector"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Design And Selection",
+    "permalink": "/shopverse/data/DATABASE-SELECTION-GUIDE"
+  },
+  "next": {
+    "title": "Database Decision Worksheet",
+    "permalink": "/shopverse/data/database-selection/DATABASE-DECISION-WORKSHEET"
+  }
+}

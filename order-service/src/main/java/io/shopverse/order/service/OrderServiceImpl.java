@@ -258,6 +258,9 @@ public class OrderServiceImpl implements OrderService {
     @CacheEvict(cacheNames = "orders", allEntries = true)
     public void markInventoryRejected(String orderNumber, String reason) {
         OrderEntity order = findByNumber(orderNumber);
+        if (order.getStatus() != OrderStatus.PENDING_INVENTORY) {
+            return;
+        }
         order.markInventoryRejected(reason);
         appendTimeline(order, OrderTimelineStage.INVENTORY_REJECTED, reason);
     }
@@ -285,6 +288,9 @@ public class OrderServiceImpl implements OrderService {
     @CacheEvict(cacheNames = "orders", allEntries = true)
     public void markInventoryReservedAndPaymentProcessing(String orderNumber) {
         OrderEntity order = findByNumber(orderNumber);
+        if (order.getStatus() != OrderStatus.PENDING_INVENTORY) {
+            return;
+        }
         order.markInventoryReserved();
         appendTimeline(order, OrderTimelineStage.INVENTORY_RESERVED, "Inventory reservation confirmed");
         order.markPaymentProcessing();
@@ -296,6 +302,9 @@ public class OrderServiceImpl implements OrderService {
     @CacheEvict(cacheNames = "orders", allEntries = true)
     public void markPaymentFailed(String orderNumber, String reason) {
         OrderEntity order = findByNumber(orderNumber);
+        if (order.getStatus() != OrderStatus.PAYMENT_PROCESSING) {
+            return;
+        }
         order.markPaymentFailed(reason);
         appendTimeline(order, OrderTimelineStage.PAYMENT_FAILED, reason);
     }
@@ -305,6 +314,9 @@ public class OrderServiceImpl implements OrderService {
     @CacheEvict(cacheNames = "orders", allEntries = true)
     public void confirm(String orderNumber, String paymentReference) {
         OrderEntity order = findByNumber(orderNumber);
+        if (order.getStatus() != OrderStatus.PAYMENT_PROCESSING) {
+            return;
+        }
         appendTimeline(order, OrderTimelineStage.PAYMENT_COMPLETED, "Payment reference " + paymentReference);
         order.confirm(paymentReference);
         appendTimeline(order, OrderTimelineStage.ORDER_CONFIRMED, "Order confirmed");

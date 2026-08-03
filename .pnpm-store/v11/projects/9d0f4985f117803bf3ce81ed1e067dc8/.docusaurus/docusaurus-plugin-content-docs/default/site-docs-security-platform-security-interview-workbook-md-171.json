@@ -1,0 +1,49 @@
+{
+  "id": "security/platform/SECURITY-INTERVIEW-WORKBOOK",
+  "title": "Security Architect Interview Workbook",
+  "description": "Expandable scenarios for identity, authorization, tokens, secrets, zero trust, and incident response.",
+  "source": "@site/docs/security/platform/SECURITY-INTERVIEW-WORKBOOK.md",
+  "sourceDirName": "security/platform",
+  "slug": "/security/platform/SECURITY-INTERVIEW-WORKBOOK",
+  "permalink": "/shopverse/security/platform/SECURITY-INTERVIEW-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/platform/SECURITY-INTERVIEW-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Security Architect Interview Workbook",
+    "description": "Expandable scenarios for identity, authorization, tokens, secrets, zero trust, and incident response.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Security architect path"
+    ],
+    "learning_objectives": [
+      "Answer with threat reasoning",
+      "Separate controls",
+      "Explain failure response"
+    ],
+    "technologies": [
+      "OAuth2",
+      "OIDC",
+      "JWT",
+      "mTLS"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Security Incident Response Runbook",
+    "permalink": "/shopverse/security/platform/SECURITY-INCIDENT-RESPONSE"
+  },
+  "next": {
+    "title": "Supply-Chain Security And Privacy Engineering",
+    "permalink": "/shopverse/security/SUPPLY-CHAIN-PRIVACY"
+  }
+}

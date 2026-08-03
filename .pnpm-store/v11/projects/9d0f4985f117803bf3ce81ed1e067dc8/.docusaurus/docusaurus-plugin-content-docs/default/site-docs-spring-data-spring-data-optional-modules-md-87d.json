@@ -1,0 +1,51 @@
+{
+  "id": "spring/data/SPRING-DATA-OPTIONAL-MODULES",
+  "title": "Optional Spring Data Modules And Adjacent Tools",
+  "description": "Spring Data REST, Envers, Neo4j, Couchbase, LDAP and adjacent SQL tools with selection, security, and production guidance.",
+  "source": "@site/docs/spring/data/SPRING-DATA-OPTIONAL-MODULES.md",
+  "sourceDirName": "spring/data",
+  "slug": "/spring/data/SPRING-DATA-OPTIONAL-MODULES",
+  "permalink": "/shopverse/spring/data/SPRING-DATA-OPTIONAL-MODULES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/data/SPRING-DATA-OPTIONAL-MODULES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Optional Spring Data Modules And Adjacent Tools",
+    "description": "Spring Data REST, Envers, Neo4j, Couchbase, LDAP and adjacent SQL tools with selection, security, and production guidance.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Data Architect Path"
+    ],
+    "learning_objectives": [
+      "Recognize optional modules",
+      "Select them deliberately",
+      "Avoid unsafe repository exposure and abstraction mismatch"
+    ],
+    "technologies": [
+      "Spring Data REST",
+      "Envers",
+      "Neo4j",
+      "Couchbase",
+      "LDAP",
+      "jOOQ"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data Testing Observability Capacity And Incidents",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-TESTING-OPERATIONS"
+  },
+  "next": {
+    "title": "Spring Data Interview Labs And Revision",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-INTERVIEW-REVISION"
+  }
+}

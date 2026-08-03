@@ -1,0 +1,57 @@
+{
+  "id": "services/README",
+  "title": "Shopverse Service Landscape",
+  "description": "A service-ownership map connecting Shopverse capabilities, data, APIs, events, and operations.",
+  "source": "@site/docs/services/README.md",
+  "sourceDirName": "services",
+  "slug": "/services/",
+  "permalink": "/shopverse/services/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/services/README.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "services",
+      "permalink": "/shopverse/tags/services"
+    },
+    {
+      "inline": true,
+      "label": "ownership",
+      "permalink": "/shopverse/tags/ownership"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse Service Landscape",
+    "description": "A service-ownership map connecting Shopverse capabilities, data, APIs, events, and operations.",
+    "sidebar_label": "Shopverse Service Landscape",
+    "tags": [
+      "shopverse",
+      "services",
+      "ownership"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "shopverse",
+    "owner": "docs-services",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Systems In Shopverse",
+    "permalink": "/shopverse/architecture/DISTRIBUTED-SYSTEMS"
+  },
+  "next": {
+    "title": "Service Catalog",
+    "permalink": "/shopverse/services/SERVICE-CATALOG"
+  }
+}

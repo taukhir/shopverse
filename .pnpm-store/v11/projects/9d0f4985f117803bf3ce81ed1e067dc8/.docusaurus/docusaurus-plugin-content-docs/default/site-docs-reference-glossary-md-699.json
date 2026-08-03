@@ -1,0 +1,34 @@
+{
+  "id": "reference/GLOSSARY",
+  "title": "Backend Engineering Glossary",
+  "description": "Technical guides automatically link the first relevant occurrence of these",
+  "source": "@site/docs/reference/GLOSSARY.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/GLOSSARY",
+  "permalink": "/shopverse/reference/GLOSSARY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/GLOSSARY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Backend Engineering Glossary",
+    "page_type": "Reference",
+    "difficulty": "Beginner",
+    "status": "maintained",
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Code Cross-Check",
+    "permalink": "/shopverse/reference/CODE-CROSS-CHECK"
+  },
+  "next": {
+    "title": "Distributed Systems Interview Questions",
+    "permalink": "/shopverse/reference/DISTRIBUTED-SYSTEMS-INTERVIEW"
+  }
+}

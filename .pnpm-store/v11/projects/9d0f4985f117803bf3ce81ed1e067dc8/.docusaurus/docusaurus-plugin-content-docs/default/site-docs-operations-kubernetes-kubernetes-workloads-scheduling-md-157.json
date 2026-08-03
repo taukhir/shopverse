@@ -1,0 +1,50 @@
+{
+  "id": "operations/kubernetes/KUBERNETES-WORKLOADS-SCHEDULING",
+  "title": "Kubernetes Pods, Workloads, Lifecycle, And Scheduling",
+  "description": "Design Pods, Deployments, StatefulSets, DaemonSets, Jobs, lifecycle hooks, probes, resources, placement, disruption, autoscaling, and graceful rollout behavior.",
+  "source": "@site/docs/operations/kubernetes/KUBERNETES-WORKLOADS-SCHEDULING.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/KUBERNETES-WORKLOADS-SCHEDULING",
+  "permalink": "/shopverse/operations/kubernetes/KUBERNETES-WORKLOADS-SCHEDULING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/KUBERNETES-WORKLOADS-SCHEDULING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kubernetes Pods, Workloads, Lifecycle, And Scheduling",
+    "description": "Design Pods, Deployments, StatefulSets, DaemonSets, Jobs, lifecycle hooks, probes, resources, placement, disruption, autoscaling, and graceful rollout behavior.",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Kubernetes control-plane internals"
+    ],
+    "learning_objectives": [
+      "Select workload controllers",
+      "Engineer safe Pod lifecycle",
+      "Control placement and disruption",
+      "Scale from meaningful signals"
+    ],
+    "technologies": [
+      "Kubernetes",
+      "HPA",
+      "VPA",
+      "Cluster Autoscaler"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kubernetes API Machinery, Control Plane, Nodes, And Reconciliation",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS"
+  },
+  "next": {
+    "title": "Kubernetes Networking, Services, DNS, Ingress, And Gateway API",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-NETWORKING-SERVICES"
+  }
+}

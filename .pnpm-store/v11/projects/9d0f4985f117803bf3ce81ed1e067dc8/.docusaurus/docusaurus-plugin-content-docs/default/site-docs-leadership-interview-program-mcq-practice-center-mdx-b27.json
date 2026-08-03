@@ -1,0 +1,44 @@
+{
+  "id": "leadership/interview-program/MCQ-PRACTICE-CENTER",
+  "title": "MCQ Practice Center",
+  "description": "Timed Java, Spring, Spring Cloud, and System Design interview tests with randomized questions and post-submission explanations.",
+  "source": "@site/docs/leadership/interview-program/MCQ-PRACTICE-CENTER.mdx",
+  "sourceDirName": "leadership/interview-program",
+  "slug": "/leadership/interview-program/MCQ-PRACTICE-CENTER",
+  "permalink": "/shopverse/leadership/interview-program/MCQ-PRACTICE-CENTER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/interview-program/MCQ-PRACTICE-CENTER.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "MCQ Practice Center",
+    "description": "Timed Java, Spring, Spring Cloud, and System Design interview tests with randomized questions and post-submission explanations.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Core preparation pages for the selected subject"
+    ],
+    "technologies": [
+      "Java",
+      "Spring",
+      "Spring Cloud",
+      "System Design"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Interview Practice Dashboard",
+    "permalink": "/shopverse/leadership/interview-program/INTERVIEW-PRACTICE-DASHBOARD"
+  },
+  "next": {
+    "title": "Day-Zero Lead And Architect Diagnostic Assessment",
+    "permalink": "/shopverse/leadership/interview-program/DAY-ZERO-DIAGNOSTIC-ASSESSMENT"
+  }
+}

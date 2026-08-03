@@ -1,0 +1,36 @@
+{
+  "id": "data-structures/NON-LINEAR-DATA-STRUCTURES",
+  "title": "Non-Linear Data Structures",
+  "description": "Non-linear structures represent hierarchy, priority, or relationships.",
+  "source": "@site/docs/data-structures/NON-LINEAR-DATA-STRUCTURES.md",
+  "sourceDirName": "data-structures",
+  "slug": "/data-structures/NON-LINEAR-DATA-STRUCTURES",
+  "permalink": "/shopverse/data-structures/NON-LINEAR-DATA-STRUCTURES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/NON-LINEAR-DATA-STRUCTURES.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Non-Linear Data Structures",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Linear Data Structures",
+    "permalink": "/shopverse/data-structures/LINEAR-DATA-STRUCTURES"
+  },
+  "next": {
+    "title": "Graph Algorithms Interview Guide",
+    "permalink": "/shopverse/data-structures/GRAPH-ALGORITHMS-INTERVIEW"
+  }
+}

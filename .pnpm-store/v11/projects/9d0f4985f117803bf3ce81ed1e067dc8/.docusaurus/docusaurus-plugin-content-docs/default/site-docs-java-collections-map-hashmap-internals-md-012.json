@@ -1,0 +1,69 @@
+{
+  "id": "java/collections/map/HASHMAP-INTERNALS",
+  "title": "HashMap Internals and Usage",
+  "description": "HashMap buckets, defaults, load factor, resize, collisions, treeification, methods, key safety, complexity, and selection.",
+  "source": "@site/docs/java/collections/map/HASHMAP-INTERNALS.md",
+  "sourceDirName": "java/collections/map",
+  "slug": "/java/collections/map/HASHMAP-INTERNALS",
+  "permalink": "/shopverse/java/collections/map/HASHMAP-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/map/HASHMAP-INTERNALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "map",
+      "permalink": "/shopverse/tags/map"
+    },
+    {
+      "inline": true,
+      "label": "hashmap",
+      "permalink": "/shopverse/tags/hashmap"
+    },
+    {
+      "inline": true,
+      "label": "internals",
+      "permalink": "/shopverse/tags/internals"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "HashMap Internals and Usage",
+    "description": "HashMap buckets, defaults, load factor, resize, collisions, treeification, methods, key safety, complexity, and selection.",
+    "sidebar_label": "HashMap",
+    "tags": [
+      "java",
+      "collections",
+      "map",
+      "hashmap",
+      "internals"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-08-02",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Map Overview",
+    "permalink": "/shopverse/java/collections/map/MAP-OVERVIEW"
+  },
+  "next": {
+    "title": "LinkedHashMap",
+    "permalink": "/shopverse/java/collections/map/LINKEDHASHMAP-INTERNALS"
+  }
+}

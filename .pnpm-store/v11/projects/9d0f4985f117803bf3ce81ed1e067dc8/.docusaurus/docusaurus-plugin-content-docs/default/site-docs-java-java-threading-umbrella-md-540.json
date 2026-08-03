@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-THREADING-UMBRELLA",
+  "title": "Java Threads, Concurrency And JVM Thread Model",
+  "description": "Umbrella guide to application threads, schedulers, JVM service threads, coordination, memory visibility, virtual threads, and async composition.",
+  "source": "@site/docs/java/JAVA-THREADING-UMBRELLA.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-THREADING-UMBRELLA",
+  "permalink": "/shopverse/java/JAVA-THREADING-UMBRELLA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-THREADING-UMBRELLA.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Threads, Concurrency And JVM Thread Model",
+    "description": "Umbrella guide to application threads, schedulers, JVM service threads, coordination, memory visibility, virtual threads, and async composition.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "HashMap, ConcurrentHashMap And Iterator Internals",
+    "permalink": "/shopverse/java/JAVA-HASH-COLLECTIONS-DEEP-DIVE"
+  },
+  "next": {
+    "title": "Java Threading Model",
+    "permalink": "/shopverse/java/JAVA-THREADING-MODEL"
+  }
+}

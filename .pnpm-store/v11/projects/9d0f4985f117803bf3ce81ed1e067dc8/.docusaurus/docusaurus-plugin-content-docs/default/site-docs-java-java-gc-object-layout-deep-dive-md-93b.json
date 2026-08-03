@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE",
+  "title": "Java Object Layout, Allocation And Garbage Collectors",
+  "description": "Object headers, compressed references, TLABs, barriers, collector algorithms, failures, selection, logs, and measurement.",
+  "source": "@site/docs/java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE",
+  "permalink": "/shopverse/java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Object Layout, Allocation And Garbage Collectors",
+    "description": "Object headers, compressed references, TLABs, barriers, collector algorithms, failures, selection, logs, and measurement.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JVM Runtime Memory Areas",
+    "permalink": "/shopverse/java/JAVA-JVM-MEMORY"
+  },
+  "next": {
+    "title": "JVM Garbage Collectors For Architects",
+    "permalink": "/shopverse/java/JAVA-GC-COLLECTORS-ARCHITECT"
+  }
+}

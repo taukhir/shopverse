@@ -1,0 +1,54 @@
+{
+  "id": "spring/annotations/SPRING-SECURITY-MESSAGING-TEST-ANNOTATIONS",
+  "title": "Spring Security Messaging And Testing Annotations",
+  "description": "Important Spring method-security, Kafka listener/retry, event, Boot testing, test-slice, mock, profile, SQL, Testcontainers, and dynamic-property annotations with runtime and test-boundary explanations.",
+  "source": "@site/docs/spring/annotations/SPRING-SECURITY-MESSAGING-TEST-ANNOTATIONS.md",
+  "sourceDirName": "spring/annotations",
+  "slug": "/spring/annotations/SPRING-SECURITY-MESSAGING-TEST-ANNOTATIONS",
+  "permalink": "/shopverse/spring/annotations/SPRING-SECURITY-MESSAGING-TEST-ANNOTATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/annotations/SPRING-SECURITY-MESSAGING-TEST-ANNOTATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Security Messaging And Testing Annotations",
+    "description": "Important Spring method-security, Kafka listener/retry, event, Boot testing, test-slice, mock, profile, SQL, Testcontainers, and dynamic-property annotations with runtime and test-boundary explanations.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Security",
+      "Spring Kafka",
+      "Spring Boot testing"
+    ],
+    "learning_objectives": [
+      "Use method security correctly",
+      "Explain listener annotations",
+      "Select test scopes",
+      "Avoid context-cache and mock traps",
+      "Prove integration behavior"
+    ],
+    "technologies": [
+      "Spring Security",
+      "Spring Kafka",
+      "Spring Boot Test",
+      "JUnit 5",
+      "Testcontainers"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data Transaction Async Scheduling And Cache Annotations",
+    "permalink": "/shopverse/spring/annotations/SPRING-DATA-TRANSACTION-ASYNC-ANNOTATIONS"
+  },
+  "next": {
+    "title": "Spring Annotation Internals Composition Proxies And Interview Traps",
+    "permalink": "/shopverse/spring/annotations/SPRING-ANNOTATION-INTERNALS-COMPOSITION"
+  }
+}

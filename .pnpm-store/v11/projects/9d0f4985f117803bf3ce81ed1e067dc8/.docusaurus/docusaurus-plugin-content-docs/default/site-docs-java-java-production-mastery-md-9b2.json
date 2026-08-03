@@ -1,0 +1,51 @@
+{
+  "id": "java/JAVA-PRODUCTION-MASTERY",
+  "title": "Java Production Mastery",
+  "description": "Complete Lead and Architect map for language semantics, collections, concurrency, JVM, GC, I/O, networking, performance diagnostics, and production incidents.",
+  "source": "@site/docs/java/JAVA-PRODUCTION-MASTERY.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-PRODUCTION-MASTERY",
+  "permalink": "/shopverse/java/JAVA-PRODUCTION-MASTERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-PRODUCTION-MASTERY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Production Mastery",
+    "description": "Complete Lead and Architect map for language semantics, collections, concurrency, JVM, GC, I/O, networking, performance diagnostics, and production incidents.",
+    "difficulty": "Architect",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Core Java",
+      "JVM fundamentals"
+    ],
+    "learning_objectives": [
+      "Cover every production Java competency",
+      "Navigate canonical deep dives",
+      "Diagnose Java incidents from evidence"
+    ],
+    "technologies": [
+      "Java 21+",
+      "JVM",
+      "JFR",
+      "JMC",
+      "async-profiler"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Lead And Architect Learning Path",
+    "permalink": "/shopverse/java/JAVA-LEAD-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Java Concepts In Shopverse",
+    "permalink": "/shopverse/java/JAVA-SHOPVERSE-CROSSWALK"
+  }
+}

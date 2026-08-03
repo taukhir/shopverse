@@ -1,0 +1,49 @@
+{
+  "id": "architecture/networking/TLS-HTTP2-DIAGNOSIS",
+  "title": "TLS, Certificates, HTTP/1.1, And HTTP/2 Diagnosis",
+  "description": "Trace TLS 1.2/1.3, PKI chains, hostname validation, SNI, ALPN, mTLS, rotation, HTTP semantics, HTTP/2 frames, streams, flow control, and failures.",
+  "source": "@site/docs/architecture/networking/TLS-HTTP2-DIAGNOSIS.md",
+  "sourceDirName": "architecture/networking",
+  "slug": "/architecture/networking/TLS-HTTP2-DIAGNOSIS",
+  "permalink": "/shopverse/architecture/networking/TLS-HTTP2-DIAGNOSIS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/networking/TLS-HTTP2-DIAGNOSIS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TLS, Certificates, HTTP/1.1, And HTTP/2 Diagnosis",
+    "description": "Trace TLS 1.2/1.3, PKI chains, hostname validation, SNI, ALPN, mTLS, rotation, HTTP semantics, HTTP/2 frames, streams, flow control, and failures.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "TCP Connection Diagnosis"
+    ],
+    "learning_objectives": [
+      "Explain secure connection negotiation",
+      "Diagnose certificates and trust",
+      "Operate HTTP/2 pools and streams safely"
+    ],
+    "technologies": [
+      "TLS 1.3",
+      "X.509",
+      "HTTP/1.1",
+      "HTTP/2"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TCP Connections, Congestion, NAT, And Socket Diagnosis",
+    "permalink": "/shopverse/architecture/networking/TCP-CONNECTION-DIAGNOSIS"
+  },
+  "next": {
+    "title": "Network Diagnosis Incidents, Labs, Interviews, And Revision",
+    "permalink": "/shopverse/architecture/networking/NETWORK-INCIDENT-LABS-REVISION"
+  }
+}

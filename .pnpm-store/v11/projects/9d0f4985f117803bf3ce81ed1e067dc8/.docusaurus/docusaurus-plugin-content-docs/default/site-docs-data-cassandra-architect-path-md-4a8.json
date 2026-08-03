@@ -1,0 +1,49 @@
+{
+  "id": "data/CASSANDRA-ARCHITECT-PATH",
+  "title": "Apache Cassandra Architect Learning Path",
+  "description": "Complete route from Cassandra fundamentals through query-first modeling, distributed internals, storage, indexing, repair, capacity, incidents, and Spring integration.",
+  "source": "@site/docs/data/CASSANDRA-ARCHITECT-PATH.md",
+  "sourceDirName": "data",
+  "slug": "/data/CASSANDRA-ARCHITECT-PATH",
+  "permalink": "/shopverse/data/CASSANDRA-ARCHITECT-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/CASSANDRA-ARCHITECT-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Apache Cassandra Architect Learning Path",
+    "description": "Complete route from Cassandra fundamentals through query-first modeling, distributed internals, storage, indexing, repair, capacity, incidents, and Spring integration.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Distributed systems fundamentals",
+      "Database fundamentals"
+    ],
+    "learning_objectives": [
+      "Model Cassandra tables from queries",
+      "Explain consistency and storage internals",
+      "Operate and troubleshoot Cassandra safely"
+    ],
+    "technologies": [
+      "Apache Cassandra",
+      "CQL",
+      "Spring Data Cassandra"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database System-Design Interview Exercises",
+    "permalink": "/shopverse/data/database-selection/DATABASE-INTERVIEW-EXERCISES"
+  },
+  "next": {
+    "title": "Cassandra Architecture Replication And Consistency",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-ARCHITECTURE-CONSISTENCY"
+  }
+}

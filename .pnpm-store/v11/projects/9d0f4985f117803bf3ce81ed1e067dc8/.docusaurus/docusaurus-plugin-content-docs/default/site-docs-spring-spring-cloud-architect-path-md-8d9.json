@@ -1,0 +1,54 @@
+{
+  "id": "spring/SPRING-CLOUD-ARCHITECT-PATH",
+  "title": "Spring Cloud Architect Learning Path",
+  "description": "Complete Spring-owned route through distributed configuration, discovery, client-side load balancing, HTTP clients, circuit breakers, gateway, bus, security, observability, operations, and interviews.",
+  "source": "@site/docs/spring/SPRING-CLOUD-ARCHITECT-PATH.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-CLOUD-ARCHITECT-PATH",
+  "permalink": "/shopverse/spring/SPRING-CLOUD-ARCHITECT-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-CLOUD-ARCHITECT-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Cloud Architect Learning Path",
+    "description": "Complete Spring-owned route through distributed configuration, discovery, client-side load balancing, HTTP clients, circuit breakers, gateway, bus, security, observability, operations, and interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Boot",
+      "Microservices fundamentals",
+      "HTTP"
+    ],
+    "learning_objectives": [
+      "Choose Spring Cloud components deliberately",
+      "Trace their runtime failure boundaries",
+      "Operate a secure resilient microservice platform"
+    ],
+    "technologies": [
+      "Spring Cloud",
+      "Spring Boot",
+      "Config",
+      "Gateway",
+      "OpenFeign",
+      "LoadBalancer",
+      "CircuitBreaker"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Runtime Architect Path",
+    "permalink": "/shopverse/spring/SPRING-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Spring Cloud MCQ Practice",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-MCQ-PRACTICE"
+  }
+}

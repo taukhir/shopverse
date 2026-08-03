@@ -1,0 +1,57 @@
+{
+  "id": "development/design-patterns/chain-of-responsibility",
+  "title": "Chain of Responsibility Pattern in Spring",
+  "description": "Build ordered Spring handler chains with explicit continuation, short-circuiting, failure policy, and observability.",
+  "source": "@site/docs/development/design-patterns/chain-of-responsibility.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/chain-of-responsibility",
+  "permalink": "/shopverse/development/design-patterns/chain-of-responsibility",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/chain-of-responsibility.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Chain of Responsibility Pattern in Spring",
+    "description": "Build ordered Spring handler chains with explicit continuation, short-circuiting, failure policy, and observability.",
+    "sidebar_label": "Chain of Responsibility",
+    "tags": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Observer",
+    "permalink": "/shopverse/development/design-patterns/observer"
+  },
+  "next": {
+    "title": "Template Method",
+    "permalink": "/shopverse/development/design-patterns/template-method"
+  }
+}

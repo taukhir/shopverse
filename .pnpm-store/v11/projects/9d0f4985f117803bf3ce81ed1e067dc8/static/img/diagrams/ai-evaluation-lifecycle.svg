@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">AI evaluation lifecycle</title><desc id="desc">Lifecycle for evaluating and improving AI and RAG systems.</desc>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10z" fill="#16a34a"/></marker><style>.bg{fill:#f8fafc}.b{fill:#fff;stroke:#111827;stroke-width:2;rx:14}.t{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:18px;fill:#111827;font-weight:700}.s{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px;fill:#374151}.h{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:25px;fill:#111827;font-weight:700}.l{stroke:#16a34a;stroke-width:3;fill:none;marker-end:url(#a)}</style></defs>
+  <rect class="bg" width="1200" height="650"/><text class="h" x="50" y="55">AI Evaluation Lifecycle</text><text class="s" x="50" y="84">Production AI needs regression checks for retrieval, answer quality, safety, latency, and cost.</text>
+  <rect class="b" x="80" y="160" width="190" height="90"/><text class="t" x="116" y="196">Test Set</text><text class="s" x="108" y="224">questions + expected</text>
+  <rect class="b" x="345" y="160" width="190" height="90"/><text class="t" x="376" y="196">Run RAG</text><text class="s" x="382" y="224">retrieve + answer</text>
+  <rect class="b" x="610" y="160" width="190" height="90"/><text class="t" x="640" y="196">Score</text><text class="s" x="638" y="224">retrieval, answer</text>
+  <rect class="b" x="875" y="160" width="190" height="90"/><text class="t" x="910" y="196">Review</text><text class="s" x="902" y="224">failures and gaps</text>
+  <rect class="b" x="610" y="390" width="190" height="90"/><text class="t" x="650" y="426">Improve</text><text class="s" x="635" y="454">chunks, prompt, filters</text>
+  <path class="l" d="M270 205 L345 205"/><path class="l" d="M535 205 L610 205"/><path class="l" d="M800 205 L875 205"/><path class="l" d="M970 250 C970 350 820 430 800 435"/><path class="l" d="M610 435 C410 435 180 360 175 250"/>
+</svg>

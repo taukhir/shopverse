@@ -1,0 +1,46 @@
+{
+  "id": "data/database-selection/DATABASE-CONNECTION-POOL-FAILOVER",
+  "title": "Connection Pools, Overload, And Database Failover",
+  "description": "HikariCP internals, capacity sizing, acquisition incidents, leaks, failover recovery, and Spring Boot production diagnostics.",
+  "source": "@site/docs/data/database-selection/DATABASE-CONNECTION-POOL-FAILOVER.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-CONNECTION-POOL-FAILOVER",
+  "permalink": "/shopverse/data/database-selection/DATABASE-CONNECTION-POOL-FAILOVER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-CONNECTION-POOL-FAILOVER.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Connection Pools, Overload, And Database Failover",
+    "description": "HikariCP internals, capacity sizing, acquisition incidents, leaks, failover recovery, and Spring Boot production diagnostics.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "JDBC",
+      "transactions",
+      "database observability"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "HikariCP",
+      "JDBC",
+      "Micrometer"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Concurrency, Latency, And Backpressure",
+    "permalink": "/shopverse/data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE"
+  },
+  "next": {
+    "title": "Database Replication, Backup, And Recovery",
+    "permalink": "/shopverse/data/database-selection/DATABASE-REPLICATION-BACKUP-RECOVERY"
+  }
+}

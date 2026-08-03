@@ -1,0 +1,38 @@
+{
+  "id": "data-structures/programming/arrays/ARRAY-PROBLEMS-11-20",
+  "title": "Array Problems 11-20 - Marking, DP, Two Pointers, And Matrices",
+  "description": "Worked Java solutions for missing values, duplicates, intersections, Dutch flag partitioning, consecutive sequences, product DP, water, 3Sum, and spiral traversal.",
+  "source": "@site/docs/data-structures/programming/arrays/ARRAY-PROBLEMS-11-20.md",
+  "sourceDirName": "data-structures/programming/arrays",
+  "slug": "/data-structures/programming/arrays/ARRAY-PROBLEMS-11-20",
+  "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-PROBLEMS-11-20",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/programming/arrays/ARRAY-PROBLEMS-11-20.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Array Problems 11-20 - Marking, DP, Two Pointers, And Matrices",
+    "description": "Worked Java solutions for missing values, duplicates, intersections, Dutch flag partitioning, consecutive sequences, product DP, water, 3Sum, and spiral traversal.",
+    "sidebar_label": "Problems 11-20",
+    "sidebar_position": 4,
+    "difficulty": "All Levels",
+    "page_type": "Guide",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Problems 1-10",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-PROBLEMS-01-10"
+  },
+  "next": {
+    "title": "Problems 21-30",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-PROBLEMS-21-30"
+  }
+}

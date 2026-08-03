@@ -1,0 +1,47 @@
+{
+  "id": "integration/APACHE-KAFKA",
+  "title": "Apache Kafka",
+  "description": "Apache Kafka is a distributed event-streaming platform built around durable,",
+  "source": "@site/docs/integration/APACHE-KAFKA.md",
+  "sourceDirName": "integration",
+  "slug": "/integration/APACHE-KAFKA",
+  "permalink": "/shopverse/integration/APACHE-KAFKA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/integration/APACHE-KAFKA.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "Apache Kafka",
+    "sidebar_position": 5,
+    "difficulty": "Intermediate",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Asynchronous messaging fundamentals"
+    ],
+    "learning_objectives": [
+      "Understand Kafka partitions groups and delivery semantics",
+      "Design reliable event-driven workflows"
+    ],
+    "technologies": [
+      "Apache Kafka",
+      "Spring Kafka"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-integration",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kafka vs RabbitMQ vs ActiveMQ Artemis vs JMS",
+    "permalink": "/shopverse/integration/MESSAGING-PLATFORM-SELECTION"
+  },
+  "next": {
+    "title": "Event Streaming Application Path",
+    "permalink": "/shopverse/integration/EVENT-STREAMING-APPLICATION-PATH"
+  }
+}

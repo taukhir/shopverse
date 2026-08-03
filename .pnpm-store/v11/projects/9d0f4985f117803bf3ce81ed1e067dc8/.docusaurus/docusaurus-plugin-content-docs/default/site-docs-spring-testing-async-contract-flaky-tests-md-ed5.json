@@ -1,0 +1,48 @@
+{
+  "id": "spring/testing/ASYNC-CONTRACT-FLAKY-TESTS",
+  "title": "Async Contract And Flaky Test Prevention",
+  "description": "Bounded asynchronous assertions, REST and event contract fixtures, deterministic data, isolation, parallel execution, and evidence-driven flaky-test prevention.",
+  "source": "@site/docs/spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
+  "sourceDirName": "spring/testing",
+  "slug": "/spring/testing/ASYNC-CONTRACT-FLAKY-TESTS",
+  "permalink": "/shopverse/spring/testing/ASYNC-CONTRACT-FLAKY-TESTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/testing/ASYNC-CONTRACT-FLAKY-TESTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Async Contract And Flaky Test Prevention",
+    "description": "Bounded asynchronous assertions, REST and event contract fixtures, deterministic data, isolation, parallel execution, and evidence-driven flaky-test prevention.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Replace fixed sleeps with bounded condition-based assertions and timeout evidence",
+      "Protect REST, Kafka, security, and configuration compatibility contracts",
+      "Remove shared state and timing assumptions before enabling parallel execution"
+    ],
+    "technologies": [
+      "Awaitility",
+      "JUnit",
+      "Kafka",
+      "Contract Testing",
+      "Spring"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Integration Tests And Testcontainers",
+    "permalink": "/shopverse/spring/testing/INTEGRATION-TESTCONTAINERS"
+  },
+  "next": {
+    "title": "Coverage And Test Quality",
+    "permalink": "/shopverse/spring/testing/COVERAGE-TEST-QUALITY"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "id": "development/design-patterns/factory",
+  "title": "Factory Method Pattern in Java and Spring",
+  "description": "Solve runtime product selection with Factory Method, simple factories, Spring registries, FactoryBean, and ObjectProvider.",
+  "source": "@site/docs/development/design-patterns/factory.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/factory",
+  "permalink": "/shopverse/development/design-patterns/factory",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/factory.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "creational",
+      "permalink": "/shopverse/tags/creational"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Factory Method Pattern in Java and Spring",
+    "description": "Solve runtime product selection with Factory Method, simple factories, Spring registries, FactoryBean, and ObjectProvider.",
+    "sidebar_label": "Factory Method",
+    "tags": [
+      "java",
+      "spring",
+      "design-patterns",
+      "creational",
+      "interview"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Immutable Classes And Defensive Copies",
+    "permalink": "/shopverse/development/design-patterns/immutable-class"
+  },
+  "next": {
+    "title": "Abstract Factory",
+    "permalink": "/shopverse/development/design-patterns/abstract-factory"
+  }
+}

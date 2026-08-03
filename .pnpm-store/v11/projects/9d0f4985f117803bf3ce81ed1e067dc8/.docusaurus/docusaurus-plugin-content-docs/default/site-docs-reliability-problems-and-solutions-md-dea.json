@@ -1,0 +1,34 @@
+{
+  "id": "reliability/PROBLEMS-AND-SOLUTIONS",
+  "title": "Shopverse Problems And Solutions",
+  "description": "Production, runtime, build, testing, and operations issues are split into focused problem pages while this page remains the index.",
+  "source": "@site/docs/reliability/PROBLEMS-AND-SOLUTIONS.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/PROBLEMS-AND-SOLUTIONS",
+  "permalink": "/shopverse/reliability/PROBLEMS-AND-SOLUTIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/PROBLEMS-AND-SOLUTIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse Problems And Solutions",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Debugging Observability And Recovery",
+    "permalink": "/shopverse/development/DEBUGGING-OBSERVABILITY-RECOVERY"
+  },
+  "next": {
+    "title": "Problems And Solutions Index",
+    "permalink": "/shopverse/reliability/problems/"
+  }
+}

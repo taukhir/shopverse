@@ -1,0 +1,69 @@
+{
+  "id": "observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE",
+  "title": "Distributed Tracing Internals And Performance Analysis",
+  "description": "Understand Micrometer tracing internals, context propagation, custom spans, sampling, backends, bottleneck analysis, and exporter troubleshooting.",
+  "source": "@site/docs/observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE.md",
+  "sourceDirName": "observability",
+  "slug": "/observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE",
+  "permalink": "/shopverse/observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "observability",
+      "permalink": "/shopverse/tags/observability"
+    },
+    {
+      "inline": true,
+      "label": "tracing",
+      "permalink": "/shopverse/tags/tracing"
+    },
+    {
+      "inline": true,
+      "label": "micrometer",
+      "permalink": "/shopverse/tags/micrometer"
+    },
+    {
+      "inline": true,
+      "label": "opentelemetry",
+      "permalink": "/shopverse/tags/opentelemetry"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Distributed Tracing Internals And Performance Analysis",
+    "description": "Understand Micrometer tracing internals, context propagation, custom spans, sampling, backends, bottleneck analysis, and exporter troubleshooting.",
+    "sidebar_label": "Tracing Internals And Performance",
+    "tags": [
+      "shopverse",
+      "observability",
+      "tracing",
+      "micrometer",
+      "opentelemetry"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-observability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Observability Implementation Guide",
+    "permalink": "/shopverse/observability/OBSERVABILITY-IMPLEMENTATION-GUIDE"
+  },
+  "next": {
+    "title": "Observability Engineering Revision Sheet",
+    "permalink": "/shopverse/observability/OBSERVABILITY-REVISION-SHEET"
+  }
+}

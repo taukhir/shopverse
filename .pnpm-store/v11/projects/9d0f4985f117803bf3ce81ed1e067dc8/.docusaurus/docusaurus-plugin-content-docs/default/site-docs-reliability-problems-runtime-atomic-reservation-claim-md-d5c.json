@@ -1,0 +1,57 @@
+{
+  "id": "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM",
+  "title": "Atomic Inventory Reservation",
+  "description": "Design contention-safe reservation ownership, transaction boundaries, and recovery.",
+  "source": "@site/docs/reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
+  "sourceDirName": "reliability/problems/runtime",
+  "slug": "/reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM",
+  "permalink": "/shopverse/reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Atomic Inventory Reservation",
+    "description": "Design contention-safe reservation ownership, transaction boundaries, and recovery.",
+    "sidebar_label": "Atomic Inventory Reservation",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Multi-Replica Reservation Expiry",
+    "permalink": "/shopverse/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY"
+  },
+  "next": {
+    "title": "Reservation Contention And State Model",
+    "permalink": "/shopverse/reliability/problems/runtime/RESERVATION-CONTENTION-STATE-MODEL"
+  }
+}

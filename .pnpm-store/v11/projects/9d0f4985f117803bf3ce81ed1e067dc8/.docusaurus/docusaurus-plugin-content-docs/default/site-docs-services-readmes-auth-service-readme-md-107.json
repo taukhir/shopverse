@@ -1,0 +1,41 @@
+{
+  "id": "services/readmes/AUTH-SERVICE-README",
+  "title": "Auth Service README",
+  "description": "Site mirror of authentication, JWT and JWKS behavior, configuration, validation, limitations, and AI-assisted workflows.",
+  "source": "@site/docs/services/readmes/AUTH-SERVICE-README.md",
+  "sourceDirName": "services/readmes",
+  "slug": "/services/readmes/AUTH-SERVICE-README",
+  "permalink": "/shopverse/services/readmes/AUTH-SERVICE-README",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/services/readmes/AUTH-SERVICE-README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Auth Service README",
+    "description": "Site mirror of authentication, JWT and JWKS behavior, configuration, validation, limitations, and AI-assisted workflows.",
+    "sidebar_label": "Auth Service README",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "scope": "shopverse",
+    "owner": "auth-service",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "canonical-readme-sync",
+    "technologies": [
+      "Shopverse",
+      "Service Documentation",
+      "AI-Assisted Development"
+    ],
+    "last_reviewed": "2026-07-29"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "API Gateway README",
+    "permalink": "/shopverse/services/readmes/API-GATEWAY-README"
+  },
+  "next": {
+    "title": "User Service README",
+    "permalink": "/shopverse/services/readmes/USER-SERVICE-README"
+  }
+}

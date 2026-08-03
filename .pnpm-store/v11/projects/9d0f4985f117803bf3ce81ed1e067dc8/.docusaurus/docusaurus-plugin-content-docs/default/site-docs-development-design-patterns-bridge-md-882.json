@@ -1,0 +1,57 @@
+{
+  "id": "development/design-patterns/bridge",
+  "title": "Bridge Pattern in Spring",
+  "description": "Separate independent dimensions of variation with composition and Spring dependency injection.",
+  "source": "@site/docs/development/design-patterns/bridge.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/bridge",
+  "permalink": "/shopverse/development/design-patterns/bridge",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/bridge.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Bridge Pattern in Spring",
+    "description": "Separate independent dimensions of variation with composition and Spring dependency injection.",
+    "sidebar_label": "Bridge",
+    "tags": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Adapter",
+    "permalink": "/shopverse/development/design-patterns/adapter"
+  },
+  "next": {
+    "title": "Decorator",
+    "permalink": "/shopverse/development/design-patterns/decorator"
+  }
+}

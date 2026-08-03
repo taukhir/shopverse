@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-GENERICS-ERASURE-INTERNALS",
+  "title": "Java Generics, Erasure And Variance Internals",
+  "description": "Senior guide to invariance, wildcard capture, erasure, bridges, heap pollution, arrays, and API design.",
+  "source": "@site/docs/java/JAVA-GENERICS-ERASURE-INTERNALS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-GENERICS-ERASURE-INTERNALS",
+  "permalink": "/shopverse/java/JAVA-GENERICS-ERASURE-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-GENERICS-ERASURE-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Generics, Erasure And Variance Internals",
+    "description": "Senior guide to invariance, wildcard capture, erasure, bridges, heap pollution, arrays, and API design.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Generics",
+    "permalink": "/shopverse/java/JAVA-GENERICS"
+  },
+  "next": {
+    "title": "Java Objects, Strings, Immutability And Garbage Collection",
+    "permalink": "/shopverse/java/JAVA-OBJECTS-STRINGS-GC"
+  }
+}

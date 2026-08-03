@@ -1,0 +1,40 @@
+{
+  "id": "java/threading/THREAD-CONTEXT-PROPAGATION",
+  "title": "Java Thread Context Propagation",
+  "description": "Safe correlation, identity, locale, and observability context across executors, virtual threads, HTTP calls, and Shopverse Kafka listeners.",
+  "source": "@site/docs/java/threading/THREAD-CONTEXT-PROPAGATION.md",
+  "sourceDirName": "java/threading",
+  "slug": "/java/threading/THREAD-CONTEXT-PROPAGATION",
+  "permalink": "/shopverse/java/threading/THREAD-CONTEXT-PROPAGATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/threading/THREAD-CONTEXT-PROPAGATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Thread Context Propagation",
+    "description": "Safe correlation, identity, locale, and observability context across executors, virtual threads, HTTP calls, and Shopverse Kafka listeners.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "technologies": [
+      "Java 25",
+      "SLF4J MDC",
+      "Spring"
+    ],
+    "last_reviewed": "2026-08-02",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Multithreading",
+    "permalink": "/shopverse/java/JAVA-MULTITHREADING"
+  },
+  "next": {
+    "title": "Java Task Cancellation, Deadlines And Shutdown",
+    "permalink": "/shopverse/java/threading/TASK-CANCELLATION-DEADLINES"
+  }
+}

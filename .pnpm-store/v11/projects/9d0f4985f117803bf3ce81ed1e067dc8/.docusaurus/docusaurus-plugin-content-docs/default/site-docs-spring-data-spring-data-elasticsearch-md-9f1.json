@@ -1,0 +1,49 @@
+{
+  "id": "spring/data/SPRING-DATA-ELASTICSEARCH",
+  "title": "Spring Data Elasticsearch In Depth",
+  "description": "Mapping, repositories, ElasticsearchOperations, queries, pagination, bulk indexing, aliases, consistency, testing, and production operations.",
+  "source": "@site/docs/spring/data/SPRING-DATA-ELASTICSEARCH.md",
+  "sourceDirName": "spring/data",
+  "slug": "/spring/data/SPRING-DATA-ELASTICSEARCH",
+  "permalink": "/shopverse/spring/data/SPRING-DATA-ELASTICSEARCH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/data/SPRING-DATA-ELASTICSEARCH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Data Elasticsearch In Depth",
+    "description": "Mapping, repositories, ElasticsearchOperations, queries, pagination, bulk indexing, aliases, consistency, testing, and production operations.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Elasticsearch architect path",
+      "Spring Data Commons"
+    ],
+    "learning_objectives": [
+      "Map search documents safely",
+      "Choose repository or operations APIs",
+      "Build replayable observable search projections"
+    ],
+    "technologies": [
+      "Spring Data Elasticsearch",
+      "Elasticsearch",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data Redis In Depth",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-REDIS"
+  },
+  "next": {
+    "title": "Spring Data Multi Store Consistency And Schema Evolution",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-MULTISTORE-CONSISTENCY"
+  }
+}

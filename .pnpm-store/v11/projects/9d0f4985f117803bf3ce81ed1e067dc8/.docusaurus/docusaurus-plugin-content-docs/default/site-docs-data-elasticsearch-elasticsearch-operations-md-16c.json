@@ -1,0 +1,51 @@
+{
+  "id": "data/elasticsearch/ELASTICSEARCH-OPERATIONS",
+  "title": "Elasticsearch Capacity, Lifecycle, Security, And Operations",
+  "description": "Plan shards and heap, use templates and ILM, reindex safely, secure clusters, snapshot and recover, upgrade, and diagnose production incidents.",
+  "source": "@site/docs/data/elasticsearch/ELASTICSEARCH-OPERATIONS.md",
+  "sourceDirName": "data/elasticsearch",
+  "slug": "/data/elasticsearch/ELASTICSEARCH-OPERATIONS",
+  "permalink": "/shopverse/data/elasticsearch/ELASTICSEARCH-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/elasticsearch/ELASTICSEARCH-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Elasticsearch Capacity, Lifecycle, Security, And Operations",
+    "description": "Plan shards and heap, use templates and ILM, reindex safely, secure clusters, snapshot and recover, upgrade, and diagnose production incidents.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Elasticsearch Query And Relevance"
+    ],
+    "learning_objectives": [
+      "Plan cluster capacity",
+      "Operate lifecycle and recovery",
+      "Diagnose shard",
+      "heap",
+      "disk",
+      "and query incidents"
+    ],
+    "technologies": [
+      "Elasticsearch",
+      "ILM",
+      "Snapshot And Restore"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Elasticsearch Analysis, Query DSL, Relevance, And Aggregations",
+    "permalink": "/shopverse/data/elasticsearch/ELASTICSEARCH-QUERY-RELEVANCE"
+  },
+  "next": {
+    "title": "Elasticsearch With Spring, Interview Scenarios, Labs, And Revision",
+    "permalink": "/shopverse/data/elasticsearch/ELASTICSEARCH-SPRING-INTERVIEW-REVISION"
+  }
+}

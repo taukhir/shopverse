@@ -1,0 +1,55 @@
+{
+  "id": "java/JVM-PROFILING-GC-NATIVE",
+  "title": "JVM Profiling, Garbage Collection, And Native Images",
+  "description": "Java internals atlas showing allocation, JIT, GC, virtual threads, collection layout, and JMH phases",
+  "source": "@site/docs/java/JVM-PROFILING-GC-NATIVE.md",
+  "sourceDirName": "java",
+  "slug": "/java/JVM-PROFILING-GC-NATIVE",
+  "permalink": "/shopverse/java/JVM-PROFILING-GC-NATIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JVM-PROFILING-GC-NATIVE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JVM Profiling, Garbage Collection, And Native Images",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "keywords": [
+      "Java Flight Recorder",
+      "JFR",
+      "async-profiler",
+      "heap dump",
+      "garbage collector",
+      "G1",
+      "ZGC",
+      "GraalVM native image"
+    ],
+    "learning_objectives": [
+      "Diagnose JVM CPU memory lock and allocation problems",
+      "Choose and tune garbage collection from evidence",
+      "Evaluate native-image trade-offs"
+    ],
+    "technologies": [
+      "Java",
+      "JFR",
+      "JDK Mission Control",
+      "GraalVM"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Containers Resource Limits And Production Diagnostics",
+    "permalink": "/shopverse/java/JAVA-CONTAINERS-RESOURCE-LIMITS"
+  },
+  "next": {
+    "title": "Java Performance Engineering Capacity And Evidence",
+    "permalink": "/shopverse/java/JAVA-PERFORMANCE-ENGINEERING-CAPACITY"
+  }
+}

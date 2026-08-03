@@ -1,0 +1,49 @@
+{
+  "id": "spring/kafka/SPRING-KAFKA-ADVANCED",
+  "title": "Advanced Spring Kafka Containers Transactions Schemas And Testing",
+  "description": "Advanced Spring Kafka runtime guide for containers, acknowledgments, retries, transactions, serialization, request reply, observability, shutdown, and testing.",
+  "source": "@site/docs/spring/kafka/SPRING-KAFKA-ADVANCED.md",
+  "sourceDirName": "spring/kafka",
+  "slug": "/spring/kafka/SPRING-KAFKA-ADVANCED",
+  "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-ADVANCED",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/kafka/SPRING-KAFKA-ADVANCED.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Advanced Spring Kafka Containers Transactions Schemas And Testing",
+    "description": "Advanced Spring Kafka runtime guide for containers, acknowledgments, retries, transactions, serialization, request reply, observability, shutdown, and testing.",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Kafka publishing consumers retry and idempotency"
+    ],
+    "learning_objectives": [
+      "Configure listener containers from explicit guarantees",
+      "Apply retry and transaction boundaries correctly",
+      "Verify Kafka applications under failure"
+    ],
+    "technologies": [
+      "Spring for Apache Kafka 4.1",
+      "Spring Boot",
+      "Testcontainers",
+      "Micrometer"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Kafka Operations And Incident Response",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE"
+  },
+  "next": {
+    "title": "Cache Umbrella",
+    "permalink": "/shopverse/architecture/CACHE-UMBRELLA"
+  }
+}

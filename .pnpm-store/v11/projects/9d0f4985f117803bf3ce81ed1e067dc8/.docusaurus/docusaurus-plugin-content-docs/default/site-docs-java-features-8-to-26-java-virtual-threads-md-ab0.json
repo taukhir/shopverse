@@ -1,0 +1,36 @@
+{
+  "id": "java/features-8-to-26/JAVA-VIRTUAL-THREADS",
+  "title": "Java Virtual Threads",
+  "description": "Virtual threads are lightweight JVM-managed threads introduced as a stable",
+  "source": "@site/docs/java/features-8-to-26/JAVA-VIRTUAL-THREADS.md",
+  "sourceDirName": "java/features-8-to-26",
+  "slug": "/java/features-8-to-26/JAVA-VIRTUAL-THREADS",
+  "permalink": "/shopverse/java/features-8-to-26/JAVA-VIRTUAL-THREADS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/features-8-to-26/JAVA-VIRTUAL-THREADS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Java Virtual Threads",
+    "sidebar_position": 7,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Concurrency Primitives, AQS, And Virtual Threads",
+    "permalink": "/shopverse/java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS"
+  },
+  "next": {
+    "title": "Virtual Threads And Structured Concurrency For Architects",
+    "permalink": "/shopverse/java/JAVA-VIRTUAL-STRUCTURED-CONCURRENCY"
+  }
+}

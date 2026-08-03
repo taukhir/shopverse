@@ -1,0 +1,54 @@
+{
+  "id": "operations/kubernetes/TKGI-CONSOLE-MONITORING",
+  "title": "TKGI Management Console, Monitoring And Operations",
+  "description": "Detailed guide to the TKGI Management Console, cluster views, deployment configuration, health interpretation, monitoring architecture, operational evidence, common console failures, runbooks, and interview preparation.",
+  "source": "@site/docs/operations/kubernetes/TKGI-CONSOLE-MONITORING.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-CONSOLE-MONITORING",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-CONSOLE-MONITORING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-CONSOLE-MONITORING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI Management Console, Monitoring And Operations",
+    "description": "Detailed guide to the TKGI Management Console, cluster views, deployment configuration, health interpretation, monitoring architecture, operational evidence, common console failures, runbooks, and interview preparation.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "TKGI overview",
+      "Kubernetes operations",
+      "Observability fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain Management Console data paths",
+      "Interpret cluster and platform health",
+      "Diagnose console failures without treating UI as source of truth",
+      "Build production TKGI alerts and runbooks"
+    ],
+    "technologies": [
+      "TKGI Management Console",
+      "TKGI",
+      "Kubernetes",
+      "BOSH",
+      "Prometheus",
+      "vSphere"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI And Harbor Registry",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-HARBOR-REGISTRY"
+  },
+  "next": {
+    "title": "TKGI Architecture, Services, BOSH, Concourse, And Operations",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-ARCHITECTURE-OPERATIONS"
+  }
+}

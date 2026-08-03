@@ -1,0 +1,48 @@
+{
+  "id": "ai/AI-SECURITY-PROMPT-INJECTION-PLAYBOOK",
+  "title": "AI Security And Prompt-Injection Playbook",
+  "description": "Threat-model AI-assisted development, connectors, tool calls, generated code, secrets, and prompt injection with practical prevention and incident response controls.",
+  "source": "@site/docs/ai/AI-SECURITY-PROMPT-INJECTION-PLAYBOOK.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-SECURITY-PROMPT-INJECTION-PLAYBOOK",
+  "permalink": "/shopverse/ai/AI-SECURITY-PROMPT-INJECTION-PLAYBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-SECURITY-PROMPT-INJECTION-PLAYBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AI Security And Prompt-Injection Playbook",
+    "description": "Threat-model AI-assisted development, connectors, tool calls, generated code, secrets, and prompt injection with practical prevention and incident response controls.",
+    "sidebar_label": "Security And Prompt Injection",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "AI context engineering",
+      "Application security fundamentals"
+    ],
+    "technologies": [
+      "Codex",
+      "Claude Code",
+      "MCP",
+      "Connectors",
+      "Git",
+      "CI"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Context Engineering",
+    "permalink": "/shopverse/ai/AI-CONTEXT-ENGINEERING-GUIDE"
+  },
+  "next": {
+    "title": "Evaluation And Metrics",
+    "permalink": "/shopverse/ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS"
+  }
+}

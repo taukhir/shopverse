@@ -1,0 +1,36 @@
+{
+  "id": "reliability/HIGH-AVAILABILITY-SPOF",
+  "title": "High Availability And SPOF Prevention",
+  "description": "A single point of failure (SPOF) is a component whose loss makes a required",
+  "source": "@site/docs/reliability/HIGH-AVAILABILITY-SPOF.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/HIGH-AVAILABILITY-SPOF",
+  "permalink": "/shopverse/reliability/HIGH-AVAILABILITY-SPOF",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/HIGH-AVAILABILITY-SPOF.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "title": "High Availability And SPOF Prevention",
+    "sidebar_position": 8,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Rate Limiting",
+    "permalink": "/shopverse/reliability/DISTRIBUTED-RATE-LIMITING"
+  },
+  "next": {
+    "title": "Distributed Failure And Consensus",
+    "permalink": "/shopverse/reliability/DISTRIBUTED-FAILURE-CONSENSUS"
+  }
+}

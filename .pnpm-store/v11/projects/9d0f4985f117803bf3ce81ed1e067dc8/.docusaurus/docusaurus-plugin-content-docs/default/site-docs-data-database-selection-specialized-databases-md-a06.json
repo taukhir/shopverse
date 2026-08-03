@@ -1,0 +1,47 @@
+{
+  "id": "data/database-selection/SPECIALIZED-DATABASES",
+  "title": "Specialized Databases",
+  "description": "Specialized databases are often secondary stores built from an authoritative",
+  "source": "@site/docs/data/database-selection/SPECIALIZED-DATABASES.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/SPECIALIZED-DATABASES",
+  "permalink": "/shopverse/data/database-selection/SPECIALIZED-DATABASES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/SPECIALIZED-DATABASES.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Specialized Databases",
+    "sidebar_position": 3,
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose workload-specific databases",
+      "Keep derived stores rebuildable"
+    ],
+    "technologies": [
+      "Redis",
+      "Elasticsearch",
+      "OpenSearch",
+      "Neo4j",
+      "ClickHouse"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed SQL And NoSQL",
+    "permalink": "/shopverse/data/database-selection/DISTRIBUTED-SQL-NOSQL"
+  },
+  "next": {
+    "title": "Vector Databases",
+    "permalink": "/shopverse/data/database-selection/VECTOR-DATABASES"
+  }
+}

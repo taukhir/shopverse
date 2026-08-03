@@ -1,0 +1,45 @@
+{
+  "id": "spring/SPRING-MCQ-PRACTICE",
+  "title": "Spring MCQ Practice",
+  "description": "Timed Spring and Spring Boot interview MCQs covering container internals, transactions, web, security, data, testing, and operations.",
+  "source": "@site/docs/spring/SPRING-MCQ-PRACTICE.mdx",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-MCQ-PRACTICE",
+  "permalink": "/shopverse/spring/SPRING-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring MCQ Practice",
+    "description": "Timed Spring and Spring Boot interview MCQs covering container internals, transactions, web, security, data, testing, and operations.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Architect Path"
+    ],
+    "technologies": [
+      "Spring Framework",
+      "Spring Boot",
+      "Spring MVC",
+      "Spring Security",
+      "Spring Data"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Interview Preparation",
+    "permalink": "/shopverse/spring/SPRING-INTERVIEW-PREPARATION"
+  },
+  "next": {
+    "title": "Spring And Spring Boot Revision Sheet",
+    "permalink": "/shopverse/spring/SPRING-REVISION-SHEET"
+  }
+}

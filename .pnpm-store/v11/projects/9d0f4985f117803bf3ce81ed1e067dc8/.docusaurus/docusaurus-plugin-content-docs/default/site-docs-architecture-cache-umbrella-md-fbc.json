@@ -1,0 +1,49 @@
+{
+  "id": "architecture/CACHE-UMBRELLA",
+  "title": "Cache Umbrella",
+  "description": "A cache stores a temporary copy of data so later reads avoid slower computation,",
+  "source": "@site/docs/architecture/CACHE-UMBRELLA.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/CACHE-UMBRELLA",
+  "permalink": "/shopverse/architecture/CACHE-UMBRELLA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/CACHE-UMBRELLA.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cache Umbrella",
+    "difficulty": "Intermediate",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Application and database fundamentals"
+    ],
+    "learning_objectives": [
+      "Choose cache layers and patterns",
+      "Explain cache keys and storage",
+      "Design safe local distributed and hybrid caching"
+    ],
+    "technologies": [
+      "Spring Cache",
+      "Caffeine",
+      "Redis",
+      "Memcached",
+      "Hibernate"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Advanced Spring Kafka Containers Transactions Schemas And Testing",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-ADVANCED"
+  },
+  "next": {
+    "title": "Spring Cache Abstraction",
+    "permalink": "/shopverse/spring/SPRING-CACHE"
+  }
+}

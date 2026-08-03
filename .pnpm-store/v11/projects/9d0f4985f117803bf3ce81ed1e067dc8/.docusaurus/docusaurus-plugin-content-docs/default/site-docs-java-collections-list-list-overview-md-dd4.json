@@ -1,0 +1,57 @@
+{
+  "id": "java/collections/list/LIST-OVERVIEW",
+  "title": "Java List Collections Overview",
+  "description": "Choose among ArrayList, LinkedList, CopyOnWriteArrayList, immutable lists, and specialized list implementations.",
+  "source": "@site/docs/java/collections/list/LIST-OVERVIEW.md",
+  "sourceDirName": "java/collections/list",
+  "slug": "/java/collections/list/LIST-OVERVIEW",
+  "permalink": "/shopverse/java/collections/list/LIST-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/list/LIST-OVERVIEW.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "list",
+      "permalink": "/shopverse/tags/list"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java List Collections Overview",
+    "description": "Choose among ArrayList, LinkedList, CopyOnWriteArrayList, immutable lists, and specialized list implementations.",
+    "sidebar_label": "List Overview",
+    "tags": [
+      "java",
+      "collections",
+      "list"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Collection Contracts And Selection",
+    "permalink": "/shopverse/java/collections/COLLECTION-CONTRACTS-AND-SELECTION"
+  },
+  "next": {
+    "title": "ArrayList",
+    "permalink": "/shopverse/java/collections/list/ARRAYLIST-INTERNALS"
+  }
+}

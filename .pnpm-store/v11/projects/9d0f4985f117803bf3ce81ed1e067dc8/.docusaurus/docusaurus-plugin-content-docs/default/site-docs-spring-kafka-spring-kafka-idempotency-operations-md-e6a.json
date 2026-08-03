@@ -1,0 +1,44 @@
+{
+  "id": "spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS",
+  "title": "Spring Kafka Idempotency And Operations Compatibility Route",
+  "description": "Compatibility route from the former combined idempotency and operations chapter to focused canonical pages.",
+  "source": "@site/docs/spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md",
+  "sourceDirName": "spring/kafka",
+  "slug": "/spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS",
+  "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Kafka Idempotency And Operations Compatibility Route",
+    "description": "Compatibility route from the former combined idempotency and operations chapter to focused canonical pages.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Kafka consumers"
+    ],
+    "learning_objectives": [
+      "Locate the canonical idempotency and operations guides"
+    ],
+    "technologies": [
+      "Spring for Apache Kafka 4.x"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring REST Testing And Interview Guide",
+    "permalink": "/shopverse/development/spring-rest/REST-TESTING-INTERVIEW"
+  },
+  "next": {
+    "title": "Spring MVC And Security Request Runtime",
+    "permalink": "/shopverse/spring/SPRING-MVC-SECURITY-RUNTIME"
+  }
+}

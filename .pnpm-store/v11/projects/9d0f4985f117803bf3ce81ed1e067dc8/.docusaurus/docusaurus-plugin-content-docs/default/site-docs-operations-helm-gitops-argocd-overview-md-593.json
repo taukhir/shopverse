@@ -1,0 +1,52 @@
+{
+  "id": "operations/HELM-GITOPS-ARGOCD-OVERVIEW",
+  "title": "Helm, GitOps, And Argo CD Overview",
+  "description": "Beginner introduction to Helm charts and releases, GitOps desired-state practices, Argo CD reconciliation, and how the three fit into Kubernetes delivery.",
+  "source": "@site/docs/operations/HELM-GITOPS-ARGOCD-OVERVIEW.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/HELM-GITOPS-ARGOCD-OVERVIEW",
+  "permalink": "/shopverse/operations/HELM-GITOPS-ARGOCD-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/HELM-GITOPS-ARGOCD-OVERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Helm, GitOps, And Argo CD Overview",
+    "description": "Beginner introduction to Helm charts and releases, GitOps desired-state practices, Argo CD reconciliation, and how the three fit into Kubernetes delivery.",
+    "sidebar_label": "Helm, GitOps And Argo CD Overview",
+    "difficulty": "Beginner",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Git fundamentals",
+      "Kubernetes overview"
+    ],
+    "learning_objectives": [
+      "Distinguish Helm GitOps and Argo CD",
+      "Explain charts values templates and releases",
+      "Trace a GitOps deployment",
+      "Recognize ownership and rollback boundaries"
+    ],
+    "technologies": [
+      "Helm",
+      "GitOps",
+      "Argo CD",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Bash, PowerShell, And Operational Automation Engineering Path",
+    "permalink": "/shopverse/operations/SHELL-AUTOMATION-ENGINEERING-PATH"
+  },
+  "next": {
+    "title": "Helm, GitOps, And Argo CD Architect Path",
+    "permalink": "/shopverse/operations/HELM-GITOPS-ARGOCD-PATH"
+  }
+}

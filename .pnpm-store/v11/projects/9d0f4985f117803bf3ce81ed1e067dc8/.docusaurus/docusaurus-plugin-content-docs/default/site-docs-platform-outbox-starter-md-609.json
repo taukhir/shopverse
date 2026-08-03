@@ -1,0 +1,34 @@
+{
+  "id": "platform/OUTBOX-STARTER",
+  "title": "Outbox Starter",
+  "description": "Back to Platform Infrastructure.",
+  "source": "@site/docs/platform/OUTBOX-STARTER.md",
+  "sourceDirName": "platform",
+  "slug": "/platform/OUTBOX-STARTER",
+  "permalink": "/shopverse/platform/OUTBOX-STARTER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/platform/OUTBOX-STARTER.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Outbox Starter",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-platform",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kafka Event Parsing",
+    "permalink": "/shopverse/platform/KAFKA-PARSING"
+  },
+  "next": {
+    "title": "Kafka Recovery Starter",
+    "permalink": "/shopverse/platform/KAFKA-RECOVERY-STARTER"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "data-structures/programming/arrays/ARRAY-PROBLEMS-01-10",
+  "title": "Array Problems 1-10 - Core Patterns",
+  "description": "Worked Java solutions for Two Sum, stock profit, sorted deduplication, zero compaction, Kadane, duplicate detection, rotation, merge, product except self, and majority vote.",
+  "source": "@site/docs/data-structures/programming/arrays/ARRAY-PROBLEMS-01-10.md",
+  "sourceDirName": "data-structures/programming/arrays",
+  "slug": "/data-structures/programming/arrays/ARRAY-PROBLEMS-01-10",
+  "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-PROBLEMS-01-10",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/programming/arrays/ARRAY-PROBLEMS-01-10.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Array Problems 1-10 - Core Patterns",
+    "description": "Worked Java solutions for Two Sum, stock profit, sorted deduplication, zero compaction, Kadane, duplicate detection, rotation, merge, product except self, and majority vote.",
+    "sidebar_label": "Problems 1-10",
+    "sidebar_position": 3,
+    "difficulty": "All Levels",
+    "page_type": "Guide",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kadane Family",
+    "permalink": "/shopverse/data-structures/programming/arrays/KADANE-FAMILY"
+  },
+  "next": {
+    "title": "Problems 11-20",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-PROBLEMS-11-20"
+  }
+}

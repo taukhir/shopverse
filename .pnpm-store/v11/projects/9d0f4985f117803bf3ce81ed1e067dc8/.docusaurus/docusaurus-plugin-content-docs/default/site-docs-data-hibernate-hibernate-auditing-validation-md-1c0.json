@@ -1,0 +1,34 @@
+{
+  "id": "data/hibernate/HIBERNATE-AUDITING-VALIDATION",
+  "title": "Hibernate Auditing And Validation",
+  "description": "Mapped superclasses, Spring Data audit metadata, audit table strategies, and Jakarta Bean Validation.",
+  "source": "@site/docs/data/hibernate/HIBERNATE-AUDITING-VALIDATION.md",
+  "sourceDirName": "data/hibernate",
+  "slug": "/data/hibernate/HIBERNATE-AUDITING-VALIDATION",
+  "permalink": "/shopverse/data/hibernate/HIBERNATE-AUDITING-VALIDATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/hibernate/HIBERNATE-AUDITING-VALIDATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Hibernate Auditing And Validation",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Hibernate Annotations And Mapping",
+    "permalink": "/shopverse/data/hibernate/HIBERNATE-ANNOTATIONS-MAPPING"
+  },
+  "next": {
+    "title": "Hibernate Fetching And Performance",
+    "permalink": "/shopverse/data/hibernate/HIBERNATE-FETCHING-PERFORMANCE"
+  }
+}

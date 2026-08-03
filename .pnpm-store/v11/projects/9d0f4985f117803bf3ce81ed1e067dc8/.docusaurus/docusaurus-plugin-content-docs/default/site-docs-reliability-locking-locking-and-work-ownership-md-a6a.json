@@ -1,0 +1,34 @@
+{
+  "id": "reliability/locking/LOCKING-AND-WORK-OWNERSHIP",
+  "title": "Locking And Work Ownership",
+  "description": "Concurrency controls are not interchangeable. A lock, atomic database",
+  "source": "@site/docs/reliability/locking/LOCKING-AND-WORK-OWNERSHIP.md",
+  "sourceDirName": "reliability/locking",
+  "slug": "/reliability/locking/LOCKING-AND-WORK-OWNERSHIP",
+  "permalink": "/shopverse/reliability/locking/LOCKING-AND-WORK-OWNERSHIP",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/locking/LOCKING-AND-WORK-OWNERSHIP.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Locking And Work Ownership",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Transactions",
+    "permalink": "/shopverse/reliability/DISTRIBUTED-TRANSACTIONS-LOCKS"
+  },
+  "next": {
+    "title": "Distributed Schedulers And Safe Work Claiming",
+    "permalink": "/shopverse/reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS"
+  }
+}

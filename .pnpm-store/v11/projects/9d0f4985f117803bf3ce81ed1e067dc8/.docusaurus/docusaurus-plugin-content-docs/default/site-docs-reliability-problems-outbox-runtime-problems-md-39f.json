@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/OUTBOX-RUNTIME-PROBLEMS",
+  "title": "Outbox Runtime Problems",
+  "description": "Outbox database lock scope and stale outbox claim recovery.",
+  "source": "@site/docs/reliability/problems/OUTBOX-RUNTIME-PROBLEMS.md",
+  "sourceDirName": "reliability/problems",
+  "slug": "/reliability/problems/OUTBOX-RUNTIME-PROBLEMS",
+  "permalink": "/shopverse/reliability/problems/OUTBOX-RUNTIME-PROBLEMS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/OUTBOX-RUNTIME-PROBLEMS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Outbox Runtime Problems",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Payment Timeout Reconciliation Problem",
+    "permalink": "/shopverse/reliability/problems/runtime/PAYMENT-TIMEOUT-RECONCILIATION"
+  },
+  "next": {
+    "title": "Docker And Runtime Image Problems",
+    "permalink": "/shopverse/reliability/problems/DOCKER-RUNTIME-IMAGE-PROBLEMS"
+  }
+}

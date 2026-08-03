@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">CAP theorem database placement</title>
+  <desc id="desc">A triangle shows consistency, availability, and partition tolerance. Typical CP deployments appear on the left, typical AP deployments on the right, and single-node CA operation at the top. A central note explains that placement depends on configuration and operation.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .heading { font: 700 32px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #0f172a; }
+      .subheading { font: 500 18px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #475569; }
+      .vertex { font: 700 25px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #fff; }
+      .mode { font: 700 23px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #0f172a; }
+      .body { font: 500 17px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #334155; }
+      .small { font: 500 15px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #475569; }
+      .pill { font: 650 15px system-ui, -apple-system, "Segoe UI", sans-serif; fill: #172554; }
+    </style>
+  </defs>
+  <rect width="1200" height="760" rx="28" fill="url(#background)"/>
+  <text x="600" y="52" text-anchor="middle" class="heading">CAP applies when a network partition occurs</text>
+  <text x="600" y="84" text-anchor="middle" class="subheading">Place a deployment and operation—not a permanent product logo</text>
+
+  <path d="M600 136 L150 650 L1050 650 Z" fill="#fff" stroke="#94a3b8" stroke-width="4" filter="url(#shadow)"/>
+  <path d="M600 136 L150 650" stroke="#2563eb" stroke-width="12" stroke-linecap="round" opacity="0.72"/>
+  <path d="M600 136 L1050 650" stroke="#f59e0b" stroke-width="12" stroke-linecap="round" opacity="0.76"/>
+  <path d="M150 650 L1050 650" stroke="#7c3aed" stroke-width="12" stroke-linecap="round" opacity="0.72"/>
+
+  <circle cx="600" cy="136" r="58" fill="#0f766e"/>
+  <text x="600" y="145" text-anchor="middle" class="vertex">C</text>
+  <text x="600" y="220" text-anchor="middle" class="mode">Consistency</text>
+
+  <circle cx="150" cy="650" r="58" fill="#2563eb"/>
+  <text x="150" y="659" text-anchor="middle" class="vertex">P</text>
+  <text x="150" y="730" text-anchor="middle" class="mode">Partition tolerance</text>
+
+  <circle cx="1050" cy="650" r="58" fill="#d97706"/>
+  <text x="1050" y="659" text-anchor="middle" class="vertex">A</text>
+  <text x="1050" y="730" text-anchor="middle" class="mode">Availability</text>
+
+  <rect x="192" y="315" width="290" height="174" rx="20" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="337" y="350" text-anchor="middle" class="mode">Typical CP mode</text>
+  <text x="216" y="384" class="body">CockroachDB quorum</text>
+  <text x="216" y="413" class="body">MongoDB majority writes</text>
+  <text x="216" y="442" class="body">Fenced relational primary</text>
+  <text x="216" y="471" class="small">May reject or delay requests</text>
+
+  <rect x="718" y="315" width="290" height="174" rx="20" fill="#fef3c7" stroke="#fbbf24" stroke-width="2"/>
+  <text x="863" y="350" text-anchor="middle" class="mode">Typical AP mode</text>
+  <text x="742" y="384" class="body">Cassandra at low quorum</text>
+  <text x="742" y="413" class="body">DynamoDB eventual reads</text>
+  <text x="742" y="442" class="body">Conflict-tolerant replicas</text>
+  <text x="742" y="471" class="small">May expose staleness/conflicts</text>
+
+  <rect x="425" y="535" width="350" height="94" rx="20" fill="#ede9fe" stroke="#a78bfa" stroke-width="2"/>
+  <text x="600" y="569" text-anchor="middle" class="mode">Configuration-dependent</text>
+  <text x="600" y="597" text-anchor="middle" class="small">Cassandra · MongoDB · DynamoDB</text>
+  <text x="600" y="619" text-anchor="middle" class="small">Redis · Elasticsearch / OpenSearch</text>
+
+  <rect x="466" y="248" width="268" height="54" rx="27" fill="#ccfbf1" stroke="#5eead4" stroke-width="2"/>
+  <text x="600" y="281" text-anchor="middle" class="pill">CA while connected: single node</text>
+</svg>

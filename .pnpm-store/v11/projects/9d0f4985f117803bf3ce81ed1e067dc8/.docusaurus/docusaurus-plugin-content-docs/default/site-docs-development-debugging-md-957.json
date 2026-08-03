@@ -1,0 +1,57 @@
+{
+  "id": "development/DEBUGGING",
+  "title": "Shopverse Debugging",
+  "description": "Evidence-first diagnosis across routing, security, data, messaging, and observability.",
+  "source": "@site/docs/development/DEBUGGING.md",
+  "sourceDirName": "development",
+  "slug": "/development/DEBUGGING",
+  "permalink": "/shopverse/development/DEBUGGING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/DEBUGGING.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse Debugging",
+    "description": "Evidence-first diagnosis across routing, security, data, messaging, and observability.",
+    "sidebar_label": "Shopverse Debugging",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Testing Modes, CI, And Triage",
+    "permalink": "/shopverse/development/TESTING-MODES-CI-TRIAGE"
+  },
+  "next": {
+    "title": "Debugging Requests And Platform Dependencies",
+    "permalink": "/shopverse/development/DEBUGGING-REQUEST-PLATFORM"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "development/spring-boot-internals/INFRASTRUCTURE-INTERNALS",
+  "title": "Spring Infrastructure Diagnostic Route Map",
+  "description": "Route map from Spring Boot infrastructure symptoms to canonical transaction, persistence, task, HTTP, messaging, observability, and reactive runtime guides.",
+  "source": "@site/docs/development/spring-boot-internals/INFRASTRUCTURE-INTERNALS.md",
+  "sourceDirName": "development/spring-boot-internals",
+  "slug": "/development/spring-boot-internals/INFRASTRUCTURE-INTERNALS",
+  "permalink": "/shopverse/development/spring-boot-internals/INFRASTRUCTURE-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-boot-internals/INFRASTRUCTURE-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Infrastructure Diagnostic Route Map",
+    "description": "Route map from Spring Boot infrastructure symptoms to canonical transaction, persistence, task, HTTP, messaging, observability, and reactive runtime guides.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "learning_objectives": [
+      "Identify which Spring infrastructure component owns a runtime symptom",
+      "Continue to one canonical diagnostic guide without duplicating implementation detail"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Spring Framework"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Runtime Engineering Map",
+    "permalink": "/shopverse/spring/SPRING-BOOT-INTERNALS-PRODUCTION"
+  },
+  "next": {
+    "title": "Spring Boot Operations Diagnostic Route Map",
+    "permalink": "/shopverse/development/spring-boot-internals/OPERATIONS-INTERNALS"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "id": "development/design-patterns/immutable-class",
+  "title": "Immutable Classes in Java: Rules, Defensive Copies, and Clone Safety",
+  "description": "Design deeply immutable Java classes, protect mutable inputs and outputs, avoid clone leaks, preserve invariants, and choose records, builders, or copy methods safely.",
+  "source": "@site/docs/development/design-patterns/immutable-class.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/immutable-class",
+  "permalink": "/shopverse/development/design-patterns/immutable-class",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/immutable-class.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "immutability",
+      "permalink": "/shopverse/tags/immutability"
+    },
+    {
+      "inline": true,
+      "label": "defensive-copy",
+      "permalink": "/shopverse/tags/defensive-copy"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Immutable Classes in Java: Rules, Defensive Copies, and Clone Safety",
+    "description": "Design deeply immutable Java classes, protect mutable inputs and outputs, avoid clone leaks, preserve invariants, and choose records, builders, or copy methods safely.",
+    "sidebar_label": "Immutable Classes And Defensive Copies",
+    "tags": [
+      "java",
+      "design-patterns",
+      "immutability",
+      "defensive-copy",
+      "interview"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Creational Patterns",
+    "permalink": "/shopverse/development/design-patterns/CREATIONAL-PATTERNS"
+  },
+  "next": {
+    "title": "Factory Method",
+    "permalink": "/shopverse/development/design-patterns/factory"
+  }
+}

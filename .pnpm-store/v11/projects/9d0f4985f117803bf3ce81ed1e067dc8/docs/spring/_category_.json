@@ -1,0 +1,8 @@
+{
+  "label": "Spring Ecosystem",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Spring Framework, Spring Boot, Spring Cloud, Web, Data JPA, caching, and runtime internals."
+  }
+}

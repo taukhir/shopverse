@@ -1,0 +1,52 @@
+{
+  "id": "development/spring-boot-internals/SPRING-BEAN-LIFECYCLE-GC-STATIC-REFERENCES",
+  "title": "Spring Bean Lifecycle, Garbage Collection, And Static References",
+  "description": "Trace how Spring creates, stores, injects, proxies, destroys, and releases beans; understand GC reachability for singleton, prototype, web-scoped, static, ThreadLocal, and class-loader references.",
+  "source": "@site/docs/development/spring-boot-internals/SPRING-BEAN-LIFECYCLE-GC-STATIC-REFERENCES.md",
+  "sourceDirName": "development/spring-boot-internals",
+  "slug": "/development/spring-boot-internals/SPRING-BEAN-LIFECYCLE-GC-STATIC-REFERENCES",
+  "permalink": "/shopverse/development/spring-boot-internals/SPRING-BEAN-LIFECYCLE-GC-STATIC-REFERENCES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-boot-internals/SPRING-BEAN-LIFECYCLE-GC-STATIC-REFERENCES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Bean Lifecycle, Garbage Collection, And Static References",
+    "description": "Trace how Spring creates, stores, injects, proxies, destroys, and releases beans; understand GC reachability for singleton, prototype, web-scoped, static, ThreadLocal, and class-loader references.",
+    "sidebar_label": "Bean Lifecycle, GC And Static References",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Java garbage collection",
+      "Spring dependency injection"
+    ],
+    "learning_objectives": [
+      "Trace bean creation and publication",
+      "Explain when beans become GC eligible",
+      "Diagnose static and ThreadLocal retention",
+      "Separate destruction from garbage collection"
+    ],
+    "technologies": [
+      "Spring Framework",
+      "Spring Boot",
+      "JVM",
+      "JFR"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Bean Scopes And Lifecycle",
+    "permalink": "/shopverse/development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE"
+  },
+  "next": {
+    "title": "Spring Boot 4 Configuration Properties",
+    "permalink": "/shopverse/development/spring-boot-internals/CONFIGURATION-PROPERTIES"
+  }
+}

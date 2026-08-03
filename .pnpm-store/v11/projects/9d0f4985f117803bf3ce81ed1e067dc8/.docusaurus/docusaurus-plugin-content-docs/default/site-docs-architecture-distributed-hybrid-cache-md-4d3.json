@@ -1,0 +1,48 @@
+{
+  "id": "architecture/DISTRIBUTED-HYBRID-CACHE",
+  "title": "Distributed And Hybrid Cache",
+  "description": "A distributed cache is shared over the network by service replicas. A hybrid",
+  "source": "@site/docs/architecture/DISTRIBUTED-HYBRID-CACHE.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/DISTRIBUTED-HYBRID-CACHE",
+  "permalink": "/shopverse/architecture/DISTRIBUTED-HYBRID-CACHE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/DISTRIBUTED-HYBRID-CACHE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Distributed And Hybrid Cache",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Cache umbrella",
+      "Distributed systems fundamentals"
+    ],
+    "learning_objectives": [
+      "Design distributed cache ownership",
+      "Implement L1 and L2 caching",
+      "Prevent stale and stampeding failures"
+    ],
+    "technologies": [
+      "Caffeine",
+      "Redis",
+      "Kafka"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Caffeine, Redis And Memcached",
+    "permalink": "/shopverse/architecture/CACHE-PROVIDERS"
+  },
+  "next": {
+    "title": "Resilience4j With Spring Boot 4",
+    "permalink": "/shopverse/spring/SPRING-RESILIENCE4J"
+  }
+}

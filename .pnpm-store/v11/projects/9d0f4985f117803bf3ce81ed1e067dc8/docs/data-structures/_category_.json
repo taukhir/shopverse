@@ -1,0 +1,9 @@
+{
+  "label": "Data Structures",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Core data structures, use cases, and complexity tradeoffs for backend interviews and implementation decisions."
+  }
+}
+

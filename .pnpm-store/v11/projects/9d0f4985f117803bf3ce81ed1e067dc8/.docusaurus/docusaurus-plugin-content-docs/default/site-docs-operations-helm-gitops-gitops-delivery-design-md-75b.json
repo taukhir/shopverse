@@ -1,0 +1,49 @@
+{
+  "id": "operations/helm-gitops/GITOPS-DELIVERY-DESIGN",
+  "title": "GitOps Repository, Promotion, And Drift Design",
+  "description": "Apply declarative desired state, pull reconciliation, immutable promotion, repository patterns, secrets, policy, drift, and safe change workflows.",
+  "source": "@site/docs/operations/helm-gitops/GITOPS-DELIVERY-DESIGN.md",
+  "sourceDirName": "operations/helm-gitops",
+  "slug": "/operations/helm-gitops/GITOPS-DELIVERY-DESIGN",
+  "permalink": "/shopverse/operations/helm-gitops/GITOPS-DELIVERY-DESIGN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/helm-gitops/GITOPS-DELIVERY-DESIGN.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "GitOps Repository, Promotion, And Drift Design",
+    "description": "Apply declarative desired state, pull reconciliation, immutable promotion, repository patterns, secrets, policy, drift, and safe change workflows.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Helm Chart Engineering"
+    ],
+    "learning_objectives": [
+      "Design GitOps repositories and promotion",
+      "Define reconciliation and drift policy",
+      "Keep secrets and migrations outside unsafe Git workflows"
+    ],
+    "technologies": [
+      "GitOps",
+      "Git",
+      "Kubernetes",
+      "Helm"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Helm Chart Engineering And Testing",
+    "permalink": "/shopverse/operations/helm-gitops/HELM-CHART-ENGINEERING"
+  },
+  "next": {
+    "title": "Argo CD Architecture, Security, And Production Operations",
+    "permalink": "/shopverse/operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS"
+  }
+}

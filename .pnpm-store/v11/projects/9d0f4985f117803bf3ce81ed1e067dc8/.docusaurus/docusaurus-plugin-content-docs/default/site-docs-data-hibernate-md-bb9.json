@@ -1,0 +1,34 @@
+{
+  "id": "data/HIBERNATE",
+  "title": "Hibernate",
+  "description": "Hibernate content is split into lifecycle, annotations, auditing, validation, fetching, performance, and interview scenario pages.",
+  "source": "@site/docs/data/HIBERNATE.md",
+  "sourceDirName": "data",
+  "slug": "/data/HIBERNATE",
+  "permalink": "/shopverse/data/HIBERNATE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/HIBERNATE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Hibernate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Elasticsearch Production Interview Scenarios",
+    "permalink": "/shopverse/data/elasticsearch/ELASTICSEARCH-PRODUCTION-INTERVIEW-SCENARIOS"
+  },
+  "next": {
+    "title": "Hibernate",
+    "permalink": "/shopverse/data/HIBERNATE"
+  }
+}

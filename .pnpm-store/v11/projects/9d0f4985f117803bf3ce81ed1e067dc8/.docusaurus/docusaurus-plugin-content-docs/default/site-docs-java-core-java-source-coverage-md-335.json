@@ -1,0 +1,39 @@
+{
+  "id": "java/CORE-JAVA-SOURCE-COVERAGE",
+  "title": "Core Java Source Coverage And Adaptation Ledger",
+  "description": "Traceability from the 22 reviewed Core Java source chapters to canonical Shopverse Java guides and executable examples.",
+  "source": "@site/docs/java/CORE-JAVA-SOURCE-COVERAGE.md",
+  "sourceDirName": "java",
+  "slug": "/java/CORE-JAVA-SOURCE-COVERAGE",
+  "permalink": "/shopverse/java/CORE-JAVA-SOURCE-COVERAGE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/CORE-JAVA-SOURCE-COVERAGE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Core Java Source Coverage And Adaptation Ledger",
+    "description": "Traceability from the 22 reviewed Core Java source chapters to canonical Shopverse Java guides and executable examples.",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "technologies": [
+      "Java 8",
+      "Java 24"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Fundamentals",
+    "permalink": "/shopverse/java/JAVA-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "Java API Design Evolution And Compatibility",
+    "permalink": "/shopverse/java/JAVA-API-DESIGN-COMPATIBILITY"
+  }
+}

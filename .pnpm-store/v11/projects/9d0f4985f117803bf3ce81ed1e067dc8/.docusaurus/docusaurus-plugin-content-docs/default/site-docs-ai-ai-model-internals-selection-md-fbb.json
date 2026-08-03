@@ -1,0 +1,51 @@
+{
+  "id": "ai/AI-MODEL-INTERNALS-SELECTION",
+  "title": "AI Model Internals And Selection",
+  "description": "From Text To Output",
+  "source": "@site/docs/ai/AI-MODEL-INTERNALS-SELECTION.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-MODEL-INTERNALS-SELECTION",
+  "permalink": "/shopverse/ai/AI-MODEL-INTERNALS-SELECTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-MODEL-INTERNALS-SELECTION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AI Model Internals And Selection",
+    "difficulty": "Intermediate",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "keywords": [
+      "tokenization",
+      "transformer",
+      "attention",
+      "sampling",
+      "quantization",
+      "model selection"
+    ],
+    "learning_objectives": [
+      "Explain transformer inference at a practical level",
+      "Predict sampling and context trade-offs",
+      "Select a model from quality latency privacy and cost"
+    ],
+    "technologies": [
+      "Transformers",
+      "LLM"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "LLM And Generative AI Fundamentals",
+    "permalink": "/shopverse/ai/LLM-GENERATIVE-AI-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "API Integration And Prompting",
+    "permalink": "/shopverse/ai/API-INTEGRATION-PROMPTING"
+  }
+}

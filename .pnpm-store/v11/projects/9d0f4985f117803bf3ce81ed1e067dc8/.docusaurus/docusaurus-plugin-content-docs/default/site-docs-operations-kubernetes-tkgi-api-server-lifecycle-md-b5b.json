@@ -1,0 +1,53 @@
+{
+  "id": "operations/kubernetes/TKGI-API-SERVER-LIFECYCLE",
+  "title": "TKGI API Server And Cluster Lifecycle",
+  "description": "Deep dive into the TKGI API, plans, brokered asynchronous operations, cluster creation, scaling, updating, deletion, credentials, internal state transitions, failures, evidence, and interview questions.",
+  "source": "@site/docs/operations/kubernetes/TKGI-API-SERVER-LIFECYCLE.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-API-SERVER-LIFECYCLE",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-API-SERVER-LIFECYCLE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-API-SERVER-LIFECYCLE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI API Server And Cluster Lifecycle",
+    "description": "Deep dive into the TKGI API, plans, brokered asynchronous operations, cluster creation, scaling, updating, deletion, credentials, internal state transitions, failures, evidence, and interview questions.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "TKGI overview",
+      "HTTP and OAuth2",
+      "Kubernetes fundamentals"
+    ],
+    "learning_objectives": [
+      "Trace a TKGI lifecycle request",
+      "Explain plans and broker operations",
+      "Diagnose stuck cluster actions",
+      "Separate TKGI and Kubernetes APIs"
+    ],
+    "technologies": [
+      "TKGI",
+      "UAA",
+      "BOSH",
+      "Kubernetes",
+      "Operations Manager"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Control Plane Architecture And Component Interactions",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-CONTROL-PLANE-ARCHITECTURE"
+  },
+  "next": {
+    "title": "TKGI UAA Authentication And Authorization",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-UAA-SECURITY"
+  }
+}

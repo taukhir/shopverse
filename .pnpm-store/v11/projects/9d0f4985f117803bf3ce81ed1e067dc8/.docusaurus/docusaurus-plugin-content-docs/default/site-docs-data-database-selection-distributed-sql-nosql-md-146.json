@@ -1,0 +1,46 @@
+{
+  "id": "data/database-selection/DISTRIBUTED-SQL-NOSQL",
+  "title": "Distributed SQL And NoSQL",
+  "description": "These databases solve different distribution and data-model problems. Choose",
+  "source": "@site/docs/data/database-selection/DISTRIBUTED-SQL-NOSQL.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DISTRIBUTED-SQL-NOSQL",
+  "permalink": "/shopverse/data/database-selection/DISTRIBUTED-SQL-NOSQL",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DISTRIBUTED-SQL-NOSQL.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Distributed SQL And NoSQL",
+    "sidebar_position": 2,
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Compare distributed SQL wide-column document and key-value models",
+      "Design partition-key-driven access"
+    ],
+    "technologies": [
+      "CockroachDB",
+      "Cassandra",
+      "MongoDB",
+      "DynamoDB"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Relational Databases",
+    "permalink": "/shopverse/data/database-selection/RELATIONAL-DATABASES"
+  },
+  "next": {
+    "title": "Specialized Databases",
+    "permalink": "/shopverse/data/database-selection/SPECIALIZED-DATABASES"
+  }
+}

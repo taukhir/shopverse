@@ -1,0 +1,47 @@
+{
+  "id": "spring/testing/COVERAGE-TEST-QUALITY",
+  "title": "Coverage And Test Quality",
+  "description": "Risk-based JaCoCo coverage, branch and changed-code gates, mutation testing, architecture checks, exclusions, and evidence of assertion strength.",
+  "source": "@site/docs/spring/testing/COVERAGE-TEST-QUALITY.md",
+  "sourceDirName": "spring/testing",
+  "slug": "/spring/testing/COVERAGE-TEST-QUALITY",
+  "permalink": "/shopverse/spring/testing/COVERAGE-TEST-QUALITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/testing/COVERAGE-TEST-QUALITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Coverage And Test Quality",
+    "description": "Risk-based JaCoCo coverage, branch and changed-code gates, mutation testing, architecture checks, exclusions, and evidence of assertion strength.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Use coverage to locate untested risk without treating execution as correctness",
+      "Apply mutation testing to evaluate whether assertions detect changed behavior",
+      "Govern exclusions and gradual service-level quality gates transparently"
+    ],
+    "technologies": [
+      "JaCoCo",
+      "PIT",
+      "Gradle",
+      "JUnit",
+      "ArchUnit"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Async Contract And Flaky Test Prevention",
+    "permalink": "/shopverse/spring/testing/ASYNC-CONTRACT-FLAKY-TESTS"
+  },
+  "next": {
+    "title": "Test CI Reliability Operations",
+    "permalink": "/shopverse/spring/testing/TEST-CI-RELIABILITY-OPERATIONS"
+  }
+}

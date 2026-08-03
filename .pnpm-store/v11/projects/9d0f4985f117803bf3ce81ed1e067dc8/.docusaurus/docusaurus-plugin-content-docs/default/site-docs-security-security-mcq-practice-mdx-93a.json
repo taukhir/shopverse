@@ -1,0 +1,44 @@
+{
+  "id": "security/SECURITY-MCQ-PRACTICE",
+  "title": "Security MCQ Practice",
+  "description": "Timed application and platform security MCQs covering identity, web threats, secrets, TLS, supply chain, and incidents.",
+  "source": "@site/docs/security/SECURITY-MCQ-PRACTICE.mdx",
+  "sourceDirName": "security",
+  "slug": "/security/SECURITY-MCQ-PRACTICE",
+  "permalink": "/shopverse/security/SECURITY-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/SECURITY-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Security MCQ Practice",
+    "description": "Timed application and platform security MCQs covering identity, web threats, secrets, TLS, supply chain, and incidents.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Security Architect Path"
+    ],
+    "technologies": [
+      "OAuth",
+      "OIDC",
+      "TLS",
+      "Application Security"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Security Architect Path",
+    "permalink": "/shopverse/security/platform/SECURITY-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Service Identity And Zero-Trust Boundaries",
+    "permalink": "/shopverse/security/platform/SERVICE-IDENTITY-ZERO-TRUST"
+  }
+}

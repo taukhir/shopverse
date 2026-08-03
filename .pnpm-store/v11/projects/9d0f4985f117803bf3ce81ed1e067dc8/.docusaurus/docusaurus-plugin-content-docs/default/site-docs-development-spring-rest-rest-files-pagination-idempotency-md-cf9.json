@@ -1,0 +1,46 @@
+{
+  "id": "development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY",
+  "title": "Spring REST Files Pagination And Idempotency",
+  "description": "Compatibility route to secure file transfer, pagination and conditional requests, idempotent commands, and OpenAPI contract governance.",
+  "source": "@site/docs/development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md",
+  "sourceDirName": "development/spring-rest",
+  "slug": "/development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY",
+  "permalink": "/shopverse/development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring REST Files Pagination And Idempotency",
+    "description": "Compatibility route to secure file transfer, pagination and conditional requests, idempotent commands, and OpenAPI contract governance.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Select the canonical guide for file, pagination, idempotency, or OpenAPI concerns",
+      "Preserve links to the former combined production REST page"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Multipart",
+      "Spring Data",
+      "HTTP",
+      "OpenAPI"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "compatibility",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring REST Request Mapping Validation And Errors",
+    "permalink": "/shopverse/development/spring-rest/REST-MAPPING-VALIDATION-ERRORS"
+  },
+  "next": {
+    "title": "Spring REST Testing And Interview Guide",
+    "permalink": "/shopverse/development/spring-rest/REST-TESTING-INTERVIEW"
+  }
+}

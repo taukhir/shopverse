@@ -1,0 +1,43 @@
+{
+  "id": "development/REST-API-GENERIC",
+  "title": "REST API Design",
+  "description": "REST Request Lifecycle",
+  "source": "@site/docs/development/REST-API-GENERIC.md",
+  "sourceDirName": "development",
+  "slug": "/development/REST-API-GENERIC",
+  "permalink": "/shopverse/development/REST-API-GENERIC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/REST-API-GENERIC.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "REST API Design",
+    "difficulty": "Beginner",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Design predictable resource-oriented HTTP APIs",
+      "Apply method status validation and idempotency semantics"
+    ],
+    "technologies": [
+      "HTTP",
+      "REST",
+      "JSON"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Engineering Leadership Interview Scenarios",
+    "permalink": "/shopverse/leadership/ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS"
+  },
+  "next": {
+    "title": "REST API Design",
+    "permalink": "/shopverse/development/REST-API-GENERIC"
+  }
+}

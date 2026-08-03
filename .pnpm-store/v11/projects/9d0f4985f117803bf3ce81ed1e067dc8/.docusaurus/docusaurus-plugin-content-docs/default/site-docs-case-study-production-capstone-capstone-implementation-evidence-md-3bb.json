@@ -1,0 +1,52 @@
+{
+  "id": "case-study/production-capstone/CAPSTONE-IMPLEMENTATION-EVIDENCE",
+  "title": "Capstone Implementation, Failure Programme, And Portfolio Defence",
+  "description": "Concrete repository layout, delivery gates, failure programme, evidence matrix, architecture decisions, review rubric, and interview defence for the integrated capstone.",
+  "source": "@site/docs/case-study/production-capstone/CAPSTONE-IMPLEMENTATION-EVIDENCE.md",
+  "sourceDirName": "case-study/production-capstone",
+  "slug": "/case-study/production-capstone/CAPSTONE-IMPLEMENTATION-EVIDENCE",
+  "permalink": "/shopverse/case-study/production-capstone/CAPSTONE-IMPLEMENTATION-EVIDENCE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/case-study/production-capstone/CAPSTONE-IMPLEMENTATION-EVIDENCE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Capstone Implementation, Failure Programme, And Portfolio Defence",
+    "description": "Concrete repository layout, delivery gates, failure programme, evidence matrix, architecture decisions, review rubric, and interview defence for the integrated capstone.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "ShopVerse Integrated Production Architecture Capstone"
+    ],
+    "learning_objectives": [
+      "Structure implementation artifacts",
+      "Execute failure and recovery drills",
+      "Prove architecture claims",
+      "Defend decisions under interview questioning"
+    ],
+    "technologies": [
+      "ShopVerse",
+      "Kubernetes",
+      "Kafka",
+      "Terraform",
+      "Vault",
+      "k6"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "shopverse",
+    "owner": "docs-case-study",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ShopVerse Integrated Production Architecture Capstone",
+    "permalink": "/shopverse/case-study/PRODUCTION-CAPSTONE-PATH"
+  },
+  "next": {
+    "title": "API And Event Compatibility",
+    "permalink": "/shopverse/architecture/API-EVENT-COMPATIBILITY"
+  }
+}

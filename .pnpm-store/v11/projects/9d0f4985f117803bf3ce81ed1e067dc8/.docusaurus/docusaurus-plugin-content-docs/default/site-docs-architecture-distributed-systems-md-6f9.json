@@ -1,0 +1,57 @@
+{
+  "id": "architecture/DISTRIBUTED-SYSTEMS",
+  "title": "Distributed Systems In Shopverse",
+  "description": "Distributed Systems In Shopverse: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/architecture/DISTRIBUTED-SYSTEMS.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/DISTRIBUTED-SYSTEMS",
+  "permalink": "/shopverse/architecture/DISTRIBUTED-SYSTEMS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/DISTRIBUTED-SYSTEMS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Distributed Systems In Shopverse",
+    "description": "Distributed Systems In Shopverse: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Distributed Systems In Shopverse",
+    "tags": [
+      "architecture",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ADR 004: Observability Stack By Default",
+    "permalink": "/shopverse/architecture/adr/observability-stack"
+  },
+  "next": {
+    "title": "Shopverse Service Landscape",
+    "permalink": "/shopverse/services/"
+  }
+}

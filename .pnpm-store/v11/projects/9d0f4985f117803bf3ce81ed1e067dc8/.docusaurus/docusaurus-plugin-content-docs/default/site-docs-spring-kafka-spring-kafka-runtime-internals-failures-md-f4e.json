@@ -1,0 +1,49 @@
+{
+  "id": "spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES",
+  "title": "Spring Kafka Runtime Internals And Failure Paths",
+  "description": "How KafkaTemplate, producer factories, listener containers, conversion, commits, error handlers, retries, and DLT publishing work internally.",
+  "source": "@site/docs/spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES.md",
+  "sourceDirName": "spring/kafka",
+  "slug": "/spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES",
+  "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Kafka Runtime Internals And Failure Paths",
+    "description": "How KafkaTemplate, producer factories, listener containers, conversion, commits, error handlers, retries, and DLT publishing work internally.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Boot",
+      "Apache Kafka producer and consumer fundamentals"
+    ],
+    "learning_objectives": [
+      "Trace a Spring Kafka send and receive",
+      "Locate producer and consumer failure boundaries",
+      "Select recovery behavior from the actual runtime path"
+    ],
+    "technologies": [
+      "Spring for Apache Kafka 4.x",
+      "Spring Boot",
+      "Apache Kafka"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Kafka Publishing And Event Flow",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-BASICS"
+  },
+  "next": {
+    "title": "Spring Kafka Consumers And Delivery Semantics",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-CONSUMERS"
+  }
+}

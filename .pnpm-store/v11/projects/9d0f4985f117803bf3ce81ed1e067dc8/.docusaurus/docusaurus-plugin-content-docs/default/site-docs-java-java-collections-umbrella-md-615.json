@@ -1,0 +1,27 @@
+{
+  "id": "java/JAVA-COLLECTIONS-UMBRELLA",
+  "title": "Java Collections Learning Guide",
+  "description": "Compatibility entry point for the canonical Java Collections guide.",
+  "source": "@site/docs/java/JAVA-COLLECTIONS-UMBRELLA.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-COLLECTIONS-UMBRELLA",
+  "permalink": "/shopverse/java/JAVA-COLLECTIONS-UMBRELLA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-COLLECTIONS-UMBRELLA.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Collections Learning Guide",
+    "description": "Compatibility entry point for the canonical Java Collections guide."
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Parallel Stream Internals And Performance Scenarios",
+    "permalink": "/shopverse/java/JAVA-PARALLEL-STREAM-INTERNALS"
+  },
+  "next": {
+    "title": "Java Collections",
+    "permalink": "/shopverse/java/JAVA-COLLECTIONS"
+  }
+}

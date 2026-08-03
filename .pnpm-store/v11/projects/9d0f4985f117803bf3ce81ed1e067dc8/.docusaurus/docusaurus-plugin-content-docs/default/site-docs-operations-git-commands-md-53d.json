@@ -1,0 +1,57 @@
+{
+  "id": "operations/GIT-COMMANDS",
+  "title": "Git Engineering Guide",
+  "description": "Use Git safely for daily delivery, history management, recovery, and collaboration.",
+  "source": "@site/docs/operations/GIT-COMMANDS.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/GIT-COMMANDS",
+  "permalink": "/shopverse/operations/GIT-COMMANDS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/GIT-COMMANDS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Git Engineering Guide",
+    "description": "Use Git safely for daily delivery, history management, recovery, and collaboration.",
+    "sidebar_label": "Git Engineering Guide",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java DSA Interview Question Bank",
+    "permalink": "/shopverse/data-structures/DSA-INTERVIEW-QUESTION-BANK"
+  },
+  "next": {
+    "title": "Git Daily Workflow, Sync, And Conflicts",
+    "permalink": "/shopverse/operations/GIT-DAILY-SYNC-CONFLICTS"
+  }
+}

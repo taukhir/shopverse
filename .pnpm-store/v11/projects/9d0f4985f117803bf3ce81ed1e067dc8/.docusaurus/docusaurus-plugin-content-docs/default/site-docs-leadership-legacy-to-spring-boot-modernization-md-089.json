@@ -1,0 +1,55 @@
+{
+  "id": "leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION",
+  "title": "Legacy To Spring Boot Modernization",
+  "description": "An incremental, risk-controlled approach to modernizing legacy Java applications with Spring Boot.",
+  "source": "@site/docs/leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION.md",
+  "sourceDirName": "leadership",
+  "slug": "/leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION",
+  "permalink": "/shopverse/leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Legacy To Spring Boot Modernization",
+    "description": "An incremental, risk-controlled approach to modernizing legacy Java applications with Spring Boot.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "keywords": [
+      "legacy modernization",
+      "Spring Boot migration",
+      "strangler fig",
+      "characterization test",
+      "application server",
+      "Java upgrade"
+    ],
+    "learning_objectives": [
+      "Assess legacy business behavior, coupling, risk, and modernization economics",
+      "Establish tests and seams before changing framework or deployment boundaries",
+      "Sequence Spring Boot, data, security, integration, and operational migration safely"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Spring Security",
+      "Liquibase",
+      "Docker"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Zero-Downtime Delivery",
+    "permalink": "/shopverse/leadership/ZERO-DOWNTIME-DELIVERY"
+  },
+  "next": {
+    "title": "Leadership And Architecture Interview Workbook",
+    "permalink": "/shopverse/leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK"
+  }
+}

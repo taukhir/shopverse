@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-LANGUAGE-SEMANTICS",
+  "title": "Java Language Semantics And Interview Traps",
+  "description": "Deep guide to conversion, overload resolution, overriding, pass-by-value, generics variance, and compiler traps.",
+  "source": "@site/docs/java/JAVA-LANGUAGE-SEMANTICS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-LANGUAGE-SEMANTICS",
+  "permalink": "/shopverse/java/JAVA-LANGUAGE-SEMANTICS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-LANGUAGE-SEMANTICS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Language Semantics And Interview Traps",
+    "description": "Deep guide to conversion, overload resolution, overriding, pass-by-value, generics variance, and compiler traps.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Operators And Control Flow",
+    "permalink": "/shopverse/java/JAVA-OPERATORS-CONTROL-FLOW"
+  },
+  "next": {
+    "title": "Java OOP Learning Guide",
+    "permalink": "/shopverse/java/JAVA-OOP"
+  }
+}

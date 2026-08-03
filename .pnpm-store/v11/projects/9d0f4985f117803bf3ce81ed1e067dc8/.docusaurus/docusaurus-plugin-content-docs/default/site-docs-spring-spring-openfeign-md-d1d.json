@@ -1,0 +1,53 @@
+{
+  "id": "spring/SPRING-OPENFEIGN",
+  "title": "Spring Cloud OpenFeign",
+  "description": "Synchronous OpenFeign client design covering feature-complete status, HTTP Service Client evaluation, transport pools, DNS, TLS, OAuth, load balancing, retries, AOT, shutdown, observability, and testing.",
+  "source": "@site/docs/spring/SPRING-OPENFEIGN.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-OPENFEIGN",
+  "permalink": "/shopverse/spring/SPRING-OPENFEIGN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-OPENFEIGN.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "title": "Spring Cloud OpenFeign",
+    "description": "Synchronous OpenFeign client design covering feature-complete status, HTTP Service Client evaluation, transport pools, DNS, TLS, OAuth, load balancing, retries, AOT, shutdown, observability, and testing.",
+    "sidebar_position": 8,
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring ecosystem",
+      "HTTP semantics",
+      "service discovery"
+    ],
+    "learning_objectives": [
+      "Decide when to retain OpenFeign and when to evaluate Spring HTTP Service Clients",
+      "Trace a Feign call through proxy, load balancer, transport, security, decoding, and resilience",
+      "Bound synchronous client capacity and prove timeout, pool, DNS, TLS, OAuth, AOT, and shutdown behavior"
+    ],
+    "technologies": [
+      "Spring Cloud OpenFeign",
+      "Spring Cloud LoadBalancer",
+      "Spring Security OAuth2",
+      "HTTP"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Reactive And WebFlux",
+    "permalink": "/shopverse/spring/SPRING-REACTIVE"
+  },
+  "next": {
+    "title": "Spring Batch",
+    "permalink": "/shopverse/spring/SPRING-BATCH"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS",
+  "title": "Concurrency Primitives, AQS, And Virtual Threads",
+  "description": "AQS synchronizer state with an owner and queued parked contenders",
+  "source": "@site/docs/java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md",
+  "sourceDirName": "java/advanced-internals",
+  "slug": "/java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS",
+  "permalink": "/shopverse/java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Concurrency Primitives, AQS, And Virtual Threads",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "keywords": [
+      "AQS",
+      "ReentrantLock",
+      "semaphore",
+      "CountDownLatch",
+      "ForkJoinPool",
+      "work stealing",
+      "virtual thread pinning",
+      "structured concurrency"
+    ],
+    "learning_objectives": [
+      "Choose synchronization primitives by invariant",
+      "Explain AQS and work stealing",
+      "Operate virtual threads without multiplying downstream load"
+    ],
+    "technologies": [
+      "Java"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Advanced Java Concurrency Utilities And Reactive Flow",
+    "permalink": "/shopverse/java/JAVA-ADVANCED-CONCURRENCY-UTILITIES"
+  },
+  "next": {
+    "title": "Java Virtual Threads",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-VIRTUAL-THREADS"
+  }
+}

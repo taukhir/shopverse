@@ -1,0 +1,45 @@
+{
+  "id": "data-structures/programming/arrays/KADANE-FAMILY",
+  "title": "Kadane Algorithm Family In Java",
+  "description": "Maximum sum, printed maximum, minimum sum, printed minimum, circular subarray, and stock-profit variants with Java code, samples, logic, and dry runs.",
+  "source": "@site/docs/data-structures/programming/arrays/KADANE-FAMILY.md",
+  "sourceDirName": "data-structures/programming/arrays",
+  "slug": "/data-structures/programming/arrays/KADANE-FAMILY",
+  "permalink": "/shopverse/data-structures/programming/arrays/KADANE-FAMILY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/programming/arrays/KADANE-FAMILY.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Kadane Algorithm Family In Java",
+    "description": "Maximum sum, printed maximum, minimum sum, printed minimum, circular subarray, and stock-profit variants with Java code, samples, logic, and dry runs.",
+    "sidebar_label": "Kadane Family",
+    "sidebar_position": 3,
+    "difficulty": "All Levels",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "keywords": [
+      "Kadane Java",
+      "maximum subarray",
+      "minimum subarray",
+      "circular subarray",
+      "stock profit"
+    ],
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Two Sum Family",
+    "permalink": "/shopverse/data-structures/programming/arrays/TWO-SUM-FAMILY"
+  },
+  "next": {
+    "title": "Problems 1-10",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-PROBLEMS-01-10"
+  }
+}

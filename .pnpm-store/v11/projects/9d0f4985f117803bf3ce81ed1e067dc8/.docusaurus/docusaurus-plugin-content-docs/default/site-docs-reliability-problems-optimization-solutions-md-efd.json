@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/OPTIMIZATION-SOLUTIONS",
+  "title": "Build, JAR, Docker, And Compose Optimization Solutions",
+  "description": "Back to Shopverse Problems And Solutions.",
+  "source": "@site/docs/reliability/problems/OPTIMIZATION-SOLUTIONS.md",
+  "sourceDirName": "reliability/problems",
+  "slug": "/reliability/problems/OPTIMIZATION-SOLUTIONS",
+  "permalink": "/shopverse/reliability/problems/OPTIMIZATION-SOLUTIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/OPTIMIZATION-SOLUTIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Build, JAR, Docker, And Compose Optimization Solutions",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Dependency And Verification Problems",
+    "permalink": "/shopverse/reliability/problems/DEPENDENCY-VERIFICATION-PROBLEMS"
+  },
+  "next": {
+    "title": "Optimization Baseline",
+    "permalink": "/shopverse/reliability/problems/optimization/OPTIMIZATION-BASELINE"
+  }
+}

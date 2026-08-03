@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-EXECUTORS-THREAD-POOLS",
+  "title": "Java Executors And Thread-Pool Engineering",
+  "description": "Executor abstractions, ThreadPoolExecutor configuration, pool types, queues, idle workers, saturation, rejection policies, shutdown, and sizing.",
+  "source": "@site/docs/java/JAVA-EXECUTORS-THREAD-POOLS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-EXECUTORS-THREAD-POOLS",
+  "permalink": "/shopverse/java/JAVA-EXECUTORS-THREAD-POOLS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-EXECUTORS-THREAD-POOLS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Executors And Thread-Pool Engineering",
+    "description": "Executor abstractions, ThreadPoolExecutor configuration, pool types, queues, idle workers, saturation, rejection policies, shutdown, and sizing.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Memory Model And Safe Publication",
+    "permalink": "/shopverse/java/advanced-internals/JAVA-MEMORY-MODEL"
+  },
+  "next": {
+    "title": "ForkJoinPool And Work-Stealing Deep Dive",
+    "permalink": "/shopverse/java/JAVA-FORKJOINPOOL-DEEP-DIVE"
+  }
+}

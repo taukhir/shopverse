@@ -1,0 +1,51 @@
+{
+  "id": "operations/docker/DOCKER-STORAGE-NETWORKING-INTERNALS",
+  "title": "Docker Storage, Volumes, OverlayFS, Networking, And DNS",
+  "description": "Trace image snapshots and copy-on-write, volumes, bind and tmpfs mounts, backups, bridge and host networking, veth, NAT, port publishing, embedded DNS, IPv6, MTU, and failures.",
+  "source": "@site/docs/operations/docker/DOCKER-STORAGE-NETWORKING-INTERNALS.md",
+  "sourceDirName": "operations/docker",
+  "slug": "/operations/docker/DOCKER-STORAGE-NETWORKING-INTERNALS",
+  "permalink": "/shopverse/operations/docker/DOCKER-STORAGE-NETWORKING-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/docker/DOCKER-STORAGE-NETWORKING-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Docker Storage, Volumes, OverlayFS, Networking, And DNS",
+    "description": "Trace image snapshots and copy-on-write, volumes, bind and tmpfs mounts, backups, bridge and host networking, veth, NAT, port publishing, embedded DNS, IPv6, MTU, and failures.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Docker Engine internals"
+    ],
+    "learning_objectives": [
+      "Explain filesystem and packet paths",
+      "Select storage and network modes",
+      "Back up persistent data",
+      "Diagnose disk DNS NAT firewall and MTU failures"
+    ],
+    "technologies": [
+      "Docker",
+      "OverlayFS",
+      "containerd snapshotter",
+      "volumes",
+      "bridge networking"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker OCI Images, Dockerfiles, BuildKit, Cache, And Registries",
+    "permalink": "/shopverse/operations/docker/DOCKER-IMAGES-BUILDKIT-SUPPLY-CHAIN"
+  },
+  "next": {
+    "title": "Docker Security, Compose, Resources, Logging, And Production Operations",
+    "permalink": "/shopverse/operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS"
+  }
+}

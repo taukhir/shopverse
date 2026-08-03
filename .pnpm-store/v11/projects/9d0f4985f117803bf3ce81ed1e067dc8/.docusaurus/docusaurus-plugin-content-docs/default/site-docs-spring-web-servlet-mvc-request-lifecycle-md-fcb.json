@@ -1,0 +1,48 @@
+{
+  "id": "spring/web/SERVLET-MVC-REQUEST-LIFECYCLE",
+  "title": "Servlet And Spring MVC Request Lifecycle",
+  "description": "Canonical request trace from the servlet container through filters, DispatcherServlet, controller arguments, service boundaries, response conversion, and exception routing.",
+  "source": "@site/docs/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md",
+  "sourceDirName": "spring/web",
+  "slug": "/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE",
+  "permalink": "/shopverse/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Servlet And Spring MVC Request Lifecycle",
+    "description": "Canonical request trace from the servlet container through filters, DispatcherServlet, controller arguments, service boundaries, response conversion, and exception routing.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Trace a Shopverse MVC request from connector admission to response completion",
+      "Distinguish servlet filters from Spring MVC mappings, adapters, interceptors, and advice",
+      "Locate concurrency, dispatch, response-commit, and observability failure boundaries"
+    ],
+    "technologies": [
+      "Jakarta Servlet",
+      "Spring MVC",
+      "Spring Boot",
+      "Tomcat",
+      "Micrometer"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Proxy And Transaction Runtime For Architects",
+    "permalink": "/shopverse/spring/SPRING-PROXY-TRANSACTION-ARCHITECT"
+  },
+  "next": {
+    "title": "Spring Security Request Runtime",
+    "permalink": "/shopverse/spring/web/SECURITY-REQUEST-RUNTIME"
+  }
+}

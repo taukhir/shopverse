@@ -1,0 +1,57 @@
+{
+  "id": "operations/kubernetes/TKGI-PRODUCTION-INCIDENT-REVISION",
+  "title": "TKGI Production Incidents CLI And Interview Revision",
+  "description": "Evidence-first TKGI incident runbook with safe CLI inspection, cross-plane correlation, production scenarios, escalation evidence, rapid revision, and lead-level interview questions.",
+  "source": "@site/docs/operations/kubernetes/TKGI-PRODUCTION-INCIDENT-REVISION.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-PRODUCTION-INCIDENT-REVISION",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-PRODUCTION-INCIDENT-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-PRODUCTION-INCIDENT-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI Production Incidents CLI And Interview Revision",
+    "description": "Evidence-first TKGI incident runbook with safe CLI inspection, cross-plane correlation, production scenarios, escalation evidence, rapid revision, and lead-level interview questions.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "TKGI production operations path",
+      "TKGI architecture",
+      "BOSH CLI",
+      "kubectl"
+    ],
+    "learning_objectives": [
+      "Triage incidents by control plane",
+      "Use TKGI BOSH and kubectl evidence safely",
+      "Diagnose common failures",
+      "Build escalation packages",
+      "Answer production interview questions"
+    ],
+    "technologies": [
+      "TKGI 1.25",
+      "TKGI CLI",
+      "BOSH CLI",
+      "kubectl",
+      "Kubernetes",
+      "NSX",
+      "UAA"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Telemetry Sinks And Observability",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-TELEMETRY-SINKS-OBSERVABILITY"
+  },
+  "next": {
+    "title": "Kubernetes Troubleshooting, Incident Labs, Interviews, And Revision",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION"
+  }
+}

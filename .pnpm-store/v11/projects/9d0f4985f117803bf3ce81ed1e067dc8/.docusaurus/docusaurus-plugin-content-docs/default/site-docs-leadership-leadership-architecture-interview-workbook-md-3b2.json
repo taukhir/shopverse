@@ -1,0 +1,56 @@
+{
+  "id": "leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK",
+  "title": "Leadership And Architecture Interview Workbook",
+  "description": "Eight complete lead and architect scenarios with model answers, follow-up probes, weak-answer traps, and scoring guidance.",
+  "source": "@site/docs/leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK.md",
+  "sourceDirName": "leadership",
+  "slug": "/leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK",
+  "permalink": "/shopverse/leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Leadership And Architecture Interview Workbook",
+    "description": "Eight complete lead and architect scenarios with model answers, follow-up probes, weak-answer traps, and scoring guidance.",
+    "difficulty": "Advanced",
+    "page_type": "Workbook",
+    "status": "maintained",
+    "keywords": [
+      "architect interview",
+      "leadership interview",
+      "microservices",
+      "code review",
+      "mentoring",
+      "production",
+      "availability",
+      "modernization"
+    ],
+    "learning_objectives": [
+      "Answer eight leadership and architecture scenarios through structured reasoning",
+      "Defend trade-offs under interviewer follow-up and changing constraints",
+      "Distinguish lead-level execution from architect-level system and organization ownership"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Kafka",
+      "PostgreSQL",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Legacy To Spring Boot Modernization",
+    "permalink": "/shopverse/leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION"
+  },
+  "next": {
+    "title": "Engineering Leadership Interview Scenarios",
+    "permalink": "/shopverse/leadership/ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "spring/architect-labs/POSTGRES-JPA-PERFORMANCE-LAB",
+  "title": "PostgreSQL JPA Performance And Concurrency Lab",
+  "description": "Execute real PostgreSQL query-plan, keyset pagination, Hikari pool, atomic update, deadlock, and bulk-JPQL experiments with Testcontainers.",
+  "source": "@site/docs/spring/architect-labs/POSTGRES-JPA-PERFORMANCE-LAB.md",
+  "sourceDirName": "spring/architect-labs",
+  "slug": "/spring/architect-labs/POSTGRES-JPA-PERFORMANCE-LAB",
+  "permalink": "/shopverse/spring/architect-labs/POSTGRES-JPA-PERFORMANCE-LAB",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/architect-labs/POSTGRES-JPA-PERFORMANCE-LAB.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "PostgreSQL JPA Performance And Concurrency Lab",
+    "description": "Execute real PostgreSQL query-plan, keyset pagination, Hikari pool, atomic update, deadlock, and bulk-JPQL experiments with Testcontainers.",
+    "difficulty": "Architect",
+    "page_type": "Lab",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Data repository lab",
+      "PostgreSQL",
+      "Docker or compatible container runtime"
+    ],
+    "learning_objectives": [
+      "Prove query and index behavior",
+      "Diagnose pool and lock failures",
+      "Compare safe concurrency and bulk mutation techniques"
+    ],
+    "technologies": [
+      "Java 21",
+      "Spring Boot 4",
+      "Spring Data JPA",
+      "PostgreSQL 17",
+      "Testcontainers 2"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data Repository Internals Lab",
+    "permalink": "/shopverse/spring/architect-labs/SPRING-DATA-REPOSITORY-INTERNALS-LAB"
+  },
+  "next": {
+    "title": "Transactional Outbox Inbox And CDC Lab",
+    "permalink": "/shopverse/spring/architect-labs/TRANSACTIONAL-OUTBOX-INBOX-CDC-LAB"
+  }
+}

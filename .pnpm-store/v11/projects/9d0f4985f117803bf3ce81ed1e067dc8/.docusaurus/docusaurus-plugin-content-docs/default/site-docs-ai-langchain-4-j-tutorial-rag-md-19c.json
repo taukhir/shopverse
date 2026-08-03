@@ -1,0 +1,36 @@
+{
+  "id": "ai/LANGCHAIN4J-TUTORIAL-RAG",
+  "title": "LangChain4j Tutorial 4: RAG And Embedding Stores",
+  "description": "RAG is the most important enterprise AI pattern: retrieve trusted context first,",
+  "source": "@site/docs/ai/LANGCHAIN4J-TUTORIAL-RAG.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/LANGCHAIN4J-TUTORIAL-RAG",
+  "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-RAG",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/LANGCHAIN4J-TUTORIAL-RAG.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.3,
+  "frontMatter": {
+    "title": "LangChain4j Tutorial 4: RAG And Embedding Stores",
+    "sidebar_position": 6.3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "LangChain4j Tutorial 3: Tools, Memory And Guardrails",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-TOOLS-MEMORY"
+  },
+  "next": {
+    "title": "LangChain4j Tutorial 5: Spring Boot Integration And Production",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-SPRING-BOOT"
+  }
+}

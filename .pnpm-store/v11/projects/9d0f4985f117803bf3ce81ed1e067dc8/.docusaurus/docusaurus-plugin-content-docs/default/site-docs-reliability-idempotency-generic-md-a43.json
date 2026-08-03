@@ -1,0 +1,47 @@
+{
+  "id": "reliability/IDEMPOTENCY-GENERIC",
+  "title": "Idempotency In APIs And Distributed Systems",
+  "description": "An idempotent operation has the same intended business effect when performed",
+  "source": "@site/docs/reliability/IDEMPOTENCY-GENERIC.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/IDEMPOTENCY-GENERIC",
+  "permalink": "/shopverse/reliability/IDEMPOTENCY-GENERIC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/IDEMPOTENCY-GENERIC.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Idempotency In APIs And Distributed Systems",
+    "sidebar_position": 3,
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Design an idempotent API",
+      "Distinguish transport and business idempotency",
+      "Handle concurrent duplicate requests"
+    ],
+    "technologies": [
+      "HTTP",
+      "SQL",
+      "Kafka",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Outbox Implementation Guide",
+    "permalink": "/shopverse/reliability/OUTBOX-IMPLEMENTATION-GUIDE"
+  },
+  "next": {
+    "title": "Resilience4j Engineering",
+    "permalink": "/shopverse/reliability/RESILIENCE4J-GENERIC"
+  }
+}

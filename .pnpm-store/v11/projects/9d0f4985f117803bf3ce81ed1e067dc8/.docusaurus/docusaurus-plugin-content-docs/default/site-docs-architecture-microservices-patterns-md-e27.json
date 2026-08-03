@@ -1,0 +1,49 @@
+{
+  "id": "architecture/MICROSERVICES-PATTERNS",
+  "title": "Microservices Architecture Patterns",
+  "description": "Patterns are reusable responses to recurring forces, not features that every",
+  "source": "@site/docs/architecture/MICROSERVICES-PATTERNS.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/MICROSERVICES-PATTERNS",
+  "permalink": "/shopverse/architecture/MICROSERVICES-PATTERNS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/MICROSERVICES-PATTERNS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Microservices Architecture Patterns",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Microservices fundamentals",
+      "Distributed systems fundamentals"
+    ],
+    "learning_objectives": [
+      "Select patterns by problem",
+      "Compare consistency and communication trade-offs",
+      "Avoid common distributed-system pattern mistakes"
+    ],
+    "technologies": [
+      "REST",
+      "Kafka",
+      "CDC",
+      "Service Mesh"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Microservices Fundamentals",
+    "permalink": "/shopverse/architecture/MICROSERVICES-GENERIC"
+  },
+  "next": {
+    "title": "Domain-Driven Design For Production Systems",
+    "permalink": "/shopverse/architecture/DOMAIN-DRIVEN-DESIGN"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "data/oracle/ORACLE-SQL-OPTIMIZER-CONCURRENCY",
+  "title": "Oracle SQL, PL/SQL, Optimizer, And Concurrency",
+  "description": "Design SQL and PL/SQL, interpret execution plans, maintain statistics, and reason about Oracle transactions and locks.",
+  "source": "@site/docs/data/oracle/ORACLE-SQL-OPTIMIZER-CONCURRENCY.md",
+  "sourceDirName": "data/oracle",
+  "slug": "/data/oracle/ORACLE-SQL-OPTIMIZER-CONCURRENCY",
+  "permalink": "/shopverse/data/oracle/ORACLE-SQL-OPTIMIZER-CONCURRENCY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/oracle/ORACLE-SQL-OPTIMIZER-CONCURRENCY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Oracle SQL, PL/SQL, Optimizer, And Concurrency",
+    "description": "Design SQL and PL/SQL, interpret execution plans, maintain statistics, and reason about Oracle transactions and locks.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Oracle Architecture Storage Internals"
+    ],
+    "learning_objectives": [
+      "Tune SQL using measured plans",
+      "Design safe transactions",
+      "Use PL/SQL and indexing deliberately"
+    ],
+    "technologies": [
+      "Oracle SQL",
+      "PL/SQL"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Oracle Architecture, Storage, And Recovery Internals",
+    "permalink": "/shopverse/data/oracle/ORACLE-ARCHITECTURE-STORAGE-INTERNALS"
+  },
+  "next": {
+    "title": "Oracle Partitioning, Availability, Recovery, And Operations",
+    "permalink": "/shopverse/data/oracle/ORACLE-HA-OPERATIONS"
+  }
+}

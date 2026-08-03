@@ -1,0 +1,47 @@
+{
+  "id": "data/elasticsearch/ELASTICSEARCH-QUERY-RELEVANCE",
+  "title": "Elasticsearch Analysis, Query DSL, Relevance, And Aggregations",
+  "description": "Design analyzers, compose queries and filters, tune scoring, use aggregations, and paginate safely with search_after and point-in-time snapshots.",
+  "source": "@site/docs/data/elasticsearch/ELASTICSEARCH-QUERY-RELEVANCE.md",
+  "sourceDirName": "data/elasticsearch",
+  "slug": "/data/elasticsearch/ELASTICSEARCH-QUERY-RELEVANCE",
+  "permalink": "/shopverse/data/elasticsearch/ELASTICSEARCH-QUERY-RELEVANCE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/elasticsearch/ELASTICSEARCH-QUERY-RELEVANCE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Elasticsearch Analysis, Query DSL, Relevance, And Aggregations",
+    "description": "Design analyzers, compose queries and filters, tune scoring, use aggregations, and paginate safely with search_after and point-in-time snapshots.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Elasticsearch Internals And Mapping"
+    ],
+    "learning_objectives": [
+      "Choose analyzers from language behavior",
+      "Build efficient queries",
+      "Explain and tune relevance and pagination"
+    ],
+    "technologies": [
+      "Elasticsearch Query DSL",
+      "Lucene"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Elasticsearch Internals, Indexing, And Mapping",
+    "permalink": "/shopverse/data/elasticsearch/ELASTICSEARCH-INTERNALS-MAPPING"
+  },
+  "next": {
+    "title": "Elasticsearch Capacity, Lifecycle, Security, And Operations",
+    "permalink": "/shopverse/data/elasticsearch/ELASTICSEARCH-OPERATIONS"
+  }
+}

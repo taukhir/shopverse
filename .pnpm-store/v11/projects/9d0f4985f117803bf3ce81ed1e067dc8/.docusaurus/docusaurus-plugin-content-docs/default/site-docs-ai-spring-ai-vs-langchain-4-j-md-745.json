@@ -1,0 +1,36 @@
+{
+  "id": "ai/SPRING-AI-VS-LANGCHAIN4J",
+  "title": "Spring AI vs LangChain4j",
+  "description": "This page is for interview comparison and decision-making.",
+  "source": "@site/docs/ai/SPRING-AI-VS-LANGCHAIN4J.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/SPRING-AI-VS-LANGCHAIN4J",
+  "permalink": "/shopverse/ai/SPRING-AI-VS-LANGCHAIN4J",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/SPRING-AI-VS-LANGCHAIN4J.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.4,
+  "frontMatter": {
+    "title": "Spring AI vs LangChain4j",
+    "sidebar_position": 6.4,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "LangChain4j RAG And Spring Operations",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-RAG-SPRING-OPERATIONS"
+  },
+  "next": {
+    "title": "Shopverse AI POC Plan",
+    "permalink": "/shopverse/ai/SHOPVERSE-AI-POC-PLAN"
+  }
+}

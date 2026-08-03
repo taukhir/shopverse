@@ -1,0 +1,75 @@
+{
+  "id": "java/collections/map/TREEMAP-INTERNALS",
+  "title": "TreeMap Internals and Usage",
+  "description": "TreeMap red-black tree storage, comparator identity, navigation, methods, complexity, backed range views, and selection guidance.",
+  "source": "@site/docs/java/collections/map/TREEMAP-INTERNALS.md",
+  "sourceDirName": "java/collections/map",
+  "slug": "/java/collections/map/TREEMAP-INTERNALS",
+  "permalink": "/shopverse/java/collections/map/TREEMAP-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/map/TREEMAP-INTERNALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "map",
+      "permalink": "/shopverse/tags/map"
+    },
+    {
+      "inline": true,
+      "label": "treemap",
+      "permalink": "/shopverse/tags/treemap"
+    },
+    {
+      "inline": true,
+      "label": "red-black-tree",
+      "permalink": "/shopverse/tags/red-black-tree"
+    },
+    {
+      "inline": true,
+      "label": "internals",
+      "permalink": "/shopverse/tags/internals"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "TreeMap Internals and Usage",
+    "description": "TreeMap red-black tree storage, comparator identity, navigation, methods, complexity, backed range views, and selection guidance.",
+    "sidebar_label": "TreeMap",
+    "tags": [
+      "java",
+      "collections",
+      "map",
+      "treemap",
+      "red-black-tree",
+      "internals"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "LinkedHashMap",
+    "permalink": "/shopverse/java/collections/map/LINKEDHASHMAP-INTERNALS"
+  },
+  "next": {
+    "title": "EnumMap",
+    "permalink": "/shopverse/java/collections/map/ENUMMAP-INTERNALS"
+  }
+}

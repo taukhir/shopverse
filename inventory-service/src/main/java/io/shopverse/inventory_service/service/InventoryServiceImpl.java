@@ -118,8 +118,12 @@ public class InventoryServiceImpl implements InventoryService {
     @Transactional
     @CacheEvict(cacheNames = "inventory", allEntries = true)
     public boolean reserve(String orderNumber, String correlationId, Long productId, int quantity) {
-        if (reservationRepository.findByOrderNumber(orderNumber).isPresent()) {
-            return true;
+        var existingReservation = reservationRepository.findByOrderNumber(orderNumber);
+        if (existingReservation.isPresent()) {
+            // A replay is successful only while the original reservation is still active.
+            // Treat released/expired reservations as unavailable; they must never recreate
+            // a successful inventory outcome for the same order number.
+            return existingReservation.get().getStatus() == ReservationStatus.RESERVED;
         }
         InventoryItem item = itemRepository.findByProductId(productId).orElse(null);
         if (item == null) {
@@ -158,6 +162,14 @@ public class InventoryServiceImpl implements InventoryService {
                     findItem(reservation.getProductId()).release(reservation.getQuantity());
                     reservation.release();
                 });
+    }
+
+    @Override
+    @Transactional
+    public void confirmReservation(String orderNumber) {
+        reservationRepository.findByOrderNumberForUpdate(orderNumber)
+                .filter(reservation -> reservation.getStatus() == ReservationStatus.RESERVED)
+                .ifPresent(InventoryReservation::confirm);
     }
 
     @Override

@@ -1,0 +1,44 @@
+{
+  "id": "reference/VISUAL-REFERENCE-STANDARD",
+  "title": "Documentation Visual And Reference Standard",
+  "description": "Visuals answer a specific question. Use Mermaid for flows and sequences, SVG for",
+  "source": "@site/docs/reference/VISUAL-REFERENCE-STANDARD.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/VISUAL-REFERENCE-STANDARD",
+  "permalink": "/shopverse/reference/VISUAL-REFERENCE-STANDARD",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/VISUAL-REFERENCE-STANDARD.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Documentation Visual And Reference Standard",
+    "difficulty": "Beginner",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose an appropriate visual format",
+      "Make diagrams accessible and maintainable",
+      "Cite authoritative technical sources"
+    ],
+    "technologies": [
+      "Docusaurus",
+      "SVG",
+      "Mermaid"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Reusable Documentation Components",
+    "permalink": "/shopverse/reference/DOCUMENTATION-COMPONENTS"
+  },
+  "next": {
+    "title": "Documentation Quality Audit And Backlog",
+    "permalink": "/shopverse/reference/DOCUMENTATION-QUALITY-AUDIT"
+  }
+}

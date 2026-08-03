@@ -1,0 +1,57 @@
+{
+  "id": "security/API-KEY-AUTHORIZATION-OPERATIONS",
+  "title": "API Key Authorization And Operations",
+  "description": "API Key Authorization And Operations with Shopverse examples, failure analysis, and production guidance.",
+  "source": "@site/docs/security/API-KEY-AUTHORIZATION-OPERATIONS.md",
+  "sourceDirName": "security",
+  "slug": "/security/API-KEY-AUTHORIZATION-OPERATIONS",
+  "permalink": "/shopverse/security/API-KEY-AUTHORIZATION-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/API-KEY-AUTHORIZATION-OPERATIONS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "API Key Authorization And Operations",
+    "description": "API Key Authorization And Operations with Shopverse examples, failure analysis, and production guidance.",
+    "sidebar_label": "API Key Authorization And Operations",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Access And Refresh Token Design",
+    "permalink": "/shopverse/security/ACCESS-REFRESH-TOKEN-DESIGN"
+  },
+  "next": {
+    "title": "JWT, OAuth2, And Spring Security",
+    "permalink": "/shopverse/security/JWT-OAUTH2-SPRING-SECURITY"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "WALMART-INTERVIEW-QUESTIONNAIRE",
+  "title": "Walmart Interview Questionnaire",
+  "description": "A 209-question preparation tracker reconstructed from the supplied Walmart-labelled interview-source conversation, with transparent priority and occurrence metadata.",
+  "source": "@site/docs/WALMART-INTERVIEW-QUESTIONNAIRE.md",
+  "sourceDirName": ".",
+  "slug": "/WALMART-INTERVIEW-QUESTIONNAIRE",
+  "permalink": "/shopverse/WALMART-INTERVIEW-QUESTIONNAIRE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/WALMART-INTERVIEW-QUESTIONNAIRE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Walmart Interview Questionnaire",
+    "description": "A 209-question preparation tracker reconstructed from the supplied Walmart-labelled interview-source conversation, with transparent priority and occurrence metadata.",
+    "difficulty": "Intermediate",
+    "page_type": "Question Bank",
+    "status": "maintained",
+    "prerequisites": [
+      "Target role and study capacity"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Kafka",
+      "Databases",
+      "Kubernetes",
+      "System Design"
+    ],
+    "last_reviewed": "2026-08-02",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "source-conversation-reconstruction"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Interview Questionnaires",
+    "permalink": "/shopverse/INTERVIEW-QUESTIONNAIRES"
+  },
+  "next": {
+    "title": "Documentation Guide",
+    "permalink": "/shopverse/reference/DOCUMENTATION-GUIDE"
+  }
+}

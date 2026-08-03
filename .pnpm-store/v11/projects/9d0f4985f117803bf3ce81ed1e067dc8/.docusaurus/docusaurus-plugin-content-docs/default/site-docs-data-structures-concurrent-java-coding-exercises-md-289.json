@@ -1,0 +1,50 @@
+{
+  "id": "data-structures/CONCURRENT-JAVA-CODING-EXERCISES",
+  "title": "Concurrent Java Coding Exercises",
+  "description": "Implement and review bounded queues, caches, rate limiters, task coordination, cancellation, and shutdown with explicit concurrency proofs.",
+  "source": "@site/docs/data-structures/CONCURRENT-JAVA-CODING-EXERCISES.md",
+  "sourceDirName": "data-structures",
+  "slug": "/data-structures/CONCURRENT-JAVA-CODING-EXERCISES",
+  "permalink": "/shopverse/data-structures/CONCURRENT-JAVA-CODING-EXERCISES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/CONCURRENT-JAVA-CODING-EXERCISES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Concurrent Java Coding Exercises",
+    "description": "Implement and review bounded queues, caches, rate limiters, task coordination, cancellation, and shutdown with explicit concurrency proofs.",
+    "difficulty": "Advanced",
+    "page_type": "Workbook",
+    "status": "maintained",
+    "prerequisites": [
+      "Java memory model",
+      "concurrency utilities"
+    ],
+    "learning_objectives": [
+      "State concurrency invariants",
+      "Choose synchronization primitives",
+      "Prove lifecycle safety",
+      "Test interleavings and overload"
+    ],
+    "technologies": [
+      "Java",
+      "java.util.concurrent",
+      "Virtual Threads"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Backtracking, Recursion, And Trie Interview Guide",
+    "permalink": "/shopverse/data-structures/BACKTRACKING-TRIE-INTERVIEW"
+  },
+  "next": {
+    "title": "Machine-Coding And Object-Oriented Design Interview",
+    "permalink": "/shopverse/data-structures/MACHINE-CODING-OOD-INTERVIEW"
+  }
+}

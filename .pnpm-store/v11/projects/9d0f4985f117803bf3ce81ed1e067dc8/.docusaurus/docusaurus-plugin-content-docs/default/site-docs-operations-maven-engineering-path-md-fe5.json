@@ -1,0 +1,48 @@
+{
+  "id": "operations/MAVEN-ENGINEERING-PATH",
+  "title": "Maven Engineering Learning Path",
+  "description": "Beginner-to-architect guide to Maven lifecycle, POM inheritance, dependency mediation, plugins, multi-module reactors, testing, repositories, security, CI, and troubleshooting.",
+  "source": "@site/docs/operations/MAVEN-ENGINEERING-PATH.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/MAVEN-ENGINEERING-PATH",
+  "permalink": "/shopverse/operations/MAVEN-ENGINEERING-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/MAVEN-ENGINEERING-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Maven Engineering Learning Path",
+    "description": "Beginner-to-architect guide to Maven lifecycle, POM inheritance, dependency mediation, plugins, multi-module reactors, testing, repositories, security, CI, and troubleshooting.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Java fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain Maven's effective build model",
+      "Build reproducible multi-module systems",
+      "Diagnose dependency and CI failures"
+    ],
+    "technologies": [
+      "Apache Maven",
+      "Java",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Maven Overview",
+    "permalink": "/shopverse/operations/MAVEN-OVERVIEW"
+  },
+  "next": {
+    "title": "Maven POM, Lifecycle, Plugins, And Effective Model",
+    "permalink": "/shopverse/operations/maven/MAVEN-POM-LIFECYCLE-PLUGINS"
+  }
+}

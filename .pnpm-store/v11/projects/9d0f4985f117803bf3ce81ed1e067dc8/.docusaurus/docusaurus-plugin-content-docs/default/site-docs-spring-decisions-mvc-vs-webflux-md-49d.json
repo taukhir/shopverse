@@ -1,0 +1,51 @@
+{
+  "id": "spring/decisions/MVC-VS-WEBFLUX",
+  "title": "Spring MVC Versus WebFlux",
+  "description": "Choose a Spring web execution model from dependency behavior, concurrency, and team constraints.",
+  "source": "@site/docs/spring/decisions/MVC-VS-WEBFLUX.md",
+  "sourceDirName": "spring/decisions",
+  "slug": "/spring/decisions/MVC-VS-WEBFLUX",
+  "permalink": "/shopverse/spring/decisions/MVC-VS-WEBFLUX",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/decisions/MVC-VS-WEBFLUX.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring MVC Versus WebFlux",
+    "description": "Choose a Spring web execution model from dependency behavior, concurrency, and team constraints.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "HTTP",
+      "Threads",
+      "Reactive streams"
+    ],
+    "learning_objectives": [
+      "Compare execution models",
+      "Recognize blocking contamination",
+      "Plan migration"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Spring WebFlux",
+      "Reactor",
+      "Java 21"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Technology Decision Guides",
+    "permalink": "/shopverse/spring/decisions/"
+  },
+  "next": {
+    "title": "Kafka Versus Synchronous Communication",
+    "permalink": "/shopverse/spring/decisions/KAFKA-VS-SYNCHRONOUS"
+  }
+}

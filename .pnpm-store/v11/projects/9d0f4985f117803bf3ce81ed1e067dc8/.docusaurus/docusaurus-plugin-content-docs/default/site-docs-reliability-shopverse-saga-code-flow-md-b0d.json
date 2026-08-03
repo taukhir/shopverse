@@ -1,0 +1,51 @@
+{
+  "id": "reliability/SHOPVERSE-SAGA-CODE-FLOW",
+  "title": "Shopverse SAGA Code Flow",
+  "description": "This page explains the concrete Shopverse checkout implementation. For generic",
+  "source": "@site/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/SHOPVERSE-SAGA-CODE-FLOW",
+  "permalink": "/shopverse/reliability/SHOPVERSE-SAGA-CODE-FLOW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 13,
+  "frontMatter": {
+    "title": "Shopverse SAGA Code Flow",
+    "sidebar_position": 13,
+    "difficulty": "Advanced",
+    "page_type": "Case Study",
+    "status": "maintained",
+    "prerequisites": [
+      "SAGA and transactional outbox fundamentals",
+      "Kafka consumer basics"
+    ],
+    "learning_objectives": [
+      "Trace the Shopverse checkout choreography",
+      "Understand compensation and idempotent event handling"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Kafka",
+      "PostgreSQL",
+      "Transactional Outbox"
+    ],
+    "last_reviewed": "2026-07-10",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Choreography SAGA And Transactional Outbox",
+    "permalink": "/shopverse/reliability/SAGA-OUTBOX"
+  },
+  "next": {
+    "title": "Transactions",
+    "permalink": "/shopverse/reliability/TRANSACTIONS"
+  }
+}

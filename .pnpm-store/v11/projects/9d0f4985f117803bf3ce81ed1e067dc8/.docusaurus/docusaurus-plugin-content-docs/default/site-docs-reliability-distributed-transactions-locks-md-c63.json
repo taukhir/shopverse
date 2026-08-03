@@ -1,0 +1,36 @@
+{
+  "id": "reliability/DISTRIBUTED-TRANSACTIONS-LOCKS",
+  "title": "Distributed Transactions",
+  "description": "A local transaction coordinates changes through one transaction manager and",
+  "source": "@site/docs/reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/DISTRIBUTED-TRANSACTIONS-LOCKS",
+  "permalink": "/shopverse/reliability/DISTRIBUTED-TRANSACTIONS-LOCKS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Distributed Transactions",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-08-02",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Databases",
+    "permalink": "/shopverse/data/DISTRIBUTED-DATABASES"
+  },
+  "next": {
+    "title": "Locking And Work Ownership",
+    "permalink": "/shopverse/reliability/locking/LOCKING-AND-WORK-OWNERSHIP"
+  }
+}

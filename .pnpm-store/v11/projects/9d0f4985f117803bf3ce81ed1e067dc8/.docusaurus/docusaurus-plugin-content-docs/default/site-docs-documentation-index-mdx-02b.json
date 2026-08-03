@@ -1,0 +1,39 @@
+{
+  "id": "DOCUMENTATION-INDEX",
+  "title": "Documentation Index",
+  "description": "Root-level expandable directory of every documentation umbrella, subpage group, and topic page.",
+  "source": "@site/docs/DOCUMENTATION-INDEX.mdx",
+  "sourceDirName": ".",
+  "slug": "/documentation-index",
+  "permalink": "/shopverse/documentation-index",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/DOCUMENTATION-INDEX.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "slug": "/documentation-index",
+    "title": "Documentation Index",
+    "sidebar_label": "Documentation Index",
+    "description": "Root-level expandable directory of every documentation umbrella, subpage group, and topic page.",
+    "page_type": "Reference",
+    "difficulty": "Beginner",
+    "status": "maintained",
+    "hide_table_of_contents": true,
+    "hide_reader_chrome": true,
+    "last_reviewed": "2026-07-15",
+    "scope": "generic",
+    "owner": "docs-documentation",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Backend Engineering Knowledge Base",
+    "permalink": "/shopverse/"
+  },
+  "next": {
+    "title": "Interview Questionnaires",
+    "permalink": "/shopverse/INTERVIEW-QUESTIONNAIRES"
+  }
+}

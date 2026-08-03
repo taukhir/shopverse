@@ -1,0 +1,657 @@
+SOURCE INTERVIEW QUESTION BANK
+209 prompts reconstructed from the referenced screenshot/video conversation.
+
+Important: Priority is a preparation rating, not a verified employer frequency. Source occurrences
+counts repetition in the source material only; the available transcript does not preserve per-frame
+duplicates, so every de-duplicated prompt is recorded as 1. It is not a verified Walmart asked-count.
+
+=== CORE JAVA AND COLLECTIONS ===
+
+001. ***** | Source occurrences: 1
+Explain the internal working of HashMap.
+
+002. ***** | Source occurrences: 1
+How do equals() and hashCode() affect HashMap keys?
+
+003. ***** | Source occurrences: 1
+What happens when two HashMap keys have the same hash code?
+
+004. ***** | Source occurrences: 1
+Why does HashMap allow one null key?
+
+005. ***** | Source occurrences: 1
+How are HashMap collisions handled?
+
+006. ***** | Source occurrences: 1
+What is rehashing and when does HashMap resize?
+
+007. ***** | Source occurrences: 1
+Why is the default HashMap load factor 0.75?
+
+008. ***** | Source occurrences: 1
+Compare HashMap, Hashtable and ConcurrentHashMap.
+
+009. ***** | Source occurrences: 1
+Compare ArrayList and LinkedList.
+
+010. ***** | Source occurrences: 1
+Compare HashSet, LinkedHashSet and TreeSet.
+
+011. ***** | Source occurrences: 1
+How does HashSet work internally?
+
+012. ***** | Source occurrences: 1
+What makes a Java object a safe HashMap key?
+
+013. ***** | Source occurrences: 1
+What is fail-fast versus fail-safe iteration?
+
+014. ***** | Source occurrences: 1
+How do Comparable and Comparator differ?
+
+015. ***** | Source occurrences: 1
+How does sorting handle null values?
+
+016. ***** | Source occurrences: 1
+What are the time complexities of common Java collections?
+
+017. ****- | Source occurrences: 1
+How does PriorityQueue work internally?
+
+018. ****- | Source occurrences: 1
+When would you use an EnumMap or IdentityHashMap?
+
+019. ****- | Source occurrences: 1
+What is the difference between Collection, Collections and Arrays?
+
+020. ****- | Source occurrences: 1
+What are immutable collections and defensive copies?
+
+021. ****- | Source occurrences: 1
+How does WeakHashMap work and when is it useful?
+
+022. ****- | Source occurrences: 1
+What is the difference between shallow and deep copy?
+
+023. ****- | Source occurrences: 1
+How do ArrayDeque and Stack differ?
+
+024. ****- | Source occurrences: 1
+What is a view collection such as subList()?
+
+025. ****- | Source occurrences: 1
+How do mutable keys break a HashMap?
+
+=== CONCURRENCY AND JVM ===
+
+026. ***** | Source occurrences: 1
+How can you create a thread in Java?
+
+027. ***** | Source occurrences: 1
+What is the difference between Runnable and Callable?
+
+028. ***** | Source occurrences: 1
+What is thread safety?
+
+029. ***** | Source occurrences: 1
+Explain synchronized and monitor locking.
+
+030. ***** | Source occurrences: 1
+What causes a deadlock and how do you prevent it?
+
+031. ***** | Source occurrences: 1
+What is livelock and starvation?
+
+032. ***** | Source occurrences: 1
+What makes a lock reentrant?
+
+033. ***** | Source occurrences: 1
+Compare ReentrantLock and synchronized.
+
+034. ***** | Source occurrences: 1
+What are ReadWriteLock and StampedLock used for?
+
+035. ***** | Source occurrences: 1
+How does ConcurrentHashMap behave during concurrent reads and writes?
+
+036. ***** | Source occurrences: 1
+What are volatile and happens-before?
+
+037. ***** | Source occurrences: 1
+Explain safe publication and the Java Memory Model.
+
+038. ***** | Source occurrences: 1
+How does ExecutorService manage tasks?
+
+039. ***** | Source occurrences: 1
+How should a thread pool be sized?
+
+040. ***** | Source occurrences: 1
+How does CompletableFuture work and what executor does it use?
+
+041. ***** | Source occurrences: 1
+What is ThreadLocal and how can it leak in a thread pool?
+
+042. ****- | Source occurrences: 1
+What causes StackOverflowError?
+
+043. ****- | Source occurrences: 1
+What is a Java memory leak even with garbage collection?
+
+044. ****- | Source occurrences: 1
+Explain heap, stack, metaspace and direct memory.
+
+045. ****- | Source occurrences: 1
+How does garbage collection work internally?
+
+=== JAVA LANGUAGE, JAVA 8 AND PATTERNS ===
+
+046. ****- | Source occurrences: 1
+Why is String immutable in Java?
+
+047. ****- | Source occurrences: 1
+How do you design an immutable class?
+
+048. ****- | Source occurrences: 1
+Compare String, StringBuilder and StringBuffer.
+
+049. ****- | Source occurrences: 1
+What are functional interfaces?
+
+050. ****- | Source occurrences: 1
+Explain lambda expressions and method references.
+
+051. ****- | Source occurrences: 1
+What is the difference between intermediate and terminal Stream operations?
+
+052. ****- | Source occurrences: 1
+How do Optional and null-handling differ?
+
+053. ****- | Source occurrences: 1
+What are default and static methods in interfaces?
+
+054. ****- | Source occurrences: 1
+Explain Java generics and type erasure.
+
+055. ****- | Source occurrences: 1
+What is the difference between checked and unchecked exceptions?
+
+056. ****- | Source occurrences: 1
+How do try-with-resources and suppressed exceptions work?
+
+057. ****- | Source occurrences: 1
+Explain singleton pattern and its thread-safe implementations.
+
+058. ****- | Source occurrences: 1
+What is double-checked locking and why does it require volatile?
+
+059. ****- | Source occurrences: 1
+When do you use Builder pattern?
+
+060. ****- | Source occurrences: 1
+When do you use Strategy pattern?
+
+=== SPRING CORE AND BOOT ===
+
+061. ***** | Source occurrences: 1
+What is the difference between Spring Framework and Spring Boot?
+
+062. ***** | Source occurrences: 1
+What happens internally when a Spring Boot application starts?
+
+063. ***** | Source occurrences: 1
+Explain the Spring bean lifecycle.
+
+064. ***** | Source occurrences: 1
+What is dependency injection?
+
+065. ***** | Source occurrences: 1
+Why is constructor injection preferred over field or setter injection?
+
+066. ***** | Source occurrences: 1
+How does Spring resolve multiple beans of the same type?
+
+067. ***** | Source occurrences: 1
+Compare @Primary and @Qualifier.
+
+068. ***** | Source occurrences: 1
+Compare @Component, @Service and @Repository.
+
+069. ***** | Source occurrences: 1
+What causes a circular dependency and how should it be removed?
+
+070. ***** | Source occurrences: 1
+What are bean scopes and when do they matter?
+
+071. ***** | Source occurrences: 1
+How does auto-configuration work?
+
+072. ***** | Source occurrences: 1
+What are starters and conditional annotations?
+
+073. ***** | Source occurrences: 1
+How do Spring profiles and externalized configuration work?
+
+074. ***** | Source occurrences: 1
+What is Spring AOP and where is it useful?
+
+075. ***** | Source occurrences: 1
+How does DispatcherServlet implement the front-controller pattern?
+
+076. ***** | Source occurrences: 1
+What is the difference between @Controller and @RestController?
+
+077. ****- | Source occurrences: 1
+How do servlet filters, Spring interceptors and AOP advice differ?
+
+078. ****- | Source occurrences: 1
+How do Actuator health, readiness and liveness endpoints work?
+
+=== TRANSACTIONS AND HIBERNATE/JPA ===
+
+079. ***** | Source occurrences: 1
+Why does @Transactional not start a transaction on a private method?
+
+080. ***** | Source occurrences: 1
+Why does self-invocation bypass @Transactional?
+
+081. ***** | Source occurrences: 1
+How can you apply transactions safely to self-invoked work?
+
+082. ***** | Source occurrences: 1
+Do static methods participate in proxy-based transactions?
+
+083. ***** | Source occurrences: 1
+When should you use TransactionTemplate?
+
+084. ***** | Source occurrences: 1
+What are transaction propagation modes?
+
+085. ***** | Source occurrences: 1
+Explain transaction isolation levels with examples.
+
+086. ***** | Source occurrences: 1
+Why use read-only transactions?
+
+087. ***** | Source occurrences: 1
+Does readOnly=true prevent writes?
+
+088. ***** | Source occurrences: 1
+Where should a transaction boundary be placed?
+
+089. ***** | Source occurrences: 1
+What are rollback rules for checked and unchecked exceptions?
+
+090. ***** | Source occurrences: 1
+When do you need SELECT FOR UPDATE or pessimistic locking?
+
+091. ***** | Source occurrences: 1
+Compare optimistic and pessimistic locking.
+
+092. ***** | Source occurrences: 1
+What is @Version and how does optimistic locking fail?
+
+093. ***** | Source occurrences: 1
+What is the N+1 query problem?
+
+094. ***** | Source occurrences: 1
+How do fetch join, EntityGraph and batch fetching address N+1?
+
+095. ****- | Source occurrences: 1
+Explain JPA entity lifecycle states.
+
+096. ****- | Source occurrences: 1
+How does first-level Hibernate cache work?
+
+097. ****- | Source occurrences: 1
+What is second-level cache and what are its consistency risks?
+
+098. ****- | Source occurrences: 1
+Can another Hibernate session read stale cached data?
+
+099. ****- | Source occurrences: 1
+How do query cache and second-level cache differ?
+
+100. ****- | Source occurrences: 1
+What are lazy loading and LazyInitializationException?
+
+=== REST APIS AND SECURITY ===
+
+101. ****- | Source occurrences: 1
+Compare GET, POST, PUT, PATCH and DELETE semantics.
+
+102. ****- | Source occurrences: 1
+How do RequestParam and PathVariable differ?
+
+103. ****- | Source occurrences: 1
+How do you make a POST API idempotent?
+
+104. ****- | Source occurrences: 1
+How should an idempotency key be stored and replayed?
+
+105. ****- | Source occurrences: 1
+How do you design pagination for millions of records?
+
+106. ****- | Source occurrences: 1
+How do you version an API without breaking clients?
+
+107. ****- | Source occurrences: 1
+Compare REST and SOAP.
+
+108. ****- | Source occurrences: 1
+What makes an API RESTful?
+
+109. ****- | Source occurrences: 1
+How do you model API errors consistently?
+
+110. ****- | Source occurrences: 1
+How do you secure REST APIs with JWT or OAuth2?
+
+111. ****- | Source occurrences: 1
+At which layers should authentication and authorization occur in microservices?
+
+112. ****- | Source occurrences: 1
+Why must downstream services still enforce authorization?
+
+113. ****- | Source occurrences: 1
+How do API gateway and service authorization responsibilities differ?
+
+114. ****- | Source occurrences: 1
+How do rate limiting, CORS and CSRF differ?
+
+115. ****- | Source occurrences: 1
+How do you design a book-store or e-commerce REST API?
+
+=== SQL, NOSQL AND CACHING ===
+
+116. ****- | Source occurrences: 1
+Compare SQL and NoSQL databases.
+
+117. ****- | Source occurrences: 1
+Explain ACID properties.
+
+118. ****- | Source occurrences: 1
+What is an index and when can it hurt performance?
+
+119. ****- | Source occurrences: 1
+Compare partition key and index.
+
+120. ****- | Source occurrences: 1
+Compare normalization and denormalization.
+
+121. ****- | Source occurrences: 1
+Compare PostgreSQL and MySQL.
+
+122. ****- | Source occurrences: 1
+How do isolation and MVCC affect reads?
+
+123. ****- | Source occurrences: 1
+How do you identify and improve a slow query?
+
+124. ****- | Source occurrences: 1
+When should a relational database be preferred for strict ACID?
+
+125. ****- | Source occurrences: 1
+Why can Cassandra sustain very high write throughput?
+
+126. ****- | Source occurrences: 1
+What trade-offs does Cassandra make for consistency and queries?
+
+127. ****- | Source occurrences: 1
+How do Redis cache-aside and write-through caching differ?
+
+128. ****- | Source occurrences: 1
+What are cache stampede, penetration and avalanche?
+
+129. ****- | Source occurrences: 1
+How do you invalidate a distributed cache safely?
+
+130. ****- | Source occurrences: 1
+When is MongoDB eventual consistency acceptable?
+
+=== KAFKA AND MESSAGING ===
+
+131. ***** | Source occurrences: 1
+Explain Kafka architecture: broker, topic, partition, producer and consumer.
+
+132. ***** | Source occurrences: 1
+Why are partitions needed in Kafka?
+
+133. ***** | Source occurrences: 1
+How does Kafka preserve ordering?
+
+134. ***** | Source occurrences: 1
+How do keys affect partition selection and per-aggregate ordering?
+
+135. ***** | Source occurrences: 1
+What is a consumer group?
+
+136. ***** | Source occurrences: 1
+Can two consumers in one group consume the same partition?
+
+137. ***** | Source occurrences: 1
+What happens when consumers outnumber partitions?
+
+138. ***** | Source occurrences: 1
+What happens when partitions outnumber consumers?
+
+139. ***** | Source occurrences: 1
+What is consumer lag and what causes it?
+
+140. ***** | Source occurrences: 1
+How do you reduce consumer lag safely?
+
+141. ***** | Source occurrences: 1
+Compare commitSync and commitAsync.
+
+142. ***** | Source occurrences: 1
+What happens if an offset commit fails?
+
+143. ***** | Source occurrences: 1
+How do you handle poison messages?
+
+144. ***** | Source occurrences: 1
+What is a dead-letter topic and when should it be replayed?
+
+145. ***** | Source occurrences: 1
+How do you avoid duplicate processing at consumer level?
+
+146. ***** | Source occurrences: 1
+How do you make a Kafka consumer idempotent?
+
+147. ****- | Source occurrences: 1
+How does an idempotent Kafka producer use PID and sequence numbers?
+
+148. ****- | Source occurrences: 1
+What does Kafka exactly-once semantics cover and not cover?
+
+149. ****- | Source occurrences: 1
+How do retries affect ordering?
+
+150. ****- | Source occurrences: 1
+How do rebalances affect consumers?
+
+151. ****- | Source occurrences: 1
+How do you monitor Kafka reliability and performance?
+
+152. ****- | Source occurrences: 1
+Compare Kafka and RabbitMQ.
+
+153. ****- | Source occurrences: 1
+When should you use a synchronous API instead of Kafka?
+
+154. ****- | Source occurrences: 1
+Compare Kafka with ActiveMQ or MQTT.
+
+155. ****- | Source occurrences: 1
+How are Kafka reliability and parallelism achieved together?
+
+=== MICROSERVICES AND DISTRIBUTED TRANSACTIONS ===
+
+156. ***** | Source occurrences: 1
+Compare monolith and microservices.
+
+157. ***** | Source occurrences: 1
+When should you retain a monolith?
+
+158. ***** | Source occurrences: 1
+Why should each microservice own its database?
+
+159. ***** | Source occurrences: 1
+How do services choose which events to consume?
+
+160. ***** | Source occurrences: 1
+Compare events and commands.
+
+161. ***** | Source occurrences: 1
+How do API and event-driven communication complement each other?
+
+162. ***** | Source occurrences: 1
+How do you handle failures in a saga?
+
+163. ***** | Source occurrences: 1
+What should happen when inventory does not reply in a saga?
+
+164. ***** | Source occurrences: 1
+Why are timeouts, retries and idempotency required in a saga?
+
+165. ***** | Source occurrences: 1
+How do compensation and database rollback differ?
+
+166. ***** | Source occurrences: 1
+What is the transactional outbox pattern?
+
+167. ***** | Source occurrences: 1
+What is the inbox or consumer-deduplication pattern?
+
+168. ***** | Source occurrences: 1
+Compare 2PC and Saga.
+
+169. ***** | Source occurrences: 1
+How does two-phase commit work?
+
+170. ***** | Source occurrences: 1
+What distributed transaction patterns exist besides 2PC and Saga?
+
+171. ***** | Source occurrences: 1
+What are CQRS and event sourcing?
+
+172. ****- | Source occurrences: 1
+How do you design correlation IDs, tracing and recovery for a distributed flow?
+
+=== DOCKER, KUBERNETES AND OPENSHIFT ===
+
+173. ****- | Source occurrences: 1
+What problem does Docker solve?
+
+174. ****- | Source occurrences: 1
+Compare Docker and Kubernetes.
+
+175. ****- | Source occurrences: 1
+How does Kubernetes detect that a pod is unhealthy?
+
+176. ****- | Source occurrences: 1
+What are liveness, readiness and startup probes?
+
+177. ****- | Source occurrences: 1
+What does a ReplicaSet do?
+
+178. ****- | Source occurrences: 1
+How do Deployment rolling updates work?
+
+179. ****- | Source occurrences: 1
+How do CPU and memory requests and limits affect pods?
+
+180. ****- | Source occurrences: 1
+How does Horizontal Pod Autoscaler make scaling decisions?
+
+181. ****- | Source occurrences: 1
+How does Kubernetes service discovery and load balancing work?
+
+182. ****- | Source occurrences: 1
+What happens during pod termination?
+
+183. ****- | Source occurrences: 1
+What is TKGI and how does it manage Kubernetes clusters?
+
+184. ****- | Source occurrences: 1
+How does OpenShift differ from upstream Kubernetes?
+
+=== SYSTEM DESIGN, PERFORMANCE AND LEADERSHIP ===
+
+185. ***** | Source occurrences: 1
+How would you design a movie-ticket booking system?
+
+186. ***** | Source occurrences: 1
+How would you design an Instagram feed?
+
+187. ***** | Source occurrences: 1
+How would you design Twitter or a large social timeline?
+
+188. ***** | Source occurrences: 1
+What does an API gateway do?
+
+189. ***** | Source occurrences: 1
+How does a load balancer work?
+
+190. ***** | Source occurrences: 1
+Compare horizontal and vertical scaling.
+
+191. ***** | Source occurrences: 1
+How do you design a rate limiter?
+
+192. ***** | Source occurrences: 1
+Explain CAP theorem with a practical trade-off.
+
+193. ***** | Source occurrences: 1
+How do you monitor and evaluate system performance?
+
+194. ***** | Source occurrences: 1
+Which golden signals and SLOs would you use?
+
+195. ***** | Source occurrences: 1
+How do you plan capacity and estimate instance count?
+
+196. ***** | Source occurrences: 1
+How do you explain a complete project architecture to an interviewer?
+
+=== CODING AND DSA ===
+
+197. ****- | Source occurrences: 1
+Solve Two Sum and explain the time-space trade-off.
+
+198. ****- | Source occurrences: 1
+Solve Merge Intervals and state the ordering invariant.
+
+199. ****- | Source occurrences: 1
+Solve Jump Game and explain the greedy proof.
+
+200. ****- | Source occurrences: 1
+Solve Three Sum while avoiding duplicate triplets.
+
+201. ****- | Source occurrences: 1
+Solve Coin Change and compare dynamic programming approaches.
+
+202. ****- | Source occurrences: 1
+Solve Meeting Rooms and identify the required data structure.
+
+203. ****- | Source occurrences: 1
+Find a missing number efficiently.
+
+204. ****- | Source occurrences: 1
+Find the longest substring without repeating characters.
+
+205. ****- | Source occurrences: 1
+Reverse, detect cycles in and merge linked lists.
+
+206. ****- | Source occurrences: 1
+Solve Trapping Rain Water and compare approaches.
+
+207. ****- | Source occurrences: 1
+Design a minimum stack.
+
+208. ****- | Source occurrences: 1
+Find the next element in a nearly sorted sequence.
+
+209. ****- | Source occurrences: 1
+Find the missing number in a binary-tree traversal.

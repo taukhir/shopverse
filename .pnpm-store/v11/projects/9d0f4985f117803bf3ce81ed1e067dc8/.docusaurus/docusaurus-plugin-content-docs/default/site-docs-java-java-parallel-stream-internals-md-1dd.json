@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-PARALLEL-STREAM-INTERNALS",
+  "title": "Java Parallel Stream Internals And Performance Scenarios",
+  "description": "ForkJoin execution, splitting, ordering, stateful barriers, reductions, blocking, nested parallelism and benchmarks.",
+  "source": "@site/docs/java/JAVA-PARALLEL-STREAM-INTERNALS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-PARALLEL-STREAM-INTERNALS",
+  "permalink": "/shopverse/java/JAVA-PARALLEL-STREAM-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-PARALLEL-STREAM-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Parallel Stream Internals And Performance Scenarios",
+    "description": "ForkJoin execution, splitting, ordering, stateful barriers, reductions, blocking, nested parallelism and benchmarks.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Stream Pipeline, Spliterator And Collector Internals",
+    "permalink": "/shopverse/java/JAVA-STREAM-PIPELINE-INTERNALS"
+  },
+  "next": {
+    "title": "Java Collections",
+    "permalink": "/shopverse/java/JAVA-COLLECTIONS"
+  }
+}

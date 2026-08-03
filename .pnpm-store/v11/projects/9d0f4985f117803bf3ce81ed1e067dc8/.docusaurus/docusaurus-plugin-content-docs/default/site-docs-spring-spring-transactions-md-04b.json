@@ -1,0 +1,46 @@
+{
+  "id": "spring/SPRING-TRANSACTIONS",
+  "title": "Spring Transactions: Boundaries, Propagation, Isolation And Locking",
+  "description": "Practical Spring transaction guide covering declarative boundaries, rollback, propagation, isolation, locking, synchronization, deadlocks, and testing.",
+  "source": "@site/docs/spring/SPRING-TRANSACTIONS.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-TRANSACTIONS",
+  "permalink": "/shopverse/spring/SPRING-TRANSACTIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-TRANSACTIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Transactions: Boundaries, Propagation, Isolation And Locking",
+    "description": "Practical Spring transaction guide covering declarative boundaries, rollback, propagation, isolation, locking, synchronization, deadlocks, and testing.",
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Define local transaction boundaries and rollback rules explicitly",
+      "Select propagation, isolation, and locking from a named data invariant",
+      "Test commit, rollback, concurrency, synchronization, and cross-resource failure behavior"
+    ],
+    "technologies": [
+      "Spring Framework",
+      "Spring Transactions",
+      "JPA",
+      "JDBC"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring AOP: Proxies, Pointcuts And Advice",
+    "permalink": "/shopverse/spring/SPRING-AOP"
+  },
+  "next": {
+    "title": "Spring Transaction Proxy Mechanics And Boundary Design",
+    "permalink": "/shopverse/spring/transactions/SPRING-TRANSACTION-PROXY-BOUNDARY-DESIGN"
+  }
+}

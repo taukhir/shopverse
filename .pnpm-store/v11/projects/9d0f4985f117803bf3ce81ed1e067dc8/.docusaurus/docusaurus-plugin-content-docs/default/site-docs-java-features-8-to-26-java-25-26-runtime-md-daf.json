@@ -1,0 +1,40 @@
+{
+  "id": "java/features-8-to-26/JAVA-25-26-RUNTIME",
+  "title": "Java 25 And 26 Runtime Changes",
+  "description": "Concurrency, AOT, GC, JFR, HTTP/3, cryptographic, and preview/incubator changes in JDK 25 and 26.",
+  "source": "@site/docs/java/features-8-to-26/JAVA-25-26-RUNTIME.md",
+  "sourceDirName": "java/features-8-to-26",
+  "slug": "/java/features-8-to-26/JAVA-25-26-RUNTIME",
+  "permalink": "/shopverse/java/features-8-to-26/JAVA-25-26-RUNTIME",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/features-8-to-26/JAVA-25-26-RUNTIME.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java 25 And 26 Runtime Changes",
+    "description": "Concurrency, AOT, GC, JFR, HTTP/3, cryptographic, and preview/incubator changes in JDK 25 and 26.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "technologies": [
+      "JDK 25",
+      "JDK 26",
+      "HotSpot"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java 25 And 26 Language Changes",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-25-26-LANGUAGE"
+  },
+  "next": {
+    "title": "Java var",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-VAR"
+  }
+}

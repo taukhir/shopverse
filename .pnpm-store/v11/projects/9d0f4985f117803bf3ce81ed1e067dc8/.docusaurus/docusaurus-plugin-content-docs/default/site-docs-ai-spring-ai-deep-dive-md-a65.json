@@ -1,0 +1,36 @@
+{
+  "id": "ai/SPRING-AI-DEEP-DIVE",
+  "title": "Spring AI Deep Dive",
+  "description": "Spring AI is the primary recommendation for the Shopverse POC because this",
+  "source": "@site/docs/ai/SPRING-AI-DEEP-DIVE.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/SPRING-AI-DEEP-DIVE",
+  "permalink": "/shopverse/ai/SPRING-AI-DEEP-DIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/SPRING-AI-DEEP-DIVE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.2,
+  "frontMatter": {
+    "title": "Spring AI Deep Dive",
+    "sidebar_position": 6.2,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring AI Track",
+    "permalink": "/shopverse/ai/SPRING-AI-UMBRELLA"
+  },
+  "next": {
+    "title": "MCP With Spring AI",
+    "permalink": "/shopverse/ai/MCP-SPRING-AI"
+  }
+}

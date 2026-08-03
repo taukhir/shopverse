@@ -1,0 +1,12 @@
+{
+  "java": "21",
+  "springBoot": "4.0.6",
+  "springFrameworkMajor": "7",
+  "springCloud": "2025.1.1",
+  "resilience4j": "2.4.0",
+  "reviewedOn": "2026-07-13",
+  "frontmatterRules": {
+    "Spring Boot": "4",
+    "Spring Framework": "7"
+  }
+}

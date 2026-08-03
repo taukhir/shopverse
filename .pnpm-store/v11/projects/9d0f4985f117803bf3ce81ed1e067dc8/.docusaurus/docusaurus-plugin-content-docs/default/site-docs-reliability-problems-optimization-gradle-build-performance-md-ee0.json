@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/optimization/GRADLE-BUILD-PERFORMANCE",
+  "title": "Gradle Build Performance",
+  "description": "Build Model And Cache Boundaries",
+  "source": "@site/docs/reliability/problems/optimization/GRADLE-BUILD-PERFORMANCE.md",
+  "sourceDirName": "reliability/problems/optimization",
+  "slug": "/reliability/problems/optimization/GRADLE-BUILD-PERFORMANCE",
+  "permalink": "/shopverse/reliability/problems/optimization/GRADLE-BUILD-PERFORMANCE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/optimization/GRADLE-BUILD-PERFORMANCE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Gradle Build Performance",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Gradle Dependency Optimization",
+    "permalink": "/shopverse/reliability/problems/optimization/GRADLE-DEPENDENCY-OPTIMIZATION"
+  },
+  "next": {
+    "title": "Runtime Optimization",
+    "permalink": "/shopverse/reliability/problems/optimization/RUNTIME-OPTIMIZATION"
+  }
+}

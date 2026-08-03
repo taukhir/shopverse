@@ -1,0 +1,43 @@
+{
+  "id": "leadership/interview-program/REVISION-READINESS-SCORECARD",
+  "title": "Revision And Interview Readiness Scorecard",
+  "description": "Reusable scoring, weakness logging, spaced revision, mock evaluation, critical-error gates, and final interview readiness criteria.",
+  "source": "@site/docs/leadership/interview-program/REVISION-READINESS-SCORECARD.md",
+  "sourceDirName": "leadership/interview-program",
+  "slug": "/leadership/interview-program/REVISION-READINESS-SCORECARD",
+  "permalink": "/shopverse/leadership/interview-program/REVISION-READINESS-SCORECARD",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/interview-program/REVISION-READINESS-SCORECARD.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Revision And Interview Readiness Scorecard",
+    "description": "Reusable scoring, weakness logging, spaced revision, mock evaluation, critical-error gates, and final interview readiness criteria.",
+    "difficulty": "Intermediate",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Lead And Architect Preparation Dashboard"
+    ],
+    "technologies": [
+      "Interview Practice",
+      "Spaced Retrieval",
+      "Architecture"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Role-Based Preparation Routes And Schedules",
+    "permalink": "/shopverse/leadership/interview-program/ROLE-BASED-PREPARATION-ROUTES"
+  },
+  "next": {
+    "title": "Interview Practice Dashboard",
+    "permalink": "/shopverse/leadership/interview-program/INTERVIEW-PRACTICE-DASHBOARD"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "reference/OVERVIEW-COVERAGE-AUDIT",
+  "title": "Documentation Overview Coverage Audit",
+  "description": "Maintained audit of foundational overview pages and sidebar entry points across the Shopverse documentation portal.",
+  "source": "@site/docs/reference/OVERVIEW-COVERAGE-AUDIT.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/OVERVIEW-COVERAGE-AUDIT",
+  "permalink": "/shopverse/reference/OVERVIEW-COVERAGE-AUDIT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/OVERVIEW-COVERAGE-AUDIT.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Documentation Overview Coverage Audit",
+    "description": "Maintained audit of foundational overview pages and sidebar entry points across the Shopverse documentation portal.",
+    "sidebar_label": "Overview Coverage Audit",
+    "difficulty": "Beginner",
+    "page_type": "Reference",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Documentation Quality Audit And Backlog",
+    "permalink": "/shopverse/reference/DOCUMENTATION-QUALITY-AUDIT"
+  },
+  "next": {
+    "title": "Final Documentation Visual, Structure, And Depth Audit",
+    "permalink": "/shopverse/reference/FINAL-DOCUMENTATION-AUDIT"
+  }
+}

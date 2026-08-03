@@ -1,0 +1,46 @@
+{
+  "id": "operations/maven/MAVEN-DEPENDENCIES-REACTOR",
+  "title": "Maven Dependencies, BOMs, Reactors, And Profiles",
+  "description": "Master dependency scopes and mediation, exclusions, BOM imports, multi-module ordering, partial builds, and profile design.",
+  "source": "@site/docs/operations/maven/MAVEN-DEPENDENCIES-REACTOR.md",
+  "sourceDirName": "operations/maven",
+  "slug": "/operations/maven/MAVEN-DEPENDENCIES-REACTOR",
+  "permalink": "/shopverse/operations/maven/MAVEN-DEPENDENCIES-REACTOR",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/maven/MAVEN-DEPENDENCIES-REACTOR.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Maven Dependencies, BOMs, Reactors, And Profiles",
+    "description": "Master dependency scopes and mediation, exclusions, BOM imports, multi-module ordering, partial builds, and profile design.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Maven POM Lifecycle And Plugins"
+    ],
+    "learning_objectives": [
+      "Predict dependency resolution",
+      "Govern versions through BOMs",
+      "Operate large reactors efficiently"
+    ],
+    "technologies": [
+      "Apache Maven"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Maven POM, Lifecycle, Plugins, And Effective Model",
+    "permalink": "/shopverse/operations/maven/MAVEN-POM-LIFECYCLE-PLUGINS"
+  },
+  "next": {
+    "title": "Maven Testing, Repositories, Security, Reproducibility, And CI",
+    "permalink": "/shopverse/operations/maven/MAVEN-CI-SECURITY-REPRODUCIBILITY"
+  }
+}

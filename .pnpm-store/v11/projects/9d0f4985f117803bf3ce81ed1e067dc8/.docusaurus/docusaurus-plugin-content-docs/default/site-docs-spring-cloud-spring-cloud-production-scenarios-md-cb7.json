@@ -1,0 +1,53 @@
+{
+  "id": "spring/cloud/SPRING-CLOUD-PRODUCTION-SCENARIOS",
+  "title": "Spring Cloud Production Scenarios And Architect Interview Bank",
+  "description": "Lead-level scenarios for Config, discovery, LoadBalancer, HTTP clients, Gateway, resilience, Bus, Kubernetes, identity, observability, capacity, and regional failure.",
+  "source": "@site/docs/spring/cloud/SPRING-CLOUD-PRODUCTION-SCENARIOS.md",
+  "sourceDirName": "spring/cloud",
+  "slug": "/spring/cloud/SPRING-CLOUD-PRODUCTION-SCENARIOS",
+  "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-PRODUCTION-SCENARIOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/cloud/SPRING-CLOUD-PRODUCTION-SCENARIOS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Cloud Production Scenarios And Architect Interview Bank",
+    "description": "Lead-level scenarios for Config, discovery, LoadBalancer, HTTP clients, Gateway, resilience, Bus, Kubernetes, identity, observability, capacity, and regional failure.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Cloud architect path"
+    ],
+    "learning_objectives": [
+      "Diagnose distributed failures",
+      "Structure architect answers",
+      "Explain trade-offs",
+      "Choose evidence",
+      "Design preventive controls"
+    ],
+    "technologies": [
+      "Spring Cloud",
+      "Config",
+      "Gateway",
+      "LoadBalancer",
+      "OpenFeign",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Cloud Testing Deployment And Upgrade Strategy",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-TESTING-DEPLOYMENT"
+  },
+  "next": {
+    "title": "Spring Cloud Architect Interview, Labs, And Revision",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-INTERVIEW-REVISION"
+  }
+}

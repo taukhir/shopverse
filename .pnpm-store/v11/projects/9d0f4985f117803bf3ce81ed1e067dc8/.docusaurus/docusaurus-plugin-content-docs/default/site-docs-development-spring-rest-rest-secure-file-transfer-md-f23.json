@@ -1,0 +1,48 @@
+{
+  "id": "development/spring-rest/REST-SECURE-FILE-TRANSFER",
+  "title": "Secure Spring REST File Transfer",
+  "description": "Multipart upload, quarantine, validation, malware scanning, object-storage promotion, authorized download, range behavior, cleanup, and capacity evidence.",
+  "source": "@site/docs/development/spring-rest/REST-SECURE-FILE-TRANSFER.md",
+  "sourceDirName": "development/spring-rest",
+  "slug": "/development/spring-rest/REST-SECURE-FILE-TRANSFER",
+  "permalink": "/shopverse/development/spring-rest/REST-SECURE-FILE-TRANSFER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-rest/REST-SECURE-FILE-TRANSFER.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Secure Spring REST File Transfer",
+    "description": "Multipart upload, quarantine, validation, malware scanning, object-storage promotion, authorized download, range behavior, cleanup, and capacity evidence.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Design an upload lifecycle that never treats unscanned content as trusted",
+      "Bound memory, temporary storage, scanner queues, and download concurrency",
+      "Authorize opaque document identifiers without exposing filesystem paths"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "MultipartFile",
+      "Object Storage",
+      "Malware Scanning",
+      "HTTP Range"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "partial",
+    "scope": "shopverse",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring REST Error Contracts",
+    "permalink": "/shopverse/development/spring-rest/REST-ERROR-CONTRACTS"
+  },
+  "next": {
+    "title": "REST Pagination And Conditional Requests",
+    "permalink": "/shopverse/development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS"
+  }
+}

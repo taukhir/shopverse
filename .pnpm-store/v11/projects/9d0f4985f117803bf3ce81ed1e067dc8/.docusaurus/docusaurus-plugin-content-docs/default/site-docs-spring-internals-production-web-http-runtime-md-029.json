@@ -1,0 +1,45 @@
+{
+  "id": "spring/internals-production/WEB-HTTP-RUNTIME",
+  "title": "Spring Web Execution And HTTP Runtime",
+  "description": "Compatibility route to the canonical Spring web execution-model and capacity guide.",
+  "source": "@site/docs/spring/internals-production/WEB-HTTP-RUNTIME.md",
+  "sourceDirName": "spring/internals-production",
+  "slug": "/spring/internals-production/WEB-HTTP-RUNTIME",
+  "permalink": "/shopverse/spring/internals-production/WEB-HTTP-RUNTIME",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/internals-production/WEB-HTTP-RUNTIME.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Web Execution And HTTP Runtime",
+    "description": "Compatibility route to the canonical Spring web execution-model and capacity guide.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Locate the canonical web execution and HTTP capacity guidance",
+      "Preserve existing links to the former combined runtime page"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Spring WebFlux",
+      "Tomcat",
+      "Netty"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "compatibility",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AOP Proxy And Transaction Internals",
+    "permalink": "/shopverse/spring/internals-production/AOP-TRANSACTION-INTERNALS"
+  },
+  "next": {
+    "title": "Persistence Runtime Compatibility Route",
+    "permalink": "/shopverse/spring/internals-production/HIBERNATE-JDBC-INTERNALS"
+  }
+}

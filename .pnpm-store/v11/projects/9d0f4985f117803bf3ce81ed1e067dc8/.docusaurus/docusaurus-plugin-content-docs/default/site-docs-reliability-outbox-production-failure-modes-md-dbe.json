@@ -1,0 +1,51 @@
+{
+  "id": "reliability/OUTBOX-PRODUCTION-FAILURE-MODES",
+  "title": "Transactional Outbox Production Failure Modes",
+  "description": "Relay crashes, duplicates, stuck claims, ordering, poison rows, backlog, cleanup, CDC, and reconciliation for production outboxes.",
+  "source": "@site/docs/reliability/OUTBOX-PRODUCTION-FAILURE-MODES.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/OUTBOX-PRODUCTION-FAILURE-MODES",
+  "permalink": "/shopverse/reliability/OUTBOX-PRODUCTION-FAILURE-MODES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/OUTBOX-PRODUCTION-FAILURE-MODES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Transactional Outbox Production Failure Modes",
+    "description": "Relay crashes, duplicates, stuck claims, ordering, poison rows, backlog, cleanup, CDC, and reconciliation for production outboxes.",
+    "difficulty": "Architect",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Transactional outbox",
+      "Kafka producer reliability",
+      "database transactions"
+    ],
+    "learning_objectives": [
+      "Explain the outbox delivery guarantee",
+      "Operate a scalable relay",
+      "Recover every major production outbox failure"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Apache Kafka",
+      "SQL",
+      "Debezium"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Outbox Delivery And Operations",
+    "permalink": "/shopverse/reliability/OUTBOX-DELIVERY-OPERATIONS"
+  },
+  "next": {
+    "title": "Transactional Outbox Pattern",
+    "permalink": "/shopverse/reliability/OUTBOX-PATTERN"
+  }
+}

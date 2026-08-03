@@ -1,0 +1,34 @@
+{
+  "id": "java/JAVA-JVM-MEMORY",
+  "title": "JVM Runtime Memory Areas",
+  "description": "JVM process memory split across managed heap, per-thread areas, and native memory",
+  "source": "@site/docs/java/JAVA-JVM-MEMORY.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-JVM-MEMORY",
+  "permalink": "/shopverse/java/JAVA-JVM-MEMORY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-JVM-MEMORY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JVM Runtime Memory Areas",
+    "status": "maintained",
+    "last_reviewed": "2026-08-02",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JVM Architecture, Runtime Boundaries And Operations",
+    "permalink": "/shopverse/java/JAVA-JVM-ARCHITECTURE-OPERATIONS"
+  },
+  "next": {
+    "title": "Java Object Layout, Allocation And Garbage Collectors",
+    "permalink": "/shopverse/java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE"
+  }
+}

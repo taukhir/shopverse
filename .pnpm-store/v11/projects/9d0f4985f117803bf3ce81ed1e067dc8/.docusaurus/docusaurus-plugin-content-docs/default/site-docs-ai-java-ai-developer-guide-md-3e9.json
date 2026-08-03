@@ -1,0 +1,36 @@
+{
+  "id": "ai/JAVA-AI-DEVELOPER-GUIDE",
+  "title": "Java AI Developer Guide",
+  "description": "This page explains the Java-side concepts you should know before going deep",
+  "source": "@site/docs/ai/JAVA-AI-DEVELOPER-GUIDE.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/JAVA-AI-DEVELOPER-GUIDE",
+  "permalink": "/shopverse/ai/JAVA-AI-DEVELOPER-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/JAVA-AI-DEVELOPER-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.1,
+  "frontMatter": {
+    "title": "Java AI Developer Guide",
+    "sidebar_position": 6.1,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring AI MCP And Shopverse Lab",
+    "permalink": "/shopverse/ai/MCP-SPRING-SHOPVERSE-LAB"
+  },
+  "next": {
+    "title": "Java AI Developer Guide",
+    "permalink": "/shopverse/ai/JAVA-AI-DEVELOPER-GUIDE"
+  }
+}

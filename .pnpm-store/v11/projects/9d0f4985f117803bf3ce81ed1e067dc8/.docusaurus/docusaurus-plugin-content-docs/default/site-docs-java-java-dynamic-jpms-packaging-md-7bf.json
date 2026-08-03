@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-DYNAMIC-JPMS-PACKAGING",
+  "title": "Java Reflection, JPMS And Packaging",
+  "description": "Dynamic invocation, proxies, annotations, agents, module boundaries, services, images, and compatibility.",
+  "source": "@site/docs/java/JAVA-DYNAMIC-JPMS-PACKAGING.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-DYNAMIC-JPMS-PACKAGING",
+  "permalink": "/shopverse/java/JAVA-DYNAMIC-JPMS-PACKAGING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-DYNAMIC-JPMS-PACKAGING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Reflection, JPMS And Packaging",
+    "description": "Dynamic invocation, proxies, annotations, agents, module boundaries, services, images, and compatibility.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Assertions, Compilation And Packaging Toolchain",
+    "permalink": "/shopverse/java/JAVA-ASSERTIONS-TOOLCHAIN"
+  },
+  "next": {
+    "title": "Java Internals Hands-On Labs",
+    "permalink": "/shopverse/java/JAVA-INTERNALS-LABS"
+  }
+}

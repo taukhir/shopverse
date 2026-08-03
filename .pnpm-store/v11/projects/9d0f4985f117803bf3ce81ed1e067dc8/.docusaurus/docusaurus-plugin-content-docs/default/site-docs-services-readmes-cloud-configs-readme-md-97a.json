@@ -1,0 +1,41 @@
+{
+  "id": "services/readmes/CLOUD-CONFIGS-README",
+  "title": "Cloud Configuration README",
+  "description": "Site mirror of shared Shopverse runtime settings, route boundaries, security cautions, and AI-assisted workflows.",
+  "source": "@site/docs/services/readmes/CLOUD-CONFIGS-README.md",
+  "sourceDirName": "services/readmes",
+  "slug": "/services/readmes/CLOUD-CONFIGS-README",
+  "permalink": "/shopverse/services/readmes/CLOUD-CONFIGS-README",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/services/readmes/CLOUD-CONFIGS-README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cloud Configuration README",
+    "description": "Site mirror of shared Shopverse runtime settings, route boundaries, security cautions, and AI-assisted workflows.",
+    "sidebar_label": "Cloud Configs README",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "scope": "shopverse",
+    "owner": "cloud-configs",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "canonical-readme-sync",
+    "technologies": [
+      "Shopverse",
+      "Service Documentation",
+      "AI-Assisted Development"
+    ],
+    "last_reviewed": "2026-07-29"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Config Server README",
+    "permalink": "/shopverse/services/readmes/CONFIG-SERVER-README"
+  },
+  "next": {
+    "title": "Discovery Server README",
+    "permalink": "/shopverse/services/readmes/DISCOVERY-SERVER-README"
+  }
+}

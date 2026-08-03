@@ -1,0 +1,47 @@
+{
+  "id": "java/LOMBOK-GUIDE",
+  "title": "Lombok Guide",
+  "description": "Lombok is a compile-time annotation processor that generates accessors,",
+  "source": "@site/docs/java/LOMBOK-GUIDE.md",
+  "sourceDirName": "java",
+  "slug": "/java/LOMBOK-GUIDE",
+  "permalink": "/shopverse/java/LOMBOK-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/LOMBOK-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Lombok Guide",
+    "difficulty": "Beginner",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Java classes and annotations"
+    ],
+    "learning_objectives": [
+      "Explain Lombok generation",
+      "Select important annotations",
+      "Avoid entity logging equality and builder pitfalls"
+    ],
+    "technologies": [
+      "Java",
+      "Lombok",
+      "Gradle"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "hybrid",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Language Resolution, Initialization And OOP Internals",
+    "permalink": "/shopverse/java/JAVA-LANGUAGE-OOP-INTERNALS"
+  },
+  "next": {
+    "title": "Java Generics",
+    "permalink": "/shopverse/java/JAVA-GENERICS"
+  }
+}

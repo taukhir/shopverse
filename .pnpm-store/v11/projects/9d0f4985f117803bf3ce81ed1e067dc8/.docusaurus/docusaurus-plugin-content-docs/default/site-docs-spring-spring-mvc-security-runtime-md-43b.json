@@ -1,0 +1,44 @@
+{
+  "id": "spring/SPRING-MVC-SECURITY-RUNTIME",
+  "title": "Spring MVC And Security Request Runtime",
+  "description": "Compatibility route to the canonical servlet lifecycle, Spring Security runtime, HTTP message conversion, and web capacity guides.",
+  "source": "@site/docs/spring/SPRING-MVC-SECURITY-RUNTIME.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-MVC-SECURITY-RUNTIME",
+  "permalink": "/shopverse/spring/SPRING-MVC-SECURITY-RUNTIME",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-MVC-SECURITY-RUNTIME.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring MVC And Security Request Runtime",
+    "description": "Compatibility route to the canonical servlet lifecycle, Spring Security runtime, HTTP message conversion, and web capacity guides.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Select the focused runtime guide for a Spring web question",
+      "Preserve existing links to the former combined MVC and security page"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Spring Security",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "compatibility",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Kafka Idempotency And Operations Compatibility Route",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS"
+  },
+  "next": {
+    "title": "Architecture Revision Sheet",
+    "permalink": "/shopverse/architecture/ARCHITECTURE-REVISION-SHEET"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "security/oauth/SSO-AND-OPENID-CONNECT",
+  "title": "SSO And OpenID Connect",
+  "description": "Single sign-on (SSO) lets a user authenticate with one identity provider and",
+  "source": "@site/docs/security/oauth/SSO-AND-OPENID-CONNECT.md",
+  "sourceDirName": "security/oauth",
+  "slug": "/security/oauth/SSO-AND-OPENID-CONNECT",
+  "permalink": "/shopverse/security/oauth/SSO-AND-OPENID-CONNECT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/oauth/SSO-AND-OPENID-CONNECT.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "SSO And OpenID Connect",
+    "difficulty": "Intermediate",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Authentication basics",
+      "OAuth2 fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain SSO OAuth2 and OIDC",
+      "Trace authorization code login",
+      "Validate identity claims and sessions"
+    ],
+    "technologies": [
+      "OAuth 2.0",
+      "OpenID Connect",
+      "JWT",
+      "Spring Security"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Keycloak And Spring OAuth2",
+    "permalink": "/shopverse/security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION"
+  },
+  "next": {
+    "title": "Google Authentication With Spring",
+    "permalink": "/shopverse/security/oauth/GOOGLE-AUTHENTICATION-SPRING"
+  }
+}

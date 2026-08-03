@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-HASH-COLLECTIONS-DEEP-DIVE",
+  "title": "HashMap, ConcurrentHashMap And Iterator Internals",
+  "description": "Hash contracts, collisions, resizing, duplicate handling, fail-fast iterators, ConcurrentModificationException, and ConcurrentHashMap internals.",
+  "source": "@site/docs/java/JAVA-HASH-COLLECTIONS-DEEP-DIVE.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-HASH-COLLECTIONS-DEEP-DIVE",
+  "permalink": "/shopverse/java/JAVA-HASH-COLLECTIONS-DEEP-DIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-HASH-COLLECTIONS-DEEP-DIVE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "HashMap, ConcurrentHashMap And Iterator Internals",
+    "description": "Hash contracts, collisions, resizing, duplicate handling, fail-fast iterators, ConcurrentModificationException, and ConcurrentHashMap internals.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Specialized And Concurrent Java Collections Internals",
+    "permalink": "/shopverse/java/JAVA-SPECIALIZED-COLLECTIONS-INTERNALS"
+  },
+  "next": {
+    "title": "Java Threads, Concurrency And JVM Thread Model",
+    "permalink": "/shopverse/java/JAVA-THREADING-UMBRELLA"
+  }
+}

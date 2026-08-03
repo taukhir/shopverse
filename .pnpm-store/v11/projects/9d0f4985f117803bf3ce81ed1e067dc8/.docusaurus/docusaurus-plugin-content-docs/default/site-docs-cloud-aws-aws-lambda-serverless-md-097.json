@@ -1,0 +1,34 @@
+{
+  "id": "cloud/aws/AWS-LAMBDA-SERVERLESS",
+  "title": "AWS Lambda And Serverless",
+  "description": "What Serverless Means",
+  "source": "@site/docs/cloud/aws/AWS-LAMBDA-SERVERLESS.md",
+  "sourceDirName": "cloud/aws",
+  "slug": "/cloud/aws/AWS-LAMBDA-SERVERLESS",
+  "permalink": "/shopverse/cloud/aws/AWS-LAMBDA-SERVERLESS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/cloud/aws/AWS-LAMBDA-SERVERLESS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AWS Lambda And Serverless",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-cloud",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AWS EventBridge, SQS, SNS And S3",
+    "permalink": "/shopverse/cloud/aws/AWS-EVENTS-STORAGE"
+  },
+  "next": {
+    "title": "AWS CloudWatch Monitoring",
+    "permalink": "/shopverse/cloud/aws/AWS-CLOUDWATCH"
+  }
+}

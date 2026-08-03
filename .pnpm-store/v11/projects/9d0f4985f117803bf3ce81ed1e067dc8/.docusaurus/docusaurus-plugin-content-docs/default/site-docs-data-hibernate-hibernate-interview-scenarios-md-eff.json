@@ -1,0 +1,34 @@
+{
+  "id": "data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS",
+  "title": "Hibernate Interview And Production Scenarios",
+  "description": "Interview questions, tricky scenarios, production rules, related guides, and official references.",
+  "source": "@site/docs/data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md",
+  "sourceDirName": "data/hibernate",
+  "slug": "/data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS",
+  "permalink": "/shopverse/data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Hibernate Interview And Production Scenarios",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Hibernate Caching",
+    "permalink": "/shopverse/data/hibernate/HIBERNATE-CACHING"
+  },
+  "next": {
+    "title": "Liquibase Database Migrations",
+    "permalink": "/shopverse/data/LIQUIBASE-GENERIC"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "data-structures/DATA-STRUCTURES-FUNDAMENTALS",
+  "title": "Data Structures Fundamentals",
+  "description": "A data structure is a way to organize data so it can be accessed, searched,",
+  "source": "@site/docs/data-structures/DATA-STRUCTURES-FUNDAMENTALS.md",
+  "sourceDirName": "data-structures",
+  "slug": "/data-structures/DATA-STRUCTURES-FUNDAMENTALS",
+  "permalink": "/shopverse/data-structures/DATA-STRUCTURES-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/DATA-STRUCTURES-FUNDAMENTALS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Data Structures Fundamentals",
+    "sidebar_position": 1,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Algorithms And Data Structures",
+    "permalink": "/shopverse/data-structures/"
+  },
+  "next": {
+    "title": "Algorithm Complexity And Interview Problem Solving",
+    "permalink": "/shopverse/data-structures/ALGORITHM-COMPLEXITY-PROBLEM-SOLVING"
+  }
+}

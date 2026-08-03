@@ -1,0 +1,49 @@
+{
+  "id": "java/JAVA-CUSTOM-EXCEPTIONS-CHECKED-UNCHECKED",
+  "title": "Java Custom Exceptions, Checked And Unchecked Rules",
+  "description": "Design custom exception hierarchies, choose checked or unchecked contracts, preserve causes, translate failures at boundaries, expose stable error codes, and test failure behavior.",
+  "source": "@site/docs/java/JAVA-CUSTOM-EXCEPTIONS-CHECKED-UNCHECKED.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-CUSTOM-EXCEPTIONS-CHECKED-UNCHECKED",
+  "permalink": "/shopverse/java/JAVA-CUSTOM-EXCEPTIONS-CHECKED-UNCHECKED",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-CUSTOM-EXCEPTIONS-CHECKED-UNCHECKED.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Custom Exceptions, Checked And Unchecked Rules",
+    "description": "Design custom exception hierarchies, choose checked or unchecked contracts, preserve causes, translate failures at boundaries, expose stable error codes, and test failure behavior.",
+    "sidebar_label": "Custom Exceptions And Rules",
+    "difficulty": "Intermediate",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Java classes and methods"
+    ],
+    "learning_objectives": [
+      "Choose checked or unchecked exceptions",
+      "Design stable custom exception types",
+      "Preserve and translate causes",
+      "Expose safe API errors"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-08-02",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Time, Numeric Correctness And Security Boundaries",
+    "permalink": "/shopverse/java/JAVA-TIME-NUMERIC-SECURITY"
+  },
+  "next": {
+    "title": "Java Exception Handling Across Streams And Async Workflows",
+    "permalink": "/shopverse/java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE"
+  }
+}

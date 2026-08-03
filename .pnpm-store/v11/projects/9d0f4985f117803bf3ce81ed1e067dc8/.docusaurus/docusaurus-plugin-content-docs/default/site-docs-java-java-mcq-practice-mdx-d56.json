@@ -1,0 +1,44 @@
+{
+  "id": "java/JAVA-MCQ-PRACTICE",
+  "title": "Java MCQ Practice",
+  "description": "Timed Java interview MCQs covering language semantics, collections, concurrency, JVM internals, and modern Java.",
+  "source": "@site/docs/java/JAVA-MCQ-PRACTICE.mdx",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-MCQ-PRACTICE",
+  "permalink": "/shopverse/java/JAVA-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java MCQ Practice",
+    "description": "Timed Java interview MCQs covering language semantics, collections, concurrency, JVM internals, and modern Java.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Java Lead And Architect Path"
+    ],
+    "technologies": [
+      "Java",
+      "JVM",
+      "Concurrency",
+      "Collections"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Interview Preparation",
+    "permalink": "/shopverse/java/JAVA-INTERVIEW-PREPARATION"
+  },
+  "next": {
+    "title": "Java Lead Interview Revision Sheet",
+    "permalink": "/shopverse/java/JAVA-REVISION-SHEET"
+  }
+}

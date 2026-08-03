@@ -1,0 +1,36 @@
+{
+  "id": "operations/GITHUB-ACTIONS",
+  "title": "GitHub Actions",
+  "description": "GitHub Actions runs repository automation from YAML workflows under",
+  "source": "@site/docs/operations/GITHUB-ACTIONS.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/GITHUB-ACTIONS",
+  "permalink": "/shopverse/operations/GITHUB-ACTIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/GITHUB-ACTIONS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "GitHub Actions",
+    "sidebar_position": 5,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Shopverse Jenkins Implementation",
+    "permalink": "/shopverse/operations/SHOPVERSE-JENKINS"
+  },
+  "next": {
+    "title": "Docusaurus Documentation Engineering",
+    "permalink": "/shopverse/operations/DOCUSAURUS"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "operations/kubernetes/KUBERNETES-STORAGE-STATEFUL",
+  "title": "Kubernetes Persistent Storage, Stateful Workloads, And CSI",
+  "description": "Design ephemeral and persistent storage with PVs, PVCs, StorageClasses, CSI, topology, snapshots, expansion, StatefulSets, backups, and failure diagnosis.",
+  "source": "@site/docs/operations/kubernetes/KUBERNETES-STORAGE-STATEFUL.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/KUBERNETES-STORAGE-STATEFUL",
+  "permalink": "/shopverse/operations/kubernetes/KUBERNETES-STORAGE-STATEFUL",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/KUBERNETES-STORAGE-STATEFUL.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kubernetes Persistent Storage, Stateful Workloads, And CSI",
+    "description": "Design ephemeral and persistent storage with PVs, PVCs, StorageClasses, CSI, topology, snapshots, expansion, StatefulSets, backups, and failure diagnosis.",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Kubernetes workloads and scheduling"
+    ],
+    "learning_objectives": [
+      "Select storage correctly",
+      "Trace provisioning attach and mount",
+      "Operate stateful workloads safely",
+      "Recover storage failures"
+    ],
+    "technologies": [
+      "Kubernetes",
+      "CSI",
+      "StatefulSet",
+      "VolumeSnapshot"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kubernetes Networking, Services, DNS, Ingress, And Gateway API",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-NETWORKING-SERVICES"
+  },
+  "next": {
+    "title": "Kubernetes Security, Admission, Policy, And Multi-Tenancy",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-SECURITY-MULTITENANCY"
+  }
+}

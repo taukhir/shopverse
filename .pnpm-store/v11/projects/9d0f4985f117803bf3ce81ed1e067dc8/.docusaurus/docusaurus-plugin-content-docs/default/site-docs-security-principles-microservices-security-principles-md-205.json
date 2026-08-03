@@ -1,0 +1,34 @@
+{
+  "id": "security/principles/MICROSERVICES-SECURITY-PRINCIPLES",
+  "title": "Microservices Security Principles",
+  "description": "In microservices, the gateway is useful but not sufficient. Every service",
+  "source": "@site/docs/security/principles/MICROSERVICES-SECURITY-PRINCIPLES.md",
+  "sourceDirName": "security/principles",
+  "slug": "/security/principles/MICROSERVICES-SECURITY-PRINCIPLES",
+  "permalink": "/shopverse/security/principles/MICROSERVICES-SECURITY-PRINCIPLES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/principles/MICROSERVICES-SECURITY-PRINCIPLES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Microservices Security Principles",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "API Security Principles",
+    "permalink": "/shopverse/security/principles/API-SECURITY-PRINCIPLES"
+  },
+  "next": {
+    "title": "Service-To-Service Security",
+    "permalink": "/shopverse/security/principles/SERVICE-TO-SERVICE-SECURITY"
+  }
+}

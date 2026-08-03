@@ -1,0 +1,59 @@
+{
+  "id": "leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY",
+  "title": "Production Performance And Availability",
+  "description": "An architect and incident-lead guide to evidence-led performance recovery and high-availability design.",
+  "source": "@site/docs/leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY.md",
+  "sourceDirName": "leadership",
+  "slug": "/leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY",
+  "permalink": "/shopverse/leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Production Performance And Availability",
+    "description": "An architect and incident-lead guide to evidence-led performance recovery and high-availability design.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "keywords": [
+      "performance",
+      "incident response",
+      "latency",
+      "high availability",
+      "SLO",
+      "RTO",
+      "RPO",
+      "failover",
+      "graceful degradation"
+    ],
+    "learning_objectives": [
+      "Stabilize and diagnose slow production systems without guessing",
+      "Design availability from business targets and explicit failure domains",
+      "Validate capacity, failover, restore, and degraded operation with production evidence"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "JVM",
+      "PostgreSQL",
+      "Kafka",
+      "Kubernetes",
+      "Prometheus"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Architecture Decisions And Disagreements",
+    "permalink": "/shopverse/leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS"
+  },
+  "next": {
+    "title": "Zero-Downtime Delivery",
+    "permalink": "/shopverse/leadership/ZERO-DOWNTIME-DELIVERY"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION",
+  "title": "Spring Validation Errors Testing And Production",
+  "description": "Exception ownership, ProblemDetail and Shopverse error shapes, validation testing, entity and database boundaries, observability, and production hardening.",
+  "source": "@site/docs/spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION.md",
+  "sourceDirName": "spring/validation",
+  "slug": "/spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION",
+  "permalink": "/shopverse/spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Validation Errors Testing And Production",
+    "description": "Exception ownership, ProblemDetail and Shopverse error shapes, validation testing, entity and database boundaries, observability, and production hardening.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Map each validation mode to its Spring exception and translation owner",
+      "Distinguish generic RFC 9457 ProblemDetail guidance from Shopverse ApiErrorResponse",
+      "Test validation paths without exposing rejected secrets or provider internals"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Jakarta Validation",
+      "ProblemDetail",
+      "MockMvc",
+      "JPA"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Method Custom Grouped And Configuration Validation",
+    "permalink": "/shopverse/spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION"
+  },
+  "next": {
+    "title": "Spring Data Architect Learning Path",
+    "permalink": "/shopverse/spring/SPRING-DATA-ARCHITECT-PATH"
+  }
+}

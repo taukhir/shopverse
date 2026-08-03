@@ -1,0 +1,56 @@
+{
+  "id": "architecture/API-EVENT-COMPATIBILITY",
+  "title": "API And Event Compatibility",
+  "description": "This page is the concise compatibility primer. For design ownership, OpenAPI and",
+  "source": "@site/docs/architecture/API-EVENT-COMPATIBILITY.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/API-EVENT-COMPATIBILITY",
+  "permalink": "/shopverse/architecture/API-EVENT-COMPATIBILITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/API-EVENT-COMPATIBILITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "API And Event Compatibility",
+    "difficulty": "Intermediate",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "keywords": [
+      "API versioning",
+      "backward compatibility",
+      "consumer-driven contracts",
+      "Avro",
+      "Protobuf",
+      "JSON Schema",
+      "schema registry",
+      "event upcasting"
+    ],
+    "learning_objectives": [
+      "Evolve APIs without breaking clients",
+      "Apply event schema compatibility rules",
+      "Plan deprecation and migration"
+    ],
+    "technologies": [
+      "REST",
+      "Kafka",
+      "Avro",
+      "Protobuf",
+      "JSON Schema"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Capstone Implementation, Failure Programme, And Portfolio Defence",
+    "permalink": "/shopverse/case-study/production-capstone/CAPSTONE-IMPLEMENTATION-EVIDENCE"
+  },
+  "next": {
+    "title": "Networking, gRPC, And Service Mesh",
+    "permalink": "/shopverse/architecture/NETWORKING-GRPC-SERVICE-MESH"
+  }
+}

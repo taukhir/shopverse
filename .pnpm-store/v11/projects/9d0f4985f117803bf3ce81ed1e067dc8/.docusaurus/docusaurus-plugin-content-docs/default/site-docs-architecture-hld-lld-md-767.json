@@ -1,0 +1,34 @@
+{
+  "id": "architecture/HLD-LLD",
+  "title": "HLD And LLD",
+  "description": "High-Level Design and Low-Level Design answer different questions.",
+  "source": "@site/docs/architecture/HLD-LLD.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/HLD-LLD",
+  "permalink": "/shopverse/architecture/HLD-LLD",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/HLD-LLD.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "HLD And LLD",
+    "status": "maintained",
+    "last_reviewed": "2026-07-16",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Template Method",
+    "permalink": "/shopverse/development/design-patterns/template-method"
+  },
+  "next": {
+    "title": "HLD And LLD",
+    "permalink": "/shopverse/architecture/HLD-LLD"
+  }
+}

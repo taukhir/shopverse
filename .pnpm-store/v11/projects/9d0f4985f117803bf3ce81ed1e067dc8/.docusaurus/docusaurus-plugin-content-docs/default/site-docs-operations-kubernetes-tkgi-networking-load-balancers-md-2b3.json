@@ -1,0 +1,54 @@
+{
+  "id": "operations/kubernetes/TKGI-NETWORKING-LOAD-BALANCERS",
+  "title": "TKGI Networking, NSX, Antrea And Load Balancers",
+  "description": "TKGI network architecture covering management, node, Pod and Service networks, Antrea and NSX paths, API/cluster/workload load balancers, DNAT, ingress, network profiles, NSX lifecycle, IPAM, DNS, packet diagnosis, failures, and interviews.",
+  "source": "@site/docs/operations/kubernetes/TKGI-NETWORKING-LOAD-BALANCERS.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-NETWORKING-LOAD-BALANCERS",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-NETWORKING-LOAD-BALANCERS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-NETWORKING-LOAD-BALANCERS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI Networking, NSX, Antrea And Load Balancers",
+    "description": "TKGI network architecture covering management, node, Pod and Service networks, Antrea and NSX paths, API/cluster/workload load balancers, DNAT, ingress, network profiles, NSX lifecycle, IPAM, DNS, packet diagnosis, failures, and interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "TKGI control-plane architecture",
+      "Kubernetes networking",
+      "TCP and TLS"
+    ],
+    "learning_objectives": [
+      "Trace every TKGI traffic path",
+      "Compare NSX and non-NSX load balancing",
+      "Design IP and LB capacity",
+      "Diagnose network failures by hop"
+    ],
+    "technologies": [
+      "TKGI",
+      "NSX",
+      "Antrea",
+      "Kubernetes",
+      "DNS",
+      "Load Balancing"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Plans, Profiles, VM Sizing And Capacity",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-PLANS-SIZING-CAPACITY"
+  },
+  "next": {
+    "title": "TKGI Upgrade Architecture And Lifecycle",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-UPGRADE-LIFECYCLE"
+  }
+}

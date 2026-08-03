@@ -1,0 +1,47 @@
+{
+  "id": "observability/PII-SAFE-LOGGING",
+  "title": "PII-Safe Logging And Data Classification",
+  "description": "PII means personally identifiable information: information that can identify,",
+  "source": "@site/docs/observability/PII-SAFE-LOGGING.md",
+  "sourceDirName": "observability",
+  "slug": "/observability/PII-SAFE-LOGGING",
+  "permalink": "/shopverse/observability/PII-SAFE-LOGGING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/observability/PII-SAFE-LOGGING.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "PII-Safe Logging And Data Classification",
+    "sidebar_position": 2,
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Identify PII in application data",
+      "Design privacy-preserving logs",
+      "Respond to sensitive-data logging incidents"
+    ],
+    "technologies": [
+      "SLF4J",
+      "Logback",
+      "Loki",
+      "OpenTelemetry"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-observability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Application Logging",
+    "permalink": "/shopverse/observability/LOGGING-GENERIC"
+  },
+  "next": {
+    "title": "Mapped Diagnostic Context (MDC)",
+    "permalink": "/shopverse/observability/MDC-GENERIC"
+  }
+}

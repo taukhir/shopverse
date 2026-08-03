@@ -24,5 +24,7 @@ public interface InventoryService {
 
     void release(String orderNumber);
 
+    void confirmReservation(String orderNumber);
+
     int expireReservations();
 }

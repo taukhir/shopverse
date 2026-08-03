@@ -1,0 +1,50 @@
+{
+  "id": "observability/OBSERVABILITY-OVERVIEW",
+  "title": "Observability Engineering Overview",
+  "description": "First-read map of metrics, logs, traces, profiles, business state, SLOs, alerts, correlation, and production investigation.",
+  "source": "@site/docs/observability/OBSERVABILITY-OVERVIEW.md",
+  "sourceDirName": "observability",
+  "slug": "/observability/OBSERVABILITY-OVERVIEW",
+  "permalink": "/shopverse/observability/OBSERVABILITY-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/observability/OBSERVABILITY-OVERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Observability Engineering Overview",
+    "description": "First-read map of metrics, logs, traces, profiles, business state, SLOs, alerts, correlation, and production investigation.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "HTTP and distributed systems fundamentals"
+    ],
+    "learning_objectives": [
+      "Select telemetry from operational questions",
+      "Design safe correlated signals",
+      "Navigate observability implementation and incident guides"
+    ],
+    "technologies": [
+      "Micrometer",
+      "OpenTelemetry",
+      "Prometheus",
+      "Grafana",
+      "Loki"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-observability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Google Authentication With Spring",
+    "permalink": "/shopverse/security/oauth/GOOGLE-AUTHENTICATION-SPRING"
+  },
+  "next": {
+    "title": "Observability Engineering Overview",
+    "permalink": "/shopverse/observability/OBSERVABILITY-OVERVIEW"
+  }
+}

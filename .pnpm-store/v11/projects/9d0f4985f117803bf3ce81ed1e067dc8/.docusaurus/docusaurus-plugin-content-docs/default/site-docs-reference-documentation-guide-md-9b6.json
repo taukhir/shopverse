@@ -1,0 +1,42 @@
+{
+  "id": "reference/DOCUMENTATION-GUIDE",
+  "title": "Documentation Guide",
+  "description": "Use this umbrella to navigate and maintain the knowledge base without repeating",
+  "source": "@site/docs/reference/DOCUMENTATION-GUIDE.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/DOCUMENTATION-GUIDE",
+  "permalink": "/shopverse/reference/DOCUMENTATION-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/DOCUMENTATION-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Documentation Guide",
+    "difficulty": "Beginner",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose the correct documentation path",
+      "Distinguish concepts labs runbooks and implementation pages",
+      "Maintain canonical content safely"
+    ],
+    "technologies": [
+      "Docusaurus"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Walmart Interview Questionnaire",
+    "permalink": "/shopverse/WALMART-INTERVIEW-QUESTIONNAIRE"
+  },
+  "next": {
+    "title": "Backend Engineering Learning Path",
+    "permalink": "/shopverse/reference/LEARNING-PATH"
+  }
+}

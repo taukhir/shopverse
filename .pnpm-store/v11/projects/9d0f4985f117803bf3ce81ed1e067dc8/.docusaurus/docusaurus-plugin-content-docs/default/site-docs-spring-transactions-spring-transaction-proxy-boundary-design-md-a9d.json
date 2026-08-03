@@ -1,0 +1,55 @@
+{
+  "id": "spring/transactions/SPRING-TRANSACTION-PROXY-BOUNDARY-DESIGN",
+  "title": "Spring Transaction Proxy Mechanics And Boundary Design",
+  "description": "Definitive guide to how Spring transactions work, method eligibility, public/private/static/final methods, self-invocation, rollback, propagation, explicit TransactionTemplate boundaries, reactive transactions, and production design.",
+  "source": "@site/docs/spring/transactions/SPRING-TRANSACTION-PROXY-BOUNDARY-DESIGN.md",
+  "sourceDirName": "spring/transactions",
+  "slug": "/spring/transactions/SPRING-TRANSACTION-PROXY-BOUNDARY-DESIGN",
+  "permalink": "/shopverse/spring/transactions/SPRING-TRANSACTION-PROXY-BOUNDARY-DESIGN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/transactions/SPRING-TRANSACTION-PROXY-BOUNDARY-DESIGN.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Transaction Proxy Mechanics And Boundary Design",
+    "description": "Definitive guide to how Spring transactions work, method eligibility, public/private/static/final methods, self-invocation, rollback, propagation, explicit TransactionTemplate boundaries, reactive transactions, and production design.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring container",
+      "AOP proxies",
+      "Database transactions"
+    ],
+    "learning_objectives": [
+      "Trace TransactionInterceptor end to end",
+      "Predict which methods are intercepted",
+      "Explain self-invocation failure",
+      "Create explicit transaction boundaries",
+      "Diagnose rollback and resource failures"
+    ],
+    "technologies": [
+      "Spring Framework 7",
+      "Spring Boot 4",
+      "Spring Transactions",
+      "JPA",
+      "JDBC",
+      "Reactor"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Transactions: Boundaries, Propagation, Isolation And Locking",
+    "permalink": "/shopverse/spring/SPRING-TRANSACTIONS"
+  },
+  "next": {
+    "title": "Spring Proxy And Transaction Runtime For Architects",
+    "permalink": "/shopverse/spring/SPRING-PROXY-TRANSACTION-ARCHITECT"
+  }
+}

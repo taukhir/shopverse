@@ -1,0 +1,50 @@
+{
+  "id": "data/ELASTICSEARCH-ARCHITECT-PATH",
+  "title": "Elasticsearch Architect Learning Path",
+  "description": "Beginner-to-architect route through distributed search internals, mappings, analyzers, Query DSL, scoring, aggregations, pagination, scaling, ILM, security, Spring Data, and incidents.",
+  "source": "@site/docs/data/ELASTICSEARCH-ARCHITECT-PATH.md",
+  "sourceDirName": "data",
+  "slug": "/data/ELASTICSEARCH-ARCHITECT-PATH",
+  "permalink": "/shopverse/data/ELASTICSEARCH-ARCHITECT-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/ELASTICSEARCH-ARCHITECT-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Elasticsearch Architect Learning Path",
+    "description": "Beginner-to-architect route through distributed search internals, mappings, analyzers, Query DSL, scoring, aggregations, pagination, scaling, ILM, security, Spring Data, and incidents.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "JSON",
+      "HTTP",
+      "Distributed systems fundamentals"
+    ],
+    "learning_objectives": [
+      "Model searchable documents correctly",
+      "Explain Lucene and cluster internals",
+      "Operate and troubleshoot Elasticsearch in production"
+    ],
+    "technologies": [
+      "Elasticsearch",
+      "Lucene",
+      "Spring Data Elasticsearch"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Oracle With Spring, Interview Scenarios, Labs, And Revision",
+    "permalink": "/shopverse/data/oracle/ORACLE-SPRING-INTERVIEW-REVISION"
+  },
+  "next": {
+    "title": "Elasticsearch Internals, Indexing, And Mapping",
+    "permalink": "/shopverse/data/elasticsearch/ELASTICSEARCH-INTERNALS-MAPPING"
+  }
+}

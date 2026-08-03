@@ -1,0 +1,34 @@
+{
+  "id": "data/hibernate/HIBERNATE-BASICS-LIFECYCLE",
+  "title": "Hibernate Basics And Lifecycle",
+  "description": "Dependencies, main components, persistence context, object lifecycle, detached objects, persistence methods, loading APIs, and flush versus commit.",
+  "source": "@site/docs/data/hibernate/HIBERNATE-BASICS-LIFECYCLE.md",
+  "sourceDirName": "data/hibernate",
+  "slug": "/data/hibernate/HIBERNATE-BASICS-LIFECYCLE",
+  "permalink": "/shopverse/data/hibernate/HIBERNATE-BASICS-LIFECYCLE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/hibernate/HIBERNATE-BASICS-LIFECYCLE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Hibernate Basics And Lifecycle",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Hibernate",
+    "permalink": "/shopverse/data/HIBERNATE"
+  },
+  "next": {
+    "title": "Hibernate Annotations And Mapping",
+    "permalink": "/shopverse/data/hibernate/HIBERNATE-ANNOTATIONS-MAPPING"
+  }
+}

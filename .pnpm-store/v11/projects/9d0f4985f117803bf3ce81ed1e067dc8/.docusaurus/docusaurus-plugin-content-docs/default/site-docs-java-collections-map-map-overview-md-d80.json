@@ -1,0 +1,57 @@
+{
+  "id": "java/collections/map/MAP-OVERVIEW",
+  "title": "Java Map Collections Overview",
+  "description": "Choose among HashMap, LinkedHashMap, TreeMap, ConcurrentHashMap, EnumMap, and specialized map implementations.",
+  "source": "@site/docs/java/collections/map/MAP-OVERVIEW.md",
+  "sourceDirName": "java/collections/map",
+  "slug": "/java/collections/map/MAP-OVERVIEW",
+  "permalink": "/shopverse/java/collections/map/MAP-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/map/MAP-OVERVIEW.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "map",
+      "permalink": "/shopverse/tags/map"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Map Collections Overview",
+    "description": "Choose among HashMap, LinkedHashMap, TreeMap, ConcurrentHashMap, EnumMap, and specialized map implementations.",
+    "sidebar_label": "Map Overview",
+    "tags": [
+      "java",
+      "collections",
+      "map"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "EnumSet",
+    "permalink": "/shopverse/java/collections/set/ENUMSET-INTERNALS"
+  },
+  "next": {
+    "title": "HashMap",
+    "permalink": "/shopverse/java/collections/map/HASHMAP-INTERNALS"
+  }
+}

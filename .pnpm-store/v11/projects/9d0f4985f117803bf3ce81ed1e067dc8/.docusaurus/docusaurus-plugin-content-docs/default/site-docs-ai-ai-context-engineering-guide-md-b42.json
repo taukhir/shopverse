@@ -1,0 +1,47 @@
+{
+  "id": "ai/AI-CONTEXT-ENGINEERING-GUIDE",
+  "title": "AI Context Engineering For Software Repositories",
+  "description": "Design durable repository guidance, task context, routing instructions, and evidence packs for reliable Codex and Claude development workflows.",
+  "source": "@site/docs/ai/AI-CONTEXT-ENGINEERING-GUIDE.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-CONTEXT-ENGINEERING-GUIDE",
+  "permalink": "/shopverse/ai/AI-CONTEXT-ENGINEERING-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-CONTEXT-ENGINEERING-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AI Context Engineering For Software Repositories",
+    "description": "Design durable repository guidance, task context, routing instructions, and evidence packs for reliable Codex and Claude development workflows.",
+    "sidebar_label": "Context Engineering",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "AI developer toolkit",
+      "Repository architecture fundamentals"
+    ],
+    "technologies": [
+      "Codex",
+      "Claude Code",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "Git"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Commands, Prompts, And Connectors",
+    "permalink": "/shopverse/ai/AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS"
+  },
+  "next": {
+    "title": "Security And Prompt Injection",
+    "permalink": "/shopverse/ai/AI-SECURITY-PROMPT-INJECTION-PLAYBOOK"
+  }
+}

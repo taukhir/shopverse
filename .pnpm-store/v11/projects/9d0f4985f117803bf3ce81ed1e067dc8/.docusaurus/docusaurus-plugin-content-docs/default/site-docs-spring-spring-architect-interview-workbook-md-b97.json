@@ -1,0 +1,46 @@
+{
+  "id": "spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK",
+  "title": "Spring And Spring Boot Architect Interview Workbook",
+  "description": "Applied container, proxy, transaction, MVC, security, JPA, async, and production incidents with evidence-based model answers.",
+  "source": "@site/docs/spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK",
+  "permalink": "/shopverse/spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring And Spring Boot Architect Interview Workbook",
+    "description": "Applied container, proxy, transaction, MVC, security, JPA, async, and production incidents with evidence-based model answers.",
+    "difficulty": "Advanced",
+    "page_type": "Workbook",
+    "status": "maintained",
+    "learning_objectives": [
+      "Diagnose Spring incidents from runtime boundaries and reproducible evidence",
+      "Explain rejected alternatives, overload behavior, recovery, and multi-replica implications",
+      "Design a cross-service workflow with explicit transaction and resource ownership"
+    ],
+    "technologies": [
+      "Spring Framework",
+      "Spring Boot",
+      "Spring Security",
+      "JPA"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring REST Interview Workbook",
+    "permalink": "/shopverse/development/spring-rest/REST-INTERVIEW-WORKBOOK"
+  },
+  "next": {
+    "title": "Container, Bean Factory, And Auto-Configuration Internals",
+    "permalink": "/shopverse/spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG"
+  }
+}

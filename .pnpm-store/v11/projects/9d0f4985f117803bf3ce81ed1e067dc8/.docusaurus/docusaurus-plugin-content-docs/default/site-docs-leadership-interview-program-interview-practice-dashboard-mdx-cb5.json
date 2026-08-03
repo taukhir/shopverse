@@ -1,0 +1,49 @@
+{
+  "id": "leadership/interview-program/INTERVIEW-PRACTICE-DASHBOARD",
+  "title": "Interview Practice Dashboard",
+  "description": "Local-first progress, readiness, weakness, spaced-review, role-routing, mock-session, and MCQ attempt history dashboard.",
+  "source": "@site/docs/leadership/interview-program/INTERVIEW-PRACTICE-DASHBOARD.mdx",
+  "sourceDirName": "leadership/interview-program",
+  "slug": "/leadership/interview-program/INTERVIEW-PRACTICE-DASHBOARD",
+  "permalink": "/shopverse/leadership/interview-program/INTERVIEW-PRACTICE-DASHBOARD",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/interview-program/INTERVIEW-PRACTICE-DASHBOARD.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Interview Practice Dashboard",
+    "description": "Local-first progress, readiness, weakness, spaced-review, role-routing, mock-session, and MCQ attempt history dashboard.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "MCQ Practice Center"
+    ],
+    "learning_objectives": [
+      "Track retrieval evidence",
+      "Identify weak topics",
+      "Schedule spaced review",
+      "Apply role-specific readiness gates"
+    ],
+    "technologies": [
+      "React",
+      "Local Storage",
+      "Interview Practice"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "interactive-component-and-production-build"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Revision And Interview Readiness Scorecard",
+    "permalink": "/shopverse/leadership/interview-program/REVISION-READINESS-SCORECARD"
+  },
+  "next": {
+    "title": "MCQ Practice Center",
+    "permalink": "/shopverse/leadership/interview-program/MCQ-PRACTICE-CENTER"
+  }
+}

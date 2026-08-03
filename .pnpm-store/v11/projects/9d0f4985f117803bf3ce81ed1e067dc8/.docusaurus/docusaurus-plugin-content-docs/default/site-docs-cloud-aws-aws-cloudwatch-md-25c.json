@@ -1,0 +1,34 @@
+{
+  "id": "cloud/aws/AWS-CLOUDWATCH",
+  "title": "AWS CloudWatch Monitoring",
+  "description": "CloudWatch collects service and custom metrics, logs, alarms, dashboards, and",
+  "source": "@site/docs/cloud/aws/AWS-CLOUDWATCH.md",
+  "sourceDirName": "cloud/aws",
+  "slug": "/cloud/aws/AWS-CLOUDWATCH",
+  "permalink": "/shopverse/cloud/aws/AWS-CLOUDWATCH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/cloud/aws/AWS-CLOUDWATCH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AWS CloudWatch Monitoring",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-cloud",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AWS Lambda And Serverless",
+    "permalink": "/shopverse/cloud/aws/AWS-LAMBDA-SERVERLESS"
+  },
+  "next": {
+    "title": "Amazon EKS Production Architect Path",
+    "permalink": "/shopverse/cloud/aws/EKS-PRODUCTION-ARCHITECT-PATH"
+  }
+}

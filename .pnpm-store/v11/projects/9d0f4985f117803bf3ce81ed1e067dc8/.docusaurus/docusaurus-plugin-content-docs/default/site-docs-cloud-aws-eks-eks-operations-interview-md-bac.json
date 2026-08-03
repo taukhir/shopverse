@@ -1,0 +1,51 @@
+{
+  "id": "cloud/aws/eks/EKS-OPERATIONS-INTERVIEW",
+  "title": "EKS Operations, Incidents, Labs, And Interviews",
+  "description": "Implement and diagnose EKS identity, VPC CNI, nodes, add-ons, ingress, CSI, autoscaling, upgrades, security, cost, and disaster recovery with practical labs and interview questions.",
+  "source": "@site/docs/cloud/aws/eks/EKS-OPERATIONS-INTERVIEW.md",
+  "sourceDirName": "cloud/aws/eks",
+  "slug": "/cloud/aws/eks/EKS-OPERATIONS-INTERVIEW",
+  "permalink": "/shopverse/cloud/aws/eks/EKS-OPERATIONS-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/cloud/aws/eks/EKS-OPERATIONS-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "EKS Operations, Incidents, Labs, And Interviews",
+    "description": "Implement and diagnose EKS identity, VPC CNI, nodes, add-ons, ingress, CSI, autoscaling, upgrades, security, cost, and disaster recovery with practical labs and interview questions.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Amazon EKS Production Architect Path"
+    ],
+    "learning_objectives": [
+      "Diagnose AWS-specific failures",
+      "Operate upgrades and capacity",
+      "Secure workload identity",
+      "Complete production labs"
+    ],
+    "technologies": [
+      "EKS",
+      "IAM",
+      "VPC CNI",
+      "Karpenter",
+      "EBS CSI"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-cloud",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Amazon EKS Production Architect Path",
+    "permalink": "/shopverse/cloud/aws/EKS-PRODUCTION-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Cloud And AWS Revision Sheet",
+    "permalink": "/shopverse/cloud/CLOUD-AWS-REVISION-SHEET"
+  }
+}

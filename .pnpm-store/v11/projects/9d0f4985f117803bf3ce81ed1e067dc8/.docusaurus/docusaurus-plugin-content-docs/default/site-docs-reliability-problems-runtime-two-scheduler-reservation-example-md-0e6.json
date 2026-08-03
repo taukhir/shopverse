@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/runtime/TWO-SCHEDULER-RESERVATION-EXAMPLE",
+  "title": "Two-Scheduler Reservation Expiry Example",
+  "description": "This example shows two Inventory Service replicas competing for four expired",
+  "source": "@site/docs/reliability/problems/runtime/TWO-SCHEDULER-RESERVATION-EXAMPLE.md",
+  "sourceDirName": "reliability/problems/runtime",
+  "slug": "/reliability/problems/runtime/TWO-SCHEDULER-RESERVATION-EXAMPLE",
+  "permalink": "/shopverse/reliability/problems/runtime/TWO-SCHEDULER-RESERVATION-EXAMPLE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/runtime/TWO-SCHEDULER-RESERVATION-EXAMPLE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Two-Scheduler Reservation Expiry Example",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Reservation Transaction Implementation",
+    "permalink": "/shopverse/reliability/problems/runtime/RESERVATION-TRANSACTION-IMPLEMENTATION"
+  },
+  "next": {
+    "title": "Late Payment Reconciliation After Expiry",
+    "permalink": "/shopverse/reliability/problems/runtime/LATE-PAYMENT-AFTER-EXPIRY"
+  }
+}

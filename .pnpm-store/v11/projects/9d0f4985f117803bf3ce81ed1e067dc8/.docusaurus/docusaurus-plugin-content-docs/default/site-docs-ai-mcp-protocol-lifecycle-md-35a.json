@@ -1,0 +1,50 @@
+{
+  "id": "ai/MCP-PROTOCOL-LIFECYCLE",
+  "title": "MCP Protocol Lifecycle And Architecture",
+  "description": "Initialization negotiates a compatible protocol version and declares capabilities.",
+  "source": "@site/docs/ai/MCP-PROTOCOL-LIFECYCLE.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/MCP-PROTOCOL-LIFECYCLE",
+  "permalink": "/shopverse/ai/MCP-PROTOCOL-LIFECYCLE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/MCP-PROTOCOL-LIFECYCLE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "MCP Protocol Lifecycle And Architecture",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "keywords": [
+      "MCP initialize",
+      "capability negotiation",
+      "MCP lifecycle",
+      "cancellation",
+      "progress"
+    ],
+    "learning_objectives": [
+      "Trace initialization and shutdown",
+      "Explain capability negotiation",
+      "Handle concurrency cancellation and version compatibility"
+    ],
+    "technologies": [
+      "MCP",
+      "JSON-RPC"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Model Context Protocol",
+    "permalink": "/shopverse/ai/MCP-UMBRELLA"
+  },
+  "next": {
+    "title": "MCP Primitives, Transports, And Sessions",
+    "permalink": "/shopverse/ai/MCP-PRIMITIVES-TRANSPORTS"
+  }
+}

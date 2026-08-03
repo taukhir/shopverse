@@ -1,0 +1,55 @@
+{
+  "id": "ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM",
+  "title": "Spring Cloud AI And MCP Ecosystem",
+  "description": "Spring Cloud manages distributed-system concerns. Spring AI or LangChain4j",
+  "source": "@site/docs/ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM",
+  "permalink": "/shopverse/ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Cloud AI And MCP Ecosystem",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "keywords": [
+      "Spring Cloud",
+      "Spring AI",
+      "MCP",
+      "Gateway",
+      "Config",
+      "Stream",
+      "Resilience4j"
+    ],
+    "learning_objectives": [
+      "Place AI services and MCP adapters in Spring Cloud",
+      "Design streaming resilient and event-driven AI flows",
+      "Propagate identity deadlines and telemetry safely"
+    ],
+    "technologies": [
+      "Spring Cloud Gateway",
+      "Spring Cloud Config",
+      "Spring Cloud Stream",
+      "Spring AI",
+      "MCP"
+    ],
+    "last_reviewed": "2026-07-16",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI Security And Guardrails",
+    "permalink": "/shopverse/ai/AI-SECURITY-GUARDRAILS"
+  },
+  "next": {
+    "title": "Secure AI Agents, Data And Fast Accurate Delivery",
+    "permalink": "/shopverse/ai/SECURE-AI-AGENTS-DATA-PERFORMANCE"
+  }
+}

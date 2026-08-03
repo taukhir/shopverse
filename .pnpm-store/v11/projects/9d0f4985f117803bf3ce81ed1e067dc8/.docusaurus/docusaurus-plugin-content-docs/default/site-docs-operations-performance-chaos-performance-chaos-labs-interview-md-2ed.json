@@ -1,0 +1,51 @@
+{
+  "id": "operations/performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW",
+  "title": "Performance And Chaos Labs, CI, Incidents, And Interviews",
+  "description": "Build a test strategy, automate k6 thresholds, profile bottlenecks, inject safe faults with proxies or Kubernetes tools, run experiments, analyse results, and practise architect interviews.",
+  "source": "@site/docs/operations/performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW.md",
+  "sourceDirName": "operations/performance-chaos",
+  "slug": "/operations/performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW",
+  "permalink": "/shopverse/operations/performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Performance And Chaos Labs, CI, Incidents, And Interviews",
+    "description": "Build a test strategy, automate k6 thresholds, profile bottlenecks, inject safe faults with proxies or Kubernetes tools, run experiments, analyse results, and practise architect interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Performance And Chaos Engineering Path"
+    ],
+    "learning_objectives": [
+      "Implement repeatable tests",
+      "Find bottlenecks",
+      "Run guarded faults",
+      "Defend results in interviews"
+    ],
+    "technologies": [
+      "k6",
+      "JFR",
+      "Prometheus",
+      "Toxiproxy",
+      "Chaos Mesh"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Production Slowness Diagnosis",
+    "permalink": "/shopverse/operations/performance-chaos/PRODUCTION-SLOWNESS-DIAGNOSIS-RUNBOOK"
+  },
+  "next": {
+    "title": "Platform Engineering, Golden Paths, And Self-Service Architect Path",
+    "permalink": "/shopverse/operations/PLATFORM-ENGINEERING-GOLDEN-PATH"
+  }
+}

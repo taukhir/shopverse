@@ -1,0 +1,39 @@
+{
+  "id": "case-study/SHOPVERSE",
+  "title": "Shopverse Case Study",
+  "description": "Architecture At A Glance",
+  "source": "@site/docs/case-study/SHOPVERSE.mdx",
+  "sourceDirName": "case-study",
+  "slug": "/case-study/SHOPVERSE",
+  "permalink": "/shopverse/case-study/SHOPVERSE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/case-study/SHOPVERSE.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Shopverse Case Study",
+    "sidebar_position": 1,
+    "hide_table_of_contents": true,
+    "hide_title": true,
+    "hide_reader_chrome": true,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "shopverse",
+    "owner": "docs-case-study",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Interview Q&A",
+    "permalink": "/shopverse/ai/INTERVIEW-QA"
+  },
+  "next": {
+    "title": "Shopverse Case Study",
+    "permalink": "/shopverse/case-study/SHOPVERSE"
+  }
+}

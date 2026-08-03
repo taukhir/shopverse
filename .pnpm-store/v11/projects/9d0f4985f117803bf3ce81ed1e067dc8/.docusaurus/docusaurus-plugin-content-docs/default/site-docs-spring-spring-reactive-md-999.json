@@ -1,0 +1,53 @@
+{
+  "id": "spring/SPRING-REACTIVE",
+  "title": "Spring Reactive And WebFlux",
+  "description": "Spring WebFlux runtime guide covering event loops, demand and prefetch, cancellation, blocking detection, context, streaming, virtual-thread boundaries, observability, and testing.",
+  "source": "@site/docs/spring/SPRING-REACTIVE.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-REACTIVE",
+  "permalink": "/shopverse/spring/SPRING-REACTIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-REACTIVE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 10,
+  "frontMatter": {
+    "title": "Spring Reactive And WebFlux",
+    "description": "Spring WebFlux runtime guide covering event loops, demand and prefetch, cancellation, blocking detection, context, streaming, virtual-thread boundaries, observability, and testing.",
+    "sidebar_position": 10,
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring ecosystem",
+      "Java functional interfaces",
+      "Java streams"
+    ],
+    "learning_objectives": [
+      "Understand reactive streams and backpressure",
+      "Build non-blocking WebFlux request pipelines",
+      "Avoid blocking and context propagation failures"
+    ],
+    "technologies": [
+      "Spring WebFlux",
+      "Project Reactor",
+      "Reactive Streams",
+      "R2DBC"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Task Execution And Scheduling For Production",
+    "permalink": "/shopverse/spring/SPRING-ASYNC-PRODUCTION-ARCHITECT"
+  },
+  "next": {
+    "title": "Spring Cloud OpenFeign",
+    "permalink": "/shopverse/spring/SPRING-OPENFEIGN"
+  }
+}

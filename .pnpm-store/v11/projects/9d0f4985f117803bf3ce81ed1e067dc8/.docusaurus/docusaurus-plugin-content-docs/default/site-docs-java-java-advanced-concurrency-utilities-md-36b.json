@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-ADVANCED-CONCURRENCY-UTILITIES",
+  "title": "Advanced Java Concurrency Utilities And Reactive Flow",
+  "description": "StampedLock, Phaser, Flow, memory ordering, false sharing, coordinated omission, and selection rules.",
+  "source": "@site/docs/java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-ADVANCED-CONCURRENCY-UTILITIES",
+  "permalink": "/shopverse/java/JAVA-ADVANCED-CONCURRENCY-UTILITIES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-ADVANCED-CONCURRENCY-UTILITIES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Advanced Java Concurrency Utilities And Reactive Flow",
+    "description": "StampedLock, Phaser, Flow, memory ordering, false sharing, coordinated omission, and selection rules.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "CompletableFuture Production Architecture",
+    "permalink": "/shopverse/java/completable-future/COMPLETABLE-FUTURE-PRODUCTION"
+  },
+  "next": {
+    "title": "Concurrency Primitives, AQS, And Virtual Threads",
+    "permalink": "/shopverse/java/advanced-internals/CONCURRENCY-AQS-VIRTUAL-THREADS"
+  }
+}

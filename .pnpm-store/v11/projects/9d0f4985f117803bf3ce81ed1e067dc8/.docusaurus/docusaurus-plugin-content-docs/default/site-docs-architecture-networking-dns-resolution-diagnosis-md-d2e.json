@@ -1,0 +1,48 @@
+{
+  "id": "architecture/networking/DNS-RESOLUTION-DIAGNOSIS",
+  "title": "DNS Resolution, Caching, Discovery, And Diagnosis",
+  "description": "Trace stub, recursive and authoritative DNS, records, TTL, negative caching, split horizon, DNSSEC, Kubernetes DNS, failures, and safe diagnostics.",
+  "source": "@site/docs/architecture/networking/DNS-RESOLUTION-DIAGNOSIS.md",
+  "sourceDirName": "architecture/networking",
+  "slug": "/architecture/networking/DNS-RESOLUTION-DIAGNOSIS",
+  "permalink": "/shopverse/architecture/networking/DNS-RESOLUTION-DIAGNOSIS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/networking/DNS-RESOLUTION-DIAGNOSIS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "DNS Resolution, Caching, Discovery, And Diagnosis",
+    "description": "Trace stub, recursive and authoritative DNS, records, TTL, negative caching, split horizon, DNSSEC, Kubernetes DNS, failures, and safe diagnostics.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Network Protocol Diagnosis Path"
+    ],
+    "learning_objectives": [
+      "Explain DNS resolution and caching",
+      "Design resilient service naming",
+      "Diagnose DNS failures precisely"
+    ],
+    "technologies": [
+      "DNS",
+      "CoreDNS",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "DNS, TCP, TLS, And HTTP/2 Diagnosis Path",
+    "permalink": "/shopverse/architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH"
+  },
+  "next": {
+    "title": "TCP Connections, Congestion, NAT, And Socket Diagnosis",
+    "permalink": "/shopverse/architecture/networking/TCP-CONNECTION-DIAGNOSIS"
+  }
+}

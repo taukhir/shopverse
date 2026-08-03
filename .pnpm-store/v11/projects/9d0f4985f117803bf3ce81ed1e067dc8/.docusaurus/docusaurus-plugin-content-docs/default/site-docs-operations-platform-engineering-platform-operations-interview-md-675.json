@@ -1,0 +1,51 @@
+{
+  "id": "operations/platform-engineering/PLATFORM-OPERATIONS-INTERVIEW",
+  "title": "Platform Implementation, Operations, Labs, And Interviews",
+  "description": "Implement catalog, templates, platform APIs, golden-path upgrades, tenancy, policy, reliability, scorecards, incident response, adoption experiments, and architect interviews.",
+  "source": "@site/docs/operations/platform-engineering/PLATFORM-OPERATIONS-INTERVIEW.md",
+  "sourceDirName": "operations/platform-engineering",
+  "slug": "/operations/platform-engineering/PLATFORM-OPERATIONS-INTERVIEW",
+  "permalink": "/shopverse/operations/platform-engineering/PLATFORM-OPERATIONS-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/platform-engineering/PLATFORM-OPERATIONS-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Platform Implementation, Operations, Labs, And Interviews",
+    "description": "Implement catalog, templates, platform APIs, golden-path upgrades, tenancy, policy, reliability, scorecards, incident response, adoption experiments, and architect interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Platform Engineering And Golden Paths"
+    ],
+    "learning_objectives": [
+      "Build one complete golden path",
+      "Operate platform control planes",
+      "Measure adoption",
+      "Defend tool and abstraction choices"
+    ],
+    "technologies": [
+      "Backstage",
+      "Crossplane",
+      "Kustomize",
+      "Flux",
+      "Argo CD"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Platform Engineering, Golden Paths, And Self-Service Architect Path",
+    "permalink": "/shopverse/operations/PLATFORM-ENGINEERING-GOLDEN-PATH"
+  },
+  "next": {
+    "title": "Bash, PowerShell, And Operational Automation Engineering Path",
+    "permalink": "/shopverse/operations/SHELL-AUTOMATION-ENGINEERING-PATH"
+  }
+}

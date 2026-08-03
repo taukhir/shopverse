@@ -1,0 +1,64 @@
+{
+  "id": "architecture/CHANGE-DATA-CAPTURE",
+  "title": "Change Data Capture In Microservices",
+  "description": "Change data capture (CDC) converts committed database changes into a durable",
+  "source": "@site/docs/architecture/CHANGE-DATA-CAPTURE.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/CHANGE-DATA-CAPTURE",
+  "permalink": "/shopverse/architecture/CHANGE-DATA-CAPTURE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/CHANGE-DATA-CAPTURE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Change Data Capture In Microservices",
+    "sidebar_label": "Change Data Capture (CDC)",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Microservices patterns",
+      "Transactional outbox",
+      "Kafka fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain the problems CDC solves",
+      "Compare direct table CDC with outbox CDC",
+      "Design snapshots offsets ordering recovery and operations",
+      "Decide when polling or CDC is the better relay"
+    ],
+    "technologies": [
+      "Debezium",
+      "Kafka Connect",
+      "Kafka",
+      "MySQL",
+      "PostgreSQL"
+    ],
+    "keywords": [
+      "CDC",
+      "change data capture",
+      "Debezium",
+      "binlog",
+      "WAL",
+      "transactional outbox",
+      "Kafka Connect",
+      "snapshot",
+      "connector offset"
+    ],
+    "last_reviewed": "2026-07-16",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Domain-Driven Design For Production Systems",
+    "permalink": "/shopverse/architecture/DOMAIN-DRIVEN-DESIGN"
+  },
+  "next": {
+    "title": "Microservices Internals And Failure Engineering",
+    "permalink": "/shopverse/architecture/MICROSERVICES-INTERNALS-DEEP-DIVE"
+  }
+}

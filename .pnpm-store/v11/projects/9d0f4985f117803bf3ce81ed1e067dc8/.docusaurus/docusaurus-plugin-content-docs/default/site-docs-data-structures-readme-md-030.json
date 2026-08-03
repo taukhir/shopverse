@@ -1,0 +1,57 @@
+{
+  "id": "data-structures/README",
+  "title": "Algorithms And Data Structures",
+  "description": "A focused Shopverse learning path for selecting, analyzing, and applying data structures.",
+  "source": "@site/docs/data-structures/README.md",
+  "sourceDirName": "data-structures",
+  "slug": "/data-structures/",
+  "permalink": "/shopverse/data-structures/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/README.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "data structures",
+      "permalink": "/shopverse/tags/data-structures"
+    },
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Algorithms And Data Structures",
+    "description": "A focused Shopverse learning path for selecting, analyzing, and applying data structures.",
+    "sidebar_label": "Algorithms And Data Structures",
+    "tags": [
+      "data structures",
+      "java",
+      "shopverse"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Beginner",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Production REST API Design",
+    "permalink": "/shopverse/development/REST-API-PRODUCTION-DESIGN"
+  },
+  "next": {
+    "title": "Data Structures Fundamentals",
+    "permalink": "/shopverse/data-structures/DATA-STRUCTURES-FUNDAMENTALS"
+  }
+}

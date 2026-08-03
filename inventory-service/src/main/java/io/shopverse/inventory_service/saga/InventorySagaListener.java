@@ -44,6 +44,16 @@ public class InventorySagaListener {
 
     @RetryableTopic(attempts = "3")
     @KafkaListener(
+            topics = "${shopverse.kafka.topics.payment-completed}",
+            groupId = "${spring.application.name}"
+    )
+    public void onPaymentCompleted(String payload) {
+        PaymentCompletedEvent event = eventParser.parse(payload, PaymentCompletedEvent.class);
+        CorrelationContext.run(event.correlationId(), () -> inventoryService.confirmReservation(event.orderNumber()));
+    }
+
+    @RetryableTopic(attempts = "3")
+    @KafkaListener(
             topics = "${shopverse.kafka.topics.order-cancelled}",
             groupId = "${spring.application.name}"
     )
@@ -92,6 +102,11 @@ public class InventorySagaListener {
                 "Inventory listener failed after retry policy",
                 3
         );
-        log.error("Inventory event moved to DLT sourceTopic={} payload={}", sourceTopic, record.value());
+        log.error(
+                "Inventory event moved to DLT sourceTopic={} partition={} offset={}",
+                sourceTopic,
+                record.partition(),
+                record.offset()
+        );
     }
 }

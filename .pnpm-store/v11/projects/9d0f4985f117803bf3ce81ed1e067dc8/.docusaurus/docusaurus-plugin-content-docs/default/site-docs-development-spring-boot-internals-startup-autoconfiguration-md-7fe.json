@@ -1,0 +1,44 @@
+{
+  "id": "development/spring-boot-internals/STARTUP-AUTOCONFIGURATION",
+  "title": "Spring Boot Startup, Environment And Auto-Configuration",
+  "description": "Spring Boot entry point, startup phases, property sources, condition evaluation, back-off, and dependency-driven infrastructure.",
+  "source": "@site/docs/development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md",
+  "sourceDirName": "development/spring-boot-internals",
+  "slug": "/development/spring-boot-internals/STARTUP-AUTOCONFIGURATION",
+  "permalink": "/shopverse/development/spring-boot-internals/STARTUP-AUTOCONFIGURATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-boot-internals/STARTUP-AUTOCONFIGURATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot Startup, Environment And Auto-Configuration",
+    "description": "Spring Boot entry point, startup phases, property sources, condition evaluation, back-off, and dependency-driven infrastructure.",
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Trace Spring Boot startup from main through readiness",
+      "Explain property-source precedence and auto-configuration back-off",
+      "Diagnose missing or unexpected infrastructure from condition evidence"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Spring Framework"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "shopverse",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Internals Learning Guide",
+    "permalink": "/shopverse/development/SPRING-BOOT-INTERNALS"
+  },
+  "next": {
+    "title": "Spring Boot Startup Extension Points And Events",
+    "permalink": "/shopverse/development/spring-boot-internals/STARTUP-EXTENSION-POINTS"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "operations/kubernetes/TKGI-ARCHITECTURE-OPERATIONS",
+  "title": "TKGI Architecture, Services, BOSH, Concourse, And Operations",
+  "description": "In-depth Tanzu Kubernetes Grid Integrated Edition guide covering management and workload planes, TKGI API, UAA, broker, BOSH deployments, vSphere and NSX integration, cluster lifecycle, Concourse pipelines, Go and BOSH packages, commands, failures, and interviews.",
+  "source": "@site/docs/operations/kubernetes/TKGI-ARCHITECTURE-OPERATIONS.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-ARCHITECTURE-OPERATIONS",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-ARCHITECTURE-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-ARCHITECTURE-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI Architecture, Services, BOSH, Concourse, And Operations",
+    "description": "In-depth Tanzu Kubernetes Grid Integrated Edition guide covering management and workload planes, TKGI API, UAA, broker, BOSH deployments, vSphere and NSX integration, cluster lifecycle, Concourse pipelines, Go and BOSH packages, commands, failures, and interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Kubernetes internals",
+      "BOSH fundamentals",
+      "vSphere networking"
+    ],
+    "learning_objectives": [
+      "Trace TKGI cluster provisioning end to end",
+      "Distinguish TKGI BOSH and Kubernetes control planes",
+      "Identify version-dependent TKGI services",
+      "Diagnose cluster lifecycle failures",
+      "Explain Concourse and Go packaging in a TKGI delivery workflow"
+    ],
+    "technologies": [
+      "TKGI",
+      "Kubernetes",
+      "BOSH",
+      "Operations Manager",
+      "vSphere",
+      "NSX",
+      "Concourse",
+      "Go"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Management Console, Monitoring And Operations",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-CONSOLE-MONITORING"
+  },
+  "next": {
+    "title": "TKGI Production Platform Operations Path",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-PRODUCTION-OPERATIONS-PATH"
+  }
+}

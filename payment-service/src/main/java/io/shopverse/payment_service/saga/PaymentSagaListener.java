@@ -39,7 +39,7 @@ public class PaymentSagaListener {
                 "Payment listener failed after retry policy",
                 3
         );
-        log.error("Payment event moved to DLT payload={}", payload);
+        log.error("Payment event moved to DLT sourceTopic={}", topics.inventoryReserved());
     }
 
     private void handleInventoryReserved(InventoryReservedEvent event) {

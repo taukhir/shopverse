@@ -1,0 +1,57 @@
+{
+  "id": "reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM",
+  "title": "Atomic Conditional Reservation Claim",
+  "description": "Atomic Conditional Reservation Claim with Shopverse examples, failure analysis, and production guidance.",
+  "source": "@site/docs/reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM.md",
+  "sourceDirName": "reliability/problems/runtime",
+  "slug": "/reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM",
+  "permalink": "/shopverse/reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Atomic Conditional Reservation Claim",
+    "description": "Atomic Conditional Reservation Claim with Shopverse examples, failure analysis, and production guidance.",
+    "sidebar_label": "Atomic Conditional Reservation Claim",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Reservation Contention And State Model",
+    "permalink": "/shopverse/reliability/problems/runtime/RESERVATION-CONTENTION-STATE-MODEL"
+  },
+  "next": {
+    "title": "Reservation Transaction Implementation",
+    "permalink": "/shopverse/reliability/problems/runtime/RESERVATION-TRANSACTION-IMPLEMENTATION"
+  }
+}

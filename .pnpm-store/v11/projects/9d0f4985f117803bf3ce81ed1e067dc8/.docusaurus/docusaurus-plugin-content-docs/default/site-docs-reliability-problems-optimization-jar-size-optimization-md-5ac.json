@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/optimization/JAR-SIZE-OPTIMIZATION",
+  "title": "Reduce Spring Boot JAR Size",
+  "description": "Back to Optimization Solutions.",
+  "source": "@site/docs/reliability/problems/optimization/JAR-SIZE-OPTIMIZATION.md",
+  "sourceDirName": "reliability/problems/optimization",
+  "slug": "/reliability/problems/optimization/JAR-SIZE-OPTIMIZATION",
+  "permalink": "/shopverse/reliability/problems/optimization/JAR-SIZE-OPTIMIZATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/optimization/JAR-SIZE-OPTIMIZATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Reduce Spring Boot JAR Size",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Reduce Docker Image Size",
+    "permalink": "/shopverse/reliability/problems/optimization/DOCKER-IMAGE-SIZE-OPTIMIZATION"
+  },
+  "next": {
+    "title": "Add Docker Compose Profiles",
+    "permalink": "/shopverse/reliability/problems/optimization/DOCKER-COMPOSE-PROFILES"
+  }
+}

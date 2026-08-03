@@ -1,0 +1,49 @@
+{
+  "id": "integration/streaming/KAFKA-CONNECT-OVERVIEW",
+  "title": "Kafka Connect Overview",
+  "description": "A beginner-to-lead overview of workers, connectors, tasks, source and sink flows, distributed mode, converters, offsets, SMTs, and selection.",
+  "source": "@site/docs/integration/streaming/KAFKA-CONNECT-OVERVIEW.md",
+  "sourceDirName": "integration/streaming",
+  "slug": "/integration/streaming/KAFKA-CONNECT-OVERVIEW",
+  "permalink": "/shopverse/integration/streaming/KAFKA-CONNECT-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/integration/streaming/KAFKA-CONNECT-OVERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kafka Connect Overview",
+    "description": "A beginner-to-lead overview of workers, connectors, tasks, source and sink flows, distributed mode, converters, offsets, SMTs, and selection.",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Kafka topics and partitions"
+    ],
+    "learning_objectives": [
+      "Explain Connect architecture",
+      "Configure source and sink connectors",
+      "Choose Connect instead of application code"
+    ],
+    "technologies": [
+      "Kafka Connect",
+      "Source Connector",
+      "Sink Connector",
+      "Converters"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-integration",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kafka Streams Stateful Processing And Production",
+    "permalink": "/shopverse/integration/streaming/KAFKA-STREAMS-STATEFUL-PRODUCTION"
+  },
+  "next": {
+    "title": "Kafka Connect CDC And Production Operations",
+    "permalink": "/shopverse/integration/streaming/KAFKA-CONNECT-CDC-PRODUCTION"
+  }
+}

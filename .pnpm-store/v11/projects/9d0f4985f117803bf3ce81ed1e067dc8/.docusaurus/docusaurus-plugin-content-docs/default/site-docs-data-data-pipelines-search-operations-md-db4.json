@@ -1,0 +1,55 @@
+{
+  "id": "data/DATA-PIPELINES-SEARCH-OPERATIONS",
+  "title": "Data Pipelines And Search Operations",
+  "description": "ETL, ELT, Batch, And Streaming",
+  "source": "@site/docs/data/DATA-PIPELINES-SEARCH-OPERATIONS.md",
+  "sourceDirName": "data",
+  "slug": "/data/DATA-PIPELINES-SEARCH-OPERATIONS",
+  "permalink": "/shopverse/data/DATA-PIPELINES-SEARCH-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATA-PIPELINES-SEARCH-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Data Pipelines And Search Operations",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "keywords": [
+      "ETL",
+      "ELT",
+      "batch processing",
+      "stream processing",
+      "watermark",
+      "late event",
+      "search relevance",
+      "zero-downtime reindex"
+    ],
+    "learning_objectives": [
+      "Choose batch streaming ETL or ELT",
+      "Design replayable quality-controlled pipelines",
+      "Operate search indexes safely"
+    ],
+    "technologies": [
+      "Kafka",
+      "ClickHouse",
+      "Elasticsearch",
+      "OpenSearch"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Multi-Tenancy, Object Storage, And Feature Flags",
+    "permalink": "/shopverse/architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS"
+  },
+  "next": {
+    "title": "Data Pipeline Production And Interview Guide",
+    "permalink": "/shopverse/data/DATA-PIPELINE-PRODUCTION-INTERVIEW"
+  }
+}

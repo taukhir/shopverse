@@ -1,0 +1,36 @@
+{
+  "id": "ai/INTERVIEW-QA",
+  "title": "Interview Q&A",
+  "description": "Use these as short spoken answers. For most interviews, answer in 20-40",
+  "source": "@site/docs/ai/INTERVIEW-QA.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/INTERVIEW-QA",
+  "permalink": "/shopverse/ai/INTERVIEW-QA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/INTERVIEW-QA.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 9,
+  "frontMatter": {
+    "title": "Interview Q&A",
+    "sidebar_position": 9,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Hands-on Labs",
+    "permalink": "/shopverse/ai/HANDS-ON-LABS"
+  },
+  "next": {
+    "title": "Shopverse Case Study",
+    "permalink": "/shopverse/case-study/SHOPVERSE"
+  }
+}

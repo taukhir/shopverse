@@ -1,0 +1,57 @@
+{
+  "id": "platform/BEFORE-AFTER-FILES",
+  "title": "Before And After File Inventory",
+  "description": "Before And After File Inventory: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/platform/BEFORE-AFTER-FILES.md",
+  "sourceDirName": "platform",
+  "slug": "/platform/BEFORE-AFTER-FILES",
+  "permalink": "/shopverse/platform/BEFORE-AFTER-FILES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/platform/BEFORE-AFTER-FILES.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "platform",
+      "permalink": "/shopverse/tags/platform"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Before And After File Inventory",
+    "description": "Before And After File Inventory: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Before And After File Inventory",
+    "tags": [
+      "platform",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-platform",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Platform Migration Checklist",
+    "permalink": "/shopverse/platform/MIGRATION-CHECKLIST"
+  },
+  "next": {
+    "title": "Platform Config Property Reference",
+    "permalink": "/shopverse/platform/CONFIG-PROPERTIES"
+  }
+}

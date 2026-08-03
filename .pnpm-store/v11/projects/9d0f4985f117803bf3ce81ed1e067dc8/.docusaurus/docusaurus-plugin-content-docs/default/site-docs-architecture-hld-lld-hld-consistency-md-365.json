@@ -1,0 +1,34 @@
+{
+  "id": "architecture/hld-lld/hld/CONSISTENCY",
+  "title": "Consistency",
+  "description": "Consistency defines what values users and services are allowed to observe after",
+  "source": "@site/docs/architecture/hld-lld/hld/CONSISTENCY.md",
+  "sourceDirName": "architecture/hld-lld/hld",
+  "slug": "/architecture/hld-lld/hld/CONSISTENCY",
+  "permalink": "/shopverse/architecture/hld-lld/hld/CONSISTENCY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/hld-lld/hld/CONSISTENCY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Consistency",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "CAP Theorem",
+    "permalink": "/shopverse/architecture/hld-lld/hld/CAP-THEOREM"
+  },
+  "next": {
+    "title": "Content Delivery Network",
+    "permalink": "/shopverse/architecture/hld-lld/hld/CONTENT-DELIVERY-NETWORK"
+  }
+}

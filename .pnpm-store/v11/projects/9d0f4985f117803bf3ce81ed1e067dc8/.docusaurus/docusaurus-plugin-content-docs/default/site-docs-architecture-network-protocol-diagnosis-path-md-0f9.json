@@ -1,0 +1,51 @@
+{
+  "id": "architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH",
+  "title": "DNS, TCP, TLS, And HTTP/2 Diagnosis Path",
+  "description": "Complete network path from name resolution through TCP, TLS, HTTP/1.1, HTTP/2, proxies, load balancers, packet evidence, incidents, labs, and interviews.",
+  "source": "@site/docs/architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH",
+  "permalink": "/shopverse/architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "DNS, TCP, TLS, And HTTP/2 Diagnosis Path",
+    "description": "Complete network path from name resolution through TCP, TLS, HTTP/1.1, HTTP/2, proxies, load balancers, packet evidence, incidents, labs, and interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "HTTP fundamentals",
+      "Linux command-line fundamentals"
+    ],
+    "learning_objectives": [
+      "Trace an application request through network layers",
+      "Diagnose protocol failures from evidence",
+      "Design deadlines pools and secure connectivity"
+    ],
+    "technologies": [
+      "DNS",
+      "TCP",
+      "TLS",
+      "HTTP/1.1",
+      "HTTP/2"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "API And Event Schema Governance Interview, Labs, And Revision",
+    "permalink": "/shopverse/architecture/governance/SCHEMA-GOVERNANCE-INTERVIEW-REVISION"
+  },
+  "next": {
+    "title": "DNS Resolution, Caching, Discovery, And Diagnosis",
+    "permalink": "/shopverse/architecture/networking/DNS-RESOLUTION-DIAGNOSIS"
+  }
+}

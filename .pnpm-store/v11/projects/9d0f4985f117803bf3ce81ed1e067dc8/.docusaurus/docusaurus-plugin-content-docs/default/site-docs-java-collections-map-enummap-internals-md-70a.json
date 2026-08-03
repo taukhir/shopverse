@@ -1,0 +1,69 @@
+{
+  "id": "java/collections/map/ENUMMAP-INTERNALS",
+  "title": "EnumMap Internals and Usage",
+  "description": "EnumMap ordinal-indexed array storage, methods, complexity, null rules, declaration-order iteration, and enum-key use cases.",
+  "source": "@site/docs/java/collections/map/ENUMMAP-INTERNALS.md",
+  "sourceDirName": "java/collections/map",
+  "slug": "/java/collections/map/ENUMMAP-INTERNALS",
+  "permalink": "/shopverse/java/collections/map/ENUMMAP-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/map/ENUMMAP-INTERNALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "map",
+      "permalink": "/shopverse/tags/map"
+    },
+    {
+      "inline": true,
+      "label": "enummap",
+      "permalink": "/shopverse/tags/enummap"
+    },
+    {
+      "inline": true,
+      "label": "internals",
+      "permalink": "/shopverse/tags/internals"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "EnumMap Internals and Usage",
+    "description": "EnumMap ordinal-indexed array storage, methods, complexity, null rules, declaration-order iteration, and enum-key use cases.",
+    "sidebar_label": "EnumMap",
+    "tags": [
+      "java",
+      "collections",
+      "map",
+      "enummap",
+      "internals"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TreeMap",
+    "permalink": "/shopverse/java/collections/map/TREEMAP-INTERNALS"
+  },
+  "next": {
+    "title": "ConcurrentHashMap OpenJDK Internals And Design Review",
+    "permalink": "/shopverse/java/JAVA-CONCURRENT-HASHMAP-OPENJDK"
+  }
+}

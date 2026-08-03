@@ -1,0 +1,34 @@
+{
+  "id": "reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP",
+  "title": "Partition And Queue Ownership",
+  "description": "Partition and queue ownership serialize work by assignment rather than by",
+  "source": "@site/docs/reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP.md",
+  "sourceDirName": "reliability/locking",
+  "slug": "/reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP",
+  "permalink": "/shopverse/reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Partition And Queue Ownership",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Locks And Fencing",
+    "permalink": "/shopverse/reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING"
+  },
+  "next": {
+    "title": "SAGA And Transactional Outbox",
+    "permalink": "/shopverse/reliability/SAGA-GENERIC"
+  }
+}

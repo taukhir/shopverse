@@ -1,0 +1,46 @@
+{
+  "id": "architecture/financial/MONEY-LEDGER-ACCOUNTING-INVARIANTS",
+  "title": "Money, Ledger, And Accounting Invariants",
+  "description": "Model currency and rounding safely and implement append-only, balanced ledger transactions, postings, reversals, and balance projections.",
+  "source": "@site/docs/architecture/financial/MONEY-LEDGER-ACCOUNTING-INVARIANTS.md",
+  "sourceDirName": "architecture/financial",
+  "slug": "/architecture/financial/MONEY-LEDGER-ACCOUNTING-INVARIANTS",
+  "permalink": "/shopverse/architecture/financial/MONEY-LEDGER-ACCOUNTING-INVARIANTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/financial/MONEY-LEDGER-ACCOUNTING-INVARIANTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Money, Ledger, And Accounting Invariants",
+    "description": "Model currency and rounding safely and implement append-only, balanced ledger transactions, postings, reversals, and balance projections.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Java value objects",
+      "SQL transactions",
+      "domain modeling"
+    ],
+    "technologies": [
+      "Java",
+      "BigDecimal",
+      "PostgreSQL",
+      "Spring Data JPA"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Financial Systems Architecture",
+    "permalink": "/shopverse/architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Payment Lifecycle, Idempotency, And Uncertain Outcomes",
+    "permalink": "/shopverse/architecture/financial/PAYMENT-LIFECYCLE-IDEMPOTENCY"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "reliability/RELIABILITY-REVISION-SHEET",
+  "title": "Distributed Reliability Revision Sheet",
+  "description": "Rapid revision of distributed consistency, consensus, deadlines, retries, idempotency, transactions, fencing, and recovery.",
+  "source": "@site/docs/reliability/RELIABILITY-REVISION-SHEET.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/RELIABILITY-REVISION-SHEET",
+  "permalink": "/shopverse/reliability/RELIABILITY-REVISION-SHEET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/RELIABILITY-REVISION-SHEET.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Distributed Reliability Revision Sheet",
+    "description": "Rapid revision of distributed consistency, consensus, deadlines, retries, idempotency, transactions, fencing, and recovery.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Distributed Reliability Overview"
+    ],
+    "learning_objectives": [
+      "Recall reliability pattern boundaries",
+      "Diagnose partial failure",
+      "Defend recovery and consistency decisions"
+    ],
+    "technologies": [
+      "Resilience4j",
+      "Kafka",
+      "SQL",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "RabbitMQ Production Operations, Labs, And Interviews",
+    "permalink": "/shopverse/integration/rabbitmq/RABBITMQ-OPERATIONS-INTERVIEW"
+  },
+  "next": {
+    "title": "Application And Platform Security Learning Guide",
+    "permalink": "/shopverse/security/"
+  }
+}

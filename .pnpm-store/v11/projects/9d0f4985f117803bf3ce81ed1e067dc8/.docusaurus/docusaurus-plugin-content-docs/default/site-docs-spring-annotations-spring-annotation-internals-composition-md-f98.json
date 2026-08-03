@@ -1,0 +1,54 @@
+{
+  "id": "spring/annotations/SPRING-ANNOTATION-INTERNALS-COMPOSITION",
+  "title": "Spring Annotation Internals Composition Proxies And Interview Traps",
+  "description": "Architect-level explanation of annotation metadata, retention, targets, scanning, merged annotations, aliases, composed annotations, post-processors, proxies, ordering, inheritance, AOT, debugging, and interview traps.",
+  "source": "@site/docs/spring/annotations/SPRING-ANNOTATION-INTERNALS-COMPOSITION.md",
+  "sourceDirName": "spring/annotations",
+  "slug": "/spring/annotations/SPRING-ANNOTATION-INTERNALS-COMPOSITION",
+  "permalink": "/shopverse/spring/annotations/SPRING-ANNOTATION-INTERNALS-COMPOSITION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/annotations/SPRING-ANNOTATION-INTERNALS-COMPOSITION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Annotation Internals Composition Proxies And Interview Traps",
+    "description": "Architect-level explanation of annotation metadata, retention, targets, scanning, merged annotations, aliases, composed annotations, post-processors, proxies, ordering, inheritance, AOT, debugging, and interview traps.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Java reflection and annotations",
+      "Spring container",
+      "Spring AOP"
+    ],
+    "learning_objectives": [
+      "Explain how Spring discovers annotations",
+      "Build composed annotations safely",
+      "Predict proxy behavior",
+      "Diagnose missing effects",
+      "Answer annotation interview questions"
+    ],
+    "technologies": [
+      "Spring Framework 7",
+      "Spring Boot 4",
+      "Reflection",
+      "AOP",
+      "AOT"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Security Messaging And Testing Annotations",
+    "permalink": "/shopverse/spring/annotations/SPRING-SECURITY-MESSAGING-TEST-ANNOTATIONS"
+  },
+  "next": {
+    "title": "Spring Boot Configuration Profiles And Environments",
+    "permalink": "/shopverse/spring/boot/SPRING-BOOT-CONFIGURATION-ENVIRONMENTS"
+  }
+}

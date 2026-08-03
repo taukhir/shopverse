@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">AI framework abstraction levels</title>
+  <desc id="desc">Low-level and high-level abstractions in Java AI frameworks.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg{fill:#f8fafc}.panel{fill:#fff;stroke:#111827;stroke-width:2;rx:14}.low{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:12}.high{fill:#f0fdf4;stroke:#16a34a;stroke-width:2;rx:12}.title{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:25px;fill:#111827;font-weight:700}.text{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:18px;fill:#111827;font-weight:700}.small{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;fill:#374151}.line{stroke:#2563eb;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="650"/>
+  <text class="title" x="50" y="54">Java AI Framework Abstraction Levels</text>
+  <text class="small" x="50" y="84">Start low-level to understand the mechanics, then use high-level APIs to reduce boilerplate.</text>
+  <rect class="panel" x="70" y="140" width="480" height="380"/>
+  <text class="text" x="108" y="182">Low-Level Control</text>
+  <rect class="low" x="108" y="220" width="360" height="54"/><text class="small" x="132" y="254">ChatModel / provider client</text>
+  <rect class="low" x="108" y="292" width="360" height="54"/><text class="small" x="132" y="326">Messages: system, user, assistant</text>
+  <rect class="low" x="108" y="364" width="360" height="54"/><text class="small" x="132" y="398">EmbeddingModel + vector store</text>
+  <rect class="low" x="108" y="436" width="360" height="54"/><text class="small" x="132" y="470">Manual prompt/tool/RAG orchestration</text>
+  <text class="small" x="108" y="555">Best when learning or needing maximum control.</text>
+  <rect class="panel" x="650" y="140" width="480" height="380"/>
+  <text class="text" x="688" y="182">High-Level Productivity</text>
+  <rect class="high" x="688" y="220" width="360" height="54"/><text class="small" x="712" y="254">Spring AI ChatClient / Advisors</text>
+  <rect class="high" x="688" y="292" width="360" height="54"/><text class="small" x="712" y="326">LangChain4j AI Services</text>
+  <rect class="high" x="688" y="364" width="360" height="54"/><text class="small" x="712" y="398">Declarative tools and memory</text>
+  <rect class="high" x="688" y="436" width="360" height="54"/><text class="small" x="712" y="470">Reusable RAG pipelines</text>
+  <text class="small" x="688" y="555">Best when building application features quickly.</text>
+  <path class="line" d="M 550 330 L 650 330"/>
+</svg>

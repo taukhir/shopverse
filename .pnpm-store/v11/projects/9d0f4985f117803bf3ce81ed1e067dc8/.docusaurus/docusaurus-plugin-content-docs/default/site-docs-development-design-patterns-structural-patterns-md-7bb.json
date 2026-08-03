@@ -1,0 +1,57 @@
+{
+  "id": "development/design-patterns/STRUCTURAL-PATTERNS",
+  "title": "Structural Patterns",
+  "description": "Choose and implement Adapter, Bridge, Decorator, Proxy, and related composition patterns in Spring applications.",
+  "source": "@site/docs/development/design-patterns/STRUCTURAL-PATTERNS.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/STRUCTURAL-PATTERNS",
+  "permalink": "/shopverse/development/design-patterns/STRUCTURAL-PATTERNS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/STRUCTURAL-PATTERNS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "structural",
+      "permalink": "/shopverse/tags/structural"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Structural Patterns",
+    "description": "Choose and implement Adapter, Bridge, Decorator, Proxy, and related composition patterns in Spring applications.",
+    "sidebar_label": "Structural Patterns",
+    "tags": [
+      "spring",
+      "design-patterns",
+      "structural"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Pattern Selection Cheat Sheet",
+    "permalink": "/shopverse/development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET"
+  },
+  "next": {
+    "title": "Adapter",
+    "permalink": "/shopverse/development/design-patterns/adapter"
+  }
+}

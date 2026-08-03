@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-GC-COLLECTORS-ARCHITECT",
+  "title": "JVM Garbage Collectors For Architects",
+  "description": "Serial, Parallel, G1, ZGC and Shenandoah algorithms, failure modes, selection, logs, and migration decisions.",
+  "source": "@site/docs/java/JAVA-GC-COLLECTORS-ARCHITECT.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-GC-COLLECTORS-ARCHITECT",
+  "permalink": "/shopverse/java/JAVA-GC-COLLECTORS-ARCHITECT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-GC-COLLECTORS-ARCHITECT.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JVM Garbage Collectors For Architects",
+    "description": "Serial, Parallel, G1, ZGC and Shenandoah algorithms, failure modes, selection, logs, and migration decisions.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Object Layout, Allocation And Garbage Collectors",
+    "permalink": "/shopverse/java/JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE"
+  },
+  "next": {
+    "title": "JVM Execution Internals",
+    "permalink": "/shopverse/java/advanced-internals/JVM-EXECUTION-INTERNALS"
+  }
+}

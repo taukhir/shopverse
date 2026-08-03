@@ -1,0 +1,50 @@
+{
+  "id": "operations/kubernetes/KUBERNETES-SECURITY-MULTITENANCY",
+  "title": "Kubernetes Security, Admission, Policy, And Multi-Tenancy",
+  "description": "Secure API access, RBAC, service accounts, Pod Security, admission, secrets, supply chain, network policy, runtime, nodes, audit, and tenant boundaries.",
+  "source": "@site/docs/operations/kubernetes/KUBERNETES-SECURITY-MULTITENANCY.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/KUBERNETES-SECURITY-MULTITENANCY",
+  "permalink": "/shopverse/operations/kubernetes/KUBERNETES-SECURITY-MULTITENANCY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/KUBERNETES-SECURITY-MULTITENANCY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kubernetes Security, Admission, Policy, And Multi-Tenancy",
+    "description": "Secure API access, RBAC, service accounts, Pod Security, admission, secrets, supply chain, network policy, runtime, nodes, audit, and tenant boundaries.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Kubernetes API and networking"
+    ],
+    "learning_objectives": [
+      "Threat-model a cluster",
+      "Apply least privilege and workload hardening",
+      "Govern admission and supply chain",
+      "Design defensible tenancy boundaries"
+    ],
+    "technologies": [
+      "Kubernetes RBAC",
+      "Pod Security Standards",
+      "OIDC",
+      "NetworkPolicy"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kubernetes Persistent Storage, Stateful Workloads, And CSI",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-STORAGE-STATEFUL"
+  },
+  "next": {
+    "title": "Kubernetes Cluster Operations, Capacity, Upgrades, HA, And Recovery",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-CLUSTER-OPERATIONS"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "platform/TROUBLESHOOTING",
+  "title": "Platform Troubleshooting",
+  "description": "Platform Troubleshooting: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/platform/TROUBLESHOOTING.md",
+  "sourceDirName": "platform",
+  "slug": "/platform/TROUBLESHOOTING",
+  "permalink": "/shopverse/platform/TROUBLESHOOTING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/platform/TROUBLESHOOTING.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "platform",
+      "permalink": "/shopverse/tags/platform"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Platform Troubleshooting",
+    "description": "Platform Troubleshooting: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Platform Troubleshooting",
+    "tags": [
+      "platform",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-platform",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Platform Config Property Reference",
+    "permalink": "/shopverse/platform/CONFIG-PROPERTIES"
+  },
+  "next": {
+    "title": "Common Error Contract",
+    "permalink": "/shopverse/platform/COMMON-ERROR"
+  }
+}

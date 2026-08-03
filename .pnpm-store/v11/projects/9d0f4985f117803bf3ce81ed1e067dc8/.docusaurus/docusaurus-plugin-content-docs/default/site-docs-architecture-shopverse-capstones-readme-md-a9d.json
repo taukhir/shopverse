@@ -1,0 +1,52 @@
+{
+  "id": "architecture/shopverse-capstones/README",
+  "title": "Shopverse System-Design Capstones",
+  "description": "Interview-ready designs connecting requirements, capacity, APIs, data, events, failure, security, and operations.",
+  "source": "@site/docs/architecture/shopverse-capstones/README.md",
+  "sourceDirName": "architecture/shopverse-capstones",
+  "slug": "/architecture/shopverse-capstones/",
+  "permalink": "/shopverse/architecture/shopverse-capstones/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/shopverse-capstones/README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse System-Design Capstones",
+    "description": "Interview-ready designs connecting requirements, capacity, APIs, data, events, failure, security, and operations.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "HLD fundamentals",
+      "Microservices",
+      "Databases"
+    ],
+    "learning_objectives": [
+      "Design end to end",
+      "Quantify trade-offs",
+      "Defend evolution decisions"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Kafka",
+      "PostgreSQL",
+      "Redis",
+      "OpenTelemetry"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "shopverse",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "System Design Interview Evaluation Rubric",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/INTERVIEW-RUBRIC"
+  },
+  "next": {
+    "title": "Checkout And Order System Design",
+    "permalink": "/shopverse/architecture/shopverse-capstones/CHECKOUT-ORDER-DESIGN"
+  }
+}

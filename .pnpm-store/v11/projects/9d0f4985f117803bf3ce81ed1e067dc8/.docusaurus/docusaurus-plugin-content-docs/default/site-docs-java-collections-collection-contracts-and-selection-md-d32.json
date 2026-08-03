@@ -1,0 +1,35 @@
+{
+  "id": "java/collections/COLLECTION-CONTRACTS-AND-SELECTION",
+  "title": "Collection Contracts And Selection",
+  "description": "Select Java collection abstractions from duplicates, order, lookup, queue, ownership, and concurrency contracts.",
+  "source": "@site/docs/java/collections/COLLECTION-CONTRACTS-AND-SELECTION.md",
+  "sourceDirName": "java/collections",
+  "slug": "/java/collections/COLLECTION-CONTRACTS-AND-SELECTION",
+  "permalink": "/shopverse/java/collections/COLLECTION-CONTRACTS-AND-SELECTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/COLLECTION-CONTRACTS-AND-SELECTION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Collection Contracts And Selection",
+    "description": "Select Java collection abstractions from duplicates, order, lookup, queue, ownership, and concurrency contracts.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Collections",
+    "permalink": "/shopverse/java/JAVA-COLLECTIONS"
+  },
+  "next": {
+    "title": "List Overview",
+    "permalink": "/shopverse/java/collections/list/LIST-OVERVIEW"
+  }
+}

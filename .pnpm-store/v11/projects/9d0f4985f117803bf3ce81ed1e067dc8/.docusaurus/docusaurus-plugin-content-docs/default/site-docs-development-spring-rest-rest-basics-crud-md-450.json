@@ -1,0 +1,47 @@
+{
+  "id": "development/spring-rest/REST-BASICS-CRUD",
+  "title": "Spring REST API Basics And CRUD",
+  "description": "Focused controller, DTO, service, transaction, and persistence boundaries for Spring MVC CRUD APIs without duplicating servlet runtime internals.",
+  "source": "@site/docs/development/spring-rest/REST-BASICS-CRUD.md",
+  "sourceDirName": "development/spring-rest",
+  "slug": "/development/spring-rest/REST-BASICS-CRUD",
+  "permalink": "/shopverse/development/spring-rest/REST-BASICS-CRUD",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-rest/REST-BASICS-CRUD.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring REST API Basics And CRUD",
+    "description": "Focused controller, DTO, service, transaction, and persistence boundaries for Spring MVC CRUD APIs without duplicating servlet runtime internals.",
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Keep HTTP mapping, business transactions, and persistence responsibilities separate",
+      "Design stable request and response DTOs with accurate HTTP semantics",
+      "Review Shopverse controller boundaries using implementation evidence"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Spring Boot",
+      "Jakarta Validation",
+      "Spring Data JPA"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring REST API Learning Guide",
+    "permalink": "/shopverse/development/SPRING-REST-APIS"
+  },
+  "next": {
+    "title": "Spring REST Controller And Request Mapping",
+    "permalink": "/shopverse/development/spring-rest/REST-CONTROLLER-REQUEST-MAPPING"
+  }
+}

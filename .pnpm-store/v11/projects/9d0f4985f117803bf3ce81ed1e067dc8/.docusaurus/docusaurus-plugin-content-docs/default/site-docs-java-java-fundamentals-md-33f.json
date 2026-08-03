@@ -1,0 +1,44 @@
+{
+  "id": "java/JAVA-FUNDAMENTALS",
+  "title": "Java Fundamentals",
+  "description": "This URL remains the foundation overview. Senior readers should continue through",
+  "source": "@site/docs/java/JAVA-FUNDAMENTALS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-FUNDAMENTALS",
+  "permalink": "/shopverse/java/JAVA-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-FUNDAMENTALS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Java Fundamentals",
+    "sidebar_position": 1,
+    "difficulty": "Beginner",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "learning_objectives": [
+      "Understand the Java type and execution model",
+      "Build a foundation for collections streams and concurrency"
+    ],
+    "technologies": [
+      "Java",
+      "JVM"
+    ],
+    "last_reviewed": "2026-07-10",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Concepts In Shopverse",
+    "permalink": "/shopverse/java/JAVA-SHOPVERSE-CROSSWALK"
+  },
+  "next": {
+    "title": "Core Java Source Coverage And Adaptation Ledger",
+    "permalink": "/shopverse/java/CORE-JAVA-SOURCE-COVERAGE"
+  }
+}

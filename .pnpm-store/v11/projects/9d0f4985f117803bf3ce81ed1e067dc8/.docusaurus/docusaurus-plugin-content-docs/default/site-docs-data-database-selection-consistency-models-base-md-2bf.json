@@ -1,0 +1,48 @@
+{
+  "id": "data/database-selection/CONSISTENCY-MODELS-BASE",
+  "title": "Consistency Models And BASE",
+  "description": "Consistency defines which values and orderings clients may observe when data is",
+  "source": "@site/docs/data/database-selection/CONSISTENCY-MODELS-BASE.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/CONSISTENCY-MODELS-BASE",
+  "permalink": "/shopverse/data/database-selection/CONSISTENCY-MODELS-BASE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/CONSISTENCY-MODELS-BASE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Consistency Models And BASE",
+    "sidebar_position": 7,
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Distinguish consistency models",
+      "Explain BASE and soft state",
+      "Choose consistency from business invariants"
+    ],
+    "technologies": [
+      "Cassandra",
+      "MongoDB",
+      "DynamoDB",
+      "CockroachDB",
+      "Redis"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Load Incident Runbook",
+    "permalink": "/shopverse/data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK"
+  },
+  "next": {
+    "title": "Scaling, CAP, And Data Distribution",
+    "permalink": "/shopverse/data/database-selection/SCALING-CAP-DISTRIBUTION"
+  }
+}

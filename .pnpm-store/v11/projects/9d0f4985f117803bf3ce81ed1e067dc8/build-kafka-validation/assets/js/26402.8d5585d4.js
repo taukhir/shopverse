@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshopverse_documentation=self.webpackChunkshopverse_documentation||[]).push([[26402],{26402(e,s,c){c.d(s,{createArchitectureServices:()=>t.S});var t=c(45016);c(69302)}}]);

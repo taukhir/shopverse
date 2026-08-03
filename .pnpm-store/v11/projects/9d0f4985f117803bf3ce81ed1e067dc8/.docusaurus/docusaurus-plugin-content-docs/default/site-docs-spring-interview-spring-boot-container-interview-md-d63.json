@@ -1,0 +1,48 @@
+{
+  "id": "spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW",
+  "title": "Spring Boot And Container Interview Questions",
+  "description": "Expandable interview questions about Boot startup, container APIs, factories, dependency resolution, creation order, scopes, lifecycle callbacks, and extension points.",
+  "source": "@site/docs/spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW.md",
+  "sourceDirName": "spring/interview",
+  "slug": "/spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW",
+  "permalink": "/shopverse/spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/interview/SPRING-BOOT-CONTAINER-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot And Container Interview Questions",
+    "description": "Expandable interview questions about Boot startup, container APIs, factories, dependency resolution, creation order, scopes, lifecycle callbacks, and extension points.",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring ecosystem fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain Boot startup and condition evaluation",
+      "Compare container factory and injection contracts",
+      "Choose creation and lifecycle ordering mechanisms",
+      "Diagnose lifecycle and dependency problems"
+    ],
+    "technologies": [
+      "Spring Boot 4",
+      "Spring Framework 7"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring And Spring Boot Interview Questions",
+    "permalink": "/shopverse/spring/SPRING-ECOSYSTEM-INTERVIEW"
+  },
+  "next": {
+    "title": "Spring Web And Data Interview Questions",
+    "permalink": "/shopverse/spring/interview/SPRING-WEB-DATA-INTERVIEW"
+  }
+}

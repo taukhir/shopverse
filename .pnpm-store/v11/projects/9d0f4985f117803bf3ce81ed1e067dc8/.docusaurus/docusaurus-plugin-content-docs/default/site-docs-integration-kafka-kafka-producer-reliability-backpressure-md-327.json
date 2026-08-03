@@ -1,0 +1,50 @@
+{
+  "id": "integration/kafka/KAFKA-PRODUCER-RELIABILITY-BACKPRESSURE",
+  "title": "Kafka Producer Reliability And Backpressure",
+  "description": "Producer internals, acknowledgments, idempotence, retries, timeouts, buffer pressure, transactions, and outage containment.",
+  "source": "@site/docs/integration/kafka/KAFKA-PRODUCER-RELIABILITY-BACKPRESSURE.md",
+  "sourceDirName": "integration/kafka",
+  "slug": "/integration/kafka/KAFKA-PRODUCER-RELIABILITY-BACKPRESSURE",
+  "permalink": "/shopverse/integration/kafka/KAFKA-PRODUCER-RELIABILITY-BACKPRESSURE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/integration/kafka/KAFKA-PRODUCER-RELIABILITY-BACKPRESSURE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kafka Producer Reliability And Backpressure",
+    "description": "Producer internals, acknowledgments, idempotence, retries, timeouts, buffer pressure, transactions, and outage containment.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Kafka topics",
+      "partitions",
+      "replication"
+    ],
+    "learning_objectives": [
+      "Trace the producer runtime",
+      "Configure durability and latency deliberately",
+      "Contain overload and ambiguous outcomes"
+    ],
+    "technologies": [
+      "Apache Kafka 4.x",
+      "KafkaProducer",
+      "Spring Kafka"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-integration",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kafka KRaft Storage Producer And Consumer Internals",
+    "permalink": "/shopverse/integration/kafka/KAFKA-INTERNALS"
+  },
+  "next": {
+    "title": "Kafka Capacity And Performance Planning",
+    "permalink": "/shopverse/integration/kafka/KAFKA-CAPACITY-PERFORMANCE-PLANNING"
+  }
+}

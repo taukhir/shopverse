@@ -1,0 +1,51 @@
+{
+  "id": "security/platform/SECURITY-INCIDENT-RESPONSE",
+  "title": "Security Incident Response Runbook",
+  "description": "Contain and recover from token theft, key exposure, authorization bypass, and workload compromise.",
+  "source": "@site/docs/security/platform/SECURITY-INCIDENT-RESPONSE.md",
+  "sourceDirName": "security/platform",
+  "slug": "/security/platform/SECURITY-INCIDENT-RESPONSE",
+  "permalink": "/shopverse/security/platform/SECURITY-INCIDENT-RESPONSE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/platform/SECURITY-INCIDENT-RESPONSE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Security Incident Response Runbook",
+    "description": "Contain and recover from token theft, key exposure, authorization bypass, and workload compromise.",
+    "difficulty": "Advanced",
+    "page_type": "Runbook",
+    "status": "maintained",
+    "prerequisites": [
+      "Security architecture",
+      "Observability"
+    ],
+    "learning_objectives": [
+      "Triage signals",
+      "Contain without destroying evidence",
+      "Verify recovery"
+    ],
+    "technologies": [
+      "JWT",
+      "JWKS",
+      "OAuth2",
+      "Kubernetes",
+      "Audit logging"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "shopverse",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Service Identity And Zero-Trust Boundaries",
+    "permalink": "/shopverse/security/platform/SERVICE-IDENTITY-ZERO-TRUST"
+  },
+  "next": {
+    "title": "Security Architect Interview Workbook",
+    "permalink": "/shopverse/security/platform/SECURITY-INTERVIEW-WORKBOOK"
+  }
+}

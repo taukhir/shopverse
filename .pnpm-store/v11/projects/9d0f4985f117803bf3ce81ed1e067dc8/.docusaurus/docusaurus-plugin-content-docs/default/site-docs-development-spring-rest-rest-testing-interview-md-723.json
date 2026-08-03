@@ -1,0 +1,44 @@
+{
+  "id": "development/spring-rest/REST-TESTING-INTERVIEW",
+  "title": "Spring REST Testing And Interview Guide",
+  "description": "Compatibility route to focused Spring REST testing and expandable interview-workbook pages.",
+  "source": "@site/docs/development/spring-rest/REST-TESTING-INTERVIEW.md",
+  "sourceDirName": "development/spring-rest",
+  "slug": "/development/spring-rest/REST-TESTING-INTERVIEW",
+  "permalink": "/shopverse/development/spring-rest/REST-TESTING-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-rest/REST-TESTING-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring REST Testing And Interview Guide",
+    "description": "Compatibility route to focused Spring REST testing and expandable interview-workbook pages.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose between the executable testing guide and interview workbook",
+      "Preserve links to the former combined testing and interview page"
+    ],
+    "technologies": [
+      "Spring MVC Test",
+      "MockMvc",
+      "HTTP"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "compatibility",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring REST Files Pagination And Idempotency",
+    "permalink": "/shopverse/development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY"
+  },
+  "next": {
+    "title": "Spring Kafka Idempotency And Operations Compatibility Route",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS"
+  }
+}

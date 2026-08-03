@@ -1,0 +1,36 @@
+{
+  "id": "ai/LANGCHAIN4J-TUTORIAL-SPRING-BOOT",
+  "title": "LangChain4j Tutorial 5: Spring Boot Integration And Production",
+  "description": "This tutorial shows how to think about LangChain4j inside a Spring Boot",
+  "source": "@site/docs/ai/LANGCHAIN4J-TUTORIAL-SPRING-BOOT.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/LANGCHAIN4J-TUTORIAL-SPRING-BOOT",
+  "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-SPRING-BOOT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/LANGCHAIN4J-TUTORIAL-SPRING-BOOT.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.31,
+  "frontMatter": {
+    "title": "LangChain4j Tutorial 5: Spring Boot Integration And Production",
+    "sidebar_position": 6.31,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "LangChain4j Tutorial 4: RAG And Embedding Stores",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-RAG"
+  },
+  "next": {
+    "title": "LangChain4j Deep Dive",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-DEEP-DIVE"
+  }
+}

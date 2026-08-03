@@ -1,0 +1,50 @@
+{
+  "id": "operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "title": "Kubernetes Troubleshooting, Incident Labs, Interviews, And Revision",
+  "description": "Evidence-led Kubernetes diagnosis, failure matrices, practical labs, architect interview scenarios, revision questions, and completion checklist.",
+  "source": "@site/docs/operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "permalink": "/shopverse/operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kubernetes Troubleshooting, Incident Labs, Interviews, And Revision",
+    "description": "Evidence-led Kubernetes diagnosis, failure matrices, practical labs, architect interview scenarios, revision questions, and completion checklist.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Kubernetes cluster operations"
+    ],
+    "learning_objectives": [
+      "Diagnose incidents systematically",
+      "Complete destructive-safe labs",
+      "Answer architect scenarios",
+      "Revise the complete platform"
+    ],
+    "technologies": [
+      "Kubernetes",
+      "kubectl",
+      "Linux",
+      "Prometheus"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Production Incidents CLI And Interview Revision",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-PRODUCTION-INCIDENT-REVISION"
+  },
+  "next": {
+    "title": "Deployment Strategies",
+    "permalink": "/shopverse/operations/DEPLOYMENT-STRATEGIES"
+  }
+}

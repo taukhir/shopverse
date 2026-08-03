@@ -1,0 +1,34 @@
+{
+  "id": "security/spring-security/AUTHORIZATION-METHOD-SECURITY",
+  "title": "Spring Security Authorization And Method Security",
+  "description": "<DocLabels items={[",
+  "source": "@site/docs/security/spring-security/AUTHORIZATION-METHOD-SECURITY.md",
+  "sourceDirName": "security/spring-security",
+  "slug": "/security/spring-security/AUTHORIZATION-METHOD-SECURITY",
+  "permalink": "/shopverse/security/spring-security/AUTHORIZATION-METHOD-SECURITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/spring-security/AUTHORIZATION-METHOD-SECURITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Security Authorization And Method Security",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JWT JWKS And Resource Server Security",
+    "permalink": "/shopverse/security/spring-security/JWT-JWKS-RESOURCE-SERVER"
+  },
+  "next": {
+    "title": "Authorization At Permission Scale",
+    "permalink": "/shopverse/security/spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE"
+  }
+}

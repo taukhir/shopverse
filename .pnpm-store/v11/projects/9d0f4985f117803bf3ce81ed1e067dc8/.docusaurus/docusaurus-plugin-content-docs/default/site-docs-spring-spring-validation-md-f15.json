@@ -1,0 +1,45 @@
+{
+  "id": "spring/SPRING-VALIDATION",
+  "title": "Spring Bean Validation",
+  "description": "Learning-path landing for Bean Validation fundamentals, method and custom validation, groups and configuration, and production error testing.",
+  "source": "@site/docs/spring/SPRING-VALIDATION.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-VALIDATION",
+  "permalink": "/shopverse/spring/SPRING-VALIDATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-VALIDATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Bean Validation",
+    "description": "Learning-path landing for Bean Validation fundamentals, method and custom validation, groups and configuration, and production error testing.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "learning_objectives": [
+      "Select the focused Spring validation guide for the current boundary",
+      "Progress from constraint fundamentals to proxy, error, and production behavior"
+    ],
+    "technologies": [
+      "Jakarta Validation",
+      "Spring MVC",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring REST Testing",
+    "permalink": "/shopverse/development/spring-rest/REST-TESTING"
+  },
+  "next": {
+    "title": "Spring Bean Validation Fundamentals",
+    "permalink": "/shopverse/spring/validation/BEAN-VALIDATION-FUNDAMENTALS"
+  }
+}

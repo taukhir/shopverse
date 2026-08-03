@@ -1,0 +1,48 @@
+{
+  "id": "leadership/architect-practice/ARCHITECT-SCALE-SECURITY-TRADEOFFS",
+  "title": "Architect Scaling, Security, And Rejected Trade-Offs",
+  "description": "Build quantitative scaling and security models, protect multi-tenant systems, compare alternatives, document rejected trade-offs, and define reconsideration triggers.",
+  "source": "@site/docs/leadership/architect-practice/ARCHITECT-SCALE-SECURITY-TRADEOFFS.md",
+  "sourceDirName": "leadership/architect-practice",
+  "slug": "/leadership/architect-practice/ARCHITECT-SCALE-SECURITY-TRADEOFFS",
+  "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-SCALE-SECURITY-TRADEOFFS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/architect-practice/ARCHITECT-SCALE-SECURITY-TRADEOFFS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Architect Scaling, Security, And Rejected Trade-Offs",
+    "description": "Build quantitative scaling and security models, protect multi-tenant systems, compare alternatives, document rejected trade-offs, and define reconsideration triggers.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Architect Failure Modeling And Diagnosis"
+    ],
+    "learning_objectives": [
+      "Scale from bottleneck evidence",
+      "Integrate security into architecture",
+      "Defend rejected alternatives honestly"
+    ],
+    "technologies": [
+      "Distributed Systems",
+      "Security",
+      "Capacity Engineering"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Architect Failure Modeling And Evidence-Led Diagnosis",
+    "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-FAILURE-DIAGNOSIS"
+  },
+  "next": {
+    "title": "Architect Production Evidence, Portfolio, Labs, And Interview Workbook",
+    "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-PRODUCTION-EVIDENCE-WORKBOOK"
+  }
+}

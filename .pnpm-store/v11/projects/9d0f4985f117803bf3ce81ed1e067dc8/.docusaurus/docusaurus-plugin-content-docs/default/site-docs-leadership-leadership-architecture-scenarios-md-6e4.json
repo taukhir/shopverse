@@ -1,0 +1,57 @@
+{
+  "id": "leadership/LEADERSHIP-ARCHITECTURE-SCENARIOS",
+  "title": "Leadership And Architecture Scenarios",
+  "description": "A lead and architect learning path for decomposition, engineering leadership, architecture decisions, production recovery, availability, delivery, and modernization.",
+  "source": "@site/docs/leadership/LEADERSHIP-ARCHITECTURE-SCENARIOS.md",
+  "sourceDirName": "leadership",
+  "slug": "/leadership/LEADERSHIP-ARCHITECTURE-SCENARIOS",
+  "permalink": "/shopverse/leadership/LEADERSHIP-ARCHITECTURE-SCENARIOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/LEADERSHIP-ARCHITECTURE-SCENARIOS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Leadership And Architecture Scenarios",
+    "description": "A lead and architect learning path for decomposition, engineering leadership, architecture decisions, production recovery, availability, delivery, and modernization.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "keywords": [
+      "technical leadership",
+      "software architect",
+      "code review",
+      "mentoring",
+      "microservices",
+      "high availability",
+      "zero downtime",
+      "modernization"
+    ],
+    "learning_objectives": [
+      "Structure lead and architect answers around outcomes, evidence, trade-offs, ownership, and safe change",
+      "Connect technical design to delivery, operations, people, governance, and measurable results",
+      "Practice eight common leadership and architecture interview scenarios in depth"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "Kafka",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database LLD And Design Process",
+    "permalink": "/shopverse/architecture/hld-lld/DATABASE-LLD-DESIGN-PROCESS"
+  },
+  "next": {
+    "title": "Architect Practice And Evidence Path",
+    "permalink": "/shopverse/leadership/ARCHITECT-PRACTICE-EVIDENCE-PATH"
+  }
+}

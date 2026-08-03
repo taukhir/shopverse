@@ -1,0 +1,58 @@
+{
+  "id": "architecture/NETWORKING-GRPC-SERVICE-MESH",
+  "title": "Networking, gRPC, And Service Mesh",
+  "description": "This page is the orientation map. Use the dedicated tracks for implementation,",
+  "source": "@site/docs/architecture/NETWORKING-GRPC-SERVICE-MESH.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/NETWORKING-GRPC-SERVICE-MESH",
+  "permalink": "/shopverse/architecture/NETWORKING-GRPC-SERVICE-MESH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/NETWORKING-GRPC-SERVICE-MESH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Networking, gRPC, And Service Mesh",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "keywords": [
+      "DNS",
+      "TCP",
+      "TLS",
+      "HTTP2",
+      "HTTP3",
+      "gRPC",
+      "service mesh",
+      "Istio",
+      "Linkerd",
+      "mTLS"
+    ],
+    "learning_objectives": [
+      "Trace a request through network layers",
+      "Choose REST gRPC or asynchronous messaging",
+      "Evaluate service-mesh benefits and failure modes"
+    ],
+    "technologies": [
+      "HTTP",
+      "gRPC",
+      "TLS",
+      "Istio",
+      "Linkerd"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "API And Event Compatibility",
+    "permalink": "/shopverse/architecture/API-EVENT-COMPATIBILITY"
+  },
+  "next": {
+    "title": "API And Event Schema Governance Path",
+    "permalink": "/shopverse/architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH"
+  }
+}

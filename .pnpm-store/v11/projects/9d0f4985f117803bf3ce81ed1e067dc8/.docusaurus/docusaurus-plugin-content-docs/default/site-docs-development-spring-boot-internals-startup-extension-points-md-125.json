@@ -1,0 +1,43 @@
+{
+  "id": "development/spring-boot-internals/STARTUP-EXTENSION-POINTS",
+  "title": "Spring Boot Startup Extension Points And Events",
+  "description": "Trace SpringApplication listeners, initializers, context refresh processors, runners, readiness, failure, and graceful shutdown in lifecycle order.",
+  "source": "@site/docs/development/spring-boot-internals/STARTUP-EXTENSION-POINTS.md",
+  "sourceDirName": "development/spring-boot-internals",
+  "slug": "/development/spring-boot-internals/STARTUP-EXTENSION-POINTS",
+  "permalink": "/shopverse/development/spring-boot-internals/STARTUP-EXTENSION-POINTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-boot-internals/STARTUP-EXTENSION-POINTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot Startup Extension Points And Events",
+    "description": "Trace SpringApplication listeners, initializers, context refresh processors, runners, readiness, failure, and graceful shutdown in lifecycle order.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Boot startup",
+      "Spring container lifecycle"
+    ],
+    "technologies": [
+      "Spring Boot 4",
+      "Spring Framework 7"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Startup, Environment And Auto-Configuration",
+    "permalink": "/shopverse/development/spring-boot-internals/STARTUP-AUTOCONFIGURATION"
+  },
+  "next": {
+    "title": "Spring Dependency Injection And Bean Lifecycle",
+    "permalink": "/shopverse/development/spring-boot-internals/DI-BEAN-LIFECYCLE-AOP"
+  }
+}

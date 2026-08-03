@@ -1,0 +1,49 @@
+{
+  "id": "spring/data/SPRING-DATA-REDIS",
+  "title": "Spring Data Redis In Depth",
+  "description": "RedisTemplate, repositories, serialization, TTL, caching, locking, Pub/Sub, Streams, clustering, testing, and production incidents.",
+  "source": "@site/docs/spring/data/SPRING-DATA-REDIS.md",
+  "sourceDirName": "spring/data",
+  "slug": "/spring/data/SPRING-DATA-REDIS",
+  "permalink": "/shopverse/spring/data/SPRING-DATA-REDIS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/data/SPRING-DATA-REDIS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Data Redis In Depth",
+    "description": "RedisTemplate, repositories, serialization, TTL, caching, locking, Pub/Sub, Streams, clustering, testing, and production incidents.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Redis fundamentals",
+      "Spring Data Commons"
+    ],
+    "learning_objectives": [
+      "Select Redis access APIs",
+      "Design key TTL and serialization contracts",
+      "Diagnose memory latency and cluster failures"
+    ],
+    "technologies": [
+      "Spring Data Redis",
+      "Redis",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data MongoDB In Depth",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-MONGODB"
+  },
+  "next": {
+    "title": "Spring Data Elasticsearch In Depth",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-ELASTICSEARCH"
+  }
+}

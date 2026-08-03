@@ -1,0 +1,48 @@
+{
+  "id": "architecture/service-mesh/SERVICE-MESH-ARCHITECTURE-SELECTION",
+  "title": "Service Mesh Architecture And Selection",
+  "description": "Compare library, gateway, sidecar, ambient and Linkerd-style meshes; trace control/data planes, traffic capture, xDS, discovery, and decision criteria.",
+  "source": "@site/docs/architecture/service-mesh/SERVICE-MESH-ARCHITECTURE-SELECTION.md",
+  "sourceDirName": "architecture/service-mesh",
+  "slug": "/architecture/service-mesh/SERVICE-MESH-ARCHITECTURE-SELECTION",
+  "permalink": "/shopverse/architecture/service-mesh/SERVICE-MESH-ARCHITECTURE-SELECTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/service-mesh/SERVICE-MESH-ARCHITECTURE-SELECTION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Service Mesh Architecture And Selection",
+    "description": "Compare library, gateway, sidecar, ambient and Linkerd-style meshes; trace control/data planes, traffic capture, xDS, discovery, and decision criteria.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Service Mesh Architect Path"
+    ],
+    "learning_objectives": [
+      "Explain mesh internals",
+      "Compare data-plane models",
+      "Make an evidence-based mesh decision"
+    ],
+    "technologies": [
+      "Istio",
+      "Envoy",
+      "Linkerd"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Service Mesh Architect Path",
+    "permalink": "/shopverse/architecture/SERVICE-MESH-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Service Mesh Traffic, Identity, Security, And Observability",
+    "permalink": "/shopverse/architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY"
+  }
+}

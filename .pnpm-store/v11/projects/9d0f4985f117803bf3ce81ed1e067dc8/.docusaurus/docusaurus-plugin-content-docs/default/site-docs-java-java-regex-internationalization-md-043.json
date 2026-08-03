@@ -1,0 +1,40 @@
+{
+  "id": "java/JAVA-REGEX-INTERNATIONALIZATION",
+  "title": "Java Regex And Internationalization",
+  "description": "Safe pattern matching, locale-aware messages, numbers, money, dates, and Shopverse input boundaries.",
+  "source": "@site/docs/java/JAVA-REGEX-INTERNATIONALIZATION.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-REGEX-INTERNATIONALIZATION",
+  "permalink": "/shopverse/java/JAVA-REGEX-INTERNATIONALIZATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-REGEX-INTERNATIONALIZATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Regex And Internationalization",
+    "description": "Safe pattern matching, locale-aware messages, numbers, money, dates, and Shopverse input boundaries.",
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "technologies": [
+      "Java 24",
+      "Unicode",
+      "I18N"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java String, Unicode And Encoding Internals",
+    "permalink": "/shopverse/java/JAVA-STRINGS-ENCODING-INTERNALS"
+  },
+  "next": {
+    "title": "Java Time, Numeric Correctness And Security Boundaries",
+    "permalink": "/shopverse/java/JAVA-TIME-NUMERIC-SECURITY"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "data/database-selection/RELATIONAL-DATABASES",
+  "title": "Relational Databases",
+  "description": "Relational databases are the default for structured data with constraints,",
+  "source": "@site/docs/data/database-selection/RELATIONAL-DATABASES.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/RELATIONAL-DATABASES",
+  "permalink": "/shopverse/data/database-selection/RELATIONAL-DATABASES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/RELATIONAL-DATABASES.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Relational Databases",
+    "sidebar_position": 1,
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Compare relational database engines",
+      "Choose a relational database for an OLTP workload"
+    ],
+    "technologies": [
+      "MySQL",
+      "PostgreSQL",
+      "Oracle Database",
+      "Db2",
+      "SQL Server",
+      "MariaDB",
+      "SQLite"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Decision Worksheet",
+    "permalink": "/shopverse/data/database-selection/DATABASE-DECISION-WORKSHEET"
+  },
+  "next": {
+    "title": "Distributed SQL And NoSQL",
+    "permalink": "/shopverse/data/database-selection/DISTRIBUTED-SQL-NOSQL"
+  }
+}

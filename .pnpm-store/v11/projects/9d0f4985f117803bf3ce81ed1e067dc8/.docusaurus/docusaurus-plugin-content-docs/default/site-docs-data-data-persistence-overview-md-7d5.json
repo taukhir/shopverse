@@ -1,0 +1,54 @@
+{
+  "id": "data/DATA-PERSISTENCE-OVERVIEW",
+  "title": "Data And Persistence Overview",
+  "description": "First-read map of relational modeling, transactions, indexes, JPA, distributed databases, migration, caching, and production data operations.",
+  "source": "@site/docs/data/DATA-PERSISTENCE-OVERVIEW.md",
+  "sourceDirName": "data",
+  "slug": "/data/DATA-PERSISTENCE-OVERVIEW",
+  "permalink": "/shopverse/data/DATA-PERSISTENCE-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATA-PERSISTENCE-OVERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Data And Persistence Overview",
+    "description": "First-read map of relational modeling, transactions, indexes, JPA, distributed databases, migration, caching, and production data operations.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "SQL fundamentals"
+    ],
+    "learning_objectives": [
+      "Select storage from access and consistency needs",
+      "Define safe transaction and schema boundaries",
+      "Navigate database implementation and operations guides"
+    ],
+    "technologies": [
+      "SQL",
+      "MySQL",
+      "Oracle Database",
+      "JPA",
+      "Hibernate",
+      "Cassandra",
+      "Elasticsearch",
+      "NoSQL",
+      "Liquibase"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Engineering Foundations Revision Sheet",
+    "permalink": "/shopverse/development/ENGINEERING-FOUNDATIONS-REVISION"
+  },
+  "next": {
+    "title": "Data And Persistence Overview",
+    "permalink": "/shopverse/data/DATA-PERSISTENCE-OVERVIEW"
+  }
+}

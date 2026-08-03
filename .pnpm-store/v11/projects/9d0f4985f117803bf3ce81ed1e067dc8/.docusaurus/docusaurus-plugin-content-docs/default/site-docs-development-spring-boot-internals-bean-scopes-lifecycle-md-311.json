@@ -1,0 +1,49 @@
+{
+  "id": "development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE",
+  "title": "Spring Bean Scopes And Lifecycle",
+  "description": "Singleton, prototype and web scopes, lazy proxies, context hierarchies, callback ordering, resource ownership, graceful shutdown, and lifecycle diagnostics.",
+  "source": "@site/docs/development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md",
+  "sourceDirName": "development/spring-boot-internals",
+  "slug": "/development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE",
+  "permalink": "/shopverse/development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Bean Scopes And Lifecycle",
+    "description": "Singleton, prototype and web scopes, lazy proxies, context hierarchies, callback ordering, resource ownership, graceful shutdown, and lifecycle diagnostics.",
+    "difficulty": "Intermediate",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring dependency injection",
+      "ApplicationContext basics"
+    ],
+    "learning_objectives": [
+      "Choose bean scope from state ownership",
+      "Explain lazy and hierarchical context boundaries",
+      "Trace aware and lifecycle callbacks through published identity",
+      "Prove resource cleanup during graceful shutdown"
+    ],
+    "technologies": [
+      "Spring Framework 7",
+      "Spring Boot 4"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Autowiring, Ambiguity And Circular Dependencies",
+    "permalink": "/shopverse/development/spring-boot-internals/AUTOWIRING-CIRCULAR-REFERENCE-INTERNALS"
+  },
+  "next": {
+    "title": "Bean Lifecycle, GC And Static References",
+    "permalink": "/shopverse/development/spring-boot-internals/SPRING-BEAN-LIFECYCLE-GC-STATIC-REFERENCES"
+  }
+}

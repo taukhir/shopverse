@@ -1,0 +1,54 @@
+{
+  "id": "java/JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING",
+  "title": "Java Performance Diagnostics And Tooling",
+  "description": "Evidence-first runbook for CPU, latency, heap, native memory, GC, allocation, contention, pools, I/O, file descriptors, containers, JFR, JMC, and async-profiler.",
+  "source": "@site/docs/java/JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING",
+  "permalink": "/shopverse/java/JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Performance Diagnostics And Tooling",
+    "description": "Evidence-first runbook for CPU, latency, heap, native memory, GC, allocation, contention, pools, I/O, file descriptors, containers, JFR, JMC, and async-profiler.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "JVM memory",
+      "Java concurrency",
+      "Linux fundamentals"
+    ],
+    "learning_objectives": [
+      "Collect safe production evidence",
+      "Select the correct JVM and OS tool",
+      "Diagnose and verify common Java performance failures"
+    ],
+    "technologies": [
+      "Java",
+      "JFR",
+      "JMC",
+      "jcmd",
+      "async-profiler",
+      "Linux",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Production Incident Walkthroughs",
+    "permalink": "/shopverse/java/JAVA-PRODUCTION-INCIDENTS"
+  },
+  "next": {
+    "title": "Java Containers Resource Limits And Production Diagnostics",
+    "permalink": "/shopverse/java/JAVA-CONTAINERS-RESOURCE-LIMITS"
+  }
+}

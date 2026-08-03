@@ -1,0 +1,57 @@
+{
+  "id": "operations/DOCUSAURUS",
+  "title": "Docusaurus Documentation Engineering",
+  "description": "Author, organize, customize, deploy, and validate the Shopverse documentation site.",
+  "source": "@site/docs/operations/DOCUSAURUS.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/DOCUSAURUS",
+  "permalink": "/shopverse/operations/DOCUSAURUS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/DOCUSAURUS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Docusaurus Documentation Engineering",
+    "description": "Author, organize, customize, deploy, and validate the Shopverse documentation site.",
+    "sidebar_label": "Docusaurus Documentation Engineering",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "GitHub Actions",
+    "permalink": "/shopverse/operations/GITHUB-ACTIONS"
+  },
+  "next": {
+    "title": "Docusaurus Authoring And Navigation",
+    "permalink": "/shopverse/operations/DOCUSAURUS-AUTHORING-NAVIGATION"
+  }
+}

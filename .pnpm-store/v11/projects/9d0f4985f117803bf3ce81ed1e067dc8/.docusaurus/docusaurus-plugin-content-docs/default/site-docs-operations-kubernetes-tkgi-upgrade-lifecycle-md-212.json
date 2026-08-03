@@ -1,0 +1,55 @@
+{
+  "id": "operations/kubernetes/TKGI-UPGRADE-LIFECYCLE",
+  "title": "TKGI Upgrade Architecture And Lifecycle",
+  "description": "In-depth TKGI upgrade guide covering management-plane and workload-cluster sequencing, BOSH canaries, compatibility, failure handling, rollback boundaries, evidence, and interview scenarios.",
+  "source": "@site/docs/operations/kubernetes/TKGI-UPGRADE-LIFECYCLE.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-UPGRADE-LIFECYCLE",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-UPGRADE-LIFECYCLE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-UPGRADE-LIFECYCLE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI Upgrade Architecture And Lifecycle",
+    "description": "In-depth TKGI upgrade guide covering management-plane and workload-cluster sequencing, BOSH canaries, compatibility, failure handling, rollback boundaries, evidence, and interview scenarios.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "TKGI production operations path",
+      "BOSH lifecycle",
+      "Kubernetes availability"
+    ],
+    "learning_objectives": [
+      "Plan full and staged TKGI upgrades",
+      "Explain BOSH rolling changes and canaries",
+      "Protect workload availability",
+      "Diagnose failed upgrades",
+      "Define rollback and acceptance evidence"
+    ],
+    "technologies": [
+      "TKGI 1.25",
+      "Operations Manager",
+      "BOSH",
+      "Kubernetes",
+      "UAA",
+      "TKGI Database"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Networking, NSX, Antrea And Load Balancers",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-NETWORKING-LOAD-BALANCERS"
+  },
+  "next": {
+    "title": "TKGI Backup Restore And Disaster Recovery",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-BACKUP-RESTORE-DR"
+  }
+}

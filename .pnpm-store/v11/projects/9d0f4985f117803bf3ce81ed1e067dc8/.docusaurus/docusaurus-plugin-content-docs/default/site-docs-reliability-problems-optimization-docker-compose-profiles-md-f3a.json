@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/optimization/DOCKER-COMPOSE-PROFILES",
+  "title": "Add Docker Compose Profiles",
+  "description": "Back to Optimization Solutions.",
+  "source": "@site/docs/reliability/problems/optimization/DOCKER-COMPOSE-PROFILES.md",
+  "sourceDirName": "reliability/problems/optimization",
+  "slug": "/reliability/problems/optimization/DOCKER-COMPOSE-PROFILES",
+  "permalink": "/shopverse/reliability/problems/optimization/DOCKER-COMPOSE-PROFILES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/optimization/DOCKER-COMPOSE-PROFILES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Add Docker Compose Profiles",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Reduce Spring Boot JAR Size",
+    "permalink": "/shopverse/reliability/problems/optimization/JAR-SIZE-OPTIMIZATION"
+  },
+  "next": {
+    "title": "Gradle Dependency Optimization",
+    "permalink": "/shopverse/reliability/problems/optimization/GRADLE-DEPENDENCY-OPTIMIZATION"
+  }
+}

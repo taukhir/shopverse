@@ -1,0 +1,40 @@
+{
+  "id": "java/threading/TASK-CANCELLATION-DEADLINES",
+  "title": "Java Task Cancellation, Deadlines And Shutdown",
+  "description": "Cooperative interruption, end-to-end deadlines, Future cancellation, cleanup, durable side effects, and graceful Java executor shutdown.",
+  "source": "@site/docs/java/threading/TASK-CANCELLATION-DEADLINES.md",
+  "sourceDirName": "java/threading",
+  "slug": "/java/threading/TASK-CANCELLATION-DEADLINES",
+  "permalink": "/shopverse/java/threading/TASK-CANCELLATION-DEADLINES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/threading/TASK-CANCELLATION-DEADLINES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Task Cancellation, Deadlines And Shutdown",
+    "description": "Cooperative interruption, end-to-end deadlines, Future cancellation, cleanup, durable side effects, and graceful Java executor shutdown.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "technologies": [
+      "Java 25",
+      "ExecutorService",
+      "Future"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Thread Context Propagation",
+    "permalink": "/shopverse/java/threading/THREAD-CONTEXT-PROPAGATION"
+  },
+  "next": {
+    "title": "Java Thread Creation, Scheduling And Context Switching",
+    "permalink": "/shopverse/java/JAVA-THREAD-CREATION-SCHEDULING"
+  }
+}

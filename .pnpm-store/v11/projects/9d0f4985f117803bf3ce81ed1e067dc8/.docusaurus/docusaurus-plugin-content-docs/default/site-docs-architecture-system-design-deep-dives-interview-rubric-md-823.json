@@ -1,0 +1,47 @@
+{
+  "id": "architecture/system-design-deep-dives/INTERVIEW-RUBRIC",
+  "title": "System Design Interview Evaluation Rubric",
+  "description": "| Area | Points | Strong evidence |",
+  "source": "@site/docs/architecture/system-design-deep-dives/INTERVIEW-RUBRIC.md",
+  "sourceDirName": "architecture/system-design-deep-dives",
+  "slug": "/architecture/system-design-deep-dives/INTERVIEW-RUBRIC",
+  "permalink": "/shopverse/architecture/system-design-deep-dives/INTERVIEW-RUBRIC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/system-design-deep-dives/INTERVIEW-RUBRIC.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "System Design Interview Evaluation Rubric",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "keywords": [
+      "system design interview",
+      "scoring rubric",
+      "trade-off evaluation"
+    ],
+    "learning_objectives": [
+      "Evaluate designs consistently",
+      "Identify shallow box-diagram answers",
+      "Improve trade-off communication"
+    ],
+    "technologies": [
+      "System Design"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Fifteen System Design Visual Blueprints",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS"
+  },
+  "next": {
+    "title": "Shopverse System-Design Capstones",
+    "permalink": "/shopverse/architecture/shopverse-capstones/"
+  }
+}

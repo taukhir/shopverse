@@ -1,0 +1,54 @@
+{
+  "id": "data/DATABASE-ENGINE-INTERNALS",
+  "title": "Database Engine Internals",
+  "description": "Storage And Recovery",
+  "source": "@site/docs/data/DATABASE-ENGINE-INTERNALS.md",
+  "sourceDirName": "data",
+  "slug": "/data/DATABASE-ENGINE-INTERNALS",
+  "permalink": "/shopverse/data/DATABASE-ENGINE-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATABASE-ENGINE-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Database Engine Internals",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "keywords": [
+      "buffer pool",
+      "WAL",
+      "MVCC",
+      "query optimizer",
+      "join algorithm",
+      "B-tree",
+      "LSM tree"
+    ],
+    "learning_objectives": [
+      "Trace a transaction through storage and recovery",
+      "Explain optimizer and index decisions",
+      "Compare relational LSM and distributed internals"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "MySQL",
+      "Cassandra",
+      "ClickHouse"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Consistency And Scaling",
+    "permalink": "/shopverse/data/DATABASE-CONSISTENCY-SCALING"
+  },
+  "next": {
+    "title": "Redis Internals And Operations",
+    "permalink": "/shopverse/data/redis/REDIS-INTERNALS-OPERATIONS-INTERVIEW"
+  }
+}

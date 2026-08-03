@@ -1,0 +1,50 @@
+{
+  "id": "operations/iac/IAC-IMPLEMENTATION-OPERATIONS-INTERVIEW",
+  "title": "IaC Implementation, Operations, Incidents, Labs, And Interviews",
+  "description": "Practical HCL, modules, remote state, testing, policy, CI, imports, refactors, drift, partial failure, recovery, production scenarios, and architect questions.",
+  "source": "@site/docs/operations/iac/IAC-IMPLEMENTATION-OPERATIONS-INTERVIEW.md",
+  "sourceDirName": "operations/iac",
+  "slug": "/operations/iac/IAC-IMPLEMENTATION-OPERATIONS-INTERVIEW",
+  "permalink": "/shopverse/operations/iac/IAC-IMPLEMENTATION-OPERATIONS-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/iac/IAC-IMPLEMENTATION-OPERATIONS-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "IaC Implementation, Operations, Incidents, Labs, And Interviews",
+    "description": "Practical HCL, modules, remote state, testing, policy, CI, imports, refactors, drift, partial failure, recovery, production scenarios, and architect questions.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Terraform And OpenTofu Architect Path"
+    ],
+    "learning_objectives": [
+      "Write governed modules",
+      "Build a safe automation pipeline",
+      "Diagnose state and provider incidents",
+      "Complete architect labs"
+    ],
+    "technologies": [
+      "Terraform",
+      "OpenTofu",
+      "AWS",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Terraform And OpenTofu Infrastructure-As-Code Architect Path",
+    "permalink": "/shopverse/operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Performance And Chaos Engineering Architect Path",
+    "permalink": "/shopverse/operations/PERFORMANCE-CHAOS-ENGINEERING-PATH"
+  }
+}

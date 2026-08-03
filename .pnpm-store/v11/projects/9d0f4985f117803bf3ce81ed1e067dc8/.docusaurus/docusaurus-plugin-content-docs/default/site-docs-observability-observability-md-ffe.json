@@ -1,0 +1,57 @@
+{
+  "id": "observability/OBSERVABILITY",
+  "title": "Shopverse Observability Architecture",
+  "description": "Shopverse Observability Architecture: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/observability/OBSERVABILITY.md",
+  "sourceDirName": "observability",
+  "slug": "/observability/",
+  "permalink": "/shopverse/observability/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/observability/OBSERVABILITY.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "observability",
+      "permalink": "/shopverse/tags/observability"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse Observability Architecture",
+    "description": "Shopverse Observability Architecture: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Shopverse Observability Architecture",
+    "tags": [
+      "observability",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-observability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Observability Engineering Overview",
+    "permalink": "/shopverse/observability/OBSERVABILITY-OVERVIEW"
+  },
+  "next": {
+    "title": "Application Logging",
+    "permalink": "/shopverse/observability/LOGGING-GENERIC"
+  }
+}
