@@ -171,6 +171,33 @@ const config: Config = {
       defaultMode: 'light',
       respectPrefersColorScheme: true,
     },
+    mermaid: {
+      theme: {
+        light: 'base',
+        dark: 'base',
+      },
+      options: {
+        fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
+        fontSize: 15,
+        flowchart: {
+          curve: 'basis',
+          htmlLabels: true,
+          nodeSpacing: 36,
+          rankSpacing: 48,
+          padding: 18,
+          useMaxWidth: true,
+        },
+        sequence: {
+          actorMargin: 56,
+          boxMargin: 12,
+          diagramMarginX: 24,
+          diagramMarginY: 18,
+          messageMargin: 36,
+          mirrorActors: false,
+          useMaxWidth: true,
+        },
+      },
+    },
     navbar: {
       title: 'Backend Engineering',
       logo: {

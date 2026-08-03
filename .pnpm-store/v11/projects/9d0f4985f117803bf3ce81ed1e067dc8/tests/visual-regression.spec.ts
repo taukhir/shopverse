@@ -29,3 +29,43 @@ for (const route of [
     expect(await page.locator('img').evaluateAll((images) => images.filter((image) => !image.complete || image.naturalWidth === 0).map((image) => image.src))).toEqual([]);
   });
 }
+
+for (const diagram of [
+  {
+    name: 'flowchart-light',
+    route: 'data/database-selection/DATABASE-QUICK-CHOICE',
+    colorScheme: 'light' as const,
+  },
+  {
+    name: 'sequence-dark',
+    route: 'integration/kafka/KAFKA-CONSUMER-OFFSET-COMMITS',
+    colorScheme: 'dark' as const,
+  },
+]) {
+  test(`${diagram.name} Mermaid diagram`, async ({page}, testInfo) => {
+    await page.emulateMedia({colorScheme: diagram.colorScheme});
+    await page.goto(`./${diagram.route}`);
+    await page.evaluate(() => document.fonts.ready);
+
+    const container = page.locator('.docusaurus-mermaid-container').first();
+    await expect(container.locator('svg')).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', diagram.colorScheme);
+
+    const layout = await container.evaluate((element) => ({
+      containerWidth: element.getBoundingClientRect().width,
+      internalOverflow: element.scrollWidth > element.clientWidth,
+      pageOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+    }));
+    expect(layout.pageOverflow).toBe(false);
+    if (testInfo.project.name.includes('mobile')) {
+      expect(layout.containerWidth).toBeLessThanOrEqual(390);
+      expect(layout.internalOverflow).toBe(true);
+    }
+
+    const viewport = testInfo.project.name.includes('mobile') ? 'mobile' : 'desktop';
+    await expect(container).toHaveScreenshot(`mermaid-${diagram.name}-${viewport}.png`, {
+      animations: 'disabled',
+      maxDiffPixelRatio: 0.06,
+    });
+  });
+}

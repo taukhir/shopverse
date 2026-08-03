@@ -2127,7 +2127,7 @@
     "scope": "generic",
     "owner": "docs-architecture",
     "lastReviewed": "2026-07-30",
-    "hasInterview": false,
+    "hasInterview": true,
     "hasCode": false,
     "isLab": false,
     "isRunbook": false,
