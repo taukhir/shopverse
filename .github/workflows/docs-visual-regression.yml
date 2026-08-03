@@ -9,6 +9,7 @@ on:
       - "documentation/playwright.config.ts"
       - "documentation/package.json"
       - "documentation/package-lock.json"
+      - "documentation/scripts/run-visual-tests.mjs"
       - "documentation/tests/visual-regression.spec.ts"
       - ".github/workflows/docs-visual-regression.yml"
   push:
@@ -21,6 +22,7 @@ on:
       - "documentation/playwright.config.ts"
       - "documentation/package.json"
       - "documentation/package-lock.json"
+      - "documentation/scripts/run-visual-tests.mjs"
       - "documentation/tests/visual-regression.spec.ts"
       - ".github/workflows/docs-visual-regression.yml"
   schedule:

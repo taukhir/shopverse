@@ -1,5 +1,17 @@
 # Shopverse Web
 
+## Browser Application Integration
+
+```mermaid
+flowchart LR
+    User --> Web["Shopverse Web"] --> Gateway["API Gateway"]
+    Gateway --> Auth
+    Gateway --> Catalog["Inventory and catalog"]
+    Gateway --> Orders
+    Gateway --> Payments
+    Web --> Telemetry["Client diagnostics"]
+```
+
 Angular storefront and administration UI for the Shopverse local POC.
 
 The app runs on port `4200` in local development and in the full-stack Docker

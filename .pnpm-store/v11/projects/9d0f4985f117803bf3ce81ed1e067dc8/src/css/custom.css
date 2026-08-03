@@ -306,15 +306,81 @@ code {
 }
 
 .docusaurus-mermaid-container {
-  background: var(--doc-surface);
-  margin: 1.5rem 0 2rem;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--ifm-color-primary) 10%, transparent), transparent 42%),
+    linear-gradient(145deg, var(--ifm-background-surface-color), var(--doc-surface));
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 24%, var(--doc-border));
+  border-radius: 14px;
+  box-shadow: var(--doc-shadow-sm);
+  margin: 1.75rem 0 2.25rem;
   overflow-x: auto;
-  padding: 1.25rem;
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+  scrollbar-color: color-mix(in srgb, var(--ifm-color-primary) 45%, transparent) transparent;
+  scrollbar-gutter: stable;
   text-align: center;
 }
 
 .docusaurus-mermaid-container svg {
+  display: block;
+  height: auto;
+  margin-inline: auto;
   min-width: 620px;
+}
+
+.docusaurus-mermaid-container .node rect,
+.docusaurus-mermaid-container .node circle,
+.docusaurus-mermaid-container .node ellipse,
+.docusaurus-mermaid-container .node polygon,
+.docusaurus-mermaid-container .node path,
+.docusaurus-mermaid-container rect.actor,
+.docusaurus-mermaid-container .labelBox {
+  fill: var(--ifm-background-surface-color) !important;
+  stroke: color-mix(in srgb, var(--ifm-color-primary) 72%, var(--doc-border)) !important;
+  stroke-width: 1.6px !important;
+}
+
+.docusaurus-mermaid-container .node rect,
+.docusaurus-mermaid-container rect.actor,
+.docusaurus-mermaid-container .labelBox {
+  rx: 8px;
+  ry: 8px;
+}
+
+.docusaurus-mermaid-container .nodeLabel,
+.docusaurus-mermaid-container .label text,
+.docusaurus-mermaid-container text.actor,
+.docusaurus-mermaid-container text.actor tspan,
+.docusaurus-mermaid-container .messageText,
+.docusaurus-mermaid-container .noteText,
+.docusaurus-mermaid-container .noteText tspan {
+  color: var(--ifm-font-color-base) !important;
+  fill: var(--ifm-font-color-base) !important;
+  font-weight: 600 !important;
+}
+
+.docusaurus-mermaid-container .flowchart-link,
+.docusaurus-mermaid-container .messageLine0,
+.docusaurus-mermaid-container .messageLine1,
+.docusaurus-mermaid-container .actor-line {
+  stroke: var(--ifm-color-emphasis-500) !important;
+  stroke-width: 1.6px !important;
+}
+
+.docusaurus-mermaid-container marker path {
+  fill: var(--ifm-color-primary) !important;
+  stroke: var(--ifm-color-primary) !important;
+}
+
+.docusaurus-mermaid-container .edgeLabel,
+.docusaurus-mermaid-container .labelBkg,
+.docusaurus-mermaid-container .note {
+  background: var(--ifm-background-color) !important;
+  fill: var(--ifm-background-color) !important;
+}
+
+.docusaurus-mermaid-container .cluster rect {
+  fill: color-mix(in srgb, var(--ifm-color-primary) 7%, var(--doc-surface)) !important;
+  stroke: color-mix(in srgb, var(--ifm-color-primary) 36%, var(--doc-border)) !important;
 }
 
 .theme-doc-sidebar-menu {

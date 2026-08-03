@@ -5,6 +5,7 @@ const result = spawnSync(process.execPath, [
   'test',
   'tests/visual-regression.spec.ts',
   '--project=desktop-chromium',
+  '--project=mobile-chromium',
   ...process.argv.slice(2),
 ], {
   stdio: 'inherit',
