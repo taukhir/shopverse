@@ -6,7 +6,7 @@ tags: [java, collections, map, hashmap, internals]
 page_type: Deep Dive
 difficulty: Advanced
 status: maintained
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-08-02"
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -63,6 +63,20 @@ distribution matter more than memorizing that average.
 One null key and multiple null values are allowed. Because `get` returning null
 can mean absent or mapped-to-null, use `containsKey` when the distinction matters.
 Never mutate key fields used by equality or hashing while stored.
+
+`HashMap` does not sort entries, so a null key has no "first" or "last"
+position. If sorted keys are required, use `TreeMap`; its natural ordering
+normally rejects null keys because they cannot be compared. A comparator that
+explicitly handles null can define an order, for example null-first:
+
+```java
+Map<String, Integer> sorted = new TreeMap<>(Comparator.nullsFirst(naturalOrder()));
+sorted.put(null, 0);
+sorted.put("A", 1);
+```
+
+Sorting entries from a `HashMap` is a separate operation: copy its entries to a
+list and sort with a comparator that defines how null keys or values compare.
 
 ## Capacity Planning
 

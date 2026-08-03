@@ -1,0 +1,51 @@
+{
+  "id": "architecture/networking/NETWORK-INCIDENT-LABS-REVISION",
+  "title": "Network Diagnosis Incidents, Labs, Interviews, And Revision",
+  "description": "Diagnose end-to-end DNS, TCP, TLS, HTTP/2, proxy, load-balancer and Kubernetes failures using timing, sockets, packet capture, labs, and a revision sheet.",
+  "source": "@site/docs/architecture/networking/NETWORK-INCIDENT-LABS-REVISION.md",
+  "sourceDirName": "architecture/networking",
+  "slug": "/architecture/networking/NETWORK-INCIDENT-LABS-REVISION",
+  "permalink": "/shopverse/architecture/networking/NETWORK-INCIDENT-LABS-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/networking/NETWORK-INCIDENT-LABS-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Network Diagnosis Incidents, Labs, Interviews, And Revision",
+    "description": "Diagnose end-to-end DNS, TCP, TLS, HTTP/2, proxy, load-balancer and Kubernetes failures using timing, sockets, packet capture, labs, and a revision sheet.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "TLS And HTTP2 Diagnosis"
+    ],
+    "learning_objectives": [
+      "Run evidence-led network triage",
+      "Complete safe protocol labs",
+      "Answer production networking interviews"
+    ],
+    "technologies": [
+      "DNS",
+      "TCP",
+      "TLS",
+      "HTTP/2",
+      "Wireshark",
+      "tcpdump"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TLS, Certificates, HTTP/1.1, And HTTP/2 Diagnosis",
+    "permalink": "/shopverse/architecture/networking/TLS-HTTP2-DIAGNOSIS"
+  },
+  "next": {
+    "title": "gRPC And Protocol Buffers Architect Path",
+    "permalink": "/shopverse/architecture/GRPC-PROTOBUF-ARCHITECT-PATH"
+  }
+}

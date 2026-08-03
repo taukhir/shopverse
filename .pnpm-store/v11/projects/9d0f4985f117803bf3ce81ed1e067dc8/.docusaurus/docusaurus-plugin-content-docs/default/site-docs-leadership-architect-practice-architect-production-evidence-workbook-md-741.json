@@ -1,0 +1,50 @@
+{
+  "id": "leadership/architect-practice/ARCHITECT-PRODUCTION-EVIDENCE-WORKBOOK",
+  "title": "Architect Production Evidence, Portfolio, Labs, And Interview Workbook",
+  "description": "Define proof that a design works, build an evidence portfolio, run architecture labs, and practise seven-question interview answers with scoring rubrics.",
+  "source": "@site/docs/leadership/architect-practice/ARCHITECT-PRODUCTION-EVIDENCE-WORKBOOK.md",
+  "sourceDirName": "leadership/architect-practice",
+  "slug": "/leadership/architect-practice/ARCHITECT-PRODUCTION-EVIDENCE-WORKBOOK",
+  "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-PRODUCTION-EVIDENCE-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/architect-practice/ARCHITECT-PRODUCTION-EVIDENCE-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Architect Production Evidence, Portfolio, Labs, And Interview Workbook",
+    "description": "Define proof that a design works, build an evidence portfolio, run architecture labs, and practise seven-question interview answers with scoring rubrics.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Architect Scaling Security And Trade-Offs"
+    ],
+    "learning_objectives": [
+      "Define production proof",
+      "Build portfolio artifacts",
+      "Practise and score architect answers"
+    ],
+    "technologies": [
+      "SLOs",
+      "Observability",
+      "Load Testing",
+      "Chaos Engineering",
+      "ADRs"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Architect Scaling, Security, And Rejected Trade-Offs",
+    "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-SCALE-SECURITY-TRADEOFFS"
+  },
+  "next": {
+    "title": "Lead And Architect Preparation Dashboard",
+    "permalink": "/shopverse/leadership/interview-program/LEAD-ARCHITECT-PREPARATION-DASHBOARD"
+  }
+}

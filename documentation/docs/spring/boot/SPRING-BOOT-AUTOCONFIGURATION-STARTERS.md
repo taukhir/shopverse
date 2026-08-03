@@ -95,6 +95,34 @@ When a bean is missing or duplicated:
 
 An exclusion can make startup green while silently removing required infrastructure.
 
+### Turn Expected Startup Failures Into Actionable Diagnostics
+
+A custom `FailureAnalyzer` translates a known startup exception into a concise
+`FailureAnalysis` containing a description, a corrective action, and the original
+cause. It improves the operator/developer message; it does not recover the context or
+replace validation.
+
+```java
+final class PaymentPropertiesFailureAnalyzer
+        extends AbstractFailureAnalyzer<InvalidPaymentPropertiesException> {
+    @Override
+    protected FailureAnalysis analyze(
+            Throwable rootFailure,
+            InvalidPaymentPropertiesException cause) {
+        return new FailureAnalysis(
+                "Payment endpoint configuration is invalid: " + cause.getReason(),
+                "Set payment.base-url to an approved HTTPS endpoint.",
+                cause);
+    }
+}
+```
+
+Register library analyzers through Boot's supported factory-discovery metadata for
+the pinned version. Return `null` when an analyzer cannot explain the failure so
+another analyzer or the normal exception report can handle it. Never place secrets
+or full sensitive property values in the description or action. Test the failure
+message, remediation, cause selection, and unrelated-exception fallback.
+
 ## Starter Governance
 
 - publish a supported Java/Boot/library compatibility matrix;
@@ -119,8 +147,13 @@ generic metadata, bean timing and multiple application contexts affect the condi
 **What is the first artifact when an auto-configured bean is absent?** The condition
 evaluation report plus the resolved dependency graph.
 
+**What does a `FailureAnalyzer` do?** It turns a recognized startup exception into an
+actionable description and remediation while retaining the cause. It improves failure
+reporting; it does not make startup succeed.
+
 ## Official References
 
 - [Spring Boot auto-configuration](https://docs.spring.io/spring-boot/reference/using/auto-configuration.html)
 - [Creating custom auto-configuration](https://docs.spring.io/spring-boot/reference/features/developing-auto-configuration.html)
-
+- [Spring Boot startup failure analysis](https://docs.spring.io/spring-boot/reference/features/spring-application.html)
+- [Spring Boot `FailureAnalyzer` API](https://docs.spring.io/spring-boot/4.0/api/java/org/springframework/boot/diagnostics/FailureAnalyzer.html)

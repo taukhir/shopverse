@@ -1,0 +1,51 @@
+{
+  "id": "spring/jpa/JPA-RELATIONSHIPS-JSON",
+  "title": "JPA Associations And Ownership",
+  "description": "Spring Data JPA association ownership, aggregate mutation, cascades, orphan removal, fetch boundaries, and safe foreign-key rollout.",
+  "source": "@site/docs/spring/jpa/JPA-RELATIONSHIPS-JSON.md",
+  "sourceDirName": "spring/jpa",
+  "slug": "/spring/jpa/JPA-RELATIONSHIPS-JSON",
+  "permalink": "/shopverse/spring/jpa/JPA-RELATIONSHIPS-JSON",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/jpa/JPA-RELATIONSHIPS-JSON.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JPA Associations And Ownership",
+    "description": "Spring Data JPA association ownership, aggregate mutation, cascades, orphan removal, fetch boundaries, and safe foreign-key rollout.",
+    "difficulty": "Intermediate",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "JPA entity integration",
+      "Hibernate lifecycle",
+      "Relational foreign keys"
+    ],
+    "learning_objectives": [
+      "Identify the owning side of an association",
+      "Keep aggregate relationships consistent in memory and in SQL",
+      "Roll out foreign keys without breaking mixed versions"
+    ],
+    "technologies": [
+      "Spring Data JPA",
+      "Jakarta Persistence",
+      "Hibernate ORM",
+      "Liquibase"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JPA Basics And Entity Mapping",
+    "permalink": "/shopverse/spring/jpa/JPA-BASICS-ENTITY-MAPPING"
+  },
+  "next": {
+    "title": "JPA Repositories Queries And Projections",
+    "permalink": "/shopverse/spring/jpa/JPA-REPOSITORIES-QUERIES"
+  }
+}

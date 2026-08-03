@@ -168,6 +168,12 @@ Retries consume the same total budget. Retry only selected transient failures an
 operations safe to repeat. Never retry commands without a durable idempotency
 strategy.
 
+A circuit breaker can stop repeated calls to a dependency that is already
+failing, but it is not a timeout or retry policy. Define its failure window,
+open-state behavior, half-open probes, fallback semantics, and metrics per
+dependency; careless retries can otherwise amplify the failure it is meant to
+contain.
+
 ## Cross-Cutting Context
 
 Propagate authentication, correlation, trace, locale, and idempotency only when

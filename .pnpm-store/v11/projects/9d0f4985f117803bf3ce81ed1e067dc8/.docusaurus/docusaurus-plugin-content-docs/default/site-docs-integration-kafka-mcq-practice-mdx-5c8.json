@@ -1,0 +1,42 @@
+{
+  "id": "integration/KAFKA-MCQ-PRACTICE",
+  "title": "Kafka MCQ Practice",
+  "description": "Timed Kafka MCQs covering internals, reliability, consumers, operations, security, and architecture.",
+  "source": "@site/docs/integration/KAFKA-MCQ-PRACTICE.mdx",
+  "sourceDirName": "integration",
+  "slug": "/integration/KAFKA-MCQ-PRACTICE",
+  "permalink": "/shopverse/integration/KAFKA-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/integration/KAFKA-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kafka MCQ Practice",
+    "description": "Timed Kafka MCQs covering internals, reliability, consumers, operations, security, and architecture.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Kafka Architect Path"
+    ],
+    "technologies": [
+      "Apache Kafka",
+      "Spring Kafka"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-integration",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kafka Architect Learning Path",
+    "permalink": "/shopverse/integration/KAFKA-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Kafka And Spring Kafka Architect Overview",
+    "permalink": "/shopverse/integration/KAFKA-ARCHITECT-OVERVIEW"
+  }
+}

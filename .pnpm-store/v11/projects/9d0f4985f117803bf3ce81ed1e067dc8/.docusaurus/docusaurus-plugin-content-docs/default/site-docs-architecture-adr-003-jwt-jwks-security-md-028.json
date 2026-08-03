@@ -1,0 +1,35 @@
+{
+  "id": "architecture/adr/jwt-jwks-security",
+  "title": "ADR 003: JWT And JWKS Security Model",
+  "description": "Context",
+  "source": "@site/docs/architecture/adr/003-jwt-jwks-security.md",
+  "sourceDirName": "architecture/adr",
+  "slug": "/architecture/adr/jwt-jwks-security",
+  "permalink": "/shopverse/architecture/adr/jwt-jwks-security",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/adr/003-jwt-jwks-security.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "ADR 003: JWT And JWKS Security Model",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ADR 002: Kafka Choreography SAGA For Checkout",
+    "permalink": "/shopverse/architecture/adr/kafka-choreography-saga"
+  },
+  "next": {
+    "title": "ADR 004: Observability Stack By Default",
+    "permalink": "/shopverse/architecture/adr/observability-stack"
+  }
+}

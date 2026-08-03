@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Spring container, AOP proxies, Database transactions]
 learning_objectives: [Trace TransactionInterceptor end to end, Predict which methods are intercepted, Explain self-invocation failure, Create explicit transaction boundaries, Diagnose rollback and resource failures]
 technologies: [Spring Framework 7, Spring Boot 4, Spring Transactions, JPA, JDBC, Reactor]
-last_reviewed: "2026-07-29"
+last_reviewed: "2026-07-31"
 scope: generic
 owner: docs-spring
 reviewer: documentation-maintainers
@@ -105,7 +105,8 @@ class OrderService {
 The proxy exposes/intercepts eligible calls before invoking the target. An external caller
 cannot call the private method, and a subclass proxy cannot override it. The call from
 `place()` is also a direct target call. Therefore the annotation does not establish the
-intended boundary.
+intended boundary. Spring normally raises no error for this annotation; the missing
+interception is therefore easy to mistake for a working transaction.
 
 ### Correct design: put the boundary on the public use case
 
@@ -306,6 +307,59 @@ extracting a collaborator.
 They can work in constrained situations but couple domain code to proxy plumbing, obscure
 call graphs and make tests/lifecycle behavior harder.
 
+## Class-Level Defaults And Read-Only Work
+
+Class-level `@Transactional` is valid. It supplies the default transaction attributes for
+eligible methods of that class; a method-level annotation overrides that default. It is a
+good fit when the class has a deliberate, uniform transaction policy.
+
+```java
+@Service
+@Transactional(readOnly = true)
+class ProductApplicationService {
+
+    ProductView find(ProductId id) {
+        return repository.findViewById(id).orElseThrow();
+    }
+
+    @Transactional
+    ProductId create(CreateProduct command) {
+        Product product = Product.create(command);
+        repository.save(product);
+        return product.id();
+    }
+}
+```
+
+This read-only-default/write-override form is often clear for a service with mostly query
+use cases. A bare class-level `@Transactional` instead makes eligible query methods
+read-write by default (`REQUIRED`, default isolation, and read-write are the ordinary
+defaults). Do not put it on a mixed class merely for convenience: it can hide transaction
+boundaries and accidentally retain a connection while a method performs remote I/O.
+
+### What `readOnly = true` does and does not do
+
+`readOnly` communicates intent to the transaction manager and can enable provider-specific
+optimizations. With Spring Data JPA and Hibernate, Spring sets Hibernate's flush mode to
+`MANUAL`; Hibernate can then skip dirty checking, which matters most for large managed
+object graphs. A read-only transaction may also serve as a signal for an application-owned
+read-replica routing data source.
+
+It does **not** make a query inherently faster, eliminate connection/transaction cost, or
+universally prohibit writes. The exact database and driver behavior varies; do not use it as
+an authorization or write-protection boundary. Use database privileges or a genuinely
+read-only datasource when enforcement is required.
+
+Use a service-level read-only transaction when several queries form one use case, when the
+persistence context is needed while building a DTO, or when a defined isolation/routing
+policy matters. A single inherited Spring Data repository read already has appropriate
+repository transaction metadata in many applications, so adding a service transaction to
+every trivial lookup is not automatically valuable.
+
+For read-heavy endpoints, optimize in this order: select only required rows/columns, avoid
+N+1 queries, paginate or stream large results, then use read-only transaction semantics as a
+measured ORM optimization.
+
 ## Choosing The Correct Boundary
 
 A transaction should protect one local consistency invariant and remain short.
@@ -425,10 +479,14 @@ transaction attributes/propagation are not applied.
 method called through another bean. For a genuinely distinct inner unit, extract a proxied
 collaborator or use `TransactionTemplate`. Use AspectJ only as a deliberate platform choice.
 
+**Does `readOnly = true` prevent writes?** No. It is a transaction hint that can improve
+Hibernate flush/dirty-checking behavior and can support routing, but strict write prevention
+belongs in database privileges or datasource policy.
+
 ## Official References
 
 - [Spring declarative transaction annotations](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/annotations.html)
 - [Spring transaction propagation](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-propagation.html)
 - [Spring AOP proxying mechanisms](https://docs.spring.io/spring-framework/reference/core/aop/proxying.html)
 - [Spring programmatic transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction/programmatic.html)
-
+- [Spring Data JPA transactionality](https://docs.spring.io/spring-data/jpa/reference/jpa/transactions.html)

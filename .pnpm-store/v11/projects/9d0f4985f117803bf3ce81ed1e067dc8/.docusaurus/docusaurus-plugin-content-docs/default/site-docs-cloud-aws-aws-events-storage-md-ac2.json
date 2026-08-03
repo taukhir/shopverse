@@ -1,0 +1,34 @@
+{
+  "id": "cloud/aws/AWS-EVENTS-STORAGE",
+  "title": "AWS EventBridge, SQS, SNS And S3",
+  "description": "EventBridge",
+  "source": "@site/docs/cloud/aws/AWS-EVENTS-STORAGE.md",
+  "sourceDirName": "cloud/aws",
+  "slug": "/cloud/aws/AWS-EVENTS-STORAGE",
+  "permalink": "/shopverse/cloud/aws/AWS-EVENTS-STORAGE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/cloud/aws/AWS-EVENTS-STORAGE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AWS EventBridge, SQS, SNS And S3",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-cloud",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AWS RDS And DynamoDB",
+    "permalink": "/shopverse/cloud/aws/AWS-DATABASES"
+  },
+  "next": {
+    "title": "AWS Lambda And Serverless",
+    "permalink": "/shopverse/cloud/aws/AWS-LAMBDA-SERVERLESS"
+  }
+}

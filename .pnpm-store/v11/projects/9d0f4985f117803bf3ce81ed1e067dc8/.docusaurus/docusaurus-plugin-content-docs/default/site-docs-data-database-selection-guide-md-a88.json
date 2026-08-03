@@ -1,0 +1,60 @@
+{
+  "id": "data/DATABASE-SELECTION-GUIDE",
+  "title": "Database Design And Selection",
+  "description": "There is no universally best database. Start with correctness and access",
+  "source": "@site/docs/data/DATABASE-SELECTION-GUIDE.md",
+  "sourceDirName": "data",
+  "slug": "/data/DATABASE-SELECTION-GUIDE",
+  "permalink": "/shopverse/data/DATABASE-SELECTION-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATABASE-SELECTION-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Database Design And Selection",
+    "sidebar_position": 2,
+    "difficulty": "Beginner",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose a database category from system requirements",
+      "Navigate database design trade-offs",
+      "Plan an evidence-based database evaluation"
+    ],
+    "technologies": [
+      "MySQL",
+      "PostgreSQL",
+      "Oracle Database",
+      "Db2",
+      "SQL Server",
+      "MariaDB",
+      "SQLite",
+      "CockroachDB",
+      "Cassandra",
+      "MongoDB",
+      "DynamoDB",
+      "Redis",
+      "Elasticsearch",
+      "OpenSearch",
+      "Neo4j",
+      "ClickHouse",
+      "pgvector"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Redis Internals And Operations",
+    "permalink": "/shopverse/data/redis/REDIS-INTERNALS-OPERATIONS-INTERVIEW"
+  },
+  "next": {
+    "title": "Database Quick Choice",
+    "permalink": "/shopverse/data/database-selection/DATABASE-QUICK-CHOICE"
+  }
+}

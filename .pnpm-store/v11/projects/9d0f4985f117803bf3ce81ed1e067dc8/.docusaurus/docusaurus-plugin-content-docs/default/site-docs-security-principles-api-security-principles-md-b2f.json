@@ -1,0 +1,34 @@
+{
+  "id": "security/principles/API-SECURITY-PRINCIPLES",
+  "title": "API Security Principles",
+  "description": "API security protects the request boundary: identity, authorization, input,",
+  "source": "@site/docs/security/principles/API-SECURITY-PRINCIPLES.md",
+  "sourceDirName": "security/principles",
+  "slug": "/security/principles/API-SECURITY-PRINCIPLES",
+  "permalink": "/shopverse/security/principles/API-SECURITY-PRINCIPLES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/principles/API-SECURITY-PRINCIPLES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "API Security Principles",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Security Principles",
+    "permalink": "/shopverse/security/principles/SECURITY-PRINCIPLES"
+  },
+  "next": {
+    "title": "Microservices Security Principles",
+    "permalink": "/shopverse/security/principles/MICROSERVICES-SECURITY-PRINCIPLES"
+  }
+}

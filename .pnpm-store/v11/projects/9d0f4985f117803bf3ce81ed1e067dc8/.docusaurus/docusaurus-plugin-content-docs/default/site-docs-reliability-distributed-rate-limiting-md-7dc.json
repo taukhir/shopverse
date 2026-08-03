@@ -1,0 +1,36 @@
+{
+  "id": "reliability/DISTRIBUTED-RATE-LIMITING",
+  "title": "Distributed Rate Limiting",
+  "description": "A rate limiter decides whether a request is allowed to enter the system now.",
+  "source": "@site/docs/reliability/DISTRIBUTED-RATE-LIMITING.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/DISTRIBUTED-RATE-LIMITING",
+  "permalink": "/shopverse/reliability/DISTRIBUTED-RATE-LIMITING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/DISTRIBUTED-RATE-LIMITING.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Distributed Rate Limiting",
+    "sidebar_position": 7,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Resilience Pattern Composition And Operations",
+    "permalink": "/shopverse/reliability/RESILIENCE4J-COMPOSITION-OPERATIONS"
+  },
+  "next": {
+    "title": "High Availability And SPOF Prevention",
+    "permalink": "/shopverse/reliability/HIGH-AVAILABILITY-SPOF"
+  }
+}

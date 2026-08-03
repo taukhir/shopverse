@@ -1,0 +1,40 @@
+{
+  "id": "java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS",
+  "title": "CompletableFuture Fundamentals And Execution",
+  "description": "Creation, manual completion, Future comparison, blocking boundaries, executor selection, and stage execution semantics.",
+  "source": "@site/docs/java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS.md",
+  "sourceDirName": "java/completable-future",
+  "slug": "/java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS",
+  "permalink": "/shopverse/java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "CompletableFuture Fundamentals And Execution",
+    "description": "Creation, manual completion, Future comparison, blocking boundaries, executor selection, and stage execution semantics.",
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "technologies": [
+      "Java 24",
+      "CompletableFuture",
+      "Executor"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java CompletableFuture Learning Guide",
+    "permalink": "/shopverse/java/JAVA-COMPLETABLE-FUTURE"
+  },
+  "next": {
+    "title": "CompletableFuture Composition And Fan-Out",
+    "permalink": "/shopverse/java/completable-future/COMPLETABLE-FUTURE-COMPOSITION"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "architecture/shopverse-capstones/INVENTORY-RESERVATION-DESIGN",
+  "title": "Inventory Reservation System Design",
+  "description": "Prevent overselling with authoritative stock, expiring reservations, idempotency, and reconciliation.",
+  "source": "@site/docs/architecture/shopverse-capstones/INVENTORY-RESERVATION-DESIGN.md",
+  "sourceDirName": "architecture/shopverse-capstones",
+  "slug": "/architecture/shopverse-capstones/INVENTORY-RESERVATION-DESIGN",
+  "permalink": "/shopverse/architecture/shopverse-capstones/INVENTORY-RESERVATION-DESIGN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/shopverse-capstones/INVENTORY-RESERVATION-DESIGN.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Inventory Reservation System Design",
+    "description": "Prevent overselling with authoritative stock, expiring reservations, idempotency, and reconciliation.",
+    "difficulty": "Advanced",
+    "page_type": "Case Study",
+    "status": "maintained",
+    "prerequisites": [
+      "Database concurrency",
+      "Kafka"
+    ],
+    "learning_objectives": [
+      "Protect stock invariants",
+      "Size hot SKUs",
+      "Recover expired reservations"
+    ],
+    "technologies": [
+      "MySQL",
+      "Kafka",
+      "Redis"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "shopverse",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Checkout And Order System Design",
+    "permalink": "/shopverse/architecture/shopverse-capstones/CHECKOUT-ORDER-DESIGN"
+  },
+  "next": {
+    "title": "Payment Reliability System Design",
+    "permalink": "/shopverse/architecture/shopverse-capstones/PAYMENT-RELIABILITY-DESIGN"
+  }
+}

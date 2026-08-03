@@ -16,6 +16,15 @@ review_evidence: repository-content-audit
 
 # Event Streaming Interview And Revision
 
+## Streaming Processing Model
+
+```mermaid
+flowchart LR
+    Source --> EventLog --> ConsumerGroup --> Transform --> Sink
+    Transform --> StateStore["State store"]
+    EventLog --> Replay["Replay or recovery"] --> Transform
+```
+
 Use this page after each track and during interview preparation. A strong answer
 states the requirement, execution model, guarantee boundary, likely failure, and
 operational evidence. Naming an API or property is not enough.
@@ -250,4 +259,3 @@ You are interview-ready when you can, without notes:
 ## Recommended Next
 
 Apply the questions in [Kafka Architect Labs And Interview Workbook](../kafka/KAFKA-ARCHITECT-LABS.md).
-

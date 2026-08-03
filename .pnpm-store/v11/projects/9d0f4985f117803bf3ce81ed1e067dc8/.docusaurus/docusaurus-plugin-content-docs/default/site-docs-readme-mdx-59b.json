@@ -1,0 +1,36 @@
+{
+  "id": "README",
+  "title": "Backend Engineering Knowledge Base",
+  "description": "How To Use This Library",
+  "source": "@site/docs/README.mdx",
+  "sourceDirName": ".",
+  "slug": "/",
+  "permalink": "/shopverse/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/README.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "slug": "/",
+    "title": "Backend Engineering Knowledge Base",
+    "sidebar_position": 1,
+    "hide_table_of_contents": true,
+    "hide_title": true,
+    "hide_reader_chrome": true,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-documentation",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "next": {
+    "title": "Documentation Index",
+    "permalink": "/shopverse/documentation-index"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW",
+  "title": "Spring Production Runtime Interview Questions",
+  "description": "Expandable senior questions about proxies, transactions, async execution, singleton safety, security chains and secrets.",
+  "source": "@site/docs/spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW.md",
+  "sourceDirName": "spring/interview",
+  "slug": "/spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW",
+  "permalink": "/shopverse/spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/interview/SPRING-PRODUCTION-RUNTIME-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Production Runtime Interview Questions",
+    "description": "Expandable senior questions about proxies, transactions, async execution, singleton safety, security chains and secrets.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring AOP",
+      "transactions",
+      "Spring Security"
+    ],
+    "learning_objectives": [
+      "Diagnose proxy-boundary failures",
+      "Reason about thread and resource ownership",
+      "Explain secure multi-replica production behavior"
+    ],
+    "technologies": [
+      "Spring AOP",
+      "Spring Transactions",
+      "Spring Security",
+      "Spring Async"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Web And Data Interview Questions",
+    "permalink": "/shopverse/spring/interview/SPRING-WEB-DATA-INTERVIEW"
+  },
+  "next": {
+    "title": "Spring REST Interview Workbook",
+    "permalink": "/shopverse/development/spring-rest/REST-INTERVIEW-WORKBOOK"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE",
+  "title": "Java Exception Handling Across Streams And Async Workflows",
+  "description": "Custom exceptions, suppressed failures, stream exception patterns, executor failures, and CompletableFuture recovery semantics.",
+  "source": "@site/docs/java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE",
+  "permalink": "/shopverse/java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Exception Handling Across Streams And Async Workflows",
+    "description": "Custom exceptions, suppressed failures, stream exception patterns, executor failures, and CompletableFuture recovery semantics.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Custom Exceptions And Rules",
+    "permalink": "/shopverse/java/JAVA-CUSTOM-EXCEPTIONS-CHECKED-UNCHECKED"
+  },
+  "next": {
+    "title": "Exception Propagation And Stream Failure Internals",
+    "permalink": "/shopverse/java/JAVA-EXCEPTIONS-STREAMS-INTERNALS"
+  }
+}

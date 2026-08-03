@@ -13,6 +13,15 @@ review_evidence: repository-content-audit
 
 # Java Serialization Versioning, Security And Safe Evolution
 
+## Safe Serialization Boundary
+
+```mermaid
+flowchart LR
+    Object --> Schema["Stable external schema"] --> Bytes --> Validate["Validate untrusted input"]
+    Validate --> Construct["Constrained construction"] --> NewObject["Domain object"]
+    Legacy["Java native serialization"] --> Risk["Gadgets and brittle evolution"]
+```
+
 ## What `serialVersionUID` Does
 
 The stream class descriptor records a serial version UID. During

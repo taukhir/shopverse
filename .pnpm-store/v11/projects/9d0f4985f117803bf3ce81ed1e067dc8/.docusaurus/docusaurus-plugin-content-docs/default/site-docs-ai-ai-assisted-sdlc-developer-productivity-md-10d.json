@@ -1,0 +1,46 @@
+{
+  "id": "ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY",
+  "title": "AI-Assisted SDLC And Developer Productivity",
+  "description": "Practical guide to using AI safely across requirements, design, coding, testing, review, delivery, operations, documentation, learning, and daily developer work.",
+  "source": "@site/docs/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY",
+  "permalink": "/shopverse/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AI-Assisted SDLC And Developer Productivity",
+    "description": "Practical guide to using AI safely across requirements, design, coding, testing, review, delivery, operations, documentation, learning, and daily developer work.",
+    "sidebar_label": "AI-Assisted SDLC",
+    "difficulty": "Beginner",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Software development lifecycle fundamentals"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Git",
+      "CI/CD",
+      "Observability"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Enterprise AI Architecture With Spring",
+    "permalink": "/shopverse/ai/ENTERPRISE-AI-ARCHITECTURE"
+  },
+  "next": {
+    "title": "Commands, Prompts, And Connectors",
+    "permalink": "/shopverse/ai/AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS"
+  }
+}

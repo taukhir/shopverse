@@ -1,0 +1,60 @@
+{
+  "id": "reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS",
+  "title": "Distributed Schedulers And Safe Work Claiming",
+  "description": "Animated scheduler lease expiry where a fencing token rejects a stale worker",
+  "source": "@site/docs/reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS",
+  "permalink": "/shopverse/reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Distributed Schedulers And Safe Work Claiming",
+    "sidebar_position": 2,
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "keywords": [
+      "distributed scheduler",
+      "scheduled job",
+      "duplicate processing",
+      "SKIP LOCKED",
+      "row claim",
+      "distributed lock",
+      "lease",
+      "fencing token",
+      "range partitioning"
+    ],
+    "learning_objectives": [
+      "Explain why schedulers duplicate work across replicas",
+      "Choose an ownership and claiming strategy",
+      "Recover expired work without stale-owner corruption"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "MySQL",
+      "Redis",
+      "Kafka"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Locking And Work Ownership",
+    "permalink": "/shopverse/reliability/locking/LOCKING-AND-WORK-OWNERSHIP"
+  },
+  "next": {
+    "title": "Spring Distributed Locking Options",
+    "permalink": "/shopverse/reliability/locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS"
+  }
+}

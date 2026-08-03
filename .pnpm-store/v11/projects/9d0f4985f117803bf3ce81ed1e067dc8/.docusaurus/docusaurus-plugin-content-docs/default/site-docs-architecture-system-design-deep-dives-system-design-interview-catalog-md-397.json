@@ -1,0 +1,63 @@
+{
+  "id": "architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG",
+  "title": "System Design Interview Problem Catalog",
+  "description": "A complete categorized catalog of common system-design prompts with design focus, failure questions, and links to worked blueprints.",
+  "source": "@site/docs/architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG.md",
+  "sourceDirName": "architecture/system-design-deep-dives",
+  "slug": "/architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG",
+  "permalink": "/shopverse/architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "system design",
+      "permalink": "/shopverse/tags/system-design"
+    },
+    {
+      "inline": true,
+      "label": "HLD",
+      "permalink": "/shopverse/tags/hld"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    },
+    {
+      "inline": true,
+      "label": "case studies",
+      "permalink": "/shopverse/tags/case-studies"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "System Design Interview Problem Catalog",
+    "description": "A complete categorized catalog of common system-design prompts with design focus, failure questions, and links to worked blueprints.",
+    "sidebar_label": "Interview Problem Catalog",
+    "tags": [
+      "system design",
+      "HLD",
+      "interview",
+      "case studies"
+    ],
+    "page_type": "Workbook",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-16",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "System Design Case-Study Workbook",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK"
+  },
+  "next": {
+    "title": "Fifteen System Design Visual Blueprints",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS"
+  }
+}

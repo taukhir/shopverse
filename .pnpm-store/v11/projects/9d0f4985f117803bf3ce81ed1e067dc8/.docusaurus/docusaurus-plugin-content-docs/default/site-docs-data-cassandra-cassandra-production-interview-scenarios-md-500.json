@@ -1,0 +1,51 @@
+{
+  "id": "data/cassandra/CASSANDRA-PRODUCTION-INTERVIEW-SCENARIOS",
+  "title": "Cassandra Production Interview Scenarios",
+  "description": "Practice partition modeling, consistency, tombstone, repair, compaction, hot-partition, LWT, and multi-datacenter Cassandra scenarios.",
+  "source": "@site/docs/data/cassandra/CASSANDRA-PRODUCTION-INTERVIEW-SCENARIOS.md",
+  "sourceDirName": "data/cassandra",
+  "slug": "/data/cassandra/CASSANDRA-PRODUCTION-INTERVIEW-SCENARIOS",
+  "permalink": "/shopverse/data/cassandra/CASSANDRA-PRODUCTION-INTERVIEW-SCENARIOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/cassandra/CASSANDRA-PRODUCTION-INTERVIEW-SCENARIOS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cassandra Production Interview Scenarios",
+    "description": "Practice partition modeling, consistency, tombstone, repair, compaction, hot-partition, LWT, and multi-datacenter Cassandra scenarios.",
+    "difficulty": "Advanced",
+    "page_type": "Workbook",
+    "status": "maintained",
+    "prerequisites": [
+      "Cassandra architecture",
+      "CQL data modeling",
+      "Cassandra operations"
+    ],
+    "learning_objectives": [
+      "Design tables from queries",
+      "Select consistency levels",
+      "Diagnose storage and repair failures",
+      "Plan multi-datacenter recovery"
+    ],
+    "technologies": [
+      "Apache Cassandra",
+      "CQL",
+      "Spring Data Cassandra"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-and-repository-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Cassandra Interview Labs And Revision",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION"
+  },
+  "next": {
+    "title": "Oracle Database Architect Learning Path",
+    "permalink": "/shopverse/data/ORACLE-DATABASE-ARCHITECT-PATH"
+  }
+}

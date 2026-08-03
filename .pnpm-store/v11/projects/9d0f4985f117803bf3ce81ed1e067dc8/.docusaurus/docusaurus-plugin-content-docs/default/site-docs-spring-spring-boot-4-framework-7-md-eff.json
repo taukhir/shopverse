@@ -1,0 +1,52 @@
+{
+  "id": "spring/SPRING-BOOT-4-FRAMEWORK-7",
+  "title": "Spring Boot 4 And Spring Framework 7 Upgrade Guide",
+  "description": "Lead-level compatibility, migration, rollout and architecture guide for Spring Boot 4, Spring Framework 7 and the Shopverse platform.",
+  "source": "@site/docs/spring/SPRING-BOOT-4-FRAMEWORK-7.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-BOOT-4-FRAMEWORK-7",
+  "permalink": "/shopverse/spring/SPRING-BOOT-4-FRAMEWORK-7",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-BOOT-4-FRAMEWORK-7.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot 4 And Spring Framework 7 Upgrade Guide",
+    "description": "Lead-level compatibility, migration, rollout and architecture guide for Spring Boot 4, Spring Framework 7 and the Shopverse platform.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Boot fundamentals",
+      "Gradle dependency management",
+      "integration testing"
+    ],
+    "learning_objectives": [
+      "Plan a Boot 4 migration without accidental dependency drift",
+      "Review the Framework 7 runtime baselines",
+      "Roll out framework changes with measurable compatibility gates"
+    ],
+    "technologies": [
+      "Spring Boot 4",
+      "Spring Framework 7",
+      "Java 21",
+      "Jakarta EE 11",
+      "Jackson 3"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Ecosystem",
+    "permalink": "/shopverse/spring/SPRING-ECOSYSTEM"
+  },
+  "next": {
+    "title": "Spring Boot Beginner-To-Architect Learning Path",
+    "permalink": "/shopverse/spring/SPRING-BOOT-ARCHITECT-PATH"
+  }
+}

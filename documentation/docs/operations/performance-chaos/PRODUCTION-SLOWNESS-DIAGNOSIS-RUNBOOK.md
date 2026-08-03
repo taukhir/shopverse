@@ -17,6 +17,15 @@ review_evidence: repository-content-audit
 
 # Production Slowness Diagnosis And Rapid Mitigation Runbook
 
+## Slowness Triage Flow
+
+```mermaid
+flowchart LR
+    Alert --> Scope["Scope users, routes, and time window"] --> Edge["Check traffic and edge latency"]
+    Edge --> App["Check saturation, pools, and runtime"] --> Data["Check queries, locks, and dependencies"]
+    Data --> Mitigate["Apply reversible mitigation"] --> Verify["Verify latency and error recovery"]
+```
+
 <DocLabels items={[{label: 'Incident response', tone: 'production'}, {label: 'Performance', tone: 'advanced'}, {label: 'Evidence first', tone: 'intermediate'}]} />
 
 The fastest safe response is not “restart it and see.” First bound the impact, preserve evidence,

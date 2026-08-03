@@ -1,7 +1,7 @@
 ---
 title: AWS Umbrella
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -66,3 +66,24 @@ Every AWS design should explicitly cover IAM least privilege, KMS encryption,
 Secrets Manager or Parameter Store, multi-AZ failure, backup and restore,
 CloudTrail auditing, tagging, budgets, quotas, infrastructure as code, and
 CloudWatch alarms. Avoid long-lived access keys and public resources by default.
+
+### IAM Policy Boundaries
+
+- identity policies attach permissions to users, groups, or roles;
+- resource policies grant access at supported resources and can enable cross-account trust;
+- permission boundaries cap the maximum identity-policy permissions for a principal;
+- organization service control policies cap permissions available in member accounts;
+- session policies can further restrict one assumed-role session;
+- explicit deny wins across applicable policy evaluation.
+
+A boundary or SCP does not grant an action by itself. Prefer short-lived assumed/workload roles,
+condition permissions by resource and context, analyze unused access, and test both intended allow and
+deny paths. Separate human administration, workload identity, deployment automation and emergency roles.
+
+### Cost And Quota Boundary
+
+Tag and account resources by owner/workload, measure cost per useful business outcome, and alert on
+budgets and anomalous spend. Model compute utilization, storage lifecycle, requests, observability,
+backup, replication, licenses and data transfer across NAT, Availability Zones and Regions. Track service
+quotas as capacity dependencies; autoscaling cannot add capacity after an account or regional quota is
+exhausted.

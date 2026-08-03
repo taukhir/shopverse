@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-FUNDAMENTALS-SCENARIOS",
+  "title": "Java Fundamentals Through Runtime Scenarios",
+  "description": "Primitive promotion, references, pass-by-value, wrappers, initialization and failure scenarios with expected results.",
+  "source": "@site/docs/java/JAVA-FUNDAMENTALS-SCENARIOS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-FUNDAMENTALS-SCENARIOS",
+  "permalink": "/shopverse/java/JAVA-FUNDAMENTALS-SCENARIOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-FUNDAMENTALS-SCENARIOS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Fundamentals Through Runtime Scenarios",
+    "description": "Primitive promotion, references, pass-by-value, wrappers, initialization and failure scenarios with expected results.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Fundamentals",
+    "permalink": "/shopverse/java/JAVA-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "Java Keywords Learning Guide",
+    "permalink": "/shopverse/java/JAVA-KEYWORDS"
+  }
+}

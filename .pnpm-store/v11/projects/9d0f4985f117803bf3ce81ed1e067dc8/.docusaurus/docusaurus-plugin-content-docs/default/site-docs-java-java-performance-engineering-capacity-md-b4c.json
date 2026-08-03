@@ -1,0 +1,55 @@
+{
+  "id": "java/JAVA-PERFORMANCE-ENGINEERING-CAPACITY",
+  "title": "Java Performance Engineering Capacity And Evidence",
+  "description": "Production Java performance method covering workload models, queues, CPU, allocation, GC, locks, I/O, JFR, JMH, capacity calculations, load tests, and incident proof.",
+  "source": "@site/docs/java/JAVA-PERFORMANCE-ENGINEERING-CAPACITY.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-PERFORMANCE-ENGINEERING-CAPACITY",
+  "permalink": "/shopverse/java/JAVA-PERFORMANCE-ENGINEERING-CAPACITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-PERFORMANCE-ENGINEERING-CAPACITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Performance Engineering Capacity And Evidence",
+    "description": "Production Java performance method covering workload models, queues, CPU, allocation, GC, locks, I/O, JFR, JMH, capacity calculations, load tests, and incident proof.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "JVM architecture",
+      "Concurrency",
+      "GC fundamentals"
+    ],
+    "learning_objectives": [
+      "Build a performance model",
+      "Distinguish bottleneck classes",
+      "Use JFR and JMH correctly",
+      "Size bounded resources",
+      "Prove improvements experimentally"
+    ],
+    "technologies": [
+      "Java 21+",
+      "JFR",
+      "JMC",
+      "jcmd",
+      "JMH",
+      "JVM"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JVM Profiling, Garbage Collection, And Native Images",
+    "permalink": "/shopverse/java/JVM-PROFILING-GC-NATIVE"
+  },
+  "next": {
+    "title": "Java Assertions, Compilation And Packaging Toolchain",
+    "permalink": "/shopverse/java/JAVA-ASSERTIONS-TOOLCHAIN"
+  }
+}

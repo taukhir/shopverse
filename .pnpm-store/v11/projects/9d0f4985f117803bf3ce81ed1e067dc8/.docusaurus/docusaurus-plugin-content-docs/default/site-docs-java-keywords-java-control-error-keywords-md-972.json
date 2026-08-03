@@ -1,0 +1,39 @@
+{
+  "id": "java/keywords/JAVA-CONTROL-ERROR-KEYWORDS",
+  "title": "Java Control Flow, Expression And Error Keywords",
+  "description": "Branching, loops, switch, exceptions, assertions, object creation, type tests, and return semantics.",
+  "source": "@site/docs/java/keywords/JAVA-CONTROL-ERROR-KEYWORDS.md",
+  "sourceDirName": "java/keywords",
+  "slug": "/java/keywords/JAVA-CONTROL-ERROR-KEYWORDS",
+  "permalink": "/shopverse/java/keywords/JAVA-CONTROL-ERROR-KEYWORDS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/keywords/JAVA-CONTROL-ERROR-KEYWORDS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Control Flow, Expression And Error Keywords",
+    "description": "Branching, loops, switch, exceptions, assertions, object creation, type tests, and return semantics.",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "technologies": [
+      "Java 25",
+      "JLS"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java State, Concurrency And Lifecycle Keywords",
+    "permalink": "/shopverse/java/keywords/JAVA-STATE-CONCURRENCY-KEYWORDS"
+  },
+  "next": {
+    "title": "Java Operators And Control Flow",
+    "permalink": "/shopverse/java/JAVA-OPERATORS-CONTROL-FLOW"
+  }
+}

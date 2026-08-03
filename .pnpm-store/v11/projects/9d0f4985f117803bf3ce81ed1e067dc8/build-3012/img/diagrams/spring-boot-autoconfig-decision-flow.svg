@@ -1,0 +1,83 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Spring Boot Auto-Configuration Decision Flow</title>
+  <desc id="desc">A diagram showing how Spring Boot decides whether an auto-configuration creates infrastructure beans.</desc>
+  <style>
+    .bg { fill: #fbfbfe; }
+    .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+    .subtitle { font: 400 17px Arial, sans-serif; fill: #4b5563; }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.4; rx: 18; }
+    .decision { fill: #fff7ed; stroke: #fb923c; stroke-width: 1.5; }
+    .success { fill: #ecfdf5; stroke: #34d399; stroke-width: 1.5; rx: 18; }
+    .skip { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.5; rx: 18; }
+    .textTitle { font: 700 17px Arial, sans-serif; fill: #111827; }
+    .text { font: 400 13.5px Arial, sans-serif; fill: #475569; }
+    .label { font: 700 13px Arial, sans-serif; fill: #334155; }
+    .yes { font: 700 13px Arial, sans-serif; fill: #047857; }
+    .no { font: 700 13px Arial, sans-serif; fill: #b45309; }
+    .arrow { stroke: #64748b; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1280" height="720"/>
+  <text x="64" y="64" class="title">Auto-Configuration Decision Flow</text>
+  <text x="64" y="96" class="subtitle">Why dependencies, properties, and custom beans decide what Spring Boot creates</text>
+
+  <rect x="72" y="148" width="230" height="96" class="box"/>
+  <text x="102" y="184" class="textTitle">Dependency On Classpath</text>
+  <text x="102" y="212" class="text">Example: DataSource, Kafka,</text>
+  <text x="102" y="232" class="text">Security, Actuator classes exist.</text>
+
+  <rect x="370" y="146" width="180" height="100" transform="rotate(45 460 196)" class="decision"/>
+  <text x="414" y="188" class="textTitle">Condition</text>
+  <text x="420" y="210" class="textTitle">Matches?</text>
+
+  <rect x="650" y="148" width="240" height="96" class="box"/>
+  <text x="680" y="184" class="textTitle">Configuration Properties</text>
+  <text x="680" y="212" class="text">Bind external values and</text>
+  <text x="680" y="232" class="text">validate typed settings.</text>
+
+  <rect x="982" y="146" width="180" height="100" transform="rotate(45 1072 196)" class="decision"/>
+  <text x="1020" y="188" class="textTitle">User Bean</text>
+  <text x="1018" y="210" class="textTitle">Missing?</text>
+
+  <path d="M302 196 H370" class="arrow"/>
+  <path d="M550 196 H650" class="arrow"/>
+  <text x="570" y="182" class="yes">YES</text>
+  <path d="M890 196 H982" class="arrow"/>
+
+  <rect x="650" y="328" width="240" height="96" class="skip"/>
+  <text x="680" y="364" class="textTitle">Back Off</text>
+  <text x="680" y="392" class="text">Application-provided bean wins.</text>
+  <text x="680" y="412" class="text">Boot does not replace it.</text>
+
+  <rect x="1000" y="328" width="240" height="96" class="success"/>
+  <text x="1030" y="364" class="textTitle">Create Infrastructure Bean</text>
+  <text x="1030" y="392" class="text">Examples: DataSource,</text>
+  <text x="1030" y="412" class="text">KafkaTemplate, MeterRegistry.</text>
+
+  <path d="M1072 286 V328" class="arrow"/>
+  <text x="1086" y="310" class="yes">YES</text>
+  <path d="M1010 258 C940 308 875 352 890 376" class="arrow"/>
+  <text x="920" y="310" class="no">NO</text>
+
+  <rect x="72" y="328" width="230" height="96" class="skip"/>
+  <text x="102" y="364" class="textTitle">Skip Configuration</text>
+  <text x="102" y="392" class="text">Required class/property/resource</text>
+  <text x="102" y="412" class="text">is not available.</text>
+
+  <path d="M406 256 C330 296 250 320 214 328" class="arrow"/>
+  <text x="316" y="304" class="no">NO</text>
+
+  <rect x="180" y="528" width="920" height="106" class="box"/>
+  <text x="220" y="568" class="textTitle">Practical reading</text>
+  <text x="220" y="598" class="text">A starter adds classes. Auto-configuration candidates are loaded from metadata. Conditions evaluate the classpath, properties, beans, resources, and web type.</text>
+  <text x="220" y="622" class="text">If conditions match and the app has not supplied a replacement bean, Spring Boot creates the default infrastructure.</text>
+
+  <path d="M1120 424 C1120 488 950 528 870 528" class="arrow"/>
+  <path d="M770 424 C770 488 760 506 740 528" class="arrow"/>
+</svg>
+

@@ -1,0 +1,47 @@
+{
+  "id": "operations/helm-gitops/HELM-CHART-ENGINEERING",
+  "title": "Helm Chart Engineering And Testing",
+  "description": "Design chart structure, values schemas, templates, dependencies, hooks, libraries, tests, upgrades, and secure packaging.",
+  "source": "@site/docs/operations/helm-gitops/HELM-CHART-ENGINEERING.md",
+  "sourceDirName": "operations/helm-gitops",
+  "slug": "/operations/helm-gitops/HELM-CHART-ENGINEERING",
+  "permalink": "/shopverse/operations/helm-gitops/HELM-CHART-ENGINEERING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/helm-gitops/HELM-CHART-ENGINEERING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Helm Chart Engineering And Testing",
+    "description": "Design chart structure, values schemas, templates, dependencies, hooks, libraries, tests, upgrades, and secure packaging.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Helm GitOps And Argo CD Architect Path"
+    ],
+    "learning_objectives": [
+      "Design stable chart APIs",
+      "Render and test manifests safely",
+      "Evolve releases without hidden side effects"
+    ],
+    "technologies": [
+      "Helm",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Helm, GitOps, And Argo CD Architect Path",
+    "permalink": "/shopverse/operations/HELM-GITOPS-ARGOCD-PATH"
+  },
+  "next": {
+    "title": "GitOps Repository, Promotion, And Drift Design",
+    "permalink": "/shopverse/operations/helm-gitops/GITOPS-DELIVERY-DESIGN"
+  }
+}

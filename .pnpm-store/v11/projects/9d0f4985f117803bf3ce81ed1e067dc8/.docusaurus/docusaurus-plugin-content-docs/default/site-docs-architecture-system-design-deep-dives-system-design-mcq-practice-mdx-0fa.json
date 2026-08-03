@@ -1,0 +1,44 @@
+{
+  "id": "architecture/system-design-deep-dives/SYSTEM-DESIGN-MCQ-PRACTICE",
+  "title": "System Design MCQ Practice",
+  "description": "Timed system-design MCQs covering requirements, estimation, scaling, consistency, resilience, observability, security, and evolution.",
+  "source": "@site/docs/architecture/system-design-deep-dives/SYSTEM-DESIGN-MCQ-PRACTICE.mdx",
+  "sourceDirName": "architecture/system-design-deep-dives",
+  "slug": "/architecture/system-design-deep-dives/SYSTEM-DESIGN-MCQ-PRACTICE",
+  "permalink": "/shopverse/architecture/system-design-deep-dives/SYSTEM-DESIGN-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/system-design-deep-dives/SYSTEM-DESIGN-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "System Design MCQ Practice",
+    "description": "Timed system-design MCQs covering requirements, estimation, scaling, consistency, resilience, observability, security, and evolution.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "System Design Interview Catalog"
+    ],
+    "technologies": [
+      "Distributed Systems",
+      "Scalability",
+      "Reliability",
+      "Architecture"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "System Design Deep Dives",
+    "permalink": "/shopverse/architecture/SYSTEM-DESIGN-DEEP-DIVES"
+  },
+  "next": {
+    "title": "End-To-End System Design Method",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD"
+  }
+}

@@ -6,7 +6,7 @@ page_type: Concept
 status: maintained
 prerequisites: [Spring Boot startup, Spring container lifecycle]
 technologies: [Spring Boot 4, Spring Framework 7]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-development
 reviewer: documentation-maintainers
@@ -135,6 +135,23 @@ dependency population, aware callbacks, initialization post-processors,
 
 Therefore `@PostConstruct` is not a runner that executes after server startup.
 It is a per-bean initialization callback and should not perform long remote work.
+
+## Singleton Completion, Lifecycle Start, And Readiness
+
+These extension points occur at different boundaries:
+
+| Extension point | Boundary | Appropriate use |
+| --- | --- | --- |
+| `SmartInitializingSingleton` | after regular non-lazy singleton creation | validate or coordinate singleton relationships without guessing individual creation order |
+| `SmartLifecycle` | context-managed start/stop with integer phases | start and stop long-running infrastructure such as listener containers |
+| `ApplicationRunner` / `CommandLineRunner` | after refresh and application-started event | bounded Boot startup task using application arguments when needed |
+| `ApplicationReadyEvent` | after runners complete successfully | observe readiness; avoid turning an event listener into hidden mandatory orchestration |
+
+`SmartInitializingSingleton` does not mean the application is ready or that lazy
+beans have been instantiated. `SmartLifecycle` startup is part of refresh; lower
+phases start first and higher phases stop first. Runner `@Order` controls runner
+invocation, not singleton construction. Select the boundary that owns the work
+rather than forcing one callback type to simulate another.
 
 ## ApplicationRunner And CommandLineRunner
 

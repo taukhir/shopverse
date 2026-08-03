@@ -1,0 +1,40 @@
+{
+  "id": "java/features-8-to-26/JAVA-25-26-LANGUAGE",
+  "title": "Java 25 And 26 Language Changes",
+  "description": "Final and preview language changes in Java 25 and 26, with adoption guidance and Shopverse-oriented examples.",
+  "source": "@site/docs/java/features-8-to-26/JAVA-25-26-LANGUAGE.md",
+  "sourceDirName": "java/features-8-to-26",
+  "slug": "/java/features-8-to-26/JAVA-25-26-LANGUAGE",
+  "permalink": "/shopverse/java/features-8-to-26/JAVA-25-26-LANGUAGE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/features-8-to-26/JAVA-25-26-LANGUAGE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java 25 And 26 Language Changes",
+    "description": "Final and preview language changes in Java 25 and 26, with adoption guidance and Shopverse-oriented examples.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "technologies": [
+      "Java 25",
+      "Java 26",
+      "JLS"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java 8 To 26 Overview",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-8-TO-26"
+  },
+  "next": {
+    "title": "Java 25 And 26 Runtime Changes",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-25-26-RUNTIME"
+  }
+}

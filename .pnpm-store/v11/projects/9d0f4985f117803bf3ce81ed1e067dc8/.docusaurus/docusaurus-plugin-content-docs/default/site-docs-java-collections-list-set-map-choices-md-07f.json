@@ -1,0 +1,35 @@
+{
+  "id": "java/collections/LIST-SET-MAP-CHOICES",
+  "title": "List, Set, And Map Choices",
+  "description": "Practical Java List, Set, and Map implementation choices with Shopverse examples.",
+  "source": "@site/docs/java/collections/LIST-SET-MAP-CHOICES.md",
+  "sourceDirName": "java/collections",
+  "slug": "/java/collections/LIST-SET-MAP-CHOICES",
+  "permalink": "/shopverse/java/collections/LIST-SET-MAP-CHOICES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/LIST-SET-MAP-CHOICES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "List, Set, And Map Choices",
+    "description": "Practical Java List, Set, and Map implementation choices with Shopverse examples.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "PriorityQueue",
+    "permalink": "/shopverse/java/collections/queue/PRIORITYQUEUE-INTERNALS"
+  },
+  "next": {
+    "title": "Safe Collection Mutation",
+    "permalink": "/shopverse/java/collections/SAFE-COLLECTION-MUTATION"
+  }
+}

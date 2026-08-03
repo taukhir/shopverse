@@ -1,0 +1,48 @@
+{
+  "id": "leadership/architect-practice/ARCHITECT-RUNTIME-DESIGN-REASONING",
+  "title": "Architect Runtime Internals And Design Selection",
+  "description": "Trace systems through runtime layers and justify designs from outcomes, constraints, invariants, workloads, and explicit decisions.",
+  "source": "@site/docs/leadership/architect-practice/ARCHITECT-RUNTIME-DESIGN-REASONING.md",
+  "sourceDirName": "leadership/architect-practice",
+  "slug": "/leadership/architect-practice/ARCHITECT-RUNTIME-DESIGN-REASONING",
+  "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-RUNTIME-DESIGN-REASONING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/architect-practice/ARCHITECT-RUNTIME-DESIGN-REASONING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Architect Runtime Internals And Design Selection",
+    "description": "Trace systems through runtime layers and justify designs from outcomes, constraints, invariants, workloads, and explicit decisions.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Architect Practice And Evidence Path"
+    ],
+    "learning_objectives": [
+      "Draw accurate runtime paths",
+      "Connect internals to architecture decisions",
+      "Avoid pattern-first design answers"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Distributed Systems"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Architect Practice And Evidence Path",
+    "permalink": "/shopverse/leadership/ARCHITECT-PRACTICE-EVIDENCE-PATH"
+  },
+  "next": {
+    "title": "Architect Failure Modeling And Evidence-Led Diagnosis",
+    "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-FAILURE-DIAGNOSIS"
+  }
+}

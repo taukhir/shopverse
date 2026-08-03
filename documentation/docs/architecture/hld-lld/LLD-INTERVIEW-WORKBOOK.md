@@ -6,7 +6,7 @@ tags: [LLD, UML, object-oriented design, interview]
 page_type: Workbook
 difficulty: Intermediate
 status: maintained
-last_reviewed: "2026-07-16"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-architecture
 reviewer: documentation-maintainers
@@ -120,6 +120,68 @@ for the complete GoF comparison.
 | 48 | What should integration tests prove? | mapping, constraints, transactions, serialization, external adapters, and real concurrency behavior |
 | 49 | How do you test extensibility? | contract tests across implementations and one change scenario that does not modify stable callers |
 | 50 | What should an LLD review check? | responsibility, invariant ownership, coupling, APIs, data, concurrency, failure, security, operability, and testability |
+
+## Production LLD Scenarios
+
+### Design an idempotent payment command
+
+Model command identity, caller scope, fingerprint, status transitions and stored outcome. Atomically claim the
+key with the local business result/outbox, reject payload reuse, expose in-progress/unknown outcomes and make
+provider calls independently idempotent.
+
+### Design an inventory reservation aggregate
+
+Keep available, reserved and sold quantities consistent; define reservation identity, expiry, confirm/release
+transitions and optimistic versioning. Make duplicate transitions converge and run expiry through owned,
+idempotent work rather than a timer mutating arbitrary rows.
+
+### Design an extensible pricing engine
+
+Use value objects for money/context and explicit policies/strategies for independently varying rules. Define
+ordering/composition, explainability, effective dates, conflicting promotions and deterministic tests. Avoid a
+plugin framework until variation and ownership justify it.
+
+### Design a thread-safe bounded cache
+
+Define key/value immutability, capacity/weight, eviction, expiry and load-coalescing semantics. Protect compound
+state atomically, avoid calling slow loaders under global locks, and expose hit/miss/load/eviction/size evidence.
+State whether stale values or load failure are acceptable.
+
+### Design a workflow state machine
+
+Represent legal states and transitions explicitly, reject invalid commands, persist version and transition
+history, and make handlers idempotent. Separate state-specific policy from orchestration and define timeout,
+compensation and terminal-state behavior.
+
+### Design a pluggable notification provider
+
+Define a domain-facing port, provider adapters, selection strategy and stable outcome model. Bound timeouts,
+retries and bulkheads per provider; preserve idempotency and delivery status. Keep vendor DTOs/errors behind an
+anti-corruption boundary.
+
+### Design a parking allocation core under concurrency
+
+Model spot capability, vehicle requirement, allocation policy, ticket and occupancy invariant. Make selection
+plus claim atomic, release idempotent and pricing separate. Explain how multiple instances coordinate through a
+database constraint/lock rather than relying on an in-memory singleton.
+
+### Design an API client with retries and circuit breaking
+
+Separate transport, authentication, serialization and domain mapping. Apply one deadline, classified retry with
+jitter, connection/concurrency limits and circuit/bulkhead policy. Return explicit ambiguous/transient/permanent
+outcomes and instrument attempts separately from logical calls.
+
+### Design auditable configuration changes
+
+Use immutable versions with author, reason, timestamps and validation; publish through draft/review/activate
+states. Apply optimistic concurrency, diff and rollback-as-new-version. Never overwrite history or log secrets,
+and define how running processes adopt a version.
+
+### Review a god service with twenty dependencies
+
+Group behavior by invariants and use cases, identify domain rules versus orchestration and infrastructure,
+extract cohesive collaborators behind real boundaries, and add characterization tests. Do not replace one god
+class with an anemic web of interfaces that preserves the same coupling.
 
 ## Applied Design Exercises
 

@@ -1,0 +1,39 @@
+{
+  "id": "java/JAVA-NESTED-TYPES",
+  "title": "Java Nested Types, Local Classes And Lambdas",
+  "description": "Static nested classes, inner classes, local and anonymous classes, capture, lifecycle, and Shopverse-oriented design guidance.",
+  "source": "@site/docs/java/JAVA-NESTED-TYPES.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-NESTED-TYPES",
+  "permalink": "/shopverse/java/JAVA-NESTED-TYPES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-NESTED-TYPES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Nested Types, Local Classes And Lambdas",
+    "description": "Static nested classes, inner classes, local and anonymous classes, capture, lifecycle, and Shopverse-oriented design guidance.",
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "technologies": [
+      "Java 24",
+      "JVM"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Abstract Classes, Interfaces And Functional Java",
+    "permalink": "/shopverse/java/JAVA-ABSTRACTION-INTERFACES"
+  },
+  "next": {
+    "title": "Java Enums",
+    "permalink": "/shopverse/java/JAVA-ENUMS"
+  }
+}

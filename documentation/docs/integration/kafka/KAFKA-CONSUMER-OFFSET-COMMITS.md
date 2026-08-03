@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Kafka consumers, partitions, consumer groups]
 learning_objectives: [Explain committed offsets precisely, Select commitSync or commitAsync safely, Prevent loss and stale offset commits]
 technologies: [Apache Kafka 4.x, KafkaConsumer, Spring Kafka]
-last_reviewed: "2026-07-28"
+last_reviewed: "2026-07-31"
 scope: generic
 owner: docs-integration
 reviewer: documentation-maintainers
@@ -15,6 +15,20 @@ review_evidence: repository-content-audit
 ---
 
 # Kafka Consumer Offset Commits In Depth
+
+## Safe Offset Progression
+
+```mermaid
+sequenceDiagram
+    participant B as Broker
+    participant C as Consumer
+    participant D as Domain work
+    B->>C: Poll records
+    C->>D: Process record
+    D-->>C: Durable success
+    C->>B: Commit next offset
+    Note over C,B: A crash before commit causes safe redelivery
+```
 
 An offset commit is a durable checkpoint for a **consumer group and topic
 partition**. The committed value is normally the **next offset to read**, not the
@@ -74,6 +88,28 @@ consumer.commitSync(completed);
 
 Never construct this map from the highest **fetched** offset. Construct it from
 the highest **contiguously completed** offset.
+
+### What is blocked?
+
+The thread calling `commitSync()` is blocked while the Kafka client waits for an
+`OffsetCommitResponse`. The group coordinator is not globally blocked; it
+continues serving other clients. Other consumers in the group also continue
+processing their assignments.
+
+If the calling consumer owns several partitions, however, that one consumer
+thread cannot poll or invoke listeners for any of them until the call returns.
+The practical pause therefore covers all partitions assigned to that consumer,
+not the broker or the entire consumer group.
+
+```text
+consumer A: process -> commitSync -> wait -> next poll
+consumer B: process -----------------------> next poll
+broker:     handle commit + other requests concurrently
+```
+
+The acknowledgment is handled inside the Kafka client. Application code does
+not receive a separate message later: a successful response makes
+`commitSync()` return, while a timeout or unrecoverable response makes it throw.
 
 ## `commitAsync()`
 
@@ -163,7 +199,21 @@ remove the need for idempotency.
 ## Spring Kafka Mapping
 
 Spring Kafka listener containers own the native poll and commit loop. Ack modes
-express when the container may advance the checkpoint:
+express **when an offset becomes eligible for commit**. The `syncCommits`
+container property separately controls **how that eligible offset is sent**:
+
+| Concern | Spring Kafka setting | Example |
+|---|---|---|
+| commit boundary | `AckMode` | `RECORD` or `BATCH` |
+| commit transport | `syncCommits` | `true` uses `commitSync()`; `false` uses `commitAsync()` |
+| async result visibility | `commitCallback` | record failures and latency |
+
+`syncCommits` defaults to `true`. With it enabled, the container's consumer
+thread waits for the Kafka client to receive the commit response; the
+`@KafkaListener` method does not receive that response. With it disabled, the
+container uses an asynchronous commit and the callback observes completion.
+
+Ack modes define the boundary:
 
 | Ack mode | Simplified boundary |
 |---|---|
@@ -175,6 +225,58 @@ express when the container may advance the checkpoint:
 Manual acknowledgment is not automatically safer. Acknowledging before durable
 business completion creates loss; acknowledging after a non-idempotent effect
 still leaves a duplicate window.
+
+For example, a record listener using `RECORD` and `syncCommits=true` has this
+simplified flow:
+
+```text
+poll -> invoke listener -> listener returns -> commitSync -> next listener/poll
+```
+
+When a listener throws, the configured error handler, retry, recovery, and
+transaction policy determine seeking and committing. Avoid the oversimplified
+claim that Spring "never commits on an exception": a recovery handler can be
+configured to commit a recovered record.
+
+### Can Spring use async normally and sync only at shutdown or rebalance?
+
+The native Kafka client can use that hybrid pattern, as shown above. A Spring
+listener container exposes one `syncCommits` choice for its container-managed
+commits; it does not provide a declarative mode that automatically changes from
+async during normal polling to sync only for shutdown or revocation.
+
+A `ConsumerAwareRebalanceListener` can run code around revocation, but a manual
+`consumer.commitSync()` is safe only when supplied with offsets known to
+represent contiguously completed work. Committing the consumer's current
+position can checkpoint records that were fetched but not durably processed.
+Calling a `KafkaConsumer` from an arbitrary shutdown thread is also unsafe
+because the consumer is not thread-safe.
+
+Prefer one of these explicit policies:
+
+| Goal | Policy |
+|---|---|
+| simpler recovery boundary | `BATCH` or `RECORD` with `syncCommits=true` |
+| lower commit wait in the poll loop | `syncCommits=false`, a monitored commit callback, and idempotent processing |
+| custom hybrid behavior | track completed offsets per partition and commit them on the consumer thread; justify the added complexity with measurements |
+
+Synchronous commits reduce the replay window but do not eliminate duplicates.
+Idempotent business transitions remain mandatory in every policy.
+
+### ShopVerse Defaults
+
+The shared configuration currently sets `enable-auto-commit=false`,
+`ack-mode=record`, and listener concurrency to one unless an environment
+override is supplied. ShopVerse does not override Spring Kafka's
+`syncCommits=true` default, so the effective non-transactional happy path is a
+container-managed synchronous commit after each successful record listener
+return.
+
+This is a reliability-first baseline, not proof that per-record synchronous
+commits are optimal at every traffic level. Before changing it, measure commit
+latency, consumer lag, duplicate replay, database throughput, and rebalance
+frequency. If throughput requires asynchronous commits, add commit-failure
+telemetry and retain inbox/business idempotency.
 
 ## Production Checklist
 
@@ -207,8 +309,8 @@ offset to consume.
 - [Kafka Consumer API](https://kafka.apache.org/43/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html)
 - [Kafka consumer configuration](https://kafka.apache.org/documentation/#consumerconfigs)
 - [Spring Kafka listener containers and commits](https://docs.spring.io/spring-kafka/reference/kafka/receiving-messages/message-listener-container.html)
+- [Spring Kafka listener container properties](https://docs.spring.io/spring-kafka/reference/kafka/container-props.html)
 
 ## Recommended Next
 
 Continue with [Kafka Consumer Multithreading](./KAFKA-CONSUMER-MULTITHREADING.md).
-

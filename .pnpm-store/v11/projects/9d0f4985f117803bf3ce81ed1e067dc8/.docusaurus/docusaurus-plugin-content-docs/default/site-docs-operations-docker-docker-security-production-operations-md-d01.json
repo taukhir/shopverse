@@ -1,0 +1,50 @@
+{
+  "id": "operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS",
+  "title": "Docker Security, Compose, Resources, Logging, And Production Operations",
+  "description": "Harden Docker daemon and containers, use rootless and user namespaces, secure secrets and sockets, operate Compose, resources, health, logging, upgrades, cleanup, and recovery.",
+  "source": "@site/docs/operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS.md",
+  "sourceDirName": "operations/docker",
+  "slug": "/operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS",
+  "permalink": "/shopverse/operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Docker Security, Compose, Resources, Logging, And Production Operations",
+    "description": "Harden Docker daemon and containers, use rootless and user namespaces, secure secrets and sockets, operate Compose, resources, health, logging, upgrades, cleanup, and recovery.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Docker storage and networking internals"
+    ],
+    "learning_objectives": [
+      "Threat-model Docker",
+      "Harden daemon images and containers",
+      "Operate Compose and resources safely",
+      "Govern logs upgrades cleanup and recovery"
+    ],
+    "technologies": [
+      "Docker Engine",
+      "Docker Compose",
+      "rootless mode",
+      "seccomp"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker Storage, Volumes, OverlayFS, Networking, And DNS",
+    "permalink": "/shopverse/operations/docker/DOCKER-STORAGE-NETWORKING-INTERNALS"
+  },
+  "next": {
+    "title": "Docker Troubleshooting, Incident Labs, Interviews, And Revision",
+    "permalink": "/shopverse/operations/docker/DOCKER-TROUBLESHOOTING-INTERVIEW-REVISION"
+  }
+}

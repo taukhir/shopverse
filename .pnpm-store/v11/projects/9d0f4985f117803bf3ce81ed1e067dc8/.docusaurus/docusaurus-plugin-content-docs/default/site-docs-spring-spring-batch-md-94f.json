@@ -1,0 +1,52 @@
+{
+  "id": "spring/SPRING-BATCH",
+  "title": "Spring Batch",
+  "description": "Restartable Spring Batch jobs, metadata, chunk transactions, side-effect recovery, scaling, security, observability, testing, and operational drills.",
+  "source": "@site/docs/spring/SPRING-BATCH.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-BATCH",
+  "permalink": "/shopverse/spring/SPRING-BATCH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-BATCH.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 9,
+  "frontMatter": {
+    "title": "Spring Batch",
+    "description": "Restartable Spring Batch jobs, metadata, chunk transactions, side-effect recovery, scaling, security, observability, testing, and operational drills.",
+    "sidebar_position": 9,
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring ecosystem",
+      "Spring transactions",
+      "Spring Data JPA"
+    ],
+    "learning_objectives": [
+      "Design restartable chunk-oriented jobs",
+      "Choose readers processors writers and transaction boundaries",
+      "Operate and test batch workloads safely"
+    ],
+    "technologies": [
+      "Spring Batch",
+      "Spring Boot",
+      "JDBC"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Cloud OpenFeign",
+    "permalink": "/shopverse/spring/SPRING-OPENFEIGN"
+  },
+  "next": {
+    "title": "Spring For Apache Kafka",
+    "permalink": "/shopverse/spring/SPRING-KAFKA"
+  }
+}

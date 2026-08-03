@@ -1,0 +1,50 @@
+{
+  "id": "data/redis/REDIS-INTERNALS-OPERATIONS-INTERVIEW",
+  "title": "Redis Internals, Operations, And Interview Scenarios",
+  "description": "Design and operate Redis through execution, memory, expiration, eviction, persistence, replication, Sentinel, Cluster, hot-key, stampede, and locking failure scenarios.",
+  "source": "@site/docs/data/redis/REDIS-INTERNALS-OPERATIONS-INTERVIEW.md",
+  "sourceDirName": "data/redis",
+  "slug": "/data/redis/REDIS-INTERNALS-OPERATIONS-INTERVIEW",
+  "permalink": "/shopverse/data/redis/REDIS-INTERNALS-OPERATIONS-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/redis/REDIS-INTERNALS-OPERATIONS-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Redis Internals, Operations, And Interview Scenarios",
+    "description": "Design and operate Redis through execution, memory, expiration, eviction, persistence, replication, Sentinel, Cluster, hot-key, stampede, and locking failure scenarios.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Data Redis",
+      "distributed systems fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain Redis runtime boundaries",
+      "Select persistence and topology",
+      "Diagnose memory and latency failures",
+      "Defend cache and lock designs"
+    ],
+    "technologies": [
+      "Redis",
+      "Spring Data Redis",
+      "Lettuce"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-and-repository-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Engine Internals",
+    "permalink": "/shopverse/data/DATABASE-ENGINE-INTERNALS"
+  },
+  "next": {
+    "title": "Database Design And Selection",
+    "permalink": "/shopverse/data/DATABASE-SELECTION-GUIDE"
+  }
+}

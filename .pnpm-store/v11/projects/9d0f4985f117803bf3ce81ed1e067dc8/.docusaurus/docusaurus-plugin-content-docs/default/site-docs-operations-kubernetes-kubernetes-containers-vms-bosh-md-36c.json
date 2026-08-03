@@ -1,0 +1,52 @@
+{
+  "id": "operations/kubernetes/KUBERNETES-CONTAINERS-VMS-BOSH",
+  "title": "Containers, Virtual Machines, Kubernetes, And BOSH",
+  "description": "Compare processes, containers, Pods, virtual machines, Kubernetes, and BOSH; understand isolation, scheduling, lifecycle ownership, BOSH stemcells, releases, jobs, packages, and managed VMs.",
+  "source": "@site/docs/operations/kubernetes/KUBERNETES-CONTAINERS-VMS-BOSH.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/KUBERNETES-CONTAINERS-VMS-BOSH",
+  "permalink": "/shopverse/operations/kubernetes/KUBERNETES-CONTAINERS-VMS-BOSH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/KUBERNETES-CONTAINERS-VMS-BOSH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Containers, Virtual Machines, Kubernetes, And BOSH",
+    "description": "Compare processes, containers, Pods, virtual machines, Kubernetes, and BOSH; understand isolation, scheduling, lifecycle ownership, BOSH stemcells, releases, jobs, packages, and managed VMs.",
+    "difficulty": "Intermediate",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Linux fundamentals",
+      "Container fundamentals"
+    ],
+    "learning_objectives": [
+      "Distinguish runtime and orchestration layers",
+      "Compare VM container Pod and cluster boundaries",
+      "Explain BOSH lifecycle management",
+      "Diagnose failures at the correct control plane"
+    ],
+    "technologies": [
+      "Kubernetes",
+      "Linux containers",
+      "Virtual Machines",
+      "BOSH",
+      "vSphere"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kubernetes Cluster Operations, Capacity, Upgrades, HA, And Recovery",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-CLUSTER-OPERATIONS"
+  },
+  "next": {
+    "title": "TKGI Beginner-To-Architect Overview",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-OVERVIEW-PATH"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "security/principles/SECURITY-PRINCIPLES",
+  "title": "Security Principles",
+  "description": "<DocLabels items={[",
+  "source": "@site/docs/security/principles/SECURITY-PRINCIPLES.md",
+  "sourceDirName": "security/principles",
+  "slug": "/security/principles/SECURITY-PRINCIPLES",
+  "permalink": "/shopverse/security/principles/SECURITY-PRINCIPLES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/principles/SECURITY-PRINCIPLES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Security Principles",
+    "difficulty": "Beginner",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Apply least privilege and defense in depth",
+      "Model trust boundaries threats and failure behavior"
+    ],
+    "technologies": [
+      "JWT",
+      "OAuth2",
+      "mTLS"
+    ],
+    "last_reviewed": "2026-07-10",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Application And Platform Security Revision Sheet",
+    "permalink": "/shopverse/security/SECURITY-REVISION-SHEET"
+  },
+  "next": {
+    "title": "Security Principles",
+    "permalink": "/shopverse/security/principles/SECURITY-PRINCIPLES"
+  }
+}

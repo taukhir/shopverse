@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/runtime/INDEX-AND-LOCKING",
+  "title": "Runtime Problem Index And Locking",
+  "description": "Runtime problem index and optimistic versus pessimistic locking.",
+  "source": "@site/docs/reliability/problems/runtime/INDEX-AND-LOCKING.md",
+  "sourceDirName": "reliability/problems/runtime",
+  "slug": "/reliability/problems/runtime/INDEX-AND-LOCKING",
+  "permalink": "/shopverse/reliability/problems/runtime/INDEX-AND-LOCKING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/runtime/INDEX-AND-LOCKING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Runtime Problem Index And Locking",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Runtime Reliability Problems",
+    "permalink": "/shopverse/reliability/problems/RUNTIME-RELIABILITY-PROBLEMS"
+  },
+  "next": {
+    "title": "Reliable Distributed Checkout Problem",
+    "permalink": "/shopverse/reliability/problems/runtime/DISTRIBUTED-CHECKOUT"
+  }
+}

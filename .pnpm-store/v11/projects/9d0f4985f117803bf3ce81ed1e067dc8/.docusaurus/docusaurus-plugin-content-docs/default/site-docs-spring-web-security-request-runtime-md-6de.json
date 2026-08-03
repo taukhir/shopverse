@@ -1,0 +1,47 @@
+{
+  "id": "spring/web/SECURITY-REQUEST-RUNTIME",
+  "title": "Spring Security Request Runtime",
+  "description": "Canonical servlet security trace for chain matching, authentication, authorization, SecurityContext lifecycle, MVC exception boundaries, and Shopverse multi-chain behavior.",
+  "source": "@site/docs/spring/web/SECURITY-REQUEST-RUNTIME.md",
+  "sourceDirName": "spring/web",
+  "slug": "/spring/web/SECURITY-REQUEST-RUNTIME",
+  "permalink": "/shopverse/spring/web/SECURITY-REQUEST-RUNTIME",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/web/SECURITY-REQUEST-RUNTIME.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Security Request Runtime",
+    "description": "Canonical servlet security trace for chain matching, authentication, authorization, SecurityContext lifecycle, MVC exception boundaries, and Shopverse multi-chain behavior.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Explain how FilterChainProxy selects and executes one SecurityFilterChain",
+      "Trace authentication and authorization failures to the correct translator",
+      "Review Shopverse Basic and JWT chain ordering with production evidence"
+    ],
+    "technologies": [
+      "Spring Security",
+      "OAuth2 Resource Server",
+      "JWT",
+      "Jakarta Servlet"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Servlet And Spring MVC Request Lifecycle",
+    "permalink": "/shopverse/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE"
+  },
+  "next": {
+    "title": "Spring HTTP Message Conversion And Jackson",
+    "permalink": "/shopverse/spring/web/HTTP-MESSAGE-CONVERSION-JACKSON"
+  }
+}

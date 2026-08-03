@@ -16,6 +16,18 @@ review_evidence: repository-content-audit
 
 # Kadane Algorithm Family In Java
 
+## Kadane State Transition
+
+```mermaid
+flowchart LR
+    V["Read next value"] --> C{"Extend current range?"}
+    C -->|"yes"| E["current = current + value"]
+    C -->|"no"| N["current = value"]
+    E --> B["Update best range"]
+    N --> B
+    B --> V
+```
+
 Kadane's algorithm is a one-dimensional dynamic program. At every index, decide
 whether the best subarray ending here should extend the previous subarray or
 start at the current value.

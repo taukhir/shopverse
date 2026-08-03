@@ -1,0 +1,51 @@
+{
+  "id": "spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES",
+  "title": "Transaction-Boundary Failure Lab",
+  "description": "Reproduce rollback, proxy interception, propagation, and remote-side-effect failures.",
+  "source": "@site/docs/spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES.md",
+  "sourceDirName": "spring/architect-labs",
+  "slug": "/spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES",
+  "permalink": "/shopverse/spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/architect-labs/TRANSACTION-BOUNDARY-FAILURES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Transaction-Boundary Failure Lab",
+    "description": "Reproduce rollback, proxy interception, propagation, and remote-side-effect failures.",
+    "difficulty": "Advanced",
+    "page_type": "Lab",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring AOP",
+      "JDBC transactions",
+      "JPA"
+    ],
+    "learning_objectives": [
+      "Locate the real transaction boundary",
+      "Predict rollback",
+      "Remove remote calls from database transactions"
+    ],
+    "technologies": [
+      "Spring Boot 4",
+      "Spring Framework 7",
+      "Hibernate",
+      "H2"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Capacity And Thread-Pool Calculation Lab",
+    "permalink": "/shopverse/spring/architect-labs/CAPACITY-THREAD-POOL-LAB"
+  },
+  "next": {
+    "title": "Kafka Replay And Idempotency Lab",
+    "permalink": "/shopverse/spring/architect-labs/KAFKA-REPLAY-IDEMPOTENCY"
+  }
+}

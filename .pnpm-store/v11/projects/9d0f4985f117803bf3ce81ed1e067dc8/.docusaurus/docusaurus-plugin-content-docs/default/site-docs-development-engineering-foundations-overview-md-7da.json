@@ -1,0 +1,50 @@
+{
+  "id": "development/ENGINEERING-FOUNDATIONS-OVERVIEW",
+  "title": "Engineering Foundations Overview",
+  "description": "First-read map connecting design principles, patterns, APIs, data structures, system design, testing, and technical leadership.",
+  "source": "@site/docs/development/ENGINEERING-FOUNDATIONS-OVERVIEW.md",
+  "sourceDirName": "development",
+  "slug": "/development/ENGINEERING-FOUNDATIONS-OVERVIEW",
+  "permalink": "/shopverse/development/ENGINEERING-FOUNDATIONS-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/ENGINEERING-FOUNDATIONS-OVERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Engineering Foundations Overview",
+    "description": "First-read map connecting design principles, patterns, APIs, data structures, system design, testing, and technical leadership.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Core Java fundamentals"
+    ],
+    "learning_objectives": [
+      "Connect software design topics into one engineering model",
+      "Choose the correct deep dive for a design problem",
+      "Review implementations from correctness through operability"
+    ],
+    "technologies": [
+      "Java",
+      "HTTP",
+      "SQL",
+      "Git",
+      "CI"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Operations Cheat Sheet",
+    "permalink": "/shopverse/operations/OPERATIONS-CHEATSHEET"
+  },
+  "next": {
+    "title": "Engineering Foundations Overview",
+    "permalink": "/shopverse/development/ENGINEERING-FOUNDATIONS-OVERVIEW"
+  }
+}

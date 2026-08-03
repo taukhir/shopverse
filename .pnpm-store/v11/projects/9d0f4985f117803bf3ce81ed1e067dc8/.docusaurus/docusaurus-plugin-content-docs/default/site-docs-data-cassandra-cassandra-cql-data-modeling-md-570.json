@@ -1,0 +1,47 @@
+{
+  "id": "data/cassandra/CASSANDRA-CQL-DATA-MODELING",
+  "title": "Cassandra CQL And Query-First Data Modeling",
+  "description": "Query-first tables, partition and clustering keys, denormalization, bucketing, CQL types, TTL, batches, paging, and modeling failure modes.",
+  "source": "@site/docs/data/cassandra/CASSANDRA-CQL-DATA-MODELING.md",
+  "sourceDirName": "data/cassandra",
+  "slug": "/data/cassandra/CASSANDRA-CQL-DATA-MODELING",
+  "permalink": "/shopverse/data/cassandra/CASSANDRA-CQL-DATA-MODELING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/cassandra/CASSANDRA-CQL-DATA-MODELING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cassandra CQL And Query-First Data Modeling",
+    "description": "Query-first tables, partition and clustering keys, denormalization, bucketing, CQL types, TTL, batches, paging, and modeling failure modes.",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Cassandra architecture and consistency"
+    ],
+    "learning_objectives": [
+      "Derive tables from access patterns",
+      "Bound partition size",
+      "Write safe CQL queries and mutations"
+    ],
+    "technologies": [
+      "Apache Cassandra",
+      "CQL"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Cassandra Architecture Replication And Consistency",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-ARCHITECTURE-CONSISTENCY"
+  },
+  "next": {
+    "title": "Cassandra Storage Compaction Tombstones And Indexes",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-STORAGE-INDEXES"
+  }
+}

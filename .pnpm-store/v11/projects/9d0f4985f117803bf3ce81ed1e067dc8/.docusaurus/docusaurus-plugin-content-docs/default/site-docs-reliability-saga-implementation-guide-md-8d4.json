@@ -1,0 +1,36 @@
+{
+  "id": "reliability/SAGA-IMPLEMENTATION-GUIDE",
+  "title": "SAGA Implementation Guide",
+  "description": "This guide explains how the Shopverse checkout SAGA is implemented step by",
+  "source": "@site/docs/reliability/SAGA-IMPLEMENTATION-GUIDE.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/SAGA-IMPLEMENTATION-GUIDE",
+  "permalink": "/shopverse/reliability/SAGA-IMPLEMENTATION-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/SAGA-IMPLEMENTATION-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "SAGA Implementation Guide",
+    "sidebar_position": 7,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Inbox Pattern And Idempotent Consumers",
+    "permalink": "/shopverse/reliability/INBOX-PATTERN"
+  },
+  "next": {
+    "title": "Outbox Implementation Guide",
+    "permalink": "/shopverse/reliability/OUTBOX-IMPLEMENTATION-GUIDE"
+  }
+}

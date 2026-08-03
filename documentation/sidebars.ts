@@ -5,6 +5,14 @@ const sidebars: SidebarsConfig = {
     'DOCUMENTATION-INDEX',
     {
       type: 'category',
+      label: 'Interview Questionnaires',
+      link: {type: 'doc', id: 'INTERVIEW-QUESTIONNAIRES'},
+      items: [
+        'WALMART-INTERVIEW-QUESTIONNAIRE',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Documentation Guide',
       link: {type: 'doc', id: 'reference/DOCUMENTATION-GUIDE'},
       collapsed: true,
@@ -220,6 +228,7 @@ const sidebars: SidebarsConfig = {
                 'leadership/ARCHITECTURE-PORTFOLIO-MOCK-INTERVIEW-PROGRAM',
                 'leadership/interview-program/ROLE-BASED-PREPARATION-ROUTES',
                 'leadership/interview-program/REVISION-READINESS-SCORECARD',
+                'leadership/interview-program/INTERVIEW-PRACTICE-DASHBOARD',
                 'leadership/interview-program/MCQ-PRACTICE-CENTER',
                 'leadership/interview-program/DAY-ZERO-DIAGNOSTIC-ASSESSMENT',
                 'leadership/interview-program/DAY-ZERO-ASSESSOR-SCORING-ROUTING',
@@ -236,6 +245,7 @@ const sidebars: SidebarsConfig = {
             'leadership/ZERO-DOWNTIME-DELIVERY',
             'leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION',
             'leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK',
+            'leadership/ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS',
           ],
         },
         {
@@ -254,8 +264,14 @@ const sidebars: SidebarsConfig = {
           link: {type: 'doc', id: 'data-structures/README'},
           items: [
             'data-structures/DATA-STRUCTURES-FUNDAMENTALS',
+            'data-structures/ALGORITHM-COMPLEXITY-PROBLEM-SOLVING',
             'data-structures/LINEAR-DATA-STRUCTURES',
             'data-structures/NON-LINEAR-DATA-STRUCTURES',
+            'data-structures/GRAPH-ALGORITHMS-INTERVIEW',
+            'data-structures/DYNAMIC-PROGRAMMING-INTERVIEW',
+            'data-structures/BACKTRACKING-TRIE-INTERVIEW',
+            'data-structures/CONCURRENT-JAVA-CODING-EXERCISES',
+            'data-structures/MACHINE-CODING-OOD-INTERVIEW',
             {
               type: 'category',
               label: 'Java Programming Interviews',
@@ -913,6 +929,12 @@ const sidebars: SidebarsConfig = {
         'data/DATABASE-ENGINE-INTERNALS',
         {
           type: 'category',
+          label: 'Redis Internals And Operations',
+          link: {type: 'doc', id: 'data/redis/REDIS-INTERNALS-OPERATIONS-INTERVIEW'},
+          items: [],
+        },
+        {
+          type: 'category',
           label: 'Database Design And Selection',
           link: {type: 'doc', id: 'data/DATABASE-SELECTION-GUIDE'},
           items: [
@@ -946,6 +968,7 @@ const sidebars: SidebarsConfig = {
             'data/cassandra/CASSANDRA-STORAGE-INDEXES',
             'data/cassandra/CASSANDRA-OPERATIONS-CAPACITY',
             'data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION',
+            'data/cassandra/CASSANDRA-PRODUCTION-INTERVIEW-SCENARIOS',
           ],
         },
         {
@@ -968,6 +991,7 @@ const sidebars: SidebarsConfig = {
             'data/elasticsearch/ELASTICSEARCH-QUERY-RELEVANCE',
             'data/elasticsearch/ELASTICSEARCH-OPERATIONS',
             'data/elasticsearch/ELASTICSEARCH-SPRING-INTERVIEW-REVISION',
+            'data/elasticsearch/ELASTICSEARCH-PRODUCTION-INTERVIEW-SCENARIOS',
           ],
         },
         {
@@ -1017,6 +1041,7 @@ const sidebars: SidebarsConfig = {
             'architecture/ARCHITECTURE-STYLES',
             'architecture/MICROSERVICES-GENERIC',
             'architecture/MICROSERVICES-PATTERNS',
+            'architecture/DOMAIN-DRIVEN-DESIGN',
             'architecture/CHANGE-DATA-CAPTURE',
             'architecture/MICROSERVICES-INTERNALS-DEEP-DIVE',
             'architecture/DISTRIBUTED-SYSTEMS-GENERIC',
@@ -1053,6 +1078,10 @@ const sidebars: SidebarsConfig = {
           label: 'Retail Domain And Commerce',
           link: {type: 'doc', id: 'architecture/retail/RETAIL-DOMAIN-ARCHITECTURE'},
           items: [
+            'architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS',
+            'architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS',
+            'architecture/retail/REDIS-RETAIL-CACHING-SESSIONS',
+            'architecture/retail/BLACK-FRIDAY-RETAIL-RESILIENCE',
             'architecture/retail/RETAIL-DOMAIN-INTERVIEW',
           ],
         },
@@ -1179,7 +1208,10 @@ const sidebars: SidebarsConfig = {
               type: 'category',
               label: 'RabbitMQ And Spring AMQP',
               link: {type: 'doc', id: 'integration/RABBITMQ-SPRING-AMQP-ARCHITECT-PATH'},
-              items: ['integration/rabbitmq/RABBITMQ-OPERATIONS-INTERVIEW'],
+              items: [
+                'integration/rabbitmq/RABBITMQ-INTERNALS-RELIABILITY',
+                'integration/rabbitmq/RABBITMQ-OPERATIONS-INTERVIEW',
+              ],
             },
           ],
         },
@@ -1618,6 +1650,7 @@ const sidebars: SidebarsConfig = {
         'architecture/ASYNC-REALTIME-DISTRIBUTED-TIME',
         'architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS',
         'data/DATA-PIPELINES-SEARCH-OPERATIONS',
+        'data/DATA-PIPELINE-PRODUCTION-INTERVIEW',
         'operations/SRE-DR-CHAOS',
         'operations/PERFORMANCE-CAPACITY-FINOPS',
         'security/SUPPLY-CHAIN-PRIVACY',

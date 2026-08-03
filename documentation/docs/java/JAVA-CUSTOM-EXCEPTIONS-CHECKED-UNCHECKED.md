@@ -8,7 +8,7 @@ status: maintained
 prerequisites: [Java classes and methods]
 learning_objectives: [Choose checked or unchecked exceptions, Design stable custom exception types, Preserve and translate causes, Expose safe API errors]
 technologies: [Java, Spring Boot]
-last_reviewed: "2026-07-28"
+last_reviewed: "2026-08-02"
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -16,6 +16,18 @@ review_evidence: repository-content-audit
 ---
 
 # Java Custom Exceptions, Checked And Unchecked Rules
+
+## Exception Classification Flow
+
+```mermaid
+flowchart TD
+    F["Failure detected"] --> Q{"Can the caller reasonably recover?"}
+    Q -->|"yes"| C["Checked exception or explicit result"]
+    Q -->|"no, programming or invariant failure"| U["Unchecked exception"]
+    Q -->|"JVM or process integrity"| E["Error: fail or isolate"]
+    C --> M["Map at the system boundary"]
+    U --> M
+```
 
 <DocLabels items={[{label: 'Java', tone: 'foundation'}, {label: 'Error contracts', tone: 'intermediate'}, {label: 'Production safety', tone: 'production'}]} />
 
@@ -36,6 +48,27 @@ Throwable
 The compiler rule is not a severity rule. An unchecked exception can describe an expected business
 rejection, while a checked exception can represent a temporary external failure. The choice is
 about the caller's recovery contract.
+
+## `Error` Is an Incident Signal, Not an Ordinary Branch
+
+`Error` represents serious JVM, linkage, or environment failures. Application code should not
+normally catch it to return a fallback and continue serving work; the process may no longer have
+the resources or a valid runtime state to do so. Capture safe evidence, let platform supervision
+replace an unhealthy instance when appropriate, and fix the underlying cause.
+
+| Failure | What it usually means | First response and prevention |
+|---|---|---|
+| `OutOfMemoryError` | heap, metaspace, direct/native memory, or an allocation limit is exhausted | protect heap-dump/JFR evidence; identify the detail message and retaining/allocation path; preserve container native headroom |
+| `StackOverflowError` | recursive or cyclic call chain exhausted one thread stack | inspect repeated frames; remove recursion/cycle; test deep input rather than only increasing `-Xss` |
+| `NoClassDefFoundError` / `ClassNotFoundException` | required type is absent at runtime or initialization previously failed | compare packaged artifact, runtime classpath, module/class-loader boundary, and deployment version |
+| `UnsupportedClassVersionError` | bytecode targets a newer Java runtime | align the build target and deployed JRE deliberately |
+| `UnsatisfiedLinkError` | JNI/native library cannot be found or loaded | package the matching native dependency and verify OS/architecture/library path |
+| `ExceptionInInitializerError` | static initialization threw an exception | inspect the original cause; remove I/O, mutable configuration, or circular initialization from static setup |
+
+Do not collapse these into an HTTP 500 with no operational signal. At an outer framework
+boundary, log a safe failure summary with correlation data, preserve the original cause where
+available, and allow the request/task to fail. Never log heap contents, tokens, customer data, or
+raw configuration secrets while diagnosing a fatal error.
 
 ## Checked Versus Unchecked
 

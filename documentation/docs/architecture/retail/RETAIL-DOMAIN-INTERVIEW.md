@@ -15,6 +15,16 @@ review_evidence: repository-content-audit
 
 # Retail Domain Interview Questions
 
+## Retail Lifecycle Map
+
+```mermaid
+flowchart LR
+    Catalog --> Pricing --> Cart --> Checkout --> Order --> Fulfillment --> Return
+    Inventory --> Checkout
+    Payment --> Order
+    Promotion --> Pricing
+```
+
 Strong retail answers connect business language to invariants, ownership,
 failure windows, customer impact, and measurable recovery. Use this structure:
 
@@ -257,6 +267,82 @@ refund fraud, price overrides, inventory adjustment and marketplace callbacks.
 Use tokenization, least privilege, step-up controls, rate limits, signed callbacks,
 maker-checker approval, audit and careful PII retention.
 
+### 33. How would you build a daily order-status dashboard at millions of orders per day?
+
+First define whether each number counts orders, fulfillment orders, shipments,
+packages, or lines. Separate current backlog, transitions during a business day,
+and end-of-day snapshots. Keep PostgreSQL as the operational authority; commit
+order state and outbox intent atomically; publish versioned events to Kafka keyed
+by order ID; and use Kafka Streams or Flink to deduplicate, validate versions,
+maintain latest state, and calculate query-oriented metrics.
+
+Publish accepted facts, compacted current state, and versioned absolute metric
+snapshots to durable Kafka topics. An idempotent sink loads ClickHouse raw,
+current-state, and daily metric tables. The dashboard queries bounded aggregates
+through an authorized API. A restartable Spring Batch or workflow job waits for
+the event-time watermark, reconciles control totals, versions the snapshot, and
+delivers a secure report. Cover late events, replay, bootstrap, sink ambiguity,
+freshness, and correction explicitly. See the complete
+[Retail Order Metrics And Analytics design](./RETAIL-ORDER-METRICS-ANALYTICS.md).
+For timestamp, partition, retention, and today-versus-month query follow-ups, use
+[ClickHouse For Large-Scale Retail Analytics](./CLICKHOUSE-RETAIL-ANALYTICS.md).
+
+### 34. How would you handle billions of Black Friday requests without interrupting catalog, order, or inventory service?
+
+Translate billions per day into peak requests per second by endpoint, region,
+and hot SKU. Let a CDN absorb static and cache-safe catalog traffic; serve
+discovery from search read models and protected caches. Use bot controls, rate
+limits, and a waiting room to admit checkout only at the measured capacity of
+inventory, orders, payments, and databases. Reserve capacity and bulkheads for
+accepted checkout, provider callbacks, and recovery while degrading optional
+recommendations, reviews, and expensive facets.
+
+At checkout, revalidate price and authoritative ATP. Prevent oversell through an
+atomic reservation, a single-writer SKU partition, or explicitly bounded stock
+allocations. Make checkout, order, inventory, and payment operations idempotent;
+persist order plus outbox atomically; use Kafka to buffer bounded asynchronous
+work; and reconcile uncertain payment and inventory outcomes. Explain deadlines,
+retry budgets, circuit breakers, load shedding, multi-zone recovery, queue drain,
+fulfillment capacity, observability, and fair sold-out behavior. See
+[Black Friday Retail Scale And Resilience](./BLACK-FRIDAY-RETAIL-RESILIENCE.md)
+for the component responsibilities, flow, data placement, and readiness plan.
+
+### 35. How would you use Redis for sessions and retail caching, and handle a product-list or inventory-list miss?
+
+Use Spring Session when application replicas need shared, revocable stateful
+sessions: keep only an unpredictable ID in a secure cookie, store minimal
+expiring state in Redis, isolate session capacity from disposable caches, and
+define fail-closed or reauthentication behavior during an outage. For catalog,
+use cache-aside with versioned keys, explicit query dimensions, jittered TTLs,
+bounded same-key loading, negative caching only for genuine not-found results,
+and stale-while-revalidate where the business permits staleness.
+
+For a list, multi-get all item keys, batch-load only misses from the catalog,
+search, or inventory read model, and pipeline the cache fill; avoid N+1 source
+queries. Cached inventory is an approximate browsing projection. Checkout must
+revalidate price and perform an idempotent, atomic reservation against the
+inventory authority. Cover invalidation, event versions, serializer migration,
+hot keys, eviction, failover, source protection, observability, and security. See
+[Redis For Retail Caching And Session Storage](./REDIS-RETAIL-CACHING-SESSIONS.md).
+
+### 36. How do you preserve Order, Inventory, And Payment event ordering in Kafka?
+
+Kafka orders only within one partition, so define the smallest aggregate that
+needs serialization and publish with its stable key—for example `orderId` for an
+order-lifecycle stream. Do not claim ordering across separate order, inventory,
+and payment topics. Add immutable event ID and aggregate version; preserve
+per-aggregate order in the transactional outbox relay; keep consumer execution
+partition/key ordered; and prevent retry topics or DLT recovery from silently
+letting later versions overtake a failed record.
+
+Process with an inbox uniqueness constraint, durable version tracking, and
+guarded business transitions in one local transaction. Use separate keys such
+as `(skuId, locationId)` for inventory-ledger ordering and `paymentId` for a
+payment lifecycle; one record cannot be ordered by several independent keys.
+Cover partition expansion, hot keys, rebalances, offset commits, replay, payment
+side-effect reconciliation, and version-gap recovery. See
+[Kafka Consumer Groups, Rebalancing, And Ordering](../../integration/kafka/KAFKA-CONSUMER-GROUPS-REBALANCING-ORDERING.md).
+
 ## System-Design Prompts
 
 Use the answer structure at the top for these exercises:
@@ -271,10 +357,31 @@ Use the answer structure at the top for these exercises:
 8. Design a marketplace order that contains products from five sellers.
 9. Diagnose orders paid but not shipped after an event-stream incident.
 10. Design peak-readiness controls for a Black Friday launch.
+11. Design a current and daily order-status dashboard for millions of orders per day.
+12. Design catalog, inventory, checkout, and order processing for a Black Friday event with billions of edge requests.
+13. Design Redis-backed sessions and product/inventory caching for a multi-region retail platform.
+14. Design ordered, idempotent Kafka choreography across order, inventory, and payment services.
 
 For every prompt clarify scale, hot-key skew, countries/currencies, sellers,
 channels, consistency, delivery promise, availability SLO, retention, RPO/RTO,
 fraud, manual operations, and the source of truth for each decision.
+
+### Order Metrics Dashboard Follow-Ups
+
+For prompt 11, answer these before selecting technology:
+
+1. Does `SHIPPED` count an order once or count every shipment/package/line?
+2. Is `PENDING` the current backlog, the end-of-day backlog, or a daily transition?
+3. Which facility timezone assigns the business date?
+4. What live and finalized freshness objectives apply?
+5. What peak event rate, retention, dimensions, and concurrent query count apply?
+6. How are partial fulfillment, cancellation, returns, test orders, and late facts treated?
+7. Which authority and control total will reconcile each result?
+
+An architect-level answer should reject repeated full scans of the operational
+orders table, explain why Kafka exactly-once does not cover a direct ClickHouse
+side effect, prefer versioned snapshots over unprotected append-only counter
+deltas, and provide bootstrap, replay, correction, security, and recovery proof.
 
 ## Rapid-Fire Checks
 
@@ -307,8 +414,12 @@ scenarios without claiming impossible end-to-end exactly-once guarantees.
 ## Recommended Study Route
 
 1. Review [Retail Domain And Commerce Architecture](./RETAIL-DOMAIN-ARCHITECTURE.md).
-2. Design [Checkout And Order](../shopverse-capstones/CHECKOUT-ORDER-DESIGN.md).
-3. Deep-dive [Inventory Reservation](../shopverse-capstones/INVENTORY-RESERVATION-DESIGN.md).
-4. Practise [Payment Reliability](../shopverse-capstones/PAYMENT-RELIABILITY-DESIGN.md).
-5. Apply the [System Design Interview Evaluation Rubric](../system-design-deep-dives/INTERVIEW-RUBRIC.md).
-
+2. Study [Retail Order Metrics And Analytics At Scale](./RETAIL-ORDER-METRICS-ANALYTICS.md).
+3. Learn [ClickHouse For Large-Scale Retail Analytics](./CLICKHOUSE-RETAIL-ANALYTICS.md).
+4. Prepare [Black Friday Retail Scale And Resilience](./BLACK-FRIDAY-RETAIL-RESILIENCE.md).
+5. Study [Redis For Retail Caching And Session Storage](./REDIS-RETAIL-CACHING-SESSIONS.md).
+6. Master [Kafka Ordering And Rebalancing](../../integration/kafka/KAFKA-CONSUMER-GROUPS-REBALANCING-ORDERING.md).
+7. Design [Checkout And Order](../shopverse-capstones/CHECKOUT-ORDER-DESIGN.md).
+8. Deep-dive [Inventory Reservation](../shopverse-capstones/INVENTORY-RESERVATION-DESIGN.md).
+9. Practise [Payment Reliability](../shopverse-capstones/PAYMENT-RELIABILITY-DESIGN.md).
+10. Apply the [System Design Interview Evaluation Rubric](../system-design-deep-dives/INTERVIEW-RUBRIC.md).

@@ -1,0 +1,56 @@
+{
+  "id": "leadership/ZERO-DOWNTIME-DELIVERY",
+  "title": "Zero-Downtime Delivery",
+  "description": "A complete guide to mixed-version compatibility, controlled rollout, safe data evolution, graceful shutdown, and recovery.",
+  "source": "@site/docs/leadership/ZERO-DOWNTIME-DELIVERY.md",
+  "sourceDirName": "leadership",
+  "slug": "/leadership/ZERO-DOWNTIME-DELIVERY",
+  "permalink": "/shopverse/leadership/ZERO-DOWNTIME-DELIVERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/ZERO-DOWNTIME-DELIVERY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Zero-Downtime Delivery",
+    "description": "A complete guide to mixed-version compatibility, controlled rollout, safe data evolution, graceful shutdown, and recovery.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "keywords": [
+      "zero downtime",
+      "rolling deployment",
+      "blue green",
+      "canary",
+      "expand contract",
+      "feature flag",
+      "graceful shutdown"
+    ],
+    "learning_objectives": [
+      "Design application, API, event, schema, and configuration changes for mixed-version operation",
+      "Choose and control rolling, blue-green, and canary delivery strategies",
+      "Plan health gates, graceful shutdown, rollback, roll-forward, and reconciliation"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Kubernetes",
+      "PostgreSQL",
+      "Kafka",
+      "Liquibase"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Production Performance And Availability",
+    "permalink": "/shopverse/leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY"
+  },
+  "next": {
+    "title": "Legacy To Spring Boot Modernization",
+    "permalink": "/shopverse/leadership/LEGACY-TO-SPRING-BOOT-MODERNIZATION"
+  }
+}

@@ -31,6 +31,7 @@ Keep those decisions in the canonical cache architecture guides.
   {title: 'Cache architecture', href: '/architecture/CACHE-UMBRELLA', description: 'Choose cache level, ownership, consistency, keys, and invalidation.', icon: 'layers', tags: ['Canonical', 'Architecture']},
   {title: 'Provider selection', href: '/architecture/CACHE-PROVIDERS', description: 'Compare Caffeine, Redis, Memcached, and provider operational behavior.', icon: 'boxes', tags: ['Providers', 'Operations']},
   {title: 'Distributed and hybrid cache', href: '/architecture/DISTRIBUTED-HYBRID-CACHE', description: 'Design shared, near-cache, and multi-replica invalidation.', icon: 'network', tags: ['Distributed', 'Consistency']},
+  {title: 'Retail Redis design', href: '/architecture/retail/REDIS-RETAIL-CACHING-SESSIONS', description: 'Apply Redis to sessions, catalog lists, availability projections, misses, and outages.', icon: 'boxes', tags: ['Retail', 'Redis']},
 ]} />
 
 ## Proxy And Provider Flow

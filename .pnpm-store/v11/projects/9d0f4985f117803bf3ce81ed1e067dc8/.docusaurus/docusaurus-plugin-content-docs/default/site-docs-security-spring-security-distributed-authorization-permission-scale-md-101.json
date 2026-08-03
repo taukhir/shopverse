@@ -1,0 +1,69 @@
+{
+  "id": "security/spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE",
+  "title": "Distributed Authorization At Permission Scale",
+  "description": "Design large role and permission models without oversized JWTs, stale access, role explosion, unsafe caches, or a fragile central policy dependency.",
+  "source": "@site/docs/security/spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE.md",
+  "sourceDirName": "security/spring-security",
+  "slug": "/security/spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE",
+  "permalink": "/shopverse/security/spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "authorization",
+      "permalink": "/shopverse/tags/authorization"
+    },
+    {
+      "inline": true,
+      "label": "rbac",
+      "permalink": "/shopverse/tags/rbac"
+    },
+    {
+      "inline": true,
+      "label": "abac",
+      "permalink": "/shopverse/tags/abac"
+    },
+    {
+      "inline": true,
+      "label": "jwt",
+      "permalink": "/shopverse/tags/jwt"
+    },
+    {
+      "inline": true,
+      "label": "microservices",
+      "permalink": "/shopverse/tags/microservices"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Distributed Authorization At Permission Scale",
+    "description": "Design large role and permission models without oversized JWTs, stale access, role explosion, unsafe caches, or a fragile central policy dependency.",
+    "sidebar_label": "Authorization At Permission Scale",
+    "tags": [
+      "authorization",
+      "rbac",
+      "abac",
+      "jwt",
+      "microservices"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Security Authorization And Method Security",
+    "permalink": "/shopverse/security/spring-security/AUTHORIZATION-METHOD-SECURITY"
+  },
+  "next": {
+    "title": "OAuth2 OIDC And Token Flows",
+    "permalink": "/shopverse/security/spring-security/OAUTH2-OIDC-FLOWS"
+  }
+}

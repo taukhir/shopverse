@@ -15,6 +15,14 @@ review_evidence: repository-content-audit
 
 # Indexes And Query Plans
 
+## Query Tuning Feedback Loop
+
+```mermaid
+flowchart LR
+    Q["Representative query"] --> P["Inspect actual plan"] --> B["Find scan, join, and sort bottlenecks"]
+    B --> I["Change index or query"] --> M["Measure latency and write cost"] --> Q
+```
+
 An index is an additional data structure that makes selected reads cheaper in
 exchange for storage, memory, write amplification, maintenance, and operational
 complexity. Index the workload—not individual columns in isolation.

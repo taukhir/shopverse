@@ -1,0 +1,55 @@
+{
+  "id": "operations/KUBERNETES-WORKLOAD-ENGINEERING",
+  "title": "Kubernetes Workload Engineering",
+  "description": "This is the concise workload primer. For API/control-plane internals, scheduling,",
+  "source": "@site/docs/operations/KUBERNETES-WORKLOAD-ENGINEERING.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/KUBERNETES-WORKLOAD-ENGINEERING",
+  "permalink": "/shopverse/operations/KUBERNETES-WORKLOAD-ENGINEERING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/KUBERNETES-WORKLOAD-ENGINEERING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kubernetes Workload Engineering",
+    "difficulty": "Intermediate",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "keywords": [
+      "Kubernetes",
+      "Pod",
+      "Deployment",
+      "Service",
+      "Gateway API",
+      "HPA",
+      "StatefulSet",
+      "CronJob",
+      "operator"
+    ],
+    "learning_objectives": [
+      "Map application needs to Kubernetes resources",
+      "Configure safe scheduling and rollout controls",
+      "Diagnose health capacity and stateful-workload risks"
+    ],
+    "technologies": [
+      "Kubernetes",
+      "Docker",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kubernetes MCQ Practice",
+    "permalink": "/shopverse/operations/KUBERNETES-MCQ-PRACTICE"
+  },
+  "next": {
+    "title": "Kubernetes kubectl Commands, YAML, JSON, And API Configuration",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS"
+  }
+}

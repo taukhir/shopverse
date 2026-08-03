@@ -1,13 +1,13 @@
 ---
 title: Spring Boot And Container Interview Questions
-description: Expandable interview questions about Spring Boot startup, auto-configuration, dependency injection, bean selection and lifecycle design.
+description: Expandable interview questions about Boot startup, container APIs, factories, dependency resolution, creation order, scopes, lifecycle callbacks, and extension points.
 difficulty: Intermediate
 page_type: Reference
 status: maintained
 prerequisites: [Spring ecosystem fundamentals]
-learning_objectives: [Explain Boot startup and condition evaluation, Choose injection and bean-selection mechanisms, Diagnose lifecycle and dependency problems]
+learning_objectives: [Explain Boot startup and condition evaluation, Compare container factory and injection contracts, Choose creation and lifecycle ordering mechanisms, Diagnose lifecycle and dependency problems]
 technologies: [Spring Boot 4, Spring Framework 7]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-spring
 reviewer: documentation-maintainers
@@ -19,7 +19,7 @@ review_evidence: repository-content-audit
 <DocLabels items={[
   {label: 'Intermediate', tone: 'intermediate'},
   {label: 'Spring Boot 4', tone: 'foundation'},
-  {label: '12 expandable answers', tone: 'production'},
+  {label: '24 expandable answers', tone: 'production'},
 ]} />
 
 <DocCallout type="tip" title="Answer before expanding">
@@ -28,6 +28,11 @@ State the container phase or extension point, the object identity being publishe
 failure symptom and the diagnostic evidence you would inspect before opening the answer.
 
 </DocCallout>
+
+Use the answers for revision, then trace the full behavior in
+[Dependency Injection And Bean Resolution](../../development/spring-boot-internals/DEPENDENCY-INJECTION-BEAN-RESOLUTION.md),
+[Bean Scopes And Lifecycle](../../development/spring-boot-internals/BEAN-SCOPES-LIFECYCLE.md),
+and [Startup Extension Points](../../development/spring-boot-internals/STARTUP-EXTENSION-POINTS.md).
 
 ```mermaid
 flowchart LR
@@ -97,12 +102,51 @@ with isolated application-context tests.
 
 ## Dependency Injection And Bean Selection
 
+<ExpandableAnswer title="What is the difference between BeanFactory and ApplicationContext?">
+
+`BeanFactory` is the foundational registry, lookup, scope and dependency-creation
+contract. `ApplicationContext` is the normal application container built on it and
+adds automatic processor discovery, lifecycle coordination, events, resources,
+messages and environment integration. A bare bean factory requires explicit
+bootstrap for facilities such as annotation processing and AOP.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do FactoryBean, BeanFactory and @Bean differ?">
+
+`BeanFactory` is the container contract. `FactoryBean<T>` is a container extension
+that produces an object: lookup by `name` returns the product and `&name` returns the
+factory. `@Bean` marks a Java configuration method whose return value is registered
+as a bean. Similar names do not imply interchangeable roles.
+
+</ExpandableAnswer>
+
 <ExpandableAnswer title="Constructor injection or setter injection?">
 
 Use constructor injection for required dependencies: it makes invalid construction
 impossible, supports final fields and makes plain-Java testing direct. Setter injection is
 reasonable for truly optional reconfiguration. A long constructor is design feedback,
 not a reason to hide dependencies with field injection.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How does Spring select a constructor when several exist?">
+
+A single constructor is used without `@Autowired`. With several constructors, one
+required annotated constructor wins. Multiple constructors may be optional
+candidates with `@Autowired(required = false)`; Spring selects the greediest
+satisfiable candidate and can fall back to a primary/default constructor. Prefer one
+unambiguous constructor so optionality is expressed in parameters, not overloads.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do @Autowired, @Inject and @Resource differ?">
+
+`@Autowired` is Spring-specific and resolves primarily by type with qualifier and
+candidate-ranking support. Jakarta `@Inject` provides similar type-oriented
+injection without Spring's `required` attribute. Jakarta `@Resource` is name-oriented
+and supports fields or setter methods, not constructor injection. Constructor
+injection without an annotation remains the normal default for one constructor.
 
 </ExpandableAnswer>
 
@@ -132,6 +176,17 @@ explicitly.
 
 </ExpandableAnswer>
 
+<ExpandableAnswer title="Constructor dependency, @DependsOn or @Order—which controls creation?">
+
+Use a constructor parameter for a real object dependency; Spring must obtain that
+dependency before constructing the dependent bean. Use `@DependsOn` for the unusual
+case where initialization side effects must precede another bean. `@Order` sorts
+supported collections, chains and runners; it does not guarantee singleton creation
+order. For singleton shutdown, a `depends-on` relationship destroys the dependent
+before its prerequisite.
+
+</ExpandableAnswer>
+
 <ExpandableAnswer title="How should a circular dependency be resolved?">
 
 First redesign ownership: extract coordination, publish an event, reverse a dependency
@@ -150,6 +205,78 @@ who destroys resources because prototype destruction is not fully managed after 
 
 </ExpandableAnswer>
 
+<ExpandableAnswer title="When would you use @Lookup instead of ObjectProvider?">
+
+Both can obtain a fresh or differently scoped bean from a singleton. `ObjectProvider`
+makes lookup explicit and is usually easier to unit test. `@Lookup` asks Spring to
+generate a subclass overriding a lookup method; the class/method cannot be final and
+it does not work for instances returned by `@Bean` factory methods. Use either only
+when repeated lookup is the real scope contract.
+
+</ExpandableAnswer>
+
+## Lifecycle And Extension Points
+
+<ExpandableAnswer title="What is the Spring bean initialization callback order?">
+
+After instantiation and dependency population, Spring invokes aware callbacks and
+before-initialization post-processors. It then invokes `@PostConstruct`,
+`InitializingBean.afterPropertiesSet()`, a configured custom init method, and
+after-initialization processors that may return a proxy. On orderly destruction the
+callback styles run as `@PreDestroy`, `DisposableBean.destroy()`, then a configured
+custom destroy method.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What are Spring Aware interfaces and when should they be used?">
+
+Interfaces such as `BeanNameAware`, `BeanFactoryAware` and
+`ApplicationContextAware` receive container infrastructure after dependency
+population and before initialization. They deliberately couple a bean to Spring.
+Use them for infrastructure that genuinely needs container metadata; inject ordinary
+application collaborators through constructors.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do BeanDefinitionRegistryPostProcessor, BeanFactoryPostProcessor and BeanPostProcessor differ?">
+
+A `BeanDefinitionRegistryPostProcessor` can add definitions. A
+`BeanFactoryPostProcessor` changes definitions or factory metadata before normal
+instances exist. A `BeanPostProcessor` acts on instances before and after
+initialization and may publish a proxy. Creating application beans during the factory
+post-processor phase can make them miss later injection or proxy processors.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What exactly does @Lazy defer?">
+
+Definition-level `@Lazy` delays singleton creation until it is requested, but an
+eager direct dependent can request it during startup. Injection-point `@Lazy` uses a
+proxy that resolves the target on first use. Laziness moves initialization cost and
+failure to first use; it does not fix a dependency cycle, broken configuration or
+unsafe initialization.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do parent and child ApplicationContexts resolve beans?">
+
+A child can normally look up beans from its parent; the parent cannot see child-only
+beans. Each context has a separate singleton registry, lifecycle and processor set.
+A child may shadow a parent bean name, creating two identities, and a post-processor
+in one factory does not automatically process beans owned by the other.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="SmartInitializingSingleton, SmartLifecycle or runner—which should you use?">
+
+Use `SmartInitializingSingleton` after regular non-lazy singletons exist, not as an
+application-readiness signal. Use `SmartLifecycle` for phased start/stop of
+long-running infrastructure. Use `ApplicationRunner` or `CommandLineRunner` for a
+bounded Boot task after context refresh and before readiness. `@Order` on runners
+orders their invocation, not bean construction.
+
+</ExpandableAnswer>
+
 ## Shopverse Drill
 
 If two payment providers implement the same interface, explain whether Shopverse needs a
@@ -161,6 +288,9 @@ selected provider is disabled during a rolling deployment.
 
 - [Spring Boot auto-configuration](https://docs.spring.io/spring-boot/reference/using/auto-configuration.html)
 - [Spring container overview](https://docs.spring.io/spring-framework/reference/core/beans/basics.html)
+- [Spring BeanFactory API](https://docs.spring.io/spring-framework/reference/core/beans/beanfactory.html)
+- [Spring autowired resolution](https://docs.spring.io/spring-framework/reference/core/beans/annotation-config/autowired.html)
+- [Spring bean lifecycle callbacks](https://docs.spring.io/spring-framework/reference/core/beans/factory-nature.html)
 - [Spring container extension points](https://docs.spring.io/spring-framework/reference/core/beans/factory-extension.html)
 
 ## Recommended Next

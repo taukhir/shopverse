@@ -1,0 +1,139 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Shopverse Microservices Architecture</title>
+  <desc id="desc">Layered Shopverse architecture showing edge, platform infrastructure, domain services, Kafka, databases, and observability.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 31px Arial, sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 16px Arial, sans-serif; fill: #475569; }
+    .lane { fill: #ffffff; stroke: #dbe3ef; stroke-width: 1.3; rx: 22; }
+    .laneTitle { font: 700 13px Arial, sans-serif; fill: #334155; letter-spacing: .7px; }
+    .boxTitle { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+    .boxText { font: 400 12.5px Arial, sans-serif; fill: #475569; }
+    .note { font: 400 12.5px Arial, sans-serif; fill: #475569; }
+    .client { fill: #ecfeff; stroke: #0891b2; stroke-width: 1.6; rx: 16; }
+    .edge { fill: #eef2ff; stroke: #6366f1; stroke-width: 1.6; rx: 16; }
+    .platform { fill: #eff6ff; stroke: #3b82f6; stroke-width: 1.6; rx: 16; }
+    .security { fill: #fff1f2; stroke: #f43f5e; stroke-width: 1.6; rx: 16; }
+    .service { fill: #f0fdf4; stroke: #22c55e; stroke-width: 1.6; rx: 16; }
+    .event { fill: #fffbeb; stroke: #d97706; stroke-width: 1.6; rx: 16; }
+    .data { fill: #fff7ed; stroke: #f97316; stroke-width: 1.6; rx: 16; }
+    .obs { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 1.6; rx: 16; }
+    .arrow { stroke: #475569; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+    .eventArrow { stroke: #d97706; stroke-width: 2.4; fill: none; marker-end: url(#eventArrow); }
+    .dash { stroke: #64748b; stroke-width: 2; stroke-dasharray: 7 7; fill: none; marker-end: url(#arrow); }
+    .label { font: 700 12px Arial, sans-serif; fill: #334155; }
+    .eventLabel { font: 700 12px Arial, sans-serif; fill: #92400e; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#475569"/>
+    </marker>
+    <marker id="eventArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L8,3 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="760"/>
+  <text x="600" y="48" text-anchor="middle" class="title">Shopverse Microservices Architecture</text>
+  <text x="600" y="78" text-anchor="middle" class="subtitle">Edge routing, centralized config, discovery, secure services, Kafka SAGA, service-owned data, and observability</text>
+
+  <rect x="42" y="112" width="1116" height="104" class="lane"/>
+  <text x="68" y="142" class="laneTitle">EDGE AND PLATFORM CONTROL PLANE</text>
+
+  <rect x="78" y="158" width="150" height="48" class="client"/>
+  <text x="153" y="179" text-anchor="middle" class="boxTitle">Client</text>
+  <text x="153" y="198" text-anchor="middle" class="boxText">Browser / Postman</text>
+
+  <rect x="300" y="146" width="170" height="60" class="edge"/>
+  <text x="385" y="170" text-anchor="middle" class="boxTitle">API Gateway</text>
+  <text x="385" y="190" text-anchor="middle" class="boxText">JWT, routes, metrics</text>
+
+  <rect x="548" y="146" width="170" height="60" class="platform"/>
+  <text x="633" y="170" text-anchor="middle" class="boxTitle">Config Server</text>
+  <text x="633" y="190" text-anchor="middle" class="boxText">cloud-configs</text>
+
+  <rect x="796" y="146" width="170" height="60" class="platform"/>
+  <text x="881" y="170" text-anchor="middle" class="boxTitle">Eureka</text>
+  <text x="881" y="190" text-anchor="middle" class="boxText">service registry</text>
+
+  <path d="M228 182 H300" class="arrow"/>
+  <text x="244" y="170" class="label">HTTP</text>
+  <path d="M470 168 H548" class="dash"/>
+  <text x="486" y="156" class="label">config</text>
+  <path d="M470 190 H796" class="dash"/>
+  <text x="612" y="212" class="label">service discovery and load balancing</text>
+
+  <rect x="42" y="250" width="1116" height="188" class="lane"/>
+  <text x="68" y="280" class="laneTitle">DOMAIN SERVICES</text>
+
+  <rect x="90" y="310" width="170" height="88" class="security"/>
+  <text x="175" y="336" text-anchor="middle" class="boxTitle">Auth Service</text>
+  <text x="175" y="358" text-anchor="middle" class="boxText">login, JWT signing</text>
+  <text x="175" y="378" text-anchor="middle" class="boxText">JWKS public key</text>
+
+  <rect x="298" y="310" width="170" height="88" class="service"/>
+  <text x="383" y="336" text-anchor="middle" class="boxTitle">User Service</text>
+  <text x="383" y="358" text-anchor="middle" class="boxText">users, roles</text>
+  <text x="383" y="378" text-anchor="middle" class="boxText">permissions</text>
+
+  <rect x="506" y="310" width="170" height="88" class="service"/>
+  <text x="591" y="336" text-anchor="middle" class="boxTitle">Order Service</text>
+  <text x="591" y="358" text-anchor="middle" class="boxText">checkout, timeline</text>
+  <text x="591" y="378" text-anchor="middle" class="boxText">outbox producer</text>
+
+  <rect x="714" y="310" width="170" height="88" class="service"/>
+  <text x="799" y="336" text-anchor="middle" class="boxTitle">Inventory Service</text>
+  <text x="799" y="358" text-anchor="middle" class="boxText">stock reservation</text>
+  <text x="799" y="378" text-anchor="middle" class="boxText">expiry, compensation</text>
+
+  <rect x="922" y="310" width="170" height="88" class="service"/>
+  <text x="1007" y="336" text-anchor="middle" class="boxTitle">Payment Service</text>
+  <text x="1007" y="358" text-anchor="middle" class="boxText">provider stub</text>
+  <text x="1007" y="378" text-anchor="middle" class="boxText">capture, refund</text>
+
+  <path d="M385 206 V310" class="arrow"/>
+  <path d="M365 206 C260 248 205 270 175 310" class="arrow"/>
+  <path d="M405 206 C480 248 548 270 591 310" class="arrow"/>
+  <path d="M430 206 C600 246 735 270 799 310" class="arrow"/>
+  <path d="M450 206 C700 246 930 270 1007 310" class="arrow"/>
+
+  <path d="M260 354 H298" class="dash"/>
+  <text x="265" y="342" class="label">internal Basic</text>
+  <path d="M676 354 H714" class="dash"/>
+  <text x="675" y="342" class="label">catalog lookup</text>
+
+  <rect x="42" y="472" width="1116" height="118" class="lane"/>
+  <text x="68" y="502" class="laneTitle">EVENTS AND SERVICE-OWNED DATA</text>
+
+  <rect x="258" y="520" width="220" height="52" class="event"/>
+  <text x="368" y="542" text-anchor="middle" class="boxTitle">Kafka</text>
+  <text x="368" y="562" text-anchor="middle" class="boxText">order, inventory, payment events</text>
+
+  <rect x="560" y="520" width="360" height="52" class="data"/>
+  <text x="740" y="542" text-anchor="middle" class="boxTitle">MySQL Schemas</text>
+  <text x="740" y="562" text-anchor="middle" class="boxText">user, order, inventory, payment databases</text>
+
+  <path d="M591 398 C580 442 475 488 410 520" class="eventArrow"/>
+  <text x="455" y="472" class="eventLabel">order.created</text>
+  <path d="M410 520 C555 458 720 424 799 398" class="eventArrow"/>
+  <text x="570" y="482" class="eventLabel">inventory reserved / failed</text>
+  <path d="M478 548 C650 604 908 604 1007 398" class="eventArrow"/>
+  <text x="738" y="618" class="eventLabel">payment completed / failed</text>
+  <path d="M383 398 C410 466 560 500 640 520" class="dash"/>
+  <path d="M591 398 V520" class="dash"/>
+  <path d="M799 398 C790 460 770 490 760 520" class="dash"/>
+  <path d="M1007 398 C950 455 888 494 820 520" class="dash"/>
+  <text x="938" y="536" class="label">JPA + Liquibase</text>
+
+  <rect x="42" y="624" width="1116" height="84" class="lane"/>
+  <text x="68" y="654" class="laneTitle">OBSERVABILITY</text>
+  <rect x="238" y="660" width="724" height="34" class="obs"/>
+  <text x="600" y="682" text-anchor="middle" class="boxTitle">Prometheus metrics · Loki logs · Promtail shipping · Zipkin traces · Grafana dashboards</text>
+
+  <path d="M591 398 C520 540 440 604 360 660" class="dash"/>
+  <path d="M799 398 C760 520 690 604 650 660" class="dash"/>
+  <path d="M1007 398 C940 530 860 604 810 660" class="dash"/>
+  <text x="460" y="640" class="label">logs, metrics, traces carry correlation and trace context</text>
+
+  <text x="600" y="738" text-anchor="middle" class="note">Read left to right by layer: external traffic enters Gateway, services own data, Kafka coordinates checkout, observability connects runtime signals.</text>
+</svg>

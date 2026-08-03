@@ -1,0 +1,34 @@
+{
+  "id": "architecture/hld-lld/HLD-FUNDAMENTALS",
+  "title": "HLD Fundamentals",
+  "description": "HLD versus LLD, HLD contents, and an HLD example. For deeper HLD topics, use",
+  "source": "@site/docs/architecture/hld-lld/HLD-FUNDAMENTALS.md",
+  "sourceDirName": "architecture/hld-lld",
+  "slug": "/architecture/hld-lld/HLD-FUNDAMENTALS",
+  "permalink": "/shopverse/architecture/hld-lld/HLD-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/hld-lld/HLD-FUNDAMENTALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "HLD Fundamentals",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "HLD Interview Workbook",
+    "permalink": "/shopverse/architecture/hld-lld/HLD-INTERVIEW-WORKBOOK"
+  },
+  "next": {
+    "title": "Introduction To HLD",
+    "permalink": "/shopverse/architecture/hld-lld/hld/INTRODUCTION-TO-HLD"
+  }
+}

@@ -35,7 +35,10 @@ testing benefit.
 
 ### Single Responsibility Principle
 
-A class should have one cohesive reason to change.
+A class should have one cohesive reason to change. Cohesion means its behavior
+and dependencies serve that focused responsibility; a god service with many
+unrelated reasons to change should be split along business capabilities and
+transaction boundaries, not merely by method count.
 
 Avoid:
 

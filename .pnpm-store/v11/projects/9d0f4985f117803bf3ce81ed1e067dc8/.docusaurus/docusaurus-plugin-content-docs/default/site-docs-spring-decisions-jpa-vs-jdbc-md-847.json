@@ -1,0 +1,50 @@
+{
+  "id": "spring/decisions/JPA-VS-JDBC",
+  "title": "JPA Versus JDBC",
+  "description": "Choose aggregate mapping or explicit SQL control by persistence workload.",
+  "source": "@site/docs/spring/decisions/JPA-VS-JDBC.md",
+  "sourceDirName": "spring/decisions",
+  "slug": "/spring/decisions/JPA-VS-JDBC",
+  "permalink": "/shopverse/spring/decisions/JPA-VS-JDBC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/decisions/JPA-VS-JDBC.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JPA Versus JDBC",
+    "description": "Choose aggregate mapping or explicit SQL control by persistence workload.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "SQL",
+      "Transactions",
+      "JPA"
+    ],
+    "learning_objectives": [
+      "Match tool to workload",
+      "Identify ORM risk",
+      "Plan coexistence"
+    ],
+    "technologies": [
+      "Spring Data JPA",
+      "Hibernate",
+      "Spring JDBC"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kafka Versus Synchronous Communication",
+    "permalink": "/shopverse/spring/decisions/KAFKA-VS-SYNCHRONOUS"
+  },
+  "next": {
+    "title": "Cache-Aside Versus Write-Through",
+    "permalink": "/shopverse/spring/decisions/CACHE-ASIDE-VS-WRITE-THROUGH"
+  }
+}

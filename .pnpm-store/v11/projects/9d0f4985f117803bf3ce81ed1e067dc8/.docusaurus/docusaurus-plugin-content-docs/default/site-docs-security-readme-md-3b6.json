@@ -1,0 +1,51 @@
+{
+  "id": "security/README",
+  "title": "Application And Platform Security Learning Guide",
+  "description": "Route through security principles, identity, API and service controls, Spring Security, operations, and incident response.",
+  "source": "@site/docs/security/README.md",
+  "sourceDirName": "security",
+  "slug": "/security/",
+  "permalink": "/shopverse/security/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Application And Platform Security Learning Guide",
+    "description": "Route through security principles, identity, API and service controls, Spring Security, operations, and incident response.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "HTTP",
+      "Basic distributed systems"
+    ],
+    "learning_objectives": [
+      "Model trust boundaries",
+      "Select identity and authorization controls",
+      "Operate security incidents"
+    ],
+    "technologies": [
+      "OAuth2",
+      "OIDC",
+      "JWT",
+      "Spring Security 7",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "shopverse",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Reliability Revision Sheet",
+    "permalink": "/shopverse/reliability/RELIABILITY-REVISION-SHEET"
+  },
+  "next": {
+    "title": "Application And Platform Security Revision Sheet",
+    "permalink": "/shopverse/security/SECURITY-REVISION-SHEET"
+  }
+}

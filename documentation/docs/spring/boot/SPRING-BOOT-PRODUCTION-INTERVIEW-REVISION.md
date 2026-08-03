@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Spring Boot architect path]
 learning_objectives: [Revise Boot internals quickly, Structure lead-level answers, Diagnose production scenarios, Explain evidence and trade-offs]
 technologies: [Spring Boot 4, Spring Framework 7, Actuator, JVM, Kubernetes]
-last_reviewed: "2026-07-28"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-spring
 reviewer: documentation-maintainers
@@ -117,6 +117,87 @@ bypasses the proxy where advice is applied.
 times, then bound connector/executor/connection pools and memory against actual CPU,
 downstream capacity and container limits.
 
+## Focused Platform Questions
+
+<ExpandableAnswer title="How does external configuration precedence work, and why prefer @ConfigurationProperties?">
+
+Later/higher-priority property sources override earlier ones according to Boot's
+Config Data and environment rules; profile activation and imported locations alter
+which sources participate. Diagnose the winning value with property-origin evidence.
+Use validated `@ConfigurationProperties` for cohesive typed configuration instead of
+scattering string-based `@Value` expressions throughout services.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do you build and verify custom auto-configuration?">
+
+Publish candidates through `AutoConfiguration.imports`, guard them with stable
+class/bean/property conditions, define user-bean back-off, expose typed properties,
+and test missing-class, enabled/disabled, invalid-property and user-override cases
+with `ApplicationContextRunner`. Auto-configuration order affects definition
+processing, not arbitrary singleton startup order.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How should Actuator endpoints be exposed and secured?">
+
+Availability, exposure and authorization are separate decisions. Expose only the
+operational endpoints required by the platform, protect them with a dedicated
+management security/network boundary, sanitize sensitive configuration, and avoid
+publishing heap dumps, environment values or mutable endpoints broadly. A custom
+`SecurityFilterChain` makes the application responsible for the complete access
+policy because Boot security back-off applies.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do metrics, observations, traces and logs relate in Spring Boot?">
+
+Micrometer meters aggregate numeric behavior; observations can drive metrics and
+spans; tracing propagates causal context across supported HTTP/messaging clients;
+structured logs provide detailed events correlated with trace and business IDs.
+Preserve propagation across async boundaries and keep metric labels bounded—customer,
+order and trace IDs do not belong in metric tags.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When should you use a test slice, @SpringBootTest or ApplicationContextRunner?">
+
+Use a slice for one framework boundary such as MVC or JPA, `@SpringBootTest` for the
+assembled application behavior, and `ApplicationContextRunner` for fast conditional
+configuration/back-off matrices. Unnecessary mocks, profiles, dynamic properties and
+customizers create distinct context-cache keys and make a suite slower even when
+individual tests look small.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What does a FailureAnalyzer provide?">
+
+It recognizes a startup exception and returns a human-readable description,
+corrective action and cause. It improves failure reporting but does not recover the
+context. A custom analyzer must avoid secrets, return `null` when it cannot explain
+the failure, and be tested against both matching and unrelated exceptions.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do servlet threads, reactive event loops and application executors differ?">
+
+Servlet code normally occupies a request thread while it runs or blocks. WebFlux
+event loops must not block because a small number of threads multiplex many
+connections. Application executors introduce another queue and concurrency budget.
+For every model, bound admission, downstream pools, timeouts and queue age rather
+than increasing threads without locating the bottleneck.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Do virtual threads remove the need for pool and capacity limits?">
+
+No. They reduce the cost of many blocking Java tasks, but do not create database
+connections, remote capacity, CPU or memory. Pinning, thread-local assumptions and
+unbounded submission still need evidence. Keep database/client pools and admission
+bounded, and compare throughput, latency and native/thread memory under load.
+
+</ExpandableAnswer>
+
 ## Rapid Recall
 
 | Topic | Recall |
@@ -141,3 +222,4 @@ deployment with evidence.
 
 - [Spring Boot Reference Documentation](https://docs.spring.io/spring-boot/reference/)
 - [Spring Boot Actuator](https://docs.spring.io/spring-boot/reference/actuator/)
+- [Spring Boot testing](https://docs.spring.io/spring-boot/reference/testing/)

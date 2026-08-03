@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Spring transactions, Spring Data repositories, Database isolation]
 learning_objectives: [Place the transaction around a complete business invariant, Choose versioning row locks or conditional updates, Prove concurrency behavior with production-engine tests]
 technologies: [Spring Data JPA, Spring Transactions, Hibernate ORM, JDBC]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-31"
 scope: generic
 owner: docs-spring
 reviewer: documentation-maintainers
@@ -190,6 +190,48 @@ Optional<OutboxEvent> findByIdForUpdate(Long id);
 Keep the locked transaction short and never hold it across remote I/O. Access
 multiple rows in a consistent order, configure bounded lock timeouts, and treat
 deadlocks as an expected database concurrency outcome with a classified retry.
+
+### When To Use `SELECT ... FOR UPDATE`
+
+Choose a pessimistic write lock only for a short **read -> validate -> modify**
+critical section where concurrent decisions would violate an invariant and a
+constraint or one atomic update is insufficient.
+
+| Scenario | Preferred first choice | When a pessimistic lock is justified |
+|---|---|---|
+| ordinary profile/admin edit | `@Version` | only when a retry is unacceptable and contention is measured |
+| stock check and decrement | conditional `UPDATE ... WHERE quantity >= :requested` | complex multi-field decision that cannot be expressed atomically |
+| last seat, slot, or reservation | unique constraint plus short state transition | serial allocation of the same known row is required |
+| account/limit decision | ledger/constraint or atomic update | a short local aggregate check must be serialized |
+| worker/outbox claim | atomic claim or `SKIP LOCKED` design | low-throughput, short ownership claim on a specific row |
+
+`PESSIMISTIC_WRITE` is the usual mode for a transaction that intends to modify
+the row. It often maps to a database equivalent of `SELECT ... FOR UPDATE`, but
+the generated SQL and compatible-lock behavior remain database/dialect specific.
+`PESSIMISTIC_READ` is less common on MVCC databases: a normal transaction or an
+appropriate isolation level is often a better way to express a stable read, and
+long shared locks can block writers.
+
+The lock must be acquired and consumed in the **same** short transaction:
+
+```java
+@Transactional
+public void reserve(ProductId productId, int quantity) {
+    InventoryItem item = repository.findByIdForUpdate(productId)
+            .orElseThrow(InventoryNotFoundException::new);
+    item.reserve(quantity);
+}
+```
+
+Do not place a payment, HTTP call, Kafka send, sleep, or user interaction between
+the lock acquisition and commit. Lock the resources in a stable global order when
+multiple rows are involved, set a bounded database/provider lock timeout, and
+translate lock timeout/deadlock failures to a retryable or temporarily-busy
+outcome only when the full business operation is safe to retry.
+
+`@Lock` attaches lock metadata to a Spring Data repository query; it does not
+create the transaction by itself. The service boundary above owns the physical
+transaction and releases the lock on commit or rollback.
 
 <DocCallout type="shopverse" title="Current outbox claim">
 

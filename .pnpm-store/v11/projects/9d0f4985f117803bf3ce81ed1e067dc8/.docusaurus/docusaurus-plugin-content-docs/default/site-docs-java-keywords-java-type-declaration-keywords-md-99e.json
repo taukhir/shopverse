@@ -1,0 +1,39 @@
+{
+  "id": "java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS",
+  "title": "Java Type And Declaration Keywords",
+  "description": "Type declarations, access, inheritance, modules, packages, imports, static members, abstraction, and declaration design.",
+  "source": "@site/docs/java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS.md",
+  "sourceDirName": "java/keywords",
+  "slug": "/java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS",
+  "permalink": "/shopverse/java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/keywords/JAVA-TYPE-DECLARATION-KEYWORDS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Type And Declaration Keywords",
+    "description": "Type declarations, access, inheritance, modules, packages, imports, static members, abstraction, and declaration design.",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "technologies": [
+      "Java 25",
+      "JLS"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Keywords Learning Guide",
+    "permalink": "/shopverse/java/JAVA-KEYWORDS"
+  },
+  "next": {
+    "title": "Java State, Concurrency And Lifecycle Keywords",
+    "permalink": "/shopverse/java/keywords/JAVA-STATE-CONCURRENCY-KEYWORDS"
+  }
+}

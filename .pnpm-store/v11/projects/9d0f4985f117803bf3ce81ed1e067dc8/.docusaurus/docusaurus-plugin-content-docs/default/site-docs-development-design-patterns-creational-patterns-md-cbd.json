@@ -1,0 +1,57 @@
+{
+  "id": "development/design-patterns/CREATIONAL-PATTERNS",
+  "title": "Creational Patterns",
+  "description": "Choose among all five GoF creational patterns and follow dedicated Java and Spring implementation guides.",
+  "source": "@site/docs/development/design-patterns/CREATIONAL-PATTERNS.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/CREATIONAL-PATTERNS",
+  "permalink": "/shopverse/development/design-patterns/CREATIONAL-PATTERNS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/CREATIONAL-PATTERNS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "creational",
+      "permalink": "/shopverse/tags/creational"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Creational Patterns",
+    "description": "Choose among all five GoF creational patterns and follow dedicated Java and Spring implementation guides.",
+    "sidebar_label": "Creational Patterns",
+    "tags": [
+      "spring",
+      "design-patterns",
+      "creational"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Design Patterns",
+    "permalink": "/shopverse/development/DESIGN-PATTERNS"
+  },
+  "next": {
+    "title": "Immutable Classes And Defensive Copies",
+    "permalink": "/shopverse/development/design-patterns/immutable-class"
+  }
+}

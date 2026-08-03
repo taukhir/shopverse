@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [TLS And HTTP2 Diagnosis]
 learning_objectives: [Run evidence-led network triage, Complete safe protocol labs, Answer production networking interviews]
 technologies: [DNS, TCP, TLS, HTTP/2, Wireshark, tcpdump]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-architecture
 reviewer: documentation-maintainers
@@ -37,6 +37,15 @@ curl --silent --show-error --output /dev/null \
 ```
 
 The client tool itself has DNS/cache/proxy/protocol behavior; correlate with application metrics.
+
+```mermaid
+flowchart LR
+    Client["Application client"] --> DNS["DNS resolution and caches"]
+    DNS --> TCP["Route, NAT/LB, TCP or QUIC"]
+    TCP --> TLS["TLS: SNI, chain, ALPN"]
+    TLS --> HTTP["HTTP stream, proxy and timeouts"]
+    HTTP --> Service["Listener, queue and application"]
+```
 
 ## Production Scenarios
 
@@ -93,6 +102,68 @@ layers. Use bounded jitter, deadlines, idempotency, admission and one retry owne
 
 **How do you rotate certificates without downtime?** Deploy overlapping trust, issue/deploy new leafs,
 refresh long-lived connections/clients, observe adoption, then revoke/remove old trust with rollback window.
+
+## Additional Production Interview Questions
+
+### What happens during DNS resolution?
+
+The application/runtime may consult its cache, OS resolver configuration, search domains and local caching
+stub, which queries recursive and authoritative servers as needed. Positive and negative answers can be cached
+at several layers; TTL affects future lookups, not existing connections.
+
+### TCP timeout, refusal, reset, or graceful close?
+
+A connect timeout suggests dropped/unreachable path or no timely handshake; refusal is an active reject/no
+listener; reset aborts an established or attempted connection; FIN is graceful half-close. Confirm from both
+endpoints and any proxy/NAT rather than decoding one client exception in isolation.
+
+### What does the TLS handshake validate?
+
+It negotiates protocol/cipher, authenticates the certificate chain and hostname/SAN, checks validity and usage,
+and derives session keys. SNI selects the virtual name and ALPN selects HTTP protocol. A valid certificate does
+not authorize the application request.
+
+### HTTP/1.1 versus HTTP/2 versus HTTP/3?
+
+HTTP/1.1 typically uses multiple connections for concurrency; HTTP/2 multiplexes binary streams over TCP;
+HTTP/3 uses QUIC streams over UDP to reduce transport head-of-line coupling. Actual benefit depends on proxy,
+TLS, loss, stream limits and application support across every hop.
+
+### Why do keep-alive and connection pools matter?
+
+Reuse avoids DNS/TCP/TLS cost, but stale connections, long lifetimes, pool waits and per-destination limits can
+cause latency or skew. Bound acquisition/connect/read/idle/lifetime, drain on deployment and observe pool plus
+socket state rather than opening a new connection for every call.
+
+### How does ephemeral-port or NAT exhaustion appear?
+
+Each translated connection consumes source-port and connection-tracking state until expiry/TIME_WAIT. High
+connection churn creates intermittent connect failures despite healthy backends. Reuse connections, reduce
+unnecessary retries, distribute egress and measure NAT/port-table occupancy.
+
+### What is an MTU black hole?
+
+Small packets pass while larger packets requiring fragmentation or path-MTU discovery stall because required
+ICMP feedback is blocked or encapsulation reduces MTU. Compare packet sizes, retransmissions and interface/path
+MTU; do not misdiagnose the symptom as an application timeout.
+
+### How do load-balancer timeouts affect long requests and streams?
+
+Idle, request, response, connection-age and drain timers can terminate otherwise healthy calls. Align client,
+proxy and server budgets, use keepalive only where supported, handle GOAWAY/drain and make reconnection safe.
+Preserve original client identity only through trusted proxy metadata.
+
+### When should packet capture be used?
+
+After DNS, timing, socket, proxy and application evidence cannot distinguish the layer. Scope interface, hosts,
+ports, duration and size; capture both sides of translation when needed. Treat payloads as sensitive and account
+for encryption, offload and clock/capture-point effects.
+
+### Why do layered retries create a storm?
+
+If client, proxy and service each retry, attempts multiply while deadlines, connections and server work overlap.
+Choose one retry owner, cap attempts under one deadline, require idempotency and use jitter, admission control and
+load shedding so recovery traffic cannot prevent recovery.
 
 ## One-Page Revision
 

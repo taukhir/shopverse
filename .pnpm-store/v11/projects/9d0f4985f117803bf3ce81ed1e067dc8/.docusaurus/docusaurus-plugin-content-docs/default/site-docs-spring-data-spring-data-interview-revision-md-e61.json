@@ -1,0 +1,53 @@
+{
+  "id": "spring/data/SPRING-DATA-INTERVIEW-REVISION",
+  "title": "Spring Data Interview Labs And Revision",
+  "description": "Lead and architect interview questions, production scenarios, hands-on labs, selection matrix, and rapid revision sheet.",
+  "source": "@site/docs/spring/data/SPRING-DATA-INTERVIEW-REVISION.md",
+  "sourceDirName": "spring/data",
+  "slug": "/spring/data/SPRING-DATA-INTERVIEW-REVISION",
+  "permalink": "/shopverse/spring/data/SPRING-DATA-INTERVIEW-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/data/SPRING-DATA-INTERVIEW-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Data Interview Labs And Revision",
+    "description": "Lead and architect interview questions, production scenarios, hands-on labs, selection matrix, and rapid revision sheet.",
+    "difficulty": "Architect",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Data Architect Learning Path"
+    ],
+    "learning_objectives": [
+      "Answer internals and design questions",
+      "Diagnose production data incidents",
+      "Demonstrate decisions with executable evidence"
+    ],
+    "technologies": [
+      "Spring Data",
+      "JPA",
+      "JDBC",
+      "R2DBC",
+      "Cassandra",
+      "MongoDB",
+      "Redis",
+      "Elasticsearch"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Optional Spring Data Modules And Adjacent Tools",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-OPTIONAL-MODULES"
+  },
+  "next": {
+    "title": "Spring Task Execution And Scheduling For Production",
+    "permalink": "/shopverse/spring/SPRING-ASYNC-PRODUCTION-ARCHITECT"
+  }
+}

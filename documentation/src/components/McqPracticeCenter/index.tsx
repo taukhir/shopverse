@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Link from '@docusaurus/Link';
 import {CheckCircle2, ChevronLeft, ChevronRight, Clock3, LockKeyhole, RotateCcw, XCircle} from 'lucide-react';
 import {
@@ -10,6 +10,7 @@ import {
   type McqSubject,
 } from '@site/src/data/mcq';
 import styles from './styles.module.css';
+import {recordPracticeAttempt} from '@site/src/utils/interviewPractice';
 
 type Stage = 'setup' | 'quiz' | 'results';
 type Answers = Record<string, number>;
@@ -37,6 +38,7 @@ export function McqPracticeCenter({
   const [startedAt, setStartedAt] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [finalElapsed, setFinalElapsed] = useState(0);
+  const submittedRef = useRef(false);
 
   useEffect(() => {
     if (stage !== 'quiz') return undefined;
@@ -59,11 +61,23 @@ export function McqPracticeCenter({
     setStartedAt(now);
     setElapsed(0);
     setFinalElapsed(0);
+    submittedRef.current = false;
     setStage('quiz');
   };
 
   const submitTest = () => {
-    setFinalElapsed(Math.floor((Date.now() - startedAt) / 1000));
+    if (submittedRef.current) return;
+    submittedRef.current = true;
+    const completedElapsed = Math.floor((Date.now() - startedAt) / 1000);
+    const topicResults = new Map<string, {topic: string; correct: number; total: number}>();
+    questions.forEach((question) => {
+      const outcome = topicResults.get(question.topic) ?? {topic: question.topic, correct: 0, total: 0};
+      outcome.total += 1;
+      if (answers[question.id] === question.correctIndex) outcome.correct += 1;
+      topicResults.set(question.topic, outcome);
+    });
+    recordPracticeAttempt({subject, difficulty, score, total: questions.length, answered, elapsedSeconds: completedElapsed, topics: Array.from(topicResults.values())});
+    setFinalElapsed(completedElapsed);
     setStage('results');
     window.scrollTo({top: 0, behavior: 'smooth'});
   };

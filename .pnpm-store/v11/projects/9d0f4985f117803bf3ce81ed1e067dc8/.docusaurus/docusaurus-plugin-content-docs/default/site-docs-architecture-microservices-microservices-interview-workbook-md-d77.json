@@ -1,0 +1,50 @@
+{
+  "id": "architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK",
+  "title": "Microservices Architect Interview Workbook",
+  "description": "Twenty-three scenario answers covering service boundaries, data ownership, communication, consistency, resilience, security, deployment, recovery, and operations.",
+  "source": "@site/docs/architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK.md",
+  "sourceDirName": "architecture/microservices",
+  "slug": "/architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK",
+  "permalink": "/shopverse/architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Microservices Architect Interview Workbook",
+    "description": "Twenty-three scenario answers covering service boundaries, data ownership, communication, consistency, resilience, security, deployment, recovery, and operations.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Microservices architect path"
+    ],
+    "learning_objectives": [
+      "Design service and data boundaries",
+      "Compare communication and consistency patterns",
+      "Diagnose distributed failure and recovery",
+      "Explain deployment security and operational trade-offs"
+    ],
+    "technologies": [
+      "HTTP",
+      "Kafka",
+      "Databases",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Microservices Production Incident Labs",
+    "permalink": "/shopverse/architecture/microservices/MICROSERVICES-INCIDENT-LABS"
+  },
+  "next": {
+    "title": "Software Architecture Styles",
+    "permalink": "/shopverse/architecture/ARCHITECTURE-STYLES"
+  }
+}

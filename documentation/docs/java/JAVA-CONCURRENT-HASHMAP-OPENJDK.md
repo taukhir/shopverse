@@ -186,6 +186,17 @@ Normal reads avoid locking, but describe API guarantees rather than claiming a u
 
 </ExpandableAnswer>
 
+<ExpandableAnswer title="What if one thread reads a key while another writes it?">
+
+The map remains structurally safe: a reader does not observe a partially linked
+or corrupted entry. If the read races with the write, it can return the value
+from before or after that update, depending on timing. Once a completed update
+is observed by a later retrieval for that key, the API's happens-before
+guarantee applies. This is not a frozen, globally consistent snapshot: a
+multi-key read can still observe a mixture of old and new values.
+
+</ExpandableAnswer>
+
 <ExpandableAnswer title="Why can maximum concurrency still collapse?">
 
 Hot bins, mapping-function duration, CPU, allocation and downstream work remain shared bottlenecks.

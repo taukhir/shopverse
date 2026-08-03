@@ -1,0 +1,46 @@
+{
+  "id": "development/REST-API-PRODUCTION-DESIGN",
+  "title": "Production REST API Design",
+  "description": "This focused guide continues HTTP contracts and representations.",
+  "source": "@site/docs/development/REST-API-PRODUCTION-DESIGN.md",
+  "sourceDirName": "development",
+  "slug": "/development/REST-API-PRODUCTION-DESIGN",
+  "permalink": "/shopverse/development/REST-API-PRODUCTION-DESIGN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/REST-API-PRODUCTION-DESIGN.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Production REST API Design",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "REST API HTTP contracts and representations"
+    ],
+    "learning_objectives": [
+      "Design secure observable and resilient APIs",
+      "Evolve public contracts without breaking clients"
+    ],
+    "technologies": [
+      "HTTP",
+      "REST",
+      "OpenAPI"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "REST API HTTP Contracts And Representations",
+    "permalink": "/shopverse/development/REST-API-HTTP-CONTRACTS"
+  },
+  "next": {
+    "title": "Algorithms And Data Structures",
+    "permalink": "/shopverse/data-structures/"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "operations/docker/DOCKER-ENGINE-RUNTIME-INTERNALS",
+  "title": "Docker Engine, containerd, OCI Runtime, And Linux Isolation",
+  "description": "Trace Docker client requests through dockerd, containerd, shims and OCI runtimes into namespaces, cgroups, mounts, capabilities, seccomp, lifecycle, signals, and exit status.",
+  "source": "@site/docs/operations/docker/DOCKER-ENGINE-RUNTIME-INTERNALS.md",
+  "sourceDirName": "operations/docker",
+  "slug": "/operations/docker/DOCKER-ENGINE-RUNTIME-INTERNALS",
+  "permalink": "/shopverse/operations/docker/DOCKER-ENGINE-RUNTIME-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/docker/DOCKER-ENGINE-RUNTIME-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Docker Engine, containerd, OCI Runtime, And Linux Isolation",
+    "description": "Trace Docker client requests through dockerd, containerd, shims and OCI runtimes into namespaces, cgroups, mounts, capabilities, seccomp, lifecycle, signals, and exit status.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Linux process fundamentals",
+      "Docker basics"
+    ],
+    "learning_objectives": [
+      "Trace docker run internally",
+      "Explain kernel isolation and limits",
+      "Diagnose runtime lifecycle and signal failures"
+    ],
+    "technologies": [
+      "Docker Engine",
+      "containerd",
+      "runc",
+      "OCI",
+      "Linux"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker Internals, Layers, And Storage",
+    "permalink": "/shopverse/operations/DOCKER-INTERNALS-LAYERS-STORAGE"
+  },
+  "next": {
+    "title": "Docker OCI Images, Dockerfiles, BuildKit, Cache, And Registries",
+    "permalink": "/shopverse/operations/docker/DOCKER-IMAGES-BUILDKIT-SUPPLY-CHAIN"
+  }
+}

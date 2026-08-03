@@ -1,0 +1,43 @@
+{
+  "id": "data/DATABASE-MCQ-PRACTICE",
+  "title": "Database MCQ Practice",
+  "description": "Timed database MCQs covering SQL, transactions, indexing, recovery, scaling, and Cassandra.",
+  "source": "@site/docs/data/DATABASE-MCQ-PRACTICE.mdx",
+  "sourceDirName": "data",
+  "slug": "/data/DATABASE-MCQ-PRACTICE",
+  "permalink": "/shopverse/data/DATABASE-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATABASE-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Database MCQ Practice",
+    "description": "Timed database MCQs covering SQL, transactions, indexing, recovery, scaling, and Cassandra.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Database Production Mastery"
+    ],
+    "technologies": [
+      "SQL",
+      "Oracle",
+      "Cassandra"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Production Mastery",
+    "permalink": "/shopverse/data/DATABASE-PRODUCTION-MASTERY"
+  },
+  "next": {
+    "title": "Relational Modeling And Query Performance",
+    "permalink": "/shopverse/data/RELATIONAL-MODELING-QUERY-PERFORMANCE"
+  }
+}

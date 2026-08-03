@@ -1,0 +1,48 @@
+{
+  "id": "development/API-GUIDE",
+  "title": "Shopverse API Guide",
+  "description": "Shopverse API Request Path",
+  "source": "@site/docs/development/API-GUIDE.md",
+  "sourceDirName": "development",
+  "slug": "/development/API-GUIDE",
+  "permalink": "/shopverse/development/API-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/API-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse API Guide",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Running Shopverse stack",
+      "Valid demo credentials"
+    ],
+    "learning_objectives": [
+      "Discover Shopverse endpoints and authorization rules",
+      "Run the main API demonstration flows"
+    ],
+    "technologies": [
+      "REST",
+      "JWT",
+      "Spring MVC"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Web README",
+    "permalink": "/shopverse/services/readmes/SHOPVERSE-WEB-README"
+  },
+  "next": {
+    "title": "API Gateway Implementation Guide",
+    "permalink": "/shopverse/development/API-GATEWAY-IMPLEMENTATION-GUIDE"
+  }
+}

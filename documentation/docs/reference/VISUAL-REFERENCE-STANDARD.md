@@ -28,6 +28,11 @@ only when changing state cannot be understood as clearly from a static sequence.
 - optimized file size and stable descriptive filename;
 - accompanying text that remains sufficient when images are unavailable.
 
+Tables support comparison and lookup, but they do not replace a diagram for a
+process, lifecycle, topology, state transition, or dependency chain. Set
+`visual_required: true` in front matter when a page needs an explanatory diagram
+or image; the strict structure audit then verifies that the requirement is met.
+
 Prefer SVG/Mermaid over raster screenshots for architecture. Preserve externally
 supplied images only when attribution and learning value justify them. Do not copy
 an official diagram merely because the official page can be linked.
@@ -49,5 +54,7 @@ version-specific claims and review them when dependencies upgrade.
 
 Run `npm run check:docs:audit` to report repeated long paragraphs, advanced pages
 without official references, text-heavy pages without images, missing recommended-
-next sections, and possible sidebar orphans. The report is advisory until reviewed;
-generated category behavior and deliberate canonical repetition can produce valid exceptions.
+next sections, possible sidebar orphans, and long pages without a diagram or
+image. Diagram coverage remains advisory unless a page declares
+`visual_required: true`; generated category behavior and deliberate canonical
+repetition can still produce valid exceptions.

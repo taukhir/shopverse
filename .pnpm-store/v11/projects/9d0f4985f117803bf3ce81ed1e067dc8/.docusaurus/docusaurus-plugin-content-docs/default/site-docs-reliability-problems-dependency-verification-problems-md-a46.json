@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/DEPENDENCY-VERIFICATION-PROBLEMS",
+  "title": "Dependency And Verification Problems",
+  "description": "Inventory outage semantics, bounded verification, Windows health probes, and isolated Config Server tracing noise.",
+  "source": "@site/docs/reliability/problems/DEPENDENCY-VERIFICATION-PROBLEMS.md",
+  "sourceDirName": "reliability/problems",
+  "slug": "/reliability/problems/DEPENDENCY-VERIFICATION-PROBLEMS",
+  "permalink": "/shopverse/reliability/problems/DEPENDENCY-VERIFICATION-PROBLEMS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/DEPENDENCY-VERIFICATION-PROBLEMS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Dependency And Verification Problems",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker And Runtime Image Problems",
+    "permalink": "/shopverse/reliability/problems/DOCKER-RUNTIME-IMAGE-PROBLEMS"
+  },
+  "next": {
+    "title": "Build, JAR, Docker, And Compose Optimization Solutions",
+    "permalink": "/shopverse/reliability/problems/OPTIMIZATION-SOLUTIONS"
+  }
+}

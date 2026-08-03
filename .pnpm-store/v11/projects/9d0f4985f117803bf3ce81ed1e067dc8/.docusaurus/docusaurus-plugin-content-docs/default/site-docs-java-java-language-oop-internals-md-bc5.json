@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-LANGUAGE-OOP-INTERNALS",
+  "title": "Java Language Resolution, Initialization And OOP Internals",
+  "description": "Senior treatment of overload resolution, overriding, initialization, dispatch, construction, and compatibility.",
+  "source": "@site/docs/java/JAVA-LANGUAGE-OOP-INTERNALS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-LANGUAGE-OOP-INTERNALS",
+  "permalink": "/shopverse/java/JAVA-LANGUAGE-OOP-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-LANGUAGE-OOP-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Language Resolution, Initialization And OOP Internals",
+    "description": "Senior treatment of overload resolution, overriding, initialization, dispatch, construction, and compatibility.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Overriding, Method Hiding And Field Hiding Deep Dive",
+    "permalink": "/shopverse/java/JAVA-OVERRIDING-HIDING-DEEP-DIVE"
+  },
+  "next": {
+    "title": "Lombok Guide",
+    "permalink": "/shopverse/java/LOMBOK-GUIDE"
+  }
+}

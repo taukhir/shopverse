@@ -1,0 +1,36 @@
+{
+  "id": "ai/LANGCHAIN4J-TUTORIAL-CHAT-MODELS",
+  "title": "LangChain4j Tutorial 1: Chat Models And Messages",
+  "description": "This tutorial starts with the low-level API. Even if you later use AI Services,",
+  "source": "@site/docs/ai/LANGCHAIN4J-TUTORIAL-CHAT-MODELS.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/LANGCHAIN4J-TUTORIAL-CHAT-MODELS",
+  "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-CHAT-MODELS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/LANGCHAIN4J-TUTORIAL-CHAT-MODELS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.27,
+  "frontMatter": {
+    "title": "LangChain4j Tutorial 1: Chat Models And Messages",
+    "sidebar_position": 6.27,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "LangChain4j Tutorials For Java And Spring Developers",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIALS"
+  },
+  "next": {
+    "title": "LangChain4j Tutorial 2: AI Services And Structured Outputs",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-AI-SERVICES"
+  }
+}

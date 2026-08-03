@@ -15,6 +15,14 @@ review_evidence: repository-content-audit
 
 # Day-Zero Lead And Architect Diagnostic Assessment
 
+## Diagnostic Assessment Sequence
+
+```mermaid
+flowchart LR
+    Brief["Explain conditions"] --> Sections["Run timed domain sections"] --> Probe["Probe reasoning and trade-offs"]
+    Probe --> Score["Apply evidence-based scoring"] --> Plan["Create the learning route"]
+```
+
 <DocLabels items={[
   {label: 'Closed book', tone: 'interview'},
   {label: 'Baseline assessment', tone: 'advanced'},

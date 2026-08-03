@@ -16,6 +16,17 @@ review_evidence: repository-content-audit
 
 # Two Sum Family In Java
 
+## Two-Sum Strategy Map
+
+```mermaid
+flowchart TD
+    P["Pair-sum requirement"] --> Q{"Input and output constraints"}
+    Q -->|"Unsorted, one answer"| H["Hash map"]
+    Q -->|"Sorted input"| T["Two pointers"]
+    Q -->|"All unique pairs"| S["Sort, scan, and skip duplicates"]
+    Q -->|"Many target queries"| I["Preprocess counts or pair sums"]
+```
+
 Two Sum is not one problem. The algorithm changes when the output changes from
 one pair to every index pair, every value pair, a count, unique combinations, or
 a closest result.

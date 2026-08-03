@@ -1,0 +1,48 @@
+{
+  "id": "architecture/retail/RETAIL-DOMAIN-ARCHITECTURE",
+  "title": "Retail Domain And Commerce Architecture",
+  "description": "Retail domain guide covering products, offers, inventory, carts, checkout, orders, payments, fulfillment, returns, channels, invariants, events, and production metrics.",
+  "source": "@site/docs/architecture/retail/RETAIL-DOMAIN-ARCHITECTURE.md",
+  "sourceDirName": "architecture/retail",
+  "slug": "/architecture/retail/RETAIL-DOMAIN-ARCHITECTURE",
+  "permalink": "/shopverse/architecture/retail/RETAIL-DOMAIN-ARCHITECTURE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/retail/RETAIL-DOMAIN-ARCHITECTURE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Retail Domain And Commerce Architecture",
+    "description": "Retail domain guide covering products, offers, inventory, carts, checkout, orders, payments, fulfillment, returns, channels, invariants, events, and production metrics.",
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Microservices fundamentals",
+      "database transactions",
+      "event-driven architecture"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Kafka",
+      "SQL",
+      "Redis",
+      "Elasticsearch"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Financial Production Scenarios And Interview Workbook",
+    "permalink": "/shopverse/architecture/financial/FINANCIAL-PRODUCTION-INTERVIEW"
+  },
+  "next": {
+    "title": "Retail Order Metrics And Analytics At Scale",
+    "permalink": "/shopverse/architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS"
+  }
+}

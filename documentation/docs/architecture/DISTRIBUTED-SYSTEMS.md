@@ -9,13 +9,26 @@ tags:
 page_type: Guide
 difficulty: Intermediate
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-31"
 scope: generic
 owner: docs-architecture
 reviewer: documentation-maintainers
 review_evidence: repository-content-audit
 ---
 # Distributed Systems In Shopverse
+
+## Distributed Request And Recovery Path
+
+```mermaid
+flowchart LR
+    Client --> Gateway --> Order
+    Order --> Outbox --> Kafka
+    Kafka --> Inventory
+    Kafka --> Payment
+    Inventory -->|"success or compensation"| Kafka
+    Payment -->|"success or compensation"| Kafka
+    Kafka --> Order
+```
 
 A distributed system fails differently from a single application. A service
 can commit while another is unavailable, a response can be lost after work
@@ -198,6 +211,48 @@ Ordering can still be affected by:
 Production event contracts should carry `eventId`, `aggregateId`,
 `aggregateVersion`, `occurredAt`, and `schemaVersion`. Consumers can then reject
 or defer stale transitions.
+
+### Aggregate, Aggregate ID, And Payload
+
+An aggregate is the smallest cluster of domain objects whose invariants one
+local transaction must protect. Its aggregate root is the only entry point for
+mutation. For example, an `Order` root can control its items and legal status
+transitions; `orderId` or `orderNumber` identifies that Order aggregate.
+
+In an integration-event envelope, the identifiers have different jobs:
+
+```json
+{
+  "eventId": "evt-103",
+  "eventType": "InventoryReserved",
+  "aggregateType": "Order",
+  "aggregateId": "ORD-101",
+  "aggregateVersion": 2,
+  "correlationId": "checkout-500",
+  "payload": {
+    "reservationId": "RES-44",
+    "orderNumber": "ORD-101"
+  }
+}
+```
+
+- `eventId` uniquely identifies this fact and supports deduplication;
+- `aggregateId` identifies the stream/entity whose events require ordering;
+- `aggregateVersion` detects stale events and gaps for that stream;
+- `correlationId` joins the wider workflow and is not event identity;
+- `payload` contains the business facts required by authorized consumers.
+
+Repeating `orderNumber` inside the payload is optional. Keeping it there makes
+the payload self-contained; omitting it avoids duplication when every consumer
+uses the envelope. Choose one contract deliberately and validate that a repeated
+value matches the envelope.
+
+Do not assume that every event in a Saga describes the same domain aggregate.
+Inventory may own a Reservation aggregate and Payment a Payment aggregate even
+when an integration stream deliberately uses `orderNumber` as its Kafka key and
+workflow ordering identity. Record `aggregateType`, participant identifiers,
+and correlation/causation separately when those meanings differ. Never publish
+an aggregate's entire internal object graph as an integration payload.
 
 ## Concurrency And Locks
 

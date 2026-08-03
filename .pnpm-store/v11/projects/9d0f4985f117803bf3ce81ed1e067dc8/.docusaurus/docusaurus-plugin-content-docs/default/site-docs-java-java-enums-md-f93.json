@@ -1,0 +1,34 @@
+{
+  "id": "java/JAVA-ENUMS",
+  "title": "Java Enums",
+  "description": "Enums model a fixed set of named constants with type safety.",
+  "source": "@site/docs/java/JAVA-ENUMS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-ENUMS",
+  "permalink": "/shopverse/java/JAVA-ENUMS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-ENUMS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Enums",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Nested Types, Local Classes And Lambdas",
+    "permalink": "/shopverse/java/JAVA-NESTED-TYPES"
+  },
+  "next": {
+    "title": "Java Overloading And Method Resolution Deep Dive",
+    "permalink": "/shopverse/java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-CONCURRENCY-DESIGN-REVIEW",
+  "title": "Java Concurrency Architecture And Design Review",
+  "description": "Lead-level method for proving invariants, publication, executor bounds, cancellation, shutdown, and observability in concurrent Java systems.",
+  "source": "@site/docs/java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-CONCURRENCY-DESIGN-REVIEW",
+  "permalink": "/shopverse/java/JAVA-CONCURRENCY-DESIGN-REVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-CONCURRENCY-DESIGN-REVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Concurrency Architecture And Design Review",
+    "description": "Lead-level method for proving invariants, publication, executor bounds, cancellation, shutdown, and observability in concurrent Java systems.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Virtual Threads And Structured Concurrency For Architects",
+    "permalink": "/shopverse/java/JAVA-VIRTUAL-STRUCTURED-CONCURRENCY"
+  },
+  "next": {
+    "title": "Java I/O, NIO And Resource Ownership",
+    "permalink": "/shopverse/java/JAVA-NIO-IO-RESOURCE-OWNERSHIP"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE",
+  "title": "Spring Kafka Operations And Incident Response",
+  "description": "Listener-container observations, lag and poll evidence, pause and drain controls, rebalance-safe rollouts, security, and incident workflows.",
+  "source": "@site/docs/spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md",
+  "sourceDirName": "spring/kafka",
+  "slug": "/spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE",
+  "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Kafka Operations And Incident Response",
+    "description": "Listener-container observations, lag and poll evidence, pause and drain controls, rebalance-safe rollouts, security, and incident workflows.",
+    "difficulty": "Advanced",
+    "page_type": "Runbook",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Kafka listener containers",
+      "Kafka consumer lag",
+      "Production observability"
+    ],
+    "learning_objectives": [
+      "Diagnose Spring listener incidents from container and broker evidence",
+      "Operate pause resume drain and rolling deployment safely",
+      "Protect Kafka credentials payloads and recovery surfaces"
+    ],
+    "technologies": [
+      "Spring for Apache Kafka 4.x",
+      "Micrometer",
+      "Actuator",
+      "KafkaListenerEndpointRegistry"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Kafka Consumer Idempotency And Replay",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY"
+  },
+  "next": {
+    "title": "Advanced Spring Kafka Containers Transactions Schemas And Testing",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-ADVANCED"
+  }
+}

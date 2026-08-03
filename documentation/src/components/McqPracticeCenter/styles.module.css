@@ -79,6 +79,6 @@
 .explanation { background: color-mix(in srgb, var(--ifm-color-primary) 7%, var(--doc-surface)); border-left: 3px solid var(--ifm-color-primary); border-radius: 7px; margin-top: .8rem; padding: .8rem; }
 .explanation p { margin: .25rem 0 0; }
 .studyLink { display: inline-block; font-size: .78rem; font-weight: 800; margin-top: .7rem; }
-@media (max-width: 780px) { .subjectGrid { grid-template-columns: repeat(2, 1fr); }.quizLayout { grid-template-columns: 1fr; }.navigator { order: -1; }.navigator > div { grid-template-columns: repeat(10, 1fr); }.navigator p, .navigator .submitWide { display: none; } }
+@media (max-width: 780px) { .subjectGrid { grid-template-columns: repeat(2, 1fr); }.quizLayout { grid-template-columns: 1fr; }.navigator { order: -1; }.navigator > div { grid-template-columns: repeat(10, 1fr); }.navigator .submitWide { display: none; } }
 @media (max-width: 520px) { .hero, .startPanel, .quizHeader { align-items: stretch; flex-direction: column; }.subjectGrid { grid-template-columns: 1fr; }.liveStats { justify-content: space-between; }.navigator > div { grid-template-columns: repeat(5, 1fr); }.startPanel .primaryButton { width: 100%; } }
 @media print { .shell { box-shadow: none; }.primaryButton { display: none; } }

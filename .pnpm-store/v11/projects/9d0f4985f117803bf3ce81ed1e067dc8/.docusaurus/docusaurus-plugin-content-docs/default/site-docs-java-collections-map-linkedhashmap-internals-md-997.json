@@ -1,0 +1,75 @@
+{
+  "id": "java/collections/map/LINKEDHASHMAP-INTERNALS",
+  "title": "LinkedHashMap Internals and Usage",
+  "description": "LinkedHashMap hash-table and order-chain storage, defaults, access order, eviction hooks, methods, complexity, and use cases.",
+  "source": "@site/docs/java/collections/map/LINKEDHASHMAP-INTERNALS.md",
+  "sourceDirName": "java/collections/map",
+  "slug": "/java/collections/map/LINKEDHASHMAP-INTERNALS",
+  "permalink": "/shopverse/java/collections/map/LINKEDHASHMAP-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/map/LINKEDHASHMAP-INTERNALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "map",
+      "permalink": "/shopverse/tags/map"
+    },
+    {
+      "inline": true,
+      "label": "linkedhashmap",
+      "permalink": "/shopverse/tags/linkedhashmap"
+    },
+    {
+      "inline": true,
+      "label": "cache",
+      "permalink": "/shopverse/tags/cache"
+    },
+    {
+      "inline": true,
+      "label": "internals",
+      "permalink": "/shopverse/tags/internals"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "LinkedHashMap Internals and Usage",
+    "description": "LinkedHashMap hash-table and order-chain storage, defaults, access order, eviction hooks, methods, complexity, and use cases.",
+    "sidebar_label": "LinkedHashMap",
+    "tags": [
+      "java",
+      "collections",
+      "map",
+      "linkedhashmap",
+      "cache",
+      "internals"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "HashMap",
+    "permalink": "/shopverse/java/collections/map/HASHMAP-INTERNALS"
+  },
+  "next": {
+    "title": "TreeMap",
+    "permalink": "/shopverse/java/collections/map/TREEMAP-INTERNALS"
+  }
+}

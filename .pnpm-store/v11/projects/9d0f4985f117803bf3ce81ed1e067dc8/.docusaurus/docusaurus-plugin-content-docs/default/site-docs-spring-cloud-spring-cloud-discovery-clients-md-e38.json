@@ -1,0 +1,48 @@
+{
+  "id": "spring/cloud/SPRING-CLOUD-DISCOVERY-CLIENTS",
+  "title": "Spring Cloud Discovery, LoadBalancer, And HTTP Clients",
+  "description": "Trace registry membership, health, cache staleness, client-side instance selection, OpenFeign behavior, deadlines, retries, and Kubernetes alternatives.",
+  "source": "@site/docs/spring/cloud/SPRING-CLOUD-DISCOVERY-CLIENTS.md",
+  "sourceDirName": "spring/cloud",
+  "slug": "/spring/cloud/SPRING-CLOUD-DISCOVERY-CLIENTS",
+  "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-DISCOVERY-CLIENTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/cloud/SPRING-CLOUD-DISCOVERY-CLIENTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Cloud Discovery, LoadBalancer, And HTTP Clients",
+    "description": "Trace registry membership, health, cache staleness, client-side instance selection, OpenFeign behavior, deadlines, retries, and Kubernetes alternatives.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Cloud Config"
+    ],
+    "learning_objectives": [
+      "Operate service discovery",
+      "Design safe HTTP clients",
+      "Diagnose stale instances and retry failures"
+    ],
+    "technologies": [
+      "Spring Cloud Netflix Eureka",
+      "Spring Cloud LoadBalancer",
+      "OpenFeign"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Cloud Config, Refresh, And Secrets",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-CONFIG"
+  },
+  "next": {
+    "title": "Spring Cloud Circuit Breaker, Gateway, And Resilience Composition",
+    "permalink": "/shopverse/spring/cloud/SPRING-CLOUD-RESILIENCE-GATEWAY"
+  }
+}

@@ -16,6 +16,14 @@ review_evidence: repository-content-audit
 
 # AI-Assisted Software Development Interview Workbook
 
+## AI-Assisted Delivery Loop
+
+```mermaid
+flowchart LR
+    C["Clarify intent"] --> E["Gather trusted evidence"] --> P["Propose a bounded change"]
+    P --> V["Verify code, tests, and security"] --> R["Review limitations"] --> C
+```
+
 These questions test engineering judgment, not product trivia. Use this answer
 structure:
 

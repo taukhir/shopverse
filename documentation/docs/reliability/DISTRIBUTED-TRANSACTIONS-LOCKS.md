@@ -2,7 +2,7 @@
 title: Distributed Transactions
 sidebar_position: 3
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-08-02"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -39,6 +39,24 @@ public void reserveInventory() {
 ```
 
 This is local when both repositories use the same database transaction.
+
+## Transaction Pattern Taxonomy
+
+There is no single "distributed transaction" solution. Select a pattern from
+the consistency requirement, participant capabilities, latency budget, and
+failure/recovery model:
+
+| Pattern | Core idea | Typical fit | Main cost |
+|---|---|---|---|
+| Local ACID transaction | One resource manager commits related rows | one service/database | cannot atomically include another service or broker |
+| XA/JTA 2PC | coordinator asks all participants to prepare, then decides | controlled resources that support XA and require one atomic outcome | blocking, locks, coordinator and operational coupling |
+| Saga | independently committed local steps plus compensations | long-running microservice business workflow | eventual consistency and compensations are application logic |
+| TCC (try-confirm-cancel) | reserve capacity first, then explicitly confirm or cancel | bounded reservations where every participant exposes all three operations | more service APIs, expiry and idempotency logic |
+| Transactional outbox + inbox | atomically persist local state and event intent; deduplicate delivery | reliable integration events without a cross-service commit | at-least-once delivery and asynchronous convergence |
+| Single-writer/partition ownership | serialize commands for a business key | ordered, high-throughput state transitions | key skew and still needs durable invariants |
+
+Outbox, inbox, and partition ownership are reliability/coordination techniques;
+they are not substitutes for a business decision about compensation or atomicity.
 
 ## Two-Phase Commit
 

@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Saga pattern, transactional outbox, idempotent consumers]
 learning_objectives: [Recover a Saga with a missing outcome, Design durable timeouts and probes, Handle late events and failed compensation safely]
 technologies: [Apache Kafka, Spring Boot, Relational Database]
-last_reviewed: "2026-07-28"
+last_reviewed: "2026-07-31"
 scope: generic
 owner: docs-reliability
 reviewer: documentation-maintainers
@@ -100,6 +100,69 @@ probe payment status before deciding
 Do not compensate immediately on silence when the action may have occurred. For
 payments, shipments, and external reservations, silence means **unknown**, not
 failure.
+
+### Inventory Reservation Example
+
+For checkout, Order should remain in an explicit state such as
+`PENDING_INVENTORY` until it receives a durable outcome. A practical deadline
+flow is:
+
+```text
+OrderCreated
+-> PENDING_INVENTORY
+-> wait for InventoryReserved or InventoryFailed
+-> deadline expires
+-> determine the authoritative reservation outcome
+-> continue, retry, compensate, or reconcile
+```
+
+The timeout is not evidence that reservation failed. Inventory might have
+committed the reservation while its outcome event or outbox relay was delayed.
+Use the original reservation operation ID for every retry so a repeated command
+cannot reserve stock twice.
+
+| Authoritative inventory result | Order/Saga action |
+|---|---|
+| `RESERVED` | continue from the existing reservation; repair or republish the missing outcome if policy permits |
+| `NOT_RESERVED` | retry with the same operation ID while the business deadline and retry budget allow |
+| `REJECTED` | mark the order rejected and run any required compensation |
+| `UNKNOWN` or participant unavailable | keep an explicit uncertain/reconciliation state, alert, and investigate; do not guess |
+
+### Never Read Another Service's Database
+
+Order must not query Inventory's tables directly. Inventory owns its schema,
+transaction semantics, authorization, and interpretation of reservation state.
+After retries are exhausted, use one of these owned contracts:
+
+- a status API such as `GET /inventory/reservations/{operationId}`;
+- an asynchronous `CheckInventoryReservationStatus` command followed by an
+  `InventoryReservationStatusReported` event; or
+- a separately owned and documented operational read model populated from
+  Inventory events.
+
+The participant reads its own database and returns a business result. A direct
+cross-service database read creates schema coupling and can expose internal or
+partially meaningful state.
+
+### Bounded Retry And Parking
+
+Retry only failures classified as transient, with bounded exponential backoff
+and jitter. Reuse the same command/operation ID on every attempt. A new ID turns
+a transport retry into a new business request.
+
+```text
+attempt 1: initial command
+attempt 2: short backoff
+attempt 3: longer backoff
+retry budget exhausted: status probe or reconciliation
+```
+
+A DLT or failed-event store preserves poison-message evidence; it does not tell
+the Saga whether inventory was reserved and is not a terminal business state by
+itself. Persist the source event ID, key, topic, partition, offset, schema
+version, failure class, attempt count, and correlation identifiers. Alert an
+owner and replay only through an audited, idempotent path after the cause is
+understood.
 
 ## Recovery Algorithm
 
@@ -208,6 +271,37 @@ Track:
 Use a business SLO such as “99.9% of orders reach a terminal state within 10
 minutes,” not only Kafka transport metrics.
 
+## ShopVerse Coverage And Remaining Gap
+
+The current ShopVerse reference implementation already demonstrates several
+parts of this design:
+
+- `OrderStatus.PENDING_INVENTORY` is the intermediate order state;
+- Order, Inventory, and Payment use service-owned databases and local
+  transactional outboxes;
+- Saga listeners use bounded retry topics and persist exhausted records through
+  DLT handlers;
+- Inventory reservation and release paths are idempotent by order number;
+- Order cancellation and payment failure trigger inventory release;
+- the order number is the Kafka key/aggregate identifier used for per-order
+  processing.
+
+The runtime does **not yet implement** a durable per-step Saga deadline, an
+Inventory reservation-status contract, or an automated stuck-order
+reconciliation worker. Therefore, ShopVerse can recover publication and
+listener failures through outbox/DLT replay, but it does not yet automatically
+resolve every case where an expected outcome never arrives. Treat the deadline,
+status probe, versioned race handling, and reconciliation algorithm on this page
+as the target production design until code, migrations, tests, metrics, and a
+runbook prove them.
+
+The current Saga listeners declare three delivery attempts, but their annotations
+do not declare an explicit transient/permanent exception policy, exponential
+backoff, jitter, or recovery drain-rate limit. Treat those retry controls as an
+additional implementation gap. Closing it requires failure-classification tests,
+timing evidence, DLT publication evidence, and proof that recovery does not
+overload Inventory, Payment, Order, or their databases.
+
 ## Interview Answer
 
 If a service consumed an event but emitted no reply, first determine whether its
@@ -224,8 +318,8 @@ reconciliation. Compensation is itself idempotent, retriable, observable work.
 - [Outbox Production Failure Modes](./OUTBOX-PRODUCTION-FAILURE-MODES.md)
 - [Inbox Pattern](./INBOX-PATTERN.md)
 - [Kafka Offset Commits](../integration/kafka/KAFKA-CONSUMER-OFFSET-COMMITS.md)
+- [Spring Cloud Stream Overview](../integration/streaming/SPRING-CLOUD-STREAM-OVERVIEW.md)
 
 ## Recommended Next
 
 Study [Outbox Production Failure Modes](./OUTBOX-PRODUCTION-FAILURE-MODES.md).
-

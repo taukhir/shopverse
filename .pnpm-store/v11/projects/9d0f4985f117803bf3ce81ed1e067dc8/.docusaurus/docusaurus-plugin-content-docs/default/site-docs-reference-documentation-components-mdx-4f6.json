@@ -1,0 +1,44 @@
+{
+  "id": "reference/DOCUMENTATION-COMPONENTS",
+  "title": "Reusable Documentation Components",
+  "description": "These components are globally available in every Markdown and MDX page. No",
+  "source": "@site/docs/reference/DOCUMENTATION-COMPONENTS.mdx",
+  "sourceDirName": "reference",
+  "slug": "/reference/DOCUMENTATION-COMPONENTS",
+  "permalink": "/shopverse/reference/DOCUMENTATION-COMPONENTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/DOCUMENTATION-COMPONENTS.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Reusable Documentation Components",
+    "difficulty": "Beginner",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Use consistent interactive patterns in Markdown and MDX guides",
+      "Avoid duplicating presentation markup across documentation pages"
+    ],
+    "technologies": [
+      "Docusaurus",
+      "MDX",
+      "React"
+    ],
+    "last_reviewed": "2026-07-10",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Documentation Maintenance Map",
+    "permalink": "/shopverse/reference/DOCUMENTATION-MAINTENANCE-MAP"
+  },
+  "next": {
+    "title": "Documentation Visual And Reference Standard",
+    "permalink": "/shopverse/reference/VISUAL-REFERENCE-STANDARD"
+  }
+}

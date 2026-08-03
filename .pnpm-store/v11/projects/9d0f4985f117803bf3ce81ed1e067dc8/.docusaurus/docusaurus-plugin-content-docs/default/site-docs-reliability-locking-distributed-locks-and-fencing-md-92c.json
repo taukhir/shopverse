@@ -1,0 +1,34 @@
+{
+  "id": "reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING",
+  "title": "Distributed Locks And Fencing",
+  "description": "A distributed lock coordinates processes on different nodes when one holder",
+  "source": "@site/docs/reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING.md",
+  "sourceDirName": "reliability/locking",
+  "slug": "/reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING",
+  "permalink": "/shopverse/reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Distributed Locks And Fencing",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Scheduler Locking With ShedLock",
+    "permalink": "/shopverse/reliability/locking/SCHEDULER-LOCKING-SHEDLOCK"
+  },
+  "next": {
+    "title": "Partition And Queue Ownership",
+    "permalink": "/shopverse/reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP"
+  }
+}

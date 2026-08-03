@@ -234,6 +234,11 @@ Business measures need dimensional controls. Unbounded SKU, customer, order, or
 coupon identifiers make poor metric labels; keep high-cardinality detail in
 logs, traces, or analytical stores.
 
+For the end-to-end production design—metric definitions, PostgreSQL/outbox,
+Kafka Streams or Flink, ClickHouse schemas, current versus daily queries,
+watermarks, reconciliation, and report delivery—continue with
+[Retail Order Metrics And Analytics At Scale](./RETAIL-ORDER-METRICS-ANALYTICS.md).
+
 ## Security And Compliance Boundaries
 
 - Minimize payment-card scope by tokenizing through an approved payment provider;
@@ -261,6 +266,10 @@ Use these pages to turn the generic domain model into concrete design practice:
 - [Inventory Reservation Design](../shopverse-capstones/INVENTORY-RESERVATION-DESIGN.md)
 - [Payment Reliability Design](../shopverse-capstones/PAYMENT-RELIABILITY-DESIGN.md)
 - [Catalog And Search Design](../shopverse-capstones/CATALOG-SEARCH-DESIGN.md)
+- [Retail Order Metrics And Analytics At Scale](./RETAIL-ORDER-METRICS-ANALYTICS.md)
+- [Redis For Retail Caching And Session Storage](./REDIS-RETAIL-CACHING-SESSIONS.md)
+- [Black Friday Retail Scale And Resilience](./BLACK-FRIDAY-RETAIL-RESILIENCE.md)
+- [Kafka Consumer Groups, Rebalancing, And Ordering](../../integration/kafka/KAFKA-CONSUMER-GROUPS-REBALANCING-ORDERING.md)
 - [Financial Systems Architecture](../financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH.md)
 - [Shopverse current-state architecture](../../case-study/SHOPVERSE-ARCHITECTURE-CURRENT-STATE.md)
 
@@ -280,4 +289,5 @@ You understand the retail domain when you can:
 - identify overselling, uncertain payment, stale event, and reconciliation risks;
 - define peak-event capacity, operational SLOs, fraud controls, and recovery proof.
 
-Continue with [Retail Domain Interview Questions](./RETAIL-DOMAIN-INTERVIEW.md).
+Continue with [Black Friday Retail Scale And Resilience](./BLACK-FRIDAY-RETAIL-RESILIENCE.md)
+and [Retail Domain Interview Questions](./RETAIL-DOMAIN-INTERVIEW.md).

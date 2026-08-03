@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [TDD And BDD With Spring In Production]
 learning_objectives: [Defend testing decisions, Diagnose brittle and slow suites, Practise TDD and BDD with production scenarios]
 technologies: [Java, JUnit 5, Spring Boot Test]
-last_reviewed: "2026-07-23"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-spring
 reviewer: documentation-maintainers
@@ -41,6 +41,81 @@ adapter/contract evidence, integration tests, and few end-to-end journeys.
 **How do you test eventual consistency?** Trigger through a real boundary, poll observable
 state with a bounded deadline, assert intermediate/failure outcomes when important, and
 prove idempotency/replay separately.
+
+## Testing Strategy Interview Questions
+
+### Unit, slice, integration, contract, or end-to-end test?
+
+Choose the smallest boundary that can honestly prove the risk. Unit tests isolate domain behavior; slices
+verify a focused framework adapter; integration tests use real collaborating infrastructure; contract tests
+check independently deployed interfaces; a few E2E tests protect critical journeys. No layer replaces all the
+others.
+
+### Mock, stub, fake, and spy?
+
+A stub returns configured answers, a mock verifies expected interactions, a fake supplies a working simplified
+implementation, and a spy wraps real behavior while observing or overriding part of it. Prefer observable
+outcomes; verify calls only when the interaction itself is the contract.
+
+### Testcontainers versus mocks?
+
+Use a mock for caller decisions that do not depend on infrastructure semantics. Use Testcontainers when SQL
+dialect, migrations, transactions, locks, Kafka serialization, offsets or broker behavior matter. A container
+is more realistic but still requires production-compatible versions and explicit assertions.
+
+### Test slice versus `@SpringBootTest`?
+
+A slice loads the focused MVC, persistence, JSON or client boundary and provides faster, clearer failures.
+`@SpringBootTest` verifies complete Boot wiring and cross-boundary behavior. Excess profiles, properties and
+bean overrides create distinct context-cache keys and can make a suite slow.
+
+### What does a consumer-driven contract prove?
+
+It proves provider behavior satisfies recorded consumer expectations for a versioned interaction. It does not
+prove provider internals, deployment configuration, network policy, data integrity or an entire user journey;
+retain focused integration and E2E evidence for those risks.
+
+### How do you make time, randomness, and identifiers testable?
+
+Inject a `Clock`, seed or replace randomness, generate unique but reproducible test identities, control locale
+and timezone, and print seeds on failure. Avoid sleeping until wall-clock time passes or relying on execution
+order and shared mutable state.
+
+### How should asynchronous behavior be tested?
+
+Trigger the real boundary and poll an observable domain condition with a bounded deadline and useful diagnostics.
+Avoid fixed sleeps, assert duplicates/reordering/timeouts where relevant, and isolate topics, consumer groups,
+data and clocks so parallel runs cannot interfere.
+
+### Is automatic retry a valid flaky-test fix?
+
+No. A bounded rerun can collect diagnostic evidence, but the original failure remains a failed reliability
+signal. Quarantine requires an owner, issue, risk, compensating evidence and expiry; silent retry-until-green
+turns nondeterminism into false confidence.
+
+### Code coverage versus mutation testing?
+
+Coverage shows which code executed, not whether assertions detect wrong behavior. Mutation testing changes
+code and checks whether tests fail, exposing weak assertions. Use both as diagnostic risk signals, not universal
+quality targets or substitutes for boundary and failure-case design.
+
+### When is property-based testing valuable?
+
+Use it for broad invariant spaces such as serialization round trips, money arithmetic, parsers and state
+transitions. Constrain generators to meaningful domains, retain/shrink the failing seed and add explicit named
+examples for critical business rules and boundaries.
+
+### How do you test authorization correctly?
+
+Exercise anonymous, wrong-role, wrong-owner, wrong-tenant and privileged paths through the boundary where
+security enforcement is active. UI visibility and a mocked controller do not prove method or object-level
+authorization. Include enumeration-resistant and sensitive-field assertions.
+
+### What makes an incident regression test credible?
+
+State the violated invariant, reproduce the actual mechanism, prove the test fails before the fix and passes
+after it, and place it at the smallest boundary containing the cause. Add broader evidence only when the
+cross-service or infrastructure collaboration was essential to the incident.
 
 ## Production Scenarios
 

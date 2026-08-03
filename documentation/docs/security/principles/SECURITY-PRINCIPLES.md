@@ -39,6 +39,11 @@ are implementation choices that support these principles.
 | Key rotation | assume keys and credentials will eventually need replacement |
 | Minimized blast radius | one compromised component should not compromise everything |
 
+For regulated actions, an audit record should capture the authenticated actor,
+action, target, outcome, timestamp, and correlation identifier. Keep it
+tamper-evident and access-controlled, and never record credentials or sensitive
+payloads merely to make the log more detailed.
+
 ## Security Architecture Flow
 
 ```mermaid

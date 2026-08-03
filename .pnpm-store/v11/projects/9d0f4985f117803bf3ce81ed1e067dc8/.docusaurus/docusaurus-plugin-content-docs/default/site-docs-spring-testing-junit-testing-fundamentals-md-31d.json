@@ -1,0 +1,47 @@
+{
+  "id": "spring/testing/JUNIT-TESTING-FUNDAMENTALS",
+  "title": "JUnit Testing Fundamentals",
+  "description": "Framework-independent JUnit Platform and Jupiter foundations for deterministic lifecycle, assertions, parameterized tests, tags, and test structure before Spring-specific testing.",
+  "source": "@site/docs/spring/testing/JUNIT-TESTING-FUNDAMENTALS.md",
+  "sourceDirName": "spring/testing",
+  "slug": "/spring/testing/JUNIT-TESTING-FUNDAMENTALS",
+  "permalink": "/shopverse/spring/testing/JUNIT-TESTING-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/testing/JUNIT-TESTING-FUNDAMENTALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JUnit Testing Fundamentals",
+    "description": "Framework-independent JUnit Platform and Jupiter foundations for deterministic lifecycle, assertions, parameterized tests, tags, and test structure before Spring-specific testing.",
+    "difficulty": "Beginner",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Explain JUnit Platform, Jupiter engine, and test-instance lifecycle",
+      "Write deterministic behavior-focused assertions and parameterized boundaries",
+      "Tag and structure tests for later Spring and CI ownership"
+    ],
+    "technologies": [
+      "JUnit Platform",
+      "JUnit Jupiter",
+      "AssertJ",
+      "Gradle"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TDD And BDD Interview, Labs, And Revision",
+    "permalink": "/shopverse/spring/testing/TDD-BDD-INTERVIEW-REVISION"
+  },
+  "next": {
+    "title": "Mockito And Unit Testing",
+    "permalink": "/shopverse/spring/testing/MOCKITO-UNIT-TESTING"
+  }
+}

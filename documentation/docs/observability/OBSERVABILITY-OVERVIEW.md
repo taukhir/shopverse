@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [HTTP and distributed systems fundamentals]
 learning_objectives: [Select telemetry from operational questions, Design safe correlated signals, Navigate observability implementation and incident guides]
 technologies: [Micrometer, OpenTelemetry, Prometheus, Grafana, Loki]
-last_reviewed: "2026-07-23"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-observability
 reviewer: documentation-maintainers
@@ -19,6 +19,10 @@ review_evidence: repository-content-audit
 Observability is the ability to explain a system's internal state and user impact
 from emitted evidence. It begins with operational questions and service objectives,
 not with installing a dashboard product.
+
+Monitoring evaluates known conditions through predefined queries, dashboards and
+alerts. Observability supports investigation of both known and previously unmodeled
+questions. They complement each other; neither is measured by dashboard count.
 
 ```mermaid
 flowchart LR
@@ -43,6 +47,7 @@ flowchart LR
 
 - **SLI:** measured behavior such as successful-request ratio or latency.
 - **SLO:** target for an SLI over a defined window.
+- **SLA:** external reliability commitment, including its measurement and consequences.
 - **error budget:** allowed unreliability implied by an SLO.
 - **cardinality:** number of distinct label combinations; uncontrolled values can
   make metric systems expensive or unusable.

@@ -10,7 +10,7 @@ learning_objectives:
   - Defend trade-offs under interviewer follow-up and changing constraints
   - Distinguish lead-level execution from architect-level system and organization ownership
 technologies: [Spring Boot, Kafka, PostgreSQL, Kubernetes]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-leadership
 reviewer: documentation-maintainers
@@ -18,6 +18,15 @@ review_evidence: repository-content-audit
 ---
 
 # Leadership And Architecture Interview Workbook
+
+## Leadership Decision Loop
+
+```mermaid
+flowchart LR
+    Context --> Options --> Decision --> Alignment --> Execution --> Evidence --> Context
+    Risk["People, delivery, and architecture risks"] --> Options
+    Evidence --> Learning["Coaching and system improvement"]
+```
 
 <DocLabels items={[
   {label: 'Eight complete scenarios', tone: 'advanced'},
@@ -522,6 +531,12 @@ lower toil/cost, and improved maintainability—not merely a Spring Boot startup
 - assuming existing unit coverage is a sufficient safety net;
 - forcing microservices as the target;
 - leaving legacy paths running indefinitely without retirement economics.
+
+## Additional Leadership And Behavioral Scenarios
+
+Continue with the dedicated [Engineering Leadership Interview Scenarios](./ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS.md)
+for incident leadership, prioritization, technical debt, failure ownership, influence, conflict, people leadership,
+delegation, stakeholder communication, and impact measurement.
 
 ## Cross-Scenario Rapid Checklist
 

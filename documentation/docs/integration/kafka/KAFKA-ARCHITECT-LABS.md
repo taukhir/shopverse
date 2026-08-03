@@ -16,6 +16,14 @@ review_evidence: repository-content-audit
 
 # Kafka Architect Labs And Interview Workbook
 
+## Lab Evidence Loop
+
+```mermaid
+flowchart LR
+    H["State a delivery hypothesis"] --> C["Configure producer, topic, and consumer"] --> F["Inject load or failure"]
+    F --> O["Observe lag, retries, ordering, and DLT"] --> E["Explain the trade-off"] --> H
+```
+
 ## Lab Rules
 
 Each lab must record hypothesis, topology, version, configuration, commands,

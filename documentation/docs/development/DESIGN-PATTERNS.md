@@ -27,6 +27,10 @@ runtime mechanics, trade-offs, testing, and interview preparation.
 A pattern is a named response to a recurring design pressure, not a target for
 the codebase. Before choosing one, write down:
 
+Pattern overengineering begins when the indirection costs more than the change
+it protects. Prefer the simpler design until a real variation point, invariant,
+or integration boundary justifies the pattern.
+
 1. **The problem:** what change, dependency, or invariant is difficult today?
 2. **The variation point:** what must be allowed to change independently?
 3. **The stable boundary:** what should callers be able to rely on?

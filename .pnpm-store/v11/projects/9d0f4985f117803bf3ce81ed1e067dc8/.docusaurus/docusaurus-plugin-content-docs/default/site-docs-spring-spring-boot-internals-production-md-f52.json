@@ -1,0 +1,53 @@
+{
+  "id": "spring/SPRING-BOOT-INTERNALS-PRODUCTION",
+  "title": "Spring Boot Runtime Engineering Map",
+  "description": "For the complete production checklist, use",
+  "source": "@site/docs/spring/SPRING-BOOT-INTERNALS-PRODUCTION.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-BOOT-INTERNALS-PRODUCTION",
+  "permalink": "/shopverse/spring/SPRING-BOOT-INTERNALS-PRODUCTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-BOOT-INTERNALS-PRODUCTION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot Runtime Engineering Map",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "keywords": [
+      "ApplicationContext internals",
+      "BeanPostProcessor",
+      "Spring proxy",
+      "DispatcherServlet",
+      "Hibernate dirty checking",
+      "transaction synchronization"
+    ],
+    "learning_objectives": [
+      "Find the canonical runtime guide from a failure symptom",
+      "Trace Spring startup and request execution",
+      "Tune production lifecycle from evidence"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Spring Framework",
+      "Hibernate",
+      "Tomcat"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Test CI Reliability Operations",
+    "permalink": "/shopverse/spring/testing/TEST-CI-RELIABILITY-OPERATIONS"
+  },
+  "next": {
+    "title": "Spring Infrastructure Diagnostic Route Map",
+    "permalink": "/shopverse/development/spring-boot-internals/INFRASTRUCTURE-INTERNALS"
+  }
+}

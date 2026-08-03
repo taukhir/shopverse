@@ -1,0 +1,48 @@
+{
+  "id": "spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY",
+  "title": "Spring Resource Pools, Concurrency And Capacity",
+  "description": "Evidence-driven capacity planning for Spring request admission, virtual threads, executors, Hikari, HTTP clients, Kafka consumers, schedulers, replica budgets, saturation, observability, and failure drills.",
+  "source": "@site/docs/spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md",
+  "sourceDirName": "spring/production",
+  "slug": "/spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY",
+  "permalink": "/shopverse/spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Resource Pools, Concurrency And Capacity",
+    "description": "Evidence-driven capacity planning for Spring request admission, virtual threads, executors, Hikari, HTTP clients, Kafka consumers, schedulers, replica budgets, saturation, observability, and failure drills.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Convert workload and latency into bounded concurrency estimates",
+      "Align request, executor, database, HTTP, Kafka, and scheduler capacity",
+      "Diagnose the first saturated queue from metrics and traces",
+      "Verify overload, retry, scaling, and replica behavior with executable drills"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "HikariCP",
+      "Micrometer",
+      "Kafka",
+      "HTTP Clients"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Startup, JVM And Container Memory",
+    "permalink": "/shopverse/spring/production/STARTUP-JVM-CONTAINER-MEMORY"
+  },
+  "next": {
+    "title": "Spring Boot Production Lifecycle And Incident Runbook",
+    "permalink": "/shopverse/spring/internals-production/PRODUCTION-LIFECYCLE"
+  }
+}

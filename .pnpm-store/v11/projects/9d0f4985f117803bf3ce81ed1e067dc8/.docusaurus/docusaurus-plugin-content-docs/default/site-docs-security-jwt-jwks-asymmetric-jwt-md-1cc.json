@@ -1,0 +1,34 @@
+{
+  "id": "security/jwt/JWKS-ASYMMETRIC-JWT",
+  "title": "JWKS And Asymmetric JWT",
+  "description": "Asymmetric JWT signing uses a private key to sign tokens and a public key to",
+  "source": "@site/docs/security/jwt/JWKS-ASYMMETRIC-JWT.md",
+  "sourceDirName": "security/jwt",
+  "slug": "/security/jwt/JWKS-ASYMMETRIC-JWT",
+  "permalink": "/shopverse/security/jwt/JWKS-ASYMMETRIC-JWT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/jwt/JWKS-ASYMMETRIC-JWT.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JWKS And Asymmetric JWT",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JWT Fundamentals",
+    "permalink": "/shopverse/security/jwt/JWT-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "JWT Claims Roles And Scopes",
+    "permalink": "/shopverse/security/jwt/JWT-CLAIMS-ROLES-SCOPES"
+  }
+}

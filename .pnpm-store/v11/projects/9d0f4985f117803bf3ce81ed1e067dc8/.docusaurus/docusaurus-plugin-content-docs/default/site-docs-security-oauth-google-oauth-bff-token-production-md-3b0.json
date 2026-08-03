@@ -1,0 +1,57 @@
+{
+  "id": "security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION",
+  "title": "Google OAuth BFF, Tokens, And Production",
+  "description": "Google OAuth BFF, Tokens, And Production with Shopverse examples, failure analysis, and production guidance.",
+  "source": "@site/docs/security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION.md",
+  "sourceDirName": "security/oauth",
+  "slug": "/security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION",
+  "permalink": "/shopverse/security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Google OAuth BFF, Tokens, And Production",
+    "description": "Google OAuth BFF, Tokens, And Production with Shopverse examples, failure analysis, and production guidance.",
+    "sidebar_label": "Google OAuth BFF, Tokens, And Production",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Google OAuth Client And Session Login",
+    "permalink": "/shopverse/security/oauth/GOOGLE-OAUTH-CLIENT-SESSION"
+  },
+  "next": {
+    "title": "Token Lifecycle",
+    "permalink": "/shopverse/security/oauth/TOKEN-LIFECYCLE"
+  }
+}

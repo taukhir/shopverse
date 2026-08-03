@@ -7,7 +7,7 @@ test('question tables search and filter independently', async ({page}) => {
   const strings = page.getByRole('region', {name: 'Strings Question Bank'});
   await expect(arrays).toBeVisible();
   await expect(strings).toBeVisible();
-  await expect(page.getByRole('region', {name: /Question Bank$/})).toHaveCount(12);
+  await expect(page.getByRole('region', {name: /Question Bank$/})).toHaveCount(16);
 
   await arrays.getByRole('searchbox', {name: 'Search Arrays interview questions'}).fill('prefix');
   await expect(arrays.getByText('Product of Array Except Self', {exact: true})).toBeVisible();

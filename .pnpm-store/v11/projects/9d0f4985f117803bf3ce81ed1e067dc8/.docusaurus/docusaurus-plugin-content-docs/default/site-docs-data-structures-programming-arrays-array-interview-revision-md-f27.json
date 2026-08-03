@@ -1,0 +1,38 @@
+{
+  "id": "data-structures/programming/arrays/ARRAY-INTERVIEW-REVISION",
+  "title": "Array Interview Revision And Production Questions",
+  "description": "Compact Java array revision sheet with pattern triggers, invariants, common bugs, senior follow-ups, and model interview answers.",
+  "source": "@site/docs/data-structures/programming/arrays/ARRAY-INTERVIEW-REVISION.md",
+  "sourceDirName": "data-structures/programming/arrays",
+  "slug": "/data-structures/programming/arrays/ARRAY-INTERVIEW-REVISION",
+  "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-INTERVIEW-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/programming/arrays/ARRAY-INTERVIEW-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Array Interview Revision And Production Questions",
+    "description": "Compact Java array revision sheet with pattern triggers, invariants, common bugs, senior follow-ups, and model interview answers.",
+    "sidebar_label": "Revision And Interview Questions",
+    "sidebar_position": 7,
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "30-Problem Roadmap",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-30-PROBLEM-ROADMAP"
+  },
+  "next": {
+    "title": "Java DSA Interview Question Bank",
+    "permalink": "/shopverse/data-structures/DSA-INTERVIEW-QUESTION-BANK"
+  }
+}

@@ -9,7 +9,7 @@ learning_objectives:
   - Apply mutation testing to evaluate whether assertions detect changed behavior
   - Govern exclusions and gradual service-level quality gates transparently
 technologies: [JaCoCo, PIT, Gradle, JUnit, ArchUnit]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-spring
 reviewer: documentation-maintainers
@@ -233,6 +233,15 @@ Static analysis and coverage solve different problems. A line can be covered
 and still contain a security defect, race condition, resource leak, or weak
 assertion.
 
+### Property-Based Testing
+
+Property-based testing generates many inputs to challenge an invariant rather than
+enumerating only handpicked examples. It is useful for parsers, serialization round
+trips, money arithmetic, ordering and state transitions. Constrain generators to
+valid and deliberately invalid domains, retain the seed, shrink failures to a small
+counterexample, and keep named examples for critical business rules. Generated
+volume does not replace integration evidence at infrastructure boundaries.
+
 
 ## Coverage Exclusions
 
@@ -318,8 +327,6 @@ and run broader campaigns on a schedule while keeping surviving mutations visibl
   {title: 'CI reliability operations', href: '/spring/testing/TEST-CI-RELIABILITY-OPERATIONS', description: 'Turn quality reports into transparent delivery gates and artifacts.', icon: 'gauge', tags: ['CI', 'Gates']},
   {title: 'Mockito and unit testing', href: '/spring/testing/MOCKITO-UNIT-TESTING', description: 'Strengthen behavioral assertions when mutation evidence exposes weak tests.', icon: 'experiment', tags: ['Assertions', 'Mocks']},
 ]} />
-
-
 
 
 

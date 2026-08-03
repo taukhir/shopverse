@@ -16,6 +16,14 @@ review_evidence: repository-content-audit
 
 # ShopVerse AI-Assisted Development Practical Workbook
 
+## Practical Exercise Flow
+
+```mermaid
+flowchart LR
+    T["Select a Shopverse task"] --> I["Inspect ownership and invariants"] --> M["Make the smallest change"]
+    M --> Q["Run narrow verification"] --> B["Run broader checks"] --> H["Record evidence and residual risk"]
+```
+
 This workbook turns the guidance in the [AI developer toolkit](./AI-DEVELOPER-TOOLKIT-COMMANDS-PROMPTS-CONNECTORS.md)
 into deliberate practice. Each lab uses a realistic ShopVerse task and asks the
 AI assistant to inspect evidence, propose a bounded change, implement only with

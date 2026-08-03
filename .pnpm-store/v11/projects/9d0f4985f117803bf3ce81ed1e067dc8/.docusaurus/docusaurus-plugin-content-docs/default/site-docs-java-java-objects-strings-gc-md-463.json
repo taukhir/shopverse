@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-OBJECTS-STRINGS-GC",
+  "title": "Java Objects, Strings, Immutability And Garbage Collection",
+  "description": "Equality contracts, immutable classes, string pool, object reachability, static references, and garbage collection.",
+  "source": "@site/docs/java/JAVA-OBJECTS-STRINGS-GC.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-OBJECTS-STRINGS-GC",
+  "permalink": "/shopverse/java/JAVA-OBJECTS-STRINGS-GC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-OBJECTS-STRINGS-GC.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Objects, Strings, Immutability And Garbage Collection",
+    "description": "Equality contracts, immutable classes, string pool, object reachability, static references, and garbage collection.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Generics, Erasure And Variance Internals",
+    "permalink": "/shopverse/java/JAVA-GENERICS-ERASURE-INTERNALS"
+  },
+  "next": {
+    "title": "Java String, Unicode And Encoding Internals",
+    "permalink": "/shopverse/java/JAVA-STRINGS-ENCODING-INTERNALS"
+  }
+}

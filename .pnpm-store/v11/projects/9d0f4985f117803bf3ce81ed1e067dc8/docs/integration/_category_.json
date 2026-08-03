@@ -1,0 +1,8 @@
+{
+  "label": "Integration And Messaging",
+  "position": 7,
+  "link": {
+    "type": "generated-index",
+    "description": "Feign, Kafka, synchronous communication, asynchronous events, retries, and recovery."
+  }
+}

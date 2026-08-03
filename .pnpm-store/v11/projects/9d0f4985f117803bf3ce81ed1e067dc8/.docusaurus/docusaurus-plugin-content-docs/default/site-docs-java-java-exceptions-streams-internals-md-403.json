@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-EXCEPTIONS-STREAMS-INTERNALS",
+  "title": "Exception Propagation And Stream Failure Internals",
+  "description": "Senior guide to stack unwinding, suppressed failures, stream execution, spliterators, parallelism, and failure contracts.",
+  "source": "@site/docs/java/JAVA-EXCEPTIONS-STREAMS-INTERNALS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-EXCEPTIONS-STREAMS-INTERNALS",
+  "permalink": "/shopverse/java/JAVA-EXCEPTIONS-STREAMS-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-EXCEPTIONS-STREAMS-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Exception Propagation And Stream Failure Internals",
+    "description": "Senior guide to stack unwinding, suppressed failures, stream execution, spliterators, parallelism, and failure contracts.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Exception Handling Across Streams And Async Workflows",
+    "permalink": "/shopverse/java/JAVA-EXCEPTION-ASYNC-DEEP-DIVE"
+  },
+  "next": {
+    "title": "Java Serialization And Deserialization Guide",
+    "permalink": "/shopverse/java/JAVA-SERIALIZATION-UMBRELLA"
+  }
+}

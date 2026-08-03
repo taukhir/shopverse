@@ -1,0 +1,57 @@
+{
+  "id": "integration/README",
+  "title": "Messaging And Integration",
+  "description": "A decision-first route for Kafka and synchronous or asynchronous service integration.",
+  "source": "@site/docs/integration/README.md",
+  "sourceDirName": "integration",
+  "slug": "/integration/",
+  "permalink": "/shopverse/integration/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/integration/README.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "integration",
+      "permalink": "/shopverse/tags/integration"
+    },
+    {
+      "inline": true,
+      "label": "kafka",
+      "permalink": "/shopverse/tags/kafka"
+    },
+    {
+      "inline": true,
+      "label": "microservices",
+      "permalink": "/shopverse/tags/microservices"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Messaging And Integration",
+    "description": "A decision-first route for Kafka and synchronous or asynchronous service integration.",
+    "sidebar_label": "Messaging And Integration",
+    "tags": [
+      "integration",
+      "kafka",
+      "microservices"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-integration",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Failure And Consensus",
+    "permalink": "/shopverse/reliability/DISTRIBUTED-FAILURE-CONSENSUS"
+  },
+  "next": {
+    "title": "Kafka vs RabbitMQ vs ActiveMQ Artemis vs JMS",
+    "permalink": "/shopverse/integration/MESSAGING-PLATFORM-SELECTION"
+  }
+}

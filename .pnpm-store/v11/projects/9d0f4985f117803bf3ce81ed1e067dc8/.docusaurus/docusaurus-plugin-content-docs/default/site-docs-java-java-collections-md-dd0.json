@@ -1,0 +1,37 @@
+{
+  "id": "java/JAVA-COLLECTIONS",
+  "title": "Java Collections",
+  "description": "Java Collections hierarchy and learning path from List, Set, Map, Queue, and Deque contracts to dedicated implementation internals.",
+  "source": "@site/docs/java/JAVA-COLLECTIONS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-COLLECTIONS",
+  "permalink": "/shopverse/java/JAVA-COLLECTIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-COLLECTIONS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Java Collections",
+    "sidebar_position": 2,
+    "description": "Java Collections hierarchy and learning path from List, Set, Map, Queue, and Deque contracts to dedicated implementation internals.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Parallel Stream Internals And Performance Scenarios",
+    "permalink": "/shopverse/java/JAVA-PARALLEL-STREAM-INTERNALS"
+  },
+  "next": {
+    "title": "Collection Contracts And Selection",
+    "permalink": "/shopverse/java/collections/COLLECTION-CONTRACTS-AND-SELECTION"
+  }
+}

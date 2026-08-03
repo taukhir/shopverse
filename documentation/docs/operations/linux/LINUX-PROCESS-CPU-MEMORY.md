@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Linux Production Troubleshooting Path]
 learning_objectives: [Interpret CPU and load evidence, Trace process and thread state, Diagnose host and cgroup memory pressure]
 technologies: [Linux, procfs, PSI, cgroups]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-operations
 reviewer: documentation-maintainers
@@ -36,6 +36,12 @@ ls -l /proc/<pid>/fd
 Process states include running/runnable, interruptible sleep, uninterruptible sleep (`D`, often
 I/O/kernel wait), stopped/traced, and zombie. A process in `D` cannot be fixed merely by signals;
 find the blocked kernel/I/O path.
+
+## Signals And Graceful Termination
+
+`SIGTERM` is catchable and should begin bounded drain, checkpoint and cleanup. `SIGKILL` cannot be handled and
+immediately stops execution, risking lost evidence and incomplete state. PID 1 and supervisors affect signal
+forwarding and child reaping; inspect the process tree and service stop policy before escalating.
 
 ## CPU And Scheduler
 
@@ -151,4 +157,3 @@ local constraints applied. Inspect cgroup events and process/container memory co
 ## Recommended Next
 
 Continue with [Filesystems, Disk, Block I/O, And Storage Incidents](./LINUX-FILESYSTEM-STORAGE.md).
-

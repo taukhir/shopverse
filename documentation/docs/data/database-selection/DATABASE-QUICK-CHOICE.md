@@ -16,6 +16,21 @@ review_evidence: repository-content-audit
 
 # Database Quick Choice
 
+## Database Selection Funnel
+
+```mermaid
+flowchart TD
+    W["Identify workload"] --> Q{"Primary access pattern"}
+    Q -->|"Transactions"| R["Relational or distributed SQL"]
+    Q -->|"Key access"| K["Key-value store"]
+    Q -->|"Documents or search"| D["Document or search engine"]
+    Q -->|"Analytics"| A["Columnar warehouse or OLAP store"]
+    R --> V["Validate consistency, scale, operations, and cost"]
+    K --> V
+    D --> V
+    A --> V
+```
+
 Use this page to create a shortlist. Ratings describe the database's natural
 workload fit, not an unconditional benchmark. Schema, indexes, consistency,
 hardware, topology, query shape, data distribution, and operator skill can

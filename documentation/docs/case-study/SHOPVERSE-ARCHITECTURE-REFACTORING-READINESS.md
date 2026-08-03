@@ -11,6 +11,7 @@ scope: shopverse
 owner: docs-case-study
 reviewer: documentation-maintainers
 review_evidence: repository-content-audit
+visual_required: true
 ---
 
 # Shopverse Refactoring And Production Readiness
@@ -120,6 +121,28 @@ Current behavior should remain for the POC, but production should move toward:
 6. Internal service authentication independent of customer passwords.
 
 ## Refactoring Strategy
+
+The phases are dependency-ordered. Contract stabilization unlocks reusable
+starters; those shared primitives then make distributed-processing and security
+hardening safer to roll out before scale work.
+
+```mermaid
+flowchart LR
+    P1["1. Stabilize contracts<br/>Event envelope, contract tests,<br/>error schema, page limits"]
+    P2["2. Extract platform starters<br/>Observability, security,<br/>outbox, Kafka recovery"]
+    P3["3. Harden distributed processing<br/>Inbox deduplication, retry backoff,<br/>atomic claims, audited replay"]
+    P4["4. Productionize security<br/>Key rotation, short-lived sessions,<br/>network restrictions, TLS"]
+    P5["5. Scale read and write paths<br/>Pagination, targeted lookup,<br/>cache strategy, indexes"]
+
+    P1 --> P2
+    P2 --> P3
+    P2 --> P4
+    P3 --> P5
+    P4 --> P5
+```
+
+Do not extract a shared starter before its contract is stable: premature reuse
+would centralize churn and make independent service upgrades harder.
 
 ### Phase 1: Stabilize Contracts
 

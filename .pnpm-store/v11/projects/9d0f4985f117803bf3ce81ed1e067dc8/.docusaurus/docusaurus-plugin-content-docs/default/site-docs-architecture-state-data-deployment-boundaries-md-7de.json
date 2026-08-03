@@ -1,0 +1,57 @@
+{
+  "id": "architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES",
+  "title": "State, Data, Deployment, And Failure Boundaries",
+  "description": "State, Data, Deployment, And Failure Boundaries with Shopverse examples, failure analysis, and production guidance.",
+  "source": "@site/docs/architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES",
+  "permalink": "/shopverse/architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "State, Data, Deployment, And Failure Boundaries",
+    "description": "State, Data, Deployment, And Failure Boundaries with Shopverse examples, failure analysis, and production guidance.",
+    "sidebar_label": "State, Data, Deployment, And Failure Boundaries",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Checkout, Security, And Event Flows",
+    "permalink": "/shopverse/architecture/CHECKOUT-SECURITY-EVENT-FLOWS"
+  },
+  "next": {
+    "title": "ADR 001: Gateway, Discovery, And Centralized Configuration",
+    "permalink": "/shopverse/architecture/adr/gateway-discovery-config"
+  }
+}

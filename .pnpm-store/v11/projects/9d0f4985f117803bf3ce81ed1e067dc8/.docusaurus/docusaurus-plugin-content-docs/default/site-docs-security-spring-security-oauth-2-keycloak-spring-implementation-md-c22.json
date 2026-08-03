@@ -1,0 +1,69 @@
+{
+  "id": "security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION",
+  "title": "Keycloak And Spring OAuth2 Implementation",
+  "description": "Implement Authorization Code with PKCE, OIDC login, JWT resource servers, Keycloak role mapping, audience validation, and Client Credentials in Spring Boot.",
+  "source": "@site/docs/security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION.md",
+  "sourceDirName": "security/spring-security",
+  "slug": "/security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION",
+  "permalink": "/shopverse/security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "oauth2",
+      "permalink": "/shopverse/tags/oauth-2"
+    },
+    {
+      "inline": true,
+      "label": "oidc",
+      "permalink": "/shopverse/tags/oidc"
+    },
+    {
+      "inline": true,
+      "label": "keycloak",
+      "permalink": "/shopverse/tags/keycloak"
+    },
+    {
+      "inline": true,
+      "label": "spring-security",
+      "permalink": "/shopverse/tags/spring-security"
+    },
+    {
+      "inline": true,
+      "label": "microservices",
+      "permalink": "/shopverse/tags/microservices"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Keycloak And Spring OAuth2 Implementation",
+    "description": "Implement Authorization Code with PKCE, OIDC login, JWT resource servers, Keycloak role mapping, audience validation, and Client Credentials in Spring Boot.",
+    "sidebar_label": "Keycloak And Spring OAuth2",
+    "tags": [
+      "oauth2",
+      "oidc",
+      "keycloak",
+      "spring-security",
+      "microservices"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "OIDC Fundamentals",
+    "permalink": "/shopverse/security/oauth/OIDC-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "SSO And OpenID Connect",
+    "permalink": "/shopverse/security/oauth/SSO-AND-OPENID-CONNECT"
+  }
+}

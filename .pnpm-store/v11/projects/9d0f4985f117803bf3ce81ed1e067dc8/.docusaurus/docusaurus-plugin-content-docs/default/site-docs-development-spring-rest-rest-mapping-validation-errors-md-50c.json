@@ -1,0 +1,44 @@
+{
+  "id": "development/spring-rest/REST-MAPPING-VALIDATION-ERRORS",
+  "title": "Spring REST Request Mapping Validation And Errors",
+  "description": "Compatibility route to canonical request mapping, Bean Validation, and REST error-contract guides.",
+  "source": "@site/docs/development/spring-rest/REST-MAPPING-VALIDATION-ERRORS.md",
+  "sourceDirName": "development/spring-rest",
+  "slug": "/development/spring-rest/REST-MAPPING-VALIDATION-ERRORS",
+  "permalink": "/shopverse/development/spring-rest/REST-MAPPING-VALIDATION-ERRORS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-rest/REST-MAPPING-VALIDATION-ERRORS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring REST Request Mapping Validation And Errors",
+    "description": "Compatibility route to canonical request mapping, Bean Validation, and REST error-contract guides.",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Select the focused guide for request mapping, validation, or errors",
+      "Preserve links to the former combined REST page"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Jakarta Validation",
+      "ProblemDetail"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "compatibility",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Web MVC Servlet And Filter Internals",
+    "permalink": "/shopverse/development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS"
+  },
+  "next": {
+    "title": "Spring REST Files Pagination And Idempotency",
+    "permalink": "/shopverse/development/spring-rest/REST-FILES-PAGINATION-IDEMPOTENCY"
+  }
+}

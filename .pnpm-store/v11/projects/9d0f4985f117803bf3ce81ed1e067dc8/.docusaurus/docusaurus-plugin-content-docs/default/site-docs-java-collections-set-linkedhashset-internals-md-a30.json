@@ -1,0 +1,69 @@
+{
+  "id": "java/collections/set/LINKEDHASHSET-INTERNALS",
+  "title": "LinkedHashSet Internals and Usage",
+  "description": "LinkedHashSet insertion-order links, hash-table defaults, complexity, methods, memory cost, and selection guidance.",
+  "source": "@site/docs/java/collections/set/LINKEDHASHSET-INTERNALS.md",
+  "sourceDirName": "java/collections/set",
+  "slug": "/java/collections/set/LINKEDHASHSET-INTERNALS",
+  "permalink": "/shopverse/java/collections/set/LINKEDHASHSET-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/set/LINKEDHASHSET-INTERNALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "set",
+      "permalink": "/shopverse/tags/set"
+    },
+    {
+      "inline": true,
+      "label": "linkedhashset",
+      "permalink": "/shopverse/tags/linkedhashset"
+    },
+    {
+      "inline": true,
+      "label": "internals",
+      "permalink": "/shopverse/tags/internals"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "LinkedHashSet Internals and Usage",
+    "description": "LinkedHashSet insertion-order links, hash-table defaults, complexity, methods, memory cost, and selection guidance.",
+    "sidebar_label": "LinkedHashSet",
+    "tags": [
+      "java",
+      "collections",
+      "set",
+      "linkedhashset",
+      "internals"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "HashSet",
+    "permalink": "/shopverse/java/collections/set/HASHSET-INTERNALS"
+  },
+  "next": {
+    "title": "TreeSet",
+    "permalink": "/shopverse/java/collections/set/TREESET-INTERNALS"
+  }
+}

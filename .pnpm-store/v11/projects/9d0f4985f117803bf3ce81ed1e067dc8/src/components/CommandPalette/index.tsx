@@ -1,0 +1,15 @@
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import Link from '@docusaurus/Link';
+import {Search, X} from 'lucide-react';
+import {learningCatalog} from '@site/src/data/learningCatalog';
+import styles from './styles.module.css';
+import triggerStyles from './trigger.module.css';
+
+export default function CommandPalette() {
+  const [open,setOpen]=useState(false); const [query,setQuery]=useState(''); const inputRef=useRef<HTMLInputElement>(null); const paletteRef=useRef<HTMLElement>(null);
+  useEffect(()=>{ const onKey=(event:KeyboardEvent)=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();event.stopImmediatePropagation();setOpen(value=>!value);}if(event.key==='Escape')setOpen(false);}; window.addEventListener('keydown',onKey,{capture:true});return()=>window.removeEventListener('keydown',onKey,{capture:true});},[]);
+  useEffect(()=>{if(open)window.setTimeout(()=>inputRef.current?.focus(),0);},[open]);
+  useEffect(()=>{if(!open)return;const previous=document.activeElement as HTMLElement;const trap=(event:KeyboardEvent)=>{if(event.key!=='Tab')return;const items=paletteRef.current?.querySelectorAll<HTMLElement>('input,button:not(:disabled),a[href]');if(!items?.length)return;const first=items[0],last=items[items.length-1];if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}};document.addEventListener('keydown',trap);return()=>{document.removeEventListener('keydown',trap);previous?.focus();};},[open]);
+  const results=useMemo(()=>{const needle=query.toLowerCase().trim();return learningCatalog.filter(page=>!needle||`${page.title} ${page.stage} ${page.difficulty} ${page.type}`.toLowerCase().includes(needle)).slice(0,12);},[query]);
+  return <><button className={triggerStyles.trigger} type="button" onClick={()=>setOpen(true)} aria-label="Open command palette"><Search/><span>Quick find</span><kbd>Ctrl K</kbd></button>{open&&<div className={styles.backdrop} onClick={()=>setOpen(false)}><section ref={paletteRef} className={styles.palette} role="dialog" aria-modal="true" aria-label="Documentation command palette" onClick={event=>event.stopPropagation()}><header><Search/><input ref={inputRef} value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search topics, stages, difficulty, or page type…" aria-label="Search learning catalog"/><button type="button" onClick={()=>setOpen(false)} aria-label="Close command palette"><X/></button></header><div className={styles.results}>{results.map(page=><Link key={page.path} to={page.path} onClick={()=>setOpen(false)}><span><strong>{page.title}</strong><small>{page.stage}</small></span><span className={styles.meta}><em>{page.difficulty}</em><em>{page.type}</em></span></Link>)}{!results.length&&<p>No matching learning pages.</p>}</div><div className="sr-only" aria-live="polite">{results.length} results</div><footer><span><kbd>Ctrl</kbd> <kbd>K</kbd> open</span><span>{learningCatalog.length} curated learning pages</span></footer></section></div>}</>;
+}

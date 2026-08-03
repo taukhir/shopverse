@@ -1,0 +1,52 @@
+{
+  "id": "operations/docker/DOCKER-PRODUCTION-MASTERY",
+  "title": "Docker Production Mastery",
+  "description": "Complete coverage map for Engine and OCI internals, Dockerfiles, BuildKit, Java containers, storage, networking, security, resources, commands, and incidents.",
+  "source": "@site/docs/operations/docker/DOCKER-PRODUCTION-MASTERY.md",
+  "sourceDirName": "operations/docker",
+  "slug": "/operations/docker/DOCKER-PRODUCTION-MASTERY",
+  "permalink": "/shopverse/operations/docker/DOCKER-PRODUCTION-MASTERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/docker/DOCKER-PRODUCTION-MASTERY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Docker Production Mastery",
+    "description": "Complete coverage map for Engine and OCI internals, Dockerfiles, BuildKit, Java containers, storage, networking, security, resources, commands, and incidents.",
+    "difficulty": "Architect",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Linux fundamentals",
+      "Networking"
+    ],
+    "learning_objectives": [
+      "Cover every Docker production competency",
+      "Navigate canonical deep dives",
+      "Diagnose container failures from runtime evidence"
+    ],
+    "technologies": [
+      "Docker Engine",
+      "containerd",
+      "runc",
+      "OCI",
+      "BuildKit",
+      "Linux"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker MCQ Practice",
+    "permalink": "/shopverse/operations/DOCKER-MCQ-PRACTICE"
+  },
+  "next": {
+    "title": "Docker Internals, Layers, And Storage",
+    "permalink": "/shopverse/operations/DOCKER-INTERNALS-LAYERS-STORAGE"
+  }
+}

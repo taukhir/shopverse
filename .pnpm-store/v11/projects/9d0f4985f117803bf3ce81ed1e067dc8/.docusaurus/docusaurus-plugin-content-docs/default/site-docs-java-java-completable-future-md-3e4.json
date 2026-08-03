@@ -1,0 +1,39 @@
+{
+  "id": "java/JAVA-COMPLETABLE-FUTURE",
+  "title": "Java CompletableFuture Learning Guide",
+  "description": "Canonical learning path for CompletableFuture execution, composition, failure, cancellation, and production architecture.",
+  "source": "@site/docs/java/JAVA-COMPLETABLE-FUTURE.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-COMPLETABLE-FUTURE",
+  "permalink": "/shopverse/java/JAVA-COMPLETABLE-FUTURE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-COMPLETABLE-FUTURE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java CompletableFuture Learning Guide",
+    "description": "Canonical learning path for CompletableFuture execution, composition, failure, cancellation, and production architecture.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "technologies": [
+      "Java 24",
+      "CompletableFuture"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ForkJoinPool And Work-Stealing Deep Dive",
+    "permalink": "/shopverse/java/JAVA-FORKJOINPOOL-DEEP-DIVE"
+  },
+  "next": {
+    "title": "CompletableFuture Fundamentals And Execution",
+    "permalink": "/shopverse/java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS"
+  }
+}

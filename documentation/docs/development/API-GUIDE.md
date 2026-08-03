@@ -16,6 +16,16 @@ review_evidence: repository-content-audit
 
 # API Guide
 
+## Shopverse API Request Path
+
+```mermaid
+flowchart LR
+    Client -->|"JWT and correlation ID"| Gateway --> Service
+    Service -->|"authorize ownership"| Domain["Domain operation"]
+    Domain --> Database
+    Domain -->|"integration intent"| Outbox --> Kafka
+```
+
 This guide is the Shopverse endpoint catalog and POC demonstration runbook.
 Reusable HTTP design guidance is maintained in
 [REST API design](REST-API-GENERIC.md).

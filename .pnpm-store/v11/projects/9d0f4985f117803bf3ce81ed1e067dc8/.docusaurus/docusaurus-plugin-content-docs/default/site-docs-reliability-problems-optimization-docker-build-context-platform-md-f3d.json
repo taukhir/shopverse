@@ -1,0 +1,34 @@
+{
+  "id": "reliability/problems/optimization/DOCKER-BUILD-CONTEXT-PLATFORM",
+  "title": "Fix Docker Build Context For Platform Modules",
+  "description": "Back to Optimization Solutions.",
+  "source": "@site/docs/reliability/problems/optimization/DOCKER-BUILD-CONTEXT-PLATFORM.md",
+  "sourceDirName": "reliability/problems/optimization",
+  "slug": "/reliability/problems/optimization/DOCKER-BUILD-CONTEXT-PLATFORM",
+  "permalink": "/shopverse/reliability/problems/optimization/DOCKER-BUILD-CONTEXT-PLATFORM",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/problems/optimization/DOCKER-BUILD-CONTEXT-PLATFORM.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Fix Docker Build Context For Platform Modules",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Optimization Baseline",
+    "permalink": "/shopverse/reliability/problems/optimization/OPTIMIZATION-BASELINE"
+  },
+  "next": {
+    "title": "Optimize Order Service Tests",
+    "permalink": "/shopverse/reliability/problems/optimization/ORDER-SERVICE-TEST-OPTIMIZATION"
+  }
+}

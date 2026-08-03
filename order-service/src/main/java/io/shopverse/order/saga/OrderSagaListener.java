@@ -104,6 +104,11 @@ public class OrderSagaListener {
                 "Order listener failed after retry policy",
                 3
         );
-        log.error("Order event moved to DLT sourceTopic={} payload={}", sourceTopic, record.value());
+        log.error(
+                "Order event moved to DLT sourceTopic={} partition={} offset={}",
+                sourceTopic,
+                record.partition(),
+                record.offset()
+        );
     }
 }

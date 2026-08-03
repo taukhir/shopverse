@@ -1,7 +1,7 @@
 ---
 title: Gradle Build Performance
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -11,6 +11,17 @@ review_evidence: repository-content-audit
 ---
 
 # Gradle Build Performance
+
+## Build Model And Cache Boundaries
+
+Gradle configuration constructs the task graph and execution runs selected tasks. Incremental up-to-date checks
+reuse outputs in one workspace when declared inputs and outputs match. The build cache can reuse cacheable task
+outputs across workspaces, while the configuration cache reuses configuration state; they solve different costs.
+Undeclared inputs, nondeterminism and configuration-time side effects make reuse incorrect or ineffective.
+
+Maven emphasizes a declarative conventional lifecycle; Gradle exposes a programmable task graph with incremental
+and cache features. Tool choice should consider ecosystem, reproducibility, build complexity, performance and
+team operability rather than syntax preference.
 
 Back to [Optimization Solutions](../OPTIMIZATION-SOLUTIONS.md).
 

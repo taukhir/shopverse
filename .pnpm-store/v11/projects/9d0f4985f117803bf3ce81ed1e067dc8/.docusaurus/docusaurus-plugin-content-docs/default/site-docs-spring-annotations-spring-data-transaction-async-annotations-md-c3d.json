@@ -1,0 +1,53 @@
+{
+  "id": "spring/annotations/SPRING-DATA-TRANSACTION-ASYNC-ANNOTATIONS",
+  "title": "Spring Data Transaction Async Scheduling And Cache Annotations",
+  "description": "Deep guide to Spring Data repository, JPA, transaction, events, async, scheduling, retry and cache annotations with proxy boundaries, consistency, concurrency, and production failures.",
+  "source": "@site/docs/spring/annotations/SPRING-DATA-TRANSACTION-ASYNC-ANNOTATIONS.md",
+  "sourceDirName": "spring/annotations",
+  "slug": "/spring/annotations/SPRING-DATA-TRANSACTION-ASYNC-ANNOTATIONS",
+  "permalink": "/shopverse/spring/annotations/SPRING-DATA-TRANSACTION-ASYNC-ANNOTATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/annotations/SPRING-DATA-TRANSACTION-ASYNC-ANNOTATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Data Transaction Async Scheduling And Cache Annotations",
+    "description": "Deep guide to Spring Data repository, JPA, transaction, events, async, scheduling, retry and cache annotations with proxy boundaries, consistency, concurrency, and production failures.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring AOP",
+      "Transactions",
+      "Spring Data fundamentals"
+    ],
+    "learning_objectives": [
+      "Use persistence annotations deliberately",
+      "Explain transaction metadata",
+      "Bound async and scheduled work",
+      "Design caching safely",
+      "Diagnose proxy failures"
+    ],
+    "technologies": [
+      "Spring Framework 7",
+      "Spring Boot 4",
+      "Spring Data JPA",
+      "Spring Cache"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring MVC REST Binding Validation And Error Annotations",
+    "permalink": "/shopverse/spring/annotations/SPRING-WEB-VALIDATION-ANNOTATIONS"
+  },
+  "next": {
+    "title": "Spring Security Messaging And Testing Annotations",
+    "permalink": "/shopverse/spring/annotations/SPRING-SECURITY-MESSAGING-TEST-ANNOTATIONS"
+  }
+}

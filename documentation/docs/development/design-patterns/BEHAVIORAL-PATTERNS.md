@@ -156,6 +156,11 @@ In distributed systems, Kafka is a durable, cross-service Observer-style
 mechanism. The producer publishes an event, and multiple consumer groups react
 independently.
 
+Do not equate an in-process Observer with a message broker. A broker can provide
+durable storage, independent consumer progress, redelivery, partition ordering,
+and cross-process transport; an ordinary Observer call disappears with the
+process and usually shares the publisher's latency and failure boundary.
+
 ## Chain Of Responsibility
 
 Chain of Responsibility passes a request through ordered handlers.

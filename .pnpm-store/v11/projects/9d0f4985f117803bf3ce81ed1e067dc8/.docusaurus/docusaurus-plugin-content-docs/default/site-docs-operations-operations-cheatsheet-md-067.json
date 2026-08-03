@@ -1,0 +1,36 @@
+{
+  "id": "operations/OPERATIONS-CHEATSHEET",
+  "title": "Operations Cheat Sheet",
+  "description": "Docker",
+  "source": "@site/docs/operations/OPERATIONS-CHEATSHEET.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/OPERATIONS-CHEATSHEET",
+  "permalink": "/shopverse/operations/OPERATIONS-CHEATSHEET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/OPERATIONS-CHEATSHEET.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Operations Cheat Sheet",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Distributed Systems Interview Questions",
+    "permalink": "/shopverse/reference/DISTRIBUTED-SYSTEMS-INTERVIEW"
+  },
+  "next": {
+    "title": "Engineering Foundations Overview",
+    "permalink": "/shopverse/development/ENGINEERING-FOUNDATIONS-OVERVIEW"
+  }
+}

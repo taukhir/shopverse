@@ -1,0 +1,57 @@
+{
+  "id": "data/LIQUIBASE-GENERIC",
+  "title": "Liquibase Database Migrations",
+  "description": "Liquibase Database Migrations: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/data/LIQUIBASE-GENERIC.md",
+  "sourceDirName": "data",
+  "slug": "/data/LIQUIBASE-GENERIC",
+  "permalink": "/shopverse/data/LIQUIBASE-GENERIC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/LIQUIBASE-GENERIC.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "data",
+      "permalink": "/shopverse/tags/data"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Liquibase Database Migrations",
+    "description": "Liquibase Database Migrations: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Liquibase Database Migrations",
+    "tags": [
+      "data",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Hibernate Interview And Production Scenarios",
+    "permalink": "/shopverse/data/hibernate/HIBERNATE-INTERVIEW-SCENARIOS"
+  },
+  "next": {
+    "title": "Caching Principles",
+    "permalink": "/shopverse/architecture/CACHING-GENERIC"
+  }
+}

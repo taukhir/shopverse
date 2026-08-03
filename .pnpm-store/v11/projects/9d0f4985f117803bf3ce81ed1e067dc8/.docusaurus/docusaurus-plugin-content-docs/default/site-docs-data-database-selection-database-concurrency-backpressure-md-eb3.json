@@ -1,0 +1,48 @@
+{
+  "id": "data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE",
+  "title": "Database Concurrency, Latency, And Backpressure",
+  "description": "Database throughput plateau and rapidly increasing latency after the saturation knee",
+  "source": "@site/docs/data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE",
+  "permalink": "/shopverse/data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Database Concurrency, Latency, And Backpressure",
+    "sidebar_position": 7,
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Size database concurrency from measurements",
+      "Prevent application scaling from overwhelming a database",
+      "Interpret query latency in context"
+    ],
+    "technologies": [
+      "SQL",
+      "HikariCP",
+      "PostgreSQL",
+      "MySQL",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database And Query Optimization",
+    "permalink": "/shopverse/data/database-selection/DATABASE-QUERY-OPTIMIZATION"
+  },
+  "next": {
+    "title": "Connection Pools, Overload, And Database Failover",
+    "permalink": "/shopverse/data/database-selection/DATABASE-CONNECTION-POOL-FAILOVER"
+  }
+}

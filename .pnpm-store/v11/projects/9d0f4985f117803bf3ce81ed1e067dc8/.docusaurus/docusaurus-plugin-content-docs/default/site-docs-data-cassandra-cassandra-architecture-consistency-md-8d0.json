@@ -1,0 +1,50 @@
+{
+  "id": "data/cassandra/CASSANDRA-ARCHITECTURE-CONSISTENCY",
+  "title": "Cassandra Architecture Replication And Consistency",
+  "description": "Peer-to-peer architecture, coordinators, tokens, replicas, gossip, failure detection, consistency levels, quorums, repair mechanisms, and lightweight transactions.",
+  "source": "@site/docs/data/cassandra/CASSANDRA-ARCHITECTURE-CONSISTENCY.md",
+  "sourceDirName": "data/cassandra",
+  "slug": "/data/cassandra/CASSANDRA-ARCHITECTURE-CONSISTENCY",
+  "permalink": "/shopverse/data/cassandra/CASSANDRA-ARCHITECTURE-CONSISTENCY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/cassandra/CASSANDRA-ARCHITECTURE-CONSISTENCY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cassandra Architecture Replication And Consistency",
+    "description": "Peer-to-peer architecture, coordinators, tokens, replicas, gossip, failure detection, consistency levels, quorums, repair mechanisms, and lightweight transactions.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Distributed systems",
+      "CAP theorem"
+    ],
+    "learning_objectives": [
+      "Trace Cassandra reads and writes",
+      "Select replication and consistency levels",
+      "Explain replica convergence and LWT boundaries"
+    ],
+    "technologies": [
+      "Apache Cassandra",
+      "Gossip",
+      "Consistent Hashing",
+      "Paxos"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Apache Cassandra Architect Learning Path",
+    "permalink": "/shopverse/data/CASSANDRA-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Cassandra CQL And Query-First Data Modeling",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-CQL-DATA-MODELING"
+  }
+}

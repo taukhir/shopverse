@@ -1,0 +1,48 @@
+{
+  "id": "development/spring-rest/REST-CLIENTS-FEIGN",
+  "title": "Spring HTTP Client Selection And Runtime",
+  "description": "Canonical selection and production runtime guide for RestClient, WebClient, HTTP Service Clients, legacy RestTemplate, and existing Spring Cloud OpenFeign adapters.",
+  "source": "@site/docs/development/spring-rest/REST-CLIENTS-FEIGN.md",
+  "sourceDirName": "development/spring-rest",
+  "slug": "/development/spring-rest/REST-CLIENTS-FEIGN",
+  "permalink": "/shopverse/development/spring-rest/REST-CLIENTS-FEIGN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-rest/REST-CLIENTS-FEIGN.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring HTTP Client Selection And Runtime",
+    "description": "Canonical selection and production runtime guide for RestClient, WebClient, HTTP Service Clients, legacy RestTemplate, and existing Spring Cloud OpenFeign adapters.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose a Spring HTTP client from execution model and contract ownership",
+      "Design pools, deadline phases, cancellation, retries, and context propagation",
+      "Evolve current Shopverse Feign clients without duplicating deep Feign or reactive guides"
+    ],
+    "technologies": [
+      "Spring Framework 7",
+      "RestClient",
+      "WebClient",
+      "HTTP Service Clients",
+      "OpenFeign"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "REST OpenAPI And Contract Governance",
+    "permalink": "/shopverse/development/spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE"
+  },
+  "next": {
+    "title": "Spring REST Testing",
+    "permalink": "/shopverse/development/spring-rest/REST-TESTING"
+  }
+}

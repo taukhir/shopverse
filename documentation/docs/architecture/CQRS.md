@@ -216,4 +216,4 @@ the operational dashboard without joining service-owned databases.
 - [SAGA And Outbox](../reliability/SAGA-GENERIC.md)
 - [Spring Kafka](../spring/SPRING-KAFKA.md)
 - [Spring Data JPA](../spring/SPRING-DATA-JPA.md)
-
+- [Retail Order Metrics And Analytics At Scale](retail/RETAIL-ORDER-METRICS-ANALYTICS.md)

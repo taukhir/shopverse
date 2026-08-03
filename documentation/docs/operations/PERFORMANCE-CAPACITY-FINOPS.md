@@ -49,6 +49,11 @@ and failure headroom—not the point where the system crashes. Identify the firs
 saturated resource, its concurrency demand, service time, queueing, and scaling
 unit. Validate N-1 node/zone, deployments, backups, rebalancing, and seasonal peaks.
 
+If adding replicas does not increase throughput, locate the first saturated resource
+before scaling again. Common shared limits are database connections,
+locks, broker partitions, downstream quotas, pool capacity, and queueing at a
+serialized stage.
+
 Apply admission control and bounded queues. Scaling stateless pods when the
 database is saturated increases connections and work, worsening collapse.
 

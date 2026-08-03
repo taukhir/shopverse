@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE",
+  "title": "Java Overloading And Method Resolution Deep Dive",
+  "description": "Applicability phases, widening, boxing, varargs, null, generics, lambdas and source compatibility with many scenarios.",
+  "source": "@site/docs/java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE",
+  "permalink": "/shopverse/java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Overloading And Method Resolution Deep Dive",
+    "description": "Applicability phases, widening, boxing, varargs, null, generics, lambdas and source compatibility with many scenarios.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Enums",
+    "permalink": "/shopverse/java/JAVA-ENUMS"
+  },
+  "next": {
+    "title": "Java Overriding, Method Hiding And Field Hiding Deep Dive",
+    "permalink": "/shopverse/java/JAVA-OVERRIDING-HIDING-DEEP-DIVE"
+  }
+}

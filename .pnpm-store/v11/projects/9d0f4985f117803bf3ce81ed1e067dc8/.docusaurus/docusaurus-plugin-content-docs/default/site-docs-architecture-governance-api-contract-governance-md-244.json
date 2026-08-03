@@ -1,0 +1,48 @@
+{
+  "id": "architecture/governance/API-CONTRACT-GOVERNANCE",
+  "title": "API Contract Lifecycle, OpenAPI, Versioning, And Deprecation",
+  "description": "Govern HTTP and RPC APIs from design through lint, generation, compatibility, security, consumer testing, versioning, deprecation, retirement, and production telemetry.",
+  "source": "@site/docs/architecture/governance/API-CONTRACT-GOVERNANCE.md",
+  "sourceDirName": "architecture/governance",
+  "slug": "/architecture/governance/API-CONTRACT-GOVERNANCE",
+  "permalink": "/shopverse/architecture/governance/API-CONTRACT-GOVERNANCE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/governance/API-CONTRACT-GOVERNANCE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "API Contract Lifecycle, OpenAPI, Versioning, And Deprecation",
+    "description": "Govern HTTP and RPC APIs from design through lint, generation, compatibility, security, consumer testing, versioning, deprecation, retirement, and production telemetry.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "API And Event Schema Governance Path"
+    ],
+    "learning_objectives": [
+      "Design stable API contracts",
+      "Automate meaningful compatibility checks",
+      "Deprecate and retire versions safely"
+    ],
+    "technologies": [
+      "OpenAPI",
+      "REST",
+      "gRPC"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "API And Event Schema Governance Path",
+    "permalink": "/shopverse/architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH"
+  },
+  "next": {
+    "title": "Event Contracts, Schema Registry, Avro, Protobuf, And JSON Schema",
+    "permalink": "/shopverse/architecture/governance/EVENT-SCHEMA-REGISTRY-GOVERNANCE"
+  }
+}

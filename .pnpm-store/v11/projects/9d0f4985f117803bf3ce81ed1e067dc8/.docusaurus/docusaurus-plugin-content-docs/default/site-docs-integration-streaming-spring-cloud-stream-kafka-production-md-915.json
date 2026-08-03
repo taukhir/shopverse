@@ -1,0 +1,50 @@
+{
+  "id": "integration/streaming/SPRING-CLOUD-STREAM-KAFKA-PRODUCTION",
+  "title": "Spring Cloud Stream Kafka Binder Production Engineering",
+  "description": "Production coverage of partitioning, retries, DLQ, offsets, transactions, idempotency, security, observability, tuning, deployment, and incident diagnosis.",
+  "source": "@site/docs/integration/streaming/SPRING-CLOUD-STREAM-KAFKA-PRODUCTION.md",
+  "sourceDirName": "integration/streaming",
+  "slug": "/integration/streaming/SPRING-CLOUD-STREAM-KAFKA-PRODUCTION",
+  "permalink": "/shopverse/integration/streaming/SPRING-CLOUD-STREAM-KAFKA-PRODUCTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/integration/streaming/SPRING-CLOUD-STREAM-KAFKA-PRODUCTION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Cloud Stream Kafka Binder Production Engineering",
+    "description": "Production coverage of partitioning, retries, DLQ, offsets, transactions, idempotency, security, observability, tuning, deployment, and incident diagnosis.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Cloud Stream functions and bindings",
+      "Kafka consumer groups"
+    ],
+    "learning_objectives": [
+      "Configure Kafka binder reliability",
+      "Diagnose lag and recovery failures",
+      "Explain exactly-once boundaries"
+    ],
+    "technologies": [
+      "Spring Cloud Stream",
+      "Kafka Binder",
+      "Spring Kafka",
+      "Apache Kafka"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-integration",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Cloud Stream Functions Bindings And Internals",
+    "permalink": "/shopverse/integration/streaming/SPRING-CLOUD-STREAM-FUNCTIONS-BINDINGS"
+  },
+  "next": {
+    "title": "Kafka Streams Overview",
+    "permalink": "/shopverse/integration/streaming/KAFKA-STREAMS-OVERVIEW"
+  }
+}

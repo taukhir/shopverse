@@ -1,0 +1,61 @@
+{
+  "id": "data-structures/DSA-INTERVIEW-QUESTION-BANK",
+  "title": "Java DSA Interview Question Bank",
+  "description": "Searchable Java interview handbook with 295 questions across fifteen core algorithm and data-structure families.",
+  "source": "@site/docs/data-structures/DSA-INTERVIEW-QUESTION-BANK.mdx",
+  "sourceDirName": "data-structures",
+  "slug": "/data-structures/DSA-INTERVIEW-QUESTION-BANK",
+  "permalink": "/shopverse/data-structures/DSA-INTERVIEW-QUESTION-BANK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/DSA-INTERVIEW-QUESTION-BANK.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java DSA Interview Question Bank",
+    "description": "Searchable Java interview handbook with 295 questions across fifteen core algorithm and data-structure families.",
+    "difficulty": "Advanced",
+    "page_type": "Workbook",
+    "status": "maintained",
+    "keywords": [
+      "Java interview",
+      "DSA",
+      "arrays",
+      "strings",
+      "two pointers",
+      "hashing",
+      "linked list",
+      "heap",
+      "priority queue"
+    ],
+    "learning_objectives": [
+      "Practice 295 curated problems across fifteen high-frequency interview topics",
+      "Filter questions by LeetCode number, difficulty, pattern, priority, description, and reported company association",
+      "Explain constraints, alternatives, complexity, edge cases, and production-quality Java choices"
+    ],
+    "technologies": [
+      "Java",
+      "Array",
+      "HashMap",
+      "HashSet",
+      "LinkedList",
+      "Deque",
+      "PriorityQueue",
+      "Tree"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Revision And Interview Questions",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-INTERVIEW-REVISION"
+  },
+  "next": {
+    "title": "Git Engineering Guide",
+    "permalink": "/shopverse/operations/GIT-COMMANDS"
+  }
+}

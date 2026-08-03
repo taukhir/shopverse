@@ -1,0 +1,47 @@
+{
+  "id": "leadership/interview-program/DAY-ZERO-DIAGNOSTIC-ASSESSMENT",
+  "title": "Day-Zero Lead And Architect Diagnostic Assessment",
+  "description": "Closed-book timed baseline across Java, Spring, data, Kafka, microservices, platform diagnosis, system design, incidents, leadership, and financial systems.",
+  "source": "@site/docs/leadership/interview-program/DAY-ZERO-DIAGNOSTIC-ASSESSMENT.md",
+  "sourceDirName": "leadership/interview-program",
+  "slug": "/leadership/interview-program/DAY-ZERO-DIAGNOSTIC-ASSESSMENT",
+  "permalink": "/shopverse/leadership/interview-program/DAY-ZERO-DIAGNOSTIC-ASSESSMENT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/interview-program/DAY-ZERO-DIAGNOSTIC-ASSESSMENT.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Day-Zero Lead And Architect Diagnostic Assessment",
+    "description": "Closed-book timed baseline across Java, Spring, data, Kafka, microservices, platform diagnosis, system design, incidents, leadership, and financial systems.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Target role selected",
+      "uninterrupted assessment window"
+    ],
+    "technologies": [
+      "Java",
+      "Spring",
+      "Kafka",
+      "SQL",
+      "Kubernetes",
+      "Architecture"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "MCQ Practice Center",
+    "permalink": "/shopverse/leadership/interview-program/MCQ-PRACTICE-CENTER"
+  },
+  "next": {
+    "title": "Day-Zero Assessor Scoring And Documentation Routing",
+    "permalink": "/shopverse/leadership/interview-program/DAY-ZERO-ASSESSOR-SCORING-ROUTING"
+  }
+}

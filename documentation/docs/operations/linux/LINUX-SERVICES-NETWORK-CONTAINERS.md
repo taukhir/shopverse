@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Linux Filesystems And Storage]
 learning_objectives: [Diagnose service lifecycle and logs, Inspect sockets and namespaces, Connect container symptoms to host cgroups and kernel]
 technologies: [systemd, journald, iproute2, nftables, namespaces, cgroups]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-operations
 reviewer: documentation-maintainers
@@ -63,6 +63,9 @@ externally; binding all interfaces increases exposure and requires firewall/auth
 
 Connection states reveal backlog/SYN problems, many `TIME_WAIT`, failed peer close, or application
 leaks. Do not tune TCP parameters before determining request behavior and port/connection ownership.
+
+`TIME_WAIT` normally protects TCP correctness after an active close. Persistent `CLOSE_WAIT` means the peer has
+closed but the local process has not closed its socket, commonly indicating an application resource leak.
 
 ## DNS And Connectivity Tools
 
@@ -138,4 +141,3 @@ neighbors, affinity and thread pool; host aggregate idle does not remove local q
 ## Recommended Next
 
 Finish with [Incident Runbooks, Labs, Interview Questions, And Revision](./LINUX-INCIDENT-LABS-REVISION.md).
-

@@ -176,6 +176,15 @@ and stores, but cannot transact an arbitrary external side effect.
 **How do you deploy an incompatible topology change?** Prefer a parallel application
 ID/output, rebuild, compare, and cut over, with a rollback path.
 
+## Applied Retail Projection
+
+For a complete keyed-state example that turns versioned order lifecycle events
+into current-status and daily metric snapshots, then sinks them idempotently to
+ClickHouse, see
+[Retail Order Metrics And Analytics At Scale](../../architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS.md).
+It applies the state-store, changelog, late-event, external-side-effect, rebuild,
+and observability rules from this guide to a production dashboard.
+
 ## Official References
 
 - [Kafka Streams developer guide](https://kafka.apache.org/documentation/streams/developer-guide/)
@@ -186,4 +195,3 @@ ID/output, rebuild, compare, and cut over, with a rollback path.
 ## Recommended Next
 
 Continue with [Kafka Connect Overview](./KAFKA-CONNECT-OVERVIEW.md).
-

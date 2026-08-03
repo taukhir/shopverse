@@ -14,6 +14,14 @@ review_evidence: repository-content-audit
 
 # REST API Design
 
+## REST Request Lifecycle
+
+```mermaid
+flowchart LR
+    Request --> Authenticate --> Authorize --> Validate --> Execute --> Represent --> Respond
+    Execute --> Error["Domain or infrastructure error"] --> Problem["Consistent problem response"] --> Respond
+```
+
 REST stands for **Representational State Transfer**. It is an architectural
 style for exposing resources through standard HTTP semantics. In a REST API,
 clients operate on resource representations, usually JSON, using HTTP methods

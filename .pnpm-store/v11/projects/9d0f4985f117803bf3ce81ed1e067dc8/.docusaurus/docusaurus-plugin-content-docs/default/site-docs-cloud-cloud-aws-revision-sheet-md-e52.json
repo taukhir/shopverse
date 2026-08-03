@@ -1,0 +1,53 @@
+{
+  "id": "cloud/CLOUD-AWS-REVISION-SHEET",
+  "title": "Cloud And AWS Revision Sheet",
+  "description": "Rapid revision of cloud responsibility, networking, compute, storage, databases, events, high availability, security, and cost.",
+  "source": "@site/docs/cloud/CLOUD-AWS-REVISION-SHEET.md",
+  "sourceDirName": "cloud",
+  "slug": "/cloud/CLOUD-AWS-REVISION-SHEET",
+  "permalink": "/shopverse/cloud/CLOUD-AWS-REVISION-SHEET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/cloud/CLOUD-AWS-REVISION-SHEET.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cloud And AWS Revision Sheet",
+    "description": "Rapid revision of cloud responsibility, networking, compute, storage, databases, events, high availability, security, and cost.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Cloud Computing"
+    ],
+    "learning_objectives": [
+      "Recall cloud architecture concepts quickly",
+      "Map requirements to AWS services",
+      "Review availability security and cost trade-offs"
+    ],
+    "technologies": [
+      "AWS",
+      "VPC",
+      "EC2",
+      "ECS",
+      "Lambda",
+      "S3",
+      "RDS",
+      "DynamoDB"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-cloud",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "EKS Operations, Incidents, Labs, And Interviews",
+    "permalink": "/shopverse/cloud/aws/eks/EKS-OPERATIONS-INTERVIEW"
+  },
+  "next": {
+    "title": "Production Platform Engineering",
+    "permalink": "/shopverse/architecture/PRODUCTION-PLATFORM-ENGINEERING"
+  }
+}

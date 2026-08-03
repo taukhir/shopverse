@@ -1,0 +1,43 @@
+{
+  "id": "operations/DOCKER-MCQ-PRACTICE",
+  "title": "Docker MCQ Practice",
+  "description": "Timed Docker MCQs covering images, runtime internals, networking, storage, security, and troubleshooting.",
+  "source": "@site/docs/operations/DOCKER-MCQ-PRACTICE.mdx",
+  "sourceDirName": "operations",
+  "slug": "/operations/DOCKER-MCQ-PRACTICE",
+  "permalink": "/shopverse/operations/DOCKER-MCQ-PRACTICE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/DOCKER-MCQ-PRACTICE.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Docker MCQ Practice",
+    "description": "Timed Docker MCQs covering images, runtime internals, networking, storage, security, and troubleshooting.",
+    "difficulty": "All Levels",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Docker Architect Path"
+    ],
+    "technologies": [
+      "Docker",
+      "OCI",
+      "Containers"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker Beginner-To-Architect Path",
+    "permalink": "/shopverse/operations/DOCKER-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Docker Production Mastery",
+    "permalink": "/shopverse/operations/docker/DOCKER-PRODUCTION-MASTERY"
+  }
+}

@@ -15,6 +15,14 @@ review_evidence: repository-content-audit
 
 # Day-Zero Assessor Scoring And Documentation Routing
 
+## Assessment Routing Flow
+
+```mermaid
+flowchart LR
+    Evidence["Observed answer evidence"] --> Score["Score against anchored rubric"] --> Gap["Identify the dominant gap"]
+    Gap --> Route["Route to focused learning pages"] --> Practice["Assign a measurable exercise"] --> Reassess
+```
+
 Open this only after completing the
 [Day-Zero Diagnostic Assessment](./DAY-ZERO-DIAGNOSTIC-ASSESSMENT.md). This is an assessor signal
 guide, not a script of perfect answers. Accept sound alternatives when assumptions and trade-offs

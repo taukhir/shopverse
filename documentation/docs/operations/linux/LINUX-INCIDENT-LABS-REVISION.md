@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Linux Services Network And Containers]
 learning_objectives: [Run Linux incident triage, Complete diagnostic labs, Answer production troubleshooting interviews]
 technologies: [Linux, systemd, procfs, cgroups]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-operations
 reviewer: documentation-maintainers
@@ -82,6 +82,68 @@ Use an isolated VM/container lab with explicit cleanup and resource limits:
 - `ss`: listener/connection state, local/remote endpoint and owning process?
 - `journalctl`: correct boot/unit/time and persistent/rotated logs?
 - `/proc`: snapshot race, permissions, namespace and kernel-version meaning?
+
+## Production Interview Questions
+
+### Load average versus CPU utilization?
+
+Linux load includes runnable tasks and tasks in uninterruptible wait, commonly storage I/O. High load with low
+CPU can therefore indicate blocked work. Compare run queue, blocked tasks, PSI, device latency and per-thread
+state before adding CPU.
+
+### Free memory, available memory, page cache, swap, and OOM?
+
+Linux uses spare memory for reclaimable cache, so `free` alone is misleading; `MemAvailable`, reclaim pressure,
+swap activity and PSI better show risk. A cgroup can OOM below host capacity. Identify the selected process and
+heap/native/file/tmpfs consumers before changing limits.
+
+### Process, thread, PID, and file-descriptor limits?
+
+A process owns an address space and resources; threads share much of that state but have distinct scheduling
+and stacks. PID/cgroup task limits and per-process/system file tables are finite. Inspect the exact limit and
+owner rather than raising it over a leak.
+
+### Disk bytes versus inode exhaustion?
+
+`df -h` reports allocated blocks while `df -i` reports inodes; either can prevent writes. `du` sees reachable
+paths and can disagree with `df` because of deleted-open files, mounts, snapshots or reserved blocks. Find the
+owning process and filesystem before cleanup.
+
+### What does high I/O wait mean?
+
+It indicates CPU idle time while tasks await I/O, but it does not name the device or root cause. Correlate
+process I/O, device queue/latency/utilization, filesystem, network storage and kernel errors. Cache misses,
+writeback, throttling and storage contention have different remedies.
+
+### SIGTERM versus SIGKILL?
+
+SIGTERM is catchable and enables graceful drain/checkpoint/cleanup; SIGKILL cannot be handled and immediately
+stops execution. PID 1 and supervisors affect signal forwarding and child reaping. Use KILL only as bounded
+containment after considering data and evidence loss.
+
+### Why does a systemd service work in a shell but fail as a unit?
+
+The unit may have a different user, environment, working directory, PATH, limits, capabilities, namespace and
+sandbox. Inspect the effective unit, journal, exit status and dependency ordering; do not copy an interactive
+shell environment or run it as root as the default fix.
+
+### Permission denied despite apparently correct mode bits?
+
+Check every parent directory traversal bit, effective UID/GID and supplementary groups, ACLs, mount flags,
+read-only state, capabilities and SELinux/AppArmor policy. Container user-namespace mappings and host volume
+ownership can make numeric identities differ from expectations.
+
+### LISTEN, ESTABLISHED, TIME_WAIT, and CLOSE_WAIT?
+
+LISTEN accepts new connections; ESTABLISHED has an active connection; TIME_WAIT protects correctness after an
+active close; CLOSE_WAIT means the peer closed but the local application has not. Persistent CLOSE_WAIT often
+indicates a local close leak, while TIME_WAIT alone is not a leak.
+
+### Host view versus container/cgroup view?
+
+Namespaces alter visible processes, networks, mounts and hostnames; cgroups bound CPU, memory, PIDs and I/O.
+Host tools may show spare capacity while the container throttles or OOMs. Correlate container metrics with the
+owning host cgroup, kernel, storage and network namespace.
 
 ## One-Page Revision
 

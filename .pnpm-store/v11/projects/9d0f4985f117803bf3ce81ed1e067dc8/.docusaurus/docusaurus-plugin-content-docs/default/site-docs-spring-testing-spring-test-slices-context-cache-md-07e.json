@@ -1,0 +1,47 @@
+{
+  "id": "spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE",
+  "title": "Spring Test Slices And TestContext Cache",
+  "description": "Spring Boot 4 focused test modules, slice ownership, TestContext cache keys, failure thresholds, context diagnostics, bean overrides, and suite startup performance.",
+  "source": "@site/docs/spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md",
+  "sourceDirName": "spring/testing",
+  "slug": "/spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE",
+  "permalink": "/shopverse/spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/testing/SPRING-TEST-SLICES-CONTEXT-CACHE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Test Slices And TestContext Cache",
+    "description": "Spring Boot 4 focused test modules, slice ownership, TestContext cache keys, failure thresholds, context diagnostics, bean overrides, and suite startup performance.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose a Boot test slice whose loaded boundary matches the claim",
+      "Diagnose context-cache fragmentation and repeated startup failures",
+      "Use bean overrides, profiles, dynamic properties, and DirtiesContext deliberately"
+    ],
+    "technologies": [
+      "Spring Boot 4",
+      "Spring TestContext",
+      "JUnit",
+      "MockitoBean"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Mockito And Unit Testing",
+    "permalink": "/shopverse/spring/testing/MOCKITO-UNIT-TESTING"
+  },
+  "next": {
+    "title": "Spring MVC Repository And Security Tests",
+    "permalink": "/shopverse/spring/testing/SPRING-MVC-REPOSITORY-SECURITY-TESTS"
+  }
+}

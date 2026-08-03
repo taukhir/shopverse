@@ -1,0 +1,45 @@
+{
+  "id": "data/database-selection/VECTOR-DATABASES",
+  "title": "Vector Databases",
+  "description": "A vector index finds embeddings that are near a query vector. It supports RAG,",
+  "source": "@site/docs/data/database-selection/VECTOR-DATABASES.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/VECTOR-DATABASES",
+  "permalink": "/shopverse/data/database-selection/VECTOR-DATABASES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/VECTOR-DATABASES.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Vector Databases",
+    "sidebar_position": 4,
+    "difficulty": "Intermediate",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose pgvector or a dedicated vector database",
+      "Separate authoritative data from vector indexes"
+    ],
+    "technologies": [
+      "pgvector",
+      "PostgreSQL",
+      "CockroachDB"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Specialized Databases",
+    "permalink": "/shopverse/data/database-selection/SPECIALIZED-DATABASES"
+  },
+  "next": {
+    "title": "Indexes And Query Plans",
+    "permalink": "/shopverse/data/database-selection/INDEXES-QUERY-PLANS"
+  }
+}

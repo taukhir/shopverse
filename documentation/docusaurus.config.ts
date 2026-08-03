@@ -102,9 +102,21 @@ const config: Config = {
         indexBlog: false,
         docsDir: 'docs',
         docsRouteBasePath: '/',
-        // Keep full-text prose search while avoiding a duplicated index of large
-        // command/code blocks. Code remains visible and searchable on each page.
-        ignoreCssSelectors: ['pre', '.theme-code-block'],
+        // Navigation/aggregate pages repeat guide titles that are indexed at
+        // their canonical routes, so omit that duplicate search content.
+        ignoreFiles: ['DOCUMENTATION-INDEX', 'case-study/SHOPVERSE'],
+        // Keep full-text prose search while excluding code, diagram labels, and
+        // repeated reader UI. Guide headings and explanations remain searchable.
+        ignoreCssSelectors: [
+          'pre',
+          '.theme-code-block',
+          '.docusaurus-mermaid-container',
+          '.reading-metadata',
+          '[aria-label="Reader actions"]',
+          '[aria-label="Content freshness"]',
+          '[aria-label="Guide details"]',
+          '[aria-labelledby="topics-covered-title"]',
+        ],
         highlightSearchTermsOnTargetPage: false,
         explicitSearchResultPath: true,
       },

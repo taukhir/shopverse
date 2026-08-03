@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Java functions, Spring Boot basics]
 learning_objectives: [Explain Spring Cloud Stream without jargon, Map functions to broker destinations, Choose between Spring Cloud Stream and Spring Kafka]
 technologies: [Spring Cloud Stream, Spring Cloud Function, Kafka Binder]
-last_reviewed: "2026-07-23"
+last_reviewed: "2026-07-31"
 scope: generic
 owner: docs-integration
 reviewer: documentation-maintainers
@@ -83,6 +83,42 @@ spring:
 
 Different responsibilities need different groups. Instances of the same
 responsibility use the same group and divide partitions among themselves.
+
+## How A Service Knows Which Message To Handle
+
+The broker does not infer business ownership. A service acts because its code
+and configuration explicitly connect a handler to a public message contract:
+
+```text
+publisher owns event contract
+-> broker destination/topic carries the event
+-> consumer binding or listener subscribes to that destination
+-> consumer group identifies one logical consuming responsibility
+-> handler validates the contract and applies its owned business action
+```
+
+For example, Inventory subscribes its `reserveInventory` handler to
+`orders.created`. All Inventory replicas use the same `inventory-service` group,
+so they share that work. Analytics would use a different group to receive its
+own copy of the event. Two unrelated services must not share a group merely
+because they subscribe to the same topic; they would compete and each service
+would miss some records.
+
+Document every integration with an event catalog or AsyncAPI-style contract:
+
+| Message | Owner/publisher | Intended consumers | Consumer action |
+|---|---|---|---|
+| `OrderCreated` | Order | Inventory, analytics | reserve stock; update projection |
+| `InventoryReserved` | Inventory | Order/checkout, Payment | advance state; request/process payment |
+| `InventoryFailed` | Inventory | Order/checkout | reject or compensate order |
+| `PaymentCompleted` | Payment | Order/checkout | confirm order |
+| `PaymentFailed` | Payment | Order/checkout, Inventory | fail order; release reservation |
+
+The contract includes payload/schema, message type and version, publisher,
+destination, key/ordering rule, consumer groups, retry/DLT policy, and ownership.
+Schema Registry, JSON Schema, Avro, Protobuf, and AsyncAPI can enforce or publish
+parts of that agreement, but architecture still decides which service has a
+genuine business reaction.
 
 ## Supplier, Function, Consumer
 
@@ -169,4 +205,3 @@ Before continuing, explain aloud:
 ## Recommended Next
 
 Continue with [Functions, Bindings, And Runtime Internals](./SPRING-CLOUD-STREAM-FUNCTIONS-BINDINGS.md).
-

@@ -13,6 +13,14 @@ review_evidence: repository-content-audit
 
 # Java Senior Labs And Architecture Interview Workbook
 
+## Senior Java Investigation Loop
+
+```mermaid
+flowchart LR
+    S["Reproduce the symptom"] --> E["Collect JVM evidence"] --> H["Form a runtime hypothesis"]
+    H --> X["Run a controlled experiment"] --> M["Measure behavior and trade-offs"] --> S
+```
+
 <DocLabels items={[
   {label: 'Advanced Java', tone: 'advanced'},
   {label: 'Executable labs', tone: 'intermediate'},

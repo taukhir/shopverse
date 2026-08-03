@@ -1,0 +1,36 @@
+{
+  "id": "ai/BEGINNER-TO-ADVANCED-GUIDE",
+  "title": "Beginner To Advanced AI Guide",
+  "description": "This is the high-level mastery path. Use it as the map for all AI notes in this",
+  "source": "@site/docs/ai/BEGINNER-TO-ADVANCED-GUIDE.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/BEGINNER-TO-ADVANCED-GUIDE",
+  "permalink": "/shopverse/ai/BEGINNER-TO-ADVANCED-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/BEGINNER-TO-ADVANCED-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1.5,
+  "frontMatter": {
+    "title": "Beginner To Advanced AI Guide",
+    "sidebar_position": 1.5,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI RAG Agents And Java AI Revision Sheet",
+    "permalink": "/shopverse/ai/AI-REVISION-SHEET"
+  },
+  "next": {
+    "title": "Beginner To Advanced AI Guide",
+    "permalink": "/shopverse/ai/BEGINNER-TO-ADVANCED-GUIDE"
+  }
+}

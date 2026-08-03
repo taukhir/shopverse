@@ -15,6 +15,17 @@ review_evidence: repository-content-audit
 
 # Array Problems 11-20: Marking, DP, Two Pointers, And Matrices
 
+## Pattern Selection Map
+
+```mermaid
+flowchart TD
+    A["Array problem"] --> Q{"Dominant constraint"}
+    Q -->|"Missing or duplicate values"| M["In-place marking"]
+    Q -->|"Best contiguous result"| D["Dynamic programming"]
+    Q -->|"Sorted pair or partition"| T["Two pointers"]
+    Q -->|"Rows and columns"| X["Matrix traversal"]
+```
+
 ## 11. Missing Number
 
 XOR cancels paired values and avoids arithmetic-sum overflow.

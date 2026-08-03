@@ -1,0 +1,34 @@
+{
+  "id": "security/jwt/JWT-BEST-PRACTICES",
+  "title": "JWT Best Practices",
+  "description": "JWTs are bearer credentials. Anyone who has a valid token can use it until it",
+  "source": "@site/docs/security/jwt/JWT-BEST-PRACTICES.md",
+  "sourceDirName": "security/jwt",
+  "slug": "/security/jwt/JWT-BEST-PRACTICES",
+  "permalink": "/shopverse/security/jwt/JWT-BEST-PRACTICES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/jwt/JWT-BEST-PRACTICES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JWT Best Practices",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JWT Claims Roles And Scopes",
+    "permalink": "/shopverse/security/jwt/JWT-CLAIMS-ROLES-SCOPES"
+  },
+  "next": {
+    "title": "OAuth2 Fundamentals",
+    "permalink": "/shopverse/security/oauth/OAUTH2-FUNDAMENTALS"
+  }
+}

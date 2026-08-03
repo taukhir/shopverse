@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [TCP Connection Diagnosis]
 learning_objectives: [Explain secure connection negotiation, Diagnose certificates and trust, Operate HTTP/2 pools and streams safely]
 technologies: [TLS 1.3, X.509, HTTP/1.1, HTTP/2]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-architecture
 reviewer: documentation-maintainers
@@ -94,6 +94,12 @@ is idempotent or protected by durable idempotency and when the protocol outcome 
 
 ## Proxy And Load-Balancer Hops
 
+### HTTP/3 And QUIC Boundary
+
+HTTP/3 maps HTTP semantics onto QUIC streams over UDP. Independent transport streams reduce TCP-style
+head-of-line coupling, but UDP reachability, TLS integration, proxy support, observability and fallback must
+work across every hop. Verify the negotiated protocol rather than inferring HTTP/3 from client support.
+
 TLS may terminate and originate at multiple hops. Record client-facing and upstream protocol, SNI, certificate,
 header normalization, source identity, timeout, connection reuse and trace propagation. HTTP/2 on the client
 side does not imply HTTP/2 upstream. Misaligned idle timeouts cause resets on pooled connections.
@@ -128,4 +134,3 @@ streams share TCP and can stall on packet loss.
 ## Recommended Next
 
 Finish with [End-To-End Incidents, Packet Analysis, Labs, Interviews, And Revision](./NETWORK-INCIDENT-LABS-REVISION.md).
-

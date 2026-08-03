@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-SERIALIZATION-INTERNALS",
+  "title": "Native Java Serialization Internals And Object Graphs",
+  "description": "How ObjectOutputStream and ObjectInputStream process descriptors, handles, graphs, constructors, transient state, and customization hooks.",
+  "source": "@site/docs/java/JAVA-SERIALIZATION-INTERNALS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-SERIALIZATION-INTERNALS",
+  "permalink": "/shopverse/java/JAVA-SERIALIZATION-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-SERIALIZATION-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Native Java Serialization Internals And Object Graphs",
+    "description": "How ObjectOutputStream and ObjectInputStream process descriptors, handles, graphs, constructors, transient state, and customization hooks.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "last_reviewed": "2026-07-16",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Serialization",
+    "permalink": "/shopverse/java/JAVA-SERIALIZATION"
+  },
+  "next": {
+    "title": "Java Serialization Versioning, Security And Safe Evolution",
+    "permalink": "/shopverse/java/JAVA-SERIALIZATION-EVOLUTION-SECURITY"
+  }
+}

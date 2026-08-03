@@ -1,0 +1,57 @@
+{
+  "id": "data/DATABASE-CONSISTENCY-SCALING",
+  "title": "Database Consistency And Scaling",
+  "description": "Database Consistency And Scaling with Shopverse examples, failure analysis, and production guidance.",
+  "source": "@site/docs/data/DATABASE-CONSISTENCY-SCALING.md",
+  "sourceDirName": "data",
+  "slug": "/data/DATABASE-CONSISTENCY-SCALING",
+  "permalink": "/shopverse/data/DATABASE-CONSISTENCY-SCALING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATABASE-CONSISTENCY-SCALING.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Database Consistency And Scaling",
+    "description": "Database Consistency And Scaling with Shopverse examples, failure analysis, and production guidance.",
+    "sidebar_label": "Database Consistency And Scaling",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Relational Modeling And Query Performance",
+    "permalink": "/shopverse/data/RELATIONAL-MODELING-QUERY-PERFORMANCE"
+  },
+  "next": {
+    "title": "Database Engine Internals",
+    "permalink": "/shopverse/data/DATABASE-ENGINE-INTERNALS"
+  }
+}

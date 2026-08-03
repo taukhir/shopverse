@@ -1,0 +1,36 @@
+{
+  "id": "architecture/SERVICE-DISCOVERY",
+  "title": "Service Discovery",
+  "description": "Service discovery maps a stable logical service name to changing network",
+  "source": "@site/docs/architecture/SERVICE-DISCOVERY.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/SERVICE-DISCOVERY",
+  "permalink": "/shopverse/architecture/SERVICE-DISCOVERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/SERVICE-DISCOVERY.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Service Discovery",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Advanced Spring Cloud Gateway",
+    "permalink": "/shopverse/development/SPRING-CLOUD-GATEWAY-ADVANCED"
+  },
+  "next": {
+    "title": "Load Balancing",
+    "permalink": "/shopverse/architecture/LOAD-BALANCING-GENERIC"
+  }
+}

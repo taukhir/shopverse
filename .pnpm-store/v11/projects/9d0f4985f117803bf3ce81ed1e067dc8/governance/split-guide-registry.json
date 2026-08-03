@@ -1,0 +1,206 @@
+[
+  {
+    "index": "case-study/COMPLETE-DEMO",
+    "pages": [
+      "case-study/COMPLETE-DEMO-SETUP-CHECKOUT",
+      "case-study/COMPLETE-DEMO-RECOVERY-OBSERVABILITY"
+    ]
+  },
+  {
+    "index": "architecture/hld-lld/CAPACITY-PERFORMANCE-ESTIMATION",
+    "pages": [
+      "architecture/hld-lld/CAPACITY-ESTIMATION-FUNDAMENTALS",
+      "architecture/hld-lld/PERFORMANCE-CAPACITY-MODELS",
+      "architecture/hld-lld/SHOPVERSE-CAPACITY-WORKED-EXAMPLE"
+    ]
+  },
+  {
+    "index": "reliability/problems/runtime/ATOMIC-RESERVATION-CLAIM",
+    "pages": [
+      "reliability/problems/runtime/RESERVATION-CONTENTION-STATE-MODEL",
+      "reliability/problems/runtime/ATOMIC-CONDITIONAL-RESERVATION-CLAIM",
+      "reliability/problems/runtime/RESERVATION-TRANSACTION-IMPLEMENTATION"
+    ]
+  },
+  {
+    "index": "operations/DEPLOYMENT-STRATEGIES",
+    "pages": [
+      "operations/DEPLOYMENT-STRATEGY-SELECTION",
+      "operations/DEPLOYMENT-TRAFFIC-ROLLBACK",
+      "operations/DEPLOYMENT-CONTRACTS-RELEASE-GATES"
+    ]
+  },
+  {
+    "index": "development/API-GATEWAY-GENERIC",
+    "pages": [
+      "development/API-GATEWAY-ARCHITECTURE",
+      "development/API-GATEWAY-REACTIVE-FILTER-LIFECYCLE",
+      "development/API-GATEWAY-OPERATIONS"
+    ]
+  },
+  {
+    "index": "observability/MICROMETER-METRICS",
+    "pages": [
+      "observability/MICROMETER-COUNTERS",
+      "observability/MICROMETER-TIMERS-TAGS-OPERATIONS"
+    ]
+  },
+  {
+    "index": "reliability/RESILIENCE4J-GENERIC",
+    "pages": [
+      "reliability/RESILIENCE4J-RATE-LIMITER-BULKHEAD",
+      "reliability/RESILIENCE4J-RETRY-CIRCUIT-TIMEOUT",
+      "reliability/RESILIENCE4J-COMPOSITION-OPERATIONS"
+    ]
+  },
+  {
+    "index": "security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE",
+    "pages": [
+      "security/ACCESS-REFRESH-TOKEN-DESIGN",
+      "security/API-KEY-AUTHORIZATION-OPERATIONS"
+    ]
+  },
+  {
+    "index": "case-study/SHOPVERSE-ONBOARDING-ARCHITECTURE-AUDIT",
+    "pages": [
+      "case-study/SHOPVERSE-ARCHITECTURE-CURRENT-STATE",
+      "case-study/SHOPVERSE-ARCHITECTURE-REFACTORING-READINESS"
+    ]
+  },
+  {
+    "index": "ai/JAVA-AI-CODE-COOKBOOK",
+    "pages": [
+      "ai/JAVA-AI-REQUEST-RAG-PATTERNS",
+      "ai/JAVA-AI-TOOLS-SECURITY-PATTERNS"
+    ]
+  },
+  {
+    "index": "ai/LANGCHAIN4J-DEEP-DIVE",
+    "pages": [
+      "ai/LANGCHAIN4J-ARCHITECTURE-AI-SERVICES",
+      "ai/LANGCHAIN4J-TOOLS-MEMORY",
+      "ai/LANGCHAIN4J-RAG-SPRING-OPERATIONS"
+    ]
+  },
+  {
+    "index": "architecture/hld-lld/PERFORMANCE-CAPACITY-MODELS",
+    "pages": [
+      "architecture/hld-lld/PERFORMANCE-LATENCY-THROUGHPUT-MODELS",
+      "architecture/hld-lld/CAPACITY-STORAGE-QUEUE-POOL-MODELS"
+    ]
+  },
+  {
+    "index": "architecture/SYSTEM-DESIGN",
+    "pages": [
+      "architecture/SYSTEM-CONTEXT-SERVICE-OWNERSHIP",
+      "architecture/CHECKOUT-SECURITY-EVENT-FLOWS",
+      "architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES"
+    ]
+  },
+  {
+    "index": "case-study/COMPLETE-DEMO-SETUP-CHECKOUT",
+    "pages": [
+      "case-study/DEMO-PLATFORM-AUTHENTICATION",
+      "case-study/DEMO-SEED-CHECKOUT-SAGA"
+    ]
+  },
+  {
+    "index": "case-study/COMPLETE-DEMO-RECOVERY-OBSERVABILITY",
+    "pages": [
+      "case-study/DEMO-IDEMPOTENCY-OUTBOX-RECOVERY",
+      "case-study/DEMO-OBSERVABILITY-AUTOMATION"
+    ]
+  },
+  {
+    "index": "data/DATABASE-ENGINEERING",
+    "pages": [
+      "data/RELATIONAL-MODELING-QUERY-PERFORMANCE",
+      "data/DATABASE-CONSISTENCY-SCALING"
+    ]
+  },
+  {
+    "index": "development/DEBUGGING",
+    "pages": [
+      "development/DEBUGGING-REQUEST-PLATFORM",
+      "development/DEBUGGING-DATA-SAGA-KAFKA",
+      "development/DEBUGGING-OBSERVABILITY-RECOVERY"
+    ]
+  },
+  {
+    "index": "development/DESIGN-PATTERNS",
+    "pages": [
+      "development/DESIGN-PATTERNS-CREATIONAL-STRUCTURAL",
+      "development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED"
+    ]
+  },
+  {
+    "index": "development/ENGINEERING-PRINCIPLES",
+    "pages": [
+      "development/SOLID-JAVA-SHOPVERSE",
+      "development/PRODUCTION-DESIGN-PRINCIPLES"
+    ]
+  },
+  {
+    "index": "development/TESTING",
+    "pages": [
+      "development/TESTING-ARCHITECTURE-COVERAGE",
+      "development/TESTING-MODES-CI-TRIAGE"
+    ]
+  },
+  {
+    "index": "observability/MDC-CORRELATION-TRACING",
+    "pages": [
+      "observability/CORRELATION-IDENTIFIERS-HTTP-PROPAGATION",
+      "observability/MDC-KAFKA-ASYNC-PROPAGATION"
+    ]
+  },
+  {
+    "index": "operations/DOCUSAURUS",
+    "pages": [
+      "operations/DOCUSAURUS-AUTHORING-NAVIGATION",
+      "operations/DOCUSAURUS-COMPONENTS-DEPLOYMENT"
+    ]
+  },
+  {
+    "index": "operations/GIT-COMMANDS",
+    "pages": [
+      "operations/GIT-DAILY-SYNC-CONFLICTS",
+      "operations/GIT-HISTORY-RECOVERY-COLLABORATION"
+    ]
+  },
+  {
+    "index": "reference/FEATURES-AND-DEMOS",
+    "pages": [
+      "reference/FEATURES-SECURITY-CHECKOUT",
+      "reference/FEATURES-RELIABILITY-OBSERVABILITY"
+    ]
+  },
+  {
+    "index": "reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION",
+    "pages": [
+      "reliability/problems/runtime/RESOURCE-OWNERSHIP-SPEL-RUNTIME",
+      "reliability/problems/runtime/RESOURCE-OWNERSHIP-TESTS-OPERATIONS"
+    ]
+  },
+  {
+    "index": "reliability/SAGA-GENERIC",
+    "pages": [
+      "reliability/SAGA-CONSISTENCY-COMPENSATION",
+      "reliability/OUTBOX-DELIVERY-OPERATIONS"
+    ]
+  },
+  {
+    "index": "security/oauth/GOOGLE-AUTHENTICATION-SPRING",
+    "pages": [
+      "security/oauth/GOOGLE-OAUTH-CLIENT-SESSION",
+      "security/oauth/GOOGLE-OAUTH-BFF-TOKEN-PRODUCTION"
+    ]
+  },
+  {
+    "index": "security/JWT-OAUTH2-SPRING-SECURITY",
+    "pages": [
+      "security/JWT-LOGIN-VALIDATION-AUTHORITIES",
+      "security/SPRING-SECURITY-FILTERS-OWNERSHIP-ROADMAP"
+    ]
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "id": "operations/DOCKER-ARCHITECT-PATH",
+  "title": "Docker Beginner-To-Architect Path",
+  "description": "Complete Docker route through Engine and OCI runtime internals, images, BuildKit, storage, networking, Compose, security, production operations, troubleshooting, labs, interviews, and revision.",
+  "source": "@site/docs/operations/DOCKER-ARCHITECT-PATH.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/DOCKER-ARCHITECT-PATH",
+  "permalink": "/shopverse/operations/DOCKER-ARCHITECT-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/DOCKER-ARCHITECT-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Docker Beginner-To-Architect Path",
+    "description": "Complete Docker route through Engine and OCI runtime internals, images, BuildKit, storage, networking, Compose, security, production operations, troubleshooting, labs, interviews, and revision.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Linux process fundamentals",
+      "Networking fundamentals"
+    ],
+    "learning_objectives": [
+      "Trace a container from CLI to kernel",
+      "Build reproducible secure images",
+      "Diagnose storage network resource and runtime incidents",
+      "Design a governed container platform"
+    ],
+    "technologies": [
+      "Docker Engine",
+      "containerd",
+      "OCI",
+      "runc",
+      "BuildKit",
+      "Compose"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker Overview",
+    "permalink": "/shopverse/operations/DOCKER"
+  },
+  "next": {
+    "title": "Docker MCQ Practice",
+    "permalink": "/shopverse/operations/DOCKER-MCQ-PRACTICE"
+  }
+}

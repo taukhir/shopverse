@@ -1,0 +1,42 @@
+{
+  "id": "reference/DOCUMENTATION-QUALITY-AUDIT",
+  "title": "Documentation Quality Audit And Backlog",
+  "description": "The automated audit is advisory: it identifies pages needing human review rather",
+  "source": "@site/docs/reference/DOCUMENTATION-QUALITY-AUDIT.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/DOCUMENTATION-QUALITY-AUDIT",
+  "permalink": "/shopverse/reference/DOCUMENTATION-QUALITY-AUDIT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/DOCUMENTATION-QUALITY-AUDIT.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Documentation Quality Audit And Backlog",
+    "difficulty": "Beginner",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Understand current documentation quality gaps",
+      "Prioritize consolidation and visual work",
+      "Track structural remediation"
+    ],
+    "technologies": [
+      "Docusaurus"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Documentation Visual And Reference Standard",
+    "permalink": "/shopverse/reference/VISUAL-REFERENCE-STANDARD"
+  },
+  "next": {
+    "title": "Overview Coverage Audit",
+    "permalink": "/shopverse/reference/OVERVIEW-COVERAGE-AUDIT"
+  }
+}

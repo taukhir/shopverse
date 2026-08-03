@@ -101,6 +101,10 @@ next handler, compensate earlier work, or retry. Also decide whether a rejection
 is data, an exception, or an HTTP response. Consistency matters more than the
 linking mechanism.
 
+Define the terminal behavior too: the chain must say what happens when no
+handler accepts the request. An explicit default, rejection, or required final
+handler prevents silent success caused by a missing link.
+
 </DocCallout>
 
 ## Testing

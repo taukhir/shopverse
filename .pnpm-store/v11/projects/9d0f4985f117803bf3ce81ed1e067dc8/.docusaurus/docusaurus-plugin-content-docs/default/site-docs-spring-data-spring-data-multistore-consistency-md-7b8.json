@@ -1,0 +1,52 @@
+{
+  "id": "spring/data/SPRING-DATA-MULTISTORE-CONSISTENCY",
+  "title": "Spring Data Multi Store Consistency And Schema Evolution",
+  "description": "Transaction boundaries, outbox, CDC, idempotency, dual running, migrations, routing, privacy, backup, and datastore replacement.",
+  "source": "@site/docs/spring/data/SPRING-DATA-MULTISTORE-CONSISTENCY.md",
+  "sourceDirName": "spring/data",
+  "slug": "/spring/data/SPRING-DATA-MULTISTORE-CONSISTENCY",
+  "permalink": "/shopverse/spring/data/SPRING-DATA-MULTISTORE-CONSISTENCY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/data/SPRING-DATA-MULTISTORE-CONSISTENCY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Data Multi Store Consistency And Schema Evolution",
+    "description": "Transaction boundaries, outbox, CDC, idempotency, dual running, migrations, routing, privacy, backup, and datastore replacement.",
+    "difficulty": "Architect",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Transactions",
+      "event-driven architecture",
+      "Spring Data modules"
+    ],
+    "learning_objectives": [
+      "Design cross-store workflows",
+      "Evolve schemas safely",
+      "Plan datastore migrations and recovery"
+    ],
+    "technologies": [
+      "Spring Data",
+      "SQL",
+      "NoSQL",
+      "Kafka",
+      "Liquibase"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data Elasticsearch In Depth",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-ELASTICSEARCH"
+  },
+  "next": {
+    "title": "Spring Data Testing Observability Capacity And Incidents",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-TESTING-OPERATIONS"
+  }
+}

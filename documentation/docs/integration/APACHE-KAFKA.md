@@ -417,6 +417,7 @@ Kafka; rich routing and conventional work queues often favor RabbitMQ.
 - [Kafka And Spring Kafka Architect Overview](./KAFKA-ARCHITECT-OVERVIEW.md)
 - [Kafka Architect Learning Path](./KAFKA-ARCHITECT-PATH.md)
 - [Kafka Internals](./kafka/KAFKA-INTERNALS.md)
+- [Kafka Consumer Groups, Rebalancing, And Ordering](./kafka/KAFKA-CONSUMER-GROUPS-REBALANCING-ORDERING.md)
 - [Kafka Security And Operations](./kafka/KAFKA-SECURITY-OPERATIONS.md)
 - [Kafka Connect, Streams, Share Groups, And Multi-Cluster](./kafka/KAFKA-ECOSYSTEM.md)
 - [Event Streaming Application Path](./EVENT-STREAMING-APPLICATION-PATH.md)

@@ -1,0 +1,49 @@
+{
+  "id": "spring/decisions/FEIGN-VS-HTTP-SERVICE-CLIENTS",
+  "title": "OpenFeign Versus Spring HTTP Service Clients",
+  "description": "Choose and migrate declarative synchronous HTTP clients on Spring Boot 4 and Framework 7.",
+  "source": "@site/docs/spring/decisions/FEIGN-VS-HTTP-SERVICE-CLIENTS.md",
+  "sourceDirName": "spring/decisions",
+  "slug": "/spring/decisions/FEIGN-VS-HTTP-SERVICE-CLIENTS",
+  "permalink": "/shopverse/spring/decisions/FEIGN-VS-HTTP-SERVICE-CLIENTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/decisions/FEIGN-VS-HTTP-SERVICE-CLIENTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "OpenFeign Versus Spring HTTP Service Clients",
+    "description": "Choose and migrate declarative synchronous HTTP clients on Spring Boot 4 and Framework 7.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "HTTP clients",
+      "Spring Cloud"
+    ],
+    "learning_objectives": [
+      "Compare client models",
+      "Avoid annotation coupling",
+      "Migrate incrementally"
+    ],
+    "technologies": [
+      "Spring Cloud OpenFeign",
+      "Spring HTTP Service Clients",
+      "RestClient"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Cache-Aside Versus Write-Through",
+    "permalink": "/shopverse/spring/decisions/CACHE-ASIDE-VS-WRITE-THROUGH"
+  },
+  "next": {
+    "title": "Spring Interview Preparation",
+    "permalink": "/shopverse/spring/SPRING-INTERVIEW-PREPARATION"
+  }
+}

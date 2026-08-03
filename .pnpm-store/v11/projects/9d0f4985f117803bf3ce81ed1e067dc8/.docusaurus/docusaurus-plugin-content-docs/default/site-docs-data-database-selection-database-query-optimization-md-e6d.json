@@ -1,0 +1,48 @@
+{
+  "id": "data/database-selection/DATABASE-QUERY-OPTIMIZATION",
+  "title": "Database And Query Optimization",
+  "description": "Optimization is a feedback loop:",
+  "source": "@site/docs/data/database-selection/DATABASE-QUERY-OPTIMIZATION.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-QUERY-OPTIMIZATION",
+  "permalink": "/shopverse/data/database-selection/DATABASE-QUERY-OPTIMIZATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-QUERY-OPTIMIZATION.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "title": "Database And Query Optimization",
+    "sidebar_position": 6,
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Optimize databases from measured bottlenecks",
+      "Rewrite inefficient queries",
+      "Explain and apply Bloom filters"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "MySQL",
+      "Cassandra",
+      "MongoDB",
+      "SQL"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Indexes And Query Plans",
+    "permalink": "/shopverse/data/database-selection/INDEXES-QUERY-PLANS"
+  },
+  "next": {
+    "title": "Database Concurrency, Latency, And Backpressure",
+    "permalink": "/shopverse/data/database-selection/DATABASE-CONCURRENCY-BACKPRESSURE"
+  }
+}

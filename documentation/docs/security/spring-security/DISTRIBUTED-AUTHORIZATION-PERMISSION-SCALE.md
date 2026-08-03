@@ -15,6 +15,18 @@ review_evidence: repository-content-audit
 
 # Distributed Authorization At Permission Scale
 
+## Distributed Authorization Decision
+
+```mermaid
+flowchart LR
+    Identity --> Token["Compact identity and coarse grants"] --> Service
+    Service --> Policy["Local policy enforcement"] --> Context["Resource and tenant context"]
+    Context --> Decision{"Allow?"}
+    Decision -->|"yes"| Action
+    Decision -->|"no"| Deny
+    PolicyStore["Versioned permission source"] --> Policy
+```
+
 A system with hundreds of permissions should not solve the problem by placing
 every permission in every access token. The durable model separates assignment,
 protocol-level delegation, domain enforcement, and rapidly changing policy.
@@ -270,4 +282,3 @@ PDP until policy complexity justifies its availability and operational cost.
 - [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html)
 - [Spring Security method authorization](https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html)
 - [OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
-

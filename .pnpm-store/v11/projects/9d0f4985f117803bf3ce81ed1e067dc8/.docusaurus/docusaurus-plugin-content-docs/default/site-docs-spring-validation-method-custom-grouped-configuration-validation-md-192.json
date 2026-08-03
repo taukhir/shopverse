@@ -1,0 +1,47 @@
+{
+  "id": "spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION",
+  "title": "Spring Method Custom Grouped And Configuration Validation",
+  "description": "Version-aware MVC and service method validation, custom constraints, validation groups and sequences, and fail-fast configuration properties.",
+  "source": "@site/docs/spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md",
+  "sourceDirName": "spring/validation",
+  "slug": "/spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION",
+  "permalink": "/shopverse/spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Method Custom Grouped And Configuration Validation",
+    "description": "Version-aware MVC and service method validation, custom constraints, validation groups and sequences, and fail-fast configuration properties.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose MVC built-in or proxy-based method validation deliberately",
+      "Build deterministic cross-field and reusable constraints",
+      "Apply groups sparingly and fail startup on invalid configuration"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Spring AOP",
+      "Jakarta Validation",
+      "Configuration Properties"
+    ],
+    "last_reviewed": "2026-07-13",
+    "implementation_status": "implemented",
+    "scope": "shopverse",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Bean Validation Fundamentals",
+    "permalink": "/shopverse/spring/validation/BEAN-VALIDATION-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "Spring Validation Errors Testing And Production",
+    "permalink": "/shopverse/spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION"
+  }
+}

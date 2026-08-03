@@ -1,0 +1,59 @@
+{
+  "id": "data/database-selection/DATABASE-MIGRATIONS-OPERATIONS",
+  "title": "Database Migrations And Operations",
+  "description": "Choosing a database is only the beginning. Production safety depends on changing,",
+  "source": "@site/docs/data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-MIGRATIONS-OPERATIONS",
+  "permalink": "/shopverse/data/database-selection/DATABASE-MIGRATIONS-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 11,
+  "frontMatter": {
+    "title": "Database Migrations And Operations",
+    "sidebar_position": 11,
+    "difficulty": "Advanced",
+    "page_type": "Runbook",
+    "status": "maintained",
+    "keywords": [
+      "schema evolution",
+      "zero-downtime migration",
+      "expand contract",
+      "backup",
+      "restore drill",
+      "replication lag",
+      "failover",
+      "CDC",
+      "data retention",
+      "database upgrade"
+    ],
+    "learning_objectives": [
+      "Evolve schemas without breaking mixed application versions",
+      "Prove backup restore and failover behavior",
+      "Operate CDC retention and upgrades safely"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "MySQL",
+      "Liquibase",
+      "Debezium"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database System Design Scenarios",
+    "permalink": "/shopverse/data/database-selection/SYSTEM-DESIGN-SCENARIOS"
+  },
+  "next": {
+    "title": "Database Hands-On Labs",
+    "permalink": "/shopverse/data/database-selection/DATABASE-HANDS-ON-LABS"
+  }
+}

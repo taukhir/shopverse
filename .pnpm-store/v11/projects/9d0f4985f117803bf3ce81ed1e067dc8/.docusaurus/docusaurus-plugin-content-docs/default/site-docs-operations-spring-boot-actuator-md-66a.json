@@ -1,0 +1,47 @@
+{
+  "id": "operations/SPRING-BOOT-ACTUATOR",
+  "title": "Spring Boot Actuator",
+  "description": "Actuator adds production endpoints and instrumentation for observing and",
+  "source": "@site/docs/operations/SPRING-BOOT-ACTUATOR.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/SPRING-BOOT-ACTUATOR",
+  "permalink": "/shopverse/operations/SPRING-BOOT-ACTUATOR",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/SPRING-BOOT-ACTUATOR.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot Actuator",
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Boot fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain Actuator endpoints",
+      "Configure health metrics and probes",
+      "Secure management access"
+    ],
+    "technologies": [
+      "Spring Boot Actuator",
+      "Micrometer",
+      "Prometheus"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "hybrid",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Production Lifecycle And Incident Runbook",
+    "permalink": "/shopverse/spring/internals-production/PRODUCTION-LIFECYCLE"
+  },
+  "next": {
+    "title": "Spring Internals Hands-On Labs",
+    "permalink": "/shopverse/spring/SPRING-INTERNALS-LABS"
+  }
+}

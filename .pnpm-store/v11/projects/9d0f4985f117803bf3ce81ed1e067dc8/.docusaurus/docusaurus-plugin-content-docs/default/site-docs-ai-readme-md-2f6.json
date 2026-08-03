@@ -1,0 +1,38 @@
+{
+  "id": "ai/README",
+  "title": "AI, RAG, And Java AI Overview",
+  "description": "Beginner overview and learning route for LLMs, prompting, embeddings, vector databases, RAG, agents, Spring AI, LangChain4j, security, and evaluation.",
+  "source": "@site/docs/ai/README.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/",
+  "permalink": "/shopverse/ai/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/README.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "AI, RAG, And Java AI Overview",
+    "description": "Beginner overview and learning route for LLMs, prompting, embeddings, vector databases, RAG, agents, Spring AI, LangChain4j, security, and evaluation.",
+    "sidebar_label": "AI And RAG Overview",
+    "difficulty": "Beginner",
+    "page_type": "Learning Path",
+    "sidebar_position": 1,
+    "status": "maintained",
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "JVM Profiling, Garbage Collection, And Native Images",
+    "permalink": "/shopverse/java/JVM-PROFILING-GC-NATIVE"
+  },
+  "next": {
+    "title": "AI And RAG Overview",
+    "permalink": "/shopverse/ai/"
+  }
+}

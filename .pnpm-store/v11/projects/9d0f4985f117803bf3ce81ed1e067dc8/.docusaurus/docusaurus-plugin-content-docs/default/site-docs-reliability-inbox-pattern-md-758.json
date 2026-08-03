@@ -1,0 +1,57 @@
+{
+  "id": "reliability/INBOX-PATTERN",
+  "title": "Inbox Pattern And Idempotent Consumers",
+  "description": "Inbox Pattern And Idempotent Consumers: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/reliability/INBOX-PATTERN.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/INBOX-PATTERN",
+  "permalink": "/shopverse/reliability/INBOX-PATTERN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/INBOX-PATTERN.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "reliability",
+      "permalink": "/shopverse/tags/reliability"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Inbox Pattern And Idempotent Consumers",
+    "description": "Inbox Pattern And Idempotent Consumers: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Inbox Pattern And Idempotent Consumers",
+    "tags": [
+      "reliability",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Transactional Outbox Pattern",
+    "permalink": "/shopverse/reliability/OUTBOX-PATTERN"
+  },
+  "next": {
+    "title": "SAGA Implementation Guide",
+    "permalink": "/shopverse/reliability/SAGA-IMPLEMENTATION-GUIDE"
+  }
+}

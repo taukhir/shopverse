@@ -1,0 +1,47 @@
+{
+  "id": "architecture/grpc/GRPC-RUNTIME-RELIABILITY",
+  "title": "gRPC Runtime, Streaming, Deadlines, Errors, And Reliability",
+  "description": "Trace channels, name resolution, load balancing, HTTP/2 streams, metadata, unary and streaming RPC, deadlines, cancellation, status, retries, health, keepalive, and graceful shutdown.",
+  "source": "@site/docs/architecture/grpc/GRPC-RUNTIME-RELIABILITY.md",
+  "sourceDirName": "architecture/grpc",
+  "slug": "/architecture/grpc/GRPC-RUNTIME-RELIABILITY",
+  "permalink": "/shopverse/architecture/grpc/GRPC-RUNTIME-RELIABILITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/grpc/GRPC-RUNTIME-RELIABILITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "gRPC Runtime, Streaming, Deadlines, Errors, And Reliability",
+    "description": "Trace channels, name resolution, load balancing, HTTP/2 streams, metadata, unary and streaming RPC, deadlines, cancellation, status, retries, health, keepalive, and graceful shutdown.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Protocol Buffers Contract Evolution"
+    ],
+    "learning_objectives": [
+      "Trace gRPC calls internally",
+      "Design reliable streaming and retry",
+      "Diagnose channel and HTTP/2 behavior"
+    ],
+    "technologies": [
+      "gRPC",
+      "HTTP/2"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Protocol Buffers Wire Format, Modeling, And Contract Evolution",
+    "permalink": "/shopverse/architecture/grpc/PROTOBUF-CONTRACT-EVOLUTION"
+  },
+  "next": {
+    "title": "Spring gRPC Implementation, Security, Testing, And Production",
+    "permalink": "/shopverse/architecture/grpc/SPRING-GRPC-PRODUCTION"
+  }
+}

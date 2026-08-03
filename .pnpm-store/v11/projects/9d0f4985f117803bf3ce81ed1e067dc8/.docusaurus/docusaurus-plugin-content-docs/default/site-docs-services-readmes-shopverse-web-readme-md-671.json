@@ -1,0 +1,41 @@
+{
+  "id": "services/readmes/SHOPVERSE-WEB-README",
+  "title": "Shopverse Web README",
+  "description": "Site mirror of the Angular storefront, backend integrations, validation, user experience, and AI-assisted workflows.",
+  "source": "@site/docs/services/readmes/SHOPVERSE-WEB-README.md",
+  "sourceDirName": "services/readmes",
+  "slug": "/services/readmes/SHOPVERSE-WEB-README",
+  "permalink": "/shopverse/services/readmes/SHOPVERSE-WEB-README",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/services/readmes/SHOPVERSE-WEB-README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse Web README",
+    "description": "Site mirror of the Angular storefront, backend integrations, validation, user experience, and AI-assisted workflows.",
+    "sidebar_label": "Web README",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "scope": "shopverse",
+    "owner": "shopverse-web",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "canonical-readme-sync",
+    "technologies": [
+      "Shopverse",
+      "Service Documentation",
+      "AI-Assisted Development"
+    ],
+    "last_reviewed": "2026-07-29"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Platform README",
+    "permalink": "/shopverse/services/readmes/SHOPVERSE-PLATFORM-README"
+  },
+  "next": {
+    "title": "Shopverse API Guide",
+    "permalink": "/shopverse/development/API-GUIDE"
+  }
+}

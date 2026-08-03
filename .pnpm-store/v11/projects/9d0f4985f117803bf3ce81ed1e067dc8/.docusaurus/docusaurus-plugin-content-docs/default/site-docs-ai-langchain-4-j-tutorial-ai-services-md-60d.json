@@ -1,0 +1,36 @@
+{
+  "id": "ai/LANGCHAIN4J-TUTORIAL-AI-SERVICES",
+  "title": "LangChain4j Tutorial 2: AI Services And Structured Outputs",
+  "description": "AI Services are the most important LangChain4j abstraction for Java developers.",
+  "source": "@site/docs/ai/LANGCHAIN4J-TUTORIAL-AI-SERVICES.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/LANGCHAIN4J-TUTORIAL-AI-SERVICES",
+  "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-AI-SERVICES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/LANGCHAIN4J-TUTORIAL-AI-SERVICES.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.28,
+  "frontMatter": {
+    "title": "LangChain4j Tutorial 2: AI Services And Structured Outputs",
+    "sidebar_position": 6.28,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "LangChain4j Tutorial 1: Chat Models And Messages",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-CHAT-MODELS"
+  },
+  "next": {
+    "title": "LangChain4j Tutorial 3: Tools, Memory And Guardrails",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-TUTORIAL-TOOLS-MEMORY"
+  }
+}

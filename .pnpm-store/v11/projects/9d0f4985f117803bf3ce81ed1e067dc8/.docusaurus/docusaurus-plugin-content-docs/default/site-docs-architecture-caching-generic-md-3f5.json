@@ -1,0 +1,36 @@
+{
+  "id": "architecture/CACHING-GENERIC",
+  "title": "Caching Principles",
+  "description": "Caching trades freshness and invalidation complexity for lower latency and",
+  "source": "@site/docs/architecture/CACHING-GENERIC.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/CACHING-GENERIC",
+  "permalink": "/shopverse/architecture/CACHING-GENERIC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/CACHING-GENERIC.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Caching Principles",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Liquibase Database Migrations",
+    "permalink": "/shopverse/data/LIQUIBASE-GENERIC"
+  },
+  "next": {
+    "title": "Database Engineering Revision Sheet",
+    "permalink": "/shopverse/data/DATABASE-REVISION-SHEET"
+  }
+}

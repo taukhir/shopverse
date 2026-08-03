@@ -1,0 +1,51 @@
+{
+  "id": "ai/MCP-SECURITY-OPERATIONS",
+  "title": "MCP Security And Production Operations",
+  "description": "MCP connects probabilistic model decisions to deterministic capabilities. Treat the",
+  "source": "@site/docs/ai/MCP-SECURITY-OPERATIONS.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/MCP-SECURITY-OPERATIONS",
+  "permalink": "/shopverse/ai/MCP-SECURITY-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/MCP-SECURITY-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "MCP Security And Production Operations",
+    "difficulty": "Advanced",
+    "page_type": "Runbook",
+    "status": "maintained",
+    "keywords": [
+      "MCP security",
+      "confused deputy",
+      "SSRF",
+      "tool authorization",
+      "MCP observability"
+    ],
+    "learning_objectives": [
+      "Threat-model MCP boundaries",
+      "Enforce least privilege per capability",
+      "Monitor and respond to MCP failures"
+    ],
+    "technologies": [
+      "MCP",
+      "OAuth 2.0",
+      "OpenTelemetry"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "MCP Primitives, Transports, And Sessions",
+    "permalink": "/shopverse/ai/MCP-PRIMITIVES-TRANSPORTS"
+  },
+  "next": {
+    "title": "Spring AI MCP And Shopverse Lab",
+    "permalink": "/shopverse/ai/MCP-SPRING-SHOPVERSE-LAB"
+  }
+}

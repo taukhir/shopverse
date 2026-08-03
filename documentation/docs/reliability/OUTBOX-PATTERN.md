@@ -9,7 +9,7 @@ tags:
 page_type: Guide
 difficulty: Intermediate
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-reliability
 reviewer: documentation-maintainers
@@ -22,6 +22,33 @@ in event-driven systems:
 
 > How do we make sure a committed database change eventually publishes its
 > integration event?
+
+## Terminology And Pattern Differences
+
+In this guide, **outbox pattern** and **transactional outbox pattern** mean the
+same producer-side pattern. The word *transactional* makes the essential
+boundary explicit: the service writes its domain change and outgoing outbox
+record in one local database transaction. An "outbox" that is populated only
+after the domain transaction commits does not close the dual-write failure
+window described below.
+
+| Term | Meaning | Shopverse responsibility |
+|---|---|---|
+| outbox table | Service-owned durable store for events waiting to be published | each producing service owns its entity, repository, and Liquibase schema |
+| outbox record or event | One durable publication intent stored with the domain change | `OutboxService.enqueue(...)` serializes and inserts it inside the caller's transaction |
+| outbox publisher, relay, or worker | Background component that finds committed outbox records and transfers them to Kafka | the shared starter's `ShopverseOutboxPublisher` schedules scans and stale-claim release; `ShopverseOutboxPublishWorker` claims, sends, and finalizes each record |
+| inbox pattern | Consumer-side pattern that records an immutable event ID with the local business effect to suppress duplicate effects | planned as a full event-ID inbox; current consumers use narrower state-based idempotency |
+
+The outbox publisher is not the code that creates the domain event and it does
+not publish as part of the original domain transaction. `OutboxService` records
+the intent before commit; the publisher runs after commit and may safely retry.
+Together, the transactional outbox and an idempotent consumer or inbox provide
+a reliable at-least-once processing model, not global exactly-once delivery.
+When events feed an order-tracking timeline, preserve ordering per aggregate key
+and make the projection tolerant of duplicates and late events.
+
+For the consumer-side transaction and Shopverse's current implementation
+status, see [Inbox Pattern And Idempotent Consumers](INBOX-PATTERN.md).
 
 ## Shopverse Links
 
@@ -279,3 +306,4 @@ events through business keys or the inbox pattern.
 - [Database locking and Outbox claim strategies](locking/DATABASE-LOCKING-AND-CLAIMS.md)
 - [Locking and work ownership](locking/LOCKING-AND-WORK-OWNERSHIP.md)
 - [Change Data Capture in microservices](../architecture/CHANGE-DATA-CAPTURE.md)
+- [Retail Order Metrics And Analytics At Scale](../architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS.md)

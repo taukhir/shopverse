@@ -1,0 +1,45 @@
+{
+  "id": "development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS",
+  "title": "Spring Web MVC Servlet And Filter Internals",
+  "description": "Compatibility route to focused servlet lifecycle, security runtime, and HTTP message-conversion guides.",
+  "source": "@site/docs/development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
+  "sourceDirName": "development/spring-boot-internals",
+  "slug": "/development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS",
+  "permalink": "/shopverse/development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Web MVC Servlet And Filter Internals",
+    "description": "Compatibility route to focused servlet lifecycle, security runtime, and HTTP message-conversion guides.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Select the canonical guide for servlet filters, security filters, or message conversion",
+      "Preserve existing Spring Boot internals links without duplicating runtime prose"
+    ],
+    "technologies": [
+      "Spring MVC",
+      "Spring Security",
+      "Jackson",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "compatibility",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Servlets And DispatcherServlet In Spring Boot",
+    "permalink": "/shopverse/development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET"
+  },
+  "next": {
+    "title": "Spring REST Request Mapping Validation And Errors",
+    "permalink": "/shopverse/development/spring-rest/REST-MAPPING-VALIDATION-ERRORS"
+  }
+}

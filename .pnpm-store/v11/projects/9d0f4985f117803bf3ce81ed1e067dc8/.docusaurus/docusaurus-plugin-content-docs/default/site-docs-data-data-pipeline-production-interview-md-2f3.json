@@ -1,0 +1,52 @@
+{
+  "id": "data/DATA-PIPELINE-PRODUCTION-INTERVIEW",
+  "title": "Data Pipeline Production And Interview Guide",
+  "description": "Design batch and streaming pipelines with event time, watermarks, checkpoints, replay, backfill, lineage, contracts, quality controls, and safe cutovers.",
+  "source": "@site/docs/data/DATA-PIPELINE-PRODUCTION-INTERVIEW.md",
+  "sourceDirName": "data",
+  "slug": "/data/DATA-PIPELINE-PRODUCTION-INTERVIEW",
+  "permalink": "/shopverse/data/DATA-PIPELINE-PRODUCTION-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATA-PIPELINE-PRODUCTION-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Data Pipeline Production And Interview Guide",
+    "description": "Design batch and streaming pipelines with event time, watermarks, checkpoints, replay, backfill, lineage, contracts, quality controls, and safe cutovers.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Kafka fundamentals",
+      "database consistency"
+    ],
+    "learning_objectives": [
+      "Select batch or streaming execution",
+      "Design replayable pipelines",
+      "Govern data quality and lineage",
+      "Diagnose freshness and state failures"
+    ],
+    "technologies": [
+      "Kafka",
+      "Kafka Connect",
+      "Debezium",
+      "Apache Flink",
+      "Object Storage"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-and-repository-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Data Pipelines And Search Operations",
+    "permalink": "/shopverse/data/DATA-PIPELINES-SEARCH-OPERATIONS"
+  },
+  "next": {
+    "title": "SRE, Disaster Recovery, And Chaos Engineering",
+    "permalink": "/shopverse/operations/SRE-DR-CHAOS"
+  }
+}

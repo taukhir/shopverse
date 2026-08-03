@@ -1,0 +1,36 @@
+{
+  "id": "ai/HANDS-ON-LABS",
+  "title": "Hands-on Labs",
+  "description": "These labs are intentionally small. Complete them in order. Each lab maps to",
+  "source": "@site/docs/ai/HANDS-ON-LABS.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/HANDS-ON-LABS",
+  "permalink": "/shopverse/ai/HANDS-ON-LABS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/HANDS-ON-LABS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "title": "Hands-on Labs",
+    "sidebar_position": 8,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Shopverse AI POC Plan",
+    "permalink": "/shopverse/ai/SHOPVERSE-AI-POC-PLAN"
+  },
+  "next": {
+    "title": "Interview Q&A",
+    "permalink": "/shopverse/ai/INTERVIEW-QA"
+  }
+}

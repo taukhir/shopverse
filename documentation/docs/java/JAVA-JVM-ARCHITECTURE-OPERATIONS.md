@@ -2,7 +2,7 @@
 title: JVM Architecture, Runtime Boundaries And Operations
 description: Lead-level JVM map covering class loading, execution, allocation, JIT, GC, native memory, safepoints, containers, and evidence-driven diagnostics.
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -126,7 +126,8 @@ The bootstrap/system-loader lifetime commonly makes application-global statics
 effectively process-long.
 
 Thread locals are frequent retention paths in pools: the worker outlives a
-request, so values and sometimes application class loaders survive. Always
+request, so values and sometimes application class loaders survive. This class-loader leak can prevent
+unloading after redeploy. Always
 remove scoped thread-local values or replace them with structured context such
 as scoped values where suitable.
 

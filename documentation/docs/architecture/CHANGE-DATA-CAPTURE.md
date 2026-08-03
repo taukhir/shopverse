@@ -255,6 +255,7 @@ cut over with one authoritative relay to avoid unintended duplicate publication.
 - [Outbox Delivery And Operations](../reliability/OUTBOX-DELIVERY-OPERATIONS.md)
 - [Inbox Pattern](../reliability/INBOX-PATTERN.md)
 - [Spring Distributed Locking Options](../reliability/locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)
+- [Retail Order Metrics And Analytics At Scale](retail/RETAIL-ORDER-METRICS-ANALYTICS.md)
 
 ## Official References
 

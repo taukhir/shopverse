@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-THREAD-SCHEDULER-DEEP-DIVE",
+  "title": "Java Thread Scheduling, Time Slicing And Context Switching",
+  "description": "Executor, ForkJoin, virtual-thread and OS scheduling layers with CPU, blocking and diagnostic scenarios.",
+  "source": "@site/docs/java/JAVA-THREAD-SCHEDULER-DEEP-DIVE.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-THREAD-SCHEDULER-DEEP-DIVE",
+  "permalink": "/shopverse/java/JAVA-THREAD-SCHEDULER-DEEP-DIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-THREAD-SCHEDULER-DEEP-DIVE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Thread Scheduling, Time Slicing And Context Switching",
+    "description": "Executor, ForkJoin, virtual-thread and OS scheduling layers with CPU, blocking and diagnostic scenarios.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Thread Creation, Scheduling And Context Switching",
+    "permalink": "/shopverse/java/JAVA-THREAD-CREATION-SCHEDULING"
+  },
+  "next": {
+    "title": "Java Thread Coordination, Monitors And Lazy Initialization",
+    "permalink": "/shopverse/java/JAVA-THREAD-COORDINATION"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "operations/linux/LINUX-PROCESS-CPU-MEMORY",
+  "title": "Linux Processes, CPU, Scheduler, Memory, And OOM",
+  "description": "Diagnose process lifecycle, threads, load, CPU states, scheduling, virtual memory, page cache, pressure, swapping, leaks, and OOM kills.",
+  "source": "@site/docs/operations/linux/LINUX-PROCESS-CPU-MEMORY.md",
+  "sourceDirName": "operations/linux",
+  "slug": "/operations/linux/LINUX-PROCESS-CPU-MEMORY",
+  "permalink": "/shopverse/operations/linux/LINUX-PROCESS-CPU-MEMORY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/linux/LINUX-PROCESS-CPU-MEMORY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Linux Processes, CPU, Scheduler, Memory, And OOM",
+    "description": "Diagnose process lifecycle, threads, load, CPU states, scheduling, virtual memory, page cache, pressure, swapping, leaks, and OOM kills.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Linux Production Troubleshooting Path"
+    ],
+    "learning_objectives": [
+      "Interpret CPU and load evidence",
+      "Trace process and thread state",
+      "Diagnose host and cgroup memory pressure"
+    ],
+    "technologies": [
+      "Linux",
+      "procfs",
+      "PSI",
+      "cgroups"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Linux Production Troubleshooting Path",
+    "permalink": "/shopverse/operations/LINUX-PRODUCTION-TROUBLESHOOTING-PATH"
+  },
+  "next": {
+    "title": "Linux Filesystems, Disk, And Block I/O Troubleshooting",
+    "permalink": "/shopverse/operations/linux/LINUX-FILESYSTEM-STORAGE"
+  }
+}

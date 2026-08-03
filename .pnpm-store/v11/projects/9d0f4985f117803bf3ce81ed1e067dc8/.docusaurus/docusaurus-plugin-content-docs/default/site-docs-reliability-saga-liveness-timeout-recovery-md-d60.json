@@ -1,0 +1,50 @@
+{
+  "id": "reliability/SAGA-LIVENESS-TIMEOUT-RECOVERY",
+  "title": "Saga Liveness Timeout And Recovery",
+  "description": "Missing replies, crashed participants, durable deadlines, reconciliation, late events, compensation failure, and production Saga operations.",
+  "source": "@site/docs/reliability/SAGA-LIVENESS-TIMEOUT-RECOVERY.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/SAGA-LIVENESS-TIMEOUT-RECOVERY",
+  "permalink": "/shopverse/reliability/SAGA-LIVENESS-TIMEOUT-RECOVERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/SAGA-LIVENESS-TIMEOUT-RECOVERY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Saga Liveness Timeout And Recovery",
+    "description": "Missing replies, crashed participants, durable deadlines, reconciliation, late events, compensation failure, and production Saga operations.",
+    "difficulty": "Architect",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Saga pattern",
+      "transactional outbox",
+      "idempotent consumers"
+    ],
+    "learning_objectives": [
+      "Recover a Saga with a missing outcome",
+      "Design durable timeouts and probes",
+      "Handle late events and failed compensation safely"
+    ],
+    "technologies": [
+      "Apache Kafka",
+      "Spring Boot",
+      "Relational Database"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "SAGA Consistency And Compensation",
+    "permalink": "/shopverse/reliability/SAGA-CONSISTENCY-COMPENSATION"
+  },
+  "next": {
+    "title": "Outbox Delivery And Operations",
+    "permalink": "/shopverse/reliability/OUTBOX-DELIVERY-OPERATIONS"
+  }
+}

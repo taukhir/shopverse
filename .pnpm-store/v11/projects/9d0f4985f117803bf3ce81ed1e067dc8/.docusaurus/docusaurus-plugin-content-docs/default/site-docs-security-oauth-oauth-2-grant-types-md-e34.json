@@ -1,0 +1,34 @@
+{
+  "id": "security/oauth/OAUTH2-GRANT-TYPES",
+  "title": "OAuth2 Grant Types",
+  "description": "Grant types define how a client obtains a token.",
+  "source": "@site/docs/security/oauth/OAUTH2-GRANT-TYPES.md",
+  "sourceDirName": "security/oauth",
+  "slug": "/security/oauth/OAUTH2-GRANT-TYPES",
+  "permalink": "/shopverse/security/oauth/OAUTH2-GRANT-TYPES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/oauth/OAUTH2-GRANT-TYPES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "OAuth2 Grant Types",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "OAuth2 Fundamentals",
+    "permalink": "/shopverse/security/oauth/OAUTH2-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "OIDC Fundamentals",
+    "permalink": "/shopverse/security/oauth/OIDC-FUNDAMENTALS"
+  }
+}

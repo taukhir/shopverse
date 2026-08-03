@@ -1,0 +1,46 @@
+{
+  "id": "development/REST-API-HTTP-CONTRACTS",
+  "title": "REST API HTTP Contracts And Representations",
+  "description": "This focused guide continues REST API design.",
+  "source": "@site/docs/development/REST-API-HTTP-CONTRACTS.md",
+  "sourceDirName": "development",
+  "slug": "/development/REST-API-HTTP-CONTRACTS",
+  "permalink": "/shopverse/development/REST-API-HTTP-CONTRACTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/REST-API-HTTP-CONTRACTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "REST API HTTP Contracts And Representations",
+    "difficulty": "Intermediate",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "REST API design fundamentals"
+    ],
+    "learning_objectives": [
+      "Choose correct HTTP methods and status codes",
+      "Design stable DTO and error contracts"
+    ],
+    "technologies": [
+      "HTTP",
+      "REST",
+      "JSON"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "REST API Design",
+    "permalink": "/shopverse/development/REST-API-GENERIC"
+  },
+  "next": {
+    "title": "Production REST API Design",
+    "permalink": "/shopverse/development/REST-API-PRODUCTION-DESIGN"
+  }
+}

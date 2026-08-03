@@ -1,0 +1,42 @@
+{
+  "id": "services/SERVICE-README-INDEX",
+  "title": "Shopverse Service README Index",
+  "description": "Searchable documentation-site access to every canonical Shopverse service, platform, web, and shared configuration README.",
+  "source": "@site/docs/services/SERVICE-README-INDEX.md",
+  "sourceDirName": "services",
+  "slug": "/services/SERVICE-README-INDEX",
+  "permalink": "/shopverse/services/SERVICE-README-INDEX",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/services/SERVICE-README-INDEX.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Shopverse Service README Index",
+    "description": "Searchable documentation-site access to every canonical Shopverse service, platform, web, and shared configuration README.",
+    "sidebar_label": "Service README Index",
+    "difficulty": "Beginner",
+    "page_type": "Reference",
+    "status": "maintained",
+    "technologies": [
+      "Shopverse",
+      "Microservices",
+      "Docusaurus",
+      "AI-Assisted Development"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "shopverse",
+    "owner": "docs-services",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "README And AI Gap Matrix",
+    "permalink": "/shopverse/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX"
+  },
+  "next": {
+    "title": "API Gateway README",
+    "permalink": "/shopverse/services/readmes/API-GATEWAY-README"
+  }
+}

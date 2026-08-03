@@ -6,7 +6,7 @@ tags: [HLD, system design, interview, architecture]
 page_type: Workbook
 difficulty: Advanced
 status: maintained
-last_reviewed: "2026-07-16"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-architecture
 reviewer: documentation-maintainers
@@ -14,6 +14,14 @@ review_evidence: repository-content-audit
 ---
 
 # High-Level Design Interview Workbook
+
+## Interview Design Sequence
+
+```mermaid
+flowchart LR
+    S["Scope and requirements"] --> A["APIs and traffic"] --> D["Data model and ownership"]
+    D --> C["Components and communication"] --> F["Failure handling"] --> T["Trade-offs and evolution"]
+```
 
 These questions test whether an engineer can turn requirements into boundaries,
 capacity, data flow, reliability, and operable trade-offs. Use the checkpoint as
@@ -94,6 +102,67 @@ alternative.
 | 48 | What are the observability pillars? | logs, metrics, traces linked by stable context; add business correctness, SLOs, cardinality control, and actionable alerts |
 | 49 | What role does containerization play? | reproducible packaging and isolation; orchestration handles placement/health/scale; images do not solve state, security, or availability automatically |
 | 50 | How do you validate an HLD? | threat/failure modeling, capacity tests, schema/API review, restore/failover/chaos drills, cost model, staged delivery, decision records |
+
+## Production System-Design Scenarios
+
+### Design a flash-sale checkout without overselling
+
+Quantify peak/skew, make inventory authority explicit, use atomic reservation with expiry, idempotent checkout,
+bounded admission/queues and asynchronous payment/order progression. Define customer pending states,
+compensation, reconciliation, hot-key protection and correctness metrics before choosing products.
+
+### Design a globally available read-heavy catalog
+
+Separate authoritative writes from cache/search/read models, use CDN and regional replicas, define freshness and
+read-your-writes needs, version/invalidate safely and plan region loss. Product price/availability may require a
+stronger path than descriptive content.
+
+### Design a notification system
+
+Model preferences, templates, channels, priority, scheduling and provider limits. Persist command/notification
+state, partition queues, deduplicate, retry transient failures, suppress permanent failures and audit consent.
+At-least-once delivery does not mean duplicate user messages are acceptable.
+
+### Design a URL shortener
+
+Estimate redirect/write rates and key space; choose collision-safe ID generation, indexed mapping and cache/CDN
+policy. Address custom aliases, expiry, abuse, analytics privacy, hot links, deletion and regional consistency.
+
+### Design a distributed rate limiter
+
+Define identity, scope, algorithm, window precision and failure policy. Place enforcement near the protected
+resource, partition counters, bound clock/skew and replication error, return retry guidance and prevent one
+global store from becoming the availability bottleneck.
+
+### Design a real-time order tracking timeline
+
+Define authoritative state versus derived timeline, event identities/order per aggregate, fan-out/storage,
+WebSocket/SSE reconnect and authorization. Handle duplicate/out-of-order events, projection rebuild, retention
+and reconciliation with the order authority.
+
+### Design audit logging for regulated actions
+
+Capture actor, delegated identity, action, resource, outcome, time and correlation without secrets. Make writes
+durable/tamper-evident, restrict access, define retention/legal hold and searchable projections, and decide
+whether business action must fail when audit persistence is unavailable.
+
+### Design multi-region disaster recovery
+
+Start from RTO/RPO and write authority. Map dependency recovery order, replication/conflict semantics, routing,
+capacity, credentials, backups, reconciliation and failback. Test regional loss; a second region on a diagram is
+not recovery evidence.
+
+### Migrate a monolith while continuing feature delivery
+
+Discover seams from domain ownership and change coupling, introduce a strangler boundary, move one vertical
+slice with its data authority, keep contracts compatible and observe outcomes. Avoid shared-database writes and
+retain a reversible route while the boundary is proven.
+
+### Diagnose a design whose replicas scale but throughput does not
+
+Find the first saturated queue/resource: database, hot partition, connection pool, lock, broker or dependency.
+Use Little's Law and per-stage latency/throughput, stop retry amplification, protect the bottleneck and validate
+one change under the same workload instead of adding replicas blindly.
 
 ## Answer Quality Checklist
 

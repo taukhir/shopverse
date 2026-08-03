@@ -1,0 +1,36 @@
+{
+  "id": "ai/API-INTEGRATION-PROMPTING",
+  "title": "API Integration And Prompting",
+  "description": "Prompt lifecycle",
+  "source": "@site/docs/ai/API-INTEGRATION-PROMPTING.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/API-INTEGRATION-PROMPTING",
+  "permalink": "/shopverse/ai/API-INTEGRATION-PROMPTING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/API-INTEGRATION-PROMPTING.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "API Integration And Prompting",
+    "sidebar_position": 4,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI Model Internals And Selection",
+    "permalink": "/shopverse/ai/AI-MODEL-INTERNALS-SELECTION"
+  },
+  "next": {
+    "title": "Prompt Engineering And Structured Output",
+    "permalink": "/shopverse/ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-JVM-ARCHITECTURE-OPERATIONS",
+  "title": "JVM Architecture, Runtime Boundaries And Operations",
+  "description": "Lead-level JVM map covering class loading, execution, allocation, JIT, GC, native memory, safepoints, containers, and evidence-driven diagnostics.",
+  "source": "@site/docs/java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-JVM-ARCHITECTURE-OPERATIONS",
+  "permalink": "/shopverse/java/JAVA-JVM-ARCHITECTURE-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-JVM-ARCHITECTURE-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JVM Architecture, Runtime Boundaries And Operations",
+    "description": "Lead-level JVM map covering class loading, execution, allocation, JIT, GC, native memory, safepoints, containers, and evidence-driven diagnostics.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Advanced Java Internals",
+    "permalink": "/shopverse/java/ADVANCED-JAVA-INTERNALS"
+  },
+  "next": {
+    "title": "JVM Runtime Memory Areas",
+    "permalink": "/shopverse/java/JAVA-JVM-MEMORY"
+  }
+}

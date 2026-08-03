@@ -6,7 +6,7 @@ tags: [design patterns, GoF, LLD, interview]
 page_type: Reference
 difficulty: Intermediate
 status: maintained
-last_reviewed: "2026-07-16"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-development
 reviewer: documentation-maintainers
@@ -118,6 +118,68 @@ has a compelling reason otherwise.
 | Command vs Strategy | represent an action and its lifecycle | represent an interchangeable calculation |
 | Composite vs Decorator | model part-whole trees | wrap one object with additional behavior |
 | Prototype vs Memento | create another configured object | restore an earlier state of the same logical object |
+
+## Production Interview Questions
+
+### Factory versus Abstract Factory versus Builder?
+
+Factory selects or hides creation of one product, Abstract Factory creates a compatible family, and Builder
+assembles a complex value step by step. Start with constructor/DI and introduce the smallest abstraction only
+when creation choice, family compatibility or construction validation actually varies.
+
+### Strategy versus State?
+
+Strategy is an interchangeable policy selected by caller/configuration; State changes behavior because an
+object's lifecycle state changes and constrains legal transitions. Similar class diagrams do not make their
+ownership or transition semantics equivalent.
+
+### Adapter versus Facade?
+
+Adapter translates an incompatible external contract into the application's expected port. Facade offers a
+simpler coarse entry to an existing subsystem without necessarily changing its model. A facade that owns every
+business rule becomes a god service.
+
+### Decorator versus Proxy?
+
+Decorator composes additional responsibility around the same contract; proxy controls access, lifecycle,
+location or invocation. Both wrap, but transaction/security proxies have ordering, self-invocation and identity
+effects that ordinary decorators may not.
+
+### Observer versus message broker?
+
+Observer is normally in-process, ephemeral notification with shared failure/lifecycle. A broker adds durable
+delivery, buffering, replay and distributed failure, plus duplicates, ordering and operational ownership. Do
+not use an in-memory event to imply cross-service reliability.
+
+### Command versus event?
+
+A command requests an action and has one intended owner; it may be rejected. An event states a fact that already
+happened and can have many consumers. Naming a mutable request `SomethingHappened` hides authority, retry and
+failure semantics.
+
+### Template Method versus Strategy?
+
+Template Method fixes workflow structure in a base class with overridable hooks, coupling variants through
+inheritance. Strategy composes replaceable behavior and supports runtime selection. Prefer composition unless a
+stable algorithm skeleton and true subtype relationship justify inheritance.
+
+### Singleton pattern versus Spring singleton scope?
+
+A manually implemented Singleton enforces one instance per class loader and often hides global state. Spring's
+singleton scope creates one bean per application context with managed lifecycle/DI. Neither makes mutable state
+thread-safe or unique across processes.
+
+### When is Chain of Responsibility unsafe?
+
+When handler order, terminal ownership, duplicate execution or error continuation is implicit. Define whether
+each handler observes, transforms or consumes; make ordering and failure policy testable, and use one explicit
+owner when extensible chaining adds no value.
+
+### How do you recognize pattern overengineering?
+
+The abstraction has one implementation, no demonstrated variation, more navigation than behavior, unclear
+ownership and tests coupled to indirection. State the simpler alternative and the concrete future trigger that
+would justify introducing the pattern later.
 
 ## Selection Review Checklist
 

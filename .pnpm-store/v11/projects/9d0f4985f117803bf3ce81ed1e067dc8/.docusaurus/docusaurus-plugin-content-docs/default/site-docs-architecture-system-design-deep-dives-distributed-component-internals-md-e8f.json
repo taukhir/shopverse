@@ -1,0 +1,54 @@
+{
+  "id": "architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS",
+  "title": "Distributed Component Internals",
+  "description": "Twelve-panel atlas of distributed-system building blocks and their main failure questions",
+  "source": "@site/docs/architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS.md",
+  "sourceDirName": "architecture/system-design-deep-dives",
+  "slug": "/architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS",
+  "permalink": "/shopverse/architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/system-design-deep-dives/DISTRIBUTED-COMPONENT-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Distributed Component Internals",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "keywords": [
+      "load balancer internals",
+      "consistent hashing",
+      "distributed ID",
+      "cache invalidation",
+      "quorum",
+      "replication repair",
+      "CDN"
+    ],
+    "learning_objectives": [
+      "Explain component behavior beneath architecture boxes",
+      "Identify scaling and failure limits",
+      "Choose components from access and consistency requirements"
+    ],
+    "technologies": [
+      "Kafka",
+      "Redis",
+      "CDN",
+      "Object Storage"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "End-To-End System Design Method",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD"
+  },
+  "next": {
+    "title": "System Design Case-Study Workbook",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/CASE-STUDY-WORKBOOK"
+  }
+}

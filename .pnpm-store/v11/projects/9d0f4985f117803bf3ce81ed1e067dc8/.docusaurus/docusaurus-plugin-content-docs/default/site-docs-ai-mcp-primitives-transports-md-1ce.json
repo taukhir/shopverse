@@ -1,0 +1,50 @@
+{
+  "id": "ai/MCP-PRIMITIVES-TRANSPORTS",
+  "title": "MCP Primitives, Transports, And Sessions",
+  "description": "| Primitive | Purpose | Trust characteristic |",
+  "source": "@site/docs/ai/MCP-PRIMITIVES-TRANSPORTS.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/MCP-PRIMITIVES-TRANSPORTS",
+  "permalink": "/shopverse/ai/MCP-PRIMITIVES-TRANSPORTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/MCP-PRIMITIVES-TRANSPORTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "MCP Primitives, Transports, And Sessions",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "keywords": [
+      "MCP tools",
+      "MCP resources",
+      "MCP prompts",
+      "STDIO",
+      "Streamable HTTP"
+    ],
+    "learning_objectives": [
+      "Choose tools resources or prompts",
+      "Operate STDIO and HTTP transports",
+      "Bound sessions pagination subscriptions and results"
+    ],
+    "technologies": [
+      "MCP",
+      "Streamable HTTP"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "MCP Protocol Lifecycle And Architecture",
+    "permalink": "/shopverse/ai/MCP-PROTOCOL-LIFECYCLE"
+  },
+  "next": {
+    "title": "MCP Security And Production Operations",
+    "permalink": "/shopverse/ai/MCP-SECURITY-OPERATIONS"
+  }
+}

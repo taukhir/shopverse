@@ -1,0 +1,47 @@
+{
+  "id": "architecture/ARCHITECTURE-STYLES",
+  "title": "Software Architecture Styles",
+  "description": "Architecture terms often describe different dimensions. A system can be a",
+  "source": "@site/docs/architecture/ARCHITECTURE-STYLES.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/ARCHITECTURE-STYLES",
+  "permalink": "/shopverse/architecture/ARCHITECTURE-STYLES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/ARCHITECTURE-STYLES.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "Software Architecture Styles",
+    "sidebar_position": 5,
+    "difficulty": "Intermediate",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Compare architecture styles",
+      "Combine structural and runtime patterns safely",
+      "Avoid false either-or choices"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Kafka",
+      "Serverless"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Microservices Architect Interview Workbook",
+    "permalink": "/shopverse/architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK"
+  },
+  "next": {
+    "title": "Microservices Fundamentals",
+    "permalink": "/shopverse/architecture/MICROSERVICES-GENERIC"
+  }
+}

@@ -90,7 +90,7 @@ export default function ReaderLibrary() {
   }).filter((item) => item.percent > 0).sort((a, b) => b.percent - a.percent);
 
   return <>
-    <button ref={triggerRef} className={styles.trigger} type="button" onClick={() => setOpen(true)} aria-label="Open my reading library">
+    <button ref={triggerRef} className={`${styles.trigger} reader-library-trigger`} type="button" onClick={() => setOpen(true)} aria-label="Open my reading library">
       <Library aria-hidden="true" /><span>My library</span>
       {(state.bookmarks.length + state.completed.length > 0) && <strong>{state.bookmarks.length + state.completed.length}</strong>}
     </button>

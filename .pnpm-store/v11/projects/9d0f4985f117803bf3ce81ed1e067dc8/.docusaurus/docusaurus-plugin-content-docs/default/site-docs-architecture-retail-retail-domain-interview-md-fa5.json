@@ -1,0 +1,46 @@
+{
+  "id": "architecture/retail/RETAIL-DOMAIN-INTERVIEW",
+  "title": "Retail Domain Interview Questions",
+  "description": "Important retail and e-commerce interview questions with concise answer signals for backend, senior engineer, lead, and architect roles.",
+  "source": "@site/docs/architecture/retail/RETAIL-DOMAIN-INTERVIEW.md",
+  "sourceDirName": "architecture/retail",
+  "slug": "/architecture/retail/RETAIL-DOMAIN-INTERVIEW",
+  "permalink": "/shopverse/architecture/retail/RETAIL-DOMAIN-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/retail/RETAIL-DOMAIN-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Retail Domain Interview Questions",
+    "description": "Important retail and e-commerce interview questions with concise answer signals for backend, senior engineer, lead, and architect roles.",
+    "difficulty": "Intermediate",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Retail domain and commerce architecture"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Kafka",
+      "SQL",
+      "Redis",
+      "Elasticsearch"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Black Friday Retail Scale And Resilience",
+    "permalink": "/shopverse/architecture/retail/BLACK-FRIDAY-RETAIL-RESILIENCE"
+  },
+  "next": {
+    "title": "Distributed Consistency And CAP",
+    "permalink": "/shopverse/architecture/DISTRIBUTED-CONSISTENCY-CAP"
+  }
+}

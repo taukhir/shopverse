@@ -1,0 +1,49 @@
+{
+  "id": "architecture/microservices/MICROSERVICES-OBSERVABILITY-SLOS",
+  "title": "Microservices Observability SLOs And Incident Evidence",
+  "description": "Logs, metrics, traces, RED and USE signals, SLOs, cardinality, sampling, business evidence, and incident timelines.",
+  "source": "@site/docs/architecture/microservices/MICROSERVICES-OBSERVABILITY-SLOS.md",
+  "sourceDirName": "architecture/microservices",
+  "slug": "/architecture/microservices/MICROSERVICES-OBSERVABILITY-SLOS",
+  "permalink": "/shopverse/architecture/microservices/MICROSERVICES-OBSERVABILITY-SLOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/microservices/MICROSERVICES-OBSERVABILITY-SLOS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Microservices Observability SLOs And Incident Evidence",
+    "description": "Logs, metrics, traces, RED and USE signals, SLOs, cardinality, sampling, business evidence, and incident timelines.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Microservices",
+      "OpenTelemetry fundamentals"
+    ],
+    "learning_objectives": [
+      "Define actionable service evidence",
+      "Design SLO alerts",
+      "Reconstruct distributed failures"
+    ],
+    "technologies": [
+      "OpenTelemetry",
+      "Prometheus",
+      "Grafana"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Microservices Cascading-Failure Prevention",
+    "permalink": "/shopverse/architecture/microservices/MICROSERVICES-CASCADING-FAILURE-PREVENTION"
+  },
+  "next": {
+    "title": "Multi-Region Microservices Recovery",
+    "permalink": "/shopverse/architecture/microservices/MICROSERVICES-MULTI-REGION-RECOVERY"
+  }
+}

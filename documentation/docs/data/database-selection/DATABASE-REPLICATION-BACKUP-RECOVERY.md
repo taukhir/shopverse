@@ -15,6 +15,16 @@ review_evidence: repository-content-audit
 
 # Database Replication, Backup, And Recovery
 
+## Failure-To-Recovery Path
+
+```mermaid
+flowchart LR
+    P["Primary database"] -->|"replicate"| S["Standby replicas"]
+    P -->|"backup"| B["Immutable backup"]
+    F["Failure detected"] --> V["Fence and verify"] --> S
+    B --> R["Restore and replay"] --> C["Consistency validation"]
+```
+
 <DocLabels items={[
   {label: 'High availability', tone: 'advanced'},
   {label: 'Disaster recovery', tone: 'production'},

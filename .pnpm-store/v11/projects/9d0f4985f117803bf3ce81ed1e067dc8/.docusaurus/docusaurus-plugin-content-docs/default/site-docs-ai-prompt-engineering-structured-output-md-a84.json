@@ -1,0 +1,50 @@
+{
+  "id": "ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT",
+  "title": "Prompt Engineering And Structured Output",
+  "description": "Treat a prompt as a versioned behavioral contract, not prose hidden in controller",
+  "source": "@site/docs/ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT",
+  "permalink": "/shopverse/ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Prompt Engineering And Structured Output",
+    "difficulty": "Intermediate",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "keywords": [
+      "prompt hierarchy",
+      "few-shot",
+      "JSON Schema",
+      "structured output",
+      "prompt versioning"
+    ],
+    "learning_objectives": [
+      "Design maintainable prompt contracts",
+      "Validate structured model output",
+      "Test prompt changes against versioned examples"
+    ],
+    "technologies": [
+      "Spring AI",
+      "JSON Schema"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "API Integration And Prompting",
+    "permalink": "/shopverse/ai/API-INTEGRATION-PROMPTING"
+  },
+  "next": {
+    "title": "Advanced AI Topics",
+    "permalink": "/shopverse/ai/ADVANCED-AI-TOPICS"
+  }
+}

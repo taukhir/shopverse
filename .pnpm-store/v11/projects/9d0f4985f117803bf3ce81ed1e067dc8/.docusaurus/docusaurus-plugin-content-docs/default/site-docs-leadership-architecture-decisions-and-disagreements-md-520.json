@@ -1,0 +1,54 @@
+{
+  "id": "leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS",
+  "title": "Architecture Decisions And Disagreements",
+  "description": "A decision-governance method for resolving architecture disagreements with evidence, accountable ownership, and durable records.",
+  "source": "@site/docs/leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS.md",
+  "sourceDirName": "leadership",
+  "slug": "/leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS",
+  "permalink": "/shopverse/leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Architecture Decisions And Disagreements",
+    "description": "A decision-governance method for resolving architecture disagreements with evidence, accountable ownership, and durable records.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "keywords": [
+      "architecture decision",
+      "disagreement",
+      "ADR",
+      "governance",
+      "trade-off",
+      "decision rights",
+      "technical leadership"
+    ],
+    "learning_objectives": [
+      "Turn architecture conflict into an explicit decision with shared criteria",
+      "Match decision rigor to impact, uncertainty, and reversibility",
+      "Preserve accountability, psychological safety, and organizational learning"
+    ],
+    "technologies": [
+      "ADR",
+      "Prototyping",
+      "Load Testing"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Engineering Leadership Practices",
+    "permalink": "/shopverse/leadership/ENGINEERING-LEADERSHIP-PRACTICES"
+  },
+  "next": {
+    "title": "Production Performance And Availability",
+    "permalink": "/shopverse/leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH",
+  "title": "Financial Systems Architecture",
+  "description": "Lead and architect path for money, ledgers, payment lifecycles, reconciliation, settlement, controls, resilience, and financial-system interviews.",
+  "source": "@site/docs/architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH.md",
+  "sourceDirName": "architecture/financial",
+  "slug": "/architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH",
+  "permalink": "/shopverse/architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Financial Systems Architecture",
+    "description": "Lead and architect path for money, ledgers, payment lifecycles, reconciliation, settlement, controls, resilience, and financial-system interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Transactions",
+      "microservices",
+      "Kafka",
+      "database reliability",
+      "security"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "Kafka",
+      "Spring Batch"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "CQRS",
+    "permalink": "/shopverse/architecture/CQRS"
+  },
+  "next": {
+    "title": "Money, Ledger, And Accounting Invariants",
+    "permalink": "/shopverse/architecture/financial/MONEY-LEDGER-ACCOUNTING-INVARIANTS"
+  }
+}

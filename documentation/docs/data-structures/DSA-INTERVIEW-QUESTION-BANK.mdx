@@ -1,12 +1,12 @@
 ---
 title: Java DSA Interview Question Bank
-description: Searchable Java interview handbook with 245 questions across arrays, strings, windows, hashing, lists, stacks, queues, heaps, binary search, and trees.
+description: Searchable Java interview handbook with 295 questions across fifteen core algorithm and data-structure families.
 difficulty: Advanced
 page_type: Workbook
 status: maintained
 keywords: [Java interview, DSA, arrays, strings, two pointers, hashing, linked list, heap, priority queue]
 learning_objectives:
-  - Practice 245 curated problems across eleven high-frequency interview topics
+  - Practice 295 curated problems across fifteen high-frequency interview topics
   - Filter questions by LeetCode number, difficulty, pattern, priority, description, and reported company association
   - Explain constraints, alternatives, complexity, edge cases, and production-quality Java choices
 technologies: [Java, Array, HashMap, HashSet, LinkedList, Deque, PriorityQueue, Tree]
@@ -19,16 +19,25 @@ review_evidence: repository-content-audit
 
 # Java DSA Interview Question Bank
 
+## Practice Progression
+
+```mermaid
+flowchart LR
+    F["Recognize the pattern"] --> B["Write a brute-force baseline"] --> O["Choose the data structure"]
+    O --> I["State the invariant"] --> C["Analyze complexity"] --> T["Test boundaries and variants"]
+```
+
 <DocLabels items={[
-  {label: '245 questions', tone: 'advanced'},
+  {label: '295 questions', tone: 'advanced'},
   {label: 'Top 50 must prepare', tone: 'intermediate'},
   {label: 'Searchable tables', tone: 'production'},
   {label: 'Java 7+ years', tone: 'shopverse'},
 ]} />
 
-This workbook contains **245 questions** across Arrays, Strings, Two Pointers,
+This workbook contains **295 questions** across Arrays, Strings, Two Pointers,
 Sliding Window, Hashing, Linked Lists, Stack, Queue/Deque, Heap/Priority Queue,
-Binary Search, and Trees/BST. A consolidated Top 50 view provides the highest-ROI
+Binary Search, Trees/BST, Graphs, Dynamic Programming, Backtracking, and Tries.
+A consolidated Top 50 view provides the highest-ROI
 starting route. The goal for an experienced Java
 developer is not merely to reach accepted output; it is to communicate the
 decision process, prove complexity, handle failure-prone boundaries, and produce
@@ -305,6 +314,74 @@ whether values are unique, and whether recursion depth is safe for a skewed tree
 - derive postorder state for height, diameter, path gain, cameras, and tree DP;
 - preserve stable serialization and null markers;
 - exploit inorder ordering for rank, iterator, recovery, and greater-tree problems.
+
+## Graphs
+
+Graph questions test modeling before traversal. Define vertices, edges, direction,
+weights, implicit neighbors, visited identity, and whether the objective is
+reachability, components, ordering, shortest path, or minimum connection cost.
+
+<SearchableQuestionTable topic="Graph" />
+
+### Graph mastery checkpoints
+
+- choose BFS for unweighted shortest paths and DFS for reachability/component structure;
+- detect directed cycles with color/state or indegree processing;
+- use union-find for incremental undirected connectivity;
+- select Dijkstra only when edge weights are non-negative;
+- prove topological-order prerequisites and disconnected-component handling;
+- bound grid coordinates and mark visited at the correct time.
+
+## Dynamic Programming
+
+Dynamic programming applies when subproblems overlap and an optimal answer can be
+composed from smaller states. Define state meaning, recurrence, base cases,
+evaluation order, and final state before optimizing memory.
+
+<SearchableQuestionTable topic="Dynamic Programming" />
+
+### Dynamic-programming mastery checkpoints
+
+- derive take/skip, prefix, grid, subsequence, knapsack, and interval states;
+- distinguish combinations from permutations through loop order;
+- prove whether greedy or binary-search alternatives replace quadratic DP;
+- separate unreachable state from a valid zero value;
+- state time as number of states multiplied by transitions per state;
+- reconstruct a solution only when the prompt requires it.
+
+## Backtracking
+
+Backtracking explores a choice tree while restoring mutable state after each
+branch. Define candidate choices, validity constraints, completion, pruning, and
+duplicate suppression explicitly.
+
+<SearchableQuestionTable topic="Backtracking" />
+
+### Backtracking mastery checkpoints
+
+- distinguish combinations, permutations, partitions, and constrained placements;
+- use start indexes, used arrays, or sorted duplicate skipping correctly;
+- restore path, board, and constraint state on every return path;
+- prune only with a proof that no valid result is discarded;
+- report exponential complexity in terms of branching and depth;
+- copy completed results rather than retaining a mutable path reference.
+
+## Tries
+
+A trie exchanges memory for prefix-oriented operations. Explain alphabet choice,
+node representation, terminal markers, prefix aggregation, deletion ownership,
+and when sorting plus binary search is simpler.
+
+<SearchableQuestionTable topic="Trie" />
+
+### Trie mastery checkpoints
+
+- distinguish complete-word lookup from prefix existence;
+- handle wildcard search through bounded DFS;
+- combine a trie with grid backtracking without repeating results;
+- use bitwise tries for maximum-XOR decisions;
+- estimate node count and sparse-child memory overhead;
+- reject a trie when static sorted strings already satisfy the access pattern.
 
 ## Recommended Preparation Order
 

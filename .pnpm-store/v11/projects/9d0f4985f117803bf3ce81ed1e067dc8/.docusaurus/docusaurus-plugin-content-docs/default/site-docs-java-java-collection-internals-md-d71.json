@@ -1,0 +1,36 @@
+{
+  "id": "java/JAVA-COLLECTION-INTERNALS",
+  "title": "Java Collection Internals",
+  "description": "This overview preserves the established URL. Use",
+  "source": "@site/docs/java/JAVA-COLLECTION-INTERNALS.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-COLLECTION-INTERNALS",
+  "permalink": "/shopverse/java/JAVA-COLLECTION-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-COLLECTION-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Java Collection Internals",
+    "sidebar_position": 4,
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Safe Collection Mutation",
+    "permalink": "/shopverse/java/collections/SAFE-COLLECTION-MUTATION"
+  },
+  "next": {
+    "title": "Comparable, Comparator And Sorted Collections Deep Dive",
+    "permalink": "/shopverse/java/JAVA-COMPARABLE-COMPARATOR-DEEP-DIVE"
+  }
+}

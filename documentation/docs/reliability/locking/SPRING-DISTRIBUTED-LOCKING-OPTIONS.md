@@ -19,6 +19,21 @@ review_evidence: repository-content-audit
 
 # Spring Distributed Locking Options
 
+## Lock Selection Flow
+
+```mermaid
+flowchart TD
+    W["Coordinated work"] --> Q{"What guarantee is required?"}
+    Q -->|"Single scheduled execution"| S["ShedLock"]
+    Q -->|"Shared Spring lock abstraction"| L["LockRegistry"]
+    Q -->|"Database-owned invariant"| D["Database constraint or row lock"]
+    Q -->|"Distributed lease with fencing"| F["Lease plus fencing token"]
+    S --> V["Validate expiry, ownership, and failure behavior"]
+    L --> V
+    D --> V
+    F --> V
+```
+
 Spring Framework provides local task scheduling and execution abstractions. A
 method annotated with `@Scheduled` is registered in each application context, so
 deploying three replicas normally creates three independent schedules. Cluster

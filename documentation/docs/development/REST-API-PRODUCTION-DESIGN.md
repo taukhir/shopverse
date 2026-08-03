@@ -6,7 +6,7 @@ status: maintained
 prerequisites: [REST API HTTP contracts and representations]
 learning_objectives: [Design secure observable and resilient APIs, Evolve public contracts without breaking clients]
 technologies: [HTTP, REST, OpenAPI]
-last_reviewed: "2026-07-11"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-development
 reviewer: documentation-maintainers
@@ -126,9 +126,14 @@ dependency resilience:
 - timeout bounds waiting;
 - retry handles selected transient failures;
 - circuit breaker avoids repeatedly calling an unhealthy dependency.
+- concurrency limit bounds in-flight work; load shedding rejects work that cannot meet a safe deadline.
 
 Retries require idempotency. Do not retry validation failures, authorization
 failures, or non-idempotent commands without a durable idempotency key.
+
+Compose retries under one end-to-end deadline. Use bounded attempts, exponential backoff and jitter, honor
+`Retry-After`, and assign one retry owner so clients, proxies and services do not multiply attempts. A timeout
+does not prove the remote operation failed before committing.
 
 ## Documentation And Observability
 

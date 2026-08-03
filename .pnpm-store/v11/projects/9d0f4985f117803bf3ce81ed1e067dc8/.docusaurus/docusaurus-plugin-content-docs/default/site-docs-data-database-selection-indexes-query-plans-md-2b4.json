@@ -1,0 +1,51 @@
+{
+  "id": "data/database-selection/INDEXES-QUERY-PLANS",
+  "title": "Indexes And Query Plans",
+  "description": "Query Tuning Feedback Loop",
+  "source": "@site/docs/data/database-selection/INDEXES-QUERY-PLANS.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/INDEXES-QUERY-PLANS",
+  "permalink": "/shopverse/data/database-selection/INDEXES-QUERY-PLANS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/INDEXES-QUERY-PLANS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "Indexes And Query Plans",
+    "sidebar_position": 5,
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose an index type from a query",
+      "Detect under-indexing and over-indexing",
+      "Verify index effectiveness with query plans and statistics"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "MySQL",
+      "MariaDB",
+      "SQL Server",
+      "Oracle Database",
+      "Db2",
+      "MongoDB",
+      "Cassandra"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Vector Databases",
+    "permalink": "/shopverse/data/database-selection/VECTOR-DATABASES"
+  },
+  "next": {
+    "title": "Database And Query Optimization",
+    "permalink": "/shopverse/data/database-selection/DATABASE-QUERY-OPTIMIZATION"
+  }
+}

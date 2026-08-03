@@ -1,0 +1,36 @@
+{
+  "id": "operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE",
+  "title": "Local Docker Implementation Guide",
+  "description": "This guide explains how the Shopverse local Docker environment is assembled.",
+  "source": "@site/docs/operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE",
+  "permalink": "/shopverse/operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Local Docker Implementation Guide",
+    "sidebar_position": 4,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Shopverse Docker Implementation",
+    "permalink": "/shopverse/operations/SHOPVERSE-DOCKER"
+  },
+  "next": {
+    "title": "CI/CD Automation",
+    "permalink": "/shopverse/operations/CI-CD-AUTOMATION"
+  }
+}

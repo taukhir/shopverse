@@ -1,0 +1,35 @@
+{
+  "id": "java/collections/SAFE-COLLECTION-MUTATION",
+  "title": "Safe Collection Mutation",
+  "description": "Safely remove, transform, publish, and concurrently update Java collections.",
+  "source": "@site/docs/java/collections/SAFE-COLLECTION-MUTATION.md",
+  "sourceDirName": "java/collections",
+  "slug": "/java/collections/SAFE-COLLECTION-MUTATION",
+  "permalink": "/shopverse/java/collections/SAFE-COLLECTION-MUTATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/SAFE-COLLECTION-MUTATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Safe Collection Mutation",
+    "description": "Safely remove, transform, publish, and concurrently update Java collections.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "List, Set, And Map Choices",
+    "permalink": "/shopverse/java/collections/LIST-SET-MAP-CHOICES"
+  },
+  "next": {
+    "title": "Java Collection Internals",
+    "permalink": "/shopverse/java/JAVA-COLLECTION-INTERNALS"
+  }
+}

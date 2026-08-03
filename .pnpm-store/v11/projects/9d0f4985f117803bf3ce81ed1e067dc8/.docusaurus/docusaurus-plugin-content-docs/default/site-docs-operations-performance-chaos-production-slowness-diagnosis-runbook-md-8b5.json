@@ -1,0 +1,56 @@
+{
+  "id": "operations/performance-chaos/PRODUCTION-SLOWNESS-DIAGNOSIS-RUNBOOK",
+  "title": "Production Slowness Diagnosis And Rapid Mitigation Runbook",
+  "description": "Identify a slow production service quickly using scope, percentiles, traces, metrics, profiles, logs, changes, queues, pools, JVM, database, network, and dependency evidence; mitigate safely and prove recovery.",
+  "source": "@site/docs/operations/performance-chaos/PRODUCTION-SLOWNESS-DIAGNOSIS-RUNBOOK.md",
+  "sourceDirName": "operations/performance-chaos",
+  "slug": "/operations/performance-chaos/PRODUCTION-SLOWNESS-DIAGNOSIS-RUNBOOK",
+  "permalink": "/shopverse/operations/performance-chaos/PRODUCTION-SLOWNESS-DIAGNOSIS-RUNBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/performance-chaos/PRODUCTION-SLOWNESS-DIAGNOSIS-RUNBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Production Slowness Diagnosis And Rapid Mitigation Runbook",
+    "description": "Identify a slow production service quickly using scope, percentiles, traces, metrics, profiles, logs, changes, queues, pools, JVM, database, network, and dependency evidence; mitigate safely and prove recovery.",
+    "sidebar_label": "Production Slowness Diagnosis",
+    "difficulty": "Advanced",
+    "page_type": "Runbook",
+    "status": "maintained",
+    "prerequisites": [
+      "HTTP",
+      "JVM",
+      "databases",
+      "observability fundamentals"
+    ],
+    "learning_objectives": [
+      "Triage latency in minutes",
+      "Localize the saturated layer",
+      "Choose reversible mitigation",
+      "Prove recovery and root cause"
+    ],
+    "technologies": [
+      "Spring Boot",
+      "Micrometer",
+      "OpenTelemetry",
+      "Prometheus",
+      "Kubernetes",
+      "JFR"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Performance And Chaos Engineering Architect Path",
+    "permalink": "/shopverse/operations/PERFORMANCE-CHAOS-ENGINEERING-PATH"
+  },
+  "next": {
+    "title": "Performance And Chaos Labs, CI, Incidents, And Interviews",
+    "permalink": "/shopverse/operations/performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW"
+  }
+}

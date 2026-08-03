@@ -1,0 +1,41 @@
+{
+  "id": "services/readmes/DISCOVERY-SERVER-README",
+  "title": "Discovery Server README",
+  "description": "Site mirror of Eureka responsibilities, operations, validation, observability, and AI-assisted workflows.",
+  "source": "@site/docs/services/readmes/DISCOVERY-SERVER-README.md",
+  "sourceDirName": "services/readmes",
+  "slug": "/services/readmes/DISCOVERY-SERVER-README",
+  "permalink": "/shopverse/services/readmes/DISCOVERY-SERVER-README",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/services/readmes/DISCOVERY-SERVER-README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Discovery Server README",
+    "description": "Site mirror of Eureka responsibilities, operations, validation, observability, and AI-assisted workflows.",
+    "sidebar_label": "Discovery Server README",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "scope": "shopverse",
+    "owner": "discovery-server",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "canonical-readme-sync",
+    "technologies": [
+      "Shopverse",
+      "Service Documentation",
+      "AI-Assisted Development"
+    ],
+    "last_reviewed": "2026-07-29"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Cloud Configs README",
+    "permalink": "/shopverse/services/readmes/CLOUD-CONFIGS-README"
+  },
+  "next": {
+    "title": "Platform README",
+    "permalink": "/shopverse/services/readmes/SHOPVERSE-PLATFORM-README"
+  }
+}

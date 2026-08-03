@@ -1,0 +1,55 @@
+{
+  "id": "ai/ENTERPRISE-AI-ARCHITECTURE",
+  "title": "Enterprise AI Architecture With Spring",
+  "description": "This is the umbrella for designing AI-enabled Java and Spring microservices. It",
+  "source": "@site/docs/ai/ENTERPRISE-AI-ARCHITECTURE.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/ENTERPRISE-AI-ARCHITECTURE",
+  "permalink": "/shopverse/ai/ENTERPRISE-AI-ARCHITECTURE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/ENTERPRISE-AI-ARCHITECTURE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Enterprise AI Architecture With Spring",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "keywords": [
+      "enterprise AI",
+      "Spring AI",
+      "Spring Cloud",
+      "MCP",
+      "LangChain4j",
+      "RAG",
+      "agents"
+    ],
+    "learning_objectives": [
+      "Navigate the complete enterprise AI track",
+      "Place probabilistic and deterministic responsibilities correctly",
+      "Select RAG tools MCP workflows and agents"
+    ],
+    "technologies": [
+      "Spring AI",
+      "Spring Cloud",
+      "LangChain4j",
+      "MCP",
+      "Java"
+    ],
+    "last_reviewed": "2026-07-16",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI And RAG Overview",
+    "permalink": "/shopverse/ai/"
+  },
+  "next": {
+    "title": "AI-Assisted SDLC",
+    "permalink": "/shopverse/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY"
+  }
+}

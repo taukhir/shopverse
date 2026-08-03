@@ -1,0 +1,57 @@
+{
+  "id": "security/oauth/GOOGLE-AUTHENTICATION-SPRING",
+  "title": "Google Authentication With Spring",
+  "description": "Choose and implement secure Google authentication boundaries for Shopverse.",
+  "source": "@site/docs/security/oauth/GOOGLE-AUTHENTICATION-SPRING.md",
+  "sourceDirName": "security/oauth",
+  "slug": "/security/oauth/GOOGLE-AUTHENTICATION-SPRING",
+  "permalink": "/shopverse/security/oauth/GOOGLE-AUTHENTICATION-SPRING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/oauth/GOOGLE-AUTHENTICATION-SPRING.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Google Authentication With Spring",
+    "description": "Choose and implement secure Google authentication boundaries for Shopverse.",
+    "sidebar_label": "Google Authentication With Spring",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "SSO And OpenID Connect",
+    "permalink": "/shopverse/security/oauth/SSO-AND-OPENID-CONNECT"
+  },
+  "next": {
+    "title": "Google OAuth Client And Session Login",
+    "permalink": "/shopverse/security/oauth/GOOGLE-OAUTH-CLIENT-SESSION"
+  }
+}

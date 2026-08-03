@@ -1,0 +1,54 @@
+{
+  "id": "operations/SRE-DR-CHAOS",
+  "title": "SRE, Disaster Recovery, And Chaos Engineering",
+  "description": "SLIs, SLOs, And Error Budgets",
+  "source": "@site/docs/operations/SRE-DR-CHAOS.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/SRE-DR-CHAOS",
+  "permalink": "/shopverse/operations/SRE-DR-CHAOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/SRE-DR-CHAOS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "SRE, Disaster Recovery, And Chaos Engineering",
+    "difficulty": "Advanced",
+    "page_type": "Runbook",
+    "status": "maintained",
+    "keywords": [
+      "SLI",
+      "SLO",
+      "error budget",
+      "incident management",
+      "postmortem",
+      "disaster recovery",
+      "chaos engineering",
+      "game day"
+    ],
+    "learning_objectives": [
+      "Define user-centered reliability targets",
+      "Coordinate incidents and learning",
+      "Prove recovery with controlled failure experiments"
+    ],
+    "technologies": [
+      "Prometheus",
+      "Grafana",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Data Pipeline Production And Interview Guide",
+    "permalink": "/shopverse/data/DATA-PIPELINE-PRODUCTION-INTERVIEW"
+  },
+  "next": {
+    "title": "Performance, Capacity, And FinOps",
+    "permalink": "/shopverse/operations/PERFORMANCE-CAPACITY-FINOPS"
+  }
+}

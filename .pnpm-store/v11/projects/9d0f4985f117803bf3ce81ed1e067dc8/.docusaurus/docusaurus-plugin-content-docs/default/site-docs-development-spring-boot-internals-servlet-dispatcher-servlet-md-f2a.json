@@ -1,0 +1,44 @@
+{
+  "id": "development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET",
+  "title": "Servlets And DispatcherServlet In Spring Boot",
+  "description": "Compatibility route to the canonical Servlet and Spring MVC request-lifecycle guide.",
+  "source": "@site/docs/development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET.md",
+  "sourceDirName": "development/spring-boot-internals",
+  "slug": "/development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET",
+  "permalink": "/shopverse/development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/spring-boot-internals/SERVLET-DISPATCHER-SERVLET.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Servlets And DispatcherServlet In Spring Boot",
+    "description": "Compatibility route to the canonical Servlet and Spring MVC request-lifecycle guide.",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "learning_objectives": [
+      "Find the canonical servlet and DispatcherServlet lifecycle explanation",
+      "Preserve existing links from the Spring Boot internals learning path"
+    ],
+    "technologies": [
+      "Jakarta Servlet",
+      "Spring MVC",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "compatibility",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Persistence Runtime Compatibility Route",
+    "permalink": "/shopverse/spring/internals-production/HIBERNATE-JDBC-INTERNALS"
+  },
+  "next": {
+    "title": "Spring Web MVC Servlet And Filter Internals",
+    "permalink": "/shopverse/development/spring-boot-internals/WEB-MVC-SERVLET-FILTERS"
+  }
+}

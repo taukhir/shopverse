@@ -1,0 +1,59 @@
+{
+  "id": "operations/kubernetes/TKGI-PRODUCTION-OPERATIONS-PATH",
+  "title": "TKGI Production Platform Operations Path",
+  "description": "Production TKGI learning path covering installation foundations, plans and sizing, networking and load balancers, upgrades, backup and disaster recovery, telemetry and sinks, incidents, commands, and interview revision.",
+  "source": "@site/docs/operations/kubernetes/TKGI-PRODUCTION-OPERATIONS-PATH.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-PRODUCTION-OPERATIONS-PATH",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-PRODUCTION-OPERATIONS-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-PRODUCTION-OPERATIONS-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI Production Platform Operations Path",
+    "description": "Production TKGI learning path covering installation foundations, plans and sizing, networking and load balancers, upgrades, backup and disaster recovery, telemetry and sinks, incidents, commands, and interview revision.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "TKGI control-plane architecture",
+      "Kubernetes operations",
+      "BOSH fundamentals"
+    ],
+    "learning_objectives": [
+      "Design a production TKGI foundation",
+      "Size and network clusters",
+      "Upgrade and recover safely",
+      "Build evidence-driven operations",
+      "Answer platform interview scenarios"
+    ],
+    "technologies": [
+      "TKGI 1.25",
+      "Operations Manager",
+      "BOSH",
+      "vSphere",
+      "NSX",
+      "Antrea",
+      "BBR",
+      "Velero",
+      "Fluent Bit",
+      "Telegraf"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Architecture, Services, BOSH, Concourse, And Operations",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-ARCHITECTURE-OPERATIONS"
+  },
+  "next": {
+    "title": "TKGI Installation Foundations And Platform Topology",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-INSTALLATION-FOUNDATION"
+  }
+}

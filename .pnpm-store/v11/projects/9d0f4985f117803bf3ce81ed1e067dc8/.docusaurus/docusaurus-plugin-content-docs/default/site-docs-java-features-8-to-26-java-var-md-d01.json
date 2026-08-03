@@ -1,0 +1,36 @@
+{
+  "id": "java/features-8-to-26/JAVA-VAR",
+  "title": "Java var",
+  "description": "var is local variable type inference introduced in Java 10.",
+  "source": "@site/docs/java/features-8-to-26/JAVA-VAR.md",
+  "sourceDirName": "java/features-8-to-26",
+  "slug": "/java/features-8-to-26/JAVA-VAR",
+  "permalink": "/shopverse/java/features-8-to-26/JAVA-VAR",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/features-8-to-26/JAVA-VAR.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Java var",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java 25 And 26 Runtime Changes",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-25-26-RUNTIME"
+  },
+  "next": {
+    "title": "Java Switch",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-SWITCH"
+  }
+}

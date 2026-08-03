@@ -1,0 +1,36 @@
+{
+  "id": "ai/VISUAL-LEARNING-GUIDE",
+  "title": "AI Visual Learning Guide",
+  "description": "This page collects the images, animated diagrams, flow diagrams, sequence",
+  "source": "@site/docs/ai/VISUAL-LEARNING-GUIDE.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/VISUAL-LEARNING-GUIDE",
+  "permalink": "/shopverse/ai/VISUAL-LEARNING-GUIDE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/VISUAL-LEARNING-GUIDE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1.2,
+  "frontMatter": {
+    "title": "AI Visual Learning Guide",
+    "sidebar_position": 1.2,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Beginner To Advanced AI Guide",
+    "permalink": "/shopverse/ai/BEGINNER-TO-ADVANCED-GUIDE"
+  },
+  "next": {
+    "title": "AI Learning Plan",
+    "permalink": "/shopverse/ai/AI-LEARNING-PLAN"
+  }
+}

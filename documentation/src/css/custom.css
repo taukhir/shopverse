@@ -157,8 +157,9 @@ body.reader-focus-mode .theme-doc-markdown {
   border-radius: var(--ifm-global-radius);
   border-spacing: 0;
   box-shadow: var(--doc-shadow-sm);
-  display: table;
-  overflow: hidden;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
   width: 100%;
   font-size: 0.94rem;
 }
@@ -319,6 +320,16 @@ code {
 .theme-doc-sidebar-menu {
   font-size: 0.9rem;
   padding: 0.7rem 0.6rem 1.5rem;
+}
+
+@media (min-width: 997px) {
+  .theme-doc-sidebar-menu {
+    padding-top: 4.25rem;
+  }
+
+  body.reader-focus-mode .reader-library-trigger {
+    display: none;
+  }
 }
 
 .theme-doc-sidebar-menu .menu__link {

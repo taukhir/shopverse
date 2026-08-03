@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Performance And Chaos Engineering Path]
 learning_objectives: [Implement repeatable tests, Find bottlenecks, Run guarded faults, Defend results in interviews]
 technologies: [k6, JFR, Prometheus, Toxiproxy, Chaos Mesh]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-operations
 reviewer: documentation-maintainers
@@ -72,6 +72,68 @@ and controlled experiment; both require safety, but chaos emphasizes systemic le
 **How do you prove recovery?** User SLO returns, queues/lag drain within budget, resources stabilize and
 business reconciliation shows no missing/duplicate/corrupt state.
 
+## Additional Production Interview Questions
+
+### Latency, throughput, concurrency, utilization, and saturation?
+
+Latency is time per operation, throughput is completed work per time, and concurrency is in-flight work.
+Utilization is how busy a resource is; saturation is queued or rejected demand beyond immediate capacity.
+Throughput can flatten while latency and queues rise once the bottleneck saturates.
+
+### How does Little's Law help capacity analysis?
+
+For a stable system, average concurrency is arrival rate multiplied by average time in system. Use consistent
+units and include queueing time. It is a diagnostic relationship, not permission to assume stationarity during
+overload, retries or rapidly changing traffic.
+
+### Why are percentiles and coordinated omission important?
+
+Tail percentiles expose slow user experiences hidden by averages. A closed-loop generator can stop sending
+while responses are slow and omit the waits real arrivals would experience. Use an arrival-rate model where
+appropriate and report achieved rate, errors and the complete latency distribution.
+
+### Load, stress, spike, and soak tests?
+
+Load verifies expected demand and SLOs; stress discovers the limit and degradation behavior; spike tests sudden
+change and recovery; soak finds leaks, growth and cumulative failure over time. Each needs representative data,
+topology, warm state and correctness assertions.
+
+### How do you find the first bottleneck?
+
+Reproduce a controlled workload, confirm the generator and achieved arrival rate, locate the first growing
+queue or saturated resource, correlate upstream/downstream signals and profile that boundary. Change one factor
+and rerun the same baseline instead of scaling every component simultaneously.
+
+### CPU profile versus wall-clock profile?
+
+A CPU profile finds code consuming processor time; a wall-clock profile also exposes blocking, sleeps, locks,
+I/O and queue waits. A low-CPU slow service often needs wall-clock, thread, pool and dependency evidence rather
+than micro-optimizing methods absent from the critical path.
+
+### How do GC and native memory affect latency?
+
+Heap allocation and GC can cause CPU pressure or pauses, but process memory also includes metaspace, code cache,
+thread stacks, direct buffers and mapped pages. Correlate GC/JFR, RSS, cgroup events and allocation evidence;
+do not infer a heap leak from container memory alone.
+
+### Why can a larger connection pool reduce throughput?
+
+More connections can increase database contention, lock waits, context switching and memory while moving the
+queue downstream. Bound concurrency from database capacity and latency targets, measure checkout wait and query
+time separately, and use backpressure instead of unlimited waiting.
+
+### How should capacity headroom be chosen?
+
+Model peak and growth uncertainty, autoscaling/provisioning delay, failover loss, rollout surge, retry traffic,
+dependency quotas and SLO. Validate the resulting margin with load and failure tests; a universal percentage is
+not defensible.
+
+### When is a performance result trustworthy?
+
+Versions, topology, dataset, generator capacity, workload mix, warm-up and environment must be recorded.
+Report achieved traffic, errors, percentiles, resource limits, correctness, variance and confidence across
+repeat runs. A faster response made of errors or missing work is not an improvement.
+
 ## Official References
 
 - [k6 testing guides](https://grafana.com/docs/k6/latest/testing-guides/)
@@ -81,4 +143,3 @@ business reconciliation shows no missing/duplicate/corrupt state.
 ## Recommended Next
 
 Return to the [Performance And Chaos Engineering Path](../PERFORMANCE-CHAOS-ENGINEERING-PATH.md) and apply all ten labs to the integrated capstone.
-

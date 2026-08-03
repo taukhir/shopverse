@@ -1,0 +1,36 @@
+{
+  "id": "architecture/DISTRIBUTED-SYSTEMS-GENERIC",
+  "title": "Distributed Systems Fundamentals",
+  "description": "A distributed system contains independent processes running on multiple",
+  "source": "@site/docs/architecture/DISTRIBUTED-SYSTEMS-GENERIC.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/DISTRIBUTED-SYSTEMS-GENERIC",
+  "permalink": "/shopverse/architecture/DISTRIBUTED-SYSTEMS-GENERIC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/DISTRIBUTED-SYSTEMS-GENERIC.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Distributed Systems Fundamentals",
+    "sidebar_position": 1,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Microservices Internals And Failure Engineering",
+    "permalink": "/shopverse/architecture/MICROSERVICES-INTERNALS-DEEP-DIVE"
+  },
+  "next": {
+    "title": "API Gateway Engineering",
+    "permalink": "/shopverse/development/API-GATEWAY-GENERIC"
+  }
+}

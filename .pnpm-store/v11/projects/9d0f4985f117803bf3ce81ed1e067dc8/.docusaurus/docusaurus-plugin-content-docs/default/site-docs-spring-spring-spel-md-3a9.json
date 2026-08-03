@@ -1,0 +1,46 @@
+{
+  "id": "spring/SPRING-SPEL",
+  "title": "Spring Expression Language (SpEL)",
+  "description": "Learning path for SpEL language evaluation, Spring annotation integrations, security, performance, testing, and production diagnostics.",
+  "source": "@site/docs/spring/SPRING-SPEL.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-SPEL",
+  "permalink": "/shopverse/spring/SPRING-SPEL",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-SPEL.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Expression Language (SpEL)",
+    "description": "Learning path for SpEL language evaluation, Spring annotation integrations, security, performance, testing, and production diagnostics.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "learning_objectives": [
+      "Choose the correct SpEL guide for language, integration, or production concerns",
+      "Distinguish external configuration placeholders from expression evaluation",
+      "Keep dynamic expressions inside an explicit trust and performance boundary"
+    ],
+    "technologies": [
+      "Spring Framework",
+      "Spring Boot",
+      "Spring Security",
+      "Spring Data"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot 4 Configuration Properties",
+    "permalink": "/shopverse/development/spring-boot-internals/CONFIGURATION-PROPERTIES"
+  },
+  "next": {
+    "title": "SpEL Language And Evaluation Internals",
+    "permalink": "/shopverse/spring/spel/SPEL-LANGUAGE-EVALUATION"
+  }
+}

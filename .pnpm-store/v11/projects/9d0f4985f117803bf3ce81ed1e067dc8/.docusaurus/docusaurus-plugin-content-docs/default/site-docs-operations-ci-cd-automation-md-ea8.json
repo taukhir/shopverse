@@ -1,0 +1,36 @@
+{
+  "id": "operations/CI-CD-AUTOMATION",
+  "title": "CI/CD Automation",
+  "description": "Continuous Integration validates every change. Continuous Delivery keeps a",
+  "source": "@site/docs/operations/CI-CD-AUTOMATION.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/CI-CD-AUTOMATION",
+  "permalink": "/shopverse/operations/CI-CD-AUTOMATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/CI-CD-AUTOMATION.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "CI/CD Automation",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Local Docker Implementation Guide",
+    "permalink": "/shopverse/operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE"
+  },
+  "next": {
+    "title": "Jenkins",
+    "permalink": "/shopverse/operations/JENKINS"
+  }
+}

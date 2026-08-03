@@ -1,10 +1,12 @@
-import React, {useEffect, useState, type ReactNode} from 'react';
-import {ArrowLeft, ArrowRight, ArrowUp, Focus, Keyboard, ListTree, Search, X} from 'lucide-react';
+import React, {lazy, Suspense, useEffect, useState, type ReactNode} from 'react';
 import styles from './styles.module.css';
 import ReaderLibrary from '@site/src/components/ReaderLibrary';
 import CommandPalette from '@site/src/components/CommandPalette';
-import PrivacyAnalytics from '@site/src/components/PrivacyAnalytics';
 import {readReaderState, writeReaderState} from '@site/src/utils/readerLibrary';
+
+const PrivacyAnalytics = lazy(() => import('@site/src/components/PrivacyAnalytics'));
+const KeyboardShortcuts = lazy(() => import('@site/src/components/KeyboardShortcuts'));
+const ImageLightbox = lazy(() => import('@site/src/components/ImageLightbox'));
 
 export default function Root({children}: {children: ReactNode}) {
   const [progress, setProgress] = useState(0);
@@ -72,17 +74,16 @@ export default function Root({children}: {children: ReactNode}) {
       {children}
       <ReaderLibrary />
       <CommandPalette />
-      <PrivacyAnalytics />
+      <Suspense fallback={null}><PrivacyAnalytics /></Suspense>
       <button
         className={`${styles.mobileContents} ${showMobileContents ? styles.visible : ''}`}
         type="button"
         aria-label="Jump to the table of contents"
         onClick={() => document.querySelector('.theme-doc-toc-mobile')?.scrollIntoView({behavior: 'smooth', block: 'center'})}
       >
-        <ListTree aria-hidden="true" />
         On this page
       </button>
-      <button className={styles.shortcutTrigger} type="button" aria-label="Show keyboard shortcuts" title="Keyboard shortcuts (?)" onClick={() => setShowShortcuts(true)}><Keyboard aria-hidden="true" /></button>
+      <button className={styles.shortcutTrigger} type="button" aria-label="Show keyboard shortcuts" title="Keyboard shortcuts (?)" onClick={() => setShowShortcuts(true)}><span aria-hidden="true">?</span></button>
       <button
         className={`${styles.backToTop} ${showBackToTop ? styles.visible : ''}`}
         type="button"
@@ -90,17 +91,10 @@ export default function Root({children}: {children: ReactNode}) {
         title="Back to top"
         onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
       >
-        <ArrowUp aria-hidden="true" />
+        <span aria-hidden="true">↑</span>
       </button>
-      {zoomedImage && (
-        <div className={styles.lightbox} role="dialog" aria-modal="true" aria-label={zoomedImage.alt || 'Image preview'} onClick={() => setZoomedImage(null)}>
-          <button type="button" aria-label="Close image preview" onClick={() => setZoomedImage(null)}>
-            <X aria-hidden="true" />
-          </button>
-          <img src={zoomedImage.src} alt={zoomedImage.alt} onClick={(event) => event.stopPropagation()} />
-        </div>
-      )}
-      {showShortcuts && <div className={styles.shortcutBackdrop} role="presentation" onClick={() => setShowShortcuts(false)}><section className={styles.shortcutDialog} role="dialog" aria-modal="true" aria-label="Keyboard shortcuts" onClick={(event) => event.stopPropagation()}><header><div><Keyboard /><strong>Keyboard shortcuts</strong></div><button type="button" onClick={() => setShowShortcuts(false)} aria-label="Close keyboard shortcuts"><X /></button></header><dl><div><dt><kbd>/</kbd></dt><dd><Search />Quick find</dd></div><div><dt><kbd>Shift</kbd> <kbd>F</kbd></dt><dd><Focus />Toggle focus mode</dd></div><div><dt><kbd>Alt</kbd> <kbd>←</kbd></dt><dd><ArrowLeft />Previous guide</dd></div><div><dt><kbd>Alt</kbd> <kbd>→</kbd></dt><dd><ArrowRight />Next guide</dd></div><div><dt><kbd>?</kbd></dt><dd><Keyboard />Show this help</dd></div><div><dt><kbd>Esc</kbd></dt><dd><X />Close dialogs</dd></div></dl></section></div>}
+      {zoomedImage && <Suspense fallback={null}><ImageLightbox image={zoomedImage} onClose={() => setZoomedImage(null)} /></Suspense>}
+      {showShortcuts && <Suspense fallback={null}><KeyboardShortcuts onClose={() => setShowShortcuts(false)} /></Suspense>}
     </>
   );
 }

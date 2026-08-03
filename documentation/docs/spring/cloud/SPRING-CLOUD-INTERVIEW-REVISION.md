@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Spring Cloud Operations]
 learning_objectives: [Answer architecture questions, Diagnose cross-component failures, Validate Spring Cloud designs through labs]
 technologies: [Spring Cloud]
-last_reviewed: "2026-07-23"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-spring
 reviewer: documentation-maintainers
@@ -40,6 +40,48 @@ and roll back; use rollout for restart-required/coordinated changes.
 
 **Gateway authentication enough?** No. Gateway validates/coarsely routes identity, but services
 enforce domain authorization and distrust spoofable forwarded headers.
+
+## Focused Runtime Questions
+
+<ExpandableAnswer title="How does Spring Cloud Config participate in Boot Config Data startup?">
+
+`spring.config.import=configserver:...` adds remote property sources while Boot
+prepares the `Environment`, before normal bean creation. The `optional:` prefix
+changes missing-server startup behavior; fail-fast/retry policy must match whether a
+fresh instance can safely start with no remote configuration. Record config revision
+and origin so an incident can distinguish unavailable config from stale config.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How do circuit-breaker states and resilience composition affect behavior?">
+
+Closed records outcomes, open rejects calls, and half-open admits limited probes.
+Configure minimum calls, failure and slow-call thresholds, sliding window, open
+duration and probe concurrency from measured behavior. Timeout, retry, breaker and
+bulkhead nesting changes attempt counts, metrics and load; define one retry owner and
+test the exact composition under slow failure and recovery.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What does Spring Cloud Contract prove, and what does it not prove?">
+
+Producer-owned contracts generate provider verification and consumer-usable stubs
+for observable HTTP or messaging behavior. They catch incompatible request, response,
+header and payload changes before deployment. They do not prove real network,
+broker, ordering, retry, security, capacity or end-to-end behavior, so integration
+and failure tests remain necessary.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="How should tracing and correlation propagate through Spring Cloud components?">
+
+Use Micrometer observation/tracing instrumentation for supported gateway, HTTP and
+messaging hops, and propagate only trusted standard trace headers across boundaries.
+Keep a stable business correlation ID separate when a workflow outlives one trace.
+Verify propagation through retries, asynchronous execution and message production;
+never use trace, tenant or customer IDs as unbounded metric tags.
+
+</ExpandableAnswer>
 
 ## Architect Scenarios
 
@@ -91,6 +133,8 @@ expand-contract migrations, route/version policy, capability metrics, and remova
 - [Spring Cloud reference](https://docs.spring.io/spring-cloud/docs/current/reference/html/)
 - [Spring Cloud Gateway reference](https://docs.spring.io/spring-cloud-gateway/reference/)
 - [Spring Cloud Config reference](https://docs.spring.io/spring-cloud-config/reference/)
+- [Spring Cloud Circuit Breaker reference](https://docs.spring.io/spring-cloud-circuitbreaker/reference/)
+- [Spring Cloud Contract reference](https://docs.spring.io/spring-cloud-contract/reference/)
 
 ## Recommended Next
 

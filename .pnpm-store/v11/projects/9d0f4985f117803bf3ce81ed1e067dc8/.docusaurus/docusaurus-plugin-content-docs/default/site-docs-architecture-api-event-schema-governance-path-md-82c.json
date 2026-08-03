@@ -1,0 +1,52 @@
+{
+  "id": "architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH",
+  "title": "API And Event Schema Governance Path",
+  "description": "Complete route through API lifecycle and OpenAPI, event contracts and schema registries, Avro Protobuf JSON Schema compatibility, ownership, security, policy, deprecation, incidents, labs, and interviews.",
+  "source": "@site/docs/architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH",
+  "permalink": "/shopverse/architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "API And Event Schema Governance Path",
+    "description": "Complete route through API lifecycle and OpenAPI, event contracts and schema registries, Avro Protobuf JSON Schema compatibility, ownership, security, policy, deprecation, incidents, labs, and interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "REST fundamentals",
+      "Event-driven architecture fundamentals"
+    ],
+    "learning_objectives": [
+      "Govern contracts without blocking delivery",
+      "Evolve APIs and events safely",
+      "Build measurable ownership and deprecation processes"
+    ],
+    "technologies": [
+      "OpenAPI",
+      "AsyncAPI",
+      "Avro",
+      "Protocol Buffers",
+      "JSON Schema",
+      "Schema Registry"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Networking, gRPC, And Service Mesh",
+    "permalink": "/shopverse/architecture/NETWORKING-GRPC-SERVICE-MESH"
+  },
+  "next": {
+    "title": "API Contract Lifecycle, OpenAPI, Versioning, And Deprecation",
+    "permalink": "/shopverse/architecture/governance/API-CONTRACT-GOVERNANCE"
+  }
+}

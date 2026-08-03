@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-OVERRIDING-HIDING-DEEP-DIVE",
+  "title": "Java Overriding, Method Hiding And Field Hiding Deep Dive",
+  "description": "Runtime dispatch, static hiding, fields, covariant returns, exceptions, bridges, defaults and construction traps.",
+  "source": "@site/docs/java/JAVA-OVERRIDING-HIDING-DEEP-DIVE.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-OVERRIDING-HIDING-DEEP-DIVE",
+  "permalink": "/shopverse/java/JAVA-OVERRIDING-HIDING-DEEP-DIVE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-OVERRIDING-HIDING-DEEP-DIVE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Overriding, Method Hiding And Field Hiding Deep Dive",
+    "description": "Runtime dispatch, static hiding, fields, covariant returns, exceptions, bridges, defaults and construction traps.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Overloading And Method Resolution Deep Dive",
+    "permalink": "/shopverse/java/JAVA-OVERLOADING-RESOLUTION-DEEP-DIVE"
+  },
+  "next": {
+    "title": "Java Language Resolution, Initialization And OOP Internals",
+    "permalink": "/shopverse/java/JAVA-LANGUAGE-OOP-INTERNALS"
+  }
+}

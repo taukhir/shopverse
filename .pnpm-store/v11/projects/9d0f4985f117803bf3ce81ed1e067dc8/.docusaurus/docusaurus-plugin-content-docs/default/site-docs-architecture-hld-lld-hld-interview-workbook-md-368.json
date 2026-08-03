@@ -1,0 +1,63 @@
+{
+  "id": "architecture/hld-lld/HLD-INTERVIEW-WORKBOOK",
+  "title": "High-Level Design Interview Workbook",
+  "description": "Fifty HLD concept questions with answer checkpoints and links to Shopverse deep dives.",
+  "source": "@site/docs/architecture/hld-lld/HLD-INTERVIEW-WORKBOOK.md",
+  "sourceDirName": "architecture/hld-lld",
+  "slug": "/architecture/hld-lld/HLD-INTERVIEW-WORKBOOK",
+  "permalink": "/shopverse/architecture/hld-lld/HLD-INTERVIEW-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/hld-lld/HLD-INTERVIEW-WORKBOOK.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "HLD",
+      "permalink": "/shopverse/tags/hld"
+    },
+    {
+      "inline": true,
+      "label": "system design",
+      "permalink": "/shopverse/tags/system-design"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "High-Level Design Interview Workbook",
+    "description": "Fifty HLD concept questions with answer checkpoints and links to Shopverse deep dives.",
+    "sidebar_label": "HLD Interview Workbook",
+    "tags": [
+      "HLD",
+      "system design",
+      "interview",
+      "architecture"
+    ],
+    "page_type": "Workbook",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Catalog And Search System Design",
+    "permalink": "/shopverse/architecture/shopverse-capstones/CATALOG-SEARCH-DESIGN"
+  },
+  "next": {
+    "title": "HLD Fundamentals",
+    "permalink": "/shopverse/architecture/hld-lld/HLD-FUNDAMENTALS"
+  }
+}

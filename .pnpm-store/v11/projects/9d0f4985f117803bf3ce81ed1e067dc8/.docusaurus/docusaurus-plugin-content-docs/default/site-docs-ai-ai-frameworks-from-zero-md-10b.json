@@ -1,0 +1,36 @@
+{
+  "id": "ai/AI-FRAMEWORKS-FROM-ZERO",
+  "title": "AI Frameworks From Zero",
+  "description": "This guide explains Java AI frameworks in the same style as official framework",
+  "source": "@site/docs/ai/AI-FRAMEWORKS-FROM-ZERO.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-FRAMEWORKS-FROM-ZERO",
+  "permalink": "/shopverse/ai/AI-FRAMEWORKS-FROM-ZERO",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-FRAMEWORKS-FROM-ZERO.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.05,
+  "frontMatter": {
+    "title": "AI Frameworks From Zero",
+    "sidebar_position": 6.05,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI Learning Plan",
+    "permalink": "/shopverse/ai/AI-LEARNING-PLAN"
+  },
+  "next": {
+    "title": "Spring AI, LangChain4j And Java AI",
+    "permalink": "/shopverse/ai/SPRING-AI-LANGCHAIN4J-JAVA"
+  }
+}

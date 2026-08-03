@@ -1,0 +1,51 @@
+{
+  "id": "spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY",
+  "title": "Spring Kafka Consumer Idempotency And Replay",
+  "description": "Idempotent listener transactions, durable failed-event identity, audited replay through an outbox, and recovery schema evolution.",
+  "source": "@site/docs/spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md",
+  "sourceDirName": "spring/kafka",
+  "slug": "/spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY",
+  "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Kafka Consumer Idempotency And Replay",
+    "description": "Idempotent listener transactions, durable failed-event identity, audited replay through an outbox, and recovery schema evolution.",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Kafka consumers",
+      "Database uniqueness",
+      "Transactional outbox"
+    ],
+    "learning_objectives": [
+      "Protect listener business effects from redelivery",
+      "Persist terminal failures with durable identity",
+      "Replay through an audited transactional outbox"
+    ],
+    "technologies": [
+      "Spring for Apache Kafka 4.x",
+      "Spring Data JPA",
+      "Transactional Outbox",
+      "Liquibase"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Kafka Retry DLT And Recovery",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY"
+  },
+  "next": {
+    "title": "Spring Kafka Operations And Incident Response",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-OPERATIONS-INCIDENT-RESPONSE"
+  }
+}

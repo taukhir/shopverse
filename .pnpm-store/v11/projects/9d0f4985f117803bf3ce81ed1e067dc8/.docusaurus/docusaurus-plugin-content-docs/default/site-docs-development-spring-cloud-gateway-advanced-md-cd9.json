@@ -1,0 +1,34 @@
+{
+  "id": "development/SPRING-CLOUD-GATEWAY-ADVANCED",
+  "title": "Advanced Spring Cloud Gateway",
+  "description": "This page covers production-oriented Spring Cloud Gateway Server WebFlux",
+  "source": "@site/docs/development/SPRING-CLOUD-GATEWAY-ADVANCED.md",
+  "sourceDirName": "development",
+  "slug": "/development/SPRING-CLOUD-GATEWAY-ADVANCED",
+  "permalink": "/shopverse/development/SPRING-CLOUD-GATEWAY-ADVANCED",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/SPRING-CLOUD-GATEWAY-ADVANCED.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Advanced Spring Cloud Gateway",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "API Gateway Operations",
+    "permalink": "/shopverse/development/API-GATEWAY-OPERATIONS"
+  },
+  "next": {
+    "title": "Service Discovery",
+    "permalink": "/shopverse/architecture/SERVICE-DISCOVERY"
+  }
+}

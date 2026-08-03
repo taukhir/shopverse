@@ -1,0 +1,34 @@
+{
+  "id": "platform/OBSERVABILITY-STARTER",
+  "title": "Observability Starter",
+  "description": "Back to Platform Infrastructure.",
+  "source": "@site/docs/platform/OBSERVABILITY-STARTER.md",
+  "sourceDirName": "platform",
+  "slug": "/platform/OBSERVABILITY-STARTER",
+  "permalink": "/shopverse/platform/OBSERVABILITY-STARTER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/platform/OBSERVABILITY-STARTER.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Observability Starter",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-platform",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Shared Web Pagination",
+    "permalink": "/shopverse/platform/WEB-PAGINATION"
+  },
+  "next": {
+    "title": "Security Starter",
+    "permalink": "/shopverse/platform/SECURITY-STARTER"
+  }
+}

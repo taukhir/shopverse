@@ -1,0 +1,50 @@
+{
+  "id": "data/DATABASE-REVISION-SHEET",
+  "title": "Database Engineering Revision Sheet",
+  "description": "Rapid revision of modeling, indexes, transactions, isolation, locking, SQL performance, JPA, scaling, migration, and recovery.",
+  "source": "@site/docs/data/DATABASE-REVISION-SHEET.md",
+  "sourceDirName": "data",
+  "slug": "/data/DATABASE-REVISION-SHEET",
+  "permalink": "/shopverse/data/DATABASE-REVISION-SHEET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATABASE-REVISION-SHEET.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Database Engineering Revision Sheet",
+    "description": "Rapid revision of modeling, indexes, transactions, isolation, locking, SQL performance, JPA, scaling, migration, and recovery.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Data And Persistence Overview"
+    ],
+    "learning_objectives": [
+      "Recall database concepts quickly",
+      "Diagnose common persistence failures",
+      "Defend database and ORM decisions"
+    ],
+    "technologies": [
+      "SQL",
+      "JPA",
+      "Hibernate",
+      "MySQL",
+      "Distributed Databases"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Caching Principles",
+    "permalink": "/shopverse/architecture/CACHING-GENERIC"
+  },
+  "next": {
+    "title": "Microservices And Distributed Systems Learning Guide",
+    "permalink": "/shopverse/architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS"
+  }
+}

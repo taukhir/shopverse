@@ -1,0 +1,48 @@
+{
+  "id": "ai/ADVANCED-AGENTIC-WORKFLOWS-WORKTREES",
+  "title": "Advanced Agentic Development Workflows And Worktrees",
+  "description": "Coordinate planning, implementation, testing, review, subagents, worktrees, recovery, and evidence for safe parallel software development.",
+  "source": "@site/docs/ai/ADVANCED-AGENTIC-WORKFLOWS-WORKTREES.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/ADVANCED-AGENTIC-WORKFLOWS-WORKTREES",
+  "permalink": "/shopverse/ai/ADVANCED-AGENTIC-WORKFLOWS-WORKTREES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/ADVANCED-AGENTIC-WORKFLOWS-WORKTREES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Advanced Agentic Development Workflows And Worktrees",
+    "description": "Coordinate planning, implementation, testing, review, subagents, worktrees, recovery, and evidence for safe parallel software development.",
+    "sidebar_label": "Agentic Workflows And Worktrees",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "AI context engineering",
+      "Git branching",
+      "AI security"
+    ],
+    "technologies": [
+      "Codex",
+      "Claude Code",
+      "Git Worktrees",
+      "Subagents",
+      "CI"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Engineering Documentation RAG",
+    "permalink": "/shopverse/ai/RAG-FOR-ENGINEERING-DOCUMENTATION"
+  },
+  "next": {
+    "title": "ShopVerse Practical Workbook",
+    "permalink": "/shopverse/ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK"
+  }
+}

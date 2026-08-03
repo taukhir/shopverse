@@ -1,0 +1,36 @@
+{
+  "id": "architecture/DISTRIBUTED-CONSISTENCY-CAP",
+  "title": "Distributed Consistency And CAP",
+  "description": "Consistency describes what values clients can observe when data is replicated",
+  "source": "@site/docs/architecture/DISTRIBUTED-CONSISTENCY-CAP.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/DISTRIBUTED-CONSISTENCY-CAP",
+  "permalink": "/shopverse/architecture/DISTRIBUTED-CONSISTENCY-CAP",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/DISTRIBUTED-CONSISTENCY-CAP.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Distributed Consistency And CAP",
+    "sidebar_position": 2,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Retail Domain Interview Questions",
+    "permalink": "/shopverse/architecture/retail/RETAIL-DOMAIN-INTERVIEW"
+  },
+  "next": {
+    "title": "Distributed Databases",
+    "permalink": "/shopverse/data/DISTRIBUTED-DATABASES"
+  }
+}

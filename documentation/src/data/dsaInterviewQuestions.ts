@@ -1,4 +1,4 @@
-export type DsaTopic = 'Arrays' | 'Strings' | 'Two Pointers' | 'Sliding Window' | 'Hashing' | 'Linked Lists' | 'Stack' | 'Queue / Deque' | 'Heap' | 'Binary Search' | 'Trees / BST' | 'Graph' | 'Dynamic Programming' | 'Backtracking';
+export type DsaTopic = 'Arrays' | 'Strings' | 'Two Pointers' | 'Sliding Window' | 'Hashing' | 'Linked Lists' | 'Stack' | 'Queue / Deque' | 'Heap' | 'Binary Search' | 'Trees / BST' | 'Graph' | 'Dynamic Programming' | 'Backtracking' | 'Trie';
 export type DsaDifficulty = 'Easy' | 'Medium' | 'Hard';
 export type DsaPriority = 'Essential' | 'High' | 'Practice';
 
@@ -38,6 +38,7 @@ const topicDataStructures: Record<DsaTopic, string> = {
   Graph: 'Graph / grid',
   'Dynamic Programming': 'Array / DP table',
   Backtracking: 'Array / recursion state',
+  Trie: 'Trie / prefix tree',
 };
 
 const leetcodeNumbers: Record<string, number> = {
@@ -127,6 +128,24 @@ const leetcodeNumbers: Record<string, number> = {
   'Group Anagrams': 49, 'Squares of a Sorted Array': 977, 'Ransom Note': 383,
   'Copy List with Random Pointer': 138, 'Middle of the Linked List': 876, 'Partition List': 86,
   'Asteroid Collision': 735, 'Right Side View': 199,
+  'Clone Graph': 133, 'Surrounded Regions': 130, 'Word Ladder': 127,
+  'Graph Valid Tree': 261, 'Number of Connected Components': 323,
+  'Redundant Connection': 684, 'Pacific Atlantic Water Flow': 417,
+  'Network Delay Time': 743, 'Cheapest Flights Within K Stops': 787,
+  'Min Cost to Connect All Points': 1584, 'Accounts Merge': 721,
+  'Evaluate Division': 399, 'Max Area of Island': 695, 'Alien Dictionary': 269,
+  'Reconstruct Itinerary': 332, 'Shortest Path in Binary Matrix': 1091,
+  'Climbing Stairs': 70, 'House Robber': 198, 'House Robber II': 213,
+  'Word Break': 139, 'Decode Ways': 91, 'Partition Equal Subset Sum': 416,
+  'Target Sum': 494, 'Interleaving String': 97, 'Edit Distance': 72,
+  'Burst Balloons': 312, 'Distinct Subsequences': 115,
+  'Permutations': 46, 'Palindrome Partitioning': 131, 'N-Queens': 51,
+  'Letter Combinations of a Phone Number': 17, 'Generate Parentheses': 22,
+  'Restore IP Addresses': 93, 'Sudoku Solver': 37,
+  'Implement Trie (Prefix Tree)': 208, 'Design Add and Search Words Data Structure': 211,
+  'Word Search II': 212, 'Replace Words': 648, 'Map Sum Pairs': 677,
+  'Longest Word in Dictionary': 720, 'Search Suggestions System': 1268,
+  'Maximum XOR of Two Numbers in an Array': 421,
 };
 
 const descriptionOverrides: Record<string, string> = {
@@ -426,6 +445,64 @@ export const dsaInterviewQuestions: DsaInterviewQuestion[] = [
     ['Vertical Order Traversal', 'Hard', 'Coordinate traversal and sorting', ['Amazon', 'Google', 'Microsoft'], 'High'],
     ['Binary Tree Cameras', 'Hard', 'Greedy postorder states', ['Google', 'Amazon', 'Microsoft'], 'High'],
   ]),
+  ...questions('Graph', [
+    ['Number of Islands', 'Medium', 'Grid DFS or BFS', [], 'Essential'],
+    ['Clone Graph', 'Medium', 'Traversal with old-to-new map', [], 'High'],
+    ['Course Schedule', 'Medium', 'Topological sort and cycle detection', [], 'Essential'],
+    ['Graph Valid Tree', 'Medium', 'Union-find or DFS validation', [], 'High'],
+    ['Number of Connected Components', 'Medium', 'Union-find component counting', [], 'High'],
+    ['Redundant Connection', 'Medium', 'Union-find cycle edge', [], 'High'],
+    ['Pacific Atlantic Water Flow', 'Medium', 'Reverse multi-source reachability', [], 'High'],
+    ['Surrounded Regions', 'Medium', 'Boundary flood fill', [], 'Practice'],
+    ['Max Area of Island', 'Medium', 'Component-size DFS', [], 'High'],
+    ['Word Ladder', 'Hard', 'Layered or bidirectional BFS', [], 'Essential'],
+    ['Network Delay Time', 'Medium', 'Dijkstra shortest path', [], 'Essential'],
+    ['Cheapest Flights Within K Stops', 'Medium', 'Bounded Bellman-Ford or stateful shortest path', [], 'High'],
+    ['Min Cost to Connect All Points', 'Medium', 'Minimum spanning tree', [], 'High'],
+    ['Accounts Merge', 'Medium', 'Union-find identity grouping', [], 'High'],
+    ['Alien Dictionary', 'Hard', 'Graph construction and topological order', [], 'Essential'],
+    ['Reconstruct Itinerary', 'Hard', 'Eulerian path with lexical order', [], 'High'],
+  ]),
+  ...questions('Dynamic Programming', [
+    ['Climbing Stairs', 'Easy', 'One-dimensional recurrence', [], 'Essential'],
+    ['House Robber', 'Medium', 'Take-or-skip recurrence', [], 'Essential'],
+    ['House Robber II', 'Medium', 'Circular-case decomposition', [], 'High'],
+    ['Coin Change', 'Medium', 'Unbounded minimum-count DP', [], 'Essential'],
+    ['Longest Increasing Subsequence', 'Medium', 'Sequence DP or patience tails', [], 'Essential'],
+    ['Longest Common Subsequence', 'Medium', 'Two-sequence DP', [], 'Essential'],
+    ['Word Break', 'Medium', 'Prefix feasibility DP', [], 'High'],
+    ['Unique Paths', 'Medium', 'Grid path-count DP', [], 'High'],
+    ['Minimum Path Sum', 'Medium', 'Grid minimum-cost DP', [], 'High'],
+    ['Decode Ways', 'Medium', 'Prefix-count recurrence', [], 'High'],
+    ['Partition Equal Subset Sum', 'Medium', 'Zero-one subset-sum DP', [], 'Essential'],
+    ['Target Sum', 'Medium', 'Signed-sum or subset transform DP', [], 'High'],
+    ['Interleaving String', 'Medium', 'Two-source prefix DP', [], 'Practice'],
+    ['Edit Distance', 'Medium', 'Insert-delete-replace DP', [], 'Essential'],
+    ['Distinct Subsequences', 'Hard', 'Subsequence-count DP', [], 'High'],
+    ['Burst Balloons', 'Hard', 'Interval DP with last choice', [], 'Essential'],
+  ]),
+  ...questions('Backtracking', [
+    ['Combination Sum', 'Medium', 'Choice-tree backtracking', [], 'Essential'],
+    ['Permutations', 'Medium', 'Used-set permutation search', [], 'Essential'],
+    ['Subsets', 'Medium', 'Include-exclude search', [], 'Essential'],
+    ['Word Search', 'Medium', 'Grid backtracking with restoration', [], 'High'],
+    ['Palindrome Partitioning', 'Medium', 'Partition search with palindrome pruning', [], 'High'],
+    ['Letter Combinations of a Phone Number', 'Medium', 'Cartesian-product backtracking', [], 'High'],
+    ['Generate Parentheses', 'Medium', 'Invariant-pruned generation', [], 'Essential'],
+    ['Restore IP Addresses', 'Medium', 'Bounded segment search', [], 'Practice'],
+    ['N-Queens', 'Hard', 'Column and diagonal constraint search', [], 'Essential'],
+    ['Sudoku Solver', 'Hard', 'Minimum-candidate constraint search', [], 'High'],
+  ]),
+  ...questions('Trie', [
+    ['Implement Trie (Prefix Tree)', 'Medium', 'Prefix-node insertion and lookup', [], 'Essential'],
+    ['Design Add and Search Words Data Structure', 'Medium', 'Trie plus wildcard DFS', [], 'Essential'],
+    ['Word Search II', 'Hard', 'Trie-guided grid pruning', [], 'Essential'],
+    ['Replace Words', 'Medium', 'Shortest-prefix replacement', [], 'High'],
+    ['Map Sum Pairs', 'Medium', 'Prefix aggregate maintenance', [], 'Practice'],
+    ['Longest Word in Dictionary', 'Medium', 'Buildable-prefix traversal', [], 'Practice'],
+    ['Search Suggestions System', 'Medium', 'Sorted prefix range or bounded trie results', [], 'High'],
+    ['Maximum XOR of Two Numbers in an Array', 'Medium', 'Bitwise trie greedy pairing', [], 'High'],
+  ]),
 ];
 
 export const top50QuestionTitles = [
@@ -446,15 +523,4 @@ export const top50QuestionTitles = [
   'Course Schedule', 'Rotting Oranges', 'Coin Change', 'Combination Sum',
 ] as const;
 
-export const top50Extras: DsaInterviewQuestion[] = [
-  ...questions('Graph', [
-    ['Number of Islands', 'Medium', 'Grid DFS or BFS', ['Amazon', 'Google', 'Microsoft'], 'Essential'],
-    ['Course Schedule', 'Medium', 'Topological sort and cycle detection', ['Amazon', 'Google', 'Microsoft'], 'Essential'],
-  ]),
-  ...questions('Dynamic Programming', [
-    ['Coin Change', 'Medium', 'Unbounded minimum-count DP', ['Amazon', 'Google', 'Microsoft'], 'Essential'],
-  ]),
-  ...questions('Backtracking', [
-    ['Combination Sum', 'Medium', 'Choice-tree backtracking', ['Amazon', 'Google', 'Microsoft'], 'Essential'],
-  ]),
-];
+export const top50Extras: DsaInterviewQuestion[] = [];

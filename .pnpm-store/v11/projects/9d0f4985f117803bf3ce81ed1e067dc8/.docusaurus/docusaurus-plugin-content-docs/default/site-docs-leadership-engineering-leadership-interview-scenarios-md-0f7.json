@@ -1,0 +1,49 @@
+{
+  "id": "leadership/ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS",
+  "title": "Engineering Leadership Interview Scenarios",
+  "description": "Practice incident, prioritization, influence, conflict, people leadership, and behavioral interview questions with production-oriented answer frameworks.",
+  "source": "@site/docs/leadership/ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS.md",
+  "sourceDirName": "leadership",
+  "slug": "/leadership/ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS",
+  "permalink": "/shopverse/leadership/ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/ENGINEERING-LEADERSHIP-INTERVIEW-SCENARIOS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Engineering Leadership Interview Scenarios",
+    "description": "Practice incident, prioritization, influence, conflict, people leadership, and behavioral interview questions with production-oriented answer frameworks.",
+    "difficulty": "Advanced",
+    "page_type": "Workbook",
+    "status": "maintained",
+    "prerequisites": [
+      "Engineering Leadership Practices"
+    ],
+    "learning_objectives": [
+      "Structure evidence-backed leadership answers",
+      "Balance delivery and operational risk",
+      "Demonstrate accountable technical leadership",
+      "Avoid common behavioral interview traps"
+    ],
+    "technologies": [
+      "Engineering Leadership",
+      "SRE",
+      "Architecture"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Leadership And Architecture Interview Workbook",
+    "permalink": "/shopverse/leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK"
+  },
+  "next": {
+    "title": "REST API Design",
+    "permalink": "/shopverse/development/REST-API-GENERIC"
+  }
+}

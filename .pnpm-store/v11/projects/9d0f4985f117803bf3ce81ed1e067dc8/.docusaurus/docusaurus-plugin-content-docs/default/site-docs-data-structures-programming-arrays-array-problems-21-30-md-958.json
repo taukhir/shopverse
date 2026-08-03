@@ -1,0 +1,38 @@
+{
+  "id": "data-structures/programming/arrays/ARRAY-PROBLEMS-21-30",
+  "title": "Array Problems 21-30 - Search, Prefix State, Stacks, And Intervals",
+  "description": "Worked Java solutions for matrix rotation and zeroing, rotated search, peaks, prefix-frequency counting, circular Kadane, rain water, next greater values, and intervals.",
+  "source": "@site/docs/data-structures/programming/arrays/ARRAY-PROBLEMS-21-30.md",
+  "sourceDirName": "data-structures/programming/arrays",
+  "slug": "/data-structures/programming/arrays/ARRAY-PROBLEMS-21-30",
+  "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-PROBLEMS-21-30",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/programming/arrays/ARRAY-PROBLEMS-21-30.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "title": "Array Problems 21-30 - Search, Prefix State, Stacks, And Intervals",
+    "description": "Worked Java solutions for matrix rotation and zeroing, rotated search, peaks, prefix-frequency counting, circular Kadane, rain water, next greater values, and intervals.",
+    "sidebar_label": "Problems 21-30",
+    "sidebar_position": 5,
+    "difficulty": "Intermediate",
+    "page_type": "Guide",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Problems 11-20",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-PROBLEMS-11-20"
+  },
+  "next": {
+    "title": "30-Problem Roadmap",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAY-30-PROBLEM-ROADMAP"
+  }
+}

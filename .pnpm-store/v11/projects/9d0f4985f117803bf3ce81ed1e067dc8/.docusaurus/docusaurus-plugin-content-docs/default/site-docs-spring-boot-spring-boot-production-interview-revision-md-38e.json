@@ -1,0 +1,51 @@
+{
+  "id": "spring/boot/SPRING-BOOT-PRODUCTION-INTERVIEW-REVISION",
+  "title": "Spring Boot Production Interview And Revision",
+  "description": "Spring Boot rapid revision and lead-level scenario bank covering startup, conditions, configuration, web runtime, data, pools, Actuator, containers, incidents, and design trade-offs.",
+  "source": "@site/docs/spring/boot/SPRING-BOOT-PRODUCTION-INTERVIEW-REVISION.md",
+  "sourceDirName": "spring/boot",
+  "slug": "/spring/boot/SPRING-BOOT-PRODUCTION-INTERVIEW-REVISION",
+  "permalink": "/shopverse/spring/boot/SPRING-BOOT-PRODUCTION-INTERVIEW-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/boot/SPRING-BOOT-PRODUCTION-INTERVIEW-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot Production Interview And Revision",
+    "description": "Spring Boot rapid revision and lead-level scenario bank covering startup, conditions, configuration, web runtime, data, pools, Actuator, containers, incidents, and design trade-offs.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Boot architect path"
+    ],
+    "learning_objectives": [
+      "Revise Boot internals quickly",
+      "Structure lead-level answers",
+      "Diagnose production scenarios",
+      "Explain evidence and trade-offs"
+    ],
+    "technologies": [
+      "Spring Boot 4",
+      "Spring Framework 7",
+      "Actuator",
+      "JVM",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Packaging Layering AOT Native And Containers",
+    "permalink": "/shopverse/spring/boot/SPRING-BOOT-PACKAGING-AOT-CONTAINERS"
+  },
+  "next": {
+    "title": "Spring Runtime Architect Path",
+    "permalink": "/shopverse/spring/SPRING-ARCHITECT-PATH"
+  }
+}

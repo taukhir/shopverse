@@ -1,0 +1,57 @@
+{
+  "id": "data/DATABASE-ENGINEERING",
+  "title": "Database Engineering",
+  "description": "Relational design, query performance, distributed trade-offs, and production correctness.",
+  "source": "@site/docs/data/DATABASE-ENGINEERING.md",
+  "sourceDirName": "data",
+  "slug": "/data/DATABASE-ENGINEERING",
+  "permalink": "/shopverse/data/DATABASE-ENGINEERING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/DATABASE-ENGINEERING.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Database Engineering",
+    "description": "Relational design, query performance, distributed trade-offs, and production correctness.",
+    "sidebar_label": "Database Engineering",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Data And Persistence Overview",
+    "permalink": "/shopverse/data/DATA-PERSISTENCE-OVERVIEW"
+  },
+  "next": {
+    "title": "Database Production Mastery",
+    "permalink": "/shopverse/data/DATABASE-PRODUCTION-MASTERY"
+  }
+}

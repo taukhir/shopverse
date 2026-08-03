@@ -1,0 +1,57 @@
+{
+  "id": "java/collections/set/SET-OVERVIEW",
+  "title": "Java Set Collections Overview",
+  "description": "Choose among HashSet, LinkedHashSet, TreeSet, EnumSet, immutable sets, and concurrent set implementations.",
+  "source": "@site/docs/java/collections/set/SET-OVERVIEW.md",
+  "sourceDirName": "java/collections/set",
+  "slug": "/java/collections/set/SET-OVERVIEW",
+  "permalink": "/shopverse/java/collections/set/SET-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/set/SET-OVERVIEW.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "set",
+      "permalink": "/shopverse/tags/set"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Set Collections Overview",
+    "description": "Choose among HashSet, LinkedHashSet, TreeSet, EnumSet, immutable sets, and concurrent set implementations.",
+    "sidebar_label": "Set Overview",
+    "tags": [
+      "java",
+      "collections",
+      "set"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "CopyOnWriteArrayList",
+    "permalink": "/shopverse/java/collections/list/COPYONWRITEARRAYLIST-INTERNALS"
+  },
+  "next": {
+    "title": "HashSet",
+    "permalink": "/shopverse/java/collections/set/HASHSET-INTERNALS"
+  }
+}

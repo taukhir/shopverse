@@ -1,0 +1,43 @@
+{
+  "id": "development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED",
+  "title": "Legacy Pattern Guide: Behavioral and Distributed",
+  "description": "Compatibility route pointing to canonical Behavioral Patterns and distributed-systems guides.",
+  "source": "@site/docs/development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED.md",
+  "sourceDirName": "development",
+  "slug": "/development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED",
+  "permalink": "/shopverse/development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/DESIGN-PATTERNS-BEHAVIORAL-DISTRIBUTED.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "legacy-route",
+      "permalink": "/shopverse/tags/legacy-route"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Legacy Pattern Guide: Behavioral and Distributed",
+    "description": "Compatibility route pointing to canonical Behavioral Patterns and distributed-systems guides.",
+    "sidebar_label": "Legacy Behavioral and Distributed Guide",
+    "tags": [
+      "design-patterns",
+      "legacy-route"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "sidebar_exclude": true,
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "architecture/retail/REDIS-RETAIL-CACHING-SESSIONS",
+  "title": "Redis For Retail Caching And Session Storage",
+  "description": "Production design for Redis-backed sessions, product and inventory caching, cache-miss protection, invalidation, failure handling, Spring Boot integration, and operations.",
+  "source": "@site/docs/architecture/retail/REDIS-RETAIL-CACHING-SESSIONS.md",
+  "sourceDirName": "architecture/retail",
+  "slug": "/architecture/retail/REDIS-RETAIL-CACHING-SESSIONS",
+  "permalink": "/shopverse/architecture/retail/REDIS-RETAIL-CACHING-SESSIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/retail/REDIS-RETAIL-CACHING-SESSIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Redis For Retail Caching And Session Storage",
+    "description": "Production design for Redis-backed sessions, product and inventory caching, cache-miss protection, invalidation, failure handling, Spring Boot integration, and operations.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Retail domain and commerce architecture",
+      "caching fundamentals",
+      "Spring Boot fundamentals"
+    ],
+    "technologies": [
+      "Redis",
+      "Spring Boot",
+      "Spring Session",
+      "Spring Cache",
+      "Kafka",
+      "SQL"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ClickHouse For Large-Scale Retail Analytics",
+    "permalink": "/shopverse/architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS"
+  },
+  "next": {
+    "title": "Black Friday Retail Scale And Resilience",
+    "permalink": "/shopverse/architecture/retail/BLACK-FRIDAY-RETAIL-RESILIENCE"
+  }
+}

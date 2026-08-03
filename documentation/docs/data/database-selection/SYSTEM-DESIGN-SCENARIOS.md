@@ -29,6 +29,7 @@ Use these as starting hypotheses, then validate with requirements and benchmarks
 | product full-text discovery | Elasticsearch/OpenSearch read model | relevance, filters, facets, and rebuildable indexes |
 | fraud-ring analysis | Neo4j | multi-hop relationship traversal |
 | business-event analytics | ClickHouse | compressed columnar scans and aggregation |
+| current and daily retail order metrics | PostgreSQL authority + Kafka projections + ClickHouse | preserve OLTP correctness while serving replayable low-latency aggregates |
 | semantic product/document retrieval | pgvector first; dedicated vector store when justified | nearest-neighbor embedding search |
 | mobile/desktop local state | SQLite | embedded ACID without a database server |
 
@@ -47,6 +48,11 @@ flowchart LR
 The OLTP database owns correctness. Search, analytics, vectors, and cache are
 purpose-built projections with explicit freshness, deletion, replay, and rebuild
 procedures. Never implement a synchronous distributed transaction across them.
+
+For a complete high-volume commerce example, including metric grain, versioned
+events and snapshots, ClickHouse schemas, dashboard queries, finalization, late
+data, and reconciliation, see
+[Retail Order Metrics And Analytics At Scale](../../architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS.md).
 
 ## Proof-Of-Concept Scorecard
 

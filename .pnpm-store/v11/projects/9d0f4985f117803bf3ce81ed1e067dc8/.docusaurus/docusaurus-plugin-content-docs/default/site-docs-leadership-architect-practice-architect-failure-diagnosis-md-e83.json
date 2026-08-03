@@ -1,0 +1,48 @@
+{
+  "id": "leadership/architect-practice/ARCHITECT-FAILURE-DIAGNOSIS",
+  "title": "Architect Failure Modeling And Evidence-Led Diagnosis",
+  "description": "Predict partial failures, overload and data anomalies, then diagnose incidents through hypotheses, telemetry, containment, experiments, and root-cause evidence.",
+  "source": "@site/docs/leadership/architect-practice/ARCHITECT-FAILURE-DIAGNOSIS.md",
+  "sourceDirName": "leadership/architect-practice",
+  "slug": "/leadership/architect-practice/ARCHITECT-FAILURE-DIAGNOSIS",
+  "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-FAILURE-DIAGNOSIS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/architect-practice/ARCHITECT-FAILURE-DIAGNOSIS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Architect Failure Modeling And Evidence-Led Diagnosis",
+    "description": "Predict partial failures, overload and data anomalies, then diagnose incidents through hypotheses, telemetry, containment, experiments, and root-cause evidence.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Architect Runtime And Design Reasoning"
+    ],
+    "learning_objectives": [
+      "Build failure models",
+      "Diagnose without guessing",
+      "Separate containment from permanent correction"
+    ],
+    "technologies": [
+      "Observability",
+      "Distributed Systems",
+      "SRE"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Architect Runtime Internals And Design Selection",
+    "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-RUNTIME-DESIGN-REASONING"
+  },
+  "next": {
+    "title": "Architect Scaling, Security, And Rejected Trade-Offs",
+    "permalink": "/shopverse/leadership/architect-practice/ARCHITECT-SCALE-SECURITY-TRADEOFFS"
+  }
+}

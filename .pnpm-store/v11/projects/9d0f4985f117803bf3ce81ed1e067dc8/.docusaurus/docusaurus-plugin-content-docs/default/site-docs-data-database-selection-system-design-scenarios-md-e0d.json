@@ -1,0 +1,52 @@
+{
+  "id": "data/database-selection/SYSTEM-DESIGN-SCENARIOS",
+  "title": "Database System Design Scenarios",
+  "description": "Use these as starting hypotheses, then validate with requirements and benchmarks.",
+  "source": "@site/docs/data/database-selection/SYSTEM-DESIGN-SCENARIOS.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/SYSTEM-DESIGN-SCENARIOS",
+  "permalink": "/shopverse/data/database-selection/SYSTEM-DESIGN-SCENARIOS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/SYSTEM-DESIGN-SCENARIOS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Database System Design Scenarios",
+    "sidebar_position": 7,
+    "difficulty": "Intermediate",
+    "page_type": "Case Study",
+    "status": "maintained",
+    "learning_objectives": [
+      "Apply database choices to real workloads",
+      "Evaluate polyglot persistence"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "MySQL",
+      "CockroachDB",
+      "Cassandra",
+      "DynamoDB",
+      "Redis",
+      "Elasticsearch",
+      "Neo4j",
+      "ClickHouse",
+      "pgvector"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Scaling, CAP, And Data Distribution",
+    "permalink": "/shopverse/data/database-selection/SCALING-CAP-DISTRIBUTION"
+  },
+  "next": {
+    "title": "Database Migrations And Operations",
+    "permalink": "/shopverse/data/database-selection/DATABASE-MIGRATIONS-OPERATIONS"
+  }
+}

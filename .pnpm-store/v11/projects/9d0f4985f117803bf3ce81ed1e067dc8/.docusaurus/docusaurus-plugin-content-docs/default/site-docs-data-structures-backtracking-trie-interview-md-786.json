@@ -1,0 +1,50 @@
+{
+  "id": "data-structures/BACKTRACKING-TRIE-INTERVIEW",
+  "title": "Backtracking, Recursion, And Trie Interview Guide",
+  "description": "Design choice-tree searches, safe state restoration, pruning, duplicate handling, and prefix-tree solutions.",
+  "source": "@site/docs/data-structures/BACKTRACKING-TRIE-INTERVIEW.md",
+  "sourceDirName": "data-structures",
+  "slug": "/data-structures/BACKTRACKING-TRIE-INTERVIEW",
+  "permalink": "/shopverse/data-structures/BACKTRACKING-TRIE-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/BACKTRACKING-TRIE-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Backtracking, Recursion, And Trie Interview Guide",
+    "description": "Design choice-tree searches, safe state restoration, pruning, duplicate handling, and prefix-tree solutions.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Complexity analysis",
+      "trees"
+    ],
+    "learning_objectives": [
+      "Model choice trees",
+      "Restore mutable search state",
+      "Prove pruning",
+      "Select trie or sorted alternatives"
+    ],
+    "technologies": [
+      "Java",
+      "Backtracking",
+      "Trie"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Dynamic Programming Interview Guide",
+    "permalink": "/shopverse/data-structures/DYNAMIC-PROGRAMMING-INTERVIEW"
+  },
+  "next": {
+    "title": "Concurrent Java Coding Exercises",
+    "permalink": "/shopverse/data-structures/CONCURRENT-JAVA-CODING-EXERCISES"
+  }
+}

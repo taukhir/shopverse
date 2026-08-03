@@ -11,6 +11,7 @@ scope: shopverse
 owner: docs-case-study
 reviewer: documentation-maintainers
 review_evidence: repository-content-audit
+visual_required: true
 ---
 
 # Demo Seed, Checkout, And SAGA
@@ -136,6 +137,50 @@ checkout transaction atomically stores the Order, its first timeline entry, and
 an outbox event. A background publisher later sends that outbox event to Kafka.
 
 ## 6. Follow The SAGA Timeline
+
+The HTTP response and the asynchronous business outcome happen on different
+timelines. Follow the correlation ID across this choreography and treat every
+Kafka delivery as potentially duplicated:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client
+    participant Gateway as API Gateway
+    participant Order as Order Service
+    participant OrderDB as Order DB + outbox
+    participant Kafka
+    participant Inventory as Inventory Service
+    participant Payment as Payment Service
+
+    Client->>Gateway: POST /api/v1/orders/checkout
+    Gateway->>Order: Authenticated checkout + idempotency key
+    Order->>OrderDB: Commit Order, timeline, and OrderCreatedEvent
+    Order-->>Client: 201 Created with pending business state
+    OrderDB->>Kafka: Publish OrderCreatedEvent
+    Kafka->>Inventory: Deliver OrderCreatedEvent
+
+    alt Stock can be reserved
+        Inventory->>Kafka: Publish InventoryReservedEvent
+        Kafka->>Order: Mark inventory reserved and payment processing
+        Kafka->>Payment: Start payment
+        alt Payment succeeds
+            Payment->>Kafka: Publish PaymentCompletedEvent
+            Kafka->>Order: Confirm order
+            Kafka->>Inventory: Confirm reservation
+        else Payment declines or times out
+            Payment->>Kafka: Publish PaymentFailedEvent
+            Kafka->>Order: Mark payment failed
+            Kafka->>Inventory: Release reservation (compensation)
+        end
+    else Stock is unavailable
+        Inventory->>Kafka: Publish InventoryFailedEvent
+        Kafka->>Order: Mark inventory rejected
+    end
+```
+
+The diagram shows business transitions, not a global transaction. Each service
+commits only its own state and outbox intent.
 
 Poll the order until it reaches a terminal state:
 

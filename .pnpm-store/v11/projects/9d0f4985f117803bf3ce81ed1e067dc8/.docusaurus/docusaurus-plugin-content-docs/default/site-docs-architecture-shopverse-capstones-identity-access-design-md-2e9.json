@@ -1,0 +1,53 @@
+{
+  "id": "architecture/shopverse-capstones/IDENTITY-ACCESS-DESIGN",
+  "title": "Identity And Access System Design",
+  "description": "Design login, token issuance, JWT validation, authorization, key rotation, and incident controls.",
+  "source": "@site/docs/architecture/shopverse-capstones/IDENTITY-ACCESS-DESIGN.md",
+  "sourceDirName": "architecture/shopverse-capstones",
+  "slug": "/architecture/shopverse-capstones/IDENTITY-ACCESS-DESIGN",
+  "permalink": "/shopverse/architecture/shopverse-capstones/IDENTITY-ACCESS-DESIGN",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/shopverse-capstones/IDENTITY-ACCESS-DESIGN.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Identity And Access System Design",
+    "description": "Design login, token issuance, JWT validation, authorization, key rotation, and incident controls.",
+    "difficulty": "Advanced",
+    "page_type": "Case Study",
+    "status": "maintained",
+    "prerequisites": [
+      "OAuth2",
+      "OIDC",
+      "JWT",
+      "Spring Security"
+    ],
+    "learning_objectives": [
+      "Separate identity roles",
+      "Size authentication controls",
+      "Design revocation and rotation"
+    ],
+    "technologies": [
+      "Spring Security 7",
+      "OAuth2",
+      "OIDC",
+      "JWT",
+      "JWKS"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "shopverse",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Payment Reliability System Design",
+    "permalink": "/shopverse/architecture/shopverse-capstones/PAYMENT-RELIABILITY-DESIGN"
+  },
+  "next": {
+    "title": "Catalog And Search System Design",
+    "permalink": "/shopverse/architecture/shopverse-capstones/CATALOG-SEARCH-DESIGN"
+  }
+}

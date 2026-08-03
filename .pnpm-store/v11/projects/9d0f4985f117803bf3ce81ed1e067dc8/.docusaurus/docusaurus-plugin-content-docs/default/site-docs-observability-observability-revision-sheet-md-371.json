@@ -1,0 +1,50 @@
+{
+  "id": "observability/OBSERVABILITY-REVISION-SHEET",
+  "title": "Observability Engineering Revision Sheet",
+  "description": "Rapid revision of metrics, logs, traces, SLOs, cardinality, correlation, alerting, and incident investigation.",
+  "source": "@site/docs/observability/OBSERVABILITY-REVISION-SHEET.md",
+  "sourceDirName": "observability",
+  "slug": "/observability/OBSERVABILITY-REVISION-SHEET",
+  "permalink": "/shopverse/observability/OBSERVABILITY-REVISION-SHEET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/observability/OBSERVABILITY-REVISION-SHEET.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Observability Engineering Revision Sheet",
+    "description": "Rapid revision of metrics, logs, traces, SLOs, cardinality, correlation, alerting, and incident investigation.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Observability Engineering Overview"
+    ],
+    "learning_objectives": [
+      "Recall telemetry selection quickly",
+      "Diagnose incidents systematically",
+      "Defend observability cost and security decisions"
+    ],
+    "technologies": [
+      "Micrometer",
+      "Prometheus",
+      "Grafana",
+      "Loki",
+      "OpenTelemetry"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-observability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Tracing Internals And Performance",
+    "permalink": "/shopverse/observability/DISTRIBUTED-TRACING-INTERNALS-PERFORMANCE"
+  },
+  "next": {
+    "title": "Delivery And Operations Overview",
+    "permalink": "/shopverse/operations/"
+  }
+}

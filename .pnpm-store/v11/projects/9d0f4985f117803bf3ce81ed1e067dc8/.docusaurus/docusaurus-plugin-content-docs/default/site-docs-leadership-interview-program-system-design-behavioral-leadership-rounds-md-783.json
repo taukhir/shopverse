@@ -1,0 +1,51 @@
+{
+  "id": "leadership/interview-program/SYSTEM-DESIGN-BEHAVIORAL-LEADERSHIP-ROUNDS",
+  "title": "System Design, Troubleshooting, And Leadership Rounds",
+  "description": "Frameworks and drills for architecture, incident diagnosis, influence, delivery, conflict, and executive communication interviews.",
+  "source": "@site/docs/leadership/interview-program/SYSTEM-DESIGN-BEHAVIORAL-LEADERSHIP-ROUNDS.md",
+  "sourceDirName": "leadership/interview-program",
+  "slug": "/leadership/interview-program/SYSTEM-DESIGN-BEHAVIORAL-LEADERSHIP-ROUNDS",
+  "permalink": "/shopverse/leadership/interview-program/SYSTEM-DESIGN-BEHAVIORAL-LEADERSHIP-ROUNDS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/interview-program/SYSTEM-DESIGN-BEHAVIORAL-LEADERSHIP-ROUNDS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "System Design, Troubleshooting, And Leadership Rounds",
+    "description": "Frameworks and drills for architecture, incident diagnosis, influence, delivery, conflict, and executive communication interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Practice",
+    "status": "maintained",
+    "prerequisites": [
+      "Mock Interview Formats",
+      "Question Bank",
+      "And Scoring"
+    ],
+    "learning_objectives": [
+      "Structure system-design answers",
+      "Diagnose from evidence",
+      "Demonstrate technical leadership",
+      "Communicate decisions at multiple altitudes"
+    ],
+    "technologies": [
+      "Distributed Systems",
+      "Observability",
+      "Architecture"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Mock Interview Formats, Question Bank, And Scoring",
+    "permalink": "/shopverse/leadership/interview-program/MOCK-INTERVIEW-FORMATS-QUESTION-BANK"
+  },
+  "next": {
+    "title": "Twelve-Week Architecture Interview Preparation Programme",
+    "permalink": "/shopverse/leadership/interview-program/TWELVE-WEEK-PREPARATION-PROGRAM"
+  }
+}

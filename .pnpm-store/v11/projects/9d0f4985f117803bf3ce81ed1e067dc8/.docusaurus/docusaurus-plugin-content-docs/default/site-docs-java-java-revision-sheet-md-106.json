@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-REVISION-SHEET",
+  "title": "Java Lead Interview Revision Sheet",
+  "description": "Compact senior Java revision checklist covering language, collections, concurrency, JVM, diagnostics and architecture.",
+  "source": "@site/docs/java/JAVA-REVISION-SHEET.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-REVISION-SHEET",
+  "permalink": "/shopverse/java/JAVA-REVISION-SHEET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-REVISION-SHEET.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Lead Interview Revision Sheet",
+    "description": "Compact senior Java revision checklist covering language, collections, concurrency, JVM, diagnostics and architecture.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java MCQ Practice",
+    "permalink": "/shopverse/java/JAVA-MCQ-PRACTICE"
+  },
+  "next": {
+    "title": "Java Timed Mock Interviews",
+    "permalink": "/shopverse/java/JAVA-TIMED-MOCK-INTERVIEWS"
+  }
+}

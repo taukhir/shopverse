@@ -9,7 +9,7 @@ learning_objectives:
   - Explain rules with runtime mechanisms, failure boundaries, and evidence
   - Connect generic REST decisions to current and proposed Shopverse behavior
 technologies: [Spring MVC, Spring Transactions, JPA, HTTP, OpenAPI]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 implementation_status: implemented
 scope: shopverse
 owner: docs-development
@@ -187,6 +187,92 @@ and failures after response commitment may no longer be replaceable with a clean
 JSON error.
 
 </ExpandableAnswer>
+
+## Additional HTTP And API Interview Questions
+
+### Safe versus idempotent HTTP methods?
+
+Safe methods such as GET and HEAD should not request state change. Idempotent methods converge to the same
+intended server state when repeated; PUT and DELETE are idempotent by contract even though logs or timestamps
+may change. POST can be made retry-safe with an operation identity and authoritative result.
+
+### When should an API return 200, 201, 202, or 204?
+
+Use 200 for a successful representation, 201 plus a Location for a created resource, 202 when work is accepted
+but incomplete with a status resource, and 204 when success intentionally has no representation. Status must
+describe the actual boundary, not merely that a controller method ran.
+
+### 400, 401, 403, 404, 409, 422, 429, or 503?
+
+Separate malformed requests, missing/invalid authentication, forbidden access, absent or deliberately hidden
+resources, state conflicts, semantically invalid commands, rate limits and temporary unavailability. Publish a
+stable error type/code and retry guidance without leaking sensitive existence or internals.
+
+### What is an RFC 9457 problem-details contract?
+
+It standardizes fields such as type, title, status, detail and instance while allowing extensions. Keep
+machine-readable types/codes stable, sanitize detail, correlate safely, and do not expose stack traces or use
+translated human text as the client decision key.
+
+### Offset versus keyset pagination?
+
+Offset is simple and supports page numbers but becomes expensive and unstable under concurrent changes. Keyset
+uses a stable unique ordering and cursor from the last item for efficient continuation. Sign or validate opaque
+cursors and define filters/order as part of the contract.
+
+### How do ETags and conditional requests prevent lost updates?
+
+Return an ETag representing the selected resource version. Require `If-Match` for mutation and reject stale
+versions with 412; `If-None-Match` supports cache revalidation. The token must change with the representation or
+authoritative version and must not expose sensitive internals.
+
+### URI versioning versus compatible evolution?
+
+Prefer additive compatible change within one contract: optional fields, tolerant readers and deprecation.
+Introduce a new version for irreconcilable semantics, support overlap, measure consumer migration and publish a
+sunset plan. A version number does not remove compatibility obligations.
+
+### Transport validation versus business validation?
+
+Transport validation checks shape, type, range and syntax at the edge. Business validation enforces current
+domain state and authorization inside the transactional use case. Race-sensitive invariants also need database
+constraints or concurrency control; controller annotations alone cannot protect them.
+
+### Why is gateway authentication insufficient?
+
+Every service remains a trust boundary and must validate caller identity, intended audience, permissions,
+tenant/owner and resource state. A gateway can centralize coarse checks, rate limits and routing, but internal
+bypass, confused-deputy and object-level authorization risks remain.
+
+### Rate limit, quota, concurrency limit, or load shedding?
+
+Rate limits bound arrivals per identity/window, quotas bound allocated usage, concurrency limits bound in-flight
+work, and load shedding rejects work the system cannot serve safely. Return useful 429/Retry-After where
+appropriate and coordinate with queues, deadlines and downstream capacity.
+
+### How should HTTP retries be designed?
+
+Set an overall deadline, retry only classified transient failures, require idempotency, use backoff/jitter and
+honor server guidance. Keep one retry owner and cap attempts so proxies, clients and services do not multiply
+load. A timeout leaves the remote outcome ambiguous.
+
+### How should a long-running operation be modeled?
+
+Return 202 with a durable operation resource containing status, result/error link and cancellation semantics.
+Make submission idempotent, authorize status access, expire records deliberately and support polling with
+backoff or callbacks/events. Do not hold an HTTP connection or database transaction for unbounded work.
+
+### How should file upload and download be secured?
+
+Stream with bounded size/time, validate content independently of filename/MIME, generate storage names, scan or
+quarantine where required, prevent path traversal and enforce ownership. For downloads set safe disposition and
+content type, authorize every access, and avoid loading whole files into heap.
+
+### What does an OpenAPI contract test prove?
+
+It can prove request/response/status/schema compatibility and generated-client expectations at the HTTP
+boundary. It does not prove domain correctness, authorization ownership, deployment networking or performance.
+Diff released contracts and combine provider, consumer and focused integration evidence.
 
 ## Answering Standard
 

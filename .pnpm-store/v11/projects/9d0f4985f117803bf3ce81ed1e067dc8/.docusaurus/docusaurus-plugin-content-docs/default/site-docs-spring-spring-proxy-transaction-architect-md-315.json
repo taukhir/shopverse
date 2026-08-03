@@ -1,0 +1,46 @@
+{
+  "id": "spring/SPRING-PROXY-TRANSACTION-ARCHITECT",
+  "title": "Spring Proxy And Transaction Runtime For Architects",
+  "description": "Advisor chains, proxy eligibility, interceptor ordering, physical and logical transactions, propagation, synchronization, async boundaries, diagnostics, and production evidence.",
+  "source": "@site/docs/spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md",
+  "sourceDirName": "spring",
+  "slug": "/spring/SPRING-PROXY-TRANSACTION-ARCHITECT",
+  "permalink": "/shopverse/spring/SPRING-PROXY-TRANSACTION-ARCHITECT",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/SPRING-PROXY-TRANSACTION-ARCHITECT.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Proxy And Transaction Runtime For Architects",
+    "description": "Advisor chains, proxy eligibility, interceptor ordering, physical and logical transactions, propagation, synchronization, async boundaries, diagnostics, and production evidence.",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Prove whether a call crosses an eligible Spring proxy and advisor chain",
+      "Trace logical and physical transactions through propagation, rollback, synchronization, and connection ownership",
+      "Diagnose transaction failures across async, reactive, database, and messaging boundaries"
+    ],
+    "technologies": [
+      "Spring Framework",
+      "Spring AOP",
+      "Spring Transactions",
+      "JDBC"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Transaction Proxy Mechanics And Boundary Design",
+    "permalink": "/shopverse/spring/transactions/SPRING-TRANSACTION-PROXY-BOUNDARY-DESIGN"
+  },
+  "next": {
+    "title": "Servlet And Spring MVC Request Lifecycle",
+    "permalink": "/shopverse/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE"
+  }
+}

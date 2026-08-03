@@ -30,11 +30,11 @@ the outbox. Payment failure and order cancellation release the reservation.
 A scheduled expiry task restores stock for reservations that exceed the
 configured five-minute TTL.
 
-The current expiry worker is a single-worker baseline, not yet a complete
-multi-replica-safe implementation. It has no atomic reservation claim, and
-Inventory does not yet consume `payment.completed` to move successful
-reservations out of `RESERVED`. The problem, race conditions, target state
-machine, atomic-claim transaction, failure behavior, and required tests are in
+Expiry scans use pessimistic row locks so overlapping replicas do not release
+the same reservation concurrently. Inventory consumes `payment.completed` and
+moves successful reservations to `CONFIRMED`, which is not eligible for expiry.
+The problem, race conditions, target state machine, claim/lease alternatives,
+failure behavior, and required tests are in
 [Multi-replica reservation expiry](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
 
 The same guide documents the unresolved late-payment race. Once expiry commits

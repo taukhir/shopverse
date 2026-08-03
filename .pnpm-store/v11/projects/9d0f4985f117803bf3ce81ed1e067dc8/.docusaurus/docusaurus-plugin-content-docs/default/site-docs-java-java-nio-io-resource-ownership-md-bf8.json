@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-NIO-IO-RESOURCE-OWNERSHIP",
+  "title": "Java I/O, NIO And Resource Ownership",
+  "description": "Streams, buffers, channels, selectors, direct memory, files, sockets, HTTP, cancellation, and architectural ownership.",
+  "source": "@site/docs/java/JAVA-NIO-IO-RESOURCE-OWNERSHIP.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-NIO-IO-RESOURCE-OWNERSHIP",
+  "permalink": "/shopverse/java/JAVA-NIO-IO-RESOURCE-OWNERSHIP",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-NIO-IO-RESOURCE-OWNERSHIP.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java I/O, NIO And Resource Ownership",
+    "description": "Streams, buffers, channels, selectors, direct memory, files, sockets, HTTP, cancellation, and architectural ownership.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Concurrency Architecture And Design Review",
+    "permalink": "/shopverse/java/JAVA-CONCURRENCY-DESIGN-REVIEW"
+  },
+  "next": {
+    "title": "Secure XML, Regex, Paths And Asynchronous I/O",
+    "permalink": "/shopverse/java/JAVA-SECURE-ASYNC-IO"
+  }
+}

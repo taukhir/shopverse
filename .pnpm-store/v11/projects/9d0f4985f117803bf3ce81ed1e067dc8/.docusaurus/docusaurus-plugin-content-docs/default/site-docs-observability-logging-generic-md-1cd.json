@@ -1,0 +1,43 @@
+{
+  "id": "observability/LOGGING-GENERIC",
+  "title": "Application Logging",
+  "description": "For personally identifiable information, data classification, masking,",
+  "source": "@site/docs/observability/LOGGING-GENERIC.md",
+  "sourceDirName": "observability",
+  "slug": "/observability/LOGGING-GENERIC",
+  "permalink": "/shopverse/observability/LOGGING-GENERIC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/observability/LOGGING-GENERIC.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Application Logging",
+    "difficulty": "Beginner",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Design useful structured application logs",
+      "Balance diagnostic value privacy and storage cost"
+    ],
+    "technologies": [
+      "SLF4J",
+      "Logback",
+      "Loki"
+    ],
+    "last_reviewed": "2026-07-10",
+    "scope": "generic",
+    "owner": "docs-observability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Shopverse Observability Architecture",
+    "permalink": "/shopverse/observability/"
+  },
+  "next": {
+    "title": "PII-Safe Logging And Data Classification",
+    "permalink": "/shopverse/observability/PII-SAFE-LOGGING"
+  }
+}

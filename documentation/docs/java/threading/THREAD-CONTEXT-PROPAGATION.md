@@ -5,7 +5,7 @@ difficulty: Advanced
 page_type: Concept
 status: maintained
 technologies: [Java 25, SLF4J MDC, Spring]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-08-02"
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -91,6 +91,56 @@ For immutable in-process call-tree context, Java 25 scoped values offer bounded,
 lexical sharing. They do not replace HTTP headers, Kafka fields, authorization
 checks, or explicit executor propagation.
 
+## Thread-Local Retention And Leak Prevention
+
+`ThreadLocal` is not merely a context-propagation risk. The runtime retains a
+thread's value until the thread ends or code on that thread calls `remove()`.
+That makes a missed cleanup a long-lived retention path on executor workers:
+
+```text
+request A -> worker-3 -> ThreadLocal holds request graph
+request A completes, but worker-3 remains alive in the pool
+request B -> worker-3 -> stale state is visible or the old graph stays retained
+```
+
+The safe pattern is a lexical scope with cleanup in `finally`, including failure
+and cancellation paths:
+
+```java
+private static final ThreadLocal<RequestContext> CONTEXT = new ThreadLocal<>();
+
+void runWithContext(RequestContext context, Runnable action) {
+    RequestContext previous = CONTEXT.get();
+    try {
+        CONTEXT.set(context);
+        action.run();
+    } finally {
+        if (previous == null) {
+            CONTEXT.remove();
+        } else {
+            CONTEXT.set(previous);
+        }
+    }
+}
+```
+
+Prefer framework scopes such as `MDC.putCloseable` where available. Do not
+assume that a pool, servlet container, or virtual-thread scheduler will clear
+application `ThreadLocal` values for you. Avoid storing request objects, JPA
+entities, large buffers, security tokens, or mutable collections in a
+thread-local. `InheritableThreadLocal` is especially risky with executors because
+the worker can outlive the parent request and carry stale state into unrelated
+work.
+
+### Proving And Diagnosing the Problem
+
+First reproduce two tasks on the same one-thread executor: set a value in task
+one, then verify task two observes neither the value nor its identity. For a
+memory incident, compare heap-after-GC over time, capture a heap dump, and trace
+the retained object back through a worker thread and its context graph. Treat
+the dump as sensitive production data. Fix the owner that established the value;
+raising the heap limit only delays the failure.
+
 ## Review And Test Checklist
 
 1. Identify every thread, executor, callback, HTTP, and message boundary.
@@ -108,4 +158,5 @@ to give the same task an explicit lifetime.
 ## Official References
 
 - [`ThreadLocal`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/ThreadLocal.html)
+- [JDK thread-local variables guide](https://docs.oracle.com/en/java/javase/25/core/thread-local-variables.html)
 - [`ScopedValue`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/ScopedValue.html)

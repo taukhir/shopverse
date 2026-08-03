@@ -1,0 +1,48 @@
+{
+  "id": "operations/linux/LINUX-FILESYSTEM-STORAGE",
+  "title": "Linux Filesystems, Disk, And Block I/O Troubleshooting",
+  "description": "Diagnose capacity, inodes, mounts, permissions, deleted-open files, page cache, writeback, block devices, I/O latency, filesystem errors, and recovery risks.",
+  "source": "@site/docs/operations/linux/LINUX-FILESYSTEM-STORAGE.md",
+  "sourceDirName": "operations/linux",
+  "slug": "/operations/linux/LINUX-FILESYSTEM-STORAGE",
+  "permalink": "/shopverse/operations/linux/LINUX-FILESYSTEM-STORAGE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/linux/LINUX-FILESYSTEM-STORAGE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Linux Filesystems, Disk, And Block I/O Troubleshooting",
+    "description": "Diagnose capacity, inodes, mounts, permissions, deleted-open files, page cache, writeback, block devices, I/O latency, filesystem errors, and recovery risks.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Linux Processes CPU Memory And OOM"
+    ],
+    "learning_objectives": [
+      "Distinguish filesystem and block symptoms",
+      "Diagnose space and latency safely",
+      "Protect data during storage incidents"
+    ],
+    "technologies": [
+      "Linux filesystems",
+      "block layer",
+      "LVM"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Linux Processes, CPU, Scheduler, Memory, And OOM",
+    "permalink": "/shopverse/operations/linux/LINUX-PROCESS-CPU-MEMORY"
+  },
+  "next": {
+    "title": "Linux Services, Logs, Networking, Security, And Containers",
+    "permalink": "/shopverse/operations/linux/LINUX-SERVICES-NETWORK-CONTAINERS"
+  }
+}

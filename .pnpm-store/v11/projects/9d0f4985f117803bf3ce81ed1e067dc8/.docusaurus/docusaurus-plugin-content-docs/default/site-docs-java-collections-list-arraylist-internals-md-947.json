@@ -1,0 +1,69 @@
+{
+  "id": "java/collections/list/ARRAYLIST-INTERNALS",
+  "title": "ArrayList Internals and Usage",
+  "description": "ArrayList storage, default capacity, growth, shifting, complexity, methods, iteration, memory, and selection guidance.",
+  "source": "@site/docs/java/collections/list/ARRAYLIST-INTERNALS.md",
+  "sourceDirName": "java/collections/list",
+  "slug": "/java/collections/list/ARRAYLIST-INTERNALS",
+  "permalink": "/shopverse/java/collections/list/ARRAYLIST-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/list/ARRAYLIST-INTERNALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "list",
+      "permalink": "/shopverse/tags/list"
+    },
+    {
+      "inline": true,
+      "label": "arraylist",
+      "permalink": "/shopverse/tags/arraylist"
+    },
+    {
+      "inline": true,
+      "label": "internals",
+      "permalink": "/shopverse/tags/internals"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "ArrayList Internals and Usage",
+    "description": "ArrayList storage, default capacity, growth, shifting, complexity, methods, iteration, memory, and selection guidance.",
+    "sidebar_label": "ArrayList",
+    "tags": [
+      "java",
+      "collections",
+      "list",
+      "arraylist",
+      "internals"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "List Overview",
+    "permalink": "/shopverse/java/collections/list/LIST-OVERVIEW"
+  },
+  "next": {
+    "title": "LinkedList",
+    "permalink": "/shopverse/java/collections/list/LINKEDLIST-INTERNALS"
+  }
+}

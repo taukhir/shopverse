@@ -1,7 +1,7 @@
 ---
 title: JVM Runtime Memory Areas
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-08-02"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -93,6 +93,28 @@ Common production signals:
 - long pause times can affect latency;
 - too many threads increase stack/native memory.
 
+### Memory Leak Is Retention, Not Just Heap Growth
+
+A Java memory leak means memory remains reachable after the business lifetime
+that should have owned it. It is not synonymous with `OutOfMemoryError`: an OOM
+can instead be an undersized limit, a legitimate peak, direct/native exhaustion,
+or an allocation bug. Conversely, a leak can grow slowly for days before an OOM.
+
+Common retention paths and prevention:
+
+| Retainer | Why it leaks | Prevention |
+|---|---|---|
+| unbounded cache/map | keys and values never expire or evict | maximum size, TTL where semantics permit, metrics and ownership |
+| listener/observer registry | subscriber is never removed | explicit lifecycle close/unregister |
+| executor `ThreadLocal` | reused worker outlives the request | lexical `try/finally` cleanup with `remove()` |
+| static collection or singleton | process-long root retains request data | store bounded IDs/values only; define eviction/lifecycle |
+| class loader/executor/driver | old deployment is reachable from a long-lived thread or static | close components and inspect retaining class-loader paths |
+
+Diagnose from evidence rather than guessing: compare live-set size after GC over
+time, inspect allocation rate and GC pauses, then use a protected heap dump to
+find dominators and paths to GC roots. A growing object count alone is not proof;
+the retaining path and the intended ownership lifetime establish the leak.
+
 ## Young And Old Generations
 
 Most JVM collectors optimize for the fact that many objects die young.
@@ -166,6 +188,43 @@ void recurse() {
 Virtual threads are lighter, but they still need safe blocking boundaries and
 bounded downstream resources.
 
+### `StackOverflowError`: Typical Causes And Safe Response
+
+Unbounded recursion is the obvious cause, but production stack overflows are
+often accidental cycles:
+
+- an entity graph's generated `toString()`, `equals()`, or `hashCode()` walks a
+  bidirectional relationship forever;
+- JSON/XML serialization follows a cyclic object graph;
+- proxy, interceptor, mapper, or error handler calls itself through the wrong
+  delegation path;
+- an algorithm processes an unexpectedly deep input recursively.
+
+The repeated stack frames identify the cycle. Capture the stack trace, stop the
+failing request or process according to the deployment's recovery policy, then
+fix the recursion or model boundary. Do not make `-Xss` the first fix: a larger
+stack can defer the failure while increasing memory reserved per platform thread.
+Use an iterative algorithm, explicit depth limit, cycle-aware serialization or
+DTO mapping, and tests with cyclic/deep input. A `StackOverflowError` is an
+`Error`, so normal application recovery should not catch and continue from it.
+
+### OOM Triage Starts With Its Detail Message
+
+`OutOfMemoryError` names an exhausted resource in many common cases. Read its
+detail message before changing limits:
+
+| Signal | First evidence | Typical next action |
+|---|---|---|
+| `Java heap space` | heap dump, live-set, allocation and GC logs | distinguish retention from a legitimate or undersized heap |
+| `Metaspace` | class count/loaders and retaining paths | fix class-loader or generated-class growth |
+| direct/native/container OOM | RSS/cgroup limit, NMT, direct buffers, thread count | restore native headroom; do not only raise `-Xmx` |
+| `Requested array size exceeds VM limit` | allocation site and input bounds | cap or redesign the requested allocation |
+
+Enable `-XX:+HeapDumpOnOutOfMemoryError` only when the dump location, disk budget,
+access controls, and sensitive-data handling are prepared. For a container OOM
+kill there may be no Java heap error, so correlate cgroup events with RSS and
+native-memory evidence.
+
 ## JVM Memory In Containers
 
 For Docker/Kubernetes, memory planning must include more than heap:
@@ -223,3 +282,4 @@ thread.
 - [JVMS §2.5 — Run-Time Data Areas](https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-2.html#jvms-2.5)
 - [Java Troubleshooting Guide — Native Memory Tracking](https://docs.oracle.com/en/java/javase/25/vm/native-memory-tracking.html)
 - [Java Flight Recorder Runtime Guide](https://docs.oracle.com/en/java/javase/25/jfapi/flight-recorder-runtime-guide.html)
+- [JDK memory-leak troubleshooting](https://docs.oracle.com/en/java/javase/25/troubleshoot/troubleshooting-memory-leaks.html)

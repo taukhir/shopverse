@@ -1,0 +1,63 @@
+{
+  "id": "java/collections/queue/QUEUE-DEQUE-OVERVIEW",
+  "title": "Java Queue and Deque Collections Overview",
+  "description": "Choose FIFO, LIFO, priority, concurrent, and blocking queue implementations from their processing and capacity contracts.",
+  "source": "@site/docs/java/collections/queue/QUEUE-DEQUE-OVERVIEW.md",
+  "sourceDirName": "java/collections/queue",
+  "slug": "/java/collections/queue/QUEUE-DEQUE-OVERVIEW",
+  "permalink": "/shopverse/java/collections/queue/QUEUE-DEQUE-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/queue/QUEUE-DEQUE-OVERVIEW.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "queue",
+      "permalink": "/shopverse/tags/queue"
+    },
+    {
+      "inline": true,
+      "label": "deque",
+      "permalink": "/shopverse/tags/deque"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Queue and Deque Collections Overview",
+    "description": "Choose FIFO, LIFO, priority, concurrent, and blocking queue implementations from their processing and capacity contracts.",
+    "sidebar_label": "Queue And Deque Overview",
+    "tags": [
+      "java",
+      "collections",
+      "queue",
+      "deque"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ConcurrentHashMap OpenJDK Internals And Design Review",
+    "permalink": "/shopverse/java/JAVA-CONCURRENT-HASHMAP-OPENJDK"
+  },
+  "next": {
+    "title": "ArrayDeque",
+    "permalink": "/shopverse/java/collections/queue/ARRAYDEQUE-INTERNALS"
+  }
+}

@@ -63,6 +63,10 @@ public class InventoryReservation extends BaseAuditableEntity {
         status = ReservationStatus.RELEASED;
     }
 
+    public void confirm() {
+        status = ReservationStatus.CONFIRMED;
+    }
+
     public void expire() {
         status = ReservationStatus.EXPIRED;
     }

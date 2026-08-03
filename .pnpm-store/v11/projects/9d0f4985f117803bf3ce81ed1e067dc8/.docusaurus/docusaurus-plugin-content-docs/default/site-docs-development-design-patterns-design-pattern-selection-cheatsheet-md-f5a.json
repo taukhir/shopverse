@@ -1,0 +1,63 @@
+{
+  "id": "development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET",
+  "title": "Design Pattern Selection Cheat Sheet",
+  "description": "Choose among the GoF creational, structural, and behavioral patterns from the problem, variation point, and trade-offs.",
+  "source": "@site/docs/development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET",
+  "permalink": "/shopverse/development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/DESIGN-PATTERN-SELECTION-CHEATSHEET.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "design patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "GoF",
+      "permalink": "/shopverse/tags/go-f"
+    },
+    {
+      "inline": true,
+      "label": "LLD",
+      "permalink": "/shopverse/tags/lld"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Design Pattern Selection Cheat Sheet",
+    "description": "Choose among the GoF creational, structural, and behavioral patterns from the problem, variation point, and trade-offs.",
+    "sidebar_label": "Pattern Selection Cheat Sheet",
+    "tags": [
+      "design patterns",
+      "GoF",
+      "LLD",
+      "interview"
+    ],
+    "page_type": "Reference",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Singleton",
+    "permalink": "/shopverse/development/design-patterns/singleton"
+  },
+  "next": {
+    "title": "Structural Patterns",
+    "permalink": "/shopverse/development/design-patterns/STRUCTURAL-PATTERNS"
+  }
+}

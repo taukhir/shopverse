@@ -1,0 +1,49 @@
+{
+  "id": "data/cassandra/CASSANDRA-STORAGE-INDEXES",
+  "title": "Cassandra Storage Compaction Tombstones And Indexes",
+  "description": "Commit log, memtables, SSTables, read path, caches, Bloom filters, compaction strategies, tombstones, SAI, secondary indexes, and materialized views.",
+  "source": "@site/docs/data/cassandra/CASSANDRA-STORAGE-INDEXES.md",
+  "sourceDirName": "data/cassandra",
+  "slug": "/data/cassandra/CASSANDRA-STORAGE-INDEXES",
+  "permalink": "/shopverse/data/cassandra/CASSANDRA-STORAGE-INDEXES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/cassandra/CASSANDRA-STORAGE-INDEXES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cassandra Storage Compaction Tombstones And Indexes",
+    "description": "Commit log, memtables, SSTables, read path, caches, Bloom filters, compaction strategies, tombstones, SAI, secondary indexes, and materialized views.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Cassandra CQL data modeling"
+    ],
+    "learning_objectives": [
+      "Trace storage paths",
+      "Select compaction and indexing",
+      "Diagnose tombstone and SSTable amplification"
+    ],
+    "technologies": [
+      "Apache Cassandra",
+      "SSTable",
+      "Bloom Filter",
+      "SAI"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Cassandra CQL And Query-First Data Modeling",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-CQL-DATA-MODELING"
+  },
+  "next": {
+    "title": "Cassandra Operations Capacity Repair Backup And Incidents",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-OPERATIONS-CAPACITY"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "ai/RAG-FOR-ENGINEERING-DOCUMENTATION",
+  "title": "RAG For Engineering Documentation And Developer Support",
+  "description": "Design grounded retrieval over architecture documents, ADRs, runbooks, APIs, incidents, and code metadata with access control, citations, freshness, and evaluation.",
+  "source": "@site/docs/ai/RAG-FOR-ENGINEERING-DOCUMENTATION.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/RAG-FOR-ENGINEERING-DOCUMENTATION",
+  "permalink": "/shopverse/ai/RAG-FOR-ENGINEERING-DOCUMENTATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/RAG-FOR-ENGINEERING-DOCUMENTATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "RAG For Engineering Documentation And Developer Support",
+    "description": "Design grounded retrieval over architecture documents, ADRs, runbooks, APIs, incidents, and code metadata with access control, citations, freshness, and evaluation.",
+    "sidebar_label": "Engineering Documentation RAG",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Embeddings and vector search",
+      "AI security",
+      "Evaluation fundamentals"
+    ],
+    "technologies": [
+      "RAG",
+      "Embeddings",
+      "Vector Database",
+      "Hybrid Search",
+      "Reranking",
+      "Spring AI"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Evaluation And Metrics",
+    "permalink": "/shopverse/ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS"
+  },
+  "next": {
+    "title": "Agentic Workflows And Worktrees",
+    "permalink": "/shopverse/ai/ADVANCED-AGENTIC-WORKFLOWS-WORKTREES"
+  }
+}

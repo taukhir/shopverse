@@ -1,0 +1,47 @@
+{
+  "id": "ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS",
+  "title": "AI Evaluation, Cost, And Developer Productivity Metrics",
+  "description": "Evaluate AI-assisted engineering with representative tasks, quality gates, cost and latency measures, delivery outcomes, and controlled experiments.",
+  "source": "@site/docs/ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS",
+  "permalink": "/shopverse/ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AI Evaluation, Cost, And Developer Productivity Metrics",
+    "description": "Evaluate AI-assisted engineering with representative tasks, quality gates, cost and latency measures, delivery outcomes, and controlled experiments.",
+    "sidebar_label": "Evaluation And Metrics",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "AI-assisted SDLC",
+      "Software delivery metrics"
+    ],
+    "technologies": [
+      "AI Evals",
+      "CI",
+      "Git",
+      "Observability",
+      "Experiment Design"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Security And Prompt Injection",
+    "permalink": "/shopverse/ai/AI-SECURITY-PROMPT-INJECTION-PLAYBOOK"
+  },
+  "next": {
+    "title": "Engineering Documentation RAG",
+    "permalink": "/shopverse/ai/RAG-FOR-ENGINEERING-DOCUMENTATION"
+  }
+}

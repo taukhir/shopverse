@@ -1,0 +1,36 @@
+{
+  "id": "ai/LANGCHAIN4J-UMBRELLA",
+  "title": "LangChain4j Track",
+  "description": "Use this page as the umbrella for learning LangChain4j properly.",
+  "source": "@site/docs/ai/LANGCHAIN4J-UMBRELLA.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/LANGCHAIN4J-UMBRELLA",
+  "permalink": "/shopverse/ai/LANGCHAIN4J-UMBRELLA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/LANGCHAIN4J-UMBRELLA.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6.25,
+  "frontMatter": {
+    "title": "LangChain4j Track",
+    "sidebar_position": 6.25,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "MCP With Spring AI",
+    "permalink": "/shopverse/ai/MCP-SPRING-AI"
+  },
+  "next": {
+    "title": "LangChain4j Track",
+    "permalink": "/shopverse/ai/LANGCHAIN4J-UMBRELLA"
+  }
+}

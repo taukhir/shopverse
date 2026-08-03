@@ -1,0 +1,52 @@
+{
+  "id": "operations/kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS",
+  "title": "Kubernetes kubectl Commands, YAML, JSON, And API Configuration",
+  "description": "Operational kubectl handbook covering contexts, discovery, Pods and containers, workloads, networking, storage, RBAC, JSON output, JSONPath, patches, declarative apply, and safe diagnosis.",
+  "source": "@site/docs/operations/kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS",
+  "permalink": "/shopverse/operations/kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/KUBERNETES-KUBECTL-MANIFESTS-COMMANDS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kubernetes kubectl Commands, YAML, JSON, And API Configuration",
+    "description": "Operational kubectl handbook covering contexts, discovery, Pods and containers, workloads, networking, storage, RBAC, JSON output, JSONPath, patches, declarative apply, and safe diagnosis.",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Kubernetes workload fundamentals"
+    ],
+    "learning_objectives": [
+      "Operate Kubernetes safely with kubectl",
+      "Read and author YAML and JSON API objects",
+      "Query and patch structured output",
+      "Diagnose workloads without losing evidence"
+    ],
+    "technologies": [
+      "Kubernetes",
+      "kubectl",
+      "YAML",
+      "JSON",
+      "JSONPath",
+      "Helm"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Kubernetes Workload Engineering",
+    "permalink": "/shopverse/operations/KUBERNETES-WORKLOAD-ENGINEERING"
+  },
+  "next": {
+    "title": "Kubernetes Kubeconfig, Contexts, Authentication, And Cluster Access",
+    "permalink": "/shopverse/operations/kubernetes/KUBERNETES-KUBECONFIG-ACCESS"
+  }
+}

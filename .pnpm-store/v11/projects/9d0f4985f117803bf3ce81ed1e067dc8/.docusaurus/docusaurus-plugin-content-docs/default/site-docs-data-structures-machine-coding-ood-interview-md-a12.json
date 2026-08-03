@@ -1,0 +1,51 @@
+{
+  "id": "data-structures/MACHINE-CODING-OOD-INTERVIEW",
+  "title": "Machine-Coding And Object-Oriented Design Interview",
+  "description": "Deliver runnable Java designs under time pressure using explicit scope, domain invariants, concurrency, extensibility, tests, and review evidence.",
+  "source": "@site/docs/data-structures/MACHINE-CODING-OOD-INTERVIEW.md",
+  "sourceDirName": "data-structures",
+  "slug": "/data-structures/MACHINE-CODING-OOD-INTERVIEW",
+  "permalink": "/shopverse/data-structures/MACHINE-CODING-OOD-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/MACHINE-CODING-OOD-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Machine-Coding And Object-Oriented Design Interview",
+    "description": "Deliver runnable Java designs under time pressure using explicit scope, domain invariants, concurrency, extensibility, tests, and review evidence.",
+    "difficulty": "Advanced",
+    "page_type": "Workbook",
+    "status": "maintained",
+    "prerequisites": [
+      "SOLID",
+      "design patterns",
+      "Java testing"
+    ],
+    "learning_objectives": [
+      "Scope a timed design",
+      "Model domain invariants",
+      "Deliver executable vertical slices",
+      "Explain trade-offs and extensions"
+    ],
+    "technologies": [
+      "Java",
+      "JUnit",
+      "Object-Oriented Design"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Concurrent Java Coding Exercises",
+    "permalink": "/shopverse/data-structures/CONCURRENT-JAVA-CODING-EXERCISES"
+  },
+  "next": {
+    "title": "Programming Interview Path",
+    "permalink": "/shopverse/data-structures/programming/JAVA-PROGRAMMING-INTERVIEW-PATH"
+  }
+}

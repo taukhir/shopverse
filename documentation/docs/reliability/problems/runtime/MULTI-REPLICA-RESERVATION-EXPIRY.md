@@ -26,14 +26,15 @@ Back to [Runtime Reliability Problems](../RUNTIME-RELIABILITY-PROBLEMS.md).
 | `(status, expires_at)` database index | implemented |
 | Scheduled scan for expired reservations | implemented |
 | Stock release and outbox insertion in one local transaction | implemented |
-| Atomic ownership claim between scheduler replicas | **not implemented** |
-| Successful-payment transition out of `RESERVED` | **not implemented** |
+| Pessimistic row locking during expiry scan | implemented |
+| Successful-payment transition out of `RESERVED` | implemented (`CONFIRMED`) |
 | Multi-replica contention integration test | **not implemented** |
 
 Therefore the accurate description is:
 
-> Shopverse has a single-worker reservation-expiry baseline. Multi-replica
-> ownership and the paid-reservation terminal transition remain enhancements.
+> Shopverse serializes overlapping expiry scans with database row locks and
+> moves a payment-completed reservation to `CONFIRMED`. A higher-throughput
+> claim/lease design remains an enhancement for large expiry backlogs.
 
 ## Business Problem
 
@@ -274,4 +275,3 @@ spikes, and old `RESERVED` rows beyond the TTL plus scan allowance.
 - [Inventory Service README](https://github.com/taukhir/shopverse/tree/main/inventory-service)
 - [Spring transaction management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
 - [Spring scheduling](https://docs.spring.io/spring-framework/reference/integration/scheduling.html)
-

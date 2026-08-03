@@ -52,6 +52,10 @@ flowchart LR
    cannot expose.
 7. Reassess every Sunday and allow evidence—not anxiety—to choose the next topic.
 
+If you are following the supplied Walmart-labelled source material, use the filtered
+[Walmart Interview Questionnaire](../../WALMART-INTERVIEW-QUESTIONNAIRE.md) as a focused prompt
+tracker; its priority and source-occurrence fields are deliberately not employer-frequency claims.
+
 ## Priority Model
 
 | Priority | Meaning | Exit requirement |

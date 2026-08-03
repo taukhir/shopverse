@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Docker production operations]
 learning_objectives: [Diagnose Docker incidents, Complete internals and recovery labs, Answer Lead and Architect questions, Revise the complete container path]
 technologies: [Docker Engine, BuildKit, Compose, Linux]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-operations
 reviewer: documentation-maintainers
@@ -15,6 +15,15 @@ review_evidence: repository-content-audit
 ---
 
 # Docker Troubleshooting, Incident Labs, Interviews, And Revision
+
+## Container Diagnostic Path
+
+```mermaid
+flowchart TD
+    S["Container symptom"] --> P["Process and exit state"] --> L["Logs and health check"]
+    L --> N["Network and DNS"] --> V["Volumes and permissions"] --> R["Resources and limits"]
+    R --> F["Fix, reproduce, and record evidence"]
+```
 
 ## Evidence-Led Workflow
 
@@ -125,6 +134,60 @@ Kubernetes adds multi-node scheduling and reconciliation at substantial platform
 **What proves production readiness?** Reproducible signed image, least privilege, bounded resources,
 graceful shutdown, recoverable data, controlled logs, monitored daemon/runtime and tested incidents.
 
+## Additional Production Interview Questions
+
+### Tag, digest, manifest, and multi-platform image?
+
+A tag is a mutable registry name; a digest identifies immutable manifest content. A manifest or image
+index can select architecture-specific manifests such as amd64 and arm64. Pin production promotion by
+digest, retain provenance, and test the target architecture—building a multi-platform index does not
+prove every variant starts or behaves correctly.
+
+### Does a multi-stage build automatically make an image small and secure?
+
+It lets the final stage copy only runtime artifacts, but the result still depends on the final base,
+copied files, packages, ownership, metadata and build context. Inspect layers and SBOM, remove tools and
+secrets, use a minimal pinned runtime, run as non-root and rebuild patched bases reproducibly.
+
+### How should build credentials be supplied?
+
+Use BuildKit secret or SSH mounts so credentials are exposed only to the required build step and are
+not copied into layers, arguments, environment metadata or logs. Scope credentials read-only and
+short-lived, restrict build egress, and scan the final image/history. Deleting a secret in a later layer
+does not remove it from earlier content.
+
+### What happens when CPU and memory limits are reached?
+
+CPU quota normally throttles execution and raises latency; a memory cgroup cannot reclaim indefinitely
+and may trigger an OOM kill. Size heap plus native memory, threads, page cache and startup peaks; inspect
+cgroup and kernel evidence rather than assuming exit 137 always means an application heap leak.
+
+### Restart policy versus health check?
+
+A restart policy responds to process exit/daemon lifecycle; a health check reports an application probe
+status but Docker Engine does not automatically restart every unhealthy process merely because health is
+`unhealthy`. Define orchestration behavior, avoid restart loops for permanent configuration errors, and
+retain previous exit/log evidence.
+
+### How do container logs fill a host disk?
+
+The default logging path is host storage, outside application heap limits. Unbounded high-cardinality or
+retry logs can exhaust bytes or inodes. Configure driver rotation/retention, ship safely, monitor disk and
+write rate, redact secrets, and preserve enough incident evidence before scoped cleanup.
+
+### How do you back up a Docker volume correctly?
+
+A filesystem copy is not automatically application-consistent. Quiesce writes or use the database's
+backup/snapshot protocol, record image/schema/config versions, encrypt and isolate the backup, then
+restore into a clean disposable environment and verify checksums plus domain invariants.
+
+### Why is access to the Docker socket dangerous?
+
+The Engine API can create privileged containers, mount host paths, inspect secrets and control other
+workloads; access is effectively high privilege on the daemon host. Avoid mounting the socket into build
+jobs or apps, use isolated/rootless builders or a constrained remote service, authenticate the API and
+audit every administrative action.
+
 ## One-Page Revision
 
 ```text
@@ -157,4 +220,3 @@ Operations: resources + logs + disk/inodes + backup/restore + upgrade + scoped c
 ## Recommended Next
 
 Return to the [Docker Beginner-To-Architect Path](../DOCKER-ARCHITECT-PATH.md), complete the labs, then compare the runtime model with Kubernetes CRI workloads.
-

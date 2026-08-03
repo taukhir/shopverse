@@ -1,0 +1,48 @@
+{
+  "id": "architecture/grpc/GRPC-PROTOBUF-INTERVIEW-REVISION",
+  "title": "gRPC And Protobuf Architect Interview, Labs, And Revision",
+  "description": "Practise protocol design, reliability and production scenarios, build hands-on labs, compare alternatives, and revise gRPC and Protobuf rapidly.",
+  "source": "@site/docs/architecture/grpc/GRPC-PROTOBUF-INTERVIEW-REVISION.md",
+  "sourceDirName": "architecture/grpc",
+  "slug": "/architecture/grpc/GRPC-PROTOBUF-INTERVIEW-REVISION",
+  "permalink": "/shopverse/architecture/grpc/GRPC-PROTOBUF-INTERVIEW-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/grpc/GRPC-PROTOBUF-INTERVIEW-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "gRPC And Protobuf Architect Interview, Labs, And Revision",
+    "description": "Practise protocol design, reliability and production scenarios, build hands-on labs, compare alternatives, and revise gRPC and Protobuf rapidly.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring gRPC Production"
+    ],
+    "learning_objectives": [
+      "Answer architect gRPC interviews",
+      "Complete compatibility and streaming labs",
+      "Defend protocol trade-offs"
+    ],
+    "technologies": [
+      "gRPC",
+      "Protocol Buffers",
+      "Spring gRPC"
+    ],
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring gRPC Implementation, Security, Testing, And Production",
+    "permalink": "/shopverse/architecture/grpc/SPRING-GRPC-PRODUCTION"
+  },
+  "next": {
+    "title": "Service Mesh Architect Path",
+    "permalink": "/shopverse/architecture/SERVICE-MESH-ARCHITECT-PATH"
+  }
+}

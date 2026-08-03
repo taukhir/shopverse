@@ -1,0 +1,55 @@
+{
+  "id": "spring/boot/SPRING-BOOT-PRODUCTION-MASTERY",
+  "title": "Spring Boot Production Mastery",
+  "description": "Complete lead and architect coverage map for startup, auto-configuration, beans, proxies, web runtimes, transactions, pools, configuration, Actuator, shutdown, AOT, containers, and incidents.",
+  "source": "@site/docs/spring/boot/SPRING-BOOT-PRODUCTION-MASTERY.md",
+  "sourceDirName": "spring/boot",
+  "slug": "/spring/boot/SPRING-BOOT-PRODUCTION-MASTERY",
+  "permalink": "/shopverse/spring/boot/SPRING-BOOT-PRODUCTION-MASTERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/boot/SPRING-BOOT-PRODUCTION-MASTERY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot Production Mastery",
+    "description": "Complete lead and architect coverage map for startup, auto-configuration, beans, proxies, web runtimes, transactions, pools, configuration, Actuator, shutdown, AOT, containers, and incidents.",
+    "difficulty": "Architect",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Core Spring",
+      "Spring Boot",
+      "Java",
+      "HTTP",
+      "SQL"
+    ],
+    "learning_objectives": [
+      "Cover every Spring Boot production competency",
+      "Trace ownership across runtime layers",
+      "Diagnose and defend production decisions"
+    ],
+    "technologies": [
+      "Spring Boot 4",
+      "Spring Framework 7",
+      "Actuator",
+      "Micrometer",
+      "Docker",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Beginner-To-Architect Learning Path",
+    "permalink": "/shopverse/spring/SPRING-BOOT-ARCHITECT-PATH"
+  },
+  "next": {
+    "title": "Spring Boot Annotations Beginner-To-Architect Path",
+    "permalink": "/shopverse/spring/SPRING-BOOT-ANNOTATIONS-PATH"
+  }
+}

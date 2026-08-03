@@ -1,0 +1,55 @@
+{
+  "id": "architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS",
+  "title": "Fifteen System Design Visual Blueprints",
+  "description": "These are educational starting points, not claims about a named company's private",
+  "source": "@site/docs/architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS.md",
+  "sourceDirName": "architecture/system-design-deep-dives",
+  "slug": "/architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS",
+  "permalink": "/shopverse/architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/system-design-deep-dives/FIFTEEN-CASE-STUDY-VISUALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Fifteen System Design Visual Blueprints",
+    "difficulty": "Advanced",
+    "page_type": "Case Study",
+    "status": "maintained",
+    "keywords": [
+      "system design diagrams",
+      "URL shortener",
+      "chat",
+      "feed",
+      "video",
+      "ride matching",
+      "payment ledger"
+    ],
+    "learning_objectives": [
+      "Recognize dominant ownership boundaries",
+      "Trace critical read and write paths",
+      "Identify derived versus authoritative data"
+    ],
+    "technologies": [
+      "Kafka",
+      "PostgreSQL",
+      "Redis",
+      "CDN",
+      "Object Storage"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Interview Problem Catalog",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG"
+  },
+  "next": {
+    "title": "System Design Interview Evaluation Rubric",
+    "permalink": "/shopverse/architecture/system-design-deep-dives/INTERVIEW-RUBRIC"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "id": "platform/KAFKA-PARSING",
+  "title": "Kafka Event Parsing",
+  "description": "Back to Platform Infrastructure.",
+  "source": "@site/docs/platform/KAFKA-PARSING.md",
+  "sourceDirName": "platform",
+  "slug": "/platform/KAFKA-PARSING",
+  "permalink": "/shopverse/platform/KAFKA-PARSING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/platform/KAFKA-PARSING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kafka Event Parsing",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-platform",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Security Starter",
+    "permalink": "/shopverse/platform/SECURITY-STARTER"
+  },
+  "next": {
+    "title": "Outbox Starter",
+    "permalink": "/shopverse/platform/OUTBOX-STARTER"
+  }
+}

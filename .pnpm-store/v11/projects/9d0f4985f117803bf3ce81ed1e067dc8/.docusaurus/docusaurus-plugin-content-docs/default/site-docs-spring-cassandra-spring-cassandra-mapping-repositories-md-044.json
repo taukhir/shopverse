@@ -1,0 +1,50 @@
+{
+  "id": "spring/cassandra/SPRING-CASSANDRA-MAPPING-REPOSITORIES",
+  "title": "Spring Data Cassandra Configuration Mapping Repositories And Templates",
+  "description": "Spring Boot configuration, CqlSession, composite-key mapping, converters, repositories, CassandraTemplate, CqlTemplate, paging, auditing, and schema management.",
+  "source": "@site/docs/spring/cassandra/SPRING-CASSANDRA-MAPPING-REPOSITORIES.md",
+  "sourceDirName": "spring/cassandra",
+  "slug": "/spring/cassandra/SPRING-CASSANDRA-MAPPING-REPOSITORIES",
+  "permalink": "/shopverse/spring/cassandra/SPRING-CASSANDRA-MAPPING-REPOSITORIES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/cassandra/SPRING-CASSANDRA-MAPPING-REPOSITORIES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Data Cassandra Configuration Mapping Repositories And Templates",
+    "description": "Spring Boot configuration, CqlSession, composite-key mapping, converters, repositories, CassandraTemplate, CqlTemplate, paging, auditing, and schema management.",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Data Cassandra overview",
+      "Cassandra CQL modeling"
+    ],
+    "learning_objectives": [
+      "Map query-first tables",
+      "Choose repository or template APIs",
+      "Configure sessions and schema safely"
+    ],
+    "technologies": [
+      "Spring Data Cassandra",
+      "CassandraTemplate",
+      "CqlTemplate",
+      "CqlSession"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data Cassandra Learning Path",
+    "permalink": "/shopverse/spring/SPRING-DATA-CASSANDRA"
+  },
+  "next": {
+    "title": "Spring Data Cassandra Reactive Consistency Testing And Production",
+    "permalink": "/shopverse/spring/cassandra/SPRING-CASSANDRA-PRODUCTION-REACTIVE-TESTING"
+  }
+}

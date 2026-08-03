@@ -1,0 +1,48 @@
+{
+  "id": "data/cassandra/CASSANDRA-OPERATIONS-CAPACITY",
+  "title": "Cassandra Operations Capacity Repair Backup And Incidents",
+  "description": "Production topology, capacity, security, monitoring, repair, backup and restore, node lifecycle, upgrades, and incident runbooks.",
+  "source": "@site/docs/data/cassandra/CASSANDRA-OPERATIONS-CAPACITY.md",
+  "sourceDirName": "data/cassandra",
+  "slug": "/data/cassandra/CASSANDRA-OPERATIONS-CAPACITY",
+  "permalink": "/shopverse/data/cassandra/CASSANDRA-OPERATIONS-CAPACITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/cassandra/CASSANDRA-OPERATIONS-CAPACITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Cassandra Operations Capacity Repair Backup And Incidents",
+    "description": "Production topology, capacity, security, monitoring, repair, backup and restore, node lifecycle, upgrades, and incident runbooks.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Cassandra storage internals"
+    ],
+    "learning_objectives": [
+      "Size and operate clusters",
+      "Plan repair and recovery",
+      "Diagnose production incidents safely"
+    ],
+    "technologies": [
+      "Apache Cassandra",
+      "nodetool",
+      "JMX"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Cassandra Storage Compaction Tombstones And Indexes",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-STORAGE-INDEXES"
+  },
+  "next": {
+    "title": "Cassandra Interview Labs And Revision",
+    "permalink": "/shopverse/data/cassandra/CASSANDRA-INTERVIEW-LABS-REVISION"
+  }
+}

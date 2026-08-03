@@ -122,5 +122,6 @@ entries, and cache hit ratio by key family.
 
 ## Recommended Next
 
-Review [Spring Cache](../SPRING-CACHE.md) and [Testing And Operations](./SPRING-DATA-TESTING-OPERATIONS.md).
-
+Apply the APIs to [Redis For Retail Caching And Session Storage](../../architecture/retail/REDIS-RETAIL-CACHING-SESSIONS.md),
+then review [Spring Cache](../SPRING-CACHE.md) and
+[Testing And Operations](./SPRING-DATA-TESTING-OPERATIONS.md).

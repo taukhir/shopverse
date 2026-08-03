@@ -1,0 +1,54 @@
+{
+  "id": "ai/SECURE-AI-AGENTS-DATA-PERFORMANCE",
+  "title": "Secure AI Agents, Data And Fast Accurate Delivery",
+  "description": "The model is an untrusted decision suggester. It can misunderstand, hallucinate,",
+  "source": "@site/docs/ai/SECURE-AI-AGENTS-DATA-PERFORMANCE.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/SECURE-AI-AGENTS-DATA-PERFORMANCE",
+  "permalink": "/shopverse/ai/SECURE-AI-AGENTS-DATA-PERFORMANCE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/SECURE-AI-AGENTS-DATA-PERFORMANCE.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Secure AI Agents, Data And Fast Accurate Delivery",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "keywords": [
+      "AI agent security",
+      "tenant isolation",
+      "prompt injection",
+      "DLP",
+      "latency",
+      "accuracy"
+    ],
+    "learning_objectives": [
+      "Contain abusive and exploited agents",
+      "Prevent cross-tenant and sensitive-data leakage",
+      "Design risk-based accuracy and latency pipelines"
+    ],
+    "technologies": [
+      "Spring Security",
+      "Spring AI",
+      "MCP",
+      "RAG",
+      "Micrometer"
+    ],
+    "last_reviewed": "2026-07-16",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Cloud AI And MCP Ecosystem",
+    "permalink": "/shopverse/ai/SPRING-CLOUD-AI-MCP-ECOSYSTEM"
+  },
+  "next": {
+    "title": "Model Context Protocol",
+    "permalink": "/shopverse/ai/MCP-UMBRELLA"
+  }
+}

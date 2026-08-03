@@ -1,0 +1,52 @@
+{
+  "id": "spring/boot/SPRING-BOOT-CONFIGURATION-ENVIRONMENTS",
+  "title": "Spring Boot Configuration Profiles And Environments",
+  "description": "In-depth Spring Boot configuration guide covering ConfigData, precedence, profiles, typed binding, validation, secrets, imports, refresh boundaries, tests, and production incidents.",
+  "source": "@site/docs/spring/boot/SPRING-BOOT-CONFIGURATION-ENVIRONMENTS.md",
+  "sourceDirName": "spring/boot",
+  "slug": "/spring/boot/SPRING-BOOT-CONFIGURATION-ENVIRONMENTS",
+  "permalink": "/shopverse/spring/boot/SPRING-BOOT-CONFIGURATION-ENVIRONMENTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/boot/SPRING-BOOT-CONFIGURATION-ENVIRONMENTS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Boot Configuration Profiles And Environments",
+    "description": "In-depth Spring Boot configuration guide covering ConfigData, precedence, profiles, typed binding, validation, secrets, imports, refresh boundaries, tests, and production incidents.",
+    "difficulty": "Intermediate",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring fundamentals",
+      "YAML and properties"
+    ],
+    "learning_objectives": [
+      "Explain configuration precedence",
+      "Bind and validate typed settings",
+      "Use profiles safely",
+      "Protect secrets",
+      "Diagnose unexpected values"
+    ],
+    "technologies": [
+      "Spring Boot 4",
+      "ConfigData",
+      "ConfigurationProperties",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Annotation Internals Composition Proxies And Interview Traps",
+    "permalink": "/shopverse/spring/annotations/SPRING-ANNOTATION-INTERNALS-COMPOSITION"
+  },
+  "next": {
+    "title": "Spring Boot Auto-Configuration Starters And Extension Design",
+    "permalink": "/shopverse/spring/boot/SPRING-BOOT-AUTOCONFIGURATION-STARTERS"
+  }
+}

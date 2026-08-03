@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Kafka consumers, producer reliability, observability]
 learning_objectives: [Prevent Kafka-driven cascading failures, Diagnose lag and batch failures, Recover without causing loss or duplicate business effects]
 technologies: [Apache Kafka 4.x, Spring Kafka, Micrometer, OpenTelemetry]
-last_reviewed: "2026-07-28"
+last_reviewed: "2026-07-31"
 scope: generic
 owner: docs-integration
 reviewer: documentation-maintainers
@@ -130,6 +130,50 @@ rebalance and commit failures
 Scale consumers only after identifying the bottleneck. More consumers cannot
 help beyond partition count, cannot fix a hot partition, and can overload a
 database faster.
+
+### Configuration Levers After Diagnosis
+
+Configuration changes improve throughput only when they address the measured
+constraint. Change one dimension at a time and compare completion rate, event
+age, resource saturation, rebalance rate, and duplicate/retry effects.
+
+| Lever | When it can help | Main risk or limit |
+|---|---|---|
+| listener concurrency or replicas | unused partitions and downstream headroom exist | idle consumers beyond partitions; downstream overload |
+| `max.poll.records` | smaller polls stabilize slow handlers; larger polls support efficient bounded batches | large polls exceed the processing budget or enlarge replay |
+| `max.poll.interval.ms` | processing legitimately needs more time between polls | hides an unbounded/slow handler and delays failure detection |
+| `fetch.min.bytes` | larger fetches improve throughput for busy batch workloads | broker waits for more data, increasing latency |
+| `fetch.max.wait.ms` | bounds the wait introduced by `fetch.min.bytes` | too high hurts low-volume latency; too low reduces batching |
+| `max.partition.fetch.bytes` | record batches are large or per-partition fetches are inefficient | higher per-consumer memory/network use |
+| `fetch.max.bytes` | many busy partitions need larger total fetch responses | higher heap, network, allocation, and GC pressure |
+| batch listener/database bulk write | per-record database overhead dominates | partial-failure, ordering, transaction, and replay complexity |
+| static membership | short restarts cause unnecessary partition movement | every live member needs a unique stable identity |
+| cooperative/new group protocol | full-stop rebalances cause lag spikes | compatibility and rollout must be tested; protocol semantics differ |
+
+Keep the poll budget explicit:
+
+```text
+records returned by a poll
+x bounded processing time per record (or measured batch time)
++ retry/backoff and commit overhead
+< max.poll.interval.ms with safety margin
+```
+
+This is a worst-case safety check, not a throughput prediction. Lower
+`max.poll.records` before increasing `max.poll.interval.ms` when one poll simply
+contains too much work. Increasing fetch byte settings does not help a consumer
+whose database or external API dominates processing time.
+
+Offset commit frequency is primarily a delivery/recovery decision. Batch commits
+can reduce overhead, but committing earlier does not increase completed business
+throughput and can lose effects if the offset advances before durable processing.
+Keep handlers idempotent regardless of acknowledgment mode.
+
+ShopVerse currently defaults to `max.poll.records=50` and listener
+`concurrency=1` through shared configuration. These are conservative starting
+values, not globally correct tuning values. Any change must be tested per group
+against actual partitions, key skew, listener p99, retry traffic, and dependency
+capacity.
 
 ## Batching Failure Modes
 

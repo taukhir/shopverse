@@ -1,0 +1,75 @@
+{
+  "id": "java/collections/queue/PRIORITYQUEUE-INTERNALS",
+  "title": "PriorityQueue Internals and Usage",
+  "description": "PriorityQueue binary-heap storage, default capacity, growth, sift operations, methods, complexity, ordering traps, and use cases.",
+  "source": "@site/docs/java/collections/queue/PRIORITYQUEUE-INTERNALS.md",
+  "sourceDirName": "java/collections/queue",
+  "slug": "/java/collections/queue/PRIORITYQUEUE-INTERNALS",
+  "permalink": "/shopverse/java/collections/queue/PRIORITYQUEUE-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/collections/queue/PRIORITYQUEUE-INTERNALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "collections",
+      "permalink": "/shopverse/tags/collections"
+    },
+    {
+      "inline": true,
+      "label": "queue",
+      "permalink": "/shopverse/tags/queue"
+    },
+    {
+      "inline": true,
+      "label": "priorityqueue",
+      "permalink": "/shopverse/tags/priorityqueue"
+    },
+    {
+      "inline": true,
+      "label": "heap",
+      "permalink": "/shopverse/tags/heap"
+    },
+    {
+      "inline": true,
+      "label": "internals",
+      "permalink": "/shopverse/tags/internals"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "PriorityQueue Internals and Usage",
+    "description": "PriorityQueue binary-heap storage, default capacity, growth, sift operations, methods, complexity, ordering traps, and use cases.",
+    "sidebar_label": "PriorityQueue",
+    "tags": [
+      "java",
+      "collections",
+      "queue",
+      "priorityqueue",
+      "heap",
+      "internals"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ArrayDeque",
+    "permalink": "/shopverse/java/collections/queue/ARRAYDEQUE-INTERNALS"
+  },
+  "next": {
+    "title": "List, Set, And Map Choices",
+    "permalink": "/shopverse/java/collections/LIST-SET-MAP-CHOICES"
+  }
+}

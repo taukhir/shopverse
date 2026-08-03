@@ -25,6 +25,7 @@ type LearningFrontMatter = {
   learning_objectives?: string[];
   technologies?: string[];
   last_reviewed?: string;
+  hide_reader_chrome?: boolean;
 };
 
 export default function DocItemContent({children}: Props): ReactNode {
@@ -157,6 +158,10 @@ export default function DocItemContent({children}: Props): ReactNode {
   const completedSet = new Set(completedLearningPaths);
   const incompletePrerequisites = (currentLearningPage?.prerequisites ?? []).filter((path) => !completedSet.has(path));
 
+  if (learning.hide_reader_chrome) {
+    return <div ref={containerRef}><OriginalDocItemContent>{children}</OriginalDocItemContent></div>;
+  }
+
   return (
     <div ref={containerRef}>
       <div className={`${styles.metadata} reading-metadata`} aria-label="Reading information">
@@ -170,7 +175,7 @@ export default function DocItemContent({children}: Props): ReactNode {
         <button type="button" onClick={markReview}><RotateCcw aria-hidden="true" />Needs review</button>
         <span className={styles.pageProgress}>{progress}% read</span>
       </div>
-      <aside className={`${styles.freshness} ${reviewedDays > 180 ? styles.outdated : ''}`}><AlertTriangle aria-hidden="true"/><span><strong>{freshness}</strong>{learning.last_reviewed ? ` · last reviewed ${learning.last_reviewed}` : ' · verify version-sensitive details before production use'}{learning.status && learning.status !== 'Implemented' ? ` · ${learning.status.toLowerCase()} content` : ''}{versionSpecific ? ' · version-specific' : ''}{verifiedOfficial ? ' · verified against official documentation' : ''}</span></aside>
+      <aside className={`${styles.freshness} ${reviewedDays > 180 ? styles.outdated : ''}`} aria-label="Content freshness"><AlertTriangle aria-hidden="true"/><span><strong>{freshness}</strong>{learning.last_reviewed ? ` · last reviewed ${learning.last_reviewed}` : ' · verify version-sensitive details before production use'}{learning.status && learning.status !== 'Implemented' ? ` · ${learning.status.toLowerCase()} content` : ''}{versionSpecific ? ' · version-specific' : ''}{verifiedOfficial ? ' · verified against official documentation' : ''}</span></aside>
       {lastHeading && typeof window !== 'undefined' && !window.location.hash && <a className={styles.continueSection} href={`#${lastHeading}`}>Continue from your last-read section</a>}
       {incompletePrerequisites.length > 0 && <aside className={styles.prerequisiteWarning}><strong>Recommended first:</strong>{incompletePrerequisites.map((path) => <Link key={path} to={path}>{learningCatalog.find((item) => item.path === path)?.title ?? path}</Link>)}</aside>}
       {hasLearningHeader && (

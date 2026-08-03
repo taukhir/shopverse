@@ -1,0 +1,57 @@
+{
+  "id": "reliability/RESILIENCE4J",
+  "title": "Resilience4j",
+  "description": "Resilience4j: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/reliability/RESILIENCE4J.md",
+  "sourceDirName": "reliability",
+  "slug": "/reliability/RESILIENCE4J",
+  "permalink": "/shopverse/reliability/RESILIENCE4J",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reliability/RESILIENCE4J.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "reliability",
+      "permalink": "/shopverse/tags/reliability"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Resilience4j",
+    "description": "Resilience4j: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Resilience4j",
+    "tags": [
+      "reliability",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-reliability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Transactions",
+    "permalink": "/shopverse/reliability/TRANSACTIONS"
+  },
+  "next": {
+    "title": "JWT, OAuth2, And Spring Security",
+    "permalink": "/shopverse/security/JWT-OAUTH2-SPRING-SECURITY"
+  }
+}

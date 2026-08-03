@@ -1,0 +1,48 @@
+{
+  "id": "operations/DOCKER-INTERNALS-LAYERS-STORAGE",
+  "title": "Docker Internals, Layers, And Storage",
+  "description": "Docker uses operating-system-level virtualization. A container is an",
+  "source": "@site/docs/operations/DOCKER-INTERNALS-LAYERS-STORAGE.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/DOCKER-INTERNALS-LAYERS-STORAGE",
+  "permalink": "/shopverse/operations/DOCKER-INTERNALS-LAYERS-STORAGE",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/DOCKER-INTERNALS-LAYERS-STORAGE.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Docker Internals, Layers, And Storage",
+    "sidebar_position": 3,
+    "difficulty": "Intermediate",
+    "page_type": "Concept",
+    "status": "maintained",
+    "learning_objectives": [
+      "Explain container isolation",
+      "Compare containers with virtual machines",
+      "Manage image layers build cache and Docker storage"
+    ],
+    "technologies": [
+      "Docker",
+      "BuildKit",
+      "Linux",
+      "OverlayFS",
+      "Docker Compose"
+    ],
+    "last_reviewed": "2026-07-11",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Docker Production Mastery",
+    "permalink": "/shopverse/operations/docker/DOCKER-PRODUCTION-MASTERY"
+  },
+  "next": {
+    "title": "Docker Engine, containerd, OCI Runtime, And Linux Isolation",
+    "permalink": "/shopverse/operations/docker/DOCKER-ENGINE-RUNTIME-INTERNALS"
+  }
+}

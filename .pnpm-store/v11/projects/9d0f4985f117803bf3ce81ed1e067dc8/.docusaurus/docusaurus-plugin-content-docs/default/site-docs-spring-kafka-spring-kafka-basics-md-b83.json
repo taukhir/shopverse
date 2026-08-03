@@ -1,0 +1,51 @@
+{
+  "id": "spring/kafka/SPRING-KAFKA-BASICS",
+  "title": "Spring Kafka Publishing And Event Flow",
+  "description": "Spring Boot Kafka configuration, KafkaTemplate publishing, serialization, outbox acknowledgment, event compatibility, and producer security.",
+  "source": "@site/docs/spring/kafka/SPRING-KAFKA-BASICS.md",
+  "sourceDirName": "spring/kafka",
+  "slug": "/spring/kafka/SPRING-KAFKA-BASICS",
+  "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-BASICS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/kafka/SPRING-KAFKA-BASICS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Kafka Publishing And Event Flow",
+    "description": "Spring Boot Kafka configuration, KafkaTemplate publishing, serialization, outbox acknowledgment, event compatibility, and producer security.",
+    "difficulty": "Intermediate",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "prerequisites": [
+      "Apache Kafka producers",
+      "Spring Boot configuration",
+      "Transactional outbox"
+    ],
+    "learning_objectives": [
+      "Trace KafkaTemplate from send to broker metadata",
+      "Keep event schemas compatible across rolling deployments",
+      "Separate producer acknowledgment from database atomicity"
+    ],
+    "technologies": [
+      "Spring for Apache Kafka 4.x",
+      "Spring Boot",
+      "KafkaTemplate",
+      "Micrometer"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring For Apache Kafka",
+    "permalink": "/shopverse/spring/SPRING-KAFKA"
+  },
+  "next": {
+    "title": "Spring Kafka Runtime Internals And Failure Paths",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES"
+  }
+}

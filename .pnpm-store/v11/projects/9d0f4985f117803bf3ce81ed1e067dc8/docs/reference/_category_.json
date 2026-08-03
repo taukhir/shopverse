@@ -1,0 +1,8 @@
+{
+  "label": "Reference And Study",
+  "position": 12,
+  "link": {
+    "type": "generated-index",
+    "description": "Learning paths, feature demonstrations, implementation evidence, and reference material."
+  }
+}

@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Kafka topics, partitions, replication]
 learning_objectives: [Trace the producer runtime, Configure durability and latency deliberately, Contain overload and ambiguous outcomes]
 technologies: [Apache Kafka 4.x, KafkaProducer, Spring Kafka]
-last_reviewed: "2026-07-28"
+last_reviewed: "2026-07-31"
 scope: generic
 owner: docs-integration
 reviewer: documentation-maintainers
@@ -62,6 +62,38 @@ Idempotence, sequence numbers, producer IDs, and epochs let brokers reject
 duplicate or invalid sequence writes. `max.in.flight.requests.per.connection`
 interacts with retry ordering; use client-supported idempotent defaults unless a
 measured requirement justifies overriding them.
+
+### How The Broker Detects A Duplicate
+
+Kafka does not compare keys, payloads, event IDs, or hashes. With producer
+idempotence enabled, the protocol identifies an append by:
+
+```text
+producer ID + producer epoch + topic-partition + sequence number
+```
+
+The producer assigns monotonically increasing sequence numbers independently
+for each topic-partition. The broker tracks the accepted sequence state for that
+producer and partition. If the broker appends sequence `16` but its
+acknowledgment is lost, the producer retry carries the same identity and
+sequence. The broker recognizes the retry and does not append a second record.
+An unexpected gap or invalid sequence is rejected instead of silently accepting
+an ordering hole.
+
+The epoch fences stale incarnations of a producer identity. A newly initialized
+non-transactional producer can receive a different producer ID, so idempotence
+is a broker-protocol guarantee for supported sends and retries, not permanent
+business deduplication across arbitrary application restarts or a caller that
+constructs a new event.
+
+This boundary matters:
+
+| Duplicate source | Protected by idempotent producer? | Required control |
+|---|---:|---|
+| producer retries after a lost acknowledgment | yes, within the protocol/session guarantees | producer idempotence |
+| application calls `send` twice for the same business fact | no | stable event identity and outbox/business idempotency |
+| consumer commits its database work but not its offset | no | idempotent consumer/inbox and guarded state transition |
+| external payment or inventory request is repeated | no | provider/operation idempotency key and reconciliation |
 
 Adding topic partitions can change default key-to-partition mapping. Per-key
 ordering across the expansion boundary needs explicit migration or consumer-side
@@ -149,4 +181,3 @@ Use idempotence and stable event identity, then reconcile ambiguous business sta
 ## Recommended Next
 
 Continue with [Capacity And Performance Planning](./KAFKA-CAPACITY-PERFORMANCE-PLANNING.md).
-

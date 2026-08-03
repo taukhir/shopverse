@@ -1,0 +1,50 @@
+{
+  "id": "ai/AGENTS-TOOL-CALLING",
+  "title": "Agents And Tool Calling",
+  "description": "An agent lets a model choose steps and tools dynamically. A deterministic workflow",
+  "source": "@site/docs/ai/AGENTS-TOOL-CALLING.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AGENTS-TOOL-CALLING",
+  "permalink": "/shopverse/ai/AGENTS-TOOL-CALLING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AGENTS-TOOL-CALLING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Agents And Tool Calling",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "keywords": [
+      "AI agent",
+      "ReAct",
+      "planner executor",
+      "tool calling",
+      "human approval"
+    ],
+    "learning_objectives": [
+      "Choose deterministic workflows or agents",
+      "Build bounded tool loops",
+      "Secure and evaluate tool execution"
+    ],
+    "technologies": [
+      "Spring AI",
+      "MCP"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Embeddings, Vector DB And RAG",
+    "permalink": "/shopverse/ai/EMBEDDINGS-VECTOR-DB-RAG"
+  },
+  "next": {
+    "title": "Agents And Tool Calling",
+    "permalink": "/shopverse/ai/AGENTS-TOOL-CALLING"
+  }
+}

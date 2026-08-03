@@ -8,7 +8,7 @@ learning_objectives:
   - Select the focused guide for request mapping, validation, or errors
   - Preserve links to the former combined REST page
 technologies: [Spring MVC, Jakarta Validation, ProblemDetail]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 scope: compatibility
 owner: docs-development
 reviewer: documentation-maintainers
@@ -39,6 +39,10 @@ Use request mapping for where values come from, validation for whether a bound
 value satisfies structural rules, and the error guide for how each failure becomes
 a stable public response.
 </DocCallout>
+
+Transport validation owns syntax, shape, type conversion and declared input constraints. Business rules own
+current domain state, authorization and race-sensitive invariants inside the use case and transaction. Database
+constraints or concurrency control remain necessary when concurrent requests can invalidate an earlier check.
 
 ## Compatibility Topic Map
 

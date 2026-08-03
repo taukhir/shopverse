@@ -1,0 +1,45 @@
+{
+  "id": "leadership/interview-program/DAY-ZERO-ASSESSOR-SCORING-ROUTING",
+  "title": "Day-Zero Assessor Scoring And Documentation Routing",
+  "description": "Expected answer signals, critical errors, scoring, weak-domain routing, and placement into the four-, six-, or twelve-week preparation programme.",
+  "source": "@site/docs/leadership/interview-program/DAY-ZERO-ASSESSOR-SCORING-ROUTING.md",
+  "sourceDirName": "leadership/interview-program",
+  "slug": "/leadership/interview-program/DAY-ZERO-ASSESSOR-SCORING-ROUTING",
+  "permalink": "/shopverse/leadership/interview-program/DAY-ZERO-ASSESSOR-SCORING-ROUTING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/interview-program/DAY-ZERO-ASSESSOR-SCORING-ROUTING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Day-Zero Assessor Scoring And Documentation Routing",
+    "description": "Expected answer signals, critical errors, scoring, weak-domain routing, and placement into the four-, six-, or twelve-week preparation programme.",
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Completed Day-Zero Diagnostic Assessment"
+    ],
+    "technologies": [
+      "Interview Assessment",
+      "Java",
+      "Spring",
+      "Kafka",
+      "Architecture"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Day-Zero Lead And Architect Diagnostic Assessment",
+    "permalink": "/shopverse/leadership/interview-program/DAY-ZERO-DIAGNOSTIC-ASSESSMENT"
+  },
+  "next": {
+    "title": "Build A Defensible Architecture Portfolio",
+    "permalink": "/shopverse/leadership/interview-program/ARCHITECTURE-PORTFOLIO-BUILDING"
+  }
+}

@@ -1,13 +1,13 @@
 ---
 title: Spring Bean Scopes And Lifecycle
-description: Singleton, prototype and web scopes, lifecycle callbacks, resource ownership, graceful shutdown, and lifecycle diagnostics.
+description: Singleton, prototype and web scopes, lazy proxies, context hierarchies, callback ordering, resource ownership, graceful shutdown, and lifecycle diagnostics.
 difficulty: Intermediate
 page_type: Tutorial
 status: maintained
 prerequisites: [Spring dependency injection, ApplicationContext basics]
-learning_objectives: [Choose bean scope from state ownership, Trace initialization through published identity, Prove resource cleanup during graceful shutdown]
+learning_objectives: [Choose bean scope from state ownership, Explain lazy and hierarchical context boundaries, Trace aware and lifecycle callbacks through published identity, Prove resource cleanup during graceful shutdown]
 technologies: [Spring Framework 7, Spring Boot 4]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-development
 reviewer: documentation-maintainers
@@ -30,9 +30,12 @@ initializes it, when it becomes usable, and who releases its resources.
 flowchart TD
     Definition["Bean definition"] --> Construct["Constructor / factory method"]
     Construct --> Populate["Resolve and inject dependencies"]
-    Populate --> Before["Before-initialization processors"]
-    Before --> Init["@PostConstruct / init callback"]
-    Init --> After["After-initialization processors"]
+    Populate --> Aware["Aware callbacks"]
+    Aware --> Before["Before-initialization processors"]
+    Before --> PostConstruct["@PostConstruct"]
+    PostConstruct --> Initializing["InitializingBean"]
+    Initializing --> CustomInit["custom init method"]
+    CustomInit --> After["After-initialization processors"]
     After --> Published["Published bean or proxy"]
     Published --> Use["Application use"]
     Use --> Stop["Context shutdown"]
@@ -99,6 +102,32 @@ propagation and clear owned context after every operation.
 
 </DocCallout>
 
+## Lazy Resolution
+
+`@Lazy` on a bean definition delays singleton creation until the bean is requested.
+An eager singleton that directly depends on that bean requests it during startup, so
+definition-level laziness alone does not defer the dependency. `@Lazy` on an
+injection point supplies a proxy that resolves the target on first use; an
+`ObjectProvider<T>` makes the lookup visible in application code.
+
+Lazy initialization changes timing, not ownership or correctness. It can improve
+startup time for truly optional capabilities, but it can also move missing
+configuration, constructor failures, and connection errors from startup to the first
+customer request. Verify the first-use latency and failure path instead of enabling
+global lazy initialization to conceal a slow or broken startup.
+
+## Parent And Child Application Contexts
+
+A child context can normally resolve beans from its parent; the parent cannot see
+child-only beans. Each context owns its own singleton registry, lifecycle, event
+multicaster, and post-processor set. A child can shadow a parent bean name, producing
+two distinct instances and potentially different proxy/advice behavior.
+
+This boundary appears in some web and test arrangements. Diagnose it by recording
+the owning context and bean factory, not only the bean name. Closing a child does not
+mean the parent-owned singleton was destroyed, and a post-processor registered in
+one factory does not automatically process instances owned by the other.
+
 ## Initialization Callbacks
 
 Use constructors for cheap invariant establishment and injected values. Use
@@ -118,6 +147,31 @@ void validateRoutes() {
 For work that must occur after the application has started or become ready, use the
 appropriate Boot lifecycle/event/runner abstraction and define failure plus
 readiness behavior explicitly.
+
+### Exact Callback Sequence
+
+For a normal bean, the interview-relevant sequence is:
+
+1. instantiate the raw object;
+2. populate properties and dependencies;
+3. invoke container-awareness callbacks such as `BeanNameAware`,
+   `BeanClassLoaderAware`, `BeanFactoryAware`, and then context-specific callbacks
+   ending with `ApplicationContextAware` where applicable;
+4. invoke before-initialization `BeanPostProcessor` callbacks;
+5. invoke `@PostConstruct`;
+6. invoke `InitializingBean.afterPropertiesSet()`;
+7. invoke the configured custom init method;
+8. invoke after-initialization processors, which may publish a proxy.
+
+On orderly singleton destruction, the corresponding callback styles run as
+`@PreDestroy`, `DisposableBean.destroy()`, then the configured custom destroy
+method. Avoid implementing several callback styles on one bean: although their
+order is defined, one cohesive callback is easier to reason about and test.
+
+`Aware` interfaces are infrastructure callbacks, not a preferred way to obtain
+ordinary collaborators. Constructor injection keeps application dependencies
+explicit. Use an `Aware` contract only when the bean genuinely needs container
+metadata or infrastructure, such as its owning `ApplicationContext`.
 
 ## Destruction And Graceful Shutdown
 
@@ -201,11 +255,37 @@ it, so correctness cannot depend on the callback always executing.
 
 </ExpandableAnswer>
 
+<ExpandableAnswer title="What is the initialization callback order?">
+
+After construction and dependency population, Spring invokes aware callbacks and
+before-initialization post-processors, followed by `@PostConstruct`,
+`InitializingBean.afterPropertiesSet()`, a custom init method, and finally
+after-initialization processors that may return a proxy.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does @Lazy guarantee that a dependency is absent at startup?">
+
+No. An eager bean that directly requires a lazy definition can trigger its creation.
+An injection-point lazy proxy or provider defers target resolution, but also moves
+initialization failures and latency to first use.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can a parent context see a bean defined in its child?">
+
+No. Lookup normally flows from child to parent. The contexts have separate singleton
+and processor ownership, and a child may shadow a parent bean name with a different
+instance.
+
+</ExpandableAnswer>
+
 ## Official References
 
 - [Spring bean scopes](https://docs.spring.io/spring-framework/reference/core/beans/factory-scopes.html)
 - [Spring lifecycle callbacks](https://docs.spring.io/spring-framework/reference/core/beans/factory-nature.html)
 - [Using lazy-initialized beans](https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-lazy-init.html)
+- [Spring `BeanFactory` lifecycle callback order](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/BeanFactory.html)
 - [Spring Boot graceful shutdown](https://docs.spring.io/spring-boot/4.0/reference/web/graceful-shutdown.html)
 
 ## Recommended Next

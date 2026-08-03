@@ -1,0 +1,51 @@
+{
+  "id": "java/advanced-internals/DYNAMIC-JAVA-INTERNALS",
+  "title": "Reflection, Proxies, Generics, And Serialization",
+  "description": "Java internals atlas including object layout, JIT, GC, virtual threads, collections, and measurement",
+  "source": "@site/docs/java/advanced-internals/DYNAMIC-JAVA-INTERNALS.md",
+  "sourceDirName": "java/advanced-internals",
+  "slug": "/java/advanced-internals/DYNAMIC-JAVA-INTERNALS",
+  "permalink": "/shopverse/java/advanced-internals/DYNAMIC-JAVA-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/advanced-internals/DYNAMIC-JAVA-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Reflection, Proxies, Generics, And Serialization",
+    "difficulty": "Advanced",
+    "page_type": "Concept",
+    "status": "maintained",
+    "keywords": [
+      "reflection",
+      "MethodHandle",
+      "dynamic proxy",
+      "annotation processing",
+      "type erasure",
+      "bridge method",
+      "serialization compatibility"
+    ],
+    "learning_objectives": [
+      "Compare runtime and compile-time metaprogramming",
+      "Explain erasure and bridge methods",
+      "Design explicit secure serialization contracts"
+    ],
+    "technologies": [
+      "Java"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Reflection Annotations Proxies And Class Loaders",
+    "permalink": "/shopverse/java/JAVA-REFLECTION-ANNOTATIONS-CLASSLOADERS"
+  },
+  "next": {
+    "title": "Advanced Java Internals",
+    "permalink": "/shopverse/java/ADVANCED-JAVA-INTERNALS"
+  }
+}

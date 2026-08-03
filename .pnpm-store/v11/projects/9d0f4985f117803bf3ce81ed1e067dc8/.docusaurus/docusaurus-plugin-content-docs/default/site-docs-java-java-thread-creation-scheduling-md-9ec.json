@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-THREAD-CREATION-SCHEDULING",
+  "title": "Java Thread Creation, Scheduling And Context Switching",
+  "description": "Manual threads, lifecycle, OS and JVM scheduling, time slicing, context switches, concurrency, parallelism, and joining.",
+  "source": "@site/docs/java/JAVA-THREAD-CREATION-SCHEDULING.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-THREAD-CREATION-SCHEDULING",
+  "permalink": "/shopverse/java/JAVA-THREAD-CREATION-SCHEDULING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-THREAD-CREATION-SCHEDULING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Thread Creation, Scheduling And Context Switching",
+    "description": "Manual threads, lifecycle, OS and JVM scheduling, time slicing, context switches, concurrency, parallelism, and joining.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Task Cancellation, Deadlines And Shutdown",
+    "permalink": "/shopverse/java/threading/TASK-CANCELLATION-DEADLINES"
+  },
+  "next": {
+    "title": "Java Thread Scheduling, Time Slicing And Context Switching",
+    "permalink": "/shopverse/java/JAVA-THREAD-SCHEDULER-DEEP-DIVE"
+  }
+}

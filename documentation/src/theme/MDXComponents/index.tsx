@@ -11,6 +11,7 @@ import {
   VersionTabs,
 } from '@site/src/components/DocPatterns';
 import {SearchableQuestionTable} from '@site/src/components/SearchableQuestionTable';
+import {WalmartQuestionExplorer} from '@site/src/components/WalmartQuestionExplorer';
 import {CodeWalkthrough, CopyableCommandGroup, InteractiveTopicTree, InterviewPractice, PatternComparison, StepByStepDryRun} from '@site/src/components/LearningTools';
 
 export default {
@@ -25,6 +26,7 @@ export default {
   TopicCards,
   VersionTabs,
   SearchableQuestionTable,
+  WalmartQuestionExplorer,
   CodeWalkthrough,
   CopyableCommandGroup,
   InteractiveTopicTree,

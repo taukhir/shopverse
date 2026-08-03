@@ -1,0 +1,46 @@
+{
+  "id": "reference/LEARNING-PATH",
+  "title": "Backend Engineering Learning Path",
+  "description": "Use this path to study backend engineering from fundamentals to",
+  "source": "@site/docs/reference/LEARNING-PATH.mdx",
+  "sourceDirName": "reference",
+  "slug": "/reference/LEARNING-PATH",
+  "permalink": "/shopverse/reference/LEARNING-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/LEARNING-PATH.mdx",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "title": "Backend Engineering Learning Path",
+    "sidebar_position": 1,
+    "difficulty": "Beginner",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "learning_objectives": [
+      "Study backend engineering topics in dependency order",
+      "Connect reusable concepts to the Shopverse implementation"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Kafka",
+      "Docker"
+    ],
+    "last_reviewed": "2026-07-10",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Documentation Guide",
+    "permalink": "/shopverse/reference/DOCUMENTATION-GUIDE"
+  },
+  "next": {
+    "title": "Shopverse Features And Demos",
+    "permalink": "/shopverse/reference/FEATURES-AND-DEMOS"
+  }
+}

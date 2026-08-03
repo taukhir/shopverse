@@ -1,0 +1,34 @@
+{
+  "id": "cloud/aws/AWS-UMBRELLA",
+  "title": "AWS Umbrella",
+  "description": "AWS offers services across IaaS, PaaS, serverless, managed data, integration,",
+  "source": "@site/docs/cloud/aws/AWS-UMBRELLA.md",
+  "sourceDirName": "cloud/aws",
+  "slug": "/cloud/aws/AWS-UMBRELLA",
+  "permalink": "/shopverse/cloud/aws/AWS-UMBRELLA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/cloud/aws/AWS-UMBRELLA.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AWS Umbrella",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-cloud",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Cloud Fundamentals",
+    "permalink": "/shopverse/cloud/CLOUD-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "AWS Umbrella",
+    "permalink": "/shopverse/cloud/aws/AWS-UMBRELLA"
+  }
+}

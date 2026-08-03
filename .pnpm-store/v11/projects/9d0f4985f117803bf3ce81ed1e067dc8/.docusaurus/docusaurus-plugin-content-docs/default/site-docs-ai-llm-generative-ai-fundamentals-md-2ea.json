@@ -1,0 +1,36 @@
+{
+  "id": "ai/LLM-GENERATIVE-AI-FUNDAMENTALS",
+  "title": "LLM And Generative AI Fundamentals",
+  "description": "Generative AI use cases for Shopverse",
+  "source": "@site/docs/ai/LLM-GENERATIVE-AI-FUNDAMENTALS.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/LLM-GENERATIVE-AI-FUNDAMENTALS",
+  "permalink": "/shopverse/ai/LLM-GENERATIVE-AI-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/LLM-GENERATIVE-AI-FUNDAMENTALS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "LLM And Generative AI Fundamentals",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring AI, LangChain4j And Java AI",
+    "permalink": "/shopverse/ai/SPRING-AI-LANGCHAIN4J-JAVA"
+  },
+  "next": {
+    "title": "LLM And Generative AI Fundamentals",
+    "permalink": "/shopverse/ai/LLM-GENERATIVE-AI-FUNDAMENTALS"
+  }
+}

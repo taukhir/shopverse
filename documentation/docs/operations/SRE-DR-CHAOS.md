@@ -6,7 +6,7 @@ status: maintained
 keywords: [SLI, SLO, error budget, incident management, postmortem, disaster recovery, chaos engineering, game day]
 learning_objectives: [Define user-centered reliability targets, Coordinate incidents and learning, Prove recovery with controlled failure experiments]
 technologies: [Prometheus, Grafana, Kubernetes]
-last_reviewed: "2026-07-12"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-operations
 reviewer: documentation-maintainers
@@ -48,6 +48,11 @@ Blameless postmortems describe impact, detection, timeline, contributing technic
 and organizational conditions, what helped/hurt, and owned measurable actions.
 Track actions to completion and validate that fixes reduce recurrence or impact.
 
+Incident timing must name its boundary. Time to acknowledge, mitigate, restore,
+repair and close answer different questions; the label `MTTR` is ambiguous without
+that definition. Review distributions and severe outliers rather than relying on
+one average, and pair timing with user-impact duration, SLO burn and recurrence.
+
 ## Disaster Recovery
 
 Map services and data by recovery dependency order: identity/secrets/network,
@@ -63,7 +68,9 @@ credentials, backups, replication, reconciliation, communication, and return hom
 | active-active | highest | low RTO, hardest data/conflict model |
 
 Run game days for zone/region loss and dependency recovery, not only individual
-process restarts. Measure real RPO/RTO and degraded capacity.
+process restarts. Measure real RPO/RTO and degraded capacity. Prove backups through
+isolated restores, version compatibility, checksums and business invariants; a
+successful backup job alone does not establish recoverability.
 
 ## Chaos Engineering
 

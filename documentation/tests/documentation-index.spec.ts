@@ -13,13 +13,13 @@ test('dedicated root-level page exposes the complete expandable documentation hi
   const index = page.getByRole('region', {name: 'Complete documentation index'});
 
   await expect(index).toBeVisible();
-  await expect(index.locator('details[data-level="0"]')).toHaveCount(13);
+  await expect(index.locator('details[data-level="0"]')).toHaveCount(14);
   await expect(index.getByRole('link', {name: 'Download Excel'})).toHaveAttribute(
     'href',
     /\/shopverse\/downloads\/dsa\/Lead_Java_DSA_Interview_Handbook\.xlsx$/,
   );
 
-  const foundations = index.locator('details[data-level="0"]').filter({hasText: 'Engineering Foundations'});
+  const foundations = index.locator('#docs-1-engineering-foundations');
   await foundations.locator('summary').first().click();
   await expect(foundations).toHaveAttribute('open', '');
   await expect(foundations.getByText('Algorithms And Data Structures', {exact: true})).toBeVisible();

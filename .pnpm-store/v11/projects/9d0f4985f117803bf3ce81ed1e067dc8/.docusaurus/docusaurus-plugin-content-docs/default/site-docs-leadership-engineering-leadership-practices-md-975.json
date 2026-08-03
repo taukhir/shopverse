@@ -1,0 +1,55 @@
+{
+  "id": "leadership/ENGINEERING-LEADERSHIP-PRACTICES",
+  "title": "Engineering Leadership Practices",
+  "description": "A practical lead-level operating model for effective code reviews and mentoring senior engineers.",
+  "source": "@site/docs/leadership/ENGINEERING-LEADERSHIP-PRACTICES.md",
+  "sourceDirName": "leadership",
+  "slug": "/leadership/ENGINEERING-LEADERSHIP-PRACTICES",
+  "permalink": "/shopverse/leadership/ENGINEERING-LEADERSHIP-PRACTICES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/ENGINEERING-LEADERSHIP-PRACTICES.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Engineering Leadership Practices",
+    "description": "A practical lead-level operating model for effective code reviews and mentoring senior engineers.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "keywords": [
+      "code review",
+      "technical leadership",
+      "mentoring",
+      "senior engineer",
+      "feedback",
+      "delegation",
+      "succession"
+    ],
+    "learning_objectives": [
+      "Run code review as a scalable quality and knowledge-sharing system",
+      "Give senior engineers autonomy, stretch ownership, and behavior-based feedback",
+      "Measure team capability without turning engineering leadership into activity metrics"
+    ],
+    "technologies": [
+      "Git",
+      "CI",
+      "Static Analysis",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Monolith To Microservices Strategy",
+    "permalink": "/shopverse/leadership/MONOLITH-TO-MICROSERVICES-STRATEGY"
+  },
+  "next": {
+    "title": "Architecture Decisions And Disagreements",
+    "permalink": "/shopverse/leadership/ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "id": "architecture/hld-lld/LLD-INTERVIEW-WORKBOOK",
+  "title": "Low-Level Design Interview Workbook",
+  "description": "Fifty LLD questions, answer checkpoints, design exercises, and a repeatable object-design method.",
+  "source": "@site/docs/architecture/hld-lld/LLD-INTERVIEW-WORKBOOK.md",
+  "sourceDirName": "architecture/hld-lld",
+  "slug": "/architecture/hld-lld/LLD-INTERVIEW-WORKBOOK",
+  "permalink": "/shopverse/architecture/hld-lld/LLD-INTERVIEW-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/hld-lld/LLD-INTERVIEW-WORKBOOK.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "LLD",
+      "permalink": "/shopverse/tags/lld"
+    },
+    {
+      "inline": true,
+      "label": "UML",
+      "permalink": "/shopverse/tags/uml"
+    },
+    {
+      "inline": true,
+      "label": "object-oriented design",
+      "permalink": "/shopverse/tags/object-oriented-design"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Low-Level Design Interview Workbook",
+    "description": "Fifty LLD questions, answer checkpoints, design exercises, and a repeatable object-design method.",
+    "sidebar_label": "LLD Interview Workbook",
+    "tags": [
+      "LLD",
+      "UML",
+      "object-oriented design",
+      "interview"
+    ],
+    "page_type": "Workbook",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-30",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Sixteen HLD Case Studies",
+    "permalink": "/shopverse/architecture/hld-lld/SIXTEEN-SYSTEM-DESIGN-CASE-STUDIES"
+  },
+  "next": {
+    "title": "LLD Examples And Diagrams",
+    "permalink": "/shopverse/architecture/hld-lld/LLD-EXAMPLES-DIAGRAMS"
+  }
+}

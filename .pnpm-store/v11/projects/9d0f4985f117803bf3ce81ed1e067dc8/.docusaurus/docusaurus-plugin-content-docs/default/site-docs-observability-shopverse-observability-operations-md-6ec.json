@@ -1,0 +1,36 @@
+{
+  "id": "observability/SHOPVERSE-OBSERVABILITY-OPERATIONS",
+  "title": "Shopverse Observability Operations",
+  "description": "This page is the operational reference for Shopverse telemetry. For reusable",
+  "source": "@site/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md",
+  "sourceDirName": "observability",
+  "slug": "/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS",
+  "permalink": "/shopverse/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "title": "Shopverse Observability Operations",
+    "sidebar_position": 8,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-observability",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Shopverse Observability Architecture",
+    "permalink": "/shopverse/observability/"
+  },
+  "next": {
+    "title": "Correlation And Trace Propagation",
+    "permalink": "/shopverse/observability/MDC-CORRELATION-TRACING"
+  }
+}

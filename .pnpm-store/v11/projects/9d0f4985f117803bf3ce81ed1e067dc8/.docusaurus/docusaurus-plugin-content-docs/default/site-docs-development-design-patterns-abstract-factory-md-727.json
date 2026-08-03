@@ -1,0 +1,69 @@
+{
+  "id": "development/design-patterns/abstract-factory",
+  "title": "Abstract Factory Pattern in Java and Spring",
+  "description": "Create compatible product families, compare Java and Spring implementations, and manage Abstract Factory trade-offs.",
+  "source": "@site/docs/development/design-patterns/abstract-factory.md",
+  "sourceDirName": "development/design-patterns",
+  "slug": "/development/design-patterns/abstract-factory",
+  "permalink": "/shopverse/development/design-patterns/abstract-factory",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/design-patterns/abstract-factory.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "spring",
+      "permalink": "/shopverse/tags/spring"
+    },
+    {
+      "inline": true,
+      "label": "design-patterns",
+      "permalink": "/shopverse/tags/design-patterns"
+    },
+    {
+      "inline": true,
+      "label": "creational",
+      "permalink": "/shopverse/tags/creational"
+    },
+    {
+      "inline": true,
+      "label": "interview",
+      "permalink": "/shopverse/tags/interview"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Abstract Factory Pattern in Java and Spring",
+    "description": "Create compatible product families, compare Java and Spring implementations, and manage Abstract Factory trade-offs.",
+    "sidebar_label": "Abstract Factory",
+    "tags": [
+      "java",
+      "spring",
+      "design-patterns",
+      "creational",
+      "interview"
+    ],
+    "page_type": "Deep Dive",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Factory Method",
+    "permalink": "/shopverse/development/design-patterns/factory"
+  },
+  "next": {
+    "title": "Builder",
+    "permalink": "/shopverse/development/design-patterns/builder"
+  }
+}

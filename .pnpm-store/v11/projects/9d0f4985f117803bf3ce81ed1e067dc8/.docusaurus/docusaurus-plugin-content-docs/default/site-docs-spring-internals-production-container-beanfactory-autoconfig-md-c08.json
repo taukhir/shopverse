@@ -1,0 +1,39 @@
+{
+  "id": "spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG",
+  "title": "Container, Bean Factory, And Auto-Configuration Internals",
+  "description": "Compatibility route to the canonical Spring container runtime guide for architects.",
+  "source": "@site/docs/spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md",
+  "sourceDirName": "spring/internals-production",
+  "slug": "/spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG",
+  "permalink": "/shopverse/spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Container, Bean Factory, And Auto-Configuration Internals",
+    "description": "Compatibility route to the canonical Spring container runtime guide for architects.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "technologies": [
+      "Spring Framework",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring And Spring Boot Architect Interview Workbook",
+    "permalink": "/shopverse/spring/SPRING-ARCHITECT-INTERVIEW-WORKBOOK"
+  },
+  "next": {
+    "title": "AOP Proxy And Transaction Internals",
+    "permalink": "/shopverse/spring/internals-production/AOP-TRANSACTION-INTERNALS"
+  }
+}

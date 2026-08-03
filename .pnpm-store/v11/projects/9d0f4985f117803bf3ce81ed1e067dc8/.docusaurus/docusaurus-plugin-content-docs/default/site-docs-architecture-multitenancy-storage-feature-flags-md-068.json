@@ -1,0 +1,53 @@
+{
+  "id": "architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS",
+  "title": "Multi-Tenancy, Object Storage, And Feature Flags",
+  "description": "Multi-Tenancy Models",
+  "source": "@site/docs/architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS",
+  "permalink": "/shopverse/architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/MULTITENANCY-STORAGE-FEATURE-FLAGS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Multi-Tenancy, Object Storage, And Feature Flags",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "keywords": [
+      "multi-tenancy",
+      "noisy neighbor",
+      "presigned URL",
+      "multipart upload",
+      "object storage",
+      "feature flag"
+    ],
+    "learning_objectives": [
+      "Choose a tenant isolation model",
+      "Design secure object upload and lifecycle flows",
+      "Operate feature flags safely"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "S3",
+      "MinIO",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Asynchronous And Real-Time Distributed Systems",
+    "permalink": "/shopverse/architecture/ASYNC-REALTIME-DISTRIBUTED-TIME"
+  },
+  "next": {
+    "title": "Data Pipelines And Search Operations",
+    "permalink": "/shopverse/data/DATA-PIPELINES-SEARCH-OPERATIONS"
+  }
+}

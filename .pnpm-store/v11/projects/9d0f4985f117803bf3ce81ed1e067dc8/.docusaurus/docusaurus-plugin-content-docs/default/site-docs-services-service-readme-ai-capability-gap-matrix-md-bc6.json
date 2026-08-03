@@ -1,0 +1,43 @@
+{
+  "id": "services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX",
+  "title": "Service README And AI Capability Gap Matrix",
+  "description": "Coverage and gap analysis for Shopverse service READMEs, AI-assisted workflows, scoped instructions, evaluations, and documentation-site accessibility.",
+  "source": "@site/docs/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX.md",
+  "sourceDirName": "services",
+  "slug": "/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX",
+  "permalink": "/shopverse/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Service README And AI Capability Gap Matrix",
+    "description": "Coverage and gap analysis for Shopverse service READMEs, AI-assisted workflows, scoped instructions, evaluations, and documentation-site accessibility.",
+    "sidebar_label": "README And AI Gap Matrix",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "technologies": [
+      "Shopverse",
+      "Codex",
+      "Claude Code",
+      "AI Evals",
+      "Docusaurus"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "shopverse",
+    "owner": "docs-services",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Service Catalog",
+    "permalink": "/shopverse/services/SERVICE-CATALOG"
+  },
+  "next": {
+    "title": "Service README Index",
+    "permalink": "/shopverse/services/SERVICE-README-INDEX"
+  }
+}

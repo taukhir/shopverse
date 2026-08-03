@@ -1,0 +1,49 @@
+{
+  "id": "operations/helm-gitops/HELM-GITOPS-ARGOCD-INTERVIEW-REVISION",
+  "title": "Helm, GitOps, And Argo CD Interview, Labs, And Revision",
+  "description": "Practise architect scenarios, hands-on labs, troubleshooting, design trade-offs, and rapid revision for Helm, GitOps, and Argo CD.",
+  "source": "@site/docs/operations/helm-gitops/HELM-GITOPS-ARGOCD-INTERVIEW-REVISION.md",
+  "sourceDirName": "operations/helm-gitops",
+  "slug": "/operations/helm-gitops/HELM-GITOPS-ARGOCD-INTERVIEW-REVISION",
+  "permalink": "/shopverse/operations/helm-gitops/HELM-GITOPS-ARGOCD-INTERVIEW-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/helm-gitops/HELM-GITOPS-ARGOCD-INTERVIEW-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Helm, GitOps, And Argo CD Interview, Labs, And Revision",
+    "description": "Practise architect scenarios, hands-on labs, troubleshooting, design trade-offs, and rapid revision for Helm, GitOps, and Argo CD.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Argo CD Production Operations"
+    ],
+    "learning_objectives": [
+      "Answer platform delivery interviews",
+      "Complete failure labs",
+      "Revise Helm and Argo CD production decisions"
+    ],
+    "technologies": [
+      "Helm",
+      "GitOps",
+      "Argo CD",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Argo CD Architecture, Security, And Production Operations",
+    "permalink": "/shopverse/operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS"
+  },
+  "next": {
+    "title": "Linux Overview",
+    "permalink": "/shopverse/operations/LINUX-OVERVIEW"
+  }
+}

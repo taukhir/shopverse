@@ -1,0 +1,52 @@
+{
+  "id": "java/advanced-internals/NIO-PERFORMANCE-JMH",
+  "title": "NIO, Zero-Copy, And JMH Benchmarking",
+  "description": "<DocLabels items={[",
+  "source": "@site/docs/java/advanced-internals/NIO-PERFORMANCE-JMH.md",
+  "sourceDirName": "java/advanced-internals",
+  "slug": "/java/advanced-internals/NIO-PERFORMANCE-JMH",
+  "permalink": "/shopverse/java/advanced-internals/NIO-PERFORMANCE-JMH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/advanced-internals/NIO-PERFORMANCE-JMH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "NIO, Zero-Copy, And JMH Benchmarking",
+    "difficulty": "Advanced",
+    "page_type": "Tutorial",
+    "status": "maintained",
+    "keywords": [
+      "Java NIO",
+      "ByteBuffer",
+      "channel",
+      "selector",
+      "zero-copy",
+      "JMH",
+      "dead-code elimination"
+    ],
+    "learning_objectives": [
+      "Choose blocking asynchronous or selector I/O",
+      "Manage buffers and partial operations correctly",
+      "Build trustworthy JVM microbenchmarks"
+    ],
+    "technologies": [
+      "Java",
+      "JMH"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Foreign Function, Memory And Dynamic Invocation Internals",
+    "permalink": "/shopverse/java/JAVA-FFM-METHOD-HANDLES-RUNTIME"
+  },
+  "next": {
+    "title": "Java Production Incident Walkthroughs",
+    "permalink": "/shopverse/java/JAVA-PRODUCTION-INCIDENTS"
+  }
+}

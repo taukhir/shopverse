@@ -1,0 +1,57 @@
+{
+  "id": "data/database-selection/DATABASE-INTERVIEW-EXERCISES",
+  "title": "Database System-Design Interview Exercises",
+  "description": "These are educational archetypes, not claims about any company's current",
+  "source": "@site/docs/data/database-selection/DATABASE-INTERVIEW-EXERCISES.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-INTERVIEW-EXERCISES",
+  "permalink": "/shopverse/data/database-selection/DATABASE-INTERVIEW-EXERCISES",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-INTERVIEW-EXERCISES.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 12,
+  "frontMatter": {
+    "title": "Database System-Design Interview Exercises",
+    "sidebar_position": 12,
+    "difficulty": "Advanced",
+    "page_type": "Case Study",
+    "status": "maintained",
+    "keywords": [
+      "database interview",
+      "Uber system design",
+      "WhatsApp storage",
+      "Stripe idempotency",
+      "Amazon inventory",
+      "rejected alternatives"
+    ],
+    "learning_objectives": [
+      "Choose databases from access patterns and invariants",
+      "Explain scaling and consistency trade-offs",
+      "Defend rejected alternatives"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "MySQL",
+      "Cassandra",
+      "Redis",
+      "OpenSearch",
+      "ClickHouse"
+    ],
+    "last_reviewed": "2026-07-12",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Database Hands-On Labs",
+    "permalink": "/shopverse/data/database-selection/DATABASE-HANDS-ON-LABS"
+  },
+  "next": {
+    "title": "Apache Cassandra Architect Learning Path",
+    "permalink": "/shopverse/data/CASSANDRA-ARCHITECT-PATH"
+  }
+}

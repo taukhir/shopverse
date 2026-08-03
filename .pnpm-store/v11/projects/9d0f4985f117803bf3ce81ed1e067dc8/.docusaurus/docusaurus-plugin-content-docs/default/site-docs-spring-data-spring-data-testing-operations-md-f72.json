@@ -1,0 +1,50 @@
+{
+  "id": "spring/data/SPRING-DATA-TESTING-OPERATIONS",
+  "title": "Spring Data Testing Observability Capacity And Incidents",
+  "description": "Test pyramid, Testcontainers, query evidence, metrics, tracing, capacity calculations, security, and production runbooks across data modules.",
+  "source": "@site/docs/spring/data/SPRING-DATA-TESTING-OPERATIONS.md",
+  "sourceDirName": "spring/data",
+  "slug": "/spring/data/SPRING-DATA-TESTING-OPERATIONS",
+  "permalink": "/shopverse/spring/data/SPRING-DATA-TESTING-OPERATIONS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/data/SPRING-DATA-TESTING-OPERATIONS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Data Testing Observability Capacity And Incidents",
+    "description": "Test pyramid, Testcontainers, query evidence, metrics, tracing, capacity calculations, security, and production runbooks across data modules.",
+    "difficulty": "Architect",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Data modules",
+      "database operations"
+    ],
+    "learning_objectives": [
+      "Build meaningful persistence tests",
+      "Instrument database access",
+      "Diagnose and scale production workloads"
+    ],
+    "technologies": [
+      "Spring Data",
+      "Testcontainers",
+      "Micrometer",
+      "OpenTelemetry"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data Multi Store Consistency And Schema Evolution",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-MULTISTORE-CONSISTENCY"
+  },
+  "next": {
+    "title": "Optional Spring Data Modules And Adjacent Tools",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-OPTIONAL-MODULES"
+  }
+}

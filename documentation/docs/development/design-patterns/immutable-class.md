@@ -15,6 +15,15 @@ review_evidence: repository-content-audit
 
 # Immutable Classes in Java: Rules, Defensive Copies, and Clone Safety
 
+## Immutable Object Boundary
+
+```mermaid
+flowchart LR
+    Input["Mutable input"] --> CopyIn["Defensive copy"] --> Object["Immutable object"]
+    Object --> Read["Read-only operation"]
+    Object --> CopyOut["Defensive copy or immutable view"] --> Caller
+```
+
 <DocLabels items={[{label: 'Object construction', tone: 'intermediate'}, {label: 'Java', tone: 'foundation'}, {label: 'Thread-safety foundation', tone: 'production'}]} />
 
 An immutable object cannot have its observable state changed after construction. Immutability

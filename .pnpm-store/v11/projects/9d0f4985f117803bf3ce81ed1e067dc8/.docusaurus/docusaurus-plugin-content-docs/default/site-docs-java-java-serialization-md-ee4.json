@@ -1,0 +1,34 @@
+{
+  "id": "java/JAVA-SERIALIZATION",
+  "title": "Java Serialization",
+  "description": "This is the format-selection and framework-facing introduction. For the full",
+  "source": "@site/docs/java/JAVA-SERIALIZATION.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-SERIALIZATION",
+  "permalink": "/shopverse/java/JAVA-SERIALIZATION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-SERIALIZATION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Serialization",
+    "status": "maintained",
+    "last_reviewed": "2026-07-16",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Serialization And Deserialization Guide",
+    "permalink": "/shopverse/java/JAVA-SERIALIZATION-UMBRELLA"
+  },
+  "next": {
+    "title": "Native Java Serialization Internals And Object Graphs",
+    "permalink": "/shopverse/java/JAVA-SERIALIZATION-INTERNALS"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-SERIALIZATION-UMBRELLA",
+  "title": "Java Serialization And Deserialization Guide",
+  "description": "Learning path for native Java serialization, object graphs, schema evolution, security, and modern wire-format choices.",
+  "source": "@site/docs/java/JAVA-SERIALIZATION-UMBRELLA.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-SERIALIZATION-UMBRELLA",
+  "permalink": "/shopverse/java/JAVA-SERIALIZATION-UMBRELLA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-SERIALIZATION-UMBRELLA.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Serialization And Deserialization Guide",
+    "description": "Learning path for native Java serialization, object graphs, schema evolution, security, and modern wire-format choices.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-16",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Exception Propagation And Stream Failure Internals",
+    "permalink": "/shopverse/java/JAVA-EXCEPTIONS-STREAMS-INTERNALS"
+  },
+  "next": {
+    "title": "Java Serialization",
+    "permalink": "/shopverse/java/JAVA-SERIALIZATION"
+  }
+}

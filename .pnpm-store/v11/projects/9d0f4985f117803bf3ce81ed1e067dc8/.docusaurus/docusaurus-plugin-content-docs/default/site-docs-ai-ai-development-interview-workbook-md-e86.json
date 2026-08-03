@@ -1,0 +1,49 @@
+{
+  "id": "ai/AI-DEVELOPMENT-INTERVIEW-WORKBOOK",
+  "title": "AI-Assisted Software Development Interview Workbook",
+  "description": "Scenario-based AI development interview questions with answer frameworks covering context, coding, debugging, security, RAG, evaluation, agents, performance, and user experience.",
+  "source": "@site/docs/ai/AI-DEVELOPMENT-INTERVIEW-WORKBOOK.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/AI-DEVELOPMENT-INTERVIEW-WORKBOOK",
+  "permalink": "/shopverse/ai/AI-DEVELOPMENT-INTERVIEW-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/AI-DEVELOPMENT-INTERVIEW-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "AI-Assisted Software Development Interview Workbook",
+    "description": "Scenario-based AI development interview questions with answer frameworks covering context, coding, debugging, security, RAG, evaluation, agents, performance, and user experience.",
+    "sidebar_label": "AI Development Interview Workbook",
+    "difficulty": "Intermediate",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "AI developer toolkit",
+      "ShopVerse AI practical workbook"
+    ],
+    "technologies": [
+      "Codex",
+      "Claude Code",
+      "MCP",
+      "RAG",
+      "AI Evals",
+      "Java",
+      "Spring Boot"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "ShopVerse Practical Workbook",
+    "permalink": "/shopverse/ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK"
+  },
+  "next": {
+    "title": "AI RAG Agents And Java AI Revision Sheet",
+    "permalink": "/shopverse/ai/AI-REVISION-SHEET"
+  }
+}

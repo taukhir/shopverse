@@ -1,7 +1,7 @@
 ---
 title: Microservices Security Principles
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -47,7 +47,7 @@ Shopverse demonstrates:
 
 - Gateway routing and correlation propagation;
 - JWT validation in protected services;
-- method-level authorization for user/order ownership;
+- method-level and object-level authorization for user/order ownership;
 - SAGA events with correlation IDs and business keys;
 - service-owned databases.
 
@@ -66,4 +66,3 @@ Shopverse demonstrates:
 - [Service-to-service security](SERVICE-TO-SERVICE-SECURITY.md)
 - [JWT claims roles and scopes](../jwt/JWT-CLAIMS-ROLES-SCOPES.md)
 - [Shopverse security implementation](../JWT-OAUTH2-SPRING-SECURITY.md)
-

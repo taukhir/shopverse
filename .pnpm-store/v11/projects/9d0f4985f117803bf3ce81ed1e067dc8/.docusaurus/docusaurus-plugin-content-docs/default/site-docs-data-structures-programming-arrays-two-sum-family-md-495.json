@@ -1,0 +1,47 @@
+{
+  "id": "data-structures/programming/arrays/TWO-SUM-FAMILY",
+  "title": "Two Sum Family In Java",
+  "description": "Eight Two Sum variants with contracts, Java implementations, input/output examples, complexity, edge cases, and collapsible dry runs.",
+  "source": "@site/docs/data-structures/programming/arrays/TWO-SUM-FAMILY.md",
+  "sourceDirName": "data-structures/programming/arrays",
+  "slug": "/data-structures/programming/arrays/TWO-SUM-FAMILY",
+  "permalink": "/shopverse/data-structures/programming/arrays/TWO-SUM-FAMILY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/programming/arrays/TWO-SUM-FAMILY.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "title": "Two Sum Family In Java",
+    "description": "Eight Two Sum variants with contracts, Java implementations, input/output examples, complexity, edge cases, and collapsible dry runs.",
+    "sidebar_label": "Two Sum Family",
+    "sidebar_position": 2,
+    "difficulty": "All Levels",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "last_reviewed": "2026-07-24",
+    "keywords": [
+      "Two Sum Java",
+      "all pairs",
+      "pair count",
+      "closest sum",
+      "3Sum",
+      "HashMap",
+      "two pointers"
+    ],
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Array Overview",
+    "permalink": "/shopverse/data-structures/programming/arrays/ARRAYS-OVERVIEW"
+  },
+  "next": {
+    "title": "Kadane Family",
+    "permalink": "/shopverse/data-structures/programming/arrays/KADANE-FAMILY"
+  }
+}

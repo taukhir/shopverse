@@ -1,0 +1,46 @@
+---
+title: Interview Practice Dashboard
+description: Local-first progress, readiness, weakness, spaced-review, role-routing, mock-session, and MCQ attempt history dashboard.
+difficulty: All Levels
+page_type: Practice
+status: maintained
+prerequisites: [MCQ Practice Center]
+learning_objectives: [Track retrieval evidence, Identify weak topics, Schedule spaced review, Apply role-specific readiness gates]
+technologies: [React, Local Storage, Interview Practice]
+last_reviewed: "2026-07-31"
+scope: generic
+owner: docs-leadership
+reviewer: documentation-maintainers
+review_evidence: interactive-component-and-production-build
+---
+
+import {InterviewPracticeDashboard} from '@site/src/components/InterviewPracticeDashboard';
+
+# Interview Practice Dashboard
+
+The dashboard turns completed MCQ sessions into local preparation evidence. It calculates
+subject accuracy, role readiness, weak-topic review dates, a recent-attempt history, and a
+recommended mock sequence.
+
+<InterviewPracticeDashboard />
+
+## Privacy And Portability
+
+Progress remains in this browser's local storage. The application records subject, difficulty,
+aggregate score, elapsed time, completion time, and topic-level correct/total counts. It does
+not retain selected answers, question text, identity, credentials, or personal profile data.
+
+Use **Export** before clearing browser data or moving devices. **Import** accepts only a
+ShopVerse practice JSON structure and caps retained history at 500 attempts. **Reset** asks for
+confirmation before deleting the local history.
+
+## Readiness Interpretation
+
+The role gate requires at least two attempts and 80% aggregate accuracy in every core subject.
+This proves repeatable retrieval only. Complete system-design, incident, behavioral, coding,
+and machine-coding mocks before treating the role as interview-ready.
+
+## Recommended Next
+
+Take a test in the [MCQ Practice Center](./MCQ-PRACTICE-CENTER.mdx), then use
+[Mock Interview Formats And Scoring](./MOCK-INTERVIEW-FORMATS-QUESTION-BANK.md) for verbal and design evidence.

@@ -1,0 +1,53 @@
+{
+  "id": "operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH",
+  "title": "Terraform And OpenTofu Infrastructure-As-Code Architect Path",
+  "description": "Complete IaC route through HCL, providers, dependency graphs, state, modules, environments, testing, security, automation, drift, imports, recovery, labs, and interviews.",
+  "source": "@site/docs/operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH",
+  "permalink": "/shopverse/operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Terraform And OpenTofu Infrastructure-As-Code Architect Path",
+    "description": "Complete IaC route through HCL, providers, dependency graphs, state, modules, environments, testing, security, automation, drift, imports, recovery, labs, and interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Cloud fundamentals",
+      "Git",
+      "CI/CD"
+    ],
+    "learning_objectives": [
+      "Model infrastructure declaratively",
+      "Govern state and modules",
+      "Automate safe plans and applies",
+      "Recover drift and state incidents"
+    ],
+    "technologies": [
+      "Terraform",
+      "OpenTofu",
+      "HCL",
+      "AWS",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Infrastructure As Code Overview",
+    "permalink": "/shopverse/operations/INFRASTRUCTURE-AS-CODE-OVERVIEW"
+  },
+  "next": {
+    "title": "IaC Implementation, Operations, Incidents, Labs, And Interviews",
+    "permalink": "/shopverse/operations/iac/IAC-IMPLEMENTATION-OPERATIONS-INTERVIEW"
+  }
+}

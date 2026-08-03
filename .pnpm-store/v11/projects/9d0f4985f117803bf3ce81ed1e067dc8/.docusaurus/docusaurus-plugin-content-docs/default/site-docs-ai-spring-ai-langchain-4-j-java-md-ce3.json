@@ -1,0 +1,36 @@
+{
+  "id": "ai/SPRING-AI-LANGCHAIN4J-JAVA",
+  "title": "Spring AI, LangChain4j And Java AI",
+  "description": "This page is the quick index for the Java AI framework notes. Use the deep-dive",
+  "source": "@site/docs/ai/SPRING-AI-LANGCHAIN4J-JAVA.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/SPRING-AI-LANGCHAIN4J-JAVA",
+  "permalink": "/shopverse/ai/SPRING-AI-LANGCHAIN4J-JAVA",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/SPRING-AI-LANGCHAIN4J-JAVA.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "title": "Spring AI, LangChain4j And Java AI",
+    "sidebar_position": 6,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "AI Frameworks From Zero",
+    "permalink": "/shopverse/ai/AI-FRAMEWORKS-FROM-ZERO"
+  },
+  "next": {
+    "title": "LLM And Generative AI Fundamentals",
+    "permalink": "/shopverse/ai/LLM-GENERATIVE-AI-FUNDAMENTALS"
+  }
+}

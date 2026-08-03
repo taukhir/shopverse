@@ -98,7 +98,8 @@ function HierarchyItem({
     id={id}
     open={forceOpen || expanded.has(id)}
     onToggle={(event) => {
-      if (!forceOpen) onExpandedChange(id, event.currentTarget.open);
+      const open = event.currentTarget.open;
+      if (!forceOpen && expanded.has(id) !== open) onExpandedChange(id, open);
     }}
   >
     <summary>

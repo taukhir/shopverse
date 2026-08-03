@@ -1,0 +1,57 @@
+{
+  "id": "reference/CODE-CROSS-CHECK",
+  "title": "Code Cross-Check",
+  "description": "Code Cross-Check: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+  "source": "@site/docs/reference/CODE-CROSS-CHECK.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/CODE-CROSS-CHECK",
+  "permalink": "/shopverse/reference/CODE-CROSS-CHECK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/CODE-CROSS-CHECK.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "reference",
+      "permalink": "/shopverse/tags/reference"
+    },
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Code Cross-Check",
+    "description": "Code Cross-Check: practical concepts, Shopverse context, production trade-offs, and operational guidance.",
+    "sidebar_label": "Code Cross-Check",
+    "tags": [
+      "reference",
+      "shopverse",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Final Documentation Visual, Structure, And Depth Audit",
+    "permalink": "/shopverse/reference/FINAL-DOCUMENTATION-AUDIT"
+  },
+  "next": {
+    "title": "Backend Engineering Glossary",
+    "permalink": "/shopverse/reference/GLOSSARY"
+  }
+}

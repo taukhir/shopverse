@@ -2,7 +2,7 @@
 title: CI/CD Automation
 sidebar_position: 3
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-07-30"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -139,6 +139,14 @@ event replay.
 - signing and verification;
 - least-privilege workload identity;
 - protected branch and environment policy.
+
+### Pipeline Identity And Credentials
+
+Prefer workload identity or OIDC federation that exchanges repository, workflow,
+ref and environment claims for short-lived, audience-scoped credentials. Avoid
+shared static cloud keys. Restrict permissions per job/environment, protect approval
+boundaries, prevent secrets from entering logs or artifacts, and audit credential
+issuance and use. Fork and pull-request trust boundaries require explicit policy.
 
 ## Pipeline Performance
 

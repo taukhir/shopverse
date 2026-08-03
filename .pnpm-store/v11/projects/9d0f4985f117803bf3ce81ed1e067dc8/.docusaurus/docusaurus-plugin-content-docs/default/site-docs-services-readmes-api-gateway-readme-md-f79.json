@@ -1,0 +1,41 @@
+{
+  "id": "services/readmes/API-GATEWAY-README",
+  "title": "API Gateway Service README",
+  "description": "Site mirror of the API Gateway responsibilities, routes, security, observability, validation, and AI-assisted workflows.",
+  "source": "@site/docs/services/readmes/API-GATEWAY-README.md",
+  "sourceDirName": "services/readmes",
+  "slug": "/services/readmes/API-GATEWAY-README",
+  "permalink": "/shopverse/services/readmes/API-GATEWAY-README",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/services/readmes/API-GATEWAY-README.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "API Gateway Service README",
+    "description": "Site mirror of the API Gateway responsibilities, routes, security, observability, validation, and AI-assisted workflows.",
+    "sidebar_label": "API Gateway README",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "scope": "shopverse",
+    "owner": "api-gateway",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "canonical-readme-sync",
+    "technologies": [
+      "Shopverse",
+      "Service Documentation",
+      "AI-Assisted Development"
+    ],
+    "last_reviewed": "2026-07-29"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Service README Index",
+    "permalink": "/shopverse/services/SERVICE-README-INDEX"
+  },
+  "next": {
+    "title": "Auth Service README",
+    "permalink": "/shopverse/services/readmes/AUTH-SERVICE-README"
+  }
+}

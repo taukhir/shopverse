@@ -1,0 +1,36 @@
+{
+  "id": "operations/SHOPVERSE-DOCKER",
+  "title": "Shopverse Docker Implementation",
+  "description": "This page is the canonical explanation of how Shopverse builds and runs its",
+  "source": "@site/docs/operations/SHOPVERSE-DOCKER.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/SHOPVERSE-DOCKER",
+  "permalink": "/shopverse/operations/SHOPVERSE-DOCKER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/SHOPVERSE-DOCKER.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "title": "Shopverse Docker Implementation",
+    "sidebar_position": 3,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "MinIO Object Storage",
+    "permalink": "/shopverse/operations/MINIO"
+  },
+  "next": {
+    "title": "Local Docker Implementation Guide",
+    "permalink": "/shopverse/operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE"
+  }
+}

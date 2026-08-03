@@ -1,0 +1,46 @@
+{
+  "id": "operations/maven/MAVEN-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "title": "Maven Troubleshooting, Interview Questions, Labs, And Revision",
+  "description": "Diagnose Maven model, resolution, compilation, testing, packaging, and CI failures with lead-level scenarios and exercises.",
+  "source": "@site/docs/operations/maven/MAVEN-TROUBLESHOOTING-INTERVIEW-REVISION.md",
+  "sourceDirName": "operations/maven",
+  "slug": "/operations/maven/MAVEN-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "permalink": "/shopverse/operations/maven/MAVEN-TROUBLESHOOTING-INTERVIEW-REVISION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/maven/MAVEN-TROUBLESHOOTING-INTERVIEW-REVISION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Maven Troubleshooting, Interview Questions, Labs, And Revision",
+    "description": "Diagnose Maven model, resolution, compilation, testing, packaging, and CI failures with lead-level scenarios and exercises.",
+    "difficulty": "Advanced",
+    "page_type": "Interview",
+    "status": "maintained",
+    "prerequisites": [
+      "Maven CI Security And Reproducibility"
+    ],
+    "learning_objectives": [
+      "Troubleshoot Maven systematically",
+      "Complete practical labs",
+      "Answer lead-level build questions"
+    ],
+    "technologies": [
+      "Apache Maven"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Maven Testing, Repositories, Security, Reproducibility, And CI",
+    "permalink": "/shopverse/operations/maven/MAVEN-CI-SECURITY-REPRODUCIBILITY"
+  },
+  "next": {
+    "title": "Infrastructure As Code Overview",
+    "permalink": "/shopverse/operations/INFRASTRUCTURE-AS-CODE-OVERVIEW"
+  }
+}

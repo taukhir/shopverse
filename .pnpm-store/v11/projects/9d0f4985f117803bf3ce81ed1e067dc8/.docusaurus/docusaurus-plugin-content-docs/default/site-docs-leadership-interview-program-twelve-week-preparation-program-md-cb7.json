@@ -1,0 +1,52 @@
+{
+  "id": "leadership/interview-program/TWELVE-WEEK-PREPARATION-PROGRAM",
+  "title": "Twelve-Week Architecture Interview Preparation Programme",
+  "description": "A twelve-week schedule combining technical depth, hands-on evidence, portfolio production, revision, and progressively harder mock interviews.",
+  "source": "@site/docs/leadership/interview-program/TWELVE-WEEK-PREPARATION-PROGRAM.md",
+  "sourceDirName": "leadership/interview-program",
+  "slug": "/leadership/interview-program/TWELVE-WEEK-PREPARATION-PROGRAM",
+  "permalink": "/shopverse/leadership/interview-program/TWELVE-WEEK-PREPARATION-PROGRAM",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/leadership/interview-program/TWELVE-WEEK-PREPARATION-PROGRAM.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Twelve-Week Architecture Interview Preparation Programme",
+    "description": "A twelve-week schedule combining technical depth, hands-on evidence, portfolio production, revision, and progressively harder mock interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Architecture Portfolio And Mock Interview Programme"
+    ],
+    "learning_objectives": [
+      "Plan balanced preparation",
+      "Produce evidence each week",
+      "Use spaced revision",
+      "Reach interview readiness through measured mocks"
+    ],
+    "technologies": [
+      "Java",
+      "Spring",
+      "Kafka",
+      "Databases",
+      "Kubernetes",
+      "Architecture"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-leadership",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "System Design, Troubleshooting, And Leadership Rounds",
+    "permalink": "/shopverse/leadership/interview-program/SYSTEM-DESIGN-BEHAVIORAL-LEADERSHIP-ROUNDS"
+  },
+  "next": {
+    "title": "Monolith To Microservices Strategy",
+    "permalink": "/shopverse/leadership/MONOLITH-TO-MICROSERVICES-STRATEGY"
+  }
+}

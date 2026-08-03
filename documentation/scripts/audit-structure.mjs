@@ -28,9 +28,13 @@ const pages = await Promise.all(files.map(async (file) => {
   const content = await readFile(file, 'utf8');
   const path = relative(docsRoot, file).replaceAll('\\', '/');
   const pageType = content.match(/^page_type:\s*(.+)$/m)?.[1]?.trim() ?? '';
+  const visualRequired = /^visual_required:\s*true\s*$/m.test(content);
   const paragraphs = prose(content).split(/\r?\n\s*\r?\n/).map(paragraphFingerprint).filter((p) => p.length >= 180);
+  const hasDiagram = /!\[[^\]]*\]\([^)]+\)/.test(content)
+    || /```mermaid\b/.test(content)
+    || /<(?:LearningRoadmap|DocFigure|Mermaid|Diagram|Architecture)[\s/>]/.test(content);
   return {
-    path, content, pageType, paragraphs, words: words(content),
+    path, content, pageType, paragraphs, words: words(content), visualRequired, hasDiagram,
     images: [...content.matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map((m) => m[1]),
     hasVisual: /!\[[^\]]*\]\([^)]+\)/.test(content)
       || /```mermaid\b/.test(content)
@@ -48,6 +52,8 @@ for (const page of pages) for (const paragraph of page.paragraphs) {
 const duplicateGroups = [...paragraphOwners.entries()].filter(([, owners]) => new Set(owners).size > 1);
 const deepPages = pages.filter((page) => /Advanced/i.test(page.content.match(/^difficulty:\s*(.+)$/m)?.[1] ?? ''));
 const textHeavy = pages.filter((page) => page.words >= 1200 && !page.hasVisual);
+const textHeavyWithoutDiagram = pages.filter((page) => page.words >= 1200 && !page.hasDiagram);
+const missingRequiredVisual = pages.filter((page) => page.visualRequired && !page.hasDiagram);
 const missingOfficial = deepPages.filter((page) => !page.official);
 const missingNext = pages.filter((page) => ['Learning Path', 'Tutorial', 'Decision Guide'].includes(page.pageType) && !page.next);
 
@@ -61,7 +67,9 @@ const orphanPages = pages.filter((page) => {
 console.log(`Documentation structure audit: ${pages.length} pages`);
 console.log(`Exact repeated long paragraphs: ${duplicateGroups.length}`);
 console.log(`Advanced pages without an Official References section: ${missingOfficial.length}`);
-console.log(`Text-heavy pages without Markdown images: ${textHeavy.length}`);
+console.log(`Text-heavy pages without any visual representation: ${textHeavy.length}`);
+console.log(`Text-heavy pages without a diagram or image: ${textHeavyWithoutDiagram.length} (advisory)`);
+console.log(`Pages declaring visual_required without a diagram or image: ${missingRequiredVisual.length}`);
 console.log(`Tutorial/decision/learning pages without Recommended Next: ${missingNext.length}`);
 console.log(`Pages not explicitly present in sidebars (review; generated categories may be intentional): ${orphanPages.length}`);
 
@@ -73,10 +81,12 @@ function sample(label, items, mapper = (item) => item.path) {
 }
 sample('Repeated paragraphs', duplicateGroups, ([text, owners]) => `${[...new Set(owners)].join(', ')} :: ${text.slice(0, 90)}...`);
 sample('Missing official references', missingOfficial);
-sample('Text-heavy without images', textHeavy);
+sample('Text-heavy without any visual representation', textHeavy);
+sample('Text-heavy without a diagram or image', textHeavyWithoutDiagram);
+sample('Missing required visual', missingRequiredVisual);
 sample('Missing recommended next', missingNext);
 sample('Potential sidebar orphans', orphanPages);
 
 if (process.argv.includes('--strict')
     && (duplicateGroups.length || missingOfficial.length || textHeavy.length
-      || missingNext.length || orphanPages.length)) process.exitCode = 1;
+      || missingNext.length || orphanPages.length || missingRequiredVisual.length)) process.exitCode = 1;

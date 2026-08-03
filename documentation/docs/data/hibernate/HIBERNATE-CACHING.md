@@ -6,7 +6,7 @@ status: maintained
 prerequisites: [Hibernate basics and lifecycle, Cache umbrella]
 learning_objectives: [Distinguish Hibernate cache levels, Configure L2 and query caching, Select concurrency strategies]
 technologies: [Hibernate ORM, JPA, JCache]
-last_reviewed: "2026-07-11"
+last_reviewed: "2026-08-02"
 scope: generic
 owner: docs-data
 reviewer: documentation-maintainers
@@ -40,6 +40,27 @@ checking. It ends/clears with the persistence context and is not a cross-request
 cache. JPQL can still execute SQL even if returned entities are already managed.
 
 Batch jobs should `flush()` and `clear()` periodically to bound L1 memory.
+
+### Two Sessions: Does One See Another Session's Update?
+
+No existing persistence context is live-refreshed. Each `Session` or
+`EntityManager` has its own first-level cache:
+
+```text
+Session A: loads Product 42 -> price 100
+Session B: changes Product 42 -> price 120 and commits
+Session A: find(Product, 42) -> its already-managed price 100
+```
+
+Session A can call `refresh(product)`, `clear()` and load again, or end the
+transaction/session to obtain newer database state. The exact database view of
+a new query also depends on its transaction isolation level. Do not use a
+long-lived persistence context as a cross-request cache.
+
+L2 cache coordination is also not a push notification into Session A's managed
+object. A suitable cache strategy can invalidate or coordinate shared cached
+state for later loads, but it cannot make an entity already held in another L1
+magically current.
 
 ## Second-Level Cache
 
@@ -94,6 +115,11 @@ own regions; caching an entity does not automatically cache every association.
 
 Support differs by provider. A strategy name is not a universal distributed
 transaction guarantee.
+
+`READ_WRITE` coordinates mutable cached data more strongly, while
+`NONSTRICT_READ_WRITE` deliberately allows a stale window. Neither strategy
+replaces database transaction isolation, object-level authorization, or an
+explicit freshness decision for inventory, balances, and permissions.
 
 ## Query Cache
 

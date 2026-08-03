@@ -1,0 +1,46 @@
+{
+  "id": "data/database-selection/DATABASE-REPLICATION-BACKUP-RECOVERY",
+  "title": "Database Replication, Backup, And Recovery",
+  "description": "Design and operate replicas, failover, fencing, backups, point-in-time recovery, multi-region resilience, and disaster-recovery verification.",
+  "source": "@site/docs/data/database-selection/DATABASE-REPLICATION-BACKUP-RECOVERY.md",
+  "sourceDirName": "data/database-selection",
+  "slug": "/data/database-selection/DATABASE-REPLICATION-BACKUP-RECOVERY",
+  "permalink": "/shopverse/data/database-selection/DATABASE-REPLICATION-BACKUP-RECOVERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data/database-selection/DATABASE-REPLICATION-BACKUP-RECOVERY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Database Replication, Backup, And Recovery",
+    "description": "Design and operate replicas, failover, fencing, backups, point-in-time recovery, multi-region resilience, and disaster-recovery verification.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Transactions",
+      "database internals",
+      "distributed systems"
+    ],
+    "technologies": [
+      "PostgreSQL",
+      "Oracle",
+      "Cassandra",
+      "Spring Data"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-data",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Connection Pools, Overload, And Database Failover",
+    "permalink": "/shopverse/data/database-selection/DATABASE-CONNECTION-POOL-FAILOVER"
+  },
+  "next": {
+    "title": "Database Load Incident Runbook",
+    "permalink": "/shopverse/data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK"
+  }
+}

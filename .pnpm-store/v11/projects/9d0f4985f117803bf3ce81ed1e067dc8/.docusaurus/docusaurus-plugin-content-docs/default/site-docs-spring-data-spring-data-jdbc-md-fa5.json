@@ -1,0 +1,51 @@
+{
+  "id": "spring/data/SPRING-DATA-JDBC",
+  "title": "Spring Data JDBC In Depth",
+  "description": "Aggregate mapping, repositories, templates, transactions, SQL control, batching, testing, performance, and production decisions.",
+  "source": "@site/docs/spring/data/SPRING-DATA-JDBC.md",
+  "sourceDirName": "spring/data",
+  "slug": "/spring/data/SPRING-DATA-JDBC",
+  "permalink": "/shopverse/spring/data/SPRING-DATA-JDBC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/data/SPRING-DATA-JDBC.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Data JDBC In Depth",
+    "description": "Aggregate mapping, repositories, templates, transactions, SQL control, batching, testing, performance, and production decisions.",
+    "difficulty": "Advanced",
+    "page_type": "Deep Dive",
+    "status": "maintained",
+    "prerequisites": [
+      "SQL",
+      "transactions",
+      "Spring Data Commons"
+    ],
+    "learning_objectives": [
+      "Model JDBC aggregates",
+      "Choose repositories or templates",
+      "Diagnose SQL pool and transaction failures"
+    ],
+    "technologies": [
+      "Spring Data JDBC",
+      "Spring JDBC",
+      "Spring Boot",
+      "SQL"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Data JPA And Hibernate Runtime For Architects",
+    "permalink": "/shopverse/spring/SPRING-JPA-HIBERNATE-ARCHITECT"
+  },
+  "next": {
+    "title": "Spring Data R2DBC In Depth",
+    "permalink": "/shopverse/spring/data/SPRING-DATA-R2DBC"
+  }
+}

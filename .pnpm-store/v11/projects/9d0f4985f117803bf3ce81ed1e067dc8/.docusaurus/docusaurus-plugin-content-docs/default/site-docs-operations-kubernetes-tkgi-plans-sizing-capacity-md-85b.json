@@ -1,0 +1,52 @@
+{
+  "id": "operations/kubernetes/TKGI-PLANS-SIZING-CAPACITY",
+  "title": "TKGI Plans, Profiles, VM Sizing And Capacity",
+  "description": "TKGI 1.25 planning guide covering plans, compute/network/Kubernetes profiles, control-plane sizing, worker calculations, Pod density, upgrade and failure headroom, IP/storage/load-balancer capacity, skew, quotas, evidence, and interviews.",
+  "source": "@site/docs/operations/kubernetes/TKGI-PLANS-SIZING-CAPACITY.md",
+  "sourceDirName": "operations/kubernetes",
+  "slug": "/operations/kubernetes/TKGI-PLANS-SIZING-CAPACITY",
+  "permalink": "/shopverse/operations/kubernetes/TKGI-PLANS-SIZING-CAPACITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/kubernetes/TKGI-PLANS-SIZING-CAPACITY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "TKGI Plans, Profiles, VM Sizing And Capacity",
+    "description": "TKGI 1.25 planning guide covering plans, compute/network/Kubernetes profiles, control-plane sizing, worker calculations, Pod density, upgrade and failure headroom, IP/storage/load-balancer capacity, skew, quotas, evidence, and interviews.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "TKGI installation",
+      "Kubernetes resources",
+      "Capacity planning"
+    ],
+    "learning_objectives": [
+      "Design TKGI plans",
+      "Calculate worker and control-plane capacity",
+      "Preserve upgrade and failure headroom",
+      "Diagnose capacity failures"
+    ],
+    "technologies": [
+      "TKGI 1.25",
+      "BOSH",
+      "vSphere",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-07-28",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "TKGI Installation Foundations And Platform Topology",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-INSTALLATION-FOUNDATION"
+  },
+  "next": {
+    "title": "TKGI Networking, NSX, Antrea And Load Balancers",
+    "permalink": "/shopverse/operations/kubernetes/TKGI-NETWORKING-LOAD-BALANCERS"
+  }
+}

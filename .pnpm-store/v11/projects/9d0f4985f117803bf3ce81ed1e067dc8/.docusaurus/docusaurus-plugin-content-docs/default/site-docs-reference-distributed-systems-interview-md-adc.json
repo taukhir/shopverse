@@ -1,0 +1,48 @@
+{
+  "id": "reference/DISTRIBUTED-SYSTEMS-INTERVIEW",
+  "title": "Distributed Systems Interview Questions",
+  "description": "Eight-step system-design method from requirements and estimates through operations and evolution",
+  "source": "@site/docs/reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md",
+  "sourceDirName": "reference",
+  "slug": "/reference/DISTRIBUTED-SYSTEMS-INTERVIEW",
+  "permalink": "/shopverse/reference/DISTRIBUTED-SYSTEMS-INTERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "title": "Distributed Systems Interview Questions",
+    "sidebar_position": 7,
+    "difficulty": "Advanced",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "Distributed systems consistency messaging and reliability"
+    ],
+    "learning_objectives": [
+      "Explain distributed systems trade-offs clearly",
+      "Practice senior-level failure and consistency scenarios"
+    ],
+    "technologies": [
+      "Distributed Systems",
+      "Kafka",
+      "Databases"
+    ],
+    "last_reviewed": "2026-07-23",
+    "scope": "generic",
+    "owner": "docs-reference",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Backend Engineering Glossary",
+    "permalink": "/shopverse/reference/GLOSSARY"
+  },
+  "next": {
+    "title": "Operations Cheat Sheet",
+    "permalink": "/shopverse/operations/OPERATIONS-CHEATSHEET"
+  }
+}

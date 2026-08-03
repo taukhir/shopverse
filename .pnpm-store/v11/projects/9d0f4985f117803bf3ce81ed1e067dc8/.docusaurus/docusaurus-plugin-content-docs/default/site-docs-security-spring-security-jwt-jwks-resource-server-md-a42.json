@@ -1,0 +1,34 @@
+{
+  "id": "security/spring-security/JWT-JWKS-RESOURCE-SERVER",
+  "title": "JWT JWKS And Resource Server Security",
+  "description": "<DocLabels items={[",
+  "source": "@site/docs/security/spring-security/JWT-JWKS-RESOURCE-SERVER.md",
+  "sourceDirName": "security/spring-security",
+  "slug": "/security/spring-security/JWT-JWKS-RESOURCE-SERVER",
+  "permalink": "/shopverse/security/spring-security/JWT-JWKS-RESOURCE-SERVER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/spring-security/JWT-JWKS-RESOURCE-SERVER.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "JWT JWKS And Resource Server Security",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Security Servlet Filter Chain",
+    "permalink": "/shopverse/security/spring-security/SERVLET-FILTER-CHAIN"
+  },
+  "next": {
+    "title": "Spring Security Authorization And Method Security",
+    "permalink": "/shopverse/security/spring-security/AUTHORIZATION-METHOD-SECURITY"
+  }
+}

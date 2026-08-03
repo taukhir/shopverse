@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Protocol Buffers Contract Evolution]
 learning_objectives: [Trace gRPC calls internally, Design reliable streaming and retry, Diagnose channel and HTTP/2 behavior]
 technologies: [gRPC, HTTP/2]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-architecture
 reviewer: documentation-maintainers
@@ -47,7 +47,11 @@ gRPC frames messages inside HTTP/2 DATA frames. HTTP/2 has per-stream and connec
 concurrent-stream limits. If the receiver does not consume/request messages, sender can block. Buffering unbounded
 messages defeats flow control and can OOM.
 
-One HTTP/2 connection shares TCP loss and can hit max streams; channels may maintain multiple connections depending
+Enforce maximum message size, in-flight item count, application-buffer bytes, stream duration and per-client
+concurrency. Flow control limits transport bytes; it does not make an unbounded application queue safe.
+
+One HTTP/2 connection shares TCP loss and can hit max concurrent streams; connection-level flow control and TCP
+loss couple otherwise independent calls. Channels may maintain multiple connections depending
 on implementation/config. Measure queue, active streams, window/backpressure, bytes and connection age.
 
 ## Deadlines And Cancellation
@@ -86,7 +90,7 @@ budgets and cancellation. Retry storms commonly appear during partial outage.
 
 ## Name Resolution And Load Balancing
 
-The channel resolver produces addresses/service config; LB selects a subchannel. `pick_first` and round-robin/
+The channel name resolver produces addresses/service config; the load-balancing policy selects a subchannel. `pick_first` and round-robin/
 client-side policies have different connection and distribution behavior. Proxies/load balancers can centralize
 selection. For Kubernetes headless discovery, address updates and long-lived channels matter.
 
@@ -126,4 +130,3 @@ application must avoid unbounded buffering and handle slow peers/cancellation.
 ## Recommended Next
 
 Continue with [Spring gRPC Implementation, Security, Testing, And Production Operations](./SPRING-GRPC-PRODUCTION.md).
-

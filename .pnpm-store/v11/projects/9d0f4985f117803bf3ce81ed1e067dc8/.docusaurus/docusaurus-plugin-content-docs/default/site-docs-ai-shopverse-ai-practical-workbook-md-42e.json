@@ -1,0 +1,51 @@
+{
+  "id": "ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK",
+  "title": "ShopVerse AI-Assisted Development Practical Workbook",
+  "description": "Hands-on ShopVerse exercises for using AI to plan, code, debug, optimize, improve user experience, work with connectors, review security, and prepare for interviews.",
+  "source": "@site/docs/ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK.md",
+  "sourceDirName": "ai",
+  "slug": "/ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK",
+  "permalink": "/shopverse/ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "ShopVerse AI-Assisted Development Practical Workbook",
+    "description": "Hands-on ShopVerse exercises for using AI to plan, code, debug, optimize, improve user experience, work with connectors, review security, and prepare for interviews.",
+    "sidebar_label": "ShopVerse Practical Workbook",
+    "difficulty": "Intermediate",
+    "page_type": "Reference",
+    "status": "maintained",
+    "prerequisites": [
+      "AI developer toolkit",
+      "ShopVerse architecture",
+      "Java and Spring Boot fundamentals"
+    ],
+    "technologies": [
+      "Codex",
+      "Claude Code",
+      "Java",
+      "Spring Boot",
+      "Kafka",
+      "MySQL",
+      "React",
+      "MCP"
+    ],
+    "last_reviewed": "2026-07-29",
+    "scope": "generic",
+    "owner": "docs-ai",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Agentic Workflows And Worktrees",
+    "permalink": "/shopverse/ai/ADVANCED-AGENTIC-WORKFLOWS-WORKTREES"
+  },
+  "next": {
+    "title": "AI Development Interview Workbook",
+    "permalink": "/shopverse/ai/AI-DEVELOPMENT-INTERVIEW-WORKBOOK"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "java/completable-future/COMPLETABLE-FUTURE-COMPOSITION",
+  "title": "CompletableFuture Composition And Fan-Out",
+  "description": "Mapping, flattening, combining, racing, allOf, dynamic collections, and bounded Shopverse fan-out.",
+  "source": "@site/docs/java/completable-future/COMPLETABLE-FUTURE-COMPOSITION.md",
+  "sourceDirName": "java/completable-future",
+  "slug": "/java/completable-future/COMPLETABLE-FUTURE-COMPOSITION",
+  "permalink": "/shopverse/java/completable-future/COMPLETABLE-FUTURE-COMPOSITION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/completable-future/COMPLETABLE-FUTURE-COMPOSITION.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "CompletableFuture Composition And Fan-Out",
+    "description": "Mapping, flattening, combining, racing, allOf, dynamic collections, and bounded Shopverse fan-out.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "technologies": [
+      "Java 24",
+      "CompletionStage"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "CompletableFuture Fundamentals And Execution",
+    "permalink": "/shopverse/java/completable-future/COMPLETABLE-FUTURE-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "CompletableFuture Failure, Timeout And Cancellation",
+    "permalink": "/shopverse/java/completable-future/COMPLETABLE-FUTURE-FAILURE-CANCELLATION"
+  }
+}

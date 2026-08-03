@@ -7,7 +7,7 @@ status: maintained
 prerequisites: [Spring gRPC Production]
 learning_objectives: [Answer architect gRPC interviews, Complete compatibility and streaming labs, Defend protocol trade-offs]
 technologies: [gRPC, Protocol Buffers, Spring gRPC]
-last_reviewed: "2026-07-24"
+last_reviewed: "2026-07-30"
 scope: generic
 owner: docs-architecture
 reviewer: documentation-maintainers
@@ -35,6 +35,68 @@ server concentration or channel queue. Reuse channels but measure whether multip
 
 **Should every error be `INTERNAL`?** No. Stable canonical statuses and structured details drive client retry/
 user behavior; internal is for unexpected non-disclosed failure.
+
+## Additional Production Interview Questions
+
+### Unary, server-streaming, client-streaming, or bidirectional streaming?
+
+Unary is one request/response. Server streaming returns many responses, client streaming aggregates many
+requests, and bidi lets both sides progress independently. Select from interaction semantics and explicitly
+define ordering, cancellation, backpressure, checkpoint and partial-result behavior.
+
+### What do a channel and a stub own?
+
+A channel is long-lived connectivity containing name resolution, load balancing, HTTP/2 connections and policy.
+A stub is a typed call facade with call options. Reuse channels rather than creating one per request, but measure
+stream limits, queueing, connection age and backend distribution.
+
+### How does HTTP/2 multiplexing still create coupling?
+
+Many streams share one TCP connection and connection-level flow-control window. This reduces connection cost but
+TCP loss, GOAWAY, max-concurrent-streams and a stalled connection can affect many RPCs. Multiple measured
+connections may be needed for high fan-out or isolation.
+
+### How should deadlines and cancellation propagate?
+
+Budget one end-to-end deadline and pass the decreasing remainder downstream. Stop unnecessary work when the
+context is cancelled, while recognizing cancellation is cooperative and committed side effects remain. Record
+which phase consumed the budget.
+
+### When are gRPC retries or hedging safe?
+
+Only for idempotent operations and classified transient statuses, within one overall deadline and retry-throttle
+policy. Use backoff/jitter; hedge sparingly because parallel attempts multiply load. Never blindly retry an
+ambiguous mutation without operation identity and reconciliation.
+
+### How do name resolution and client-side load balancing work?
+
+The resolver supplies addresses/service configuration and the channel's policy selects a ready subchannel.
+DNS, xDS or another resolver can become stale; health, connection reuse and long streams can skew distribution.
+Inspect per-backend calls, resolver updates and connectivity state.
+
+### Health checking versus reflection?
+
+The standard health service exposes serving status for named services; reflection exposes descriptors for
+tooling. Neither proves business dependency readiness or authorization. Restrict reflection in sensitive
+environments and design load-balancer probes separately from deep diagnostics.
+
+### How should gRPC authentication and authorization work?
+
+Use TLS for server identity and confidentiality, optionally mTLS for workload identity, and validated token
+metadata for delegated/user identity. Interceptors establish authentication context, but each method still
+enforces permission, tenant and object ownership. Rotate trust with overlap.
+
+### What are Protobuf presence, unknown-field, enum, and oneof risks?
+
+Default values can be indistinguishable from absence unless presence is modeled. Old readers preserve unknown
+binary fields in supported paths but JSON/intermediaries may lose them. Unknown enums need tolerant handling,
+and adding a oneof member can change generated-code assumptions.
+
+### How do you bound a streaming RPC?
+
+Set message-size, buffer, in-flight item, duration/idle and per-client concurrency limits; react to transport
+readiness and cancel slow consumers. A long-lived stream is not durable replay, so reconnect requires
+application sequence, checkpoint, deduplication and retention semantics.
 
 ## Architect Scenarios
 

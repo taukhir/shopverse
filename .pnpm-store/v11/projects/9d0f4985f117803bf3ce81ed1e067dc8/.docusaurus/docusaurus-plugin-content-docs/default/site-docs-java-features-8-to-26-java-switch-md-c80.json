@@ -1,0 +1,36 @@
+{
+  "id": "java/features-8-to-26/JAVA-SWITCH",
+  "title": "Java Switch",
+  "description": "Modern Java switch supports expression style, arrow labels, exhaustiveness,",
+  "source": "@site/docs/java/features-8-to-26/JAVA-SWITCH.md",
+  "sourceDirName": "java/features-8-to-26",
+  "slug": "/java/features-8-to-26/JAVA-SWITCH",
+  "permalink": "/shopverse/java/features-8-to-26/JAVA-SWITCH",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/features-8-to-26/JAVA-SWITCH.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "title": "Java Switch",
+    "sidebar_position": 4,
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java var",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-VAR"
+  },
+  "next": {
+    "title": "Java Records",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-RECORDS"
+  }
+}

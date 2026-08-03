@@ -1,0 +1,51 @@
+{
+  "id": "security/SPRING-SECURITY-GENERIC",
+  "title": "Spring Security Learning Guide",
+  "description": "Dependency-ordered Spring Security route through authentication, filters, JWT, OAuth2/OIDC, authorization, browser controls, testing, and production threats.",
+  "source": "@site/docs/security/SPRING-SECURITY-GENERIC.md",
+  "sourceDirName": "security",
+  "slug": "/security/SPRING-SECURITY-GENERIC",
+  "permalink": "/shopverse/security/SPRING-SECURITY-GENERIC",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/SPRING-SECURITY-GENERIC.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Security Learning Guide",
+    "description": "Dependency-ordered Spring Security route through authentication, filters, JWT, OAuth2/OIDC, authorization, browser controls, testing, and production threats.",
+    "difficulty": "Intermediate",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "HTTP",
+      "Spring web fundamentals"
+    ],
+    "learning_objectives": [
+      "Trace authentication and authorization",
+      "Secure browser and API boundaries",
+      "Defend architecture decisions"
+    ],
+    "technologies": [
+      "Spring Security 7",
+      "Spring Boot 4",
+      "OAuth2",
+      "OIDC",
+      "JWT"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Token Lifecycle",
+    "permalink": "/shopverse/security/oauth/TOKEN-LIFECYCLE"
+  },
+  "next": {
+    "title": "Spring Security Learning Guide",
+    "permalink": "/shopverse/security/SPRING-SECURITY-GENERIC"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "operations/LINUX-OVERVIEW",
+  "title": "Linux Overview - Kernel, Processes, Filesystems, Permissions, And Networking",
+  "description": "Beginner introduction to Linux, distributions, shells, processes, users, permissions, filesystems, services, packages, networking, logs, resources, and essential commands.",
+  "source": "@site/docs/operations/LINUX-OVERVIEW.md",
+  "sourceDirName": "operations",
+  "slug": "/operations/LINUX-OVERVIEW",
+  "permalink": "/shopverse/operations/LINUX-OVERVIEW",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/operations/LINUX-OVERVIEW.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Linux Overview - Kernel, Processes, Filesystems, Permissions, And Networking",
+    "description": "Beginner introduction to Linux, distributions, shells, processes, users, permissions, filesystems, services, packages, networking, logs, resources, and essential commands.",
+    "sidebar_label": "Linux Overview",
+    "difficulty": "Beginner",
+    "page_type": "Concept",
+    "status": "maintained",
+    "prerequisites": [
+      "Basic command-line familiarity"
+    ],
+    "learning_objectives": [
+      "Explain the Linux kernel and user space",
+      "Inspect processes files services and networking",
+      "Understand users permissions and packages",
+      "Follow a safe diagnostic workflow"
+    ],
+    "technologies": [
+      "Linux",
+      "systemd",
+      "procfs"
+    ],
+    "last_reviewed": "2026-07-24",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Helm, GitOps, And Argo CD Interview, Labs, And Revision",
+    "permalink": "/shopverse/operations/helm-gitops/HELM-GITOPS-ARGOCD-INTERVIEW-REVISION"
+  },
+  "next": {
+    "title": "Linux Production Troubleshooting Path",
+    "permalink": "/shopverse/operations/LINUX-PRODUCTION-TROUBLESHOOTING-PATH"
+  }
+}

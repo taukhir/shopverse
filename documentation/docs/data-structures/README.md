@@ -33,8 +33,11 @@ flowchart LR
   {title: 'Selection fundamentals', href: '/data-structures/DATA-STRUCTURES-FUNDAMENTALS', description: 'Complexity, invariants, and selection workflow.', icon: 'route', tags: ['Complexity', 'Selection']},
   {title: 'Linear structures', href: '/data-structures/LINEAR-DATA-STRUCTURES', description: 'Arrays, lists, stacks, queues, and deques.', icon: 'layers', tags: ['Sequence', 'Queue']},
   {title: 'Non-linear structures', href: '/data-structures/NON-LINEAR-DATA-STRUCTURES', description: 'Trees, heaps, graphs, and traversal choices.', icon: 'network', tags: ['Tree', 'Graph']},
+  {title: 'Algorithm problem solving', href: '/data-structures/ALGORITHM-COMPLEXITY-PROBLEM-SOLVING', description: 'Constraints, invariants, proofs, complexity, and timed communication.', icon: 'route', tags: ['Big-O', 'Proof']},
+  {title: 'Advanced algorithm patterns', href: '/data-structures/GRAPH-ALGORITHMS-INTERVIEW', description: 'Graphs, dynamic programming, backtracking, and trie reasoning paths.', icon: 'network', tags: ['Graph', 'DP']},
+  {title: 'Machine coding', href: '/data-structures/MACHINE-CODING-OOD-INTERVIEW', description: 'Runnable Java object designs, tests, concurrency, and timed scoring.', icon: 'code', tags: ['OOD', 'Coding round']},
   {title: 'Java programming interview path', href: '/data-structures/programming/JAVA-PROGRAMMING-INTERVIEW-PATH', description: 'Pattern-first worked curriculum beginning with 30 essential array questions and the complete Two Sum family.', icon: 'code', tags: ['Programming', 'Arrays']},
-  {title: 'Java DSA interview bank', href: '/data-structures/DSA-INTERVIEW-QUESTION-BANK', description: 'Search 245 curated questions across eleven pattern families plus a consolidated Top 50.', icon: 'brain', tags: ['Interview', 'Searchable']},
+  {title: 'Java DSA interview bank', href: '/data-structures/DSA-INTERVIEW-QUESTION-BANK', description: 'Search 295 curated questions across fifteen pattern families plus a consolidated Top 50.', icon: 'brain', tags: ['Interview', 'Searchable']},
 ]} />
 
 <DocCallout type="shopverse" title="Choose from the workload">

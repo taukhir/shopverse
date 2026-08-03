@@ -1,0 +1,57 @@
+{
+  "id": "development/DEBUGGING-OBSERVABILITY-RECOVERY",
+  "title": "Debugging Observability And Recovery",
+  "description": "Debugging Observability And Recovery with Shopverse examples, failure analysis, and production guidance.",
+  "source": "@site/docs/development/DEBUGGING-OBSERVABILITY-RECOVERY.md",
+  "sourceDirName": "development",
+  "slug": "/development/DEBUGGING-OBSERVABILITY-RECOVERY",
+  "permalink": "/shopverse/development/DEBUGGING-OBSERVABILITY-RECOVERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/development/DEBUGGING-OBSERVABILITY-RECOVERY.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "shopverse",
+      "permalink": "/shopverse/tags/shopverse"
+    },
+    {
+      "inline": true,
+      "label": "architecture",
+      "permalink": "/shopverse/tags/architecture"
+    },
+    {
+      "inline": true,
+      "label": "production",
+      "permalink": "/shopverse/tags/production"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Debugging Observability And Recovery",
+    "description": "Debugging Observability And Recovery with Shopverse examples, failure analysis, and production guidance.",
+    "sidebar_label": "Debugging Observability And Recovery",
+    "tags": [
+      "shopverse",
+      "architecture",
+      "production"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-development",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Debugging Data, SAGA, And Kafka",
+    "permalink": "/shopverse/development/DEBUGGING-DATA-SAGA-KAFKA"
+  },
+  "next": {
+    "title": "Shopverse Problems And Solutions",
+    "permalink": "/shopverse/reliability/PROBLEMS-AND-SOLUTIONS"
+  }
+}

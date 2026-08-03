@@ -1,0 +1,51 @@
+{
+  "id": "spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY",
+  "title": "Spring Kafka Retry DLT And Recovery",
+  "description": "Spring non-blocking retry-topic mechanics, DLT handlers, failure classification, secure terminal recovery, and retry-topic rollout.",
+  "source": "@site/docs/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md",
+  "sourceDirName": "spring/kafka",
+  "slug": "/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY",
+  "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Spring Kafka Retry DLT And Recovery",
+    "description": "Spring non-blocking retry-topic mechanics, DLT handlers, failure classification, secure terminal recovery, and retry-topic rollout.",
+    "difficulty": "Advanced",
+    "page_type": "Decision Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Kafka listeners",
+      "Consumer idempotency",
+      "Kafka topic operations"
+    ],
+    "learning_objectives": [
+      "Trace non-blocking retry-topic infrastructure",
+      "Classify retryable and terminal failures",
+      "Operate DLT handling without losing evidence or leaking payloads"
+    ],
+    "technologies": [
+      "Spring for Apache Kafka 4.x",
+      "RetryableTopic",
+      "DltHandler",
+      "Micrometer"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-spring",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Kafka Listener Concurrency And Capacity",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY"
+  },
+  "next": {
+    "title": "Spring Kafka Consumer Idempotency And Replay",
+    "permalink": "/shopverse/spring/kafka/SPRING-KAFKA-CONSUMER-IDEMPOTENCY-REPLAY"
+  }
+}

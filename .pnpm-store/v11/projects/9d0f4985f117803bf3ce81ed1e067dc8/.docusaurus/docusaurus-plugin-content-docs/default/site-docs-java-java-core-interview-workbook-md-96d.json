@@ -1,0 +1,35 @@
+{
+  "id": "java/JAVA-CORE-INTERVIEW-WORKBOOK",
+  "title": "Java Core, Collections, Threads And Streams Interview Workbook",
+  "description": "Senior and architect questions for overloading, overriding, hiding, collections, scheduling, ForkJoinPool and stream internals.",
+  "source": "@site/docs/java/JAVA-CORE-INTERVIEW-WORKBOOK.md",
+  "sourceDirName": "java",
+  "slug": "/java/JAVA-CORE-INTERVIEW-WORKBOOK",
+  "permalink": "/shopverse/java/JAVA-CORE-INTERVIEW-WORKBOOK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/java/JAVA-CORE-INTERVIEW-WORKBOOK.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Java Core, Collections, Threads And Streams Interview Workbook",
+    "description": "Senior and architect questions for overloading, overriding, hiding, collections, scheduling, ForkJoinPool and stream internals.",
+    "status": "maintained",
+    "last_reviewed": "2026-07-13",
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Senior And Architect Interview Bank",
+    "permalink": "/shopverse/java/JAVA-SENIOR-INTERVIEW-BANK"
+  },
+  "next": {
+    "title": "Java 8 To 26 Overview",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-8-TO-26"
+  }
+}

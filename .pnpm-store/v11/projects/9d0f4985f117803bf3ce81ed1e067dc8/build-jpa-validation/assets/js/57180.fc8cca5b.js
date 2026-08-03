@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshopverse_documentation=self.webpackChunkshopverse_documentation||[]).push([[57180],{57180(e,s,c){c.d(s,{createPacketServices:()=>t.$});var t=c(64824);c(69302)}}]);

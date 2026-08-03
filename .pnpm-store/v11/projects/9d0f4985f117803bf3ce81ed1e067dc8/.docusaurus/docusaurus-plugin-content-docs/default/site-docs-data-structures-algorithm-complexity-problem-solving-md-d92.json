@@ -1,0 +1,49 @@
+{
+  "id": "data-structures/ALGORITHM-COMPLEXITY-PROBLEM-SOLVING",
+  "title": "Algorithm Complexity And Interview Problem Solving",
+  "description": "Derive correct algorithms from constraints, invariants, complexity bounds, edge cases, and test evidence instead of memorized solutions.",
+  "source": "@site/docs/data-structures/ALGORITHM-COMPLEXITY-PROBLEM-SOLVING.md",
+  "sourceDirName": "data-structures",
+  "slug": "/data-structures/ALGORITHM-COMPLEXITY-PROBLEM-SOLVING",
+  "permalink": "/shopverse/data-structures/ALGORITHM-COMPLEXITY-PROBLEM-SOLVING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/data-structures/ALGORITHM-COMPLEXITY-PROBLEM-SOLVING.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Algorithm Complexity And Interview Problem Solving",
+    "description": "Derive correct algorithms from constraints, invariants, complexity bounds, edge cases, and test evidence instead of memorized solutions.",
+    "difficulty": "Advanced",
+    "page_type": "Guide",
+    "status": "maintained",
+    "prerequisites": [
+      "Data Structures Fundamentals"
+    ],
+    "learning_objectives": [
+      "Translate constraints into design choices",
+      "Prove loop and data-structure invariants",
+      "Analyze time and space accurately",
+      "Communicate a timed solution"
+    ],
+    "technologies": [
+      "Java",
+      "Big-O",
+      "Amortized Analysis"
+    ],
+    "last_reviewed": "2026-07-31",
+    "scope": "generic",
+    "owner": "docs-data-structures",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Data Structures Fundamentals",
+    "permalink": "/shopverse/data-structures/DATA-STRUCTURES-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "Linear Data Structures",
+    "permalink": "/shopverse/data-structures/LINEAR-DATA-STRUCTURES"
+  }
+}

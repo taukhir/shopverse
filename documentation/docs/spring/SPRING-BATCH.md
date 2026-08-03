@@ -380,6 +380,7 @@ abandon, or restart according to the runbook. Do not repair status with ad hoc S
 - [Spring Data JPA](./SPRING-DATA-JPA.md)
 - [Spring Boot Testing](./SPRING-BOOT-TESTING.md)
 - [Spring Reactive And WebFlux](./SPRING-REACTIVE.md)
+- [Retail Order Metrics And Analytics At Scale](../architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS.md)
 
 ## Official References
 

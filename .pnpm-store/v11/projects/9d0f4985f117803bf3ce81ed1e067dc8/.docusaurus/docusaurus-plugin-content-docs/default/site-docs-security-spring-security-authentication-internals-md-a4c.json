@@ -1,0 +1,46 @@
+{
+  "id": "security/spring-security/AUTHENTICATION-INTERNALS",
+  "title": "Username And Password Authentication Internals",
+  "description": "Compatibility route to focused provider/runtime and SecurityContext lifecycle guides.",
+  "source": "@site/docs/security/spring-security/AUTHENTICATION-INTERNALS.md",
+  "sourceDirName": "security/spring-security",
+  "slug": "/security/spring-security/AUTHENTICATION-INTERNALS",
+  "permalink": "/shopverse/security/spring-security/AUTHENTICATION-INTERNALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/security/spring-security/AUTHENTICATION-INTERNALS.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Username And Password Authentication Internals",
+    "description": "Compatibility route to focused provider/runtime and SecurityContext lifecycle guides.",
+    "difficulty": "Advanced",
+    "page_type": "Learning Path",
+    "status": "maintained",
+    "prerequisites": [
+      "Spring Security authentication basics"
+    ],
+    "learning_objectives": [
+      "Choose the focused runtime guide",
+      "Trace authentication without a monolithic page"
+    ],
+    "technologies": [
+      "Spring Security 7",
+      "Spring Boot 4"
+    ],
+    "last_reviewed": "2026-07-13",
+    "scope": "generic",
+    "owner": "docs-security",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "repository-content-audit"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Spring Boot Security Auto-Configuration Lifecycle",
+    "permalink": "/shopverse/security/spring-security/BOOT-AUTOCONFIGURATION-LIFECYCLE"
+  },
+  "next": {
+    "title": "Password Authentication Provider Runtime",
+    "permalink": "/shopverse/security/spring-security/PASSWORD-AUTHENTICATION-RUNTIME"
+  }
+}
