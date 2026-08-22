@@ -51,7 +51,7 @@
     "permalink": "/shopverse/architecture/CHECKOUT-SECURITY-EVENT-FLOWS"
   },
   "next": {
-    "title": "ADR 001: Gateway, Discovery, And Centralized Configuration",
-    "permalink": "/shopverse/architecture/adr/gateway-discovery-config"
+    "title": "Amway Checkout Domain Primer",
+    "permalink": "/shopverse/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER"
   }
 }

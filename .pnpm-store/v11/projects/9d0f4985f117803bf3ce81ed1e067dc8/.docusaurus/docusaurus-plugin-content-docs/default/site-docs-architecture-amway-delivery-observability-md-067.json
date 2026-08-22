@@ -1,0 +1,100 @@
+{
+  "id": "architecture/AMWAY-DELIVERY-OBSERVABILITY",
+  "title": "Amway AWS Delivery, Argo CD, And Dynatrace",
+  "description": "A practical guide to GitHub Actions CI, AWS CodePipeline deployment, Argo CD GitOps on Kubernetes, and Dynatrace observability for a Quarkus checkout service.",
+  "source": "@site/docs/architecture/AMWAY-DELIVERY-OBSERVABILITY.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/AMWAY-DELIVERY-OBSERVABILITY",
+  "permalink": "/shopverse/architecture/AMWAY-DELIVERY-OBSERVABILITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/AMWAY-DELIVERY-OBSERVABILITY.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "amway",
+      "permalink": "/shopverse/tags/amway"
+    },
+    {
+      "inline": true,
+      "label": "aws",
+      "permalink": "/shopverse/tags/aws"
+    },
+    {
+      "inline": true,
+      "label": "github-actions",
+      "permalink": "/shopverse/tags/github-actions"
+    },
+    {
+      "inline": true,
+      "label": "argo-cd",
+      "permalink": "/shopverse/tags/argo-cd"
+    },
+    {
+      "inline": true,
+      "label": "dynatrace",
+      "permalink": "/shopverse/tags/dynatrace"
+    },
+    {
+      "inline": true,
+      "label": "observability",
+      "permalink": "/shopverse/tags/observability"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Amway AWS Delivery, Argo CD, And Dynatrace",
+    "description": "A practical guide to GitHub Actions CI, AWS CodePipeline deployment, Argo CD GitOps on Kubernetes, and Dynatrace observability for a Quarkus checkout service.",
+    "sidebar_label": "Amway Delivery, Argo CD And Dynatrace",
+    "tags": [
+      "amway",
+      "aws",
+      "github-actions",
+      "argo-cd",
+      "dynatrace",
+      "observability"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "prerequisites": [
+      "Amway project technology stack",
+      "CI/CD fundamentals",
+      "observability fundamentals"
+    ],
+    "learning_objectives": [
+      "Separate CI pipeline and GitOps responsibilities",
+      "Trace an immutable artifact into Kubernetes",
+      "Use Argo CD application views correctly",
+      "Explain the Dynatrace telemetry path"
+    ],
+    "technologies": [
+      "GitHub Actions",
+      "AWS CodePipeline",
+      "AWS CodeBuild",
+      "AWS CDK v2",
+      "Amazon EKS",
+      "Kubernetes",
+      "Argo CD",
+      "Dynatrace",
+      "OpenTelemetry",
+      "Quarkus",
+      "SonarQube",
+      "JaCoCo"
+    ],
+    "last_reviewed": "2026-08-20",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "user-provided-stack-and-official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "OpenAPI Contract Artifacts",
+    "permalink": "/shopverse/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS"
+  },
+  "next": {
+    "title": "ADR 001: Gateway, Discovery, And Centralized Configuration",
+    "permalink": "/shopverse/architecture/adr/gateway-discovery-config"
+  }
+}

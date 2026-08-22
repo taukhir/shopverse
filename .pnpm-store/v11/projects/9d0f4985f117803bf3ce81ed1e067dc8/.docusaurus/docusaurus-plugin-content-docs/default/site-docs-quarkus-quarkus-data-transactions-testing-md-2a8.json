@@ -1,0 +1,82 @@
+{
+  "id": "quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING",
+  "title": "Quarkus Data, Transactions, And Testing",
+  "description": "Intermediate-to-advanced tutorial for Hibernate ORM with Panache, schema migration, transaction boundaries, idempotency, outbox persistence, Dev Services, and Quarkus test layers.",
+  "source": "@site/docs/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING.md",
+  "sourceDirName": "quarkus",
+  "slug": "/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING",
+  "permalink": "/shopverse/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "hibernate",
+      "permalink": "/shopverse/tags/hibernate"
+    },
+    {
+      "inline": true,
+      "label": "panache",
+      "permalink": "/shopverse/tags/panache"
+    },
+    {
+      "inline": true,
+      "label": "testing",
+      "permalink": "/shopverse/tags/testing"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Quarkus Data, Transactions, And Testing",
+    "description": "Intermediate-to-advanced tutorial for Hibernate ORM with Panache, schema migration, transaction boundaries, idempotency, outbox persistence, Dev Services, and Quarkus test layers.",
+    "sidebar_label": "3. Data And Testing",
+    "tags": [
+      "quarkus",
+      "hibernate",
+      "panache",
+      "testing"
+    ],
+    "page_type": "Tutorial",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "prerequisites": [
+      "Quarkus REST and CDI",
+      "SQL and transaction fundamentals"
+    ],
+    "learning_objectives": [
+      "Use Panache without losing domain boundaries",
+      "Design correct local transactions",
+      "Test with production-like dependencies",
+      "Prove idempotency and outbox atomicity"
+    ],
+    "technologies": [
+      "Quarkus",
+      "Hibernate ORM",
+      "Panache",
+      "PostgreSQL",
+      "Liquibase",
+      "JUnit",
+      "RestAssured"
+    ],
+    "last_reviewed": "2026-08-11",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "5. Clients And Artifacts",
+    "permalink": "/shopverse/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS"
+  },
+  "next": {
+    "title": "4. Integration And Security",
+    "permalink": "/shopverse/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY"
+  }
+}

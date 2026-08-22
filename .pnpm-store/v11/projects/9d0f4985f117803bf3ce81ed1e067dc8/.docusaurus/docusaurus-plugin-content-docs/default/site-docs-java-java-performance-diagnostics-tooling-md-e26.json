@@ -44,11 +44,11 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "Java Production Incident Walkthroughs",
-    "permalink": "/shopverse/java/JAVA-PRODUCTION-INCIDENTS"
+    "title": "Foreign Function, Memory And Dynamic Invocation Internals",
+    "permalink": "/shopverse/java/JAVA-FFM-METHOD-HANDLES-RUNTIME"
   },
   "next": {
-    "title": "Java Containers Resource Limits And Production Diagnostics",
-    "permalink": "/shopverse/java/JAVA-CONTAINERS-RESOURCE-LIMITS"
+    "title": "JVM Profiling, Garbage Collection, And Native Images",
+    "permalink": "/shopverse/java/JVM-PROFILING-GC-NATIVE"
   }
 }

@@ -21,7 +21,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "Collection contracts",
+      "equality and hashing",
+      "ordering",
+      "and generics"
+    ],
+    "learning_objectives": [
+      "Select List Set Map or Deque from domain language",
+      "Choose the narrowest implementation guarantee",
+      "Defend production choices with workload evidence"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

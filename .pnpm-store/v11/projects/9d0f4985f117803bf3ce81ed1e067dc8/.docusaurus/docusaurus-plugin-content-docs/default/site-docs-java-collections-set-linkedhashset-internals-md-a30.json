@@ -50,6 +50,17 @@
     ],
     "page_type": "Deep Dive",
     "difficulty": "Advanced",
+    "prerequisites": [
+      "Set contract",
+      "hashing",
+      "equality",
+      "and encounter order"
+    ],
+    "learning_objectives": [
+      "Explain insertion-order membership",
+      "Quantify linked-entry overhead",
+      "Choose deterministic set iteration deliberately"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

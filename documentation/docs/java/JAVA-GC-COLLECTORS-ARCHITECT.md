@@ -5,6 +5,8 @@ status: maintained
 last_reviewed: "2026-07-13"
 page_type: Guide
 difficulty: Intermediate
+prerequisites: [Object layout allocation reachability and GC roots]
+learning_objectives: [Define garbage collection and shared collector mechanics, Compare collector goals and costs, Select and migrate collectors from workload evidence]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -12,6 +14,35 @@ review_evidence: repository-content-audit
 ---
 
 # JVM Garbage Collectors For Architects
+
+A **garbage collector** is a JVM subsystem that identifies heap objects no
+longer reachable by the application and makes their storage reusable. A
+collector must cooperate with application threads that continue allocating and
+changing references, so every design balances pause time, throughput, CPU,
+memory headroom, implementation complexity, and recovery behavior.
+
+## Page Overview
+
+The guide starts with tracing, barriers, relocation, generations, regions, and
+concurrent phases shared by modern collectors. Separate sections then explain
+Serial, Parallel, G1, ZGC, and Shenandoah before comparing selection evidence,
+failure modes, production diagnostics, migration, and rollback.
+
+## What Is A Collector Strategy?
+
+All tracing collectors begin with the same logical question—what objects are
+reachable from roots—but they differ in when tracing occurs, whether application
+threads stop, whether live objects move, how generations or regions are used,
+and which barriers preserve correctness during concurrent work.
+
+Collector names such as G1 or ZGC describe strategies, not universal speed
+rankings. The best choice depends on the workload and service-level objective.
+
+## Prerequisites
+
+Read [Object Layout, Allocation And Reachability](./JAVA-GC-OBJECT-LAYOUT-DEEP-DIVE.md)
+first. You should understand heap objects, roots, reachability, allocation rate,
+live set, and why copying/relocation needs destination headroom.
 
 <DocLabels items={[
   {label: 'Advanced', tone: 'advanced'},
@@ -90,6 +121,20 @@ live set and headroom.
 | balanced server default | G1 |
 | very low pauses and large heap | ZGC |
 | low pauses with supported distribution | Shenandoah |
+
+## Boundaries, Failure Modes And Trade-Offs
+
+- A pause target is a planning input, not a hard deadline.
+- A low-pause collector performs more work concurrently and still requires CPU
+  and memory headroom; small pauses do not imply free collection.
+- Frequent young GC can reflect allocation churn even when the live set is
+  small. A growing post-GC live set points to retention or real demand.
+- Evacuation, promotion, degenerated, or full-collection fallbacks indicate that
+  the intended concurrent or copying path could not keep up or obtain space.
+- Increasing heap can reduce collection frequency but increase footprint and
+  worst-case work. Validate changes against the same load and SLO.
+- Collector behavior and support evolve by JDK distribution and version; record
+  the environment with every comparison.
 
 ## Evidence-Gated Collector Selection
 
@@ -180,6 +225,14 @@ post-collection live set, cycle frequency, promotion/evacuation warnings and pro
 RSS. Change one variable at a time. Run long enough to reach steady state before a
 real migration decision, and keep rollback flags because this fixture cannot model
 Shopverse dependencies, cache retention, object graphs or production concurrency.
+
+## Production And Diagnostic Guidance
+
+Record the JDK build, collector flags, container limits, heap, traffic model,
+allocation rate, post-GC live set, pause distribution, GC CPU, application
+throughput, and p95/p99 before comparing collectors. Unified GC logs and JFR
+should share timestamps with application and infrastructure evidence. Keep a
+rollback configuration and canary the new collector under representative load.
 
 ## Migration And Logs
 

@@ -5,6 +5,8 @@ sidebar_label: "Queue And Deque Overview"
 tags: [java, collections, queue, deque]
 page_type: Reference
 difficulty: Intermediate
+prerequisites: [Collection contracts, Java generics, iteration, and basic concurrency]
+learning_objectives: [Define Queue and Deque processing contracts, Choose exception special-value and blocking methods, Select capacity priority and concurrency behavior]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -19,6 +21,14 @@ review_evidence: repository-content-audit
 
 `Queue` exposes head-based processing. `Deque` extends it with operations at
 both ends, supporting FIFO queues and LIFO stacks without `Stack`.
+These abstractions define removal direction and failure behavior; implementations
+add storage, capacity, ordering, blocking, and concurrency guarantees.
+
+## Page Overview
+
+Method pairs establish how full or empty queues report failure. The implementation
+map compares local deques, priority heaps, bounded blocking queues, concurrent
+queues, and direct handoff before linking to their mechanics.
 
 ```mermaid
 flowchart LR
@@ -69,3 +79,10 @@ timeout, rejection, retry, shutdown, and—when required—durability policies.
 
 - [`Queue`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Queue.html)
 - [`Deque`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Deque.html)
+
+## Recommended Next
+
+Use [ArrayDeque Internals](./ARRAYDEQUE-INTERNALS.md) for local FIFO/LIFO work and
+[PriorityQueue Internals](./PRIORITYQUEUE-INTERNALS.md) for heap-ordered heads;
+continue to [Specialized Collections](../../JAVA-SPECIALIZED-COLLECTIONS-INTERNALS.md)
+for blocking, concurrent, delayed, and handoff queues.

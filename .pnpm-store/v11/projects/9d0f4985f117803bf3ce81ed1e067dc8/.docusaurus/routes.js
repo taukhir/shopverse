@@ -9,11 +9,11 @@ export default [
   },
   {
     path: '/shopverse/',
-    component: ComponentCreator('/shopverse/', '4b1'),
+    component: ComponentCreator('/shopverse/', '0bc'),
     routes: [
       {
         path: '/shopverse/',
-        component: ComponentCreator('/shopverse/', '79b'),
+        component: ComponentCreator('/shopverse/', '042'),
         routes: [
           {
             path: '/shopverse/tags',
@@ -26,13 +26,33 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/amway',
+            component: ComponentCreator('/shopverse/tags/amway', 'f24'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/aop',
             component: ComponentCreator('/shopverse/tags/aop', '290'),
             exact: true
           },
           {
+            path: '/shopverse/tags/api-client',
+            component: ComponentCreator('/shopverse/tags/api-client', '7be'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/api-contracts',
+            component: ComponentCreator('/shopverse/tags/api-contracts', '2f3'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/architecture',
             component: ComponentCreator('/shopverse/tags/architecture', 'aff'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/argo-cd',
+            component: ComponentCreator('/shopverse/tags/argo-cd', '8f5'),
             exact: true
           },
           {
@@ -51,6 +71,11 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/aws',
+            component: ComponentCreator('/shopverse/tags/aws', '5cf'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/behavioral',
             component: ComponentCreator('/shopverse/tags/behavioral', '043'),
             exact: true
@@ -66,13 +91,43 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/cdi',
+            component: ComponentCreator('/shopverse/tags/cdi', '102'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/checkout',
+            component: ComponentCreator('/shopverse/tags/checkout', '365'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/code-generation',
+            component: ComponentCreator('/shopverse/tags/code-generation', 'f01'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/collections',
             component: ComponentCreator('/shopverse/tags/collections', '400'),
             exact: true
           },
           {
+            path: '/shopverse/tags/commerce',
+            component: ComponentCreator('/shopverse/tags/commerce', '62e'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/concurrency',
             component: ComponentCreator('/shopverse/tags/concurrency', '0dd'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/containers',
+            component: ComponentCreator('/shopverse/tags/containers', '68a'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/contract-testing',
+            component: ComponentCreator('/shopverse/tags/contract-testing', '116'),
             exact: true
           },
           {
@@ -106,6 +161,16 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/domain-modeling',
+            component: ComponentCreator('/shopverse/tags/domain-modeling', '667'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/dynatrace',
+            component: ComponentCreator('/shopverse/tags/dynatrace', '651'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/enummap',
             component: ComponentCreator('/shopverse/tags/enummap', '3d5'),
             exact: true
@@ -121,8 +186,23 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/fundamentals',
+            component: ComponentCreator('/shopverse/tags/fundamentals', 'aca'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/github-actions',
+            component: ComponentCreator('/shopverse/tags/github-actions', '8cf'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/go-f',
             component: ComponentCreator('/shopverse/tags/go-f', '939'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/gradle',
+            component: ComponentCreator('/shopverse/tags/gradle', 'd8b'),
             exact: true
           },
           {
@@ -141,8 +221,18 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/hibernate',
+            component: ComponentCreator('/shopverse/tags/hibernate', '847'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/hld',
             component: ComponentCreator('/shopverse/tags/hld', '555'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/idempotency',
+            component: ComponentCreator('/shopverse/tags/idempotency', 'e99'),
             exact: true
           },
           {
@@ -186,6 +276,11 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/kubernetes',
+            component: ComponentCreator('/shopverse/tags/kubernetes', '520'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/legacy-route',
             component: ComponentCreator('/shopverse/tags/legacy-route', '168'),
             exact: true
@@ -221,6 +316,11 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/maven',
+            component: ComponentCreator('/shopverse/tags/maven', '527'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/micrometer',
             component: ComponentCreator('/shopverse/tags/micrometer', 'bd5'),
             exact: true
@@ -228,6 +328,11 @@ export default [
           {
             path: '/shopverse/tags/microservices',
             component: ComponentCreator('/shopverse/tags/microservices', '6a8'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/native-image',
+            component: ComponentCreator('/shopverse/tags/native-image', '090'),
             exact: true
           },
           {
@@ -251,6 +356,11 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/openapi',
+            component: ComponentCreator('/shopverse/tags/openapi', 'fe6'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/opentelemetry',
             component: ComponentCreator('/shopverse/tags/opentelemetry', '276'),
             exact: true
@@ -258,6 +368,11 @@ export default [
           {
             path: '/shopverse/tags/ownership',
             component: ComponentCreator('/shopverse/tags/ownership', 'd0a'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/panache',
+            component: ComponentCreator('/shopverse/tags/panache', 'e62'),
             exact: true
           },
           {
@@ -273,6 +388,11 @@ export default [
           {
             path: '/shopverse/tags/production',
             component: ComponentCreator('/shopverse/tags/production', '2c4'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/quarkus',
+            component: ComponentCreator('/shopverse/tags/quarkus', 'e14'),
             exact: true
           },
           {
@@ -298,6 +418,11 @@ export default [
           {
             path: '/shopverse/tags/reliability',
             component: ComponentCreator('/shopverse/tags/reliability', 'b24'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/rest',
+            component: ComponentCreator('/shopverse/tags/rest', 'a49'),
             exact: true
           },
           {
@@ -336,8 +461,18 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/swagger',
+            component: ComponentCreator('/shopverse/tags/swagger', '2ff'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/system-design',
             component: ComponentCreator('/shopverse/tags/system-design', '5a1'),
+            exact: true
+          },
+          {
+            path: '/shopverse/tags/testing',
+            component: ComponentCreator('/shopverse/tags/testing', 'e16'),
             exact: true
           },
           {
@@ -356,13 +491,23 @@ export default [
             exact: true
           },
           {
+            path: '/shopverse/tags/tutorial',
+            component: ComponentCreator('/shopverse/tags/tutorial', 'c7e'),
+            exact: true
+          },
+          {
             path: '/shopverse/tags/uml',
             component: ComponentCreator('/shopverse/tags/uml', '653'),
             exact: true
           },
           {
+            path: '/shopverse/tags/validation',
+            component: ComponentCreator('/shopverse/tags/validation', 'ff6'),
+            exact: true
+          },
+          {
             path: '/shopverse/',
-            component: ComponentCreator('/shopverse/', 'fa1'),
+            component: ComponentCreator('/shopverse/', '605'),
             routes: [
               {
                 path: '/shopverse/ai/',
@@ -721,6 +866,30 @@ export default [
               {
                 path: '/shopverse/architecture/adr/observability-stack',
                 component: ComponentCreator('/shopverse/architecture/adr/observability-stack', '220'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER',
+                component: ComponentCreator('/shopverse/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER', '1b2'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/architecture/AMWAY-DELIVERY-OBSERVABILITY',
+                component: ComponentCreator('/shopverse/architecture/AMWAY-DELIVERY-OBSERVABILITY', 'de8'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS',
+                component: ComponentCreator('/shopverse/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS', '1d2'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/architecture/AMWAY-PROJECT-TECH-STACK',
+                component: ComponentCreator('/shopverse/architecture/AMWAY-PROJECT-TECH-STACK', '4e6'),
                 exact: true,
                 sidebar: "docsSidebar"
               },
@@ -4265,6 +4434,66 @@ export default [
               {
                 path: '/shopverse/platform/WEB-PAGINATION',
                 component: ComponentCreator('/shopverse/platform/WEB-PAGINATION', '35a'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/',
+                component: ComponentCreator('/shopverse/quarkus/', '8e7'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-CHECKOUT-TUTORIAL',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-CHECKOUT-TUTORIAL', '148'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING', '953'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-FUNDAMENTALS',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-FUNDAMENTALS', 'd60'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY', '319'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION', '9c3'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS', 'ea4'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS', 'b79'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-OPENAPI-PROVIDER',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-OPENAPI-PROVIDER', '3ce'),
+                exact: true,
+                sidebar: "docsSidebar"
+              },
+              {
+                path: '/shopverse/quarkus/QUARKUS-REST-CDI-CONFIG',
+                component: ComponentCreator('/shopverse/quarkus/QUARKUS-REST-CDI-CONFIG', '044'),
                 exact: true,
                 sidebar: "docsSidebar"
               },

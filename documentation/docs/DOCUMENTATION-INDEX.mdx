@@ -5,10 +5,13 @@ sidebar_label: Documentation Index
 description: Root-level expandable directory of every documentation umbrella, subpage group, and topic page.
 page_type: Reference
 difficulty: Beginner
+learning_objectives:
+  - Locate the canonical page for a documentation topic
+  - Distinguish overviews, focused guides, deep dives, runbooks, labs, and interview practice
 status: maintained
 hide_table_of_contents: true
 hide_reader_chrome: true
-last_reviewed: "2026-07-15"
+last_reviewed: "2026-08-04"
 scope: generic
 owner: docs-documentation
 reviewer: documentation-maintainers
@@ -19,8 +22,28 @@ import {DocumentationIndex} from '@site/src/components/DocumentationIndex';
 
 # Documentation Index
 
-Use this root-level directory when you know the domain or topic you need but not
-the exact page. Search across the complete hierarchy, or expand an umbrella to
-move through its subpage groups and focused topic pages.
+The documentation index is a searchable map of every learning track and focused
+topic page. Use it when you know the domain but not the canonical page; use the
+[learning path](reference/LEARNING-PATH.mdx) when you need prerequisite order.
+
+## Page Overview
+
+- **Overview pages** define the domain and briefly map every child topic.
+- **Focused guides** teach one concept from definition through examples and
+  production boundaries.
+- **Deep dives** explain internals and assume linked prerequisites.
+- **Runbooks and labs** turn knowledge into diagnosis or executable evidence.
+- **Interview pages** test reasoning after the canonical teaching pages.
+
+Search by the concept's common name. Visible titles are kept concise even where
+legacy filenames remain stable to preserve public links.
+
+For authoring rules and page-type definitions, open the
+[documentation guide](reference/DOCUMENTATION-GUIDE.md).
 
 <DocumentationIndex />
+
+## Recommended Next
+
+If you are learning rather than looking up a known topic, follow the
+[backend engineering learning path](reference/LEARNING-PATH.mdx).

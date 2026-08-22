@@ -11,18 +11,36 @@ scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
 review_evidence: repository-content-audit
+prerequisites: [Map contract, Java equality and hashing, arrays, and generics]
+learning_objectives: [Trace lookup insertion collision and resize paths, Design stable keys, Size and diagnose hash maps from workload evidence]
 ---
 
 # HashMap Internals and Usage
 
-`HashMap<K,V>` stores nodes in a power-of-two bucket array. A node contains the
-spread hash, key, value, and collision-chain link; dense bins may use tree nodes.
+`HashMap<K,V>` is a mutable, non-thread-safe key-to-value index implemented with
+a power-of-two bucket array. A node contains the spread hash, key, value, and
+collision-chain link; dense bins may use tree nodes. Start here to understand
+ordinary lookup, then follow the collision, resizing, key-safety, and diagnostic
+paths that determine real latency and correctness.
 
 ```text
 table[0] -> null
 table[1] -> Node(A,1) -> Node(B,2)
 table[2] -> TreeNode(...)
 ```
+
+## Page Overview
+
+This page defines the storage model, traces `put` and `get`, explains collision
+treeification and capacity planning, demonstrates stable keys, and closes with
+failure diagnosis, selection guidance, and interview checks.
+
+## Core Terminology And Mental Model
+
+- A **bucket** is an array slot selected from a spread hash.
+- A **bin** is the linked list or red-black tree stored in one bucket.
+- The **load factor** determines the resize threshold, not a per-bin limit.
+- A **stable key** does not change equality or hash fields while stored.
 
 ## Defaults And Thresholds
 
@@ -40,7 +58,7 @@ The load factor balances memory against collisions. When size exceeds the
 threshold, capacity doubles and entries split between old and new bucket
 positions. That resize is O(n), making normal insertion amortized O(1).
 
-## `put` And `get` Flow
+## How It Works: `put`, `get`, And Resize
 
 1. treat null as hash zero or spread `key.hashCode()`;
 2. select bucket with `(capacity - 1) & hash`;
@@ -84,11 +102,45 @@ list and sort with a comparator that defines how null keys or values compare.
 may still resize. Prefer `HashMap.newHashMap(expectedMappings)` on modern Java
 when expected mappings are known.
 
+```java
+record ProductKey(String tenantId, String sku) {}
+Map<ProductKey, Integer> stock = HashMap.newHashMap(10_000);
+stock.merge(new ProductKey("north", "SKU-42"), 3, Integer::sum);
+```
+
+## Failure Modes, Edge Cases, And Production Diagnostics
+
+- Mutable keys become logically unreachable: iteration can show an entry whose
+  mutated key no longer finds its original bucket. Prefer immutable key state.
+- Poor hash distribution creates hot bins. Profile CPU, inspect key types and
+  `hashCode`, and benchmark representative rather than synthetic integer keys.
+- Resize bursts allocate and copy. Pre-size known bulk loads and compare
+  allocation rate and tail latency before and after the change.
+- Mapping callbacks should be short and side-effect-free; recursive structural
+  mutation can fail and `computeIfAbsent` is not a cache-wide single-flight guarantee.
+- Unsynchronized concurrent access is a data race. Use confinement, locking, or
+  `ConcurrentHashMap` according to the compound operation required.
+
 ## When To Use
 
 Use for ordinary single-threaded or externally confined lookup with no order
 requirement. Use `LinkedHashMap` for encounter/access order, `TreeMap` for sorted
 ranges, `EnumMap` for enum keys, and `ConcurrentHashMap` for shared per-key updates.
+
+## Tricky Interview Questions
+
+1. **Why is lookup not guaranteed O(1)?** Collisions require bin traversal;
+   tree bins improve dense-bin bounds, but comparison quality and resize matter.
+2. **Why can `get(k)` return null for two states?** The key may be absent or map
+   to null; use `containsKey` when that distinction is part of the contract.
+3. **Does treeification happen at eight entries every time?** No. A small table
+   resizes first; treeification also requires the minimum table capacity.
+
+## Recommended Next
+
+- [Map overview](./MAP-OVERVIEW.md)
+- [LinkedHashMap internals](./LINKEDHASHMAP-INTERNALS.md)
+- [ConcurrentHashMap internals](../../JAVA-CONCURRENT-HASHMAP-OPENJDK.md)
 
 ## Official References
 

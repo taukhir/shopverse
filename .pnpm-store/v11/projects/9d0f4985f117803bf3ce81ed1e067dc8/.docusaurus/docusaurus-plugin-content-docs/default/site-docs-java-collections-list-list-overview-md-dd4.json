@@ -38,6 +38,17 @@
     ],
     "page_type": "Reference",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Collection contracts",
+      "Java generics",
+      "equality",
+      "and iteration"
+    ],
+    "learning_objectives": [
+      "Define the List contract",
+      "Compare major List implementations",
+      "Select a list from access mutation and concurrency requirements"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

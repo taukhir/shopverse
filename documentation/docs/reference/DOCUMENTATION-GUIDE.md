@@ -5,7 +5,7 @@ page_type: Learning Path
 status: maintained
 learning_objectives: [Choose the correct documentation path, Distinguish concepts labs runbooks and implementation pages, Maintain canonical content safely]
 technologies: [Docusaurus]
-last_reviewed: "2026-07-23"
+last_reviewed: "2026-08-04"
 scope: generic
 owner: docs-reference
 reviewer: documentation-maintainers
@@ -14,8 +14,27 @@ review_evidence: repository-content-audit
 
 # Documentation Guide
 
-Use this umbrella to navigate and maintain the knowledge base without repeating
-rules across reference pages.
+Documentation is structured teaching that lets a reader move from a plain-language
+definition to implementation and lead-engineer judgment. This guide explains how
+to navigate and maintain that system without duplicating canonical content.
+
+## Page Overview
+
+- **Reader paths** choose the right entry point for learning, operating, or
+  maintaining Shopverse.
+- **Learning depth** defines what beginner, practitioner, senior, and lead-level
+  coverage means.
+- **Content types** separate concepts, examples, operations, and case-study proof.
+- **Quality rules** link the standards and measurable audit backlog.
+
+After reading, you should be able to select the canonical page for a topic,
+recognize when a large page should be segregated, and review whether a page has
+real depth rather than merely sufficient length.
+
+## Prerequisites
+
+No technical prerequisite is required. Maintainers should know basic Markdown,
+relative links, and that Docusaurus document IDs may be public URLs.
 
 ## Reader Paths
 
@@ -39,6 +58,36 @@ rules across reference pages.
 
 Generic pages own reusable explanations. Shopverse pages own repository code,
 configuration, evidence and known gaps. Labs prove behavior; runbooks operate it.
+
+## Learning Depth
+
+```mermaid
+flowchart LR
+    B["Beginner: define and visualize"] --> P["Practitioner: implement and verify"]
+    P --> S["Senior: trace internals and failures"]
+    S --> L["Lead: choose, govern, scale, and recover"]
+```
+
+Every topic must provide an entry at the beginner layer. Focused pages may own
+later layers, provided the overview briefly explains each topic and links the
+pages in dependency order. A reader should never need an external assistant merely
+to discover the definition, the first valid example, a critical edge case, or
+the next page in the track.
+
+## Page Completion Checklist
+
+A topic page is editorially complete only when a reviewer can point to:
+
+- a bounded definition, purpose, overview, prerequisites, and terminology;
+- a correct mental model and examples from minimal through failure/edge cases;
+- causal internals, guarantees, non-guarantees, and trade-offs;
+- production security, performance, diagnostics, recovery, and compatibility;
+- tricky reasoning questions with model-answer signals;
+- canonical cross-links, recommended next steps, and authoritative references.
+
+`documentation/governance/learning-progression-standard.md` is the complete
+authoring contract. Automated checks create review queues; they do not prove
+technical correctness.
 
 ## Overview And Revision Pages
 

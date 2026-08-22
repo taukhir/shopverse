@@ -3,8 +3,10 @@ title: Java Threads, Concurrency And JVM Thread Model
 description: Umbrella guide to application threads, schedulers, JVM service threads, coordination, memory visibility, virtual threads, and async composition.
 status: maintained
 last_reviewed: "2026-07-13"
-page_type: Guide
+page_type: Learning Path
 difficulty: Intermediate
+prerequisites: [Java methods, objects, exceptions, and basic JVM execution]
+learning_objectives: [Distinguish Java thread families and ownership, Follow concurrency topics in prerequisite order, Diagnose scheduling coordination and visibility failures]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -17,7 +19,22 @@ review_evidence: repository-content-audit
 threads, executor and scheduler workers, and JVM-managed service threads. They
 compete for CPU but have different ownership and failure policies.
 
-## Thread Families
+## Page Overview
+
+Java concurrency coordinates independently executing tasks while preserving
+state invariants, visibility, cancellation, and resource bounds. This path first
+distinguishes platform, virtual, executor, scheduler, GC, JIT, and JVM service
+threads, then routes creation, coordination, memory visibility, async composition,
+and diagnostics to their canonical pages.
+
+## Prerequisites And Terminology
+
+Know methods, objects, exceptions, and the difference between a task and a method
+call. A **task** is work to execute, a **thread** is an execution context, an
+**executor** owns scheduling and workers, and **happens-before** is the Java proof
+that one thread's actions are visible to another.
+
+## Mental Model: Thread Families
 
 | Family | Created/owned by | Typical responsibility | Key operational risk |
 |---|---|---|---|

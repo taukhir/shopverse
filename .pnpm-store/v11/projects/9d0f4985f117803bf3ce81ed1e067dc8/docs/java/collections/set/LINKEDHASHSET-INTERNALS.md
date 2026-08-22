@@ -5,6 +5,8 @@ sidebar_label: "LinkedHashSet"
 tags: [java, collections, set, linkedhashset, internals]
 page_type: Deep Dive
 difficulty: Advanced
+prerequisites: [Set contract, hashing, equality, and encounter order]
+learning_objectives: [Explain insertion-order membership, Quantify linked-entry overhead, Choose deterministic set iteration deliberately]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -17,13 +19,25 @@ review_evidence: repository-content-audit
 
 `LinkedHashSet<E>` combines hash membership with a doubly linked encounter-order
 chain inherited from `LinkedHashMap` storage.
+It adds deterministic insertion-order traversal to hash membership by maintaining
+links across entries, increasing per-entry memory and mutation work.
+
+## Page Overview
+
+This page connects bucket lookup with the encounter-order chain, then covers
+complexity, reinsertion behavior, memory cost, mutation, and selection boundaries.
+
+## Core Terminology And Mental Model
+
+The **bucket structure** finds membership; the **order chain** drives iteration.
+Removing and re-adding an element moves it to the end of insertion order.
 
 ```text
 buckets -> entry lookup by hash
 order   -> A <-> B <-> C
 ```
 
-## Defaults And Storage
+## How It Works: Storage And Order
 
 The ordinary constructor uses default capacity 16 and load factor 0.75, with
 lazy table allocation. Every entry also carries before/after links. It permits
@@ -52,6 +66,25 @@ and `TreeSet` if the order must come from values rather than insertion history.
 
 Do not confuse deterministic encounter order with thread safety. External
 coordination is still required for shared mutation.
+
+## Failure Modes, Edge Cases, And Production Evidence
+
+- deterministic order costs extra links per entry;
+- equality-field mutation breaks membership as in `HashSet`;
+- reinsertion of an existing element does not move it, but remove/add does;
+- insertion order is not access order;
+- concurrent mutation still needs a separate policy.
+
+## Tricky Interview Questions
+
+<ExpandableAnswer title="Is LinkedHashSet sorted?">
+No. It preserves insertion order; it does not compare elements.
+</ExpandableAnswer>
+
+## Recommended Next
+
+Compare [HashSet](./HASHSET-INTERNALS.md) and [TreeSet](./TREESET-INTERNALS.md),
+then review [safe mutation](../SAFE-COLLECTION-MUTATION.md).
 
 ## Official References
 

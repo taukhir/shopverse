@@ -25,7 +25,7 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "Java Memory Model And Safe Publication",
+    "title": "Java Memory Model, Visibility, And Safe Publication",
     "permalink": "/shopverse/java/advanced-internals/JAVA-MEMORY-MODEL"
   },
   "next": {

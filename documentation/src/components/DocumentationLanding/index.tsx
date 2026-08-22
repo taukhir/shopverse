@@ -362,6 +362,51 @@ export function ReadingGuide({
   );
 }
 
+const depthLevels = [
+  {
+    level: '01',
+    title: 'Beginner',
+    question: 'What is it?',
+    evidence: 'Definition, purpose, prerequisites, terminology, and mental model.',
+  },
+  {
+    level: '02',
+    title: 'Practitioner',
+    question: 'How do I use it?',
+    evidence: 'Minimal, realistic, failing, and testable examples.',
+  },
+  {
+    level: '03',
+    title: 'Senior',
+    question: 'How does it work and fail?',
+    evidence: 'Internals, boundaries, edge cases, concurrency, and diagnostics.',
+  },
+  {
+    level: '04',
+    title: 'Lead engineer',
+    question: 'How do I choose and operate it?',
+    evidence: 'Trade-offs, security, scale, compatibility, recovery, and evidence.',
+  },
+];
+
+export function LearningDepth() {
+  return (
+    <ol className={styles.depthMap} aria-label="Learning depth from beginner to lead engineer">
+      {depthLevels.map((item) => (
+        <li key={item.level}>
+          <span className={styles.depthNumber}>{item.level}</span>
+          <span className={styles.depthCopy}>
+            <strong>{item.title}</strong>
+            <span>{item.question}</span>
+            <small>{item.evidence}</small>
+          </span>
+          <ArrowRight aria-hidden="true" />
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 const learningStages = [
   {
     number: '01',

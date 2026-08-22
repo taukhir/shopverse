@@ -56,6 +56,16 @@
     ],
     "page_type": "Deep Dive",
     "difficulty": "Advanced",
+    "prerequisites": [
+      "Set contract",
+      "Comparable or Comparator",
+      "and binary search trees"
+    ],
+    "learning_objectives": [
+      "Trace red-black tree membership",
+      "Explain comparator-defined uniqueness",
+      "Use navigable ranges without corrupting ordering"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

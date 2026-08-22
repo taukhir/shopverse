@@ -5,6 +5,8 @@ sidebar_label: "Map Overview"
 tags: [java, collections, map]
 page_type: Reference
 difficulty: Intermediate
+prerequisites: [Collection contracts, Java generics, equality, hashing, and ordering]
+learning_objectives: [Define key-value association and backed views, Compare major Map implementations, Select atomicity ordering and key contracts]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -20,6 +22,14 @@ review_evidence: repository-content-audit
 A `Map<K,V>` associates one value with each unique key. It is not a subtype of
 `Collection`; its `keySet`, `values`, and `entrySet` methods expose collection
 views backed by the map.
+Map selection must also define key stability, null policy, encounter or sort
+order, per-key atomicity, and whether returned views may mutate shared state.
+
+## Page Overview
+
+This reference compares general, ordered, sorted, concurrent, enum, and immutable
+maps. It then routes bucket, linked-order, tree, ordinal-array, and concurrency
+mechanics to focused pages.
 
 ```mermaid
 flowchart LR
@@ -69,3 +79,10 @@ general-purpose lookup.
 ## Official Reference
 
 - [`Map`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html)
+
+## Recommended Next
+
+Start with [HashMap Internals](./HASHMAP-INTERNALS.md), then compare
+[LinkedHashMap](./LINKEDHASHMAP-INTERNALS.md), [TreeMap](./TREEMAP-INTERNALS.md),
+[EnumMap](./ENUMMAP-INTERNALS.md), and
+[ConcurrentHashMap](../../JAVA-CONCURRENT-HASHMAP-OPENJDK.md).

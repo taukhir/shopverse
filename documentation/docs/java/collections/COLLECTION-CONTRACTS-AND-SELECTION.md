@@ -5,6 +5,8 @@ status: maintained
 last_reviewed: "2026-07-13"
 page_type: Guide
 difficulty: Intermediate
+prerequisites: [Java objects, generics, equality, hashing, and basic iteration]
+learning_objectives: [Select collection interfaces from observable requirements, Define equality ordering mutation and capacity contracts, Identify operational failure modes before implementation choice]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -15,8 +17,25 @@ review_evidence: repository-content-audit
 
 A collection choice is an API contract. Decide what callers may observe before
 considering capacity or internal layout.
+The same data can be represented by several implementations, but duplicates,
+ordering, lookup, mutation ownership, concurrency, and bounds determine whether
+the resulting behavior remains correct under real workloads.
 
-## Ask Six Questions
+## Page Overview
+
+This guide starts with the caller-visible questions, maps them to List, Set, Map,
+Queue, and Deque contracts, and then adds equality, ordering, mutation, concurrency,
+and capacity constraints. Shopverse examples and a boundary review show how to
+turn those decisions into reviewable API contracts.
+
+## Core Terminology
+
+**Encounter order** is the order elements are observed. **Equality semantics**
+determine duplicates or key identity. A **backed view** reflects its source, an
+**immutable snapshot** does not change, and **capacity/backpressure** bounds how
+much queued state may accumulate.
+
+## How It Works: Six Selection Questions
 
 | Question | Why it changes the type |
 |---|---|
@@ -135,6 +154,42 @@ Before accepting or returning a collection, document:
 - whether concurrent access is supported;
 - the expected maximum cardinality.
 
+## Failure Modes And Edge Cases
+
+- mutable hash keys or set elements become unreachable from their original bucket;
+- unspecified encounter order creates unstable APIs and tests;
+- backed views leak mutation across boundaries that appeared read-only;
+- unbounded queues and caches convert load spikes into memory exhaustion;
+- a thread-safe collection does not make multi-call or cross-system invariants atomic;
+- comparator equality inconsistent with domain identity can collapse distinct keys.
+
+## Production And Diagnostic Guidance
+
+Measure cardinality, allocation, lookup/iteration mix, collision or comparator
+cost, queue age, rejection, and contention under representative data. Document
+maximum size, mutation owner, concurrency boundary, serialization order, and the
+evidence required before replacing an implementation.
+
+## Tricky Interview Questions
+
+<ExpandableAnswer title="Why can a HashMap lookup fail for a key that is visibly present?">
+
+If fields contributing to `equals` or `hashCode` changed after insertion, lookup
+searches a different bucket or equality state. Keep key identity immutable.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does ConcurrentHashMap make a two-key transfer atomic?">
+
+No. Its documented atomic methods operate at narrower boundaries. A multi-key or
+external-system invariant needs explicit coordination or different ownership.
+
+</ExpandableAnswer>
+
+## Official References
+
+- [Java Collections Framework](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/doc-files/coll-overview.html)
+- [`Collection` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html)
+
 Continue with [List, Set, And Map Choices](./LIST-SET-MAP-CHOICES.md), or return
 to the [Collections umbrella](../JAVA-COLLECTIONS.md).
-

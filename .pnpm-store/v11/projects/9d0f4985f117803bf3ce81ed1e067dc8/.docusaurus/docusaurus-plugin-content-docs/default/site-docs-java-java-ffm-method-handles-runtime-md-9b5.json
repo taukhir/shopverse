@@ -25,11 +25,11 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "JVM Execution Internals",
-    "permalink": "/shopverse/java/advanced-internals/JVM-EXECUTION-INTERNALS"
+    "title": "Java Containers Resource Limits And Production Diagnostics",
+    "permalink": "/shopverse/java/JAVA-CONTAINERS-RESOURCE-LIMITS"
   },
   "next": {
-    "title": "NIO, Zero-Copy, And JMH Benchmarking",
-    "permalink": "/shopverse/java/advanced-internals/NIO-PERFORMANCE-JMH"
+    "title": "Java Performance Diagnostics And Tooling",
+    "permalink": "/shopverse/java/JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING"
   }
 }

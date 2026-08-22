@@ -55,7 +55,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "Map contract",
+      "Java enums",
+      "arrays",
+      "and ordinal semantics"
+    ],
+    "learning_objectives": [
+      "Explain ordinal-indexed lookup",
+      "Distinguish absent from null-valued slots",
+      "Model bounded enum policies safely"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

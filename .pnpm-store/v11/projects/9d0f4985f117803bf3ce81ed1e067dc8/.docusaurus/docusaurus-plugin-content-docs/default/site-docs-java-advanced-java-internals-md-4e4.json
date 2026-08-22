@@ -1,7 +1,7 @@
 {
   "id": "java/ADVANCED-JAVA-INTERNALS",
   "title": "Advanced Java Internals",
-  "description": "This page is now the JVM/performance umbrella. Follow",
+  "description": "Java internals are the runtime mechanisms beneath Java source code: class",
   "source": "@site/docs/java/ADVANCED-JAVA-INTERNALS.md",
   "sourceDirName": "java",
   "slug": "/java/ADVANCED-JAVA-INTERNALS",
@@ -37,7 +37,7 @@
       "JFR",
       "JMH"
     ],
-    "last_reviewed": "2026-07-12",
+    "last_reviewed": "2026-08-04",
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",

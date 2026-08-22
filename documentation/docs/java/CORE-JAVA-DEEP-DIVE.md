@@ -4,8 +4,10 @@ description: Ordered learning path for Java language semantics, objects, collect
 sidebar_position: 1
 status: maintained
 last_reviewed: "2026-07-13"
-page_type: Guide
+page_type: Learning Path
 difficulty: Intermediate
+prerequisites: [Basic programming syntax and command-line execution]
+learning_objectives: [Follow Core Java topics in dependency order, Connect language contracts to runtime and production behavior, Select focused practice and deep-dive pages]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -27,6 +29,27 @@ adds design-review evidence, compatibility analysis, runtime diagnostics, and
 production architecture expectations to this concept sequence.
 
 This umbrella closes the gap between syntax tutorials and JVM internals. Follow it in order: later concurrency and collection rules depend on equality, type conversion, and object-model fundamentals.
+
+## Page Overview
+
+Core Java is the language and standard-library foundation used to express types,
+objects, errors, collections, functional pipelines, concurrency, and I/O. This
+path orders those subjects from observable language rules to JVM-aware and
+production reasoning; each linked chapter owns its examples and internals.
+
+## Prerequisites And Terminology
+
+Know variables, conditions, loops, methods, and how to compile a small program.
+A **language contract** defines legal Java behavior, an **implementation detail**
+describes one JVM's mechanism, and an **invariant** is a condition that must remain
+true across a state transition.
+
+## Mental Model
+
+```text
+language rules -> object contracts -> reusable types -> collections/streams
+               -> errors and concurrency -> JVM evidence -> production judgment
+```
 
 <DocCallout type="tip" title="Prove the rule, then name it">
 For each topic, predict the outcome first, run the smallest example that can

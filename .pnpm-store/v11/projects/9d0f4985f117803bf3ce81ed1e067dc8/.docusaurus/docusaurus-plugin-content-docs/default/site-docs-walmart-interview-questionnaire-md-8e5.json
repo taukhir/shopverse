@@ -15,7 +15,7 @@
     "title": "Walmart Interview Questionnaire",
     "description": "A 209-question preparation tracker reconstructed from the supplied Walmart-labelled interview-source conversation, with transparent priority and occurrence metadata.",
     "difficulty": "Intermediate",
-    "page_type": "Question Bank",
+    "page_type": "Interview",
     "status": "maintained",
     "prerequisites": [
       "Target role and study capacity"

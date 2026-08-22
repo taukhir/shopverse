@@ -1,0 +1,63 @@
+{
+  "id": "architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER",
+  "title": "Amway Commerce And Checkout Domain Primer",
+  "description": "A public-source business primer and a practical model for understanding cart, checkout, post-checkout, account, and profile data in an Amway Next Gen checkout pod.",
+  "source": "@site/docs/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER",
+  "permalink": "/shopverse/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "commerce",
+      "permalink": "/shopverse/tags/commerce"
+    },
+    {
+      "inline": true,
+      "label": "checkout",
+      "permalink": "/shopverse/tags/checkout"
+    },
+    {
+      "inline": true,
+      "label": "domain-modeling",
+      "permalink": "/shopverse/tags/domain-modeling"
+    },
+    {
+      "inline": true,
+      "label": "amway",
+      "permalink": "/shopverse/tags/amway"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Amway Commerce And Checkout Domain Primer",
+    "description": "A public-source business primer and a practical model for understanding cart, checkout, post-checkout, account, and profile data in an Amway Next Gen checkout pod.",
+    "sidebar_label": "Amway Checkout Domain Primer",
+    "tags": [
+      "commerce",
+      "checkout",
+      "domain-modeling",
+      "amway"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "last_reviewed": "2026-08-11",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "public-source-and-domain-model-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "State, Data, Deployment, And Failure Boundaries",
+    "permalink": "/shopverse/architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES"
+  },
+  "next": {
+    "title": "Amway Project Technology Stack",
+    "permalink": "/shopverse/architecture/AMWAY-PROJECT-TECH-STACK"
+  }
+}

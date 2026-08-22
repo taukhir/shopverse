@@ -55,7 +55,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "Map contract",
+      "Java equality and hashing",
+      "arrays",
+      "and generics"
+    ],
+    "learning_objectives": [
+      "Trace lookup insertion collision and resize paths",
+      "Design stable keys",
+      "Size and diagnose hash maps from workload evidence"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

@@ -38,6 +38,18 @@
     ],
     "page_type": "Reference",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Collection contracts",
+      "Java generics",
+      "equality",
+      "hashing",
+      "and ordering"
+    ],
+    "learning_objectives": [
+      "Define key-value association and backed views",
+      "Compare major Map implementations",
+      "Select atomicity ordering and key contracts"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

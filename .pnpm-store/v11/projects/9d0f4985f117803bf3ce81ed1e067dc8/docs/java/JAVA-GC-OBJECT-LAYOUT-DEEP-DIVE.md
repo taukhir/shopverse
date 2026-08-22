@@ -5,6 +5,8 @@ status: maintained
 last_reviewed: "2026-07-13"
 page_type: Guide
 difficulty: Intermediate
+prerequisites: [JVM Memory Areas, Java objects and references]
+learning_objectives: [Explain the logical and physical shape of an object, Trace allocation and reachability, Distinguish shallow size retained size and allocation rate]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -12,6 +14,40 @@ review_evidence: repository-content-audit
 ---
 
 # Java Object Layout, Allocation And Garbage Collectors
+
+An **object layout** is the JVM implementation's in-memory representation of an
+object: header information, a class pointer or equivalent metadata link, field
+values, and alignment padding. **Allocation** reserves storage for a new object.
+**Garbage collection (GC)** reclaims heap storage belonging to objects that are
+no longer reachable from GC roots.
+
+## Page Overview
+
+This page connects object headers and field layout to TLAB allocation,
+reachability, write barriers, and collector behavior. It distinguishes shallow
+size, retained size, and allocation rate, then applies those measurements to
+collector selection, log analysis, an allocation-storm diagnostic, and a
+repeatable lab.
+
+## What Questions Does This Page Answer?
+
+This page connects three beginner questions before introducing collector
+mechanics:
+
+1. How much space does one object occupy?
+2. How does a thread obtain space for a new object?
+3. Why does an object stay alive or become collectible?
+
+These are different measurements. Shallow size describes one object, retained
+size describes the reachable graph kept alive by an object, and allocation rate
+describes how quickly new objects are created.
+
+## Prerequisites
+
+Read [JVM Memory Areas](./JAVA-JVM-MEMORY.md) first. You should know that objects
+normally live in the shared heap and local variables may contain references to
+those objects. Collector-specific tuning is intentionally deferred to the next
+page.
 
 <DocLabels items={[
   {label: 'Advanced', tone: 'advanced'},
@@ -24,7 +60,7 @@ One small object can retain a large graph, while many short-lived objects can cr
 high allocation pressure without remaining reachable. Measure both questions.
 </DocCallout>
 
-## Layout And Allocation
+## Object Layout And Allocation Internals
 
 HotSpot objects commonly contain a mark word, class metadata pointer, fields and
 alignment padding. Exact layout depends on JVM, flags and class shape. Compressed
@@ -123,6 +159,17 @@ p99. Changing collectors first would not establish whether object churn was the
 cause. Run intrusive histograms or heap dumps only where their pause and I/O cost
 is acceptable.
 
+## Failure Modes And Common Mistakes
+
+- confusing shallow size with the retained graph reachable from an object;
+- assuming every source-level `new` produces a surviving heap allocation;
+- treating high allocation as a leak without checking post-GC live-set growth;
+- treating a reference cycle as uncollectible when no GC root reaches it;
+- ignoring alignment, compressed references, arrays, and backing objects when
+  estimating layout;
+- capturing a heap dump without budgeting pause time, disk, memory pressure,
+  permissions, and sensitive-data handling.
+
 ## Lab
 
 Run the same allocation/live-set workload with G1 and a low-pause collector.
@@ -161,4 +208,4 @@ can cost more than allocating short-lived objects.
 
 ## Recommended Next
 
-Continue with [JVM Profiling, GC And Native Memory](./JVM-PROFILING-GC-NATIVE.md).
+Continue with [JVM Garbage Collectors](./JAVA-GC-COLLECTORS-ARCHITECT.md).

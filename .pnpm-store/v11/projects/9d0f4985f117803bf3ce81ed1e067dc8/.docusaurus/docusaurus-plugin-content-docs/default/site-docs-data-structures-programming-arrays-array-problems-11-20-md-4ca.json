@@ -1,6 +1,6 @@
 {
   "id": "data-structures/programming/arrays/ARRAY-PROBLEMS-11-20",
-  "title": "Array Problems 11-20 - Marking, DP, Two Pointers, And Matrices",
+  "title": "Array Problems 11-20",
   "description": "Worked Java solutions for missing values, duplicates, intersections, Dutch flag partitioning, consecutive sequences, product DP, water, 3Sum, and spiral traversal.",
   "source": "@site/docs/data-structures/programming/arrays/ARRAY-PROBLEMS-11-20.md",
   "sourceDirName": "data-structures/programming/arrays",
@@ -13,7 +13,7 @@
   "version": "current",
   "sidebarPosition": 4,
   "frontMatter": {
-    "title": "Array Problems 11-20 - Marking, DP, Two Pointers, And Matrices",
+    "title": "Array Problems 11-20",
     "description": "Worked Java solutions for missing values, duplicates, intersections, Dutch flag partitioning, consecutive sequences, product DP, water, 3Sum, and spiral traversal.",
     "sidebar_label": "Problems 11-20",
     "sidebar_position": 4,

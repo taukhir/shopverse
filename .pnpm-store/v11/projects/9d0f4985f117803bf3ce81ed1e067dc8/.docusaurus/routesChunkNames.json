@@ -5,13 +5,13 @@
       "plugin": "138e0e15"
     }
   },
-  "/shopverse/-4b1": {
+  "/shopverse/-0bc": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/shopverse/-79b": {
+  "/shopverse/-042": {
     "__comp": "a7bd4aaa",
     "__props": "4b465b94"
   },
@@ -23,13 +23,29 @@
     "__comp": "df203c0f",
     "__props": "a035127a"
   },
+  "/shopverse/tags/amway-f24": {
+    "__comp": "df203c0f",
+    "__props": "df5d742a"
+  },
   "/shopverse/tags/aop-290": {
     "__comp": "df203c0f",
     "__props": "5f6686a6"
   },
+  "/shopverse/tags/api-client-7be": {
+    "__comp": "df203c0f",
+    "__props": "276e403f"
+  },
+  "/shopverse/tags/api-contracts-2f3": {
+    "__comp": "df203c0f",
+    "__props": "4bbade6d"
+  },
   "/shopverse/tags/architecture-aff": {
     "__comp": "df203c0f",
     "__props": "941e900d"
+  },
+  "/shopverse/tags/argo-cd-8f5": {
+    "__comp": "df203c0f",
+    "__props": "c323d817"
   },
   "/shopverse/tags/arraydeque-531": {
     "__comp": "df203c0f",
@@ -43,6 +59,10 @@
     "__comp": "df203c0f",
     "__props": "2d9255ee"
   },
+  "/shopverse/tags/aws-5cf": {
+    "__comp": "df203c0f",
+    "__props": "32bc224f"
+  },
   "/shopverse/tags/behavioral-043": {
     "__comp": "df203c0f",
     "__props": "2b36b076"
@@ -55,13 +75,37 @@
     "__comp": "df203c0f",
     "__props": "59f17a86"
   },
+  "/shopverse/tags/cdi-102": {
+    "__comp": "df203c0f",
+    "__props": "2a32a755"
+  },
+  "/shopverse/tags/checkout-365": {
+    "__comp": "df203c0f",
+    "__props": "56a31bb1"
+  },
+  "/shopverse/tags/code-generation-f01": {
+    "__comp": "df203c0f",
+    "__props": "7779d79a"
+  },
   "/shopverse/tags/collections-400": {
     "__comp": "df203c0f",
     "__props": "84de6ba9"
   },
+  "/shopverse/tags/commerce-62e": {
+    "__comp": "df203c0f",
+    "__props": "1c224fb7"
+  },
   "/shopverse/tags/concurrency-0dd": {
     "__comp": "df203c0f",
     "__props": "a038044c"
+  },
+  "/shopverse/tags/containers-68a": {
+    "__comp": "df203c0f",
+    "__props": "33f376ac"
+  },
+  "/shopverse/tags/contract-testing-116": {
+    "__comp": "df203c0f",
+    "__props": "d7dbb38a"
   },
   "/shopverse/tags/creational-654": {
     "__comp": "df203c0f",
@@ -87,6 +131,14 @@
     "__comp": "df203c0f",
     "__props": "e41814d3"
   },
+  "/shopverse/tags/domain-modeling-667": {
+    "__comp": "df203c0f",
+    "__props": "b4b525a1"
+  },
+  "/shopverse/tags/dynatrace-651": {
+    "__comp": "df203c0f",
+    "__props": "ddbaf706"
+  },
   "/shopverse/tags/enummap-3d5": {
     "__comp": "df203c0f",
     "__props": "f42aaff8"
@@ -99,9 +151,21 @@
     "__comp": "df203c0f",
     "__props": "36af0f18"
   },
+  "/shopverse/tags/fundamentals-aca": {
+    "__comp": "df203c0f",
+    "__props": "89378834"
+  },
+  "/shopverse/tags/github-actions-8cf": {
+    "__comp": "df203c0f",
+    "__props": "53d24f74"
+  },
   "/shopverse/tags/go-f-939": {
     "__comp": "df203c0f",
     "__props": "3b4872e4"
+  },
+  "/shopverse/tags/gradle-d8b": {
+    "__comp": "df203c0f",
+    "__props": "48c73b7a"
   },
   "/shopverse/tags/hashmap-028": {
     "__comp": "df203c0f",
@@ -115,9 +179,17 @@
     "__comp": "df203c0f",
     "__props": "a936bf6e"
   },
+  "/shopverse/tags/hibernate-847": {
+    "__comp": "df203c0f",
+    "__props": "b900d6a3"
+  },
   "/shopverse/tags/hld-555": {
     "__comp": "df203c0f",
     "__props": "42dc9895"
+  },
+  "/shopverse/tags/idempotency-e99": {
+    "__comp": "df203c0f",
+    "__props": "80f7991f"
   },
   "/shopverse/tags/immutability-3ca": {
     "__comp": "df203c0f",
@@ -151,6 +223,10 @@
     "__comp": "df203c0f",
     "__props": "08a2d93f"
   },
+  "/shopverse/tags/kubernetes-520": {
+    "__comp": "df203c0f",
+    "__props": "05a7b5b9"
+  },
   "/shopverse/tags/legacy-route-168": {
     "__comp": "df203c0f",
     "__props": "039518d6"
@@ -179,6 +255,10 @@
     "__comp": "df203c0f",
     "__props": "809965f0"
   },
+  "/shopverse/tags/maven-527": {
+    "__comp": "df203c0f",
+    "__props": "1f1f1b9c"
+  },
   "/shopverse/tags/micrometer-bd5": {
     "__comp": "df203c0f",
     "__props": "baac290d"
@@ -186,6 +266,10 @@
   "/shopverse/tags/microservices-6a8": {
     "__comp": "df203c0f",
     "__props": "89f9ea23"
+  },
+  "/shopverse/tags/native-image-090": {
+    "__comp": "df203c0f",
+    "__props": "79ce562d"
   },
   "/shopverse/tags/oauth-2-8b3": {
     "__comp": "df203c0f",
@@ -203,6 +287,10 @@
     "__comp": "df203c0f",
     "__props": "4adb823f"
   },
+  "/shopverse/tags/openapi-fe6": {
+    "__comp": "df203c0f",
+    "__props": "8430163a"
+  },
   "/shopverse/tags/opentelemetry-276": {
     "__comp": "df203c0f",
     "__props": "386a12e3"
@@ -210,6 +298,10 @@
   "/shopverse/tags/ownership-d0a": {
     "__comp": "df203c0f",
     "__props": "41ff3684"
+  },
+  "/shopverse/tags/panache-e62": {
+    "__comp": "df203c0f",
+    "__props": "7e41fb98"
   },
   "/shopverse/tags/platform-926": {
     "__comp": "df203c0f",
@@ -222,6 +314,10 @@
   "/shopverse/tags/production-2c4": {
     "__comp": "df203c0f",
     "__props": "1ca51548"
+  },
+  "/shopverse/tags/quarkus-e14": {
+    "__comp": "df203c0f",
+    "__props": "ac9cef99"
   },
   "/shopverse/tags/queue-691": {
     "__comp": "df203c0f",
@@ -242,6 +338,10 @@
   "/shopverse/tags/reliability-b24": {
     "__comp": "df203c0f",
     "__props": "b6316e78"
+  },
+  "/shopverse/tags/rest-a49": {
+    "__comp": "df203c0f",
+    "__props": "443bce7c"
   },
   "/shopverse/tags/security-c3b": {
     "__comp": "df203c0f",
@@ -271,9 +371,17 @@
     "__comp": "df203c0f",
     "__props": "582c3418"
   },
+  "/shopverse/tags/swagger-2ff": {
+    "__comp": "df203c0f",
+    "__props": "6a502f73"
+  },
   "/shopverse/tags/system-design-5a1": {
     "__comp": "df203c0f",
     "__props": "9ac7a8d9"
+  },
+  "/shopverse/tags/testing-e16": {
+    "__comp": "df203c0f",
+    "__props": "bf968e7f"
   },
   "/shopverse/tags/tracing-0fe": {
     "__comp": "df203c0f",
@@ -287,11 +395,19 @@
     "__comp": "df203c0f",
     "__props": "29b6705a"
   },
+  "/shopverse/tags/tutorial-c7e": {
+    "__comp": "df203c0f",
+    "__props": "c73068ef"
+  },
   "/shopverse/tags/uml-653": {
     "__comp": "df203c0f",
     "__props": "fbcf0e0d"
   },
-  "/shopverse/-fa1": {
+  "/shopverse/tags/validation-ff6": {
+    "__comp": "df203c0f",
+    "__props": "100c68b7"
+  },
+  "/shopverse/-605": {
     "__comp": "a94703ab"
   },
   "/shopverse/ai/-5f2": {
@@ -533,6 +649,22 @@
   "/shopverse/architecture/adr/observability-stack-220": {
     "__comp": "17896441",
     "content": "863a1bc6"
+  },
+  "/shopverse/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER-1b2": {
+    "__comp": "17896441",
+    "content": "bc7ad9fa"
+  },
+  "/shopverse/architecture/AMWAY-DELIVERY-OBSERVABILITY-de8": {
+    "__comp": "17896441",
+    "content": "067bd4d4"
+  },
+  "/shopverse/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS-1d2": {
+    "__comp": "17896441",
+    "content": "d900e297"
+  },
+  "/shopverse/architecture/AMWAY-PROJECT-TECH-STACK-4e6": {
+    "__comp": "17896441",
+    "content": "70c3e7e9"
   },
   "/shopverse/architecture/API-EVENT-COMPATIBILITY-007": {
     "__comp": "17896441",
@@ -2897,6 +3029,46 @@
   "/shopverse/platform/WEB-PAGINATION-35a": {
     "__comp": "17896441",
     "content": "5fd4ff41"
+  },
+  "/shopverse/quarkus/-8e7": {
+    "__comp": "17896441",
+    "content": "163801e4"
+  },
+  "/shopverse/quarkus/QUARKUS-CHECKOUT-TUTORIAL-148": {
+    "__comp": "17896441",
+    "content": "eb4ee480"
+  },
+  "/shopverse/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING-953": {
+    "__comp": "17896441",
+    "content": "2a89dda3"
+  },
+  "/shopverse/quarkus/QUARKUS-FUNDAMENTALS-d60": {
+    "__comp": "17896441",
+    "content": "568e5570"
+  },
+  "/shopverse/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY-319": {
+    "__comp": "17896441",
+    "content": "69600592"
+  },
+  "/shopverse/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION-9c3": {
+    "__comp": "17896441",
+    "content": "5db3fd6a"
+  },
+  "/shopverse/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS-ea4": {
+    "__comp": "17896441",
+    "content": "21ddef48"
+  },
+  "/shopverse/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS-b79": {
+    "__comp": "17896441",
+    "content": "3480621a"
+  },
+  "/shopverse/quarkus/QUARKUS-OPENAPI-PROVIDER-3ce": {
+    "__comp": "17896441",
+    "content": "7bd6b81e"
+  },
+  "/shopverse/quarkus/QUARKUS-REST-CDI-CONFIG-044": {
+    "__comp": "17896441",
+    "content": "b3694d0d"
   },
   "/shopverse/reference/CODE-CROSS-CHECK-ff4": {
     "__comp": "17896441",

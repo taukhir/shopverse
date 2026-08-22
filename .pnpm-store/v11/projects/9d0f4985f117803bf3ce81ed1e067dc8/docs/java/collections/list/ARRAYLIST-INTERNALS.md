@@ -5,6 +5,8 @@ sidebar_label: "ArrayList"
 tags: [java, collections, list, arraylist, internals]
 page_type: Deep Dive
 difficulty: Advanced
+prerequisites: [List contract, Java arrays, generics, and iteration]
+learning_objectives: [Trace ArrayList growth and shifting, Predict iterator and mutation behavior, Size and select lists from workload evidence]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -17,6 +19,16 @@ review_evidence: repository-content-audit
 
 `ArrayList<E>` stores element references in a contiguous `Object[]`. `size` is
 the number of logical elements; capacity is the backing-array length.
+It is the default general-purpose list because append, indexed reads, and linear
+traversal fit common workloads with low per-element overhead.
+
+## Page Overview
+
+`ArrayList` is a resizable-array `List`. This page connects lazy allocation and
+capacity growth to indexed access, shifting, iteration, thread-safety boundaries,
+and production sizing. **Size** counts elements; **capacity** counts backing slots.
+
+## Core Terminology And Mental Model
 
 ```text
 elementData -> [A][B][C][null][null]   size = 3, capacity = 5
@@ -39,7 +51,7 @@ When append exceeds capacity, `ArrayList` allocates a larger array and copies
 all existing references. `ensureCapacity(expected)` avoids repeated growth;
 `trimToSize()` can release spare capacity but causes another copy.
 
-## How Operations Work
+## How It Works: Operations And Growth
 
 - `get(i)` and `set(i,e)` calculate one array offset: O(1).
 - `add(e)` writes at `elementData[size]`; occasional growth makes it amortized O(1).
@@ -79,6 +91,30 @@ not a synchronization mechanism.
 Use it for general lists, append-heavy accumulation, indexed access, sorting,
 and traversal. Avoid it for frequent front insertion/removal, concurrent
 mutation, or FIFO/LIFO work—use `ArrayDeque` for the latter.
+
+## Failure Modes, Edge Cases, And Production Decisions
+
+- repeated front removal shifts every suffix and becomes quadratic;
+- `subList` is a backed view, not an independent copy;
+- fail-fast iteration is bug detection, not synchronization;
+- retaining a view can retain the parent backing storage;
+- pre-sizing helps only when the estimate is reliable enough to avoid waste.
+
+## Tricky Interview Questions
+
+<ExpandableAnswer title="Why is append amortized O(1)?">
+Most appends fill one slot; occasional growth allocates and copies the array.
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Does trimToSize always help?">
+No. It copies storage and may cause an immediate regrowth under later writes.
+</ExpandableAnswer>
+
+## Recommended Next
+
+Compare [LinkedList](./LINKEDLIST-INTERNALS.md),
+[CopyOnWriteArrayList](./COPYONWRITEARRAYLIST-INTERNALS.md), and
+[safe mutation](../SAFE-COLLECTION-MUTATION.md).
 
 ## Official References
 

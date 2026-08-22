@@ -19,6 +19,17 @@
     "last_reviewed": "2026-07-13",
     "page_type": "Guide",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Java collections",
+      "generics",
+      "lambdas",
+      "and functional interfaces"
+    ],
+    "learning_objectives": [
+      "Build lazy side-effect-controlled pipelines",
+      "Select map flatMap collect and reduce correctly",
+      "Evaluate parallel stream safety and cost"
+    ],
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",

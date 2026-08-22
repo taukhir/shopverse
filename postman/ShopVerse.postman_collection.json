@@ -1,0 +1,2555 @@
+{
+  "info": {
+    "_postman_id": "3c52c9b6-413a-4ef3-b47c-22bce4d6d411",
+    "name": "ShopVerse - Complete API",
+    "description": "Complete ShopVerse API collection derived from the Spring controllers and security configuration. Import an accompanying environment, run Authentication first, then use Customer or Admin folders. Public registration targets user-service directly because the current gateway route does not include /api/v1/public/**. Destructive and recovery requests are included but are never run automatically.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (!pm.environment.get('correlationId')) pm.environment.set('correlationId', pm.variables.replaceIn('{{$guid}}'));",
+          "if (!pm.environment.get('idempotencyKey')) pm.environment.set('idempotencyKey', 'checkout-' + pm.variables.replaceIn('{{$guid}}'));"
+        ]
+      }
+    }
+  ],
+  "variable": [],
+  "item": [
+    {
+      "name": "00 - Authentication",
+      "item": [
+        {
+          "name": "Login as admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/auth/login",
+            "description": "Authenticates the seeded administrator and stores adminToken and accessToken.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{adminUsername}}\",\n  \"password\": \"{{adminPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });",
+                  "const body = pm.response.json();",
+                  "pm.expect(body.token).to.be.a('string').and.not.empty;",
+                  "pm.environment.set(\"adminToken\", body.token);",
+                  "pm.environment.set(\"accessToken\", body.token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login as customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/auth/login",
+            "description": "Authenticates the seeded customer and stores customerToken and accessToken.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{customerUsername}}\",\n  \"password\": \"{{customerPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });",
+                  "const body = pm.response.json();",
+                  "pm.expect(body.token).to.be.a('string').and.not.empty;",
+                  "pm.environment.set(\"customerToken\", body.token);",
+                  "pm.environment.set(\"accessToken\", body.token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "JWKS",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/auth/.well-known/jwks.json",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "description": "JWT login and public key discovery. Set accessToken to switch the collection-level identity."
+    },
+    {
+      "name": "01 - Public APIs",
+      "item": [
+        {
+          "name": "Register customer (direct user-service)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{userServiceUrl}}/api/v1/public/users/register",
+            "description": "Direct-service request. The current gateway route omits /api/v1/public/**.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{registrationUsername}}\",\n  \"email\": \"{{registrationEmail}}\",\n  \"password\": \"{{registrationPassword}}\",\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Customer\",\n  \"phoneNumber\": \"+919876543210\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 201\", () => pm.expect([201]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "User service health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{userServiceUrl}}/api/v1/public/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Inventory service health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/public/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List catalog items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/public/items",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get catalog item",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/public/items/{{productId}}",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/public/categories",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List related catalog items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/public/items/{{productId}}/related",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Order service health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/public/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Order catalog facade",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/public/catalog",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Payment service health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/public/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Payment provider webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/payments/webhooks/provider",
+            "description": "Public provider callback. Valid statuses: PENDING, AUTHORIZED, CAPTURED, DECLINED, TIMED_OUT, REFUNDED.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderNumber\": \"{{orderNumber}}\",\n  \"status\": \"CAPTURED\",\n  \"paymentReference\": \"postman-provider-reference\",\n  \"reason\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 - Customer - Profile and Addresses",
+      "item": [
+        {
+          "name": "Get my profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/users/me",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Patch my profile",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/users/me",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{customerEmail}}\",\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Customer\",\n  \"phoneNumber\": \"+919876543210\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Replace my profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/users/me",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{customerEmail}}\",\n  \"firstName\": \"Postman\",\n  \"lastName\": \"Customer\",\n  \"phoneNumber\": \"+919876543210\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List my addresses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/users/me/addresses",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create my address",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/users/me/addresses",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"Home\",\n  \"recipientName\": \"Postman Customer\",\n  \"phoneNumber\": \"+919876543210\",\n  \"line1\": \"42 Commerce Street\",\n  \"line2\": \"Suite 7\",\n  \"city\": \"Bengaluru\",\n  \"state\": \"Karnataka\",\n  \"postalCode\": \"560001\",\n  \"country\": \"India\",\n  \"defaultAddress\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200, 201\", () => pm.expect([200,201]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });",
+                  "const body = pm.response.json();",
+                  "const value = body.id ?? body.data?.id;",
+                  "if (value !== undefined && value !== null) pm.environment.set(\"addressId\", String(value));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update my address",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/users/me/addresses/{{addressId}}",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"Home\",\n  \"recipientName\": \"Postman Customer\",\n  \"phoneNumber\": \"+919876543210\",\n  \"line1\": \"43 Commerce Street\",\n  \"line2\": \"\",\n  \"city\": \"Bengaluru\",\n  \"state\": \"Karnataka\",\n  \"postalCode\": \"560001\",\n  \"country\": \"India\",\n  \"defaultAddress\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete my address",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/users/me/addresses/{{addressId}}",
+            "description": "Destructive: deletes the selected address."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 204\", () => pm.expect([204]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{customerToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "03 - Customer - Cart",
+      "item": [
+        {
+          "name": "Get cart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/cart",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Replace cart",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/cart",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"quantity\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Merge cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/cart/merge",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"quantity\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Validate cart",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/cart/validate",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete cart item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/cart/items/{{productId}}",
+            "description": "Destructive: removes the product from the current user's cart."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{customerToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "04 - Customer - Orders",
+      "item": [
+        {
+          "name": "List my orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get my order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/{{orderId}}",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get order timeline",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/{{orderId}}/timeline",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "{{idempotencyKey}}"
+              },
+              {
+                "key": "X-Correlation-Id",
+                "value": "{{correlationId}}"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/orders/checkout",
+            "description": "Creates an idempotent checkout and starts the Kafka choreography. Reuse the same Idempotency-Key for retries of the same checkout.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"quantity\": 1\n    }\n  ],\n  \"shippingAddress\": {\n    \"recipientName\": \"Postman Customer\",\n    \"phoneNumber\": \"+919876543210\",\n    \"line1\": \"42 Commerce Street\",\n    \"line2\": \"\",\n    \"city\": \"Bengaluru\",\n    \"state\": \"Karnataka\",\n    \"postalCode\": \"560001\",\n    \"country\": \"India\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 201\", () => pm.expect([201]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });",
+                  "const body = pm.response.json();",
+                  "if (body.id != null) pm.environment.set('orderId', String(body.id));",
+                  "if (body.orderNumber) pm.environment.set('orderNumber', body.orderNumber);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cancel my order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/{{orderId}}/cancel",
+            "description": "Business transition; only valid for an owned cancellable order."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Request return",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/{{orderId}}/return-request",
+            "description": "Business transition; only valid for an owned delivered order."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{customerToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "05 - Customer - Payments",
+      "item": [
+        {
+          "name": "Get payment by order number",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/orders/{{orderNumber}}",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create payment intent",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/payments/intent",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderNumber\": \"{{orderNumber}}\",\n  \"correlationId\": \"{{correlationId}}\",\n  \"amount\": 1499\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Retry payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/orders/{{orderNumber}}/retry",
+            "description": "Only valid for an owned declined or timed-out payment."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Request refund",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/orders/{{orderNumber}}/refund",
+            "description": "Only valid for an owned captured payment."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{customerToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "06 - Admin - Users",
+      "item": [
+        {
+          "name": "Search users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/users?page=0&size=20&sortBy=id&direction=ASC&search=&status=&role=",
+            "description": "Optional filters: search, status (ACTIVE, INACTIVE, LOCKED, SUSPENDED, DELETED), and role."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/users/{{userId}}",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/users",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{newUsername}}\",\n  \"email\": \"{{newUserEmail}}\",\n  \"password\": \"{{newUserPassword}}\",\n  \"firstName\": \"API\",\n  \"lastName\": \"User\",\n  \"phoneNumber\": \"+919876543211\",\n  \"roles\": [\n    \"ROLE_CUSTOMER\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200, 201\", () => pm.expect([200,201]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });",
+                  "const body = pm.response.json();",
+                  "const value = body.data?.id ?? body.id;",
+                  "if (value !== undefined && value !== null) pm.environment.set(\"userId\", String(value));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update user",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/users/{{userId}}",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Updated\",\n  \"lastName\": \"User\",\n  \"status\": \"ACTIVE\",\n  \"enabled\": true,\n  \"accountNonLocked\": true,\n  \"roles\": [\n    \"ROLE_CUSTOMER\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Change user password",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/users/{{userId}}/password",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"{{customerPassword}}\",\n  \"newPassword\": \"{{newUserPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reset user password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/users/{{userId}}/password/reset",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newPassword\": \"{{newUserPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/users/{{userId}}",
+            "description": "Destructive: deletes the selected user."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 204\", () => pm.expect([204]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{adminToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "07 - Admin - Roles",
+      "item": [
+        {
+          "name": "Search roles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/roles?page=0&size=20&sortBy=id&direction=ASC&search=&permission=",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get role",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/roles/{{roleId}}",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create role",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/roles",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roleName\": \"ROLE_POSTMAN_TEST\",\n  \"description\": \"Postman-created test role\",\n  \"permissions\": [\n    \"USER_READ\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200, 201\", () => pm.expect([200,201]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });",
+                  "const body = pm.response.json();",
+                  "const value = body.data?.id ?? body.id;",
+                  "if (value !== undefined && value !== null) pm.environment.set(\"roleId\", String(value));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update role",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/roles/{{roleId}}",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated Postman test role\",\n  \"permissions\": [\n    \"USER_READ\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete role",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/roles/{{roleId}}",
+            "description": "Destructive: deletes the selected role."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 204\", () => pm.expect([204]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{adminToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "08 - Admin - Permissions",
+      "item": [
+        {
+          "name": "Search permissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/permissions?page=0&size=20&sortBy=id&direction=ASC&search=&moduleName=",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get permission",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/permissions/{{permissionId}}",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create permission",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/permissions",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"permissionName\": \"POSTMAN_TEST\",\n  \"description\": \"Postman-created test permission\",\n  \"moduleName\": \"TEST\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200, 201\", () => pm.expect([200,201]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });",
+                  "const body = pm.response.json();",
+                  "const value = body.data?.id ?? body.id;",
+                  "if (value !== undefined && value !== null) pm.environment.set(\"permissionId\", String(value));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update permission",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/permissions/{{permissionId}}",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated Postman test permission\",\n  \"moduleName\": \"TEST\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete permission",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/permissions/{{permissionId}}",
+            "description": "Destructive: deletes the selected permission."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 204\", () => pm.expect([204]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{adminToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "09 - Admin - Audit",
+      "item": [
+        {
+          "name": "Search audit events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/admin/audit-events?page=0&size=50&sortBy=occurredAt&direction=DESC&area=&actor=&result=&search=",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get audit event",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/admin/audit-events/{{auditEventId}}",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{adminToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "10 - Admin - Inventory",
+      "item": [
+        {
+          "name": "Get secured inventory item",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/{{productId}}",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create or replace inventory item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/inventory/admin/items",
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"{{productId}}\",\n  \"productName\": \"Postman Product\",\n  \"brand\": \"ShopVerse\",\n  \"model\": \"PM-1\",\n  \"category\": \"Test\",\n  \"description\": \"Product maintained through the ShopVerse Postman collection\",\n  \"imageUrl\": \"https://example.com/shopverse-product.png\",\n  \"imageKey\": \"products/postman-product.png\",\n  \"unitPrice\": 1499,\n  \"availableQuantity\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Upload inventory image",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/admin/items/{{productId}}/image",
+            "description": "Choose a local image file in Postman before sending.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get reservation by order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/admin/reservations/orders/{{orderNumber}}",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List inventory dead letters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/admin/dead-letters",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Replay inventory dead letter",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/inventory/admin/dead-letters/{{deadLetterId}}/replay",
+            "description": "Recovery write: replays one persisted failed Kafka event. Use deliberately."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{adminToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "11 - Admin - Orders",
+      "item": [
+        {
+          "name": "List all orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/admin/all",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cancel order as admin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/admin/{{orderId}}/cancel",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pack order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/admin/{{orderId}}/pack",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ship order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/admin/{{orderId}}/ship",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Deliver order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/admin/{{orderId}}/deliver",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Evict catalog cache",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/admin/catalog-cache/evict",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 204\", () => pm.expect([204]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List order dead letters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/admin/dead-letters",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Replay order dead letter",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/admin/dead-letters/{{deadLetterId}}/replay",
+            "description": "Recovery write: replays one persisted failed Kafka event. Use deliberately."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete (cancel) order",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/orders/{{orderId}}",
+            "description": "Destructive business transition: the endpoint cancels rather than physically deleting the order."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{adminToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "12 - Admin - Payments",
+      "item": [
+        {
+          "name": "List all payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/admin",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Set payment simulation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/admin/simulation?mode={{paymentSimulationMode}}",
+            "description": "Valid modes: SUCCESS, DECLINE, TIMEOUT."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reconcile payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/admin/orders/{{orderNumber}}/reconcile",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Refund payment as admin",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/admin/orders/{{orderNumber}}/refund",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List payment dead letters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/admin/dead-letters",
+            "description": ""
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Replay payment dead letter",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{gatewayUrl}}/api/v1/payments/admin/dead-letters/{{deadLetterId}}/replay",
+            "description": "Recovery write: replays one persisted failed Kafka event. Use deliberately."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{adminToken}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "13 - Operations and API Docs",
+      "item": [
+        {
+          "name": "Gateway health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/actuator/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "ShopVerse readiness",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/actuator/shopverse-readiness",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200, 503\", () => pm.expect([200,503]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Discovery health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{discoveryServerUrl}}/actuator/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Discovery application health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{discoveryServerUrl}}/api/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Config Server health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{configServerUrl}}/actuator/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Auth service health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{authServiceUrl}}/actuator/health",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "User OpenAPI document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{userServiceUrl}}/v3/api-docs",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Inventory OpenAPI document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{inventoryServiceUrl}}/v3/api-docs",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Order OpenAPI document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{orderServiceUrl}}/v3/api-docs",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Payment OpenAPI document",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{paymentServiceUrl}}/v3/api-docs",
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "14 - Internal APIs (direct service only)",
+      "item": [
+        {
+          "name": "Validate user credentials (HTTP Basic)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{userServiceUrl}}/api/v1/internal/users/authenticated",
+            "description": "Internal endpoint used by auth-service. It is intentionally not routed through the gateway.",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{internalUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{internalPassword}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 200\", () => pm.expect([200]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

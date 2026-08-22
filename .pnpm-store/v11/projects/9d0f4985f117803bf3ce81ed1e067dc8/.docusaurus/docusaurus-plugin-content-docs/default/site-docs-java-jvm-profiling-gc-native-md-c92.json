@@ -1,7 +1,7 @@
 {
   "id": "java/JVM-PROFILING-GC-NATIVE",
   "title": "JVM Profiling, Garbage Collection, And Native Images",
-  "description": "Java internals atlas showing allocation, JIT, GC, virtual threads, collection layout, and JMH phases",
+  "description": "Beginner-to-advanced guide to JVM profiling evidence for CPU allocation locks garbage collection retention and native-memory questions, plus native-image evaluation boundaries.",
   "source": "@site/docs/java/JVM-PROFILING-GC-NATIVE.md",
   "sourceDirName": "java",
   "slug": "/java/JVM-PROFILING-GC-NATIVE",
@@ -13,9 +13,15 @@
   "version": "current",
   "frontMatter": {
     "title": "JVM Profiling, Garbage Collection, And Native Images",
+    "description": "Beginner-to-advanced guide to JVM profiling evidence for CPU allocation locks garbage collection retention and native-memory questions, plus native-image evaluation boundaries.",
     "difficulty": "Advanced",
     "page_type": "Tutorial",
     "status": "maintained",
+    "prerequisites": [
+      "JVM Performance Diagnostics",
+      "JVM Memory Areas",
+      "Garbage Collectors"
+    ],
     "keywords": [
       "Java Flight Recorder",
       "JFR",
@@ -37,7 +43,7 @@
       "JDK Mission Control",
       "GraalVM"
     ],
-    "last_reviewed": "2026-07-12",
+    "last_reviewed": "2026-08-04",
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
@@ -45,11 +51,11 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "Java Containers Resource Limits And Production Diagnostics",
-    "permalink": "/shopverse/java/JAVA-CONTAINERS-RESOURCE-LIMITS"
+    "title": "Java Performance Diagnostics And Tooling",
+    "permalink": "/shopverse/java/JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING"
   },
   "next": {
-    "title": "Java Performance Engineering Capacity And Evidence",
-    "permalink": "/shopverse/java/JAVA-PERFORMANCE-ENGINEERING-CAPACITY"
+    "title": "NIO, Zero-Copy, And JMH Benchmarking",
+    "permalink": "/shopverse/java/advanced-internals/NIO-PERFORMANCE-JMH"
   }
 }

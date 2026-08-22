@@ -1,0 +1,78 @@
+{
+  "id": "quarkus/QUARKUS-OPENAPI-FUNDAMENTALS",
+  "title": "OpenAPI Fundamentals For Quarkus",
+  "description": "Beginner tutorial explaining OpenAPI, Swagger UI, contracts, schemas, operations, and a first Quarkus API description.",
+  "source": "@site/docs/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS.md",
+  "sourceDirName": "quarkus",
+  "slug": "/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS",
+  "permalink": "/shopverse/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "openapi",
+      "permalink": "/shopverse/tags/openapi"
+    },
+    {
+      "inline": true,
+      "label": "swagger",
+      "permalink": "/shopverse/tags/swagger"
+    },
+    {
+      "inline": true,
+      "label": "tutorial",
+      "permalink": "/shopverse/tags/tutorial"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "OpenAPI Fundamentals For Quarkus",
+    "description": "Beginner tutorial explaining OpenAPI, Swagger UI, contracts, schemas, operations, and a first Quarkus API description.",
+    "sidebar_label": "3. OpenAPI Fundamentals",
+    "tags": [
+      "quarkus",
+      "openapi",
+      "swagger",
+      "tutorial"
+    ],
+    "page_type": "Tutorial",
+    "difficulty": "Beginner",
+    "status": "maintained",
+    "prerequisites": [
+      "HTTP and JSON basics",
+      "Quarkus REST basics"
+    ],
+    "learning_objectives": [
+      "Distinguish OpenAPI from Swagger UI",
+      "Read a small OpenAPI document",
+      "Expose and inspect a Quarkus API description"
+    ],
+    "technologies": [
+      "Quarkus",
+      "SmallRye OpenAPI",
+      "Swagger UI",
+      "OpenAPI"
+    ],
+    "last_reviewed": "2026-08-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "2. REST, CDI, Config",
+    "permalink": "/shopverse/quarkus/QUARKUS-REST-CDI-CONFIG"
+  },
+  "next": {
+    "title": "4. Provider Contract",
+    "permalink": "/shopverse/quarkus/QUARKUS-OPENAPI-PROVIDER"
+  }
+}

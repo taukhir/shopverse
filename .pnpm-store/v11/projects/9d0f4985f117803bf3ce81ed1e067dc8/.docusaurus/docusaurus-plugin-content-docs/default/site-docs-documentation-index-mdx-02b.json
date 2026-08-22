@@ -18,10 +18,14 @@
     "description": "Root-level expandable directory of every documentation umbrella, subpage group, and topic page.",
     "page_type": "Reference",
     "difficulty": "Beginner",
+    "learning_objectives": [
+      "Locate the canonical page for a documentation topic",
+      "Distinguish overviews, focused guides, deep dives, runbooks, labs, and interview practice"
+    ],
     "status": "maintained",
     "hide_table_of_contents": true,
     "hide_reader_chrome": true,
-    "last_reviewed": "2026-07-15",
+    "last_reviewed": "2026-08-04",
     "scope": "generic",
     "owner": "docs-documentation",
     "reviewer": "documentation-maintainers",

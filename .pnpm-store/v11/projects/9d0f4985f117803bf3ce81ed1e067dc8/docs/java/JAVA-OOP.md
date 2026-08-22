@@ -4,8 +4,10 @@ sidebar_position: 1
 description: A concise route through Java object design, relationships, polymorphism, contracts, and language mechanics.
 status: maintained
 last_reviewed: "2026-07-13"
-page_type: Guide
+page_type: Learning Path
 difficulty: Intermediate
+prerequisites: [Java classes, methods, fields, and constructors]
+learning_objectives: [Define object-oriented design in Java, Choose composition inheritance and polymorphism deliberately, Preserve domain invariants and object contracts]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -25,7 +27,22 @@ responsibilities. The goal is not a large class hierarchy; it is a model whose
 invariants, ownership, and extension points remain understandable as Shopverse
 changes.
 
-## The Design Map
+## Page Overview
+
+Object-oriented programming is a way to model a system as collaborating objects
+that own state, behavior, and invariants. This path introduces encapsulation,
+composition, inheritance, polymorphism, interfaces, equality, and subtype
+contracts, then routes each subject to a focused guide with examples and failure
+analysis.
+
+## Prerequisites And Terminology
+
+Know classes, fields, methods, constructors, references, and access modifiers.
+An **invariant** must remain true for valid object state; a **contract** describes
+observable promises; **composition** delegates to owned collaborators; and
+**polymorphism** lets callers use variants through one substitutable contract.
+
+## Mental Model: The Design Map
 
 ```mermaid
 flowchart LR
@@ -93,3 +110,9 @@ inheritance relationship.
 - [JLS classes](https://docs.oracle.com/javase/specs/jls/se25/html/jls-8.html)
 - [JLS interfaces](https://docs.oracle.com/javase/specs/jls/se25/html/jls-9.html)
 - [`Object` API contracts](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html)
+
+## Recommended Next
+
+Continue with [Composition And Inheritance](./oop/OOP-COMPOSITION-INHERITANCE.md),
+then study [Polymorphism And Object Contracts](./oop/OOP-DOMAIN-POLYMORPHISM-OBJECT-CONTRACTS.md)
+before the deeper language and runtime pages.

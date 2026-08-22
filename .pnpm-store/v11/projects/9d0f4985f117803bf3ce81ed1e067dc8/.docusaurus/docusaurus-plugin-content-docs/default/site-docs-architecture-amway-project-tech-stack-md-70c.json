@@ -1,0 +1,96 @@
+{
+  "id": "architecture/AMWAY-PROJECT-TECH-STACK",
+  "title": "Amway Next Gen Checkout Project Technology Stack",
+  "description": "An onboarding and architecture map for a Java 21 and Quarkus checkout stack using PostgreSQL, DynamoDB, GitHub Actions, AWS CodePipeline, Argo CD, Dynatrace, SonarQube, and JaCoCo.",
+  "source": "@site/docs/architecture/AMWAY-PROJECT-TECH-STACK.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/AMWAY-PROJECT-TECH-STACK",
+  "permalink": "/shopverse/architecture/AMWAY-PROJECT-TECH-STACK",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/AMWAY-PROJECT-TECH-STACK.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "amway",
+      "permalink": "/shopverse/tags/amway"
+    },
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "aws",
+      "permalink": "/shopverse/tags/aws"
+    },
+    {
+      "inline": true,
+      "label": "checkout",
+      "permalink": "/shopverse/tags/checkout"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Amway Next Gen Checkout Project Technology Stack",
+    "description": "An onboarding and architecture map for a Java 21 and Quarkus checkout stack using PostgreSQL, DynamoDB, GitHub Actions, AWS CodePipeline, Argo CD, Dynatrace, SonarQube, and JaCoCo.",
+    "sidebar_label": "Amway Project Technology Stack",
+    "tags": [
+      "amway",
+      "quarkus",
+      "aws",
+      "checkout"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "prerequisites": [
+      "Java fundamentals",
+      "REST and database fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain how the stack fits together",
+      "Trace a change from source to AWS runtime",
+      "Select the correct persistence and execution model",
+      "Identify production and security boundaries"
+    ],
+    "technologies": [
+      "Java 21",
+      "Quarkus",
+      "Gradle Kotlin DSL",
+      "PostgreSQL",
+      "DynamoDB",
+      "Hibernate ORM",
+      "Hibernate Reactive",
+      "Flyway",
+      "MapStruct",
+      "OpenFeature",
+      "flagd",
+      "AWS CDK v2",
+      "GitHub Actions",
+      "CodePipeline",
+      "CodeBuild",
+      "Amazon EKS",
+      "Kubernetes",
+      "Argo CD",
+      "Dynatrace",
+      "SonarQube",
+      "JaCoCo"
+    ],
+    "last_reviewed": "2026-08-20",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "user-provided-stack-and-official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Amway Checkout Domain Primer",
+    "permalink": "/shopverse/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER"
+  },
+  "next": {
+    "title": "OpenAPI Contract Artifacts",
+    "permalink": "/shopverse/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS"
+  }
+}

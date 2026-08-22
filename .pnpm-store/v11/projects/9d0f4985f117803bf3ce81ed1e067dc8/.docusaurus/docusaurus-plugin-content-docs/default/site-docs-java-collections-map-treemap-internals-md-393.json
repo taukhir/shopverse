@@ -61,7 +61,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "Map contract",
+      "Comparable and Comparator",
+      "binary search trees",
+      "and range notation"
+    ],
+    "learning_objectives": [
+      "Trace balanced-tree operations",
+      "Protect comparator identity",
+      "Use backed navigable views safely"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

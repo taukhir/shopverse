@@ -16,7 +16,24 @@ review_evidence: repository-content-audit
 
 # Java Containers Resource Limits And Production Diagnostics
 
-The container memory limit covers the whole process, not only Java heap:
+A **container resource limit** is a cgroup-enforced boundary on resources such
+as memory and CPU available to the processes in a container. The JVM can observe
+many of these limits and choose ergonomic defaults, but it cannot make heap,
+native memory, thread count, direct buffers, and workload demand fit
+automatically.
+
+## Page Overview
+
+This page turns container limits into an explicit JVM process budget. It covers
+heap and native headroom, CPU quota and throttling, collector/thread consequences,
+signals and graceful shutdown, minimal-image diagnostics, filesystem behavior,
+incident evidence, and production approval criteria.
+
+## What Changes When Java Runs In A Container?
+
+The JVM remains an operating-system process, but its available processors and
+memory are constrained by the container rather than necessarily by the entire
+host. The container memory limit covers the whole process, not only Java heap:
 
 ```text
 container memory
@@ -26,6 +43,13 @@ container memory
 
 Setting maximum heap equal to the container limit invites `OOMKilled` even when
 the Java heap itself is healthy.
+
+## Prerequisites And Mental Model
+
+Read [JVM Memory Areas](./JAVA-JVM-MEMORY.md) before this page. You should be
+able to distinguish Java heap exhaustion from metaspace, direct-memory, thread-
+stack, and total-process pressure. Basic Docker/Kubernetes terminology helps,
+but the cgroup boundary is explained here.
 
 ## Memory Budget
 
@@ -101,9 +125,54 @@ business data.
 - startup, liveness and readiness probes have distinct purposes;
 - resource requests reflect steady need and limits reflect tested burst policy.
 
+## Lead-Engineer Capacity Decision
+
+Approve limits only after load evidence shows the relationship among concurrency,
+allocation rate, live set, native memory, CPU throttling, queue age, and the SLO.
+Record request/limit assumptions, headroom, node-pressure behavior, diagnostic
+access, graceful-termination budget, rollback, and the signals that trigger
+resizing. A percentage-based heap flag is not a capacity model by itself.
+
+## Failure Modes And Trade-Offs
+
+- Setting `-Xmx` equal to the cgroup memory limit leaves no room for metaspace,
+  stacks, code cache, direct buffers, GC structures, agents, or diagnostics.
+- Very low CPU limits throttle JIT and concurrent GC work as well as application
+  threads; adding heap does not correct CPU starvation.
+- Larger thread stacks reduce overflow risk but increase per-thread native
+  memory. More platform threads can exhaust memory without a heap leak.
+- Minimal images reduce size and attack surface but may omit incident tools;
+  define an approved ephemeral-debug path before production.
+
+## Tricky Interview Questions
+
+<ExpandableAnswer title="Why can a container be OOM-killed below -Xmx?">
+
+`-Xmx` limits heap, while the cgroup charges the complete process. Metaspace,
+thread stacks, direct buffers, code cache, GC structures, agents, native libraries,
+and mappings can consume the remaining budget.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Why can CPU throttling look like a JVM pause?">
+
+The process may receive little CPU despite runnable work, increasing latency and
+stretching concurrent GC or JIT phases. Correlate cgroup throttling, runnable
+threads, JFR, GC events, and host pressure before changing collector settings.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Should heap be set to the container memory limit?">
+
+No. Budget total RSS and explicit native headroom under representative load.
+The accepted ratio depends on thread count, direct memory, collector, agents,
+class metadata, sidecars, diagnostics, and failure margin.
+
+</ExpandableAnswer>
+
 ## Recommended Next
 
-Use the [Docker Production Mastery](../operations/docker/DOCKER-PRODUCTION-MASTERY.md).
+Continue with [Java Performance Diagnostics And Tooling](./JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING.md).
 
 ## Official References
 

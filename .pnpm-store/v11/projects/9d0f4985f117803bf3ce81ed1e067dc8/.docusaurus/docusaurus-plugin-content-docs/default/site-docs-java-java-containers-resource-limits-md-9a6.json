@@ -41,11 +41,11 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "Java Performance Diagnostics And Tooling",
-    "permalink": "/shopverse/java/JAVA-PERFORMANCE-DIAGNOSTICS-TOOLING"
+    "title": "JVM Garbage Collectors For Architects",
+    "permalink": "/shopverse/java/JAVA-GC-COLLECTORS-ARCHITECT"
   },
   "next": {
-    "title": "JVM Profiling, Garbage Collection, And Native Images",
-    "permalink": "/shopverse/java/JVM-PROFILING-GC-NATIVE"
+    "title": "Foreign Function, Memory And Dynamic Invocation Internals",
+    "permalink": "/shopverse/java/JAVA-FFM-METHOD-HANDLES-RUNTIME"
   }
 }

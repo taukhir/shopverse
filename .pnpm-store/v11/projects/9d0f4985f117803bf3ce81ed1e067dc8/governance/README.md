@@ -1,4 +1,4 @@
-# Spring Documentation Governance
+# Documentation Governance
 
 Every Markdown/MDX page carries normalized governance metadata:
 
@@ -19,6 +19,14 @@ missing or unsupported values, and the library explorer exposes lifecycle, scope
 owner, difficulty, and page type as filters.
 
 `npm run check:spring-quality` is the required local gate for Spring documentation.
+
+All educational pages also follow the
+[learning progression standard](./learning-progression-standard.md): begin with
+a plain-language definition and beginner mental model, then progress through a
+concrete example, mechanics, trade-offs, failure modes, production evidence, and
+the next prerequisite-ordered topic. The repository-wide progression audit is
+advisory until each domain has been remediated; it must not be bypassed with
+generic filler.
 
 - `check:docs:governance` validates internal links, duplicate sections, sidebar
   registration, governed versions, and source/test references.

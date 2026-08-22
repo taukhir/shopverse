@@ -1,0 +1,81 @@
+{
+  "id": "quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY",
+  "title": "Quarkus Messaging, Security, And Observability",
+  "description": "Advanced tutorial for REST clients, timeouts and fault tolerance, Kafka messaging, OIDC authorization, health, metrics, logs, traces, and duplicate-safe processing.",
+  "source": "@site/docs/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY.md",
+  "sourceDirName": "quarkus",
+  "slug": "/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY",
+  "permalink": "/shopverse/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "kafka",
+      "permalink": "/shopverse/tags/kafka"
+    },
+    {
+      "inline": true,
+      "label": "oidc",
+      "permalink": "/shopverse/tags/oidc"
+    },
+    {
+      "inline": true,
+      "label": "observability",
+      "permalink": "/shopverse/tags/observability"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Quarkus Messaging, Security, And Observability",
+    "description": "Advanced tutorial for REST clients, timeouts and fault tolerance, Kafka messaging, OIDC authorization, health, metrics, logs, traces, and duplicate-safe processing.",
+    "sidebar_label": "4. Integration And Security",
+    "tags": [
+      "quarkus",
+      "kafka",
+      "oidc",
+      "observability"
+    ],
+    "page_type": "Tutorial",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "prerequisites": [
+      "Quarkus data and transactions",
+      "distributed systems fundamentals"
+    ],
+    "learning_objectives": [
+      "Call dependencies with bounded failure behavior",
+      "Publish and consume Kafka records safely",
+      "Enforce resource authorization",
+      "Correlate production evidence"
+    ],
+    "technologies": [
+      "Quarkus REST Client",
+      "Kafka",
+      "OpenID Connect",
+      "OpenTelemetry",
+      "SmallRye Health",
+      "Micrometer"
+    ],
+    "last_reviewed": "2026-08-11",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "3. Data And Testing",
+    "permalink": "/shopverse/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING"
+  },
+  "next": {
+    "title": "5. Native And Kubernetes",
+    "permalink": "/shopverse/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION"
+  }
+}

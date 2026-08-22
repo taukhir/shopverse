@@ -50,6 +50,18 @@
     ],
     "page_type": "Deep Dive",
     "difficulty": "Advanced",
+    "prerequisites": [
+      "List contract",
+      "Java arrays",
+      "locks",
+      "volatile publication",
+      "and iteration"
+    ],
+    "learning_objectives": [
+      "Explain snapshot publication",
+      "Evaluate read-write workload fit",
+      "Predict iterator consistency and memory cost"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

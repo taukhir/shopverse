@@ -1,0 +1,81 @@
+{
+  "id": "quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION",
+  "title": "Quarkus Native Images, Containers, And Kubernetes Production",
+  "description": "Advanced production guide for JVM and native packaging, container images, Kubernetes resources, health probes, graceful shutdown, capacity, security, and diagnostics.",
+  "source": "@site/docs/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION.md",
+  "sourceDirName": "quarkus",
+  "slug": "/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION",
+  "permalink": "/shopverse/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "native-image",
+      "permalink": "/shopverse/tags/native-image"
+    },
+    {
+      "inline": true,
+      "label": "containers",
+      "permalink": "/shopverse/tags/containers"
+    },
+    {
+      "inline": true,
+      "label": "kubernetes",
+      "permalink": "/shopverse/tags/kubernetes"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Quarkus Native Images, Containers, And Kubernetes Production",
+    "description": "Advanced production guide for JVM and native packaging, container images, Kubernetes resources, health probes, graceful shutdown, capacity, security, and diagnostics.",
+    "sidebar_label": "5. Native And Kubernetes",
+    "tags": [
+      "quarkus",
+      "native-image",
+      "containers",
+      "kubernetes"
+    ],
+    "page_type": "Guide",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "prerequisites": [
+      "Quarkus integration and observability",
+      "container fundamentals"
+    ],
+    "learning_objectives": [
+      "Select JVM or native packaging with evidence",
+      "Build production container images",
+      "Configure Kubernetes lifecycle safely",
+      "Operate within resource limits"
+    ],
+    "technologies": [
+      "Quarkus",
+      "Mandrel",
+      "GraalVM",
+      "Docker",
+      "Kubernetes",
+      "OpenTelemetry"
+    ],
+    "last_reviewed": "2026-08-11",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "4. Integration And Security",
+    "permalink": "/shopverse/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY"
+  },
+  "next": {
+    "title": "6. Checkout Capstone",
+    "permalink": "/shopverse/quarkus/QUARKUS-CHECKOUT-TUTORIAL"
+  }
+}

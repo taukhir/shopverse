@@ -18,8 +18,19 @@
     "description": "A concise route through Java object design, relationships, polymorphism, contracts, and language mechanics.",
     "status": "maintained",
     "last_reviewed": "2026-07-13",
-    "page_type": "Guide",
+    "page_type": "Learning Path",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Java classes",
+      "methods",
+      "fields",
+      "and constructors"
+    ],
+    "learning_objectives": [
+      "Define object-oriented design in Java",
+      "Choose composition inheritance and polymorphism deliberately",
+      "Preserve domain invariants and object contracts"
+    ],
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",

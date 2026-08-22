@@ -18,8 +18,16 @@
     "sidebar_position": 1,
     "status": "maintained",
     "last_reviewed": "2026-07-13",
-    "page_type": "Guide",
+    "page_type": "Learning Path",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Basic programming syntax and command-line execution"
+    ],
+    "learning_objectives": [
+      "Follow Core Java topics in dependency order",
+      "Connect language contracts to runtime and production behavior",
+      "Select focused practice and deep-dive pages"
+    ],
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",

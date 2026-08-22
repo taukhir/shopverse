@@ -9,6 +9,8 @@ scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
 review_evidence: repository-content-audit
+prerequisites: [HashMap internals, Java memory model, CAS, synchronization, and atomic compound operations]
+learning_objectives: [Trace modern read write and resize paths, State per-key atomicity and visibility guarantees, Diagnose contention retention and distributed-design mistakes]
 ---
 
 # ConcurrentHashMap OpenJDK Internals And Design Review
@@ -16,9 +18,27 @@ review_evidence: repository-content-audit
 `ConcurrentHashMap` provides scalable concurrent access inside one JVM. It is
 not a distributed map, transaction manager, or automatic guardian of multi-key
 business invariants. Architectural use starts by identifying the atomicity
-boundary the map actually offers.
+boundary the map actually offers. For a beginner, think of a hash table whose
+independent bins can usually progress without one global lock. At deeper levels,
+CAS, bin coordination, forwarding nodes, volatile publication, and striped
+counters explain why reads and updates have different consistency costs.
 
-## From Segments To Bin Coordination
+## Page Overview
+
+This guide traces the modern OpenJDK structure from initialization through
+lookup, insertion, treeification, cooperative resize, counting, iteration, and
+bulk operations. It then turns those mechanics into failure modes, diagnostic
+experiments, architecture boundaries, and interview reasoning.
+
+## Core Terminology And Mental Model
+
+- **CAS** changes a location only if its observed value is still current.
+- A **bin** is the list or tree rooted at one table slot.
+- A **forwarding node** redirects operations during table transfer.
+- **Weakly consistent** iteration is safe during updates but is not a snapshot.
+- **Striped counters** spread contention while making aggregate reads non-transactional.
+
+## How It Works: From Segments To Bin Coordination
 
 Java 7 divided the map into fixed `Segment` regions backed by lock-bearing hash
 tables. Modern implementations use one table and coordinate at finer granularity:
@@ -158,6 +178,29 @@ updates that occur during traversal. Bulk operations accept a parallelism
 threshold and can use the common pool. Avoid parallel bulk work when mapping
 functions block or when the common pool is shared by unrelated latency paths.
 
+## Failure Modes, Edge Cases, And Tradeoffs
+
+- Long or blocking mapping functions hold coordination on relevant map state and
+  can amplify hot-key latency. Keep them bounded and move remote I/O outside.
+- Recursive updates involving the same key can be rejected or deadlock assumptions
+  in surrounding code. Mapping functions should not re-enter structural logic.
+- Mutable keys become unreachable just as in `HashMap`; concurrency does not fix
+  equality or hashing defects.
+- `size`, iteration, and multi-key reads are not atomic snapshots. Never use them
+  to authorize inventory, quota, or payment transitions.
+- Unbounded key growth turns the map into a retention root. Monitor cardinality,
+  churn, allocation, blocked time, and the oldest entry age; define eviction or ownership.
+- Per-key atomicity scales well but cannot enforce a cross-key, cross-process, or
+  cross-service invariant. Choose a database transaction, durable log, or explicit
+  distributed protocol when that is the actual consistency boundary.
+
+## Lead Engineer Production Decisions
+
+Review the key distribution, peak cardinality, lifecycle, callback duration,
+hot-key behavior, resize headroom, and recovery semantics. Compare a concurrent
+map with an immutable snapshot for read-mostly data, Caffeine for bounded local
+caching, and an authoritative external store when replicas must agree.
+
 ## Design Review Checklist
 
 - Is the state authoritative only inside one JVM?
@@ -231,4 +274,5 @@ No.
 ## Recommended Next
 
 Continue with the [Concurrency Design Review](./JAVA-CONCURRENCY-DESIGN-REVIEW.md)
-to place local atomic operations inside a complete service-level invariant.
+and [HashMap internals](./collections/map/HASHMAP-INTERNALS.md) to place local
+atomic operations inside a complete service-level invariant.

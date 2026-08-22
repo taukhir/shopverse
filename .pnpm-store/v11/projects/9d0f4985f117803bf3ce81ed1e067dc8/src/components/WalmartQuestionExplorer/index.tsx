@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import {walmartCodingSolutions} from '@site/src/data/walmartCodingSolutions';
+import {walmartInterviewAnswers} from '@site/src/data/walmartInterviewAnswers';
 import styles from './styles.module.css';
 
 type Question = {
@@ -130,11 +131,15 @@ function CodeSolution({question}: {question: Question}) {
 function AnswerGuide({question}: {question: Question}) {
   const guide = topicGuides[question.topic];
   const hasProgram = Boolean(walmartCodingSolutions[question.id]);
+  const directAnswer = walmartInterviewAnswers[question.id];
   return <div className={styles.answerBody}>
-    <div className={styles.answerLabel}>{hasProgram ? <Code2 aria-hidden="true" /> : <BookOpenCheck aria-hidden="true" />}<strong>{hasProgram ? 'Program and solution' : 'Answer framework'}</strong></div>
+    <div className={styles.answerLabel}>{hasProgram ? <Code2 aria-hidden="true" /> : <BookOpenCheck aria-hidden="true" />}<strong>{hasProgram ? 'Program and solution' : 'Interview-ready answer'}</strong></div>
     {hasProgram ? <CodeSolution question={question} /> : <>
-      <p className={styles.promptCue}><strong>Apply the framework directly to:</strong> {question.prompt}</p>
-      <div className={styles.solutionBlock}><strong>A strong answer should cover</strong><ol>{guide.points.map((point) => <li key={point}>{point}</li>)}</ol></div>
+      <div className={styles.directAnswer}>
+        <strong>Start with this answer</strong>
+        <p>{directAnswer}</p>
+      </div>
+      <div className={styles.solutionBlock}><strong>Then deepen the discussion</strong><ol>{guide.points.map((point) => <li key={point}>{point}</li>)}</ol></div>
     </>}
     <Link className={styles.studyRoute} to={guide.href}><Route aria-hidden="true" /><span><small>Canonical study route</small><strong>{guide.label}</strong></span></Link>
   </div>;
@@ -160,7 +165,7 @@ function TopicQuestionGroup({name, questions, defaultOpen, forceOpen}: {name: st
     <header>
       <button type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls={contentId}>
         <div><span>{questions.length}</span><h3 id={`question-group-${questions[0].id}`}>{name}</h3></div>
-        <small>Expand this group for {name === 'Coding and DSA' ? 'Java solutions' : 'answer frameworks'}</small>
+        <small>Expand this group for {name === 'Coding and DSA' ? 'Java solutions' : 'interview-ready answers'}</small>
         <ChevronDown aria-hidden="true" />
       </button>
     </header>
@@ -216,6 +221,8 @@ export function WalmartQuestionExplorer() {
         if (!active) return;
         const parsed = parseQuestionBank(source);
         if (parsed.length !== 209) throw new Error(`Expected 209 questions but found ${parsed.length}.`);
+        const unanswered = parsed.filter((question) => !walmartInterviewAnswers[question.id] && !walmartCodingSolutions[question.id]);
+        if (unanswered.length) throw new Error(`Missing answers for question IDs: ${unanswered.map(({id}) => id).join(', ')}.`);
         setQuestions(parsed);
       })
       .catch((reason: unknown) => {
@@ -236,7 +243,8 @@ export function WalmartQuestionExplorer() {
       const matchesQuery = !normalizedQuery
         || question.prompt.toLocaleLowerCase().includes(normalizedQuery)
         || question.topic.toLocaleLowerCase().includes(normalizedQuery)
-        || walmartCodingSolutions[question.id]?.approach.toLocaleLowerCase().includes(normalizedQuery);
+        || walmartCodingSolutions[question.id]?.approach.toLocaleLowerCase().includes(normalizedQuery)
+        || walmartInterviewAnswers[question.id]?.toLocaleLowerCase().includes(normalizedQuery);
       return matchesQuery
         && (topic === 'all' || question.topic === topic)
         && (priority === 'all' || question.priority === Number(priority));
@@ -263,7 +271,7 @@ export function WalmartQuestionExplorer() {
       <div className={styles.heroCopy}>
         <span className={styles.eyebrow}><Sparkles aria-hidden="true" /> Interactive study index</span>
         <h2 id="question-explorer-heading">Find the next question worth practising</h2>
-        <p>Browse questions by topic, filter the complete index, then expand answer frameworks or runnable Java solutions.</p>
+        <p>Browse by topic, then expand a prompt for a direct interview answer, deeper discussion points, and its canonical study route.</p>
       </div>
       <div className={styles.heroMetric} aria-label={`${questions.length || 209} indexed questions`}>
         <strong>{questions.length || 209}</strong>

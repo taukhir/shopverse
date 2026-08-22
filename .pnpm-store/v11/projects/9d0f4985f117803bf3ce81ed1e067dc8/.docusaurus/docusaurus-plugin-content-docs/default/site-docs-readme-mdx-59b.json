@@ -1,7 +1,7 @@
 {
   "id": "README",
   "title": "Backend Engineering Knowledge Base",
-  "description": "How To Use This Library",
+  "description": "This knowledge base is a structured backend-engineering curriculum and a verified",
   "source": "@site/docs/README.mdx",
   "sourceDirName": ".",
   "slug": "/",
@@ -20,9 +20,14 @@
     "hide_title": true,
     "hide_reader_chrome": true,
     "status": "maintained",
-    "last_reviewed": "2026-07-13",
-    "page_type": "Guide",
-    "difficulty": "Intermediate",
+    "last_reviewed": "2026-08-04",
+    "page_type": "Learning Path",
+    "difficulty": "Beginner",
+    "learning_objectives": [
+      "Choose a documentation track that matches the reader's goal and current depth",
+      "Progress from definitions and examples to production and lead-engineer judgment",
+      "Distinguish reusable engineering guidance from verified Shopverse behavior"
+    ],
     "scope": "generic",
     "owner": "docs-documentation",
     "reviewer": "documentation-maintainers",

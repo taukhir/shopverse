@@ -50,6 +50,17 @@
     ],
     "page_type": "Deep Dive",
     "difficulty": "Advanced",
+    "prerequisites": [
+      "Set contract",
+      "Java enums",
+      "bit operations",
+      "and iteration"
+    ],
+    "learning_objectives": [
+      "Explain ordinal-indexed membership",
+      "Compare regular and jumbo storage",
+      "Use EnumSet for bounded enum policies"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

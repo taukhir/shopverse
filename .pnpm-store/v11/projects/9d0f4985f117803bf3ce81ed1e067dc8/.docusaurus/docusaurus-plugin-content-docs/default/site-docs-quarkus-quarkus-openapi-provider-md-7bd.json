@@ -1,0 +1,77 @@
+{
+  "id": "quarkus/QUARKUS-OPENAPI-PROVIDER",
+  "title": "Generate And Verify OpenAPI From Quarkus",
+  "description": "Intermediate tutorial for documenting a Quarkus provider, exporting its contract, and preventing implementation-to-contract drift.",
+  "source": "@site/docs/quarkus/QUARKUS-OPENAPI-PROVIDER.md",
+  "sourceDirName": "quarkus",
+  "slug": "/quarkus/QUARKUS-OPENAPI-PROVIDER",
+  "permalink": "/shopverse/quarkus/QUARKUS-OPENAPI-PROVIDER",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/quarkus/QUARKUS-OPENAPI-PROVIDER.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "openapi",
+      "permalink": "/shopverse/tags/openapi"
+    },
+    {
+      "inline": true,
+      "label": "contract-testing",
+      "permalink": "/shopverse/tags/contract-testing"
+    },
+    {
+      "inline": true,
+      "label": "tutorial",
+      "permalink": "/shopverse/tags/tutorial"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Generate And Verify OpenAPI From Quarkus",
+    "description": "Intermediate tutorial for documenting a Quarkus provider, exporting its contract, and preventing implementation-to-contract drift.",
+    "sidebar_label": "4. Provider Contract",
+    "tags": [
+      "quarkus",
+      "openapi",
+      "contract-testing",
+      "tutorial"
+    ],
+    "page_type": "Tutorial",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "prerequisites": [
+      "OpenAPI fundamentals",
+      "Jakarta REST and validation"
+    ],
+    "learning_objectives": [
+      "Document success and failure responses",
+      "Export a repeatable schema artifact",
+      "Test the provider contract"
+    ],
+    "technologies": [
+      "Quarkus REST",
+      "SmallRye OpenAPI",
+      "MicroProfile OpenAPI"
+    ],
+    "last_reviewed": "2026-08-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "3. OpenAPI Fundamentals",
+    "permalink": "/shopverse/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS"
+  },
+  "next": {
+    "title": "5. Clients And Artifacts",
+    "permalink": "/shopverse/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS"
+  }
+}
