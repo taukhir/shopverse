@@ -38,6 +38,17 @@
     ],
     "page_type": "Reference",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Collection contracts",
+      "Java equality",
+      "hashing",
+      "and ordering"
+    ],
+    "learning_objectives": [
+      "Define Set uniqueness",
+      "Compare hash linked sorted enum and concurrent sets",
+      "Protect equality and ordering invariants"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

@@ -9,15 +9,34 @@ scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
 review_evidence: repository-content-audit
+prerequisites: [Java generics, object equality, lambdas, and collection interfaces]
+learning_objectives: [Implement valid total orderings, Compose null-safe deterministic comparators, Protect sorted collections and priority queues from mutable order state]
 ---
 
 # Comparable, Comparator And Sorted Collections Deep Dive
 
 `Comparable<T>` defines one natural ordering owned by the type. `Comparator<T>`
 defines external, composable orderings. Both must provide a stable sign contract:
-antisymmetry, transitivity and consistent zero relationships.
+antisymmetry, transitivity and consistent zero relationships. Begin by treating
+a comparison result as negative, zero, or positive—not as a numeric distance.
+The advanced concern is that ordering also defines identity inside sorted sets
+and maps and therefore participates directly in correctness.
 
-## Natural Ordering
+## Page Overview
+
+This page defines natural and external ordering, derives comparator laws,
+demonstrates safe composition, explains sorted-map and heap consequences, and
+finishes with failures, performance evidence, and interview questions.
+
+## Core Terminology And Mental Model
+
+- A **natural order** is the single ordering declared by `Comparable`.
+- A **comparator** is an external strategy composed for a use case.
+- A **total order** ranks every supported pair consistently and transitively.
+- A **tie-breaker** converts business ties into deterministic technical order.
+- **Consistent with equals** means comparison returns zero when equality holds.
+
+## How It Works: Natural Ordering And Comparator Laws
 
 ```java
 record Version(int major, int minor) implements Comparable<Version> {
@@ -84,6 +103,18 @@ primitive algorithms differ. Comparator cost is multiplied O(n log n), so avoid
 remote calls, parsing and allocation inside comparisons. Precompute sort keys
 when profiling justifies it.
 
+## Tradeoffs, Architecture Decisions, And Production Evidence
+
+Natural ordering is convenient but becomes part of the type's long-lived public
+contract. External comparators support multiple views but every caller must use
+the intended strategy. For large sorts, record cardinality, comparator CPU and
+allocation, null policy, locale/collation, tie determinism, and whether ordered
+identity may collapse unequal domain objects.
+
+A database `ORDER BY`, Java comparator, and serialized API order can disagree
+on case, locale, null placement, or ties. Specify one end-to-end order contract
+and test identical boundary fixtures across those layers.
+
 ## Scenario Failures
 
 1. Subtraction comparator overflows.
@@ -134,4 +165,6 @@ It is semantically possible but operationally disastrous and can be inconsistent
 
 ## Recommended Next
 
-Continue through the [Collections Learning Guide](./JAVA-COLLECTIONS.md).
+Continue through the [Collections Learning Guide](./JAVA-COLLECTIONS.md), then
+apply the contract in [TreeMap internals](./collections/map/TREEMAP-INTERNALS.md)
+and [PriorityQueue internals](./collections/queue/PRIORITYQUEUE-INTERNALS.md).

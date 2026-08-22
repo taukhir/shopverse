@@ -5,6 +5,8 @@ sidebar_label: "EnumSet"
 tags: [java, collections, set, enumset, internals]
 page_type: Deep Dive
 difficulty: Advanced
+prerequisites: [Set contract, Java enums, bit operations, and iteration]
+learning_objectives: [Explain ordinal-indexed membership, Compare regular and jumbo storage, Use EnumSet for bounded enum policies]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -17,6 +19,18 @@ review_evidence: repository-content-audit
 
 `EnumSet<E extends Enum<E>>` represents membership with bits indexed by enum
 ordinal rather than hash-table entries.
+Because the enum universe is fixed, membership operations become compact bit
+operations and iteration follows declaration order.
+
+## Page Overview
+
+This page explains regular and jumbo bit-vector storage, factories, complement
+and bulk operations, iteration, null/type boundaries, and policy use cases.
+
+## Core Terminology And Mental Model
+
+Each enum **ordinal** selects one bit. Up to 64 constants fit in one `long`; larger
+universes use a `long[]`. Declaration order determines iteration.
 
 ```text
 CREATED RESERVED PAID SHIPPED
@@ -33,7 +47,7 @@ CREATED RESERVED PAID SHIPPED
 
 The public API hides the concrete regular/jumbo subtype.
 
-## How Operations Work
+## How It Works: Bit-Vector Operations
 
 Membership tests, addition, and removal set or clear an ordinal bit. Union,
 intersection, and complement use bitwise operations, making them compact and
@@ -64,6 +78,25 @@ when preserving the `EnumSet` implementation is unnecessary.
 Use for flags, permissions, state-transition policies, and subsets of one enum
 universe. Avoid persisting or transmitting ordinal bit patterns: reordering enum
 constants changes their meaning. It is not thread-safe.
+
+## Failure Modes, Edge Cases, And Production Evidence
+
+- null elements are forbidden;
+- all elements must come from one enum type;
+- persisted ordinals are unsafe across enum reordering even though internal bits use ordinals;
+- adding new enum constants changes `allOf` and `complementOf` results;
+- shared mutation still needs synchronization or immutable publication.
+
+## Tricky Interview Questions
+
+<ExpandableAnswer title="Why is EnumSet usually smaller than HashSet?">
+Membership is encoded in bits rather than one hash entry per element.
+</ExpandableAnswer>
+
+## Recommended Next
+
+Return to the [Set Overview](./SET-OVERVIEW.md) and compare
+[EnumMap](../map/ENUMMAP-INTERNALS.md) for enum-keyed values.
 
 ## Official References
 

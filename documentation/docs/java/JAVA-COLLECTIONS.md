@@ -4,8 +4,10 @@ sidebar_position: 2
 description: Java Collections hierarchy and learning path from List, Set, Map, Queue, and Deque contracts to dedicated implementation internals.
 status: maintained
 last_reviewed: "2026-07-24"
-page_type: Guide
+page_type: Learning Path
 difficulty: Intermediate
+prerequisites: [Java objects, generics, equality, and iteration]
+learning_objectives: [Choose collection contracts before implementations, Navigate List Set Map Queue and Deque families, Connect equality ordering mutation and concurrency requirements]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -23,6 +25,23 @@ review_evidence: repository-content-audit
 Choose a collection from the behavior the caller needs: duplicates, encounter
 order, lookup shape, mutation ownership, and concurrency. The concrete class is
 the last decision, not the first.
+Correct selection also depends on equality, hashing, sorting cost, iteration
+behavior, null policy, memory shape, workload size, and whether compound actions
+must remain atomic.
+
+## Page Overview
+
+The Java Collections Framework is a family of interfaces, implementations, and
+algorithms for groups of values and key-value associations. This path separates
+List, Set, Map, Queue, and Deque contracts, then routes selection, mutation,
+ordering, hashing, and concurrent behavior to focused pages.
+
+## Prerequisites And Terminology
+
+Know objects, generics, iteration, and the `equals`/`hashCode` contract. An
+**encounter order** is the order elements are observed, **mutability ownership**
+identifies who may change a collection, and **thread safety** describes the
+documented guarantees under concurrent access.
 
 <DocCallout type="tip" title="Choose the contract before the class">
 First decide duplicates, ordering, lookup, mutation ownership, and concurrency.
@@ -30,7 +49,7 @@ Only then choose an implementation; a familiar collection can still encode the
 wrong domain behavior.
 </DocCallout>
 
-## Collections Hierarchy
+## Mental Model: Collections Hierarchy
 
 ```mermaid
 flowchart TB
@@ -160,3 +179,10 @@ type; the implementation is not chosen from habit.
 
 - [Java Collections Framework](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/doc-files/coll-overview.html)
 - [`java.util.concurrent` package](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/package-summary.html)
+
+## Recommended Next
+
+Begin with [Collection Contracts And Selection](./collections/COLLECTION-CONTRACTS-AND-SELECTION.md),
+then choose the focused [List](./collections/list/LIST-OVERVIEW.md),
+[Set](./collections/set/SET-OVERVIEW.md), [Map](./collections/map/MAP-OVERVIEW.md),
+or [Queue And Deque](./collections/queue/QUEUE-DEQUE-OVERVIEW.md) path.

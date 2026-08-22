@@ -1,0 +1,79 @@
+{
+  "id": "quarkus/QUARKUS-FUNDAMENTALS",
+  "title": "Quarkus Foundations: Runtime, Extensions, And Developer Workflow",
+  "description": "Beginner tutorial for Quarkus project structure, extensions, build-time augmentation, dev mode, profiles, packaging, and framework selection.",
+  "source": "@site/docs/quarkus/QUARKUS-FUNDAMENTALS.md",
+  "sourceDirName": "quarkus",
+  "slug": "/quarkus/QUARKUS-FUNDAMENTALS",
+  "permalink": "/shopverse/quarkus/QUARKUS-FUNDAMENTALS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/quarkus/QUARKUS-FUNDAMENTALS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "fundamentals",
+      "permalink": "/shopverse/tags/fundamentals"
+    },
+    {
+      "inline": true,
+      "label": "tutorial",
+      "permalink": "/shopverse/tags/tutorial"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Quarkus Foundations: Runtime, Extensions, And Developer Workflow",
+    "description": "Beginner tutorial for Quarkus project structure, extensions, build-time augmentation, dev mode, profiles, packaging, and framework selection.",
+    "sidebar_label": "1. Foundations",
+    "tags": [
+      "java",
+      "quarkus",
+      "fundamentals",
+      "tutorial"
+    ],
+    "page_type": "Tutorial",
+    "difficulty": "Beginner",
+    "status": "maintained",
+    "prerequisites": [
+      "Java 17 fundamentals",
+      "Maven basics"
+    ],
+    "learning_objectives": [
+      "Recognize a Quarkus project",
+      "Run and package a service",
+      "Explain extensions and build-time augmentation",
+      "Distinguish JVM and native execution"
+    ],
+    "technologies": [
+      "Java",
+      "Quarkus",
+      "Maven",
+      "Jakarta"
+    ],
+    "last_reviewed": "2026-08-11",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Quarkus Learning Path",
+    "permalink": "/shopverse/quarkus/"
+  },
+  "next": {
+    "title": "2. REST, CDI, Config",
+    "permalink": "/shopverse/quarkus/QUARKUS-REST-CDI-CONFIG"
+  }
+}

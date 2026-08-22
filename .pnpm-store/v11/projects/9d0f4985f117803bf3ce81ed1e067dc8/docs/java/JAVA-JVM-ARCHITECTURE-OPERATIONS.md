@@ -5,6 +5,8 @@ status: maintained
 last_reviewed: "2026-07-30"
 page_type: Guide
 difficulty: Intermediate
+prerequisites: [Java classes, objects, methods, exceptions, and basic threads]
+learning_objectives: [Define the JVM and its process boundary, Trace class loading execution allocation and collection, Select evidence for a runtime symptom]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -13,14 +15,43 @@ review_evidence: repository-content-audit
 
 # JVM Architecture, Runtime Boundaries And Operations
 
-A lead developer does not need to implement a JVM, but must know which runtime
-subsystem can explain a production symptom and which evidence can confirm it.
+The **Java Virtual Machine (JVM)** is an abstract execution machine implemented
+by software such as HotSpot. It loads Java class files, verifies and executes
+bytecode, manages runtime memory, coordinates threads, compiles hot code, and
+reclaims unreachable heap objects. A running JVM is also an operating-system
+process with native memory, threads, files, sockets, and container limits.
+
+## Page Overview
+
+This page traces one class from loading through interpretation, JIT compilation,
+allocation, safepoints, and garbage collection, then expands the boundary to
+native memory and containers. It finishes with an evidence-first symptom map and
+an architecture checklist. Focused pages own bytecode details, memory layouts,
+collector algorithms, and profiling procedures.
+
+## What Is JVM Architecture?
+
+JVM architecture is the organization and interaction of the subsystems that
+turn class files into executing machine code: class loaders, runtime data areas,
+interpreter, JIT compilers, garbage collectors, thread/synchronization support,
+and native interfaces. The JVM specification defines portable behavior and
+logical areas; HotSpot supplies concrete implementation choices.
+
+This distinction prevents two common mistakes: assuming every HotSpot detail is
+a Java guarantee, and treating the Java heap as the entire JVM process.
+
+## Prerequisites
+
+Know the difference between a class and an object, a method call and a thread,
+and source code and compiled bytecode. Read
+[Java Fundamentals](./JAVA-FUNDAMENTALS.md) first if those boundaries are new.
+No garbage-collector or profiling knowledge is required for this page.
 
 ## End-To-End Runtime Map
 
 ```mermaid
 flowchart LR
-  class["class files"] --> load["load, link, initialize"]
+  classFiles["class files"] --> load["load, link, initialize"]
   load --> meta["metaspace and runtime metadata"]
   load --> interp["interpreter and profiling"]
   interp --> jit["tiered JIT and code cache"]
@@ -162,6 +193,18 @@ Collect low-overhead continuous JFR where policy permits. Trigger expensive
 heap dumps deliberately because they can pause the process and require disk;
 protect them as sensitive data containing application values and PII.
 
+## Failure Modes And Common Mistakes
+
+- **Heap-only diagnosis:** a stable heap does not exclude metaspace, direct
+  buffers, thread stacks, code cache, mappings, agents, or other native growth.
+- **Specification/implementation confusion:** the JVMS defines behavior and
+  logical runtime areas; exact HotSpot layouts, collectors, and compiler phases
+  are implementation details that can change by JDK and flag.
+- **Source-shape assumptions:** source allocation, virtual calls, and locks may
+  be optimized, but an optimization is never a correctness contract.
+- **Tuning before evidence:** changing heap, collector, compiler, or thread flags
+  before isolating the symptom can move pressure and obscure the original cause.
+
 ## Architecture Review Checklist
 
 - Is the chosen JDK version and collector supported and reproducible?
@@ -172,6 +215,15 @@ protect them as sensitive data containing application values and PII.
 - Are JFR, GC, executor, connection-pool and application metrics correlated?
 - Are heap dumps, JFR recordings and logs handled as sensitive artifacts?
 - Do performance claims survive representative load rather than microbenchmarks alone?
+
+## Lead-Engineer Decisions
+
+A lead engineer should require a supported JDK/collector combination, an explicit
+process-memory budget, representative startup and steady-state load evidence, and
+a safe diagnostic path before approving JVM tuning. Record which SLO or capacity
+constraint motivates the choice, what alternative was rejected, what rollback
+restores the previous runtime, and which measurements would invalidate the
+decision. JVM flags without this evidence are operational debt, not architecture.
 
 ## Tricky Interview Questions
 

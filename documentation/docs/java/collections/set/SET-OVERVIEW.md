@@ -5,6 +5,8 @@ sidebar_label: "Set Overview"
 tags: [java, collections, set]
 page_type: Reference
 difficulty: Intermediate
+prerequisites: [Collection contracts, Java equality, hashing, and ordering]
+learning_objectives: [Define Set uniqueness, Compare hash linked sorted enum and concurrent sets, Protect equality and ordering invariants]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -20,6 +22,14 @@ review_evidence: repository-content-audit
 A `Set` models membership without duplicates. “Duplicate” is defined by
 `equals`/`hashCode` for hash sets, comparator equality for sorted sets, and enum
 identity for `EnumSet`.
+Selection therefore begins with the domain's meaning of uniqueness and order,
+not with a familiar implementation name or average complexity claim.
+
+## Page Overview
+
+The implementation map distinguishes hash, insertion-ordered, sorted, enum, and
+concurrent membership. Method and mutation guidance establish the shared contract;
+focused pages own storage, collision, tree, and bit-vector mechanics.
 
 ```mermaid
 flowchart LR
@@ -67,3 +77,9 @@ become unreachable in its original bucket. Prefer immutable value objects.
 ## Official Reference
 
 - [`Set`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Set.html)
+
+## Recommended Next
+
+Begin with [HashSet Internals](./HASHSET-INTERNALS.md), then compare
+[LinkedHashSet](./LINKEDHASHSET-INTERNALS.md), [TreeSet](./TREESET-INTERNALS.md),
+and [EnumSet](./ENUMSET-INTERNALS.md) from the required order and key universe.

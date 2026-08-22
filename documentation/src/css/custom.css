@@ -483,6 +483,19 @@ code {
 }
 
 @media (max-width: 996px) {
+  /* Keep the mobile navigation drawer sized to the viewport. Some embedded
+   * browsers otherwise resolve its fixed top/bottom offsets against the
+   * 60px sticky navbar, collapsing the menu items to zero height. */
+  .navbar-sidebar {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .navbar-sidebar__items {
+    height: calc(100vh - var(--ifm-navbar-height));
+    height: calc(100dvh - var(--ifm-navbar-height));
+  }
+
   .theme-announcement-bar {
     font-size: 0.76rem;
     line-height: 1.35;

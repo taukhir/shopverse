@@ -9,15 +9,34 @@ scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
 review_evidence: repository-content-audit
+prerequisites: [Java collection interfaces, iterators, equality and hashing, and basic concurrency]
+learning_objectives: [Match mutation intent to a supported operation, Preserve hash and ORM ownership invariants, Select snapshot or concurrent semantics explicitly]
 ---
 
 # Safe Collection Mutation
 
-Safe mutation starts with ownership. A private working collection, a JPA-managed
-association, a read-only view, an immutable snapshot, and shared concurrent
-state require different operations.
+**Safe collection mutation** means changing elements or structure only through
+an operation compatible with the collection's ownership, iterator, equality,
+view, persistence, and concurrency contracts. A private working collection, a
+JPA-managed association, an immutable snapshot, and shared concurrent state
+therefore require different operations. Begin with who owns the state; method
+choice comes after the required consistency boundary is clear.
 
-## Pick The Supported Operation
+## Page Overview
+
+This guide covers supported removal and transformation, iterator ownership,
+views and snapshots, hash identity, atomic map updates, ORM-managed collections,
+concurrent iteration, failure diagnosis, and review questions.
+
+## Core Terminology And Mental Model
+
+- A **structural modification** changes collection size or iteration topology.
+- A **backed view** delegates to another collection; a **snapshot** is separate state.
+- An **alias** is another reference that can observe or mutate the same object.
+- A **compound operation** combines steps whose invariant may require one lock or transaction.
+- **Fail-fast** iteration detects some interference; it does not make access safe.
+
+## How It Works: Match Ownership To The Mutation Operation
 
 | Intent | Preferred operation |
 |---|---|
@@ -163,6 +182,38 @@ Weakly consistent does not mean transactionally consistent. If a report must
 represent one point in time, create a snapshot under the appropriate ownership
 or consistency boundary.
 
+## Failure Modes, Edge Cases, And Diagnostics
+
+- `ConcurrentModificationException` usually signals competing structural paths;
+  capture the complete stack and identify every alias instead of catching it.
+- `UnsupportedOperationException` commonly reveals a fixed-size, unmodifiable,
+  or immutable result. State mutability in API contracts and tests.
+- A mutable hash key causes lookup/removal misses. Log stable business identifiers,
+  not mutable object dumps, and reproduce equality before and after mutation.
+- A backed `subList`, `keySet`, or range view changes with its owner and may reject
+  operations. Copy explicitly when isolation is required.
+- `computeIfAbsent` protects one map operation, not a multi-key business invariant,
+  remote side effect, or transaction across services.
+
+## Tradeoffs, Architecture Decisions, And Production Evidence
+
+In-place mutation minimizes copying but increases aliasing risk. Immutable
+snapshots simplify publication and rollback at the cost of allocations. Concurrent
+collections offer precisely scoped atomicity, not global snapshots. At design
+review, record the owner, mutation boundary, maximum cardinality, contention,
+publication mechanism, and recovery behavior.
+
+## Tricky Interview Questions
+
+1. **Does fail-fast mean thread-safe?** No; detection is best effort and races
+   remain invalid without a synchronization contract.
+2. **Can `Collections.unmodifiableList` make mutable elements immutable?** No; it
+   blocks structural calls through that view only.
+3. **Is `ConcurrentHashMap.compute` a transaction?** Only for the relevant key's
+   map update; external systems and other keys are outside that atomic boundary.
+4. **Why preserve a Hibernate collection wrapper?** Replacing it can bypass the
+   ORM's dirty tracking, orphan handling, and relationship semantics.
+
 ## Review Checklist
 
 - Identify the collection owner and every alias before mutating.
@@ -177,3 +228,15 @@ For collision, iterator, and concurrent-hash mechanics, continue to
 [Hash Collections Deep Dive](../JAVA-HASH-COLLECTIONS-DEEP-DIVE.md) and
 [ConcurrentHashMap OpenJDK Internals](../JAVA-CONCURRENT-HASHMAP-OPENJDK.md).
 Return to the [Collections umbrella](../JAVA-COLLECTIONS.md).
+
+## Official References
+
+- [Java `Collection` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Collection.html)
+- [Java `Iterator` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Iterator.html)
+- [Java `ConcurrentMap` API](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/concurrent/ConcurrentMap.html)
+
+## Recommended Next
+
+- [HashMap internals](./map/HASHMAP-INTERNALS.md)
+- [ConcurrentHashMap internals](../JAVA-CONCURRENT-HASHMAP-OPENJDK.md)
+- [Collections learning guide](../JAVA-COLLECTIONS.md)

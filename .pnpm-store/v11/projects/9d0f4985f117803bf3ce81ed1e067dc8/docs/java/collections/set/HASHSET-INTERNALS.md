@@ -5,6 +5,8 @@ sidebar_label: "HashSet"
 tags: [java, collections, set, hashset, internals]
 page_type: Deep Dive
 difficulty: Advanced
+prerequisites: [Set contract, HashMap basics, equals and hashCode]
+learning_objectives: [Trace HashSet membership through HashMap, Protect equality invariants, Evaluate collisions sizing and iteration behavior]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -17,6 +19,18 @@ review_evidence: repository-content-audit
 
 `HashSet<E>` stores each element as a key in a backing `HashMap<E,Object>` with
 one shared placeholder value.
+Uniqueness therefore inherits hash distribution, bucket selection, and key
+equality from `HashMap`; iteration order remains unspecified.
+
+## Page Overview
+
+This page covers backing-map storage, defaults, membership flow, collision and
+resize behavior, equality safety, sizing, and production selection.
+
+## Core Terminology And Mental Model
+
+An element is a map **key**; `PRESENT` is a shared dummy value. Hashing selects a
+bucket and `equals` confirms identity among candidates.
 
 ```text
 HashSet.add(element) -> backingMap.put(element, PRESENT)
@@ -36,7 +50,7 @@ Capacity is bucket count, not the number of elements the set can accept before
 resizing. For an expected element count, use `HashSet.newHashSet(expected)` in
 modern Java or size the constructor with load factor in mind.
 
-## How Membership Works
+## How It Works: Membership
 
 1. spread the element's `hashCode`;
 2. select a power-of-two bucket;
@@ -64,6 +78,29 @@ element appear absent even though iteration still finds it.
 Use for general uniqueness, deduplication, and fast membership when encounter
 order does not matter. Use `LinkedHashSet` for insertion order, `TreeSet` for
 sorted ranges, `EnumSet` for enums, and a concurrent key set for shared writes.
+
+## Failure Modes, Edge Cases, And Production Evidence
+
+- mutating equality fields after insertion can make an element unreachable;
+- poor hash distribution increases collision and comparison cost;
+- order observed in one run is not an API promise;
+- pre-sizing trades unused memory for fewer resize operations;
+- `HashSet` is not safe for concurrent mutation.
+
+## Tricky Interview Questions
+
+<ExpandableAnswer title="Why does HashSet need both hashCode and equals?">
+Hashing narrows the bucket; equality distinguishes candidates within it.
+</ExpandableAnswer>
+
+<ExpandableAnswer title="Can HashSet contain null?">
+Yes, one null element, because the backing HashMap supports one null key.
+</ExpandableAnswer>
+
+## Recommended Next
+
+Compare [LinkedHashSet](./LINKEDHASHSET-INTERNALS.md),
+[TreeSet](./TREESET-INTERNALS.md), and [HashMap](../map/HASHMAP-INTERNALS.md).
 
 ## Official References
 

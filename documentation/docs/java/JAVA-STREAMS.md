@@ -5,6 +5,8 @@ status: maintained
 last_reviewed: "2026-07-13"
 page_type: Guide
 difficulty: Intermediate
+prerequisites: [Java collections, generics, lambdas, and functional interfaces]
+learning_objectives: [Build lazy side-effect-controlled pipelines, Select map flatMap collect and reduce correctly, Evaluate parallel stream safety and cost]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -15,6 +17,26 @@ review_evidence: repository-content-audit
 
 A Stream describes a lazy pipeline over a data source. It is not a collection
 and normally does not store elements.
+It exists to express filtering, transformation, grouping, and reduction as a
+composable traversal while allowing the library to control evaluation. After
+this page, you should be able to predict execution, avoid unsafe side effects,
+and decide whether sequential, parallel, or non-stream code fits the workload.
+
+## Page Overview
+
+A Java Stream is a single-use description of aggregate computation over a source.
+This guide covers pipeline construction, laziness, traversal, flattening,
+collectors, reduction, optional results, parallel execution, side effects, and
+the cases where a loop, executor, or virtual thread is clearer.
+
+## Core Terminology And Prerequisites
+
+Know collections, generics, lambdas, and functional interfaces. A **source**
+provides elements, an **intermediate operation** transforms a lazy pipeline, a
+**terminal operation** triggers traversal, and **encounter order** constrains the
+order in which results must be observed.
+
+## Mental Model
 
 Streams are built on functional interfaces such as `Predicate`, `Function`,
 `Consumer`, and `Supplier`. See
@@ -28,7 +50,7 @@ List<String> paidOrders = orders.stream()
         .toList();
 ```
 
-## Pipeline
+## How It Works: Pipeline
 
 ```text
 source -> intermediate operations -> terminal operation
@@ -174,7 +196,24 @@ List<String> result = orders.parallelStream()
 
 Do not reuse a stream after a terminal operation.
 
-## Interview And Tricky Questions
+## Boundaries, Trade-Offs, And Edge Cases
+
+- infinite streams require short-circuiting or an explicit bound;
+- stateful operations such as `sorted` and `distinct` may buffer substantial data;
+- null elements interact poorly with `Optional`-returning terminals;
+- non-associative reduction can change results under parallel grouping;
+- ordered parallel pipelines may sacrifice throughput to preserve encounter order;
+- checked exceptions and blocking I/O usually need an explicit boundary rather
+  than being hidden inside lambdas.
+
+## Lead-Engineer Production Guidance
+
+Review pipeline complexity, allocation, boxing, ordering, source splittability,
+side effects, context propagation, and downstream capacity. Require representative
+JMH or service-level evidence before parallelization; the common pool is shared
+process capacity, not free concurrency.
+
+## Tricky Interview Questions
 
 ### Stream Versus Collection
 
@@ -217,3 +256,8 @@ can produce different answers.
 ## Official References
 
 - [Stream package specification](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/stream/package-summary.html)
+
+## Recommended Next
+
+Continue with [Stream Pipeline Internals](./JAVA-STREAM-PIPELINE-INTERNALS.md) and
+[Parallel Stream Internals](./JAVA-PARALLEL-STREAM-INTERNALS.md).

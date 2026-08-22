@@ -42,8 +42,8 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "Foreign Function, Memory And Dynamic Invocation Internals",
-    "permalink": "/shopverse/java/JAVA-FFM-METHOD-HANDLES-RUNTIME"
+    "title": "JVM Profiling, Garbage Collection, And Native Images",
+    "permalink": "/shopverse/java/JVM-PROFILING-GC-NATIVE"
   },
   "next": {
     "title": "Java Production Incident Walkthroughs",

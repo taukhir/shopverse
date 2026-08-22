@@ -16,7 +16,7 @@
     "title": "Backend Engineering Learning Path",
     "sidebar_position": 1,
     "difficulty": "Beginner",
-    "page_type": "Tutorial",
+    "page_type": "Learning Path",
     "status": "maintained",
     "learning_objectives": [
       "Study backend engineering topics in dependency order",
@@ -28,7 +28,7 @@
       "Kafka",
       "Docker"
     ],
-    "last_reviewed": "2026-07-10",
+    "last_reviewed": "2026-08-04",
     "scope": "generic",
     "owner": "docs-reference",
     "reviewer": "documentation-maintainers",

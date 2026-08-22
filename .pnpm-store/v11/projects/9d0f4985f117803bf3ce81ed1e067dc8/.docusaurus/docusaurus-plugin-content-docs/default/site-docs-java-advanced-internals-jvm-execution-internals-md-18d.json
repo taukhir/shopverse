@@ -1,7 +1,7 @@
 {
   "id": "java/advanced-internals/JVM-EXECUTION-INTERNALS",
   "title": "JVM Execution Internals",
-  "description": "<DocLabels items={[",
+  "description": "Beginner-to-advanced explanation of how the JVM loads classes, executes bytecode, manages frames, profiles hot paths, compiles code, deoptimizes, and reaches safepoints.",
   "source": "@site/docs/java/advanced-internals/JVM-EXECUTION-INTERNALS.md",
   "sourceDirName": "java/advanced-internals",
   "slug": "/java/advanced-internals/JVM-EXECUTION-INTERNALS",
@@ -16,6 +16,11 @@
     "difficulty": "Advanced",
     "page_type": "Concept",
     "status": "maintained",
+    "description": "Beginner-to-advanced explanation of how the JVM loads classes, executes bytecode, manages frames, profiles hot paths, compiles code, deoptimizes, and reaches safepoints.",
+    "prerequisites": [
+      "JVM Architecture And Runtime Boundaries",
+      "Java methods and objects"
+    ],
     "keywords": [
       "class loading",
       "bytecode",
@@ -37,7 +42,7 @@
       "javap",
       "JFR"
     ],
-    "last_reviewed": "2026-07-12",
+    "last_reviewed": "2026-08-04",
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
@@ -45,11 +50,11 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "JVM Garbage Collectors For Architects",
-    "permalink": "/shopverse/java/JAVA-GC-COLLECTORS-ARCHITECT"
+    "title": "JVM Architecture, Runtime Boundaries And Operations",
+    "permalink": "/shopverse/java/JAVA-JVM-ARCHITECTURE-OPERATIONS"
   },
   "next": {
-    "title": "Foreign Function, Memory And Dynamic Invocation Internals",
-    "permalink": "/shopverse/java/JAVA-FFM-METHOD-HANDLES-RUNTIME"
+    "title": "JVM Memory Model — Complete Runtime Overview",
+    "permalink": "/shopverse/java/JAVA-JVM-MEMORY"
   }
 }

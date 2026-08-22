@@ -1,7 +1,7 @@
 {
   "id": "reference/DOCUMENTATION-QUALITY-AUDIT",
-  "title": "Documentation Quality Audit And Backlog",
-  "description": "The automated audit is advisory: it identifies pages needing human review rather",
+  "title": "Documentation Learning Quality Audit And Backlog",
+  "description": "Documentation quality means that a new reader can define a subject, build a",
   "source": "@site/docs/reference/DOCUMENTATION-QUALITY-AUDIT.md",
   "sourceDirName": "reference",
   "slug": "/reference/DOCUMENTATION-QUALITY-AUDIT",
@@ -12,7 +12,7 @@
   "tags": [],
   "version": "current",
   "frontMatter": {
-    "title": "Documentation Quality Audit And Backlog",
+    "title": "Documentation Learning Quality Audit And Backlog",
     "difficulty": "Beginner",
     "page_type": "Reference",
     "status": "maintained",
@@ -24,7 +24,7 @@
     "technologies": [
       "Docusaurus"
     ],
-    "last_reviewed": "2026-07-12",
+    "last_reviewed": "2026-08-04",
     "scope": "generic",
     "owner": "docs-reference",
     "reviewer": "documentation-maintainers",

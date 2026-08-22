@@ -25,8 +25,8 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "State, Data, Deployment, And Failure Boundaries",
-    "permalink": "/shopverse/architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES"
+    "title": "Amway Delivery, Argo CD And Dynatrace",
+    "permalink": "/shopverse/architecture/AMWAY-DELIVERY-OBSERVABILITY"
   },
   "next": {
     "title": "ADR 002: Kafka Choreography SAGA For Checkout",

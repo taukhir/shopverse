@@ -1,0 +1,78 @@
+{
+  "id": "quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS",
+  "title": "Generate, Package, And Consume Quarkus OpenAPI Clients",
+  "description": "Advanced tutorial for generated Quarkus REST clients, Maven contract artifacts, compatibility gates, security, and release operations.",
+  "source": "@site/docs/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS.md",
+  "sourceDirName": "quarkus",
+  "slug": "/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS",
+  "permalink": "/shopverse/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "openapi",
+      "permalink": "/shopverse/tags/openapi"
+    },
+    {
+      "inline": true,
+      "label": "maven",
+      "permalink": "/shopverse/tags/maven"
+    },
+    {
+      "inline": true,
+      "label": "api-client",
+      "permalink": "/shopverse/tags/api-client"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Generate, Package, And Consume Quarkus OpenAPI Clients",
+    "description": "Advanced tutorial for generated Quarkus REST clients, Maven contract artifacts, compatibility gates, security, and release operations.",
+    "sidebar_label": "5. Clients And Artifacts",
+    "tags": [
+      "quarkus",
+      "openapi",
+      "maven",
+      "api-client"
+    ],
+    "page_type": "Tutorial",
+    "difficulty": "Advanced",
+    "status": "maintained",
+    "prerequisites": [
+      "Quarkus provider contract tutorial",
+      "Maven dependency fundamentals"
+    ],
+    "learning_objectives": [
+      "Generate a Quarkus REST client",
+      "Distinguish specification and client artifacts",
+      "Design a compatible contract release workflow"
+    ],
+    "technologies": [
+      "Quarkus",
+      "Quarkus OpenAPI Generator",
+      "Maven",
+      "OpenAPI"
+    ],
+    "last_reviewed": "2026-08-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "4. Provider Contract",
+    "permalink": "/shopverse/quarkus/QUARKUS-OPENAPI-PROVIDER"
+  },
+  "next": {
+    "title": "3. Data And Testing",
+    "permalink": "/shopverse/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING"
+  }
+}

@@ -16,6 +16,28 @@ review_evidence: repository-content-audit
 
 # Java Performance Diagnostics And Tooling
 
+**Performance diagnosis** is the evidence-driven process of locating the
+resource, queue, dependency, or runtime mechanism responsible for a measurable
+symptom. It begins with user impact and a time window, not with a preferred JVM
+flag or profiler.
+
+## Page Overview
+
+The workflow moves from customer impact and incident preservation to OS/cgroup
+triage, JVM snapshots, thread states, GC/allocation, JFR, async-profiler, heap and
+native memory, pools, and dependencies. A symptom matrix selects the next safe
+piece of evidence; verification closes the loop against the original workload.
+
+## What Is A Performance Symptom?
+
+A symptom is an observed deviation such as increased p99 latency, reduced
+throughput, errors, high CPU, memory growth, long pauses, or queue saturation.
+The same symptom can have different causes: high latency may come from CPU,
+locks, garbage collection, database waits, network waits, throttling, or an
+overloaded executor.
+
+## Diagnostic Mental Model
+
 Use this sequence instead of changing heap, thread or pool sizes from intuition:
 
 ```text
@@ -23,6 +45,14 @@ symptom -> customer/time scope -> OS and cgroup -> JVM overview
         -> threads/allocations/GC -> dependencies -> code profile
         -> containment -> controlled correction -> load verification
 ```
+
+## Prerequisites
+
+Read [JVM Architecture](./JAVA-JVM-ARCHITECTURE-OPERATIONS.md),
+[JVM Memory Areas](./JAVA-JVM-MEMORY.md), and
+[Java Containers Resource Limits](./JAVA-CONTAINERS-RESOURCE-LIMITS.md). This page
+teaches tool selection; it does not repeat the implementation of every JVM
+subsystem those tools observe.
 
 ## Preserve The Incident
 
@@ -213,9 +243,48 @@ GC, pool/queue saturation, errors and business SLI. Change one variable, retain
 profiles, test failure behavior, define rollback and ensure the improvement is not
 merely shifted to another resource.
 
+## Failure Modes And Trade-Offs
+
+- CPU samples explain on-CPU work, not time spent waiting; wall-clock evidence,
+  traces, and thread states answer different questions.
+- Heap dumps expose retention paths but can pause the process, consume large
+  disk space, and contain customer-sensitive values.
+- High-detail recording adds overhead and storage pressure; choose event settings
+  and duration from the incident question.
+- A faster isolated method may not improve request latency if the bottleneck is
+  a queue, dependency, lock, database, network, or CPU quota.
+- A change is verified only against the original workload, time window, SLO,
+  resource measurements, and regression boundaries.
+
+## Tricky Interview Questions
+
+<ExpandableAnswer title="Why can low CPU coexist with severe request latency?">
+
+Threads may be parked behind locks, queues, connection pools, throttling, I/O, or
+downstream calls. Correlate wall-clock profiles, thread states, queue age, pool
+wait time, and traces instead of treating low CPU as healthy execution.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="When is a heap dump the wrong first diagnostic?">
+
+When the symptom is CPU, waiting, native memory, or an unstable incident where a
+large pause and disk write add risk. Begin with bounded metrics, JFR, histograms,
+NMT, and OS evidence matched to the question.
+
+</ExpandableAnswer>
+
+<ExpandableAnswer title="What evidence is required before increasing a pool?">
+
+Show pool wait and queue saturation, identify the downstream capacity boundary,
+model the extra concurrency, and define rollback. A larger pool can amplify
+database or dependency overload while making local queue metrics look better.
+
+</ExpandableAnswer>
+
 ## Recommended Next
 
-Continue with [Java Containers And Resource Limits](./JAVA-CONTAINERS-RESOURCE-LIMITS.md).
+Continue with [JVM Profiling, GC And Native Memory](./JVM-PROFILING-GC-NATIVE.md).
 
 ## Official References
 

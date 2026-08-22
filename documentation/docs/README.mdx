@@ -6,29 +6,70 @@ hide_table_of_contents: true
 hide_title: true
 hide_reader_chrome: true
 status: maintained
-last_reviewed: "2026-07-13"
-page_type: Guide
-difficulty: Intermediate
+last_reviewed: "2026-08-04"
+page_type: Learning Path
+difficulty: Beginner
+learning_objectives:
+  - Choose a documentation track that matches the reader's goal and current depth
+  - Progress from definitions and examples to production and lead-engineer judgment
+  - Distinguish reusable engineering guidance from verified Shopverse behavior
 scope: generic
 owner: docs-documentation
 reviewer: documentation-maintainers
 review_evidence: repository-content-audit
 ---
 
-import {KnowledgeHome, ReadingGuide} from '@site/src/components/DocumentationLanding';
+import {KnowledgeHome, LearningDepth, ReadingGuide} from '@site/src/components/DocumentationLanding';
 
 <KnowledgeHome />
+
+This knowledge base is a structured backend-engineering curriculum and a verified
+Shopverse case study. It exists to teach reusable concepts from their definitions
+through production trade-offs, then show where those concepts are implemented,
+partially implemented, or planned in a working microservices platform.
+
+## Page Overview
+
+Start with **Choose Your Depth** to understand the expected learning layers. Use
+**How To Use This Library** for goal-based routes, **Quick Routes** for a focused
+domain, and **Documentation Model** to distinguish generic teaching from
+Shopverse evidence.
+
+## Prerequisites
+
+No Shopverse knowledge is required. Basic programming familiarity helps with code
+examples; the learning path supplies the Java, Spring, data, distributed-systems,
+security, and operations prerequisites in order.
+
+## Core Terminology
+
+- A **learning track** is a prerequisite-ordered route through one domain.
+- A **canonical page** is the single page that owns a concept's full definition.
+- **Implementation evidence** is repository code, configuration, tests, or runtime
+  output that proves a Shopverse-specific claim.
+- A **lead-engineer decision** states constraints, alternatives, trade-offs,
+  operational evidence, and the conditions that would change the choice.
 
 ## How To Use This Library
 
 <ReadingGuide>
 
-Use a generic guide to understand a reusable concept, then open the matching
-Shopverse page to inspect a concrete implementation. Implementation pages are
-explicitly marked as **Implemented**, **Partial**, or **Planned** so study
-material is not confused with current runtime behavior.
+Every learning track starts with definitions and a mental model, then progresses
+through examples, internals, edge cases, production diagnostics, and lead-engineer
+trade-offs. Use a generic guide to understand the concept, then open the matching
+Shopverse page to inspect implementation evidence. Implementation pages are
+marked **Implemented**, **Partial**, or **Planned** so study material is not
+confused with current runtime behavior.
 
 </ReadingGuide>
+
+## Choose Your Depth
+
+<LearningDepth />
+
+You can stop after the layer that matches your goal or continue in order. A deep
+page may link back to canonical fundamentals, but no track should make a beginner
+start with unexplained internals.
 
 | Goal | Recommended entry point |
 |---|---|
@@ -38,7 +79,7 @@ material is not confused with current runtime behavior.
 | Review fixes and measurements | [Problems and solutions index](reliability/problems/README.md) |
 | Find operational commands quickly | [Operations cheat sheet](operations/OPERATIONS-CHEATSHEET.md) |
 | Learn retail and e-commerce concepts | [Retail domain and commerce architecture](architecture/retail/RETAIL-DOMAIN-ARCHITECTURE.md) |
-| Prepare for interviews | Use the interview sections in Java, Spring, data, Kafka, and distributed-system guides |
+| Prepare for interviews | Use each topic's tricky questions, then the dedicated [interview questionnaires](INTERVIEW-QUESTIONNAIRES.md) |
 | Prepare for retail interviews | [Retail domain interview questions](architecture/retail/RETAIL-DOMAIN-INTERVIEW.md) |
 | Diagnose a running Shopverse stack | [Debugging runbook](development/DEBUGGING.md) |
 | Modify or deploy this portal | [Docusaurus documentation portal](operations/DOCUSAURUS.md) |
@@ -87,3 +128,18 @@ Use this rule when reading or editing the docs:
 | Shopverse case study | Current runtime behavior, code/config evidence, demo path, known gaps |
 | Problem analysis | Observed issue, impact, current mitigation, target design |
 | Roadmap | Future work explicitly marked as not current runtime behavior |
+
+## Documentation Quality Promise
+
+Page count and word count are not completion criteria. A topic is complete only
+when it defines the concept, teaches realistic and failing examples, explains
+internals and edge cases, supports production diagnosis, tests lead-engineer
+judgment, and links to canonical prerequisites and deeper pages. See the
+[documentation guide](reference/DOCUMENTATION-GUIDE.md) and the
+[quality audit backlog](reference/DOCUMENTATION-QUALITY-AUDIT.md).
+
+## Recommended Next
+
+Continue with the [backend engineering learning path](reference/LEARNING-PATH.mdx),
+or open the [Shopverse case study](case-study/SHOPVERSE.mdx) if you already know
+the foundations and want implementation evidence.

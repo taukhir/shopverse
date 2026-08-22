@@ -1,5 +1,5 @@
 ---
-title: Array Problems 11-20 - Marking, DP, Two Pointers, And Matrices
+title: Array Problems 11-20
 description: Worked Java solutions for missing values, duplicates, intersections, Dutch flag partitioning, consecutive sequences, product DP, water, 3Sum, and spiral traversal.
 sidebar_label: Problems 11-20
 sidebar_position: 4
@@ -13,7 +13,7 @@ reviewer: documentation-maintainers
 review_evidence: repository-content-audit
 ---
 
-# Array Problems 11-20: Marking, DP, Two Pointers, And Matrices
+# Array Problems 11-20
 
 ## Pattern Selection Map
 
@@ -50,8 +50,6 @@ static int missingNumber(int[] nums) {
   and `O(1)` space with no sum overflow.
 
 </ExpandableAnswer>
-
-**Complexity:** `O(n)` time and `O(1)` space. Values must be distinct and in `0..n`.
 
 <ExpandableAnswer title="Dry run: [3, 0, 1]">
 
@@ -91,8 +89,6 @@ static List<Integer> findMissing(int[] nums) {
   cost of mutation. Both passes together are `O(n)`.
 
 </ExpandableAnswer>
-
-**Complexity:** `O(n)` time and `O(1)` auxiliary space; input is mutated.
 
 <ExpandableAnswer title="Dry run: [4, 3, 2, 7, 8, 2, 3, 1]">
 
@@ -178,8 +174,6 @@ The array is acting as read-only next-pointer storage; the method never changes
 an element.
 
 </ExpandableAnswer>
-
-**Complexity:** `O(n)` time and `O(1)` space; no mutation. It supports more than two occurrences.
 
 <ExpandableAnswer title="Floyd dry run: [1, 2, 3, 2]">
 
@@ -276,8 +270,6 @@ and also why input mutation is unavoidable for this version.
 
 </ExpandableAnswer>
 
-**Complexity:** `O(n)` time and `O(1)` space. It mutates input and requires values in `1..n`.
-
 <ExpandableAnswer title="Negative-marking dry run: [1, 2, 3, 2]">
 
 - Value `1` marks index `0`: `[-1,2,3,2]`.
@@ -332,8 +324,6 @@ The outer range halves `O(log n)` times, but each decision rescans `n` elements,
 giving `O(n log n)` time.
 
 </ExpandableAnswer>
-
-**Complexity:** `O(n log n)` time and `O(1)` space; no mutation.
 
 <ExpandableAnswer title="Value-range dry run: [1, 2, 3, 2]">
 

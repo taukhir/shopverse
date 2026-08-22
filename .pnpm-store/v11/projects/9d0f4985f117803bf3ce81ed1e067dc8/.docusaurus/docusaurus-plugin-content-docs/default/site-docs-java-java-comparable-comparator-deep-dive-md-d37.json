@@ -21,7 +21,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "Java generics",
+      "object equality",
+      "lambdas",
+      "and collection interfaces"
+    ],
+    "learning_objectives": [
+      "Implement valid total orderings",
+      "Compose null-safe deterministic comparators",
+      "Protect sorted collections and priority queues from mutable order state"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

@@ -18,8 +18,19 @@
     "description": "Java Collections hierarchy and learning path from List, Set, Map, Queue, and Deque contracts to dedicated implementation internals.",
     "status": "maintained",
     "last_reviewed": "2026-07-24",
-    "page_type": "Guide",
+    "page_type": "Learning Path",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Java objects",
+      "generics",
+      "equality",
+      "and iteration"
+    ],
+    "learning_objectives": [
+      "Choose collection contracts before implementations",
+      "Navigate List Set Map Queue and Deque families",
+      "Connect equality ordering mutation and concurrency requirements"
+    ],
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",

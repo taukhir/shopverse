@@ -1,0 +1,85 @@
+{
+  "id": "quarkus/README",
+  "title": "Quarkus Beginner-To-Advanced Learning Path",
+  "description": "A progressive Quarkus route covering foundations, REST, OpenAPI, generated clients, persistence, messaging, security, observability, native images, Kubernetes, and checkout design.",
+  "source": "@site/docs/quarkus/README.md",
+  "sourceDirName": "quarkus",
+  "slug": "/quarkus/",
+  "permalink": "/shopverse/quarkus/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/quarkus/README.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "java",
+      "permalink": "/shopverse/tags/java"
+    },
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "microservices",
+      "permalink": "/shopverse/tags/microservices"
+    },
+    {
+      "inline": true,
+      "label": "tutorial",
+      "permalink": "/shopverse/tags/tutorial"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "Quarkus Beginner-To-Advanced Learning Path",
+    "description": "A progressive Quarkus route covering foundations, REST, OpenAPI, generated clients, persistence, messaging, security, observability, native images, Kubernetes, and checkout design.",
+    "sidebar_label": "Quarkus Learning Path",
+    "tags": [
+      "java",
+      "quarkus",
+      "microservices",
+      "tutorial"
+    ],
+    "page_type": "Learning Path",
+    "difficulty": "All Levels",
+    "status": "maintained",
+    "prerequisites": [
+      "Java 17 fundamentals",
+      "HTTP and JSON basics",
+      "Maven basics"
+    ],
+    "learning_objectives": [
+      "Build and explain a Quarkus service",
+      "Select blocking or reactive execution deliberately",
+      "Design production-ready persistence and integration boundaries",
+      "Operate Quarkus on containers and Kubernetes"
+    ],
+    "technologies": [
+      "Java",
+      "Quarkus",
+      "Jakarta REST",
+      "CDI",
+      "Hibernate ORM",
+      "Kafka",
+      "OpenID Connect",
+      "OpenTelemetry",
+      "Kubernetes"
+    ],
+    "last_reviewed": "2026-08-13",
+    "scope": "generic",
+    "owner": "docs-java",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Java Sealed Classes",
+    "permalink": "/shopverse/java/features-8-to-26/JAVA-SEALED-CLASSES"
+  },
+  "next": {
+    "title": "1. Foundations",
+    "permalink": "/shopverse/quarkus/QUARKUS-FUNDAMENTALS"
+  }
+}

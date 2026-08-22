@@ -61,7 +61,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "Queue contract",
+      "arrays",
+      "binary trees",
+      "Comparable and Comparator"
+    ],
+    "learning_objectives": [
+      "Trace heap sift operations",
+      "Distinguish head guarantees from sorted iteration",
+      "Design stable bounded priority workloads"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

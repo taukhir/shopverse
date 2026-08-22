@@ -42,8 +42,8 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "Java Sealed Classes",
-    "permalink": "/shopverse/java/features-8-to-26/JAVA-SEALED-CLASSES"
+    "title": "6. Checkout Capstone",
+    "permalink": "/shopverse/quarkus/QUARKUS-CHECKOUT-TUTORIAL"
   },
   "next": {
     "title": "Spring Ecosystem",

@@ -3,10 +3,12 @@ title: JVM Execution Internals
 difficulty: Advanced
 page_type: Concept
 status: maintained
+description: Beginner-to-advanced explanation of how the JVM loads classes, executes bytecode, manages frames, profiles hot paths, compiles code, deoptimizes, and reaches safepoints.
+prerequisites: [JVM Architecture And Runtime Boundaries, Java methods and objects]
 keywords: [class loading, bytecode, stack frame, JIT, inlining, escape analysis, safepoint, deoptimization]
 learning_objectives: [Trace class loading and initialization, Explain bytecode execution and JIT optimization, Diagnose safepoint and deoptimization behavior]
 technologies: [Java, JVM, javap, JFR]
-last_reviewed: "2026-07-12"
+last_reviewed: "2026-08-04"
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -14,6 +16,37 @@ review_evidence: repository-content-audit
 ---
 
 # JVM Execution Internals
+
+**JVM execution** is the process of turning verified Java bytecode into actions
+performed by a running machine. Execution may begin in an interpreter, become
+compiled machine code when a method is hot, and later return to less optimized
+code if a speculative assumption becomes invalid.
+
+## Page Overview
+
+The execution lifecycle is taught in causal order: class loading and
+initialization, bytecode frames, interpretation, profiling, tiered compilation,
+inlining and escape analysis, deoptimization, and safepoints. The final diagnostic
+shows how to distinguish profile instability from allocation, locking, or a long
+VM operation using correlated evidence.
+
+## What Is Being Executed?
+
+`javac` normally compiles Java source into platform-neutral instructions stored
+in a `.class` file. The JVM loads and verifies those instructions. Each method
+invocation receives a frame containing local-variable slots and an operand
+stack; the interpreter or compiled code then performs the method's operations.
+
+Execution is adaptive rather than a permanent source-to-machine-code mapping.
+The JVM observes the running workload, optimizes frequent paths, and preserves
+correctness with guards, dependency tracking, safepoints, and deoptimization.
+
+## Prerequisites
+
+Read [JVM Architecture And Runtime Boundaries](../JAVA-JVM-ARCHITECTURE-OPERATIONS.md)
+first. You should recognize classes, methods, inheritance, exceptions, and
+threads. Bytecode, JIT compilation, and safepoints are introduced from first
+principles here.
 
 <DocLabels items={[
   {label: 'Advanced', tone: 'advanced'},
@@ -135,6 +168,27 @@ operation points elsewhere, and allocation samples implicate a different cost.
 Only after identifying the dominant evidence should the team reshape the hot
 dispatch path, reduce deployment-time class churn, or leave the design intact;
 repeat the same capture to verify p99, CPU, and deoptimization rate.
+
+## Boundaries, Trade-Offs And Failure Modes
+
+- JIT optimization improves hot paths but consumes compilation CPU and code
+  cache, and cold-start behavior differs from steady state.
+- More polymorphic call sites can reduce inlining opportunities, but verify that
+  with compiler evidence before weakening sound abstractions.
+- Class initialization can fail or deadlock; a failed initialization remains
+  associated with that class in its defining loader.
+- Dynamic class generation and retained loaders can increase metadata pressure
+  and prevent class unloading.
+- Safepoint entry time and safepoint-operation duration are different; use
+  timestamped evidence instead of calling every pause garbage collection.
+
+## Lead-Engineer Decision Evidence
+
+Do not weaken abstractions or alter compiler flags because a call site merely
+looks expensive in source. Require a representative JFR window, compiler or
+deoptimization evidence, request-level SLO impact, and an A/B result under the
+same workload. The decision record should include cold-start cost, steady-state
+gain, code-cache/compilation overhead, compatibility risk, and rollback criteria.
 
 ## Lab
 

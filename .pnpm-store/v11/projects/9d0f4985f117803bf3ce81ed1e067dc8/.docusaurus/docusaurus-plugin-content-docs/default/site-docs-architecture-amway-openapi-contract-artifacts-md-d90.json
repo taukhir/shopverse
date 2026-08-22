@@ -1,0 +1,98 @@
+{
+  "id": "architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS",
+  "title": "OpenAPI Contracts And Generated DTO Artifacts",
+  "description": "A contract-first retail tutorial for defining checkout APIs, generating Java DTOs with Gradle Kotlin DSL, publishing versioned artifacts, and consuming them from Quarkus projects.",
+  "source": "@site/docs/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS.md",
+  "sourceDirName": "architecture",
+  "slug": "/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS",
+  "permalink": "/shopverse/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/taukhir/shopverse/edit/main/documentation/docs/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS.md",
+  "tags": [
+    {
+      "inline": true,
+      "label": "amway",
+      "permalink": "/shopverse/tags/amway"
+    },
+    {
+      "inline": true,
+      "label": "openapi",
+      "permalink": "/shopverse/tags/openapi"
+    },
+    {
+      "inline": true,
+      "label": "quarkus",
+      "permalink": "/shopverse/tags/quarkus"
+    },
+    {
+      "inline": true,
+      "label": "gradle",
+      "permalink": "/shopverse/tags/gradle"
+    },
+    {
+      "inline": true,
+      "label": "api-contracts",
+      "permalink": "/shopverse/tags/api-contracts"
+    },
+    {
+      "inline": true,
+      "label": "code-generation",
+      "permalink": "/shopverse/tags/code-generation"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "title": "OpenAPI Contracts And Generated DTO Artifacts",
+    "description": "A contract-first retail tutorial for defining checkout APIs, generating Java DTOs with Gradle Kotlin DSL, publishing versioned artifacts, and consuming them from Quarkus projects.",
+    "sidebar_label": "OpenAPI Contract Artifacts",
+    "tags": [
+      "amway",
+      "openapi",
+      "quarkus",
+      "gradle",
+      "api-contracts",
+      "code-generation"
+    ],
+    "page_type": "Tutorial",
+    "difficulty": "Intermediate",
+    "status": "maintained",
+    "prerequisites": [
+      "Java 21 fundamentals",
+      "Gradle Kotlin DSL fundamentals",
+      "REST fundamentals"
+    ],
+    "learning_objectives": [
+      "Explain why OpenAPI is needed",
+      "Design a retail checkout contract",
+      "Generate Java DTOs in a Gradle subproject",
+      "Publish a versioned Maven artifact",
+      "Consume and map generated DTOs safely",
+      "Evolve API contracts compatibly"
+    ],
+    "technologies": [
+      "OpenAPI",
+      "OpenAPI Generator",
+      "Java 21",
+      "Gradle Kotlin DSL",
+      "Quarkus REST",
+      "MicroProfile REST Client",
+      "MapStruct",
+      "Maven repositories"
+    ],
+    "last_reviewed": "2026-08-21",
+    "scope": "generic",
+    "owner": "docs-architecture",
+    "reviewer": "documentation-maintainers",
+    "review_evidence": "user-provided-stack-and-official-documentation-review"
+  },
+  "sidebar": "docsSidebar",
+  "previous": {
+    "title": "Amway Project Technology Stack",
+    "permalink": "/shopverse/architecture/AMWAY-PROJECT-TECH-STACK"
+  },
+  "next": {
+    "title": "Amway Delivery, Argo CD And Dynatrace",
+    "permalink": "/shopverse/architecture/AMWAY-DELIVERY-OBSERVABILITY"
+  }
+}

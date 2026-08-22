@@ -61,7 +61,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "Queue and Deque contracts",
+      "arrays",
+      "modular indexing",
+      "and amortized complexity"
+    ],
+    "learning_objectives": [
+      "Trace circular-array end operations",
+      "Choose exception or sentinel APIs deliberately",
+      "Recognize concurrency and backpressure limits"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

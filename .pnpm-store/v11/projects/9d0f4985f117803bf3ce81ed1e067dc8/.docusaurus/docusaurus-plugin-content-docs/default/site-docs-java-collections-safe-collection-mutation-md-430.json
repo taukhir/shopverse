@@ -21,7 +21,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "Java collection interfaces",
+      "iterators",
+      "equality and hashing",
+      "and basic concurrency"
+    ],
+    "learning_objectives": [
+      "Match mutation intent to a supported operation",
+      "Preserve hash and ORM ownership invariants",
+      "Select snapshot or concurrent semantics explicitly"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

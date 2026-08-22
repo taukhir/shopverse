@@ -56,6 +56,17 @@
     ],
     "page_type": "Deep Dive",
     "difficulty": "Advanced",
+    "prerequisites": [
+      "List and Deque contracts",
+      "Java references",
+      "generics",
+      "and iteration"
+    ],
+    "learning_objectives": [
+      "Trace doubly linked traversal",
+      "Explain insertion locality and allocation cost",
+      "Select LinkedList only for matching workloads"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

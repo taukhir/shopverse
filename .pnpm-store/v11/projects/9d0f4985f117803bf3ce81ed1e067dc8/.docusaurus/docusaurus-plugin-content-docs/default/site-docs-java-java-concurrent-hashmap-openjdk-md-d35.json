@@ -21,7 +21,19 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "HashMap internals",
+      "Java memory model",
+      "CAS",
+      "synchronization",
+      "and atomic compound operations"
+    ],
+    "learning_objectives": [
+      "Trace modern read write and resize paths",
+      "State per-key atomicity and visibility guarantees",
+      "Diagnose contention retention and distributed-design mistakes"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {

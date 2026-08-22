@@ -16,8 +16,19 @@
     "description": "Umbrella guide to application threads, schedulers, JVM service threads, coordination, memory visibility, virtual threads, and async composition.",
     "status": "maintained",
     "last_reviewed": "2026-07-13",
-    "page_type": "Guide",
+    "page_type": "Learning Path",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Java methods",
+      "objects",
+      "exceptions",
+      "and basic JVM execution"
+    ],
+    "learning_objectives": [
+      "Distinguish Java thread families and ownership",
+      "Follow concurrency topics in prerequisite order",
+      "Diagnose scheduling coordination and visibility failures"
+    ],
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",

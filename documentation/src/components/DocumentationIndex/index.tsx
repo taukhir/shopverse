@@ -182,12 +182,11 @@ export function DocumentationIndex() {
     <div className={styles.controls}>
       <label className={styles.searchField}>
         <Search aria-hidden="true" />
-        <span className="sr-only">Search the complete documentation index</span>
         <input
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search umbrella pages, subpages, and topics"
+          placeholder="Search pages and topics"
           aria-label="Search the complete documentation index"
         />
         {query ? <button type="button" onClick={() => setQuery('')} aria-label="Clear documentation index search">

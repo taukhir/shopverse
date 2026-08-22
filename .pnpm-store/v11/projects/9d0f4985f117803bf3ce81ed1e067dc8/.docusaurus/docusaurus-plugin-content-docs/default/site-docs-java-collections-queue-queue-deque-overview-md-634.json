@@ -44,6 +44,17 @@
     ],
     "page_type": "Reference",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "Collection contracts",
+      "Java generics",
+      "iteration",
+      "and basic concurrency"
+    ],
+    "learning_objectives": [
+      "Define Queue and Deque processing contracts",
+      "Choose exception special-value and blocking methods",
+      "Select capacity priority and concurrency behavior"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

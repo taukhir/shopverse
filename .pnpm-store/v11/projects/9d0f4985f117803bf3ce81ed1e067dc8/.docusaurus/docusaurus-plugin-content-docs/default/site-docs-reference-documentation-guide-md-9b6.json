@@ -1,7 +1,7 @@
 {
   "id": "reference/DOCUMENTATION-GUIDE",
   "title": "Documentation Guide",
-  "description": "Use this umbrella to navigate and maintain the knowledge base without repeating",
+  "description": "Documentation is structured teaching that lets a reader move from a plain-language",
   "source": "@site/docs/reference/DOCUMENTATION-GUIDE.md",
   "sourceDirName": "reference",
   "slug": "/reference/DOCUMENTATION-GUIDE",
@@ -24,7 +24,7 @@
     "technologies": [
       "Docusaurus"
     ],
-    "last_reviewed": "2026-07-23",
+    "last_reviewed": "2026-08-04",
     "scope": "generic",
     "owner": "docs-reference",
     "reviewer": "documentation-maintainers",

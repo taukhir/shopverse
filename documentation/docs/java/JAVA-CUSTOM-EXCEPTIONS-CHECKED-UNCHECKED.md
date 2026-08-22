@@ -17,6 +17,24 @@ review_evidence: repository-content-audit
 
 # Java Custom Exceptions, Checked And Unchecked Rules
 
+An **exception** is an object that interrupts normal control flow to report a
+failure. Its type, cause, stable code, and boundary mapping form a contract used
+by callers, transactions, retries, APIs, logs, and operators—not merely an error
+message for the current method.
+
+## Page Overview
+
+This guide classifies `Error`, checked exceptions, and unchecked exceptions;
+designs custom types; preserves causes and interruption; translates infrastructure
+failures at boundaries; and verifies rollback, retry, HTTP, and security behavior.
+
+## Core Terminology And Prerequisites
+
+Know classes, inheritance, methods, and `try`/`catch`. A **cause** preserves the
+originating failure, **translation** converts an implementation failure into a
+stable boundary contract, and a **retryable** failure is one that policy can
+safely attempt again. Review [Java OOP](./JAVA-OOP.md) for subtype contracts.
+
 ## Exception Classification Flow
 
 ```mermaid
@@ -35,7 +53,7 @@ An exception type is part of an API contract. Create one when its type or stable
 caller make a meaningful decision, improves boundary translation, or provides operational context.
 Do not create a new class merely to rename a generic failure.
 
-## Exception Hierarchy
+## How It Works: Exception Hierarchy
 
 ```text
 Throwable
@@ -304,6 +322,14 @@ catch (InterruptedException ex) {
     throw new OperationInterruptedException("Reservation interrupted", ex);
 }
 ```
+
+## Boundaries And Trade-Offs
+
+Checked exceptions force local acknowledgement but can create declaration noise
+across layers. Unchecked exceptions compose naturally with frameworks but require
+clear centralized mapping. Result types make expected alternatives explicit but
+can obscure truly exceptional failures. Choose from caller recovery semantics,
+not severity or Spring rollback defaults.
 
 ## Testing Exception Contracts
 

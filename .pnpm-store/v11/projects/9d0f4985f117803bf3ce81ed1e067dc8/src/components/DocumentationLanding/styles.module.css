@@ -322,6 +322,69 @@
   margin-bottom: 0;
 }
 
+.depthMap {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+  margin: 1.25rem 0 2.25rem;
+  padding: 0;
+}
+
+.depthMap li {
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--doc-border);
+  border-right: 0;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: 28px minmax(0, 1fr) 18px;
+  min-height: 168px;
+  padding: 1rem;
+}
+
+.depthMap li:first-child {
+  border-radius: 7px 0 0 7px;
+}
+
+.depthMap li:last-child {
+  border-radius: 0 7px 7px 0;
+  border-right: 1px solid var(--doc-border);
+}
+
+.depthNumber {
+  color: var(--ifm-color-primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.depthCopy {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.depthCopy strong {
+  font-size: 1rem;
+}
+
+.depthCopy > span {
+  color: var(--ifm-color-emphasis-800);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.depthCopy small {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.depthMap svg {
+  align-self: center;
+  color: var(--ifm-color-emphasis-500);
+  height: 17px;
+  width: 17px;
+}
+
 .roadmap {
   border: 1px solid var(--doc-border);
   border-radius: 7px;
@@ -437,6 +500,11 @@
   .topicGrid {
     grid-template-columns: 1fr;
   }
+  .depthMap { grid-template-columns: 1fr; }
+  .depthMap li { border-bottom: 0; border-right: 1px solid var(--doc-border); min-height: 0; }
+  .depthMap li:first-child { border-radius: 7px 7px 0 0; }
+  .depthMap li:last-child { border-bottom: 1px solid var(--doc-border); border-radius: 0 0 7px 7px; }
+  .depthMap svg { transform: rotate(90deg); }
   .explorerGrid{grid-template-columns:1fr}.explorerControls .filterGrid{grid-template-columns:1fr}.explorerControls .resultSummary{align-items:flex-start;flex-direction:column}.resultSummary>span{flex-wrap:wrap}
 
   .figure figcaption {

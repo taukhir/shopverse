@@ -27,6 +27,21 @@ run on the Java Virtual Machine. The main idea is that Java source code is
 compiled into bytecode, and the JVM executes that bytecode on different
 operating systems.
 
+## Page Overview
+
+This page defines the JDK, runtime, JVM, bytecode, class loading, JIT, and core
+memory areas before linking to focused language and runtime guides. It provides
+the minimum execution model needed to reason correctly about later Java code.
+
+## Core Terminology
+
+- **Source code** is the `.java` text accepted by the Java compiler.
+- **Bytecode** is the platform-neutral instruction format stored in class files.
+- The **JVM** loads, verifies, and executes bytecode while managing runtime state.
+- The **JDK** supplies the compiler, runtime, and development/diagnostic tools.
+
+## Mental Model
+
 ```text
 Java source code (.java)
   -> javac compiler
@@ -35,7 +50,7 @@ Java source code (.java)
   -> machine execution
 ```
 
-## JDK, JRE, JVM
+## How It Works: JDK, Runtime, And JVM
 
 | Term | Meaning | What it contains |
 |---|---|---|
@@ -103,6 +118,29 @@ The JVM itself is platform-specific, but the bytecode remains portable.
 
 Most application memory tuning focuses on heap, GC behavior, thread count, and
 object allocation rate.
+
+## Boundaries And Trade-Offs
+
+Bytecode portability does not make every native library, filesystem assumption,
+default charset, or operating-system behavior portable. JIT compilation improves
+hot paths but creates warm-up cost; ahead-of-time choices trade dynamic runtime
+optimization for startup and footprint goals.
+
+## Failure Modes And Edge Cases
+
+- compiling and running with incompatible Java versions can produce class-version errors;
+- equal class names loaded by different defining loaders are different types;
+- `-Xmx` limits heap, not the complete JVM process;
+- default charset, locale, time zone, and filesystem rules can change behavior;
+- a successful compilation proves type correctness, not thread safety or resource bounds.
+
+## Production And Lead-Engineer Guidance
+
+Pin and test the supported JDK distribution/version, define container heap and
+native headroom, capture startup and steady-state evidence, and make locale,
+charset, and time-zone assumptions explicit. Upgrade decisions require library,
+bytecode, tooling, performance, and rollback compatibility—not only successful
+local compilation.
 
 ## Common Interview Questions
 

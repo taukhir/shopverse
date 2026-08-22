@@ -45,8 +45,8 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "JVM Profiling, Garbage Collection, And Native Images",
-    "permalink": "/shopverse/java/JVM-PROFILING-GC-NATIVE"
+    "title": "Java Production Incident Walkthroughs",
+    "permalink": "/shopverse/java/JAVA-PRODUCTION-INCIDENTS"
   },
   "next": {
     "title": "Java Assertions, Compilation And Packaging Toolchain",

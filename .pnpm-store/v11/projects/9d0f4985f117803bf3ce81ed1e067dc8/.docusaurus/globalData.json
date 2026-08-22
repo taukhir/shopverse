@@ -311,6 +311,26 @@
               "sidebar": "docsSidebar"
             },
             {
+              "id": "architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER",
+              "path": "/shopverse/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "architecture/AMWAY-DELIVERY-OBSERVABILITY",
+              "path": "/shopverse/architecture/AMWAY-DELIVERY-OBSERVABILITY",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS",
+              "path": "/shopverse/architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "architecture/AMWAY-PROJECT-TECH-STACK",
+              "path": "/shopverse/architecture/AMWAY-PROJECT-TECH-STACK",
+              "sidebar": "docsSidebar"
+            },
+            {
               "id": "architecture/API-EVENT-COMPATIBILITY",
               "path": "/shopverse/architecture/API-EVENT-COMPATIBILITY",
               "sidebar": "docsSidebar"
@@ -3261,6 +3281,56 @@
             {
               "id": "platform/WEB-PAGINATION",
               "path": "/shopverse/platform/WEB-PAGINATION",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-CHECKOUT-TUTORIAL",
+              "path": "/shopverse/quarkus/QUARKUS-CHECKOUT-TUTORIAL",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING",
+              "path": "/shopverse/quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-FUNDAMENTALS",
+              "path": "/shopverse/quarkus/QUARKUS-FUNDAMENTALS",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY",
+              "path": "/shopverse/quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION",
+              "path": "/shopverse/quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS",
+              "path": "/shopverse/quarkus/QUARKUS-OPENAPI-CLIENT-ARTIFACTS",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-OPENAPI-FUNDAMENTALS",
+              "path": "/shopverse/quarkus/QUARKUS-OPENAPI-FUNDAMENTALS",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-OPENAPI-PROVIDER",
+              "path": "/shopverse/quarkus/QUARKUS-OPENAPI-PROVIDER",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/QUARKUS-REST-CDI-CONFIG",
+              "path": "/shopverse/quarkus/QUARKUS-REST-CDI-CONFIG",
+              "sidebar": "docsSidebar"
+            },
+            {
+              "id": "quarkus/README",
+              "path": "/shopverse/quarkus/",
               "sidebar": "docsSidebar"
             },
             {

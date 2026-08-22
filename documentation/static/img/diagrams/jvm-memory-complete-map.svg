@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1050" viewBox="0 0 1600 1050" role="img" aria-labelledby="title desc">
+  <title id="title">Complete JVM runtime memory and ownership map</title>
+  <desc id="desc">Shared heap and metadata, per-thread stack frames, program counters and native stacks, ThreadLocal reachability, TLAB allocation, code cache, direct memory, CPU caches and RAM.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8fafc"/><stop offset="1" stop-color="#eef2ff"/></linearGradient>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#475569"/></marker>
+    <style>
+      .outer{fill:url(#bg);stroke:#0f172a;stroke-width:3}.shared{fill:#ecfdf5;stroke:#047857;stroke-width:2}.thread{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.native{fill:#fff7ed;stroke:#c2410c;stroke-width:2}.box{fill:#fff;stroke:#64748b;stroke-width:1.7}.tl{fill:#f5f3ff;stroke:#7c3aed;stroke-width:1.7}.title{font:700 28px system-ui;fill:#0f172a}.head{font:700 20px system-ui;fill:#0f172a}.text{font:16px system-ui;fill:#334155}.small{font:14px system-ui;fill:#475569}.arrow{fill:none;stroke:#475569;stroke-width:2;marker-end:url(#arrow)}.dash{stroke-dasharray:8 6}
+    </style>
+  </defs>
+  <rect width="1600" height="1050" fill="#fff"/><rect class="outer" x="25" y="25" width="1550" height="1000" rx="24"/>
+  <text class="title" x="55" y="70">JVM process: logical runtime areas and physical memory context</text>
+
+  <rect class="shared" x="55" y="95" width="980" height="325" rx="18"/><text class="head" x="80" y="128">SHARED BY ALL THREADS</text>
+  <rect class="box" x="80" y="150" width="570" height="235" rx="14"/><text class="head" x="105" y="182">Java heap (managed by GC)</text>
+  <text class="text" x="105" y="216">Objects · arrays · collection objects + backing storage</text><text class="text" x="105" y="246">Instance fields · enum constant objects · String objects</text><text class="text" x="105" y="276">Thread objects → ThreadLocalMap → heap values</text>
+  <rect class="tl" x="105" y="302" width="235" height="58" rx="10"/><text class="small" x="126" y="327">TLAB: heap allocation slice</text><text class="small" x="126" y="348">owned by one allocator</text>
+  <rect class="box" x="680" y="150" width="330" height="110" rx="14"/><text class="head" x="705" y="181">Method area / metaspace</text><text class="small" x="705" y="211">Class + method metadata</text><text class="small" x="705" y="235">Runtime constant pools</text>
+  <rect class="box" x="680" y="280" width="330" height="105" rx="14"/><text class="head" x="705" y="312">Class-associated state</text><text class="small" x="705" y="340">Static fields are shared</text><text class="small" x="705" y="364">Referenced objects live on heap</text>
+
+  <rect class="native" x="1065" y="95" width="475" height="325" rx="18"/><text class="head" x="1090" y="128">NATIVE / VM MEMORY (outside -Xmx)</text>
+  <rect class="box" x="1090" y="150" width="200" height="100" rx="12"/><text class="head" x="1115" y="184">Code cache</text><text class="small" x="1115" y="214">JIT machine code</text>
+  <rect class="box" x="1310" y="150" width="200" height="100" rx="12"/><text class="head" x="1335" y="184">Direct / mmap</text><text class="small" x="1335" y="214">Off-heap regions</text>
+  <rect class="box" x="1090" y="270" width="420" height="115" rx="12"/><text class="head" x="1115" y="304">JVM + OS structures</text><text class="small" x="1115" y="334">GC and JIT structures · JNI · agents</text><text class="small" x="1115" y="358">platform-thread stacks · native libraries</text>
+
+  <rect class="thread" x="55" y="455" width="720" height="360" rx="18"/><text class="head" x="80" y="489">THREAD A — thread-specific execution state</text>
+  <rect class="box" x="80" y="515" width="115" height="90" rx="12"/><text class="head" x="105" y="547">PC</text><text class="small" x="99" y="575">current JVM</text><text class="small" x="105" y="594">instruction</text>
+  <rect class="box" x="215" y="515" width="335" height="270" rx="12"/><text class="head" x="240" y="547">Java stack</text>
+  <rect class="thread" x="240" y="568" width="285" height="90" rx="9"/><text class="small" x="260" y="591">Frame: process(order)</text><text class="small" x="260" y="614">locals + object references</text><text class="small" x="260" y="637">operand stack + frame data</text>
+  <rect class="thread" x="240" y="675" width="285" height="78" rx="9"/><text class="small" x="260" y="704">Frame: run()</text><text class="small" x="260" y="729">private to this stack</text>
+  <rect class="box" x="570" y="515" width="180" height="115" rx="12"/><text class="head" x="595" y="547">Native stack</text><text class="small" x="595" y="576">JNI / native calls</text><text class="small" x="595" y="601">implementation-specific</text>
+  <rect class="tl" x="570" y="650" width="180" height="135" rx="12"/><text class="head" x="595" y="682">ThreadLocal</text><text class="small" x="595" y="710">logical isolation</text><text class="small" x="595" y="735">map/value are</text><text class="small" x="595" y="758">heap objects</text>
+
+  <rect class="thread" x="805" y="455" width="735" height="360" rx="18"/><text class="head" x="830" y="489">THREAD B — independent stack, PC, native calls, ThreadLocal view</text>
+  <rect class="box" x="830" y="515" width="150" height="110" rx="12"/><text class="head" x="880" y="550">PC</text><text class="small" x="856" y="580">next instruction</text>
+  <rect class="box" x="1000" y="515" width="315" height="270" rx="12"/><text class="head" x="1025" y="547">Java stack</text><text class="small" x="1025" y="581">different frames and locals</text><text class="small" x="1025" y="610">reference may point to same</text><text class="small" x="1025" y="636">shared heap object as Thread A</text>
+  <rect class="box" x="1335" y="515" width="180" height="115" rx="12"/><text class="head" x="1360" y="547">Native stack</text><text class="small" x="1360" y="578">per platform</text><text class="small" x="1360" y="601">thread</text>
+  <rect class="tl" x="1335" y="650" width="180" height="135" rx="12"/><text class="head" x="1360" y="682">ThreadLocal</text><text class="small" x="1360" y="712">different map</text><text class="small" x="1360" y="738">different value</text>
+
+  <path class="arrow" d="M380 568C380 475 365 440 365 385"/><text class="small" x="210" y="452">stack reference points to heap object</text>
+  <path class="arrow dash" d="M660 650C660 475 520 450 520 385"/><path class="arrow dash" d="M1425 650C1425 440 585 470 585 385"/>
+
+  <rect class="box" x="55" y="855" width="1485" height="135" rx="18"/><text class="head" x="80" y="890">HARDWARE CONTEXT — not a JVM runtime-data-area map</text>
+  <text class="text" x="80" y="925">Core registers → L1 → L2 → shared/per-cluster L3 → main memory (RAM)</text>
+  <text class="text" x="80" y="957">JMM synchronization constrains observable behavior; JVM/JIT/CPU map those rules to instructions, barriers, and cache coherence.</text>
+  <text class="small" x="1120" y="925">faster / smaller</text><path class="arrow" d="M1260 920H1450"/><text class="small" x="1315" y="952">slower / larger</text>
+</svg>

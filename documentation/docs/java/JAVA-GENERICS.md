@@ -4,6 +4,8 @@ status: maintained
 last_reviewed: "2026-07-13"
 page_type: Guide
 difficulty: Intermediate
+prerequisites: [Java classes, interfaces, inheritance, and collections]
+learning_objectives: [Design type-safe generic APIs, Apply bounds and wildcards correctly, Explain erasure heap pollution and bridge methods]
 scope: generic
 owner: docs-java
 reviewer: documentation-maintainers
@@ -21,6 +23,22 @@ capture and heap pollution are canonical in
 Generics add compile-time type safety while allowing reusable classes and
 methods.
 
+## Page Overview
+
+Java generics parameterize classes, interfaces, and methods with compile-time
+types. This guide progresses from type parameters and bounds to invariance,
+wildcards, erasure, heap pollution, API design, and the production boundaries of
+reflection and serialization.
+
+## Core Terminology
+
+A **type parameter** declares a placeholder such as `T`; a **type argument** is
+the supplied type such as `String`. A **bound** restricts valid arguments, a
+**wildcard** describes an unknown compatible type, and **erasure** is the compiler
+translation that removes most generic type information from runtime descriptors.
+
+## Mental Model And First Example
+
 ```java
 List<String> usernames = List.of("ana", "rose");
 String first = usernames.getFirst();
@@ -29,7 +47,7 @@ String first = usernames.getFirst();
 Without generics, callers would need casts and runtime failures would be more
 common.
 
-## Generic Class
+## How It Works: Generic Class
 
 ```java
 class ApiResponse<T> {
@@ -160,6 +178,22 @@ interface Repository<ID, ENTITY> {
 
 Avoid generic parameters that do not add safety or clarity.
 
+## Boundaries, Trade-Offs, And Edge Cases
+
+- generic types are invariant, so `List<Integer>` is not `List<Number>`;
+- arrays are reified and covariant while generics are erased and invariant;
+- raw types bypass checks and can create heap pollution far from the failing cast;
+- `List<?>` permits safe reading as `Object` but not arbitrary writes;
+- recursive bounds and wildcard-heavy APIs can be correct yet unusable—prefer the
+  simplest signature that preserves the caller's contract.
+
+## Production Evidence And API Compatibility
+
+Expose semantic type parameters, keep unsafe casts at audited boundaries, and
+test reflection/serialization frameworks with nested parameterized types. API
+reviews should check binary compatibility, bridge methods, variance at extension
+points, and whether a domain-specific type is clearer than another generic layer.
+
 ## Interview Questions
 
 <ExpandableAnswer title="Why use generics?">
@@ -172,6 +206,11 @@ unsafe casts or duplicated implementations for every element type.
 ## Official References
 
 - [JLS types, values and variables](https://docs.oracle.com/javase/specs/jls/se25/html/jls-4.html)
+
+## Recommended Next
+
+Continue with [Generics And Erasure Internals](./JAVA-GENERICS-ERASURE-INTERNALS.md),
+then apply the contracts in [Java Collections](./JAVA-COLLECTIONS.md).
 
 <ExpandableAnswer title="What is type erasure?">
 

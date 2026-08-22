@@ -2,7 +2,7 @@
 title: Documentation Structure
 sidebar_position: 2
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-08-04"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -57,15 +57,17 @@ Shopverse case study:
 
 ## Length Guidelines
 
-Long pages are acceptable when they are searchable reference pages, but they
-become hard to read when they mix multiple unrelated topics.
+Length is a review signal, not a quality target. Keep one coherent reader goal
+per page. Split a page when its sections have different prerequisites, examples,
+failure models, or operational owners even when the file is shorter than the
+threshold below.
 
 | Page length | Action |
 |---|---|
-| under 400 lines | normally fine |
-| 400-800 lines | add a clear table of contents or split if topics are unrelated |
-| 800-1200 lines | consider splitting into focused pages |
-| over 1200 lines | split when link migration is manageable |
+| under 400 lines | still split if it contains unrelated reader goals |
+| 400-800 lines | require a page overview and review topic cohesion |
+| 800-1200 lines | normally use an umbrella plus focused child pages |
+| over 1200 lines | split unless it is a deliberate lookup/reference artifact |
 
 The original oversized reference pages have already been split into focused
 child pages:
@@ -112,7 +114,8 @@ This keeps existing links stable while gradually improving readability.
 
 ## Naming Guidelines
 
-Use names that describe the topic directly:
+Visible titles must be concise, predictable, and specific. Normally use two to
+seven Title Case words and put the content type in metadata rather than the title.
 
 | Prefer | Avoid |
 |---|---|
@@ -122,8 +125,17 @@ Use names that describe the topic directly:
 | `Transactional Outbox Pattern` | "Outbox notes" |
 | `Shopverse SAGA Implementation` | mixing generic SAGA theory and project code flow |
 
-File names can remain stable for link safety, but visible `title` values should
-be reader-friendly.
+Avoid combining learning levels or page purposes in one title:
+
+| Avoid | Prefer this structure |
+|---|---|
+| `Kafka Internals Production Interview Revision` | `Kafka Internals`, `Kafka Operations`, and `Kafka Interview Practice` |
+| `Spring Data Reactive Testing Production` | overview plus focused data, reactive, testing, and operations pages |
+| `Complete Advanced Guide` | the actual topic name and a difficulty value in front matter |
+
+Existing file names and document IDs remain stable when changing them would break
+links. Use concise `title` and `sidebar_label` values first. A physical rename
+requires redirects, repository-wide reference updates, and a production build.
 
 ## Cross-Link Rule
 
@@ -159,10 +171,12 @@ When adding a new problem fix, place the detailed command output and
 before/after numbers under `reliability/problems/`, then link to it from the
 generic operations or architecture page.
 
-## Current Maintenance Guidance
+## Current Remediation Guidance
 
-The major restructuring work is complete. The documentation is intentionally
-hub-based:
+The structural split is not the end of the editorial revamp. The documentation
+is intentionally hub-based, but each track still requires a human review for
+definitions, progression, examples, edge cases, interview depth, and topic
+ownership:
 
 - large mixed-topic pages were split into focused child pages;
 - [learning path](LEARNING-PATH.mdx) now contains quick tracks;
@@ -170,8 +184,9 @@ hub-based:
 - major reference pages now start with short "read this page if..." summaries;
 - generic concept pages and Shopverse implementation pages are cross-linked.
 
-Do not split pages only because they are a few hundred lines long. Split only
-when a page mixes unrelated reader goals.
+Do not split pages only because they are long. Split when a page mixes unrelated
+reader goals, and do split shorter pages when separate topics need independent
+prerequisites, examples, failure analysis, or ownership.
 
 Future split candidates are conditional:
 

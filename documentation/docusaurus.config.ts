@@ -104,7 +104,14 @@ const config: Config = {
         docsRouteBasePath: '/',
         // Navigation/aggregate pages repeat guide titles that are indexed at
         // their canonical routes, so omit that duplicate search content.
-        ignoreFiles: ['DOCUMENTATION-INDEX', 'case-study/SHOPVERSE'],
+        ignoreFiles: [
+          /documentation-index$/i,
+          /INTERVIEW-QUESTIONNAIRES$/,
+          /WALMART-INTERVIEW-QUESTIONNAIRE$/,
+          /DSA-INTERVIEW-QUESTION-BANK$/,
+          /INTERVIEW-WORKBOOK$/,
+          /case-study\/SHOPVERSE$/,
+        ],
         // Keep full-text prose search while excluding code, diagram labels, and
         // repeated reader UI. Guide headings and explanations remain searchable.
         ignoreCssSelectors: [

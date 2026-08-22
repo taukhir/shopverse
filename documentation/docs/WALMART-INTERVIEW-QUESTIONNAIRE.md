@@ -2,7 +2,7 @@
 title: Walmart Interview Questionnaire
 description: A 209-question preparation tracker reconstructed from the supplied Walmart-labelled interview-source conversation, with transparent priority and occurrence metadata.
 difficulty: Intermediate
-page_type: Question Bank
+page_type: Interview
 status: maintained
 prerequisites: [Target role and study capacity]
 technologies: [Java, Spring Boot, Kafka, Databases, Kubernetes, System Design]
@@ -17,6 +17,7 @@ review_evidence: source-conversation-reconstruction
 
 <DocLabels items={[
   {label: '209 prompts', tone: 'advanced'},
+  {label: '209 complete answers', tone: 'production'},
   {label: 'Downloadable tracker', tone: 'production'},
   {label: 'Priority-ranked', tone: 'interview'},
 ]} />
@@ -36,6 +37,20 @@ each de-duplicated question is currently recorded as `1`. It is not an employer-
 count. Priority is a practical study rating.
 
 </DocCallout>
+
+## How To Use Each Answer
+
+Open any question in the explorer. Conceptual and design prompts now contain a
+question-specific opening answer that you can deliver first in an interview,
+followed by deeper discussion points and a canonical guide. Coding prompts contain
+the approach, complexity, Java implementation, and the edge cases to explain aloud.
+
+Use this speaking order:
+
+1. give the direct answer in 30–60 seconds;
+2. explain the mechanism or lifecycle that makes it true;
+3. add one failure mode, trade-off, or boundary;
+4. finish with a concrete example and production evidence.
 
 <WalmartQuestionExplorer />
 

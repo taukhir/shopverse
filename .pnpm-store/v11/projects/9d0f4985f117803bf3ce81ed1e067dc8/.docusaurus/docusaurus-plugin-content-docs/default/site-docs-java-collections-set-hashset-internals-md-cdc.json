@@ -50,6 +50,16 @@
     ],
     "page_type": "Deep Dive",
     "difficulty": "Advanced",
+    "prerequisites": [
+      "Set contract",
+      "HashMap basics",
+      "equals and hashCode"
+    ],
+    "learning_objectives": [
+      "Trace HashSet membership through HashMap",
+      "Protect equality invariants",
+      "Evaluate collisions sizing and iteration behavior"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

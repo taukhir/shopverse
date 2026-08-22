@@ -50,6 +50,17 @@
     ],
     "page_type": "Deep Dive",
     "difficulty": "Advanced",
+    "prerequisites": [
+      "List contract",
+      "Java arrays",
+      "generics",
+      "and iteration"
+    ],
+    "learning_objectives": [
+      "Trace ArrayList growth and shifting",
+      "Predict iterator and mutation behavior",
+      "Size and select lists from workload evidence"
+    ],
     "status": "maintained",
     "last_reviewed": "2026-07-24",
     "scope": "generic",

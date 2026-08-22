@@ -5,6 +5,8 @@ sidebar_label: "TreeSet"
 tags: [java, collections, set, treeset, red-black-tree, internals]
 page_type: Deep Dive
 difficulty: Advanced
+prerequisites: [Set contract, Comparable or Comparator, and binary search trees]
+learning_objectives: [Trace red-black tree membership, Explain comparator-defined uniqueness, Use navigable ranges without corrupting ordering]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -27,6 +29,16 @@ in a self-balancing red-black tree.
 There is no capacity, resize, or load factor. Each element occupies a tree node
 with parent, left, right, and color metadata.
 
+## Page Overview
+
+This page covers red-black-tree operations, comparator identity, logarithmic
+navigation, backed range views, null policy, mutable-key failures, and selection.
+
+## Core Terminology And Mental Model
+
+`compare(a,b)==0` defines duplicate identity for this set. Red-black balancing
+keeps search height logarithmic; navigable operations locate neighboring keys.
+
 ## Ordering Defines Uniqueness
 
 Two elements are duplicates when their comparator returns zero, even if
@@ -40,7 +52,7 @@ NavigableSet<Order> byNumber = new TreeSet<>(
 
 A second order with the same number is rejected by this set.
 
-## How Operations Work
+## How It Works: Tree Operations
 
 Search follows comparator results left or right. Insertions and removals recolor
 and rotate nodes to maintain red-black invariants. `add`, `remove`, and `contains`
@@ -64,6 +76,25 @@ position.
 Use for unique sorted values, range queries, and nearest-value navigation. Use
 `HashSet` for membership only, or sort an `ArrayList` once when updates are rare
 and most work is sequential traversal.
+
+## Failure Modes, Edge Cases, And Production Evidence
+
+- comparator equality can collapse objects that are unequal by `equals`;
+- mutating ordering fields corrupts search reachability;
+- range views are backed and enforce their bounds;
+- comparator inconsistency or non-transitivity breaks tree assumptions;
+- tree nodes cost more memory than hash buckets for simple membership.
+
+## Tricky Interview Questions
+
+<ExpandableAnswer title="Can TreeSet drop an element that equals says is different?">
+Yes. Comparator result zero defines set uniqueness for sorted sets.
+</ExpandableAnswer>
+
+## Recommended Next
+
+Study [Comparable And Comparator](../../JAVA-COMPARABLE-COMPARATOR-DEEP-DIVE.md)
+and compare [HashSet](./HASHSET-INTERNALS.md).
 
 ## Official References
 

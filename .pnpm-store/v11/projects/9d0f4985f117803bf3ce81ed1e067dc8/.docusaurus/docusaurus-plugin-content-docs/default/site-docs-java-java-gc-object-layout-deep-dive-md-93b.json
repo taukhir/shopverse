@@ -18,6 +18,15 @@
     "last_reviewed": "2026-07-13",
     "page_type": "Guide",
     "difficulty": "Intermediate",
+    "prerequisites": [
+      "JVM Memory Areas",
+      "Java objects and references"
+    ],
+    "learning_objectives": [
+      "Explain the logical and physical shape of an object",
+      "Trace allocation and reachability",
+      "Distinguish shallow size retained size and allocation rate"
+    ],
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
@@ -25,7 +34,7 @@
   },
   "sidebar": "docsSidebar",
   "previous": {
-    "title": "JVM Runtime Memory Areas",
+    "title": "JVM Memory Model — Complete Runtime Overview",
     "permalink": "/shopverse/java/JAVA-JVM-MEMORY"
   },
   "next": {

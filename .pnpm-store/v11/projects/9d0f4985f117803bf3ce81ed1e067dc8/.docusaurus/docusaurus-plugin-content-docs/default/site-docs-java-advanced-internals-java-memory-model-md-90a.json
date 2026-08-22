@@ -1,6 +1,6 @@
 {
   "id": "java/advanced-internals/JAVA-MEMORY-MODEL",
-  "title": "Java Memory Model And Safe Publication",
+  "title": "Java Memory Model, Visibility, And Safe Publication",
   "description": "Safe publication from one thread to another using a release and acquire happens-before edge",
   "source": "@site/docs/java/advanced-internals/JAVA-MEMORY-MODEL.md",
   "sourceDirName": "java/advanced-internals",
@@ -12,7 +12,7 @@
   "tags": [],
   "version": "current",
   "frontMatter": {
-    "title": "Java Memory Model And Safe Publication",
+    "title": "Java Memory Model, Visibility, And Safe Publication",
     "difficulty": "Advanced",
     "page_type": "Concept",
     "status": "maintained",
@@ -20,24 +20,28 @@
       "Java Memory Model",
       "happens-before",
       "volatile",
+      "atomic",
+      "locks",
       "final field",
       "safe publication",
       "data race",
-      "false sharing"
+      "CPU cache"
     ],
     "learning_objectives": [
       "Reason with happens-before instead of timing",
-      "Publish objects safely",
-      "Identify visibility ordering and atomicity failures"
+      "Distinguish visibility ordering and atomicity",
+      "Select volatile atomics or locks",
+      "Publish objects safely"
     ],
     "technologies": [
       "Java"
     ],
-    "last_reviewed": "2026-07-12",
+    "last_reviewed": "2026-08-03",
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "visual_required": true
   },
   "sidebar": "docsSidebar",
   "previous": {

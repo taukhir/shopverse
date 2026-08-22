@@ -5,6 +5,8 @@ sidebar_label: "List Overview"
 tags: [java, collections, list]
 page_type: Reference
 difficulty: Intermediate
+prerequisites: [Collection contracts, Java generics, equality, and iteration]
+learning_objectives: [Define the List contract, Compare major List implementations, Select a list from access mutation and concurrency requirements]
 status: maintained
 last_reviewed: "2026-07-24"
 scope: generic
@@ -19,6 +21,14 @@ review_evidence: repository-content-audit
 
 A `List` preserves encounter order, allows duplicates, and addresses elements
 by zero-based position. The contract does not say how elements are stored.
+Use this page to choose the family member; use the linked internals pages to
+understand allocation, shifting, locality, snapshot, and iterator behavior.
+
+## Page Overview
+
+The implementation map compares storage and workload fit, the method table
+defines observable operations, and the final links route to `ArrayList`,
+`LinkedList`, and `CopyOnWriteArrayList` mechanics.
 
 ```mermaid
 flowchart LR
@@ -66,3 +76,10 @@ result should be an immutable snapshot.
 ## Official Reference
 
 - [`List`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/List.html)
+
+## Recommended Next
+
+Start with [ArrayList Internals](./ARRAYLIST-INTERNALS.md); compare
+[LinkedList](./LINKEDLIST-INTERNALS.md) and
+[CopyOnWriteArrayList](./COPYONWRITEARRAYLIST-INTERNALS.md) only when their
+specific mutation or concurrency contracts match the workload.

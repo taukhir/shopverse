@@ -61,7 +61,18 @@
     "scope": "generic",
     "owner": "docs-java",
     "reviewer": "documentation-maintainers",
-    "review_evidence": "repository-content-audit"
+    "review_evidence": "repository-content-audit",
+    "prerequisites": [
+      "HashMap internals",
+      "encounter order",
+      "iterators",
+      "and basic cache concepts"
+    ],
+    "learning_objectives": [
+      "Trace the bucket and order structures together",
+      "Distinguish insertion from access order",
+      "Evaluate local LRU limits"
+    ]
   },
   "sidebar": "docsSidebar",
   "previous": {
