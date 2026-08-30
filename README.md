@@ -7,6 +7,9 @@
 ![Kafka](https://img.shields.io/badge/Kafka-Choreography_SAGA-231F20?style=flat-square&logo=apachekafka&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker_Compose-Local_platform-2496ED?style=flat-square&logo=docker&logoColor=white)
 
+**Built by [Tauqeer Ahmed | taukhir](https://github.com/taukhir)**
+[Portfolio](https://taukhir.github.io/portfolio/) · [GitHub Profile](https://github.com/taukhir) · [LinkedIn](https://www.linkedin.com/in/tauqeer-ahmed-java) · [Resume](https://taukhir.github.io/portfolio/assets/Tauqeer-Ahmed-Resume.pdf)
+
 Shopverse is an observable, failure-aware commerce microservices POC. It demonstrates secure, idempotent checkout across independently persisted Order, Inventory, and Payment services using Kafka choreography, transactional outbox, compensation, and end-to-end observability.
 
 Runtime claims in this README describe the current local POC unless a section
