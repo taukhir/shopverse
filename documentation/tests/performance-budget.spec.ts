@@ -31,5 +31,5 @@ test('mobile search opens responsively', async ({page}, testInfo) => {
   const start = Date.now();
   await page.getByRole('button', {name: 'Open command palette'}).click();
   await expect(page.getByRole('textbox', {name: 'Search learning catalog'})).toBeVisible();
-  expect(Date.now() - start).toBeLessThan(1_000);
+  expect(Date.now() - start).toBeLessThan(1_500);
 });

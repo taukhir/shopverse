@@ -213,8 +213,16 @@ body.reader-focus-mode .theme-doc-markdown {
 .theme-doc-markdown > p a,
 .theme-doc-markdown > ul a,
 .theme-doc-markdown > ol a,
-.theme-doc-markdown li > p a {
+.theme-doc-markdown li > p a,
+.theme-doc-markdown table a {
   text-decoration: underline;
+}
+
+.theme-doc-markdown table a,
+.markdown table a {
+  color: #505fd8 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 0.18em;
 }
 
 .navbar kbd {
