@@ -374,7 +374,7 @@ redact sensitive payloads.
 - [Testing Your Application](https://quarkus.io/guides/getting-started-testing)
 - [OpenTelemetry](https://quarkus.io/guides/opentelemetry)
 
-## Related ShopVerse Guides
+## Recommended Next
 
 - [Checkout, Security, And Event Flows](../architecture/CHECKOUT-SECURITY-EVENT-FLOWS.md)
 - [API And Event Compatibility](../architecture/API-EVENT-COMPATIBILITY.md)

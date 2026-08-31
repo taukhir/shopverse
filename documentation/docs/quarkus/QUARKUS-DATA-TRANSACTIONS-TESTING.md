@@ -271,7 +271,6 @@ and verify the documented lifecycle for the project version.
 - [Testing Your Application](https://quarkus.io/guides/getting-started-testing)
 - [Dev Services Overview](https://quarkus.io/guides/dev-services)
 
-## Next
+## Recommended Next
 
 Continue with [Messaging, Security, And Observability](./QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY.md).
-

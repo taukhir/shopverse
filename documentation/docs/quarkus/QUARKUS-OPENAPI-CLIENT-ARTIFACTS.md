@@ -116,6 +116,8 @@ consumer, and test one success plus `401`, `403`, `404`, timeout, and malformed
 error responses. Add an optional field for `1.1.0`, run a compatibility diff,
 and demonstrate that the old consumer still works.
 
+## Recommended Next
+
 For organization-wide policy, continue with
 [API Contract Lifecycle, OpenAPI, Versioning, And Deprecation](../architecture/governance/API-CONTRACT-GOVERNANCE.md).
 
@@ -124,4 +126,3 @@ For organization-wide policy, continue with
 - [Quarkus OpenAPI Generator Client](https://docs.quarkiverse.io/quarkus-openapi-generator/dev/client.html)
 - [Quarkus REST Client](https://quarkus.io/guides/rest-client)
 - [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-

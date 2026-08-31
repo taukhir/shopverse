@@ -8,7 +8,7 @@ learning_objectives:
   - Select the focused Spring validation guide for the current boundary
   - Progress from constraint fundamentals to proxy, error, and production behavior
 technologies: [Jakarta Validation, Spring MVC, Spring Boot]
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-08-24"
 implementation_status: implemented
 scope: shopverse
 owner: docs-spring
@@ -37,6 +37,7 @@ with exception ownership and executable production evidence.
 
 <TopicCards items={[
   {title: 'Bean Validation fundamentals', href: '/spring/validation/BEAN-VALIDATION-FUNDAMENTALS', description: 'Constraints, null semantics, Valid cascading, containers, MVC bodies, and validation layers.', icon: 'book', tags: ['Constraints', 'Valid']},
+  {title: 'DataBinder, Validator, and BindingResult', href: '/spring/validation/SPRING-DATABINDER-VALIDATOR-BINDINGRESULT', description: 'Programmatic validation, binding lifecycle, error collection, secure field allowlists, and focused tests.', icon: 'route', tags: ['DataBinder', 'BindingResult']},
   {title: 'Method, custom, grouped, and configuration validation', href: '/spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION', description: 'Version-aware MVC rules, service proxies, cross-field constraints, groups, sequences, and startup validation.', icon: 'layers', tags: ['Validated', 'Configuration']},
   {title: 'Errors, testing, and production', href: '/spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION', description: 'Exception ownership, public error shapes, sensitive-data safety, tests, metrics, rollout, and rollback.', icon: 'experiment', tags: ['Errors', 'Evidence']},
 ]} />
@@ -46,6 +47,7 @@ with exception ownership and executable production evidence.
 | Former topic | Canonical page |
 |---|---|
 | common constraints, `@Valid`, nested and container validation | [Fundamentals](./validation/BEAN-VALIDATION-FUNDAMENTALS.md) |
+| programmatic `DataBinder`, `Validator`, binding errors, and `BindingResult` | [DataBinder Validator And BindingResult](./validation/SPRING-DATABINDER-VALIDATOR-BINDINGRESULT.md) |
 | `@Validated`, service and MVC method validation | [Method And Custom Validation](./validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md) |
 | custom constraints, groups, sequences, configuration properties | [Method And Custom Validation](./validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION.md) |
 | entities, errors, testing, and production practices | [Errors Testing And Production](./validation/VALIDATION-ERRORS-TESTING-PRODUCTION.md) |

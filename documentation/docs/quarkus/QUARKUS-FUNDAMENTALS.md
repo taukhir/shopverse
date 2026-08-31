@@ -211,7 +211,6 @@ happened during the build.
 - [Configuration Reference](https://quarkus.io/guides/config-reference)
 - [Building Applications](https://quarkus.io/guides/building-my-first-extension#description-of-a-quarkus-extension)
 
-## Next
+## Recommended Next
 
 Continue with [REST, CDI, Configuration, And Validation](./QUARKUS-REST-CDI-CONFIG.md).
-

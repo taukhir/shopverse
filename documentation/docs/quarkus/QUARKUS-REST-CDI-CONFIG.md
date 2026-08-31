@@ -294,7 +294,6 @@ error redaction, and response content type.
 - [Configuration Mappings](https://quarkus.io/guides/config-mappings)
 - [Validation](https://quarkus.io/guides/validation)
 
-## Next
+## Recommended Next
 
 Continue with [Data, Transactions, And Testing](./QUARKUS-DATA-TRANSACTIONS-TESTING.md).
-

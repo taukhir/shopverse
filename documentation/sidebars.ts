@@ -751,6 +751,7 @@ const sidebars: SidebarsConfig = {
               link: {type: 'doc', id: 'spring/SPRING-VALIDATION'},
               items: [
                 'spring/validation/BEAN-VALIDATION-FUNDAMENTALS',
+                'spring/validation/SPRING-DATABINDER-VALIDATOR-BINDINGRESULT',
                 'spring/validation/METHOD-CUSTOM-GROUPED-CONFIGURATION-VALIDATION',
                 'spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION',
               ],
@@ -1935,10 +1936,45 @@ const sidebars: SidebarsConfig = {
                 'architecture/STATE-DATA-DEPLOYMENT-BOUNDARIES',
               ],
             },
-            'architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER',
-            'architecture/AMWAY-PROJECT-TECH-STACK',
-            'architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS',
-            'architecture/AMWAY-DELIVERY-OBSERVABILITY',
+            {
+              type: 'category',
+              label: 'Amway Next Gen Checkout',
+              link: {type: 'doc', id: 'architecture/AMWAY-NEXT-GEN-CHECKOUT'},
+              items: [
+                {
+                  type: 'category',
+                  label: 'Domain And Execution',
+                  items: [
+                    'architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER',
+                    'architecture/AMWAY-CREATE-CHECKOUT-FLOW',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Checkout Design Patterns',
+                  items: [
+                    'architecture/AMWAY-CHECKOUT-CHAIN-OF-RESPONSIBILITY',
+                    'architecture/AMWAY-CHECKOUT-STRATEGY-PATTERN',
+                    'architecture/AMWAY-CHECKOUT-FACTORY-PROVIDER',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Contracts And Technology',
+                  items: [
+                    'architecture/AMWAY-PROJECT-TECH-STACK',
+                    'architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'Delivery And Observability',
+                  items: [
+                    'architecture/AMWAY-DELIVERY-OBSERVABILITY',
+                  ],
+                },
+              ],
+            },
             {
               type: 'category',
               label: 'Architecture Decisions',
