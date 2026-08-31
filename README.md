@@ -2,13 +2,15 @@
 
 [![Shopverse CI](https://github.com/taukhir/shopverse/actions/workflows/ci.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/ci.yml)
 [![Documentation](https://github.com/taukhir/shopverse/actions/workflows/docs-site.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/docs-site.yml)
+[![Live Docs](https://img.shields.io/badge/Docs-Live-4051c7?style=flat-square&logo=docusaurus&logoColor=white)](https://taukhir.github.io/shopverse/)
+[![Static Demo](https://img.shields.io/badge/Demo-Static_Angular-14b8a6?style=flat-square&logo=angular&logoColor=white)](https://taukhir.github.io/portfolio/shopverse-demo.html)
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=flat-square&logo=springboot&logoColor=white)
 ![Kafka](https://img.shields.io/badge/Kafka-Choreography_SAGA-231F20?style=flat-square&logo=apachekafka&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker_Compose-Local_platform-2496ED?style=flat-square&logo=docker&logoColor=white)
 
 **Built by [Tauqeer Ahmed | taukhir](https://github.com/taukhir)**
-[Portfolio](https://taukhir.github.io/portfolio/) · [GitHub Profile](https://github.com/taukhir) · [LinkedIn](https://www.linkedin.com/in/tauqeer-ahmed-java) · [Resume](https://taukhir.github.io/portfolio/assets/Tauqeer-Ahmed-Resume.pdf)
+[Portfolio](https://taukhir.github.io/portfolio/) · [Live Documentation](https://taukhir.github.io/shopverse/) · [Static ShopVerse Demo](https://taukhir.github.io/portfolio/shopverse-demo.html) · [GitHub Profile](https://github.com/taukhir) · [LinkedIn](https://www.linkedin.com/in/tauqeer-ahmed-java) · [Resume](https://taukhir.github.io/portfolio/assets/Tauqeer-Ahmed-Resume.pdf)
 
 Shopverse is an observable, failure-aware commerce microservices POC. It demonstrates secure, idempotent checkout across independently persisted Order, Inventory, and Payment services using Kafka choreography, transactional outbox, compensation, and end-to-end observability.
 
@@ -50,12 +52,14 @@ matrix as the source of truth for the precise status and evidence.
 
 If you only have a few minutes, review these in order:
 
-1. [Architecture diagram](documentation/static/img/diagrams/shopverse-architecture-flow.svg)
-2. [Checkout example](#checkout-example)
-3. [Architecture decisions](#architecture-decisions)
-4. [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md)
-5. [End-to-end demo runbook](documentation/docs/case-study/COMPLETE-DEMO.mdx)
-6. [GitHub Actions workflow guide](.github/workflows/README.md)
+1. [Live documentation site](https://taukhir.github.io/shopverse/)
+2. [Static ShopVerse demo](https://taukhir.github.io/portfolio/shopverse-demo.html)
+3. [Architecture diagram](documentation/static/img/diagrams/shopverse-architecture-flow.svg)
+4. [Checkout example](#checkout-example)
+5. [Architecture decisions](#architecture-decisions)
+6. [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md)
+7. [End-to-end demo runbook](documentation/docs/case-study/COMPLETE-DEMO.mdx)
+8. [GitHub Actions workflow guide](.github/workflows/README.md)
 
 ## What This Demonstrates
 
@@ -405,7 +409,11 @@ tracked in the [service README and AI capability matrix](documentation/docs/serv
 
 ## Documentation
 
-Start with the [documentation index](documentation/docs/README.mdx).
+Open the live documentation site at
+[taukhir.github.io/shopverse](https://taukhir.github.io/shopverse/).
+
+For source review, start with the
+[documentation index](documentation/docs/README.mdx).
 
 The same Markdown is rendered as a reusable backend engineering Docusaurus
 portal from `documentation/`, with Shopverse organized as a case study.

@@ -1,5 +1,7 @@
 # Shopverse Web
 
+**Project links:** [Portfolio](https://taukhir.github.io/portfolio/) · [Live Documentation](https://taukhir.github.io/shopverse/) · [Static Demo](https://taukhir.github.io/portfolio/shopverse-demo.html) · [GitHub Profile](https://github.com/taukhir) · [Resume](https://taukhir.github.io/portfolio/assets/Tauqeer-Ahmed-Resume.pdf)
+
 ## Browser Application Integration
 
 ```mermaid
@@ -222,6 +224,7 @@ the acceptance evidence for actual UI changes.
 
 ## Related Docs
 
+- [Live documentation site](https://taukhir.github.io/shopverse/)
 - [Root quick start](../README.md)
 - [API guide](../documentation/docs/development/API-GUIDE.md)
 - [Service catalog](../documentation/docs/services/SERVICE-CATALOG.md)
