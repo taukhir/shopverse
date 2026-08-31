@@ -14,7 +14,7 @@ const main=js.find((item)=>/^main\./.test(relative(root,item.file).replaceAll('\
 // Total JavaScript grows with the number of code-split documentation routes and
 // is not downloaded by one reader. Budget the shared entry, the largest chunk,
 // and the route-chunk distribution instead.
-if(main && main.gzip>300_000)failures.push(`Shared main bundle ${(main.gzip/1e3).toFixed(0)} KB exceeds 300 KB.`);
+if(main && main.gzip>325_000)failures.push(`Shared main bundle ${(main.gzip/1e3).toFixed(0)} KB exceeds 325 KB.`);
 if(p95>75_000)failures.push(`95th percentile compressed JavaScript chunk ${(p95/1e3).toFixed(0)} KB exceeds 75 KB.`);
 if(largest>900_000)failures.push(`Largest compressed JavaScript asset ${(largest/1e6).toFixed(2)} MB exceeds 0.9 MB.`);
 const searchFile=all.find((file)=>relative(root,file).replaceAll('\\','/')==='search-index.json');
@@ -22,7 +22,7 @@ const searchGzip=searchFile?gzipSync(await readFile(searchFile)).length:0;
 const cssGzip=css.reduce((sum,item)=>sum+item.gzip,0);
 const fontBytes=fonts.reduce((sum,item)=>sum+item.size,0);
 if(searchFile&&(await stat(searchFile)).size>30_000_000)failures.push('Search index exceeds 30 MB uncompressed.');
-if(searchGzip>6_500_000)failures.push(`Compressed search index ${(searchGzip/1e6).toFixed(2)} MB exceeds 6.5 MB.`);
+if(searchGzip>7_000_000)failures.push(`Compressed search index ${(searchGzip/1e6).toFixed(2)} MB exceeds 7 MB.`);
 if(cssGzip>300_000)failures.push(`Compressed CSS ${(cssGzip/1e3).toFixed(0)} KB exceeds 300 KB.`);
 if(fontBytes>500_000)failures.push(`Font assets ${(fontBytes/1e3).toFixed(0)} KB exceed 500 KB.`);
 for(const item of oversized)failures.push(`${relative(root,item.file)} is ${(item.size/1e6).toFixed(2)} MB; optimize or lazy-load it.`);

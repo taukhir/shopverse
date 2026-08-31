@@ -180,3 +180,10 @@ You are ready to work independently when you can:
 - [Configuration Reference](https://quarkus.io/guides/config-reference)
 - [Testing Your Application](https://quarkus.io/guides/getting-started-testing)
 - [Quarkus Guides](https://quarkus.io/guides/)
+
+## Recommended Next
+
+- [Quarkus Foundations](./QUARKUS-FUNDAMENTALS.md)
+- [REST, CDI, Configuration, And Validation](./QUARKUS-REST-CDI-CONFIG.md)
+- [OpenAPI Fundamentals](./QUARKUS-OPENAPI-FUNDAMENTALS.md)
+- [Failure-Aware Checkout Tutorial](./QUARKUS-CHECKOUT-TUTORIAL.md)

@@ -114,10 +114,11 @@ Swagger UI is dev/test-only by default. If a team enables it in production,
 protect and monitor it deliberately; UI visibility never replaces endpoint
 authorization.
 
+## Recommended Next
+
 Continue with [Generate, Package, And Consume Quarkus Clients](./QUARKUS-OPENAPI-CLIENT-ARTIFACTS.md).
 
 ## Official References
 
 - [Quarkus OpenAPI And Swagger UI Guide](https://quarkus.io/guides/openapi-swaggerui)
 - [MicroProfile OpenAPI Specification](https://download.eclipse.org/microprofile/microprofile-open-api-4.1/microprofile-openapi-spec-4.1.html)
-

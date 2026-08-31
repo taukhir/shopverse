@@ -388,6 +388,7 @@ owners.
 
 ## Recommended Next Pages
 
+- [Amway Create Checkout Execution Flow](./AMWAY-CREATE-CHECKOUT-FLOW.md)
 - [ShopVerse System Design](./SYSTEM-DESIGN.md)
 - [Checkout, Security, And Event Flows](./CHECKOUT-SECURITY-EVENT-FLOWS.md)
 - [API And Event Compatibility](./API-EVENT-COMPATIBILITY.md)

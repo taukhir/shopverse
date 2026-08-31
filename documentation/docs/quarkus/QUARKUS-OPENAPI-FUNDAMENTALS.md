@@ -117,10 +117,11 @@ runtime authentication, authorization, and negative tests.
 3. Run the service and compare `/q/openapi` with the Java resource.
 4. Rename an `operationId` and explain why a generated client may break.
 
+## Recommended Next
+
 Continue with [Generating A Quarkus OpenAPI Contract](./QUARKUS-OPENAPI-PROVIDER.md).
 
 ## Official References
 
 - [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
 - [Quarkus OpenAPI And Swagger UI Guide](https://quarkus.io/guides/openapi-swaggerui)
-

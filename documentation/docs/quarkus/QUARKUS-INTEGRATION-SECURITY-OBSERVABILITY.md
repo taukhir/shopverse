@@ -287,7 +287,6 @@ For a payment-outcome consumer:
 - [OpenTelemetry](https://quarkus.io/guides/opentelemetry)
 - [Micrometer Metrics](https://quarkus.io/guides/telemetry-micrometer)
 
-## Next
+## Recommended Next
 
 Continue with [Native Images, Containers, And Kubernetes](./QUARKUS-NATIVE-KUBERNETES-PRODUCTION.md).
-

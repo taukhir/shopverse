@@ -529,7 +529,7 @@ do not assume they must always be identical.
 - [ ] Compatibility diff and provider/consumer tests gate releases.
 - [ ] No customer data, credentials, payment data, or secrets enter artifacts.
 
-## Related Learning
+## Recommended Next
 
 - [Amway Project Technology Stack](./AMWAY-PROJECT-TECH-STACK.md)
 - [API Contract Governance](./governance/API-CONTRACT-GOVERNANCE.md)
