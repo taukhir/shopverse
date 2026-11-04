@@ -1,1 +1,38 @@
+# Default: normalize text files to LF in the repo, convert to native line
+# endings on checkout.
+* text=auto eol=lf
+
+# Force LF regardless of platform for source and config files.
 *.sh text eol=lf
+*.java text eol=lf
+*.gradle text eol=lf
+*.properties text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.mjs text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.ps1 text eol=lf
+gradlew text eol=lf
+
+# Windows-only scripts need CRLF to execute correctly.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+gradlew.bat text eol=crlf
+
+# Binary files: never touch line endings.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.jar binary
+*.zip binary
