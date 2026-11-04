@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'checkstyle'
+    id 'com.github.spotbugs'
 }
 
 group = 'io.shopverse'
@@ -32,5 +34,22 @@ tasks.named('jacocoTestReport') {
     reports {
         xml.required = true
         html.required = true
+    }
+}
+
+checkstyle {
+    configFile = new File(rootDir, '../../gradle/checkstyle/checkstyle.xml')
+    ignoreFailures = true
+    maxWarnings = Integer.MAX_VALUE
+}
+
+spotbugs {
+    ignoreFailures = true
+}
+
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+    reports {
+        html.required = true
+        xml.required = true
     }
 }

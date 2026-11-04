@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     alias(libs.plugins.springDependencyManagement) apply false
+    alias(libs.plugins.spotbugs) apply false
 }
 
 allprojects {
@@ -12,6 +13,8 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'jacoco'
+    apply plugin: 'checkstyle'
+    apply plugin: 'com.github.spotbugs'
 
     java {
         toolchain {
@@ -42,6 +45,23 @@ subprojects {
         reports {
             xml.required = true
             html.required = true
+        }
+    }
+
+    checkstyle {
+        configFile = new File(rootDir, '../gradle/checkstyle/checkstyle.xml')
+        ignoreFailures = true
+        maxWarnings = Integer.MAX_VALUE
+    }
+
+    spotbugs {
+        ignoreFailures = true
+    }
+
+    tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+        reports {
+            html.required = true
+            xml.required = true
         }
     }
 }
