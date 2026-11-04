@@ -43,6 +43,8 @@ unapproved production content into any AI tool.
 | [UX and accessibility review](prompts/ux-accessibility-review.md) | behavior, responsive design, keyboard, assistive technology, and performance | read-only review |
 | [Update documentation](prompts/documentation-update.md) | evidence-backed docs with navigation and production validation | documentation-only edits |
 | [Investigate an incident](prompts/incident-investigation.md) | structured operational diagnosis and safe recovery proposal | read-only investigation |
+| [Audit progress tracker](prompts/progress-audit.md) | re-verify `Team/PROGRESS.md` against source and correct drift | read-only audit, `Team/PROGRESS.md`-only edits |
+| [Audit team ledgers](prompts/team-ledger-audit.md) | re-verify `Team/DECISIONS.md`/`Team/OPEN-QUESTIONS.md` against discussion history and correct drift | read-only audit, ledger-only edits |
 
 ## Templates
 

@@ -51,7 +51,7 @@ The full stack is started from the root:
 docker compose up -d
 ```
 
-More Docker commands, flags, and Dockerfile details are in [../docker/README.md](../docker/README.md).
+More Docker commands, flags, and Dockerfile details are in [../infra/docker/README.md](../infra/docker/README.md).
 
 ## Jenkins Pipeline
 
@@ -69,7 +69,7 @@ inspects the image, deploys it locally, and waits for Docker health.
 
 For generic Jenkins syntax, stages, `when`, `options`, credentials, and
 production practices, see [Jenkins](../documentation/docs/operations/JENKINS.md). For the
-complete Shopverse Jenkins setup, see [jenkins/README.md](../jenkins/README.md).
+complete Shopverse Jenkins setup, see [jenkins/README.md](../dev-tools/jenkins/README.md).
 
 ## Observability
 

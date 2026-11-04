@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import yaml from 'js-yaml';
 
 const documentationRoot = fileURLToPath(new URL('../', import.meta.url));
-const configRoot = join(documentationRoot, '..', 'cloud-configs');
+const configRoot = join(documentationRoot, '..', 'infra', 'cloud-configs');
 const required = [
   'application.yml',
   'API-GATEWAY.yml',

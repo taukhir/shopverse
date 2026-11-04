@@ -45,17 +45,17 @@ jobs:
           required_files=(
             "docker-compose.yml"
             "docker-compose.test.yml"
-            "cloud-configs/application.yml"
-            "cloud-configs/API-GATEWAY.yml"
-            "cloud-configs/AUTH-SERVICE.yml"
-            "cloud-configs/USER-SERVICE.yml"
-            "cloud-configs/ORDER-SERVICE.yml"
-            "cloud-configs/PAYMENT-SERVICE.yml"
-            "cloud-configs/INVENTORY-SERVICE.yml"
-            "cloud-configs/DISCOVERY-SERVER.yml"
-            "observability/prometheus-docker.yml"
-            "observability/promtail.yml"
-            "observability/loki.yml"
+            "infra/cloud-configs/application.yml"
+            "infra/cloud-configs/API-GATEWAY.yml"
+            "infra/cloud-configs/AUTH-SERVICE.yml"
+            "infra/cloud-configs/USER-SERVICE.yml"
+            "infra/cloud-configs/ORDER-SERVICE.yml"
+            "infra/cloud-configs/PAYMENT-SERVICE.yml"
+            "infra/cloud-configs/INVENTORY-SERVICE.yml"
+            "infra/cloud-configs/DISCOVERY-SERVER.yml"
+            "infra/observability/prometheus-docker.yml"
+            "infra/observability/promtail.yml"
+            "infra/observability/loki.yml"
           )
 
           for file in "${required_files[@]}"; do
@@ -114,7 +114,7 @@ jobs:
           fi
 
           shared=false
-          if grep -Eq '^(build-logic/|shopverse-platform/|cloud-configs/|docker-compose|docker/|observability/|scripts/|\.github/workflows/|README\.md)' <<< "$changed_files"; then
+          if grep -Eq '^(build-logic/|shopverse-platform/|infra/cloud-configs/|docker-compose|infra/docker/|infra/observability/|infra/scripts/|\.github/workflows/|README\.md)' <<< "$changed_files"; then
             shared=true
           fi
 
@@ -300,11 +300,11 @@ jobs:
 
       - name: Wait for API Gateway
         shell: pwsh
-        run: ./scripts/Wait-Service.ps1 -Uri http://localhost:18080/actuator/health -TimeoutSeconds 180
+        run: ./infra/scripts/Wait-Service.ps1 -Uri http://localhost:18080/actuator/health -TimeoutSeconds 180
 
       - name: Run authenticated SAGA smoke test
         shell: pwsh
-        run: ./scripts/Smoke-Test.ps1 -GatewayUrl http://localhost:18080 -TimeoutSeconds 45
+        run: ./infra/scripts/Smoke-Test.ps1 -GatewayUrl http://localhost:18080 -TimeoutSeconds 45
 
       - name: Dump bounded diagnostics on failure
         if: failure()

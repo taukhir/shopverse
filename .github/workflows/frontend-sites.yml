@@ -7,13 +7,13 @@ on:
     paths:
       - "shopverse-web/**"
       - "documentation/**"
-      - "scripts/Test-ShopverseSites.ps1"
+      - "infra/scripts/Test-ShopverseSites.ps1"
       - ".github/workflows/frontend-sites.yml"
   pull_request:
     paths:
       - "shopverse-web/**"
       - "documentation/**"
-      - "scripts/Test-ShopverseSites.ps1"
+      - "infra/scripts/Test-ShopverseSites.ps1"
       - ".github/workflows/frontend-sites.yml"
   workflow_dispatch:
 

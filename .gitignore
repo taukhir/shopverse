@@ -42,10 +42,17 @@ documentation/docs/*.docx
 documentation/docs/rendered/
 documentation/node_modules/
 documentation/build/
+documentation/build-kafka-validation/
 documentation/.docusaurus/
 documentation/test-results/
 documentation/reports/
 testing/reports/
+
+# Package manager store/cache
+.pnpm-store/
+
+# Planned/local-only folders
+teams/
 
 # OS files
 .DS_Store

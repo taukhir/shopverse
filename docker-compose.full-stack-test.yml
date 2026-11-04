@@ -1,6 +1,6 @@
 # Isolated frontend/docs overlay for full-stack verification.
 #
-# Intended for scripts/Test-ShopverseFullStack.ps1, not daily development.
+# Intended for infra/scripts/Test-ShopverseFullStack.ps1, not daily development.
 
 services:
   minio:

@@ -61,7 +61,7 @@ const entries = [
     description: 'Site mirror of centralized configuration delivery, refresh, Docker, observability, and AI-assisted workflows.',
   },
   {
-    source: 'cloud-configs/README.md',
+    source: 'infra/cloud-configs/README.md',
     slug: 'CLOUD-CONFIGS-README',
     title: 'Cloud Configuration README',
     label: 'Cloud Configs README',

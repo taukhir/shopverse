@@ -188,7 +188,7 @@ The full stack is started from the root:
 docker compose up -d
 ```
 
-More Docker commands, flags, Dockerfile details, and the Config Server Compose block explanation are in [../docker/README.md](../docker/README.md).
+More Docker commands, flags, Dockerfile details, and the Config Server Compose block explanation are in [../infra/docker/README.md](../infra/docker/README.md).
 
 ## Observability
 
