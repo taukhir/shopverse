@@ -7,8 +7,8 @@
   "authority": {
     "reads": ["order-service"],
     "writes": [
-      "order-service/src/main/java/io/shopverse/order/dto/**",
-      "order-service/src/test/java/io/shopverse/order/**"
+      "services/order-service/src/main/java/io/shopverse/order/dto/**",
+      "services/order-service/src/test/java/io/shopverse/order/**"
     ],
     "external_actions": []
   },

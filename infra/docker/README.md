@@ -60,7 +60,7 @@ docker compose down
 docker compose down -v
 
 # Build one tagged image directly
-docker build -f order-service/Dockerfile -t shopverse/order-service:local .
+docker build -f services/order-service/Dockerfile -t shopverse/order-service:local .
 ```
 
 Important flags:

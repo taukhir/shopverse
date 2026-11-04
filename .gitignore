@@ -23,6 +23,22 @@ shopverse-local-credentials.md
 *.iws
 *.ipr
 
+# AI coding assistant scratch state
+.claude/
+**/.claude/
+.agents/
+**/.agents/
+.codex/
+**/.codex/
+.codex-tmp/
+**/.codex-tmp/
+.cursor/
+**/.cursor/
+.aider*
+**/.aider*
+.windsurf/
+**/.windsurf/
+
 # Java/Gradle output
 **/build/
 **/.gradle/
@@ -50,9 +66,6 @@ testing/reports/
 
 # Package manager store/cache
 .pnpm-store/
-
-# Planned/local-only folders
-teams/
 
 # OS files
 .DS_Store

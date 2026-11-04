@@ -5,7 +5,7 @@ plugins {
 }
 
 def sharedVersions = new Properties()
-new File(rootDir, '../gradle/libs.versions.toml').withReader { reader ->
+new File(rootDir, '../../gradle/libs.versions.toml').withReader { reader ->
     reader.eachLine { line ->
         def match = line =~ /^(\w+)\s*=\s*"([^"]+)"/
         if (match) {

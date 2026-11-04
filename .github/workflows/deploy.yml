@@ -37,21 +37,21 @@ jobs:
       matrix:
         include:
           - service: config-server
-            dockerfile: config-server/Dockerfile
+            dockerfile: services/config-server/Dockerfile
           - service: discovery-server
-            dockerfile: discovery-server/Dockerfile
+            dockerfile: services/discovery-server/Dockerfile
           - service: user-service
-            dockerfile: user-service/Dockerfile
+            dockerfile: services/user-service/Dockerfile
           - service: auth-service
-            dockerfile: auth-service/Dockerfile
+            dockerfile: services/auth-service/Dockerfile
           - service: order-service
-            dockerfile: order-service/Dockerfile
+            dockerfile: services/order-service/Dockerfile
           - service: payment-service
-            dockerfile: payment-service/Dockerfile
+            dockerfile: services/payment-service/Dockerfile
           - service: inventory-service
-            dockerfile: inventory-service/Dockerfile
+            dockerfile: services/inventory-service/Dockerfile
           - service: api-gateway
-            dockerfile: api-gateway/Dockerfile
+            dockerfile: services/api-gateway/Dockerfile
     steps:
       - name: Checkout
         uses: actions/checkout@v4

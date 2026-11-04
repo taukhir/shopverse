@@ -1,18 +1,18 @@
 # Audit Team Ledgers
 
-Use this workflow to re-verify `Team/DECISIONS.md` and
-`Team/OPEN-QUESTIONS.md` against the actual current state of the
+Use this workflow to re-verify `dev-tools/teams/DECISIONS.md` and
+`dev-tools/teams/OPEN-QUESTIONS.md` against the actual current state of the
 simulated-team workspace (role `discussions.md`/`tasks.md` files, sprint
 discussion files), instead of trusting the ledgers once written and
 never re-checked. Companion to [`progress-audit.md`](progress-audit.md),
-which does the same thing for `Team/PROGRESS.md` against source code — this
+which does the same thing for `dev-tools/teams/PROGRESS.md` against source code — this
 one does it for team decisions/open-questions against the team's own
 discussion history.
 
 ## Inputs
 
 ```text
-Scope: [a specific sprint, a specific role, or "whole Team/ tree"]
+Scope: [a specific sprint, a specific role, or "whole dev-tools/teams/ tree"]
 Rows of suspected drift: [row numbers in either ledger, or "none, full sweep"]
 Recent review rounds to check: [discussion-NN files or role discussions.md entries since the last audit]
 ```
@@ -20,12 +20,12 @@ Recent review rounds to check: [discussion-NN files or role discussions.md entri
 ## Workflow Prompt
 
 ```text
-Read Team/README.md's "Standing Rule: One Canonical Copy Of Each Fact"
+Read dev-tools/teams/README.md's "Standing Rule: One Canonical Copy Of Each Fact"
 section first. This is a read-only audit; do not modify role profile.md
 files, and do not rewrite history in any discussions.md — append
 corrections, never erase past entries.
 
-1. Read Team/DECISIONS.md and Team/OPEN-QUESTIONS.md in full.
+1. Read dev-tools/teams/DECISIONS.md and dev-tools/teams/OPEN-QUESTIONS.md in full.
 2. For each row in scope, verify it against the actual source: the
    cited role's discussions.md/context.md entry, or the cited sprint
    discussion file. Do not accept a ledger row's own prior wording as

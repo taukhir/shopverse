@@ -9,6 +9,18 @@ recovery, compensation, and end-to-end observability.
 
 ## Start With Evidence
 
+- For continuity in this workspace, read `dev-tools/teams/senior-solutions-architect/index.md`
+  and `dev-tools/teams/senior-solutions-architect/status.md` at session start. Codex is the team's
+  Senior Solutions Architect; load relevant context, discussions, and tasks linked by
+  that index before continuing architecture work. Preserve the user's current
+  request and existing team responsibility boundaries.
+- Keep durable decisions, user preferences, evidence, open questions, and
+  handoffs in `dev-tools/teams/senior-solutions-architect/` as work progresses. Update activity
+  when starting and ending architecture work. These files are persistent
+  memory, not proof of live presence or a substitute for verifying source.
+- For the Cybersecurity Engineer's scope, findings, and handoffs, use
+  `dev-tools/teams/cybersecurity-engineer/index.md`. Security reviews must distinguish
+  confirmed evidence from hypotheses; implementation remains user-led unless assigned.
 - Inspect `git status` before changing files and preserve unrelated user work.
 - Read the nearest applicable `AGENTS.md` before editing a module.
 - For repeatable task procedures, use the relevant prompt and template under
@@ -131,11 +143,11 @@ Before handoff, inspect the diff for:
 ## Repository Routing
 
 - Checkout, orders, timeline, cancellation, fulfillment, and returns:
-  `order-service/` and `documentation/docs/architecture/`.
+  `services/order-service/` and `documentation/docs/architecture/`.
 - Catalog, stock, reservations, expiry, and inventory compensation:
-  `inventory-service/`.
+  `services/inventory-service/`.
 - Payment lifecycle, ownership, failure, and compensation:
-  `payment-service/`.
+  `services/payment-service/`.
 - Shared Kafka, outbox, recovery, security, observability, and error behavior:
   `shopverse-platform/`.
 - Browser application and user experience: `shopverse-web/`.

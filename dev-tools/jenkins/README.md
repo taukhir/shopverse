@@ -53,10 +53,10 @@ Open `http://localhost:8085`.
 6. Repository URL: `https://github.com/taukhir/shopverse.git`.
 7. Branch specifier: `*/main`, or the branch being tested.
 8. Script path:
-   - shared pipeline: `jenkins/Jenkinsfile`
-   - user service: `user-service/Jenkinsfile`
-   - order service: `order-service/Jenkinsfile`
-   - discovery server: `discovery-server/Jenkinsfile`
+   - shared pipeline: `dev-tools/jenkins/Jenkinsfile`
+   - user service: `services/user-service/Jenkinsfile`
+   - order service: `services/order-service/Jenkinsfile`
+   - discovery server: `services/discovery-server/Jenkinsfile`
 9. Save the job and run it once.
 
 **Build with Parameters** appears after Jenkins has loaded a parameterized

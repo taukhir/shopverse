@@ -110,7 +110,7 @@ services:
   config-server:
     build:
       context: .
-      dockerfile: config-server/Dockerfile
+      dockerfile: services/config-server/Dockerfile
     image: shopverse/config-server:local
     container_name: shopverse-config-server
     environment:
@@ -137,7 +137,7 @@ services:
   discovery-server:
     build:
       context: .
-      dockerfile: discovery-server/Dockerfile
+      dockerfile: services/discovery-server/Dockerfile
     image: shopverse/discovery-server:local
     container_name: shopverse-discovery-server
     environment:
@@ -166,7 +166,7 @@ services:
     profiles: ["apps"]
     build:
       context: .
-      dockerfile: user-service/Dockerfile
+      dockerfile: services/user-service/Dockerfile
     image: shopverse/user-service:local
     container_name: shopverse-user-service
     environment:
@@ -223,7 +223,7 @@ services:
     profiles: ["apps"]
     build:
       context: .
-      dockerfile: auth-service/Dockerfile
+      dockerfile: services/auth-service/Dockerfile
     image: shopverse/auth-service:local
     container_name: shopverse-auth-service
     environment:
@@ -262,7 +262,7 @@ services:
     profiles: ["apps"]
     build:
       context: .
-      dockerfile: order-service/Dockerfile
+      dockerfile: services/order-service/Dockerfile
     image: shopverse/order-service:local
     container_name: shopverse-order-service
     environment:
@@ -313,7 +313,7 @@ services:
     profiles: ["apps"]
     build:
       context: .
-      dockerfile: payment-service/Dockerfile
+      dockerfile: services/payment-service/Dockerfile
     image: shopverse/payment-service:local
     container_name: shopverse-payment-service
     environment:
@@ -364,7 +364,7 @@ services:
     profiles: ["apps"]
     build:
       context: .
-      dockerfile: inventory-service/Dockerfile
+      dockerfile: services/inventory-service/Dockerfile
     image: shopverse/inventory-service:local
     container_name: shopverse-inventory-service
     environment:
@@ -422,7 +422,7 @@ services:
     profiles: ["apps"]
     build:
       context: .
-      dockerfile: api-gateway/Dockerfile
+      dockerfile: services/api-gateway/Dockerfile
     image: shopverse/api-gateway:local
     container_name: shopverse-api-gateway
     environment:

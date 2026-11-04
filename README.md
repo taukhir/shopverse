@@ -514,7 +514,7 @@ browser smoke through the nginx-served Angular app.
 
 Service-specific APIs and configuration remain in each service README. Operational guides remain beside their deployment files:
 
-- [Centralized configuration](config-server/README.md)
+- [Centralized configuration](services/config-server/README.md)
 - [Observability deployment](infra/observability/README.md)
 - [Docker](infra/docker/README.md)
 - [Jenkins](dev-tools/jenkins/README.md)
