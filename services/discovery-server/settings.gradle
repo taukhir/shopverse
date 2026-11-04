@@ -4,4 +4,4 @@ pluginManagement {
 
 rootProject.name = 'discovery-server'
 
-includeBuild('../../shopverse-platform')
+includeBuild('../../shopverse-common')

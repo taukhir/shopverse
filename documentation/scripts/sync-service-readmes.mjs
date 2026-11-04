@@ -75,7 +75,7 @@ const entries = [
     description: 'Site mirror of Eureka responsibilities, operations, validation, observability, and AI-assisted workflows.',
   },
   {
-    source: 'shopverse-platform/README.md',
+    source: 'shopverse-common/README.md',
     slug: 'SHOPVERSE-PLATFORM-README',
     title: 'Shopverse Platform README',
     label: 'Platform README',

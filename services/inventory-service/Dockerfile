@@ -7,7 +7,7 @@ COPY services/inventory-service/gradlew services/inventory-service/gradlew.bat s
 COPY services/inventory-service/gradle ./gradle
 COPY gradle ../../gradle
 COPY build-logic ../../build-logic
-COPY shopverse-platform ../../shopverse-platform
+COPY shopverse-common ../../shopverse-common
 RUN chmod +x ./gradlew
 
 COPY services/inventory-service/src ./src

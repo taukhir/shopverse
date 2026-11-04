@@ -8,7 +8,7 @@ ShopVerse is a local-first Docker Compose microservices commerce POC.
 Services: `api-gateway` (8080), `auth-service` (8081), `user-service`
 (8082), `order-service` (8083), `payment-service` (8084),
 `inventory-service` (8086), `discovery-server` (8761, Eureka),
-`config-server` (8888). Shared cross-cutting code in `shopverse-platform/`
+`config-server` (8888). Shared cross-cutting code in `shopverse-common/`
 (outbox, Kafka, Kafka-recovery/DLT, security, observability starters).
 Frontend is Angular 22 (`shopverse-web/`, standalone components, signals,
 zoneless change detection, OnPush).

@@ -10,7 +10,7 @@ Service-owned REST contracts and Kafka schemas generate reusable transport types
 
 - Existing drafts: ../tauqeer/task/order-contract-design/.
 - Agreed module direction: ../sprints/sprint-0001/discussion-05.md.
-- ../../../shopverse-platform/settings.gradle does not yet include either proposed contract module.
+- ../../../shopverse-common/settings.gradle does not yet include either proposed contract module.
 - ShopverseOutboxPublishWorker in the platform outbox starter uses KafkaTemplate<String, String> and publishes message.payload(). Avro requires an explicit publishing boundary change.
 - OrderSagaListener accepts String payloads and parses with KafkaEventParser; it also uses retry topics and DLT handling. Migration includes these paths, not just main listeners.
 - services/order-service/build.gradle already includes springdoc. Generated documentation alone is not contract enforcement.

@@ -13,8 +13,8 @@ on:
       - "*/AGENTS.md"
       - "*/CLAUDE.md"
       - "ai-workflows/**"
-      - "shopverse-platform/gradlew"
-      - "shopverse-platform/gradle/**"
+      - "shopverse-common/gradlew"
+      - "shopverse-common/gradle/**"
       - ".github/workflows/docs-site.yml"
   pull_request:
     paths:
@@ -26,8 +26,8 @@ on:
       - "*/AGENTS.md"
       - "*/CLAUDE.md"
       - "ai-workflows/**"
-      - "shopverse-platform/gradlew"
-      - "shopverse-platform/gradle/**"
+      - "shopverse-common/gradlew"
+      - "shopverse-common/gradle/**"
       - ".github/workflows/docs-site.yml"
   workflow_dispatch:
   schedule:

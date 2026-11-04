@@ -20,7 +20,7 @@ Implemented.
 
 ## Purpose
 
-Use `shopverse-web` for shared page response DTOs and pagination validation
+Use `shopverse-pagination-starter` for shared page response DTOs and pagination validation
 helpers.
 
 ## Problem
@@ -37,7 +37,7 @@ Do not move endpoint-specific allowed sort fields into the platform module.
 
 ## Solution
 
-`shopverse-web` provides:
+`shopverse-pagination-starter` provides:
 
 - `PageResponse`
 - `PageMapper`
@@ -52,7 +52,7 @@ Do not move endpoint-specific allowed sort fields into the platform module.
 
 ```groovy
 dependencies {
-    implementation 'io.shopverse.platform:shopverse-web:0.0.1-SNAPSHOT'
+    implementation 'io.shopverse.platform:shopverse-pagination-starter:0.0.1-SNAPSHOT'
 }
 ```
 
@@ -70,7 +70,7 @@ Add the dependency.
 
 ```groovy
 dependencies {
-    implementation 'io.shopverse.platform:shopverse-web:0.0.1-SNAPSHOT'
+    implementation 'io.shopverse.platform:shopverse-pagination-starter:0.0.1-SNAPSHOT'
 }
 ```
 

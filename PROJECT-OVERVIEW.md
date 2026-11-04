@@ -29,7 +29,7 @@ real payments (see [`PROGRESS.md`](dev-tools/teams/PROGRESS.md) for what is stub
 | `services/payment-service/` | Payment intent/retry/refund, webhook baseline, **stub** payment provider |
 | `services/discovery-server/` | Eureka service registry |
 | `services/config-server/` + `infra/cloud-configs/` | Centralized Spring Cloud Config |
-| `shopverse-platform/` | Shared starters: outbox, Kafka, Kafka recovery/DLT, security, observability, common errors |
+| `shopverse-common/` | Shared starters: outbox, Kafka, Kafka recovery/DLT, security, observability, common errors |
 | `shopverse-web/` | Angular 22 storefront + admin UI |
 | `documentation/` | Docusaurus site — architecture, ADRs, case studies, reliability/security guides |
 | `ai-workflows/` | Reusable prompts/templates for AI-assisted development, plus eval scenarios |

@@ -149,7 +149,7 @@ Before handoff, inspect the diff for:
 - Payment lifecycle, ownership, failure, and compensation:
   `services/payment-service/`.
 - Shared Kafka, outbox, recovery, security, observability, and error behavior:
-  `shopverse-platform/`.
+  `shopverse-common/`.
 - Browser application and user experience: `shopverse-web/`.
 - Runnable platform demonstrations and recovery evidence:
   `documentation/docs/case-study/`.

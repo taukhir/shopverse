@@ -53,6 +53,12 @@ HELP.md
 **/.angular/
 **/coverage/
 
+# Test output and reports
+**/test-results/
+**/playwright-report/
+**/.nyc_output/
+dev-tools/testing/reports/
+
 # Documentation generated files
 documentation/docs/*.docx
 documentation/docs/rendered/
@@ -60,9 +66,7 @@ documentation/node_modules/
 documentation/build/
 documentation/build-kafka-validation/
 documentation/.docusaurus/
-documentation/test-results/
 documentation/reports/
-testing/reports/
 
 # Package manager store/cache
 .pnpm-store/
