@@ -20,7 +20,7 @@
       "weight": 25,
       "claim_ids": ["inclusive_range", "public_shape_unchanged", "boundary_tests"],
       "minimum_evidence_per_claim": 1,
-      "allowed_evidence_prefixes": ["order-service/"]
+      "allowed_evidence_prefixes": ["services/order-service/"]
     },
     {
       "id": "bounded-files",
@@ -29,8 +29,8 @@
       "require_changes": true,
       "maximum_changes": 4,
       "allowed_patterns": [
-        "^order-service/src/main/java/io/shopverse/order/dto/.*\\.java$",
-        "^order-service/src/test/java/io/shopverse/order/.*\\.java$"
+        "^services/order-service/src/main/java/io/shopverse/order/dto/.*\\.java$",
+        "^services/order-service/src/test/java/io/shopverse/order/.*\\.java$"
       ]
     },
     {

@@ -5,7 +5,7 @@ deliberately to coding-agent behavior rules) and [`README.md`](README.md)
 (the full portfolio-facing writeup). This file exists to answer three
 questions quickly: what is this, what is it built with, and how do I run it.
 
-For implemented-vs-pending feature status, see [`PROGRESS.md`](Team/PROGRESS.md).
+For implemented-vs-pending feature status, see [`PROGRESS.md`](dev-tools/teams/PROGRESS.md).
 
 ## What This Is
 
@@ -15,20 +15,20 @@ ShopVerse is a local-first, Docker-Compose-run microservices commerce
 choreography instead of a shared database or synchronous call chain, with
 an outbox pattern for atomic state+event writes, DLT-based recovery, and a
 full observability stack. It is not a production SaaS and does not process
-real payments (see [`PROGRESS.md`](Team/PROGRESS.md) for what is stubbed).
+real payments (see [`PROGRESS.md`](dev-tools/teams/PROGRESS.md) for what is stubbed).
 
 ## Repository Map
 
 | Path | Role |
 |---|---|
-| `api-gateway/` | Edge routing, correlation IDs, request-level auth |
-| `auth-service/` | Login, RSA-signed JWT issuance, JWKS endpoint |
-| `user-service/` | Users, roles/permissions, addresses, persisted cart, internal auth support |
-| `order-service/` | Checkout orchestration (SAGA), order timeline, cancellation, fulfillment, returns |
-| `inventory-service/` | Public catalog, stock, reservations, reservation expiry |
-| `payment-service/` | Payment intent/retry/refund, webhook baseline, **stub** payment provider |
-| `discovery-server/` | Eureka service registry |
-| `config-server/` + `infra/cloud-configs/` | Centralized Spring Cloud Config |
+| `services/api-gateway/` | Edge routing, correlation IDs, request-level auth |
+| `services/auth-service/` | Login, RSA-signed JWT issuance, JWKS endpoint |
+| `services/user-service/` | Users, roles/permissions, addresses, persisted cart, internal auth support |
+| `services/order-service/` | Checkout orchestration (SAGA), order timeline, cancellation, fulfillment, returns |
+| `services/inventory-service/` | Public catalog, stock, reservations, reservation expiry |
+| `services/payment-service/` | Payment intent/retry/refund, webhook baseline, **stub** payment provider |
+| `services/discovery-server/` | Eureka service registry |
+| `services/config-server/` + `infra/cloud-configs/` | Centralized Spring Cloud Config |
 | `shopverse-platform/` | Shared starters: outbox, Kafka, Kafka recovery/DLT, security, observability, common errors |
 | `shopverse-web/` | Angular 22 storefront + admin UI |
 | `documentation/` | Docusaurus site — architecture, ADRs, case studies, reliability/security guides |
@@ -77,7 +77,7 @@ not duplicate that content.
 |---|---|
 | Full capability writeup, checkout example, troubleshooting | [`README.md`](README.md) |
 | Coding-agent rules (architecture invariants, security, verification commands) | [`AGENTS.md`](AGENTS.md) |
-| What's implemented vs pending, by area | [`PROGRESS.md`](Team/PROGRESS.md) |
+| What's implemented vs pending, by area | [`PROGRESS.md`](dev-tools/teams/PROGRESS.md) |
 | Architecture decisions | `documentation/docs/architecture/adr/` |
 | Feature-by-feature implementation matrix | `documentation/docs/reference/FEATURES-SECURITY-CHECKOUT.md` and `FEATURES-RELIABILITY-OBSERVABILITY.md` |
 | Per-service API/config details | each service's own `README.md` and `AGENTS.md` |

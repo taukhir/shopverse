@@ -1,0 +1,38 @@
+# syntax=docker/dockerfile:1.7
+
+FROM eclipse-temurin:21-jdk-jammy AS build
+WORKDIR /workspace/services/api-gateway
+
+COPY services/api-gateway/gradlew services/api-gateway/gradlew.bat services/api-gateway/settings.gradle services/api-gateway/build.gradle ./
+COPY services/api-gateway/gradle ./gradle
+COPY gradle ../../gradle
+COPY build-logic ../../build-logic
+RUN chmod +x ./gradlew
+
+COPY services/api-gateway/src ./src
+RUN --mount=type=cache,id=shopverse-api-gateway-gradle,target=/root/.gradle ./gradlew bootJar --no-daemon --max-workers=2
+
+FROM eclipse-temurin:21-jre-alpine AS runtime
+
+ENV APP_HOME=/app \
+    SERVER_PORT=8080 \
+    JAVA_OPTS="-XX:MaxRAMPercentage=75 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError"
+
+WORKDIR ${APP_HOME}
+
+RUN apk add --no-cache curl \
+    && addgroup -S shopverse \
+    && adduser -S -G shopverse -h ${APP_HOME} -s /sbin/nologin shopverse
+
+COPY --chown=shopverse:shopverse --from=build /workspace/services/api-gateway/build/libs/*.jar app.jar
+
+RUN mkdir -p ${APP_HOME}/logs \
+    && chown shopverse:shopverse ${APP_HOME}/logs
+USER shopverse
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=5 \
+  CMD ["sh", "-c", "curl -fsS http://localhost:${SERVER_PORT}/actuator/health | grep -q UP"]
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]

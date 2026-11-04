@@ -20,7 +20,7 @@
       "weight": 40,
       "claim_ids": ["service_ownership", "outbox_atomicity", "ordering_boundary", "duplicate_delivery", "compensation"],
       "minimum_evidence_per_claim": 1,
-      "allowed_evidence_prefixes": ["README.md", "documentation/", "order-service/", "inventory-service/", "payment-service/"]
+      "allowed_evidence_prefixes": ["README.md", "documentation/", "services/order-service/", "services/inventory-service/", "services/payment-service/"]
     },
     {
       "id": "read-only-scope",

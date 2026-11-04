@@ -1,7 +1,0 @@
-pluginManagement {
-    includeBuild('../build-logic')
-}
-
-rootProject.name = 'user-service'
-
-includeBuild('../shopverse-platform')

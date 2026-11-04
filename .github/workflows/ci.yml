@@ -121,12 +121,12 @@ jobs:
           include='[]'
           integration_include='[]'
           for service in "${services[@]}"; do
-            if [[ "$shared" == "true" ]] || grep -q "^${service}/" <<< "$changed_files"; then
-              include="$(jq -c --arg service "$service" --arg path "$service" --arg dockerfile "$service/Dockerfile" \
+            if [[ "$shared" == "true" ]] || grep -q "^services/${service}/" <<< "$changed_files"; then
+              include="$(jq -c --arg service "$service" --arg path "services/$service" --arg dockerfile "services/$service/Dockerfile" \
                 '. + [{service: $service, path: $path, dockerfile: $dockerfile}]' <<< "$include")"
 
               if [[ "$service" =~ ^(order-service|inventory-service|payment-service)$ ]]; then
-                integration_include="$(jq -c --arg service "$service" --arg path "$service" --arg dockerfile "$service/Dockerfile" \
+                integration_include="$(jq -c --arg service "$service" --arg path "services/$service" --arg dockerfile "services/$service/Dockerfile" \
                   '. + [{service: $service, path: $path, dockerfile: $dockerfile}]' <<< "$integration_include")"
               fi
             fi

@@ -5,18 +5,18 @@ param(
 )
 
 $servicePaths = [ordered]@{
-    "config-server" = "config-server"
-    "discovery-server" = "discovery-server"
-    "user-service" = "user-service"
-    "auth-service" = "auth-service"
-    "order-service" = "order-service"
-    "payment-service" = "payment-service"
-    "inventory-service" = "inventory-service"
-    "api-gateway" = "api-gateway"
+    "config-server" = "services/config-server"
+    "discovery-server" = "services/discovery-server"
+    "user-service" = "services/user-service"
+    "auth-service" = "services/auth-service"
+    "order-service" = "services/order-service"
+    "payment-service" = "services/payment-service"
+    "inventory-service" = "services/inventory-service"
+    "api-gateway" = "services/api-gateway"
 }
 
 $allServices = @($servicePaths.Keys)
-$repoRoot = Split-Path -Parent $PSScriptRoot
+$repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 
 Push-Location $repoRoot
 try {
@@ -36,11 +36,11 @@ try {
     }
 
     $sharedPatterns = @(
-        "^cloud-configs/",
+        "^infra/cloud-configs/",
         "^docker-compose",
-        "^docker/",
-        "^observability/",
-        "^scripts/",
+        "^infra/docker/",
+        "^infra/observability/",
+        "^infra/scripts/",
         "^\.github/workflows/"
     )
 
