@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshopverse_documentation=self.webpackChunkshopverse_documentation||[]).push([[53674],{53674(e,s,c){c.d(s,{createTreeViewServices:()=>r.I});var r=c(85738);c(69302)}}]);
