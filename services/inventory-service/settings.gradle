@@ -4,4 +4,4 @@ pluginManagement {
 
 rootProject.name = 'inventory-service'
 
-includeBuild('../../shopverse-platform')
+includeBuild('../../shopverse-common')

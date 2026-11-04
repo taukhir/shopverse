@@ -4,4 +4,4 @@ pluginManagement {
 
 rootProject.name = 'order-service'
 
-includeBuild('../../shopverse-platform')
+includeBuild('../../shopverse-common')

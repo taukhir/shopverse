@@ -1,4 +1,4 @@
-description = 'Shared web-layer helpers for Shopverse services.'
+description = 'Pagination request/response helpers for Shopverse REST controllers.'
 
 dependencies {
     api project(':shopverse-common-error')

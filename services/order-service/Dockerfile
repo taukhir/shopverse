@@ -7,7 +7,7 @@ COPY services/order-service/gradlew services/order-service/gradlew.bat services/
 COPY services/order-service/gradle ./gradle
 COPY gradle ../../gradle
 COPY build-logic ../../build-logic
-COPY shopverse-platform ../../shopverse-platform
+COPY shopverse-common ../../shopverse-common
 RUN chmod +x ./gradlew
 
 COPY services/order-service/src ./src

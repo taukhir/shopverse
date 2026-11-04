@@ -4,4 +4,4 @@ pluginManagement {
 
 rootProject.name = 'payment-service'
 
-includeBuild('../../shopverse-platform')
+includeBuild('../../shopverse-common')

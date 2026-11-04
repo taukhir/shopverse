@@ -7,7 +7,7 @@ COPY services/payment-service/gradlew services/payment-service/gradlew.bat servi
 COPY services/payment-service/gradle ./gradle
 COPY gradle ../../gradle
 COPY build-logic ../../build-logic
-COPY shopverse-platform ../../shopverse-platform
+COPY shopverse-common ../../shopverse-common
 RUN chmod +x ./gradlew
 
 COPY services/payment-service/src ./src

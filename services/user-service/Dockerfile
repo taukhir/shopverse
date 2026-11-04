@@ -7,7 +7,7 @@ COPY services/user-service/gradlew services/user-service/gradlew.bat services/us
 COPY services/user-service/gradle ./gradle
 COPY gradle ../../gradle
 COPY build-logic ../../build-logic
-COPY shopverse-platform ../../shopverse-platform
+COPY shopverse-common ../../shopverse-common
 RUN chmod +x ./gradlew
 
 # Download dependencies first so Docker can cache them independently from source changes.

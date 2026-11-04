@@ -7,7 +7,7 @@ COPY services/discovery-server/gradlew services/discovery-server/gradlew.bat ser
 COPY services/discovery-server/gradle ./gradle
 COPY gradle ../../gradle
 COPY build-logic ../../build-logic
-COPY shopverse-platform ../../shopverse-platform
+COPY shopverse-common ../../shopverse-common
 RUN chmod +x ./gradlew
 
 COPY services/discovery-server/src ./src

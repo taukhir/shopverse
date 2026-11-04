@@ -20,7 +20,7 @@ dependencyResolutionManagement {
 rootProject.name = 'shopverse-platform'
 
 include 'shopverse-common-error'
-include 'shopverse-web'
+include 'shopverse-pagination-starter'
 include 'shopverse-contracts'
 include 'shopverse-observability-starter'
 include 'shopverse-security-starter'

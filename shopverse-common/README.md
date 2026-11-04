@@ -1,4 +1,4 @@
-# Shopverse Platform
+# Shopverse Common
 
 Shared infrastructure modules for Shopverse services.
 
@@ -18,7 +18,7 @@ Shopverse services had repeated infrastructure logic across multiple codebases:
 | Outbox publisher | Repeated claim, publish, stale-claim release, metrics, and logging | `shopverse-outbox-starter` |
 | Kafka DLT recovery | Repeated failed-event record/list/replay flow | `shopverse-kafka-recovery-starter` |
 | API error response contract | Repeated response DTO shape | `shopverse-common-error` |
-| Page response helpers | Pagination DTO and mapping utilities lived in one service | `shopverse-web` |
+| Page response helpers | Pagination DTO and mapping utilities lived in one service | `shopverse-pagination-starter` |
 
 The solution is a set of small Gradle modules that provide infrastructure
 contracts, helper APIs, and Spring Boot auto-configuration.
@@ -28,7 +28,7 @@ contracts, helper APIs, and Spring Boot auto-configuration.
 | Module | Use when a service needs | Keep local |
 |---|---|---|
 | `shopverse-common-error` | Common API error response records and local handler helpers | Exception classes and service-specific status policy |
-| `shopverse-web` | `PageResponse`, `PageMapper`, pagination validation | Endpoint-specific allowed sort fields |
+| `shopverse-pagination-starter` | `PageResponse`, `PageMapper`, pagination validation | Endpoint-specific allowed sort fields |
 | `shopverse-observability-starter` | Servlet request logging, MDC correlation, correlation helpers, request metrics | Reactive gateway filters and service-specific log messages that are not common |
 | `shopverse-security-starter` | Servlet resource-server JWT decoder, issuer validation, roles/permissions authority mapping | Endpoint authorization rules, Basic auth, token issuing, gateway reactive security |
 | `shopverse-kafka-starter` | Shared Kafka event payload parsing | Event payload records and listener business handling |
@@ -37,21 +37,21 @@ contracts, helper APIs, and Spring Boot auto-configuration.
 
 ## Solution Pages
 
-- [Duplicate Logic Overview](docs/duplicate-logic/README.md)
-- [Common Error Contract](docs/duplicate-logic/common-error.md)
-- [Shared Web Pagination](docs/duplicate-logic/web-pagination.md)
-- [Observability Starter](docs/duplicate-logic/observability.md)
-- [Security Starter](docs/duplicate-logic/security.md)
-- [Kafka Event Parsing](docs/duplicate-logic/kafka-parsing.md)
-- [Outbox Starter](docs/duplicate-logic/outbox.md)
-- [Kafka Recovery Starter](docs/duplicate-logic/kafka-recovery.md)
+- [Duplicate Logic Overview](../documentation/docs/platform/DUPLICATE-LOGIC.md)
+- [Common Error Contract](../documentation/docs/platform/COMMON-ERROR.md)
+- [Shared Web Pagination](../documentation/docs/platform/WEB-PAGINATION.md)
+- [Observability Starter](../documentation/docs/platform/OBSERVABILITY-STARTER.md)
+- [Security Starter](../documentation/docs/platform/SECURITY-STARTER.md)
+- [Kafka Event Parsing](../documentation/docs/platform/KAFKA-PARSING.md)
+- [Outbox Starter](../documentation/docs/platform/OUTBOX-STARTER.md)
+- [Kafka Recovery Starter](../documentation/docs/platform/KAFKA-RECOVERY-STARTER.md)
 
 ## Local Consumption
 
 Services consume the platform build through Gradle composite builds:
 
 ```gradle
-includeBuild('../shopverse-platform')
+includeBuild('../../shopverse-common')
 ```
 
 Then add only the modules the service actually needs:
@@ -81,13 +81,13 @@ the servlet starters.
 Run module tests from the repository root with an available JDK:
 
 ```powershell
-.\order-service\gradlew.bat -p shopverse-platform build --no-daemon
+.\services\order-service\gradlew.bat -p shopverse-common build --no-daemon
 ```
 
 Run service tests from each service:
 
 ```powershell
-.\payment-service\gradlew.bat -p payment-service test --no-daemon
+.\services\payment-service\gradlew.bat -p payment-service test --no-daemon
 ```
 
 ## Versioning, Compatibility, And Release
