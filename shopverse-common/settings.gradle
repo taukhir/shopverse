@@ -21,9 +21,15 @@ rootProject.name = 'shopverse-platform'
 
 include 'shopverse-common-error'
 include 'shopverse-pagination-starter'
-include 'shopverse-contracts'
 include 'shopverse-observability-starter'
 include 'shopverse-security-starter'
 include 'shopverse-kafka-starter'
 include 'shopverse-outbox-starter'
 include 'shopverse-kafka-recovery-starter'
+
+// shopverse-contracts is in-progress work, not yet committed. Include it
+// only when the directory actually exists, so CI (which checks out only
+// committed content) doesn't break while this module is still WIP.
+if (file('shopverse-contracts').exists()) {
+    include 'shopverse-contracts'
+}
