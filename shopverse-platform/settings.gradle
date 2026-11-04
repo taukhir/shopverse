@@ -10,12 +10,18 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
     }
+    versionCatalogs {
+        libs {
+            from(files("../gradle/libs.versions.toml"))
+        }
+    }
 }
 
 rootProject.name = 'shopverse-platform'
 
 include 'shopverse-common-error'
 include 'shopverse-web'
+include 'shopverse-contracts'
 include 'shopverse-observability-starter'
 include 'shopverse-security-starter'
 include 'shopverse-kafka-starter'
