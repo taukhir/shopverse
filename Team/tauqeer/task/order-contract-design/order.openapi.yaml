@@ -1,0 +1,197 @@
+# Draft OpenAPI 3.1 schema fragment for the Order resource — FEAT-E.
+# Status: DRAFT, for review. See context.md and discussions.md for full design reasoning.
+# Not yet wired into a real OpenAPI document or a shopverse-contracts module.
+
+components:
+  schemas:
+    Order:
+      type: object
+      required: [orderNumber, status, currency, totalAmount, items, shippingAddress, createdAt]
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        orderNumber:
+          type: string
+          description: Business key, e.g. ORD-9F3A2B1C
+        correlationId:
+          type: string
+        idempotencyKey:
+          type: string
+          readOnly: true
+        customerUsername:
+          type: string
+        status:
+          type: string
+          enum:
+            - ORDER_CREATED
+            - PENDING_INVENTORY
+            - INVENTORY_RESERVED
+            - PAYMENT_PROCESSING
+            - PAYMENT_FAILED
+            - CONFIRMED
+            - PACKING
+            - SHIPPED
+            - OUT_FOR_DELIVERY
+            - DELIVERED
+            - RETURN_REQUESTED
+            - ORDER_CANCELLED
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          example: INR
+        totalAmount:
+          type: string
+          format: decimal
+          example: "4998.00"
+        statusReason:
+          type: string
+          nullable: true
+          description: >-
+            Why the order is in its current status (e.g. inventory
+            rejection reason, payment failure reason). Lets admin/ops read
+            this directly instead of reconstructing it from the timeline.
+            Pattern borrowed from the real Amway EOM's orderStatusReason/
+            orderEventStatusReason fields.
+        items:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/OrderLineItem'
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        links:
+          type: object
+          readOnly: true
+          properties:
+            self:
+              type: string
+              format: uri
+            timeline:
+              type: string
+              format: uri
+            cancel:
+              type: string
+              format: uri
+              nullable: true
+
+    OrderLineItem:
+      type: object
+      required: [productId, productName, quantity, unitPrice, lineTotal, requestedQuantity, reservedQuantity, fulfillmentStatus]
+      properties:
+        productId:
+          type: integer
+          format: int64
+        productName:
+          type: string
+        quantity:
+          type: integer
+          minimum: 1
+        unitPrice:
+          type: string
+          format: decimal
+          example: "2499.00"
+        lineTotal:
+          type: string
+          format: decimal
+          example: "4998.00"
+        requestedQuantity:
+          type: integer
+          minimum: 0
+          description: >-
+            RESOLVED (was ambiguous): quantity actually requested from
+            inventory for this line. Paired with reservedQuantity below —
+            mirrors the real fulfillment-service's InventoryReservation
+            (requestedQuantity + reservedQuantity as two separate fields,
+            not one overloaded field). Usually equals `quantity`, but kept
+            separate so a line can show "asked for 3, got 2" explicitly.
+        reservedQuantity:
+          type: integer
+          minimum: 0
+          description: >-
+            How much was actually reserved out of requestedQuantity. A
+            point-in-time reservation result, not a "live" counter that
+            changes on every compensation event — invariant:
+            0 <= reservedQuantity <= requestedQuantity.
+        fulfillmentStatus:
+          $ref: '#/components/schemas/OrderLineFulfillmentStatus'
+        backorderEta:
+          type: string
+          format: date-time
+          nullable: true
+          description: >-
+            Only meaningful when fulfillmentStatus is BACKORDERED.
+            ShopVerse adopts fixed-forward/backorder (the real
+            fulfillment-service's documented choice, see assumptions.md:
+            "even if reservation fails, the order is placed"), not
+            atomic-cancel or hold-for-manual-decision. A line that can't
+            fully reserve now is backordered with an ETA, not a reason to
+            fail the order.
+        fulfillmentType:
+          type: string
+          enum: [HOME_DELIVERY, PICKUP]
+          description: >-
+            Per-line, not per-order — mirrors the real EOM's
+            OrderLine.fulfillmentType. Needed because a BOPIS order can
+            legitimately mix: some items shipped home, others picked up
+            in-store. Ties to FEAT-K (delivery-mode strategy) and FEAT-B
+            (BOPIS).
+        pickupLocationId:
+          type: string
+          nullable: true
+          description: >-
+            RESOLVES Codex's "pickup has no destination" finding. Required
+            when fulfillmentType is PICKUP, null/absent otherwise —
+            enforce that pairing at the application/validation layer, not
+            just in this doc comment.
+
+    OrderLineFulfillmentStatus:
+      type: string
+      enum: [RESERVED, BACKORDERED, UNAVAILABLE]
+      description: >-
+        ShopVerse's own design — not a copy of the real fulfillment
+        service's 6-value AvailabilityDisposition (SHP/TNA/NLA/NYA/NAW/BO).
+        That enum is Manhattan Active Omni vendor shorthand; ShopVerse
+        used it only as a reference for the underlying problem, then
+        designed its own answer in its existing plain-English style (see
+        ReservationStatus: RESERVED/CONFIRMED/RELEASED/EXPIRED). Collapsed
+        to exactly 3 states because that's what a customer actually needs
+        to know, and no more: RESERVED (requestedQuantity fully reserved,
+        no issue), BACKORDERED (not fully reserved now but expected later
+        — see backorderEta), UNAVAILABLE (cannot be fulfilled at all;
+        line is effectively rejected). This is a per-line status,
+        independent of the order-level `status` enum — one order can
+        have lines in different fulfillment statuses at once.
+
+    ShippingAddress:
+      type: object
+      required: [recipientName, line1, city, state, postalCode, country]
+      properties:
+        recipientName:
+          type: string
+        phoneNumber:
+          type: string
+          nullable: true
+        line1:
+          type: string
+        line2:
+          type: string
+          nullable: true
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+          pattern: '^[A-Z]{2}$'
+          example: IN

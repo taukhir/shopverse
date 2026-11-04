@@ -179,7 +179,7 @@ Key interfaces:
 | Prometheus | `http://localhost:9090` |
 | Zipkin | `http://localhost:9411` |
 
-Docker configuration and command explanations are in [docker/README.md](docker/README.md).
+Docker configuration and command explanations are in [infra/docker/README.md](infra/docker/README.md).
 
 ## Docker Compose Modes
 
@@ -515,7 +515,7 @@ browser smoke through the nginx-served Angular app.
 Service-specific APIs and configuration remain in each service README. Operational guides remain beside their deployment files:
 
 - [Centralized configuration](config-server/README.md)
-- [Observability deployment](observability/README.md)
-- [Docker](docker/README.md)
-- [Jenkins](jenkins/README.md)
+- [Observability deployment](infra/observability/README.md)
+- [Docker](infra/docker/README.md)
+- [Jenkins](dev-tools/jenkins/README.md)
 - [GitHub Actions](.github/workflows/README.md)

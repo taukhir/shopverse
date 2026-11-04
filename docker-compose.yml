@@ -29,7 +29,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
     command: ["/bin/sh", "/scripts/01-create-service-databases.sh"]
     volumes:
-      - ./docker/mysql/init:/scripts:ro
+      - ./infra/docker/mysql/init:/scripts:ro
     depends_on:
       mysql:
         condition: service_healthy
@@ -476,8 +476,8 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./observability/prometheus-docker.yml:/etc/prometheus/prometheus.yml:ro
-      - ./observability/prometheus-rules.yml:/etc/prometheus/rules/shopverse.yml:ro
+      - ./infra/observability/prometheus-docker.yml:/etc/prometheus/prometheus.yml:ro
+      - ./infra/observability/prometheus-rules.yml:/etc/prometheus/rules/shopverse.yml:ro
       - prometheus-data:/prometheus
     networks:
       - shopverse
@@ -490,7 +490,7 @@ services:
     ports:
       - "3100:3100"
     volumes:
-      - ./observability/loki.yml:/etc/loki/loki.yml:ro
+      - ./infra/observability/loki.yml:/etc/loki/loki.yml:ro
       - loki-data:/loki
     networks:
       - shopverse
@@ -501,7 +501,7 @@ services:
     container_name: shopverse-promtail
     command: -config.file=/etc/promtail/promtail.yml
     volumes:
-      - ./observability/promtail.yml:/etc/promtail/promtail.yml:ro
+      - ./infra/observability/promtail.yml:/etc/promtail/promtail.yml:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./:/workspace:ro
       - api-gateway-logs:/service-logs/api-gateway:ro
@@ -538,8 +538,8 @@ services:
       - "3000:3000"
     volumes:
       - grafana-data:/var/lib/grafana
-      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
-      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - ./infra/observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./infra/observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
     depends_on:
       prometheus:
         condition: service_started
