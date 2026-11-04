@@ -1,0 +1,105 @@
+version: 2
+updates:
+  # GitHub Actions used in CI/deploy workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Gradle: build-logic (convention plugins)
+  - package-ecosystem: "gradle"
+    directory: "/build-logic"
+    schedule:
+      interval: "weekly"
+
+  # Gradle: shared starter modules
+  - package-ecosystem: "gradle"
+    directory: "/shopverse-common"
+    schedule:
+      interval: "weekly"
+
+  # Gradle: the 8 services
+  - package-ecosystem: "gradle"
+    directory: "/services/api-gateway"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "gradle"
+    directory: "/services/auth-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "gradle"
+    directory: "/services/config-server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "gradle"
+    directory: "/services/discovery-server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "gradle"
+    directory: "/services/inventory-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "gradle"
+    directory: "/services/order-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "gradle"
+    directory: "/services/payment-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "gradle"
+    directory: "/services/user-service"
+    schedule:
+      interval: "weekly"
+
+  # npm: frontend and documentation site
+  - package-ecosystem: "npm"
+    directory: "/shopverse-web"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "/documentation"
+    schedule:
+      interval: "weekly"
+
+  # Docker base images used in each service's Dockerfile
+  - package-ecosystem: "docker"
+    directory: "/services/api-gateway"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/services/auth-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/services/config-server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/services/discovery-server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/services/inventory-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/services/order-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/services/payment-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/services/user-service"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker"
+    directory: "/dev-tools/jenkins"
+    schedule:
+      interval: "weekly"

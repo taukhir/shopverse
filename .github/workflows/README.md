@@ -20,6 +20,7 @@ Official references:
 | `deploy.yml` | Build and push images to GHCR, then optionally deploy through SSH |
 | `jenkins-trigger.yml` | Trigger Jenkins after a successful GitHub workflow |
 | `docs-site.yml` | Build the Docusaurus knowledge base and deploy it to GitHub Pages |
+| `security.yml` | Daily secret scan (gitleaks) across the whole repo, plus every push/PR |
 
 ## CI Triggers
 
@@ -48,13 +49,13 @@ and builds only that service. Shared changes under these paths select every
 service:
 
 ```text
-cloud-configs/
+infra/cloud-configs/
 build-logic/
-shopverse-platform/
+shopverse-common/
 docker-compose*
-docker/
-observability/
-scripts/
+infra/docker/
+infra/observability/
+infra/scripts/
 .github/workflows/
 README.md
 ```
@@ -143,7 +144,7 @@ deployment environments.
 `jenkins-trigger.yml` is an optional handoff. Use it only when Jenkins is
 reachable from the GitHub-hosted runner or through a secure self-hosted runner.
 Keep Jenkins credentials in GitHub secrets and configure Jenkins CSRF/API-token
-requirements as documented in [jenkins/README.md](../../jenkins/README.md).
+requirements as documented in [jenkins/README.md](../../dev-tools/jenkins/README.md).
 
 Leave all Jenkins secrets unset to skip this optional handoff. If any Jenkins
 secret is set, configure all of them:
@@ -158,12 +159,12 @@ secret is set, configure all of them:
 The closest local commands are:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 -Mode Changed
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 -Mode Integration
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 -Mode Full
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 -Mode Changed
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 -Mode Integration
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 -Mode Full
 ```
 
-See [testing/README.md](../../testing/README.md) for coverage and failure
+See [testing/README.md](../../dev-tools/testing/README.md) for coverage and failure
 triage.
 
 ## Documentation Workflow
