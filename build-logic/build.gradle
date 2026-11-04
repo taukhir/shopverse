@@ -5,4 +5,5 @@ plugins {
 dependencies {
     implementation "org.springframework.boot:org.springframework.boot.gradle.plugin:${libs.versions.springBoot.get()}"
     implementation "io.spring.gradle:dependency-management-plugin:${libs.versions.springDependencyManagement.get()}"
+    implementation "com.github.spotbugs.snom:spotbugs-gradle-plugin:${libs.versions.spotbugsPlugin.get()}"
 }
