@@ -20,7 +20,7 @@ Official references:
 | `deploy.yml` | Build and push images to GHCR, then optionally deploy through SSH |
 | `jenkins-trigger.yml` | Trigger Jenkins after a successful GitHub workflow |
 | `docs-site.yml` | Build the Docusaurus knowledge base and deploy it to GitHub Pages |
-| `security.yml` | Daily secret scan (gitleaks) across the whole repo, plus every push/PR |
+| `security.yml` | Secret scan (gitleaks) and per-service container vulnerability scan (Trivy, results in the Security tab) - daily, plus every push/PR |
 
 ## CI Triggers
 
