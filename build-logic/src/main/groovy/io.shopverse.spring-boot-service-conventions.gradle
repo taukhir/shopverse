@@ -4,7 +4,17 @@ plugins {
     id 'io.spring.dependency-management'
 }
 
-ext.set('springCloudVersion', '2025.1.1')
+def sharedVersions = new Properties()
+new File(rootDir, '../gradle/libs.versions.toml').withReader { reader ->
+    reader.eachLine { line ->
+        def match = line =~ /^(\w+)\s*=\s*"([^"]+)"/
+        if (match) {
+            sharedVersions.setProperty(match.group(1), match.group(2))
+        }
+    }
+}
+
+ext.set('springCloudVersion', sharedVersions.getProperty('springCloud'))
 ext.set('resilience4jVersion', '2.4.0')
 ext.set('testcontainersVersion', '2.0.5')
 
