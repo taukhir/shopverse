@@ -1,6 +1,8 @@
 # Shopverse
 
 [![Shopverse CI](https://github.com/taukhir/shopverse/actions/workflows/ci.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/ci.yml)
+[![Shopverse Security](https://github.com/taukhir/shopverse/actions/workflows/security.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/security.yml)
+[![License: MIT](https://img.shields.io/github/license/taukhir/shopverse)](LICENSE)
 [![Documentation](https://github.com/taukhir/shopverse/actions/workflows/docs-site.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/docs-site.yml)
 [![Live Docs](https://img.shields.io/badge/Docs-Live-4051c7?style=flat-square&logo=docusaurus&logoColor=white)](https://taukhir.github.io/shopverse/)
 [![Static Demo](https://img.shields.io/badge/Demo-Static_Angular-14b8a6?style=flat-square&logo=angular&logoColor=white)](https://taukhir.github.io/portfolio/shopverse-demo.html)
