@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshopverse_documentation=self.webpackChunkshopverse_documentation||[]).push([[86288],{86288(e,s,c){c.d(s,{createInfoServices:()=>n.v});var n=c(19511);c(69302)}}]);
