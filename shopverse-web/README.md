@@ -119,19 +119,19 @@ Automated coverage now replaces these routine manual checks:
 From the repository root, run the frontend automation wrapper:
 
 ```powershell
-.\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
+.\infra\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
 ```
 
 Use `-Install` when dependencies need to be restored:
 
 ```powershell
-.\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full -Install
+.\infra\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full -Install
 ```
 
 If local execution policy blocks scripts, run:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
 ```
 
 Run real Docker-backed UI verification from the repository root:

@@ -16,7 +16,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$repoRoot = Split-Path -Parent $PSScriptRoot
+$repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $deadline = [DateTimeOffset]::UtcNow.AddMinutes($TimeoutMinutes)
 $results = [System.Collections.Generic.List[object]]::new()
 

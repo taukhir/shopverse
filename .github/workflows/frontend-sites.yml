@@ -48,7 +48,7 @@ jobs:
         shell: powershell
         run: >
           powershell -NoProfile -ExecutionPolicy Bypass
-          -File .\scripts\Test-ShopverseSites.ps1
+          -File .\infra\scripts\Test-ShopverseSites.ps1
           -Target All
           -Mode Quick
           -TimeoutMinutes 30
