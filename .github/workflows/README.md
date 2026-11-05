@@ -52,6 +52,14 @@ The CI JDK is 25, matching current build toolchains. Java documentation labs ret
 their intentional JDK 24/25 matrix. CI disables Gradle configuration caching because
 the existing Avro generator tasks are incompatible; dependency/build caching remains.
 
+Unit/static-analysis jobs have a 20-minute overall limit and a 15-minute Gradle
+step limit, leaving time to attempt report upload after a step timeout. Reports
+are requested on failure or cancellation, although a hard job/workflow cancellation
+can still prevent uploads. This replaces the 10-minute limit exceeded by
+[Inventory in run 42098993333](https://github.com/taukhir/shopverse/actions/runs/42098993333/job/127496626041).
+Cancelled required jobs still fail `Backend CI Gate`; rerun the upstream checks
+after correcting their cause, rather than rerunning only the gate.
+
 The CI init script enforces existing Checkstyle/SpotBugs rules on handwritten Java.
 Generated-only OpenAPI/Avro modules are compiled/tested but excluded from static
 style/bug analysis; generated Checkstyle sources under `build/` are excluded too.
@@ -172,6 +180,8 @@ git diff --check
 ```
 
 Actionlint is a checksum-verified fixed upstream binary; no npm package is installed.
+Its guarded download/write is covered by regression tests and the exact
+[CodeQL alert 193 review](../ci/codeql-actionlint-review.md).
 It validates workflow schema and expressions; optional ShellCheck/pyflakes are not
 invoked by this wrapper. Backend CI also validates the Compose model. Run Java
 checks using the CI init script and `--no-configuration-cache`, and run the existing

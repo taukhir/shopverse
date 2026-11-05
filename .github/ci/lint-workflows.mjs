@@ -16,6 +16,7 @@ const response = await fetch(`https://github.com/rhysd/actionlint/releases/downl
 if (!response.ok) throw new Error(`Cannot download actionlint: HTTP ${response.status}`);
 const bytes = Buffer.from(await response.arrayBuffer());
 if (createHash('sha256').update(bytes).digest('hex') !== expected) throw new Error('actionlint checksum mismatch');
+// The guarded network-to-file write is reviewed in codeql-actionlint-review.md.
 const directory = mkdtempSync(join(tmpdir(), 'shopverse-actionlint-'));
 const archive = join(directory, file);
 writeFileSync(archive, bytes);
