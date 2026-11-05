@@ -34,6 +34,9 @@ test('unavailable, zero and malformed history conservatively selects all service
 });
 for (const file of ['gradle/libs.versions.toml', 'gradle/checkstyle/checkstyle.xml',
   '.dockerignore', '.gitattributes', '.github/ci/pipeline.mjs', '.github/workflows/ci-backend.yml',
+  '.github/workflows/ci-security.yml', '.github/workflows/cd-production.yml',
+  '.github/workflows/new-workflow.yml', '.github/ci/new-helper.mjs',
+  '.github/ci/enforce-quality.gradle', '.github/ci/spotbugs-exclude.xml',
   'shopverse-common/shopverse-security-starter/build.gradle', 'build-logic/settings.gradle',
   'infra/cloud-configs/application.yml', 'docker-compose.test.yml']) {
   test(`shared build input selects all services: ${file}`, () => {
@@ -42,12 +45,35 @@ for (const file of ['gradle/libs.versions.toml', 'gradle/checkstyle/checkstyle.x
     assert.equal(result.common_required, 'true');
   });
 }
-test('service-only changes select exactly the owning service', () => {
-  const result = select({diff: () => ['services/order-service/src/RemovedFile.java']});
-  assert.deepEqual(selected(result), ['order-service']);
+for (const service of services) {
+  test(`service-only changes select exactly ${service}`, () => {
+    const result = select({diff: () => [`services/${service}/src/ChangedFile.java`]});
+    assert.deepEqual(selected(result), [service]);
+    assert.equal(result.has_integration_changes, String(['order-service', 'inventory-service', 'payment-service'].includes(service)));
+    assert.equal(result.common_required, 'false');
+    assert.equal(result.smoke_required, 'false');
+  });
+}
+
+for (const file of ['.github/workflows/ci-web.yml', '.github/workflows/docs-verify-publish.yml',
+  '.github/workflows/ci-docs-visual.yml', '.github/workflows/ci-java-labs.yml',
+  '.github/workflows/ci-database-lab.yml', '.github/workflows/integration-jenkins.yml',
+  '.github/ci/lint-workflows.mjs', '.github/ci/lint-workflows.test.mjs', '.github/ci/quality-policy.md']) {
+  test(`independent CI change does not rebuild backend services: ${file}`, () => {
+    const result = select({diff: () => [file]});
+    assert.deepEqual(selected(result), []);
+    assert.equal(result.common_required, 'false');
+    assert.equal(result.has_integration_changes, 'false');
+  });
+}
+
+test('mixed service and independent workflow edits retain every affected service', () => {
+  const result = select({diff: () => ['services/user-service/src/Changed.java',
+    'services/payment-service/src/Changed.java', '.github/workflows/ci-web.yml',
+    'documentation/docs/intro.md', 'shopverse-web/src/app/app.ts']});
+  assert.deepEqual(selected(result), ['user-service', 'payment-service']);
   assert.equal(result.has_integration_changes, 'true');
   assert.equal(result.common_required, 'false');
-  assert.equal(result.smoke_required, 'false');
 });
 test('documentation-only PRs have intentional empty matrices', () => {
   const result = select({diff: () => ['documentation/docs/intro.md']});

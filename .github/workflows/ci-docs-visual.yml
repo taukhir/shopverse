@@ -11,7 +11,6 @@ on:
       - "documentation/package-lock.json"
       - "documentation/scripts/run-visual-tests.mjs"
       - "documentation/tests/visual-regression.spec.ts"
-      - ".github/workflows/ci-docs-visual.yml"
   push:
     branches:
       - master
@@ -24,7 +23,6 @@ on:
       - "documentation/package-lock.json"
       - "documentation/scripts/run-visual-tests.mjs"
       - "documentation/tests/visual-regression.spec.ts"
-      - ".github/workflows/ci-docs-visual.yml"
   schedule:
     - cron: "45 3 * * 1"
   workflow_dispatch:
