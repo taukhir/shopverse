@@ -2,9 +2,9 @@
 
 For reusable concepts such as registration, leases, stale instances,
 client/server-side discovery, DNS, and Kubernetes discovery, see
-[Service discovery](../documentation/docs/architecture/SERVICE-DISCOVERY.md). For the
+[Service discovery](../../documentation/docs/architecture/SERVICE-DISCOVERY.md). For the
 complete Shopverse topology, see
-[System design](../documentation/docs/architecture/SYSTEM-DESIGN.md). This README covers only
+[System design](../../documentation/docs/architecture/SYSTEM-DESIGN.md). This README covers only
 Shopverse Discovery Server operation.
 
 Discovery Server is the Eureka registry for Shopverse services.
@@ -51,7 +51,7 @@ The full stack is started from the root:
 docker compose up -d
 ```
 
-More Docker commands, flags, and Dockerfile details are in [../infra/docker/README.md](../infra/docker/README.md).
+More Docker commands, flags, and Dockerfile details are in [../infra/docker/README.md](../../infra/docker/README.md).
 
 ## Jenkins Pipeline
 
@@ -68,8 +68,8 @@ The pipeline checks out code, builds/tests the service, optionally builds and
 inspects the image, deploys it locally, and waits for Docker health.
 
 For generic Jenkins syntax, stages, `when`, `options`, credentials, and
-production practices, see [Jenkins](../documentation/docs/operations/JENKINS.md). For the
-complete Shopverse Jenkins setup, see [jenkins/README.md](../dev-tools/jenkins/README.md).
+production practices, see [Jenkins](../../documentation/docs/operations/JENKINS.md). For the
+complete Shopverse Jenkins setup, see [jenkins/README.md](../../dev-tools/jenkins/README.md).
 
 ## Observability
 
@@ -110,7 +110,7 @@ service checks with:
 Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
 AI can help diagnose registration, heartbeat, stale-instance, startup-order,
 health, and load-balancing symptoms by correlating Eureka state with service logs
-and configuration. Follow the root [`AGENTS.md`](../AGENTS.md) and use the
+and configuration. Follow the root [`AGENTS.md`](../../AGENTS.md) and use the
 [incident](../../dev-tools/ai-workflows/prompts/incident-investigation.md) and
 [performance](../../dev-tools/ai-workflows/prompts/optimize-performance.md) workflows.
 

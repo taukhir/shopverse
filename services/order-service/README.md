@@ -65,7 +65,7 @@ The `/ship` endpoint advances `PACKING -> SHIPPED` and then
 allowed only from `DELIVERED`.
 
 Swagger is available at `/swagger-ui/index.html` when the service is reached
-directly; use the [API guide](../documentation/docs/development/API-GUIDE.md)
+directly; use the [API guide](../../documentation/docs/development/API-GUIDE.md)
 for gateway-facing examples.
 
 ## Persistence And Consistency
@@ -99,7 +99,7 @@ find related Loki logs and Zipkin traces.
 
 The authorization rule, Spring method-security flow, repository ownership
 query, `401`/`403` behavior, and tests are documented in
-[Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md).
+[Resource ownership authorization](../../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md).
 
 ## Idempotency And Kafka Keys
 
@@ -120,7 +120,7 @@ late-payment-safe choreography records payment completion but confirms only
 after Inventory atomically commits the reservation and emits
 `inventory.committed`. If expiry wins, Order follows refund/cancellation
 recovery instead. See
-[Reservation expiry and late-payment recovery](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
+[Reservation expiry and late-payment recovery](../../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
 
 Liquibase also inserts nine historical demonstration orders, from
 `DEMO-ORD-1001` through `DEMO-ORD-1009`. They cover confirmation, payment
@@ -215,16 +215,16 @@ fulfillment, return, and late-event compensation scenarios.
 
 ## Related Guides
 
-- [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
-- [Transactional outbox pattern](../documentation/docs/reliability/OUTBOX-PATTERN.md)
-- [Inbox pattern](../documentation/docs/reliability/INBOX-PATTERN.md)
-- [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
-- [API guide](../documentation/docs/development/API-GUIDE.md)
-- [Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
-- [Reservation expiry and late-payment recovery](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
-- [Transactions](../documentation/docs/reliability/TRANSACTIONS.md)
-- [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)
-- [Spring Cloud OpenFeign](../documentation/docs/spring/SPRING-OPENFEIGN.md)
-- [MDC and tracing](../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
-- [Generic Resilience4j patterns](../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
-- [Spring Resilience4j](../documentation/docs/spring/SPRING-RESILIENCE4J.md)
+- [SAGA and outbox](../../documentation/docs/reliability/SAGA-OUTBOX.md)
+- [Transactional outbox pattern](../../documentation/docs/reliability/OUTBOX-PATTERN.md)
+- [Inbox pattern](../../documentation/docs/reliability/INBOX-PATTERN.md)
+- [SAGA code flow](../../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
+- [API guide](../../documentation/docs/development/API-GUIDE.md)
+- [Resource ownership authorization](../../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+- [Reservation expiry and late-payment recovery](../../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
+- [Transactions](../../documentation/docs/reliability/TRANSACTIONS.md)
+- [Spring transactions](../../documentation/docs/spring/SPRING-TRANSACTIONS.md)
+- [Spring Cloud OpenFeign](../../documentation/docs/spring/SPRING-OPENFEIGN.md)
+- [MDC and tracing](../../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
+- [Generic Resilience4j patterns](../../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
+- [Spring Resilience4j](../../documentation/docs/spring/SPRING-RESILIENCE4J.md)
