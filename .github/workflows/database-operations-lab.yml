@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Run bounded database operations assertions
         shell: pwsh
         run: ./documentation/labs/database-operations/run-lab.ps1
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Run operations and ClickHouse projection assertions
         shell: pwsh
         run: ./documentation/labs/database-operations/run-lab.ps1 -IncludeAnalytics
