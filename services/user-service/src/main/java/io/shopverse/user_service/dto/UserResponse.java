@@ -2,6 +2,8 @@ package io.shopverse.user_service.dto;
 
 import io.shopverse.user_service.entities.enums.UserStatus;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public record UserResponse(
@@ -15,4 +17,8 @@ public record UserResponse(
         UserStatus status,
         Set<RoleResponse> roles
 ) {
+    public UserResponse {
+        roles = roles == null ? null : Collections.unmodifiableSet(new LinkedHashSet<>(roles));
+    }
+
 }

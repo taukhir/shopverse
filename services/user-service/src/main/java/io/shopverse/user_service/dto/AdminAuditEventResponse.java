@@ -1,6 +1,8 @@
 package io.shopverse.user_service.dto;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public record AdminAuditEventResponse(
@@ -19,4 +21,8 @@ public record AdminAuditEventResponse(
         String link,
         Map<String, Object> metadata
 ) {
+    public AdminAuditEventResponse {
+        metadata = metadata == null ? null : Collections.unmodifiableMap(new LinkedHashMap<>(metadata));
+    }
+
 }

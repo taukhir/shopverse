@@ -7,7 +7,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ShopverseJwtAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {

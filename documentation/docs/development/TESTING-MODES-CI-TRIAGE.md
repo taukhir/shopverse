@@ -152,7 +152,7 @@ configured deadline.
 
 ## CI Pipeline
 
-`.github/workflows/ci.yml` currently:
+`.github/workflows/ci-backend.yml` currently:
 
 1. validates configuration and Compose;
 2. detects changed services;

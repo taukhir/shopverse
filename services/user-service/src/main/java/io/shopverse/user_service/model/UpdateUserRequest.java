@@ -4,6 +4,8 @@ import io.shopverse.user_service.entities.enums.UserStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public record UpdateUserRequest(
@@ -28,4 +30,8 @@ public record UpdateUserRequest(
 
     Set<String> roles
 ) {
+    public UpdateUserRequest {
+        roles = roles == null ? null : Collections.unmodifiableSet(new LinkedHashSet<>(roles));
+    }
+
 }

@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public record CreateUserRequest(
@@ -29,4 +31,8 @@ public record CreateUserRequest(
 
     Set<String> roles
 ) {
+    public CreateUserRequest {
+        roles = roles == null ? null : Collections.unmodifiableSet(new LinkedHashSet<>(roles));
+    }
+
 }

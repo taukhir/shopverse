@@ -1,0 +1,72 @@
+name: ShopVerse / Integration / Jenkins
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact source commit; defaults to the dispatched revision
+        required: false
+        type: string
+      image_tag:
+        description: Image tag to pass to Jenkins
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shopverse-trigger-jenkins-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  trigger-jenkins:
+    name: Trigger Jenkins pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger Jenkins build
+        env:
+          JENKINS_URL: ${{ secrets.JENKINS_URL }}
+          JENKINS_JOB_PATH: ${{ secrets.JENKINS_JOB_PATH }}
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
+          IMAGE_TAG_INPUT: ${{ github.event.inputs.image_tag }}
+          SOURCE_SHA_INPUT: ${{ inputs.source_sha }}
+          CURRENT_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          configured_count=0
+          for value in "${JENKINS_URL}" "${JENKINS_JOB_PATH}" "${JENKINS_USER}" "${JENKINS_API_TOKEN}"; do
+            if [ -n "${value}" ]; then
+              configured_count=$((configured_count + 1))
+            fi
+          done
+
+          if [ "${configured_count}" -eq 0 ]; then
+            echo "Jenkins trigger is not configured; skipping optional Jenkins handoff."
+            exit 0
+          fi
+
+          if [ "${configured_count}" -ne 4 ]; then
+            echo "Jenkins trigger is partially configured. Set JENKINS_URL, JENKINS_JOB_PATH, JENKINS_USER, and JENKINS_API_TOKEN, or leave all unset to skip."
+            exit 1
+          fi
+
+          source_sha="${SOURCE_SHA_INPUT:-${CURRENT_SHA}}"
+          [[ "$source_sha" =~ ^[a-f0-9]{40}$ ]]
+          image_tag="${IMAGE_TAG_INPUT:-${source_sha}}"
+          [[ "$image_tag" =~ ^[a-zA-Z0-9_][a-zA-Z0-9_.-]{0,127}$ ]]
+          crumb_header="$(curl --connect-timeout 10 --max-time 30 -fsS -u "${JENKINS_USER}:${JENKINS_API_TOKEN}" "${JENKINS_URL%/}/crumbIssuer/api/json" \
+            | jq -r '.crumbRequestField + ": " + .crumb')"
+
+          curl --connect-timeout 10 --max-time 30 -fsS -X POST \
+            -u "${JENKINS_USER}:${JENKINS_API_TOKEN}" \
+            -H "${crumb_header}" \
+            --data-urlencode "SOURCE_SHA=${source_sha}" \
+            --data-urlencode "IMAGE_TAG=${image_tag}" \
+            --data-urlencode "BUILD_DOCKER_IMAGES=true" \
+            --data-urlencode "RUN_COMPOSE_SMOKE_TEST=false" \
+            "${JENKINS_URL%/}/${JENKINS_JOB_PATH#/}/buildWithParameters"

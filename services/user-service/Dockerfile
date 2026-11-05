@@ -22,7 +22,7 @@ ENV APP_HOME=/app \
 
 WORKDIR ${APP_HOME}
 
-RUN apk add --no-cache curl \
+RUN apk add --no-cache --upgrade curl libexpat \
     && addgroup -S shopverse \
     && adduser -S -G shopverse -h ${APP_HOME} -s /sbin/nologin shopverse
 

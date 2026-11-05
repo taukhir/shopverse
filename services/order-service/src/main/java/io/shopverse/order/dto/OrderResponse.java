@@ -2,6 +2,8 @@ package io.shopverse.order.dto;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public record OrderResponse(
@@ -16,4 +18,7 @@ public record OrderResponse(
         List<OrderItemResponse> items,
         Instant createdAt
 ) {
+    public OrderResponse {
+        items = items == null ? null : Collections.unmodifiableList(new ArrayList<>(items));
+    }
 }

@@ -24,6 +24,8 @@ dependencyManagement {
     }
 }
 
+project.apply from: new File(rootDir, '../../gradle/security-dependencies.gradle')
+
 tasks.named('jar') {
     enabled = false
 }

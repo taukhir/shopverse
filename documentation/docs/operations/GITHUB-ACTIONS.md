@@ -146,10 +146,12 @@ Shopverse currently has:
 
 | Workflow | Responsibility |
 |---|---|
-| `ci.yml` | config validation, affected-service tests, Testcontainers, images, SAGA smoke test |
-| `deploy.yml` | GHCR image publication and optional SSH deployment |
-| `docs-site.yml` | Docusaurus validation and GitHub Pages deployment |
-| `jenkins-trigger.yml` | optional Jenkins handoff |
+| `ci-backend.yml` | config validation, affected-service tests, Testcontainers, images, SAGA smoke test |
+| `ci-security.yml` | reusable secret, dependency, configuration and available CodeQL checks |
+| `ci-web.yml` | Angular build, unit, E2E, accessibility and performance checks |
+| `cd-production.yml` | publish verified CI images, record per-service digests and optionally deploy |
+| `docs-verify-publish.yml` | Docusaurus validation and GitHub Pages deployment |
+| `integration-jenkins.yml` | manual Jenkins demonstration handoff |
 
 The CI workflow uses bounded timeouts, limited matrix parallelism, Gradle cache,
 Buildx cache scopes, failure artifacts, and cleanup.
