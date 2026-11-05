@@ -61,6 +61,7 @@ when reviewing a defect or design change.
 ## Domain And Execution
 
 <TopicCards items={[
+  {title: 'Architecture overview and PNG', href: '/architecture/AMWAY-ARCHITECTURE-OVERVIEW', description: 'Explore the request workflow, runtime boundaries, generated contracts, and delivery in an evidence-labelled architecture map.', icon: 'boxes', tags: ['Architecture', 'PNG']},
   {title: 'Commerce and checkout domain primer', href: '/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER', description: 'Understand cart, account, profile, checkout, post-checkout, identity, money, and market-specific domain boundaries.', icon: 'book', tags: ['Domain', 'Business']},
   {title: 'Complete create-checkout execution flow', href: '/architecture/AMWAY-CREATE-CHECKOUT-FLOW', description: 'Trace controller validation, mapping, workflow context, strategy resolution, handler execution, persistence, and response preparation.', icon: 'route', tags: ['Execution', 'Reactor']},
 ]} />

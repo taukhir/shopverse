@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1320" viewBox="0 0 1600 1320" role="img" aria-labelledby="title description">
+<title id="title">Amway checkout architecture: reference model from existing notes</title>
+<desc id="description">Four bands separate request handling, service-owned integrations and data, contract generation, and delivery. Framework ownership and all topology connections require internal verification.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10" fill="#475569"/></marker></defs>
+<rect width="1600" height="1320" fill="#ffffff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="40" y="44" font-size="32" font-weight="700" fill="#0f172a">Amway Next Gen Checkout</text>
+<text x="40" y="75" font-size="20" fill="#475569">Architecture learning map · reconstructed workflow + reported stack · 20 Oct 2026</text>
+<rect x="40" y="92" width="1520" height="43" rx="8" fill="#fff7ed"/>
+<text x="55" y="119" font-size="17" fill="#9a3412">REFERENCE MODEL — not a verified production topology. Spring/Reactor and Quarkus module ownership must be confirmed.</text>
+
+  <rect x="30" y="155" width="1540" height="315" rx="18" fill="#eff6ff"/>
+  <text x="55" y="187" font-size="21" font-weight="700" fill="#0f172a">1  REQUEST AND CHECKOUT WORKFLOW</text>
+  <text x="55" y="212" font-size="16" fill="#475569">Logical execution from screenshot-derived notes; edge/auth placement is conceptual.</text>
+
+  <rect x="60" y="240" width="265" height="92" rx="12" fill="white" stroke="#2563eb" stroke-width="2"/>
+  <text x="78" y="269" font-size="19" font-weight="700" fill="#0f172a">Web / mobile</text>
+  <text x="78" y="293" font-size="15" fill="#475569">Checkout request</text><text x="78" y="313" font-size="15" fill="#475569">No customer payloads shown</text>
+
+  <rect x="365" y="240" width="330" height="92" rx="12" fill="white" stroke="#2563eb" stroke-width="2"/>
+  <text x="383" y="269" font-size="19" font-weight="700" fill="#0f172a">API entry + validation</text>
+  <text x="383" y="293" font-size="15" fill="#475569">Authentication and ownership</text><text x="383" y="313" font-size="15" fill="#475569">Generated API transport DTO</text>
+
+  <rect x="735" y="240" width="330" height="92" rx="12" fill="white" stroke="#2563eb" stroke-width="2"/>
+  <text x="753" y="269" font-size="19" font-weight="700" fill="#0f172a">Map + workflow context</text>
+  <text x="753" y="293" font-size="15" fill="#475569">API DTO → CheckoutBizDto</text><text x="753" y="313" font-size="15" fill="#475569">Common request / market context</text>
+
+  <rect x="1105" y="240" width="430" height="92" rx="12" fill="white" stroke="#2563eb" stroke-width="2"/>
+  <text x="1123" y="269" font-size="19" font-weight="700" fill="#0f172a">Select and execute workflow</text>
+  <text x="1123" y="293" font-size="15" fill="#475569">Provider → tenant factory → strategy</text><text x="1123" y="313" font-size="15" fill="#475569">Handler keys → pipeline → executor</text>
+<path d="M325 286 H365" fill="none" stroke="#334155" stroke-width="2.5"  marker-end="url(#arrow)"/><path d="M695 286 H735" fill="none" stroke="#334155" stroke-width="2.5"  marker-end="url(#arrow)"/><path d="M1065 286 H1105" fill="none" stroke="#334155" stroke-width="2.5"  marker-end="url(#arrow)"/>
+<text x="65" y="390" font-size="18" font-weight="700" fill="#1e40af">Outcome: persist permitted checkout state → prepare response → map to API response</text>
+<text x="65" y="422" font-size="16" fill="#475569">Reconstructed Spring/Reactor path ≠ proof of the same Quarkus module. Handler ordering and failure behavior need source evidence.</text>
+
+  <rect x="30" y="490" width="1540" height="285" rx="18" fill="#f0fdf4"/>
+  <text x="55" y="522" font-size="21" font-weight="700" fill="#0f172a">2  RUNTIME COLLABORATORS AND SERVICE-OWNED DATA</text>
+  <text x="55" y="547" font-size="16" fill="#475569">Proposed relationships from the reported technology inventory; each service owns its persistence.</text>
+
+  <rect x="60" y="585" width="350" height="92" rx="12" fill="white" stroke="#15803d" stroke-width="2"/>
+  <text x="78" y="614" font-size="19" font-weight="700" fill="#0f172a">Checkout application</text>
+  <text x="78" y="638" font-size="15" fill="#475569">Quarkus / Java 21 stack reported</text><text x="78" y="658" font-size="15" fill="#475569">Framework/module boundary: verify</text>
+
+  <rect x="465" y="585" width="350" height="92" rx="12" fill="white" stroke="#15803d" stroke-width="2"/>
+  <text x="483" y="614" font-size="19" font-weight="700" fill="#0f172a">Typed HTTP integrations</text>
+  <text x="483" y="638" font-size="15" fill="#475569">Account · profile · pricing</text><text x="483" y="658" font-size="15" fill="#475569">Inventory · payment, as required</text>
+
+  <rect x="875" y="585" width="300" height="92" rx="12" fill="white" stroke="#15803d" stroke-width="2"/>
+  <text x="893" y="614" font-size="19" font-weight="700" fill="#0f172a">Checkout-owned data</text>
+  <text x="893" y="638" font-size="15" fill="#475569">PostgreSQL / RDS</text><text x="893" y="658" font-size="15" fill="#475569">DynamoDB role: verify</text>
+
+  <rect x="1230" y="585" width="305" height="92" rx="12" fill="white" stroke="#15803d" stroke-width="2"/>
+  <text x="1248" y="614" font-size="19" font-weight="700" fill="#0f172a">Supporting runtime tools</text>
+  <text x="1248" y="638" font-size="15" fill="#475569">OpenFeature / flagd · SSM</text><text x="1248" y="658" font-size="15" fill="#475569">Dynatrace telemetry</text>
+<path d="M410 615 H465" fill="none" stroke="#334155" stroke-width="2.5"  marker-end="url(#arrow)"/><path d="M410 660 V710 H1025 V677" fill="none" stroke="#334155" stroke-width="2.5"  marker-end="url(#arrow)"/>
+<path d="M1382 677 V737 H235 V677" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="465" y="765" font-size="16" fill="#475569">No cross-service database access or global transaction is implied.</text>
+
+  <rect x="30" y="795" width="1540" height="200" rx="18" fill="#faf5ff"/>
+  <text x="55" y="827" font-size="21" font-weight="700" fill="#0f172a">3  CONTRACT AND BUILD PLANE</text>
+  <text x="55" y="852" font-size="16" fill="#475569">Build-time generation and dependency consumption; these arrows are not checkout HTTP calls.</text>
+
+  <rect x="60" y="880" width="310" height="92" rx="12" fill="white" stroke="#7c3aed" stroke-width="2"/>
+  <text x="78" y="909" font-size="19" font-weight="700" fill="#0f172a">Reviewed OpenAPI</text>
+  <text x="78" y="933" font-size="15" fill="#475569">Canonical YAML / JSON</text><text x="78" y="953" font-size="15" fill="#475569">Provider-owned HTTP contract</text>
+
+  <rect x="420" y="880" width="330" height="92" rx="12" fill="white" stroke="#7c3aed" stroke-width="2"/>
+  <text x="438" y="909" font-size="19" font-weight="700" fill="#0f172a">Generate + validate + test</text>
+  <text x="438" y="933" font-size="15" fill="#475569">DTOs · client · provider API</text><text x="438" y="953" font-size="15" fill="#475569">Pinned generator and options</text>
+
+  <rect x="800" y="880" width="330" height="92" rx="12" fill="white" stroke="#7c3aed" stroke-width="2"/>
+  <text x="818" y="909" font-size="19" font-weight="700" fill="#0f172a">Versioned artifacts</text>
+  <text x="818" y="933" font-size="15" fill="#475569">Specification / model / client</text><text x="818" y="953" font-size="15" fill="#475569">Immutable approved release</text>
+
+  <rect x="1180" y="880" width="355" height="92" rx="12" fill="white" stroke="#7c3aed" stroke-width="2"/>
+  <text x="1198" y="909" font-size="19" font-weight="700" fill="#0f172a">Provider + consumers</text>
+  <text x="1198" y="933" font-size="15" fill="#475569">Choose compatible versions</text><text x="1198" y="953" font-size="15" fill="#475569">Map transport ↔ internal models</text>
+<path d="M370 926 H420" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)"/><path d="M750 926 H800" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)"/><path d="M1130 926 H1180" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+
+  <rect x="30" y="1015" width="1540" height="200" rx="18" fill="#fff7ed"/>
+  <text x="55" y="1047" font-size="21" font-weight="700" fill="#0f172a">4  DELIVERY AND OPERATIONAL PLANE</text>
+  <text x="55" y="1072" font-size="16" fill="#475569">Reported tools; exact handoffs, Kubernetes platform, and deployment gates remain to be verified.</text>
+
+  <rect x="60" y="1100" width="310" height="92" rx="12" fill="white" stroke="#c2410c" stroke-width="2"/>
+  <text x="78" y="1129" font-size="19" font-weight="700" fill="#0f172a">GitHub Actions</text>
+  <text x="78" y="1153" font-size="15" fill="#475569">Gradle tests · JaCoCo</text><text x="78" y="1173" font-size="15" fill="#475569">SonarQube quality evidence</text>
+
+  <rect x="420" y="1100" width="330" height="92" rx="12" fill="white" stroke="#c2410c" stroke-width="2"/>
+  <text x="438" y="1129" font-size="19" font-weight="700" fill="#0f172a">AWS pipeline + build</text>
+  <text x="438" y="1153" font-size="15" fill="#475569">CodePipeline / CodeBuild</text><text x="438" y="1173" font-size="15" fill="#475569">Approved image + desired state</text>
+
+  <rect x="800" y="1100" width="330" height="92" rx="12" fill="white" stroke="#c2410c" stroke-width="2"/>
+  <text x="818" y="1129" font-size="19" font-weight="700" fill="#0f172a">Argo CD → Kubernetes</text>
+  <text x="818" y="1153" font-size="15" fill="#475569">GitOps reconciliation</text><text x="818" y="1173" font-size="15" fill="#475569">Amazon EKS: inferred platform</text>
+
+  <rect x="1180" y="1100" width="355" height="92" rx="12" fill="white" stroke="#c2410c" stroke-width="2"/>
+  <text x="1198" y="1129" font-size="19" font-weight="700" fill="#0f172a">Runtime verification</text>
+  <text x="1198" y="1153" font-size="15" fill="#475569">Dynatrace + smoke checks</text><text x="1198" y="1173" font-size="15" fill="#475569">Promotion / recovery evidence</text>
+<path d="M370 1146 H420" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)"/><path d="M750 1146 H800" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)"/><path d="M1130 1146 H1180" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<text x="45" y="1260" font-size="17" fill="#334155">Solid arrows: logical runtime relationships. Dashed arrows: supporting configuration, telemetry, build, or delivery relationships.</text>
+<text x="45" y="1290" font-size="17" fill="#334155">All connections are explanatory. See the companion page for evidence, ownership, failure behavior, and verification questions.</text>
+</g></svg>

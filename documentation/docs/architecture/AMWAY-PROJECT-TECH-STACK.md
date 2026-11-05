@@ -349,7 +349,7 @@ address, payment, and token data.
 
 ## 8. MapStruct Mapping Boundaries
 
-MapStruct generates type-safe Java mapping implementations during compilation.
+[MapStruct](../java/MAPSTRUCT-DEEP-DIVE.md) generates mapping implementations during compilation.
 It is useful for explicit boundaries:
 
 ```text

@@ -610,6 +610,13 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'Mapping With MapStruct',
+          items: [
+            'java/MAPSTRUCT-DEEP-DIVE',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Quarkus Beginner-To-Advanced',
           link: {type: 'doc', id: 'quarkus/README'},
           items: [
@@ -740,6 +747,7 @@ const sidebars: SidebarsConfig = {
                 'development/spring-rest/REST-SECURE-FILE-TRANSFER',
                 'development/spring-rest/REST-PAGINATION-CONDITIONAL-REQUESTS',
                 'development/spring-rest/REST-IDEMPOTENT-COMMANDS',
+                'architecture/OPENAPI-SWAGGER-SERVICE-CONTRACTS',
                 'development/spring-rest/REST-OPENAPI-CONTRACT-GOVERNANCE',
                 'development/spring-rest/REST-CLIENTS-FEIGN',
                 'development/spring-rest/REST-TESTING',
@@ -1945,6 +1953,7 @@ const sidebars: SidebarsConfig = {
                   type: 'category',
                   label: 'Domain And Execution',
                   items: [
+                    'architecture/AMWAY-ARCHITECTURE-OVERVIEW',
                     'architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER',
                     'architecture/AMWAY-CREATE-CHECKOUT-FLOW',
                   ],
@@ -1963,6 +1972,7 @@ const sidebars: SidebarsConfig = {
                   label: 'Contracts And Technology',
                   items: [
                     'architecture/AMWAY-PROJECT-TECH-STACK',
+                    'architecture/OPENAPI-SWAGGER-SERVICE-CONTRACTS',
                     'architecture/AMWAY-OPENAPI-CONTRACT-ARTIFACTS',
                   ],
                 },

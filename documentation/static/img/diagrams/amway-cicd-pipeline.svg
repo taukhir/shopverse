@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1080" viewBox="0 0 1600 1080" role="img" aria-labelledby="title desc">
+<title id="title">Amway CI/CD and GitOps reference pipeline</title><desc id="desc">Source in GitHub is checked by Actions. A proposed gated AWS pipeline builds an image, publishes it to a registry, and updates deployment configuration in Git. Argo CD reconciles configuration into AWS Kubernetes, where workloads pull the image. Exact trigger and stage ownership need verification.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10" fill="#475569"/></marker></defs>
+<rect width="1600" height="1080" fill="#fff"/><g font-family="Segoe UI, Arial, sans-serif" fill="#0f172a">
+<text x="45" y="52" font-size="33" font-weight="700">Amway CI/CD: from source commit to running service</text>
+<text x="45" y="88" font-size="20" fill="#475569">User-reported tools + proposed handoffs · GitOps means Git records the desired deployment state</text>
+<rect x="40" y="111" width="1520" height="52" rx="9" fill="#fff7ed"/><text x="57" y="143" font-size="18" fill="#9a3412">REFERENCE FLOW — confirm trigger, build owner, registry, approvals, EKS identity, and sync mode in actual configuration.</text>
+<rect x="30" y="185" width="1540" height="235" rx="18" fill="#eff6ff"/>
+<text x="55" y="221" font-size="23" font-weight="700">1  VALIDATE, BUILD, AND PUBLISH</text>
+<rect x="55" y="267" width="260" height="110" rx="13" fill="white" stroke="#2563eb" stroke-width="2"/><text x="71" y="299" font-size="21" font-weight="700">GitHub source</text><text x="71" y="328" font-size="16" fill="#475569">Push / pull request / merge</text><text x="71" y="353" font-size="16" fill="#475569">Application code + tests</text>
+<rect x="355" y="267" width="260" height="110" rx="13" fill="white" stroke="#2563eb" stroke-width="2"/><text x="371" y="299" font-size="21" font-weight="700">GitHub Actions</text><text x="371" y="328" font-size="16" fill="#475569">Required CI checks</text><text x="371" y="353" font-size="16" fill="#475569">Gate approved revision</text>
+<rect x="655" y="267" width="260" height="110" rx="13" fill="white" stroke="#2563eb" stroke-width="2"/><text x="671" y="299" font-size="21" font-weight="700">AWS CodePipeline</text><text x="671" y="328" font-size="16" fill="#475569">Promote exact revision</text><text x="671" y="353" font-size="16" fill="#475569">Approvals + orchestration</text>
+<rect x="955" y="267" width="260" height="110" rx="13" fill="white" stroke="#2563eb" stroke-width="2"/><text x="971" y="299" font-size="21" font-weight="700">Build stage</text><text x="971" y="328" font-size="16" fill="#475569">CodeBuild or Actions: verify</text><text x="971" y="353" font-size="16" fill="#475569">Test + container image</text>
+<rect x="1255" y="267" width="290" height="110" rx="13" fill="white" stroke="#2563eb" stroke-width="2"/><text x="1271" y="299" font-size="21" font-weight="700">Image registry</text><text x="1271" y="328" font-size="16" fill="#475569">ECR or approved registry</text><text x="1271" y="353" font-size="16" fill="#475569">Immutable image digest</text>
+<path d="M315 322 H355" fill="none" stroke="#334155" stroke-width="3"  marker-end="url(#arrow)"/><path d="M615 322 H655" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arrow)"/><path d="M915 322 H955" fill="none" stroke="#334155" stroke-width="3"  marker-end="url(#arrow)"/><path d="M1215 322 H1255" fill="none" stroke="#334155" stroke-width="3"  marker-end="url(#arrow)"/>
+<text x="624" y="251" font-size="15" fill="#7c3aed">Trigger: verify</text>
+<rect x="30" y="480" width="1540" height="260" rx="18" fill="#f0fdf4"/>
+<text x="55" y="512" font-size="23" font-weight="700">2  RECORD DESIRED STATE AND RECONCILE</text>
+<path d="M1085 377 V447 H42 V600 H55" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+<rect x="435" y="430" width="560" height="31" rx="6" fill="white"/><text x="451" y="452" font-size="17" fill="#7c3aed">Pipeline proposes image-digest update; approval policy: verify</text>
+<rect x="55" y="545" width="330" height="110" rx="13" fill="white" stroke="#15803d" stroke-width="2"/><text x="71" y="577" font-size="21" font-weight="700">Deployment config in Git</text><text x="71" y="606" font-size="16" fill="#475569">Helm values / Kustomize / YAML</text><text x="71" y="631" font-size="16" fill="#475569">Reviewed environment + digest</text>
+<rect x="445" y="545" width="330" height="110" rx="13" fill="white" stroke="#15803d" stroke-width="2"/><text x="461" y="577" font-size="21" font-weight="700">Argo CD</text><text x="461" y="606" font-size="16" fill="#475569">Reads Git; compares live state</text><text x="461" y="631" font-size="16" fill="#475569">Auto or approved manual sync</text>
+<rect x="835" y="545" width="330" height="110" rx="13" fill="white" stroke="#15803d" stroke-width="2"/><text x="851" y="577" font-size="21" font-weight="700">AWS Kubernetes</text><text x="851" y="606" font-size="16" fill="#475569">Amazon EKS: confirm name</text><text x="851" y="631" font-size="16" fill="#475569">Deployments + Pods + Services</text>
+<rect x="1225" y="545" width="320" height="110" rx="13" fill="white" stroke="#15803d" stroke-width="2"/><text x="1241" y="577" font-size="21" font-weight="700">Release verification</text><text x="1241" y="606" font-size="16" fill="#475569">Readiness + smoke + Dynatrace</text><text x="1241" y="631" font-size="16" fill="#475569">Success / recovery decision</text>
+<path d="M385 600 H445" fill="none" stroke="#334155" stroke-width="3"  marker-end="url(#arrow)"/><path d="M775 600 H835" fill="none" stroke="#334155" stroke-width="3"  marker-end="url(#arrow)"/><path d="M1165 600 H1225" fill="none" stroke="#334155" stroke-width="3"  marker-end="url(#arrow)"/>
+<path d="M1400 377 V467 H1000 V545" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+<text x="1165" y="491" font-size="16" fill="#7c3aed">Pods pull registry image</text>
+<text x="60" y="703" font-size="18" fill="#166534">Argo CD owns reconciliation in this model. AWS stages publish/promote desired state; avoid two writers for the same resources.</text>
+<rect x="30" y="770" width="1540" height="210" rx="18" fill="#faf5ff"/>
+<text x="55" y="808" font-size="23" font-weight="700">3  CLOSE THE LOOP</text>
+<text x="60" y="851" font-size="20">Promotion: dev → test → production, using the same approved image digest.</text>
+<text x="60" y="891" font-size="20">Recovery: revert approved desired state in Git, reconcile, and verify; database compatibility needs its own plan.</text>
+<text x="60" y="931" font-size="20">Traceability: source SHA → CI run → image digest → config commit → Argo sync → running workload.</text>
+<text x="45" y="1025" font-size="18" fill="#475569">Solid arrows: proposed stage flow. Dashed arrows: trigger, config update, or image distribution; confirm implementation.</text>
+<text x="45" y="1057" font-size="18" fill="#475569">GitOps is a deployment practice, not a separate GitHub feature. Image publication alone does not update the GitOps configuration.</text>
+</g></svg>
