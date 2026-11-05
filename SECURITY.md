@@ -23,6 +23,29 @@ SpotBugs and Checkstyle are currently report-only (`ignoreFailures = true`)
 and do not block a build; findings are tracked for manual triage (see
 [`dev-tools/teams/BACKLOG.md`](dev-tools/teams/BACKLOG.md)).
 
+## Secrets And Local Keys
+
+`auth-service` signs JWTs with an RSA key pair. The key is **not** committed
+to this repo and is **not** baked into the built image -- it is supplied at
+container-runtime via a bind mount outside git (`./secrets/auth-service/keys`,
+excluded by `.gitignore`), referenced in `docker-compose.yml` with `file:`
+URIs rather than `classpath:`. A key pair checked into source control or the
+build artifact is exposed to anyone who can read the repo or pull the image,
+which previously happened here and was the motivation for this change.
+
+To run `auth-service` locally via `docker-compose.yml`, generate your own
+key pair first (any 2048-bit RSA pair works; this one is never committed):
+
+```bash
+mkdir -p secrets/auth-service/keys
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out secrets/auth-service/keys/private.pem
+openssl rsa -in secrets/auth-service/keys/private.pem -pubout -out secrets/auth-service/keys/public.pem
+```
+
+Automated tests use a separate, clearly-non-production key pair checked into
+`services/auth-service/src/test/resources/keys/` -- it signs nothing outside
+the test JVM and is not a secret.
+
 ## Reporting a Vulnerability
 
 This is a personal/portfolio project with a single maintainer. If you find
