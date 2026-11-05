@@ -1,5 +1,6 @@
 package io.shopverse.order.security;
 
+import io.shopverse.order.controller.OrderContractMapper;
 import io.shopverse.order.controller.OrderController;
 import io.shopverse.order.repository.OrderRepository;
 import io.shopverse.order.service.CatalogService;
@@ -34,6 +35,9 @@ class OrderOwnershipAuthorizationTest {
 
     @MockitoBean
     private CatalogService catalogService;
+
+    @MockitoBean
+    private OrderContractMapper mapper;
 
     @Test
     @WithMockUser(username = "alice", roles = "CUSTOMER")
