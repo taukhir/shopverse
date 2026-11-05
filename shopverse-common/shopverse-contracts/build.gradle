@@ -1,0 +1,41 @@
+plugins {
+    id 'org.openapi.generator' version '7.14.0'
+}
+
+description = 'Service-owned REST contracts and generated transport DTOs.'
+
+dependencies {
+    api 'com.fasterxml.jackson.core:jackson-annotations'
+    api 'jakarta.validation:jakarta.validation-api'
+    implementation 'jakarta.annotation:jakarta.annotation-api'
+    implementation 'org.springframework:spring-context'
+}
+
+openApiValidate {
+    inputSpec = layout.projectDirectory.file('src/main/resources/openapi/order.openapi.json').asFile.absolutePath
+}
+
+openApiGenerate {
+    generatorName = 'spring'
+    inputSpec = layout.projectDirectory.file('src/main/resources/openapi/order.openapi.json').asFile.absolutePath
+    outputDir = layout.buildDirectory.dir('generated/order').get().asFile.absolutePath
+    modelPackage = 'io.shopverse.contracts.order'
+    globalProperties = [models: '', modelDocs: 'false', modelTests: 'false']
+    configOptions = [
+        useSpringBoot3: 'true',
+        annotationLibrary: 'none',
+        documentationProvider: 'none',
+        openApiNullable: 'false',
+        hideGenerationTimestamp: 'true',
+        generateConstructorWithAllArgs: 'true',
+        generatedConstructorWithRequiredArgs: 'false',
+        sortModelPropertiesByRequiredFlag: 'false',
+        containerDefaultToNull: 'true'
+    ]
+    typeMappings = ['OffsetDateTime': 'java.time.Instant']
+}
+
+sourceSets.main.java.srcDir(layout.buildDirectory.dir('generated/order/src/main/java'))
+tasks.named('openApiGenerate') { dependsOn tasks.named('openApiValidate') }
+tasks.named('compileJava') { dependsOn tasks.named('openApiGenerate') }
+tasks.named('check') { dependsOn tasks.named('openApiValidate') }
