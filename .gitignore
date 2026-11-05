@@ -15,6 +15,12 @@ demo-credentials.local.md
 shopverse-local-credentials.md
 secrets/
 
+# Team-simulation per-role/sprint/task folders -- scratch working notes,
+# not meant to be tracked. Keep only the shared ledger files at
+# dev-tools/teams/ root (BACKLOG.md, DECISIONS.md, OPEN-QUESTIONS.md,
+# PROGRESS.md, README.md, TEAM.md).
+dev-tools/teams/*/
+
 # IDE/editor metadata
 .idea/
 **/.idea/
