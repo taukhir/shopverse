@@ -62,7 +62,7 @@
     <div class="product-grid">
       @for (product of filteredProducts(); track product.productId; let index = $index) {
         <article class="product-card" [class.unavailable]="!product.available">
-          <a class="product-art" [routerLink]="['/products', product.productId]" [attr.aria-label]="'View ' + product.productName">
+          <a class="product-art" [routerLink]="['/products', product.productId]" [attr.aria-label]="'View ' + product.productName + (product.available ? '' : ', Unavailable')">
             <img
               [src]="product.imageUrl"
               [alt]="product.productName"
