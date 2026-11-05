@@ -42,7 +42,7 @@
     "@playwright/test": "^1.55.1",
     "@tailwindcss/postcss": "^4.3.2",
     "chrome-launcher": "^1.2.0",
-    "jsdom": "^26.1.0",
+    "jsdom": "^30.1.3",
     "lighthouse": "^12.8.2",
     "postcss": "^8.5.15",
     "prettier": "^3.8.1",
