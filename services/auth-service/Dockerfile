@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-FROM eclipse-temurin:21-jdk-jammy AS build
+FROM eclipse-temurin:25-jdk-jammy AS build
 WORKDIR /workspace/services/auth-service
 
 COPY services/auth-service/gradlew services/auth-service/gradlew.bat services/auth-service/settings.gradle services/auth-service/build.gradle ./
@@ -13,7 +13,7 @@ RUN chmod +x ./gradlew
 COPY services/auth-service/src ./src
 RUN --mount=type=cache,id=shopverse-auth-service-gradle,target=/root/.gradle ./gradlew bootJar --no-daemon --max-workers=2
 
-FROM eclipse-temurin:21-jre-alpine AS runtime
+FROM eclipse-temurin:25-jre-alpine AS runtime
 
 ENV APP_HOME=/app \
     SERVER_PORT=8081 \
