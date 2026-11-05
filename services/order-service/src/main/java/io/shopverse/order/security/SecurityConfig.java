@@ -60,6 +60,8 @@ public class SecurityConfig {
                                 "/actuator/prometheus"
                         ).permitAll()
 
+                        .requestMatchers("/actuator/refresh").hasRole("ADMIN")
+
                         /*
                          * Admin APIs
                          * IMPORTANT:

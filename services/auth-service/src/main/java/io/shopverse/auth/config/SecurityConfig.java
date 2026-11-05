@@ -25,6 +25,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**"
                         ).permitAll()
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/actuator/refresh").hasRole("ADMIN")
 
                         // Secure all remaining APIs
                         .anyRequest().authenticated())

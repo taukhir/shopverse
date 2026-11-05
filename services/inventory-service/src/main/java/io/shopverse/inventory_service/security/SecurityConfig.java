@@ -39,6 +39,7 @@ public class SecurityConfig {
                                 "/actuator/info",
                                 "/actuator/prometheus"
                         ).permitAll()
+                        .requestMatchers("/actuator/refresh").hasRole("ADMIN")
                         .requestMatchers(InventoryConstants.API_ROOT + "/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, InventoryConstants.API_ROOT + "/**").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, InventoryConstants.API_ROOT + "/**").hasAnyRole("CUSTOMER", "ADMIN")
