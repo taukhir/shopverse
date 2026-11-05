@@ -72,19 +72,15 @@ class PaymentInfrastructureIntegrationTest {
     }
 
     @Test
-    void migrationsSeedPaymentHistory() {
+    void migrationsRemoveLegacyDemoPayments() {
+        // 003-seed-demo-payments inserted DEMO-ORD-% rows; 007-remove-demo-payments
+        // deletes them. Both run as part of this same changelog, so the correct
+        // post-migration state is zero -- not the old seeded rows. See the
+        // 2026-07-16 "Refresh local baseline data" change: local/demo data now
+        // comes from scripts/Seed-ShopverseData.ps1 against a running API, not
+        // from a baked-in Liquibase seed.
         assertThat(count("select count(*) from payments where order_number like 'DEMO-ORD-%'"))
-                .isEqualTo(6);
-        assertThat(count("select count(*) from payments where status = 'CAPTURED'"))
-                .isEqualTo(3);
-        assertThat(jdbcTemplate.queryForObject(
-                "select status from payments where order_number = 'DEMO-ORD-1004'",
-                String.class
-        )).isEqualTo("TIMED_OUT");
-        assertThat(jdbcTemplate.queryForObject(
-                "select status from payments where order_number = 'DEMO-ORD-1008'",
-                String.class
-        )).isEqualTo("REFUNDED");
+                .isZero();
     }
 
     @Test
