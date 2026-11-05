@@ -46,6 +46,7 @@ public class OrderController {
 
     private final OrderService orderService;
     private final CatalogService catalogService;
+    private final OrderContractMapper mapper;
 
     // PUBLIC APIs
 
@@ -58,7 +59,7 @@ public class OrderController {
     @GetMapping("/public/catalog")
     public List<CatalogItemResponse> catalog() {
         log.info("Public product catalog requested through order service");
-        return catalogService.getCatalog().stream().map(OrderContractMapper::toContract).toList();
+        return catalogService.getCatalog().stream().map(mapper::toContract).toList();
     }
 
     // USER APIs
@@ -66,7 +67,7 @@ public class OrderController {
     @GetMapping
     public List<OrderResponse> getOrders(Authentication authentication) {
         log.info("Fetching orders for current user");
-        return orderService.getCustomerOrders(authentication.getName()).stream().map(OrderContractMapper::toContract).toList();
+        return orderService.getCustomerOrders(authentication.getName()).stream().map(mapper::toContract).toList();
     }
 
     @GetMapping("/{id}")
@@ -78,14 +79,14 @@ public class OrderController {
         if (!admin && !order.customerUsername().equals(authentication.getName())) {
             throw new AccessDeniedException("Order does not belong to the current user");
         }
-        return ResponseEntity.ok(OrderContractMapper.toContract(order));
+        return ResponseEntity.ok(mapper.toContract(order));
     }
 
     @GetMapping("/{id}/timeline")
     @Operation(summary = "Get the persisted SAGA timeline for an order")
     @PreAuthorize("hasRole('ADMIN') or @orderAuthorization.isOwner(#id, authentication.name)")
     public List<OrderTimelineResponse> getTimeline(@PathVariable Long id) {
-        return orderService.getTimeline(id).stream().map(OrderContractMapper::toContract).toList();
+        return orderService.getTimeline(id).stream().map(mapper::toContract).toList();
     }
 
     @PostMapping("/checkout")
@@ -106,14 +107,14 @@ public class OrderController {
         log.info("Checkout requested for current user; starting choreography saga");
         String correlationId = org.slf4j.MDC.get(CorrelationConstants.MDC_KEY);
         var order = orderService.checkout(
-                OrderContractMapper.toApplication(request),
+                mapper.toApplication(request),
                 authentication.getName(),
                 correlationId,
                 idempotencyKey
         );
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(OrderContractMapper.toContract(order));
+                .body(mapper.toContract(order));
     }
 
     @PostMapping("/{id}/cancel")
@@ -123,7 +124,7 @@ public class OrderController {
             Authentication authentication
     ) {
         log.warn("Customer cancellation requested for order id={}", id);
-        return ResponseEntity.ok(OrderContractMapper.toContract(orderService.cancelCustomerOrder(id, authentication.getName())));
+        return ResponseEntity.ok(mapper.toContract(orderService.cancelCustomerOrder(id, authentication.getName())));
     }
 
     @PostMapping("/{id}/return-request")
@@ -133,7 +134,7 @@ public class OrderController {
             Authentication authentication
     ) {
         log.warn("Customer return requested for order id={}", id);
-        return ResponseEntity.ok(OrderContractMapper.toContract(orderService.requestReturn(id, authentication.getName())));
+        return ResponseEntity.ok(mapper.toContract(orderService.requestReturn(id, authentication.getName())));
     }
 
     // ADMIN APIs
@@ -148,7 +149,7 @@ public class OrderController {
     @GetMapping("/admin/all")
     public List<OrderResponse> allOrders() {
         log.info("Admin requested all orders");
-        return orderService.getAllOrders().stream().map(OrderContractMapper::toContract).toList();
+        return orderService.getAllOrders().stream().map(mapper::toContract).toList();
     }
 
     @PostMapping("/admin/{id}/cancel")
@@ -156,7 +157,7 @@ public class OrderController {
     @Operation(summary = "Cancel an order from the admin operations workflow")
     public ResponseEntity<OrderResponse> cancelAdminOrder(@PathVariable Long id) {
         log.warn("Admin cancellation requested for order id={}", id);
-        return ResponseEntity.ok(OrderContractMapper.toContract(orderService.cancelAdminOrder(id)));
+        return ResponseEntity.ok(mapper.toContract(orderService.cancelAdminOrder(id)));
     }
 
     @PostMapping("/admin/{id}/pack")
@@ -164,7 +165,7 @@ public class OrderController {
     @Operation(summary = "Move a confirmed order to packing")
     public ResponseEntity<OrderResponse> packOrder(@PathVariable Long id) {
         log.info("Admin pack requested for order id={}", id);
-        return ResponseEntity.ok(OrderContractMapper.toContract(orderService.pack(id)));
+        return ResponseEntity.ok(mapper.toContract(orderService.pack(id)));
     }
 
     @PostMapping("/admin/{id}/ship")
@@ -172,7 +173,7 @@ public class OrderController {
     @Operation(summary = "Advance an order through shipping states")
     public ResponseEntity<OrderResponse> shipOrder(@PathVariable Long id) {
         log.info("Admin ship transition requested for order id={}", id);
-        return ResponseEntity.ok(OrderContractMapper.toContract(orderService.ship(id)));
+        return ResponseEntity.ok(mapper.toContract(orderService.ship(id)));
     }
 
     @PostMapping("/admin/{id}/deliver")
@@ -180,7 +181,7 @@ public class OrderController {
     @Operation(summary = "Mark a shipped order delivered")
     public ResponseEntity<OrderResponse> deliverOrder(@PathVariable Long id) {
         log.info("Admin delivery requested for order id={}", id);
-        return ResponseEntity.ok(OrderContractMapper.toContract(orderService.deliver(id)));
+        return ResponseEntity.ok(mapper.toContract(orderService.deliver(id)));
     }
 
     @PostMapping("/admin/catalog-cache/evict")
