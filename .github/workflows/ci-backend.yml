@@ -229,6 +229,7 @@ jobs:
       - name: Scan the built image
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
+          version: v0.76.1
           image-ref: shopverse/${{ matrix.service }}:ci-${{ github.sha }}
           format: sarif
           output: trivy-${{ matrix.service }}.sarif

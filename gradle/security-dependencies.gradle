@@ -1,0 +1,20 @@
+// Targeted fixes for the 2026-11-05 container SARIF findings. Keep service and
+// shared-module resolution aligned; remove overrides when their BOMs catch up.
+// Rationale and verification: .github/ci/container-security-remediation.md.
+dependencyManagement {
+    dependencies {
+        dependencySet(group: 'org.apache.httpcomponents.core5', version: '5.4.3') {
+            entry 'httpcore5'
+            entry 'httpcore5-h2'
+        }
+        dependencySet(group: 'org.bouncycastle', version: '1.85') {
+            entry 'bcprov-jdk18on'
+            entry 'bcpkix-jdk18on'
+            entry 'bcutil-jdk18on'
+        }
+        dependency 'commons-fileupload:commons-fileupload:1.6.0'
+        dependency 'com.google.guava:guava:33.7.2-jre'
+        dependency 'org.xerial.snappy:snappy-java:1.1.10.9'
+        dependency 'at.yawk.lz4:lz4-java:1.11.4'
+    }
+}
