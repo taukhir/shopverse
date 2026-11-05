@@ -240,7 +240,7 @@ services:
       - "8081:8081"
     volumes:
       - auth-service-logs:/app/logs
-      - ./secrets/auth-service/keys:/run/secrets/auth-service-keys:ro
+      - ./infra/secrets/auth-service/keys:/run/secrets/auth-service-keys:ro
     depends_on:
       config-server:
         condition: service_healthy
