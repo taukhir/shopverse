@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+	implementation 'io.shopverse.platform:shopverse-contracts:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-common-error:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-observability-starter:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-security-starter:0.0.1-SNAPSHOT'
