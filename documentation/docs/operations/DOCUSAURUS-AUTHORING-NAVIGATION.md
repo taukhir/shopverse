@@ -156,7 +156,7 @@ shopverse/
 |   |-- sidebars.ts
 |   |-- package.json
 |   `-- tsconfig.json
-`-- .github/workflows/docs-site.yml
+`-- .github/workflows/docs-verify-publish.yml
 ```
 
 ## Add A Documentation Page

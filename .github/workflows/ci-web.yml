@@ -1,4 +1,4 @@
-name: Shopverse Frontend Sites
+name: ShopVerse / CI / Web
 
 on:
   push:
@@ -6,50 +6,48 @@ on:
       - master
     paths:
       - "shopverse-web/**"
-      - "documentation/**"
       - "infra/scripts/Test-ShopverseSites.ps1"
-      - ".github/workflows/frontend-sites.yml"
+      - ".github/workflows/ci-web.yml"
   pull_request:
     paths:
       - "shopverse-web/**"
-      - "documentation/**"
       - "infra/scripts/Test-ShopverseSites.ps1"
-      - ".github/workflows/frontend-sites.yml"
+      - ".github/workflows/ci-web.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: frontend-sites-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   verify:
-    name: Angular and Docusaurus verification
+    name: Web Verification
     runs-on: windows-latest
     timeout-minutes: 35
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          persist-credentials: false
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version: "22"
           cache: npm
           cache-dependency-path: |
             shopverse-web/package-lock.json
-            documentation/package-lock.json
 
       - name: Run frontend site automation
         shell: powershell
         run: >
           powershell -NoProfile -ExecutionPolicy Bypass
           -File .\infra\scripts\Test-ShopverseSites.ps1
-          -Target All
+          -Target Web
           -Mode Quick
           -TimeoutMinutes 30
           -Install

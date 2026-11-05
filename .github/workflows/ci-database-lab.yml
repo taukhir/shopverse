@@ -1,4 +1,4 @@
-name: Database Operations Lab
+name: ShopVerse / CI / Database Lab
 
 on:
   workflow_dispatch:
@@ -23,7 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
       - name: Run bounded database operations assertions
         shell: pwsh
         run: ./documentation/labs/database-operations/run-lab.ps1
@@ -37,7 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
       - name: Run operations and ClickHouse projection assertions
         shell: pwsh
         run: ./documentation/labs/database-operations/run-lab.ps1 -IncludeAnalytics

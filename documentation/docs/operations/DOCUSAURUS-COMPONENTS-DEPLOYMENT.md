@@ -146,7 +146,7 @@ and broken navigation after deployment.
 Shopverse deploys through:
 
 ```text
-.github/workflows/docs-site.yml
+.github/workflows/docs-verify-publish.yml
 ```
 
 ```mermaid
@@ -317,7 +317,7 @@ theme components.
 | add reusable visual component | `documentation/src/components/` |
 | add image or downloadable asset | `documentation/static/` |
 | add/update dependency | `documentation/package.json` |
-| modify deployment | `.github/workflows/docs-site.yml` |
+| modify deployment | `.github/workflows/docs-verify-publish.yml` |
 
 ## Recommended Next
 

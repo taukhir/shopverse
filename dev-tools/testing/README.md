@@ -288,15 +288,18 @@ locking, idempotent state transitions, and transactional outbox writes.
 
 ## CI Policy
 
-`.github/workflows/ci.yml` applies these gates:
+`.github/workflows/ci-backend.yml` applies these gates:
 
 1. Validate required configuration and the merged Compose model.
 2. Detect affected services from the Git diff.
-3. Run unit tests only for affected services.
-4. Run Testcontainers suites only for affected commerce services.
-5. Build only affected Docker images with GitHub Actions layer caching.
-6. Run the lightweight end-to-end SAGA gate on `main`, manual runs, and the
-   scheduled full verification.
+3. Run unit, Checkstyle and SpotBugs checks for affected services and explicit
+   shared-module checks for shared inputs.
+4. Run Testcontainers suites for affected commerce services.
+5. Build affected Docker images once, scan them, and retain full-run candidates.
+6. Run the lightweight SAGA gate against those same images on `master` pushes,
+   manual, scheduled and merge-queue full verification.
+7. Require the stable `Backend CI Gate`, including security results. Master
+   pushes verify all eight images before digest-based release publication.
 
 The scheduled workflow runs daily at `02:00 Asia/Kolkata` (`20:30 UTC`).
 

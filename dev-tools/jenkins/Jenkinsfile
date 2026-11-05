@@ -18,11 +18,11 @@ def runCommand(String unixCommand, String windowsCommand = null) {
 }
 
 def gradleBuild(String service) {
-    dir(service) {
+    dir("services/${service}") {
         if (isUnix()) {
-            sh 'chmod +x ./gradlew && ./gradlew clean build --no-daemon'
+            sh 'chmod +x ./gradlew && ./gradlew clean build --no-daemon --no-configuration-cache --max-workers=2 -I ../../.github/ci/enforce-quality.gradle'
         } else {
-            bat 'gradlew.bat clean build --no-daemon'
+            bat 'gradlew.bat clean build --no-daemon --no-configuration-cache --max-workers=2 -I ../../.github/ci/enforce-quality.gradle'
         }
     }
 }
@@ -41,10 +41,13 @@ pipeline {
 
     options {
         disableConcurrentBuilds()
+        skipDefaultCheckout(true)
+        timeout(time: 30, unit: 'MINUTES')
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
     parameters {
+        string(name: 'SOURCE_SHA', defaultValue: '', description: 'Exact Git commit; defaults to the configured SCM revision.')
         booleanParam(name: 'BUILD_DOCKER_IMAGES', defaultValue: true, description: 'Build Docker images after Gradle build/test.')
         booleanParam(name: 'RUN_COMPOSE_SMOKE_TEST', defaultValue: false, description: 'Start the full Docker Compose stack and run health checks.')
         booleanParam(name: 'PUSH_DOCKER_IMAGES', defaultValue: false, description: 'Push Docker images after successful build.')
@@ -55,8 +58,8 @@ pipeline {
     }
 
     environment {
-        JAVA_VERSION = '21'
-        COMPOSE_PROJECT_NAME = 'shopverse'
+        JAVA_VERSION = '25'
+        COMPOSE_PROJECT_NAME = 'shopverse-jenkins'
         DOCKER_BUILDKIT = '1'
         COMPOSE_DOCKER_CLI_BUILD = '1'
     }
@@ -65,14 +68,17 @@ pipeline {
         stage('Checkout Latest Code') {
             steps {
                 script {
-                    try {
-                        checkout scm
-                    } catch (Exception ignored) {
-                        echo 'No Jenkins SCM configuration found. Falling back to git pull in the current workspace.'
-                        runCommand(
-                            'git fetch --all --prune && git pull --ff-only',
-                            'git fetch --all --prune && git pull --ff-only'
-                        )
+                    checkout scm
+                    def sourceSha = params.SOURCE_SHA?.trim()
+                    if (sourceSha) {
+                        if (!(sourceSha ==~ /[a-f0-9]{40}/)) {
+                            error 'SOURCE_SHA must be a full Git commit SHA.'
+                        }
+                        runCommand("git fetch origin "+sourceSha+" && git checkout --detach "+sourceSha)
+                    }
+                    env.GIT_COMMIT = isUnix() ? sh(script: 'git rev-parse HEAD', returnStdout: true).trim() : bat(script: '@git rev-parse HEAD', returnStdout: true).trim()
+                    if (sourceSha && env.GIT_COMMIT != sourceSha) {
+                        error 'Checked-out revision does not match SOURCE_SHA.'
                     }
                 }
             }
@@ -81,8 +87,18 @@ pipeline {
         stage('Initialize') {
             steps {
                 script {
+                    env.COMPOSE_PROJECT_NAME = "shopverse-${env.BUILD_TAG}".toLowerCase().replaceAll('[^a-z0-9_-]', '-')
                     def shortSha = env.GIT_COMMIT ? env.GIT_COMMIT.take(8) : 'local'
                     env.RESOLVED_IMAGE_TAG = params.IMAGE_TAG?.trim() ?: "${env.BUILD_NUMBER}-${shortSha}"
+                    if (!(env.RESOLVED_IMAGE_TAG ==~ /[a-zA-Z0-9_][a-zA-Z0-9_.-]{0,127}/)) {
+                        error 'Invalid image tag.'
+                    }
+                    if (!(params.IMAGE_NAMESPACE ==~ /[a-z0-9]+([._\/-][a-z0-9]+)*/)) {
+                        error 'Invalid image namespace.'
+                    }
+                    if (params.IMAGE_REGISTRY && !(params.IMAGE_REGISTRY ==~ /[a-zA-Z0-9][a-zA-Z0-9.:-]*/)) {
+                        error 'Invalid image registry.'
+                    }
                     echo "Image tag: ${env.RESOLVED_IMAGE_TAG}"
                 }
             }
@@ -93,17 +109,17 @@ pipeline {
                 script {
                     def requiredFiles = [
                         'docker-compose.yml',
-                        'cloud-configs/application.yml',
-                        'cloud-configs/API-GATEWAY.yml',
-                        'cloud-configs/AUTH-SERVICE.yml',
-                        'cloud-configs/USER-SERVICE.yml',
-                        'cloud-configs/ORDER-SERVICE.yml',
-                        'cloud-configs/PAYMENT-SERVICE.yml',
-                        'cloud-configs/INVENTORY-SERVICE.yml',
-                        'cloud-configs/DISCOVERY-SERVER.yml',
-                        'observability/prometheus-docker.yml',
-                        'observability/promtail.yml',
-                        'observability/loki.yml'
+                        'infra/cloud-configs/application.yml',
+                        'infra/cloud-configs/API-GATEWAY.yml',
+                        'infra/cloud-configs/AUTH-SERVICE.yml',
+                        'infra/cloud-configs/USER-SERVICE.yml',
+                        'infra/cloud-configs/ORDER-SERVICE.yml',
+                        'infra/cloud-configs/PAYMENT-SERVICE.yml',
+                        'infra/cloud-configs/INVENTORY-SERVICE.yml',
+                        'infra/cloud-configs/DISCOVERY-SERVER.yml',
+                        'infra/observability/prometheus-docker.yml',
+                        'infra/observability/promtail.yml',
+                        'infra/observability/loki.yml'
                     ]
 
                     requiredFiles.each { file ->
@@ -145,8 +161,8 @@ pipeline {
                 script {
                     services.each { service ->
                         runCommand(
-                            "docker build -t ${imageName(service)} ./${service}",
-                            "docker build -t ${imageName(service)} .\\${service}"
+                            "docker build -t ${imageName(service)} -f services/${service}/Dockerfile .",
+                            "docker build -t ${imageName(service)} -f services/${service}/Dockerfile ."
                         )
                     }
                 }

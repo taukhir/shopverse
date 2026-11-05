@@ -1,4 +1,4 @@
-name: Shopverse Documentation
+name: ShopVerse / Docs / Verify and Publish
 
 on:
   push:
@@ -15,7 +15,7 @@ on:
       - "dev-tools/ai-workflows/**"
       - "shopverse-common/gradlew"
       - "shopverse-common/gradle/**"
-      - ".github/workflows/docs-site.yml"
+      - ".github/workflows/docs-verify-publish.yml"
   pull_request:
     paths:
       - "documentation/**"
@@ -28,23 +28,24 @@ on:
       - "dev-tools/ai-workflows/**"
       - "shopverse-common/gradlew"
       - "shopverse-common/gradle/**"
-      - ".github/workflows/docs-site.yml"
+      - ".github/workflows/docs-verify-publish.yml"
   workflow_dispatch:
   schedule:
     - cron: "15 3 * * 1"
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: shopverse-documentation
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
     name: Build Docusaurus
+    permissions:
+      contents: read
+      pages: read
     runs-on: ubuntu-latest
     timeout-minutes: 25
     defaults:
@@ -52,22 +53,23 @@ jobs:
         working-directory: documentation
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          persist-credentials: false
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
-          node-version: "20"
+          node-version: "22"
           cache: npm
           cache-dependency-path: documentation/package-lock.json
 
       - name: Set up Java for executable documentation examples
-        uses: actions/setup-java@v6
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6
         with:
           distribution: temurin
-          java-version: "24"
+          java-version: "25"
           cache: gradle
 
       - name: Install dependencies
@@ -149,7 +151,7 @@ jobs:
 
       - name: Upload browser failure evidence
         if: failure()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: documentation-browser-failures
           path: documentation/test-results
@@ -157,15 +159,19 @@ jobs:
 
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'
-        uses: actions/configure-pages@v6
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
         with:
           path: documentation/build
 
   deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     name: Deploy GitHub Pages
     if: github.event_name != 'pull_request'
     needs: build
@@ -177,4 +183,4 @@ jobs:
     steps:
       - name: Deploy documentation
         id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5

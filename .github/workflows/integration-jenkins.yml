@@ -1,15 +1,12 @@
-name: Trigger Jenkins
+name: ShopVerse / Integration / Jenkins
 
 on:
-  workflow_run:
-    workflows:
-      - Shopverse CI
-    types:
-      - completed
-    branches:
-      - master
   workflow_dispatch:
     inputs:
+      source_sha:
+        description: Exact source commit; defaults to the dispatched revision
+        required: false
+        type: string
       image_tag:
         description: Image tag to pass to Jenkins
         required: false
@@ -26,7 +23,7 @@ jobs:
   trigger-jenkins:
     name: Trigger Jenkins pipeline
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    timeout-minutes: 5
     steps:
       - name: Trigger Jenkins build
         env:
@@ -35,7 +32,7 @@ jobs:
           JENKINS_USER: ${{ secrets.JENKINS_USER }}
           JENKINS_API_TOKEN: ${{ secrets.JENKINS_API_TOKEN }}
           IMAGE_TAG_INPUT: ${{ github.event.inputs.image_tag }}
-          WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
+          SOURCE_SHA_INPUT: ${{ inputs.source_sha }}
           CURRENT_SHA: ${{ github.sha }}
         shell: bash
         run: |
@@ -58,13 +55,17 @@ jobs:
             exit 1
           fi
 
-          image_tag="${IMAGE_TAG_INPUT:-${WORKFLOW_SHA:-${CURRENT_SHA}}}"
-          crumb_header="$(curl -fsS -u "${JENKINS_USER}:${JENKINS_API_TOKEN}" "${JENKINS_URL%/}/crumbIssuer/api/json" \
+          source_sha="${SOURCE_SHA_INPUT:-${CURRENT_SHA}}"
+          [[ "$source_sha" =~ ^[a-f0-9]{40}$ ]]
+          image_tag="${IMAGE_TAG_INPUT:-${source_sha}}"
+          [[ "$image_tag" =~ ^[a-zA-Z0-9_][a-zA-Z0-9_.-]{0,127}$ ]]
+          crumb_header="$(curl --connect-timeout 10 --max-time 30 -fsS -u "${JENKINS_USER}:${JENKINS_API_TOKEN}" "${JENKINS_URL%/}/crumbIssuer/api/json" \
             | jq -r '.crumbRequestField + ": " + .crumb')"
 
-          curl -fsS -X POST \
+          curl --connect-timeout 10 --max-time 30 -fsS -X POST \
             -u "${JENKINS_USER}:${JENKINS_API_TOKEN}" \
             -H "${crumb_header}" \
+            --data-urlencode "SOURCE_SHA=${source_sha}" \
             --data-urlencode "IMAGE_TAG=${image_tag}" \
             --data-urlencode "BUILD_DOCKER_IMAGES=true" \
             --data-urlencode "RUN_COMPOSE_SMOKE_TEST=false" \
