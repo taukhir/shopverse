@@ -436,16 +436,16 @@ Run the Angular storefront and Docusaurus documentation gates from the
 repository root:
 
 ```powershell
-.\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -TimeoutMinutes 30
+.\infra\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -TimeoutMinutes 30
 ```
 
 Common focused runs:
 
 ```powershell
-.\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
-.\scripts\Test-ShopverseSites.ps1 -Target Docs -Mode Quick
-.\scripts\Test-ShopverseSites.ps1 -Target Docs -Mode Full -SkipBrowsers
-.\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -Install
+.\infra\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
+.\infra\scripts\Test-ShopverseSites.ps1 -Target Docs -Mode Quick
+.\infra\scripts\Test-ShopverseSites.ps1 -Target Docs -Mode Full -SkipBrowsers
+.\infra\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -Install
 ```
 
 Run real Docker-backed integration only when you need release confidence:
@@ -481,7 +481,7 @@ For a faster orchestration check without Docker:
 If PowerShell script execution is locked down locally, use:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseSites.ps1 -Target All -Mode Quick -SkipBrowsers
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseSites.ps1 -Target All -Mode Quick -SkipBrowsers
 ```
 
 The web gate runs Angular development and production builds, Angular
