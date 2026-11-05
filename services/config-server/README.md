@@ -212,8 +212,8 @@ Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
 AI tools can trace configuration lookup precedence, diagnose startup and refresh
 failures, compare native and Git-backed behavior, and review actuator, Docker,
 and observability configuration. Use the root [`AGENTS.md`](../AGENTS.md),
-[incident workflow](../ai-workflows/prompts/incident-investigation.md), and
-[security review](../ai-workflows/prompts/security-review.md).
+[incident workflow](../../dev-tools/ai-workflows/prompts/incident-investigation.md), and
+[security review](../../dev-tools/ai-workflows/prompts/security-review.md).
 
 Do not expose environment values or mounted configuration contents containing
 secrets. AI must distinguish Config Server availability from application

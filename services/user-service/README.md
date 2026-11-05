@@ -165,9 +165,9 @@ AI tools can trace identity, role, permission, ownership, caching, audit, and
 migration behavior; generate negative authorization cases; and review sensitive
 logging. Follow scoped [`AGENTS.md`](AGENTS.md), imported by
 [`CLAUDE.md`](CLAUDE.md), and use the
-[security-review](../ai-workflows/prompts/security-review.md),
-[feature](../ai-workflows/prompts/implement-feature.md), and
-[incident](../ai-workflows/prompts/incident-investigation.md) workflows.
+[security-review](../../dev-tools/ai-workflows/prompts/security-review.md),
+[feature](../../dev-tools/ai-workflows/prompts/implement-feature.md), and
+[incident](../../dev-tools/ai-workflows/prompts/incident-investigation.md) workflows.
 
 Never provide passwords, password hashes, internal credentials, access tokens,
 or real user records to an AI tool. Require service-layer authorization evidence;

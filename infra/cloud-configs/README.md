@@ -78,9 +78,9 @@ Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
 AI tools can compare service configuration, locate duplicated properties, trace
 which runtime owns a value, and review route or observability changes. Follow the
 root [`AGENTS.md`](../AGENTS.md) and use the
-[security-review](../ai-workflows/prompts/security-review.md),
-[documentation-update](../ai-workflows/prompts/documentation-update.md), and
-[incident-investigation](../ai-workflows/prompts/incident-investigation.md)
+[security-review](../../dev-tools/ai-workflows/prompts/security-review.md),
+[documentation-update](../../dev-tools/ai-workflows/prompts/documentation-update.md), and
+[incident-investigation](../../dev-tools/ai-workflows/prompts/incident-investigation.md)
 workflows.
 
 Treat configuration as a high-impact trust boundary. Never send real secrets,

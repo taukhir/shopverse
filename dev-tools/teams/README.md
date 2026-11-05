@@ -71,7 +71,7 @@ themselves live in exactly one ledger across the whole project's life.
 **Staleness check:** each ledger carries a "Last updated" line at the
 top. If you're about to add a row, bump that line. If you're reading a
 ledger and the date looks old relative to recent discussion files, run
-[`ai-workflows/prompts/team-ledger-audit.md`](../../ai-workflows/prompts/team-ledger-audit.md)
+[`ai-workflows/prompts/team-ledger-audit.md`](../ai-workflows/prompts/team-ledger-audit.md)
 before trusting it.
 
 Concretely: when a discussion, role file, or sprint index needs to

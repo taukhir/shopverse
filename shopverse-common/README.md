@@ -113,9 +113,9 @@ cross-adopter compatibility job or a published artifact repository workflow.
 AI is useful for locating duplicated cross-service logic, comparing starter
 adoption, reviewing compatibility, and generating migration/test matrices. Follow
 scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md), then use the
-[bounded-feature workflow](../ai-workflows/prompts/implement-feature.md),
-[Kafka review](../ai-workflows/prompts/review-kafka-consumer.md), and
-[security review](../ai-workflows/prompts/security-review.md).
+[bounded-feature workflow](../dev-tools/ai-workflows/prompts/implement-feature.md),
+[Kafka review](../dev-tools/ai-workflows/prompts/review-kafka-consumer.md), and
+[security review](../dev-tools/ai-workflows/prompts/security-review.md).
 
 Platform changes have a broad blast radius. Require an adoption inventory,
 service-owned adapter analysis, binary/configuration compatibility, and tests for

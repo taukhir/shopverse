@@ -207,10 +207,10 @@ shipping externally:
 This application has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
 [`CLAUDE.md`](CLAUDE.md). Use:
 
-- [UX and accessibility review](../ai-workflows/prompts/ux-accessibility-review.md)
-- [Performance optimization](../ai-workflows/prompts/optimize-performance.md)
-- [Implement a bounded feature](../ai-workflows/prompts/implement-feature.md)
-- [Security review](../ai-workflows/prompts/security-review.md)
+- [UX and accessibility review](../dev-tools/ai-workflows/prompts/ux-accessibility-review.md)
+- [Performance optimization](../dev-tools/ai-workflows/prompts/optimize-performance.md)
+- [Implement a bounded feature](../dev-tools/ai-workflows/prompts/implement-feature.md)
+- [Security review](../dev-tools/ai-workflows/prompts/security-review.md)
 
 AI can accelerate state-matrix creation, Angular implementation, test generation,
 browser inspection, accessibility review, responsive QA, and performance

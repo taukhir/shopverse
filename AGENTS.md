@@ -24,7 +24,7 @@ recovery, compensation, and end-to-end observability.
 - Inspect `git status` before changing files and preserve unrelated user work.
 - Read the nearest applicable `AGENTS.md` before editing a module.
 - For repeatable task procedures, use the relevant prompt and template under
-  `ai-workflows/` instead of expanding this always-loaded file.
+  `dev-tools/ai-workflows/` instead of expanding this always-loaded file.
 - Trace existing code, tests, configuration, and documentation before proposing
   architecture or behavior changes.
 - Cite files and symbols for repository claims; label inference explicitly.
@@ -154,8 +154,8 @@ Before handoff, inspect the diff for:
 - Runnable platform demonstrations and recovery evidence:
   `documentation/docs/case-study/`.
 - Reliability patterns: `documentation/docs/reliability/`.
-- Reusable AI task prompts and evidence templates: `ai-workflows/`.
-- Deterministic AI workflow scenarios and scoring: `ai-workflows/evals/`.
+- Reusable AI task prompts and evidence templates: `dev-tools/ai-workflows/`.
+- Deterministic AI workflow scenarios and scoring: `dev-tools/ai-workflows/evals/`.
 
 ## Handoff
 

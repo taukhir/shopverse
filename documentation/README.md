@@ -58,7 +58,7 @@ WebKit behavior.
 
 The repository-level documentation workflow additionally validates the deterministic
 AI engineering evaluation suite whenever documentation, canonical READMEs, scoped
-AI instructions, or `ai-workflows/` change.
+AI instructions, or `dev-tools/ai-workflows/` change.
 
 Useful narrower commands:
 

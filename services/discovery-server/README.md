@@ -111,8 +111,8 @@ Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
 AI can help diagnose registration, heartbeat, stale-instance, startup-order,
 health, and load-balancing symptoms by correlating Eureka state with service logs
 and configuration. Follow the root [`AGENTS.md`](../AGENTS.md) and use the
-[incident](../ai-workflows/prompts/incident-investigation.md) and
-[performance](../ai-workflows/prompts/optimize-performance.md) workflows.
+[incident](../../dev-tools/ai-workflows/prompts/incident-investigation.md) and
+[performance](../../dev-tools/ai-workflows/prompts/optimize-performance.md) workflows.
 
 Do not treat the Eureka dashboard alone as proof that an application is ready or
 authorized. Require evidence from health, client discovery, routing, and service

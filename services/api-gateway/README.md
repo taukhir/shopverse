@@ -95,10 +95,10 @@ propagation, diagnose discovery/load-balancing failures, inspect reactive latenc
 and generate focused gateway tests. Start with the repository
 [`AGENTS.md`](../AGENTS.md) and use these reviewed workflows:
 
-- [Implement a bounded feature](../ai-workflows/prompts/implement-feature.md)
-- [Security review](../ai-workflows/prompts/security-review.md)
-- [Optimize performance](../ai-workflows/prompts/optimize-performance.md)
-- [Incident investigation](../ai-workflows/prompts/incident-investigation.md)
+- [Implement a bounded feature](../../dev-tools/ai-workflows/prompts/implement-feature.md)
+- [Security review](../../dev-tools/ai-workflows/prompts/security-review.md)
+- [Optimize performance](../../dev-tools/ai-workflows/prompts/optimize-performance.md)
+- [Incident investigation](../../dev-tools/ai-workflows/prompts/incident-investigation.md)
 
 Keep route configuration, gateway code, and downstream authorization boundaries
 distinct. AI must not expose internal-only routes, weaken JWT validation, log
