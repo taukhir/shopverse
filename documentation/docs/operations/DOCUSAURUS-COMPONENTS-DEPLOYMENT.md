@@ -199,12 +199,16 @@ documentation/build/
 Any static host can serve it, including Nginx, Apache, S3/CloudFront, Azure
 Static Web Apps, Netlify, or a container image.
 
-Example Nginx container:
+The repository's [Dockerfile](https://github.com/taukhir/shopverse/blob/master/documentation/Dockerfile)
+serves the build with a non-root nginx user on container port `8080`. Its nginx
+configuration, healthcheck and Compose overlays use the same port; the standard
+full-stack overlay still publishes the documentation at `localhost:3001`.
 
-```dockerfile
-FROM nginx:1.27-alpine
-COPY documentation/build /usr/share/nginx/html/shopverse
-EXPOSE 80
+Build from the repository root so the README-mirroring prebuild can access its
+canonical source files:
+
+```powershell
+docker build -f documentation/Dockerfile -t shopverse/documentation:local .
 ```
 
 The host path must agree with `baseUrl`.

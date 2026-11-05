@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Constructor-injected collaborators are deliberately shared Spring-managed instances.
+         Copying a registry, configured ObjectMapper, KafkaTemplate, outbox or bound settings
+         would break application-wide identity/configuration. None is returned to API callers.
+         Match exact classes, fields and constructor findings; collection DTOs remain checked. -->
+    <Match>
+        <Class name="io.shopverse.platform.kafka.recovery.KafkaRecoveryService"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="~(meterRegistry|objectMapper|properties|replayOutbox)"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.platform.kafka.KafkaEventParser"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="objectMapper"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.platform.observability.ShopverseRequestLoggingFilter"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="meterRegistry"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.platform.outbox.ShopverseOutboxPublishWorker"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="~(kafkaTemplate|meterRegistry|properties)"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.platform.outbox.ShopverseOutboxPublisher"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="properties"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <!-- Spring binds the getter-only nested bean in place. Returning a snapshot
+         here would discard externalized request-logging configuration. -->
+    <Match>
+        <Class name="io.shopverse.platform.observability.ShopverseObservabilityProperties"/>
+        <Method name="getRequestLogging"/>
+        <Field name="requestLogging"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!-- Exact Spring constructor-injection findings in owning services. These fields
+         retain managed services/clients/transaction infrastructure, never request-owned DTOs. -->
+    <Match>
+        <Class name="io.shopverse.gateway.observability.GatewayRequestLoggingFilter"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="meterRegistry"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.controller.CartController"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="cartService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.controller.InternalUserController"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="userService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.controller.PermissionController"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="permissionService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.controller.PublicRegistrationController"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="userService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.controller.RoleController"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="roleService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.controller.UserController"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="userAddressService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.controller.UserController"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="userService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.service.impl.AdminAuditEventServiceImpl"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="objectMapper"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.service.impl.UserAddressServiceImpl"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="addressRepository"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.inventory_service.outbox.InventoryOutboxEventStore"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="transactionTemplate"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.inventory_service.outbox.OutboxService"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="objectMapper"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.inventory_service.recovery.InventoryKafkaReplayOutbox"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="outboxService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.inventory_service.saga.InventorySagaTransactionService"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="outboxService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.inventory_service.service.InventoryImageService"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="minioClient"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.inventory_service.service.InventoryServiceImpl"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="meterRegistry"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.inventory_service.service.InventoryServiceImpl"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="outboxService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.payment_service.controller.PaymentController"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="stubPaymentProvider"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.payment_service.outbox.OutboxService"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="objectMapper"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.payment_service.outbox.PaymentOutboxEventStore"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="transactionTemplate"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.payment_service.saga.PaymentSagaListener"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="sagaTransactionService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.payment_service.saga.PaymentSagaTransactionService"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="outboxService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.payment_service.service.PaymentKafkaReplayOutbox"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="outboxService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.payment_service.service.PaymentServiceImpl"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="meterRegistry"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.payment_service.service.PaymentServiceImpl"/>
+        <Method name="&lt;init&gt;"/>
+        <Field name="outboxService"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <!-- Hibernate-managed associations must retain live identity and collection
+         tracking. User controllers return mapped response DTOs, not these entities.
+         Exact association/accessor/builder matches preserve persistence semantics. -->
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Cart"/>
+        <Method name="~(getItems|&lt;init&gt;|setItems)"/>
+        <Field name="items"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Cart"/>
+        <Method name="~(getUser|&lt;init&gt;|setUser)"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Cart$CartBuilder"/>
+        <Method name="items"/>
+        <Field name="items$value"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Cart$CartBuilder"/>
+        <Method name="user"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.CartItem"/>
+        <Method name="~(getCart|&lt;init&gt;|setCart)"/>
+        <Field name="cart"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.CartItem$CartItemBuilder"/>
+        <Method name="cart"/>
+        <Field name="cart"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.LoginAudit"/>
+        <Method name="~(getUser|&lt;init&gt;|setUser)"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.LoginAudit$LoginAuditBuilder"/>
+        <Method name="user"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.PasswordHistory"/>
+        <Method name="~(getUser|&lt;init&gt;|setUser)"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.PasswordHistory$PasswordHistoryBuilder"/>
+        <Method name="user"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Permission"/>
+        <Method name="~(getRoles|&lt;init&gt;|setRoles)"/>
+        <Field name="roles"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Permission$PermissionBuilder"/>
+        <Method name="roles"/>
+        <Field name="roles$value"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.RefreshToken"/>
+        <Method name="~(getUser|&lt;init&gt;|setUser)"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.RefreshToken$RefreshTokenBuilder"/>
+        <Method name="user"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Role"/>
+        <Method name="~(getPermissions|&lt;init&gt;|setPermissions)"/>
+        <Field name="permissions"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Role"/>
+        <Method name="~(getUsers|&lt;init&gt;|setUsers)"/>
+        <Field name="users"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Role$RoleBuilder"/>
+        <Method name="permissions"/>
+        <Field name="permissions$value"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.Role$RoleBuilder"/>
+        <Method name="users"/>
+        <Field name="users$value"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.User"/>
+        <Method name="~(getRoles|&lt;init&gt;|setRoles)"/>
+        <Field name="roles"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.User$UserBuilder"/>
+        <Method name="roles"/>
+        <Field name="roles$value"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.UserAddress"/>
+        <Method name="~(getUser|&lt;init&gt;|setUser)"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.UserAddress$UserAddressBuilder"/>
+        <Method name="user"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.UserAudit"/>
+        <Method name="~(getUser|&lt;init&gt;|setUser)"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="io.shopverse.user_service.entities.UserAudit$UserAuditBuilder"/>
+        <Method name="user"/>
+        <Field name="user"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+</FindBugsFilter>

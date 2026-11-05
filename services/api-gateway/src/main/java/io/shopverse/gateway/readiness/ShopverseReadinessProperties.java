@@ -14,27 +14,27 @@ public record ShopverseReadinessProperties(
         String minioObjectBaseUrl
 ) {
     public ShopverseReadinessProperties {
-        requiredServices = defaultList(requiredServices, List.of(
+        requiredServices = List.copyOf(defaultList(requiredServices, List.of(
                 "AUTH-SERVICE",
                 "USER-SERVICE",
                 "ORDER-SERVICE",
                 "PAYMENT-SERVICE",
                 "INVENTORY-SERVICE"
-        ));
-        requiredRouteIds = defaultList(requiredRouteIds, List.of(
+        )));
+        requiredRouteIds = List.copyOf(defaultList(requiredRouteIds, List.of(
                 "auth-service",
                 "user-service",
                 "order-service",
                 "payment-service",
                 "inventory-service"
-        ));
+        )));
         minimumCatalogProducts = minimumCatalogProducts > 0 ? minimumCatalogProducts : 5;
         timeout = timeout != null ? timeout : Duration.ofSeconds(3);
         minioObjectBaseUrl = minioObjectBaseUrl == null ? "" : trimTrailingSlash(minioObjectBaseUrl);
     }
 
     private static List<String> defaultList(List<String> value, List<String> fallback) {
-        return value == null || value.isEmpty() ? fallback : List.copyOf(value);
+        return value == null || value.isEmpty() ? fallback : value;
     }
 
     private static String trimTrailingSlash(String value) {

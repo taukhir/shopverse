@@ -59,6 +59,11 @@ SpotBugs 4.9.8 is explicitly selected because the plugin's older default cannot 
 Java 25 bytecode. Existing handwritten findings remain blocking; there is no silent
 baseline suppression or arbitrary coverage percentage.
 
+Reviewed framework false positives are scoped to exact classes, members and bug
+types in `../ci/spotbugs-exclude.xml`; DTO collection findings are fixed in source.
+See [quality policy and remediation evidence](../ci/quality-policy.md) for rationale
+and validation. Tests reject blanket class/package or DTO-model suppressions.
+
 `Backend CI Gate` always evaluates prerequisites. It rejects failure, cancellation,
 missing outputs and unexpected skips, and accepts no-change skips only when selection
 proves the job was unnecessary. Configure this stable check in branch rules rather

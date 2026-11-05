@@ -124,7 +124,7 @@ services:
       - "8888:8888"
     volumes:
       - config-server-logs:/app/logs
-      - ./cloud-configs:/config:ro
+      - ./infra/cloud-configs:/config:ro
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8888/actuator/health | grep -q UP"]
       interval: 15s
