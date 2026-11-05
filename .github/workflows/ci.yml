@@ -106,11 +106,23 @@ jobs:
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             changed_files="shared-change"
           elif [[ "$EVENT_NAME" == "pull_request" ]]; then
-            changed_files="$(git diff --name-only "${PR_BASE_SHA}...HEAD")"
+            if ! changed_files="$(git diff --name-only "${PR_BASE_SHA}...HEAD" 2>/dev/null)"; then
+              # PR_BASE_SHA may not be reachable (e.g. the base branch moved,
+              # or the PR branch was force-pushed/rebased). Fall back to a
+              # full rebuild rather than failing the whole job.
+              changed_files="shared-change"
+            fi
           elif [[ -z "$BEFORE_SHA" || "$BEFORE_SHA" =~ ^0+$ ]]; then
             changed_files="shared-change"
           else
-            changed_files="$(git diff --name-only "${BEFORE_SHA}...HEAD")"
+            if ! changed_files="$(git diff --name-only "${BEFORE_SHA}...HEAD" 2>/dev/null)"; then
+              # BEFORE_SHA is from the push event and stops being reachable
+              # after any force-push that rewrites history (a rebase, an
+              # amend, Dependabot's own rebase command, etc.) -- "git diff"
+              # then fails with "Invalid symmetric difference expression"
+              # instead of returning a diff. Fall back to a full rebuild.
+              changed_files="shared-change"
+            fi
           fi
 
           shared=false
