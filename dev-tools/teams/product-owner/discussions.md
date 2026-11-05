@@ -82,3 +82,17 @@ work, because the alternative generates chargebacks and trust erosion;
 (3) **this is a new backlog item, not part of current BUG-001/EOM
 scope** — a genuine business-design decision deserves its own sizing,
 not a ride-along inside an already-resizing ticket.
+
+### 2026-11-05 — reacted to Codex's priority recommendation
+Confirmed BUG-001 at #1 — this validates, not changes, the prior
+position. Explicitly noted none of Codex's 9 verified bug fixes
+(BUG-004–012) touch checkout at all. **Disagreed with Codex's #2:**
+FEAT-J (real payment) shouldn't outrank transactional inbox/dedup.
+Reasoning: Elena's MVP verdict calls the payment stub an *acceptable*
+trade-off if chosen on purpose — weaker than "disqualifying," the word
+reserved for BUG-001. Silent duplicate payment processing on retried
+events is a correctness/trust problem happening today, invisibly,
+versus a known, already-flagged stub. Proposed reorder: BUG-001 →
+dedup/inbox → FEAT-J (consciously decided) → ENH-012. Logged as an open
+disagreement, not resolved — see
+[`../OPEN-QUESTIONS.md`](../OPEN-QUESTIONS.md) #8.

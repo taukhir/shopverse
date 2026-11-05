@@ -74,6 +74,25 @@ ledger and the date looks old relative to recent discussion files, run
 [`ai-workflows/prompts/team-ledger-audit.md`](../ai-workflows/prompts/team-ledger-audit.md)
 before trusting it.
 
+**Third category (added 2026-11-05, per Diego's review of the
+BUG-004/005 recurrence): investigation/verification narrative.** A
+`BACKLOG.md` row's root-cause timeline and verification notes are
+canonical on that row — don't also write the same investigation out in
+a person's `discussions.md`/`context.md`. Link to the `BACKLOG.md` row
+by ID instead. This is the same duplication problem as decisions and
+open questions, just for a third kind of content: *how something was
+found and confirmed*, not *what was decided* or *what's still open*.
+Also applies in the other direction — don't re-narrate a
+`BACKLOG.md` row's investigation inside a sprint discussion file either.
+
+**On trusting "Fixed" claims specifically:** a `BACKLOG.md` row marked
+`**Fixed**` should carry a real commit hash. Before relying on that
+status for planning, confirm the hash actually resolves in `git log` —
+BUG-004/005 recurred silently for a full day, under a different bug ID,
+because an earlier "Fixed" claim was never actually committed. A status
+label is a claim, not evidence, until someone checks it against `git
+log` themselves.
+
 Concretely: when a discussion, role file, or sprint index needs to
 reference a past decision or a known-open question, **link to the
 ledger row — do not restate the fact or question in prose.** When a
