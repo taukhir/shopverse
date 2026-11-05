@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-FROM eclipse-temurin:21-jdk-jammy AS build
+FROM eclipse-temurin:25-jdk-jammy AS build
 WORKDIR /workspace/services/inventory-service
 
 COPY services/inventory-service/gradlew services/inventory-service/gradlew.bat services/inventory-service/settings.gradle services/inventory-service/build.gradle ./
@@ -13,7 +13,7 @@ RUN chmod +x ./gradlew
 COPY services/inventory-service/src ./src
 RUN --mount=type=cache,id=shopverse-inventory-service-gradle,target=/root/.gradle ./gradlew bootJar --no-daemon --max-workers=2
 
-FROM eclipse-temurin:21-jre-alpine AS runtime
+FROM eclipse-temurin:25-jre-alpine AS runtime
 
 ENV APP_HOME=/app \
     SERVER_PORT=8086 \
