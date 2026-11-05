@@ -227,10 +227,10 @@ shipping externally:
 This application has scoped [`AGENTS.md`](https://github.com/taukhir/shopverse/blob/main/shopverse-web/AGENTS.md) guidance imported by
 [`CLAUDE.md`](https://github.com/taukhir/shopverse/blob/main/shopverse-web/CLAUDE.md). Use:
 
-- [UX and accessibility review](https://github.com/taukhir/shopverse/blob/main/ai-workflows/prompts/ux-accessibility-review.md)
-- [Performance optimization](https://github.com/taukhir/shopverse/blob/main/ai-workflows/prompts/optimize-performance.md)
-- [Implement a bounded feature](https://github.com/taukhir/shopverse/blob/main/ai-workflows/prompts/implement-feature.md)
-- [Security review](https://github.com/taukhir/shopverse/blob/main/ai-workflows/prompts/security-review.md)
+- [UX and accessibility review](https://github.com/taukhir/shopverse/blob/main/dev-tools/ai-workflows/prompts/ux-accessibility-review.md)
+- [Performance optimization](https://github.com/taukhir/shopverse/blob/main/dev-tools/ai-workflows/prompts/optimize-performance.md)
+- [Implement a bounded feature](https://github.com/taukhir/shopverse/blob/main/dev-tools/ai-workflows/prompts/implement-feature.md)
+- [Security review](https://github.com/taukhir/shopverse/blob/main/dev-tools/ai-workflows/prompts/security-review.md)
 
 AI can accelerate state-matrix creation, Angular implementation, test generation,
 browser inspection, accessibility review, responsive QA, and performance

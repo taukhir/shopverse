@@ -20,7 +20,7 @@ Payment Service runs on port `8084`. It owns persistent payment state, payment i
 | `POST` | `/api/v1/payments/admin/dead-letters/{id}/replay` | admin |
 
 Swagger is available at `/swagger-ui/index.html` when the service is reached
-directly; use the [API guide](../documentation/docs/development/API-GUIDE.md)
+directly; use the [API guide](../../documentation/docs/development/API-GUIDE.md)
 for gateway-facing examples.
 
 ## Payment States
@@ -98,7 +98,7 @@ reservation expired before the delayed `payment.completed` event was
 processed. The target state machine uses `REFUND_PENDING`, a stable provider
 refund idempotency key, reconciliation after uncertain provider responses, and
 `payment.refunded`. See
-[Multi-replica reservation expiry and late payment](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
+[Multi-replica reservation expiry and late payment](../../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
 
 ## SAGA
 
@@ -121,7 +121,7 @@ provider idempotency key derived from the order number.
 
 Customer payment lookup compares the authenticated JWT subject with the payment owner. Administrators retain cross-customer access.
 
-See [Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+See [Resource ownership authorization](../../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
 for the problem statement, `@PreAuthorize` flow, targeted repository query,
 expected API outcomes, and method-security tests.
 
@@ -204,16 +204,16 @@ separate integration requirement.
 
 ## Related Guides
 
-- [SAGA and outbox](../documentation/docs/reliability/SAGA-OUTBOX.md)
-- [Problems and solutions](../documentation/docs/reliability/PROBLEMS-AND-SOLUTIONS.md)
-- [Resource ownership authorization](../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
-- [Reservation expiry and late-payment recovery](../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
-- [Transactional outbox pattern](../documentation/docs/reliability/OUTBOX-PATTERN.md)
-- [Inbox pattern](../documentation/docs/reliability/INBOX-PATTERN.md)
-- [SAGA code flow](../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
-- [Transactions](../documentation/docs/reliability/TRANSACTIONS.md)
-- [Spring transactions](../documentation/docs/spring/SPRING-TRANSACTIONS.md)
-- [Spring Kafka](../documentation/docs/spring/SPRING-KAFKA.md)
-- [Features and demos](../documentation/docs/reference/FEATURES-AND-DEMOS.md)
-- [Generic Resilience4j patterns](../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
-- [Spring Resilience4j](../documentation/docs/spring/SPRING-RESILIENCE4J.md)
+- [SAGA and outbox](../../documentation/docs/reliability/SAGA-OUTBOX.md)
+- [Problems and solutions](../../documentation/docs/reliability/PROBLEMS-AND-SOLUTIONS.md)
+- [Resource ownership authorization](../../documentation/docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+- [Reservation expiry and late-payment recovery](../../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
+- [Transactional outbox pattern](../../documentation/docs/reliability/OUTBOX-PATTERN.md)
+- [Inbox pattern](../../documentation/docs/reliability/INBOX-PATTERN.md)
+- [SAGA code flow](../../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
+- [Transactions](../../documentation/docs/reliability/TRANSACTIONS.md)
+- [Spring transactions](../../documentation/docs/spring/SPRING-TRANSACTIONS.md)
+- [Spring Kafka](../../documentation/docs/spring/SPRING-KAFKA.md)
+- [Features and demos](../../documentation/docs/reference/FEATURES-AND-DEMOS.md)
+- [Generic Resilience4j patterns](../../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
+- [Spring Resilience4j](../../documentation/docs/spring/SPRING-RESILIENCE4J.md)

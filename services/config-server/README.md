@@ -1,6 +1,6 @@
 # Shopverse Config Server
 
-Cross-cutting architecture and service ownership are documented in the [Shopverse documentation index](../documentation/docs/README.mdx). This README remains focused on Config Server operation and refresh behavior.
+Cross-cutting architecture and service ownership are documented in the [Shopverse documentation index](../../documentation/docs/README.mdx). This README remains focused on Config Server operation and refresh behavior.
 
 Config Server centralizes Shopverse runtime configuration. It loads service config from the root `cloud-configs/` folder and serves it to config clients at startup.
 
@@ -188,7 +188,7 @@ The full stack is started from the root:
 docker compose up -d
 ```
 
-More Docker commands, flags, Dockerfile details, and the Config Server Compose block explanation are in [../infra/docker/README.md](../infra/docker/README.md).
+More Docker commands, flags, Dockerfile details, and the Config Server Compose block explanation are in [../infra/docker/README.md](../../infra/docker/README.md).
 
 ## Observability
 
@@ -211,7 +211,7 @@ More Docker commands, flags, Dockerfile details, and the Config Server Compose b
 Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
 AI tools can trace configuration lookup precedence, diagnose startup and refresh
 failures, compare native and Git-backed behavior, and review actuator, Docker,
-and observability configuration. Use the root [`AGENTS.md`](../AGENTS.md),
+and observability configuration. Use the root [`AGENTS.md`](../../AGENTS.md),
 [incident workflow](../../dev-tools/ai-workflows/prompts/incident-investigation.md), and
 [security review](../../dev-tools/ai-workflows/prompts/security-review.md).
 
