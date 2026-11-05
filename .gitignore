@@ -13,6 +13,7 @@ tmp/
 !.env.example
 demo-credentials.local.md
 shopverse-local-credentials.md
+secrets/
 
 # IDE/editor metadata
 .idea/
