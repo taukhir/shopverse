@@ -1,0 +1,15 @@
+plugins {
+    id 'com.bakdata.avro' version '2.0.1'
+}
+
+description = 'Service-owned Avro event schemas and generated SpecificRecord types.'
+
+dependencies {
+    api 'org.apache.avro:avro:1.12.2'
+}
+
+tasks.matching { it.name == 'configureCopyExternalAvroResources' }.configureEach {
+    notCompatibleWithConfigurationCache(
+        "com.bakdata.avro's configureCopyExternalAvroResources task is not yet compatible with Gradle's configuration cache"
+    )
+}

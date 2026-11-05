@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
 	implementation 'io.shopverse.platform:shopverse-contracts:0.0.1-SNAPSHOT'
+	implementation 'io.shopverse.platform:shopverse-avro-schemas:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-common-error:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-observability-starter:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-security-starter:0.0.1-SNAPSHOT'
@@ -37,6 +38,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testCompileOnly 'org.projectlombok:lombok'
+	implementation 'org.mapstruct:mapstruct:1.6.3'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+	testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'com.h2database:h2'
