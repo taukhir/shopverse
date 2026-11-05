@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 
 const documentationDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const repositoryDir = path.resolve(documentationDir, '..');
-const wrapper = path.join(repositoryDir, 'shopverse-platform',
+const wrapper = path.join(repositoryDir, 'shopverse-common',
   process.platform === 'win32' ? 'gradlew.bat' : 'gradlew');
 const projectDir = path.join(documentationDir, 'labs', 'spring-architect');
 
