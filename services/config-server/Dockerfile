@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-FROM eclipse-temurin:21-jdk-jammy AS build
+FROM eclipse-temurin:25-jdk-jammy AS build
 WORKDIR /workspace/services/config-server
 
 COPY services/config-server/gradlew services/config-server/gradlew.bat services/config-server/settings.gradle services/config-server/build.gradle ./
@@ -13,7 +13,7 @@ RUN chmod +x ./gradlew
 COPY services/config-server/src ./src
 RUN --mount=type=cache,id=shopverse-config-server-gradle,target=/root/.gradle ./gradlew bootJar --no-daemon --max-workers=2
 
-FROM eclipse-temurin:21-jre-alpine AS runtime
+FROM eclipse-temurin:25-jre-alpine AS runtime
 
 ENV APP_HOME=/app \
     SERVER_PORT=8888 \
