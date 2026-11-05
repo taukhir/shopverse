@@ -6,13 +6,9 @@ on:
       - master
     paths:
       - "shopverse-web/**"
-      - "infra/scripts/Test-ShopverseSites.ps1"
-      - ".github/workflows/ci-web.yml"
   pull_request:
     paths:
       - "shopverse-web/**"
-      - "infra/scripts/Test-ShopverseSites.ps1"
-      - ".github/workflows/ci-web.yml"
   workflow_dispatch:
 
 permissions:

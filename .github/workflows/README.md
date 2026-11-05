@@ -13,7 +13,7 @@ manual demonstration, not a second automatic production pipeline.
 | `docs-verify-publish.yml` | Docs content/build/browser/performance verification and Pages publication | Relevant PRs/master pushes, weekly and manual; publication excluded from PRs |
 | `cd-production.yml` | Publish verified candidate images, retain digest manifest, optional protected SSH deployment | Successful master-push backend runs; manual retry with a verified CI run ID |
 | `ci-docs-visual.yml` | Linux screenshot comparisons and manual baseline artifacts | Relevant UI changes, weekly and manual |
-| `ci-java-labs.yml` | Java documentation labs on JDK 24/25 | Relevant PRs/master pushes |
+| `ci-java-labs.yml` | Java documentation labs on JDK 24/25 | Relevant PRs/master pushes; manual |
 | `ci-database-lab.yml` | Disposable database-operations exercises | Weekly/manual; optional analytics |
 | `integration-jenkins.yml` | Submit a demonstration build with an explicit source SHA | Manual only; optional |
 
@@ -21,6 +21,19 @@ Dependabot already updates Actions, Gradle, npm and Docker dependencies. The
 separate monthly `npm update` workflow was removed to avoid overlapping update
 PRs. Web CI runs `-Target Web`; Docs owns its own verification, avoiding duplicate
 Docusaurus builds in the Windows web job.
+
+Push/PR triggers for Web verification match only `shopverse-web/**`; Docs
+verification matches only `documentation/**`. Docs visual and Java lab workflows
+retain their narrower paths inside `documentation/`. Changes to workflow files,
+root READMEs, service code, shared Gradle files or infrastructure scripts alone
+do not trigger these site workflows. Existing manual runs and weekly Docs/visual
+checks remain separate from push/PR routing.
+
+Path selection uses the complete PR diff: once a PR includes site changes,
+subsequent pushes still verify that site. When canonical README or AI workflow
+inputs outside `documentation/` change, regenerate and include their affected
+documentation mirrors in the same PR so Docs verification runs. Workflow-only
+changes can be checked with Actionlint and a manual site verification run.
 
 ## What is required, and what is optional?
 
@@ -38,9 +51,14 @@ layers or a custom workflow engine until an actual deployment requirement exists
 ## Backend verification and selection
 
 PRs select changed services; root `gradle/`, shared code, build-logic, infrastructure,
-workflow/helper and Docker context changes select all services. Unknown/unavailable
-diff history conservatively selects everything. Push diffs use endpoint comparison;
-PR diffs use the merge base. Manual, nightly and merge-queue runs are complete.
+backend/security/release workflows, runtime CI helpers and Docker context changes
+select all services. The known Web, Docs, lab and optional Jenkins workflow files,
+CI review Markdown, CI tests and the Actionlint wrapper do not select backend
+service jobs by themselves; configuration validation and security checks still run.
+Unknown workflow/helper files and unavailable diff history conservatively select
+everything. Push diffs use endpoint comparison; PR diffs use the merge base.
+Manual, nightly and merge-queue runs are complete. Routing regression tests cover
+every service, shared inputs, independent workflows and mixed-service PRs.
 
 Master pushes deliberately verify all eight services to produce a complete
 release manifest. This trades additional post-merge compute for a simple,
