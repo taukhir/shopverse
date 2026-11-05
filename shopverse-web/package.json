@@ -44,7 +44,7 @@
     "chrome-launcher": "^1.2.0",
     "jsdom": "^26.1.0",
     "lighthouse": "^12.8.2",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.32",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.3.2",
     "typescript": "~6.0.2",
