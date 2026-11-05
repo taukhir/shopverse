@@ -75,7 +75,7 @@
     "@docusaurus/types": "^3.10.2",
     "@playwright/test": "^1.55.1",
     "gray-matter": "^4.0.3",
-    "typescript": "~5.9.3"
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=20.0"
