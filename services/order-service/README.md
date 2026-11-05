@@ -199,10 +199,10 @@ docker compose up -d order-service
 This module has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
 [`CLAUDE.md`](CLAUDE.md). Start with:
 
-- [Implement a bounded feature](../ai-workflows/prompts/implement-feature.md)
-- [Debug distributed checkout](../ai-workflows/prompts/debug-distributed-checkout.md)
-- [Review a Kafka consumer](../ai-workflows/prompts/review-kafka-consumer.md)
-- [Security review](../ai-workflows/prompts/security-review.md)
+- [Implement a bounded feature](../../dev-tools/ai-workflows/prompts/implement-feature.md)
+- [Debug distributed checkout](../../dev-tools/ai-workflows/prompts/debug-distributed-checkout.md)
+- [Review a Kafka consumer](../../dev-tools/ai-workflows/prompts/review-kafka-consumer.md)
+- [Security review](../../dev-tools/ai-workflows/prompts/security-review.md)
 
 AI changes must preserve customer-scoped idempotency, ownership authorization,
 valid order transitions, timeline auditability, event compatibility, and atomic

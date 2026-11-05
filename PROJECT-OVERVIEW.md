@@ -32,7 +32,7 @@ real payments (see [`PROGRESS.md`](dev-tools/teams/PROGRESS.md) for what is stub
 | `shopverse-common/` | Shared starters: outbox, Kafka, Kafka recovery/DLT, security, observability, common errors |
 | `shopverse-web/` | Angular 22 storefront + admin UI |
 | `documentation/` | Docusaurus site — architecture, ADRs, case studies, reliability/security guides |
-| `ai-workflows/` | Reusable prompts/templates for AI-assisted development, plus eval scenarios |
+| `dev-tools/ai-workflows/` | Reusable prompts/templates for AI-assisted development, plus eval scenarios |
 | `infra/observability/`, `infra/docker/`, `dev-tools/jenkins/`, `.github/workflows/` | Deployment and CI plumbing |
 | `dev-tools/postman/`, `dev-tools/testing/`, `infra/scripts/` | API collections, cross-cutting test suites, local data/reset scripts |
 

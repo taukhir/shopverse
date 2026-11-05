@@ -49,7 +49,7 @@ Shopverse runtime.
   validation expectations, and service-specific risk.
 - Root `AGENTS.md` and `CLAUDE.md` provide durable shared instructions.
 - Every component has nested scoped guidance where module-specific invariants apply.
-- The tool-neutral `ai-workflows/` library supplies implementation, debugging,
+- The tool-neutral `dev-tools/ai-workflows/` library supplies implementation, debugging,
   Kafka, performance, security, UX, documentation, and incident workflows.
 - Fourteen deterministic scenarios score architecture, reliability, authorization,
   configuration, discovery, gateway, payments, inventory, frontend, platform,

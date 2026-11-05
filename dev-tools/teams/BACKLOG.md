@@ -96,8 +96,8 @@ table rather than reordering, so history stays readable in diffs.
 ## Debugging Drills (not bugs — intentional practice)
 
 Tracked separately since these are deliberately seeded, not discovered. Use
-[`ai-workflows/prompts/debug-distributed-checkout.md`](ai-workflows/prompts/debug-distributed-checkout.md)
-or [`ai-workflows/prompts/incident-investigation.md`](ai-workflows/prompts/incident-investigation.md)
+[`ai-workflows/prompts/debug-distributed-checkout.md`](../ai-workflows/prompts/debug-distributed-checkout.md)
+or [`ai-workflows/prompts/incident-investigation.md`](../ai-workflows/prompts/incident-investigation.md)
 as the investigation format.
 
 | ID | Pattern | Status |

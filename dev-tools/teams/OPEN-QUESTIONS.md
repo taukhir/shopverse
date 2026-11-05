@@ -24,10 +24,12 @@ has value (e.g. showing how long something stayed open, and why).
 | 5 | Pickup-only orders: is `shippingAddress` still required on the Order resource? | Open — raised by Codex, not yet answered | Senior Developer | [`tauqeer/task/order-contract-design/discussions.md`](tauqeer/task/order-contract-design/discussions.md) |
 | 6 | Customer-safe vs. admin view split for `statusReason` / per-line `fulfillmentStatus` | Open — raised by Codex and Jordan independently (same underlying concern: don't leak internal detail to customers) | Senior Developer | [`tauqeer/task/order-contract-design/discussions.md`](tauqeer/task/order-contract-design/discussions.md) |
 | 7 | Scope divide between Elena (Product Architect) and Codex (Senior Solutions Architect) — deliberate dual-opinion, or needs dividing? | Open — asked once, not yet answered | Senior Developer | this session, not yet filed anywhere else |
-| 8 | What to do with the partial, unverified `shopverse-contracts` code already sitting uncommitted in the working tree | Open — flagged, not reviewed or decided | Senior Developer | `git status` on the real repo, see this session's history |
-| 9 | Who does Codex's "inventory current behavior" first deliverable — Codex, Diego, or jointly? | Open — raised in discussion-06, not yet answered | Senior Developer | [`sprints/sprint-0001/discussion-06.md`](sprints/sprint-0001/discussion-06.md) |
 
 ## Resolved
+
+- ~~Who does Codex's "inventory current behavior" first deliverable~~ — done jointly with the user this session: [`tauqeer/task/order-contract-design/contract-inventory.md`](tauqeer/task/order-contract-design/contract-inventory.md).
+
+- ~~Partial, unverified `shopverse-contracts` code sitting uncommitted~~ — reviewed, built, and committed: [`c2ccb622`](https://github.com/taukhir/shopverse/commit/c2ccb622).
 
 - ~~Priya's SKU-meaning question~~ — answered: 3+ distinct products. See [`DECISIONS.md`](DECISIONS.md) #7.
 - ~~Option (a) vs (b) vs (c)~~ — decided: option (a). See [`DECISIONS.md`](DECISIONS.md) #2.

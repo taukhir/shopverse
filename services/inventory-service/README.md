@@ -201,10 +201,10 @@ docker compose up -d inventory-service
 This module has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
 [`CLAUDE.md`](CLAUDE.md). Useful reviewed workflows include:
 
-- [Kafka consumer review](../ai-workflows/prompts/review-kafka-consumer.md)
-- [Distributed checkout debugging](../ai-workflows/prompts/debug-distributed-checkout.md)
-- [Performance optimization](../ai-workflows/prompts/optimize-performance.md)
-- [Incident investigation](../ai-workflows/prompts/incident-investigation.md)
+- [Kafka consumer review](../../dev-tools/ai-workflows/prompts/review-kafka-consumer.md)
+- [Distributed checkout debugging](../../dev-tools/ai-workflows/prompts/debug-distributed-checkout.md)
+- [Performance optimization](../../dev-tools/ai-workflows/prompts/optimize-performance.md)
+- [Incident investigation](../../dev-tools/ai-workflows/prompts/incident-investigation.md)
 
 AI changes must preserve non-negative stock, concurrency-safe reservation,
 replay-safe release/expiry, local transaction plus outbox behavior, and

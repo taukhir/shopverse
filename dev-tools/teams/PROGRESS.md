@@ -105,5 +105,5 @@ Re-verify specific rows before relying on them for release decisions — this
 is a snapshot, not a live system.
 
 To refresh this file, run the
-[Audit progress tracker](ai-workflows/prompts/progress-audit.md) workflow
+[Audit progress tracker](../ai-workflows/prompts/progress-audit.md) workflow
 rather than hand-editing status labels without re-checking the code.

@@ -12,7 +12,7 @@ add unnecessary context if loaded into every session.
 ## How To Use A Workflow
 
 1. Start the AI tool from the ShopVerse repository root.
-2. Ask it to read the selected prompt and `ai-workflows/templates/task-context.md`.
+2. Ask it to read the selected prompt and `dev-tools/ai-workflows/templates/task-context.md`.
 3. Supply real values for every required placeholder.
 4. Keep investigation read-only until the workflow reaches an implementation
    gate and the task authorizes changes.
@@ -22,7 +22,7 @@ add unnecessary context if loaded into every session.
 Example request:
 
 ```text
-Read ai-workflows/prompts/debug-distributed-checkout.md and follow it for this
+Read dev-tools/ai-workflows/prompts/debug-distributed-checkout.md and follow it for this
 incident. Use order number ORD-EXAMPLE and correlation ID corr-example. The
 environment is local. Investigation is read-only; do not replay events, restart
 services, or mutate databases.
@@ -73,7 +73,7 @@ standard result JSON without calling a paid model API.
   automatically a better prompt.
 - Keep examples synthetic and free of secrets or personal data.
 - Validate evaluation changes with
-  `node ai-workflows/evals/scripts/validate-suite.mjs`.
+  `node dev-tools/ai-workflows/evals/scripts/validate-suite.mjs`.
 
 ## Completion Standard
 

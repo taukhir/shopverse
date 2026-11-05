@@ -6,15 +6,18 @@ Mark items done in place; don't delete them.
 
 - [ ] Resolve [`OPEN-QUESTIONS.md`](../../OPEN-QUESTIONS.md) #5 (pickup
   address requirement) and #6 (customer/admin view split).
-- [ ] Decide who does Codex's rollout-plan "inventory current behavior"
-  first deliverable ([`OPEN-QUESTIONS.md`](../../OPEN-QUESTIONS.md) #9).
 - [ ] Produce the failure/compensation example `discussion-07` asked
   for, using the now-resolved `OrderLineFulfillmentStatus` enum instead
   of an invented shape.
-- [ ] Enter plan mode before any real Gradle module is created, per
-  `AGENTS.md`'s cross-service-contract rule.
 
 ## Done
+
+- [x] Decided who does Codex's rollout-plan "inventory current
+  behavior" first deliverable -- done jointly this session, see
+  `contract-inventory.md` (resolves `OPEN-QUESTIONS.md` #9).
+- [x] Entered plan mode before creating the real Gradle modules
+  (`shopverse-avro-schemas`), per `AGENTS.md`'s cross-service-contract
+  rule -- plan approved 2026-11-05.
 
 - [x] Drafted `order.openapi.yaml` and `order-created-event.avsc`.
 - [x] Finalized against the real Amway EOM contract (discussion-06).

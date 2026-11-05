@@ -188,10 +188,10 @@ docker compose up -d payment-service
 
 This module has scoped [`AGENTS.md`](AGENTS.md) guidance imported by
 [`CLAUDE.md`](CLAUDE.md). Use the reviewed
-[Kafka consumer](../ai-workflows/prompts/review-kafka-consumer.md),
-[security](../ai-workflows/prompts/security-review.md),
-[checkout debugging](../ai-workflows/prompts/debug-distributed-checkout.md), and
-[incident](../ai-workflows/prompts/incident-investigation.md) workflows.
+[Kafka consumer](../../dev-tools/ai-workflows/prompts/review-kafka-consumer.md),
+[security](../../dev-tools/ai-workflows/prompts/security-review.md),
+[checkout debugging](../../dev-tools/ai-workflows/prompts/debug-distributed-checkout.md), and
+[incident](../../dev-tools/ai-workflows/prompts/incident-investigation.md) workflows.
 
 AI output must not expose provider secrets or payment-sensitive data, invent a
 real payment-provider guarantee, weaken ownership, or make retries capable of

@@ -37,10 +37,10 @@ test reasoning without production access or customer data.
 Run from the repository root with Node.js 20 or newer:
 
 ```powershell
-node ai-workflows/evals/scripts/validate-suite.mjs
-node ai-workflows/evals/scripts/evaluate-results.mjs `
+node dev-tools/ai-workflows/evals/scripts/validate-suite.mjs
+node dev-tools/ai-workflows/evals/scripts/evaluate-results.mjs `
   --scenario checkout-architecture-discovery `
-  --result ai-workflows/evals/examples/checkout-architecture-discovery.result.json
+  --result dev-tools/ai-workflows/evals/examples/checkout-architecture-discovery.result.json
 ```
 
 The evaluator prints JSON and exits with:

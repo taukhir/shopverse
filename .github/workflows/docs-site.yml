@@ -12,7 +12,7 @@ on:
       - "CLAUDE.md"
       - "*/AGENTS.md"
       - "*/CLAUDE.md"
-      - "ai-workflows/**"
+      - "dev-tools/ai-workflows/**"
       - "shopverse-common/gradlew"
       - "shopverse-common/gradle/**"
       - ".github/workflows/docs-site.yml"
@@ -25,7 +25,7 @@ on:
       - "CLAUDE.md"
       - "*/AGENTS.md"
       - "*/CLAUDE.md"
-      - "ai-workflows/**"
+      - "dev-tools/ai-workflows/**"
       - "shopverse-common/gradlew"
       - "shopverse-common/gradle/**"
       - ".github/workflows/docs-site.yml"
@@ -110,7 +110,7 @@ jobs:
           npm run check:docs:governance
 
       - name: Validate AI workflow evaluation suite
-        run: node ../ai-workflows/evals/scripts/validate-suite.mjs
+        run: node ../dev-tools/ai-workflows/evals/scripts/validate-suite.mjs
 
       - name: Compile executable Java and Spring documentation examples
         run: |

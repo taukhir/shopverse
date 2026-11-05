@@ -99,9 +99,9 @@ Use AI to trace login and JWKS flows, review token claims and expiry, diagnose
 Auth-to-User calls, generate negative authentication tests, and inspect sensitive
 logging. Follow scoped [`AGENTS.md`](AGENTS.md), imported by
 [`CLAUDE.md`](CLAUDE.md), and the reviewed
-[security-review](../ai-workflows/prompts/security-review.md),
-[feature](../ai-workflows/prompts/implement-feature.md), and
-[incident](../ai-workflows/prompts/incident-investigation.md) workflows.
+[security-review](../../dev-tools/ai-workflows/prompts/security-review.md),
+[feature](../../dev-tools/ai-workflows/prompts/implement-feature.md), and
+[incident](../../dev-tools/ai-workflows/prompts/incident-investigation.md) workflows.
 
 Never provide private keys, credentials, bearer tokens, or real user records to
 an AI tool. Require evidence before changing issuer, audience, signing, JWKS,
