@@ -1,0 +1,186 @@
+name: ShopVerse / Docs / Verify and Publish
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "documentation/**"
+      - "README.md"
+      - "*/README.md"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "*/AGENTS.md"
+      - "*/CLAUDE.md"
+      - "dev-tools/ai-workflows/**"
+      - "shopverse-common/gradlew"
+      - "shopverse-common/gradle/**"
+      - ".github/workflows/docs-verify-publish.yml"
+  pull_request:
+    paths:
+      - "documentation/**"
+      - "README.md"
+      - "*/README.md"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "*/AGENTS.md"
+      - "*/CLAUDE.md"
+      - "dev-tools/ai-workflows/**"
+      - "shopverse-common/gradlew"
+      - "shopverse-common/gradle/**"
+      - ".github/workflows/docs-verify-publish.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "15 3 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Docusaurus
+    permissions:
+      contents: read
+      pages: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: documentation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: documentation/package-lock.json
+
+      - name: Set up Java for executable documentation examples
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: gradle
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve documentation validation mode
+        id: validation
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "mode=changed" >> "$GITHUB_OUTPUT"
+            echo "base=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=full" >> "$GITHUB_OUTPUT"
+            echo "base=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Type-check configuration
+        run: npm run typecheck
+
+      - name: Validate titles, metadata, links, images, assets, and safety
+        env:
+          DOCS_CHECK_MODE: ${{ steps.validation.outputs.mode }}
+          DOCS_BASE_SHA: ${{ steps.validation.outputs.base }}
+        run: node scripts/validate-docs.mjs --${{ steps.validation.outputs.mode }}
+
+      - name: Enforce README mirrors and documentation quality
+        run: |
+          npm run check:service-readmes
+          npm run check:cloud-configs
+          npm run check:maintenance
+          npm run check:language
+          npm run check:docs:audit
+          npm run check:docs:depth
+          npm run check:docs:overviews
+          npm run check:docs:kubernetes
+          npm run check:docs:design-patterns
+          npm run check:docs:java-spring-production
+          npm run check:ui:reader
+          npm run check:docs:governance
+
+      - name: Validate AI workflow evaluation suite
+        run: node ../dev-tools/ai-workflows/evals/scripts/validate-suite.mjs
+
+      - name: Compile executable Java and Spring documentation examples
+        run: |
+          npm run check:java-labs
+          npm run check:spring-labs
+
+      - name: Build documentation
+        run: npm run build
+
+      - name: Crawl generated routes, assets, metadata, and anchors
+        run: npm run check:built-site
+
+      - name: Enforce performance budget
+        run: npm run check:performance
+
+      - name: Install browser for UI tests
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: Run changed-page rendering, responsive, image, Mermaid, and accessibility tests
+        if: github.event_name == 'pull_request'
+        env:
+          DOCS_BASE_SHA: ${{ steps.validation.outputs.base }}
+        run: npm run test:changed
+
+      - name: Run Firefox and WebKit smoke tests
+        if: github.event_name == 'pull_request'
+        run: npm run test:cross-browser
+
+      - name: Run full documentation UI and accessibility tests
+        if: github.event_name != 'pull_request'
+        run: npm run test:ui
+
+      - name: Check official external references
+        if: github.event_name == 'schedule'
+        run: npm run check:docs:official-links
+
+      - name: Upload browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: documentation-browser-failures
+          path: documentation/test-results
+          if-no-files-found: ignore
+
+      - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: documentation/build
+
+  deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    name: Deploy GitHub Pages
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy documentation
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5

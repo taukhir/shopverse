@@ -1,6 +1,6 @@
 [versions]
-springBoot = "4.0.6"
-springCloud = "2025.1.1"
+springBoot = "4.0.9"
+springCloud = "2025.1.4"
 springDependencyManagement = "1.1.7"
 spotbugsPlugin = "6.0.7"
 

@@ -54,7 +54,7 @@ flowchart LR
 
 ## Selection And Sharding
 
-Shopverse CI already derives service matrices from changed paths. Keep a fallback
+ShopVerse / CI / Backend already derives service matrices from changed paths. Keep a fallback
 for shared build logic, platform modules, schemas, or infrastructure changes that
 affect multiple services.
 
@@ -76,7 +76,7 @@ measured wall-clock improvement exceeds repeated startup cost.
 ## Shopverse Current Pipeline
 
 <DocCallout type="shopverse" title="Current: service matrices and separate infrastructure gates">
-`.github/workflows/ci.yml` runs unit tests per affected service, uploads failed
+`.github/workflows/ci-backend.yml` runs unit tests per affected service, uploads failed
 reports, runs Testcontainers `integrationTest` for selected services, and gates a
 Compose-based authenticated checkout SAGA smoke test. Gradle commands cap workers
 at two. The repository test strategy assigns separate time budgets to unit and

@@ -1,5 +1,7 @@
 package io.shopverse.user_service.model;
 
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public record UpdateRoleRequest(
@@ -9,4 +11,8 @@ public record UpdateRoleRequest(
 
     Set<String> permissions
 ) {
+    public UpdateRoleRequest {
+        permissions = permissions == null ? null : Collections.unmodifiableSet(new LinkedHashSet<>(permissions));
+    }
+
 }

@@ -5,6 +5,7 @@ import { dirname, extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import lighthouse from 'lighthouse';
 import * as chromeLauncher from 'chrome-launcher';
+import { chromium } from '@playwright/test';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const root = normalize(join(scriptDir, '../../dist/shopverse-web/browser'));
@@ -30,6 +31,12 @@ if (!existsSync(join(root, 'index.html'))) {
   throw new Error('Build output not found. Run npm run build before npm run lighthouse.');
 }
 
+// Use the browser installed by CI, rather than a machine-specific Chrome install.
+const chromePath = chromium.executablePath();
+if (!existsSync(chromePath)) {
+  throw new Error('Lighthouse Chromium not found. Run npx playwright install chromium before npm run lighthouse.');
+}
+
 const server = createServer(async (request, response) => {
   const pathname = decodeURIComponent(new URL(request.url ?? '/', `http://${host}/`).pathname);
   const candidate = normalize(join(root, pathname === '/' ? 'index.html' : pathname));
@@ -48,7 +55,12 @@ const url = `http://${host}:${port}/`;
 let chrome;
 
 try {
-  chrome = await chromeLauncher.launch({ chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu'] });
+  console.log('Lighthouse browser:', chromePath);
+  chrome = await chromeLauncher.launch({
+    chromePath,
+    chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu'],
+    logLevel: 'error',
+  });
   const result = await lighthouse(url, {
     port: chrome.port,
     output: 'json',
@@ -73,6 +85,11 @@ try {
     throw new Error(failures.join('\n'));
   }
 } finally {
-  if (chrome) await chrome.kill();
-  await new Promise((resolve) => server.close(resolve));
+  try {
+    // launch() can reject after spawning Chrome, before assigning the handle.
+    if (chrome) await chrome.kill();
+    else await chromeLauncher.killAll();
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
 }

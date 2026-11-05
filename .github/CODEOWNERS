@@ -1,0 +1,4 @@
+# Pipeline changes need review from the repository owner; enable enforcement in branch rules.
+/.github/ @taukhir
+/dev-tools/jenkins/ @taukhir
+/services/*/Jenkinsfile @taukhir

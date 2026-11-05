@@ -12,9 +12,9 @@ services:
   shopverse-web:
     container_name: ${COMPOSE_PROJECT_NAME}-shopverse-web
     ports: !override
-      - "${SHOPVERSE_WEB_TEST_PORT:-14200}:80"
+      - "${SHOPVERSE_WEB_TEST_PORT:-14200}:8080"
 
   documentation:
     container_name: ${COMPOSE_PROJECT_NAME}-documentation
     ports: !override
-      - "${SHOPVERSE_DOCS_TEST_PORT:-13001}:80"
+      - "${SHOPVERSE_DOCS_TEST_PORT:-13001}:8080"

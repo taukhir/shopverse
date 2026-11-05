@@ -74,8 +74,8 @@ public class SecurityConfig {
 
     private boolean isPublicActuatorEndpoint(String path) {
         return path.startsWith("/actuator/health")
-                || path.equals("/actuator/info")
-                || path.equals("/actuator/prometheus");
+                || "/actuator/info".equals(path)
+                || "/actuator/prometheus".equals(path);
     }
 
 }

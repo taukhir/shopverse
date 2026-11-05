@@ -16,7 +16,7 @@ services:
     image: shopverse/shopverse-web:local
     container_name: shopverse-web
     ports:
-      - "${SHOPVERSE_WEB_PORT:-4200}:80"
+      - "${SHOPVERSE_WEB_PORT:-4200}:8080"
     depends_on:
       api-gateway:
         condition: service_healthy
@@ -25,11 +25,11 @@ services:
 
   documentation:
     build:
-      context: ./documentation
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: documentation/Dockerfile
     image: shopverse/documentation:local
     container_name: shopverse-documentation
     ports:
-      - "${SHOPVERSE_DOCS_PORT:-3001}:80"
+      - "${SHOPVERSE_DOCS_PORT:-3001}:8080"
     networks:
       - shopverse

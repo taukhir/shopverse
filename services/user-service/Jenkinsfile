@@ -3,6 +3,7 @@ pipeline {
 
     options {
         disableConcurrentBuilds()
+        timeout(time: 25, unit: 'MINUTES')
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
 
@@ -41,15 +42,15 @@ pipeline {
 
         stage('Build And Test') {
             steps {
-                dir('user-service') {
+                dir('services/user-service') {
                     sh 'chmod +x ./gradlew'
-                    sh './gradlew clean build --no-daemon'
+                    sh './gradlew clean build --no-daemon --no-configuration-cache --max-workers=2 -I ../../.github/ci/enforce-quality.gradle'
                 }
             }
             post {
                 always {
-                    junit allowEmptyResults: true, testResults: 'user-service/build/test-results/test/*.xml'
-                    archiveArtifacts allowEmptyArchive: true, artifacts: 'user-service/build/reports/tests/test/**'
+                    junit allowEmptyResults: true, testResults: 'services/user-service/build/test-results/test/*.xml'
+                    archiveArtifacts allowEmptyArchive: true, artifacts: 'services/user-service/build/reports/tests/test/**'
                 }
             }
         }
@@ -59,7 +60,7 @@ pipeline {
                 expression { params.BUILD_DOCKER_IMAGE }
             }
             steps {
-                sh 'docker build -t "${USER_SERVICE_IMAGE}" ./user-service'
+                sh 'docker build -t "${USER_SERVICE_IMAGE}" -f services/user-service/Dockerfile .'
             }
         }
 

@@ -1,188 +1,194 @@
-# Shopverse GitHub Actions
+# ShopVerse CI/CD operations
 
-This is the canonical workflow operations guide. Test-layer design and target runtimes are documented in [Testing strategy](../../documentation/docs/development/TESTING.md).
+GitHub Actions is the canonical verification and release path. Jenkins is a
+manual demonstration, not a second automatic production pipeline.
 
-Shopverse uses GitHub Actions for affected-service CI, Docker image validation,
-optional deployment, and optional Jenkins handoff.
+## Pipeline inventory
 
-Official references:
+| File | Purpose | Trigger and status |
+|---|---|---|
+| `ci-backend.yml` | Config and workflow validation, affected-service quality/unit checks, shared-module tests, Testcontainers, image builds/scans, SAGA and stable gate | PRs; complete runs on master pushes, merge queue, nightly and manual |
+| `ci-security.yml` | Secrets, dependencies/configuration and CodeQL source analysis | Called once by backend; manual diagnostic run available |
+| `ci-web.yml` | Web production build, unit tests, quick E2E, accessibility and Lighthouse | Relevant web PRs/master pushes; manual |
+| `docs-verify-publish.yml` | Docs content/build/browser/performance verification and Pages publication | Relevant PRs/master pushes, weekly and manual; publication excluded from PRs |
+| `cd-production.yml` | Publish verified candidate images, retain digest manifest, optional protected SSH deployment | Successful master-push backend runs; manual retry with a verified CI run ID |
+| `ci-docs-visual.yml` | Linux screenshot comparisons and manual baseline artifacts | Relevant UI changes, weekly and manual |
+| `ci-java-labs.yml` | Java documentation labs on JDK 24/25 | Relevant PRs/master pushes |
+| `ci-database-lab.yml` | Disposable database-operations exercises | Weekly/manual; optional analytics |
+| `integration-jenkins.yml` | Submit a demonstration build with an explicit source SHA | Manual only; optional |
 
-- [GitHub Actions documentation](https://docs.github.com/en/actions)
-- [Workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions)
-- [GitHub Actions secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions)
-- [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
+Dependabot already updates Actions, Gradle, npm and Docker dependencies. The
+separate monthly `npm update` workflow was removed to avoid overlapping update
+PRs. Web CI runs `-Target Web`; Docs owns its own verification, avoiding duplicate
+Docusaurus builds in the Windows web job.
 
-## Workflow Files
+## What is required, and what is optional?
 
-| File | Purpose |
-| --- | --- |
-| `ci.yml` | Validate config, test affected services, build affected images, and run the SAGA smoke gate |
-| `deploy.yml` | Build and push images to GHCR, then optionally deploy through SSH |
-| `jenkins-trigger.yml` | Trigger Jenkins after a successful GitHub workflow |
-| `docs-site.yml` | Build the Docusaurus knowledge base and deploy it to GitHub Pages |
-| `security.yml` | Secret scan (gitleaks) and per-service container vulnerability scan (Trivy, results in the Security tab) - daily, plus every push/PR |
+The four product responsibilities are backend verification (including security),
+web verification, documentation verification/publication, and release/deployment.
+The extra visual/lab workflows protect executable documentation; they are not
+production release gates. Security is reusable because backend must wait for its
+result, not because ShopVerse needs an independent orchestration platform.
 
-## CI Triggers
+Do not add a pipeline for every service: a bounded service matrix provides
+isolation without eight copies of the same YAML. Do not run Jenkins automatically
+after GitHub CI. Do not add Kubernetes/GitOps, multiple environment promotion
+layers or a custom workflow engine until an actual deployment requirement exists.
 
-`Shopverse CI` runs for:
+## Backend verification and selection
 
-- every branch push
-- every pull request
-- manual `workflow_dispatch`
-- daily scheduled verification at `20:30 UTC` (`02:00 Asia/Kolkata`)
+PRs select changed services; root `gradle/`, shared code, build-logic, infrastructure,
+workflow/helper and Docker context changes select all services. Unknown/unavailable
+diff history conservatively selects everything. Push diffs use endpoint comparison;
+PR diffs use the merge base. Manual, nightly and merge-queue runs are complete.
 
-Concurrency is grouped by Git ref. A newer commit on the same branch cancels
-the older run so obsolete builds do not continue consuming runners.
+Master pushes deliberately verify all eight services to produce a complete
+release manifest. This trades additional post-merge compute for a simple,
+coherent release. Measure runner minutes before introducing partial releases or
+unchanged-image promotion. Full runs have eight unit/quality, three integration
+and eight image jobs; matrix parallelism remains bounded.
 
-## CI Stages
+The CI JDK is 25, matching current build toolchains. Java documentation labs retain
+their intentional JDK 24/25 matrix. CI disables Gradle configuration caching because
+the existing Avro generator tasks are incompatible; dependency/build caching remains.
 
-### 1. Validate Repository Config
+Unit/static-analysis jobs have a 20-minute overall limit and a 15-minute Gradle
+step limit, leaving time to attempt report upload after a step timeout. Reports
+are requested on failure or cancellation, although a hard job/workflow cancellation
+can still prevent uploads. This replaces the 10-minute limit exceeded by
+[Inventory in run 42098993333](https://github.com/taukhir/shopverse/actions/runs/42098993333/job/127496626041).
+Cancelled required jobs still fail `Backend CI Gate`; rerun the upstream checks
+after correcting their cause, rather than rerunning only the gate.
 
-The workflow verifies required centralized-config and observability files, then
-parses the merged `docker-compose.yml` and `docker-compose.test.yml` model.
-This fails in minutes when a file, variable, or Compose override is invalid.
+The CI init script enforces existing Checkstyle/SpotBugs rules on handwritten Java.
+Generated-only OpenAPI/Avro modules are compiled/tested but excluded from static
+style/bug analysis; generated Checkstyle sources under `build/` are excluded too.
+SpotBugs 4.9.8 is explicitly selected because the plugin's older default cannot read
+Java 25 bytecode. Existing handwritten findings remain blocking; there is no silent
+baseline suppression or arbitrary coverage percentage.
 
-### 2. Detect Affected Services
+Reviewed framework false positives are scoped to exact classes, members and bug
+types in `../ci/spotbugs-exclude.xml`; DTO collection findings are fixed in source.
+See [quality policy and remediation evidence](../ci/quality-policy.md) for rationale
+and validation. Tests reject blanket class/package or DTO-model suppressions.
 
-Git diff paths are converted into service matrices. A service-only change tests
-and builds only that service. Shared changes under these paths select every
-service:
+`Backend CI Gate` always evaluates prerequisites. It rejects failure, cancellation,
+missing outputs and unexpected skips, and accepts no-change skips only when selection
+proves the job was unnecessary. Configure this stable check in branch rules rather
+than listing changing matrix job names. Never require path-filtered Web/Docs checks
+globally without path-aware rules, or unrelated PRs may remain pending.
 
-```text
-infra/cloud-configs/
-build-logic/
-shopverse-common/
-docker-compose*
-infra/docker/
-infra/observability/
-infra/scripts/
-.github/workflows/
-README.md
-```
+## Security policy
 
-Manual and scheduled runs also select every service.
+Gitleaks scans history with comments and sensitive artifact upload disabled.
+Trivy source/dependency/configuration and container scans block HIGH/CRITICAL findings,
+including unfixed vulnerabilities. SARIF evidence is retained even when scanning
+fails. Container scanning happens on the exact CI image, not a separate rebuild.
 
-### 3. Unit Tests
+CodeQL analyzes Java, JavaScript/TypeScript and Actions source with `security-extended`.
+It runs for public repositories; private repositories require Code Security entitlement
+and `ENABLE_CODEQL=true`. CodeQL job success proves analysis completed, not that no
+alerts exist: configure GitHub code-scanning merge protection for the agreed severity.
+Do not enable default setup alongside this advanced setup. Non-Java/Kotlin language
+coverage and generated-source limitations must be reviewed when languages change.
 
-Affected services run:
+No blanket vulnerability allowlist is added. Any future exception needs an owner,
+rationale, exact finding and expiry; it must not disable the scanner. Package/source
+vulnerability and static-analysis baselines need triage before expecting a green gate.
 
-```bash
-./gradlew test --no-daemon --max-workers=2
-```
+Actions are pinned to upstream full commit SHAs with version comments; Dependabot
+maintains them. Token permissions are job-scoped, checkouts do not persist credentials,
+and production publication has package write permission only in its publishing job.
 
-The job uses Java 21, the Gradle Actions cache, at most three service jobs in
-parallel, and a ten-minute timeout. `clean` is intentionally omitted so the
-Gradle build cache remains useful.
+## Build once and promote by digest
 
-### 4. Infrastructure Integration Tests
+1. CI builds each selected image, scans it and, on full runs, exports the image,
+   checksum, source/run/image identity and CycloneDX SBOM. The SAGA job loads those
+   same archives and uses Compose `--no-build`.
+2. Release validates a successful same-repository `master` **push** run through
+   `ci-backend.yml`. PR, fork, manual-CI, failed and unrelated workflow runs are rejected.
+   Manual release accepts a CI run ID, not an arbitrary image tag.
+3. Release verifies archive and image identity, then publishes the loaded images
+   without rebuilding. There is no `latest` deployment tag.
+4. Release assembles all eight repository/digest records into `release-manifest.json`
+   and `compose.release.json`. Mixed-source/run, duplicate and missing images fail.
+5. Optional SSH deployment archives configuration from that source revision and
+   applies the digest override with `--no-build --wait`. It does not `git pull`
+   an unrelated checkout or create production checkout transactions as a probe.
 
-Changed Order, Inventory, and Payment services run:
+Candidate archives are retained seven days for master pushes and one day for other
+full runs; scan/test evidence is retained 14 days and release manifests/SBOMs 90 days,
+subject to repository retention/storage limits. Expired candidates cannot be retried
+through the CI-run promotion path. For older rollback, use a retained verified release
+manifest and existing registry digests through the reviewed operator procedure.
+SBOMs/checksums/source identity are provided; cryptographic signing and provenance
+attestation are not implemented and must not be inferred from these checks.
 
-```bash
-./gradlew integrationTest --no-daemon --max-workers=2
-```
+## GitHub and host setup required before rollout
 
-These Testcontainers suites use real MySQL and Kafka instances to verify
-Liquibase migrations, JPA schema validation, transactional outbox commit and
-rollback behavior, and Kafka publishing. They run separately from unit tests
-and are limited to two service jobs in parallel.
+These settings are outside local source control and were not changed:
 
-### 5. Docker Image Build
+- Confirm `master` is the protected/default release branch. Require PR review,
+  owner review for `.github/CODEOWNERS`, and `Backend CI Gate`. Coordinate old
+  required-check names before removing them; do not leave the repository blocked.
+- Enable the agreed code-scanning merge protection and verify public/private CodeQL
+  availability. Organization Gitleaks usage may require `GITLEAKS_LICENSE`.
+- Protect `production` with appropriate reviewers and a master-only deployment rule.
+  Keep `ENABLE_SSH_DEPLOY` unset/false until a disposable-host rehearsal succeeds.
+- Configure environment secrets `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_SSH_KEY`,
+  `DEPLOY_HOST_FINGERPRINT`, `DEPLOY_PATH`, optional `DEPLOY_PORT`, and a read-only
+  `GHCR_READ_TOKEN` when the host needs registry authentication.
+- Set `DEPLOY_COMPOSE_PROJECT` to the host's **existing** Compose project name;
+  it is required to avoid silently switching named volumes. The host needs Docker
+  Compose with `--wait`, Git/tar/base64, a clean release directory and an absolute
+  repository path with its existing `.env` and persistent data.
+- Rehearse source-bound bind mounts, service health, image retention and rollback.
+  A prior image/configuration rollback does not reverse Liquibase migrations.
+- Verify package visibility/access, action policies, artifact storage and concurrency
+  limits. GitHub concurrency serialization is not a FIFO deployment queue.
 
-Only affected service images are built. Buildx reuses a GitHub Actions cache
-scoped by service:
+SSH deployment retains source revisions under `DEPLOY_PATH/releases/<sha>`. Before
+operator rollback, validate the previous manifest's registry digests and source SHA,
+archive that configuration revision, apply its digest override to the same project,
+and wait for service health. Obtain deployment approval; do not run `down -v` or
+attempt database rollback as image recovery. Automatic rollback is intentionally
+not attempted across potentially incompatible schema migrations.
 
-```text
-shopverse/<service>:ci-<commit-sha>
-```
+## Naming and maintenance
 
-Images are validated but not pushed by the CI workflow.
+Use `ShopVerse / Area / Purpose` display names, kebab-case workflow files/job IDs,
+stable aggregate checks and existing kebab-case service names. Display names are
+integration identifiers: `cd-production.yml` subscribes to `ShopVerse / CI / Backend`.
+Update consumers, self-path filters, badge URLs, runbooks and remote rules together.
+Do not rename image repositories, Compose services or service cache scopes as a
+cosmetic workflow cleanup.
 
-### 6. Checkout SAGA Smoke Test
+The optional Jenkins handoff sends `SOURCE_SHA` separately from `IMAGE_TAG`. Jenkins
+must load the shared pipeline, check out that exact revision and use root Docker
+context with `services/<service>/Dockerfile`. Per-service Jenkinsfiles remain local
+demonstrations. Jenkins is not a substitute for the canonical GitHub release gate.
+The shared demo uses a build-specific Compose project for disposable volumes;
+fixed service container names/ports still require an isolated host. The Jenkins
+controller image launches on JDK 21; Gradle provisions the Java 25 build toolchain.
 
-The end-to-end gate runs on `master`, manual runs, and scheduled verification.
-It starts the lightweight Compose override, not the observability stack:
-
-```bash
-docker compose \
-  -f docker-compose.yml \
-  -f docker-compose.test.yml \
-  up -d --build \
-  mysql mysql-bootstrap kafka config-server discovery-server \
-  user-service auth-service order-service payment-service \
-  inventory-service api-gateway
-```
-
-The workflow polls `http://localhost:18080/actuator/health`, logs in as the demo
-administrator, submits an idempotent checkout, waits for `CONFIRMED`, and
-asserts the expected SAGA timeline stages.
-
-On failure it prints container status and the last 120 log lines. Cleanup runs
-even when a previous step fails.
-
-## Deploy Workflow
-
-`deploy.yml` runs after successful CI on `master` or through a manual dispatch.
-It builds and pushes images to GitHub Container Registry. The optional SSH
-deployment requires repository/environment secrets for the target host and
-credentials.
-
-Required permission:
-
-```yaml
-permissions:
-  contents: read
-  packages: write
-```
-
-Do not store registry tokens, database passwords, SSH keys, or production
-credentials in workflow YAML. Use GitHub environment secrets and protected
-deployment environments.
-
-## Jenkins Trigger
-
-`jenkins-trigger.yml` is an optional handoff. Use it only when Jenkins is
-reachable from the GitHub-hosted runner or through a secure self-hosted runner.
-Keep Jenkins credentials in GitHub secrets and configure Jenkins CSRF/API-token
-requirements as documented in [jenkins/README.md](../../dev-tools/jenkins/README.md).
-
-Leave all Jenkins secrets unset to skip this optional handoff. If any Jenkins
-secret is set, configure all of them:
-
-- `JENKINS_URL`
-- `JENKINS_JOB_PATH`
-- `JENKINS_USER`
-- `JENKINS_API_TOKEN`
-
-## Local Equivalent
-
-The closest local commands are:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 -Mode Changed
-powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 -Mode Integration
-powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 -Mode Full
-```
-
-See [testing/README.md](../../dev-tools/testing/README.md) for coverage and failure
-triage.
-
-## Documentation Workflow
-
-`docs-site.yml` installs the pinned Node dependencies from
-`documentation/package-lock.json`, runs the Docusaurus build, uploads the
-generated static site, and deploys it to GitHub Pages. Changes under
-`documentation/` or the workflow itself trigger this validation.
-
-The complete local setup, customization, image/diagram, search, troubleshooting,
-and deployment reference is
-[Docusaurus documentation portal](../../documentation/docs/operations/DOCUSAURUS.md).
-
-The local equivalent is:
+## Local validation
 
 ```powershell
-Set-Location documentation
-npm ci
-npm run typecheck
-npm run build
+node --test .github/ci/*.test.mjs
+node .github/ci/lint-workflows.mjs
+git diff --check
 ```
+
+Actionlint is a checksum-verified fixed upstream binary; no npm package is installed.
+Its guarded download/write is covered by regression tests and the exact
+[CodeQL alert 193 review](../ci/codeql-actionlint-review.md).
+It validates workflow schema and expressions; optional ShellCheck/pyflakes are not
+invoked by this wrapper. Backend CI also validates the Compose model. Run Java
+checks using the CI init script and `--no-configuration-cache`, and run the existing
+Testcontainers and SAGA checks with Docker available before claiming runtime readiness.
+
+Implementation references: [GitHub workflow-run trust boundaries](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_run),
+[reusable workflows](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows),
+[action security](https://docs.github.com/en/actions/reference/security/secure-use),
+[CodeQL availability](https://docs.github.com/en/code-security/reference/code-scanning/troubleshoot-analysis-errors/private-repository-enablement),
+and [SpotBugs Java 25 support](https://github.com/spotbugs/spotbugs/issues/3564).

@@ -1,0 +1,195 @@
+name: ShopVerse / CD / Production
+
+on:
+  workflow_run:
+    workflows: ["ShopVerse / CI / Backend"]
+    types: [completed]
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      ci_run_id:
+        description: Successful master-push Backend CI run with retained candidate images
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: shopverse-production-release
+  cancel-in-progress: false
+
+jobs:
+  verify-source:
+    name: Verify Release Source
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master') ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    permissions:
+      contents: read
+      actions: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    outputs:
+      source_sha: ${{ steps.source.outputs.source_sha }}
+      ci_run_id: ${{ steps.source.outputs.ci_run_id }}
+    steps:
+      - name: Checkout trusted release tooling
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Validate upstream identity and result
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CI_RUN_ID: ${{ inputs.ci_run_id || github.event.workflow_run.id }}
+        run: node .github/ci/pipeline.mjs resolve-release
+
+  publish-images:
+    name: Publish / ${{ matrix.service }}
+    needs: verify-source
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      packages: write
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        service: [config-server, discovery-server, user-service, auth-service, order-service, payment-service, inventory-service, api-gateway]
+    env:
+      SERVICE: ${{ matrix.service }}
+      SOURCE_SHA: ${{ needs.verify-source.outputs.source_sha }}
+      CI_RUN_ID: ${{ needs.verify-source.outputs.ci_run_id }}
+    steps:
+      - name: Checkout trusted release tooling
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Download the CI candidate
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: candidate-${{ matrix.service }}
+          path: candidate
+          github-token: ${{ github.token }}
+          run-id: ${{ env.CI_RUN_ID }}
+      - name: Check archive and loaded image identity
+        run: |
+          set -euo pipefail
+          (cd candidate && sha256sum --check image.tar.sha256)
+          docker load --input candidate/image.tar
+          node .github/ci/pipeline.mjs verify-candidate
+      - name: Log in to GHCR
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Publish the verified image and record its digest
+        run: |
+          set -euo pipefail
+          image="ghcr.io/${GITHUB_REPOSITORY,,}/${SERVICE}"
+          docker tag "shopverse/${SERVICE}:ci-${SOURCE_SHA}" "${image}:${SOURCE_SHA}"
+          docker push "${image}:${SOURCE_SHA}"
+          export PUBLISHED_REF
+          PUBLISHED_REF="$(docker image inspect "${image}:${SOURCE_SHA}" --format '{{index .RepoDigests 0}}')"
+          mkdir -p image-records
+          node .github/ci/pipeline.mjs record-published
+          cp candidate/sbom.cdx.json "image-records/${SERVICE}.cdx.json"
+      - name: Retain registry identity and SBOM
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: published-${{ matrix.service }}
+          path: image-records/
+          retention-days: 90
+          if-no-files-found: error
+
+  assemble-release:
+    name: Assemble Release Manifest
+    needs: [verify-source, publish-images]
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    outputs:
+      compose_b64: ${{ steps.manifest.outputs.compose_b64 }}
+    steps:
+      - name: Checkout trusted release tooling
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Download image identities
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          pattern: published-*
+          path: image-records
+          merge-multiple: true
+      - name: Create complete digest manifest
+        id: manifest
+        env:
+          SOURCE_SHA: ${{ needs.verify-source.outputs.source_sha }}
+          CI_RUN_ID: ${{ needs.verify-source.outputs.ci_run_id }}
+        run: node .github/ci/pipeline.mjs manifest
+      - name: Retain deployable release manifest
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: release-${{ needs.verify-source.outputs.source_sha }}
+          path: |
+            release-manifest.json
+            compose.release.json
+          retention-days: 90
+          if-no-files-found: error
+
+  deploy-production:
+    name: Deploy Production
+    needs: [verify-source, assemble-release]
+    if: vars.ENABLE_SSH_DEPLOY == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    steps:
+      - name: Require deployment identity configuration
+        env:
+          HOST_FINGERPRINT: ${{ secrets.DEPLOY_HOST_FINGERPRINT }}
+          COMPOSE_PROJECT: ${{ vars.DEPLOY_COMPOSE_PROJECT }}
+        run: |
+          set -euo pipefail
+          test -n "$HOST_FINGERPRINT"
+          [[ "$COMPOSE_PROJECT" =~ ^[a-z0-9][a-z0-9_-]*$ ]]
+      - name: Deploy verified digests with source-bound configuration
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
+        env:
+          SOURCE_SHA: ${{ needs.verify-source.outputs.source_sha }}
+          RELEASE_COMPOSE_B64: ${{ needs.assemble-release.outputs.compose_b64 }}
+          GHCR_USERNAME: ${{ github.actor }}
+          GHCR_READ_TOKEN: ${{ secrets.GHCR_READ_TOKEN }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_COMPOSE_PROJECT: ${{ vars.DEPLOY_COMPOSE_PROJECT }}
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT || 22 }}
+          fingerprint: ${{ secrets.DEPLOY_HOST_FINGERPRINT }}
+          envs: SOURCE_SHA,RELEASE_COMPOSE_B64,GHCR_USERNAME,GHCR_READ_TOKEN,DEPLOY_PATH,DEPLOY_COMPOSE_PROJECT
+          command_timeout: 8m
+          script: |
+            set -eu
+            case "$SOURCE_SHA" in *[!a-f0-9]*|'') exit 1 ;; esac
+            test "${#SOURCE_SHA}" -eq 40
+            test -n "$DEPLOY_PATH"
+            test -f "$DEPLOY_PATH/.env"
+            cd "$DEPLOY_PATH"
+            git fetch origin "$SOURCE_SHA"
+            release_dir="$DEPLOY_PATH/releases/$SOURCE_SHA"
+            mkdir -p "$release_dir"
+            git archive "$SOURCE_SHA" | tar -x -C "$release_dir"
+            printf '%s' "$RELEASE_COMPOSE_B64" | base64 --decode > "$release_dir/compose.release.json"
+            if [ -n "$GHCR_READ_TOKEN" ]; then
+              printf '%s' "$GHCR_READ_TOKEN" | docker login ghcr.io -u "$GHCR_USERNAME" --password-stdin
+            fi
+            docker compose --project-name "$DEPLOY_COMPOSE_PROJECT" --env-file "$DEPLOY_PATH/.env" -f "$release_dir/docker-compose.yml" -f "$release_dir/compose.release.json" pull config-server discovery-server user-service auth-service order-service payment-service inventory-service api-gateway
+            docker compose --project-name "$DEPLOY_COMPOSE_PROJECT" --env-file "$DEPLOY_PATH/.env" -f "$release_dir/docker-compose.yml" -f "$release_dir/compose.release.json" up -d --no-build --wait --wait-timeout 240 config-server discovery-server user-service auth-service order-service payment-service inventory-service api-gateway
+            docker compose --project-name "$DEPLOY_COMPOSE_PROJECT" --env-file "$DEPLOY_PATH/.env" -f "$release_dir/docker-compose.yml" -f "$release_dir/compose.release.json" ps

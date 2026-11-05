@@ -1,0 +1,31 @@
+// CI enforces the existing Checkstyle and SpotBugs rules without changing local defaults.
+gradle.allprojects { project ->
+    def repository = project.rootDir
+    while (repository != null && !new File(repository, '.github/ci/spotbugs-exclude.xml').isFile()) {
+        repository = repository.parentFile
+    }
+    if (repository == null) {
+        throw new GradleException('CI SpotBugs exception policy is missing')
+    }
+    def reviewedExceptions = new File(repository, '.github/ci/spotbugs-exclude.xml')
+    project.plugins.withId('com.github.spotbugs') {
+        // The existing plugin default cannot read Java 25 class files (major 69).
+        project.spotbugs.toolVersion = '4.9.8'
+        project.spotbugs.excludeFilter = reviewedExceptions
+    }
+    def generatedRoot = project.layout.buildDirectory.get().asFile.toPath()
+    def hasOwnedJava = !project.fileTree('src') { include '**/*.java' }.isEmpty()
+    tasks.configureEach { task ->
+        if (task.name.startsWith('checkstyle') || task.name.startsWith('spotbugs')) {
+            if (task.hasProperty('ignoreFailures')) {
+                task.ignoreFailures = false
+            }
+            // OpenAPI/Avro-only modules have no handwritten Java to lint.
+            if (!hasOwnedJava) {
+                task.enabled = false
+            } else if (task.name.startsWith('checkstyle')) {
+                task.exclude { entry -> entry.file.toPath().startsWith(generatedRoot) }
+            }
+        }
+    }
+}

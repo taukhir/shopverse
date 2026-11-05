@@ -1,18 +1,39 @@
 FROM node:22-alpine AS build
 
-WORKDIR /app
+WORKDIR /workspace/documentation
 
-COPY package*.json ./
+COPY documentation/package*.json ./
 RUN npm ci
 
-COPY . .
+COPY documentation/ ./
+# The prebuild mirror check reads canonical READMEs outside documentation/.
+COPY services/api-gateway/README.md /workspace/services/api-gateway/README.md
+COPY services/auth-service/README.md /workspace/services/auth-service/README.md
+COPY services/user-service/README.md /workspace/services/user-service/README.md
+COPY services/order-service/README.md /workspace/services/order-service/README.md
+COPY services/inventory-service/README.md /workspace/services/inventory-service/README.md
+COPY services/payment-service/README.md /workspace/services/payment-service/README.md
+COPY services/config-server/README.md /workspace/services/config-server/README.md
+COPY services/discovery-server/README.md /workspace/services/discovery-server/README.md
+COPY infra/cloud-configs/README.md /workspace/infra/cloud-configs/README.md
+COPY shopverse-common/README.md /workspace/shopverse-common/README.md
+COPY shopverse-web/README.md /workspace/shopverse-web/README.md
 RUN npm run build
 
 FROM nginx:1.27-alpine
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/build /usr/share/nginx/html
+COPY documentation/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /workspace/documentation/build /usr/share/nginx/html
 
-EXPOSE 80
+# nginx only needs writable cache/PID paths; static assets remain read-only.
+RUN sed -i -e 's@^[[:space:]]*pid[[:space:]].*;@pid /tmp/nginx.pid;@' \
+    -e '/^[[:space:]]*user[[:space:]]/d' /etc/nginx/nginx.conf \
+    && chown -R nginx:nginx /var/cache/nginx
 
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD wget -qO- http://localhost/ >/dev/null || exit 1
+USER nginx
+ENTRYPOINT ["nginx"]
+CMD ["-g", "daemon off;"]
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD wget -qO- http://127.0.0.1:8080/shopverse/ >/dev/null || exit 1

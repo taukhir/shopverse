@@ -1,9 +1,9 @@
 # Shopverse
 
-[![Shopverse CI](https://github.com/taukhir/shopverse/actions/workflows/ci.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/ci.yml)
-[![Shopverse Security](https://github.com/taukhir/shopverse/actions/workflows/security.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/security.yml)
+[![ShopVerse / CI / Backend](https://github.com/taukhir/shopverse/actions/workflows/ci-backend.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/ci-backend.yml)
+[![ShopVerse / CI / Security](https://github.com/taukhir/shopverse/actions/workflows/ci-security.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/ci-security.yml)
 [![License: MIT](https://img.shields.io/github/license/taukhir/shopverse)](LICENSE)
-[![Documentation](https://github.com/taukhir/shopverse/actions/workflows/docs-site.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/docs-site.yml)
+[![Documentation](https://github.com/taukhir/shopverse/actions/workflows/docs-verify-publish.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/docs-verify-publish.yml)
 [![Live Docs](https://img.shields.io/badge/Docs-Live-4051c7?style=flat-square&logo=docusaurus&logoColor=white)](https://taukhir.github.io/shopverse/)
 [![Static Demo](https://img.shields.io/badge/Demo-Static_Angular-14b8a6?style=flat-square&logo=angular&logoColor=white)](https://taukhir.github.io/portfolio/shopverse-demo.html)
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
@@ -493,8 +493,8 @@ The release checklist combines the frontend/documentation gate and the
 Docker-backed full-stack gate, then writes a JSON report to
 `testing/reports/shopverse-release-report.json`.
 The GitHub Actions workflow
-[frontend-sites.yml](.github/workflows/frontend-sites.yml) runs the same root
-automation on relevant frontend and documentation changes.
+[ci-web.yml](.github/workflows/ci-web.yml) runs the web checks on frontend
+changes. Documentation has its own verification and publication workflow.
 The full-stack gate starts an isolated Compose project, publishes API Gateway
 on `http://127.0.0.1:18080`, Angular on `http://127.0.0.1:14200`, and
 documentation on `http://127.0.0.1:13001`, then runs API SAGA smoke plus a real

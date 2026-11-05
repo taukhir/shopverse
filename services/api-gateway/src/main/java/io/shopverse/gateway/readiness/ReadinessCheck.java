@@ -1,5 +1,7 @@
 package io.shopverse.gateway.readiness;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public record ReadinessCheck(
@@ -7,6 +9,10 @@ public record ReadinessCheck(
         String message,
         Map<String, Object> details
 ) {
+    public ReadinessCheck {
+        details = details == null ? null : Collections.unmodifiableMap(new LinkedHashMap<>(details));
+    }
+
     public static ReadinessCheck up(String message, Map<String, Object> details) {
         return new ReadinessCheck(ReadinessStatus.UP.name(), message, details == null ? Map.of() : details);
     }

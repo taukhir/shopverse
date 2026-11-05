@@ -1,0 +1,15 @@
+.git
+.tmp
+.claude
+.codex
+.pnpm-store
+**/node_modules
+**/.gradle
+**/build
+**/logs
+**/*.log
+documentation/build*
+documentation/.docusaurus
+documentation/Dockerfile*
+infra/secrets
+dev-tools/teams

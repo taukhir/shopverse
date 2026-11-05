@@ -1,5 +1,7 @@
 package io.shopverse.platform.web.pagination;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public record PageResponse<T>(
@@ -11,4 +13,7 @@ public record PageResponse<T>(
         boolean first,
         boolean last
 ) {
+    public PageResponse {
+        content = content == null ? null : Collections.unmodifiableList(new ArrayList<>(content));
+    }
 }
