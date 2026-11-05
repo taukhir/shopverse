@@ -33,7 +33,7 @@ public class InventoryImageService {
             minioClient.putObject(PutObjectArgs.builder()
                     .bucket(properties.bucket())
                     .object(imageKey)
-                    .stream(file.getInputStream(), file.getSize(), -1)
+                    .stream(file.getInputStream(), file.getSize(), -1L)
                     .contentType(file.getContentType())
                     .build());
         } catch (Exception exception) {
