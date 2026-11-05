@@ -10,6 +10,19 @@ const shaPattern = /^[a-f0-9]{40}$/;
 const digestPattern = /^sha256:[a-f0-9]{64}$/;
 const imageIdPattern = /^sha256:[a-f0-9]{64}$/;
 const sharedPath = /^(build-logic\/|gradle\/|shopverse-common\/|infra\/|docker-compose[^/]*$|\.(dockerignore|gitattributes)$|\.github\/(workflows|ci)\/)/;
+const independentWorkflows = new Set(['ci-web.yml', 'docs-verify-publish.yml',
+  'ci-docs-visual.yml', 'ci-java-labs.yml', 'ci-database-lab.yml', 'integration-jenkins.yml']);
+
+function affectsSharedBackend(file) {
+  if (file.startsWith('.github/workflows/') && independentWorkflows.has(file.slice('.github/workflows/'.length))) {
+    return false;
+  }
+  // Config validation runs these tests and Actionlint on every PR. Documentation
+  // and test-only edits do not change service artifacts or their dependencies.
+  if (file.startsWith('.github/ci/') && (file.endsWith('.md') || file.endsWith('.test.mjs') ||
+      file === '.github/ci/lint-workflows.mjs')) return false;
+  return sharedPath.test(file);
+}
 
 export function selectChanges({event, ref, before, base, diff}) {
   const releaseCandidate = event === 'push' && ref === 'refs/heads/master';
@@ -23,7 +36,7 @@ export function selectChanges({event, ref, before, base, diff}) {
       catch { full = true; }
     }
   }
-  const shared = full || files.some(file => sharedPath.test(file));
+  const shared = full || files.some(affectsSharedBackend);
   const selected = services.filter(service => shared || files.some(file => file.startsWith(`services/${service}/`)));
   const row = service => ({service, path: `services/${service}`, dockerfile: `services/${service}/Dockerfile`});
   return {

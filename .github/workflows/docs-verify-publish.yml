@@ -6,29 +6,9 @@ on:
       - master
     paths:
       - "documentation/**"
-      - "README.md"
-      - "*/README.md"
-      - "AGENTS.md"
-      - "CLAUDE.md"
-      - "*/AGENTS.md"
-      - "*/CLAUDE.md"
-      - "dev-tools/ai-workflows/**"
-      - "shopverse-common/gradlew"
-      - "shopverse-common/gradle/**"
-      - ".github/workflows/docs-verify-publish.yml"
   pull_request:
     paths:
       - "documentation/**"
-      - "README.md"
-      - "*/README.md"
-      - "AGENTS.md"
-      - "CLAUDE.md"
-      - "*/AGENTS.md"
-      - "*/CLAUDE.md"
-      - "dev-tools/ai-workflows/**"
-      - "shopverse-common/gradlew"
-      - "shopverse-common/gradle/**"
-      - ".github/workflows/docs-verify-publish.yml"
   workflow_dispatch:
   schedule:
     - cron: "15 3 * * 1"
