@@ -73,21 +73,23 @@ class OrderInfrastructureIntegrationTest {
     }
 
     @Test
-    void migrationsSeedCoherentOrderHistory() {
+    void migrationsRemoveLegacyDemoOrders() {
+        // The seed changeset that used to populate DEMO-ORD-% orders/items/timeline
+        // events was superseded by 007-remove-demo-orders, which runs later in this
+        // same changelog. The correct post-migration state is zero rows -- not the
+        // old seeded history. See the 2026-07-16 "Refresh local baseline data"
+        // change: local/demo data now comes from scripts/Seed-ShopverseData.ps1
+        // against a running API, not from a baked-in Liquibase seed.
         assertThat(count("select count(*) from orders where order_number like 'DEMO-ORD-%'"))
-                .isEqualTo(9);
+                .isZero();
         assertThat(count("""
                 select count(*) from order_items item
                 join orders orders on orders.id = item.order_id
                 where orders.order_number like 'DEMO-ORD-%'
                 """))
-                .isEqualTo(10);
+                .isZero();
         assertThat(count("select count(*) from order_timeline_events where order_number like 'DEMO-ORD-%'"))
-                .isEqualTo(35);
-        assertThat(jdbcTemplate.queryForObject(
-                "select status from orders where order_number = 'DEMO-ORD-1004'",
-                String.class
-        )).isEqualTo("PAYMENT_PROCESSING");
+                .isZero();
     }
 
     @Test
