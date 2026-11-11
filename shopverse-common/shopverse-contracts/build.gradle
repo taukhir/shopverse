@@ -1,5 +1,5 @@
 plugins {
-    id 'org.openapi.generator' version '7.14.0'
+    id 'org.openapi.generator' version '7.27.0'
 }
 
 description = 'Service-owned REST contracts and generated transport DTOs.'
