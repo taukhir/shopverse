@@ -1033,6 +1033,28 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'IBM Db2 Architect Path',
+          link: {type: 'doc', id: 'data/DB2-ARCHITECT-PATH'},
+          items: [
+            'data/db2/DB2-ARCHITECTURE-STORAGE-INTERNALS',
+            'data/db2/DB2-SQL-ISOLATION-CONCURRENCY',
+            'data/db2/DB2-HA-OPERATIONS',
+            'data/db2/DB2-SPRING-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'MySQL Architect Path',
+          link: {type: 'doc', id: 'data/MYSQL-ARCHITECT-PATH'},
+          items: [
+            'data/mysql/MYSQL-ARCHITECTURE-STORAGE-INTERNALS',
+            'data/mysql/MYSQL-SQL-ISOLATION-CONCURRENCY',
+            'data/mysql/MYSQL-HA-OPERATIONS',
+            'data/mysql/MYSQL-SPRING-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Elasticsearch Architect Path',
           link: {type: 'doc', id: 'data/ELASTICSEARCH-ARCHITECT-PATH'},
           items: [
@@ -1624,6 +1646,7 @@ const sidebars: SidebarsConfig = {
             'cloud/aws/AWS-UMBRELLA',
             'cloud/aws/AWS-VPC-NETWORKING',
             'cloud/aws/AWS-COMPUTE-EBS-SCALING',
+            'cloud/aws/AWS-ELASTIC-BEANSTALK',
             'cloud/aws/AWS-DATABASES',
             'cloud/aws/AWS-EVENTS-STORAGE',
             'cloud/aws/AWS-LAMBDA-SERVERLESS',

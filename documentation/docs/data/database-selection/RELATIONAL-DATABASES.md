@@ -72,3 +72,14 @@ actor, action, target, time, correlation ID, and safe before/after metadata.
 
 Do not choose from feature lists alone. Benchmark transaction contention,
 replication lag, restore time, index maintenance, and the actual critical queries.
+
+## Engine-Specific Architect Paths
+
+This page compares engines at a glance. For internals, isolation-level
+semantics, HA/operations, and Spring integration depth on a specific
+engine, continue with its dedicated path:
+
+- [Oracle Database Architect Learning Path](../ORACLE-DATABASE-ARCHITECT-PATH.md)
+- [IBM Db2 Architect Learning Path](../DB2-ARCHITECT-PATH.md)
+- [MySQL Architect Learning Path](../MYSQL-ARCHITECT-PATH.md)
+- [Apache Cassandra Architect Path](../CASSANDRA-ARCHITECT-PATH.md) (NoSQL, for contrast)
