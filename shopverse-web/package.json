@@ -46,7 +46,7 @@
     "lighthouse": "^13.6.0",
     "postcss": "^8.5.15",
     "prettier": "^3.8.1",
-    "tailwindcss": "^4.3.2",
+    "tailwindcss": "^4.3.5",
     "typescript": "~6.0.2",
     "vitest": "^4.0.0"
   }
