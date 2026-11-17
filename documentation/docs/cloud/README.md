@@ -30,6 +30,7 @@ provider and service deep dives.
 | See the complete AWS service map | [AWS Umbrella](./aws/AWS-UMBRELLA.md) |
 | Learn AWS networking | [VPC And Networking](./aws/AWS-VPC-NETWORKING.md) |
 | Learn compute, scaling, storage, and API entry points | [Compute, EBS, Load Balancing And API Gateway](./aws/AWS-COMPUTE-EBS-SCALING.md) |
+| Deploy an application without hand-building EC2/ASG/ALB | [Elastic Beanstalk](./aws/AWS-ELASTIC-BEANSTALK.md) |
 | Learn relational and NoSQL databases | [RDS And DynamoDB](./aws/AWS-DATABASES.md) |
 | Learn events, queues, topics, and object storage | [EventBridge, SQS, SNS And S3](./aws/AWS-EVENTS-STORAGE.md) |
 | Learn serverless and Lambda trade-offs | [Lambda And Serverless](./aws/AWS-LAMBDA-SERVERLESS.md) |

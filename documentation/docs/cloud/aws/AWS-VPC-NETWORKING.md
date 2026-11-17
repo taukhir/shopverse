@@ -39,6 +39,49 @@ flowchart TB
     NAT --> IGW
 ```
 
+## CIDR Notation And Subnet Math
+
+A CIDR block such as `10.0.0.0/16` states the network address and a prefix
+length: the prefix length is how many leading bits are fixed for the
+network, leaving `32 - prefix` bits for host addresses. A `/16` has
+`2^(32-16) = 65,536` addresses; AWS reserves 5 addresses per subnet (network,
+broadcast-equivalent, and 3 for its own DNS/routing use), so a `/24` subnet
+(256 addresses) usable count is `256 - 5 = 251`.
+
+Worked example — sizing a `10.0.0.0/16` VPC for a checkout path spread
+across 3 Availability Zones, with public subnets for load balancers/NAT and
+private subnets for the order, payment, and inventory services:
+
+| Subnet | CIDR | Usable addresses | Purpose |
+|---|---|---|---|
+| `10.0.0.0/24` | AZ-a public | 251 | ALB, NAT gateway |
+| `10.0.1.0/24` | AZ-b public | 251 | ALB, NAT gateway |
+| `10.0.2.0/24` | AZ-c public | 251 | ALB, NAT gateway |
+| `10.0.10.0/24` | AZ-a private | 251 | order-service, payment-service, inventory-service tasks |
+| `10.0.11.0/24` | AZ-b private | 251 | order-service, payment-service, inventory-service tasks |
+| `10.0.12.0/24` | AZ-c private | 251 | order-service, payment-service, inventory-service tasks |
+
+A `/16` split into `/24` subnets yields up to 256 subnets of 251 usable
+addresses each — far more than this example needs, but sizing generously up
+front avoids a disruptive VPC CIDR expansion later. A smaller `/28` subnet
+(16 addresses, 11 usable) is a common mistake for an EKS private subnet: EKS
+assigns a secondary IP to every pod by default, so a handful of nodes can
+exhaust an undersized subnet's address space even though instance count
+looks small.
+
+NAT gateways are deployed per AZ (not shared) when cross-AZ data-transfer
+cost and the blast radius of losing one AZ's NAT path both matter; a single
+shared NAT gateway is cheaper but makes every other AZ's egress depend on
+one AZ staying healthy.
+
+**Security groups** are stateful: a rule that allows outbound traffic
+automatically allows the matching return traffic without a separate inbound
+rule. **Network ACLs** are stateless: an NACL permitting outbound traffic on
+an ephemeral port range must also have an inbound rule permitting the
+return traffic on that same ephemeral range, or the response is silently
+dropped — a frequent root cause of "security group looks correct but the
+connection still fails" tickets.
+
 ## Route Tables And Gateways
 
 - A route table chooses the next hop using the most-specific matching destination.
@@ -68,3 +111,19 @@ return paths, and asymmetric routes are common troubleshooting areas.
 - Use endpoints for high-volume AWS-service traffic when security and cost justify them.
 - Monitor NAT, endpoint, load-balancer, and cross-AZ data costs.
 - Treat routing, security groups, and endpoints as reviewed infrastructure code.
+
+## Interview Questions
+
+**How many usable host addresses does a `/27` subnet have on AWS?** A `/27`
+has `2^(32-27) = 32` addresses; AWS reserves 5, leaving 27 usable.
+
+**Two VPCs use `10.0.0.0/16` and `10.0.5.0/24`. Can they be peered?** No —
+`10.0.5.0/24` falls entirely inside `10.0.0.0/16`, so the ranges overlap.
+VPC peering (and most hybrid-connectivity options) requires non-overlapping
+CIDR blocks; overlap must be resolved before connecting them, not after.
+
+**A connection succeeds outbound but the response never arrives, even
+though the security group looks correct. What would you check next?** The
+subnet's Network ACL: NACLs are stateless, so the inbound rule for the
+ephemeral port range the client used for the return traffic may be missing
+even though the security group (stateful) is configured correctly.

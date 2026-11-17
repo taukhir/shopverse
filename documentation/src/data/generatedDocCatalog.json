@@ -3759,11 +3759,28 @@
     "scope": "generic",
     "owner": "docs-cloud",
     "lastReviewed": "2026-07-13",
-    "hasInterview": false,
+    "hasInterview": true,
     "hasCode": false,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": false
+  },
+  {
+    "title": "AWS Elastic Beanstalk",
+    "path": "/cloud/aws/AWS-ELASTIC-BEANSTALK",
+    "topic": "Cloud",
+    "difficulty": "Intermediate",
+    "pageType": "Guide",
+    "technologies": [],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-cloud",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
   },
   {
     "title": "AWS EventBridge, SQS, SNS And S3",
@@ -3844,7 +3861,7 @@
     "scope": "generic",
     "owner": "docs-cloud",
     "lastReviewed": "2026-07-13",
-    "hasInterview": false,
+    "hasInterview": true,
     "hasCode": false,
     "isLab": false,
     "isRunbook": false,
@@ -4615,6 +4632,88 @@
     "verifiedOfficial": false
   },
   {
+    "title": "Db2 Architecture, Storage, And Logging Internals",
+    "path": "/data/db2/DB2-ARCHITECTURE-STORAGE-INTERNALS",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "IBM Db2"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "Db2 HADR, pureScale, And Operations",
+    "path": "/data/db2/DB2-HA-OPERATIONS",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Guide",
+    "technologies": [
+      "IBM Db2",
+      "HADR",
+      "pureScale"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "Db2 SQL PL, Isolation Levels, And Concurrency",
+    "path": "/data/db2/DB2-SQL-ISOLATION-CONCURRENCY",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "IBM Db2",
+      "SQL PL"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "Db2 With Spring, Interview Scenarios, And Revision",
+    "path": "/data/db2/DB2-SPRING-INTERVIEW-REVISION",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Interview",
+    "technologies": [
+      "IBM Db2",
+      "Spring Boot",
+      "JDBC",
+      "Hibernate"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
     "title": "Distributed Databases",
     "path": "/data/DISTRIBUTED-DATABASES",
     "topic": "Data",
@@ -4901,6 +5000,29 @@
     "verifiedOfficial": true
   },
   {
+    "title": "IBM Db2 Architect Learning Path",
+    "path": "/data/DB2-ARCHITECT-PATH",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Learning Path",
+    "technologies": [
+      "IBM Db2",
+      "SQL PL",
+      "JDBC",
+      "Spring Boot",
+      "Spring Data JPA"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": false,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
     "title": "Indexes And Query Plans",
     "path": "/data/database-selection/INDEXES-QUERY-PLANS",
     "topic": "Data",
@@ -4946,6 +5068,112 @@
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": false
+  },
+  {
+    "title": "MySQL Architect Learning Path",
+    "path": "/data/MYSQL-ARCHITECT-PATH",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Learning Path",
+    "technologies": [
+      "MySQL",
+      "InnoDB",
+      "JDBC",
+      "Spring Boot",
+      "Spring Data JPA"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": false,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "MySQL Architecture, Storage, And InnoDB Internals",
+    "path": "/data/mysql/MYSQL-ARCHITECTURE-STORAGE-INTERNALS",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "MySQL",
+      "InnoDB"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "MySQL Replication, Availability, And Operations",
+    "path": "/data/mysql/MYSQL-HA-OPERATIONS",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Guide",
+    "technologies": [
+      "MySQL",
+      "Group Replication",
+      "Galera"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "MySQL SQL, Isolation Levels, And Concurrency",
+    "path": "/data/mysql/MYSQL-SQL-ISOLATION-CONCURRENCY",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "MySQL",
+      "InnoDB"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "MySQL With Spring, Interview Scenarios, And Revision",
+    "path": "/data/mysql/MYSQL-SPRING-INTERVIEW-REVISION",
+    "topic": "Data",
+    "difficulty": "Advanced",
+    "pageType": "Interview",
+    "technologies": [
+      "MySQL",
+      "Spring Boot",
+      "JDBC",
+      "Hibernate"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-data",
+    "lastReviewed": "2026-11-17",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
   },
   {
     "title": "Oracle Architecture, Storage, And Recovery Internals",
