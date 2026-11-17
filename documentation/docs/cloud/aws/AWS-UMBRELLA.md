@@ -35,8 +35,9 @@ responsibilities.
 | Need | Primary services | Guide |
 |---|---|---|
 | Network isolation and routing | VPC, subnets, route tables, internet/NAT gateways, security groups | [VPC And Networking](./AWS-VPC-NETWORKING.md) |
-| Compute and scaling | EC2, Auto Scaling, Availability Zones | [Compute, EBS, Scaling And Entry Points](./AWS-COMPUTE-EBS-SCALING.md) |
+| Compute and scaling | EC2, Auto Scaling, Auto Healing, Availability Zones | [Compute, EBS, Scaling And Entry Points](./AWS-COMPUTE-EBS-SCALING.md) |
 | Block storage | EBS snapshots, volume types, encryption | [Compute, EBS, Scaling And Entry Points](./AWS-COMPUTE-EBS-SCALING.md) |
+| PaaS application deployment | Elastic Beanstalk environments, deployment policies | [Elastic Beanstalk](./AWS-ELASTIC-BEANSTALK.md) |
 | HTTP APIs and traffic distribution | Elastic Load Balancing, API Gateway | [Compute, EBS, Scaling And Entry Points](./AWS-COMPUTE-EBS-SCALING.md) |
 | Relational data | RDS, Multi-AZ, read replicas | [RDS And DynamoDB](./AWS-DATABASES.md) |
 | Key-value/document data | DynamoDB, indexes, streams, capacity modes | [RDS And DynamoDB](./AWS-DATABASES.md) |
