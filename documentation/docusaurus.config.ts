@@ -104,6 +104,10 @@ const config: Config = {
         docsRouteBasePath: '/',
         // Navigation/aggregate pages repeat guide titles that are indexed at
         // their canonical routes, so omit that duplicate search content.
+        // mycheckout is excluded entirely for now -- it's a large imported
+        // reference set, not core Shopverse docs, and keeping it out of the
+        // index keeps search payload light while the docs site itself gets
+        // split into smaller, more maintainable sections.
         ignoreFiles: [
           /documentation-index$/i,
           /INTERVIEW-QUESTIONNAIRES$/,
@@ -111,6 +115,7 @@ const config: Config = {
           /DSA-INTERVIEW-QUESTION-BANK$/,
           /INTERVIEW-WORKBOOK$/,
           /case-study\/SHOPVERSE$/,
+          /^mycheckout\//,
         ],
         // Keep full-text prose search while excluding code, diagram labels, and
         // repeated reader UI. Guide headings and explanations remain searchable.
