@@ -121,6 +121,45 @@ internally — when an `Iterable` performs remote I/O.
 
 </DocCallout>
 
+## The Failure In Practice
+
+The paged iterator above has no idea the underlying order history changed
+between page fetches:
+
+```java
+OrderHistoryIterator it = new OrderHistoryIterator(client, "cust-42");
+// page 1: orders [A, B] with nextPageToken = "p2"
+
+while (it.hasNext()) {
+    Order order = it.next();
+    reconcile(order);
+    // ... between next() calls, the customer places a new order "C",
+    // which the backing store now sorts ahead of B on page 2
+}
+```
+
+```text
+Fetched page 1: [A, B]
+Fetched page 2: [B, C]   // B appears twice; a brand-new order "C" shifted the page boundary
+```
+
+`hasNext()`/`next()` only know about the page they already fetched — they
+have no transaction isolation across the two remote calls, so an insert
+between page 1 and page 2 can shift every subsequent page's boundary. `B`
+gets processed twice (`reconcile` must tolerate that, or the iterator needs
+a stable cursor — a token tied to `createdAt`/`id` rather than a raw page
+offset — to avoid it):
+
+```java
+// stable-cursor token instead of an offset-based page token
+OrderHistoryPage page = client.fetchPage(customerId, "after:" + lastSeenOrderId);
+```
+
+A cursor anchored to the last-seen row survives inserts ahead of the
+cursor position; an offset-based page token does not. Document which
+guarantee the iterator actually provides — most remote paging APIs give you
+one or the other, not both.
+
 ## Testing
 
 Test an empty source (`hasNext()` immediately `false`), a single-page

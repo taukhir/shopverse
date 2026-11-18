@@ -22,6 +22,16 @@ that actually executes pipeline steps. Scaling Jenkins is mostly about
 growing agent capacity safely; securing Jenkins is mostly about limiting
 what a compromised pipeline, plugin, or credential can reach.
 
+```mermaid
+flowchart LR
+    Controller["Controller<br/>schedules + UI, no builds"] -->|assigns by label| StaticA["Static agent<br/>always-on, fixed labels"]
+    Controller -->|provisions on demand| CloudPlugin["Cloud/K8s plugin"]
+    CloudPlugin -->|spins up, tears down| DynamicA["Dynamic agent pod<br/>clean per build"]
+    StaticA --> Exec1["Executor slots<br/>sized to CPU/memory"]
+    DynamicA --> Exec2["Executor slots<br/>sized to CPU/memory"]
+    Controller -. credential scope .-> CredFolder["Folder/job-scoped<br/>credential store"]
+```
+
 ## Static Versus Dynamic Agent Provisioning
 
 | Model | How capacity is added | Fits |
@@ -68,6 +78,36 @@ requests capacity with specific capabilities (a JDK version, a license
 file, a GPU) rather than any available executor — a label mismatch, not a
 general capacity shortage, is a common cause of a build queuing
 indefinitely even when other agents sit idle.
+
+The EC2 plugin follows the same request-by-label model for a cloud
+provider instead of Kubernetes:
+
+```groovy
+pipeline {
+    agent { label 'ec2-gradle-spot' }
+    stages {
+        stage('Build') {
+            steps {
+                sh './gradlew build --no-daemon'
+            }
+        }
+    }
+}
+```
+
+```text
+# Jenkins > Manage Jenkins > Clouds > Amazon EC2
+Label:            ec2-gradle-spot
+AMI:              ami-0123456789abcdef0 (pre-baked with JDK 21 + Gradle cache warm)
+Instance type:    c6a.xlarge (spot)
+Idle termination: 15 minutes
+Max instances:    6
+```
+
+The agent's label is the only thing the `Jenkinsfile` above knows about;
+whether that label resolves to a Kubernetes pod or a spot EC2 instance is
+an infrastructure decision made once in the cloud configuration, not a
+per-pipeline concern.
 
 ## Executor Sizing
 
@@ -142,6 +182,21 @@ def call(String serviceDir, String credentialsId) {
     withCredentials([usernamePassword(credentialsId: credentialsId, ...)]) { ... }
 }
 ```
+
+**Concretely, what goes wrong with the first version.** A multibranch
+pipeline (see the previous page) builds every pull request automatically,
+including PRs from forks. If `pushToRegistry()` above is called from a
+PR-branch `Jenkinsfile` that an attacker can edit — because multibranch
+discovery builds fork PRs without a human approving the `Jenkinsfile`
+first — the attacker's branch can call the same shared-library step and
+push an image to the production registry using `global-registry-creds`,
+without ever being granted that credential directly. The parameterized
+version does not fix this by itself; it only becomes safe once each
+*caller's* folder is also configured so untrusted branches cannot resolve
+a production-scoped credential ID. The actual fix is two layers: scope the
+credential away from global, **and** require approval for first-time PR
+builds from forks (Jenkins's own "build strategy" / approval setting for
+multibranch jobs) so an unapproved `Jenkinsfile` change cannot run at all.
 
 ## Incident Runbooks
 

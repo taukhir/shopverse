@@ -107,6 +107,43 @@ same order, with no behavior lost? If not, logic has leaked in.
 
 </DocCallout>
 
+## The Failure When A Facade Absorbs Compensation Logic
+
+Suppose `CheckoutFacade` is extended, one incident fix at a time, to also
+"handle" the case where payment fails after inventory is already reserved —
+without an explicit saga or outbox, because it felt like a two-line fix at the
+time:
+
+```java
+public CheckoutResponse checkout(CheckoutRequest request) {
+    Order order = orderService.create(request);
+    inventoryService.reserve(order);
+    try {
+        Payment payment = paymentService.authorize(order);
+        timelineService.record(order, payment);
+        return CheckoutResponse.from(order, payment);
+    } catch (PaymentDeclinedException e) {
+        inventoryService.release(order); // "compensation", added inline
+        orderService.cancel(order);      // also added inline
+        throw e;
+    }
+}
+```
+
+This looks correct and passes the happy-path and simple-decline tests. It
+silently breaks the moment `inventoryService.release(order)` itself throws (the
+inventory service is briefly unavailable, say) or the process crashes between
+`release` and `cancel`: the order is now cancelled in name but inventory was
+never actually released, or inventory was released but the order still shows
+as pending, and nothing records that this call ever reached the compensation
+branch. There is no outbox entry, no retry, no audit trail — the facade is now
+quietly acting as the application's only distributed-transaction coordinator,
+with none of the durability a real saga or outbox gives that responsibility.
+The fix is not to make the `try`/`catch` more careful; it is to recognize that
+cross-service compensation belongs in an explicit orchestrator (see
+[Mediator](./mediator.md)) or outbox-backed saga, not inline in a facade method
+that was only ever meant to call five services in order.
+
 ## Testing
 
 Test the facade's **orchestration**: that it calls the right subsystems in

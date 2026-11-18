@@ -1602,7 +1602,7 @@
     "owner": "docs-architecture",
     "lastReviewed": "2026-07-30",
     "hasInterview": true,
-    "hasCode": false,
+    "hasCode": true,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": false
@@ -3045,7 +3045,7 @@
     "owner": "docs-architecture",
     "lastReviewed": "2026-07-24",
     "hasInterview": true,
-    "hasCode": false,
+    "hasCode": true,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": false
@@ -4574,7 +4574,7 @@
     "owner": "docs-data",
     "lastReviewed": "2026-07-28",
     "hasInterview": true,
-    "hasCode": false,
+    "hasCode": true,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": true
@@ -5128,7 +5128,7 @@
     "owner": "docs-data",
     "lastReviewed": "2026-11-17",
     "hasInterview": true,
-    "hasCode": false,
+    "hasCode": true,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": true
@@ -8989,7 +8989,7 @@
     "owner": "docs-java",
     "lastReviewed": "2026-07-28",
     "hasInterview": true,
-    "hasCode": false,
+    "hasCode": true,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": true
@@ -18752,7 +18752,7 @@
     "owner": "docs-spring",
     "lastReviewed": "2026-07-30",
     "hasInterview": false,
-    "hasCode": false,
+    "hasCode": true,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": true

@@ -23,6 +23,25 @@ OpenJDK-level mechanics.
 Collections are API abstractions, but performance depends on their internal
 data structures.
 
+```mermaid
+flowchart TD
+    Collection --> List
+    Collection --> Set
+    Collection --> Queue
+    Map["Map (not a Collection)"]
+    List --> ArrayList & LinkedList
+    Set --> HashSet & LinkedHashSet & TreeSet
+    Queue --> ArrayDeque & PriorityQueue
+    Map --> HashMap & LinkedHashMap & TreeMap & ConcurrentHashMap
+    HashSet -.backed by.-> HashMap
+```
+
+`Map` is deliberately drawn separately: it does not extend `Collection`, even
+though `HashSet` is itself implemented as a thin wrapper over `HashMap` (see
+below). Confusing "backed by" with "is-a" is a common source of wrong
+answers about why `Map.values()`/`keySet()` behave like collection views
+while `Map` itself cannot be passed where a `Collection` is expected.
+
 ## Dedicated Implementation Guides
 
 This page remains a compact revision sheet. Use the dedicated guides for

@@ -139,6 +139,42 @@ direction better.
 
 </DocCallout>
 
+## The Failure In Practice
+
+The interface-based `LineItemVisitor` above is safe specifically because
+every implementation must provide every `visit` overload — the compiler
+rejects a visitor missing one. That guarantee disappears the moment someone
+"simplifies" a visitor with an `instanceof` chain instead of implementing
+the interface:
+
+```java
+// looks equivalent to FinanceExportVisitor, but is NOT an implementation
+// of LineItemVisitor — it is a free-standing method with its own dispatch
+FinanceRow exportRow(LineItem item) {
+    if (item instanceof PhysicalItem p) {
+        return FinanceRow.taxable(p.sku(), p.price(), "PHYSICAL");
+    }
+    if (item instanceof DigitalItem d) {
+        return FinanceRow.taxable(d.sku(), d.price(), "DIGITAL");
+    }
+    return null; // GiftCardItem falls through — nobody meant to skip it
+}
+```
+
+```java
+LineItem item = new GiftCardItem("GC-1", new BigDecimal("25.00"));
+FinanceRow row = exportRow(item);
+// row == null — the finance export silently drops every gift card line,
+// and nothing fails: no exception, no log, no test that happens to cover it
+```
+
+Six months later a new `BundleItem` type is added as a fourth
+`LineItem permits` member. The real `LineItemVisitor` interface forces a
+compile error in every implementation until `visit(BundleItem)` is added
+everywhere. The `instanceof`-chain version above compiles unchanged and
+silently returns `null` for bundles too — exactly the failure sealed
+interfaces plus exhaustive `switch`, or classic Visitor, exist to prevent.
+
 ## Testing
 
 Unit-test each `visit` overload against its specific line-item type and

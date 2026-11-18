@@ -170,48 +170,49 @@ process and usually shares the publisher's latency and failure boundary.
 
 ## Chain Of Responsibility
 
-Chain of Responsibility passes a request through ordered handlers.
+Chain of Responsibility passes a request through ordered handlers, each of
+which can continue, reject, or stop the chain.
 
-### Real Use: ATM Withdrawal
+### Real Use: Checkout Validation Rules
 
-An ATM withdrawal can be modeled as a chain of denomination dispensers:
+A checkout request must pass several independent rules — non-empty basket,
+stock available, address valid — before payment is attempted. Each rule is
+its own handler so rules can be added, removed, or reordered without
+touching the others:
 
 ```java
-public interface CashDispenser {
-    void dispense(int amount);
+public interface CheckoutRule {
+    ValidationOutcome evaluate(CheckoutContext context);
 }
 
-public final class DenominationDispenser implements CashDispenser {
-    private final int denomination;
-    private final CashDispenser next;
-
-    public DenominationDispenser(int denomination, CashDispenser next) {
-        this.denomination = denomination;
-        this.next = next;
-    }
-
-    public void dispense(int amount) {
-        int notes = amount / denomination;
-        int remaining = amount % denomination;
-
-        if (notes > 0) {
-            System.out.println("Dispense " + notes + " x " + denomination);
-        }
-        if (remaining > 0 && next != null) {
-            next.dispense(remaining);
-        }
+final class BasketNotEmptyRule implements CheckoutRule {
+    public ValidationOutcome evaluate(CheckoutContext context) {
+        return context.basket().isEmpty()
+                ? ValidationOutcome.reject("EMPTY_BASKET")
+                : ValidationOutcome.CONTINUE;
     }
 }
 ```
 
 ```java
-CashDispenser chain =
-        new DenominationDispenser(2000,
-        new DenominationDispenser(500,
-        new DenominationDispenser(100, null)));
+final class CheckoutRuleChain {
+    private final List<CheckoutRule> rules;
 
-chain.dispense(3700);
+    void validate(CheckoutContext context) {
+        for (CheckoutRule rule : rules) {
+            ValidationOutcome outcome = rule.evaluate(context);
+            if (outcome.isRejected()) {
+                throw new CheckoutRejected(outcome.code());
+            }
+        }
+    }
+}
 ```
+
+Each rule decides independently whether the chain should continue; see the
+[full Chain of Responsibility guide](./chain-of-responsibility.md) for the
+Spring-wired ordered-list implementation, the "forgot to reject" failure
+mode shown as real code, and tests.
 
 ### Spring Examples
 

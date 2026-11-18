@@ -125,6 +125,49 @@ underneath it as the cart continues to be edited. Always copy on capture.
 
 </DocCallout>
 
+## The Failure In Practice
+
+The snapshot is internally consistent the moment it is captured, but
+nothing keeps the rest of the world frozen while it waits in the draft
+store:
+
+```java
+CartSnapshot draft = cart.save();
+// captured: 1x "WIDGET-9" at $49.99, promotion "SPRING10" still valid
+
+draftStore.saveDraft(cart, Duration.ofHours(48));
+// ... 36 hours later: WIDGET-9's price changes to $59.99,
+// and promotion "SPRING10" expires
+
+Cart restored = new Cart(draft.cartId());
+restored.restore(draft);
+// restored cart still shows WIDGET-9 at $49.99 with SPRING10 applied
+```
+
+```text
+Checkout total for restored cart: $44.99   (expected current total: $59.99)
+```
+
+`restore()` faithfully reproduces exactly what was captured — that is the
+pattern working correctly. The bug is treating a 36-hour-old snapshot as
+still authoritative for price and promotion eligibility, which were never
+part of the cart's own state to begin with. The fix is re-validating
+price-sensitive fields against current catalog/promotion data on restore,
+not inside the memento itself:
+
+```java
+public void restore(CartSnapshot snapshot) {
+    if (!snapshot.cartId().equals(id)) {
+        throw new IllegalArgumentException("snapshot belongs to a different cart");
+    }
+    items.clear();
+    items.addAll(catalogService.repriceAsOf(snapshot.items(), Instant.now()));
+    this.promotionCode = promotionService.isStillValid(snapshot.promotionCode())
+            ? snapshot.promotionCode()
+            : null;
+}
+```
+
 ## Testing
 
 Unit-test that mutating the cart after calling `save()` does not change the

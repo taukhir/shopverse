@@ -117,6 +117,52 @@ traversal time.
 
 </DocCallout>
 
+## The Failure Without The Guard
+
+Remove the `requireAcyclic` call from the constructor above and the type still
+compiles and passes every test built from freshly-constructed objects, because
+nothing in the Java type system prevents a `ProductBundle` from (indirectly)
+containing itself:
+
+```java
+public final class ProductBundle implements Priceable {
+    private final String bundleSku;
+    private final List<Priceable> components;
+
+    public ProductBundle(String bundleSku, List<Priceable> components) {
+        this.bundleSku = bundleSku;
+        this.components = List.copyOf(components); // no acyclic check
+    }
+
+    public BigDecimal price() {
+        return components.stream()
+                .map(Priceable::price)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+}
+```
+
+A catalog editor loads bundle A (which contains bundle B) from the database,
+then separately edits bundle B to also contain bundle A — a perfectly
+reasonable-looking two-step edit if nothing prevents it. The next time any
+service calls `.price()` on either bundle, `price()` calls `price()` calls
+`price()` with no base case, and the call stack grows until the JVM throws:
+
+```text
+Exception in thread "main" java.lang.StackOverflowError
+    at ProductBundle.price(ProductBundle.java:11)
+    at ProductBundle.lambda$price$0(ProductBundle.java:12)
+    at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:...)
+    ... (repeats for thousands of frames)
+```
+
+With `requireAcyclic` reinstated, the *same* two-step catalog edit instead
+throws a clear, immediate `IllegalStateException: Cyclic bundle composition:
+BUNDLE-A` at the moment the second edit is loaded into a `ProductBundle` — long
+before any pricing call, and with a message that names the offending SKU
+instead of a stack trace that only shows the recursion, not the data that
+caused it.
+
 ## Testing
 
 Test a leaf alone, a composite of leaves, a composite of composites (at least

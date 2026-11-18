@@ -134,6 +134,45 @@ would otherwise be duplicated or drift across multiple call sites.
 
 </DocCallout>
 
+## The Failure In Practice
+
+The state machine only protects transitions that actually go through it.
+An `@Entity` with a plain enum field almost always still has a setter
+somewhere — a generic admin "fix this order" endpoint, a data migration
+script, a sloppy test helper — and that setter bypasses every rule above:
+
+```java
+@PutMapping("/admin/orders/{id}/status")
+void forceStatus(@PathVariable String id, @RequestBody OrderStatus newStatus) {
+    Order order = orders.findById(id).orElseThrow();
+    order.setStatus(newStatus); // bypasses OrderState entirely
+    orders.save(order);
+}
+```
+
+```java
+forceStatus("order-77", OrderStatus.SHIPPED);
+// order-77 was PENDING — stock was never reserved, payment was never
+// captured — but the row now reads SHIPPED and nothing rejected it
+```
+
+Going through the state object instead would have caught this correctly:
+
+```java
+Order order = orders.findById("order-77").orElseThrow();
+order.ship(ctx);
+```
+
+```text
+IllegalOrderTransition: cannot ship an order in status PENDING
+```
+
+The guard only works if `ship()`/`pay()`/`cancel()` are the *only* way the
+status field is ever written. If a plain setter is reachable from anywhere
+— even "just for admin tooling" — the State pattern is enforcing nothing;
+remove the setter or make it package-private and route every write through
+the state object, including the one the admin endpoint needs.
+
 ## Testing
 
 Unit-test each state's legal and illegal transitions directly — a

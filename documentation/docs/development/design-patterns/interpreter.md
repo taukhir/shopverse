@@ -120,6 +120,44 @@ grammar is the actual requirement.
 
 </DocCallout>
 
+## The Failure In Practice
+
+Nothing in the expression types above stops a rule-authoring tool (or a bug
+in one) from building a cyclic tree — `evaluate()` has no visited-node
+tracking:
+
+```java
+And left = new And(new ArrayList<>());
+And right = new And(List.of(left));
+left.terms().add(right); // left now contains right, which contains left
+```
+
+```java
+boolean result = left.evaluate(promotionContext);
+```
+
+```text
+Exception in thread "main" java.lang.StackOverflowError
+	at PromotionExpression$And.evaluate(PromotionExpression.java:71)
+	at PromotionExpression$And.evaluate(PromotionExpression.java:71)
+	... (repeats until the stack is exhausted)
+```
+
+There is no malicious input here — a configuration UI that lets rules
+reference other saved rules by name can produce this by accident the first
+time two rules reference each other. The fix is a depth/visited guard in
+the tree-builder (reject cycles before they are ever evaluated), not a
+try/catch around `StackOverflowError` at evaluation time:
+
+```java
+PromotionExpression build(RuleNode node, Set<String> visiting) {
+    if (!visiting.add(node.id())) {
+        throw new InvalidRuleException("cyclic rule reference: " + node.id());
+    }
+    // ... build children, then visiting.remove(node.id()) on the way back out
+}
+```
+
 ## Testing
 
 Unit-test each primitive expression (`GreaterThan`, `HasTag`) against

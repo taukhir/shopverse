@@ -55,6 +55,23 @@ spring:
 Treat values as measured starting points. Property names and supported options
 must be validated against the Spring Cloud release train used by the application.
 
+```mermaid
+flowchart LR
+    Producer["Producer function<br/>(orderId as key)"] -->|orders.created| T0["Partition 0"]
+    Producer -->|orders.created| T1["Partition 1"]
+    Producer -->|orders.created| T2["Partition 2"]
+    T0 --> CG["Consumer group<br/>inventory-service-v1"]
+    T1 --> CG
+    T2 --> CG
+    CG -->|max-attempts exhausted| DLT["orders.created.inventory.dlt"]
+```
+
+Every record with the same `orderId` key lands in the same partition, so
+one consumer instance in the group processes that order's events in
+order. The DLT is a separate topic the binder publishes to only after
+retry attempts are exhausted — it is not a broker-level feature, it is
+the binder routing a failed record there on your behalf.
+
 ## Partitioning, Ordering, And Scaling
 
 Use a stable business key such as `orderId` when events for one order must remain

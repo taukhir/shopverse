@@ -23,24 +23,31 @@ decorators can be composed without creating subclasses for every combination.
 ## Explicit Composition
 
 ```java
-public interface PaymentGateway {
-    Authorization authorize(PaymentRequest request);
+public interface InventoryLookup {
+    StockLevel stockLevelOf(Sku sku);
 }
 
-final class MeteredPaymentGateway implements PaymentGateway {
-    private final PaymentGateway delegate;
-    private final MeterRegistry meters;
+final class CachingInventoryLookup implements InventoryLookup {
+    private final InventoryLookup delegate;
+    private final Cache<Sku, StockLevel> cache;
 
-    public Authorization authorize(PaymentRequest request) {
-        Timer.Sample sample = Timer.start(meters);
-        try {
-            Authorization result = delegate.authorize(request);
-            meters.counter("payment.authorization",
-                    "outcome", result.outcome().name()).increment();
-            return result;
-        } finally {
-            sample.stop(meters.timer("payment.authorization.duration"));
+    public StockLevel stockLevelOf(Sku sku) {
+        StockLevel cached = cache.getIfPresent(sku);
+        if (cached != null) {
+            return cached;
         }
+        StockLevel fresh = delegate.stockLevelOf(sku);
+        cache.put(sku, fresh);
+        return fresh;
+    }
+}
+
+final class CircuitBreakingInventoryLookup implements InventoryLookup {
+    private final InventoryLookup delegate;
+    private final CircuitBreaker circuitBreaker;
+
+    public StockLevel stockLevelOf(Sku sku) {
+        return circuitBreaker.executeSupplier(() -> delegate.stockLevelOf(sku));
     }
 }
 ```
@@ -49,33 +56,65 @@ Wire the chain deliberately and expose only the outer bean as the default:
 
 ```java
 @Configuration
-class PaymentGatewayConfiguration {
-    @Bean("providerGateway")
-    PaymentGateway providerGateway(AcmePayClient client) {
-        return new AcmePayAdapter(client);
+class InventoryLookupConfiguration {
+    @Bean("inventoryServiceLookup")
+    InventoryLookup inventoryServiceLookup(InventoryServiceClient client) {
+        return new InventoryServiceLookup(client);
     }
 
     @Bean
     @Primary
-    PaymentGateway paymentGateway(
-            @Qualifier("providerGateway") PaymentGateway core,
-            MeterRegistry meters) {
-        return new MeteredPaymentGateway(
-                new ValidatingPaymentGateway(core), meters);
+    InventoryLookup inventoryLookup(
+            @Qualifier("inventoryServiceLookup") InventoryLookup core,
+            CircuitBreaker circuitBreaker) {
+        return new CircuitBreakingInventoryLookup(
+                new CachingInventoryLookup(core), circuitBreaker);
     }
 }
 ```
 
 ```mermaid
 flowchart LR
-    C["Payment service"] --> M["Metrics decorator"]
-    M --> V["Validation decorator"]
-    V --> A["Provider adapter"]
+    C["Checkout service"] --> B["Circuit-breaker decorator"]
+    B --> Ca["Caching decorator"]
+    Ca --> A["Inventory service lookup"]
 ```
 
-Order changes semantics. Metrics outside retry measures the whole logical call;
-metrics inside retry records each attempt. Caching outside authorization can be a
-security bug. Treat composition order as architecture, not incidental wiring.
+Order changes semantics. A circuit breaker outside the cache still serves cached
+stock levels when the inventory service is down (stale-but-available); a circuit
+breaker placed *inside* the cache (wrapping only the live call, with the cache
+checked first either way) behaves the same for cache hits but still protects the
+inventory service from being hammered on a cache miss during an outage. Caching
+outside a security check can be a security bug. Treat composition order as
+architecture, not incidental wiring.
+
+## The Failure Without An Ordering Discipline
+
+Circular decoration is not a hypothetical. Suppose two decorators are each
+constructed with a reference to "the other one" because a developer wired the
+circuit-breaker decorator to call back into the caching decorator for a
+"refresh" path, and the caching decorator was separately wired to call the
+circuit-breaker decorator for its own fallback:
+
+```java
+CircuitBreakingInventoryLookup breaker = new CircuitBreakingInventoryLookup(caching, cb);
+CachingInventoryLookup caching = new CachingInventoryLookup(breaker); // breaker not yet assignable
+```
+
+This specific shape fails to compile in Java (you cannot reference `breaker`
+before it is assigned), which is the compiler catching the simplest case. The
+runtime version of the same mistake slips through when the cycle is indirect —
+decorator A delegates to a Spring-injected `InventoryLookup` interface, decorator
+B implements the same interface and is also injected as "the" `InventoryLookup`
+into A's dependency, and Spring's proxy/factory resolution ends up wiring A back
+into itself through a shared bean name. The observable symptom is not a compile
+error but a `StackOverflowError` thrown from `stockLevelOf`, with a stack trace
+that is hundreds of frames of alternating `CachingInventoryLookup.stockLevelOf`
+and `CircuitBreakingInventoryLookup.stockLevelOf` calls — the two decorators
+calling each other forever instead of eventually reaching the real inventory
+service. The fix is the same discipline named in the callout below: name and
+qualify the core bean explicitly, and never let two decorators resolve "the"
+interface bean for each other.
 
 ## Decorator or Spring AOP?
 
@@ -93,7 +132,7 @@ method interception and is often created transparently by Spring.
 
 <DocCallout type="mistake" title="Avoid accidental circular decoration">
 
-If Spring injects `PaymentGateway` into a decorator while multiple beans implement
+If Spring injects `InventoryLookup` into a decorator while multiple beans implement
 that interface, resolution may be ambiguous or self-referential. Name the core
 bean, qualify the delegate, and make only the complete outer composition primary.
 

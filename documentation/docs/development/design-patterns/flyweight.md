@@ -108,6 +108,50 @@ convention alone.
 
 </DocCallout>
 
+## The Failure When The Shared Object Is Not Actually Immutable
+
+Suppose `ProductStyle` is changed from a `record` to a plain class so a
+renderer can cache whether it already drew the badge this frame — a one-line
+change that looks harmless in isolation:
+
+```java
+public final class ProductStyle {
+    private final String icon;
+    private final String accentColor;
+    private boolean badgeAlreadyRendered; // new mutable field
+
+    public void markBadgeRendered() {
+        this.badgeAlreadyRendered = true;
+    }
+
+    public boolean badgeAlreadyRendered() {
+        return badgeAlreadyRendered;
+    }
+}
+```
+
+Two unrelated product cards for different SKUs that happen to share the same
+`"electronics"` category now share the same `ProductStyle` instance from the
+cache. Card A renders first and calls `markBadgeRendered()`. Card B, rendered
+moments later on a different request thread, reads `badgeAlreadyRendered()`
+and sees `true` — even though *this specific card* never rendered its badge —
+because both calls hit the same cached object:
+
+```text
+Thread-A: styleFactory.styleFor("electronics") -> ProductStyle@7a3f (shared)
+Thread-A: style.markBadgeRendered()            -> ProductStyle@7a3f.badgeAlreadyRendered = true
+Thread-B: styleFactory.styleFor("electronics") -> ProductStyle@7a3f (SAME instance)
+Thread-B: style.badgeAlreadyRendered()          -> true  (wrong: Thread-B's card never rendered it)
+```
+
+The bug reproduces only when two cards of the same category render close
+enough together to share the cached instance, which makes it look like a rare
+race condition rather than what it actually is: a correctness bug guaranteed
+by sharing a mutable object across unrelated callers. The fix is the one
+stated above — keep `ProductStyle` a `record` with no mutable fields, and give
+per-render state like `badgeAlreadyRendered` to the caller (extrinsic state),
+never to the shared flyweight.
+
 ## Testing
 
 Test that two logically identical keys (`"electronics"` called twice)

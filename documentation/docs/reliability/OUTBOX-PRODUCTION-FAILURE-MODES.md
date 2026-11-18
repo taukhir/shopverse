@@ -56,6 +56,34 @@ transaction 2:
 commit
 ```
 
+```mermaid
+sequenceDiagram
+    participant W as Relay worker
+    participant DB as Database
+    participant K as Kafka
+
+    W->>DB: begin transaction 1
+    W->>DB: UPDATE ... SET status='PROCESSING', claim_token=:t, lease_until=:l WHERE status='PENDING'
+    DB-->>W: rows claimed
+    W->>DB: commit transaction 1
+    Note over W,K: no database transaction open here
+    W->>K: publish claimed rows
+    K-->>W: broker acknowledgment
+    W->>DB: begin transaction 2
+    W->>DB: UPDATE ... SET status='PUBLISHED' WHERE id=? AND claim_token=:t
+    alt claim_token still matches
+        DB-->>W: 1 row updated -> success
+    else another worker reclaimed after lease expiry
+        DB-->>W: 0 rows updated -> this worker lost ownership, do not retry finalize
+    end
+    W->>DB: commit transaction 2
+```
+
+The claim token in transaction 2's `WHERE` clause is the fence: if this
+worker paused long enough for its lease to expire and a recovery worker
+reclaimed the row with a new token, the finalize update silently affects
+zero rows instead of overwriting the new owner's state.
+
 Do not hold database row locks while waiting on Kafka. Use `SKIP LOCKED` where
 supported or an atomic conditional update. A claim token fences a stale worker
 that resumes after its lease expired.

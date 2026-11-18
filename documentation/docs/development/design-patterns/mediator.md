@@ -126,6 +126,53 @@ coordinator never needs to know more than execute/compensate.
 
 </DocCallout>
 
+## The Failure In Practice
+
+The coordinator starts small, then someone adds "just one quick check"
+directly into it instead of into the owning participant:
+
+```java
+@Service
+final class CheckoutSagaCoordinator {
+    public SagaResult run(CheckoutSagaContext ctx) {
+        // a domain rule leaking into the coordinator:
+        if (ctx.items().stream().anyMatch(i -> i.isHazardousMaterial())
+                && ctx.shippingAddress().isResidential()) {
+            return SagaResult.failed("hazmat-residential-not-allowed");
+        }
+        List<SagaParticipant> completed = new ArrayList<>();
+        for (SagaParticipant participant : participants) {
+            // ...
+        }
+        return SagaResult.succeeded();
+    }
+}
+```
+
+This compiles and works today. The problem shows up the first time this
+hazmat rule needs to be enforced somewhere *else* too — a direct
+reorder-from-history flow, a bulk-import tool — and whoever writes that
+second flow either duplicates the check or forgets it entirely, because the
+rule lives inside a saga-orchestration class instead of inside whichever
+participant actually owns shipping eligibility:
+
+```java
+@Component
+final class ShippingParticipant implements SagaParticipant {
+    public StepResult execute(CheckoutSagaContext ctx) {
+        if (ctx.items().stream().anyMatch(LineItem::isHazardousMaterial)
+                && ctx.shippingAddress().isResidential()) {
+            return StepResult.failure("hazmat-residential-not-allowed");
+        }
+        return shippingClient.createLabel(ctx) ? StepResult.success() : StepResult.failure("label-failed");
+    }
+}
+```
+
+Now the rule lives exactly once, next to the shipping logic it belongs to,
+and every caller that runs the shipping participant enforces it — not just
+the one that happened to go through this particular coordinator.
+
 ## Testing
 
 Unit-test each participant's `execute`/`compensate` in isolation with

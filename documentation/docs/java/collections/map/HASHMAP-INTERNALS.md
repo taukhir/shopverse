@@ -60,6 +60,19 @@ positions. That resize is O(n), making normal insertion amortized O(1).
 
 ## How It Works: `put`, `get`, And Resize
 
+```mermaid
+flowchart TD
+    A["table.length = 16\nbucket = (15) & hash"] -->|size crosses\n16 * 0.75 = 12| B["allocate table.length = 32"]
+    B --> C["for each old bucket's chain:\nsplit by one extra hash bit\ninto lowBucket / lowBucket+16"]
+    C --> D["old table discarded;\nnew table.length = 32,\nthreshold = 24"]
+```
+
+Resize does not rehash every key from scratch: because capacity always
+doubles, each old bucket's entries split into exactly two destination
+buckets based on one additional bit of the already-computed hash — this is
+why resize is O(n) over the whole map but touches each entry only once,
+not once per bucket scan.
+
 1. treat null as hash zero or spread `key.hashCode()`;
 2. select bucket with `(capacity - 1) & hash`;
 3. compare hash and then `equals` within the bin;

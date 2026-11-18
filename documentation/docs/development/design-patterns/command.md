@@ -125,6 +125,49 @@ for queue failure modes.
 
 </DocCallout>
 
+## The Failure In Practice
+
+A handler that is not actually idempotent turns a normal retry into a
+duplicate side effect:
+
+```java
+@Component
+final class RefundPaymentCommandHandler implements CommandHandler<RefundPaymentCommand> {
+    private final PaymentGateway gateway;
+
+    @Override
+    public void handle(RefundPaymentCommand command) {
+        // no check for "has this exact command already been applied"
+        gateway.refund(command.paymentReference(), command.amount());
+    }
+}
+```
+
+```java
+RefundPaymentCommand command = new RefundPaymentCommand("pay_123", new BigDecimal("49.99"), "customer-request");
+dispatcher.dispatch(command);           // network times out waiting for the response
+// caller sees a timeout, assumes failure, retries the same command
+dispatcher.dispatch(command);           // succeeds — the customer is refunded twice
+```
+
+The queue or outbox delivered the command at-least-once, exactly as
+documented above, and the handler executed it twice because nothing made
+the second execution a no-op. The fix is to make the handler check a
+durable record of already-processed command identifiers before calling the
+gateway, not to make the queue "exactly-once" (it cannot be, cheaply):
+
+```java
+@Override
+public void handle(RefundPaymentCommand command) {
+    String idempotencyKey = command.paymentReference() + ":" + command.reason();
+    if (processedRefunds.alreadyApplied(idempotencyKey)) {
+        return; // already refunded; treat the retry as a no-op, not an error
+    }
+    gateway.refund(command.paymentReference(), command.amount());
+    processedRefunds.markApplied(idempotencyKey);
+}
+```
+
 ## Testing
 
 Test command construction/validation independently of execution (a command

@@ -22,26 +22,26 @@ contract rather than concrete classes or wiring details.
 
 ## The Problem
 
-Without a factory, the checkout use case can become responsible for policy,
-configuration, construction, and execution:
+Without a factory, the order-confirmation use case can become responsible for
+policy, configuration, construction, and execution:
 
 ```java
-PaymentResult pay(PaymentMethod method, PaymentCommand command) {
-    PaymentGateway gateway = switch (method) {
-        case CARD -> new StripeGateway(apiKey, httpClient, objectMapper);
-        case UPI -> new RazorpayGateway(merchantId, secret, httpClient);
-        case WALLET -> new WalletGateway(walletRepository);
+NotificationResult notify(NotificationChannel channel, OrderConfirmedCommand command) {
+    NotificationSender sender = switch (channel) {
+        case EMAIL -> new SmtpNotificationSender(smtpHost, smtpPort, templateEngine);
+        case SMS -> new TwilioNotificationSender(accountSid, authToken);
+        case PUSH -> new FcmNotificationSender(fcmCredentials);
     };
-    return gateway.charge(command);
+    return sender.send(command);
 }
 ```
 
-The business method now changes whenever a provider is added. Tests must know
+The business method now changes whenever a channel is added. Tests must know
 every constructor, and manually created dependencies may bypass Spring proxies,
 configuration, metrics, or lifecycle management.
 
-The stable boundary should be `PaymentGateway`; product selection and creation
-should have one explicit owner.
+The stable boundary should be `NotificationSender`; channel selection and
+creation should have one explicit owner.
 
 ## Factory Method, Simple Factory, And Registry
 
@@ -61,25 +61,25 @@ The intent matters more than forcing the textbook class diagram.
 The creator owns a stable workflow and delegates only the product decision:
 
 ```java
-public abstract class PaymentProcessor {
+public abstract class OrderConfirmationProcessor {
 
-    public final PaymentResult process(PaymentCommand command) {
+    public final NotificationResult process(OrderConfirmedCommand command) {
         validate(command);
-        PaymentGateway gateway = createGateway();
-        return gateway.charge(command);
+        NotificationSender sender = createSender();
+        return sender.send(command);
     }
 
-    protected abstract PaymentGateway createGateway();
+    protected abstract NotificationSender createSender();
 
-    private void validate(PaymentCommand command) {
+    private void validate(OrderConfirmedCommand command) {
         Objects.requireNonNull(command);
     }
 }
 
-public final class TestPaymentProcessor extends PaymentProcessor {
+public final class TestOrderConfirmationProcessor extends OrderConfirmationProcessor {
     @Override
-    protected PaymentGateway createGateway() {
-        return new FakePaymentGateway();
+    protected NotificationSender createSender() {
+        return new RecordingNotificationSender();
     }
 }
 ```
@@ -102,29 +102,29 @@ injected registry—when callers only need a product and no overridable workflow
 
 ## Implementation 2: Spring-Managed Registry
 
-For managed payment gateways, the factory should return existing beans rather
-than call `new` and bypass Spring lifecycle behavior:
+For managed notification channels, the factory should return existing beans
+rather than call `new` and bypass Spring lifecycle behavior:
 
 ```java
-public interface PaymentGateway {
-    PaymentProvider provider();
-    PaymentResult charge(PaymentCommand command);
+public interface NotificationSender {
+    NotificationChannel channel();
+    NotificationResult send(OrderConfirmedCommand command);
 }
 
 @Component
-final class PaymentGatewayFactory {
-    private final Map<PaymentProvider, PaymentGateway> gateways;
+final class NotificationChannelFactory {
+    private final Map<NotificationChannel, NotificationSender> senders;
 
-    PaymentGatewayFactory(List<PaymentGateway> candidates) {
-        this.gateways = candidates.stream().collect(Collectors.toUnmodifiableMap(
-                PaymentGateway::provider,
+    NotificationChannelFactory(List<NotificationSender> candidates) {
+        this.senders = candidates.stream().collect(Collectors.toUnmodifiableMap(
+                NotificationSender::channel,
                 Function.identity()
         ));
     }
 
-    PaymentGateway forProvider(PaymentProvider provider) {
-        return Optional.ofNullable(gateways.get(provider))
-                .orElseThrow(() -> new UnsupportedProvider(provider));
+    NotificationSender forChannel(NotificationChannel channel) {
+        return Optional.ofNullable(senders.get(channel))
+                .orElseThrow(() -> new UnsupportedChannel(channel));
     }
 }
 ```
@@ -132,13 +132,49 @@ final class PaymentGatewayFactory {
 This is often called a factory in application code, although it combines lookup
 with Spring-managed registration.
 
+```mermaid
+flowchart TB
+    Req["notify(customer, EMAIL)"] --> F["NotificationChannelFactory.forChannel(EMAIL)"]
+    F --> Lookup{"senders.get(EMAIL)"}
+    Lookup -->|found| Send["SmtpNotificationSender.send(command)"]
+    Lookup -->|not found| Throw["UnsupportedChannel thrown —\nfail fast, caller sees the gap"]
+```
+
 ### Drawbacks And Solutions
 
-- Duplicate provider keys can fail only at startup. Collect with a merge
+- Duplicate channel keys can fail only at startup. Collect with a merge
   function that throws a descriptive exception and cover it with a context test.
 - A string-keyed map is typo-prone. Prefer a domain enum or value type.
 - Returning singleton beans is not object creation. Name the type `Registry` or
   `Resolver` when accurate terminology improves the design.
+
+### The Bug: Falling Through To A Default Instead Of Failing Fast
+
+The diagram above throws on a missing key. Here is the version that does not,
+and the production incident it causes:
+
+```java
+NotificationSender forChannel(NotificationChannel channel) {
+    // BUG: silently falls back to EMAIL instead of failing fast
+    return senders.getOrDefault(channel, senders.get(NotificationChannel.EMAIL));
+}
+```
+
+```java
+// Customer opted into SMS-only notifications and has no email on file.
+NotificationSender sender = factory.forChannel(NotificationChannel.SMS);
+sender.send(command);
+// NotificationChannel.SMS was never registered (its bean failed to start
+// because of a missing Twilio credential), so this silently sends an email
+// — to an address that does not exist. send() returns success. The customer
+// never learns their order confirmed, and nothing in the logs says why.
+```
+
+The `orElseThrow` version from the main implementation would have failed the
+request immediately with `UnsupportedChannel(SMS)`, surfacing the missing
+Twilio bean at the call site instead of three support tickets later. A test
+that registers only `EMAIL` and asserts `forChannel(SMS)` throws — rather than
+asserts it returns *something* — is what catches this before production does.
 
 ## Implementation 3: A Simple Factory For Runtime Objects
 
