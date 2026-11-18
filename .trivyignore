@@ -1,0 +1,11 @@
+# Trivy filesystem-scan exceptions.
+#
+# CVE-2026-112366 (picomatch ReDoS, CVSS 7.5): unpatched upstream as of this
+# writing — affects every picomatch release through 4.0.7, so npm cannot
+# resolve to a fixed version. picomatch reaches this repo only as a
+# transitive build-time dependency of Docusaurus tooling (micromatch,
+# chokidar, anymatch, jest-worker) used while building/serving the docs
+# site; it never processes attacker-supplied glob patterns at runtime in a
+# deployed service. Remove this line once an upstream fix is available and
+# `npm audit` can resolve to it.
+CVE-2026-112366
