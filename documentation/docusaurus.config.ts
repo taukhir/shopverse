@@ -229,6 +229,11 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: '/mycheckout/overview',
+          label: 'mycheckout',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/taukhir/shopverse',
           label: 'GitHub',
           position: 'right',

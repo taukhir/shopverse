@@ -23,7 +23,7 @@ and is meant to be updated as work lands.
 | Address book | Done | `user-service` `/api/v1/users/me/addresses/*` |
 | Persisted cart | Done | `user-service` `CartController` |
 | Product catalog (browse, detail, category, related) | Done | `inventory-service` `InventoryController` public endpoints |
-| Checkout (idempotent, shipping snapshot, SAGA) | Done | `order-service` `OrderController` + `OrderSagaListener` |
+| Checkout (idempotent, shipping snapshot, SAGA) | Done — **BUG-013 fixed 2026-11-17** | Idempotency-key replay handling and the shipping-address snapshot were always correct. The SAGA choreography gap is now fixed: `OrderEntity.markPendingInventory()` is called in `checkout()` right after the `ORDER_CREATED` timeline append (same transaction as the outbox enqueue), so the previously dead `OrderServiceImpl` saga guards (`markInventoryRejected`, `markInventoryReservedAndPaymentProcessing`, `confirm`) now fire correctly. Verified via new unit tests in `OrderServiceImplTest` (Docker unavailable locally for the Testcontainers integration suite — confirm on next CI run). |
 | Order timeline / audit trail | Done | `OrderTimelineEvent`, `/api/v1/orders/{id}/timeline` |
 | Order cancellation, return request | Done | `order-service` customer endpoints |
 | Admin fulfillment (pack/ship/deliver/cancel) | Done | `order-service` admin endpoints |

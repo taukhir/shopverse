@@ -83,6 +83,18 @@ Payment states include:
 PENDING, AUTHORIZED, CAPTURED, DECLINED, TIMED_OUT, REFUNDED
 ```
 
+:::note BUG-013 fixed 2026-11-17 — Order-side steps below are reachable again
+The dead `OrderStatus.PENDING_INVENTORY` assignment that made 9 of 14
+`OrderStatus` values unreachable is fixed: `OrderEntity.markPendingInventory()`
+is now called in `checkout()` right after the `ORDER_CREATED` timeline
+append, same transaction as the outbox enqueue. Verified via
+`OrderServiceImplTest`'s new proving tests (unit-level — Docker was
+unavailable locally to run the Testcontainers integration suite; confirm
+on next CI run before treating this as fully closed in a real
+environment). Full root-cause and fix writeup:
+[Order Status Dead-Transition Problem](../reliability/problems/ORDER-STATUS-DEAD-TRANSITION-PROBLEM.md).
+:::
+
 ### Success
 
 1. Set simulation to `SUCCESS`.

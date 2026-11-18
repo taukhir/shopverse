@@ -1,7 +1,7 @@
 ---
 title: JWT Claims Roles And Scopes
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-11-17"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -52,8 +52,40 @@ public OrderTimelineResponse getTimeline(String orderNumber) {
 }
 ```
 
+**Only two of the claims in the table above are actually issued.**
+`JwtService.generateToken(...)` sets `roles` (space-joined) and
+`permissions` (a list) — there is no `scope` claim and no `aud` claim
+anywhere in the token it builds; "roles versus scopes" is a real
+conceptual distinction, but Shopverse's own tokens only carry the roles
+side of it today.
+
+**The `ROLE_` prefix is not added by Shopverse's converter — it has to
+already be in the stored data.** Every service shares one
+`JwtGrantedAuthoritiesConverter`
+(`shopverse-common/shopverse-security-starter`'s
+`ShopverseJwtAuthoritiesConverter`), and it does nothing but copy the
+`roles`/`permissions` claim values straight into `GrantedAuthority`
+objects — no prefixing, no transformation:
+
+```java
+private void addClaimAuthorities(Set<GrantedAuthority> authorities, Object claimValue) {
+    // splits/iterates the claim, then: authorities.add(new SimpleGrantedAuthority(authority));
+}
+```
+
+Yet `order-service`'s `SecurityConfig` calls `.hasRole("ADMIN")`, and
+Spring Security's `hasRole(...)` only ever matches an authority literally
+named `ROLE_ADMIN`. For that to work, the `roles` claim's values —
+ultimately `Role.roleName()` from the database — must *already* be
+stored as `ROLE_ADMIN`/`ROLE_CUSTOMER`, not `ADMIN`/`CUSTOMER`. This is
+exactly the deliberate-converter warning in the "Roles Versus Scopes"
+section above, not a default Spring Security is quietly papering over —
+Shopverse made the data carry the prefix instead of making the converter
+add it.
+
 ## Related Guides
 
 - [Authorization and method security](../spring-security/AUTHORIZATION-METHOD-SECURITY.md)
 - [JWT fundamentals](JWT-FUNDAMENTALS.md)
+- [JWKS and asymmetric JWT](JWKS-ASYMMETRIC-JWT.md)
 

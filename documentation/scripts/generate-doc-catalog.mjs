@@ -7,7 +7,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const docsRoot = join(root, 'docs');
 async function walk(dir) { return (await Promise.all((await readdir(dir,{withFileTypes:true})).map((entry)=>entry.isDirectory()?walk(join(dir,entry.name)):join(dir,entry.name)))).flat(); }
 const files=(await walk(docsRoot)).filter((file)=>/\.mdx?$/.test(file));
-const topics={java:'Java',spring:'Spring',development:'Engineering',operations:'Operations',architecture:'Architecture',data:'Data',security:'Security',observability:'Observability',cloud:'Cloud',ai:'AI',reliability:'Reliability',integration:'Integration','data-structures':'Data Structures','case-study':'Shopverse'};
+const topics={java:'Java',spring:'Spring',development:'Engineering',operations:'Operations',architecture:'Architecture',data:'Data',security:'Security',observability:'Observability',cloud:'Cloud',ai:'AI',reliability:'Reliability',integration:'Integration','data-structures':'Data Structures','case-study':'Shopverse',mycheckout:'mycheckout'};
 const catalog=[];
 for(const file of files){
   const source=await readFile(file,'utf8'); const parsed=matter(source); const data=parsed.data;

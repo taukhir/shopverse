@@ -9,6 +9,12 @@ For persistent per-role knowledge, dialogue history, and task tracking,
 see the per-role folders in this directory — this file stays the
 quick-glance roster; [`README.md`](README.md) explains the structure, and
 [`sprints/`](sprints/) has the chronological meeting record.
+[`ROADMAP.md`](ROADMAP.md) has step-by-step implementation plans and
+expected results for every `BACKLOG.md` item, including the 2026-11-17
+learning-goal batch (FEAT-S through Z, ENH-014 through 020).
+[`BACKLOG-BY-AREA.md`](BACKLOG-BY-AREA.md) groups every item by
+frontend/backend-service/platform area instead of by type — use it to see
+what's outstanding for one service at a glance.
 
 ## Roster
 
@@ -21,19 +27,22 @@ quick-glance roster; [`README.md`](README.md) explains the structure, and
 | Priya Raman | Client | 30 yrs, retail/e-commerce business leadership | Active | Sets business requirements and deadlines |
 | Jordan Lee | Product Owner | 18 yrs, product management in e-commerce | Active | Prioritizes backlog, refines acceptance criteria, sizes work |
 | Sam Okafor | Business Analyst | 20 yrs, requirements engineering | Active | Turns stakeholder input into formal functional specs |
-| Maya Chen | Frontend Developer (Junior Dev 1) | 1.5 yrs, Angular/TypeScript | **Onboarded** | Implements frontend-scoped tasks assigned by the Senior Developer |
+| Maya Chen | Frontend Developer (Junior Dev 1) | 1.5 yrs, Angular/TypeScript | **Active** | Shipped ENH-026 and ENH-042 2026-11-17 — first real delivered work, not just assigned; see [tasks](frontend-developer/tasks.md) |
 | Diego Alvarez | Senior Microservices Developer | 12 yrs, Java/Spring Boot, Kafka, distributed systems | **Onboarded** | Pairs with the Architect on execution, reviews backend code, can drive independent investigations when asked |
 | Arjun Mehta | Backend Developer (Junior Dev 2) | 2 yrs, Java/Spring Boot | Not yet onboarded | Reserved for backend-scoped tickets (now likely needed for BUG-001 — see Current Cycle) |
-| Noah Bennett | Tester 1 | 3 yrs, manual + automation QA | Not yet onboarded | QA / UAT execution |
-| Lena Ortiz | Tester 2 | 2 yrs, QA/UAT, accessibility testing focus | Not yet onboarded | QA / UAT execution |
+| Noah Bennett | Tester 1 | 3 yrs, manual + automation QA | **Onboarded** | First contribution 2026-11-17 — found BUG-045; see [discussions](tester-1/discussions.md) |
+| Lena Ortiz | Tester 2 | 2 yrs, QA/UAT, accessibility testing focus | **Onboarded** | First contribution 2026-11-17 — found BUG-046/ENH-045; see [discussions](tester-2/discussions.md) |
 
 ## Current Cycle
 
-Working ticket: BUG-001 — checkout only orders the first cart item, now
-expanded into a full EOM/Order-contract design effort (FEAT-E/FEAT-L).
-Everything settled is in [`DECISIONS.md`](DECISIONS.md) (13
-decisions as of 2026-11-04); everything unresolved is in
-[`OPEN-QUESTIONS.md`](OPEN-QUESTIONS.md) (9 open items). This
+**Reordered 2026-11-17** (discussion-08): room recommendation is
+`BUG-013 → BUG-001 (option a) → dedup/inbox → FEAT-J → ENH-012` — BUG-013
+(checkout never reaches `CONFIRMED`, 9/14 `OrderStatus` values dead) is
+fully designed and ahead of BUG-001, which has no current business
+deadline forcing it. Pending Tauqeer's sign-off to assign implementation.
+Everything settled is in [`DECISIONS.md`](DECISIONS.md) (14
+decisions as of 2026-11-17); everything unresolved is in
+[`OPEN-QUESTIONS.md`](OPEN-QUESTIONS.md) (11 rows, 4 resolved). This
 section intentionally stays short and links out — it previously
 re-quoted facts in full and drifted out of sync with the ledgers because
 of it.

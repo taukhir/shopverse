@@ -1,7 +1,7 @@
 ---
 title: JWT Best Practices
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-11-17"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -44,8 +44,28 @@ expires or is blocked.
 | token denylist by `jti` | immediate blocking, requires lookup |
 | key rotation | invalidates token sets signed by old keys |
 
+## Shopverse Reality
+
+Checking Shopverse against its own table above: of the four revocation
+options listed, exactly **one** is in place — short expiry (`auth-service`
+issues access tokens with a fixed 1-hour `exp`, `JwtService.java:34`).
+Refresh-token rotation, `jti` denylisting, and key rotation are all **not
+implemented** — there is no refresh endpoint, no logout/revoke endpoint,
+and the JWKS signing key is a single hard-coded key with no rotation
+support (see [JWKS reality](JWKS-ASYMMETRIC-JWT.md#shopverse-reality-rotation-support-is-not-actually-wired)).
+Audience (`aud`) validation from the checklist above is also not
+configured on any resource server yet — every service validates
+signature, issuer, and expiry (`JwtValidators.createDefaultWithIssuer(...)`),
+but none configure an audience validator. None of this is accidental:
+`services/auth-service/AGENTS.md` states plainly that this service is
+"not a complete OAuth2 authorization server" — but it does mean the
+1-hour expiry is currently the platform's *only* working line of defense
+against a leaked or no-longer-valid token, not one layer among several.
+
 ## Related Guides
 
+- [JWT fundamentals](JWT-FUNDAMENTALS.md)
 - [JWKS and asymmetric JWT](JWKS-ASYMMETRIC-JWT.md)
+- [JWT claims, roles, and scopes](JWT-CLAIMS-ROLES-SCOPES.md)
 - [Token lifecycle](../oauth/TOKEN-LIFECYCLE.md)
 
