@@ -1,0 +1,75 @@
+title = "ShopVerse gitleaks config"
+
+# Keep every built-in detection rule; we only add an allowlist below.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Audited findings: burned/rotated keys, intentional test fixtures, and documentation examples with no real secret value"
+
+# Exact commit:file:rule:line fingerprints, as printed by gitleaks itself.
+# Each entry below is annotated with why it is safe to ignore.
+fingerprints = [
+  # Original leaked RSA signing key, already treated as burned per
+  # commit 503fc9f5 (Stop committing auth-service JWT signing key to the
+  # repo). The service was later renamed security-service -> auth-service;
+  # nothing in production trusts this key. Rewriting history to remove it
+  # was explicitly rejected (would force-push-break every clone/fork) and
+  # is unnecessary since the key material is already rotated out of use.
+  "8f154ec06f3afa6a054ea2a3760e710e4283bb44:security-service/src/main/resources/keys/private.pem:private-key:1",
+
+  # Deliberately non-sensitive test-only key pair added by the same fix
+  # (503fc9f5) specifically to replace the real key in
+  # AuthServiceApplicationTests. Never used outside the test classpath.
+  "503fc9f5d830a8e3f139eb31c9b250a0e8b14cb9:services/auth-service/src/test/resources/keys/private.pem:private-key:1",
+
+  # Documentation example payloads, not real credentials: a placeholder
+  # redacted-api-key header value and fabricated sv_live sample API key
+  # used to illustrate the API-key design docs.
+  "3a316ceaad008e944831cd7b4041650612dcf1bf:documentation/docs/security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md:generic-api-key:396",
+  "3a316ceaad008e944831cd7b4041650612dcf1bf:documentation/docs/security/ACCESS-REFRESH-API-KEY-IMPLEMENTATION-GUIDE.md:generic-api-key:414",
+  "f7a6cc8b0a2ddc2b404f5827763ad718bc17b85d:documentation/docs/security/API-KEY-AUTHORIZATION-OPERATIONS.md:generic-api-key:91",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:documentation/docs/architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS.md:generic-api-key:491",
+
+  # Historical copies of the same documentation example content, committed
+  # by mistake inside stray build-output / package-manager-cache
+  # directories (.tmp/, .pnpm-store/, documentation/build-*) that have
+  # since been untracked. gitleaks still scans full history, so these
+  # historical commits keep resurfacing even though the paths are gone
+  # from HEAD.
+  "6ae319f988512d8f75638498cd2c40d45246bdc1:.tmp/docusaurus-validation-build/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-3012/assets/js/3b6c016a.75f55986.js:generic-api-key:1",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-3012/java/JAVA-ASSERTIONS-TOOLCHAIN/index.html:generic-api-key:46",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-3012/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-3012/reliability/problems/optimization/RUNTIME-OPTIMIZATION/index.html:generic-api-key:52",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-jpa-validation-2/assets/js/3b6c016a.75f55986.js:generic-api-key:1",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-jpa-validation-2/java/JAVA-ASSERTIONS-TOOLCHAIN/index.html:generic-api-key:46",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-jpa-validation-2/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-jpa-validation-2/reliability/problems/optimization/RUNTIME-OPTIMIZATION/index.html:generic-api-key:52",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-jpa-validation/assets/js/3b6c016a.75f55986.js:generic-api-key:1",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-jpa-validation/java/JAVA-ASSERTIONS-TOOLCHAIN/index.html:generic-api-key:46",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-jpa-validation/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-jpa-validation/reliability/problems/optimization/RUNTIME-OPTIMIZATION/index.html:generic-api-key:52",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-kafka-validation/__server/server.bundle.js:generic-api-key:171952",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-kafka-validation/assets/js/3b6c016a.75f55986.js:generic-api-key:1",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-kafka-validation/java/JAVA-ASSERTIONS-TOOLCHAIN/index.html:generic-api-key:46",
+  "249b4d0b93266f75274a89b0c6698dafeed7954e:documentation/build-kafka-validation/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-3012/assets/js/3b6c016a.75f55986.js:generic-api-key:1",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-3012/java/JAVA-ASSERTIONS-TOOLCHAIN/index.html:generic-api-key:46",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-3012/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-3012/reliability/problems/optimization/RUNTIME-OPTIMIZATION/index.html:generic-api-key:52",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-jpa-validation-2/assets/js/3b6c016a.75f55986.js:generic-api-key:1",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-jpa-validation-2/java/JAVA-ASSERTIONS-TOOLCHAIN/index.html:generic-api-key:46",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-jpa-validation-2/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-jpa-validation-2/reliability/problems/optimization/RUNTIME-OPTIMIZATION/index.html:generic-api-key:52",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-jpa-validation/assets/js/3b6c016a.75f55986.js:generic-api-key:1",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-jpa-validation/java/JAVA-ASSERTIONS-TOOLCHAIN/index.html:generic-api-key:46",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-jpa-validation/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-jpa-validation/reliability/problems/optimization/RUNTIME-OPTIMIZATION/index.html:generic-api-key:52",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-kafka-validation/__server/server.bundle.js:generic-api-key:171952",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-kafka-validation/assets/js/3b6c016a.75f55986.js:generic-api-key:1",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-kafka-validation/java/JAVA-ASSERTIONS-TOOLCHAIN/index.html:generic-api-key:46",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/build-kafka-validation/observability/MDC-GENERIC/index.html:generic-api-key:30",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/docs/architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS.md:generic-api-key:491",
+  "e17d16d19fd4c4bf665a921a37445d9be1c48ed4:.pnpm-store/v11/projects/9d0f4985f117803bf3ce81ed1e067dc8/docs/security/API-KEY-AUTHORIZATION-OPERATIONS.md:generic-api-key:95",
+]

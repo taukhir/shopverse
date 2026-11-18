@@ -53,6 +53,18 @@ all existing references. `ensureCapacity(expected)` avoids repeated growth;
 
 ## How It Works: Operations And Growth
 
+```mermaid
+flowchart LR
+    A["elementData.length = 10\nsize = 10 (full)"] -->|add 1 more element| B["allocate new array,\nlength = 10 + 10/2 = 15"]
+    B --> C["Arrays.copyOf old elements\ninto new array"]
+    C --> D["old array becomes garbage;\nnew element written at index 10"]
+```
+
+Every growth event is a full allocate-and-copy, not an in-place extension —
+this is exactly why pre-sizing a known bulk load with
+`new ArrayList<>(expectedSize)` avoids several of these O(n) copies rather
+than just avoiding "a resize."
+
 - `get(i)` and `set(i,e)` calculate one array offset: O(1).
 - `add(e)` writes at `elementData[size]`; occasional growth makes it amortized O(1).
 - `add(i,e)` shifts the suffix right with an array copy: O(n).

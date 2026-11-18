@@ -45,6 +45,27 @@ the instance and its lifecycle?**
 Two application contexts can each have their own instance. Two bean definitions
 of the same class can also create two singleton-scoped objects.
 
+```mermaid
+flowchart TB
+    subgraph JVM1["Replica 1 — JVM process"]
+        Ctx1["ApplicationContext 1"] --> Bean1["PricingService bean<br/>(singleton-scoped)"]
+    end
+    subgraph JVM2["Replica 2 — JVM process"]
+        Ctx2["ApplicationContext 2"] --> Bean2["PricingService bean<br/>(singleton-scoped)"]
+    end
+    GoF["GoF Singleton<br/>static field, same classloader"] -. "one per classloader,<br/>not one per container" .-> Bean1
+    Bean1 -. "no shared memory —<br/>each replica's bean is a different object" .-> Bean2
+```
+
+"Singleton" here answers three different questions depending on which box you
+are pointing at: the GoF pattern answers "how many instances can this class
+construct in one classloader", Spring's singleton scope answers "how many
+instances does one container create for one bean definition", and a cluster of
+replicas answers "how many processes are running this code at once" — a
+question neither GoF nor Spring singleton scope addresses at all. Confusing
+these three is the most common Singleton interview mistake: "one bean" never
+means "one instance across the fleet."
+
 ## Implementation 1: Enum Singleton
 
 ```java

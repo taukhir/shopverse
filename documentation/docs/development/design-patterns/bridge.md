@@ -93,6 +93,36 @@ final class OrderConfirmation extends Notification {
 }
 ```
 
+## The Failure Without The Separation
+
+Suppose a fraud-alert notification is wired up by picking a `NotificationChannel`
+bean by type instead of by the sender's explicit decision:
+
+```java
+@Service
+class FraudAlertSender {
+    private final NotificationChannel channel; // autowired: whichever bean Spring picks
+
+    void alert(Customer customer, FraudSignal signal) {
+        channel.deliver(OutboundMessage.fraudAlert(customer, signal));
+    }
+}
+```
+
+If `EmailChannel` and `SmsChannel` are both registered beans of type
+`NotificationChannel` with no qualifier, Spring either fails to start
+(ambiguous bean) or — if one is marked `@Primary` for an unrelated reason, say
+because order confirmations were wired up first and email was made the
+default — silently delivers the fraud alert over whichever channel happens to
+be primary. The failure is not an exception: a fraud alert that was meant to
+be an urgent SMS to the customer's verified phone number goes out as a
+low-priority email instead, and nothing in the test suite catches it because
+`FraudAlertSender`'s own unit test also just autowires "the" `NotificationChannel`
+and gets the same default. The bridge's abstraction side must bind to its
+implementation explicitly — by constructor parameter, not by type-only
+injection — or the two axes silently collapse back into "whichever one Spring
+picked."
+
 ## Bridge Versus Adapter and Strategy
 
 | Pattern | Intent |

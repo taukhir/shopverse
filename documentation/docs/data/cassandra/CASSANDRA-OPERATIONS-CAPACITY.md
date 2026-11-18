@@ -26,6 +26,41 @@ and consistency aligned with the replication design.
 Never run simultaneous risky maintenance on replicas for the same token ranges.
 Automate one-node-at-a-time changes and continuously verify replica availability.
 
+```mermaid
+flowchart TB
+    subgraph DC1["DC1"]
+        subgraph R1A["Rack A"]
+            N1["Node 1"]
+        end
+        subgraph R1B["Rack B"]
+            N2["Node 2"]
+        end
+        subgraph R1C["Rack C"]
+            N3["Node 3"]
+        end
+    end
+    subgraph DC2["DC2 (disaster-recovery / analytics)"]
+        subgraph R2A["Rack A"]
+            N4["Node 4"]
+        end
+        subgraph R2B["Rack B"]
+            N5["Node 5"]
+        end
+    end
+    Client["Client (local-DC routing)"] --> N1
+    Client -.cross-DC consistency only when configured.-> N4
+    N1 <-->|replication factor 3 within DC1| N2
+    N2 <-->|replication factor 3 within DC1| N3
+    N1 -.async replication.-> N4
+```
+
+With `NetworkTopologyStrategy` and replication factor 3 in DC1, a write
+replicates to one node per rack inside DC1 — losing an entire rack (not
+just one node) still leaves the other two replicas available. DC2 is a
+separate replication factor the strategy configures independently; a
+client defaulting to local-DC consistency levels never waits on DC2's
+latency unless explicitly configured to.
+
 ## Capacity Model
 
 Start with logical ingestion:

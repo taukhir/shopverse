@@ -2,7 +2,7 @@
 springBoot = "4.0.9"
 springCloud = "2025.1.4"
 springDependencyManagement = "1.1.7"
-spotbugsPlugin = "6.0.7"
+spotbugsPlugin = "6.5.13"
 
 [plugins]
 springDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }

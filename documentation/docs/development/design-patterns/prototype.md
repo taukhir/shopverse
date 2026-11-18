@@ -55,6 +55,25 @@ Prototype is safe only when the copy contract is explicit:
 | database identity/version | usually clear or generate new identity |
 | secret or transient runtime state | intentionally omit it |
 
+```mermaid
+flowchart LR
+    subgraph Shallow["Shallow copy (the bug)"]
+        O1["original: Campaign"] --> R1["recipients: List"]
+        C1["copy: Campaign"] --> R1
+    end
+    subgraph Deep["Deep copy (the fix)"]
+        O2["original: Campaign"] --> R2["recipients: List (A)"]
+        C2["copy: Campaign"] --> R3["recipients: List (B)"]
+    end
+```
+
+In the shallow-copy graph, `original` and `copy` are two different `Campaign`
+objects that both point at the *same* `recipients` list — adding a recipient to
+`copy` is visible through `original` too, exactly the aliasing bug shown above.
+In the deep-copy graph, each `Campaign` owns its own list instance, so mutating
+one never affects the other. The copy constructor below earns its keep by
+making every mutable child field go through the right-hand path.
+
 ## Implementation 1: Explicit Copy Constructor
 
 ```java
