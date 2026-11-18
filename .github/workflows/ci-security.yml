@@ -52,6 +52,7 @@ jobs:
           limit-severities-for-sarif: true
           exit-code: "1"
           skip-dirs: documentation/build,documentation/node_modules,shopverse-web/node_modules,.git
+          skip-files: documentation/Dockerfile.dockerignore
       - name: Retain scan evidence
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
