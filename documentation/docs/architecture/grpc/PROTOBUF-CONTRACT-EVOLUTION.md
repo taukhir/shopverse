@@ -109,6 +109,60 @@ message Order {
 }
 ```
 
+### A Breaking Change Shown End To End
+
+Field 3 originally held `optional string customer_note = 3;`. A later
+change reuses the same number for a different field:
+
+```proto
+// BEFORE (deployed, old binaries still read this)
+message Order {
+  string order_id = 1;
+  OrderStatus status = 2;
+  optional string customer_note = 3;
+}
+
+// AFTER (field 3's wire identity is reassigned — breaking)
+message Order {
+  string order_id = 1;
+  OrderStatus status = 2;
+  optional int64 priority_score = 3; // same tag, different type
+}
+```
+
+An old binary still running the first schema decodes a message written by
+the new schema by reading field 3 as a string using its old field
+descriptor. The wire type for `int64` (varint) happens to overlap with
+some string encodings' length-delimited framing only coincidentally, so
+the failure is not a clean rejection — it can silently decode garbage
+bytes into `customer_note`, or throw a decode exception deep in generated
+code, depending on the actual bytes. The symptom in production is
+`customer_note` containing corrupted text or decode errors appearing only
+on requests that happen to touch records written by the new version — not
+a deploy-time failure, which is what makes field-number reuse one of the
+most dangerous Protobuf mistakes: it fails later, intermittently, and far
+from the change that caused it.
+
+### Verifying Compatibility Before Merge
+
+Run a breaking-change linter against the last released schema as a CI
+gate, not as a manual review step:
+
+```bash
+buf breaking --against 'https://github.com/shopverse/contracts.git#tag=v1.4.0'
+```
+
+```text
+order/v1/order.proto:1:1:Previously present field "3" with name
+"customer_note" on message "Order" was deleted without being reserved.
+```
+
+A passing `buf breaking` run only proves wire-level compatibility; it does
+not catch a change that keeps the same field number and wire type but
+silently changes business meaning (reusing a `string` field for a
+different purpose), which still requires the semantic review this page
+describes.
+
 ## Binary Versus JSON Compatibility
 
 ProtoJSON uses field names/JSON names, special encodings for 64-bit numbers/bytes/enums and does

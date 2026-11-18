@@ -61,6 +61,26 @@ Scaling group implements auto healing through three layered health checks:
 | ELB target-health check | the application process itself is not responding correctly on its listener | the load balancer's target group |
 | ASG health-check grace period | gives a newly launched instance time to finish booting/warming up before being judged | the Auto Scaling group |
 
+```mermaid
+sequenceDiagram
+    participant I as EC2 instance (checkout)
+    participant EC2 as EC2 status check
+    participant ELB as ALB target-health check
+    participant ASG as Auto Scaling group
+
+    Note over I: Process wedges mid-request, VM itself stays healthy
+    EC2->>I: System/Instance status check
+    I-->>EC2: Pass (hypervisor and OS are fine)
+    loop Every health-check interval
+        ELB->>I: HTTP health-check request
+        I-->>ELB: No response / failing response
+    end
+    ELB->>ASG: Target reported unhealthy
+    ASG->>I: Terminate instance
+    ASG->>ASG: Launch replacement in a configured AZ
+    Note over I: In-flight request on the wedged instance is lost from its own view
+```
+
 A concrete failure scenario: a checkout-service EC2 instance mid-way
 through processing an order starts failing its ALB target-group health
 check (its process is wedged but the EC2 status check still passes, since

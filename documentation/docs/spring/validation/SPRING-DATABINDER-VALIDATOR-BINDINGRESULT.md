@@ -107,6 +107,29 @@ should be a stable technical name; keep the user-facing title separate.
 
 ## Lifecycle Line By Line
 
+```mermaid
+sequenceDiagram
+    participant Caller
+    participant Binder as DataBinder
+    participant Val as Validator
+    participant Result as BindingResult
+
+    Caller->>Binder: new DataBinder(target, "checkoutRequest")
+    Caller->>Binder: setValidator(checkoutRequestValidator)
+    Binder->>Val: supports(target.getClass())
+    Val-->>Binder: true
+    Caller->>Binder: validate()
+    Binder->>Val: validate(target, bindingResult)
+    Val->>Result: rejectValue(...) for each failed rule
+    Caller->>Binder: getBindingResult()
+    Binder-->>Caller: BindingResult (hasErrors, field/global errors)
+```
+
+The diagram makes the key ordering explicit: `supports` is checked once at
+registration time, not on every `validate()` call, and the validator writes
+errors into the same `BindingResult` the caller later reads — there is no
+separate "error report" object being assembled afterward.
+
 ### 1. Construct the binder
 
 ```java

@@ -65,6 +65,30 @@ Differentiate:
 - node eviction: kubelet responds to node pressure;
 - application termination: probe, signal or supervisor behavior.
 
+## A Concrete Memory Budget
+
+A container with a 2Gi limit and `-XX:MaxRAMPercentage=75.0` gives the JVM
+heap ergonomics roughly `0.75 × 2Gi ≈ 1.5Gi` of *maximum heap* — not 1.5Gi of
+total process budget. The remaining ~512Mi must cover metaspace, thread
+stacks, direct buffers, code cache, and GC native structures:
+
+```bash
+cat /sys/fs/cgroup/memory.max        # cgroup v2: 2147483648 (2Gi)
+java -XX:+PrintFlagsFinal -version | grep -i MaxHeapSize
+# MaxHeapSize = 1610612736   (~1.5Gi, derived from MaxRAMPercentage)
+```
+
+**Misconfiguration example — OOMKilled with heap below `-Xmx`:** a service
+runs on a JDK built before reliable cgroup v2 awareness (or inside a
+container runtime that does not expose cgroup v2 the way the JVM expects).
+The JVM computes its default heap from the *host's* total memory instead of
+the container's 2Gi limit, requests a much larger heap than the container
+can ever provide, and the kernel OOM-kills the container under load even
+though `jcmd <pid> GC.heap_info` shows the Java heap itself was never full.
+Verifying `java -XX:+PrintFlagsFinal -version | grep MaxHeapSize` against
+the actual `memory.max` value — not just trusting the JVM's ergonomic
+default — is what catches this before it reaches production.
+
 ## CPU Quota And Throttling
 
 CPU limits can throttle runnable threads even when node CPU is available. This

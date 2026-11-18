@@ -48,9 +48,11 @@ flowchart LR
     D["4. Data, transactions, testing"]
     I["5. Messaging, security, telemetry"]
     P["6. Native, containers, Kubernetes"]
-    C["7. Checkout tutorial"]
+    H["7. Production scaling and incidents"]
+    V["8. Spring Boot comparison and revision"]
+    C["9. Checkout tutorial"]
 
-    F --> R --> O --> D --> I --> P --> C
+    F --> R --> O --> D --> I --> P --> H --> V --> C
 ```
 
 | Stage | What you learn | Evidence to produce |
@@ -60,6 +62,8 @@ flowchart LR
 | Data | Panache, repository choices, transactions, migrations, Dev Services, test boundaries | prove rollback and database behavior |
 | Distributed | REST clients, timeouts, Kafka, idempotency, OIDC, metrics, logs, traces | follow one correlation ID across boundaries |
 | Advanced | blocking versus reactive, native images, containers, Kubernetes, capacity and recovery | compare JVM and native artifacts using measurements |
+| Production scaling | build-time vs. runtime config, event-loop/worker threads, health-probe wiring, scale-out incidents | diagnose a thread-pool or connection-budget incident from evidence |
+| Interview revision | Quarkus versus Spring Boot trade-offs, Panache mapping, production scenarios | answer architect-level scenario questions with a model answer |
 | Domain tutorial | cart, account/profile context, checkout, outbox, post-checkout transitions | defend invariants and unhappy-path tests |
 
 ## Recommended Order
@@ -72,7 +76,9 @@ flowchart LR
 6. [Data, Transactions, And Testing](./QUARKUS-DATA-TRANSACTIONS-TESTING.md)
 7. [Messaging, Security, And Observability](./QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY.md)
 8. [Native Images, Containers, And Kubernetes](./QUARKUS-NATIVE-KUBERNETES-PRODUCTION.md)
-9. [Failure-Aware Checkout Tutorial](./QUARKUS-CHECKOUT-TUTORIAL.md)
+9. [Production Scaling, Thread Model, And Incident Response](./QUARKUS-PRODUCTION-HA-SCALING.md)
+10. [Spring Boot Comparison, Interview Scenarios, And Revision](./QUARKUS-INTERVIEW-REVISION.md)
+11. [Failure-Aware Checkout Tutorial](./QUARKUS-CHECKOUT-TUTORIAL.md)
 
 ## Quarkus Mental Model
 
@@ -169,7 +175,12 @@ You are ready to work independently when you can:
   unknown-outcome recovery;
 - compare JVM and native deployment with measured startup, memory, throughput,
   tail latency, build time, and diagnostic needs;
-- locate logs, metrics, traces, health checks, and recovery procedures.
+- locate logs, metrics, traces, health checks, and recovery procedures;
+- state whether a given configuration property is fixed at build time or
+  overridable at runtime, and diagnose a scale-out connection-budget or
+  event-loop/worker-thread incident from evidence;
+- explain the Quarkus versus Spring Boot trade-off for a given deployment
+  shape without defaulting to "Quarkus is faster."
 
 ## Official Starting Points
 
@@ -186,4 +197,6 @@ You are ready to work independently when you can:
 - [Quarkus Foundations](./QUARKUS-FUNDAMENTALS.md)
 - [REST, CDI, Configuration, And Validation](./QUARKUS-REST-CDI-CONFIG.md)
 - [OpenAPI Fundamentals](./QUARKUS-OPENAPI-FUNDAMENTALS.md)
+- [Production Scaling, Thread Model, And Incident Response](./QUARKUS-PRODUCTION-HA-SCALING.md)
+- [Spring Boot Comparison, Interview Scenarios, And Revision](./QUARKUS-INTERVIEW-REVISION.md)
 - [Failure-Aware Checkout Tutorial](./QUARKUS-CHECKOUT-TUTORIAL.md)

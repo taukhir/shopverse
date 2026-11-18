@@ -69,6 +69,34 @@ jcmd <pid> JFR.start name=latency settings=profile duration=60s filename=latency
 Confirm output location, disk headroom, permissions, recording policy, and
 sensitive-data handling before using the command in production.
 
+Open the resulting `latency.jfr` in JDK Mission Control and read the hot
+methods table before reaching for a flame graph:
+
+```text
+Method                                              Samples  Percent
+com.shopverse.order.PricingEngine.applyDiscounts    4,812    38.6%
+com.shopverse.order.CatalogClient.lookupPrice       3,105    24.9%
+java.util.regex.Pattern.matcher                     1,940    15.6%
+```
+
+A hot `java.util.regex.Pattern.matcher` frame under an order-pricing
+endpoint is a concrete, checkable finding — not a vague "CPU is high": it
+points at a specific call site (likely a per-request-compiled regex in
+`applyDiscounts`) that a code change and a before/after profile comparison
+can verify, which is the difference between "evidence" and "a number."
+
+A narrower async-profiler allocation capture isolates one suspected hot
+path instead of the whole process:
+
+```bash
+./profiler.sh -e alloc -d 30 -f alloc.html <pid>
+```
+
+The resulting flame graph's widest allocation frame names the allocation
+site, not just a class name — read the frame directly above it to find the
+calling method responsible, since the allocation call itself (e.g.
+`ArrayList.<init>`) is rarely the thing worth fixing.
+
 ## Profiling Internals: How Sampling And Events Work
 
 Sampling profilers periodically collect stack traces; event recorders capture

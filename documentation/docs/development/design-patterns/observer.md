@@ -70,6 +70,59 @@ An `@Async` listener changes threading and error propagation; it does not make t
 event durable. Configure the executor, context propagation, rejection policy, and
 exception handling deliberately.
 
+## Failure: One Listener Breaks The Rest
+
+Spring's default synchronous multicaster invokes listeners in sequence and
+propagates the first exception, stopping the remaining listeners from
+running:
+
+```java
+@Component
+final class LoyaltyPointsListener {
+    @EventListener
+    public void on(OrderConfirmed event) {
+        loyaltyService.credit(event.orderId()); // throws if the account is locked
+    }
+}
+
+@Component
+final class ConfirmationEmailListener {
+    @EventListener
+    public void on(OrderConfirmed event) {
+        emailGateway.sendConfirmation(event.orderId(), event.customerEmail());
+    }
+}
+```
+
+If `LoyaltyPointsListener` happens to run first and `loyaltyService.credit`
+throws, `ConfirmationEmailListener` **never runs** for that event — the
+customer gets no confirmation email, and nothing in the stack trace points
+at the email listener, because it was never reached. Listener execution
+order with plain `@EventListener` is not a guaranteed contract either, so
+the same event can fail differently across deployments.
+
+Isolate independent reactions so one listener's failure cannot silently
+cancel an unrelated one:
+
+```java
+@Component
+final class LoyaltyPointsListener {
+    @EventListener
+    public void on(OrderConfirmed event) {
+        try {
+            loyaltyService.credit(event.orderId());
+        } catch (Exception ex) {
+            log.warn("loyalty credit failed for order {}", event.orderId(), ex);
+            // queue for retry/reconciliation; do not block other listeners
+        }
+    }
+}
+```
+
+Each listener owns its own failure handling. A shared "stop everything on
+any exception" behavior is rarely what a multi-listener fan-out actually
+wants.
+
 ## In-Process Events Versus Messaging
 
 Spring application events are not automatically stored, replayable, or delivered

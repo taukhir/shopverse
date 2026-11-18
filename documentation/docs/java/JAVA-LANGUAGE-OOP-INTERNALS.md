@@ -64,6 +64,17 @@ exception. Use exact arithmetic methods where overflow violates the domain.
 
 ## Initialization State Machine
 
+```mermaid
+stateDiagram-v2
+    [*] --> Loaded: class file read, no memory for statics yet
+    Loaded --> Prepared: preparation assigns default\nstatic values (0/null/false)
+    Prepared --> Initializing: first active use triggers\nJVM-synchronized <clinit>
+    Initializing --> Initialized: superclass init, then\ntextual static field/block order
+    Initializing --> Erroneous: <clinit> throws
+    Erroneous --> [*]: later active use fails with\nNoClassDefFoundError
+    Initialized --> [*]
+```
+
 Class initialization occurs at first active use and is synchronized by the JVM.
 Before `<clinit>` runs, preparation assigns default static values. Initialization
 executes superclass initialization first, then textual static field/block order.
