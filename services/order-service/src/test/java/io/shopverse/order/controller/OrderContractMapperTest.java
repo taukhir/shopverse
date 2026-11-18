@@ -12,6 +12,7 @@ import org.mapstruct.factory.Mappers;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -63,8 +64,9 @@ class OrderContractMapperTest {
         assertThat(result.getCreatedAt()).isEqualTo(createdAt);
         assertThat(result.getShippingAddress()).usingRecursiveComparison()
                 .isEqualTo(response.shippingAddress());
-        assertThat(result.getItems()).hasSize(1);
-        var resultItem = result.getItems().getFirst();
+        var resultItems = Objects.requireNonNull(result.getItems());
+        assertThat(resultItems).hasSize(1);
+        var resultItem = resultItems.getFirst();
         var expectedItem = response.items().getFirst();
         assertThat(resultItem.getProductId()).isEqualTo(expectedItem.productId());
         assertThat(resultItem.getProductName()).isEqualTo(expectedItem.productName());
