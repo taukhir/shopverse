@@ -8,7 +8,7 @@ export interface OrderItem {
   productId: number;
   productName: string;
   quantity: number;
-  unitPrice: number;
+  unitPrice: string;
 }
 
 export interface ShippingAddress {
@@ -29,7 +29,7 @@ export interface Order {
   idempotencyKey?: string;
   customerUsername?: string;
   status: string;
-  totalAmount: number;
+  totalAmount: string;
   shippingAddress?: ShippingAddress | null;
   items?: OrderItem[];
   createdAt: string;

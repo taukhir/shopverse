@@ -80,7 +80,7 @@
                 <h2>{{ item.productName }}</h2>
                 <p>Qty {{ item.quantity }} x {{ price(item.unitPrice) }}</p>
               </div>
-              <strong>{{ price(item.quantity * item.unitPrice) }}</strong>
+              <strong>{{ price(lineTotal(item)) }}</strong>
             </article>
           }
         </section>

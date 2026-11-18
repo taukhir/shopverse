@@ -6,6 +6,8 @@ import io.shopverse.order.dto.CatalogItemResponse;
 import io.shopverse.order.dto.CheckoutItemRequest;
 import io.shopverse.order.dto.CheckoutRequest;
 import io.shopverse.order.dto.ShippingAddressRequest;
+import io.shopverse.order.entity.OrderEntity;
+import io.shopverse.order.entity.OrderStatus;
 import io.shopverse.order.exception.ResourceNotFoundException;
 import io.shopverse.order.outbox.OutboxService;
 import io.shopverse.order.repository.OrderRepository;
@@ -22,6 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -111,6 +114,62 @@ class OrderServiceImplTest {
         verify(repository, never()).save(any());
         verify(outboxService, never()).enqueue(any(), any(), any(), any(), any(), any(), any());
         verify(catalogService, never()).getCatalog();
+    }
+
+    @Test
+    void checkoutTransitionsOrderToPendingInventoryBeforeOutboxEnqueue() {
+        // Proves BUG-013's fix: before this, OrderEntity's constructor left every
+        // new order at ORDER_CREATED, and nothing ever assigned PENDING_INVENTORY
+        // — so the saga guards below could never fire. This assertion failed on
+        // the old code.
+        when(repository.findWithItemsByIdempotencyKey("checkout-103")).thenReturn(Optional.empty());
+        when(repository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+        when(catalogService.getProduct(103L)).thenReturn(new CatalogItemResponse(
+                103L, "Pulse Fitness Tracker", BigDecimal.valueOf(72.49), true,
+                "http://localhost:9000/shopverse-product-images/products/103.png", "products/103.png"
+        ));
+
+        var response = service.checkout(
+                new CheckoutRequest(List.of(new CheckoutItemRequest(103L, 1)), shippingAddress()),
+                "henry.thompson",
+                "correlation-103",
+                "checkout-103"
+        );
+
+        assertThat(response.status()).isEqualTo(OrderStatus.PENDING_INVENTORY.name());
+    }
+
+    @Test
+    void markInventoryReservedAndPaymentProcessingAdvancesFromPendingInventory() {
+        OrderEntity order = pendingInventoryOrder();
+        when(repository.findWithItemsByOrderNumber("ORD-1")).thenReturn(Optional.of(order));
+
+        service.markInventoryReservedAndPaymentProcessing("ORD-1");
+
+        assertThat(order.getStatus()).isEqualTo(OrderStatus.PAYMENT_PROCESSING);
+    }
+
+    @Test
+    void markInventoryReservedAndPaymentProcessingIsIdempotentOnRedelivery() {
+        // A real at-least-once-delivery case: the same InventoryReservedEvent
+        // arrives twice. The first call advances the order; the guard must
+        // reject the second call rather than re-applying the transition.
+        OrderEntity order = pendingInventoryOrder();
+        when(repository.findWithItemsByOrderNumber("ORD-1")).thenReturn(Optional.of(order));
+
+        service.markInventoryReservedAndPaymentProcessing("ORD-1");
+        service.markInventoryReservedAndPaymentProcessing("ORD-1");
+
+        assertThat(order.getStatus()).isEqualTo(OrderStatus.PAYMENT_PROCESSING);
+        // Exactly 2 timeline entries (INVENTORY_RESERVED + PAYMENT_PROCESSING)
+        // from the first call only — the second, redelivered call must no-op.
+        verify(timelineRepository, times(2)).save(any());
+    }
+
+    private static OrderEntity pendingInventoryOrder() {
+        OrderEntity order = new OrderEntity("ORD-1", "henry.thompson", "correlation-1", "checkout-1");
+        order.markPendingInventory();
+        return order;
     }
 
     private static ShippingAddressRequest shippingAddress() {

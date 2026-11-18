@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastService } from '../../core/feedback/toast.service';
 import { ConfirmService } from '../../core/feedback/confirm.service';
 import { formatInr } from '../../shared/utils/formatters';
-import { Order, OrdersApiService, Payment, TimelineEvent } from './orders-api.service';
+import { Order, OrderItem, OrdersApiService, Payment, TimelineEvent } from './orders-api.service';
 
 interface ProgressStep {
   label: string;
@@ -62,8 +62,12 @@ export class OrderDetailPageComponent {
     });
   }
 
-  protected price(value: number): string {
+  protected price(value: number | string): string {
     return formatInr(value);
+  }
+
+  protected lineTotal(item: OrderItem): number {
+    return item.quantity * parseFloat(item.unitPrice);
   }
 
   protected cleanStage(stage: string): string {

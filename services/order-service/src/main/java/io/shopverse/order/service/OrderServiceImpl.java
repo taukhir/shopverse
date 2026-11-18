@@ -96,6 +96,7 @@ public class OrderServiceImpl implements OrderService {
         });
         OrderEntity saved = repository.save(order);
         appendTimeline(saved, OrderTimelineStage.ORDER_CREATED, "Checkout accepted and order persisted");
+        saved.markPendingInventory();
         outboxService.enqueue(
                 "ORDER",
                 saved.getOrderNumber(),
@@ -263,24 +264,6 @@ public class OrderServiceImpl implements OrderService {
         }
         order.markInventoryRejected(reason);
         appendTimeline(order, OrderTimelineStage.INVENTORY_REJECTED, reason);
-    }
-
-    @Override
-    @Transactional
-    @CacheEvict(cacheNames = "orders", allEntries = true)
-    public void markInventoryReserved(String orderNumber) {
-        OrderEntity order = findByNumber(orderNumber);
-        order.markInventoryReserved();
-        appendTimeline(order, OrderTimelineStage.INVENTORY_RESERVED, "Inventory reservation confirmed");
-    }
-
-    @Override
-    @Transactional
-    @CacheEvict(cacheNames = "orders", allEntries = true)
-    public void markPaymentProcessing(String orderNumber) {
-        OrderEntity order = findByNumber(orderNumber);
-        order.markPaymentProcessing();
-        appendTimeline(order, OrderTimelineStage.PAYMENT_PROCESSING, "Payment processing started");
     }
 
     @Override
