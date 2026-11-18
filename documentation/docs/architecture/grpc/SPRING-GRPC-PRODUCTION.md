@@ -36,7 +36,7 @@ sequenceDiagram
     SI->>SI: verify cert / map token to Spring Security context
     SI->>S: getOrder(request, observer)
     alt order found
-        S-->>SI: observer.onNext(response); onCompleted()
+        S-->>SI: observer.onNext(response), onCompleted()
     else not found
         S-->>SI: observer.onError(Status.NOT_FOUND)
     end
