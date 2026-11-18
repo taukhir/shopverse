@@ -170,14 +170,32 @@ Raft organizes consensus around:
 
 Simplified flow:
 
-```text
-followers miss leader heartbeat
-  -> candidate starts election
-  -> majority elects leader
-  -> leader appends commands
-  -> majority replicates
-  -> entry commits and applies
+```mermaid
+sequenceDiagram
+    participant F1 as Follower 1
+    participant F2 as Follower 2
+    participant N as Node (candidate -> leader)
+    participant F3 as Follower 3
+
+    Note over F1,F3: Leader heartbeat stops arriving
+    N->>N: election timeout fires, becomes candidate, term += 1
+    N->>F1: RequestVote(term)
+    N->>F2: RequestVote(term)
+    N->>F3: RequestVote(term)
+    F1-->>N: vote granted
+    F2-->>N: vote granted
+    Note over N: majority (2 of 3) reached -> becomes leader
+    N->>F1: AppendEntries(command)
+    N->>F2: AppendEntries(command)
+    N->>F3: AppendEntries(command)
+    F1-->>N: ack
+    F2-->>N: ack
+    Note over N: majority acked -> entry commits and applies
 ```
+
+A vote from `F3` was never required once the majority of 2 was reached —
+this is the quorum rule from the table above in action: a 3-node group
+tolerates exactly 1 unavailable/slow node and still makes progress.
 
 Raft makes consensus understandable; it does not make deployment and recovery
 automatic. Membership changes, snapshots, disk failure, and client retries

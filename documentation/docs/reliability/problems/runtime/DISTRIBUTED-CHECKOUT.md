@@ -59,6 +59,48 @@ outbox.
 | Kafka retries and DLT handling | listeners use Spring Kafka retry topics and `@DltHandler` to persist unresolved recovery records |
 | Outbox crash recovery | claimed outbox rows record `claimed_at`; stale `PROCESSING` rows are released back to retryable state |
 
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant O as Order Service
+    participant K as Kafka
+    participant I as Inventory Service
+    participant P as Payment Service
+
+    C->>O: POST /checkout
+    O->>O: save order + timeline + outbox (1 local tx)
+    O-->>C: 202 Accepted
+    O->>K: publish order.created (via outbox relay)
+    K->>I: order.created
+    I->>I: reserve stock + outbox (1 local tx)
+    alt stock available
+        I->>K: publish inventory.reserved
+        K->>P: inventory.reserved
+        P->>P: authorize/capture + outbox (1 local tx)
+        alt payment succeeds
+            P->>K: publish payment.completed
+            K->>O: payment.completed
+            O->>O: mark CONFIRMED
+        else payment declines
+            P->>K: publish payment.failed
+            K->>I: payment.failed
+            I->>I: release stock (compensation)
+            K->>O: inventory.failed / payment.failed
+            O->>O: mark CANCELLED
+        end
+    else stock unavailable
+        I->>K: publish inventory.failed
+        K->>O: inventory.failed
+        O->>O: mark CANCELLED (compensation, no payment attempted)
+    end
+```
+
+Each arrow is a separate local transaction committing domain state and an
+outbox row together; nothing here is one distributed transaction. The
+`else` branches are the compensation path — a failure downstream never rolls
+back an upstream service's database, it only triggers a new compensating
+event.
+
 ### Atomic Local Transaction
 
 The checkout transaction persists the domain state and event intent together:

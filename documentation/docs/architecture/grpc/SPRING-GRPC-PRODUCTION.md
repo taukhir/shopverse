@@ -20,6 +20,35 @@ Spring gRPC provides Boot-aligned server/client auto-configuration, channel fact
 interceptors, security and observability integration around generated gRPC Java services. Use the Spring
 gRPC line compatible with the selected Spring Boot generation rather than mixing versions.
 
+## Request Path
+
+```mermaid
+sequenceDiagram
+    participant C as Client (blocking stub)
+    participant Ch as Channel (TLS, LB, resolver)
+    participant CI as Client interceptor<br/>(deadline, auth metadata)
+    participant SI as Server interceptor<br/>(TLS verify, auth, tracing)
+    participant S as OrderQueryGrpcService
+
+    C->>CI: getOrder(request)
+    CI->>Ch: attach deadline + auth token
+    Ch->>SI: HTTP/2 stream (mTLS negotiated)
+    SI->>SI: verify cert / map token to Spring Security context
+    SI->>S: getOrder(request, observer)
+    alt order found
+        S-->>SI: observer.onNext(response), onCompleted()
+    else not found
+        S-->>SI: observer.onError(Status.NOT_FOUND)
+    end
+    SI-->>Ch: status + trailers
+    Ch-->>C: response or StatusRuntimeException
+```
+
+TLS/mTLS terminates at the channel; the server interceptor is where the
+verified identity becomes a Spring Security context, and the client
+interceptor is where the per-call deadline and auth metadata are attached —
+neither belongs inside `OrderQueryGrpcService` itself.
+
 ## Contract And Build
 
 Place reviewed `.proto` definitions in an owned contract module/repository, pin `protoc` and gRPC Java

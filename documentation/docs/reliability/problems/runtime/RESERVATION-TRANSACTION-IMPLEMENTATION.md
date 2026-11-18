@@ -356,6 +356,34 @@ Kafka publication remains outside this transaction. The outbox publisher sends
 the persisted event later. If one reservation fails, only its transaction rolls
 back and the scheduler continues with the remaining IDs.
 
+```mermaid
+sequenceDiagram
+    participant S as Scheduler (non-transactional)
+    participant W as ReservationExpiryWorker
+    participant DB as MySQL
+
+    S->>DB: findExpiredCandidateIds (no transaction)
+    DB-->>S: [100, 101, 102, 103]
+    loop for each candidate id
+        S->>W: expireOne(id)  (REQUIRES_NEW)
+        activate W
+        W->>DB: begin transaction
+        W->>DB: claimExpiredReservation (conditional UPDATE)
+        alt claimed = 1
+            W->>DB: release stock, mark EXPIRED, insert outbox row
+            W->>DB: commit
+        else claimed = 0
+            W->>DB: rollback (no-op, already claimed elsewhere)
+        end
+        deactivate W
+    end
+```
+
+Reservation `102`'s failure in the earlier example corresponds to one
+`expireOne` call rolling back inside its own `REQUIRES_NEW` transaction —
+the scheduler's loop is unaffected because it never opened a transaction
+of its own around the whole batch.
+
 ## Successful Payment Must Compete Atomically
 
 The `payment.completed` consumer needs its own conditional transition:

@@ -23,86 +23,77 @@ compatibility across the whole family, not merely hiding `new`.
 
 ## The Problem
 
-Shopverse can run against AWS or Azure. Each environment needs object storage,
-a queue, and metrics. If application code selects each client independently,
-it can accidentally assemble a mixed family:
+Shopverse accepts payments in multiple regions. Each region's payment
+provider requires a matching fraud-check service — EU transactions must be
+screened by the EU-licensed fraud provider under the same contractual
+agreement as the EU payment gateway, and mixing providers across regions is
+a compliance violation, not just a bug. If application code selects each
+client independently, it can accidentally assemble a mismatched pair:
 
 ```java
-ObjectStorage storage = new S3ObjectStorage(properties);
-MessageQueue queue = new AzureServiceBus(properties); // accidental mismatch
-MetricsClient metrics = new CloudWatchMetrics(properties);
+PaymentGateway gateway = new EuPaymentGateway(properties);
+FraudCheckService fraudCheck = new UsFraudCheckService(properties); // accidental mismatch
 ```
 
 Provider conditionals then spread across configuration classes, tests, and
-business services. Adding a provider changes every switch, and nothing in the
-design guarantees that the selected products belong together.
+business services. Adding a region changes every switch, and nothing in the
+design guarantees that the selected gateway and fraud checker belong
+together.
 
 ## What The Pattern Changes
 
 ```mermaid
 classDiagram
-    class CloudPlatformFactory {
+    class PaymentProviderFamily {
       <<interface>>
-      +objectStorage() ObjectStorage
-      +messageQueue() MessageQueue
-      +metrics() MetricsClient
+      +gateway() PaymentGateway
+      +fraudCheck() FraudCheckService
     }
-    CloudPlatformFactory <|.. AwsPlatformFactory
-    CloudPlatformFactory <|.. AzurePlatformFactory
-    AwsPlatformFactory --> S3ObjectStorage
-    AwsPlatformFactory --> SqsMessageQueue
-    AwsPlatformFactory --> CloudWatchMetrics
-    AzurePlatformFactory --> BlobObjectStorage
-    AzurePlatformFactory --> ServiceBusQueue
-    AzurePlatformFactory --> AzureMonitorMetrics
+    PaymentProviderFamily <|.. EuPaymentProviderFamily
+    PaymentProviderFamily <|.. UsPaymentProviderFamily
+    EuPaymentProviderFamily --> EuPaymentGateway
+    EuPaymentProviderFamily --> EuFraudCheckService
+    UsPaymentProviderFamily --> UsPaymentGateway
+    UsPaymentProviderFamily --> UsFraudCheckService
 ```
 
 Clients see only application-owned product contracts. One factory owns the
-decision about which concrete family is valid.
+decision about which concrete family is valid, so a gateway and its fraud
+checker can never be assembled from different regions.
 
 ## Implementation 1: Classic Java Abstract Factory
 
 ```java
-public interface ObjectStorage {
-    URI put(String key, byte[] content);
+public interface PaymentGateway {
+    PaymentResult charge(PaymentCommand command);
 }
 
-public interface MessageQueue {
-    void publish(String topic, byte[] event);
+public interface FraudCheckService {
+    FraudDecision screen(PaymentCommand command);
 }
 
-public interface MetricsClient {
-    void increment(String name);
-}
-
-public interface CloudPlatformFactory {
-    ObjectStorage objectStorage();
-    MessageQueue messageQueue();
-    MetricsClient metrics();
+public interface PaymentProviderFamily {
+    PaymentGateway gateway();
+    FraudCheckService fraudCheck();
 }
 ```
 
 ```java
-public final class AwsPlatformFactory implements CloudPlatformFactory {
-    private final AwsProperties properties;
+public final class EuPaymentProviderFamily implements PaymentProviderFamily {
+    private final EuRegionProperties properties;
 
-    public AwsPlatformFactory(AwsProperties properties) {
+    public EuPaymentProviderFamily(EuRegionProperties properties) {
         this.properties = properties;
     }
 
     @Override
-    public ObjectStorage objectStorage() {
-        return new S3ObjectStorage(properties.s3());
+    public PaymentGateway gateway() {
+        return new EuPaymentGateway(properties.gateway());
     }
 
     @Override
-    public MessageQueue messageQueue() {
-        return new SqsMessageQueue(properties.sqs());
-    }
-
-    @Override
-    public MetricsClient metrics() {
-        return new CloudWatchMetrics(properties.cloudWatch());
+    public FraudCheckService fraudCheck() {
+        return new EuFraudCheckService(properties.fraudCheck());
     }
 }
 ```
@@ -110,23 +101,24 @@ public final class AwsPlatformFactory implements CloudPlatformFactory {
 The composition root chooses exactly one family:
 
 ```java
-CloudPlatformFactory platform = switch (configuration.provider()) {
-    case AWS -> new AwsPlatformFactory(configuration.aws());
-    case AZURE -> new AzurePlatformFactory(configuration.azure());
+PaymentProviderFamily providers = switch (configuration.region()) {
+    case EU -> new EuPaymentProviderFamily(configuration.eu());
+    case US -> new UsPaymentProviderFamily(configuration.us());
 };
 
-CheckoutInfrastructure infrastructure = new CheckoutInfrastructure(
-        platform.objectStorage(),
-        platform.messageQueue(),
-        platform.metrics()
+CheckoutPaymentHandler handler = new CheckoutPaymentHandler(
+        providers.gateway(),
+        providers.fraudCheck()
 );
 ```
 
 ### Drawbacks
 
-- Adding a **new family** is localized: implement one factory and its products.
-- Adding a **new product type** is expensive: every factory interface and every
-  concrete family must change.
+- Adding a **new family** (region) is localized: implement one factory and its
+  two products.
+- Adding a **new product type** (e.g. a currency-conversion service every
+  region also needs) is expensive: every factory interface and every concrete
+  family must change.
 - A factory that creates new clients on every call can duplicate connection
   pools and threads.
 
@@ -136,35 +128,71 @@ Keep the family narrow and cohesive. Return cached, lifecycle-managed clients
 when they are expensive. If products do not need to vary together, use
 independent factories or direct dependency injection instead.
 
+### The Bug: A Mismatched Family Slips Past The Compiler
+
+Nothing in plain field assignment stops this, because `PaymentGateway` and
+`FraudCheckService` are each independently valid types — the invariant
+Abstract Factory exists to protect is invisible to the type system once two
+objects are constructed separately:
+
+```java
+@Configuration
+class MisconfiguredPaymentWiring {
+
+    @Bean
+    PaymentGateway gateway(EuRegionProperties euProperties) {
+        return new EuPaymentGateway(euProperties.gateway());
+    }
+
+    @Bean
+    FraudCheckService fraudCheck(UsRegionProperties usProperties) {
+        // BUG: wired from US properties into a bean that serves EU traffic
+        return new UsFraudCheckService(usProperties.fraudCheck());
+    }
+}
+```
+
+```java
+// An EU customer's card is charged by the EU gateway...
+PaymentResult result = gateway.charge(command);
+// ...but screened by a fraud service that is not licensed for EU data and
+// does not share the EU gateway's chargeback/dispute agreement. The charge
+// succeeds; the compliance violation is invisible until an audit.
+fraudCheck.screen(command);
+```
+
+Routing both beans through one `PaymentProviderFamily` per region removes
+the possibility entirely: there is no code path that can construct a
+gateway and fraud checker from different regions, because `gateway()` and
+`fraudCheck()` on the same factory instance are the only way to obtain either
+one.
+
 ## Implementation 2: Spring Configuration Families
 
 Spring can make the application context the family assembly boundary:
 
 ```java
 @Configuration
-@Profile("aws")
-class AwsPlatformConfiguration {
+@Profile("eu")
+class EuPaymentProviderConfiguration {
 
     @Bean
-    ObjectStorage objectStorage(AwsProperties properties) {
-        return new S3ObjectStorage(properties.s3());
+    PaymentGateway paymentGateway(EuRegionProperties properties) {
+        return new EuPaymentGateway(properties.gateway());
     }
 
     @Bean
-    MessageQueue messageQueue(AwsProperties properties) {
-        return new SqsMessageQueue(properties.sqs());
-    }
-
-    @Bean
-    MetricsClient metricsClient(AwsProperties properties) {
-        return new CloudWatchMetrics(properties.cloudWatch());
+    FraudCheckService fraudCheckService(EuRegionProperties properties) {
+        return new EuFraudCheckService(properties.fraudCheck());
     }
 }
 ```
 
-An equivalent `AzurePlatformConfiguration` activates under the `azure` profile.
-Business services inject the three contracts and never inspect the active
-provider.
+An equivalent `UsPaymentProviderConfiguration` activates under the `us`
+profile, reading only `UsRegionProperties`. Business services inject the two
+contracts and never inspect the active region — and because each
+configuration class reads from exactly one region's properties, the
+mismatched-bean bug above cannot happen through profile-scoped wiring.
 
 ### Drawbacks
 
@@ -174,9 +202,9 @@ provider.
 
 ### Remedies
 
-Validate that exactly one provider is configured, group provider properties
-with `@ConfigurationProperties`, use focused context tests for wiring, and keep
-business behavior in plain unit-testable classes.
+Validate that exactly one region profile is configured, group region
+properties with `@ConfigurationProperties`, use focused context tests for
+wiring, and keep business behavior in plain unit-testable classes.
 
 ## Implementation 3: An Immutable Product-Family Record
 
@@ -184,21 +212,19 @@ When the family only groups already-created collaborators, a record can be
 clearer than creation methods:
 
 ```java
-public record CloudPlatform(
-        ObjectStorage objectStorage,
-        MessageQueue messageQueue,
-        MetricsClient metrics
+public record RegionalPaymentProviders(
+        PaymentGateway gateway,
+        FraudCheckService fraudCheck
 ) {
-    public CloudPlatform {
-        Objects.requireNonNull(objectStorage);
-        Objects.requireNonNull(messageQueue);
-        Objects.requireNonNull(metrics);
+    public RegionalPaymentProviders {
+        Objects.requireNonNull(gateway);
+        Objects.requireNonNull(fraudCheck);
     }
 }
 ```
 
-This is not the textbook GoF shape, but it preserves the compatibility boundary
-without pretending that the group constructs objects repeatedly.
+This is not the textbook GoF shape, but it preserves the compatibility
+boundary without pretending that the group constructs objects repeatedly.
 
 ## When Not To Use It
 
@@ -216,22 +242,26 @@ Avoid Abstract Factory when:
 Define contract tests once and run them against every family:
 
 ```java
-abstract class CloudPlatformContract {
-    protected abstract CloudPlatformFactory factory();
+abstract class PaymentProviderFamilyContract {
+    protected abstract PaymentProviderFamily family();
 
     @Test
-    void uploadsAndPublishesAReference() {
-        URI uri = factory().objectStorage().put("orders/1", new byte[]{1});
-        factory().messageQueue().publish(
-                "order-created", uri.toString().getBytes(StandardCharsets.UTF_8));
-        assertNotNull(uri);
+    void gatewayAndFraudCheckAgreeOnRegion() {
+        PaymentResult result = family().gateway().charge(sampleCommand());
+        FraudDecision decision = family().fraudCheck().screen(sampleCommand());
+
+        assertThat(result.region()).isEqualTo(decision.region());
     }
 }
 ```
 
-Also test provider-selection failure, lifecycle cleanup, and configuration
-validation. A useful architecture test can assert that domain packages do not
-import vendor SDK packages.
+Running the same contract against `EuPaymentProviderFamily` and
+`UsPaymentProviderFamily` is exactly what would have caught the mismatched-bean
+bug above: the test fails the moment `gateway().region()` and
+`fraudCheck().region()` disagree, regardless of which configuration class or
+constructor call produced them. Also test provider-selection failure,
+lifecycle cleanup, and configuration validation. A useful architecture test
+can assert that domain packages do not import vendor SDK packages.
 
 ## Interview-Ready Answer
 

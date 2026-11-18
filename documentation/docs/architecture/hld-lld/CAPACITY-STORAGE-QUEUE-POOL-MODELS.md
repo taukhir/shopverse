@@ -143,7 +143,21 @@ A 95% hit ratio is not sufficient evidence by itself. Measure:
 
 ## Queue And Kafka Lag
 
-Queue depth is pending work. Kafka lag is:
+```mermaid
+flowchart LR
+    A["Arrival rate\n(new records/second)"] --> Q["Queue\n(backlog / Kafka lag)"]
+    Q --> S["Consumer capacity\n(records/second served)"]
+    S --> D["Departure\n(committed offset advances)"]
+    Q -. "if arrival >= capacity,\nqueue grows unbounded" .-> Q
+```
+
+Queue depth is pending work. Kafka lag is the gap between what has arrived
+(the log-end offset) and what has been departed (the committed consumer
+offset) in the diagram above. Drain time only has a finite answer when
+consumer capacity genuinely exceeds the arrival rate — the same shape as
+Little's Law (`average items in system = arrival rate x average time in
+system`): a queue whose arrival rate meets or exceeds its service rate has
+no steady-state average wait, it grows without bound.
 
 ```text
 lag =

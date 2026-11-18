@@ -170,12 +170,66 @@ The persistence context maintains one managed instance per identity. Trying to
 associate a different instance with the same identity can cause conflicts.
 Use the managed instance or merge carefully.
 
+```java
+Order managed = entityManager.find(Order.class, orderId);
+
+Order detachedCopy = new Order();
+detachedCopy.setId(orderId); // same identity, different Java instance
+
+entityManager.persist(detachedCopy);
+// throws PersistentObjectException / NonUniqueObjectException:
+// a different object with the same identifier is already associated
+// with this session
+```
+
+Fetch and mutate the `managed` instance instead of constructing a second
+object that happens to share its identity; if detached-state copying is
+genuinely required, go through `merge()` so Hibernate reconciles against
+the already-managed instance rather than attaching a second one.
+
 ### `equals()` Uses A Generated ID
 
 Before persistence, IDs may be null; after persistence, the hash code can
 change while the entity is inside a `HashSet`. Use carefully designed equality,
 often based on a stable natural key, or identity semantics appropriate to the
 aggregate.
+
+```java
+public class Order {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Order other && Objects.equals(id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id); // null before persist, non-null after
+    }
+}
+```
+
+```java
+Set<Order> orders = new HashSet<>();
+Order order = new Order(); // id is null, hashCode() = Objects.hash(null)
+orders.add(order);
+
+entityManager.persist(order); // id is now assigned, hashCode() changes
+
+orders.contains(order); // can return false — the bucket computed from the
+                         // old (null) hash code no longer matches where
+                         // persist() would re-insert this instance
+```
+
+The entity moved hash buckets after `persist()` changed its `id`, but the
+`HashSet` never re-buckets an existing element — looking it up by its new
+hash code misses the bucket it actually lives in. Base equality on a
+stable business/natural key, or use identity (`==`)-based semantics for
+entities kept in hash-based collections across the point where the ID is
+assigned.
 
 ### Bulk Update Then Read Managed Entity
 
@@ -195,6 +249,38 @@ Fetching several unordered list/bag collections in one query can create a
 cartesian product and may be rejected by Hibernate. Use separate queries,
 sets where semantically correct, batch/subselect fetching, or a dedicated DTO
 query.
+
+```java
+@Entity
+class Order {
+    @OneToMany(mappedBy = "order")
+    private List<OrderLine> lines;      // bag #1
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderNote> notes;      // bag #2
+}
+```
+
+```java
+@Query("""
+  select o from Order o
+    join fetch o.lines
+    join fetch o.notes
+  where o.id = :id
+  """)
+Optional<Order> findWithLinesAndNotes(Long id);
+```
+
+```text
+org.hibernate.loader.MultipleBagFetchException:
+cannot simultaneously fetch multiple bags: [Order.lines, Order.notes]
+```
+
+With 3 lines and 2 notes, a naive join would also return `3 x 2 = 6` rows
+for one logical order even if Hibernate allowed it, duplicating line/note
+data across the cartesian product. Fetch one bag per query, change one
+collection to a `Set` where duplicates genuinely cannot occur, or load
+both with a single DTO projection query instead of entity graphs.
 
 
 ## Production Do And Do Not

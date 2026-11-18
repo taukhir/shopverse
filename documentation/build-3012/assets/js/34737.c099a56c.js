@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkshopverse_documentation=self.webpackChunkshopverse_documentation||[]).push([[34737],{34737(e,s,c){c.d(s,{createPieServices:()=>t.f});var t=c(10532);c(69302)}}]);

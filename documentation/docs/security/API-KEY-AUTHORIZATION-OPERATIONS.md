@@ -65,6 +65,22 @@ Store:
 
 Show the raw API key only once at creation time.
 
+```mermaid
+stateDiagram-v2
+    [*] --> Active: issue (raw key shown once)
+    Active --> Rotated: rotate (old key revoked immediately)
+    Active --> Expired: expires_at reached
+    Active --> Revoked: manual revoke
+    Rotated --> [*]: old key_id retired
+    Expired --> [*]
+    Revoked --> [*]
+```
+
+A rotated key is not a new row with the old one left "active in the
+background" — rotation must revoke the old `key_id` in the same operation
+that issues the new one, or both keys stay valid simultaneously, which
+defeats the purpose of rotating a potentially leaked credential.
+
 ## Step 9: Implement API Key Issuance
 
 Add admin-only endpoints:

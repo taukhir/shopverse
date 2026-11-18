@@ -51,6 +51,34 @@ journey from several systems:
 That is slow and error-prone, especially when asynchronous SAGA steps run
 after the original HTTP trace has finished.
 
+```mermaid
+sequenceDiagram
+    participant O as Order Service
+    participant K as Kafka
+    participant I as Inventory Service
+    participant P as Payment Service
+    participant T as order_timeline_events
+
+    O->>T: write ORDER_CREATED
+    O->>K: order.created
+    K->>I: order.created
+    I->>K: inventory.reserved
+    K->>O: inventory.reserved
+    O->>T: write INVENTORY_RESERVED
+    O->>K: (payment flow begins)
+    K->>P: triggers payment processing
+    O->>T: write PAYMENT_PROCESSING
+    P->>K: payment.completed
+    K->>O: payment.completed
+    O->>T: write PAYMENT_COMPLETED
+    O->>T: write ORDER_CONFIRMED
+```
+
+Every timeline write happens inside the local transaction of whichever
+service reacts to an event — the table on the right is the one place that
+accumulates a chronological record spanning all four hops, which no single
+service's own logs or traces can reconstruct on their own.
+
 ### Solution
 
 Order Service persists business transitions in `order_timeline_events`.

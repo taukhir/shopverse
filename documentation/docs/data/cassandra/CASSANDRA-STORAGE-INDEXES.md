@@ -92,6 +92,41 @@ Tombstone-heavy reads can scan large discarded ranges, causing latency and failu
 Prevent them through bounded partitions, suitable TTL/bucketing, query-specific
 tables, and compaction—not by raising warning/failure thresholds blindly.
 
+### Worked Edge Case: An Unbounded Event Partition
+
+```cql
+CREATE TABLE order_events (
+    order_id   uuid,
+    event_time timeuuid,
+    event_type text,
+    payload    text,
+    PRIMARY KEY (order_id, event_time)
+) WITH default_time_to_live = 2592000; -- 30 days
+```
+
+A single long-lived `order_id` that accumulates thousands of events over
+months — a subscription order with recurring billing events, for example —
+builds one ever-growing partition. Once the 30-day TTL starts expiring the
+oldest rows, a simple range scan over that partition becomes:
+
+```cql
+SELECT * FROM order_events WHERE order_id = ?;
+```
+
+```text
+WARN  [ReadStage] Read 3 live rows and 48213 tombstone cells for query
+      SELECT * FROM order_events WHERE order_id = <id> (see
+      tombstone_warn_threshold)
+```
+
+The query returns correctly but scans 48,213 discarded cells to find 3
+live rows — the exact tombstone-heavy latency failure described above, and
+raising `tombstone_failure_threshold` only postpones the query actually
+timing out, it does not fix the amplification. The real fix is bucketing
+the partition key by time (`(order_id, month_bucket)`) so each partition's
+discarded history is bounded and ages out of relevance on its own, rather
+than growing inside one partition that every query must scan through.
+
 ## Secondary Index Choices
 
 The primary key remains the first Cassandra access path. Index options vary by

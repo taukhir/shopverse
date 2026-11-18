@@ -61,6 +61,10 @@ updates:
     directory: "/shopverse-web"
     schedule:
       interval: "weekly"
+    groups:
+      angular:
+        patterns:
+          - "@angular/*"
   - package-ecosystem: "npm"
     directory: "/documentation"
     schedule:
