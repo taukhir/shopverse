@@ -95,6 +95,69 @@ Compute retry multiplication across gateway, client and consumer layers. Check w
 timeouts fit the end-to-end deadline and whether retries are bounded, jittered and limited
 to idempotent transient operations.
 
+## Worked Example: Diagnosing Hikari Exhaustion From Evidence
+
+```yaml
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+      connection-timeout: 2000
+      leak-detection-threshold: 5000
+management:
+  endpoints.web.exposure.include: health,metrics
+  metrics.tags.application: order-service
+```
+
+With this configuration, `hikaricp.connections.pending`,
+`hikaricp.connections.active`, and `hikaricp.connections.max` are all
+exposed through Actuator/Micrometer. A real triage session checks them in
+this order, not by guessing at a bigger pool size first:
+
+```text
+GET /actuator/metrics/hikaricp.connections.pending   -> value: 47   (growing)
+GET /actuator/metrics/hikaricp.connections.active    -> value: 20   (= max, saturated)
+GET /actuator/metrics/hikaricp.connections.usage     -> p99: 8.2s   (far above expected query time)
+```
+
+Pending requests climbing while active sits pinned at the configured
+maximum, combined with a usage duration far longer than any single query
+should take, points at connections being held across a slow remote call or
+a leaked connection — not at an undersized pool. `leak-detection-threshold`
+logs a stack trace for any connection held past 5 seconds, which is the
+next piece of evidence to pull before touching `maximum-pool-size` at all.
+
+```mermaid
+flowchart TD
+    A["connections.pending rising"] --> B{"active == max?"}
+    B -->|no| C["Pool isn't saturated;<br/>look elsewhere"]
+    B -->|yes| D{"usage p99 far above<br/>expected query time?"}
+    D -->|no| E["Pool genuinely undersized;<br/>size up with capacity evidence"]
+    D -->|yes| F["Connections held across a slow<br/>remote call or leaked"]
+    F --> G["Check leak-detection-threshold<br/>stack traces before resizing"]
+```
+
+## Hands-On Labs
+
+1. Start a service with `maximum-pool-size: 5`, saturate it with concurrent
+   requests, and capture `hikaricp.connections.pending` rising via Actuator.
+2. Reproduce a self-invocation `@Transactional` failure (call an annotated
+   method from another method on the same bean) and confirm no transaction
+   is opened by inspecting the datasource's commit log.
+3. Trigger a `BeanCurrentlyInCreationException` with a true circular
+   constructor dependency, then fix it with a redesigned boundary (not
+   `@Lazy`) and confirm the cycle is actually gone.
+4. Force a startup failure with a missing required property and capture
+   the `FailureAnalyzer` output; confirm it names the property and the
+   configuration source.
+5. Load-test a `/actuator/health` liveness probe under CPU throttling and
+   show that it can return healthy while the real request path is timing
+   out — the gap this page's "Actuator Says Healthy But Service Is Not"
+   production guidance is about.
+6. Shut a service down under in-flight load and measure whether graceful
+   shutdown actually waits for Kafka listener acknowledgment versus killing
+   the pod at the configured grace period.
+
 ## Top Questions
 
 **What does `@SpringBootApplication` combine?** Configuration, component scanning and

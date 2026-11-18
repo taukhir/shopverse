@@ -17,6 +17,17 @@ A distributed system contains independent processes running on multiple
 machines that cooperate through a network to provide one broader capability.
 Each process has its own memory, execution lifecycle, clock, and failure modes.
 
+```mermaid
+flowchart LR
+    A["Service A\n(own memory, own clock)"] -- "network\n(can drop, delay, duplicate)" --> B["Service B\n(own memory, own clock)"]
+    B -- "network" --> C["Service C\n(own memory, own clock)"]
+    A -. "no shared memory between any two nodes" .-> C
+```
+
+Nothing here is a single shared address space: every arrow is a network
+hop that can fail independently of the processes on either end, which is
+the root cause of nearly every property discussed below.
+
 Examples include:
 
 - microservices;

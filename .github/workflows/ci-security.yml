@@ -52,6 +52,7 @@ jobs:
           limit-severities-for-sarif: true
           exit-code: "1"
           skip-dirs: documentation/build,documentation/node_modules,shopverse-web/node_modules,.git
+          skip-files: documentation/Dockerfile.dockerignore
       - name: Retain scan evidence
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
@@ -81,7 +82,7 @@ jobs:
           persist-credentials: false
       - name: Set up Java for dependency extraction
         if: matrix.language == 'java-kotlin'
-        uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
         with:
           distribution: temurin
           java-version: "25"

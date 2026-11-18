@@ -148,6 +148,34 @@ is explicit. Redis may hold fast permits when durability, failover, fencing, and
 reconstruction are designed, but a normal cache decrement alone is not durable
 inventory authority.
 
+A worked atomic conditional reservation for the last-unit case:
+
+```sql
+UPDATE inventory_ledger
+   SET available = available - :quantity,
+       version = version + 1
+ WHERE sku = :sku
+   AND available >= :quantity
+   AND version = :expectedVersion;
+```
+
+If two checkout requests race for the last unit, exactly one `UPDATE`
+matches the `available >= :quantity` predicate at the row's current
+value — the loser's statement affects zero rows, not a negative balance.
+The caller must check the affected-row count explicitly:
+
+```java
+int updated = jdbcTemplate.update(RESERVE_SQL, quantity, sku, quantity, expectedVersion);
+if (updated == 0) {
+    throw new InsufficientStockException(sku); // or re-read and retry on version conflict
+}
+```
+
+A cache-based decrement (`DECR` in Redis with no durability/fencing design)
+cannot provide this guarantee alone: a replica failover or a lost
+write between the decrement and the durable order record can both
+oversell or silently lose the reservation.
+
 Reservations need an expiry, but expiry and confirmation can race. Guard
 `ACTIVE -> CONFIRMED` and `ACTIVE -> EXPIRED` with the expected state/version so
 only one wins. Confirm, release, and expire idempotently. Make sold-out knowledge
@@ -173,6 +201,28 @@ The critical path should be short and bounded:
    fulfillment, notification, and analytics.
 7. The API returns a durable state. Nonessential email or recommendation work
    remains asynchronous.
+
+A worked idempotency-key enforcement at the order boundary:
+
+```sql
+CREATE UNIQUE INDEX uq_orders_idempotency_key ON orders (idempotency_key);
+```
+
+```java
+try {
+    orderRepository.insert(new Order(idempotencyKey, cartFingerprint, status: PENDING));
+} catch (DuplicateKeyException e) {
+    // a retried request with the same key — return the existing order's
+    // current state instead of creating a second order
+    return orderRepository.findByIdempotencyKey(idempotencyKey);
+}
+```
+
+A client retry under load (a timeout followed by an automatic resend)
+hits the unique constraint rather than creating a second `PENDING` order
+for the same checkout intent — the database, not application-level
+deduplication logic, is what makes this safe under concurrent retries
+from the same client.
 
 The exact ordering of reservation, order creation, and payment depends on the
 business policy. State the failure windows and compensation for the selected

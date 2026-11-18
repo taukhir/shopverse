@@ -1,0 +1,9 @@
+# CVE-2026-112366 - picomatch ReDoS via single-branch repeated extglobs.
+# Affects every picomatch release through 4.0.7; no patched version exists
+# upstream yet (https://advisories.gitlab.com/npm/picomatch/CVE-2026-112366/).
+# picomatch here is a transitive build-time dependency of the documentation
+# site's Docusaurus toolchain (pulled in via micromatch/chokidar and similar
+# glob-matching libs). It only evaluates glob patterns we author ourselves in
+# build config, never attacker-supplied input, so the ReDoS is not reachable
+# through this repo. Remove this line once a fixed release is published.
+CVE-2026-112366

@@ -107,6 +107,51 @@ handler prevents silent success caused by a missing link.
 
 </DocCallout>
 
+## Failure: A Handler That Forgets To Reject Anything
+
+The chain above relies on every handler returning an explicit outcome. A
+handler that is supposed to reject empty baskets but has a logic bug falls
+through to `Continue` for every input instead of failing loudly:
+
+```java
+@Component
+@Order(10)
+final class BasketNotEmptyRule implements CheckoutRule {
+    public ValidationOutcome evaluate(CheckoutContext context) {
+        if (context.items().isEmpty()) {
+            log.warn("basket is empty"); // logs, but forgot to return Reject
+        }
+        return new ValidationOutcome.Continue();
+    }
+}
+```
+
+An empty-basket checkout now reaches payment authorization. Nothing in
+`CheckoutRuleChain` catches this: the loop sees `Continue` from every rule
+and proceeds exactly as if the basket were valid, because the chain has no
+way to distinguish "this rule ran and approved" from "this rule forgot to
+decide." The bug is invisible in a unit test that only asserts the chain
+completes without throwing — it needs a test that asserts a *specific*
+rejection code for a known-bad input (see Testing below).
+
+```java
+@Component
+@Order(10)
+final class BasketNotEmptyRule implements CheckoutRule {
+    public ValidationOutcome evaluate(CheckoutContext context) {
+        return context.items().isEmpty()
+                ? new ValidationOutcome.Reject("EMPTY_BASKET")
+                : new ValidationOutcome.Continue();
+    }
+}
+```
+
+The fix is the original implementation above — the sealed `ValidationOutcome`
+type still cannot force a handler to compute the *correct* branch, only that
+it return *some* branch. That is why the chain's terminal-behavior contract
+(what happens when every handler nominally "passes") matters as much as the
+linking mechanism itself.
+
 ## Testing
 
 Test handlers independently, then test the assembled order, early termination,

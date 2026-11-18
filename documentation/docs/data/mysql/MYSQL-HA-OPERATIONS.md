@@ -52,6 +52,28 @@ replica to acknowledge receipt (not application) of the transaction before
 the primary's commit returns, bounding — but not eliminating — data loss on
 failover.
 
+### Worked Example: Reading GTID State
+
+```sql
+-- On the primary
+SHOW VARIABLES LIKE 'gtid_executed';
+-- gtid_executed: 3e11fa47-71ca-11e1-9e33-c80aa9429562:1-2384
+
+-- On a replica
+SHOW REPLICA STATUS\G
+-- Retrieved_Gtid_Set: 3e11fa47-71ca-11e1-9e33-c80aa9429562:1-2380
+-- Executed_Gtid_Set:  3e11fa47-71ca-11e1-9e33-c80aa9429562:1-2378
+-- Seconds_Behind_Source: 4
+```
+
+`Retrieved` ahead of `Executed` means the IO thread has fetched more
+transactions than the SQL/apply thread has replayed — the apply thread,
+not network transfer, is the bottleneck. Comparing `Executed_Gtid_Set`
+across every replica (not just `Seconds_Behind_Source`) is how you
+identify the *most caught-up* replica during a failover, since two
+replicas can report similar lag in seconds while holding different GTID
+sets if one stalled on a specific transaction.
+
 ## Group Replication And Galera
 
 Both **MySQL Group Replication** and **Galera Cluster** provide
@@ -106,6 +128,32 @@ file/offset) via the group's own failover mechanism where Group
 Replication/Galera is in use, or a tested manual promotion runbook
 otherwise; redirect application traffic; reconcile any transactions the old
 primary had acknowledged but not yet shipped under async replication.
+
+Manual promotion runbook (async/semi-sync, no Group Replication):
+
+```sql
+-- 1. On every surviving replica, compare GTID sets to find the most
+--    caught-up candidate
+SHOW REPLICA STATUS\G   -- compare Executed_Gtid_Set across replicas
+
+-- 2. On the chosen replica, stop replication and promote it
+STOP REPLICA;
+RESET REPLICA ALL;
+
+-- 3. On every OTHER surviving replica, repoint to the new primary
+--    using GTID auto-positioning (no manual file/offset math needed)
+CHANGE REPLICATION SOURCE TO
+  SOURCE_HOST = 'new-primary.internal',
+  SOURCE_AUTO_POSITION = 1;
+START REPLICA;
+```
+
+`SOURCE_AUTO_POSITION = 1` is what GTID buys here: each replica's own
+`Executed_Gtid_Set` determines exactly where it resumes from the new
+primary, without the operator calculating a binlog file-and-offset
+coordinate under pressure. Redirect application traffic only after
+confirming the promoted replica is reachable and writable — promoting a
+replica does not by itself move client connections to it.
 
 **Disk usage spiking on a replica.** Check whether binlog or relay-log
 retention is being held back by a stalled downstream consumer (another

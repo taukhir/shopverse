@@ -106,6 +106,28 @@ consumer A:       P0 P1
 consumer B:       P2 P3
 ```
 
+```mermaid
+flowchart LR
+    subgraph Before["Before: 2 consumers"]
+        P0[P0] --> CA1[Consumer A]
+        P1[P1] --> CA1
+        P2[P2] --> CB1[Consumer B]
+        P3[P3] --> CB1
+    end
+    subgraph After["After: Consumer B crashes, rebalance"]
+        P0b[P0] --> CA2[Consumer A]
+        P1b[P1] --> CA2
+        P2b[P2] --> CA2
+        P3b[P3] --> CA2
+    end
+    Before -. rebalance .-> After
+```
+
+Consumer A did not choose to take over P2/P3 — the group coordinator
+reassigned them once it detected Consumer B stopped sending heartbeats.
+Any work Consumer B had in flight but not yet acknowledged becomes
+available for redelivery to whichever consumer now owns that partition.
+
 Consumers in different groups receive independent copies. Rebalance moves
 partition ownership when membership or partition count changes.
 

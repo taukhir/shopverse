@@ -18,6 +18,17 @@ review_evidence: repository-content-audit
 
 ## Universal Sequence
 
+```mermaid
+flowchart TD
+    A[1. Establish impact,<br/>affected versions, start time] --> B[2. Stop concurrent<br/>deployments/config changes]
+    B --> C[3. Preserve logs, metrics,<br/>traces, K8s events, JVM evidence]
+    C --> D[4. Identify owning queue, thread,<br/>proxy, transaction, pool, or dependency]
+    D --> E[5. Contain load/retry/background work<br/>without advancing unsafe state]
+    E --> F[6. Correct via canary<br/>and explicit rollback]
+    F --> G[7. Reconcile requests, events,<br/>outboxes, Sagas, external effects]
+    G --> H[8. Prove SLO recovery,<br/>record prevention]
+```
+
 1. establish customer impact, affected versions/instances and start time;
 2. stop concurrent deployments/config changes;
 3. preserve logs, metrics, traces, Kubernetes events, startup/condition report and
@@ -27,6 +38,10 @@ review_evidence: repository-content-audit
 6. correct through a canary and explicit rollback;
 7. reconcile requests, events, outboxes, Sagas and external effects;
 8. prove SLO recovery and record prevention.
+
+Step 4 is where most incidents actually diverge — the remaining sections of
+this page are each a specialization of step 4 for one specific owning
+component (startup, beans, proxies, transactions, pools, and so on).
 
 ## Startup Slow Or Failing
 

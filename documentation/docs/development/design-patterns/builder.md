@@ -101,6 +101,61 @@ collections are copied, and `build()` rejects invalid combinations.
 - A reusable builder carries stale mutable state. Treat builders as single-use
   or add an explicit safe reset.
 
+### The Bug: A Required Check Quietly Missing From `build()`
+
+A builder only protects what its `build()` method actually checks. Here the
+author added `items` to the builder but forgot to validate it is non-empty:
+
+```java
+public static final class Builder {
+    private CustomerId customerId;
+    private final List<OrderLine> items = new ArrayList<>();
+    private Instant createdAfter;
+
+    public Builder items(List<OrderLine> value) {
+        this.items.addAll(value);
+        return this;
+    }
+
+    public SearchOrdersQuery build() {
+        if (pageSize < 1 || pageSize > 200) {
+            throw new IllegalStateException("pageSize must be between 1 and 200");
+        }
+        // BUG: no check that items is non-empty before this line
+        return new SearchOrdersQuery(this);
+    }
+}
+```
+
+```java
+SearchOrdersQuery query = SearchOrdersQuery.forCustomer(customerId).build();
+// query.items() is an empty list — build() happily returned it.
+// The bug surfaces much later and far from here, as a confusing
+// "no results" response instead of a construction-time failure:
+orderSearchService.search(query); // silently searches with zero filters
+```
+
+The fix is the same discipline as the `pageSize` check already in the file —
+every field the builder exposes needs an explicit rule in `build()`, not just
+the fields someone remembered to validate:
+
+```java
+public SearchOrdersQuery build() {
+    if (customerId == null) {
+        throw new IllegalStateException("customerId is required");
+    }
+    if (pageSize < 1 || pageSize > 200) {
+        throw new IllegalStateException("pageSize must be between 1 and 200");
+    }
+    return new SearchOrdersQuery(this);
+}
+```
+
+A test that calls `build()` with each required field omitted, one at a time,
+is what actually proves this invariant — reading the validation code is not
+enough, since this bug shipped with validation code already present for a
+*different* field.
+
 ## Implementation 2: Staged Builder
 
 Interfaces can make required construction steps compile-time visible:
@@ -144,6 +199,21 @@ ApiRequest request = ApiRequest.builder()
 Staged builders add several types and become awkward with many optional branches.
 Use them only when construction order or mandatory stages are genuinely complex;
 otherwise required constructor arguments plus one normal builder are clearer.
+
+```mermaid
+flowchart LR
+    Start["ApiRequest.builder()"] --> M["MethodStep<br/>only .method() compiles here"]
+    M --> U["UriStep<br/>only .uri() compiles here"]
+    U --> O["OptionalStep<br/>.header()* then .build()"]
+    O -->|"missing method() or uri()?"| Fail["compile error —<br/>no such method on this interface"]
+    O -->|"both steps completed"| Product["ApiRequest"]
+```
+
+Each stage's interface only exposes the next legal step, so a caller who skips
+`method()` or `uri()` cannot reach `.build()` at all — the compiler rejects the
+call chain rather than a runtime check rejecting an incomplete object. That is
+the specific invariant a staged builder buys over the manual builder above,
+whose `build()` can only catch what it explicitly validates (see below).
 
 ## Implementation 3: Lombok `@Builder`
 
