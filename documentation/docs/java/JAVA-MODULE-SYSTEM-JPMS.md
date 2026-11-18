@@ -59,17 +59,21 @@ instead of here.
 
 ## Mental Model
 
-```text
-classpath:  every public type, everywhere, always reachable
-module path: readability graph + per-package export list
-             A can see B's type T only if:
-               1. A requires B (readability), AND
-               2. B exports (or opens) the package containing T
+```mermaid
+flowchart LR
+    A["Module A<br/>requires com.shopverse.pricing.spi"] -->|"1. readability edge<br/>(requires)"| B["Module com.shopverse.pricing.spi"]
+    B -->|"2. accessibility check<br/>(exports / opens)"| T["Package com.shopverse.pricing.spi<br/>is visible to A"]
+    B -.->|"not exported/opened to A"| X["Other package in B<br/>stays invisible to A"]
 ```
 
-Strong encapsulation is the JVM enforcing rule 2 even for code that would
-otherwise compile and link under the old classpath model — including
-reflective access, which `opens` governs separately from `exports`.
+Both edges must hold before A can see a type in B: module A must declare
+`requires` on B (readability), **and** B must `exports` (or `opens`) the
+specific package containing that type to A (accessibility). The classpath
+has no second check — every public type on any JAR is reachable from
+everywhere. Strong encapsulation is the JVM enforcing that second edge even
+for code that would otherwise compile and link under the old classpath
+model — including reflective access, which `opens` governs separately from
+`exports`.
 
 ## First Working Example
 

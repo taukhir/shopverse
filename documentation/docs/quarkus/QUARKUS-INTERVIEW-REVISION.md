@@ -30,6 +30,25 @@ cost to a different phase.
 | Reactive model | WebFlux (Project Reactor) as a distinct stack | Mutiny, integrated with the same imperative-looking CDI model | choosing reactive is a separate decision from choosing the framework on either side |
 | Ecosystem maturity | larger, more third-party library coverage assumed | curated extension set, smaller but build-time-verified | an unsupported third-party library is more likely to break native compilation on Quarkus than runtime behavior on Spring Boot |
 
+```mermaid
+flowchart LR
+    subgraph Build Time
+        BT1["Scan classpath +<br/>extensions"] --> BT2["Augmentation:<br/>generate bytecode,<br/>resolve CDI graph"]
+    end
+    subgraph Spring Boot Runtime
+        SR1["Classpath scan"] --> SR2["Conditional<br/>auto-configuration"] --> SR3["Bean graph built"]
+    end
+    BT2 --> QR["Quarkus runtime:<br/>graph already resolved"]
+    QR --> Start1["Sub-second startup"]
+    SR3 --> Start2["Startup proportional<br/>to bean-graph size"]
+```
+
+Quarkus moves the expensive classpath/CDI resolution work from every
+process start (Spring Boot's runtime auto-configuration) to a one-time
+build step, which is why native-image reflection must be registered at
+build time too — anything the augmentation phase cannot see statically
+will be missing at runtime.
+
 Neither framework removes the distributed-systems correctness obligations
 (idempotency, authorization, outbox atomicity) covered elsewhere on this
 site — see the [Quarkus Learning Path](./README.md)'s own "what Quarkus is

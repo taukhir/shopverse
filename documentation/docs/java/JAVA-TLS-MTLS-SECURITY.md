@@ -59,21 +59,29 @@ token is ever read.
 
 ## Mental Model
 
-```text
-SSLContext
-  KeyManager  <- reads keystore  (my private key + my certificate)
-  TrustManager <- reads truststore (certificates I accept from the peer)
-
-one-way TLS:  client TrustManager verifies server certificate
-mutual TLS:   client TrustManager verifies server certificate
-              AND server TrustManager verifies client certificate
-              (server must also request the client certificate)
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    C->>S: ClientHello
+    S->>C: ServerHello + server certificate
+    C->>C: verify server cert against TrustManager (truststore)
+    opt mutual TLS only
+        S->>C: CertificateRequest
+        C->>S: client certificate
+        S->>S: verify client cert against TrustManager (truststore)
+    end
+    C->>S: Finished (encrypted channel established)
 ```
 
-A keystore and a truststore can physically be the same file format (JKS or
-PKCS12) — the distinction is which role the entries play, not the file
-type. A service's keystore holds *its own* key pair; its truststore holds
-*other parties'* certificates (or the CA that signed them).
+One-way TLS only runs the first verification (client trusts server);
+mutual TLS adds the `CertificateRequest` step, requiring the server to also
+verify the client's certificate before the handshake completes. A keystore
+and a truststore can physically be the same file format (JKS or PKCS12) —
+the distinction is which role the entries play, not the file type. A
+service's `KeyManager` reads its keystore, holding *its own* key pair; its
+`TrustManager` reads its truststore, holding *other parties'* certificates
+(or the CA that signed them).
 
 ## First Working Example: One-Way TLS Client
 

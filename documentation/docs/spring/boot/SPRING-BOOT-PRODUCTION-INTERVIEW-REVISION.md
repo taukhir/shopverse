@@ -127,6 +127,16 @@ a leaked connection — not at an undersized pool. `leak-detection-threshold`
 logs a stack trace for any connection held past 5 seconds, which is the
 next piece of evidence to pull before touching `maximum-pool-size` at all.
 
+```mermaid
+flowchart TD
+    A["connections.pending rising"] --> B{"active == max?"}
+    B -->|no| C["Pool isn't saturated;<br/>look elsewhere"]
+    B -->|yes| D{"usage p99 far above<br/>expected query time?"}
+    D -->|no| E["Pool genuinely undersized;<br/>size up with capacity evidence"]
+    D -->|yes| F["Connections held across a slow<br/>remote call or leaked"]
+    F --> G["Check leak-detection-threshold<br/>stack traces before resizing"]
+```
+
 ## Hands-On Labs
 
 1. Start a service with `maximum-pool-size: 5`, saturate it with concurrent
