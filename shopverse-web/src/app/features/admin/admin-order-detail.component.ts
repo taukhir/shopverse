@@ -14,7 +14,7 @@ interface OrderItem {
   productId: number;
   productName: string;
   quantity: number;
-  unitPrice: number;
+  unitPrice: string;
 }
 
 interface ShippingAddress {
@@ -35,7 +35,7 @@ interface Order {
   idempotencyKey: string;
   customerUsername: string;
   status: string;
-  totalAmount: number;
+  totalAmount: string;
   shippingAddress?: ShippingAddress | null;
   items: OrderItem[];
   createdAt: string;
@@ -119,8 +119,12 @@ export class AdminOrderDetailComponent {
     });
   }
 
-  protected price(value: number): string {
+  protected price(value: number | string): string {
     return formatInr(value);
+  }
+
+  protected lineTotal(item: OrderItem): number {
+    return item.quantity * parseFloat(item.unitPrice);
   }
 
   protected cleanStage(stage: string): string {

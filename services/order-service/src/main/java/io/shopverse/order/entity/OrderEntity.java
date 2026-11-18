@@ -39,6 +39,9 @@ public class OrderEntity extends BaseAuditableEntity {
     @Column(nullable = false, length = 40)
     private OrderStatus status;
 
+    @Column(nullable = false, length = 3)
+    private String currency;
+
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal totalAmount;
 
@@ -82,6 +85,7 @@ public class OrderEntity extends BaseAuditableEntity {
     private final List<OrderItemEntity> items = new ArrayList<>();
 
     public OrderEntity(String orderNumber, String customerUsername, String correlationId, String idempotencyKey) {
+        this.currency = "INR";
         this.orderNumber = orderNumber;
         this.customerUsername = customerUsername;
         this.correlationId = correlationId;
@@ -113,6 +117,10 @@ public class OrderEntity extends BaseAuditableEntity {
         this.shippingState = state;
         this.shippingPostalCode = postalCode;
         this.shippingCountry = country;
+    }
+
+    public void markPendingInventory() {
+        status = OrderStatus.PENDING_INVENTORY;
     }
 
     public void markInventoryRejected(String reason) {

@@ -12,7 +12,7 @@ import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton
 import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
 import { compareNumber, compareText, uniqueSorted } from '../../shared/utils/collection';
 import { formatInr } from '../../shared/utils/formatters';
-import { Payment, PaymentAction, PaymentApiService, SimulationMode } from './payment-api.service';
+import { Payment, PaymentAction, PaymentApiService } from './payment-api.service';
 
 @Component({
   selector: 'app-payment-admin',
@@ -33,9 +33,6 @@ export class PaymentAdminComponent {
   protected readonly actionError = signal('');
   protected readonly actionSuccess = signal('');
   protected readonly busyOrder = signal('');
-  protected readonly simulationMode = signal<SimulationMode>('SUCCESS');
-  protected readonly simulationSaving = signal(false);
-  protected readonly modes: SimulationMode[] = ['SUCCESS', 'DECLINE', 'TIMEOUT'];
   protected readonly search = signal('');
   protected readonly statusFilter = signal('ALL');
   protected readonly sort = signal<'updatedDesc'|'updatedAsc'|'amountDesc'|'amountAsc'|'status'|'order'>('updatedDesc');
@@ -94,25 +91,6 @@ export class PaymentAdminComponent {
       error: () => {
         this.error.set(APP_MESSAGES.errors.paymentsUnavailable);
         this.loading.set(false);
-      },
-    });
-  }
-
-  protected setSimulationMode(): void {
-    this.simulationSaving.set(true);
-    this.actionError.set('');
-    this.actionSuccess.set('');
-    this.paymentApi.setSimulationMode(this.simulationMode()).subscribe({
-      next: (mode) => {
-        this.simulationMode.set(mode);
-        this.actionSuccess.set(`Payment simulation set to ${mode}.`);
-        this.simulationSaving.set(false);
-        this.toast.success(`Payment simulation set to ${mode}.`);
-      },
-      error: () => {
-        this.actionError.set('Could not update payment simulation mode.');
-        this.simulationSaving.set(false);
-        this.toast.error('Could not update payment simulation mode.');
       },
     });
   }
