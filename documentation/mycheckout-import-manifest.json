@@ -1,0 +1,2960 @@
+{
+  "source": "checkout/docs",
+  "importedOn": "2026-11-16",
+  "documents": [
+    {
+      "source": "API-AND-EVENT-CATALOG.md",
+      "sha256": "d70fcd17613ce6937556a6d2ea3e04dcec38b92cf18cb0e0bdda107d6da24606",
+      "pages": [
+        "mycheckout/api-and-event-catalog"
+      ]
+    },
+    {
+      "source": "AWS-INTERVIEW-PREP.md",
+      "sha256": "2427ac2266ecbe745ffbd89995f547102e6aff811d209b44ac70c8b050664310",
+      "pages": [
+        "mycheckout/aws-interview-prep/part-1",
+        "mycheckout/aws-interview-prep/part-2"
+      ]
+    },
+    {
+      "source": "COVERAGE-AUDIT.md",
+      "sha256": "46dbba1d55c086a0f7ab3c29aa5602a9dd11fee2771cf233b6471eb865401172",
+      "pages": [
+        "mycheckout/coverage-audit"
+      ]
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "sha256": "625ad65626685134a1f9418f07dc1a7a3035c3800df732b0eb3b01abf30d06ab",
+      "pages": [
+        "mycheckout/create-checkout-flow/part-1",
+        "mycheckout/create-checkout-flow/part-2"
+      ]
+    },
+    {
+      "source": "END-TO-END-SYSTEM.md",
+      "sha256": "4d1f4d3804f7dd242a206764ce0bbf48f087371f0c8bf643aa9ecd1038ae3228",
+      "pages": [
+        "mycheckout/end-to-end-system/part-1",
+        "mycheckout/end-to-end-system/part-2",
+        "mycheckout/end-to-end-system/part-3",
+        "mycheckout/end-to-end-system/part-4",
+        "mycheckout/end-to-end-system/part-5",
+        "mycheckout/end-to-end-system/part-6"
+      ]
+    },
+    {
+      "source": "Fulfilment-Understanding-Notes.md",
+      "sha256": "3d47a30bb67c11a68bfacd48438e7c011e39e167a8fffdfb159eac5d0f7cf4c6",
+      "pages": [
+        "mycheckout/fulfilment-understanding-notes/part-1",
+        "mycheckout/fulfilment-understanding-notes/part-2"
+      ]
+    },
+    {
+      "source": "INTERVIEW-PREP.md",
+      "sha256": "d66d6ba6319504f369415902a6e00eb5d3899fda752d33ddc02b69eb911129ef",
+      "pages": [
+        "mycheckout/interview-prep/part-1",
+        "mycheckout/interview-prep/part-2",
+        "mycheckout/interview-prep/part-3",
+        "mycheckout/interview-prep/part-4",
+        "mycheckout/interview-prep/part-5",
+        "mycheckout/interview-prep/part-6",
+        "mycheckout/interview-prep/part-7"
+      ]
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "sha256": "b89fb3b9e7baaf4e5fbe4d6a0d4268fb106d7eb4cdbbc562185e60ee9743cd37",
+      "pages": [
+        "mycheckout/payment-cdc-sequence-guide/part-1",
+        "mycheckout/payment-cdc-sequence-guide/part-2",
+        "mycheckout/payment-cdc-sequence-guide/part-3"
+      ]
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "sha256": "9ff8dcedefe9ba4f4d4d9170caba8c4e6dadf822f8ca8059a2655ef4f69854ab",
+      "pages": [
+        "mycheckout/place-order-flow/part-1",
+        "mycheckout/place-order-flow/part-2",
+        "mycheckout/place-order-flow/part-3"
+      ]
+    },
+    {
+      "source": "architecture/README.md",
+      "sha256": "acbc0f2a5da65b163ca958d5a4e18e2bd08d649b5aec0ecc85fed123befc0885",
+      "pages": [
+        "mycheckout/architecture/readme"
+      ]
+    },
+    {
+      "source": "architecture/RECHECK-NOTES.md",
+      "sha256": "585e5807b0c91520a52f82bb5bbaf382bd0c37c1bda247d5c5fbb20d49c1d9a6",
+      "pages": [
+        "mycheckout/architecture/recheck-notes"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "sha256": "eb6a6fc456ee5016287ab2005921f7dd0b8d21560544141a64b0e088bfeebfcb",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-api-catalog/part-1",
+        "mycheckout/fulfillment-docs/fulfillment-api-catalog/part-2",
+        "mycheckout/fulfillment-docs/fulfillment-api-catalog/part-3",
+        "mycheckout/fulfillment-docs/fulfillment-api-catalog/part-4",
+        "mycheckout/fulfillment-docs/fulfillment-api-catalog/part-5"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-BUG-CONTEXT.md",
+      "sha256": "06e7604d5037e308ff64c5bbef4aef73b73d3acfe5e4515a29a4a157a496561f",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-bug-context"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-COMPLETE-CONTEXT.md",
+      "sha256": "3a2c606cf7a59e648467aaac28b2e71642ee2cca63513f259cbb331526dad46e",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-complete-context/part-1",
+        "mycheckout/fulfillment-docs/fulfillment-complete-context/part-2"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "sha256": "98e41f2d7090ab7ccfd3058f21a5c4b167c9b206d011f73f8ea6488c8ca761d3",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-configuration-catalog"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-END-TO-END.md",
+      "sha256": "5c0985b97fc0201d78f7a2cbf248cb7b16dba20c5e63a9f422c6568376b97eed",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-end-to-end/part-1",
+        "mycheckout/fulfillment-docs/fulfillment-end-to-end/part-2",
+        "mycheckout/fulfillment-docs/fulfillment-end-to-end/part-3",
+        "mycheckout/fulfillment-docs/fulfillment-end-to-end/part-4",
+        "mycheckout/fulfillment-docs/fulfillment-end-to-end/part-5",
+        "mycheckout/fulfillment-docs/fulfillment-end-to-end/part-6"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-INTERVIEW-PREP.md",
+      "sha256": "d7d34dfba3e369822088d37fe08b7a41eb8c28450b1b737c08d5a7a3726f77d8",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-interview-prep/part-1",
+        "mycheckout/fulfillment-docs/fulfillment-interview-prep/part-2",
+        "mycheckout/fulfillment-docs/fulfillment-interview-prep/part-3"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-REDIS-AND-DELIVERY-FEE.md",
+      "sha256": "b581f62edae73e51de6333a1796752dfa7f46834b283d64039559afe32c028e4",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-redis-and-delivery-fee/part-1",
+        "mycheckout/fulfillment-docs/fulfillment-redis-and-delivery-fee/part-2"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-REVERSE-ENGINEERING.md",
+      "sha256": "bea47a9e058dda62a758b40ad017f76fdb9aeacf2790b1fbf00e28f127c57d5c",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-reverse-engineering/part-1",
+        "mycheckout/fulfillment-docs/fulfillment-reverse-engineering/part-2"
+      ]
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "sha256": "cb2bdf57d9af62fdf55493b4b7a5c14402fe397838e7e839ce0c3b4f2ee9e1a9",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-source-index/part-1",
+        "mycheckout/fulfillment-docs/fulfillment-source-index/part-2",
+        "mycheckout/fulfillment-docs/fulfillment-source-index/part-3"
+      ]
+    },
+    {
+      "source": "fulfillment docs/Fulfilment-Understanding-Notes.md",
+      "sha256": "a5038e900518beb380d5a45f9410df582bb44b27328c0ea640d9ff9421adaa6a",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-1",
+        "mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-2",
+        "mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-3",
+        "mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-4"
+      ]
+    },
+    {
+      "source": "fulfillment docs/README.md",
+      "sha256": "2305230fde0b1d48a76721ee4e24bef0be792dca9edecceb1417b5a31d7a07ea",
+      "pages": [
+        "mycheckout/fulfillment-docs/readme"
+      ]
+    },
+    {
+      "source": "fulfillment docs/fulfillment-availability-issue-fix.md",
+      "sha256": "4553da278e016c1c7ee779d059c7960251e745676e661bf08b0ea4a49ae1fa0b",
+      "pages": [
+        "mycheckout/fulfillment-docs/fulfillment-availability-issue-fix"
+      ]
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "sha256": "6b8a6caf945ae7c3e81033809ca5bb26bff4624bba366a221eeefb191ddc345a",
+      "pages": [
+        "mycheckout/guest-checkout-flow/part-1",
+        "mycheckout/guest-checkout-flow/part-2",
+        "mycheckout/guest-checkout-flow/part-3",
+        "mycheckout/guest-checkout-flow/part-4",
+        "mycheckout/guest-checkout-flow/part-5",
+        "mycheckout/guest-checkout-flow/part-6"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "source": "Checkout-Design-Patterns.docx",
+      "sha256": "237390f6b18bc6792d8c401250fb066d418cbcb6a7ecca7e8f74ba0a38e1e478",
+      "bytes": 216765
+    },
+    {
+      "source": "Japan_Commerce_Order_Flow_Guide.docx",
+      "sha256": "da201f38cdd9dee9e071154486de38e8d917daffe4129790b6e381196e7d1d0d",
+      "bytes": 140891
+    },
+    {
+      "source": "architecture/01-platform-overview.png",
+      "sha256": "34172b2151a19057266e589f30623c4fbaf43f620f47ddbe477ec06e3b8b9e93",
+      "bytes": 389277
+    },
+    {
+      "source": "architecture/01-platform-overview.svg",
+      "sha256": "bdaef69ad473f9fcbf8787681cf3ad4e03231b7e60180b59685b7d0b82f514b7",
+      "bytes": 21696
+    },
+    {
+      "source": "architecture/02-order-and-inventory-events.png",
+      "sha256": "2d36a57b8be4395e8920aaae12b8f304cc0a4cd1a900e87648d998bea54b3662",
+      "bytes": 369049
+    },
+    {
+      "source": "architecture/02-order-and-inventory-events.svg",
+      "sha256": "e9f4c12eab6ca94b36280c145ff06ab0dba2dd842f14b7c071b8ee34700b5f1b",
+      "bytes": 17293
+    },
+    {
+      "source": "architecture/03-ci-cd-and-infrastructure.png",
+      "sha256": "e16c8bba2a7ad13a8b539c8d279f9e591f6994130f8b24d59f0564e7ccdc615e",
+      "bytes": 238533
+    },
+    {
+      "source": "architecture/03-ci-cd-and-infrastructure.svg",
+      "sha256": "e304b569ced14681fb3c6f1b8f14a502fadb0ef5f5683b9f8a14eb1f40013e3a",
+      "bytes": 11892
+    },
+    {
+      "source": "architecture/04-security-scaling-monitoring.png",
+      "sha256": "92c18a90cc8cceaeaf651626592dea6399dfd916823081dc0c98cf1f46aa6860",
+      "bytes": 385678
+    },
+    {
+      "source": "architecture/04-security-scaling-monitoring.svg",
+      "sha256": "f1e941b8779833d1c7c4f6d31fee03ce1d26e697e642eedafa52a326d93f736d",
+      "bytes": 18977
+    },
+    {
+      "source": "architecture/05-data-ownership-and-caching.png",
+      "sha256": "49a3897c22da87c181d5fc75acde5b468c860042ec82bb2e7fdbd33cc72eea4b",
+      "bytes": 388716
+    },
+    {
+      "source": "architecture/05-data-ownership-and-caching.svg",
+      "sha256": "8a326bf933cff1020be80a4a6362889d2cdf7e01d0003cad27cc5d93ad1c96b2",
+      "bytes": 18103
+    },
+    {
+      "source": "architecture/06-payment-and-integrations.png",
+      "sha256": "7c1dfede00579ae213ad05dcc68dfb474c2b15523f339cd7b53726d77fc9ad09",
+      "bytes": 276225
+    },
+    {
+      "source": "architecture/06-payment-and-integrations.svg",
+      "sha256": "58bc92e43f2ba5ea5fd6948f3559a04c280b508c43b88aaa026f220110c90141",
+      "bytes": 12052
+    },
+    {
+      "source": "architecture/07-frontends-and-api-routing.png",
+      "sha256": "2a6e988abf5d22f6b78f62fd2511e9eef4aa196b83f87f8ed15016bc57b6f857",
+      "bytes": 259591
+    },
+    {
+      "source": "architecture/07-frontends-and-api-routing.svg",
+      "sha256": "f0cd03502b64861502e8a5b62e4be02de173982792a05b7bd62b048355415118",
+      "bytes": 13418
+    },
+    {
+      "source": "architecture/08-service-dependencies.png",
+      "sha256": "d9001f03769d877a3a9bb9888d8efc548657ac4aa13540a2e09d0e141b256b5b",
+      "bytes": 300130
+    },
+    {
+      "source": "architecture/08-service-dependencies.svg",
+      "sha256": "9287b24b97de6a9c6c1082e58439b8e5da4f279ca4e70501e6aa5b8ce3616fba",
+      "bytes": 11158
+    },
+    {
+      "source": "architecture/09-eks-deployment-topology.png",
+      "sha256": "385900f646c140efcb2f88ad0a0d2cc36b424cdf5a96508af2da140873298978",
+      "bytes": 349191
+    },
+    {
+      "source": "architecture/09-eks-deployment-topology.svg",
+      "sha256": "cea5a1ed7b87fd454cd02c28037890f71164003943a103261e92d20d0f9bb08b",
+      "bytes": 11670
+    },
+    {
+      "source": "architecture/10-scope-and-evidence.png",
+      "sha256": "cff2705f6012bf27f6e13a18e47c3394e18d355e81db255f9cf9a49a3021857f",
+      "bytes": 366163
+    },
+    {
+      "source": "architecture/10-scope-and-evidence.svg",
+      "sha256": "c64e0c11477ebfd39b8fd108b9d30b93d6995d0a5f59465aae214bb20eb56970",
+      "bytes": 10457
+    },
+    {
+      "source": "architecture/Checkout-Flows.drawio",
+      "sha256": "316c4c424080aeba18ba2c7a033c2a1a4c10068d8046e8a1bad9dd9b2483dbb8",
+      "bytes": 249364
+    },
+    {
+      "source": "architecture/mycheckout-architecture-bundle.zip",
+      "sha256": "2f0d8297c5b730763c12028521adda4a6f958b03617bbc0fe61a2e54850dcbf3",
+      "bytes": 2984160
+    },
+    {
+      "source": "architecture/mycheckout-complete-architecture.drawio",
+      "sha256": "b0189ab56bf100f994c6a677ae74a08fb14131f16cbaa2f80d1b45387ab9406d",
+      "bytes": 165838
+    },
+    {
+      "source": "architecture/mycheckout-overview.drawio",
+      "sha256": "aa5e1ff73c5393d35031db9fd584fcb9dee5c9e75ad933d9a3abf1baee5b0cc7",
+      "bytes": 29348
+    },
+    {
+      "source": "architecture/output/pdf/Checkout-Flows.pdf",
+      "sha256": "7453b168c43d15067e22fef78fefee4da8a5f00ba0c56e1e3c7c415f93bb06c0",
+      "bytes": 353691
+    },
+    {
+      "source": "architecture/output/pdf/mycheckout-Architecture-and-CICD-Handbook.pdf",
+      "sha256": "57373f61974224e969ea7d1842f0ee076b7c32de1cb8ee020dbd19a0e73c8621",
+      "bytes": 591776
+    },
+    {
+      "source": "diagrams/design-patterns/checkout-patterns-architecture.png",
+      "sha256": "dc68d3beb3b99edf5c47ef823f425006ffe850bb89c071b478f79cde6d23e8d5",
+      "bytes": 61927
+    },
+    {
+      "source": "diagrams/design-patterns/checkout-patterns-flow.png",
+      "sha256": "fd5458b06e4d7b927a21438f200519d21fe55febc6416506096425bb4d165dcb",
+      "bytes": 68844
+    },
+    {
+      "source": "diagrams/design-patterns/checkout-patterns-sequence.png",
+      "sha256": "6e9a13eb459d58bf576036b9fd7bc4bf80377000636898f3a1a23ffd11522935",
+      "bytes": 59123
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CATALOG.json",
+      "sha256": "7d85f754832912274b19a875bf2ad9c6df22baa876e041d41a5bc390e720953b",
+      "bytes": 943982
+    },
+    {
+      "source": "fulfillment docs/Fulfilment-Engineering-Reference.docx",
+      "sha256": "a39285c52e0184fe219886bcce33793e1764b8ed5df7add7c9837588773f87b8",
+      "bytes": 62489
+    }
+  ],
+  "unresolvedReferences": [
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-webcomponents-main/source/sdk/services/features/checkoutSlice.ts:245",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-api/source/checkout-app-rest/v1/openapi-rest.yml:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/service/impl/CheckoutServiceImpl.java:81",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/CheckoutServiceImpl.java:214",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/mappers/checkout/CheckoutRequestMapper.java:131",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/DefaultCheckoutStepHandlerStrategy.java:50",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/HandlerExecutor.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutCreateDbStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/CheckoutCommonServiceImpl.java:202",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:149",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:478",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/repositories/dynamo/CheckoutRepository.java:84",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/strategy/AbstractCountryTenantStrategyFactory.java:70",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutEnrichFulfillmentStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutPrepareStepHandler.java:40",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/KeyBasedStepHandler.java:56",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/JapanCheckoutStepHandlerStrategy.java:24",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/LatamCheckoutStepHandlerStrategy.java:27",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/MexicoCheckoutStepHandlerStrategy.java:19",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/ThailandCheckoutStepHandlerStrategy.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/controllers/CheckoutController.java:57",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/controllers/PlaceOrderController.java:54",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/controllers/CheckoutController.java:66",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/controllers/PlaceOrderController.java:64",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/KeyBasedStepHandler.java:56",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/enumerations/StrategyEnum.java:26",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/InternalPlaceOrderStrategyFactory.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/preorder/PreOrderReserveHandler.java:47",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/LatamNormalPlaceOrderStrategy.java:16",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/ThailandNormalPlaceOrderStrategy.java:16",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-webcomponents-main/source/sdk/services/features/checkoutSlice.ts:245",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-api/source/checkout-app-rest/v1/openapi-rest.yml:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/service/impl/CheckoutServiceImpl.java:81",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/CheckoutServiceImpl.java:214",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/mappers/checkout/CheckoutRequestMapper.java:131",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/DefaultCheckoutStepHandlerStrategy.java:50",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/HandlerExecutor.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutCreateDbStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/CheckoutCommonServiceImpl.java:202",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:149",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:478",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/repositories/dynamo/CheckoutRepository.java:84",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/strategy/AbstractCountryTenantStrategyFactory.java:70",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutEnrichFulfillmentStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutPrepareStepHandler.java:40",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/KeyBasedStepHandler.java:56",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/JapanCheckoutStepHandlerStrategy.java:24",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/LatamCheckoutStepHandlerStrategy.java:27",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/MexicoCheckoutStepHandlerStrategy.java:19",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "CREATE-CHECKOUT-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/ThailandCheckoutStepHandlerStrategy.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "INTERVIEW-PREP.md",
+      "target": "../checkout/commerce-checkout-bizservice/docs/design-patterns/CheckoutAllPatterns.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/OrderSequenceServiceImpl.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/domain/entities/OrderSequenceEntity.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/DefaultNormalPlaceOrderStrategy.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/JapanNormalPlaceOrderStrategy.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/payment/impl/PaymentServiceImpl.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-dataservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderPaymentsServiceImpl.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/consumer/CheckoutEventConsumer.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/consumer/CheckoutConsumerScheduler.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderServiceImpl.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/repository/SalesOrderRepository.java",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PAYMENT-CDC-SEQUENCE-GUIDE.md",
+      "target": "../checkout/commerce-checkout-eomadaptorservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-webcomponents-main/source/sdk/services/features/checkoutSlice.ts:292",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-api/source/checkout-app-rest/v1/openapi-rest.yml:1400",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/service/impl/PlaceOrderServiceImpl.java:111",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/PlaceOrderServiceImpl.java:164",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/HandlerExecutor.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/DefaultPlaceOrderStepHandlerStrategy.java:63",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutPlaceOrderStepHandler.java:150",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/PlaceOrderStrategyFactory.java:44",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/JapanPlaceOrderStepHandlerStrategy.java:59",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/LatamPlaceOrderStepHandlerStrategy.java:28",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/MexicoPlaceOrderStepHandlerStrategy.java:22",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/ThailandPlaceOrderStepHandlerStrategy.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/payment/impl/PaymentServiceImpl.java:425",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/feature/flag/enums/FeatureToggleKey.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:242",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:342",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/impl/DefaultInternalPlaceOrderStrategy.java:18",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/impl/JapanInternalPlaceOrderStrategy.java:17",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/placeorder/CalculateEarnedAmpointsStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/DefaultNormalPlaceOrderStrategy.java:74",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/payment/impl/DefaultPaymentProcessingStrategy.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/JapanNormalPlaceOrderStrategy.java:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/payment/impl/JapanPaymentProcessingStrategy.java:70",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryReservationServiceImpl.java:121",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/client/FulfillmentDataClient.java:101",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/placeorder/PostPlaceOrderHandler.java:135",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderPaymentsServiceImpl.java:29",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/consumer/SalesOrderPaymentsEventConsumer.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:96",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/consumer/CheckoutEventConsumer.java:68",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderServiceImpl.java:167",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:71",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutCreateDbStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-webcomponents-main/source/sdk/services/features/checkoutSlice.ts:292",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-api/source/checkout-app-rest/v1/openapi-rest.yml:1400",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/service/impl/PlaceOrderServiceImpl.java:111",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/PlaceOrderServiceImpl.java:164",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/HandlerExecutor.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/DefaultPlaceOrderStepHandlerStrategy.java:63",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutPlaceOrderStepHandler.java:150",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/PlaceOrderStrategyFactory.java:44",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/JapanPlaceOrderStepHandlerStrategy.java:59",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/LatamPlaceOrderStepHandlerStrategy.java:28",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/MexicoPlaceOrderStepHandlerStrategy.java:22",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/ThailandPlaceOrderStepHandlerStrategy.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/payment/impl/PaymentServiceImpl.java:425",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/feature/flag/enums/FeatureToggleKey.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:242",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:342",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/impl/DefaultInternalPlaceOrderStrategy.java:18",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/impl/JapanInternalPlaceOrderStrategy.java:17",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/placeorder/CalculateEarnedAmpointsStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/DefaultNormalPlaceOrderStrategy.java:74",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/payment/impl/DefaultPaymentProcessingStrategy.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/JapanNormalPlaceOrderStrategy.java:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/payment/impl/JapanPaymentProcessingStrategy.java:70",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryReservationServiceImpl.java:121",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/client/FulfillmentDataClient.java:101",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/placeorder/PostPlaceOrderHandler.java:135",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderPaymentsServiceImpl.java:29",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/consumer/SalesOrderPaymentsEventConsumer.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:96",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/consumer/CheckoutEventConsumer.java:68",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderServiceImpl.java:167",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:71",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutCreateDbStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "checkout-chat-history-2026-10-21.md",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/controllers/CheckoutController.java:57",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/controllers/PlaceOrderController.java:54",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/controllers/CheckoutController.java:66",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/controllers/PlaceOrderController.java:64",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/KeyBasedStepHandler.java:56",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/enumerations/StrategyEnum.java:26",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/InternalPlaceOrderStrategyFactory.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/preorder/PreOrderReserveHandler.java:47",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/LatamNormalPlaceOrderStrategy.java:16",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/ThailandNormalPlaceOrderStrategy.java:16",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-webcomponents-main/source/sdk/services/features/checkoutSlice.ts:292",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-api/source/checkout-app-rest/v1/openapi-rest.yml:1400",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/service/impl/PlaceOrderServiceImpl.java:111",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/PlaceOrderServiceImpl.java:164",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/HandlerExecutor.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/DefaultPlaceOrderStepHandlerStrategy.java:63",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutPlaceOrderStepHandler.java:150",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/PlaceOrderStrategyFactory.java:44",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/JapanPlaceOrderStepHandlerStrategy.java:59",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/LatamPlaceOrderStepHandlerStrategy.java:28",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/MexicoPlaceOrderStepHandlerStrategy.java:22",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/ThailandPlaceOrderStepHandlerStrategy.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/payment/impl/PaymentServiceImpl.java:425",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/feature/flag/enums/FeatureToggleKey.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:242",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/source/app/src/main/java/com/mycheckout/commerce/checkoutdataservice/app/service/impl/CheckoutServiceImpl.java:342",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/impl/DefaultInternalPlaceOrderStrategy.java:18",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/impl/JapanInternalPlaceOrderStrategy.java:17",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/placeorder/CalculateEarnedAmpointsStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/DefaultNormalPlaceOrderStrategy.java:74",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/payment/impl/DefaultPaymentProcessingStrategy.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/JapanNormalPlaceOrderStrategy.java:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/payment/impl/JapanPaymentProcessingStrategy.java:70",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryReservationServiceImpl.java:121",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/client/FulfillmentDataClient.java:101",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/placeorder/PostPlaceOrderHandler.java:135",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderPaymentsServiceImpl.java:29",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/consumer/SalesOrderPaymentsEventConsumer.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:96",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/consumer/CheckoutEventConsumer.java:68",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderServiceImpl.java:167",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:71",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "PLACE-ORDER-FLOW.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutCreateDbStepHandler.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-api/source/fulfillment-app-rest/v1/openapi-rest.yml:1",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/CartPickupLocationsController.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/FulfillmentTypesController.java:29",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ServiceFeesController.java:34",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ServiceFeesController.java:48",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ServiceFeesController.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ServiceFeesController.java:54",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ServiceFeesController.java:62",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/WarehousesController.java:31",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ServiceLocationsController.java:27",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ServiceLocationsController.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ShippingAddressController.java:51",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ShippingAddressController.java:67",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ShippingAddressController.java:43",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ShippingAddressController.java:78",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ShippingAddressController.java:61",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/ChallengeController.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/DeliveryAvailabilitySlotController.java:37",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/StockLevelController.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/StockLevelController.java:51",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/StockLevelController.java:63",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/StockLevelController.java:34",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/StockLevelController.java:78",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/controllers/DeliveryFeesController.java:30",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-api/source/fulfillment-data-rest/v1/openapi-rest.yml:1",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/FulfillmentTypesController.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/FulfillmentTypesController.java:64",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/FulfillmentTypesController.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/FulfillmentTypesController.java:56",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/FulfillmentTypesController.java:79",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/FulfillmentTypesController.java:72",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostLocationsController.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostLocationsController.java:28",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostLocationsController.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostLocationsController.java:61",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostLocationsController.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/AllocationsController.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceFeeController.java:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceLocationsController.java:101",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceLocationsController.java:109",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ReservationsController.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ReservationsController.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceLocationsController.java:40",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceLocationsController.java:70",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceLocationsController.java:89",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceLocationsController.java:34",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceLocationsController.java:76",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ServiceLocationsController.java:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/WarehousesController.java:25",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/CommandsController.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/CommandsController.java:27",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/CommandsController.java:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ShippingAddressesController.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ShippingAddressesController.java:88",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ShippingAddressesController.java:75",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ShippingAddressesController.java:99",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ShippingAddressesController.java:67",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PickupLocationChecksController.java:25",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PickupLocationChecksController.java:34",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/DeliverySlotAvailabilityController.java:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/DeliveryDateController.java:47",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/DeliveryDateController.java:41",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/DeliveryDateController.java:56",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/DeliveryDateController.java:31",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostalCodeServiceabilityController.java:45",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostalCodeServiceabilityController.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostalCodeServiceabilityController.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostalCodeServiceabilityController.java:30",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostalCodeServiceabilityController.java:66",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/StockLevelController.java:64",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/StockLevelController.java:50",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/StockLevelController.java:97",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/StockLevelController.java:78",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/StockLevelController.java:112",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/AggregatedDailyFeedInventoryEventConsumer.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/As400FeedInventoryEventConsumer.java:47",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/As400FeedInventoryRlqEventConsumer.java:74",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/DailyFeedInventoryEventConsumer.java:51",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/IntraDayFeedInventoryEventConsumer.java:28",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/SalesOrderEventConsumer.java:59",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/SalesOrderRlqEventConsumer.java:82",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/StockLevelCdcEventConsumer.java:37",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/AggregatedDailyFeedInventoryEventProducer.java:22",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/As400FeedInventoryDlqEventProducer.java:27",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/As400FeedInventoryRlqEventProducer.java:31",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/DailyFeedInventoryDlqProducer.java:24",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/DailyFeedInventoryEventProducer.java:22",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/InventoryAvailabilityEventProducer.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/SalesOrderDlqEventProducer.java:28",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/SalesOrderRlqEventProducer.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/StockLevelInternalDlqEventProcessor.java:28",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-api/source/inventory-availability-event/v1/asyncapi-event.yml:1",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-api/source/shippingaddress-internal-event/v1/asyncapi-event.yml:1",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-api/source/stocklevel-internal-event/v1/asyncapi-event.yml:1",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-api/source/deliverytimeslot/v1/schema.json:1",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-api/source/shipping-address-backoffice/v1/schema.json:1",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-API-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-api/source/shippingaddress/v1/schema.json:1",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/authorization/OpaAuthorizationConfig.java:26",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/clients/CheckoutBizServiceClient.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/clients/DeliveryAvailabilitySlotClient.java:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/clients/ManhattanClient.java:34",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/clients/ManhattanClient.java:37",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/clients/ManhattanClient.java:40",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/clients/OmsFacadeClient.java:25",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/clients/PhoneDataClient.java:26",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/clients/ShippingAddressDataClient.java:31",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/config/CountryAwareConfig.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/config/ShippingAddressConfig.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/config/ValueChainClientAuthConfiguration.java:24",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/config/ValueChainClientAuthConfiguration.java:27",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/filters/LoggableFilter.java:26",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/services/impl/EstafetaServiceImpl.java:31",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/services/impl/ServiceLocationsServiceImpl.java:46",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/strategies/helper/PickupLocationStrategyHelper.java:43",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/strategies/helper/PickupLocationStrategyHelper.java:46",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/strategies/helper/PickupLocationStrategyHelper.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/strategies/impl/BopisPickupLocationStrategy.java:41",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/clients/impl/ManhattanClient.java:95",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/clients/impl/ManhattanClient.java:98",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/clients/impl/ManhattanClient.java:101",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/clients/impl/OmsClientImpl.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/DynamoDbConfiguration.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/EstafetaClientAuthConfiguration.java:46",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/EstafetaClientAuthConfiguration.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/EstafetaClientAuthConfiguration.java:52",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/FlywayMigrationConfig.java:62",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/HybrisClientAuthConfiguration.java:46",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/HybrisClientAuthConfiguration.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/KerryClientAuthConfiguration.java:47",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/KerryClientAuthConfiguration.java:50",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/KerryClientAuthConfiguration.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/ManhattanClientConfiguration.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/ManhattanClientConfiguration.java:56",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/ManhattanClientConfiguration.java:59",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/ManhattanClientConfiguration.java:62",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/ManhattanClientConfiguration.java:65",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/PickitClientAuthConfiguration.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/PickitClientAuthConfiguration.java:38",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/PickitClientAuthConfiguration.java:41",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/SevenElevenClientConfiguration.java:40",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/StockLevelPurgeConfig.java:22",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/StockLevelViewConfig.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/ValidationProperties.java:13",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/ValueChainClientConfiguration.java:45",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/config/ValueChainClientConfiguration.java:48",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/dtos/FulfillmentTypeConfig.java:16",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/dtos/LanguageMappingConfig.java:16",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/dtos/MapperBeanMappingConfig.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/dtos/PromisingConfig.java:16",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/dtos/PromisingConfig.java:19",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/filters/EstafetaAuthenticationFilter.java:23",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/filters/KerryAuthenticationFilter.java:23",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/filters/KerryAuthenticationFilter.java:26",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/repositories/ServiceLocationDataRepository.java:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/DefaultAddressServiceImpl.java:70",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/PickupLocationAvailabilityServiceImpl.java:45",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/WarehousesServiceImpl.java:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/allocation/impl/PickupAllocationStrategyImpl.java:63",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/allocation/impl/ShippingAllocationStrategyImpl.java:52",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/allocation/impl/ShippingAllocationStrategyImpl.java:55",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/allocation/impl/ShippingAllocationStrategyImpl.java:58",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/commands/impl/EasyDeliveryPointServiceLocationsLoadingCommandStrategy.java:61",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/commands/impl/KerryServiceLocationsLoadingCommandStrategy.java:58",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/ReleaseTransactionStockLevelInsertionStrategy.java:63",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/config/ReservationSyncSkusConfig.java:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/config/StockLevelViewConfig.java:12",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/config/TenantTopicPatternConfig.java:12",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/config/WarehouseCodeMappingConfig.java:11",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/As400FeedInventoryRlqEventConsumer.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/As400FeedInventoryRlqEventConsumer.java:45",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/SalesOrderEventConsumer.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/SalesOrderRlqEventConsumer.java:47",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/SalesOrderRlqEventConsumer.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/As400FeedInventoryDlqEventProducer.java:32",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/As400FeedInventoryRlqEventProducer.java:36",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/InventoryAvailabilityEventProducer.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/InventoryAvailabilityEventProducer.java:39",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/SalesOrderDlqEventProducer.java:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/SalesOrderRlqEventProducer.java:40",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-CONFIGURATION-CATALOG.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/StockLevelInternalDlqEventProcessor.java:33",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-REVERSE-ENGINEERING.md",
+      "target": "tools/build_fulfillment_catalog.py",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/controllers/PlaceOrderController.java:64",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/PlaceOrderServiceImpl.java:164",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/client/FulfillmentDataClient.java:88",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/client/FulfillmentDataClient.java:103",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryServiceImpl.java:140",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/JapanPlaceOrderStepHandlerStrategy.java:59",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutPlaceOrderStepHandler.java:152",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/JapanNormalPlaceOrderStrategy.java:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/impl/JapanInternalPlaceOrderStrategy.java:17",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/reservation/impl/JapanInventoryReservationStrategy.java:40",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/DefaultNormalPlaceOrderStrategy.java:80",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryReservationServiceImpl.java:190",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryReservationServiceImpl.java:418",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/payment/impl/PaymentServiceImpl.java:781",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/DeliveryFeeCalculationServiceImpl.java:202",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/tenant/MexicoPlaceOrderStepHandlerStrategy.java:41",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/PickupLocationAvailabilityServiceImpl.java:107",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/helpers/impl/StockLevelAllocationHelper.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/helpers/impl/ManhattanAllocationHelper.java:25",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/allocation/impl/ShippingAllocationStrategyImpl.java:91",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/allocation/impl/PickupAllocationStrategyImpl.java:97",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/ReservationsServiceImpl.java:74",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/clients/impl/ManhattanClient.java:176",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/StockLevelReservationService.java:162",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ReservationsController.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/helpers/impl/StockLevelTransactionHelper.java:70",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/repositories/StockLevelDataRepository.java:176",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/StockLevelServiceImpl.java:372",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/availability/impl/RegularViewStrategy.java:102",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/availability/impl/ShipToHomeViewStrategy.java:103",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/availability/impl/SopViewStrategy.java:99",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/availability/AvailabilityCalculationStrategy.java:156",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/helpers/impl/StockLevelAllocationHelper.java:270",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/DayEndEventTransactionStockLevelInsertionStrategy.java:79",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/IntraDayEventTransactionStockLevelInsertionStrategy.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/ReserveTransactionStockLevelInsertionStrategy.java:137",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/StockLevelInsertionStrategy.java:98",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/populator/impl/As400InventoryEventDataPopulator.java:43",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/strategy/impl/SalesOrderFulfillmentEventStrategyImpl.java:61",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/populator/impl/SalesOrderFulfillmentEventDataPopulator.java:24",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/populator/impl/SalesOrderCancelEventDataPopulator.java:23",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/SalesOrderRlqEventConsumer.java:105",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/client/StockLevelDataClient.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/service/impl/FulfillmentDataServiceImpl.java:49",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/service/StockLevelEventProcessor.java:236",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/CommandsServiceImpl.java:69",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/service/CommandExecutionService.java:40",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/source/app/src/main/resources/application.yml:5",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/source/app/src/main/resources/application-jpn-qa.yml:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/source/app/src/main/resources/application-tha-prod.yml:10",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/source/app/src/main/resources/application-latam-prod.yml:8",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/commands/impl/RedisServiceLocationLoadingCommandStrategy.java:101",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/ServiceLocationsServiceImpl.java:209",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/criteria/ServiceFeesFilter.java:62",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/ServiceFeesServiceImpl.java:227",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/DeliverySlotAvailabilityServiceImpl.java:47",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/strategies/addresses/AddressServiceStrategyFactory.java:46",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/app-configs/configmap_jpn.yml:50",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/app-configs/configmap_jpn_qa.yml:17",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/app-configs/configmap_jpn_uat.yml:17",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/app-configs/configmap_jpn_prod.yml:17",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-global-dev.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-jpn-prod.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-jpn-qa.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-jpn-uat.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:37",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:60",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:106",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:129",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:152",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:175",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-prod.yaml:198",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:37",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:60",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:106",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:129",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:152",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:175",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-qa.yaml:198",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:37",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:60",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:83",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:106",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:129",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:152",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:175",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-latam-uat.yaml:198",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-tha-prod.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-tha-qa.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-jobservice/deployment-config/ngcom-microservice/values-tha-uat.yaml:14",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/services/impl/ShippingAddressServiceImpl.java:152",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/services/impl/ChallengeServiceImpl.java:69",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/ShippingAddressesController.java:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/StockLevelServiceImpl.java:623",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/domain/entities/ServiceFee.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/services/impl/ServiceFeesServiceImpl.java:111",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/domain/mappers/ServiceFeesIdentifier.java:21",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-appservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentappservice/app/authorization/AddressOpaAuthorizationImpl.java:44",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/WarehousesServiceImpl.java:37",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/controllers/PostLocationsController.java:61",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/FulfillmentTypesServiceImpl.java:101",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/domain/mapper/FulfillmentTypePatchMapper.java:23",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/repositories/DeliveryDateRepository.java:25",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/service/impl/PostalCodeServiceabilityServiceImpl.java:163",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-dataservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmentdataservice/app/exceptions/handler/GlobalExceptionHandler.java:67",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/service/InventoryAggregationService.java:25",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/IntraDayFeedInventoryEventConsumer.java:57",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/producer/impl/InventoryAvailabilityEventProducer.java:44",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/consumer/impl/SalesOrderEventConsumer.java:110",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/validator/impl/As400InventoryEventValidator.java:35",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/FULFILLMENT-SOURCE-INDEX.md",
+      "target": "D:/BE Projects/checkout/fulfillment/commerce-fulfillment-eventservice/source/app/src/main/java/com/mycheckout/commerce/fulfillmenteventservice/app/service/impl/StockLevelServiceImpl.java:52",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "fulfillment docs/README.md",
+      "target": "tools/build_fulfillment_catalog.py",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkoutprofile/impl/CheckoutProfileServiceImpl.java:236",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/validator/PaymentMethodsValidator.java:53",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryServiceImpl.java:185",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryServiceImpl.java:1146",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/DeliverySlotsAvailabilityServiceImpl.java:65",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/validation/strategy/impl/DefaultValidationStrategy.java:150",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/product/impl/ProductServiceImpl.java:1177",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/mappers/checkout/CheckoutMapper.java:493",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/util/TokenUtil.java:69",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/mappers/checkout/CheckoutMapper.java:486",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/mappers/checkout/CheckoutMapper.java:536",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/util/CheckoutUtil.java:629",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "guest-auth-framework-bytecode.txt",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/service/impl/CheckoutServiceImpl.java:100",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/mappers/checkout/CheckoutMapper.java:486",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/mappers/checkout/CheckoutMapper.java:536",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/CheckoutServiceImpl.java:214",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/util/CheckoutUtil.java:653",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/user/impl/tenant/DefaultAnonymousUserServiceStrategy.java:210",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/accountsearch/client/AccountSearchDataClient.java:124",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/handler/impl/checkout/CheckoutAccountSearchStepHandler.java:90",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/promotion/populator/impl/DefaultPromotionRequestBasicPopulator.java:106",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/promotion/service/impl/DefaultPromotionEvaluationServiceImpl.java:301",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryServiceImpl.java:185",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/fulfillment/impl/InventoryServiceImpl.java:305",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/source/app/src/main/java/com/mycheckout/commerce/checkoutservice/app/service/impl/CheckoutServiceImpl.java:240",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/placeorder/internal/impl/DefaultInternalPlaceOrderStrategy.java:17",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/DefaultNormalPlaceOrderStrategy.java:74",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:75",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderServiceImpl.java:517",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderServiceImpl.java:486",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-webcomponents-main/source/sdk/services/requests/checkoutApi.ts:147",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-webcomponents-main/source/sdk/services/config/checkoutApiEndPoints.ts:42",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-webcomponents-main/source/sdk/services/requests/checkoutApi.ts:600",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/cart/commerce-cart-webcomponents-main/source/sdk/services/requests/cartApi.ts:561",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/cart/commerce-cart-webcomponents-main/source/sdk/services/requests/cartApi.ts:598",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-appservice/policies-as-code/src/checkoutPolicy.rego:31",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-bizservice/source/app/src/main/java/com/mycheckout/commerce/checkoutbizservice/app/service/checkout/impl/CheckoutCommonServiceImpl.java:215",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-dataservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:75",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/infra-as-code/cdk/app-infra/configs/tenants-common.yaml:52",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderServiceImpl.java:217",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/producer/SalesOrderProducer.java:60",
+      "reason": "local source or working-file reference"
+    },
+    {
+      "source": "guest-checkout-flow.md",
+      "target": "/D:/BE Projects/checkout/checkout/commerce-checkout-eomadaptorservice/source/app/src/main/java/com/mycheckout/commerce/checkoutadaptorservice/service/impl/SalesOrderServiceImpl.java:184",
+      "reason": "local source or working-file reference"
+    }
+  ]
+}
