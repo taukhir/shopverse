@@ -935,7 +935,7 @@
             "format": "int32"
           },
           "unitPrice": {
-            "type": "number"
+            "type": "string"
           }
         }
       },
@@ -964,7 +964,10 @@
             "type": "string"
           },
           "totalAmount": {
-            "type": "number"
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
           },
           "shippingAddress": {
             "allOf": [

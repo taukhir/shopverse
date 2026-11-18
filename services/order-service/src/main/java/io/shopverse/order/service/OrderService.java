@@ -34,10 +34,6 @@ public interface OrderService {
 
     void markInventoryRejected(String orderNumber, String reason);
 
-    void markInventoryReserved(String orderNumber);
-
-    void markPaymentProcessing(String orderNumber);
-
     void markInventoryReservedAndPaymentProcessing(String orderNumber);
 
     void markPaymentFailed(String orderNumber, String reason);

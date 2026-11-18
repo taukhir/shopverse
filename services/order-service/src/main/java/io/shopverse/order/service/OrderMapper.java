@@ -29,6 +29,7 @@ final class OrderMapper {
                 order.getIdempotencyKey(),
                 order.getCustomerUsername(),
                 order.getStatus().name(),
+                order.getCurrency(),
                 order.getTotalAmount(),
                 shippingAddress(order),
                 items,

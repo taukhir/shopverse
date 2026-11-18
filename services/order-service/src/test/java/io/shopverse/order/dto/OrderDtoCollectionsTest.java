@@ -38,7 +38,7 @@ class OrderDtoCollectionsTest {
         var items = new ArrayList<OrderItemResponse>();
         items.add(item);
         var response = new OrderResponse(1L, "order", null, null, "owner", "CREATED",
-                BigDecimal.ONE, null, items, null);
+                "INR", BigDecimal.ONE, null, items, null);
 
         items.clear();
 

@@ -4,6 +4,6 @@ const inrFormatter = new Intl.NumberFormat('en-IN', {
   maximumFractionDigits: 0,
 });
 
-export function formatInr(value: number): string {
+export function formatInr(value: number | string): string {
   return inrFormatter.format(Number(value || 0));
 }

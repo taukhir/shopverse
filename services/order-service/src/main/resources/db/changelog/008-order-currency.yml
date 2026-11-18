@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-order-currency
+      author: tauqeer
+      changes:
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: currency
+                  type: VARCHAR(3)
+                  defaultValue: INR
+                  constraints:
+                    nullable: false
