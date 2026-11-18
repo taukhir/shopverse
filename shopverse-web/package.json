@@ -39,7 +39,7 @@
     "@angular/cli": "^22.2.7",
     "@angular/compiler-cli": "^22.2.6",
     "@axe-core/playwright": "^4.10.2",
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/postcss": "^4.3.5",
     "chrome-launcher": "^1.2.0",
     "jsdom": "^30.1.3",
