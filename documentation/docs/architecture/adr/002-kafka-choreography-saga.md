@@ -123,6 +123,11 @@ separately as a planned follow-up (`FEAT-L`/inbox tracked in
   not optional extras, precisely because choreography trades a readable
   control flow for operational visibility instead.
 
+## Official References
+
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [Saga pattern — microservices.io](https://microservices.io/patterns/data/saga.html)
+
 ## Related Documentation
 
 - [Outbox Pattern](../../reliability/OUTBOX-PATTERN.md)

@@ -195,6 +195,11 @@ running stack before treating this as closed in every environment).
 Tracked as `BUG-013` in
 [`dev-tools/teams/BACKLOG.md`](https://github.com/taukhir/shopverse/blob/main/dev-tools/teams/BACKLOG.md).
 
+## Official References
+
+- [Saga pattern — microservices.io](https://microservices.io/patterns/data/saga.html)
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+
 ## Related Documentation
 
 - [Outbox Pattern](../OUTBOX-PATTERN.md)

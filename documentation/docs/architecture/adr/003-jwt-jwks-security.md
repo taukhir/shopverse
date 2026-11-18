@@ -129,6 +129,12 @@ oversight.
   refreshed key set, though already-cached decoders can keep validating
   previously-fetched keys until their cache expires.
 
+## Official References
+
+- [RFC 7519 — JSON Web Token (JWT)](https://www.rfc-editor.org/rfc/rfc7519)
+- [RFC 7517 — JSON Web Key (JWK)](https://www.rfc-editor.org/rfc/rfc7517)
+- [RFC 7515 — JSON Web Signature (JWS)](https://www.rfc-editor.org/rfc/rfc7515)
+
 ## Related Documentation
 
 - [ADR 001: API Gateway, Service Discovery, And Centralized Configuration](001-gateway-discovery-config.md)

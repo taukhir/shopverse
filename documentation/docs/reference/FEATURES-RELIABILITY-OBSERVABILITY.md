@@ -17,6 +17,19 @@ review_evidence: repository-content-audit
 
 <DocLabels items={[{label: 'Advanced', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Production', tone: 'production'}]} />
 
+| Capability | Purpose |
+|---|---|
+| Transactional Outbox | Prevent a committed domain change from losing its outgoing event |
+| Inventory Reservation And Overselling Prevention | Hold stock during payment and reject concurrent stale updates |
+| Reservation Expiry And Compensation | Release abandoned reservations instead of holding stock indefinitely |
+| Payment Outcomes | Exercise success, decline, timeout/reconciliation, and refund paths |
+| Kafka Retry, DLT, And Replay | Isolate records that still fail after bounded retries and retain operator audit |
+| Structured Logging And Correlation | Search one business journey across services |
+| Metrics, Dashboards, And Alerts | Detect aggregate health and business failures without searching individual logs |
+| Distributed Tracing | Inspect service/span relationships and latency for one technical execution |
+| Resilience4j | Bound concurrency, admission, retries, and repeated dependency failure |
+| Database Migrations And Auditing | Reproduce schemas and retain creation/update history |
+
 ## Transactional Outbox
 
 **Purpose:** prevent a committed domain change from losing its outgoing event.

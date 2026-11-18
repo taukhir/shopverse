@@ -56,6 +56,12 @@ succeed, others don't) that (a) handles as one atomic reservation attempt.
 cap and clearly label order size), track the real multi-item redesign as a
 separately sized follow-up epic.**
 
+| Option | Events per N-item order | Payment dedup risk | Schema/rollout change |
+|---|---|---|---|
+| (a) List-shaped event | ~2 (same shape as today) | None — preserves one-event-per-order | Breaking, two-phase rollout |
+| (b) One event per line item | ~2N | New — N reservation events per order | No schema break, but new reservation-uniqueness migration |
+| (c) Narrow interim fix | Unchanged (single-item) | None | None |
+
 ## Scaling And Risk Analysis
 
 The three options were not equivalent in either cost or risk, and the
@@ -159,6 +165,11 @@ retrofit the concept later once partial-reservation-failure handling
 **Status:** decided (option (a) over (b)/(c)); implementation not yet
 scheduled. Tracked as `BUG-001` in
 [`dev-tools/teams/BACKLOG.md`](https://github.com/taukhir/shopverse/blob/main/dev-tools/teams/BACKLOG.md).
+
+## Official References
+
+- [Apache Kafka documentation](https://kafka.apache.org/documentation/)
+- [Apache Avro specification](https://avro.apache.org/docs/current/specification/)
 
 ## Related Documentation
 
