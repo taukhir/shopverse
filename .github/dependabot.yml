@@ -77,10 +77,13 @@ updates:
       interval: "weekly"
     ignore:
       # @docusaurus/theme-mermaid@3.10.2 peer-requires
-      # "@mermaid-js/layout-elk ^0.1.9"; a major bump isn't installable
-      # until the Docusaurus theme supports the 1.x line.
+      # "@mermaid-js/layout-elk ^0.1.9" -- npm's caret range on a 0.x
+      # version only allows 0.1.x, so a 0.2.x bump is just as uninstallable
+      # as a 1.x one (confirmed: #117 bumped 0.1.9 -> 0.2.3 and hit the
+      # same ERESOLVE). Ignore any non-patch bump until the Docusaurus
+      # theme widens its peer range.
       - dependency-name: "@mermaid-js/layout-elk"
-        update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
 
   # Docker base images used in each service's Dockerfile
   - package-ecosystem: "docker"
