@@ -68,7 +68,7 @@ sequenceDiagram
     participant ELB as ALB target-health check
     participant ASG as Auto Scaling group
 
-    Note over I: Process wedges mid-request;<br/>VM itself stays healthy
+    Note over I: Process wedges mid-request, VM itself stays healthy
     EC2->>I: System/Instance status check
     I-->>EC2: Pass (hypervisor and OS are fine)
     loop Every health-check interval
@@ -78,7 +78,7 @@ sequenceDiagram
     ELB->>ASG: Target reported unhealthy
     ASG->>I: Terminate instance
     ASG->>ASG: Launch replacement in a configured AZ
-    Note over I: In-flight request on the wedged<br/>instance is lost from its own view
+    Note over I: In-flight request on the wedged instance is lost from its own view
 ```
 
 A concrete failure scenario: a checkout-service EC2 instance mid-way
