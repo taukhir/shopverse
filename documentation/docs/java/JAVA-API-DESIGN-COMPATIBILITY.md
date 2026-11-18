@@ -34,6 +34,26 @@ serialization and operational side effects.
 
 Semantic versioning does not discover these contracts for you; tests and explicit policy do.
 
+```mermaid
+flowchart LR
+    subgraph v1["Library v1"]
+        I1["interface PricePolicy {\n  Money calculate(Order)\n}"]
+    end
+    subgraph v2["Library v2"]
+        I2["interface PricePolicy {\n  Money calculate(Order)\n  Money calculate(Order, Currency)  // added abstract method\n}"]
+    end
+    C1["Consumer compiled\nagainst v1, implements\nPricePolicy"] -->|links fine against v1| I1
+    C1 -->|"NoSuchMethodError /\nAbstractMethodError at runtime"| I2
+    C2["Consumer compiled\nagainst v2"] -->|compiles and links| I2
+    C2 -->|compiles and links too| I1
+```
+
+This is the concrete shape of a binary-incompatible change: a consumer
+compiled and shipped against v1 still *has* v1's class files baked into its
+jar. Swapping only the library jar underneath it to v2 — without
+recompiling the consumer — is what actually breaks, not the library's
+source code changing in the abstract.
+
 ## Design A Small Stable Surface
 
 - expose interfaces around stable responsibilities, not every implementation detail;

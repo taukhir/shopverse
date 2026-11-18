@@ -127,6 +127,19 @@ Application rollback is easy only when state and contracts remain compatible.
 
 ## Rollback vs Roll-Forward
 
+```mermaid
+flowchart TD
+    Start["Incident detected"] --> Q1{"Did an irreversible<br/>migration already run,<br/>or did external side<br/>effects already occur?"}
+    Q1 -->|Yes| RollForward["Roll forward:<br/>small, targeted fix"]
+    Q1 -->|No| Q2{"Is the previous version<br/>still compatible with<br/>current data/contracts?"}
+    Q2 -->|Yes| Rollback["Rollback:<br/>redeploy previous image/traffic"]
+    Q2 -->|No| RollForward
+```
+
+The decision is made by checking data/contract compatibility first, not
+by how fast either path feels — a rollback that redeploys old code against
+already-migrated data can fail louder than the original incident.
+
 Rollback is better when:
 
 - the previous version is compatible with current data;

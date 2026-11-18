@@ -33,6 +33,31 @@ through XSS. Configure CORS for exact trusted origins, keep CSRF protection, and
 set proxy/forwarded-header handling so Spring computes the public HTTPS callback
 instead of an internal container URL.
 
+```mermaid
+sequenceDiagram
+    participant Browser
+    participant BFF
+    participant Google
+    participant API as Downstream API
+
+    Browser->>BFF: GET /oauth2/authorization/google
+    BFF->>Google: Authorization request (redirect)
+    Browser->>Google: Login + consent
+    Google->>BFF: Authorization code (callback)
+    BFF->>Google: Exchange code for tokens
+    Google-->>BFF: ID token + access/refresh tokens
+    BFF->>BFF: Store provider tokens server-side
+    BFF-->>Browser: Set-Cookie (HTTP-only session, no tokens)
+    Browser->>API: Request with session cookie
+    API->>BFF: Validate session / exchange for scoped token
+    BFF-->>API: Narrowly scoped access token
+```
+
+The browser never sees a Google or Shopverse token directly — only the
+opaque session cookie set in step 7. The BFF is the only party that holds
+the provider's tokens and the only party that mints the narrowly scoped
+token a downstream API actually trusts.
+
 ## 4C. Shopverse-Issued Access And Refresh Tokens
 
 If Shopverse APIs already use Shopverse JWTs, treat successful Google login as

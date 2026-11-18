@@ -90,6 +90,39 @@ final class PaymentService {
 }
 ```
 
+## Failure: A Silent Fallback Hides A Real Bug
+
+Before the `orElseThrow` guard above, a tempting shortcut is to fall back to a
+default strategy when the key is missing:
+
+```java
+PaymentStrategy required(PaymentMethod method) {
+    PaymentStrategy strategy = strategies.get(method);
+    return strategy != null ? strategy : strategies.get(PaymentMethod.CARD);
+}
+```
+
+A client sends a misspelled or not-yet-deployed method value. Instead of a
+clear `UnsupportedPaymentMethod` error, the registry **silently charges the
+card strategy** for a request that asked for `WALLET`. The caller sees a
+successful response and a card authorization reference, with nothing in the
+logs to suggest the wrong payment rail was used — the bug surfaces only when
+finance reconciliation finds a card settlement with no matching card
+consent, long after the request completed.
+
+```java
+PaymentStrategy required(PaymentMethod method) {
+    return Optional.ofNullable(strategies.get(method))
+            .orElseThrow(() -> new UnsupportedPaymentMethod(method));
+}
+```
+
+The registry above (restored to the earlier example) fails fast at the
+lookup boundary instead of at an unrelated reconciliation job weeks later.
+`Optional.ofNullable(...).orElseThrow(...)` is not boilerplate here — it is
+the difference between a 400 response the caller can act on immediately and
+a silent correctness bug discovered by someone else's team.
+
 ## Runtime and Design Decisions
 
 - Constructor injection discovers all strategy beans at startup.

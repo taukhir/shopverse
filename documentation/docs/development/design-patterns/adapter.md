@@ -23,38 +23,45 @@ expects. It is the implementation at a port in ports-and-adapters architecture.
 ## Keep the Port Application-Owned
 
 ```java
-public interface PaymentGateway {
-    Authorization authorize(PaymentRequest request);
+public interface ShippingProvider {
+    ShipmentQuote quote(ShipmentRequest request);
+    TrackingStatus track(TrackingNumber trackingNumber);
 }
 
-public record PaymentRequest(
+public record ShipmentRequest(
         OrderId orderId,
-        Money amount,
-        PaymentToken token
+        Address origin,
+        Address destination,
+        Weight weight
 ) {}
 ```
 
 The contract uses application language and types. A provider adapter owns all
-vendor translation:
+vendor translation. `LegacyCarrierClient` is a decade-old SDK this application
+did not design and cannot change:
 
 ```java
 @Component
-final class AcmePayAdapter implements PaymentGateway {
-    private final AcmePayClient client;
+final class LegacyCarrierAdapter implements ShippingProvider {
+    private final LegacyCarrierClient client;
 
-    public Authorization authorize(PaymentRequest request) {
-        AcmeChargeResponse response = client.charge(new AcmeChargeRequest(
-                request.orderId().value(),
-                request.amount().minorUnitsExact(),
-                request.amount().currency().getCurrencyCode(),
-                request.token().value()
-        ));
+    public ShipmentQuote quote(ShipmentRequest request) {
+        LegacyRateResponse response = client.getRate(
+                request.origin().zip(),
+                request.destination().zip(),
+                request.weight().grams() / 1000.0 // SDK takes kilograms, as a double
+        );
 
-        return switch (response.status()) {
-            case "APPROVED" -> Authorization.approved(response.reference());
-            case "DECLINED" -> Authorization.declined(response.reasonCode());
-            default -> throw new UnknownProviderStatus(response.status());
+        return switch (response.rateCode()) {
+            case 100 -> ShipmentQuote.available(Money.ofCents(response.costCents()));
+            case 404 -> ShipmentQuote.unavailable("no service to destination");
+            default -> throw new UnknownCarrierRateCode(response.rateCode());
         };
+    }
+
+    public TrackingStatus track(TrackingNumber trackingNumber) {
+        LegacyTrackResponse response = client.track(trackingNumber.value());
+        return TrackingStatus.valueOf(response.statusText().toUpperCase());
     }
 }
 ```
@@ -64,8 +71,9 @@ choices must not leak through the port.
 
 ## Translation Responsibilities
 
-- convert money without rounding or unit mistakes;
-- map vendor statuses to owned domain outcomes;
+- convert units without rounding or type mistakes (the SDK above takes a
+  `double` kilogram value; the domain stores integer grams);
+- map vendor status/rate codes to owned domain outcomes;
 - translate transport exceptions into a small failure taxonomy;
 - attach idempotency and correlation identifiers;
 - validate provider responses instead of accepting unknown values silently;
@@ -74,20 +82,44 @@ choices must not leak through the port.
 
 ```mermaid
 flowchart LR
-    S["Payment service"] --> P["PaymentGateway port"]
-    P --> A["AcmePay adapter"]
-    A --> V["Vendor SDK / API"]
+    S["Checkout service"] --> P["ShippingProvider port"]
+    P --> A["LegacyCarrier adapter"]
+    A --> V["Legacy carrier SDK"]
     V --> A
     A --> D["Application result"]
 ```
 
 <DocCallout type="mistake" title="Do not leak provider types through the port">
 
-Returning `AcmeChargeResponse` forces business code and tests to understand the
-vendor. Return an application-owned `Authorization`; preserve raw provider data
+Returning `LegacyRateResponse` forces business code and tests to understand the
+vendor. Return an application-owned `ShipmentQuote`; preserve raw provider data
 only where audit or support requirements justify it.
 
 </DocCallout>
+
+## The Failure Without An Adapter
+
+Suppose checkout code calls `LegacyCarrierClient` directly instead of through a
+port, because it seemed faster to wire up:
+
+```java
+double rate = legacyCarrierClient
+        .getRate(origin.zip(), destination.zip(), weightGrams) // bug: still grams, not kg
+        .costCents();
+```
+
+This compiles and works in every test that happens to ship light packages,
+because small gram values divided by 1000 and multiplied back by the vendor's
+internal kg-to-cents formula produce numbers that look plausible. In production,
+a 20kg package is quoted as if it weighs 20,000kg — the vendor's rate engine
+silently returns its heaviest-tier flat rate instead of erroring, and checkout
+charges the customer the wrong shipping cost for weeks before anyone notices the
+revenue-per-shipment numbers are wrong. The root cause is not a typo caught by a
+compiler: it is that the unit conversion the adapter is responsible for
+(`request.weight().grams() / 1000.0`) was duplicated, incorrectly, at every call
+site that bypassed the port. Centralizing the conversion in one adapter does not
+prevent every mistake, but it means there is exactly one place to find and fix
+it, and one set of mapping tests that would have caught it.
 
 ## Multiple Providers
 
@@ -97,10 +129,12 @@ adapter containing provider switches and unrelated mappings.
 
 ## Testing
 
-Unit-test mapping boundaries, including unknown status, malformed response,
-currency conversion, and exception translation. Use a mock HTTP server or vendor
-sandbox for transport contract tests. A shared contract test suite can verify
-that every adapter honors the port's success and failure semantics.
+Unit-test mapping boundaries, including unknown status/rate codes, malformed
+response, unit conversion (the kg/grams boundary above is exactly the kind of
+case to assert with a fixed input and an exact expected output), and exception
+translation. Use a mock HTTP server or vendor sandbox for transport contract
+tests. A shared contract test suite can verify that every adapter honors the
+port's success and failure semantics.
 
 ## Adapter Versus Facade
 

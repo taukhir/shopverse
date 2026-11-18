@@ -31,6 +31,8 @@ interviews, and labs, use the [Maven Engineering Learning Path](./MAVEN-ENGINEER
 |---|---|
 | Master Maven builds and dependency governance | [Maven Engineering Path](./MAVEN-ENGINEERING-PATH.md) |
 | Learn Maven basics, POMs, lifecycles, dependencies, plugins, and repositories | [Maven Overview](./MAVEN-OVERVIEW.md) |
+| Master Gradle builds, task graph, caching, and dependency governance | [Gradle Engineering Path](./GRADLE-ENGINEERING-PATH.md) |
+| Learn Gradle basics, task lifecycle, and the wrapper (this repo's own services use Gradle) | [Gradle Overview](./GRADLE-OVERVIEW.md) |
 | Learn Linux basics, processes, filesystems, permissions, services, and networking | [Linux Overview](./LINUX-OVERVIEW.md) |
 | Learn Infrastructure as Code, Terraform/OpenTofu configuration, state, plans, and applies | [Infrastructure As Code Overview](./INFRASTRUCTURE-AS-CODE-OVERVIEW.md) |
 | Understand Helm charts, GitOps, and Argo CD responsibilities | [Helm, GitOps, And Argo CD Overview](./HELM-GITOPS-ARGOCD-OVERVIEW.md) |
@@ -51,6 +53,7 @@ interviews, and labs, use the [Maven Engineering Learning Path](./MAVEN-ENGINEER
 | Learn Docker concepts | [Docker](./DOCKER.md) |
 | Compare rolling, blue-green, canary, shadow, and feature-flag releases | [Deployment Strategies](./DEPLOYMENT-STRATEGIES.md) |
 | Work with MinIO assets | [MinIO](./MINIO.md) |
+| Master Jenkins from fundamentals through shared libraries, multibranch, scaling, and security | [Jenkins Architect Path](./JENKINS-ARCHITECT-PATH.md) |
 | Use Jenkins for this project | [Shopverse Jenkins](./SHOPVERSE-JENKINS.md) |
 | Learn Jenkins concepts | [Jenkins](./JENKINS.md) |
 | Maintain this documentation site | [Docusaurus](./DOCUSAURUS.md) |

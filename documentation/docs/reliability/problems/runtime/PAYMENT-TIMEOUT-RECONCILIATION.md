@@ -44,6 +44,27 @@ PENDING -> TIMED_OUT
 The system must preserve the uncertain state and provide an explicit recovery
 operation.
 
+```mermaid
+stateDiagram-v2
+    [*] --> PENDING
+    PENDING --> AUTHORIZED: provider SUCCESS
+    PENDING --> DECLINED: provider DECLINE
+    PENDING --> TIMED_OUT: provider TIMEOUT
+    AUTHORIZED --> CAPTURED: capture
+    TIMED_OUT --> CAPTURED: admin reconcile (provider actually captured)
+    CAPTURED --> REFUNDED: admin refund
+    DECLINED --> [*]
+    REFUNDED --> [*]
+    CAPTURED --> [*]
+```
+
+`TIMED_OUT` is a terminal-looking state that is not actually terminal — it
+is uncertainty, not failure, and the only two valid exits are an admin
+reconciling it to `CAPTURED` (the provider turns out to have succeeded) or
+a separate late-payment/refund workflow if the reservation already expired
+(see the cross-link below). Nothing may move `TIMED_OUT` straight to
+`DECLINED` or `REFUNDED` without going through reconciliation first.
+
 ### Solution
 
 Shopverse Payment Service models payment states:

@@ -109,6 +109,9 @@ const sidebars: SidebarsConfig = {
                 'development/design-patterns/bridge',
                 'development/design-patterns/decorator',
                 'development/design-patterns/proxy',
+                'development/design-patterns/composite',
+                'development/design-patterns/facade',
+                'development/design-patterns/flyweight',
               ],
             },
             {
@@ -120,6 +123,13 @@ const sidebars: SidebarsConfig = {
                 'development/design-patterns/observer',
                 'development/design-patterns/chain-of-responsibility',
                 'development/design-patterns/template-method',
+                'development/design-patterns/command',
+                'development/design-patterns/iterator',
+                'development/design-patterns/mediator',
+                'development/design-patterns/memento',
+                'development/design-patterns/interpreter',
+                'development/design-patterns/visitor',
+                'development/design-patterns/state',
               ],
             },
           ],
@@ -524,6 +534,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'java/JAVA-NIO-IO-RESOURCE-OWNERSHIP',
             'java/JAVA-SECURE-ASYNC-IO',
+            'java/JAVA-TLS-MTLS-SECURITY',
             'java/JAVA-FRAMEWORK-RUNTIME-INTERACTIONS',
             'java/JAVA-REFLECTION-ANNOTATIONS-CLASSLOADERS',
             'java/advanced-internals/DYNAMIC-JAVA-INTERNALS',
@@ -577,6 +588,7 @@ const sidebars: SidebarsConfig = {
           label: 'Tooling, Packaging And Labs',
           items: [
             'java/JAVA-ASSERTIONS-TOOLCHAIN',
+            'java/JAVA-MODULE-SYSTEM-JPMS',
             'java/JAVA-DYNAMIC-JPMS-PACKAGING',
             'java/JAVA-INTERNALS-LABS',
             'java/JAVA-EXECUTABLE-LABS',
@@ -628,7 +640,9 @@ const sidebars: SidebarsConfig = {
             'quarkus/QUARKUS-DATA-TRANSACTIONS-TESTING',
             'quarkus/QUARKUS-INTEGRATION-SECURITY-OBSERVABILITY',
             'quarkus/QUARKUS-NATIVE-KUBERNETES-PRODUCTION',
+            'quarkus/QUARKUS-PRODUCTION-HA-SCALING',
             'quarkus/QUARKUS-CHECKOUT-TUTORIAL',
+            'quarkus/QUARKUS-INTERVIEW-REVISION',
           ],
         },
       ],
@@ -1457,6 +1471,18 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'Gradle Engineering Path',
+          link: {type: 'doc', id: 'operations/GRADLE-OVERVIEW'},
+          items: [
+            'operations/GRADLE-ENGINEERING-PATH',
+            'operations/gradle/GRADLE-BUILD-LIFECYCLE-TASKS',
+            'operations/gradle/GRADLE-DEPENDENCIES-MULTI-MODULE',
+            'operations/gradle/GRADLE-CI-SECURITY-REPRODUCIBILITY',
+            'operations/gradle/GRADLE-TROUBLESHOOTING-INTERVIEW-REVISION',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Terraform And OpenTofu IaC',
           link: {type: 'doc', id: 'operations/INFRASTRUCTURE-AS-CODE-OVERVIEW'},
           items: [
@@ -1613,8 +1639,17 @@ const sidebars: SidebarsConfig = {
         'operations/SHOPVERSE-DOCKER',
         'operations/LOCAL-DOCKER-IMPLEMENTATION-GUIDE',
         'operations/CI-CD-AUTOMATION',
-        'operations/JENKINS',
-        'operations/SHOPVERSE-JENKINS',
+        {
+          type: 'category',
+          label: 'Jenkins Architect Path',
+          link: {type: 'doc', id: 'operations/JENKINS-ARCHITECT-PATH'},
+          items: [
+            'operations/JENKINS',
+            'operations/SHOPVERSE-JENKINS',
+            'operations/jenkins/JENKINS-SHARED-LIBRARIES-MULTIBRANCH',
+            'operations/jenkins/JENKINS-SCALING-SECURITY-OPERATIONS',
+          ],
+        },
         'operations/GITHUB-ACTIONS',
         {
           type: 'category',
