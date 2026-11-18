@@ -29,6 +29,9 @@ layers, or simplified APIs make the system easier to evolve.
   {title: 'Bridge', href: '/development/design-patterns/bridge', description: 'Separate two independent dimensions of variation.', icon: 'network', tags: ['Composition', 'Two axes']},
   {title: 'Decorator', href: '/development/design-patterns/decorator', description: 'Compose explicit behavior around a stable interface.', icon: 'layers', tags: ['Wrapping', 'Composition']},
   {title: 'Proxy', href: '/development/design-patterns/proxy', description: 'Understand Spring AOP interception and proxy boundaries.', icon: 'security', tags: ['Interview priority', 'Spring AOP']},
+  {title: 'Composite', href: '/development/design-patterns/composite', description: 'Treat product bundles and groups uniformly with cycle-safe trees.', icon: 'layers', tags: ['Tree structures', 'Catalog']},
+  {title: 'Facade', href: '/development/design-patterns/facade', description: 'Simplify checkout orchestration behind one use case.', icon: 'code', tags: ['Orchestration', 'Checkout']},
+  {title: 'Flyweight', href: '/development/design-patterns/flyweight', description: 'Share immutable catalog display state safely.', icon: 'network', tags: ['Memory', 'Sharing']},
 ]} />
 
 <DocCallout type="tip" title="Use this page for comparison">
@@ -147,7 +150,9 @@ Spring AOP often creates decorator-like behavior through proxies.
 
 ## Facade
 
-Facade exposes a simpler API over multiple internal services.
+Facade exposes a simpler API over multiple internal services. See the
+[full Facade guide](./facade.md) for the `CheckoutFacade` implementation,
+tests, and the distributed-transaction-coordinator trap.
 
 ### Problem
 
@@ -241,7 +246,9 @@ Move the method to another bean or call through the proxy intentionally.
 
 ## Composite
 
-Composite lets callers treat individual objects and groups uniformly.
+Composite lets callers treat individual objects and groups uniformly. See the
+[full Composite guide](./composite.md) for the Spring-wired implementation,
+cycle-detection guard, and tests.
 
 ### Example: Product Bundles
 
@@ -306,7 +313,8 @@ and delivery channel.
 
 Flyweight shares intrinsic, reusable state across many logical objects while callers supply
 extrinsic state for each use. It is useful only when measurement shows that repeated object state
-causes material memory pressure.
+causes material memory pressure. See the [full Flyweight guide](./flyweight.md) for the
+`ProductStyleFactory` implementation, thread-safety reasoning, and tests.
 
 ```java
 public record ProductStyle(String icon, String color) {}

@@ -26,6 +26,13 @@ state transitions, ordered processing, retries, or event-driven reactions.
   {title: 'Observer', href: '/development/design-patterns/observer', description: 'Publish typed events with explicit transaction semantics.', icon: 'network', tags: ['Interview priority', 'Events']},
   {title: 'Chain of Responsibility', href: '/development/design-patterns/chain-of-responsibility', description: 'Run ordered handlers that may continue or stop processing.', icon: 'layers', tags: ['Interview priority', 'Filters']},
   {title: 'Template Method', href: '/development/design-patterns/template-method', description: 'Protect a workflow skeleton while selected steps vary.', icon: 'brain', tags: ['Interview priority', 'Workflow']},
+  {title: 'Command', href: '/development/design-patterns/command', description: 'Model queued, retried, and undo-aware order actions.', icon: 'code', tags: ['Actions', 'Undo']},
+  {title: 'Iterator', href: '/development/design-patterns/iterator', description: 'Traverse paged order history with explicit failure semantics.', icon: 'route', tags: ['Traversal', 'Paging']},
+  {title: 'Mediator', href: '/development/design-patterns/mediator', description: 'Coordinate a checkout saga without a collaborator graph.', icon: 'network', tags: ['Orchestration', 'Checkout']},
+  {title: 'Memento', href: '/development/design-patterns/memento', description: 'Snapshot and restore a cart draft for abandoned-cart recovery.', icon: 'layers', tags: ['Snapshot', 'Recovery']},
+  {title: 'Interpreter', href: '/development/design-patterns/interpreter', description: 'Evaluate a small discount/promotion rule grammar.', icon: 'brain', tags: ['Rules', 'Grammar']},
+  {title: 'Visitor', href: '/development/design-patterns/visitor', description: 'Export heterogeneous line items without per-caller type checks.', icon: 'layers', tags: ['Export', 'Hierarchy']},
+  {title: 'State', href: '/development/design-patterns/state', description: 'Enforce order lifecycle transitions explicitly.', icon: 'route', tags: ['Interview priority', 'Lifecycle']},
 ]} />
 
 <DocCallout type="tip" title="Use this page for comparison">
@@ -264,7 +271,8 @@ public final class AuthorizedPayment implements PaymentState {
 ```
 
 Use State when transition rules are important and status-based `if`/`switch`
-logic is spreading across the service.
+logic is spreading across the service. See the [full State guide](./state.md)
+for the complete order-lifecycle state machine, Spring wiring, and tests.
 
 ## Template Method
 
@@ -316,6 +324,9 @@ Command objects are useful for:
 - undo workflows;
 - validation.
 
+See the [full Command guide](./command.md) for a queued, retried, and
+undo-aware `RefundPaymentCommand` implementation with tests.
+
 ## Iterator
 
 Iterator traverses a collection without exposing its representation. Java's `Iterable` and
@@ -329,6 +340,8 @@ for (Order order : orderHistory) {
 
 A remote-page iterator must define lazy I/O, failure, close, retry, and consistency semantics.
 Do not hide expensive network calls behind innocent-looking iteration without documenting them.
+See the [full Iterator guide](./iterator.md) for a paged order-history traversal with lazy
+fetch and failure semantics, and tests.
 
 ## Mediator
 
@@ -346,7 +359,8 @@ public final class CheckoutMediator {
 ```
 
 It makes workflow ownership explicit, but can become a god object. Keep domain decisions in domain
-objects and split mediators by cohesive use case.
+objects and split mediators by cohesive use case. See the
+[full Mediator guide](./mediator.md) for a checkout-saga coordinator with tests.
 
 ## Memento
 
@@ -360,7 +374,8 @@ public record CartMemento(List<CartLine> lines) {
 
 Use immutable snapshots for editor undo, workflow checkpoints, or tests. Large snapshots cost
 memory; persisted business recovery normally needs versioned events or durable state, not an
-in-memory undo stack.
+in-memory undo stack. See the [full Memento guide](./memento.md) for a cart-draft
+snapshot/restore implementation used for abandoned-cart recovery, with tests.
 
 ## Interpreter
 
@@ -379,7 +394,8 @@ record AndRule(Rule left, Rule right) implements Rule {
 ```
 
 It works for a small stable rules language. Grammar growth, precedence, diagnostics, security, and
-performance quickly justify a parser library or established rules engine instead.
+performance quickly justify a parser library or established rules engine instead. See the
+[full Interpreter guide](./interpreter.md) for a discount/promotion-rule evaluator with tests.
 
 ## Visitor
 
@@ -394,7 +410,8 @@ sealed interface Promotion permits Percentage, FreeShipping {
 
 Adding operations is easy; adding a new element type requires changing every visitor. With sealed
 Java hierarchies, exhaustive pattern-matching `switch` may be simpler for a small number of
-operations.
+operations. See the [full Visitor guide](./visitor.md) for a finance-export visitor over
+heterogeneous order-line-item types, with tests.
 
 ## Behavioral Pattern Selection
 

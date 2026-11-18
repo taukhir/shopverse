@@ -1,8 +1,8 @@
 ---
-title: Java Reflection, JPMS And Packaging
-description: Dynamic invocation, proxies, annotations, agents, module boundaries, services, images, and compatibility.
+title: Java Reflection, Dynamic Loading, And Packaging
+description: Dynamic invocation, proxies, annotations, agents, hidden classes, runtime images, and compatibility.
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-11-18"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -11,7 +11,7 @@ reviewer: documentation-maintainers
 review_evidence: repository-content-audit
 ---
 
-# Java Reflection, JPMS And Packaging
+# Java Reflection, Dynamic Loading, And Packaging
 
 Reflection discovers members from runtime metadata and performs access checks;
 cache lookups carefully without retaining unloadable class loaders. Method handles
@@ -27,21 +27,18 @@ instrumentation can transform class definitions but create startup, compatibilit
 security and observability risks. Hidden classes support framework-generated
 implementation artifacts without ordinary discovery/lifecycle expectations.
 
-JPMS makes dependencies and accessibility explicit:
+## Module Boundaries, In Brief
 
-```java
-module com.shopverse.orders {
-    requires java.net.http;
-    exports com.shopverse.orders.api;
-    opens com.shopverse.orders.dto to com.fasterxml.jackson.databind;
-    uses com.shopverse.spi.PricingProvider;
-}
-```
-
-`exports` grants compile/runtime API access; `opens` grants deep reflection.
-Qualified forms restrict recipients. Automatic and unnamed modules support
-migration but weaken clarity; split packages are prohibited across named modules.
-`ServiceLoader` connects `uses` with provider `provides` declarations.
+The Java Platform Module System (JPMS) adds a readability graph
+(`requires`) and per-reader accessibility (`exports`/`opens`) on top of
+everything above — a dynamic proxy or reflective framework running on the
+module path is still subject to these checks, which is why `opens` (not
+just `exports`) often has to be declared before reflection that worked on
+the classpath keeps working on a module. The descriptor syntax, the
+`ServiceLoader`/`uses`/`provides` wiring, migration strategy, and JPMS's own
+failure modes are covered in full on
+[Java Module System (JPMS)](./JAVA-MODULE-SYSTEM-JPMS.md) — read that page
+for anything beyond this one-paragraph recap.
 
 Packaging choices include modular/non-modular JARs, multi-release JARs, `jlink`
 runtime images, `jpackage` installers, and CDS/AppCDS archives. Test classpath and
@@ -57,4 +54,6 @@ only source compilation.
 
 ## Recommended Next
 
-Run the loader/module labs in [Senior Labs](./JAVA-SENIOR-LABS-INTERVIEW.md).
+Continue with [Java Module System (JPMS)](./JAVA-MODULE-SYSTEM-JPMS.md) for
+module descriptors, strong encapsulation, and `ServiceLoader` wiring, then
+run the loader/module labs in [Senior Labs](./JAVA-SENIOR-LABS-INTERVIEW.md).

@@ -6042,6 +6042,48 @@
     "verifiedOfficial": true
   },
   {
+    "title": "Command Pattern in Spring",
+    "path": "/development/design-patterns/command",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Composite Pattern in Spring",
+    "path": "/development/design-patterns/composite",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
     "title": "Creational Patterns",
     "path": "/development/design-patterns/CREATIONAL-PATTERNS",
     "topic": "Engineering",
@@ -6257,6 +6299,27 @@
     "verifiedOfficial": true
   },
   {
+    "title": "Facade Pattern in Spring",
+    "path": "/development/design-patterns/facade",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
     "title": "Factory Method Pattern in Java and Spring",
     "path": "/development/design-patterns/factory",
     "topic": "Engineering",
@@ -6280,6 +6343,27 @@
     "verifiedOfficial": true
   },
   {
+    "title": "Flyweight Pattern in Spring",
+    "path": "/development/design-patterns/flyweight",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
     "title": "Immutable Classes in Java: Rules, Defensive Copies, and Clone Safety",
     "path": "/development/design-patterns/immutable-class",
     "topic": "Engineering",
@@ -6296,6 +6380,48 @@
     "scope": "generic",
     "owner": "docs-development",
     "lastReviewed": "2026-07-28",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Interpreter Pattern in Spring",
+    "path": "/development/design-patterns/interpreter",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Iterator Pattern in Spring",
+    "path": "/development/design-patterns/iterator",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
     "hasInterview": true,
     "hasCode": true,
     "isLab": false,
@@ -6338,6 +6464,48 @@
     "lastReviewed": "2026-07-13",
     "hasInterview": false,
     "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Mediator Pattern in Spring",
+    "path": "/development/design-patterns/mediator",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Memento Pattern in Spring",
+    "path": "/development/design-patterns/memento",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": true
@@ -7227,6 +7395,27 @@
     "verifiedOfficial": true
   },
   {
+    "title": "State Pattern in Spring",
+    "path": "/development/design-patterns/state",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
     "title": "Strategy Pattern in Spring",
     "path": "/development/design-patterns/strategy",
     "topic": "Engineering",
@@ -7326,6 +7515,27 @@
     "owner": "docs-development",
     "lastReviewed": "2026-07-13",
     "hasInterview": false,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Visitor Pattern in Spring",
+    "path": "/development/design-patterns/visitor",
+    "topic": "Engineering",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "spring",
+      "design-patterns",
+      "interview"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-development",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
     "hasCode": true,
     "isLab": false,
     "isRunbook": false,
@@ -9230,6 +9440,26 @@
     "verifiedOfficial": true
   },
   {
+    "title": "Java Module System (JPMS)",
+    "path": "/java/JAVA-MODULE-SYSTEM-JPMS",
+    "topic": "Java",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "Java",
+      "JPMS"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-java",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
     "title": "Java Multithreading",
     "path": "/java/JAVA-MULTITHREADING",
     "topic": "Java",
@@ -9557,7 +9787,7 @@
     "verifiedOfficial": true
   },
   {
-    "title": "Java Reflection, JPMS And Packaging",
+    "title": "Java Reflection, Dynamic Loading, And Packaging",
     "path": "/java/JAVA-DYNAMIC-JPMS-PACKAGING",
     "topic": "Java",
     "difficulty": "Intermediate",
@@ -9566,9 +9796,9 @@
     "status": "maintained",
     "scope": "generic",
     "owner": "docs-java",
-    "lastReviewed": "2026-07-13",
+    "lastReviewed": "2026-11-18",
     "hasInterview": false,
-    "hasCode": true,
+    "hasCode": false,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": true
@@ -9980,6 +10210,27 @@
     "lastReviewed": "2026-07-13",
     "hasInterview": false,
     "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Java TLS And Mutual TLS",
+    "path": "/java/JAVA-TLS-MTLS-SECURITY",
+    "topic": "Java",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "Java",
+      "TLS",
+      "mTLS"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-java",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
     "isLab": false,
     "isRunbook": false,
     "verifiedOfficial": true
@@ -12042,6 +12293,124 @@
     "verifiedOfficial": true
   },
   {
+    "title": "Gradle Build Lifecycle, Task Graph, And Caching",
+    "path": "/operations/gradle/GRADLE-BUILD-LIFECYCLE-TASKS",
+    "topic": "Operations",
+    "difficulty": "Intermediate",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "Gradle"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Gradle CI, Wrapper Security, And Reproducibility",
+    "path": "/operations/gradle/GRADLE-CI-SECURITY-REPRODUCIBILITY",
+    "topic": "Operations",
+    "difficulty": "Advanced",
+    "pageType": "Guide",
+    "technologies": [
+      "Gradle",
+      "CI/CD"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": false,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Gradle Dependencies, Version Catalogs, And Multi-Module Builds",
+    "path": "/operations/gradle/GRADLE-DEPENDENCIES-MULTI-MODULE",
+    "topic": "Operations",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "Gradle"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Gradle Engineering Learning Path",
+    "path": "/operations/GRADLE-ENGINEERING-PATH",
+    "topic": "Operations",
+    "difficulty": "Intermediate",
+    "pageType": "Learning Path",
+    "technologies": [
+      "Gradle",
+      "Java",
+      "Spring Boot"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": false,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Gradle Overview - Build Scripts, Tasks, Dependencies, And Wrapper",
+    "path": "/operations/GRADLE-OVERVIEW",
+    "topic": "Operations",
+    "difficulty": "Beginner",
+    "pageType": "Concept",
+    "technologies": [
+      "Gradle",
+      "Java"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": false,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
+    "title": "Gradle Troubleshooting, Interview Questions, Labs, And Revision",
+    "path": "/operations/gradle/GRADLE-TROUBLESHOOTING-INTERVIEW-REVISION",
+    "topic": "Operations",
+    "difficulty": "Advanced",
+    "pageType": "Interview",
+    "technologies": [
+      "Gradle"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": true
+  },
+  {
     "title": "Helm Chart Engineering And Testing",
     "path": "/operations/helm-gitops/HELM-CHART-ENGINEERING",
     "topic": "Operations",
@@ -12181,6 +12550,68 @@
     "scope": "generic",
     "owner": "docs-operations",
     "lastReviewed": "2026-07-13",
+    "hasInterview": true,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "Jenkins Architect Path",
+    "path": "/operations/JENKINS-ARCHITECT-PATH",
+    "topic": "Operations",
+    "difficulty": "Advanced",
+    "pageType": "Learning Path",
+    "technologies": [
+      "Jenkins",
+      "Groovy",
+      "Pipeline as Code"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": false,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "Jenkins Scaling, Security, And Operations",
+    "path": "/operations/jenkins/JENKINS-SCALING-SECURITY-OPERATIONS",
+    "topic": "Operations",
+    "difficulty": "Advanced",
+    "pageType": "Guide",
+    "technologies": [
+      "Jenkins",
+      "Kubernetes agents"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
+    "hasCode": false,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "Jenkins Shared Libraries And Multibranch Pipelines",
+    "path": "/operations/jenkins/JENKINS-SHARED-LIBRARIES-MULTIBRANCH",
+    "topic": "Operations",
+    "difficulty": "Advanced",
+    "pageType": "Deep Dive",
+    "technologies": [
+      "Jenkins",
+      "Groovy",
+      "Pipeline as Code"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-operations",
+    "lastReviewed": "2026-11-18",
     "hasInterview": true,
     "hasCode": false,
     "isLab": false,
@@ -13928,6 +14359,30 @@
     "verifiedOfficial": false
   },
   {
+    "title": "Quarkus Production Scaling, Thread Model, And Incident Response",
+    "path": "/quarkus/QUARKUS-PRODUCTION-HA-SCALING",
+    "topic": "quarkus",
+    "difficulty": "Advanced",
+    "pageType": "Guide",
+    "technologies": [
+      "Quarkus",
+      "SmallRye Config",
+      "SmallRye Health",
+      "Vert.x",
+      "Mutiny",
+      "Kubernetes"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-quarkus",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": false,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
     "title": "Quarkus REST, CDI, Configuration, And Validation",
     "path": "/quarkus/QUARKUS-REST-CDI-CONFIG",
     "topic": "quarkus",
@@ -13945,6 +14400,28 @@
     "owner": "docs-java",
     "lastReviewed": "2026-08-11",
     "hasInterview": false,
+    "hasCode": true,
+    "isLab": false,
+    "isRunbook": false,
+    "verifiedOfficial": false
+  },
+  {
+    "title": "Quarkus Versus Spring Boot, Interview Scenarios, And Revision",
+    "path": "/quarkus/QUARKUS-INTERVIEW-REVISION",
+    "topic": "quarkus",
+    "difficulty": "Advanced",
+    "pageType": "Interview",
+    "technologies": [
+      "Quarkus",
+      "Spring Boot",
+      "Hibernate ORM Panache",
+      "GraalVM"
+    ],
+    "status": "maintained",
+    "scope": "generic",
+    "owner": "docs-quarkus",
+    "lastReviewed": "2026-11-18",
+    "hasInterview": true,
     "hasCode": true,
     "isLab": false,
     "isRunbook": false,
