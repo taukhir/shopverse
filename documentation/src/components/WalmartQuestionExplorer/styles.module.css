@@ -53,7 +53,7 @@
 .sectionHeading > div { justify-content: flex-start; }
 .sectionHeading h3 { font-size: 1rem; margin: 0; }
 .sectionHeading svg { color: var(--ifm-color-primary); height: 18px; width: 18px; }
-.sectionHeading > span { color: var(--ifm-color-emphasis-600); font-size: 0.7rem; }
+.sectionHeading > span { color: var(--ifm-color-emphasis-700); font-size: 0.7rem; }
 .bars { display: grid; gap: 0.38rem; margin-top: 0.8rem; }
 .bars button { align-items: center; background: transparent; border: 0; border-radius: 7px; color: inherit; cursor: pointer; display: grid; font: inherit; gap: 0.6rem; grid-template-columns: minmax(170px, 2fr) minmax(90px, 3fr) 28px; padding: 0.28rem 0.4rem; text-align: left; }
 .bars button:hover, .bars .activeBar { background: color-mix(in srgb, var(--ifm-color-primary) 8%, transparent); }
@@ -75,7 +75,7 @@
 
 .resultsHeading { align-items: baseline; display: flex; gap: 0.4rem; }
 .resultsHeading strong { font-size: 1rem; }
-.resultsHeading span { color: var(--ifm-color-emphasis-600); font-size: 0.78rem; }
+.resultsHeading span { color: var(--ifm-color-emphasis-700); font-size: 0.78rem; }
 .groupList { display: grid; gap: 1rem; }
 .topicGroup { background: var(--ifm-background-surface-color); border: 1px solid var(--explorer-border); border-radius: 16px; overflow: hidden; }
 .topicGroup > header { background: color-mix(in srgb, var(--ifm-color-primary) 6%, var(--ifm-background-surface-color)); }
