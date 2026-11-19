@@ -4,26 +4,18 @@ import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.shopverse.order.constants.OrderMessages;
 import io.shopverse.contracts.order.CatalogItemResponse;
-import io.shopverse.contracts.order.CheckoutRequest;
-import io.shopverse.contracts.order.CheckoutReviewResponse;
 import io.shopverse.contracts.order.OrderDeleteResponse;
 import io.shopverse.contracts.order.OrderResponse;
 import io.shopverse.contracts.order.OrderTimelineResponse;
 import io.shopverse.contracts.order.ServiceHealthResponse;
-import io.shopverse.platform.observability.CorrelationConstants;
 import io.shopverse.order.service.CatalogService;
 import io.shopverse.order.service.OrderService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.access.AccessDeniedException;
@@ -32,8 +24,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.validation.annotation.Validated;
@@ -95,41 +85,6 @@ public class OrderController {
     @PreAuthorize("hasRole('ADMIN') or @orderAuthorization.isOwner(#id, authentication.name)")
     public List<OrderTimelineResponse> getTimeline(@PathVariable Long id) {
         return orderService.getTimeline(id).stream().map(mapper::toContract).toList();
-    }
-
-    @PostMapping("/checkout/review")
-    @Operation(summary = "Stateless review of a checkout: validates items/address and returns a quote")
-    public CheckoutReviewResponse reviewCheckout(@Valid @RequestBody CheckoutRequest request) {
-        log.info("Checkout review requested");
-        return mapper.toContract(orderService.reviewCheckout(mapper.toApplication(request)));
-    }
-
-    @PostMapping("/checkout")
-    @Operation(summary = "Create an idempotent checkout and start the Kafka SAGA")
-    public ResponseEntity<OrderResponse> checkout(
-            @Valid @RequestBody CheckoutRequest request,
-            @Parameter(
-                    description = "Stable key reused by retries of the same checkout",
-                    required = true,
-                    example = "checkout-user-42-cart-9001"
-            )
-            @RequestHeader("Idempotency-Key")
-            @NotBlank
-            @Size(max = 100)
-            String idempotencyKey,
-            Authentication authentication
-    ) {
-        log.info("Checkout requested for current user; starting choreography saga");
-        String correlationId = org.slf4j.MDC.get(CorrelationConstants.MDC_KEY);
-        var order = orderService.checkout(
-                mapper.toApplication(request),
-                authentication.getName(),
-                correlationId,
-                idempotencyKey
-        );
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(mapper.toContract(order));
     }
 
     @PostMapping("/{id}/cancel")

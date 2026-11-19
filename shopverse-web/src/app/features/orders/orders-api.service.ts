@@ -64,11 +64,16 @@ export interface CheckoutResponse {
   orderNumber: string;
 }
 
-export interface CheckoutReview {
+export interface Checkout {
+  checkoutId: string;
+  version: number;
+  status: string;
   items: OrderItem[];
   shippingAddress: ShippingAddress | null;
-  totalAmount: string;
   currency: string;
+  totalAmount: string;
+  expiresAt: string;
+  orderId: number | null;
 }
 
 export interface OrderWorkflowState {
@@ -113,12 +118,12 @@ export class OrdersApiService {
     });
   }
 
-  checkout(items: CheckoutRequestItem[], idempotencyKey: string, shippingAddress: ShippingAddress) {
-    const headers = new HttpHeaders({ 'Idempotency-Key': idempotencyKey });
-    return this.http.post<CheckoutResponse>(API_PATHS.orders.checkout, { items, shippingAddress }, { headers });
+  createCheckout(items: CheckoutRequestItem[], shippingAddress: ShippingAddress) {
+    return this.http.post<Checkout>(API_PATHS.checkouts.root, { items, shippingAddress });
   }
 
-  reviewCheckout(items: CheckoutRequestItem[], shippingAddress: ShippingAddress) {
-    return this.http.post<CheckoutReview>(API_PATHS.orders.checkoutReview, { items, shippingAddress });
+  placeOrder(checkoutId: string, checkoutVersion: number, idempotencyKey: string) {
+    const headers = new HttpHeaders({ 'Idempotency-Key': idempotencyKey });
+    return this.http.post<CheckoutResponse>(API_PATHS.checkouts.placeOrder(checkoutId), { checkoutVersion }, { headers });
   }
 }

@@ -142,15 +142,25 @@ const collection = {
       request("List my orders", "GET", "{{gatewayUrl}}/api/v1/orders", { tests: ok([200]) }),
       request("Get my order", "GET", "{{gatewayUrl}}/api/v1/orders/{{orderId}}", { tests: ok([200]) }),
       request("Get order timeline", "GET", "{{gatewayUrl}}/api/v1/orders/{{orderId}}/timeline", { tests: ok([200]) }),
-      request("Checkout", "POST", "{{gatewayUrl}}/api/v1/orders/checkout", {
-        headers: [...jsonHeaders, { key: "Idempotency-Key", value: "{{idempotencyKey}}" }, { key: "X-Correlation-Id", value: "{{correlationId}}" }],
+      request("Create checkout", "POST", "{{gatewayUrl}}/api/v1/checkouts", {
+        headers: [...jsonHeaders, { key: "X-Correlation-Id", value: "{{correlationId}}" }],
         body: { items: [{ productId: "{{productId}}", quantity: 1 }], shippingAddress: { recipientName: "Postman Customer", phoneNumber: "+919876543210", line1: "42 Commerce Street", line2: "", city: "Bengaluru", state: "Karnataka", postalCode: "560001", country: "India" } },
+        tests: [
+          ...ok([201]), "const body = pm.response.json();",
+          "if (body.checkoutId) pm.environment.set('checkoutId', body.checkoutId);",
+          "if (body.version != null) pm.environment.set('checkoutVersion', String(body.version));"
+        ],
+        description: "Persists a priced, versioned, expiring checkout quote for review. No order is created and no SAGA is started yet."
+      }),
+      request("Place order", "POST", "{{gatewayUrl}}/api/v1/checkouts/{{checkoutId}}/place-order", {
+        headers: [...jsonHeaders, { key: "Idempotency-Key", value: "{{idempotencyKey}}" }, { key: "X-Correlation-Id", value: "{{correlationId}}" }],
+        body: { checkoutVersion: "{{checkoutVersion}}" },
         tests: [
           ...ok([201]), "const body = pm.response.json();",
           "if (body.id != null) pm.environment.set('orderId', String(body.id));",
           "if (body.orderNumber) pm.environment.set('orderNumber', body.orderNumber);"
         ],
-        description: "Creates an idempotent checkout and starts the Kafka choreography. Reuse the same Idempotency-Key for retries of the same checkout."
+        description: "Places the order from the checkout version reviewed above and starts the Kafka choreography. Reuse the same Idempotency-Key for retries of the same placement."
       }),
       request("Cancel my order", "POST", "{{gatewayUrl}}/api/v1/orders/{{orderId}}/cancel", { tests: ok([200]), description: "Business transition; only valid for an owned cancellable order." }),
       request("Request return", "POST", "{{gatewayUrl}}/api/v1/orders/{{orderId}}/return-request", { tests: ok([200]), description: "Business transition; only valid for an owned delivered order." })
@@ -263,7 +273,8 @@ const environmentValues = [
   ["newUsername", "postman.api.user"], ["newUserEmail", "postman.api.user@shopverse.local"], ["newUserPassword", "", "secret"],
   ["adminToken", "", "secret"], ["customerToken", "", "secret"], ["accessToken", "", "secret"],
   ["productId", "1"], ["userId", "1"], ["addressId", "1"], ["roleId", "1"], ["permissionId", "1"], ["auditEventId", "1"],
-  ["orderId", "1"], ["orderNumber", "ORD-REPLACE-ME"], ["deadLetterId", "1"], ["paymentSimulationMode", "SUCCESS"],
+  ["orderId", "1"], ["orderNumber", "ORD-REPLACE-ME"], ["checkoutId", "CHK-REPLACE-ME"], ["checkoutVersion", "1"],
+  ["deadLetterId", "1"], ["paymentSimulationMode", "SUCCESS"],
   ["correlationId", ""], ["idempotencyKey", ""]
 ];
 

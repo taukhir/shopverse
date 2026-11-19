@@ -87,6 +87,11 @@ public class SecurityConfig {
                                 "/api/v1/orders/**"
                         ).hasAnyRole("CUSTOMER", "ADMIN")
 
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/v1/checkouts/**"
+                        ).hasAnyRole("CUSTOMER", "ADMIN")
+
                         /*
                          * Update APIs
                          */

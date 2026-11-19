@@ -47,15 +47,15 @@ class OrderDtoCollectionsTest {
     }
 
     @Test
-    void reviewItemsCannotBeChangedThroughEitherReference() {
+    void checkoutResponseItemsCannotBeChangedThroughEitherReference() {
         var item = new OrderItemResponse(1L, "Product", 1, BigDecimal.ONE);
         var items = new ArrayList<OrderItemResponse>();
         items.add(item);
-        var review = new CheckoutReviewResponse(items, null, BigDecimal.ONE, "INR");
+        var checkout = new CheckoutResponse("CHK-1", 1L, "READY_TO_PLACE", items, null, "INR", BigDecimal.ONE, null, null);
 
         items.clear();
 
-        assertThat(review.items()).containsExactly(item);
-        assertThatThrownBy(() -> review.items().clear()).isInstanceOf(UnsupportedOperationException.class);
+        assertThat(checkout.items()).containsExactly(item);
+        assertThatThrownBy(() -> checkout.items().clear()).isInstanceOf(UnsupportedOperationException.class);
     }
 }

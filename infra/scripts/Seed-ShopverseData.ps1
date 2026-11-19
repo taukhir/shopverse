@@ -387,7 +387,7 @@ $checkoutWorker = {
 
     $idempotencyKey = "api-seed-checkout-{0:D4}" -f $OrderIndex
     $correlationId = "api-seed-correlation-{0:D4}" -f $OrderIndex
-        $body = @{
+        $createBody = @{
             items = @(@{ productId = $ProductId; quantity = 1 })
             shippingAddress = @{
                 recipientName = $Username
@@ -407,12 +407,14 @@ $checkoutWorker = {
             if ([string]::IsNullOrWhiteSpace($login.token)) {
                 throw "Login returned no token"
             }
-            $headers = @{
+            $authHeaders = @{
                 Authorization = "Bearer $($login.token)"
-                "Idempotency-Key" = $idempotencyKey
                 "X-Correlation-Id" = $correlationId
             }
-            $order = Invoke-RestMethod -Method Post -Uri "$WorkerGatewayUrl/api/v1/orders/checkout" -Headers $headers -ContentType "application/json" -Body $body -TimeoutSec $TimeoutSeconds -ErrorAction Stop
+            $checkout = Invoke-RestMethod -Method Post -Uri "$WorkerGatewayUrl/api/v1/checkouts" -Headers $authHeaders -ContentType "application/json" -Body $createBody -TimeoutSec $TimeoutSeconds -ErrorAction Stop
+            $placeBody = @{ checkoutVersion = $checkout.version } | ConvertTo-Json -Compress
+            $headers = $authHeaders + @{ "Idempotency-Key" = $idempotencyKey }
+            $order = Invoke-RestMethod -Method Post -Uri "$WorkerGatewayUrl/api/v1/checkouts/$($checkout.checkoutId)/place-order" -Headers $headers -ContentType "application/json" -Body $placeBody -TimeoutSec $TimeoutSeconds -ErrorAction Stop
             return [pscustomobject]@{
                 Success = $true
                 OrderIndex = $OrderIndex
