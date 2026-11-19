@@ -21,13 +21,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build Docusaurus
-    permissions:
-      contents: read
-      pages: read
+  audits:
+    name: Lint And Content Audits
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: documentation
@@ -44,13 +41,6 @@ jobs:
           node-version: "22"
           cache: npm
           cache-dependency-path: documentation/package-lock.json
-
-      - name: Set up Java for executable documentation examples
-        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
-        with:
-          distribution: temurin
-          java-version: "25"
-          cache: gradle
 
       - name: Install dependencies
         run: npm ci
@@ -94,10 +84,91 @@ jobs:
       - name: Validate AI workflow evaluation suite
         run: node ../dev-tools/ai-workflows/evals/scripts/validate-suite.mjs
 
-      - name: Compile executable Java and Spring documentation examples
+      - name: Check official external references
+        if: github.event_name == 'schedule'
+        run: npm run check:docs:official-links
+
+  java-labs:
+    name: Compile Java Documentation Examples
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: documentation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Compile executable Java documentation examples
+        run: node scripts/check-java-labs.mjs
+
+  spring-labs:
+    name: Compile Spring Documentation Examples
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: documentation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: gradle
+
+      - name: Compile and test Spring documentation examples
+        run: node scripts/check-spring-labs.mjs
+
+  build-and-test:
+    name: Build Docusaurus And Test
+    permissions:
+      contents: read
+      pages: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: documentation
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: documentation/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve documentation validation mode
+        id: validation
+        shell: bash
         run: |
-          npm run check:java-labs
-          npm run check:spring-labs
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "base=${{ github.event.pull_request.base.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "base=" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Build documentation
         run: npm run build
@@ -125,10 +196,6 @@ jobs:
         if: github.event_name != 'pull_request'
         run: npm run test:ui
 
-      - name: Check official external references
-        if: github.event_name == 'schedule'
-        run: npm run check:docs:official-links
-
       - name: Upload browser failure evidence
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
@@ -154,7 +221,7 @@ jobs:
       id-token: write
     name: Deploy GitHub Pages
     if: github.event_name != 'pull_request'
-    needs: build
+    needs: [audits, java-labs, spring-labs, build-and-test]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     environment:
