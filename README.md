@@ -251,6 +251,14 @@ Troubleshooting:
   `index.html` for client-side routes.
 - If documentation is unavailable, rebuild only the docs image:
   `docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml build documentation`.
+- If starting only `shopverse-web` after the backend is already running fails
+  with `service "shopverse-web" depends on undefined service "api-gateway"`,
+  the `--profile apps --profile assets` flags were omitted. `shopverse-web`
+  has no profile itself but depends on `api-gateway`, which is gated behind
+  `apps`; without that profile active, Compose excludes `api-gateway` from the
+  project model entirely. Always include both profile flags, even when
+  targeting `shopverse-web` on its own:
+  `docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml up --build -d shopverse-web`.
 
 ## Five-Minute Local Evaluation
 

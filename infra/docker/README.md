@@ -47,6 +47,11 @@ docker compose --profile apps --profile assets up -d
 # Rebuild and restart one changed service
 docker compose --profile apps up -d --build order-service
 
+# Start only the web UI against an already-running backend (full-stack overlay)
+# --profile apps --profile assets is still required: shopverse-web depends on
+# api-gateway, which is gated behind the "apps" profile.
+docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml up --build -d shopverse-web
+
 # Follow bounded service logs
 docker compose logs --tail=200 -f order-service
 
