@@ -5,6 +5,7 @@ import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.shopverse.order.constants.OrderMessages;
 import io.shopverse.contracts.order.CatalogItemResponse;
 import io.shopverse.contracts.order.CheckoutRequest;
+import io.shopverse.contracts.order.CheckoutReviewResponse;
 import io.shopverse.contracts.order.OrderDeleteResponse;
 import io.shopverse.contracts.order.OrderResponse;
 import io.shopverse.contracts.order.OrderTimelineResponse;
@@ -94,6 +95,13 @@ public class OrderController {
     @PreAuthorize("hasRole('ADMIN') or @orderAuthorization.isOwner(#id, authentication.name)")
     public List<OrderTimelineResponse> getTimeline(@PathVariable Long id) {
         return orderService.getTimeline(id).stream().map(mapper::toContract).toList();
+    }
+
+    @PostMapping("/checkout/review")
+    @Operation(summary = "Stateless review of a checkout: validates items/address and returns a quote")
+    public CheckoutReviewResponse reviewCheckout(@Valid @RequestBody CheckoutRequest request) {
+        log.info("Checkout review requested");
+        return mapper.toContract(orderService.reviewCheckout(mapper.toApplication(request)));
     }
 
     @PostMapping("/checkout")

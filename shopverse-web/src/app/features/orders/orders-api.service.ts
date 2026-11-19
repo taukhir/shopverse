@@ -64,6 +64,13 @@ export interface CheckoutResponse {
   orderNumber: string;
 }
 
+export interface CheckoutReview {
+  items: OrderItem[];
+  shippingAddress: ShippingAddress | null;
+  totalAmount: string;
+  currency: string;
+}
+
 export interface OrderWorkflowState {
   timeline: TimelineEvent[];
   payment: Payment | null;
@@ -109,5 +116,9 @@ export class OrdersApiService {
   checkout(items: CheckoutRequestItem[], idempotencyKey: string, shippingAddress: ShippingAddress) {
     const headers = new HttpHeaders({ 'Idempotency-Key': idempotencyKey });
     return this.http.post<CheckoutResponse>(API_PATHS.orders.checkout, { items, shippingAddress }, { headers });
+  }
+
+  reviewCheckout(items: CheckoutRequestItem[], shippingAddress: ShippingAddress) {
+    return this.http.post<CheckoutReview>(API_PATHS.orders.checkoutReview, { items, shippingAddress });
   }
 }

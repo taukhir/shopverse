@@ -3,6 +3,7 @@ package io.shopverse.order.controller;
 import io.shopverse.contracts.order.CheckoutItemRequest;
 import io.shopverse.contracts.order.CheckoutRequest;
 import io.shopverse.contracts.order.ShippingAddressRequest;
+import io.shopverse.order.dto.CheckoutReviewResponse;
 import io.shopverse.order.dto.OrderItemResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.ShippingAddressResponse;
@@ -72,6 +73,26 @@ class OrderContractMapperTest {
         assertThat(resultItem.getProductName()).isEqualTo(expectedItem.productName());
         assertThat(resultItem.getQuantity()).isEqualTo(expectedItem.quantity());
         assertThat(resultItem.getUnitPrice()).isEqualTo(expectedItem.unitPrice().toPlainString());
+    }
+
+    @Test
+    void reviewMappingPreservesItemsAddressTotalAndCurrency() {
+        var review = new CheckoutReviewResponse(
+                List.of(new OrderItemResponse(101L, "Test Product", 2, new BigDecimal("19.90"))),
+                new ShippingAddressResponse("Test Customer", "+919876543210", "12 Test Road",
+                        "Unit 4", "Bengaluru", "Karnataka", "560001", "IN"),
+                new BigDecimal("39.80"), "INR");
+
+        var result = mapper.toContract(review);
+
+        assertThat(result.getTotalAmount()).isEqualTo("39.80");
+        assertThat(result.getCurrency()).isEqualTo("INR");
+        assertThat(result.getShippingAddress()).usingRecursiveComparison()
+                .isEqualTo(review.shippingAddress());
+        var resultItem = Objects.requireNonNull(result.getItems()).getFirst();
+        assertThat(resultItem.getProductId()).isEqualTo(101L);
+        assertThat(resultItem.getQuantity()).isEqualTo(2);
+        assertThat(resultItem.getUnitPrice()).isEqualTo("19.90");
     }
 
     @Test

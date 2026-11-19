@@ -140,6 +140,55 @@ class OrderServiceImplTest {
     }
 
     @Test
+    void reviewCheckoutReturnsComputedTotalsWithoutPersistingAnything() {
+        when(catalogService.getProduct(103L)).thenReturn(new CatalogItemResponse(
+                103L,
+                "Pulse Fitness Tracker",
+                BigDecimal.valueOf(72.49),
+                true,
+                "http://localhost:9000/shopverse-product-images/products/103.png",
+                "products/103.png"
+        ));
+
+        var review = service.reviewCheckout(
+                new CheckoutRequest(List.of(new CheckoutItemRequest(103L, 2)), shippingAddress())
+        );
+
+        assertThat(review.items()).singleElement().satisfies(item -> {
+            assertThat(item.productId()).isEqualTo(103L);
+            assertThat(item.productName()).isEqualTo("Pulse Fitness Tracker");
+            assertThat(item.quantity()).isEqualTo(2);
+            assertThat(item.unitPrice()).isEqualByComparingTo("72.49");
+        });
+        assertThat(review.totalAmount()).isEqualByComparingTo("144.98");
+        assertThat(review.shippingAddress().recipientName()).isEqualTo("Henry Thompson");
+        verify(repository, never()).save(any());
+        verify(outboxService, never()).enqueue(any(), any(), any(), any(), any(), any(), any());
+        verify(timelineRepository, never()).save(any());
+    }
+
+    @Test
+    void reviewCheckoutRejectsUnavailableProductWithoutPersistingAnything() {
+        when(catalogService.getProduct(103L)).thenReturn(new CatalogItemResponse(
+                103L,
+                "Pulse Fitness Tracker",
+                BigDecimal.valueOf(72.49),
+                false,
+                "http://localhost:9000/shopverse-product-images/products/103.png",
+                "products/103.png"
+        ));
+
+        assertThatThrownBy(() -> service.reviewCheckout(
+                new CheckoutRequest(List.of(new CheckoutItemRequest(103L, 1)), shippingAddress())
+        ))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("Product is unavailable or does not exist: 103");
+
+        verify(repository, never()).save(any());
+        verify(outboxService, never()).enqueue(any(), any(), any(), any(), any(), any(), any());
+    }
+
+    @Test
     void markInventoryReservedAndPaymentProcessingAdvancesFromPendingInventory() {
         OrderEntity order = pendingInventoryOrder();
         when(repository.findWithItemsByOrderNumber("ORD-1")).thenReturn(Optional.of(order));
