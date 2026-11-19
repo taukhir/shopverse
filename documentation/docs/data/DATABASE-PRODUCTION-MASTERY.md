@@ -52,8 +52,8 @@ pressure, replication state, and the deployment timeline.
 | modeling and SQL | normalization, denormalization, constraints, access paths, pagination | [Relational Modeling And Query Performance](./RELATIONAL-MODELING-QUERY-PERFORMANCE.md) |
 | indexes | B-tree/hash/specialized indexes, composite order, covering, partial, expression, selectivity, write cost | [Indexes And Query Plans](./database-selection/INDEXES-QUERY-PLANS.md) |
 | query diagnosis | baselines, plans, row-estimate errors, joins, sorts, spills, N+1, safe verification | [Database Query Optimization](./database-selection/DATABASE-QUERY-OPTIMIZATION.md) |
-| transactions | ACID, isolation anomalies, MVCC, locking, deadlocks, retries, timeouts, boundaries | [Spring Transactions](../spring/SPRING-TRANSACTIONS.md) |
-| JPA and Hibernate | persistence context, dirty checking, flush, fetching, batching, locking, pagination, caches | [Spring Data JPA Architect Path](../spring/SPRING-DATA-JPA.md) |
+| transactions | ACID, isolation anomalies, MVCC, locking, deadlocks, retries, timeouts, boundaries | [Spring Transactions](/spring/SPRING-TRANSACTIONS) |
+| JPA and Hibernate | persistence context, dirty checking, flush, fetching, batching, locking, pagination, caches | [Spring Data JPA Architect Path](/spring/SPRING-DATA-JPA) |
 | pools | Hikari sizing, acquisition waits, leaks, lifetime, failure recovery, metrics | [Connection Pools And Database Failover](./database-selection/DATABASE-CONNECTION-POOL-FAILOVER.md) |
 | Oracle | architecture, SQL/optimizer, PL/SQL, locking, RMAN, Data Guard, RAC | [Oracle Database Architect Path](./ORACLE-DATABASE-ARCHITECT-PATH.md) |
 | Cassandra | partition-first modeling, consistency, storage, tombstones, repair, capacity, incidents | [Cassandra Architect Path](./CASSANDRA-ARCHITECT-PATH.md) |

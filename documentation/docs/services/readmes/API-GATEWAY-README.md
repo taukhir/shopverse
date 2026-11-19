@@ -130,11 +130,11 @@ non-blocking filter, retry, and dependency-readiness review.
 
 ## Related Guides
 
-- [System design](../../architecture/SYSTEM-DESIGN.md)
+- [System design](https://github.com/taukhir/shopverse/blob/main/documentation/docs-architecture/SYSTEM-DESIGN.md)
 - [Spring Boot internals](../../development/SPRING-BOOT-INTERNALS.md)
 - [API Gateway concepts and filter chain](../../development/API-GATEWAY-GENERIC.md)
-- [Service discovery](../../architecture/SERVICE-DISCOVERY.md)
-- [Load balancing](../../architecture/LOAD-BALANCING-GENERIC.md)
+- [Service discovery](https://github.com/taukhir/shopverse/blob/main/documentation/docs-architecture/SERVICE-DISCOVERY.md)
+- [Load balancing](https://github.com/taukhir/shopverse/blob/main/documentation/docs-architecture/LOAD-BALANCING-GENERIC.md)
 - [JWT and Spring Security](../../security/JWT-OAUTH2-SPRING-SECURITY.md)
 - [Generic Spring Security](../../security/SPRING-SECURITY-GENERIC.md)
 - [MDC and tracing](../../observability/MDC-CORRELATION-TRACING.md)

@@ -139,7 +139,7 @@ the running endpoint before creating dashboards or alerts.
 - [Shopverse Resilience4j usage](RESILIENCE4J.md)
 - [API Gateway](../development/API-GATEWAY-GENERIC.md)
 - [Micrometer metrics](../observability/MICROMETER-METRICS.md)
-- [Distributed systems](../architecture/DISTRIBUTED-SYSTEMS.md)
+- [Distributed systems](/architecture/DISTRIBUTED-SYSTEMS)
 
 ## Official Reference
 

@@ -305,11 +305,11 @@ services and correct the boundaries or platform.
 
 ## Related Guides
 
-- [Service Boundaries And Ownership](../architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP.md)
-- [Microservices Patterns](../architecture/MICROSERVICES-PATTERNS.md)
+- [Service Boundaries And Ownership](/architecture/microservices/SERVICE-BOUNDARIES-OWNERSHIP)
+- [Microservices Patterns](/architecture/MICROSERVICES-PATTERNS)
 - [Saga Consistency And Compensation](../reliability/SAGA-CONSISTENCY-COMPENSATION.md)
 - [Outbox Delivery And Operations](../reliability/OUTBOX-DELIVERY-OPERATIONS.md)
-- [API And Event Compatibility](../architecture/API-EVENT-COMPATIBILITY.md)
+- [API And Event Compatibility](/architecture/API-EVENT-COMPATIBILITY)
 
 ## Official References
 

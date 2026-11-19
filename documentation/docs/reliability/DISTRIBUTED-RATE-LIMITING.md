@@ -362,5 +362,5 @@ path.
 - [API Gateway](../development/API-GATEWAY-GENERIC.md)
 - [Advanced Spring Cloud Gateway](../development/SPRING-CLOUD-GATEWAY-ADVANCED.md)
 - [Resilience4j patterns](RESILIENCE4J-GENERIC.md)
-- [Caching](../architecture/CACHING-GENERIC.md)
+- [Caching](/architecture/CACHING-GENERIC)
 - [Prometheus](../observability/PROMETHEUS.md)

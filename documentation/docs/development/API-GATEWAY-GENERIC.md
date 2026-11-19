@@ -61,4 +61,4 @@ Within **API Gateway Engineering**, apply the Shopverse guidance incrementally: 
 
 ## Recommended Next Page
 
-Continue with [Service Discovery](../architecture/SERVICE-DISCOVERY.md).
+Continue with [Service Discovery](/architecture/SERVICE-DISCOVERY).

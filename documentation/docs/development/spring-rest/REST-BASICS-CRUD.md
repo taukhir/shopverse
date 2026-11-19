@@ -27,7 +27,7 @@ review_evidence: repository-content-audit
 
 This page owns controller, DTO, service, and transaction responsibilities. The
 servlet and `DispatcherServlet` mechanics live in the
-[canonical request-lifecycle guide](../../spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md).
+[canonical request-lifecycle guide](/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE).
 
 <DocCallout type="tip" title="Keep the controller fluent in HTTP, not in persistence">
 Controllers bind the HTTP contract and delegate one business operation. Services

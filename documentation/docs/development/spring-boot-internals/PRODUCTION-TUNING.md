@@ -82,5 +82,5 @@ For each service, record:
 ## Recommended Next
 
 Start with the guide that owns the observed bottleneck. If the owner is unclear,
-begin with [Resource Pools And Capacity](../../spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md)
+begin with [Resource Pools And Capacity](/spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY)
 and its cross-resource worksheet.

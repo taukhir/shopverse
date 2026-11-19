@@ -293,7 +293,7 @@ These are testing roadmap items, not implemented guarantees.
 
 ## Related Guides
 
-- [Spring Boot testing](../spring/SPRING-BOOT-TESTING.md)
+- [Spring Boot testing](/spring/SPRING-BOOT-TESTING)
 - [Testing commands](https://github.com/taukhir/shopverse/tree/main/testing)
 - [CI workflows](https://github.com/taukhir/shopverse/tree/main/.github/workflows)
 - [Debugging](DEBUGGING.md)

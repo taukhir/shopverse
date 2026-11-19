@@ -292,7 +292,7 @@ and never autonomously replay or mutate production state.
 
 ## Related Guides
 
-- [System design](../architecture/SYSTEM-DESIGN.md)
+- [System design](/architecture/SYSTEM-DESIGN)
 - [API guide](../development/API-GUIDE.md)
 - [Debugging](../development/DEBUGGING.md)
 - [Observability](../observability/OBSERVABILITY.md)

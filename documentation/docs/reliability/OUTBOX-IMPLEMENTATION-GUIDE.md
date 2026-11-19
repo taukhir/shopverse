@@ -240,5 +240,5 @@ Verification checklist:
 - [Choreography SAGA and transactional outbox](SAGA-OUTBOX.md)
 - [Database locking and work claims](locking/DATABASE-LOCKING-AND-CLAIMS.md)
 - [Spring distributed locking options](locking/SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)
-- [Change data capture in microservices](../architecture/CHANGE-DATA-CAPTURE.md)
+- [Change data capture in microservices](/architecture/CHANGE-DATA-CAPTURE)
 - [Micrometer metrics](../observability/MICROMETER-METRICS.md)

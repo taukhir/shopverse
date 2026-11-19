@@ -120,7 +120,7 @@ coherent:
 - containers and image/runtime internals: [Docker Beginner-To-Architect](./DOCKER-ARCHITECT-PATH.md);
 - packaging and desired-state delivery: [Helm, GitOps And Argo CD](./HELM-GITOPS-ARGOCD-PATH.md);
 - host diagnosis: [Linux Production Troubleshooting](./LINUX-PRODUCTION-TROUBLESHOOTING-PATH.md);
-- transport diagnosis: [Network Protocol And Production Diagnosis](../architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH.md);
+- transport diagnosis: [Network Protocol And Production Diagnosis](/architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH);
 - metrics, logs and traces: [Observability Overview](../observability/OBSERVABILITY-OVERVIEW.md).
 
 This separation prevents duplicated, contradictory explanations while the Kubernetes

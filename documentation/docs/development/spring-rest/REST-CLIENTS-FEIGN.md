@@ -113,7 +113,7 @@ Mono<InventoryResponse> getInventory(long productId) {
 
 Reactive types do not transform JDBC, a blocking SDK, or `.block()` into
 nonblocking work. Event-loop ownership, backpressure, context, error, and
-cancellation depth belongs in [Spring Reactive And WebFlux](../../spring/SPRING-REACTIVE.md).
+cancellation depth belongs in [Spring Reactive And WebFlux](/spring/SPRING-REACTIVE).
 
 ## HTTP Service Clients
 
@@ -139,7 +139,7 @@ Spring HTTP Service Clients for new declarative work.
 
 Shopverse already uses Feign, so this is an evolution signal rather than an
 emergency rewrite. Deep Feign configuration, error decoders, and migration detail
-lives in [Spring Cloud OpenFeign](../../spring/SPRING-OPENFEIGN.md).
+lives in [Spring Cloud OpenFeign](/spring/SPRING-OPENFEIGN).
 
 ## Deadline And Pool Model
 

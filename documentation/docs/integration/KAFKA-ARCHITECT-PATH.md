@@ -60,8 +60,8 @@ flowchart LR
 | consumer parallelism | [Kafka Consumer Multithreading](./kafka/KAFKA-CONSUMER-MULTITHREADING.md) | implement one consumer owner, bounded workers, partition ordering, and contiguous completion watermarks |
 | incident prevention | [Kafka Production Failure Playbook](./kafka/KAFKA-PRODUCTION-FAILURE-PLAYBOOK.md) | contain cascading failures and diagnose lag, batching, retries, skew, duplicates, and outages from evidence |
 | security and operation | [Kafka Security And Operations](./kafka/KAFKA-SECURITY-OPERATIONS.md) | secure clients, inspect health, execute a safe reassignment, and write recovery evidence |
-| Spring runtime | [Spring For Apache Kafka](../spring/SPRING-KAFKA.md) | implement publishing, listeners, acknowledgment, retry, idempotency, and observations |
-| advanced Spring | [Advanced Spring Kafka](../spring/kafka/SPRING-KAFKA-ADVANCED.md) | defend container, transaction, schema, DLT, shutdown, and testing choices |
+| Spring runtime | [Spring For Apache Kafka](/spring/SPRING-KAFKA) | implement publishing, listeners, acknowledgment, retry, idempotency, and observations |
+| advanced Spring | [Advanced Spring Kafka](/spring/kafka/SPRING-KAFKA-ADVANCED) | defend container, transaction, schema, DLT, shutdown, and testing choices |
 | ecosystem | [Connect, Streams, Share Groups, And Multi-Cluster](./kafka/KAFKA-ECOSYSTEM.md) | implement or design a CDC flow, stateful topology, queue workload, and regional recovery |
 | disaster recovery | [Multi-Cluster Disaster Recovery](./kafka/KAFKA-MULTI-CLUSTER-DISASTER-RECOVERY.md) | defend topology, replication, RPO/RTO, offset recovery, failover, failback, and writer fencing |
 | application platforms | [Event Streaming Application Path](./EVENT-STREAMING-APPLICATION-PATH.md) | build Spring Cloud Stream, Kafka Streams, and Kafka Connect solutions and select between them |

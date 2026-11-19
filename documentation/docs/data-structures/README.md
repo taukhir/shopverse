@@ -48,7 +48,7 @@ For checkout commands, ordering and bounded waiting may dominate. For catalog tr
 
 ## Recommended Next
 
-Start the [Java Programming Interview Path](./programming/JAVA-PROGRAMMING-INTERVIEW-PATH.md) for worked problems, or continue with [Java Collections](../java/JAVA-COLLECTIONS.md) to connect abstract structures to Java contracts and production implementations.
+Start the [Java Programming Interview Path](./programming/JAVA-PROGRAMMING-INTERVIEW-PATH.md) for worked problems, or continue with [Java Collections](/java/JAVA-COLLECTIONS) to connect abstract structures to Java contracts and production implementations.
 
 ## Official References
 

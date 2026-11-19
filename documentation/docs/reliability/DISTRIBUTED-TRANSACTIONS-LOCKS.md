@@ -244,7 +244,7 @@ See [Distributed Locks And Fencing](locking/DISTRIBUTED-LOCKS-AND-FENCING.md#fen
 </ExpandableAnswer>
 ## Related Guides
 
-- [Spring Transactions](../spring/SPRING-TRANSACTIONS.md)
+- [Spring Transactions](/spring/SPRING-TRANSACTIONS)
 - [SAGA And Outbox](SAGA-GENERIC.md)
 - [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
-- [Caching Principles](../architecture/CACHING-GENERIC.md)
+- [Caching Principles](/architecture/CACHING-GENERIC)

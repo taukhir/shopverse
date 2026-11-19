@@ -61,7 +61,7 @@ OLTP fit. Partition for lifecycle and pruning, not unbounded cardinality.
 For a detailed commerce implementation with hot/warm/cold storage, timestamp and
 business-date modeling, today and monthly SQL, materialized projection trade-offs,
 sharding, replication, TTL, and operational signals, see
-[ClickHouse For Large-Scale Retail Analytics](../../architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS.md).
+[ClickHouse For Large-Scale Retail Analytics](/architecture/retail/CLICKHOUSE-RETAIL-ANALYTICS).
 
 ## Security And Operations
 

@@ -130,6 +130,56 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    // Pilot split: spring/java/architecture get their own build/content-docs
+    // instance (smaller incremental builds, independent of the rest of the
+    // docs set) instead of living in the single monolithic instance below.
+    // Each instance's sidebar is auto-generated from its folder structure
+    // (existing _category_.json files still supply labels/ordering) rather
+    // than hand-curated, since the previous single sidebar mixed these
+    // sections' pages into shared thematic categories that don't map onto
+    // separate instances.
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'spring',
+        path: 'docs-spring',
+        routeBasePath: 'spring',
+        remarkPlugins: [remarkGlossaryLinks],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+        editUrl: ({docPath}: {docPath: string}) =>
+          `https://github.com/taukhir/shopverse/edit/main/documentation/docs-spring/${docPath}`,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'java',
+        path: 'docs-java',
+        routeBasePath: 'java',
+        remarkPlugins: [remarkGlossaryLinks],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+        editUrl: ({docPath}: {docPath: string}) =>
+          `https://github.com/taukhir/shopverse/edit/main/documentation/docs-java/${docPath}`,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'architecture',
+        path: 'docs-architecture',
+        routeBasePath: 'architecture',
+        remarkPlugins: [remarkGlossaryLinks],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+        editUrl: ({docPath}: {docPath: string}) =>
+          `https://github.com/taukhir/shopverse/edit/main/documentation/docs-architecture/${docPath}`,
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',

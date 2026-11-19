@@ -344,6 +344,6 @@ restorable.
 
 - [Resilience4j](RESILIENCE4J-GENERIC.md)
 - [Distributed Transactions And Locks](DISTRIBUTED-TRANSACTIONS-LOCKS.md)
-- [Load Balancing](../architecture/LOAD-BALANCING-GENERIC.md)
+- [Load Balancing](/architecture/LOAD-BALANCING-GENERIC)
 - [Deployment Strategies](../operations/DEPLOYMENT-STRATEGIES.md)
 

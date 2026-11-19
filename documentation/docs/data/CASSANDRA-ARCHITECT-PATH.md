@@ -49,7 +49,7 @@ unknown dimensions, or small-scale operational simplicity.
 3. [Storage, Compaction, Tombstones, And Indexes](./cassandra/CASSANDRA-STORAGE-INDEXES.md)
 4. [Operations, Capacity, Repair, Backup, And Incidents](./cassandra/CASSANDRA-OPERATIONS-CAPACITY.md)
 5. [Interview, Labs, And Revision](./cassandra/CASSANDRA-INTERVIEW-LABS-REVISION.md)
-6. [Spring Data Cassandra](../spring/SPRING-DATA-CASSANDRA.md)
+6. [Spring Data Cassandra](/spring/SPRING-DATA-CASSANDRA)
 
 ## Completion Standard
 

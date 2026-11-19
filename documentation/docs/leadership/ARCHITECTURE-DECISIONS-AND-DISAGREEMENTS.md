@@ -269,10 +269,10 @@ exceptions. Do not measure ADR count as architectural quality.
 
 ## Related Guides
 
-- [HLD And LLD](../architecture/HLD-LLD.md)
-- [Spring Decision Guides](../spring/decisions/README.md)
+- [HLD And LLD](/architecture/HLD-LLD)
+- [Spring Decision Guides](/spring/decisions)
 - [Engineering Leadership Practices](./ENGINEERING-LEADERSHIP-PRACTICES.md)
-- [End-To-End Design Method](../architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD.md)
+- [End-To-End Design Method](/architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD)
 
 ## Official References
 

@@ -303,11 +303,11 @@ both with a single DTO projection query instead of entity graphs.
 
 ## Related Guides
 
-- [Spring Data JPA](../../spring/SPRING-DATA-JPA.md)
-- [Spring Transactions](../../spring/SPRING-TRANSACTIONS.md)
+- [Spring Data JPA](/spring/SPRING-DATA-JPA)
+- [Spring Transactions](/spring/SPRING-TRANSACTIONS)
 - [Database Engineering](../DATABASE-ENGINEERING.md)
 - [Liquibase](../LIQUIBASE-GENERIC.md)
-- [Spring Boot Testing](../../spring/SPRING-BOOT-TESTING.md)
+- [Spring Boot Testing](/spring/SPRING-BOOT-TESTING)
 
 
 ## Official References

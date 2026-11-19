@@ -442,4 +442,4 @@ rather than removing the cycle.
 
 ## Recommended Next
 
-Place resolution in the full refresh protocol with [Spring Container Runtime For Architects](../../spring/SPRING-CONTAINER-ARCHITECT.md).
+Place resolution in the full refresh protocol with [Spring Container Runtime For Architects](/spring/SPRING-CONTAINER-ARCHITECT).

@@ -57,7 +57,7 @@ Back to [Shopverse Problems And Solutions](../PROBLEMS-AND-SOLUTIONS.md).
 - [Shopverse SAGA code flow](../SHOPVERSE-SAGA-CODE-FLOW.md)
 - [Generic SAGA and Outbox patterns](../SAGA-GENERIC.md)
 - [Spring and Kafka transactions](../TRANSACTIONS.md)
-- [Spring Kafka](../../spring/SPRING-KAFKA.md)
+- [Spring Kafka](/spring/SPRING-KAFKA)
 - [API guide](../../development/API-GUIDE.md)
 - [MDC and correlation tracing](../../observability/MDC-CORRELATION-TRACING.md)
 - [Complete Shopverse demo](../../case-study/COMPLETE-DEMO.mdx)

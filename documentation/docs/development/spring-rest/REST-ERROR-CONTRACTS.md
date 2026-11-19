@@ -123,7 +123,7 @@ Cover both `MethodArgumentNotValidException` and
 mode runs. `HttpMessageNotReadableException` is decoding, not validation.
 `ConstraintViolationException` from a service proxy belongs to the calling
 application boundary. Detailed mechanics live in
-[Validation Errors Testing And Production](../../spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION.md).
+[Validation Errors Testing And Production](/spring/validation/VALIDATION-ERRORS-TESTING-PRODUCTION).
 
 ## Stable And Safe Fields
 

@@ -14,7 +14,7 @@ review_evidence: repository-content-audit
 
 This page compares database worker-claim algorithms. Entity-level optimistic
 and pessimistic locking internals remain in
-[JPA Transactions, Locking And Concurrency](../../spring/jpa/JPA-TRANSACTIONS-LOCKING.md).
+[JPA Transactions, Locking And Concurrency](/spring/jpa/JPA-TRANSACTIONS-LOCKING).
 
 Back to [Locking And Work Ownership](LOCKING-AND-WORK-OWNERSHIP.md).
 
@@ -319,7 +319,7 @@ Detailed Shopverse examples:
 
 ## Related Canonical Guides
 
-- [JPA optimistic and pessimistic locking](../../spring/jpa/JPA-TRANSACTIONS-LOCKING.md)
+- [JPA optimistic and pessimistic locking](/spring/jpa/JPA-TRANSACTIONS-LOCKING)
 - [Transactional Outbox](../OUTBOX-PATTERN.md)
 - [Inbox and idempotent consumers](../INBOX-PATTERN.md)
 - [Scheduler Locking With ShedLock](SCHEDULER-LOCKING-SHEDLOCK.md)

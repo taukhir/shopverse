@@ -56,10 +56,10 @@ as atomic, increasing threads without a downstream budget, or prescribing heap g
 
 Route weaknesses to:
 
-- [Java Lead And Architect Path](../../java/JAVA-LEAD-ARCHITECT-PATH.md)
-- [Java Production Mastery](../../java/JAVA-PRODUCTION-MASTERY.md)
-- [Java Revision Sheet](../../java/JAVA-REVISION-SHEET.md)
-- [Java Timed Mocks](../../java/JAVA-TIMED-MOCK-INTERVIEWS.md)
+- [Java Lead And Architect Path](/java/JAVA-LEAD-ARCHITECT-PATH)
+- [Java Production Mastery](/java/JAVA-PRODUCTION-MASTERY)
+- [Java Revision Sheet](/java/JAVA-REVISION-SHEET)
+- [Java Timed Mocks](/java/JAVA-TIMED-MOCK-INTERVIEWS)
 
 ## Spring Runtime And Transaction Signals
 
@@ -73,10 +73,10 @@ Critical errors include assuming annotation presence proves interception, claimi
 
 Route weaknesses to:
 
-- [Spring Architect Path](../../spring/SPRING-ARCHITECT-PATH.md)
-- [Spring Transactions](../../spring/SPRING-TRANSACTIONS.md)
-- [Spring Boot Production Mastery](../../spring/boot/SPRING-BOOT-PRODUCTION-MASTERY.md)
-- [Spring Interview Preparation](../../spring/SPRING-INTERVIEW-PREPARATION.md)
+- [Spring Architect Path](/spring/SPRING-ARCHITECT-PATH)
+- [Spring Transactions](/spring/SPRING-TRANSACTIONS)
+- [Spring Boot Production Mastery](/spring/boot/SPRING-BOOT-PRODUCTION-MASTERY)
+- [Spring Interview Preparation](/spring/SPRING-INTERVIEW-PREPARATION)
 
 ## SQL, JPA And Database Signals
 
@@ -91,8 +91,8 @@ N+1 fix, raising pool size without a database budget, or retrying every deadlock
 Route weaknesses to:
 
 - [Database Production Mastery](../../data/DATABASE-PRODUCTION-MASTERY.md)
-- [Spring Data Architect Path](../../spring/SPRING-DATA-ARCHITECT-PATH.md)
-- [Spring Transactions](../../spring/SPRING-TRANSACTIONS.md)
+- [Spring Data Architect Path](/spring/SPRING-DATA-ARCHITECT-PATH)
+- [Spring Transactions](/spring/SPRING-TRANSACTIONS)
 - [Database Revision Sheet](../../data/DATABASE-REVISION-SHEET.md)
 
 ## Kafka And Eventing Signals
@@ -128,8 +128,8 @@ unknown successful effect blindly, or sharing databases without explicit ownersh
 
 Route weaknesses to:
 
-- [Microservices Architect Path](../../architecture/microservices/MICROSERVICES-ARCHITECT-PATH.md)
-- [Microservices Production Mastery](../../architecture/microservices/MICROSERVICES-PRODUCTION-MASTERY.md)
+- [Microservices Architect Path](/architecture/microservices/MICROSERVICES-ARCHITECT-PATH)
+- [Microservices Production Mastery](/architecture/microservices/MICROSERVICES-PRODUCTION-MASTERY)
 - [Saga Liveness And Recovery](../../reliability/SAGA-LIVENESS-TIMEOUT-RECOVERY.md)
 - [Reliability Revision Sheet](../../reliability/RELIABILITY-REVISION-SHEET.md)
 
@@ -148,7 +148,7 @@ Route weaknesses to:
 
 - [Kubernetes Architect Path](../../operations/KUBERNETES-ARCHITECT-PATH.md)
 - [Kubernetes Interview Revision](../../operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION.md)
-- [Network Diagnosis Path](../../architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH.md)
+- [Network Diagnosis Path](/architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH)
 - [Linux Production Troubleshooting](../../operations/LINUX-PRODUCTION-TROUBLESHOOTING-PATH.md)
 
 ## System-Design Signals
@@ -164,9 +164,9 @@ retries, claiming a queue prevents duplicates, ignoring tenant isolation, or no 
 
 Route weaknesses to:
 
-- [System Design Interview Catalog](../../architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG.md)
-- [HLD Interview Workbook](../../architecture/hld-lld/HLD-INTERVIEW-WORKBOOK.md)
-- [Architecture Revision Sheet](../../architecture/ARCHITECTURE-REVISION-SHEET.md)
+- [System Design Interview Catalog](/architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG)
+- [HLD Interview Workbook](/architecture/hld-lld/HLD-INTERVIEW-WORKBOOK)
+- [Architecture Revision Sheet](/architecture/ARCHITECTURE-REVISION-SHEET)
 - [Mock Interview Formats](./MOCK-INTERVIEW-FORMATS-QUESTION-BANK.md)
 
 ## Production-Incident Signals
@@ -219,8 +219,8 @@ or letting the maker approve their own high-risk adjustment.
 
 Route weaknesses to:
 
-- [Financial Systems Architecture](../../architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH.md)
-- [Financial Interview Workbook](../../architecture/financial/FINANCIAL-PRODUCTION-INTERVIEW.md)
+- [Financial Systems Architecture](/architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH)
+- [Financial Interview Workbook](/architecture/financial/FINANCIAL-PRODUCTION-INTERVIEW)
 
 ## Placement Decision
 

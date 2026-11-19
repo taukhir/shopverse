@@ -155,7 +155,7 @@ The complete commands are maintained in the
 
 ## Related Documentation
 
-- [Spring Expression Language](../../../spring/SPRING-SPEL.md)
+- [Spring Expression Language](/spring/SPRING-SPEL)
 - [Spring Security authorization and method security](../../../security/spring-security/AUTHORIZATION-METHOD-SECURITY.md)
 - [Shopverse JWT and Spring Security implementation](../../../security/JWT-OAUTH2-SPRING-SECURITY.md)
 - [Queryable Order timeline](QUERYABLE-ORDER-TIMELINE.md)

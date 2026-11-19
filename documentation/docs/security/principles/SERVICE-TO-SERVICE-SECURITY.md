@@ -56,5 +56,5 @@ sequenceDiagram
 
 - [OAuth2 grant types](../oauth/OAUTH2-GRANT-TYPES.md)
 - [JWT best practices](../jwt/JWT-BEST-PRACTICES.md)
-- [Spring Cloud OpenFeign](../../spring/SPRING-OPENFEIGN.md)
+- [Spring Cloud OpenFeign](/spring/SPRING-OPENFEIGN)
 
