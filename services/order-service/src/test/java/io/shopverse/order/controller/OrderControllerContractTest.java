@@ -1,5 +1,6 @@
 package io.shopverse.order.controller;
 
+import io.shopverse.order.dto.CheckoutReviewResponse;
 import io.shopverse.order.dto.OrderItemResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.ShippingAddressResponse;
@@ -99,6 +100,43 @@ class OrderControllerContractTest {
                 new io.shopverse.order.dto.ShippingAddressRequest("Test Customer", "+919876543210",
                     "12 Test Road", "Unit 4", "Bengaluru", "Karnataka", "560001", "IN")),
             "alice", null, "checkout-test");
+    }
+
+    @Test
+    void validReviewMapsRequestAndReturnsSummaryWithoutIdempotencyHeader() throws Exception {
+        var review = new CheckoutReviewResponse(
+            List.of(new OrderItemResponse(101L, "Test Product", 2, new BigDecimal("19.90"))),
+            new ShippingAddressResponse("Test Customer", "+919876543210", "12 Test Road",
+                "Unit 4", "Bengaluru", "Karnataka", "560001", "IN"),
+            new BigDecimal("39.80"), "INR");
+        given(orderService.reviewCheckout(any())).willReturn(review);
+
+        mvc.perform(post("/api/v1/orders/checkout/review")
+                .principal(new UsernamePasswordAuthenticationToken("alice", "unused", List.of()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(validBody()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.items[0].productId").value(101))
+            .andExpect(jsonPath("$.items[0].quantity").value(2))
+            .andExpect(jsonPath("$.totalAmount").value("39.80"))
+            .andExpect(jsonPath("$.currency").value("INR"))
+            .andExpect(jsonPath("$.shippingAddress.postalCode").value("560001"));
+
+        verify(orderService).reviewCheckout(new io.shopverse.order.dto.CheckoutRequest(
+            List.of(new io.shopverse.order.dto.CheckoutItemRequest(101L, 2)),
+            new io.shopverse.order.dto.ShippingAddressRequest("Test Customer", "+919876543210",
+                "12 Test Road", "Unit 4", "Bengaluru", "Karnataka", "560001", "IN")));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"null", "[]", "[{\"productId\":101,\"quantity\":0}]", "[{\"quantity\":1}]"})
+    void invalidReviewItemsAreRejectedBeforeCallingService(String items) throws Exception {
+        mvc.perform(post("/api/v1/orders/checkout/review")
+                .principal(new UsernamePasswordAuthenticationToken("alice", "unused", List.of()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body(items, ADDRESS)))
+            .andExpect(status().isBadRequest());
+        verifyNoInteractions(orderService);
     }
 
     @Test
