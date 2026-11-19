@@ -4,7 +4,7 @@ title = "ShopVerse gitleaks config"
 [extend]
 useDefault = true
 
-[allowlist]
+[[allowlists]]
 description = "Audited findings: burned/rotated keys, intentional test fixtures, and documentation examples with no real secret value"
 
 # Exact commit:file:rule:line fingerprints, as printed by gitleaks itself.
