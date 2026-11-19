@@ -53,7 +53,7 @@ Other services may cache or project owned data, but they must not become hidden 
 
 ## Recommended Next
 
-Continue with the [Shopverse architect capstones](../architecture/shopverse-capstones/README.md) to apply the ownership map to complete system-design exercises.
+Continue with the [Shopverse architect capstones](/architecture/shopverse-capstones) to apply the ownership map to complete system-design exercises.
 
 ## Official References
 

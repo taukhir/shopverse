@@ -208,4 +208,4 @@ not implement every broker API or operational behavior.
 
 Continue with the
 [Event Streaming Application Path](../EVENT-STREAMING-APPLICATION-PATH.md) or
-[Advanced Spring Kafka](../../spring/kafka/SPRING-KAFKA-ADVANCED.md).
+[Advanced Spring Kafka](/spring/kafka/SPRING-KAFKA-ADVANCED).

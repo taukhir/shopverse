@@ -45,11 +45,11 @@ the connection, queue, thread, offset, or lifecycle state.
 
 | Concern | Canonical guide |
 |---|---|
-| container startup, bean creation, and auto-configuration | [Spring Container Runtime For Architects](../../spring/SPRING-CONTAINER-ARCHITECT.md) |
+| container startup, bean creation, and auto-configuration | [Spring Container Runtime For Architects](/spring/SPRING-CONTAINER-ARCHITECT) |
 | Liquibase migration ownership | [Liquibase](../../data/LIQUIBASE-GENERIC.md) |
-| cache proxy and production policy | [Spring Cache](../../spring/SPRING-CACHE.md) |
-| Actuator, readiness, drain, and incidents | [Production Lifecycle Runbook](../../spring/internals-production/PRODUCTION-LIFECYCLE.md) |
-| Config Client and discovery | [Spring Ecosystem](../../spring/SPRING-ECOSYSTEM.md) |
+| cache proxy and production policy | [Spring Cache](/spring/SPRING-CACHE) |
+| Actuator, readiness, drain, and incidents | [Production Lifecycle Runbook](/spring/internals-production/PRODUCTION-LIFECYCLE) |
+| Config Client and discovery | [Spring Ecosystem](/spring/SPRING-ECOSYSTEM) |
 | metrics and tracing | [MDC And Correlation](../../observability/MDC-CORRELATION-TRACING.md) and [Micrometer Metrics](../../observability/MICROMETER-METRICS.md) |
 
 ## Recommended Next

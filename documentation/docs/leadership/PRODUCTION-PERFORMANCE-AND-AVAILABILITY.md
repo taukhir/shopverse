@@ -319,11 +319,11 @@ marks them complete.
 
 ## Related Guides
 
-- [Production Incident Diagnosis Lab](../spring/architect-labs/PRODUCTION-INCIDENT-DIAGNOSIS.md)
+- [Production Incident Diagnosis Lab](/spring/architect-labs/PRODUCTION-INCIDENT-DIAGNOSIS)
 - [Performance, Capacity, And FinOps](../operations/PERFORMANCE-CAPACITY-FINOPS.md)
 - [High Availability And SPOF Prevention](../reliability/HIGH-AVAILABILITY-SPOF.md)
 - [SRE, Disaster Recovery, And Chaos Engineering](../operations/SRE-DR-CHAOS.md)
-- [Resource Pool And Concurrency Capacity](../spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md)
+- [Resource Pool And Concurrency Capacity](/spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY)
 
 ## Official References
 

@@ -77,9 +77,9 @@ flowchart TD
 
 Existing canonical references remain authoritative for framework internals:
 
-- [JPA transactions, optimistic and pessimistic locking](../../spring/jpa/JPA-TRANSACTIONS-LOCKING.md)
+- [JPA transactions, optimistic and pessimistic locking](/spring/jpa/JPA-TRANSACTIONS-LOCKING)
 - [Apache Kafka](../../integration/APACHE-KAFKA.md)
-- [Spring Kafka consumers](../../spring/kafka/SPRING-KAFKA-CONSUMERS.md)
+- [Spring Kafka consumers](/spring/kafka/SPRING-KAFKA-CONSUMERS)
 - [Transactional Outbox](../OUTBOX-PATTERN.md)
 - [Inbox Pattern](../INBOX-PATTERN.md)
 

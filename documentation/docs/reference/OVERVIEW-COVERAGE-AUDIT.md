@@ -40,16 +40,16 @@ pages.
 | Engineering foundations | [Engineering Foundations Overview](../development/ENGINEERING-FOUNDATIONS-OVERVIEW.md) |
 | Design patterns | [Design Patterns](../development/DESIGN-PATTERNS.md) |
 | Arrays and programming problems | [Arrays Overview](../data-structures/programming/arrays/ARRAYS-OVERVIEW.md) |
-| Java | [Core Java Deep Dive](../java/CORE-JAVA-DEEP-DIVE.md) |
-| Java collections | [Java Collections](../java/JAVA-COLLECTIONS.md) |
-| Spring and Spring Boot | [Spring Learning Guide](../spring/README.md) |
+| Java | [Core Java Deep Dive](/java/CORE-JAVA-DEEP-DIVE) |
+| Java collections | [Java Collections](/java/JAVA-COLLECTIONS) |
+| Spring and Spring Boot | [Spring Learning Guide](/spring) |
 | Data and persistence | [Data And Persistence Overview](../data/DATA-PERSISTENCE-OVERVIEW.md) |
-| Microservices and distributed systems | [Microservices And Distributed Systems](../architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS.md) |
+| Microservices and distributed systems | [Microservices And Distributed Systems](/architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS) |
 | Security | [Application And Platform Security](../security/README.md) |
 | Logging and observability | [Observability Engineering Overview](../observability/OBSERVABILITY-OVERVIEW.md) |
 | Delivery, containers, and CI/CD | [Delivery And Operations Overview](../operations/README.md) |
 | Cloud and AWS | [Cloud And AWS Overview](../cloud/README.md) |
-| Production platform engineering | [Production Platform Engineering](../architecture/PRODUCTION-PLATFORM-ENGINEERING.md) |
+| Production platform engineering | [Production Platform Engineering](/architecture/PRODUCTION-PLATFORM-ENGINEERING) |
 | AI, RAG, and Java AI | [AI And RAG Overview](../ai/README.md) |
 | Shopverse implementation | [Shopverse Overview And Demo](../case-study/SHOPVERSE.mdx) |
 

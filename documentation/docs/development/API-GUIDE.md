@@ -275,5 +275,5 @@ See [Features and demos](../reference/FEATURES-AND-DEMOS.md) for failure demonst
 
 - [Generic REST API design](REST-API-GENERIC.md)
 - [Features and demonstrations](../reference/FEATURES-AND-DEMOS.md)
-- [System design](../architecture/SYSTEM-DESIGN.md)
+- [System design](/architecture/SYSTEM-DESIGN)
 - [Debugging](DEBUGGING.md)

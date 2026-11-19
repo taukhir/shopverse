@@ -33,8 +33,8 @@ diagnosed independently.
 
 <DocCallout type="tip" title="Container internals and AOP stay canonical elsewhere">
 
-Use [Container And BeanFactory Internals](../../spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md)
-for post-processor and refresh internals. Use [Spring AOP](../../spring/SPRING-AOP.md)
+Use [Container And BeanFactory Internals](/spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG)
+for post-processor and refresh internals. Use [Spring AOP](/spring/SPRING-AOP)
 for pointcuts, advisor order, and self-invocation. These foundation pages stop at
 the published container identity.
 

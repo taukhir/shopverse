@@ -332,6 +332,6 @@ flowchart TD
 
 ## Related Guides
 
-- [Spring transactions](../spring/SPRING-TRANSACTIONS.md)
+- [Spring transactions](/spring/SPRING-TRANSACTIONS)
 - [Shopverse transaction boundaries](../reliability/TRANSACTIONS.md)
-- [Distributed systems](../architecture/DISTRIBUTED-SYSTEMS.md)
+- [Distributed systems](/architecture/DISTRIBUTED-SYSTEMS)

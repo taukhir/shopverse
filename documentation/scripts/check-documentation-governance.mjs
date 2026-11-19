@@ -10,16 +10,24 @@ const sidebarPath = path.join(documentationDir, 'sidebars.ts');
 const policy = JSON.parse(fs.readFileSync(
   path.join(documentationDir, 'governance', 'documentation-version-policy.json'), 'utf8'));
 
+// spring/java/architecture are now separate top-level doc roots (see
+// docusaurus.config.ts), not subdirectories of docsDir. Link/heading/
+// paragraph/snippet checks still apply to them (focusRoots), but sidebar
+// registration does not -- they use an auto-generated sidebar, same as
+// audit-structure.mjs already exempts them.
 const focusRoots = [
   docsDir,
+  path.join(documentationDir, 'docs-spring'),
+  path.join(documentationDir, 'docs-java'),
+  path.join(documentationDir, 'docs-architecture'),
 ];
 const focusFiles = [];
 const requiredRegistrationRoots = [
   docsDir,
 ];
 const strictSnippetRoots = [
-  path.join(docsDir, 'spring', 'architect-labs'),
-  path.join(docsDir, 'spring', 'decisions'),
+  path.join(documentationDir, 'docs-spring', 'architect-labs'),
+  path.join(documentationDir, 'docs-spring', 'decisions'),
   path.join(docsDir, 'security', 'spring-security', 'CSRF-CORS-BROWSER-SECURITY.md'),
   path.join(docsDir, 'security', 'spring-security', 'THREAT-MODELING-INTERVIEW-LAB.md'),
   path.join(docsDir, 'security', 'spring-security', 'PASSWORD-AUTHENTICATION-RUNTIME.md'),

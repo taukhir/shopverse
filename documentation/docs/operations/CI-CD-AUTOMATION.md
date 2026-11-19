@@ -204,4 +204,4 @@ instead of running duplicate CI systems without purpose.
 - [Jenkins](JENKINS.md)
 - [GitHub Actions](GITHUB-ACTIONS.md)
 - [Deployment Strategies](DEPLOYMENT-STRATEGIES.md)
-- [Spring Boot Testing](../spring/SPRING-BOOT-TESTING.md)
+- [Spring Boot Testing](/spring/SPRING-BOOT-TESTING)

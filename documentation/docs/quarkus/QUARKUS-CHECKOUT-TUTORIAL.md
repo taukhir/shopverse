@@ -22,7 +22,7 @@ This capstone applies Quarkus mechanics to a generic checkout domain. It is a
 learning design, not a complete runnable module and not an internal system
 specification.
 
-Read the [Amway Commerce And Checkout Domain Primer](../architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER.md)
+Read the [Amway Commerce And Checkout Domain Primer](/architecture/AMWAY-CHECKOUT-DOMAIN-PRIMER)
 for the public business context behind account/profile terminology. Confirm real
 field meanings from the owning schema and team.
 
@@ -376,7 +376,7 @@ redact sensitive payloads.
 
 ## Recommended Next
 
-- [Checkout, Security, And Event Flows](../architecture/CHECKOUT-SECURITY-EVENT-FLOWS.md)
-- [API And Event Compatibility](../architecture/API-EVENT-COMPATIBILITY.md)
+- [Checkout, Security, And Event Flows](/architecture/CHECKOUT-SECURITY-EVENT-FLOWS)
+- [API And Event Compatibility](/architecture/API-EVENT-COMPATIBILITY)
 - [Idempotent Commands](../development/spring-rest/REST-IDEMPOTENT-COMMANDS.md)
 - [Transactional Outbox](../reliability/OUTBOX-PATTERN.md)

@@ -348,7 +348,7 @@ need them. A dedicated `findForAuthenticationByUsername` graph method would make
 the use-case boundary explicit; that split is proposed, not currently implemented.
 </DocCallout>
 
-The canonical [JPA Fetching Performance And N Plus One](../../spring/jpa/JPA-FETCHING-PERFORMANCE.md#shopverse-current-fetch-plans)
+The canonical [JPA Fetching Performance And N Plus One](/spring/jpa/JPA-FETCHING-PERFORMANCE#shopverse-current-fetch-plans)
 guide records the current repository scope and the proposed split.
 
 Spring Boot can assemble a DAO provider when a `UserDetailsService` and

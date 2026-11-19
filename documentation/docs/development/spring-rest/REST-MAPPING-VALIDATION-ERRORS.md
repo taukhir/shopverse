@@ -49,7 +49,7 @@ constraints or concurrency control remain necessary when concurrent requests can
 | Former topic | Canonical page |
 |---|---|
 | path, query, headers, body, forms and `ResponseEntity` | [Controller And Request Mapping](./REST-CONTROLLER-REQUEST-MAPPING.md) |
-| body, nested, method and custom validation | [Spring Bean Validation](../../spring/SPRING-VALIDATION.md) |
+| body, nested, method and custom validation | [Spring Bean Validation](/spring/SPRING-VALIDATION) |
 | controller advice, public errors and ownership | [REST Error Contracts](./REST-ERROR-CONTRACTS.md) |
 
 ## Recommended Next

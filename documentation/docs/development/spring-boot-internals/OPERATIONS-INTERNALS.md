@@ -47,7 +47,7 @@ the baseline and can move the failure into another resource.
 | container OOM with free Java heap | startup and memory |
 | Hikari pending, HTTP pool wait, executor queue, or Kafka lag | resource capacity |
 | deployment drops work or never terminates | lifecycle and incidents |
-| annotation task overlaps or runs on the caller | [Task Execution And Scheduling](../../spring/SPRING-ASYNC-PRODUCTION-ARCHITECT.md) |
+| annotation task overlaps or runs on the caller | [Task Execution And Scheduling](/spring/SPRING-ASYNC-PRODUCTION-ARCHITECT) |
 
 ## Recommended Next
 

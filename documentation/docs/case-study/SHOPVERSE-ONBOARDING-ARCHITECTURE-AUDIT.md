@@ -57,4 +57,4 @@ Within **Shopverse Architecture Audit**, apply the Shopverse guidance incrementa
 
 ## Recommended Next Page
 
-Continue with [Shopverse System Design](../architecture/SYSTEM-DESIGN.md).
+Continue with [Shopverse System Design](/architecture/SYSTEM-DESIGN).

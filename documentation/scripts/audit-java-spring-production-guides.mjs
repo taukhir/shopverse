@@ -1,10 +1,14 @@
 import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {resolveDocPath} from './lib/doc-roots.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const sidebar = await readFile(join(root, 'sidebars.ts'), 'utf8');
 const failures = [];
+// spring/java/architecture are now separate plugin-content-docs instances
+// with an auto-generated sidebar, not hand-curated entries in sidebars.ts.
+const autoSidebar = (id) => ['spring/', 'java/', 'architecture/'].some((p) => id.startsWith(p));
 
 const guides = [
   {
@@ -102,8 +106,8 @@ const containerCoverage = [
 ];
 
 for (const guide of guides) {
-  const content = await readFile(join(root, 'docs', `${guide.id}.md`), 'utf8');
-  if (!sidebar.includes(`'${guide.id}'`)) failures.push(`${guide.id}: missing from sidebar`);
+  const content = await readFile(resolveDocPath(guide.id), 'utf8');
+  if (!autoSidebar(guide.id) && !sidebar.includes(`'${guide.id}'`)) failures.push(`${guide.id}: missing from sidebar`);
   for (const term of guide.terms) {
     if (!content.toLowerCase().includes(term.toLowerCase())) failures.push(`${guide.id}: missing ${term}`);
   }
@@ -116,13 +120,13 @@ for (const guide of guides) {
 const contentCache = new Map();
 async function guideContent(id) {
   if (!contentCache.has(id)) {
-    contentCache.set(id, await readFile(join(root, 'docs', `${id}.md`), 'utf8'));
+    contentCache.set(id, await readFile(resolveDocPath(id), 'utf8'));
   }
   return contentCache.get(id);
 }
 
 const interviewContent = await guideContent(containerInterview);
-if (!sidebar.includes(`'${containerInterview}'`)) failures.push(`${containerInterview}: missing from sidebar`);
+if (!autoSidebar(containerInterview) && !sidebar.includes(`'${containerInterview}'`)) failures.push(`${containerInterview}: missing from sidebar`);
 for (const coverage of containerCoverage) {
   const canonicalContent = await guideContent(coverage.canonical);
   for (const term of coverage.canonicalTerms) {

@@ -56,7 +56,7 @@ the [Spring REST Interview Workbook](./REST-INTERVIEW-WORKBOOK.md).
 ## Related Guides
 
 - [REST API Basics And CRUD](./REST-BASICS-CRUD.md)
-- [Servlet And Spring MVC Request Lifecycle](../../spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md)
+- [Servlet And Spring MVC Request Lifecycle](/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE)
 
 ## Official References
 

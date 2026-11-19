@@ -204,6 +204,6 @@ allow/deny coverage remains required in the service test suite.
 - [Liquibase](../../data/LIQUIBASE-GENERIC.md)
 - [Shopverse Resilience4j](../../reliability/RESILIENCE4J.md)
 - [Generic Resilience4j patterns](../../reliability/RESILIENCE4J-GENERIC.md)
-- [Spring Resilience4j](../../spring/SPRING-RESILIENCE4J.md)
-- [Spring Boot testing](../../spring/SPRING-BOOT-TESTING.md)
+- [Spring Resilience4j](https://github.com/taukhir/shopverse/blob/main/documentation/docs-spring/SPRING-RESILIENCE4J.md)
+- [Spring Boot testing](https://github.com/taukhir/shopverse/blob/main/documentation/docs-spring/SPRING-BOOT-TESTING.md)
 - [Shopverse testing strategy](../../development/TESTING.md)

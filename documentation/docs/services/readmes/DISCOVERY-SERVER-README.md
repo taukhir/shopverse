@@ -22,9 +22,9 @@ last_reviewed: "2026-07-29"
 
 For reusable concepts such as registration, leases, stale instances,
 client/server-side discovery, DNS, and Kubernetes discovery, see
-[Service discovery](../../architecture/SERVICE-DISCOVERY.md). For the
+[Service discovery](https://github.com/taukhir/shopverse/blob/main/documentation/docs-architecture/SERVICE-DISCOVERY.md). For the
 complete Shopverse topology, see
-[System design](../../architecture/SYSTEM-DESIGN.md). This README covers only
+[System design](https://github.com/taukhir/shopverse/blob/main/documentation/docs-architecture/SYSTEM-DESIGN.md). This README covers only
 Shopverse Discovery Server operation.
 
 Discovery Server is the Eureka registry for Shopverse services.

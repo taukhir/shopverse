@@ -83,7 +83,7 @@ decode the old hash; users who do not log in can be handled by expiry/reset poli
 
 - [Shopverse JWT and OAuth2 implementation](../JWT-OAUTH2-SPRING-SECURITY.md)
 - [API Gateway](../../development/API-GATEWAY-GENERIC.md)
-- [Spring Cloud OpenFeign](../../spring/SPRING-OPENFEIGN.md)
+- [Spring Cloud OpenFeign](/spring/SPRING-OPENFEIGN)
 - [Testing](../../development/TESTING.md)
 
 

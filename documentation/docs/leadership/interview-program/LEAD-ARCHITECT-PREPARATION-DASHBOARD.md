@@ -68,20 +68,20 @@ tracker; its priority and source-occurrence fields are deliberately not employer
 
 | Domain | Priority | Canonical depth route | Rapid revision and interview route |
 |---|---:|---|---|
-| Java language, collections, concurrency, JVM | P0 | [Java Lead And Architect Path](../../java/JAVA-LEAD-ARCHITECT-PATH.md) | [Java Revision Sheet](../../java/JAVA-REVISION-SHEET.md) |
+| Java language, collections, concurrency, JVM | P0 | [Java Lead And Architect Path](/java/JAVA-LEAD-ARCHITECT-PATH) | [Java Revision Sheet](/java/JAVA-REVISION-SHEET) |
 | programming and DSA patterns | P0 for coding rounds | [Java Programming Interview Path](../../data-structures/programming/JAVA-PROGRAMMING-INTERVIEW-PATH.md) | [DSA Question Bank](../../data-structures/DSA-INTERVIEW-QUESTION-BANK.mdx) |
-| Spring, Boot, MVC, transactions and security | P0 | [Spring Architect Path](../../spring/SPRING-ARCHITECT-PATH.md) | [Spring Revision Sheet](../../spring/SPRING-REVISION-SHEET.md) |
-| Spring Data, JPA and Hibernate | P0 | [Spring Data Architect Path](../../spring/SPRING-DATA-ARCHITECT-PATH.md) | [Spring Data Interview Revision](../../spring/data/SPRING-DATA-INTERVIEW-REVISION.md) |
+| Spring, Boot, MVC, transactions and security | P0 | [Spring Architect Path](/spring/SPRING-ARCHITECT-PATH) | [Spring Revision Sheet](/spring/SPRING-REVISION-SHEET) |
+| Spring Data, JPA and Hibernate | P0 | [Spring Data Architect Path](/spring/SPRING-DATA-ARCHITECT-PATH) | [Spring Data Interview Revision](/spring/data/SPRING-DATA-INTERVIEW-REVISION) |
 | SQL, query plans, transactions, Oracle and Cassandra | P0 | [Database Production Mastery](../../data/DATABASE-PRODUCTION-MASTERY.md) | [Database Revision Sheet](../../data/DATABASE-REVISION-SHEET.md) |
-| microservices and distributed correctness | P0 | [Microservices Architect Path](../../architecture/microservices/MICROSERVICES-ARCHITECT-PATH.md) | [Microservices Interview Workbook](../../architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK.md) |
+| microservices and distributed correctness | P0 | [Microservices Architect Path](/architecture/microservices/MICROSERVICES-ARCHITECT-PATH) | [Microservices Interview Workbook](/architecture/microservices/MICROSERVICES-INTERVIEW-WORKBOOK) |
 | Kafka and event-driven architecture | P0 for event roles | [Kafka Architect Path](../../integration/KAFKA-ARCHITECT-PATH.md) | [Kafka Revision Sheet](../../integration/KAFKA-REVISION-SHEET.md) |
 | Docker, Kubernetes and production networking | P0 for lead/architect | [Docker Path](../../operations/DOCKER-ARCHITECT-PATH.md) and [Kubernetes Path](../../operations/KUBERNETES-ARCHITECT-PATH.md) | [Kubernetes Interview Revision](../../operations/kubernetes/KUBERNETES-TROUBLESHOOTING-INTERVIEW-REVISION.md) |
 | observability, performance and incidents | P0 | [Observability Overview](../../observability/OBSERVABILITY-OVERVIEW.md) | [Observability Revision](../../observability/OBSERVABILITY-REVISION-SHEET.md) |
-| system design, capacity, HLD and LLD | P0 | [System Design Interview Catalog](../../architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG.md) | [Architecture Revision Sheet](../../architecture/ARCHITECTURE-REVISION-SHEET.md) |
+| system design, capacity, HLD and LLD | P0 | [System Design Interview Catalog](/architecture/system-design-deep-dives/SYSTEM-DESIGN-INTERVIEW-CATALOG) | [Architecture Revision Sheet](/architecture/ARCHITECTURE-REVISION-SHEET) |
 | application and platform security | P1, P0 for architect | [Security Architect Path](../../security/platform/SECURITY-ARCHITECT-PATH.md) | [Security Revision Sheet](../../security/SECURITY-REVISION-SHEET.md) |
-| Helm, GitOps, service mesh, gRPC and schema governance | P1 | [Helm And GitOps](../../operations/HELM-GITOPS-ARGOCD-PATH.md), [gRPC](../../architecture/GRPC-PROTOBUF-ARCHITECT-PATH.md), [Schema Governance](../../architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH.md) | use each track's interview/revision page |
+| Helm, GitOps, service mesh, gRPC and schema governance | P1 | [Helm And GitOps](../../operations/HELM-GITOPS-ARGOCD-PATH.md), [gRPC](/architecture/GRPC-PROTOBUF-ARCHITECT-PATH), [Schema Governance](/architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH) | use each track's interview/revision page |
 | leadership, migration and architecture decisions | P0 for lead/architect | [Architect Practice And Evidence](../ARCHITECT-PRACTICE-EVIDENCE-PATH.md) | [Leadership Interview Workbook](../LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK.md) |
-| financial and banking systems | P2, P1 for financial roles | [Financial Systems Architecture](../../architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH.md) | [Financial Interview Workbook](../../architecture/financial/FINANCIAL-PRODUCTION-INTERVIEW.md) |
+| financial and banking systems | P2, P1 for financial roles | [Financial Systems Architecture](/architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH) | [Financial Interview Workbook](/architecture/financial/FINANCIAL-PRODUCTION-INTERVIEW) |
 
 Cloud-provider detail, AI, Elasticsearch, RabbitMQ, TKGI, infrastructure as code, and other platform
 specializations remain P2 unless the target job description explicitly makes them mandatory.

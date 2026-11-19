@@ -102,8 +102,8 @@ to make preparation measurable.
 
 ## Direct Depth Routes
 
-- Java and JVM: [Java Revision Sheet](./java/JAVA-REVISION-SHEET.md)
-- Spring and transactions: [Spring Revision Sheet](./spring/SPRING-REVISION-SHEET.md)
+- Java and JVM: [Java Revision Sheet](/java/JAVA-REVISION-SHEET)
+- Spring and transactions: [Spring Revision Sheet](/spring/SPRING-REVISION-SHEET)
 - Kafka and recovery: [Kafka Revision Sheet](./integration/KAFKA-REVISION-SHEET.md)
 - persistence: [Database Revision Sheet](./data/DATABASE-REVISION-SHEET.md)
 - coding rounds: [Java DSA Interview Question Bank](./data-structures/DSA-INTERVIEW-QUESTION-BANK.mdx)

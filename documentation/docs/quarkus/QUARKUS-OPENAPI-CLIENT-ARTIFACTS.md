@@ -119,7 +119,7 @@ and demonstrate that the old consumer still works.
 ## Recommended Next
 
 For organization-wide policy, continue with
-[API Contract Lifecycle, OpenAPI, Versioning, And Deprecation](../architecture/governance/API-CONTRACT-GOVERNANCE.md).
+[API Contract Lifecycle, OpenAPI, Versioning, And Deprecation](/architecture/governance/API-CONTRACT-GOVERNANCE).
 
 ## Official References
 

@@ -33,7 +33,7 @@ for (const component of ['CodeWalkthrough', 'CopyableCommandGroup', 'Interactive
 }
 
 const integrations = [
-  ['docs/java/JAVA-COLLECTIONS.md', 'InteractiveTopicTree'],
+  ['docs-java/JAVA-COLLECTIONS.md', 'InteractiveTopicTree'],
   ['docs/operations/kubernetes/KUBERNETES-OVERVIEW.md', 'InteractiveTopicTree'],
   ['docs/development/DESIGN-PATTERNS.md', 'InterviewPractice'],
   ['docs/development/design-patterns/immutable-class.md', 'CodeWalkthrough'],
