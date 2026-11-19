@@ -195,8 +195,8 @@ Listener concurrency creates multiple child containers/consumers; it does not ma
 one consumer multi-thread safe. Effective parallelism remains bounded by assigned
 partitions and downstream capacity.
 
-Deep dives: [Spring Kafka](../spring/SPRING-KAFKA.md) and
-[Advanced Spring Kafka](../spring/kafka/SPRING-KAFKA-ADVANCED.md).
+Deep dives: [Spring Kafka](/spring/SPRING-KAFKA) and
+[Advanced Spring Kafka](/spring/kafka/SPRING-KAFKA-ADVANCED).
 
 ## Serialization And Schema Evolution
 
@@ -294,8 +294,8 @@ Before approving a Kafka workflow, answer:
 
 1. [Apache Kafka Fundamentals](./APACHE-KAFKA.md)
 2. [Kafka Internals](./kafka/KAFKA-INTERNALS.md)
-3. [Spring Kafka](../spring/SPRING-KAFKA.md)
-4. [Advanced Spring Kafka](../spring/kafka/SPRING-KAFKA-ADVANCED.md)
+3. [Spring Kafka](/spring/SPRING-KAFKA)
+4. [Advanced Spring Kafka](/spring/kafka/SPRING-KAFKA-ADVANCED)
 5. [Kafka Security And Operations](./kafka/KAFKA-SECURITY-OPERATIONS.md)
 6. [Kafka Ecosystem And Multi-Cluster](./kafka/KAFKA-ECOSYSTEM.md)
 7. [Kafka Architect Labs](./kafka/KAFKA-ARCHITECT-LABS.md)

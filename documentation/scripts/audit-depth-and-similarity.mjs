@@ -1,12 +1,11 @@
-import {mkdir, readdir, readFile, writeFile} from 'node:fs/promises';
-import {extname, join, relative} from 'node:path';
+import {mkdir, readFile, writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {walkAllDocs} from './lib/doc-roots.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const docsRoot = join(root, 'docs');
 const reports = join(root, 'reports');
-async function walk(dir) { return (await Promise.all((await readdir(dir,{withFileTypes:true})).map((e)=>e.isDirectory()?walk(join(dir,e.name)):join(dir,e.name)))).flat(); }
-const files=(await walk(docsRoot)).filter((f)=>['.md','.mdx'].includes(extname(f)));
+const docs = await walkAllDocs();
 function strip(c){return c.replace(/^---[\s\S]*?---\s*/m,' ').replace(/```[\s\S]*?```/g,' ').replace(/<[^>]+>/g,' ').replace(/https?:\/\/\S+/g,' ');}
 function tokens(c){return strip(c).toLowerCase().match(/[a-z][a-z0-9-]{2,}/g)??[];}
 function shingles(ts,n=5){const s=new Set();for(let i=0;i<=ts.length-n;i++)s.add(ts.slice(i,i+n).join(' '));return s;}
@@ -14,7 +13,7 @@ function jaccard(a,b){let hit=0;for(const x of a)if(b.has(x))hit++;return hit/(a
 function has(c,re){return re.test(c);}
 
 const pages=[];
-for(const file of files){const content=await readFile(file,'utf8');const path=relative(docsRoot,file).replaceAll('\\','/');const t=tokens(content);const pageType=content.match(/^page_type:\s*(.+)$/m)?.[1]?.trim()??'Unclassified';const difficulty=content.match(/^difficulty:\s*(.+)$/m)?.[1]?.trim()??'Unclassified';const excluded=/^sidebar_exclude:\s*true\s*$/m.test(content);const criteria={
+for(const {file,id} of docs){const content=await readFile(file,'utf8');const path=id;const t=tokens(content);const pageType=content.match(/^page_type:\s*(.+)$/m)?.[1]?.trim()??'Unclassified';const difficulty=content.match(/^difficulty:\s*(.+)$/m)?.[1]?.trim()??'Unclassified';const excluded=/^sidebar_exclude:\s*true\s*$/m.test(content);const criteria={
   mentalModel:t.length>=250,
   interactive:has(content,/<(?:McqPracticeCenter|DocumentationIndex)\b/),
   internals:has(content,/\binternals?\b|how it works|execution model|lifecycle/i),

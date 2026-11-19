@@ -79,7 +79,7 @@ Complete the Senior or Lead route appropriate to level, then add:
 - maker-checker, entitlements, immutable audit and sensitive-data boundaries;
 - temporal data, business dates, cutoffs, EOD, recovery, and financial incident evidence.
 
-Use [Financial Systems Architecture](../../architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH.md)
+Use [Financial Systems Architecture](/architecture/financial/FINANCIAL-SYSTEMS-ARCHITECT-PATH)
 as the specialization route.
 
 ## Twelve-Week Balanced Route

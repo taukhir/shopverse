@@ -50,6 +50,28 @@ t2  replication/indexing completes
 t3  both expose 120
 ```
 
+```mermaid
+sequenceDiagram
+    participant W as Writer
+    participant P as Primary
+    participant R as Search replica
+    participant C as Reading client
+
+    W->>P: set price = 120 (t0)
+    Note over P: Primary accepts immediately
+    C->>R: read price (t1)
+    R-->>C: 100 (stale — replication in flight)
+    P->>R: replicate/index update (t2)
+    C->>R: read price (t3)
+    R-->>C: 120 (converged)
+```
+
+The client at `t1` is not reading corrupted data — it is reading a
+correct-but-stale replica during the window before replication completes.
+A second client reading the primary at the same instant would already see
+`120`; which value a reader sees depends on which replica it happens to
+hit, not on when the write "really" happened.
+
 Eventual consistency does **not** specify:
 
 - how long convergence takes;

@@ -8,7 +8,7 @@ export interface OrderItem {
   productId: number;
   productName: string;
   quantity: number;
-  unitPrice: number;
+  unitPrice: string;
 }
 
 export interface ShippingAddress {
@@ -29,7 +29,7 @@ export interface Order {
   idempotencyKey?: string;
   customerUsername?: string;
   status: string;
-  totalAmount: number;
+  totalAmount: string;
   shippingAddress?: ShippingAddress | null;
   items?: OrderItem[];
   createdAt: string;
@@ -62,6 +62,13 @@ export interface CheckoutRequestItem {
 
 export interface CheckoutResponse {
   orderNumber: string;
+}
+
+export interface CheckoutReview {
+  items: OrderItem[];
+  shippingAddress: ShippingAddress | null;
+  totalAmount: string;
+  currency: string;
 }
 
 export interface OrderWorkflowState {
@@ -109,5 +116,9 @@ export class OrdersApiService {
   checkout(items: CheckoutRequestItem[], idempotencyKey: string, shippingAddress: ShippingAddress) {
     const headers = new HttpHeaders({ 'Idempotency-Key': idempotencyKey });
     return this.http.post<CheckoutResponse>(API_PATHS.orders.checkout, { items, shippingAddress }, { headers });
+  }
+
+  reviewCheckout(items: CheckoutRequestItem[], shippingAddress: ShippingAddress) {
+    return this.http.post<CheckoutReview>(API_PATHS.orders.checkoutReview, { items, shippingAddress });
   }
 }

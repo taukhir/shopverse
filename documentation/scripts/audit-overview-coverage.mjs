@@ -5,15 +5,18 @@ import {fileURLToPath} from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const sidebar = await readFile(join(root, 'sidebars.ts'), 'utf8');
 
+// java/CORE-JAVA-DEEP-DIVE, java/JAVA-COLLECTIONS, spring/README,
+// architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS and
+// architecture/PRODUCTION-PLATFORM-ENGINEERING are intentionally not listed
+// here: spring/java/architecture are now separate plugin-content-docs
+// instances with an auto-generated sidebar (docusaurus.config.ts), each
+// with its own `_category_.json`-driven generated-index landing page, not a
+// hand-curated sidebar category this check can pattern-match against.
 const coverage = [
   ['1. Engineering Foundations', 'development/ENGINEERING-FOUNDATIONS-OVERVIEW'],
   ['Design Patterns', 'development/DESIGN-PATTERNS'],
   ['Arrays', 'data-structures/programming/arrays/ARRAYS-OVERVIEW'],
-  ['2. Java', 'java/CORE-JAVA-DEEP-DIVE'],
-  ['Collections And Data Structures', 'java/JAVA-COLLECTIONS'],
-  ['3. Spring And Spring Boot', 'spring/README'],
   ['4. Data And Persistence', 'data/DATA-PERSISTENCE-OVERVIEW'],
-  ['5. Microservices And Distributed Systems', 'architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS'],
   ['6. Security', 'security/README'],
   ['7. Logging And Observability', 'observability/OBSERVABILITY-OVERVIEW'],
   ['8. Delivery, Containers And CI/CD', 'operations/README'],
@@ -26,7 +29,6 @@ const coverage = [
   ['Docker Beginner-To-Architect', 'operations/DOCKER'],
   ['9. Cloud And AWS', 'cloud/README'],
   ['AWS', 'cloud/aws/AWS-UMBRELLA'],
-  ['10. Production Platform Engineering', 'architecture/PRODUCTION-PLATFORM-ENGINEERING'],
   ['11. AI, RAG And Java AI', 'ai/README'],
   ['12. Shopverse Implementation', 'case-study/SHOPVERSE'],
 ];

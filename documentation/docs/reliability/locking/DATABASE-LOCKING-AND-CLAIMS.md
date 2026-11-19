@@ -14,7 +14,7 @@ review_evidence: repository-content-audit
 
 This page compares database worker-claim algorithms. Entity-level optimistic
 and pessimistic locking internals remain in
-[JPA Transactions, Locking And Concurrency](../../spring/jpa/JPA-TRANSACTIONS-LOCKING.md).
+[JPA Transactions, Locking And Concurrency](/spring/jpa/JPA-TRANSACTIONS-LOCKING).
 
 Back to [Locking And Work Ownership](LOCKING-AND-WORK-OWNERSHIP.md).
 
@@ -220,6 +220,26 @@ short finalization transaction
 
 Never hold a database row lock while waiting for a broker acknowledgement.
 
+```mermaid
+sequenceDiagram
+    participant W1 as Worker 1 (original owner)
+    participant W2 as Worker 2 (recovery)
+    participant DB as Database
+    participant K as Kafka
+
+    W1->>DB: claim row (status=PROCESSING, claim_token=t1)
+    Note over W1: Worker 1 pauses past its lease (GC, slow I/O, crash)
+    W2->>DB: lease expired -> reclaim (status=PROCESSING, claim_token=t2)
+    W2->>K: publish
+    K-->>W2: ack
+    W2->>DB: finalize WHERE claim_token=t2 -> 1 row -> PUBLISHED
+    Note over W1: Worker 1 resumes, unaware it lost ownership
+    W1->>K: publish (duplicate)
+    K-->>W1: ack
+    W1->>DB: finalize WHERE claim_token=t1 -> 0 rows (token no longer matches)
+    Note over DB: Worker 1's finalize is rejected, not applied —\nthe fencing token prevented it from overwriting Worker 2's result.
+```
+
 Finalization must prove that the worker still owns the claim. An instance can
 pause past its lease, resume after another instance reclaimed the event, and
 otherwise overwrite the newer result.
@@ -299,7 +319,7 @@ Detailed Shopverse examples:
 
 ## Related Canonical Guides
 
-- [JPA optimistic and pessimistic locking](../../spring/jpa/JPA-TRANSACTIONS-LOCKING.md)
+- [JPA optimistic and pessimistic locking](/spring/jpa/JPA-TRANSACTIONS-LOCKING)
 - [Transactional Outbox](../OUTBOX-PATTERN.md)
 - [Inbox and idempotent consumers](../INBOX-PATTERN.md)
 - [Scheduler Locking With ShedLock](SCHEDULER-LOCKING-SHEDLOCK.md)

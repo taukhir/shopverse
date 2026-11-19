@@ -36,21 +36,9 @@
       <article><span>Refunded</span><strong>{{ totals().refunded }}</strong></article>
     </section>
 
-    <section class="simulation">
-      <div>
-        <p>STUB SIMULATION</p>
-        <h2>Control the next payment outcome.</h2>
-        <span>This affects the payment provider stub used by the demo workflow.</span>
-      </div>
-      <form (ngSubmit)="setSimulationMode()">
-        <select name="simulationMode" [(ngModel)]="simulationMode">
-          @for (mode of modes; track mode) {
-            <option [value]="mode">{{ mode }}</option>
-          }
-        </select>
-        <button [disabled]="simulationSaving()">{{ simulationSaving() ? 'Saving...' : 'Apply mode' }}</button>
-      </form>
-    </section>
+    <p class="settings-pointer">
+      Payment simulation mode moved to <a routerLink="/admin/settings">Settings</a>.
+    </p>
 
     @if (actionError()) {
       <div class="form-message error">{{ actionError() }}</div>

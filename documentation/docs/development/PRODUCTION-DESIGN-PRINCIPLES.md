@@ -166,8 +166,8 @@ mixes current and future behavior.
 ## Related Guides
 
 - [Design Patterns](DESIGN-PATTERNS.md)
-- [HLD And LLD](../architecture/HLD-LLD.md)
-- [Microservice Architecture](../architecture/MICROSERVICES-GENERIC.md)
+- [HLD And LLD](/architecture/HLD-LLD)
+- [Microservice Architecture](/architecture/MICROSERVICES-GENERIC)
 
 ## Recommended Next
 

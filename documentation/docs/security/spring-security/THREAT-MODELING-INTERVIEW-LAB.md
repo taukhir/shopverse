@@ -149,5 +149,5 @@ controls to owners and evidence, not only a diagram.
 
 ## Recommended Next
 
-Run the security test in the [Spring Architect Labs](../../spring/architect-labs/README.md)
+Run the security test in the [Spring Architect Labs](/spring/architect-labs)
 and record one improvement as an ADR.

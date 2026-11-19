@@ -1,20 +1,19 @@
-import {mkdir, readdir, readFile, writeFile} from 'node:fs/promises';
-import {extname, join, relative} from 'node:path';
+import {mkdir, readFile, writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {walkAllDocs} from './lib/doc-roots.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const docsRoot = join(root, 'docs');
 const reports = join(root, 'reports');
-async function walk(dir) { return (await Promise.all((await readdir(dir, {withFileTypes:true})).map((entry) => entry.isDirectory() ? walk(join(dir, entry.name)) : join(dir, entry.name)))).flat(); }
 function normalized(url) { const value=new URL(url); value.hash=''; value.pathname=value.pathname.replace(/\/$/,''); return value.toString(); }
 
-const files=(await walk(docsRoot)).filter((file)=>['.md','.mdx'].includes(extname(file)));
+const docs=await walkAllDocs();
 const owners=new Map();
-for(const file of files){
+for(const {file,id} of docs){
   const content=await readFile(file,'utf8');
   for(const section of content.matchAll(/## Official References\s+([\s\S]*?)(?=\n## |$)/gi)){
     for(const match of section[1].matchAll(/https:\/\/[^)\s]+/g)){
-      const url=match[0]; owners.set(url,[...(owners.get(url)??[]),relative(docsRoot,file).replaceAll('\\','/')]);
+      const url=match[0]; owners.set(url,[...(owners.get(url)??[]),id]);
     }
   }
 }

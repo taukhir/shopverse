@@ -52,7 +52,7 @@ procedures. Never implement a synchronous distributed transaction across them.
 For a complete high-volume commerce example, including metric grain, versioned
 events and snapshots, ClickHouse schemas, dashboard queries, finalization, late
 data, and reconciliation, see
-[Retail Order Metrics And Analytics At Scale](../../architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS.md).
+[Retail Order Metrics And Analytics At Scale](/architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS).
 
 ## Proof-Of-Concept Scorecard
 

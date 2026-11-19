@@ -147,6 +147,38 @@ state is the objective.
 
 Never test destructive restoration over the only production copy.
 
+### Worked PostgreSQL PITR Drill
+
+```bash
+# 1. Provision an isolated target from the latest base backup
+pg_basebackup -h backup-host -D /restore/data -Fp -Xs -P
+
+# 2. Point it at the WAL archive and set a target recovery time
+cat >> /restore/data/postgresql.conf <<'EOF'
+restore_command = 'cp /archive/wal/%f %p'
+recovery_target_time = '2026-11-18 03:14:00 UTC'
+EOF
+touch /restore/data/recovery.signal
+
+# 3. Start the target and watch it replay WAL up to the target time
+pg_ctl -D /restore/data start
+tail -f /restore/data/log/postgresql.log  # watch for "recovery stopping before/after..."
+```
+
+```sql
+-- 4. Validate: row counts, a known business invariant, and schema version
+SELECT count(*) FROM orders WHERE created_at < '2026-11-18 03:14:00';
+SELECT version FROM schema_migrations ORDER BY version DESC LIMIT 1;
+-- Confirm no order exists in a state that implies a payment was charged
+-- without a corresponding durable order record (the ambiguous-commit case).
+```
+
+The drill only counts as evidence once step 4 confirms business
+invariants, not merely that `pg_ctl start` succeeded — a target that
+starts cleanly but stops recovery short of the intended point (wrong WAL
+file missing, `restore_command` misconfigured) looks identical to a
+successful restore until someone checks the data.
+
 ## Multi-Region Design
 
 Choose a write-authority model explicitly:

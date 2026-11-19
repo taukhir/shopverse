@@ -252,5 +252,5 @@ Check:
 
 - [Kafka Event Parsing](./KAFKA-PARSING.md)
 - [Outbox Starter](./OUTBOX-STARTER.md)
-- [Spring Kafka Retry, DLT, Recovery](../spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY.md)
+- [Spring Kafka Retry, DLT, Recovery](/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY)
 - [Config Property Reference](./CONFIG-PROPERTIES.md)

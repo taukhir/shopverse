@@ -24,7 +24,7 @@ review_evidence: repository-content-audit
 
 Spring Boot assembles a Spring application from environment, classpath, definitions,
 conditions and lifecycle callbacks. Follow the pages in dependency order; use the
-[runtime engineering map](../spring/SPRING-BOOT-INTERNALS-PRODUCTION.md) when diagnosing
+[runtime engineering map](/spring/SPRING-BOOT-INTERNALS-PRODUCTION) when diagnosing
 an existing production symptom.
 
 ```mermaid
@@ -124,7 +124,7 @@ without that evidence can hide the actual compatibility or scan problem.
 
 Shopverse is pinned to Boot `4.0.6` and Java 21. Review focused starter changes, Jakarta
 EE 11 baselines, Jackson 3 and upgrade gates in the
-[Boot 4 And Framework 7 guide](../spring/SPRING-BOOT-4-FRAMEWORK-7.md).
+[Boot 4 And Framework 7 guide](/spring/SPRING-BOOT-4-FRAMEWORK-7).
 
 ## Official References
 

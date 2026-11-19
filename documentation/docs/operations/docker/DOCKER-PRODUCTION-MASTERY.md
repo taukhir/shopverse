@@ -46,7 +46,7 @@ JVM container awareness, heap/native budget, `MaxRAMPercentage`, CPU quota,
 collector behavior, stacks, direct buffers, `OOMKilled`, graceful shutdown,
 JFR/dumps, read-only filesystems and temporary storage:
 
-- [Java Containers And Resource Limits](../../java/JAVA-CONTAINERS-RESOURCE-LIMITS.md)
+- [Java Containers And Resource Limits](/java/JAVA-CONTAINERS-RESOURCE-LIMITS)
 
 ## Storage
 

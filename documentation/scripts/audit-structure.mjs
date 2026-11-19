@@ -1,15 +1,14 @@
-import {readdir, readFile} from 'node:fs/promises';
-import {extname, join, relative} from 'node:path';
+import {readFile} from 'node:fs/promises';
+import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {walkAllDocs} from './lib/doc-roots.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const docsRoot = join(root, 'docs');
-
-async function walk(dir) {
-  const entries = await readdir(dir, {withFileTypes: true});
-  return (await Promise.all(entries.map((entry) => entry.isDirectory()
-    ? walk(join(dir, entry.name)) : join(dir, entry.name)))).flat();
-}
+// spring/java/architecture are now separate plugin-content-docs instances
+// with auto-generated sidebars (see docusaurus.config.ts), not hand-curated
+// entries in sidebars.ts -- exempt them from the orphan-page check below,
+// same as /adr/ pages already are.
+const autoSidebarSections = ['spring/', 'java/', 'architecture/'];
 
 function body(content) { return content.replace(/^---[\s\S]*?---\s*/m, ''); }
 function prose(content) {
@@ -23,10 +22,10 @@ function paragraphFingerprint(value) {
   return value.toLowerCase().replace(/\[[^\]]+\]\([^)]+\)/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
-const files = (await walk(docsRoot)).filter((file) => ['.md', '.mdx'].includes(extname(file)));
-const pages = await Promise.all(files.map(async (file) => {
+const docs = await walkAllDocs();
+const pages = await Promise.all(docs.map(async ({file, id}) => {
   const content = await readFile(file, 'utf8');
-  const path = relative(docsRoot, file).replaceAll('\\', '/');
+  const path = id;
   const pageType = content.match(/^page_type:\s*(.+)$/m)?.[1]?.trim() ?? '';
   const visualRequired = /^visual_required:\s*true\s*$/m.test(content);
   const paragraphs = prose(content).split(/\r?\n\s*\r?\n/).map(paragraphFingerprint).filter((p) => p.length >= 180);
@@ -61,7 +60,8 @@ const sidebar = await readFile(join(root, 'sidebars.ts'), 'utf8');
 const orphanPages = pages.filter((page) => {
   const id = page.path.replace(/\.(md|mdx)$/, '');
   const intentionallyUnlisted = /^sidebar_exclude:\s*true\s*$/m.test(page.content);
-  return !intentionallyUnlisted && !sidebar.includes(`'${id}'`) && !sidebar.includes(`id: '${id}'`) && !page.path.includes('/adr/');
+  const autoSidebar = autoSidebarSections.some((prefix) => page.path.startsWith(prefix));
+  return !intentionallyUnlisted && !autoSidebar && !sidebar.includes(`'${id}'`) && !sidebar.includes(`id: '${id}'`) && !page.path.includes('/adr/');
 });
 
 console.log(`Documentation structure audit: ${pages.length} pages`);

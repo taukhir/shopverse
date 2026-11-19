@@ -87,5 +87,5 @@ compare.
 
 - [Optimization Solutions](../reliability/problems/OPTIMIZATION-SOLUTIONS.md)
 - [Shopverse Problems And Solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md)
-- [Spring Kafka](../spring/SPRING-KAFKA.md)
+- [Spring Kafka](/spring/SPRING-KAFKA)
 - [JWT And Spring Security](../security/JWT-OAUTH2-SPRING-SECURITY.md)

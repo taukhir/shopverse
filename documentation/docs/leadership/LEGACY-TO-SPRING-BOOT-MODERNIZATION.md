@@ -296,7 +296,7 @@ deliverable with usage telemetry and compliance-aware data retention.
 
 ## Related Guides
 
-- [Spring Boot 4 And Framework 7](../spring/SPRING-BOOT-4-FRAMEWORK-7.md)
+- [Spring Boot 4 And Framework 7](/spring/SPRING-BOOT-4-FRAMEWORK-7)
 - [Spring Boot Internals](../development/SPRING-BOOT-INTERNALS.md)
 - [Database Migrations And Operations](../data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md)
 - [Zero-Downtime Delivery](./ZERO-DOWNTIME-DELIVERY.md)

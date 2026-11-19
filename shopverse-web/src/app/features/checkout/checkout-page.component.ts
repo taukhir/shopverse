@@ -9,7 +9,7 @@ import { ToastService } from '../../core/feedback/toast.service';
 import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
 import { formatInr } from '../../shared/utils/formatters';
 import { AccountApiService, UserAddress } from '../account/account-api.service';
-import { OrdersApiService, ShippingAddress } from '../orders/orders-api.service';
+import { CheckoutReview, OrdersApiService, ShippingAddress } from '../orders/orders-api.service';
 
 interface CheckoutReceipt {
   orderNumber: string;
@@ -41,6 +41,7 @@ export class CheckoutPageComponent {
   protected readonly addressError = signal('');
   protected readonly success = signal('');
   protected readonly receipt = signal<CheckoutReceipt | null>(null);
+  protected readonly review = signal<CheckoutReview | null>(null);
   protected readonly addresses = signal<UserAddress[]>([]);
   protected readonly selectedAddressId = signal<number | null>(null);
   protected readonly selectedAddress = computed(() => this.addresses().find((address) => address.id === this.selectedAddressId()) ?? this.addresses().find((address) => address.defaultAddress) ?? this.addresses()[0] ?? null);
@@ -66,7 +67,7 @@ export class CheckoutPageComponent {
     });
   }
 
-  protected placeOrder(): void {
+  protected reviewOrder(): void {
     if (this.loading()) return;
     const item = this.cart.items()[0];
     if (!item) return;
@@ -76,6 +77,29 @@ export class CheckoutPageComponent {
       this.toast.error('Delivery address required.');
       return;
     }
+    this.loading.set(true);
+    this.error.set('');
+    this.review.set(null);
+    this.ordersApi.reviewCheckout([{ productId: item.productId, quantity: item.quantity }], this.toShippingAddress(address)).subscribe({
+      next: (review) => {
+        this.review.set(review);
+        this.loading.set(false);
+      },
+      error: (error: unknown) => {
+        const message = this.checkoutErrorMessage(error);
+        this.error.set(message);
+        this.loading.set(false);
+        this.toast.error(message);
+      },
+    });
+  }
+
+  protected confirmOrder(): void {
+    if (this.loading()) return;
+    const item = this.cart.items()[0];
+    if (!item) return;
+    const address = this.selectedAddress();
+    if (!address) return;
     this.loading.set(true);
     this.error.set('');
     this.receipt.set(null);

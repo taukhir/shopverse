@@ -205,4 +205,4 @@ Tracked as `BUG-013` in
 - [Outbox Pattern](../OUTBOX-PATTERN.md)
 - [Saga Consistency And Compensation](../SAGA-CONSISTENCY-COMPENSATION.md)
 - [Shopverse Saga Code Flow](../SHOPVERSE-SAGA-CODE-FLOW.md)
-- [ADR 002: Kafka Choreography SAGA For Checkout](../../architecture/adr/002-kafka-choreography-saga.md)
+- [ADR 002: Kafka Choreography SAGA For Checkout](/architecture/adr/kafka-choreography-saga)

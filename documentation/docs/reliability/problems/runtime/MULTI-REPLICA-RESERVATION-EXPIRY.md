@@ -100,6 +100,32 @@ List<InventoryReservation> findAllByStatusAndExpiresAtBefore(
 `@Scheduled` runs independently in every application replica. Spring does not
 elect one scheduler leader and does not coordinate this method across JVMs.
 
+```mermaid
+sequenceDiagram
+    participant R1 as Replica A (@Scheduled)
+    participant R2 as Replica B (@Scheduled)
+    participant DB as MySQL
+
+    R1->>DB: find RESERVED where expires_at <= now (unlocked read)
+    R2->>DB: find RESERVED where expires_at <= now (unlocked read)
+    DB-->>R1: reservation #42 (RESERVED)
+    DB-->>R2: reservation #42 (RESERVED)
+    Note over R1,R2: Both replicas now believe they own #42 —\nthe unlocked read gives no ownership guarantee.
+    R1->>DB: release stock, expire #42 (tx commits)
+    R2->>DB: release stock, expire #42 (tx commits again)
+    Note over DB: Stock released twice for one reservation\nunless the row-level pessimistic lock below prevents it.
+```
+
+The candidate read itself is unlocked, so both replicas can load the same
+row — the row-level lock the status table credits as implemented is
+applied downstream, on the write to `InventoryItem`/`InventoryReservation`
+during `release()`/`expire()`, not on the `find...` query above. That
+downstream lock is what turns this diagram's two concurrent commits into
+one winner and one lock-wait, not a double release; the still-missing piece
+is the integration test proving it under real concurrency, and the
+higher-throughput claim/lease design covered in
+[Atomic Reservation Claim](ATOMIC-RESERVATION-CLAIM.md).
+
 ## Focused Guides
 
 The original analysis is divided by concern so current behavior and target
@@ -269,7 +295,7 @@ spikes, and old `RESERVED` rows beyond the TTL plus scan allowance.
 - [Database Locking And Work Claims](../../locking/DATABASE-LOCKING-AND-CLAIMS.md)
 - [Scheduler Locking With ShedLock](../../locking/SCHEDULER-LOCKING-SHEDLOCK.md)
 - [Runtime locking decisions](INDEX-AND-LOCKING.md)
-- [Spring Data JPA transactions and locking](../../../spring/jpa/JPA-TRANSACTIONS-LOCKING.md)
+- [Spring Data JPA transactions and locking](/spring/jpa/JPA-TRANSACTIONS-LOCKING)
 - [Transactional outbox](../../OUTBOX-PATTERN.md)
 - [Shopverse SAGA and Outbox](../../SAGA-OUTBOX.md)
 - [Inventory Service README](https://github.com/taukhir/shopverse/tree/main/inventory-service)

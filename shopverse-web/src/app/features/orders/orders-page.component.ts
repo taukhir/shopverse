@@ -34,8 +34,8 @@ export class OrdersPageComponent {
     return [...orders].sort((a, b) => {
       switch (this.sort()) {
         case 'oldest': return (a.createdAt || '').localeCompare(b.createdAt || '');
-        case 'amountDesc': return b.totalAmount - a.totalAmount;
-        case 'amountAsc': return a.totalAmount - b.totalAmount;
+        case 'amountDesc': return parseFloat(b.totalAmount) - parseFloat(a.totalAmount);
+        case 'amountAsc': return parseFloat(a.totalAmount) - parseFloat(b.totalAmount);
         case 'status': return a.status.localeCompare(b.status);
         default: return (b.createdAt || '').localeCompare(a.createdAt || '');
       }
@@ -57,7 +57,7 @@ export class OrdersPageComponent {
     });
   }
 
-  protected price(value: number): string {
+  protected price(value: number | string): string {
     return formatInr(value);
   }
 

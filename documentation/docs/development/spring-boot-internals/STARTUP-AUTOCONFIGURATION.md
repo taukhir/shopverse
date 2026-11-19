@@ -33,7 +33,7 @@ Application entry point, startup lifecycle, environment, property sources, auto-
 This page explains Boot startup configuration and Shopverse-oriented examples.
 For processor ordering, premature bean creation, early references, AOT, startup
 evidence, and executable container diagnostics, use
-[Spring Container Runtime For Architects](../../spring/SPRING-CONTAINER-ARCHITECT.md).
+[Spring Container Runtime For Architects](/spring/SPRING-CONTAINER-ARCHITECT).
 </DocCallout>
 
 Back to [Spring Boot Internals](../SPRING-BOOT-INTERNALS.md).

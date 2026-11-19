@@ -1,0 +1,35 @@
+<main class="admin-page-shell admin-settings">
+  <nav class="admin-local-nav" aria-label="Admin navigation">
+    <div class="crumbs">
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Settings</b>
+    </div>
+    <div class="admin-actions">
+      <a routerLink="/admin">Overview</a>
+      <a routerLink="/admin/payments">Payments</a>
+      <button type="button" (click)="logout()">Sign out</button>
+    </div>
+  </nav>
+
+  <div class="heading">
+    <div>
+      <p class="eyebrow">SETTINGS</p>
+      <h1>Platform configuration.</h1>
+    </div>
+  </div>
+
+  <section class="simulation">
+    <div>
+      <p>STUB SIMULATION</p>
+      <h2>Control the next payment outcome.</h2>
+      <span>This affects the payment provider stub used by the demo workflow.</span>
+    </div>
+    <form (ngSubmit)="setSimulationMode()">
+      <select name="simulationMode" [(ngModel)]="simulationMode">
+        @for (mode of modes; track mode) {
+          <option [value]="mode">{{ mode }}</option>
+        }
+      </select>
+      <button [disabled]="simulationSaving()">{{ simulationSaving() ? 'Saving...' : 'Apply mode' }}</button>
+    </form>
+  </section>
+</main>

@@ -82,13 +82,13 @@ with distinct `kid` values during the overlap window (old key kept
 published until its last issued token expires, new key used for signing
 going forward), which the current single-`RSAKey`-bean design doesn't
 support without code changes. This is a real, currently open gap — see
-[ADR 003's Consequences](../../architecture/adr/003-jwt-jwks-security.md#consequences)
+[ADR 003's Consequences](/architecture/adr/jwt-jwks-security#consequences)
 for the full writeup — not a theoretical edge case.
 
 ## Related Guides
 
 - [JWT fundamentals](JWT-FUNDAMENTALS.md)
 - [JWT best practices](JWT-BEST-PRACTICES.md)
-- [ADR 003: RSA-Signed JWT And JWKS Authentication](../../architecture/adr/003-jwt-jwks-security.md)
+- [ADR 003: RSA-Signed JWT And JWKS Authentication](/architecture/adr/jwt-jwks-security)
 - [Shopverse JWT implementation](../JWT-OAUTH2-SPRING-SECURITY.md)
 

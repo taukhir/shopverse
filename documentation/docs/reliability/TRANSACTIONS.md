@@ -18,7 +18,7 @@ review_evidence: repository-content-audit
 # Transactions
 
 This file records Shopverse's implemented transaction boundaries. See
-[Spring transactions](../spring/SPRING-TRANSACTIONS.md) for propagation,
+[Spring transactions](/spring/SPRING-TRANSACTIONS) for propagation,
 isolation, rollback, proxy internals, locking, Kafka transactions, and
 production guidance.
 
@@ -117,8 +117,8 @@ Compensation is not rollback. It is a later, auditable state transition.
 
 ## Related Guides
 
-- [Spring transactions](../spring/SPRING-TRANSACTIONS.md)
+- [Spring transactions](/spring/SPRING-TRANSACTIONS)
 - [SAGA and outbox implementation](SAGA-OUTBOX.md)
 - [Generic SAGA and outbox patterns](SAGA-GENERIC.md)
-- [Spring Kafka](../spring/SPRING-KAFKA.md)
+- [Spring Kafka](/spring/SPRING-KAFKA)
 - [Liquibase](../data/LIQUIBASE-GENERIC.md)

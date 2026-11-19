@@ -32,13 +32,13 @@ flowchart LR
 
 | Topic | Brief explanation | Primary guide |
 |---|---|---|
-| requirements and invariants | State what must remain true before selecting technology. | [Non-Functional Requirements](../architecture/hld-lld/NON-FUNCTIONAL-REQUIREMENTS.md) |
+| requirements and invariants | State what must remain true before selecting technology. | [Non-Functional Requirements](/architecture/hld-lld/NON-FUNCTIONAL-REQUIREMENTS) |
 | SOLID | Manage reasons for change, dependency direction, substitutability, and interface size. | [SOLID With Java](./SOLID-JAVA-SHOPVERSE.md) |
 | design patterns | Reusable structures whose value depends on the problem and trade-off. | [Design Patterns](./DESIGN-PATTERNS.md) |
-| object and data modeling | Encode identity, lifecycle, ownership, constraints, and relationships. | [LLD](../architecture/HLD-LLD.md) |
+| object and data modeling | Encode identity, lifecycle, ownership, constraints, and relationships. | [LLD](/architecture/HLD-LLD) |
 | data structures | Select representation from access, update, ordering, memory, and concurrency needs. | [Data Structures](../data-structures/README.md) |
 | API contracts | Design resources, commands, errors, idempotency, pagination, compatibility, and security. | [REST API Production Design](./REST-API-PRODUCTION-DESIGN.md) |
-| system design | Allocate responsibilities across services, storage, messaging, cache, and operations. | [System Design](../architecture/SYSTEM-DESIGN.md) |
+| system design | Allocate responsibilities across services, storage, messaging, cache, and operations. | [System Design](/architecture/SYSTEM-DESIGN) |
 | testing | Prove behavior at the cheapest useful boundary and preserve deterministic feedback. | [Testing Architecture](./TESTING-ARCHITECTURE-COVERAGE.md) |
 | delivery | Make changes reviewable, reversible, observable, and compatible. | [Deployment Contracts](../operations/DEPLOYMENT-CONTRACTS-RELEASE-GATES.md) |
 | leadership | Scale technical judgment through decisions, review, mentoring, and ownership. | [Engineering Leadership](../leadership/ENGINEERING-LEADERSHIP-PRACTICES.md) |
@@ -71,8 +71,8 @@ Review a design from the bottom up:
 1. [Engineering Principles](./ENGINEERING-PRINCIPLES.md)
 2. [Design Patterns](./DESIGN-PATTERNS.md)
 3. [REST API Design](./REST-API-GENERIC.md)
-4. [HLD And LLD](../architecture/HLD-LLD.md)
-5. [System Design Deep Dives](../architecture/SYSTEM-DESIGN-DEEP-DIVES.md)
+4. [HLD And LLD](/architecture/HLD-LLD)
+5. [System Design Deep Dives](/architecture/SYSTEM-DESIGN-DEEP-DIVES)
 6. [Testing](./TESTING.md)
 7. [Production Design Principles](./PRODUCTION-DESIGN-PRINCIPLES.md)
 8. [Engineering Foundations Revision](./ENGINEERING-FOUNDATIONS-REVISION.md)
@@ -90,4 +90,4 @@ Review a design from the bottom up:
 ## Recommended Next
 
 Continue with [Engineering Principles](./ENGINEERING-PRINCIPLES.md), then study
-[Design Patterns](./DESIGN-PATTERNS.md) and [Architecture Overview](../architecture/ARCHITECTURE-OVERVIEW.md).
+[Design Patterns](./DESIGN-PATTERNS.md) and [Architecture Overview](/architecture/ARCHITECTURE-OVERVIEW).

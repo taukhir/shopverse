@@ -13,3 +13,6 @@ databaseChangeLog:
       file: db/changelog/006-order-shipping-address.yml
   - include:
       file: db/changelog/007-remove-demo-orders.yml
+  - include:
+      file: db/changelog/008-order-currency.yml
+

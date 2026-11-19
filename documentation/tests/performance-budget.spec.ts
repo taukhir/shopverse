@@ -22,7 +22,9 @@ test('documentation route stays inside Core Web Vitals guardrails', async ({page
   expect(metrics.domReady).toBeLessThan(5_000);
   // The development server reports uncompressed transfer size; production gzip
   // is enforced separately by scripts/check-performance.mjs.
-  expect(metrics.scripts).toBeLessThan(3_500_000);
+  // Bumped 3.5->3.8 MB alongside that budget for the dev-tools/backlog content
+  // merge (#108); re-tighten if growth stalls.
+  expect(metrics.scripts).toBeLessThan(3_800_000);
 });
 
 test('mobile search opens responsively', async ({page}, testInfo) => {

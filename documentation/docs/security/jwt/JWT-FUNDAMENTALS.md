@@ -80,5 +80,5 @@ platform's entire revocation story today.
 - [JWT claims roles and scopes](JWT-CLAIMS-ROLES-SCOPES.md)
 - [JWT best practices](JWT-BEST-PRACTICES.md)
 - [Spring JWT resource server](../spring-security/JWT-JWKS-RESOURCE-SERVER.md)
-- [ADR 003: RSA-Signed JWT And JWKS Authentication](../../architecture/adr/003-jwt-jwks-security.md)
+- [ADR 003: RSA-Signed JWT And JWKS Authentication](/architecture/adr/jwt-jwks-security)
 

@@ -13,6 +13,7 @@ public record OrderResponse(
         String idempotencyKey,
         String customerUsername,
         String status,
+        String currency,
         BigDecimal totalAmount,
         ShippingAddressResponse shippingAddress,
         List<OrderItemResponse> items,

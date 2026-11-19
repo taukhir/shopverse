@@ -418,4 +418,4 @@ windows.
 
 Continue with [Consumer Offset Commits](./KAFKA-CONSUMER-OFFSET-COMMITS.md),
 [Inbox Pattern](../../reliability/INBOX-PATTERN.md), and
-[Retail Domain Interview Questions](../../architecture/retail/RETAIL-DOMAIN-INTERVIEW.md).
+[Retail Domain Interview Questions](/architecture/retail/RETAIL-DOMAIN-INTERVIEW).
