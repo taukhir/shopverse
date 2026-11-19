@@ -46,7 +46,7 @@ test('changed documentation pages render cleanly', async ({page}, testInfo) => {
   for (const [index, route] of routes.entries()) {
     const response = await page.goto(`./${route}`);
     expect(response?.ok(), `${route} should return a successful response`).toBe(true);
-    await expect(page.locator('article')).toBeVisible();
+    await expect(page.locator('article').first()).toBeVisible();
     await expect(page.locator('.theme-doc-markdown h1').first()).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), `${route} should not overflow horizontally`).toBe(true);
     await page.locator('img').evaluateAll((images) => images.forEach((image) => { image.loading = 'eager'; }));
