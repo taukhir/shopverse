@@ -310,6 +310,6 @@ visible on a replica. It affects stale reads and failover data loss.
 ## Related Guides
 
 - [Database Engineering](DATABASE-ENGINEERING.md)
-- [Consistency And CAP](../architecture/DISTRIBUTED-CONSISTENCY-CAP.md)
+- [Consistency And CAP](/architecture/DISTRIBUTED-CONSISTENCY-CAP)
 - [Transactions And Locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md)
 

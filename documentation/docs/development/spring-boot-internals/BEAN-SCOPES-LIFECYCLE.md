@@ -44,7 +44,7 @@ flowchart TD
 
 This is the application-facing sequence. Processor registration and refresh-phase
 internals remain in the
-[Container And BeanFactory Internals](../../spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG.md)
+[Container And BeanFactory Internals](/spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG)
 guide.
 
 ## Choose Scope From Ownership
@@ -291,4 +291,4 @@ instance.
 ## Recommended Next
 
 Continue with [Configuration Properties](./CONFIGURATION-PROPERTIES.md), then use
-[Spring AOP](../../spring/SPRING-AOP.md) for proxy advice behavior.
+[Spring AOP](/spring/SPRING-AOP) for proxy advice behavior.

@@ -198,10 +198,10 @@ Before accepting an answer or design, verify that it contains:
 
 ## Related Canonical Guides
 
-- [End-To-End System Design Method](../architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD.md)
-- [Microservices Architect Path](../architecture/microservices/MICROSERVICES-ARCHITECT-PATH.md)
-- [Production Platform Engineering](../architecture/PRODUCTION-PLATFORM-ENGINEERING.md)
-- [Spring Architect Path](../spring/SPRING-ARCHITECT-PATH.md)
+- [End-To-End System Design Method](/architecture/system-design-deep-dives/END-TO-END-DESIGN-METHOD)
+- [Microservices Architect Path](/architecture/microservices/MICROSERVICES-ARCHITECT-PATH)
+- [Production Platform Engineering](/architecture/PRODUCTION-PLATFORM-ENGINEERING)
+- [Spring Architect Path](/spring/SPRING-ARCHITECT-PATH)
 - [SRE, Disaster Recovery, And Chaos Engineering](../operations/SRE-DR-CHAOS.md)
 
 ## Recommended Next

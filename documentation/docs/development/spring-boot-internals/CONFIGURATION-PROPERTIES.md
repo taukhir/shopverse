@@ -263,4 +263,4 @@ Rotation needs overlap and controlled resource recreation, not only a new string
 
 ## Recommended Next
 
-Continue with [Spring AOP](../../spring/SPRING-AOP.md) or return to [Spring Boot Internals](../SPRING-BOOT-INTERNALS.md).
+Continue with [Spring AOP](/spring/SPRING-AOP) or return to [Spring Boot Internals](../SPRING-BOOT-INTERNALS.md).

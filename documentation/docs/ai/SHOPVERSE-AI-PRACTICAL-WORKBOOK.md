@@ -568,7 +568,7 @@ the evidence record and rubric score matters more than completing more prompts.
 - [AI Context Engineering For Software Repositories](./AI-CONTEXT-ENGINEERING-GUIDE.md)
 - [AI Security And Prompt-Injection Playbook](./AI-SECURITY-PROMPT-INJECTION-PLAYBOOK.md)
 - [AI Development Interview Workbook](./AI-DEVELOPMENT-INTERVIEW-WORKBOOK.md)
-- [ShopVerse Retail Domain Architecture](../architecture/retail/RETAIL-DOMAIN-ARCHITECTURE.md)
+- [ShopVerse Retail Domain Architecture](/architecture/retail/RETAIL-DOMAIN-ARCHITECTURE)
 - [Saga And Transactional Outbox](../reliability/SAGA-OUTBOX.md)
 - [Inbox Pattern](../reliability/INBOX-PATTERN.md)
 - [Complete Demo Setup And Checkout](../case-study/COMPLETE-DEMO-SETUP-CHECKOUT.mdx)

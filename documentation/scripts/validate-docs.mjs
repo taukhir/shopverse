@@ -1,20 +1,24 @@
 import {execFileSync} from 'node:child_process';
-import {readdir, readFile, stat} from 'node:fs/promises';
-import {extname, join, relative, resolve, sep} from 'node:path';
+import {readFile, stat} from 'node:fs/promises';
+import {join, relative, resolve, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {DOC_ROOTS, rootDir, walkAllDocs} from './lib/doc-roots.mjs';
 
 const documentationRoot = fileURLToPath(new URL('../', import.meta.url));
 const repositoryRoot = resolve(documentationRoot, '..');
-const docsRoot = join(documentationRoot, 'docs');
 const staticRoot = join(documentationRoot, 'static');
 const full = process.argv.includes('--full') || process.env.DOCS_CHECK_MODE === 'full';
 
-async function collect(directory) {
-  const entries = await readdir(directory, {withFileTypes: true});
-  return (await Promise.all(entries.map((entry) => {
-    const path = join(directory, entry.name);
-    return entry.isDirectory() ? collect(path) : path;
-  }))).flat();
+// A doc's logical id (e.g. 'spring/SPRING-AOP') regardless of which physical
+// doc root (docs/, docs-spring/, ...) it actually lives under.
+function idOf(file) {
+  for (const root of DOC_ROOTS) {
+    const dir = rootDir(root);
+    if (file === dir || file.startsWith(dir + sep)) {
+      return root.prefix + relative(dir, file).split(sep).join('/');
+    }
+  }
+  return null;
 }
 
 function git(args) {
@@ -48,9 +52,8 @@ function lineNumber(content, offset) {
   return content.slice(0, offset).split(/\r?\n/).length;
 }
 
-const allFiles = await collect(docsRoot);
-const docs = allFiles.filter((file) => ['.md', '.mdx'].includes(extname(file)));
-const allRelative = new Set(docs.map((file) => relative(docsRoot, file).replaceAll('\\', '/')));
+const docs = (await walkAllDocs()).map(({file}) => file);
+const allRelative = new Set(docs.map((file) => idOf(file)));
 const changes = changedPaths();
 const selected = full ? docs : docs.filter((file) => changes.has(relative(repositoryRoot, file)));
 const globalChange = [...changes].some((path) => /^(documentation[\\/](sidebars\.ts|docusaurus\.config\.ts|package(-lock)?\.json|src[\\/]|scripts[\\/])|\.github[\\/]workflows[\\/]docs)/.test(path));
@@ -72,7 +75,7 @@ for (const file of docs) {
   const content = await readFile(file, 'utf8');
   const metadata = frontMatter(content);
   const title = metadata.get('title') || content.match(/^#\s+(.+)$/m)?.[1];
-  if (title) titles.set(title.toLowerCase(), [...(titles.get(title.toLowerCase()) || []), relative(docsRoot, file)]);
+  if (title) titles.set(title.toLowerCase(), [...(titles.get(title.toLowerCase()) || []), idOf(file)]);
 }
 
 for (const [title, files] of titles) {
@@ -84,7 +87,7 @@ const forbiddenSecret = /(-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?:p
 
 for (const file of filesToCheck) {
   const content = await readFile(file, 'utf8');
-  const path = relative(docsRoot, file).replaceAll('\\', '/');
+  const path = idOf(file);
   const metadata = frontMatter(content);
   const words = (content.match(/\b[\w-]+\b/g) ?? []).length;
   const h2 = (content.match(/^## /gm) ?? []).length;
@@ -120,8 +123,10 @@ for (const file of filesToCheck) {
       continue;
     }
     if (clean.startsWith('/')) continue;
-    const resolved = relative(docsRoot, resolve(file, '..', clean)).replaceAll('\\', '/');
-    const candidates = extname(resolved) ? [resolved] : [`${resolved}.md`, `${resolved}.mdx`, `${resolved}/index.md`, `${resolved}/index.mdx`];
+    // idOf() strips a .md/.mdx extension if present, leaving a bare id either
+    // way; also try an index-file fallback for directory-style links.
+    const resolved = idOf(resolve(file, '..', clean));
+    const candidates = [resolved, `${resolved}/index`];
     if (!candidates.some((candidate) => allRelative.has(candidate))) {
       failures.push(`${path}:${lineNumber(content, match.index)}: broken internal link ${target}`);
     }

@@ -138,8 +138,8 @@ keys or Inbox/event-ID deduplication.
 Canonical Kafka details remain in:
 
 - [Apache Kafka](../../integration/APACHE-KAFKA.md)
-- [Spring Kafka Consumers](../../spring/kafka/SPRING-KAFKA-CONSUMERS.md)
-- [Spring Kafka Concurrency And Capacity](../../spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY.md)
+- [Spring Kafka Consumers](/spring/kafka/SPRING-KAFKA-CONSUMERS)
+- [Spring Kafka Concurrency And Capacity](/spring/kafka/SPRING-KAFKA-CONCURRENCY-CAPACITY)
 
 ## Queue Versus Database Claim
 
@@ -223,4 +223,4 @@ throughput, processing time, key distribution, growth, and recovery goals.
 - [Distributed Schedulers And Safe Work Claiming](../DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md)
 - [Spring Distributed Locking Options](SPRING-DISTRIBUTED-LOCKING-OPTIONS.md)
 - [Database Locking And Work Claims](DATABASE-LOCKING-AND-CLAIMS.md)
-- [Change Data Capture In Microservices](../../architecture/CHANGE-DATA-CAPTURE.md)
+- [Change Data Capture In Microservices](/architecture/CHANGE-DATA-CAPTURE)

@@ -147,6 +147,6 @@ Check:
 
 ## Related Docs
 
-- [Spring Kafka Consumers](../spring/kafka/SPRING-KAFKA-CONSUMERS.md)
+- [Spring Kafka Consumers](/spring/kafka/SPRING-KAFKA-CONSUMERS)
 - [Kafka Recovery Starter](./KAFKA-RECOVERY-STARTER.md)
 - [Troubleshooting](./TROUBLESHOOTING.md)

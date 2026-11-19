@@ -269,4 +269,4 @@ deterministically close files, sockets, executors, or other owned resources.
 ## Recommended Next
 
 Continue with [Spring Autowiring And Circular Reference Internals](./AUTOWIRING-CIRCULAR-REFERENCE-INTERNALS.md)
-and [JVM Profiling, GC, And Native Memory](../../java/JVM-PROFILING-GC-NATIVE.md).
+and [JVM Profiling, GC, And Native Memory](/java/JVM-PROFILING-GC-NATIVE).

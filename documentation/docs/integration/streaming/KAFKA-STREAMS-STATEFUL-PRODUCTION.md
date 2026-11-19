@@ -181,7 +181,7 @@ ID/output, rebuild, compare, and cut over, with a rollback path.
 For a complete keyed-state example that turns versioned order lifecycle events
 into current-status and daily metric snapshots, then sinks them idempotently to
 ClickHouse, see
-[Retail Order Metrics And Analytics At Scale](../../architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS.md).
+[Retail Order Metrics And Analytics At Scale](/architecture/retail/RETAIL-ORDER-METRICS-ANALYTICS).
 It applies the state-store, changelog, late-event, external-side-effect, rebuild,
 and observability rules from this guide to a production dashboard.
 

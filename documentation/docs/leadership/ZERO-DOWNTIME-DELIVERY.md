@@ -283,10 +283,10 @@ and jobs—not only container versions.
 
 ## Related Guides
 
-- [API And Event Compatibility](../architecture/API-EVENT-COMPATIBILITY.md)
+- [API And Event Compatibility](/architecture/API-EVENT-COMPATIBILITY)
 - [Database Migrations And Operations](../data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md)
 - [Kubernetes Workload Engineering](../operations/KUBERNETES-WORKLOAD-ENGINEERING.md)
-- [Production Lifecycle](../spring/internals-production/PRODUCTION-LIFECYCLE.md)
+- [Production Lifecycle](/spring/internals-production/PRODUCTION-LIFECYCLE)
 
 ## Official References
 

@@ -194,7 +194,7 @@ spring:
 ```
 
 `#{@userKeyResolver}` is SpEL: Gateway resolves the Spring bean and uses it to
-calculate the Redis key. See [Spring Expression Language](../spring/SPRING-SPEL.md).
+calculate the Redis key. See [Spring Expression Language](/spring/SPRING-SPEL).
 
 ### Capacity Calculation
 

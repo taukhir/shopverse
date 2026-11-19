@@ -1,14 +1,11 @@
 import {readFile} from 'node:fs/promises';
-import {join} from 'node:path';
-import {fileURLToPath} from 'node:url';
+import {resolveDocPath} from './lib/doc-roots.mjs';
 
-const root = fileURLToPath(new URL('../', import.meta.url));
-const docsRoot = join(root, 'docs');
 const failures = [];
 const cache = new Map();
 
 async function content(id) {
-  if (!cache.has(id)) cache.set(id, await readFile(join(docsRoot, `${id}.md`), 'utf8'));
+  if (!cache.has(id)) cache.set(id, await readFile(resolveDocPath(id), 'utf8'));
   return cache.get(id);
 }
 

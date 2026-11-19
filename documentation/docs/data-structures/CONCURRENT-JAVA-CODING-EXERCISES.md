@@ -55,5 +55,5 @@ cost, not shared-state correctness or downstream capacity.
 
 ## Recommended Next
 
-Continue with [Java Concurrency Design Review](../java/JAVA-CONCURRENCY-DESIGN-REVIEW.md)
+Continue with [Java Concurrency Design Review](/java/JAVA-CONCURRENCY-DESIGN-REVIEW)
 and [Machine-Coding And OOD Rounds](./MACHINE-CODING-OOD-INTERVIEW.md).

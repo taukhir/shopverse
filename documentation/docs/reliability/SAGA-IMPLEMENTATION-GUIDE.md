@@ -240,5 +240,5 @@ Verification checklist:
 - [Shopverse SAGA code flow](SHOPVERSE-SAGA-CODE-FLOW.md)
 - [Transactional outbox implementation guide](OUTBOX-IMPLEMENTATION-GUIDE.md)
 - [SAGA generic](SAGA-GENERIC.md)
-- [Kafka idempotency and operations](../spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS.md)
+- [Kafka idempotency and operations](/spring/kafka/SPRING-KAFKA-IDEMPOTENCY-OPERATIONS)
 - [Observability implementation guide](../observability/OBSERVABILITY-IMPLEMENTATION-GUIDE.md)

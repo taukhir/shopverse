@@ -128,9 +128,9 @@ mismatches in `cloud-configs`.
 
 ## Related Guides
 
-- [System design](../architecture/SYSTEM-DESIGN.md)
-- [Distributed systems](../architecture/DISTRIBUTED-SYSTEMS.md)
-- [Spring Kafka](../spring/SPRING-KAFKA.md)
+- [System design](/architecture/SYSTEM-DESIGN)
+- [Distributed systems](/architecture/DISTRIBUTED-SYSTEMS)
+- [Spring Kafka](/spring/SPRING-KAFKA)
 - [Observability](../observability/OBSERVABILITY.md)
 - [Features and demos](../reference/FEATURES-AND-DEMOS.md)
 

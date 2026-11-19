@@ -24,7 +24,7 @@ invariants and data ownership, analyze failure, then defend alternatives.*
 These questions emphasize precise guarantees and trade-offs. Strong answers
 state assumptions instead of naming a technology as a universal solution.
 
-Use the [Architecture Revision Sheet](../architecture/ARCHITECTURE-REVISION-SHEET.md)
+Use the [Architecture Revision Sheet](/architecture/ARCHITECTURE-REVISION-SHEET)
 and [Reliability Revision Sheet](../reliability/RELIABILITY-REVISION-SHEET.md) for
 rapid recall before answering the scenarios here.
 
@@ -332,8 +332,8 @@ use timestamps blindly.
 
 ## Related Guides
 
-- [Distributed Systems Fundamentals](../architecture/DISTRIBUTED-SYSTEMS-GENERIC.md)
-- [Consistency And CAP](../architecture/DISTRIBUTED-CONSISTENCY-CAP.md)
+- [Distributed Systems Fundamentals](/architecture/DISTRIBUTED-SYSTEMS-GENERIC)
+- [Consistency And CAP](/architecture/DISTRIBUTED-CONSISTENCY-CAP)
 - [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
 - [Transactions And Locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md)
 - [Failure And Consensus](../reliability/DISTRIBUTED-FAILURE-CONSENSUS.md)

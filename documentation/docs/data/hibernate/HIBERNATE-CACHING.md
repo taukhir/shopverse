@@ -190,8 +190,8 @@ statistics deliberately, not blindly at high production volume.
 ## Related Guides
 
 - [Hibernate Fetching And Performance](./HIBERNATE-FETCHING-PERFORMANCE.md)
-- [Cache Umbrella](../../architecture/CACHE-UMBRELLA.md)
-- [Spring Cache](../../spring/SPRING-CACHE.md)
+- [Cache Umbrella](/architecture/CACHE-UMBRELLA)
+- [Spring Cache](/spring/SPRING-CACHE)
 
 ## Official Reference
 

@@ -234,9 +234,9 @@ stacking speculative changes.
 - [Database And Query Optimization](./DATABASE-QUERY-OPTIMIZATION.md)
 - [Database Concurrency, Latency, And Backpressure](./DATABASE-CONCURRENCY-BACKPRESSURE.md)
 - [Indexes And Query Plans](./INDEXES-QUERY-PLANS.md)
-- [JPA Fetching Performance And N Plus One](../../spring/jpa/JPA-FETCHING-PERFORMANCE.md)
-- [Spring Resource Pools, Concurrency And Capacity](../../spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY.md)
-- [Spring Cache](../../spring/SPRING-CACHE.md)
+- [JPA Fetching Performance And N Plus One](/spring/jpa/JPA-FETCHING-PERFORMANCE)
+- [Spring Resource Pools, Concurrency And Capacity](/spring/production/RESOURCE-POOL-CONCURRENCY-CAPACITY)
+- [Spring Cache](/spring/SPRING-CACHE)
 - [Database Migrations And Operations](./DATABASE-MIGRATIONS-OPERATIONS.md)
 
 ## Official References

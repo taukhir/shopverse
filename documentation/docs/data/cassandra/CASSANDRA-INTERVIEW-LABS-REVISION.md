@@ -136,5 +136,5 @@ Design a shipment-location history service. Provide:
 
 ## Recommended Next
 
-Apply the database through [Spring Data Cassandra](../../spring/SPRING-DATA-CASSANDRA.md).
+Apply the database through [Spring Data Cassandra](/spring/SPRING-DATA-CASSANDRA).
 

@@ -354,7 +354,7 @@ correct the bottleneck, and prove recovery with lag slope and saturation metrics
 - [Kafka consumer configuration](https://kafka.apache.org/documentation/#consumerconfigs)
 - [Kafka monitoring](https://kafka.apache.org/documentation/#monitoring)
 - [Spring Kafka exception handling](https://docs.spring.io/spring-kafka/reference/kafka/annotation-error-handling.html)
-- [Spring Kafka runtime internals and failures](../../spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES.md)
+- [Spring Kafka runtime internals and failures](/spring/kafka/SPRING-KAFKA-RUNTIME-INTERNALS-FAILURES)
 
 ## Recommended Next
 

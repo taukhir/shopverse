@@ -214,7 +214,9 @@ body.reader-focus-mode .theme-doc-markdown {
 .theme-doc-markdown > ul a,
 .theme-doc-markdown > ol a,
 .theme-doc-markdown li > p a,
-.theme-doc-markdown table a {
+.theme-doc-markdown table a,
+.theme-doc-markdown [class*="readingGuide"] p a,
+.theme-doc-markdown [class*="callout"] p a {
   text-decoration: underline;
 }
 

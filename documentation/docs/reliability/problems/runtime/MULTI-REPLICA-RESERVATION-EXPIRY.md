@@ -295,7 +295,7 @@ spikes, and old `RESERVED` rows beyond the TTL plus scan allowance.
 - [Database Locking And Work Claims](../../locking/DATABASE-LOCKING-AND-CLAIMS.md)
 - [Scheduler Locking With ShedLock](../../locking/SCHEDULER-LOCKING-SHEDLOCK.md)
 - [Runtime locking decisions](INDEX-AND-LOCKING.md)
-- [Spring Data JPA transactions and locking](../../../spring/jpa/JPA-TRANSACTIONS-LOCKING.md)
+- [Spring Data JPA transactions and locking](/spring/jpa/JPA-TRANSACTIONS-LOCKING)
 - [Transactional outbox](../../OUTBOX-PATTERN.md)
 - [Shopverse SAGA and Outbox](../../SAGA-OUTBOX.md)
 - [Inventory Service README](https://github.com/taukhir/shopverse/tree/main/inventory-service)

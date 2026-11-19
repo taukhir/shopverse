@@ -22,7 +22,7 @@ process them independently while Kafka retains records according to topic
 policy.
 
 Spring-specific implementation is documented in
-[Spring Kafka](../spring/SPRING-KAFKA.md).
+[Spring Kafka](/spring/SPRING-KAFKA).
 
 ## What Kafka Offers
 
@@ -423,6 +423,6 @@ Kafka; rich routing and conventional work queues often favor RabbitMQ.
 - [Event Streaming Application Path](./EVENT-STREAMING-APPLICATION-PATH.md)
 - [Event Streaming Interview And Revision](./streaming/EVENT-STREAMING-INTERVIEW-REVISION.md)
 - [Kafka Architect Labs](./kafka/KAFKA-ARCHITECT-LABS.md)
-- [Spring Kafka](../spring/SPRING-KAFKA.md)
+- [Spring Kafka](/spring/SPRING-KAFKA)
 - [SAGA And Outbox](../reliability/SAGA-GENERIC.md)
-- [Distributed Systems](../architecture/DISTRIBUTED-SYSTEMS.md)
+- [Distributed Systems](/architecture/DISTRIBUTED-SYSTEMS)

@@ -55,7 +55,7 @@ For **Servlets And DispatcherServlet In Spring Boot**, a strong answer starts wi
 </ExpandableAnswer>
 
 The six former static answers are preserved as expandable checks in
-[Servlet And Spring MVC Request Lifecycle](../../spring/web/SERVLET-MVC-REQUEST-LIFECYCLE.md#expandable-interview-checks).
+[Servlet And Spring MVC Request Lifecycle](/spring/web/SERVLET-MVC-REQUEST-LIFECYCLE#expandable-interview-checks).
 
 ## Official References
 

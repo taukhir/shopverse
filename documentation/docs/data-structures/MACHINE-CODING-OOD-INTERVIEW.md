@@ -71,5 +71,5 @@ observable behavior. Deliver one tested vertical slice before optional features.
 
 ## Recommended Next
 
-Use the [LLD Interview Workbook](../architecture/hld-lld/LLD-INTERVIEW-WORKBOOK.md)
+Use the [LLD Interview Workbook](/architecture/hld-lld/LLD-INTERVIEW-WORKBOOK)
 for deeper review questions and diagrams.

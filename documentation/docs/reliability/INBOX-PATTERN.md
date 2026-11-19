@@ -560,5 +560,5 @@ deduplication state or a controlled new consumer namespace.
 - [Transactional outbox pattern](OUTBOX-PATTERN.md)
 - [SAGA and transactional outbox patterns](SAGA-GENERIC.md)
 - [Shopverse SAGA and outbox](SAGA-OUTBOX.md)
-- [Spring Kafka](../spring/SPRING-KAFKA.md)
+- [Spring Kafka](/spring/SPRING-KAFKA)
 - [Kafka Consumer Groups, Rebalancing, And Ordering](../integration/kafka/KAFKA-CONSUMER-GROUPS-REBALANCING-ORDERING.md)
