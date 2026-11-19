@@ -20,6 +20,9 @@ export const DOC_ROOTS = [
   {prefix: 'spring/', dir: 'docs-spring'},
   {prefix: 'java/', dir: 'docs-java'},
   {prefix: 'architecture/', dir: 'docs-architecture'},
+  {prefix: 'data/', dir: 'docs-data'},
+  {prefix: 'ai/', dir: 'docs-ai'},
+  {prefix: 'security/', dir: 'docs-security'},
 ];
 
 async function walk(dir) {

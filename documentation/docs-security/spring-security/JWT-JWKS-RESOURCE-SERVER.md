@@ -27,9 +27,9 @@ Back to [Spring Security](../SPRING-SECURITY-GENERIC.md).
 
 Shopverse shares servlet resource-server infrastructure through:
 
-- [Security Starter](../../platform/SECURITY-STARTER.md) for issuer validation, JWKS-backed decoding, and authority conversion;
+- [Security Starter](/platform/SECURITY-STARTER) for issuer validation, JWKS-backed decoding, and authority conversion;
 - [JWT, OAuth2, And Spring Security](../JWT-OAUTH2-SPRING-SECURITY.md) for the current Auth Service and resource-service flow;
-- [Platform Troubleshooting](../../platform/TROUBLESHOOTING.md) for missing bean, wrong issuer, JWKS, and servlet/WebFlux mismatch failures.
+- [Platform Troubleshooting](/platform/TROUBLESHOOTING) for missing bean, wrong issuer, JWKS, and servlet/WebFlux mismatch failures.
 
 The starter does not own endpoint authorization. Each service keeps its own
 `SecurityFilterChain`, `@PreAuthorize` rules, and resource-ownership checks.

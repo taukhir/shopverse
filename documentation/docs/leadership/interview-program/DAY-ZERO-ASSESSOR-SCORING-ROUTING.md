@@ -90,10 +90,10 @@ N+1 fix, raising pool size without a database budget, or retrying every deadlock
 
 Route weaknesses to:
 
-- [Database Production Mastery](../../data/DATABASE-PRODUCTION-MASTERY.md)
+- [Database Production Mastery](/data/DATABASE-PRODUCTION-MASTERY)
 - [Spring Data Architect Path](/spring/SPRING-DATA-ARCHITECT-PATH)
 - [Spring Transactions](/spring/SPRING-TRANSACTIONS)
-- [Database Revision Sheet](../../data/DATABASE-REVISION-SHEET.md)
+- [Database Revision Sheet](/data/DATABASE-REVISION-SHEET)
 
 ## Kafka And Eventing Signals
 
@@ -185,7 +185,7 @@ Route weaknesses to:
 
 - [Architect Failure Diagnosis](../architect-practice/ARCHITECT-FAILURE-DIAGNOSIS.md)
 - [Production Performance And Availability](../PRODUCTION-PERFORMANCE-AND-AVAILABILITY.md)
-- [Database Load Incident Runbook](../../data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK.md)
+- [Database Load Incident Runbook](/data/database-selection/DATABASE-LOAD-INCIDENT-RUNBOOK)
 - [Kafka Failure Playbook](../../integration/kafka/KAFKA-PRODUCTION-FAILURE-PLAYBOOK.md)
 
 ## Leadership Signals

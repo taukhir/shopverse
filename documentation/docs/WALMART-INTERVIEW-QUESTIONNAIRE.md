@@ -105,7 +105,7 @@ to make preparation measurable.
 - Java and JVM: [Java Revision Sheet](/java/JAVA-REVISION-SHEET)
 - Spring and transactions: [Spring Revision Sheet](/spring/SPRING-REVISION-SHEET)
 - Kafka and recovery: [Kafka Revision Sheet](./integration/KAFKA-REVISION-SHEET.md)
-- persistence: [Database Revision Sheet](./data/DATABASE-REVISION-SHEET.md)
+- persistence: [Database Revision Sheet](/data/DATABASE-REVISION-SHEET)
 - coding rounds: [Java DSA Interview Question Bank](./data-structures/DSA-INTERVIEW-QUESTION-BANK.mdx)
 - design and leadership: [Leadership And Architecture Interview Workbook](./leadership/LEADERSHIP-ARCHITECTURE-INTERVIEW-WORKBOOK.md)
 

@@ -53,8 +53,8 @@ The client uses the Eureka name `USER-SERVICE`. Spring Cloud LoadBalancer choose
 See:
 
 - [Spring Cloud OpenFeign](../../documentation/docs-spring/SPRING-OPENFEIGN.md)
-- [JWT and Spring Security](../../documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Generic Spring Security](../../documentation/docs/security/SPRING-SECURITY-GENERIC.md)
+- [JWT and Spring Security](../../documentation/docs-security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Generic Spring Security](../../documentation/docs-security/SPRING-SECURITY-GENERIC.md)
 - [MDC and tracing](../../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
 
 ## Configuration
@@ -115,5 +115,5 @@ JWKS rotation, internal authentication, and secret leakage boundaries.
 ## Related Guides
 
 - [Spring Cloud OpenFeign](../../documentation/docs-spring/SPRING-OPENFEIGN.md)
-- [JWT and Spring Security](../../documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [JWT and Spring Security](../../documentation/docs-security/JWT-OAUTH2-SPRING-SECURITY.md)
 - [Shopverse observability operations](../../documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)

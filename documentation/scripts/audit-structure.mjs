@@ -8,7 +8,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 // with auto-generated sidebars (see docusaurus.config.ts), not hand-curated
 // entries in sidebars.ts -- exempt them from the orphan-page check below,
 // same as /adr/ pages already are.
-const autoSidebarSections = ['spring/', 'java/', 'architecture/'];
+const autoSidebarSections = ['spring/', 'java/', 'architecture/', 'data/', 'ai/', 'security/'];
 
 function body(content) { return content.replace(/^---[\s\S]*?---\s*/m, ''); }
 function prose(content) {
