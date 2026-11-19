@@ -51,6 +51,6 @@ This is acceptable for local development only when the `.env` file is ignored.
 
 ## Related Guides
 
-- [Docker guide](../../operations/DOCKER.md)
+- [Docker guide](/operations/DOCKER)
 - [Security principles](SECURITY-PRINCIPLES.md)
 

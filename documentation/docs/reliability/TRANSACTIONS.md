@@ -121,4 +121,4 @@ Compensation is not rollback. It is a later, auditable state transition.
 - [SAGA and outbox implementation](SAGA-OUTBOX.md)
 - [Generic SAGA and outbox patterns](SAGA-GENERIC.md)
 - [Spring Kafka](/spring/SPRING-KAFKA)
-- [Liquibase](../data/LIQUIBASE-GENERIC.md)
+- [Liquibase](/data/LIQUIBASE-GENERIC)

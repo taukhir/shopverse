@@ -147,7 +147,7 @@ services should still validate tokens and enforce domain authorization.
 Relying only on gateway security allows a caller that bypasses the gateway to
 reach an unprotected service.
 
-See [Spring Security](../security/SPRING-SECURITY-GENERIC.md) for servlet and
+See [Spring Security](/security/SPRING-SECURITY-GENERIC) for servlet and
 reactive filter chains, bearer-token authentication, JWT validation, security
 contexts, method security, and OAuth2 flows.
 

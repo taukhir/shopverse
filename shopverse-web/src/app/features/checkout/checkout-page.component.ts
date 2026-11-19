@@ -9,7 +9,7 @@ import { ToastService } from '../../core/feedback/toast.service';
 import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
 import { formatInr } from '../../shared/utils/formatters';
 import { AccountApiService, UserAddress } from '../account/account-api.service';
-import { CheckoutReview, OrdersApiService, ShippingAddress } from '../orders/orders-api.service';
+import { Checkout, OrdersApiService, ShippingAddress } from '../orders/orders-api.service';
 
 interface CheckoutReceipt {
   orderNumber: string;
@@ -41,7 +41,7 @@ export class CheckoutPageComponent {
   protected readonly addressError = signal('');
   protected readonly success = signal('');
   protected readonly receipt = signal<CheckoutReceipt | null>(null);
-  protected readonly review = signal<CheckoutReview | null>(null);
+  protected readonly review = signal<Checkout | null>(null);
   protected readonly addresses = signal<UserAddress[]>([]);
   protected readonly selectedAddressId = signal<number | null>(null);
   protected readonly selectedAddress = computed(() => this.addresses().find((address) => address.id === this.selectedAddressId()) ?? this.addresses().find((address) => address.defaultAddress) ?? this.addresses()[0] ?? null);
@@ -80,7 +80,7 @@ export class CheckoutPageComponent {
     this.loading.set(true);
     this.error.set('');
     this.review.set(null);
-    this.ordersApi.reviewCheckout([{ productId: item.productId, quantity: item.quantity }], this.toShippingAddress(address)).subscribe({
+    this.ordersApi.createCheckout([{ productId: item.productId, quantity: item.quantity }], this.toShippingAddress(address)).subscribe({
       next: (review) => {
         this.review.set(review);
         this.loading.set(false);
@@ -98,13 +98,13 @@ export class CheckoutPageComponent {
     if (this.loading()) return;
     const item = this.cart.items()[0];
     if (!item) return;
-    const address = this.selectedAddress();
-    if (!address) return;
+    const checkout = this.review();
+    if (!checkout) return;
     this.loading.set(true);
     this.error.set('');
     this.receipt.set(null);
     const idempotencyKey = `web-${item.productId}-${crypto.randomUUID()}`;
-    this.ordersApi.checkout([{ productId: item.productId, quantity: item.quantity }], idempotencyKey, this.toShippingAddress(address)).subscribe({
+    this.ordersApi.placeOrder(checkout.checkoutId, checkout.version, idempotencyKey).subscribe({
       next: (order) => {
         const transactionId = `txn-${order.orderNumber}`;
         this.success.set(order.orderNumber);

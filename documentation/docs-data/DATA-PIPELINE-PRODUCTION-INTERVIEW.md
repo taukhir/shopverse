@@ -124,5 +124,5 @@ backpressure, sink throttling, retries, and quality-gate quarantine using one en
 
 ## Recommended Next
 
-Continue with [Kafka Connect CDC And Production](../integration/streaming/KAFKA-CONNECT-CDC-PRODUCTION.md) and
-[Event Streaming Interview Revision](../integration/streaming/EVENT-STREAMING-INTERVIEW-REVISION.md).
+Continue with [Kafka Connect CDC And Production](/integration/streaming/KAFKA-CONNECT-CDC-PRODUCTION) and
+[Event Streaming Interview Revision](/integration/streaming/EVENT-STREAMING-INTERVIEW-REVISION).

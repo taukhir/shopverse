@@ -212,7 +212,7 @@ flowchart LR
 
 - [Shopverse API guide](API-GUIDE.md)
 - [API Gateway](API-GATEWAY-GENERIC.md)
-- [Spring Security](../security/SPRING-SECURITY-GENERIC.md)
+- [Spring Security](/security/SPRING-SECURITY-GENERIC)
 - [Spring Transactions](/spring/SPRING-TRANSACTIONS)
 - [Distributed systems](/architecture/DISTRIBUTED-SYSTEMS)
 

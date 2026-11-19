@@ -31,7 +31,7 @@ The goal is to keep two tracks clear:
 | Outbox pattern | [Transactional Outbox Pattern](../reliability/OUTBOX-PATTERN.md) | [Outbox Starter](../platform/OUTBOX-STARTER.md) |
 | Kafka recovery | [Spring Kafka Retry, DLT, Recovery](/spring/kafka/SPRING-KAFKA-RETRY-DLT-RECOVERY) | [Kafka Recovery Starter](../platform/KAFKA-RECOVERY-STARTER.md) |
 | Kafka parsing | [Spring Kafka Consumers](/spring/kafka/SPRING-KAFKA-CONSUMERS) | [Kafka Event Parsing](../platform/KAFKA-PARSING.md) |
-| Security resource server | [JWT JWKS Resource Server](../security/spring-security/JWT-JWKS-RESOURCE-SERVER.md) | [Security Starter](../platform/SECURITY-STARTER.md) |
+| Security resource server | [JWT JWKS Resource Server](/security/spring-security/JWT-JWKS-RESOURCE-SERVER) | [Security Starter](../platform/SECURITY-STARTER.md) |
 | API errors and pagination | [Spring REST APIs](../development/SPRING-REST-APIS.md) | [Common Error](../platform/COMMON-ERROR.md) and [Web Pagination](../platform/WEB-PAGINATION.md) |
 | Docker operations | [Docker](../operations/DOCKER.md) | [Shopverse Docker](../operations/SHOPVERSE-DOCKER.md) |
 | Build/runtime optimization | [Operations](../operations/README.md) | [Optimization Solutions](../reliability/problems/OPTIMIZATION-SOLUTIONS.md) |
@@ -41,7 +41,7 @@ The goal is to keep two tracks clear:
 | Spring container lifecycle | [Container And BeanFactory Internals](/spring/internals-production/CONTAINER-BEANFACTORY-AUTOCONFIG) | Shopverse startup pages retain configuration and observed behavior |
 | Spring proxy transactions | [AOP And Transaction Internals](/spring/internals-production/AOP-TRANSACTION-INTERNALS) | Service pages retain concrete transaction boundaries |
 | Hibernate/JDBC performance | [Hibernate, JDBC, And Connections](/spring/internals-production/HIBERNATE-JDBC-INTERNALS) | Repository/problem pages retain measured queries and plans |
-| Database selection | [Database Design And Selection](../data/DATABASE-SELECTION-GUIDE.md) | Shopverse ADRs record the chosen engine and evidence |
+| Database selection | [Database Design And Selection](/data/DATABASE-SELECTION-GUIDE) | Shopverse ADRs record the chosen engine and evidence |
 | Distributed scheduler ownership | [Distributed Schedulers And Work Claims](../reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md) | Reservation/outbox pages retain claim SQL and code paths |
 | System-design method | [System Design Deep Dives](/architecture/SYSTEM-DESIGN-DEEP-DIVES) | Case studies apply the method without redefining it |
 | API contracts | [Production REST API Design](../development/REST-API-PRODUCTION-DESIGN.md) | Controllers/gateway pages retain implemented endpoints and policies |

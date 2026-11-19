@@ -211,6 +211,52 @@ const config: Config = {
           `https://github.com/taukhir/shopverse/edit/main/documentation/docs-architecture/${docPath}`,
       },
     ],
+    // Rollout batch 2: data/ai/security are the next-largest sections that,
+    // like spring/java/architecture, are self-contained (their ids are
+    // overwhelmingly confined to their own category in sidebars.ts) rather
+    // than interleaved across the numbered learning-path categories.
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'data',
+        path: 'docs-data',
+        routeBasePath: 'data',
+        remarkPlugins: [remarkGlossaryLinks],
+        rehypePlugins: [rehypeMarkdownA11yFixes],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+        editUrl: ({docPath}: {docPath: string}) =>
+          `https://github.com/taukhir/shopverse/edit/main/documentation/docs-data/${docPath}`,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'ai',
+        path: 'docs-ai',
+        routeBasePath: 'ai',
+        remarkPlugins: [remarkGlossaryLinks],
+        rehypePlugins: [rehypeMarkdownA11yFixes],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+        editUrl: ({docPath}: {docPath: string}) =>
+          `https://github.com/taukhir/shopverse/edit/main/documentation/docs-ai/${docPath}`,
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'security',
+        path: 'docs-security',
+        routeBasePath: 'security',
+        remarkPlugins: [remarkGlossaryLinks],
+        rehypePlugins: [rehypeMarkdownA11yFixes],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+        editUrl: ({docPath}: {docPath: string}) =>
+          `https://github.com/taukhir/shopverse/edit/main/documentation/docs-security/${docPath}`,
+      },
+    ],
   ],
 
   presets: [

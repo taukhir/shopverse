@@ -156,8 +156,8 @@ The complete commands are maintained in the
 ## Related Documentation
 
 - [Spring Expression Language](/spring/SPRING-SPEL)
-- [Spring Security authorization and method security](../../../security/spring-security/AUTHORIZATION-METHOD-SECURITY.md)
-- [Shopverse JWT and Spring Security implementation](../../../security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Spring Security authorization and method security](/security/spring-security/AUTHORIZATION-METHOD-SECURITY)
+- [Shopverse JWT and Spring Security implementation](/security/JWT-OAUTH2-SPRING-SECURITY)
 - [Queryable Order timeline](QUERYABLE-ORDER-TIMELINE.md)
 - [Shopverse case study](../../../case-study/SHOPVERSE.mdx)
 - [Spring Security method security reference](https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html)

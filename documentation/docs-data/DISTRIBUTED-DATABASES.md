@@ -311,5 +311,5 @@ visible on a replica. It affects stale reads and failover data loss.
 
 - [Database Engineering](DATABASE-ENGINEERING.md)
 - [Consistency And CAP](/architecture/DISTRIBUTED-CONSISTENCY-CAP)
-- [Transactions And Locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md)
+- [Transactions And Locks](/reliability/DISTRIBUTED-TRANSACTIONS-LOCKS)
 

@@ -166,7 +166,7 @@ traffic while a live component fails.
 ## Related Guides
 
 - [Distributed Failure And Consensus](DISTRIBUTED-FAILURE-CONSENSUS.md)
-- [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
+- [Distributed Databases](/data/DISTRIBUTED-DATABASES)
 - [Deployment Strategies](../operations/DEPLOYMENT-STRATEGIES.md)
 - [Distributed Rate Limiting](DISTRIBUTED-RATE-LIMITING.md)
 

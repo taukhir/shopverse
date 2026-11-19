@@ -32,6 +32,21 @@ public class ApiExceptionHandler {
         return ApiErrors.problem(HttpStatus.CONFLICT, exception.getMessage());
     }
 
+    @ExceptionHandler(CheckoutVersionMismatchException.class)
+    ProblemDetail handleCheckoutVersionMismatch(CheckoutVersionMismatchException exception) {
+        return ApiErrors.problem(HttpStatus.CONFLICT, exception.getMessage());
+    }
+
+    @ExceptionHandler(CheckoutExpiredException.class)
+    ProblemDetail handleCheckoutExpired(CheckoutExpiredException exception) {
+        return ApiErrors.problem(HttpStatus.CONFLICT, exception.getMessage());
+    }
+
+    @ExceptionHandler(CheckoutAlreadyPlacedException.class)
+    ProblemDetail handleCheckoutAlreadyPlaced(CheckoutAlreadyPlacedException exception) {
+        return ApiErrors.problem(HttpStatus.CONFLICT, exception.getMessage());
+    }
+
     @ExceptionHandler(InvalidOrderStateException.class)
     ProblemDetail handleInvalidOrderState(InvalidOrderStateException exception) {
         return ApiErrors.problem(HttpStatus.BAD_REQUEST, exception.getMessage());

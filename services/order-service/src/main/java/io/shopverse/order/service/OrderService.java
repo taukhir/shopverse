@@ -1,7 +1,6 @@
 package io.shopverse.order.service;
 
 import io.shopverse.order.dto.CheckoutRequest;
-import io.shopverse.order.dto.CheckoutReviewResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.OrderTimelineResponse;
 
@@ -10,8 +9,6 @@ import java.util.List;
 public interface OrderService {
 
     OrderResponse checkout(CheckoutRequest request, String username, String correlationId, String idempotencyKey);
-
-    CheckoutReviewResponse reviewCheckout(CheckoutRequest request);
 
     OrderResponse getOrder(Long id);
 

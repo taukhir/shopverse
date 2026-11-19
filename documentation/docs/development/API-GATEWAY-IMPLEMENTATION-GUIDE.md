@@ -206,6 +206,6 @@ Verification checklist:
 
 - [API Gateway](API-GATEWAY-GENERIC.md)
 - [Spring Cloud Gateway advanced](SPRING-CLOUD-GATEWAY-ADVANCED.md)
-- [Security implementation guide](../security/SECURITY-IMPLEMENTATION-GUIDE.md)
+- [Security implementation guide](/security/SECURITY-IMPLEMENTATION-GUIDE)
 - [MDC, correlation IDs, and tracing](../observability/MDC-CORRELATION-TRACING.md)
 - [Micrometer metrics](../observability/MICROMETER-METRICS.md)

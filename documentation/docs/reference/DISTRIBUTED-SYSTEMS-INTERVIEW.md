@@ -334,7 +334,7 @@ use timestamps blindly.
 
 - [Distributed Systems Fundamentals](/architecture/DISTRIBUTED-SYSTEMS-GENERIC)
 - [Consistency And CAP](/architecture/DISTRIBUTED-CONSISTENCY-CAP)
-- [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
+- [Distributed Databases](/data/DISTRIBUTED-DATABASES)
 - [Transactions And Locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md)
 - [Failure And Consensus](../reliability/DISTRIBUTED-FAILURE-CONSENSUS.md)
 

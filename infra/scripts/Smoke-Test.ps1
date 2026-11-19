@@ -22,11 +22,11 @@ if (-not $login.token) {
     throw "Login succeeded without returning a JWT token."
 }
 
-$headers = @{
+$authHeaders = @{
     Authorization = "Bearer $($login.token)"
     "X-Correlation-Id" = $correlationId
-    "Idempotency-Key" = $idempotencyKey
 }
+$headers = $authHeaders + @{ "Idempotency-Key" = $idempotencyKey }
 
 $requestBody = @{
     items = @(
@@ -50,12 +50,20 @@ $requestBody = @{
 $checkoutDeadline = [DateTimeOffset]::UtcNow.AddSeconds($TimeoutSeconds)
 do {
     try {
-        $order = Invoke-RestMethod `
+        $checkout = Invoke-RestMethod `
             -Method Post `
-            -Uri "$GatewayUrl/api/v1/orders/checkout" `
-            -Headers $headers `
+            -Uri "$GatewayUrl/api/v1/checkouts" `
+            -Headers $authHeaders `
             -ContentType "application/json" `
             -Body $requestBody `
+            -TimeoutSec 10
+        $placeOrderBody = @{ checkoutVersion = $checkout.version } | ConvertTo-Json
+        $order = Invoke-RestMethod `
+            -Method Post `
+            -Uri "$GatewayUrl/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
+            -Headers $headers `
+            -ContentType "application/json" `
+            -Body $placeOrderBody `
             -TimeoutSec 10
         break
     } catch {

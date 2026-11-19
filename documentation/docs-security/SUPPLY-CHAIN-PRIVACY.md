@@ -70,7 +70,7 @@ and evidence. Avoid exposing subject existence through authorization errors.
 
 ## Recommended Next Page
 
-Read [PII-Safe Logging](../observability/PII-SAFE-LOGGING.md), then
+Read [PII-Safe Logging](/observability/PII-SAFE-LOGGING), then
 [JVM Profiling, Garbage Collection, And Native Images](/java/JVM-PROFILING-GC-NATIVE).
 
 ## Official References

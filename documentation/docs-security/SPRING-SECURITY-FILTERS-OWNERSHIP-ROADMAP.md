@@ -167,7 +167,7 @@ Authentication alone does not authorize access to every identifier a caller
 can place in a URL. Shopverse therefore checks the persisted owner before
 returning customer Order timelines and Payment records, while administrators
 retain cross-customer access. See
-[Resource Ownership Authorization](../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md)
+[Resource Ownership Authorization](/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION)
 for the complete code flow and tests.
 
 This is stronger than checking only whether a caller has a generic read permission.

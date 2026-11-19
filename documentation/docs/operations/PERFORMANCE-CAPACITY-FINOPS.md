@@ -75,7 +75,7 @@ decisions and load-test reports.
 
 ## Recommended Next Page
 
-Continue with [Supply-Chain Security And Privacy Engineering](../security/SUPPLY-CHAIN-PRIVACY.md).
+Continue with [Supply-Chain Security And Privacy Engineering](/security/SUPPLY-CHAIN-PRIVACY).
 
 ## Official References
 

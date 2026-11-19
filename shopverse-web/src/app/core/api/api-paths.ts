@@ -17,8 +17,6 @@ export const API_PATHS = {
   },
   orders: {
     customer: '/api/v1/orders',
-    checkout: '/api/v1/orders/checkout',
-    checkoutReview: '/api/v1/orders/checkout/review',
     byId: (id: number | string) => `/api/v1/orders/${id}`,
     cancel: (id: number | string) => `/api/v1/orders/${id}/cancel`,
     timeline: (id: number | string) => `/api/v1/orders/${id}/timeline`,
@@ -29,6 +27,10 @@ export const API_PATHS = {
     adminDeliver: (id: number | string) => `/api/v1/orders/admin/${id}/deliver`,
     returnRequest: (id: number | string) => `/api/v1/orders/${id}/return-request`,
     deadLetters: '/api/v1/orders/admin/dead-letters',
+  },
+  checkouts: {
+    root: '/api/v1/checkouts',
+    placeOrder: (checkoutId: string) => `/api/v1/checkouts/${checkoutId}/place-order`,
   },
   payments: {
     admin: '/api/v1/payments/admin',

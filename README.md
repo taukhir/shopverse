@@ -333,13 +333,12 @@ contains SAGA, timeline, outbox, inventory, payment, and correlation queries.
 
 ## Checkout Example
 
-First obtain a token from `POST /auth/login`, then call:
+First obtain a token from `POST /auth/login`, then create a checkout and
+place the order from it:
 
 ```http
-POST /api/v1/orders/checkout
+POST /api/v1/checkouts
 Authorization: Bearer <token>
-Idempotency-Key: checkout-user-42-cart-9001
-X-Correlation-Id: demo-checkout-9001
 Content-Type: application/json
 
 {
@@ -361,6 +360,19 @@ Content-Type: application/json
   ]
 }
 ```
+
+```http
+POST /api/v1/checkouts/{checkoutId}/place-order
+Authorization: Bearer <token>
+Idempotency-Key: checkout-user-42-cart-9001
+X-Correlation-Id: demo-checkout-9001
+Content-Type: application/json
+
+{ "checkoutVersion": 1 }
+```
+
+See [services/order-service/README.md](services/order-service/README.md) for
+the full checkout flow and conflict semantics.
 
 The request persists Order state, the shipping snapshot, and an outbox event in
 one transaction. Kafka then drives Inventory and Payment asynchronously. Query

@@ -52,7 +52,7 @@ flowchart LR
 |---|---|
 | principles, API and service controls | this security section |
 | Spring filters, providers and method security | [Spring Security](./SPRING-SECURITY-GENERIC.md) |
-| concrete Shopverse configuration | [Platform security starter](../platform/SECURITY-STARTER.md) |
+| concrete Shopverse configuration | [Platform security starter](/platform/SECURITY-STARTER) |
 | OAuth2/OIDC protocols | [OAuth2 fundamentals](./oauth/OAUTH2-FUNDAMENTALS.md) |
 | Standards-based OAuth2 implementation | [Keycloak and Spring OAuth2](./spring-security/OAUTH2-KEYCLOAK-SPRING-IMPLEMENTATION.md) |
 | Large role and permission models | [Distributed authorization at permission scale](./spring-security/DISTRIBUTED-AUTHORIZATION-PERMISSION-SCALE.md) |

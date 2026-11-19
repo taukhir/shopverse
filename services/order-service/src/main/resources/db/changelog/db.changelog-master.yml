@@ -15,4 +15,6 @@ databaseChangeLog:
       file: db/changelog/007-remove-demo-orders.yml
   - include:
       file: db/changelog/008-order-currency.yml
+  - include:
+      file: db/changelog/009-create-checkouts-schema.yml
 
