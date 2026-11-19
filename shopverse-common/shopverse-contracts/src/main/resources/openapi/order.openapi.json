@@ -269,13 +269,13 @@
         ]
       }
     },
-    "/api/v1/orders/checkout": {
+    "/api/v1/checkouts": {
       "post": {
         "tags": [
-          "Orders"
+          "Checkouts"
         ],
-        "operationId": "checkout",
-        "summary": "checkout",
+        "operationId": "createCheckout",
+        "summary": "create Checkout",
         "security": [
           {
             "bearerAuth": []
@@ -283,7 +283,59 @@
         ],
         "responses": {
           "201": {
-            "description": "Successful response",
+            "description": "Checkout created and ready for review",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Insufficient role or resource ownership"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "503": {
+            "description": "A required service is unavailable or the bulkhead is full"
+          }
+        },
+        "description": "Requires CUSTOMER or ADMIN. Persists a priced, versioned checkout quote that expires; no order is created and no SAGA is started yet.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/checkouts/{checkoutId}/place-order": {
+      "post": {
+        "tags": [
+          "Checkouts"
+        ],
+        "operationId": "placeOrder",
+        "summary": "place Order",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Order created from the accepted checkout version; a replay with the same Idempotency-Key also returns this",
             "content": {
               "application/json": {
                 "schema": {
@@ -301,6 +353,9 @@
           "403": {
             "description": "Insufficient role or resource ownership"
           },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
           "409": {
             "$ref": "#/components/responses/Conflict"
           },
@@ -311,8 +366,16 @@
             "description": "A required service is unavailable or the bulkhead is full"
           }
         },
-        "description": "Requires CUSTOMER or ADMIN. Idempotency keys are scoped to the customer. A replay returns the original order with HTTP 201. Money remains a JSON number.",
+        "description": "Requires CUSTOMER or ADMIN. Idempotency keys are scoped to the checkout. A replay with the same key returns the original order, even after the checkout has expired. A stale checkoutVersion, an expired unplaced checkout, or reusing a different key on an already-placed checkout returns 409.",
         "parameters": [
+          {
+            "name": "checkoutId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "Idempotency-Key",
             "in": "header",
@@ -330,59 +393,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CheckoutRequest"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/orders/checkout/review": {
-      "post": {
-        "tags": [
-          "Orders"
-        ],
-        "operationId": "reviewCheckout",
-        "summary": "review Checkout",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CheckoutReviewResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "description": "Authentication required"
-          },
-          "403": {
-            "description": "Insufficient role or resource ownership"
-          },
-          "429": {
-            "description": "Rate limit exceeded"
-          },
-          "503": {
-            "description": "A required service is unavailable or the bulkhead is full"
-          }
-        },
-        "description": "Stateless quote: validates items/address and returns computed totals. No order is created, no SAGA is started, no Idempotency-Key is required.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CheckoutRequest"
+                "$ref": "#/components/schemas/PlaceOrderRequest"
               }
             }
           }
@@ -1041,9 +1052,29 @@
           }
         }
       },
-      "CheckoutReviewResponse": {
+      "CheckoutResponse": {
         "type": "object",
+        "required": [
+          "checkoutId",
+          "version",
+          "status",
+          "currency",
+          "totalAmount",
+          "expiresAt"
+        ],
         "properties": {
+          "checkoutId": {
+            "type": "string",
+            "example": "CHK-9F3A2B1C"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string",
+            "description": "READY_TO_PLACE, EXPIRED, or PLACED."
+          },
           "items": {
             "type": "array",
             "items": {
@@ -1058,11 +1089,36 @@
             ],
             "nullable": true
           },
+          "currency": {
+            "type": "string"
+          },
           "totalAmount": {
             "type": "string"
           },
-          "currency": {
-            "type": "string"
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true,
+            "description": "Set once this checkout has been placed."
+          }
+        }
+      },
+      "PlaceOrderRequest": {
+        "type": "object",
+        "required": [
+          "checkoutVersion"
+        ],
+        "properties": {
+          "checkoutVersion": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "description": "The version returned by the checkout the customer reviewed.",
+            "example": 1
           }
         }
       },
