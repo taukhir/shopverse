@@ -25,6 +25,7 @@ For the newer grouped index, start with
 | [Current Problems And Solutions](problems/CURRENT-PROBLEMS-AND-SOLUTIONS.md) | Current solved, partial, and remaining hardening items across runtime, API, frontend, Docker, and verification. |
 | [Runtime Reliability Problems](problems/RUNTIME-RELIABILITY-PROBLEMS.md) | Distributed checkout, SAGA visibility, resource ownership, reservation expiry, duplicate checkout, checkout dependency lookup scope, Kafka idempotency, payment uncertainty, and locking decisions. |
 | [Outbox Runtime Problems](problems/OUTBOX-RUNTIME-PROBLEMS.md) | Outbox database lock scope and stale outbox claim recovery. |
+| [Order Status Dead-Transition Problem](problems/ORDER-STATUS-DEAD-TRANSITION-PROBLEM.md) | A guarded SAGA state transition whose precondition is never assigned, and how far the resulting dead-state chain reaches. |
 | [Docker And Runtime Image Problems](problems/DOCKER-RUNTIME-IMAGE-PROBLEMS.md) | Parallel Gradle cache locks, duplicate JAR ownership layers, non-root containers, and multi-stage runtime image composition. |
 | [Dependency And Verification Problems](problems/DEPENDENCY-VERIFICATION-PROBLEMS.md) | Inventory outage semantics, bounded verification, Windows health probes, and isolated Config Server tracing noise. |
 | [Build, JAR, Docker, And Compose Optimization Solutions](problems/OPTIMIZATION-SOLUTIONS.md) | Umbrella plan, baseline measurements, and deep-dive solution pages for fixing Docker builds, reducing test time, shrinking images/JARs, and adding Compose profiles. |

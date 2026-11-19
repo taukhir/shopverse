@@ -6,7 +6,7 @@ import {walkAllDocs} from './lib/doc-roots.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const docs=await walkAllDocs();
-const topics={java:'Java',spring:'Spring',development:'Engineering',operations:'Operations',architecture:'Architecture',data:'Data',security:'Security',observability:'Observability',cloud:'Cloud',ai:'AI',reliability:'Reliability',integration:'Integration','data-structures':'Data Structures','case-study':'Shopverse'};
+const topics={java:'Java',spring:'Spring',development:'Engineering',operations:'Operations',architecture:'Architecture',data:'Data',security:'Security',observability:'Observability',cloud:'Cloud',ai:'AI',reliability:'Reliability',integration:'Integration','data-structures':'Data Structures','case-study':'Shopverse',mycheckout:'mycheckout'};
 const catalog=[];
 for(const {file,id} of docs){
   const source=await readFile(file,'utf8'); const parsed=matter(source); const data=parsed.data;

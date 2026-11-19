@@ -31,7 +31,8 @@ Order Service runs on port `8083`. It owns checkout, order state, customer owner
 | `GET` | `/api/v1/orders` | current customer |
 | `GET` | `/api/v1/orders/{id}` | owner or admin |
 | `GET` | `/api/v1/orders/{id}/timeline` | owner or admin |
-| `POST` | `/api/v1/orders/checkout` | authenticated |
+| `POST` | `/api/v1/checkouts` | authenticated |
+| `POST` | `/api/v1/checkouts/{checkoutId}/place-order` | authenticated |
 | `POST` | `/api/v1/orders/{id}/cancel` | owner |
 | `POST` | `/api/v1/orders/{id}/return-request` | owner |
 | `DELETE` | `/api/v1/orders/{id}` | admin |
@@ -44,13 +45,13 @@ Order Service runs on port `8083`. It owns checkout, order state, customer owner
 | `GET` | `/api/v1/orders/admin/dead-letters` | admin |
 | `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | admin |
 
-Checkout:
+Checkout is a two-step flow: create a priced, versioned, expiring checkout
+for review, then place the order from the exact version the customer
+reviewed.
 
 ```http
-POST /api/v1/orders/checkout
+POST /api/v1/checkouts
 Authorization: Bearer <token>
-Idempotency-Key: checkout-user-42-cart-9001
-X-Correlation-Id: demo-checkout-9001
 Content-Type: application/json
 
 {
@@ -70,9 +71,30 @@ Content-Type: application/json
 }
 ```
 
-Current validation allows one item. The shipping address is stored as an
-immutable snapshot on the Order so later account-address edits do not alter
-historical order records.
+Returns a `checkoutId`, a `version` (currently always `1` — there is no
+re-price/update step yet), computed totals, and an `expiresAt`. No order is
+created and no SAGA starts at this point.
+
+```http
+POST /api/v1/checkouts/{checkoutId}/place-order
+Authorization: Bearer <token>
+Idempotency-Key: checkout-user-42-cart-9001
+X-Correlation-Id: demo-checkout-9001
+Content-Type: application/json
+
+{ "checkoutVersion": 1 }
+```
+
+Placing the order re-validates the checkout's version and expiry, then
+creates the Order from the checkout's item/address snapshot and starts the
+choreography SAGA exactly as before. A replay with the same `Idempotency-Key`
+returns the original order, even past expiry; a stale `checkoutVersion`, an
+expired unplaced checkout, or reusing a different key on an already-placed
+checkout returns `409`.
+
+Current validation allows one item per checkout. The shipping address is
+stored as an immutable snapshot on the Order so later account-address edits
+do not alter historical order records.
 
 Fulfillment transitions:
 

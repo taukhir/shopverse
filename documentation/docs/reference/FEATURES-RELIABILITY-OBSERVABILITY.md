@@ -17,6 +17,19 @@ review_evidence: repository-content-audit
 
 <DocLabels items={[{label: 'Advanced', tone: 'advanced'}, {label: 'Shopverse', tone: 'shopverse'}, {label: 'Production', tone: 'production'}]} />
 
+| Capability | Purpose |
+|---|---|
+| Transactional Outbox | Prevent a committed domain change from losing its outgoing event |
+| Inventory Reservation And Overselling Prevention | Hold stock during payment and reject concurrent stale updates |
+| Reservation Expiry And Compensation | Release abandoned reservations instead of holding stock indefinitely |
+| Payment Outcomes | Exercise success, decline, timeout/reconciliation, and refund paths |
+| Kafka Retry, DLT, And Replay | Isolate records that still fail after bounded retries and retain operator audit |
+| Structured Logging And Correlation | Search one business journey across services |
+| Metrics, Dashboards, And Alerts | Detect aggregate health and business failures without searching individual logs |
+| Distributed Tracing | Inspect service/span relationships and latency for one technical execution |
+| Resilience4j | Bound concurrency, admission, retries, and repeated dependency failure |
+| Database Migrations And Auditing | Reproduce schemas and retain creation/update history |
+
 ## Transactional Outbox
 
 **Purpose:** prevent a committed domain change from losing its outgoing event.
@@ -82,6 +95,18 @@ Payment states include:
 ```text
 PENDING, AUTHORIZED, CAPTURED, DECLINED, TIMED_OUT, REFUNDED
 ```
+
+:::note BUG-013 fixed 2026-11-17 — Order-side steps below are reachable again
+The dead `OrderStatus.PENDING_INVENTORY` assignment that made 9 of 14
+`OrderStatus` values unreachable is fixed: `OrderEntity.markPendingInventory()`
+is now called in `checkout()` right after the `ORDER_CREATED` timeline
+append, same transaction as the outbox enqueue. Verified via
+`OrderServiceImplTest`'s new proving tests (unit-level — Docker was
+unavailable locally to run the Testcontainers integration suite; confirm
+on next CI run before treating this as fully closed in a real
+environment). Full root-cause and fix writeup:
+[Order Status Dead-Transition Problem](../reliability/problems/ORDER-STATUS-DEAD-TRANSITION-PROBLEM.md).
+:::
 
 ### Success
 

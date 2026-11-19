@@ -3,6 +3,270 @@ const sidebars: SidebarsConfig = {
   docsSidebar: [
     'README',
     'DOCUMENTATION-INDEX',
+    // BEGIN MYCHECKOUT IMPORT
+    {
+      'type': 'category',
+      'label': 'mycheckout',
+      'link': {
+        'type': 'doc',
+        'id': 'mycheckout/overview'
+      },
+      'collapsed': true,
+      'items': [
+        'mycheckout/overview',
+        {
+          'type': 'category',
+          'label': 'Architecture and platform',
+          'items': [
+            'mycheckout/api-and-event-catalog',
+            'mycheckout/coverage-audit',
+            {
+              'type': 'category',
+              'label': 'NextGen Commerce: End-to-End System Guide',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/end-to-end-system/part-1'
+              },
+              'items': [
+                'mycheckout/end-to-end-system/part-1',
+                'mycheckout/end-to-end-system/part-2',
+                'mycheckout/end-to-end-system/part-3',
+                'mycheckout/end-to-end-system/part-4',
+                'mycheckout/end-to-end-system/part-5',
+                'mycheckout/end-to-end-system/part-6'
+              ]
+            },
+            'mycheckout/architecture/readme',
+            'mycheckout/architecture/recheck-notes'
+          ]
+        },
+        {
+          'type': 'category',
+          'label': 'Checkout and payment flows',
+          'items': [
+            {
+              'type': 'category',
+              'label': 'Create Checkout — Complete Flow',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/create-checkout-flow/part-1'
+              },
+              'items': [
+                'mycheckout/create-checkout-flow/part-1',
+                'mycheckout/create-checkout-flow/part-2'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Checkout Payment and CDC Complete Flow',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/payment-cdc-sequence-guide/part-1'
+              },
+              'items': [
+                'mycheckout/payment-cdc-sequence-guide/part-1',
+                'mycheckout/payment-cdc-sequence-guide/part-2',
+                'mycheckout/payment-cdc-sequence-guide/part-3'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Place Order — Complete Flow',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/place-order-flow/part-1'
+              },
+              'items': [
+                'mycheckout/place-order-flow/part-1',
+                'mycheckout/place-order-flow/part-2',
+                'mycheckout/place-order-flow/part-3'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Guest checkout: end-to-end flow',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/guest-checkout-flow/part-1'
+              },
+              'items': [
+                'mycheckout/guest-checkout-flow/part-1',
+                'mycheckout/guest-checkout-flow/part-2',
+                'mycheckout/guest-checkout-flow/part-3',
+                'mycheckout/guest-checkout-flow/part-4',
+                'mycheckout/guest-checkout-flow/part-5',
+                'mycheckout/guest-checkout-flow/part-6'
+              ]
+            }
+          ]
+        },
+        {
+          'type': 'category',
+          'label': 'Fulfillment',
+          'items': [
+            {
+              'type': 'category',
+              'label': 'Fulfilment',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfilment-understanding-notes/part-1'
+              },
+              'items': [
+                'mycheckout/fulfilment-understanding-notes/part-1',
+                'mycheckout/fulfilment-understanding-notes/part-2'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Fulfillment API catalog',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfillment-docs/fulfillment-api-catalog/part-1'
+              },
+              'items': [
+                'mycheckout/fulfillment-docs/fulfillment-api-catalog/part-1',
+                'mycheckout/fulfillment-docs/fulfillment-api-catalog/part-2',
+                'mycheckout/fulfillment-docs/fulfillment-api-catalog/part-3',
+                'mycheckout/fulfillment-docs/fulfillment-api-catalog/part-4',
+                'mycheckout/fulfillment-docs/fulfillment-api-catalog/part-5'
+              ]
+            },
+            'mycheckout/fulfillment-docs/fulfillment-bug-context',
+            {
+              'type': 'category',
+              'label': 'Completeness check',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfillment-docs/fulfillment-complete-context/part-1'
+              },
+              'items': [
+                'mycheckout/fulfillment-docs/fulfillment-complete-context/part-1',
+                'mycheckout/fulfillment-docs/fulfillment-complete-context/part-2'
+              ]
+            },
+            'mycheckout/fulfillment-docs/fulfillment-configuration-catalog',
+            {
+              'type': 'category',
+              'label': 'Fulfillment: End-to-End Guide',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfillment-docs/fulfillment-end-to-end/part-1'
+              },
+              'items': [
+                'mycheckout/fulfillment-docs/fulfillment-end-to-end/part-1',
+                'mycheckout/fulfillment-docs/fulfillment-end-to-end/part-2',
+                'mycheckout/fulfillment-docs/fulfillment-end-to-end/part-3',
+                'mycheckout/fulfillment-docs/fulfillment-end-to-end/part-4',
+                'mycheckout/fulfillment-docs/fulfillment-end-to-end/part-5',
+                'mycheckout/fulfillment-docs/fulfillment-end-to-end/part-6'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Fulfillment: Interview Prep Guide',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfillment-docs/fulfillment-interview-prep/part-1'
+              },
+              'items': [
+                'mycheckout/fulfillment-docs/fulfillment-interview-prep/part-1',
+                'mycheckout/fulfillment-docs/fulfillment-interview-prep/part-2',
+                'mycheckout/fulfillment-docs/fulfillment-interview-prep/part-3'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Redis and Delivery Fee: Deep Dive',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfillment-docs/fulfillment-redis-and-delivery-fee/part-1'
+              },
+              'items': [
+                'mycheckout/fulfillment-docs/fulfillment-redis-and-delivery-fee/part-1',
+                'mycheckout/fulfillment-docs/fulfillment-redis-and-delivery-fee/part-2'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Fulfillment reverse-engineering reference',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfillment-docs/fulfillment-reverse-engineering/part-1'
+              },
+              'items': [
+                'mycheckout/fulfillment-docs/fulfillment-reverse-engineering/part-1',
+                'mycheckout/fulfillment-docs/fulfillment-reverse-engineering/part-2'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Fulfillment source evidence index',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfillment-docs/fulfillment-source-index/part-1'
+              },
+              'items': [
+                'mycheckout/fulfillment-docs/fulfillment-source-index/part-1',
+                'mycheckout/fulfillment-docs/fulfillment-source-index/part-2',
+                'mycheckout/fulfillment-docs/fulfillment-source-index/part-3'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Fulfilment Engineering Reference',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-1'
+              },
+              'items': [
+                'mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-1',
+                'mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-2',
+                'mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-3',
+                'mycheckout/fulfillment-docs/fulfilment-understanding-notes/part-4'
+              ]
+            },
+            'mycheckout/fulfillment-docs/readme',
+            'mycheckout/fulfillment-docs/fulfillment-availability-issue-fix'
+          ]
+        },
+        {
+          'type': 'category',
+          'label': 'Interview preparation',
+          'items': [
+            {
+              'type': 'category',
+              'label': 'AWS Interview Preparation for Checkout',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/aws-interview-prep/part-1'
+              },
+              'items': [
+                'mycheckout/aws-interview-prep/part-1',
+                'mycheckout/aws-interview-prep/part-2'
+              ]
+            },
+            {
+              'type': 'category',
+              'label': 'Checkout Platform: Interview Preparation',
+              'link': {
+                'type': 'doc',
+                'id': 'mycheckout/interview-prep/part-1'
+              },
+              'items': [
+                'mycheckout/interview-prep/part-1',
+                'mycheckout/interview-prep/part-2',
+                'mycheckout/interview-prep/part-3',
+                'mycheckout/interview-prep/part-4',
+                'mycheckout/interview-prep/part-5',
+                'mycheckout/interview-prep/part-6',
+                'mycheckout/interview-prep/part-7'
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    // END MYCHECKOUT IMPORT
     {
       type: 'category',
       label: 'Interview Questionnaires',
@@ -1014,6 +1278,7 @@ const sidebars: SidebarsConfig = {
               ],
             },
             'reliability/problems/OUTBOX-RUNTIME-PROBLEMS',
+            'reliability/problems/ORDER-STATUS-DEAD-TRANSITION-PROBLEM',
             'reliability/problems/DOCKER-RUNTIME-IMAGE-PROBLEMS',
             'reliability/problems/DEPENDENCY-VERIFICATION-PROBLEMS',
             {

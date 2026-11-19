@@ -30,6 +30,31 @@ npm start
 
 Open `http://localhost:3000/shopverse/`.
 
+## mycheckout documentation
+
+The **mycheckout** navbar and sidebar section starts at
+`/shopverse/mycheckout/overview`. Its checked-in pages and assets are a snapshot
+of the separate checkout project's documentation; normal builds do not require
+that project to exist on the build machine.
+
+To refresh the snapshot explicitly:
+
+```powershell
+npm run import:mycheckout -- "D:\BE Projects\checkout\docs"
+npm run check:fast
+npm run check:language
+npm run build
+```
+
+The importer splits long guides into linked parts, maps original heading links,
+copies selected diagram/document assets and updates the mycheckout sidebar.
+`mycheckout-import-manifest.json` records source hashes, generated pages, assets
+and local or stale references that could not become website links. Source code
+references remain readable annotations when their files are outside the site.
+Chat history, private shortcuts, raw dumps, generators and temporary previews
+are excluded. Historical notes retain their original dates; import validation
+does not reverify application behavior. Package/hostname examples are anonymized.
+
 ## Production Build
 
 ```powershell
