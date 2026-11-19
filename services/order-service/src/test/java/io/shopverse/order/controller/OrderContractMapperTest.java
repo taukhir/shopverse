@@ -3,7 +3,7 @@ package io.shopverse.order.controller;
 import io.shopverse.contracts.order.CheckoutItemRequest;
 import io.shopverse.contracts.order.CheckoutRequest;
 import io.shopverse.contracts.order.ShippingAddressRequest;
-import io.shopverse.order.dto.CheckoutReviewResponse;
+import io.shopverse.order.dto.CheckoutResponse;
 import io.shopverse.order.dto.OrderItemResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.ShippingAddressResponse;
@@ -76,23 +76,36 @@ class OrderContractMapperTest {
     }
 
     @Test
-    void reviewMappingPreservesItemsAddressTotalAndCurrency() {
-        var review = new CheckoutReviewResponse(
+    void checkoutResponseMappingPreservesItemsAddressVersionStatusAndExpiry() {
+        Instant expiresAt = Instant.parse("2026-11-17T12:49:56.123456Z");
+        var checkout = new CheckoutResponse("CHK-TEST", 1L, "READY_TO_PLACE",
                 List.of(new OrderItemResponse(101L, "Test Product", 2, new BigDecimal("19.90"))),
                 new ShippingAddressResponse("Test Customer", "+919876543210", "12 Test Road",
                         "Unit 4", "Bengaluru", "Karnataka", "560001", "IN"),
-                new BigDecimal("39.80"), "INR");
+                "INR", new BigDecimal("39.80"), expiresAt, null);
 
-        var result = mapper.toContract(review);
+        var result = mapper.toContract(checkout);
 
+        assertThat(result.getCheckoutId()).isEqualTo("CHK-TEST");
+        assertThat(result.getVersion()).isEqualTo(1L);
+        assertThat(result.getStatus()).isEqualTo("READY_TO_PLACE");
         assertThat(result.getTotalAmount()).isEqualTo("39.80");
         assertThat(result.getCurrency()).isEqualTo("INR");
+        assertThat(result.getExpiresAt()).isEqualTo(expiresAt);
+        assertThat(result.getOrderId()).isNull();
         assertThat(result.getShippingAddress()).usingRecursiveComparison()
-                .isEqualTo(review.shippingAddress());
+                .isEqualTo(checkout.shippingAddress());
         var resultItem = Objects.requireNonNull(result.getItems()).getFirst();
         assertThat(resultItem.getProductId()).isEqualTo(101L);
         assertThat(resultItem.getQuantity()).isEqualTo(2);
         assertThat(resultItem.getUnitPrice()).isEqualTo("19.90");
+    }
+
+    @Test
+    void placeOrderRequestMappingPreservesCheckoutVersion() {
+        var result = mapper.toApplication(new io.shopverse.contracts.order.PlaceOrderRequest(3L));
+
+        assertThat(result.checkoutVersion()).isEqualTo(3L);
     }
 
     @Test

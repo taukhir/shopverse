@@ -2,10 +2,11 @@ package io.shopverse.order.controller;
 
 import io.shopverse.contracts.order.CatalogItemResponse;
 import io.shopverse.contracts.order.CheckoutRequest;
-import io.shopverse.contracts.order.CheckoutReviewResponse;
+import io.shopverse.contracts.order.CheckoutResponse;
 import io.shopverse.contracts.order.OrderItemResponse;
 import io.shopverse.contracts.order.OrderResponse;
 import io.shopverse.contracts.order.OrderTimelineResponse;
+import io.shopverse.contracts.order.PlaceOrderRequest;
 import io.shopverse.contracts.order.ShippingAddressResponse;
 import java.math.BigDecimal;
 import org.mapstruct.Mapper;
@@ -21,13 +22,15 @@ public interface OrderContractMapper {
 
     io.shopverse.order.dto.CheckoutRequest toApplication(CheckoutRequest request);
 
+    io.shopverse.order.dto.PlaceOrderRequest toApplication(PlaceOrderRequest request);
+
     ShippingAddressResponse toContract(io.shopverse.order.dto.ShippingAddressResponse value);
 
     OrderItemResponse toContract(io.shopverse.order.dto.OrderItemResponse value);
 
     OrderResponse toContract(io.shopverse.order.dto.OrderResponse value);
 
-    CheckoutReviewResponse toContract(io.shopverse.order.dto.CheckoutReviewResponse value);
+    CheckoutResponse toContract(io.shopverse.order.dto.CheckoutResponse value);
 
     OrderTimelineResponse toContract(io.shopverse.order.dto.OrderTimelineResponse value);
 

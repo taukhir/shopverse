@@ -1,0 +1,131 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-create-checkouts
+      author: tauqeer
+      changes:
+        - createTable:
+            tableName: checkouts
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: checkout_number
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: customer_username
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: version
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: VARCHAR(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_amount
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: shipping_recipient_name
+                  type: VARCHAR(160)
+              - column:
+                  name: shipping_phone_number
+                  type: VARCHAR(20)
+              - column:
+                  name: shipping_line1
+                  type: VARCHAR(220)
+              - column:
+                  name: shipping_line2
+                  type: VARCHAR(220)
+              - column:
+                  name: shipping_city
+                  type: VARCHAR(100)
+              - column:
+                  name: shipping_state
+                  type: VARCHAR(100)
+              - column:
+                  name: shipping_postal_code
+                  type: VARCHAR(30)
+              - column:
+                  name: shipping_country
+                  type: VARCHAR(100)
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP(6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: BIGINT
+              - column:
+                  name: idempotency_key
+                  type: VARCHAR(100)
+              - column:
+                  name: placed_at
+                  type: TIMESTAMP(6)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP(6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP(6)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: checkout_items
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: checkout_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_name
+                  type: VARCHAR(160)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: unit_price
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: checkout_items
+            baseColumnNames: checkout_id
+            referencedTableName: checkouts
+            referencedColumnNames: id
+            constraintName: fk_checkout_items_checkout
+            onDelete: CASCADE

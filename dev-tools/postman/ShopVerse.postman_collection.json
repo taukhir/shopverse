@@ -905,7 +905,50 @@
           ]
         },
         {
-          "name": "Checkout",
+          "name": "Create checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Correlation-Id",
+                "value": "{{correlationId}}"
+              }
+            ],
+            "url": "{{gatewayUrl}}/api/v1/checkouts",
+            "description": "Persists a priced, versioned, expiring checkout quote for review. No order is created and no SAGA is started yet.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"quantity\": 1\n    }\n  ],\n  \"shippingAddress\": {\n    \"recipientName\": \"Postman Customer\",\n    \"phoneNumber\": \"+919876543210\",\n    \"line1\": \"42 Commerce Street\",\n    \"line2\": \"\",\n    \"city\": \"Bengaluru\",\n    \"state\": \"Karnataka\",\n    \"postalCode\": \"560001\",\n    \"country\": \"India\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is one of 201\", () => pm.expect([201]).to.include(pm.response.code));",
+                  "pm.test(\"Correlation header is present\", () => { if (pm.response.headers.has('X-Correlation-Id')) pm.expect(pm.response.headers.get('X-Correlation-Id')).to.not.be.empty; });",
+                  "const body = pm.response.json();",
+                  "if (body.checkoutId) pm.environment.set('checkoutId', body.checkoutId);",
+                  "if (body.version != null) pm.environment.set('checkoutVersion', String(body.version));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Place order",
           "request": {
             "method": "POST",
             "header": [
@@ -922,11 +965,11 @@
                 "value": "{{correlationId}}"
               }
             ],
-            "url": "{{gatewayUrl}}/api/v1/orders/checkout",
-            "description": "Creates an idempotent checkout and starts the Kafka choreography. Reuse the same Idempotency-Key for retries of the same checkout.",
+            "url": "{{gatewayUrl}}/api/v1/checkouts/{{checkoutId}}/place-order",
+            "description": "Places the order from the checkout version reviewed above and starts the Kafka choreography. Reuse the same Idempotency-Key for retries of the same placement.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"items\": [\n    {\n      \"productId\": \"{{productId}}\",\n      \"quantity\": 1\n    }\n  ],\n  \"shippingAddress\": {\n    \"recipientName\": \"Postman Customer\",\n    \"phoneNumber\": \"+919876543210\",\n    \"line1\": \"42 Commerce Street\",\n    \"line2\": \"\",\n    \"city\": \"Bengaluru\",\n    \"state\": \"Karnataka\",\n    \"postalCode\": \"560001\",\n    \"country\": \"India\"\n  }\n}",
+              "raw": "{\n  \"checkoutVersion\": \"{{checkoutVersion}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
