@@ -69,6 +69,31 @@ function remarkGlossaryLinks() {
   };
 }
 
+// Two unrelated a11y gaps that recur across hand-written markdown tables and
+// task lists, fixed once here instead of page by page:
+// - GFM task-list checkboxes (`- [ ] text`) render as disabled, unlabelled
+//   <input type="checkbox">. They're status indicators, not real form
+//   controls, so axe's "label" rule flags them; aria-hidden removes them
+//   from the accessibility tree while the task text itself stays readable.
+// - A wide table that overflows its container scrolls horizontally but
+//   isn't keyboard-reachable (axe's "scrollable-region-focusable"); a
+//   tabindex makes every table keyboard-focusable whether or not it
+//   actually needs to scroll, which is harmless for the ones that don't.
+function rehypeMarkdownA11yFixes() {
+  return (tree: any) => {
+    const walk = (node: any) => {
+      if (node.tagName === 'input' && node.properties?.type === 'checkbox' && node.properties?.disabled) {
+        node.properties.ariaHidden = 'true';
+      }
+      if (node.tagName === 'table' && node.properties?.tabIndex === undefined) {
+        node.properties = {...node.properties, tabIndex: 0};
+      }
+      for (const child of node.children ?? []) walk(child);
+    };
+    walk(tree);
+  };
+}
+
 const config: Config = {
   title: 'Backend Engineering Knowledge Base',
   tagline: 'Study material, production patterns, and the Shopverse case study',
@@ -146,6 +171,7 @@ const config: Config = {
         path: 'docs-spring',
         routeBasePath: 'spring',
         remarkPlugins: [remarkGlossaryLinks],
+        rehypePlugins: [rehypeMarkdownA11yFixes],
         showLastUpdateAuthor: false,
         showLastUpdateTime: false,
         editUrl: ({docPath}: {docPath: string}) =>
@@ -159,6 +185,7 @@ const config: Config = {
         path: 'docs-java',
         routeBasePath: 'java',
         remarkPlugins: [remarkGlossaryLinks],
+        rehypePlugins: [rehypeMarkdownA11yFixes],
         showLastUpdateAuthor: false,
         showLastUpdateTime: false,
         editUrl: ({docPath}: {docPath: string}) =>
@@ -172,6 +199,7 @@ const config: Config = {
         path: 'docs-architecture',
         routeBasePath: 'architecture',
         remarkPlugins: [remarkGlossaryLinks],
+        rehypePlugins: [rehypeMarkdownA11yFixes],
         showLastUpdateAuthor: false,
         showLastUpdateTime: false,
         editUrl: ({docPath}: {docPath: string}) =>
@@ -189,6 +217,7 @@ const config: Config = {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           remarkPlugins: [remarkGlossaryLinks],
+          rehypePlugins: [rehypeMarkdownA11yFixes],
           // Git-derived dates are unreliable for local and newly generated pages.
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,

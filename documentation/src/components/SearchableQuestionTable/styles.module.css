@@ -50,7 +50,7 @@
 .sortButton:focus-visible { border-radius: 5px; box-shadow: 0 0 0 2px color-mix(in srgb, var(--ifm-color-primary) 35%, transparent); outline: 0; }
 .sortButton svg { height: 13px; width: 13px; }
 .tableViewport td { padding: 0.65rem; vertical-align: top; }
-.tableViewport th:first-child, .tableViewport td:first-child { color: var(--ifm-color-emphasis-600); text-align: right; width: 42px; }
+.tableViewport th:first-child, .tableViewport td:first-child { color: var(--ifm-color-emphasis-700); text-align: right; width: 42px; }
 .tableViewport th:nth-child(2), .tableViewport td:nth-child(2) { width: 68px; }
 .tableViewport th:nth-child(3), .tableViewport td:nth-child(3) { width: 235px; }
 .tableViewport tbody tr:last-child td { border-bottom: 0; }
