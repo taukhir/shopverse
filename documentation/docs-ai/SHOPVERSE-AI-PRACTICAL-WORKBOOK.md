@@ -245,7 +245,7 @@ until the migration and compatibility strategy are approved.
 - a failed transaction does not permanently suppress a valid retry;
 - metrics distinguish processed, duplicate, failed, and replayed messages.
 
-Compare your answer with the [Inbox Pattern](../reliability/INBOX-PATTERN.md)
+Compare your answer with the [Inbox Pattern](/reliability/INBOX-PATTERN)
 before approving implementation.
 
 ## Lab 5: Diagnose And Improve Performance
@@ -569,6 +569,6 @@ the evidence record and rubric score matters more than completing more prompts.
 - [AI Security And Prompt-Injection Playbook](./AI-SECURITY-PROMPT-INJECTION-PLAYBOOK.md)
 - [AI Development Interview Workbook](./AI-DEVELOPMENT-INTERVIEW-WORKBOOK.md)
 - [ShopVerse Retail Domain Architecture](/architecture/retail/RETAIL-DOMAIN-ARCHITECTURE)
-- [Saga And Transactional Outbox](../reliability/SAGA-OUTBOX.md)
-- [Inbox Pattern](../reliability/INBOX-PATTERN.md)
-- [Complete Demo Setup And Checkout](../case-study/COMPLETE-DEMO-SETUP-CHECKOUT.mdx)
+- [Saga And Transactional Outbox](/reliability/SAGA-OUTBOX)
+- [Inbox Pattern](/reliability/INBOX-PATTERN)
+- [Complete Demo Setup And Checkout](/case-study/COMPLETE-DEMO-SETUP-CHECKOUT)

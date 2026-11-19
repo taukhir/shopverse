@@ -57,4 +57,4 @@ Within **Resource Ownership Authorization**, apply the Shopverse guidance increm
 
 ## Recommended Next Page
 
-Continue with [JWT And Spring Security](../../../security/JWT-OAUTH2-SPRING-SECURITY.md).
+Continue with [JWT And Spring Security](/security/JWT-OAUTH2-SPRING-SECURITY).

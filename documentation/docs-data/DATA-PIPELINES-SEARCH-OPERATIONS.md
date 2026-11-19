@@ -73,7 +73,7 @@ deletion against authoritative data.
 
 ## Recommended Next Page
 
-Continue with [SRE, Disaster Recovery, And Chaos Engineering](../operations/SRE-DR-CHAOS.md).
+Continue with [SRE, Disaster Recovery, And Chaos Engineering](/operations/SRE-DR-CHAOS).
 
 ## Official References
 

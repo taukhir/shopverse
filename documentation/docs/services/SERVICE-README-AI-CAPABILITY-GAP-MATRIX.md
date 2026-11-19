@@ -91,6 +91,6 @@ not infer runtime AI readiness from the developer workflow assets.
 
 - [Service README Index](./SERVICE-README-INDEX.md)
 - [Shopverse Service Catalog](./SERVICE-CATALOG.md)
-- [AI Context Engineering](../ai/AI-CONTEXT-ENGINEERING-GUIDE.md)
-- [AI Evaluation, Cost, And Productivity Metrics](../ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS.md)
-- [Shopverse AI Practical Workbook](../ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK.md)
+- [AI Context Engineering](/ai/AI-CONTEXT-ENGINEERING-GUIDE)
+- [AI Evaluation, Cost, And Productivity Metrics](/ai/AI-EVALUATION-COST-PRODUCTIVITY-METRICS)
+- [Shopverse AI Practical Workbook](/ai/SHOPVERSE-AI-PRACTICAL-WORKBOOK)

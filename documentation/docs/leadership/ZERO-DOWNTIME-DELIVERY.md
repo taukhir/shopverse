@@ -284,7 +284,7 @@ and jobs—not only container versions.
 ## Related Guides
 
 - [API And Event Compatibility](/architecture/API-EVENT-COMPATIBILITY)
-- [Database Migrations And Operations](../data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md)
+- [Database Migrations And Operations](/data/database-selection/DATABASE-MIGRATIONS-OPERATIONS)
 - [Kubernetes Workload Engineering](../operations/KUBERNETES-WORKLOAD-ENGINEERING.md)
 - [Production Lifecycle](/spring/internals-production/PRODUCTION-LIFECYCLE)
 

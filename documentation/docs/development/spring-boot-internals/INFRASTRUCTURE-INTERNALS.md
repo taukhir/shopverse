@@ -46,7 +46,7 @@ the connection, queue, thread, offset, or lifecycle state.
 | Concern | Canonical guide |
 |---|---|
 | container startup, bean creation, and auto-configuration | [Spring Container Runtime For Architects](/spring/SPRING-CONTAINER-ARCHITECT) |
-| Liquibase migration ownership | [Liquibase](../../data/LIQUIBASE-GENERIC.md) |
+| Liquibase migration ownership | [Liquibase](/data/LIQUIBASE-GENERIC) |
 | cache proxy and production policy | [Spring Cache](/spring/SPRING-CACHE) |
 | Actuator, readiness, drain, and incidents | [Production Lifecycle Runbook](/spring/internals-production/PRODUCTION-LIFECYCLE) |
 | Config Client and discovery | [Spring Ecosystem](/spring/SPRING-ECOSYSTEM) |

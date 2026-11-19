@@ -146,7 +146,7 @@ This prevents an authenticated customer from changing an Order ID or order
 number in a URL to read another customer's timeline or Payment record. The
 complete Shopverse threat model, controller expressions, authorization beans,
 repository queries, request flow, outcomes, and tests are documented in
-[Resource Ownership Authorization](../../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md).
+[Resource Ownership Authorization](/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION).
 
 ### Policy Engines
 
