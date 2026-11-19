@@ -288,7 +288,7 @@ Look for these outcomes:
 - [Engineering Principles](../development/ENGINEERING-PRINCIPLES.md)
 - [Production Design Principles](../development/PRODUCTION-DESIGN-PRINCIPLES.md)
 - [Architecture Decisions And Disagreements](./ARCHITECTURE-DECISIONS-AND-DISAGREEMENTS.md)
-- [Supply-Chain Security And Privacy](../security/SUPPLY-CHAIN-PRIVACY.md)
+- [Supply-Chain Security And Privacy](/security/SUPPLY-CHAIN-PRIVACY)
 
 ## Official References
 

@@ -246,5 +246,5 @@ See [Distributed Locks And Fencing](locking/DISTRIBUTED-LOCKS-AND-FENCING.md#fen
 
 - [Spring Transactions](/spring/SPRING-TRANSACTIONS)
 - [SAGA And Outbox](SAGA-GENERIC.md)
-- [Distributed Databases](../data/DISTRIBUTED-DATABASES.md)
+- [Distributed Databases](/data/DISTRIBUTED-DATABASES)
 - [Caching Principles](/architecture/CACHING-GENERIC)

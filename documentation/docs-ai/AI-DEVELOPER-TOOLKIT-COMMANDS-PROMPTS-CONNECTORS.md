@@ -420,5 +420,5 @@ dimensions:
 - [AI-Assisted SDLC And Developer Productivity](./AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY.md)
 - [Prompt Engineering And Structured Output](./PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md)
 - [AI Security And Guardrails](./AI-SECURITY-GUARDRAILS.md)
-- [Testing Architecture And Coverage](../development/TESTING-ARCHITECTURE-COVERAGE.md)
-- [Production Performance And Availability](../leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY.md)
+- [Testing Architecture And Coverage](/development/TESTING-ARCHITECTURE-COVERAGE)
+- [Production Performance And Availability](/leadership/PRODUCTION-PERFORMANCE-AND-AVAILABILITY)

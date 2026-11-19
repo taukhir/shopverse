@@ -90,7 +90,7 @@ domain transitions, not automatic entity binding.
 
 ## Related Guides
 
-- [Spring REST APIs](../../development/SPRING-REST-APIS.md)
+- [Spring REST APIs](/development/SPRING-REST-APIS)
 - [Spring Security servlet filter chain](../spring-security/SERVLET-FILTER-CHAIN.md)
 - [Secrets and credentials](SECRETS-AND-CREDENTIALS.md)
 

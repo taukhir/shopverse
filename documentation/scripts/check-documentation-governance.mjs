@@ -20,6 +20,9 @@ const focusRoots = [
   path.join(documentationDir, 'docs-spring'),
   path.join(documentationDir, 'docs-java'),
   path.join(documentationDir, 'docs-architecture'),
+  path.join(documentationDir, 'docs-data'),
+  path.join(documentationDir, 'docs-ai'),
+  path.join(documentationDir, 'docs-security'),
 ];
 const focusFiles = [];
 const requiredRegistrationRoots = [

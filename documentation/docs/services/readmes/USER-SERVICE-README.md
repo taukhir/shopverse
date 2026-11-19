@@ -199,9 +199,9 @@ allow/deny coverage remains required in the service test suite.
 
 ## Related Guides
 
-- [JWT and Spring Security](../../security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Generic Spring Security](../../security/SPRING-SECURITY-GENERIC.md)
-- [Liquibase](../../data/LIQUIBASE-GENERIC.md)
+- [JWT and Spring Security](https://github.com/taukhir/shopverse/blob/main/documentation/docs-security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Generic Spring Security](https://github.com/taukhir/shopverse/blob/main/documentation/docs-security/SPRING-SECURITY-GENERIC.md)
+- [Liquibase](https://github.com/taukhir/shopverse/blob/main/documentation/docs-data/LIQUIBASE-GENERIC.md)
 - [Shopverse Resilience4j](../../reliability/RESILIENCE4J.md)
 - [Generic Resilience4j patterns](../../reliability/RESILIENCE4J-GENERIC.md)
 - [Spring Resilience4j](https://github.com/taukhir/shopverse/blob/main/documentation/docs-spring/SPRING-RESILIENCE4J.md)

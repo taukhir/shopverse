@@ -79,16 +79,16 @@ Use these tracks when you do not want to read the full path linearly.
 | Microservices | [Microservices and distributed systems](/architecture/MICROSERVICES-DISTRIBUTED-SYSTEMS) -> [API Gateway](../development/API-GATEWAY-GENERIC.md) -> [Service discovery](/architecture/SERVICE-DISCOVERY) -> [Spring Cloud OpenFeign](/spring/SPRING-OPENFEIGN) -> [Spring Kafka](/spring/SPRING-KAFKA) |
 | Reliability | [Distributed transactions and locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md) -> [SAGA pattern](../reliability/SAGA-GENERIC.md) -> [Transactional outbox](../reliability/OUTBOX-PATTERN.md) -> [Inbox pattern](../reliability/INBOX-PATTERN.md) -> [Problems and solutions](../reliability/PROBLEMS-AND-SOLUTIONS.md) |
 | Distributed schedulers | [Work-claim decision guide](../reliability/DISTRIBUTED-SCHEDULER-WORK-CLAIMS.md) -> [Database claims](../reliability/locking/DATABASE-LOCKING-AND-CLAIMS.md) -> [Partitions and queues](../reliability/locking/PARTITION-AND-QUEUE-OWNERSHIP.md) -> [Idempotency](../reliability/IDEMPOTENCY-GENERIC.md) |
-| Security | [Security principles](../security/principles/SECURITY-PRINCIPLES.md) -> [JWT fundamentals](../security/jwt/JWT-FUNDAMENTALS.md) -> [OAuth2 fundamentals](../security/oauth/OAUTH2-FUNDAMENTALS.md) -> [Spring Security](../security/SPRING-SECURITY-GENERIC.md) -> [Shopverse security](../security/JWT-OAUTH2-SPRING-SECURITY.md) |
+| Security | [Security principles](/security/principles/SECURITY-PRINCIPLES) -> [JWT fundamentals](/security/jwt/JWT-FUNDAMENTALS) -> [OAuth2 fundamentals](/security/oauth/OAUTH2-FUNDAMENTALS) -> [Spring Security](/security/SPRING-SECURITY-GENERIC) -> [Shopverse security](/security/JWT-OAUTH2-SPRING-SECURITY) |
 | Observability | [Structured logging](../observability/STRUCTURED-LOGGING.md) -> [MDC and tracing](../observability/MDC-CORRELATION-TRACING.md) -> [Micrometer](../observability/MICROMETER-METRICS.md) -> [Prometheus](../observability/PROMETHEUS.md) -> [Grafana](../observability/GRAFANA.md) |
 | Shopverse demo | [Shopverse case study](../case-study/SHOPVERSE.mdx) -> [Complete demo](../case-study/COMPLETE-DEMO.mdx) -> [Features and demos](FEATURES-AND-DEMOS.md) -> [Debugging](../development/DEBUGGING.md) |
-| Database choice | [Quick choice](../data/database-selection/DATABASE-QUICK-CHOICE.md) -> [Decision worksheet](../data/database-selection/DATABASE-DECISION-WORKSHEET.md) -> [Hands-on labs](../data/database-selection/DATABASE-HANDS-ON-LABS.md) -> [Interview exercises](../data/database-selection/DATABASE-INTERVIEW-EXERCISES.md) |
+| Database choice | [Quick choice](/data/database-selection/DATABASE-QUICK-CHOICE) -> [Decision worksheet](/data/database-selection/DATABASE-DECISION-WORKSHEET) -> [Hands-on labs](/data/database-selection/DATABASE-HANDS-ON-LABS) -> [Interview exercises](/data/database-selection/DATABASE-INTERVIEW-EXERCISES) |
 | Production platform | [Platform track](/architecture/PRODUCTION-PLATFORM-ENGINEERING) -> [Compatibility](/architecture/API-EVENT-COMPATIBILITY) -> [Kubernetes](../operations/KUBERNETES-WORKLOAD-ENGINEERING.md) -> [SRE and recovery](../operations/SRE-DR-CHAOS.md) -> [Performance and cost](../operations/PERFORMANCE-CAPACITY-FINOPS.md) |
 | Cloud-native delivery | [Helm, GitOps, and Argo CD](../operations/HELM-GITOPS-ARGOCD-PATH.md) -> [Helm engineering](../operations/helm-gitops/HELM-CHART-ENGINEERING.md) -> [GitOps design](../operations/helm-gitops/GITOPS-DELIVERY-DESIGN.md) -> [Argo CD operations](../operations/helm-gitops/ARGOCD-PRODUCTION-OPERATIONS.md) |
 | Kubernetes architect | [Kubernetes path](../operations/KUBERNETES-ARCHITECT-PATH.md) -> [Control plane](../operations/kubernetes/KUBERNETES-CONTROL-PLANE-INTERNALS.md) -> [Workloads](../operations/kubernetes/KUBERNETES-WORKLOADS-SCHEDULING.md) -> [Networking](../operations/kubernetes/KUBERNETES-NETWORKING-SERVICES.md) -> [Storage](../operations/kubernetes/KUBERNETES-STORAGE-STATEFUL.md) -> [Security](../operations/kubernetes/KUBERNETES-SECURITY-MULTITENANCY.md) -> [Operations](../operations/kubernetes/KUBERNETES-CLUSTER-OPERATIONS.md) |
 | Docker architect | [Docker path](../operations/DOCKER-ARCHITECT-PATH.md) -> [Runtime internals](../operations/docker/DOCKER-ENGINE-RUNTIME-INTERNALS.md) -> [Images and BuildKit](../operations/docker/DOCKER-IMAGES-BUILDKIT-SUPPLY-CHAIN.md) -> [Storage and networking](../operations/docker/DOCKER-STORAGE-NETWORKING-INTERNALS.md) -> [Security and operations](../operations/docker/DOCKER-SECURITY-PRODUCTION-OPERATIONS.md) |
 | Infrastructure as code | [Terraform/OpenTofu path](../operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH.md) -> [Implementation and incidents](../operations/iac/IAC-IMPLEMENTATION-OPERATIONS-INTERVIEW.md) |
-| Secrets engineering | [Vault and Kubernetes secrets](../security/VAULT-KUBERNETES-SECRETS-PATH.md) -> [Rotation and incident labs](../security/secrets/SECRETS-IMPLEMENTATION-OPERATIONS-INTERVIEW.md) |
+| Secrets engineering | [Vault and Kubernetes secrets](/security/VAULT-KUBERNETES-SECRETS-PATH) -> [Rotation and incident labs](/security/secrets/SECRETS-IMPLEMENTATION-OPERATIONS-INTERVIEW) |
 | Performance and chaos | [Performance and chaos path](../operations/PERFORMANCE-CHAOS-ENGINEERING-PATH.md) -> [Labs and interviews](../operations/performance-chaos/PERFORMANCE-CHAOS-LABS-INTERVIEW.md) |
 | Platform engineering | [Golden paths and self-service](../operations/PLATFORM-ENGINEERING-GOLDEN-PATH.md) -> [Implementation and interviews](../operations/platform-engineering/PLATFORM-OPERATIONS-INTERVIEW.md) |
 | Amazon EKS | [EKS production path](../cloud/aws/EKS-PRODUCTION-ARCHITECT-PATH.md) -> [Operations and labs](../cloud/aws/eks/EKS-OPERATIONS-INTERVIEW.md) |
@@ -99,9 +99,9 @@ Use these tracks when you do not want to read the full path linearly.
 | gRPC and Protobuf | [Architect path](/architecture/GRPC-PROTOBUF-ARCHITECT-PATH) -> [Contract evolution](/architecture/grpc/PROTOBUF-CONTRACT-EVOLUTION) -> [Runtime reliability](/architecture/grpc/GRPC-RUNTIME-RELIABILITY) -> [Spring gRPC production](/architecture/grpc/SPRING-GRPC-PRODUCTION) |
 | Service mesh | [Architect path](/architecture/SERVICE-MESH-ARCHITECT-PATH) -> [Selection](/architecture/service-mesh/SERVICE-MESH-ARCHITECTURE-SELECTION) -> [Traffic and security](/architecture/service-mesh/SERVICE-MESH-TRAFFIC-SECURITY) -> [Production operations](/architecture/service-mesh/SERVICE-MESH-PRODUCTION-OPERATIONS) |
 | API and event governance | [Governance path](/architecture/API-EVENT-SCHEMA-GOVERNANCE-PATH) -> [API contracts](/architecture/governance/API-CONTRACT-GOVERNANCE) -> [Event schemas](/architecture/governance/EVENT-SCHEMA-REGISTRY-GOVERNANCE) -> [Governance operations](/architecture/governance/CONTRACT-GOVERNANCE-OPERATIONS) |
-| AI and RAG | [AI fundamentals](../ai/LLM-GENERATIVE-AI-FUNDAMENTALS.md) -> [Model internals](../ai/AI-MODEL-INTERNALS-SELECTION.md) -> [Prompt engineering](../ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT.md) -> [RAG engineering](../ai/RAG-ENGINEERING.md) -> [Evaluation and operations](../ai/AI-EVALUATION-OPERATIONS.md) |
-| MCP | [MCP umbrella](../ai/MCP-UMBRELLA.md) -> [Protocol lifecycle](../ai/MCP-PROTOCOL-LIFECYCLE.md) -> [Primitives and transports](../ai/MCP-PRIMITIVES-TRANSPORTS.md) -> [Security](../ai/MCP-SECURITY-OPERATIONS.md) -> [Spring/Shopverse lab](../ai/MCP-SPRING-SHOPVERSE-LAB.md) |
-| Internals labs | [Java internals labs](/java/JAVA-INTERNALS-LABS) -> [Spring internals labs](/spring/SPRING-INTERNALS-LABS) -> [Database engine internals](../data/DATABASE-ENGINE-INTERNALS.md) -> [Microservices failure engineering](/architecture/MICROSERVICES-INTERNALS-DEEP-DIVE) |
+| AI and RAG | [AI fundamentals](/ai/LLM-GENERATIVE-AI-FUNDAMENTALS) -> [Model internals](/ai/AI-MODEL-INTERNALS-SELECTION) -> [Prompt engineering](/ai/PROMPT-ENGINEERING-STRUCTURED-OUTPUT) -> [RAG engineering](/ai/RAG-ENGINEERING) -> [Evaluation and operations](/ai/AI-EVALUATION-OPERATIONS) |
+| MCP | [MCP umbrella](/ai/MCP-UMBRELLA) -> [Protocol lifecycle](/ai/MCP-PROTOCOL-LIFECYCLE) -> [Primitives and transports](/ai/MCP-PRIMITIVES-TRANSPORTS) -> [Security](/ai/MCP-SECURITY-OPERATIONS) -> [Spring/Shopverse lab](/ai/MCP-SPRING-SHOPVERSE-LAB) |
+| Internals labs | [Java internals labs](/java/JAVA-INTERNALS-LABS) -> [Spring internals labs](/spring/SPRING-INTERNALS-LABS) -> [Database engine internals](/data/DATABASE-ENGINE-INTERNALS) -> [Microservices failure engineering](/architecture/MICROSERVICES-INTERNALS-DEEP-DIVE) |
 
 ## Stage 1: Java And Engineering Foundations
 
@@ -132,15 +132,15 @@ Use these tracks when you do not want to read the full path linearly.
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
-| Relational design | [Database engineering](../data/DATABASE-ENGINEERING.md) | Understand normalization, joins, indexes, query plans, ACID, partitioning, and sharding |
-| Database quick choice | [Database quick choice](../data/database-selection/DATABASE-QUICK-CHOICE.md) | Match OLTP, OLAP, NoSQL, search, graph, and vector workloads to database families |
-| Database decision | [Decision worksheet](../data/database-selection/DATABASE-DECISION-WORKSHEET.md) | Produce an evidence-based shortlist from workload, scale, consistency, governance, support, and cost |
-| Database operations | [Migrations and operations](../data/database-selection/DATABASE-MIGRATIONS-OPERATIONS.md) | Evolve schemas and rehearse backup, restore, failover, CDC, retention, and upgrades |
-| Database practice | [Hands-on labs](../data/database-selection/DATABASE-HANDS-ON-LABS.md) | Compare plans, indexes, pagination, pool overload, partition keys, OLAP, and vector search |
-| Database interviews | [System-design exercises](../data/database-selection/DATABASE-INTERVIEW-EXERCISES.md) | Defend storage choices and explain rejected alternatives |
-| ORM internals | [Hibernate ORM](../data/HIBERNATE.md) | Understand persistence contexts, entity states, dirty checking, fetching, auditing, and performance |
+| Relational design | [Database engineering](/data/DATABASE-ENGINEERING) | Understand normalization, joins, indexes, query plans, ACID, partitioning, and sharding |
+| Database quick choice | [Database quick choice](/data/database-selection/DATABASE-QUICK-CHOICE) | Match OLTP, OLAP, NoSQL, search, graph, and vector workloads to database families |
+| Database decision | [Decision worksheet](/data/database-selection/DATABASE-DECISION-WORKSHEET) | Produce an evidence-based shortlist from workload, scale, consistency, governance, support, and cost |
+| Database operations | [Migrations and operations](/data/database-selection/DATABASE-MIGRATIONS-OPERATIONS) | Evolve schemas and rehearse backup, restore, failover, CDC, retention, and upgrades |
+| Database practice | [Hands-on labs](/data/database-selection/DATABASE-HANDS-ON-LABS) | Compare plans, indexes, pagination, pool overload, partition keys, OLAP, and vector search |
+| Database interviews | [System-design exercises](/data/database-selection/DATABASE-INTERVIEW-EXERCISES) | Defend storage choices and explain rejected alternatives |
+| ORM internals | [Hibernate ORM](/data/HIBERNATE) | Understand persistence contexts, entity states, dirty checking, fetching, auditing, and performance |
 | Spring Data JPA | [Spring Data JPA](/spring/SPRING-DATA-JPA) | Use repositories, transactions, projections, fetch plans, auditing, and locking safely |
-| Migrations | [Liquibase](../data/LIQUIBASE-GENERIC.md) | Version schemas and perform compatible production migrations |
+| Migrations | [Liquibase](/data/LIQUIBASE-GENERIC) | Version schemas and perform compatible production migrations |
 | Transactions | [Spring transactions](/spring/SPRING-TRANSACTIONS) | Understand propagation, isolation, rollback, locks, and transaction boundaries |
 
 ## Stage 4: Microservice Communication
@@ -164,7 +164,7 @@ Use these tracks when you do not want to read the full path linearly.
 | Distributed foundations | [Distributed systems fundamentals](/architecture/DISTRIBUTED-SYSTEMS-GENERIC) | Understand partial failure, messaging, idempotency, ownership, scaling, and availability |
 | CAP and consistency | [Distributed consistency and CAP](/architecture/DISTRIBUTED-CONSISTENCY-CAP) | Compare strong, eventual, causal, session, quorum, and strong eventual consistency |
 | CQRS | [Command Query Responsibility Segregation](/architecture/CQRS) | Separate command invariants from optimized and eventually consistent read models |
-| Distributed databases | [Distributed databases](../data/DISTRIBUTED-DATABASES.md) | Understand replication, sharding, consistent hashing, failover, and cross-shard trade-offs |
+| Distributed databases | [Distributed databases](/data/DISTRIBUTED-DATABASES) | Understand replication, sharding, consistent hashing, failover, and cross-shard trade-offs |
 | Transactions and coordination | [Distributed transactions and locks](../reliability/DISTRIBUTED-TRANSACTIONS-LOCKS.md) | Compare local transactions, 2PC, SAGA, outbox, distributed locks, leases, and fencing |
 | SAGA | [Generic SAGA and Outbox](../reliability/SAGA-GENERIC.md) | Model local transactions and compensation |
 | Shopverse checkout | [Shopverse SAGA](../reliability/SAGA-OUTBOX.md) | Follow Order, Inventory, and Payment event flow |
@@ -180,13 +180,13 @@ Use these tracks when you do not want to read the full path linearly.
 
 | Topic | Study guide | Practical outcome |
 |---|---|---|
-| Security principles | [Security principles](../security/principles/SECURITY-PRINCIPLES.md) | Apply least privilege, defense in depth, fail-closed behavior, and auditability |
-| API security | [API security principles](../security/principles/API-SECURITY-PRINCIPLES.md) | Protect APIs with authentication, authorization, validation, safe errors, and rate limits |
-| Microservices security | [Microservices security principles](../security/principles/MICROSERVICES-SECURITY-PRINCIPLES.md) | Secure service boundaries instead of trusting internal traffic blindly |
-| JWT | [JWT fundamentals](../security/jwt/JWT-FUNDAMENTALS.md) | Understand token structure, signature validation, claims, roles, scopes, and JWKS |
-| OAuth2/OIDC | [OAuth2 fundamentals](../security/oauth/OAUTH2-FUNDAMENTALS.md) | Understand authorization servers, resource servers, grant types, OIDC, and token lifecycle |
-| Spring Security | [Generic Spring Security](../security/SPRING-SECURITY-GENERIC.md) | Understand filter chains, providers, context, method security, and proxies |
-| Shopverse security | [Shopverse security](../security/JWT-OAUTH2-SPRING-SECURITY.md) | Follow login, RSA signing, JWKS, decoding, claims, roles, and ownership checks |
+| Security principles | [Security principles](/security/principles/SECURITY-PRINCIPLES) | Apply least privilege, defense in depth, fail-closed behavior, and auditability |
+| API security | [API security principles](/security/principles/API-SECURITY-PRINCIPLES) | Protect APIs with authentication, authorization, validation, safe errors, and rate limits |
+| Microservices security | [Microservices security principles](/security/principles/MICROSERVICES-SECURITY-PRINCIPLES) | Secure service boundaries instead of trusting internal traffic blindly |
+| JWT | [JWT fundamentals](/security/jwt/JWT-FUNDAMENTALS) | Understand token structure, signature validation, claims, roles, scopes, and JWKS |
+| OAuth2/OIDC | [OAuth2 fundamentals](/security/oauth/OAUTH2-FUNDAMENTALS) | Understand authorization servers, resource servers, grant types, OIDC, and token lifecycle |
+| Spring Security | [Generic Spring Security](/security/SPRING-SECURITY-GENERIC) | Understand filter chains, providers, context, method security, and proxies |
+| Shopverse security | [Shopverse security](/security/JWT-OAUTH2-SPRING-SECURITY) | Follow login, RSA signing, JWKS, decoding, claims, roles, and ownership checks |
 
 ## Stage 7: Observability And Operations
 
@@ -206,7 +206,7 @@ Use these tracks when you do not want to read the full path linearly.
 | Network diagnosis | [DNS, TCP, TLS, and HTTP/2](/architecture/NETWORK-PROTOCOL-DIAGNOSIS-PATH) | Isolate resolution, connection, trust, negotiation, proxy, and multiplexing failures |
 | Declarative delivery | [Helm, GitOps, and Argo CD](../operations/HELM-GITOPS-ARGOCD-PATH.md) | Engineer charts, promotion, reconciliation, drift control, rollback, security, and recovery |
 | Infrastructure as code | [Terraform and OpenTofu](../operations/INFRASTRUCTURE-AS-CODE-ARCHITECT-PATH.md) | Govern graphs, providers, modules, remote state, testing, plans, applies, drift and recovery |
-| Secrets platform | [Vault and Kubernetes Secrets](../security/VAULT-KUBERNETES-SECRETS-PATH.md) | Operate identity bootstrap, dynamic credentials, leases, rotation, audit and recovery |
+| Secrets platform | [Vault and Kubernetes Secrets](/security/VAULT-KUBERNETES-SECRETS-PATH) | Operate identity bootstrap, dynamic credentials, leases, rotation, audit and recovery |
 | Load and failure testing | [Performance and Chaos Engineering](../operations/PERFORMANCE-CHAOS-ENGINEERING-PATH.md) | Produce valid capacity evidence and run safe, hypothesis-driven fault experiments |
 | Operational automation | [Shell Automation Engineering](../operations/SHELL-AUTOMATION-ENGINEERING-PATH.md) | Write safe, idempotent, tested Bash and PowerShell runbook automation |
 | Service mesh | [Service Mesh Architect Path](/architecture/SERVICE-MESH-ARCHITECT-PATH) | Evaluate data-plane models, traffic policy, workload identity, mTLS, telemetry, and mesh incidents |

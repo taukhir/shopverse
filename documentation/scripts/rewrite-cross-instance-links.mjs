@@ -10,6 +10,7 @@
 // and let onBrokenLinks:'throw' catch anything this script missed.
 import {readFile, writeFile, readdir} from 'node:fs/promises';
 import {join, relative, dirname, resolve, extname} from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 const sections = new Set(process.argv.slice(2));
 if (sections.size === 0) {
@@ -18,7 +19,7 @@ if (sections.size === 0) {
   process.exit();
 }
 
-const docsRoot = resolve(new URL('../docs/', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
+const docsRoot = fileURLToPath(new URL('../docs/', import.meta.url));
 
 async function walk(dir) {
   const entries = await readdir(dir, {withFileTypes: true});

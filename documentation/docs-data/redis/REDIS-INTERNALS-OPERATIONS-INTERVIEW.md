@@ -125,4 +125,4 @@ warm-up load, and reconciliation with the authoritative system.
 ## Recommended Next
 
 Continue with [Spring Data Redis](/spring/data/SPRING-DATA-REDIS) and
-[Distributed Locks And Fencing](../../reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING.md).
+[Distributed Locks And Fencing](/reliability/locking/DISTRIBUTED-LOCKS-AND-FENCING).

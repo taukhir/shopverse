@@ -167,4 +167,4 @@ claims map to the expected Spring authorities.
 
 - [Config Property Reference](./CONFIG-PROPERTIES.md)
 - [Troubleshooting](./TROUBLESHOOTING.md)
-- [JWT JWKS Resource Server](../security/spring-security/JWT-JWKS-RESOURCE-SERVER.md)
+- [JWT JWKS Resource Server](/security/spring-security/JWT-JWKS-RESOURCE-SERVER)

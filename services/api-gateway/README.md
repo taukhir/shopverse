@@ -115,6 +115,6 @@ non-blocking filter, retry, and dependency-readiness review.
 - [API Gateway concepts and filter chain](../../documentation/docs/development/API-GATEWAY-GENERIC.md)
 - [Service discovery](../../documentation/docs-architecture/SERVICE-DISCOVERY.md)
 - [Load balancing](../../documentation/docs-architecture/LOAD-BALANCING-GENERIC.md)
-- [JWT and Spring Security](../../documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Generic Spring Security](../../documentation/docs/security/SPRING-SECURITY-GENERIC.md)
+- [JWT and Spring Security](../../documentation/docs-security/JWT-OAUTH2-SPRING-SECURITY.md)
+- [Generic Spring Security](../../documentation/docs-security/SPRING-SECURITY-GENERIC.md)
 - [MDC and tracing](../../documentation/docs/observability/MDC-CORRELATION-TRACING.md)

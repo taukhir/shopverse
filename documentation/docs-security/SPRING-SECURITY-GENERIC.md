@@ -53,10 +53,10 @@ actual implementation:
 
 | Concept | Shopverse page |
 |---|---|
-| Servlet JWT resource-server shared setup | [Security Starter](../platform/SECURITY-STARTER.md) |
+| Servlet JWT resource-server shared setup | [Security Starter](/platform/SECURITY-STARTER) |
 | Current JWT/OAuth2 mapping | [JWT, OAuth2, And Spring Security](JWT-OAUTH2-SPRING-SECURITY.md) |
-| Security starter properties and troubleshooting | [Platform Config Properties](../platform/CONFIG-PROPERTIES.md) and [Platform Troubleshooting](../platform/TROUBLESHOOTING.md) |
-| Resource ownership authorization problems | [Resource Ownership Authorization](../reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION.md) |
+| Security starter properties and troubleshooting | [Platform Config Properties](/platform/CONFIG-PROPERTIES) and [Platform Troubleshooting](/platform/TROUBLESHOOTING) |
+| Resource ownership authorization problems | [Resource Ownership Authorization](/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION) |
 
 Important boundary: the current platform security starter is servlet-based.
 `api-gateway` uses WebFlux and keeps reactive security configuration local.
