@@ -132,24 +132,43 @@
         </div>
       </div>
       <aside>
-        <p>PAYMENT</p>
-        <h2>Payment follows confirmation.</h2>
-        <span>This demo creates the order and starts the existing inventory/payment workflow. No card data is collected here.</span>
-        <div class="payment-placeholder">
-          <div><span>Method</span><b>Card / UPI / Wallet later</b></div>
-          <div><span>Capture</span><b>After successful reservation</b></div>
-        </div>
-        @if (error()) {
-          <b>{{ error() }}</b>
-        }
-        @if (success()) {
-          <b class="success">Order {{ success() }} created. Track its progress in your order history.</b>
-          <div class="success-actions">
-            <a routerLink="/orders">View order history</a>
-            <a routerLink="/products">Continue shopping</a>
+        @if (!review()) {
+          <p>PAYMENT</p>
+          <h2>Payment follows confirmation.</h2>
+          <span>This demo creates the order and starts the existing inventory/payment workflow. No card data is collected here.</span>
+          <div class="payment-placeholder">
+            <div><span>Method</span><b>Card / UPI / Wallet later</b></div>
+            <div><span>Capture</span><b>After successful reservation</b></div>
           </div>
+          @if (error()) {
+            <b>{{ error() }}</b>
+          }
+          <button (click)="reviewOrder()" [disabled]="loading() || !selectedAddress()">{{ loading() ? 'Reviewing...' : 'Review order' }} <em>&rarr;</em></button>
+        } @else {
+          <p>REVIEW</p>
+          <h2>Confirm before you place it.</h2>
+          <span>Totals and address are re-checked now; final availability is confirmed when the order is placed.</span>
+          <div class="review-summary">
+            @for (reviewItem of review()!.items; track reviewItem.productId) {
+              <div><span>{{ reviewItem.productName }}</span><b>Qty {{ reviewItem.quantity }}</b></div>
+            }
+            <div><span>Total</span><b>{{ price(+review()!.totalAmount) }} {{ review()!.currency }}</b></div>
+            @if (review()!.shippingAddress; as reviewAddress) {
+              <div><span>Delivery</span><b>{{ formatAddress(reviewAddress) }}</b></div>
+            }
+          </div>
+          @if (error()) {
+            <b>{{ error() }}</b>
+          }
+          @if (success()) {
+            <b class="success">Order {{ success() }} created. Track its progress in your order history.</b>
+            <div class="success-actions">
+              <a routerLink="/orders">View order history</a>
+              <a routerLink="/products">Continue shopping</a>
+            </div>
+          }
+          <button (click)="confirmOrder()" [disabled]="loading()">{{ loading() ? 'Placing order...' : 'Place order' }} <em>&rarr;</em></button>
         }
-        <button (click)="placeOrder()" [disabled]="loading() || !selectedAddress()">{{ loading() ? 'Placing order...' : 'Place order' }} <em>&rarr;</em></button>
       </aside>
     </div>
   }

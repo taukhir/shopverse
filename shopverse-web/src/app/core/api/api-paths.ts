@@ -18,6 +18,7 @@ export const API_PATHS = {
   orders: {
     customer: '/api/v1/orders',
     checkout: '/api/v1/orders/checkout',
+    checkoutReview: '/api/v1/orders/checkout/review',
     byId: (id: number | string) => `/api/v1/orders/${id}`,
     cancel: (id: number | string) => `/api/v1/orders/${id}/cancel`,
     timeline: (id: number | string) => `/api/v1/orders/${id}/timeline`,

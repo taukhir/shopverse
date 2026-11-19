@@ -4,8 +4,11 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.shopverse.order.config.KafkaTopicsProperties;
 import io.shopverse.order.dto.CatalogItemResponse;
 import io.shopverse.order.dto.CheckoutRequest;
+import io.shopverse.order.dto.CheckoutReviewResponse;
+import io.shopverse.order.dto.OrderItemResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.OrderTimelineResponse;
+import io.shopverse.order.dto.ShippingAddressResponse;
 import io.shopverse.order.entity.OrderEntity;
 import io.shopverse.order.entity.OrderTimelineEvent;
 import io.shopverse.order.entity.OrderTimelineStage;
@@ -25,6 +28,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.EnumSet;
 import java.util.UUID;
@@ -86,14 +90,8 @@ public class OrderServiceImpl implements OrderService {
                 shippingAddress.postalCode().trim(),
                 shippingAddress.country().trim()
         );
-        request.items().forEach(item -> {
-            CatalogItemResponse product = catalogService.getProduct(item.productId());
-            if (!product.available()) {
-                throw new ResourceNotFoundException(
-                        "Product is unavailable or does not exist: " + item.productId());
-            }
-            order.addItem(item.productId(), product.productName(), item.quantity(), product.price());
-        });
+        validateItems(request).forEach(item ->
+                order.addItem(item.productId(), item.productName(), item.quantity(), item.unitPrice()));
         OrderEntity saved = repository.save(order);
         appendTimeline(saved, OrderTimelineStage.ORDER_CREATED, "Checkout accepted and order persisted");
         saved.markPendingInventory();
@@ -119,6 +117,45 @@ public class OrderServiceImpl implements OrderService {
                 .addKeyValue("correlationId", correlationId)
                 .log("Order persisted and ready for inventory reservation");
         return OrderMapper.toResponse(saved);
+    }
+
+    @Override
+    public CheckoutReviewResponse reviewCheckout(CheckoutRequest request) {
+        List<ValidatedItem> validated = validateItems(request);
+        var shippingAddress = request.shippingAddress();
+        var normalizedAddress = new ShippingAddressResponse(
+                shippingAddress.recipientName().trim(),
+                trimToNull(shippingAddress.phoneNumber()),
+                shippingAddress.line1().trim(),
+                trimToNull(shippingAddress.line2()),
+                shippingAddress.city().trim(),
+                shippingAddress.state().trim(),
+                shippingAddress.postalCode().trim(),
+                shippingAddress.country().trim()
+        );
+        BigDecimal total = validated.stream()
+                .map(item -> item.unitPrice().multiply(BigDecimal.valueOf(item.quantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        List<OrderItemResponse> items = validated.stream()
+                .map(item -> new OrderItemResponse(item.productId(), item.productName(), item.quantity(), item.unitPrice()))
+                .toList();
+        return new CheckoutReviewResponse(items, normalizedAddress, total, "INR");
+    }
+
+    private record ValidatedItem(Long productId, String productName, int quantity, BigDecimal unitPrice) {
+    }
+
+    private List<ValidatedItem> validateItems(CheckoutRequest request) {
+        return request.items().stream()
+                .map(item -> {
+                    CatalogItemResponse product = catalogService.getProduct(item.productId());
+                    if (!product.available()) {
+                        throw new ResourceNotFoundException(
+                                "Product is unavailable or does not exist: " + item.productId());
+                    }
+                    return new ValidatedItem(item.productId(), product.productName(), item.quantity(), product.price());
+                })
+                .toList();
     }
 
     @Override

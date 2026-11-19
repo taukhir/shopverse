@@ -2,6 +2,7 @@ package io.shopverse.order.controller;
 
 import io.shopverse.contracts.order.CatalogItemResponse;
 import io.shopverse.contracts.order.CheckoutRequest;
+import io.shopverse.contracts.order.CheckoutReviewResponse;
 import io.shopverse.contracts.order.OrderItemResponse;
 import io.shopverse.contracts.order.OrderResponse;
 import io.shopverse.contracts.order.OrderTimelineResponse;
@@ -25,6 +26,8 @@ public interface OrderContractMapper {
     OrderItemResponse toContract(io.shopverse.order.dto.OrderItemResponse value);
 
     OrderResponse toContract(io.shopverse.order.dto.OrderResponse value);
+
+    CheckoutReviewResponse toContract(io.shopverse.order.dto.CheckoutReviewResponse value);
 
     OrderTimelineResponse toContract(io.shopverse.order.dto.OrderTimelineResponse value);
 

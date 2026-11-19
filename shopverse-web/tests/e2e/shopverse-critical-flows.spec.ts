@@ -28,6 +28,7 @@ test('customer can browse, persist cart after refresh, checkout, and see receipt
   await expect(page).toHaveURL(/\/checkout/);
   await expect(page.getByText(/Customer One/).first()).toBeVisible();
 
+  await page.getByRole('button', { name: /review order/i }).click();
   await page.getByRole('button', { name: /place order/i }).click();
   await expect(page.getByRole('heading', { name: /transaction receipt/i })).toBeVisible();
   await expect(page.locator('.receipt').getByText('WEB-ORD-9001', { exact: true })).toBeVisible();

@@ -145,6 +145,12 @@ export async function mockShopverseApis(page: Page) {
 
   await page.route('**/api/v1/orders/9001/timeline', (route) => json(route, timeline));
   await page.route('**/api/v1/orders/9001', (route) => json(route, order));
+  await page.route('**/api/v1/orders/checkout/review', (route) => json(route, {
+    items: order.items,
+    shippingAddress: order.shippingAddress,
+    totalAmount: order.totalAmount,
+    currency: 'INR',
+  }));
   await page.route('**/api/v1/orders/checkout', (route) => json(route, { orderNumber: order.orderNumber }));
   await page.route('**/api/v1/orders', (route) => {
     if (route.request().method() === 'GET') return json(route, [order]);
