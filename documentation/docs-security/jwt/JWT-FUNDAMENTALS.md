@@ -1,7 +1,7 @@
 ---
 title: JWT Fundamentals
 status: maintained
-last_reviewed: "2026-07-13"
+last_reviewed: "2026-11-17"
 page_type: Guide
 difficulty: Intermediate
 scope: generic
@@ -52,9 +52,33 @@ issuer, audience, expiry, algorithm, and authorization claims.
 | Scale | no central session lookup required | needs shared session store |
 | Risk | token theft gives bearer access | session cookie theft gives session access |
 
+## Shopverse Reality
+
+`auth-service`'s `JwtService.generateToken(...)` issues a fixed **1-hour**
+access token and nothing else:
+
+```java
+.expiresAt(Instant.now().plus(1, ChronoUnit.HOURS))
+```
+
+There is no refresh-token endpoint, no logout endpoint, and no revocation
+mechanism anywhere in the service — confirmed by grepping the controller
+and service layer for `refresh`/`logout`/`revoke`/`denylist`, none exist.
+Looking at the "JWT Versus Session" table above with that in mind: the
+"harder unless denylist/short expiry" revocation row isn't a hypothetical
+tradeoff here, it's the actual current behavior — a compromised or
+still-valid token from a now-removed user stays usable for up to the
+remaining hour of its lifetime, full stop, because neither mitigation
+the table lists is implemented yet. This is explicit, tracked scope (see
+`services/auth-service/AGENTS.md`: "not a complete OAuth2 authorization
+server"), not an oversight — but it means the 1-hour window **is** the
+platform's entire revocation story today.
+
 ## Related Guides
 
 - [JWKS and asymmetric JWT](JWKS-ASYMMETRIC-JWT.md)
 - [JWT claims roles and scopes](JWT-CLAIMS-ROLES-SCOPES.md)
+- [JWT best practices](JWT-BEST-PRACTICES.md)
 - [Spring JWT resource server](../spring-security/JWT-JWKS-RESOURCE-SERVER.md)
+- [ADR 003: RSA-Signed JWT And JWKS Authentication](/architecture/adr/jwt-jwks-security)
 

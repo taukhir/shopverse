@@ -182,6 +182,19 @@ sequenceDiagram
 The diagram shows business transitions, not a global transaction. Each service
 commits only its own state and outbox intent.
 
+:::note BUG-013 fixed 2026-11-17 — this loop now exits normally
+`OrderStatus.PENDING_INVENTORY` is now assigned in `checkout()`, so the
+guarded saga transitions that previously no-op'd now fire — a real
+checkout reaches a terminal state and this loop exits on its own.
+Verified via `OrderServiceImplTest`'s new proving tests (unit-level —
+Docker was unavailable locally for the Testcontainers integration suite;
+confirm against a real running stack before fully trusting this against
+live infrastructure). Full root-cause and fix writeup:
+[Order Status Dead-Transition Problem](../reliability/problems/ORDER-STATUS-DEAD-TRANSITION-PROBLEM.md).
+Still add a sane timeout/attempt limit as general operational hygiene —
+just not because of this bug anymore.
+:::
+
 Poll the order until it reaches a terminal state:
 
 ```powershell

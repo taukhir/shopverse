@@ -46,7 +46,7 @@ review_evidence: repository-content-audit
 | Payment uncertainty | Implemented | timeout, reconciliation, retry, refund, and webhook baseline states |
 | Fulfillment lifecycle | Implemented baseline | admin pack, ship/out-for-delivery, deliver transitions; tracking/carrier metadata pending |
 | Customer return request | Implemented baseline | owner-protected return request from delivered orders |
-| Choreography SAGA | Implemented | Kafka event listeners and compensation |
+| Choreography SAGA | **Implemented — fixed 2026-11-17 (`BUG-013`)** | Kafka event listeners and compensation work end to end; a real checkout now reaches `CONFIRMED`. The previous defect (`OrderStatus.PENDING_INVENTORY` never assigned, guarded saga callbacks silently no-op'ing) is fixed: `OrderEntity.markPendingInventory()` is called in `checkout()` immediately after the `ORDER_CREATED` timeline append, in the same transaction as the outbox enqueue. Full root-cause/fix writeup: [Order Status Dead-Transition Problem](../reliability/problems/ORDER-STATUS-DEAD-TRANSITION-PROBLEM.md). Verified via `OrderServiceImplTest`'s new proving tests (unit-level; Docker unavailable locally for the Testcontainers integration suite — needs CI confirmation). |
 | Transactional outbox | Implemented | domain and outbox atomic local transaction |
 | DLT persistence and replay audit | Implemented baseline | Order, Inventory, and Payment recovery APIs |
 | Queryable order timeline | Implemented | timeline table and ownership-protected API |
