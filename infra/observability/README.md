@@ -5,11 +5,11 @@ configuration used by the local Shopverse stack.
 
 Canonical documentation:
 
-- [Shopverse observability operations](../documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
-- [Observability architecture](../documentation/docs/observability/OBSERVABILITY.md)
-- [Observability implementation guide](../documentation/docs/observability/OBSERVABILITY-IMPLEMENTATION-GUIDE.md)
-- [Structured logging](../documentation/docs/observability/STRUCTURED-LOGGING.md)
-- [MDC, correlation, and tracing](../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
+- [Shopverse observability operations](../../docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
+- [Observability architecture](https://taukhir.github.io/shopverse-docs/observability/OBSERVABILITY)
+- [Observability implementation guide](https://taukhir.github.io/shopverse-docs/observability/OBSERVABILITY-IMPLEMENTATION-GUIDE)
+- [Structured logging](https://taukhir.github.io/shopverse-docs/observability/STRUCTURED-LOGGING)
+- [MDC, correlation, and tracing](https://taukhir.github.io/shopverse-docs/observability/MDC-CORRELATION-TRACING)
 
 ## Components
 
@@ -99,7 +99,7 @@ sum(rate(http_server_requests_seconds_count[5m])) by (application)
 
 The full query catalog, timer/counter explanation, cardinality guidance, and
 troubleshooting procedure are in the
-[operations page](../documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md).
+[operations page](../../docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md).
 
 ## Configuration
 

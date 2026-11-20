@@ -7,9 +7,9 @@ Detailed explanations of Declarative Pipeline syntax, every stage, conditional
 execution, Docker builds, credentials, local deployment, and security
 trade-offs are maintained in:
 
-- [Shopverse Jenkins implementation](../../documentation/docs/operations/SHOPVERSE-JENKINS.md)
-- [Generic Jenkins reference](../../documentation/docs/operations/JENKINS.md)
-- [CI/CD automation](../../documentation/docs/operations/CI-CD-AUTOMATION.md)
+- [Shopverse Jenkins implementation](https://taukhir.github.io/shopverse-docs/operations/SHOPVERSE-JENKINS)
+- [Generic Jenkins reference](https://taukhir.github.io/shopverse-docs/operations/JENKINS)
+- [CI/CD automation](https://taukhir.github.io/shopverse-docs/operations/CI-CD-AUTOMATION)
 
 ## Files
 
@@ -79,7 +79,7 @@ The shared pipeline can perform:
 
 Parameters decide whether image build, push, or local deployment stages run.
 The exact parameter names and `when` expressions are documented in the
-[implementation page](../../documentation/docs/operations/SHOPVERSE-JENKINS.md).
+[implementation page](https://taukhir.github.io/shopverse-docs/operations/SHOPVERSE-JENKINS).
 
 ## Build A Service Image
 

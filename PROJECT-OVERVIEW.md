@@ -31,7 +31,7 @@ real payments (see [`PROGRESS.md`](dev-tools/teams/PROGRESS.md) for what is stub
 | `services/config-server/` + `infra/cloud-configs/` | Centralized Spring Cloud Config |
 | `shopverse-common/` | Shared starters: outbox, Kafka, Kafka recovery/DLT, security, observability, common errors |
 | `shopverse-web/` | Angular 22 storefront + admin UI |
-| `documentation/` | Docusaurus site — architecture, ADRs, case studies, reliability/security guides |
+| `docs/` | Shopverse-specific Markdown — case study, ADRs, system design (generic engineering docs live in the separate [shopverse-docs](https://github.com/taukhir/shopverse-docs) repository) |
 | `dev-tools/ai-workflows/` | Reusable prompts/templates for AI-assisted development, plus eval scenarios |
 | `infra/observability/`, `infra/docker/`, `dev-tools/jenkins/`, `.github/workflows/` | Deployment and CI plumbing |
 | `dev-tools/postman/`, `dev-tools/testing/`, `infra/scripts/` | API collections, cross-cutting test suites, local data/reset scripts |
@@ -78,6 +78,6 @@ not duplicate that content.
 | Full capability writeup, checkout example, troubleshooting | [`README.md`](README.md) |
 | Coding-agent rules (architecture invariants, security, verification commands) | [`AGENTS.md`](AGENTS.md) |
 | What's implemented vs pending, by area | [`PROGRESS.md`](dev-tools/teams/PROGRESS.md) |
-| Architecture decisions | `documentation/docs/architecture/adr/` |
-| Feature-by-feature implementation matrix | `documentation/docs/reference/FEATURES-SECURITY-CHECKOUT.md` and `FEATURES-RELIABILITY-OBSERVABILITY.md` |
+| Architecture decisions | `docs/architecture/adr/` |
+| Feature-by-feature implementation matrix | `docs/reference/FEATURES-AND-DEMOS.md`, and [https://taukhir.github.io/shopverse-docs/reference/FEATURES-SECURITY-CHECKOUT](https://taukhir.github.io/shopverse-docs/reference/FEATURES-SECURITY-CHECKOUT) / [FEATURES-RELIABILITY-OBSERVABILITY](https://taukhir.github.io/shopverse-docs/reference/FEATURES-RELIABILITY-OBSERVABILITY) |
 | Per-service API/config details | each service's own `README.md` and `AGENTS.md` |

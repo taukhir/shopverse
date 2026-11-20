@@ -1,0 +1,97 @@
+# Shopverse Case Study
+
+## Architecture At A Glance
+
+![Shopverse microservices architecture showing gateway, services, Kafka, databases, security, and observability](../img/diagrams/shopverse-architecture-flow.svg)
+
+*The complete Shopverse runtime topology. Select the image to open the full-size diagram.*
+
+Start with the [complete Shopverse demo](./COMPLETE-DEMO.md) when you want to
+run the POC. Read [System design](../architecture/SYSTEM-DESIGN.md) when you
+want to understand ownership boundaries, authentication, synchronous calls,
+Kafka choreography, persistence, observability, and deployment topology.
+
+## Scope And Status
+
+This case study describes the current Shopverse POC and links to roadmap work
+where production hardening is intentionally incomplete. Treat
+[Features and demos](../reference/FEATURES-AND-DEMOS.md) as the canonical
+status record. Generic production-practice pages provide background, but this
+case-study track is where Shopverse-specific implementation claims are made.
+
+## Recommended Case-Study Order
+
+| Step | Guide | Question answered |
+|---:|---|---|
+| 1 | [Complete demo](./COMPLETE-DEMO.md) | How do I run and present the POC end to end? |
+| 2 | [System design](../architecture/SYSTEM-DESIGN.md) | What components exist and how do they communicate? |
+| 3 | [Service catalog](https://taukhir.github.io/shopverse-docs/services/SERVICE-CATALOG) | What does each service own? |
+| 4 | [Features and demos](../reference/FEATURES-AND-DEMOS.md) | What is implemented and how can it be demonstrated? |
+| 5 | [API guide](../development/API-GUIDE.md) | How do clients use the platform? |
+| 6 | [SAGA and Outbox](https://taukhir.github.io/shopverse-docs/reliability/SAGA-OUTBOX) | How does checkout remain recoverable across services? |
+| 7 | [Security implementation](https://taukhir.github.io/shopverse-docs/security/JWT-OAUTH2-SPRING-SECURITY) | How are authentication and authorization enforced? |
+| 8 | [Resource ownership](https://taukhir.github.io/shopverse-docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION) | Why can customers read only their own Order timelines and Payment records? |
+| 9 | [Observability](https://taukhir.github.io/shopverse-docs/observability/OBSERVABILITY) | How are logs, metrics, and traces connected? |
+| 10 | [Testing strategy](https://taukhir.github.io/shopverse-docs/development/TESTING) | How is the ecosystem verified without unbounded resource use? |
+| 11 | [Problems and solutions](https://taukhir.github.io/shopverse-docs/reliability/PROBLEMS-AND-SOLUTIONS) | Which production-relevant defects were found and fixed? |
+
+## What The Case Study Demonstrates
+
+| Area | Implemented behavior |
+|---|---|
+| Platform | API Gateway, Config Server, Eureka discovery, load balancing, and Feign |
+| Security | RSA JWT signing, JWKS, roles, permissions, issuer/expiry validation, and ownership |
+| Commerce | idempotent checkout, persistent orders, inventory reservations, payment state, and timeline |
+| Consistency | local transactions, transactional outbox, Kafka choreography, compensation, and DLT replay |
+| Concurrency | optimistic locking, uniqueness constraints, and a single-worker reservation-expiry baseline; [multi-replica expiry remains planned](https://taukhir.github.io/shopverse-docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY) |
+| Observability | JSON logs, MDC correlation, Prometheus metrics, Grafana dashboards, Loki, and Zipkin |
+| Delivery | multi-stage Docker images, GitHub Actions, Jenkins, Testcontainers, and bounded verification |
+
+## Resource Ownership In The Case Study
+
+Shopverse distinguishes authentication from resource authorization. A valid
+customer JWT permits access to protected APIs, but it does not permit reading
+another customer's data by guessing an Order ID or order number.
+
+```mermaid
+flowchart LR
+    JWT["Validated customer JWT"] --> METHOD["@PreAuthorize"]
+    METHOD --> POLICY{"Admin or persisted owner?"}
+    POLICY -->|Yes| DATA["Return timeline or payment"]
+    POLICY -->|No| DENY["403 Forbidden"]
+```
+
+Order Service checks `orderId + customerUsername`; Payment Service checks
+`orderNumber + customerUsername`. Administrators bypass the owner query for
+support operations. Read the
+[dedicated ownership case](https://taukhir.github.io/shopverse-docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION)
+for implementation details and use the
+[complete demo](./COMPLETE-DEMO.md) to prove owner, non-owner, and administrator
+behavior.
+
+## Theory Before Implementation
+
+When a project guide introduces an unfamiliar concept, study its reusable
+counterpart first:
+
+| Shopverse implementation | Generic study guide |
+|---|---|
+| Checkout SAGA | [SAGA and Outbox patterns](https://taukhir.github.io/shopverse-docs/reliability/SAGA-GENERIC) |
+| Transaction boundaries | [Spring transactions](https://taukhir.github.io/shopverse-docs/spring/SPRING-TRANSACTIONS) |
+| JWT resource servers | [Spring Security](https://taukhir.github.io/shopverse-docs/security/SPRING-SECURITY-GENERIC) |
+| API contracts | [REST API design](https://taukhir.github.io/shopverse-docs/development/REST-API-GENERIC) |
+| Resilience annotations | [Resilience4j patterns](https://taukhir.github.io/shopverse-docs/reliability/RESILIENCE4J-GENERIC) |
+| Service topology | [Microservice architecture](https://taukhir.github.io/shopverse-docs/architecture/MICROSERVICES-GENERIC) |
+
+## Implementation Status
+
+The case study distinguishes:
+
+- **Implemented:** present in code and verified;
+- **Implemented baseline:** present and demonstrable, with known scale,
+  automation, or hardening gaps;
+- **Partial:** baseline implementation with known hardening work;
+- **Planned:** study or roadmap material, not current runtime behavior.
+
+This prevents generic best practices from being confused with features already
+implemented by Shopverse.

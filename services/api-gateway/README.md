@@ -32,7 +32,7 @@ Gateway logging is reactive; completion logging occurs when the downstream publi
 For generic API Gateway concepts and the complete Shopverse request lifecycle,
 including `GatewayFilterChain`, `chain.filter(...)`, `doFinally(...)`,
 correlation handling, timing, metrics, and production practices, see
-[API Gateway](../../documentation/docs/development/API-GATEWAY-GENERIC.md).
+[API Gateway](https://taukhir.github.io/shopverse-docs/development/API-GATEWAY-GENERIC).
 
 ## Configuration
 
@@ -43,7 +43,7 @@ centralized in `cloud-configs/API-GATEWAY.yml`.
 
 The gateway does not currently aggregate downstream OpenAPI documents. Use the
 service-level Swagger UI on servlet services when running them directly, or use
-the [API guide](../../documentation/docs/development/API-GUIDE.md) for the gateway
+the [API guide](../../docs/development/API-GUIDE.md) for the gateway
 entry-point catalog.
 
 ## Tests And Observability
@@ -110,11 +110,11 @@ non-blocking filter, retry, and dependency-readiness review.
 
 ## Related Guides
 
-- [System design](../../documentation/docs-architecture/SYSTEM-DESIGN.md)
-- [Spring Boot internals](../../documentation/docs/development/SPRING-BOOT-INTERNALS.md)
-- [API Gateway concepts and filter chain](../../documentation/docs/development/API-GATEWAY-GENERIC.md)
-- [Service discovery](../../documentation/docs-architecture/SERVICE-DISCOVERY.md)
-- [Load balancing](../../documentation/docs-architecture/LOAD-BALANCING-GENERIC.md)
-- [JWT and Spring Security](../../documentation/docs-security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Generic Spring Security](../../documentation/docs-security/SPRING-SECURITY-GENERIC.md)
-- [MDC and tracing](../../documentation/docs/observability/MDC-CORRELATION-TRACING.md)
+- [System design](../../docs/architecture/SYSTEM-DESIGN.md)
+- [Spring Boot internals](https://taukhir.github.io/shopverse-docs/development/SPRING-BOOT-INTERNALS)
+- [API Gateway concepts and filter chain](https://taukhir.github.io/shopverse-docs/development/API-GATEWAY-GENERIC)
+- [Service discovery](https://taukhir.github.io/shopverse-docs/architecture/SERVICE-DISCOVERY)
+- [Load balancing](https://taukhir.github.io/shopverse-docs/architecture/LOAD-BALANCING-GENERIC)
+- [JWT and Spring Security](https://taukhir.github.io/shopverse-docs/security/JWT-OAUTH2-SPRING-SECURITY)
+- [Generic Spring Security](https://taukhir.github.io/shopverse-docs/security/SPRING-SECURITY-GENERIC)
+- [MDC and tracing](https://taukhir.github.io/shopverse-docs/observability/MDC-CORRELATION-TRACING)

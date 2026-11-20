@@ -1,6 +1,6 @@
 # Shopverse Cloud Configs
 
-This README is the reference for configuration-source files. System architecture and cross-cutting behavior are documented in [docs](../documentation/docs/README.mdx).
+This README is the reference for configuration-source files. System architecture and cross-cutting behavior are documented in [docs](https://taukhir.github.io/shopverse-docs/).
 
 This folder is the centralized configuration source for the Shopverse POC.
 
@@ -54,9 +54,9 @@ Internal User Service routes such as `/api/v1/internal/users/authenticated` are 
   approves changes to its service-specific file.
 - Secrets must be environment placeholders. Literal passwords, tokens, private keys,
   or production endpoints are rejected.
-- From `documentation/`, run `npm run check:cloud-configs` to parse every YAML file,
-  verify the required service set and ports, protect internal routes, and check secret
-  placeholders.
+- From `infra/cloud-configs/`, run `npm install && npm run check` to parse every YAML
+  file, verify the required service set and ports, protect internal routes, and check
+  secret placeholders.
 - Review effective configuration through Config Server before rollout, but never
   paste sensitive environment output into issues or AI prompts.
 - Roll back by reverting the reviewed configuration commit, validating it, and then

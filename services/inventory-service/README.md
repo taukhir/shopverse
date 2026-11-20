@@ -19,7 +19,7 @@ Inventory Service runs on port `8086`. It owns the public product catalog, produ
 | `POST` | `/api/v1/inventory/admin/dead-letters/{id}/replay` | admin |
 
 Swagger is available at `/swagger-ui/index.html` when the service is reached
-directly; use the [API guide](../../documentation/docs/development/API-GUIDE.md)
+directly; use the [API guide](../../docs/development/API-GUIDE.md)
 for gateway-facing examples.
 
 ## Reservation Flow
@@ -35,7 +35,7 @@ the same reservation concurrently. Inventory consumes `payment.completed` and
 moves successful reservations to `CONFIRMED`, which is not eligible for expiry.
 The problem, race conditions, target state machine, claim/lease alternatives,
 failure behavior, and required tests are in
-[Multi-replica reservation expiry](../../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md).
+[Multi-replica reservation expiry](https://taukhir.github.io/shopverse-docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY).
 
 The same guide documents the unresolved late-payment race. Once expiry commits
 and stock is released, a delayed `payment.completed` event must not resurrect
@@ -216,17 +216,17 @@ reservation/expiry scenario. It does not replace a concurrent database fixture.
 
 ## Related Guides
 
-- [SAGA and outbox](../../documentation/docs/reliability/SAGA-OUTBOX.md)
-- [Transactional outbox pattern](../../documentation/docs/reliability/OUTBOX-PATTERN.md)
-- [Inbox pattern](../../documentation/docs/reliability/INBOX-PATTERN.md)
-- [SAGA code flow](../../documentation/docs/reliability/SHOPVERSE-SAGA-CODE-FLOW.md)
-- [Multi-replica reservation expiry](../../documentation/docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY.md)
-- [Locking and work ownership](../../documentation/docs/reliability/locking/LOCKING-AND-WORK-OWNERSHIP.md)
-- [Scheduler locking with ShedLock](../../documentation/docs/reliability/locking/SCHEDULER-LOCKING-SHEDLOCK.md)
-- [Shopverse transaction boundaries](../../documentation/docs/reliability/TRANSACTIONS.md)
-- [Spring transactions](../../documentation/docs-spring/SPRING-TRANSACTIONS.md)
-- [Apache Kafka](../../documentation/docs/integration/APACHE-KAFKA.md)
-- [Spring Kafka](../../documentation/docs-spring/SPRING-KAFKA.md)
-- [Distributed systems](../../documentation/docs-architecture/DISTRIBUTED-SYSTEMS.md)
-- [Generic Resilience4j patterns](../../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
-- [Spring Resilience4j](../../documentation/docs-spring/SPRING-RESILIENCE4J.md)
+- [SAGA and outbox](https://taukhir.github.io/shopverse-docs/reliability/SAGA-OUTBOX)
+- [Transactional outbox pattern](https://taukhir.github.io/shopverse-docs/reliability/OUTBOX-PATTERN)
+- [Inbox pattern](https://taukhir.github.io/shopverse-docs/reliability/INBOX-PATTERN)
+- [SAGA code flow](https://taukhir.github.io/shopverse-docs/reliability/SHOPVERSE-SAGA-CODE-FLOW)
+- [Multi-replica reservation expiry](https://taukhir.github.io/shopverse-docs/reliability/problems/runtime/MULTI-REPLICA-RESERVATION-EXPIRY)
+- [Locking and work ownership](https://taukhir.github.io/shopverse-docs/reliability/locking/LOCKING-AND-WORK-OWNERSHIP)
+- [Scheduler locking with ShedLock](https://taukhir.github.io/shopverse-docs/reliability/locking/SCHEDULER-LOCKING-SHEDLOCK)
+- [Shopverse transaction boundaries](https://taukhir.github.io/shopverse-docs/reliability/TRANSACTIONS)
+- [Spring transactions](https://taukhir.github.io/shopverse-docs/spring/SPRING-TRANSACTIONS)
+- [Apache Kafka](https://taukhir.github.io/shopverse-docs/integration/APACHE-KAFKA)
+- [Spring Kafka](https://taukhir.github.io/shopverse-docs/spring/SPRING-KAFKA)
+- [Distributed systems](https://taukhir.github.io/shopverse-docs/architecture/DISTRIBUTED-SYSTEMS)
+- [Generic Resilience4j patterns](https://taukhir.github.io/shopverse-docs/reliability/RESILIENCE4J-GENERIC)
+- [Spring Resilience4j](https://taukhir.github.io/shopverse-docs/spring/SPRING-RESILIENCE4J)

@@ -15,7 +15,7 @@
 
 ## Verification
 
-Run `./gradlew test` from this directory. For route/configuration work also run
-`node ../documentation/scripts/check-cloud-configs.mjs` and verify
-`GET /actuator/shopverse-readiness`. Review correlation, timeout, circuit-breaker,
+Run `./gradlew test` from this directory. For route/configuration work also run,
+from `infra/cloud-configs/`, `npm install` (once) and `node check-cloud-configs.mjs`,
+and verify `GET /actuator/shopverse-readiness`. Review correlation, timeout, circuit-breaker,
 JWT/JWKS, public/internal route, and fallback evidence.

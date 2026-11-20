@@ -3,8 +3,8 @@
 [![ShopVerse / CI / Backend](https://github.com/taukhir/shopverse/actions/workflows/ci-backend.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/ci-backend.yml)
 [![ShopVerse / CI / Security](https://github.com/taukhir/shopverse/actions/workflows/ci-security.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/ci-security.yml)
 [![License: MIT](https://img.shields.io/github/license/taukhir/shopverse)](LICENSE)
-[![Documentation](https://github.com/taukhir/shopverse/actions/workflows/docs-verify-publish.yml/badge.svg)](https://github.com/taukhir/shopverse/actions/workflows/docs-verify-publish.yml)
-[![Live Docs](https://img.shields.io/badge/Docs-Live-4051c7?style=flat-square&logo=docusaurus&logoColor=white)](https://taukhir.github.io/shopverse/)
+[![Documentation](https://github.com/taukhir/shopverse-docs/actions/workflows/docs-verify-publish.yml/badge.svg)](https://github.com/taukhir/shopverse-docs/actions/workflows/docs-verify-publish.yml)
+[![Live Docs](https://img.shields.io/badge/Docs-Live-4051c7?style=flat-square&logo=docusaurus&logoColor=white)](https://taukhir.github.io/shopverse-docs/)
 [![Static Demo](https://img.shields.io/badge/Demo-Static_Angular-14b8a6?style=flat-square&logo=angular&logoColor=white)](https://taukhir.github.io/portfolio/shopverse-demo.html)
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=flat-square&logo=springboot&logoColor=white)
@@ -12,18 +12,18 @@
 ![Docker](https://img.shields.io/badge/Docker_Compose-Local_platform-2496ED?style=flat-square&logo=docker&logoColor=white)
 
 **Built by [Tauqeer Ahmed | taukhir](https://github.com/taukhir)**
-[Portfolio](https://taukhir.github.io/portfolio/) · [Live Documentation](https://taukhir.github.io/shopverse/) · [Static ShopVerse Demo](https://taukhir.github.io/portfolio/shopverse-demo.html) · [GitHub Profile](https://github.com/taukhir) · [LinkedIn](https://www.linkedin.com/in/tauqeer-ahmed-java) · [Resume](https://taukhir.github.io/portfolio/assets/Tauqeer-Ahmed-Resume.pdf)
+[Portfolio](https://taukhir.github.io/portfolio/) · [Live Documentation](https://taukhir.github.io/shopverse-docs/) · [Static ShopVerse Demo](https://taukhir.github.io/portfolio/shopverse-demo.html) · [GitHub Profile](https://github.com/taukhir) · [LinkedIn](https://www.linkedin.com/in/tauqeer-ahmed-java) · [Resume](https://taukhir.github.io/portfolio/assets/Tauqeer-Ahmed-Resume.pdf)
 
 Shopverse is an observable, failure-aware commerce microservices POC. It demonstrates secure, idempotent checkout across independently persisted Order, Inventory, and Payment services using Kafka choreography, transactional outbox, compensation, and end-to-end observability.
 
 Runtime claims in this README describe the current local POC unless a section
 explicitly says otherwise. The exact status of each capability is maintained in
-the [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md)
+the [Features and demonstrations](docs/reference/FEATURES-AND-DEMOS.md)
 matrix using `Implemented`, `Implemented baseline`, `Partial`, and `Planned`
 labels. Production hardening notes are roadmap or design guidance, not claims
 that the current Compose stack is production-ready.
 
-![Shopverse architecture](documentation/static/img/diagrams/shopverse-architecture-flow.svg)
+![Shopverse architecture](docs/img/diagrams/shopverse-architecture-flow.svg)
 
 ## Why This Repository Matters
 
@@ -36,7 +36,7 @@ how I reason about backend architecture, not only how I write service code.
 | **Reliability** | Idempotent checkout, outbox, Kafka retries, DLT persistence, replay audit, and compensation |
 | **Security** | RSA-signed JWTs, JWKS validation, role/permission checks, and ownership authorization |
 | **Operations** | Docker Compose, CI gates, structured logs, metrics, traces, dashboards, and runbooks |
-| **Engineering maturity** | Service READMEs, documentation portal, ADRs, bounded tests, and failure-mode demos |
+| **Engineering maturity** | Service READMEs, [docs/](docs/README.md), ADRs, bounded tests, and failure-mode demos |
 
 ## Status Model
 
@@ -54,13 +54,13 @@ matrix as the source of truth for the precise status and evidence.
 
 If you only have a few minutes, review these in order:
 
-1. [Live documentation site](https://taukhir.github.io/shopverse/)
+1. [Live documentation site](https://taukhir.github.io/shopverse-docs/)
 2. [Static ShopVerse demo](https://taukhir.github.io/portfolio/shopverse-demo.html)
-3. [Architecture diagram](documentation/static/img/diagrams/shopverse-architecture-flow.svg)
+3. [Architecture diagram](docs/img/diagrams/shopverse-architecture-flow.svg)
 4. [Checkout example](#checkout-example)
 5. [Architecture decisions](#architecture-decisions)
-6. [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md)
-7. [End-to-end demo runbook](documentation/docs/case-study/COMPLETE-DEMO.mdx)
+6. [Features and demonstrations](docs/reference/FEATURES-AND-DEMOS.md)
+7. [End-to-end demo runbook](docs/case-study/COMPLETE-DEMO.md)
 8. [GitHub Actions workflow guide](.github/workflows/README.md)
 
 ## What This Demonstrates
@@ -99,10 +99,11 @@ The Config Server centralizes runtime configuration, Eureka provides service dis
 
 | Decision | Why it matters | ADR |
 | --- | --- | --- |
-| API Gateway, Eureka, and Config Server | Keeps edge routing, discovery, and runtime configuration explicit and reviewable | [ADR 001](documentation/docs/architecture/adr/001-gateway-discovery-config.md) |
-| Kafka choreography SAGA | Avoids distributed transactions while keeping checkout failure paths observable | [ADR 002](documentation/docs/architecture/adr/002-kafka-choreography-saga.md) |
-| JWT and JWKS security model | Lets services validate tokens without sharing signing secrets | [ADR 003](documentation/docs/architecture/adr/003-jwt-jwks-security.md) |
-| Observability by default | Makes local POC and production-shaped behavior diagnosable across services | [ADR 004](documentation/docs/architecture/adr/004-observability-stack.md) |
+| API Gateway, Eureka, and Config Server | Keeps edge routing, discovery, and runtime configuration explicit and reviewable | [ADR 001](docs/architecture/adr/001-gateway-discovery-config.md) |
+| Kafka choreography SAGA | Avoids distributed transactions while keeping checkout failure paths observable | [ADR 002](docs/architecture/adr/002-kafka-choreography-saga.md) |
+| JWT and JWKS security model | Lets services validate tokens without sharing signing secrets | [ADR 003](docs/architecture/adr/003-jwt-jwks-security.md) |
+| Observability by default | Makes local POC and production-shaped behavior diagnosable across services | [ADR 004](docs/architecture/adr/004-observability-stack.md) |
+| Multi-item checkout event contract | Scopes the single-item checkout limitation and the planned event-schema redesign | [ADR 005](docs/architecture/adr/005-multi-item-checkout-event-contract.md) |
 
 ## Core Capabilities
 
@@ -124,8 +125,8 @@ implementation matrix.
 - JUnit, Mockito, Spring test slices, Testcontainers, and bounded verification modes
 - Docker Compose, GitHub Actions, and Jenkins pipelines
 
-Run the POC with the [complete Shopverse demo](documentation/docs/case-study/COMPLETE-DEMO.mdx).
-The exact implementation matrix is in [Features and demonstrations](documentation/docs/reference/FEATURES-AND-DEMOS.md).
+Run the POC with the [complete Shopverse demo](docs/case-study/COMPLETE-DEMO.md).
+The exact implementation matrix is in [Features and demonstrations](docs/reference/FEATURES-AND-DEMOS.md).
 
 ## Services
 
@@ -140,7 +141,6 @@ The exact implementation matrix is in [Features and demonstrations](documentatio
 | Discovery Server | 8761 | Eureka registry |
 | Config Server | 8888 | centralized configuration |
 | Angular Storefront | 4200 | customer/admin web UI served by nginx in Docker |
-| Documentation | 3001 | Docusaurus documentation portal served by nginx in Docker |
 
 ## Quick Start
 
@@ -148,7 +148,7 @@ Prerequisites:
 
 - Docker Desktop with Docker Compose v2
 - Git
-- Java 21 and Node.js 20+ only when running services or documentation outside Docker
+- Java 21 and Node.js 20+ only when running services or the web frontend outside Docker
 - at least 8 GB memory available to Docker for the complete local stack
 
 Create a local `.env` from the repository template, validate the Compose model,
@@ -187,7 +187,7 @@ Docker configuration and command explanations are in [infra/docker/README.md](in
 
 The root [docker-compose.yml](docker-compose.yml) remains the backend platform
 compose file. The optional [docker-compose.full-stack.yml](docker-compose.full-stack.yml)
-overlay adds the Angular storefront and Docusaurus documentation containers.
+overlay adds the Angular storefront container.
 
 Backend platform only:
 
@@ -197,7 +197,7 @@ docker compose --profile apps --profile assets config --quiet
 docker compose --profile apps --profile assets up --build
 ```
 
-Full stack with Angular, Docusaurus, backend services, and MinIO product assets:
+Full stack with Angular, backend services, and MinIO product assets:
 
 ```powershell
 Copy-Item .env.example .env
@@ -217,7 +217,6 @@ Useful URLs:
 | Interface | URL | Notes |
 |---|---|---|
 | Angular storefront/admin | `http://localhost:4200` | nginx serves Angular and proxies `/api` and `/auth` to `api-gateway:8080` |
-| Documentation | `http://localhost:3001` | static Docusaurus build |
 | API Gateway | `http://localhost:8080` | backend entry point |
 | MinIO Console | `http://localhost:9001` | enabled by the `assets` profile |
 | Eureka | `http://localhost:8761` | service registry |
@@ -225,11 +224,10 @@ Useful URLs:
 | Prometheus | `http://localhost:9090` | enabled by the `observability` profile |
 | Zipkin | `http://localhost:9411` | traces |
 
-Optional frontend/docs port overrides in `.env`:
+Optional frontend port override in `.env`:
 
 ```dotenv
 SHOPVERSE_WEB_PORT=4200
-SHOPVERSE_DOCS_PORT=3001
 ```
 
 Compose profiles:
@@ -249,8 +247,6 @@ Troubleshooting:
 - If Angular route refreshes return `404`, confirm the container is using
   [shopverse-web/nginx.conf](shopverse-web/nginx.conf); it falls back to
   `index.html` for client-side routes.
-- If documentation is unavailable, rebuild only the docs image:
-  `docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.full-stack.yml build documentation`.
 - If starting only `shopverse-web` after the backend is already running fails
   with `service "shopverse-web" depends on undefined service "api-gateway"`,
   the `--profile apps --profile assets` flags were omitted. `shopverse-web`
@@ -336,7 +332,7 @@ docker compose exec mysql sh -lc '
 '
 ```
 
-The [complete Shopverse demo](documentation/docs/case-study/COMPLETE-DEMO.mdx)
+The [complete Shopverse demo](docs/case-study/COMPLETE-DEMO.md)
 contains SAGA, timeline, outbox, inventory, payment, and correlation queries.
 
 ## Checkout Example
@@ -417,7 +413,7 @@ they are not runtime AI features exposed to Shopverse customers.
 | service-specific rules | nested `AGENTS.md` and `CLAUDE.md` where available |
 | reusable implementation, debugging, security, performance, UX, docs, and incident prompts | [`dev-tools/ai-workflows/`](dev-tools/ai-workflows/README.md) |
 | deterministic evaluation scenarios and scoring | [`dev-tools/ai-workflows/evals/`](dev-tools/ai-workflows/evals/README.md) |
-| complete learning track and practical workbook | [AI-assisted development docs](documentation/docs/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY.md) |
+| complete learning track and practical workbook | [AI-assisted development docs](https://taukhir.github.io/shopverse-docs/ai/AI-ASSISTED-SDLC-DEVELOPER-PRODUCTIVITY) |
 
 Start a task by choosing the smallest relevant prompt, completing the
 [task-context template](dev-tools/ai-workflows/templates/task-context.md), and giving the
@@ -427,46 +423,35 @@ risk. Never provide secrets, payment data, customer-sensitive information, or
 unapproved production content to an AI tool.
 
 Service-level AI capabilities, coverage gaps, and site-native README mirrors are
-tracked in the [service README and AI capability matrix](documentation/docs/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX.md).
+tracked in the [service README and AI capability matrix](docs/services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX.md).
 
 ## Documentation
 
-Open the live documentation site at
-[taukhir.github.io/shopverse](https://taukhir.github.io/shopverse/).
+Shopverse-specific documentation (case study, architecture decisions, system
+design, the implementation status matrix) lives in this repository under
+[docs/](docs/README.md) as plain Markdown, reviewable directly on GitHub.
 
-For source review, start with the
-[documentation index](documentation/docs/README.mdx).
+The generic backend-engineering knowledge base this case study sits inside
+(Java, Spring, Kafka, databases, security, AI, interview prep, and more) is a
+separate Docusaurus site in its own repository,
+[taukhir/shopverse-docs](https://github.com/taukhir/shopverse-docs),
+published at [taukhir.github.io/shopverse-docs](https://taukhir.github.io/shopverse-docs/). Generic
+engineering guides there explain reusable production practices; the
+[case study](docs/README.md) here states which of those practices are
+actually implemented in this repository and which remain planned.
 
-The same Markdown is rendered as a reusable backend engineering Docusaurus
-portal from `documentation/`, with Shopverse organized as a case study.
-Generic engineering guides explain reusable production practices; Shopverse
-case-study pages state which practices are implemented in this repository and
-which remain planned.
-Run it locally with:
+## Frontend Automation
 
-```powershell
-cd documentation
-npm install
-npm start
-```
-
-## Frontend And Documentation Automation
-
-Run the Angular storefront and Docusaurus documentation gates from the
-repository root:
+Run the Angular storefront gate from the repository root:
 
 ```powershell
-.\infra\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -TimeoutMinutes 30
+.\infra\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full -TimeoutMinutes 30
 ```
 
-Common focused runs:
-
-```powershell
-.\infra\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Full
-.\infra\scripts\Test-ShopverseSites.ps1 -Target Docs -Mode Quick
-.\infra\scripts\Test-ShopverseSites.ps1 -Target Docs -Mode Full -SkipBrowsers
-.\infra\scripts\Test-ShopverseSites.ps1 -Target All -Mode Full -Install
-```
+`-Target Docs` and `-Target All` still exist for compatibility but no longer
+run anything: the Docusaurus documentation site moved to its own repository,
+[taukhir/shopverse-docs](https://github.com/taukhir/shopverse-docs), which has
+its own CI. Verify documentation changes there instead.
 
 Run real Docker-backed integration only when you need release confidence:
 
@@ -501,38 +486,35 @@ For a faster orchestration check without Docker:
 If PowerShell script execution is locked down locally, use:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseSites.ps1 -Target All -Mode Quick -SkipBrowsers
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseSites.ps1 -Target Web -Mode Quick -SkipBrowsers
 ```
 
 The web gate runs Angular development and production builds, Angular
 unit/component tests, mocked Playwright E2E flows, axe accessibility checks, and
-a Lighthouse budget against the production build. The documentation gate runs
-type-checking, document validation, Docusaurus build, performance budget, and
-Playwright rendering/accessibility tests unless `-SkipBrowsers` is used.
-The release checklist combines the frontend/documentation gate and the
-Docker-backed full-stack gate, then writes a JSON report to
-`testing/reports/shopverse-release-report.json`.
+a Lighthouse budget against the production build.
+The release checklist combines the web gate and the Docker-backed full-stack
+gate, then writes a JSON report to `testing/reports/shopverse-release-report.json`.
 The GitHub Actions workflow
 [ci-web.yml](.github/workflows/ci-web.yml) runs the web checks on frontend
-changes. Documentation has its own verification and publication workflow.
+changes. Documentation has its own verification and publication workflow in
+the shopverse-docs repository.
 The full-stack gate starts an isolated Compose project, publishes API Gateway
-on `http://127.0.0.1:18080`, Angular on `http://127.0.0.1:14200`, and
-documentation on `http://127.0.0.1:13001`, then runs API SAGA smoke plus a real
-browser smoke through the nginx-served Angular app.
+on `http://127.0.0.1:18080` and Angular on `http://127.0.0.1:14200`, then runs
+API SAGA smoke plus a real browser smoke through the nginx-served Angular app.
 
 | Area | Guide |
 |---|---|
-| Complete demo | [End-to-end Shopverse runbook](documentation/docs/case-study/COMPLETE-DEMO.mdx) |
-| Architecture | [System design](documentation/docs/architecture/SYSTEM-DESIGN.md) |
-| Distributed systems | [Fundamentals](documentation/docs/architecture/DISTRIBUTED-SYSTEMS-GENERIC.md), [CAP and consistency](documentation/docs/architecture/DISTRIBUTED-CONSISTENCY-CAP.md), and [interview questions](documentation/docs/reference/DISTRIBUTED-SYSTEMS-INTERVIEW.md) |
-| Features | [Features and demos](documentation/docs/reference/FEATURES-AND-DEMOS.md) |
-| APIs | [Shopverse API guide](documentation/docs/development/API-GUIDE.md) and [REST design](documentation/docs/development/REST-API-GENERIC.md) |
-| Security | [JWT, OAuth2, and Spring Security](documentation/docs/security/JWT-OAUTH2-SPRING-SECURITY.md) |
-| Messaging | [Apache Kafka](documentation/docs/integration/APACHE-KAFKA.md), [Spring Kafka](documentation/docs/spring/SPRING-KAFKA.md), and [SAGA/outbox](documentation/docs/reliability/SAGA-OUTBOX.md) |
-| Observability | [Observability architecture](documentation/docs/observability/OBSERVABILITY.md) and [operations](documentation/docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md) |
-| Data | [Database engineering](documentation/docs/data/DATABASE-ENGINEERING.md), [Hibernate](documentation/docs/data/HIBERNATE.md), [Liquibase](documentation/docs/data/LIQUIBASE-GENERIC.md), [Spring transactions](documentation/docs/spring/SPRING-TRANSACTIONS.md), and [caching principles](documentation/docs/architecture/CACHING-GENERIC.md) |
-| Testing | [Shopverse testing](documentation/docs/development/TESTING.md) and [Spring Boot testing](documentation/docs/spring/SPRING-BOOT-TESTING.md) |
-| Troubleshooting | [Debugging guide](documentation/docs/development/DEBUGGING.md) |
+| Complete demo | [End-to-end Shopverse runbook](docs/case-study/COMPLETE-DEMO.md) |
+| Architecture | [System design](docs/architecture/SYSTEM-DESIGN.md) |
+| Distributed systems | [Fundamentals](https://taukhir.github.io/shopverse-docs/architecture/DISTRIBUTED-SYSTEMS-GENERIC), [CAP and consistency](https://taukhir.github.io/shopverse-docs/architecture/DISTRIBUTED-CONSISTENCY-CAP), and [interview questions](https://taukhir.github.io/shopverse-docs/reference/DISTRIBUTED-SYSTEMS-INTERVIEW) |
+| Features | [Features and demos](docs/reference/FEATURES-AND-DEMOS.md) |
+| APIs | [Shopverse API guide](docs/development/API-GUIDE.md) and [REST design](https://taukhir.github.io/shopverse-docs/development/REST-API-GENERIC) |
+| Security | [JWT, OAuth2, and Spring Security](https://taukhir.github.io/shopverse-docs/security/JWT-OAUTH2-SPRING-SECURITY) |
+| Messaging | [Apache Kafka](https://taukhir.github.io/shopverse-docs/integration/APACHE-KAFKA), [Spring Kafka](https://taukhir.github.io/shopverse-docs/spring/SPRING-KAFKA), and [SAGA walkthrough](docs/case-study/DEMO-SEED-CHECKOUT-SAGA.md) |
+| Observability | [Observability architecture](https://taukhir.github.io/shopverse-docs/observability/OBSERVABILITY) and [Shopverse operations](docs/observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md) |
+| Data | [Database engineering](https://taukhir.github.io/shopverse-docs/data/DATABASE-ENGINEERING), [Hibernate](https://taukhir.github.io/shopverse-docs/data/HIBERNATE), [Liquibase](https://taukhir.github.io/shopverse-docs/data/LIQUIBASE-GENERIC), [Spring transactions](https://taukhir.github.io/shopverse-docs/spring/SPRING-TRANSACTIONS), and [caching principles](https://taukhir.github.io/shopverse-docs/architecture/CACHING-GENERIC) |
+| Testing | [Shopverse testing](https://taukhir.github.io/shopverse-docs/development/TESTING) and [Spring Boot testing](https://taukhir.github.io/shopverse-docs/spring/SPRING-BOOT-TESTING) |
+| Troubleshooting | [Debugging guide](https://taukhir.github.io/shopverse-docs/development/DEBUGGING) |
 
 Service-specific APIs and configuration remain in each service README. Operational guides remain beside their deployment files:
 

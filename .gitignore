@@ -65,14 +65,6 @@ HELP.md
 **/.nyc_output/
 dev-tools/testing/reports/
 
-# Documentation generated files
-documentation/docs/*.docx
-documentation/docs/rendered/
-documentation/node_modules/
-documentation/build/
-documentation/build-*/
-documentation/.docusaurus/
-documentation/reports/
 
 # Package manager store/cache
 .pnpm-store/
