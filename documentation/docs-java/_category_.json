@@ -1,8 +1,0 @@
-{
-  "label": "Java Fundamentals",
-  "position": 2,
-  "link": {
-    "type": "generated-index",
-    "description": "Core Java, OOP, collections, streams, language evolution, concurrency, and interview preparation."
-  }
-}

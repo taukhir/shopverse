@@ -44,18 +44,3 @@ test('Config Server mounts the canonical configuration files from an existing di
   }
 });
 
-test('Documentation image includes every canonical README required by prebuild', () => {
-  const script = readFileSync(new URL('../../documentation/scripts/sync-service-readmes.mjs', import.meta.url), 'utf8');
-  const dockerfile = readFileSync(new URL('../../documentation/Dockerfile', import.meta.url), 'utf8');
-  const sources = [...script.matchAll(/source: '([^']+)'/g)].map(match => match[1]);
-  assert.ok(sources.length > 0);
-  for (const match of dockerfile.matchAll(/^COPY ([^\s-][^\s]*) /gm)) {
-    const source = match[1];
-    if (!source.includes('*')) {
-      assert.ok(existsSync(new URL(`../../${source}`, import.meta.url)), `Docker COPY source missing: ${source}`);
-    }
-  }
-  for (const source of sources) {
-    assert.ok(dockerfile.includes(`COPY ${source} /workspace/${source}`), `README absent from Docker build: ${source}`);
-  }
-});

@@ -114,17 +114,13 @@ or appearance.
 
 ### Documentation
 
-Run from `documentation/`:
-
-```powershell
-npm run check:fast
-npm run check:language
-npm run build
-```
-
-For broad documentation changes, use `npm run check:content-quality`. Keep docs
-in `documentation/docs/`, update `documentation/sidebars.ts` when navigation is
-required, and verify the generated route after a production build.
+The documentation site (Docusaurus knowledge base and Shopverse case study)
+lives in its own repository, [taukhir/shopverse-docs](https://github.com/taukhir/shopverse-docs),
+not in this one. Service READMEs, this file, and scoped `AGENTS.md`/`CLAUDE.md`
+files stay here and are not mirrored there; shopverse-docs links to the
+canonical file in this repository instead. Changes to behavior, contracts, or
+configuration that documentation describes should still be reflected there,
+as a separate change in that repository.
 
 ## Review Expectations
 
@@ -143,7 +139,7 @@ Before handoff, inspect the diff for:
 ## Repository Routing
 
 - Checkout, orders, timeline, cancellation, fulfillment, and returns:
-  `services/order-service/` and `documentation/docs/architecture/`.
+  `services/order-service/`.
 - Catalog, stock, reservations, expiry, and inventory compensation:
   `services/inventory-service/`.
 - Payment lifecycle, ownership, failure, and compensation:
@@ -151,9 +147,9 @@ Before handoff, inspect the diff for:
 - Shared Kafka, outbox, recovery, security, observability, and error behavior:
   `shopverse-common/`.
 - Browser application and user experience: `shopverse-web/`.
-- Runnable platform demonstrations and recovery evidence:
-  `documentation/docs/case-study/`.
-- Reliability patterns: `documentation/docs/reliability/`.
+- Architecture decisions, runnable platform demonstrations, recovery evidence,
+  and reliability patterns: `docs-architecture/adr/`, `docs/case-study/`, and
+  `docs/reliability/` in the `taukhir/shopverse-docs` repository.
 - Reusable AI task prompts and evidence templates: `dev-tools/ai-workflows/`.
 - Deterministic AI workflow scenarios and scoring: `dev-tools/ai-workflows/evals/`.
 
