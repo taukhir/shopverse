@@ -24,7 +24,7 @@ for (const event of ['schedule', 'workflow_dispatch', 'merge_group']) {
   });
 }
 test('master pushes create complete release candidates even for docs-only commits', () => {
-  const result = select({event: 'push', ref: 'refs/heads/master', diff: () => ['documentation/docs/intro.md']});
+  const result = select({event: 'push', ref: 'refs/heads/master', diff: () => ['docs/case-study/SHOPVERSE.md']});
   assert.deepEqual(selected(result), services);
   assert.equal(result.release_candidate, 'true');
 });
@@ -70,13 +70,13 @@ for (const file of ['.github/workflows/ci-web.yml', '.github/workflows/docs-veri
 test('mixed service and independent workflow edits retain every affected service', () => {
   const result = select({diff: () => ['services/user-service/src/Changed.java',
     'services/payment-service/src/Changed.java', '.github/workflows/ci-web.yml',
-    'documentation/docs/intro.md', 'shopverse-web/src/app/app.ts']});
+    'docs/case-study/SHOPVERSE.md', 'shopverse-web/src/app/app.ts']});
   assert.deepEqual(selected(result), ['user-service', 'payment-service']);
   assert.equal(result.has_integration_changes, 'true');
   assert.equal(result.common_required, 'false');
 });
 test('documentation-only PRs have intentional empty matrices', () => {
-  const result = select({diff: () => ['documentation/docs/intro.md']});
+  const result = select({diff: () => ['docs/case-study/SHOPVERSE.md']});
   assert.deepEqual(selected(result), []);
   assert.equal(result.has_changes, 'false');
   assert.equal(result.common_required, 'false');

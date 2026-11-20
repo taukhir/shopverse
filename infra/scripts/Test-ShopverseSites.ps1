@@ -172,35 +172,11 @@ function Test-WebApp {
 }
 
 function Test-DocumentationSite {
-    $docsRoot = Join-Path $repoRoot "documentation"
-
-    if ($Install) {
-        Invoke-CheckedProcess -Name "docs:npm-ci" -WorkingDirectory $docsRoot -Command "npm ci" -TimeoutSeconds 300
-    }
-
-    Invoke-CheckedProcess -Name "docs:typecheck" -WorkingDirectory $docsRoot -Command "npm run typecheck" -TimeoutSeconds 180
-
-    if ($Mode -eq "Full") {
-        Invoke-CheckedProcess -Name "docs:validate-full" -WorkingDirectory $docsRoot -Command "npm run check:docs:full" -TimeoutSeconds 240
-    } else {
-        Invoke-CheckedProcess -Name "docs:validate-changed" -WorkingDirectory $docsRoot -Command "npm run check:docs:changed" -TimeoutSeconds 120
-    }
-
-    Invoke-CheckedProcess -Name "docs:build" -WorkingDirectory $docsRoot -Command "npm run build" -TimeoutSeconds 300
-    Invoke-CheckedProcess -Name "docs:performance" -WorkingDirectory $docsRoot -Command "npm run check:performance" -TimeoutSeconds 120
-
-    if ($SkipBrowsers) {
-        Add-SkippedResult -Name "docs:playwright" -Reason "Skipped by -SkipBrowsers."
-        return
-    }
-
-    Invoke-CheckedProcess -Name "docs:install-browser" -WorkingDirectory $docsRoot -Command "npx playwright install chromium" -TimeoutSeconds 240
-
-    if ($Mode -eq "Full") {
-        Invoke-CheckedProcess -Name "docs:ui-tests" -WorkingDirectory $docsRoot -Command "npm run test:ui" -TimeoutSeconds 360
-    } else {
-        Invoke-CheckedProcess -Name "docs:changed-ui-tests" -WorkingDirectory $docsRoot -Command "npm run test:changed" -TimeoutSeconds 240
-    }
+    # The Docusaurus documentation site moved to its own repository,
+    # taukhir/shopverse-docs, which has its own build/test/CI pipeline.
+    # There is nothing to verify here anymore; this repository only keeps
+    # plain Shopverse-specific Markdown under docs/.
+    Add-SkippedResult -Name "docs:all" -Reason "Documentation site moved to github.com/taukhir/shopverse-docs; verify it there."
 }
 
 try {

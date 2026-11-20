@@ -226,6 +226,6 @@ the acceptance evidence for actual UI changes.
 
 - [Live documentation site](https://taukhir.github.io/shopverse/)
 - [Root quick start](../README.md)
-- [API guide](../documentation/docs/development/API-GUIDE.md)
-- [Service catalog](../documentation/docs/services/SERVICE-CATALOG.md)
-- [Complete demo](../documentation/docs/case-study/COMPLETE-DEMO.mdx)
+- [API guide](../docs/development/API-GUIDE.md)
+- [Service catalog](https://taukhir.github.io/shopverse-docs/services/SERVICE-CATALOG)
+- [Complete demo](../docs/case-study/COMPLETE-DEMO.md)

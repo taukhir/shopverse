@@ -10,8 +10,6 @@ param(
 
     [switch]$SkipBrowser,
 
-    [switch]$SkipDocs,
-
     [switch]$KeepStack
 )
 
@@ -23,7 +21,6 @@ $deadline = $startedAt.AddMinutes($TimeoutMinutes)
 $projectName = "shopverse-fullstack-$PID"
 $gatewayUrl = "http://127.0.0.1:18080"
 $webUrl = "http://127.0.0.1:14200"
-$docsUrl = "http://127.0.0.1:13001"
 $results = [System.Collections.Generic.List[object]]::new()
 $dockerAvailable = $false
 $composeArgumentsPrefix = @(
@@ -190,15 +187,13 @@ function Set-TestEnvironment {
     if (-not $env:MINIO_ROOT_PASSWORD) { $env:MINIO_ROOT_PASSWORD = "shopverse-test-minio-password" }
     if (-not $env:GRAFANA_ADMIN_PASSWORD) { $env:GRAFANA_ADMIN_PASSWORD = "shopverse-test-grafana-password" }
     $env:SHOPVERSE_WEB_TEST_PORT = "14200"
-    $env:SHOPVERSE_DOCS_TEST_PORT = "13001"
 }
 
 function Clear-TestEnvironment {
     "COMPOSE_PROJECT_NAME",
     "COMPOSE_PARALLEL_LIMIT",
     "COMPOSE_BAKE",
-    "SHOPVERSE_WEB_TEST_PORT",
-    "SHOPVERSE_DOCS_TEST_PORT" |
+    "SHOPVERSE_WEB_TEST_PORT" |
         ForEach-Object { Remove-Item "Env:$_" -ErrorAction SilentlyContinue }
 }
 
@@ -226,10 +221,6 @@ try {
         "shopverse-web"
     )
 
-    if (-not $SkipDocs) {
-        $services += "documentation"
-    }
-
     Invoke-Compose -Name "compose-config" -Arguments @("config", "--quiet")
     Invoke-Compose -Name "compose-up" -Arguments (@("up", "-d", "--build") + $services)
 
@@ -248,14 +239,6 @@ try {
         -TimeoutSeconds ([math]::Min(120, (Get-RemainingSeconds))) `
         -ExpectedPattern "shopverse|ShopVerse" | Out-Null
     Add-Result -Name "web-health" -Detail $webUrl
-
-    if (-not $SkipDocs) {
-        & (Join-Path $PSScriptRoot "Wait-Service.ps1") `
-            -Uri $docsUrl `
-            -TimeoutSeconds ([math]::Min(120, (Get-RemainingSeconds))) `
-            -ExpectedPattern "Backend Engineering|Shopverse|Docusaurus" | Out-Null
-        Add-Result -Name "docs-health" -Detail $docsUrl
-    }
 
     $smoke = & (Join-Path $PSScriptRoot "Smoke-Test.ps1") -GatewayUrl $gatewayUrl -TimeoutSeconds 60
     Add-Result -Name "api-saga-smoke" -Detail $smoke.orderNumber

@@ -37,14 +37,14 @@ contracts, helper APIs, and Spring Boot auto-configuration.
 
 ## Solution Pages
 
-- [Duplicate Logic Overview](../documentation/docs/platform/DUPLICATE-LOGIC.md)
-- [Common Error Contract](../documentation/docs/platform/COMMON-ERROR.md)
-- [Shared Web Pagination](../documentation/docs/platform/WEB-PAGINATION.md)
-- [Observability Starter](../documentation/docs/platform/OBSERVABILITY-STARTER.md)
-- [Security Starter](../documentation/docs/platform/SECURITY-STARTER.md)
-- [Kafka Event Parsing](../documentation/docs/platform/KAFKA-PARSING.md)
-- [Outbox Starter](../documentation/docs/platform/OUTBOX-STARTER.md)
-- [Kafka Recovery Starter](../documentation/docs/platform/KAFKA-RECOVERY-STARTER.md)
+- [Duplicate Logic Overview](https://taukhir.github.io/shopverse-docs/platform/DUPLICATE-LOGIC)
+- [Common Error Contract](https://taukhir.github.io/shopverse-docs/platform/COMMON-ERROR)
+- [Shared Web Pagination](https://taukhir.github.io/shopverse-docs/platform/WEB-PAGINATION)
+- [Observability Starter](https://taukhir.github.io/shopverse-docs/platform/OBSERVABILITY-STARTER)
+- [Security Starter](https://taukhir.github.io/shopverse-docs/platform/SECURITY-STARTER)
+- [Kafka Event Parsing](https://taukhir.github.io/shopverse-docs/platform/KAFKA-PARSING)
+- [Outbox Starter](https://taukhir.github.io/shopverse-docs/platform/OUTBOX-STARTER)
+- [Kafka Recovery Starter](https://taukhir.github.io/shopverse-docs/platform/KAFKA-RECOVERY-STARTER)
 
 ## Local Consumption
 

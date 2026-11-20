@@ -8,5 +8,5 @@
 - Every change needs an affected-service list, effective-value verification, rollout or
   refresh plan, rollback commit, and representative service tests.
 
-Run `node ../documentation/scripts/check-cloud-configs.mjs` and the affected service
-tests. Do not treat valid YAML as proof of safe production semantics.
+Run `node check-cloud-configs.mjs` (from this directory, after `npm install`) and the
+affected service tests. Do not treat valid YAML as proof of safe production semantics.

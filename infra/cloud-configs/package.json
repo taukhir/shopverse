@@ -1,0 +1,12 @@
+{
+  "name": "shopverse-cloud-configs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "check": "node check-cloud-configs.mjs"
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

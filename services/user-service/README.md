@@ -179,11 +179,11 @@ allow/deny coverage remains required in the service test suite.
 
 ## Related Guides
 
-- [JWT and Spring Security](../../documentation/docs-security/JWT-OAUTH2-SPRING-SECURITY.md)
-- [Generic Spring Security](../../documentation/docs-security/SPRING-SECURITY-GENERIC.md)
-- [Liquibase](../../documentation/docs-data/LIQUIBASE-GENERIC.md)
-- [Shopverse Resilience4j](../../documentation/docs/reliability/RESILIENCE4J.md)
-- [Generic Resilience4j patterns](../../documentation/docs/reliability/RESILIENCE4J-GENERIC.md)
-- [Spring Resilience4j](../../documentation/docs-spring/SPRING-RESILIENCE4J.md)
-- [Spring Boot testing](../../documentation/docs-spring/SPRING-BOOT-TESTING.md)
-- [Shopverse testing strategy](../../documentation/docs/development/TESTING.md)
+- [JWT and Spring Security](https://taukhir.github.io/shopverse-docs/security/JWT-OAUTH2-SPRING-SECURITY)
+- [Generic Spring Security](https://taukhir.github.io/shopverse-docs/security/SPRING-SECURITY-GENERIC)
+- [Liquibase](https://taukhir.github.io/shopverse-docs/data/LIQUIBASE-GENERIC)
+- [Shopverse Resilience4j](https://taukhir.github.io/shopverse-docs/reliability/RESILIENCE4J)
+- [Generic Resilience4j patterns](https://taukhir.github.io/shopverse-docs/reliability/RESILIENCE4J-GENERIC)
+- [Spring Resilience4j](https://taukhir.github.io/shopverse-docs/spring/SPRING-RESILIENCE4J)
+- [Spring Boot testing](https://taukhir.github.io/shopverse-docs/spring/SPRING-BOOT-TESTING)
+- [Shopverse testing strategy](https://taukhir.github.io/shopverse-docs/development/TESTING)
