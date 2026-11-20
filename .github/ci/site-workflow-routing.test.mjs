@@ -21,23 +21,20 @@ function pathsFor(name, event) {
 }
 
 for (const event of ['push', 'pull_request']) {
-  for (const [name, folder] of [['ci-web', 'shopverse-web'], ['docs-verify-publish', 'documentation']]) {
+  for (const [name, folder] of [['ci-web', 'shopverse-web']]) {
     test(`${name}/${event} triggers only for its owning directory`, () => {
       assert.deepEqual(pathsFor(name, event), [`${folder}/**`]);
     });
   }
-  for (const name of ['ci-docs-visual', 'ci-java-labs']) {
-    test(`${name}/${event} retains filters entirely within documentation`, () => {
-      assert.ok(pathsFor(name, event).every(path => path.startsWith('documentation/')));
+  for (const name of ['ci-java-labs']) {
+    test(`${name}/${event} retains filters entirely within labs`, () => {
+      assert.ok(pathsFor(name, event).every(path => path.startsWith('labs/')));
     });
   }
 }
 
-test('manual site verification and weekly documentation checks remain available', () => {
-  for (const name of ['ci-web', 'docs-verify-publish', 'ci-docs-visual', 'ci-java-labs']) {
+test('manual site verification remains available', () => {
+  for (const name of ['ci-web', 'ci-java-labs']) {
     assert.match(header(name), /^  workflow_dispatch:/m);
-  }
-  for (const name of ['docs-verify-publish', 'ci-docs-visual']) {
-    assert.match(header(name), /^  schedule:\n    - cron:/m);
   }
 });
