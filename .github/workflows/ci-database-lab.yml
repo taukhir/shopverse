@@ -28,11 +28,11 @@ jobs:
           persist-credentials: false
       - name: Run bounded database operations assertions
         shell: pwsh
-        run: ./documentation/labs/database-operations/run-lab.ps1
+        run: ./labs/database-operations/run-lab.ps1
       - name: Clean up disposable volumes
         if: always()
         shell: pwsh
-        run: ./documentation/labs/database-operations/cleanup.ps1
+        run: ./labs/database-operations/cleanup.ps1
 
   analytics:
     if: github.event_name == 'workflow_dispatch' && inputs.include_analytics
@@ -44,8 +44,8 @@ jobs:
           persist-credentials: false
       - name: Run operations and ClickHouse projection assertions
         shell: pwsh
-        run: ./documentation/labs/database-operations/run-lab.ps1 -IncludeAnalytics
+        run: ./labs/database-operations/run-lab.ps1 -IncludeAnalytics
       - name: Clean up disposable volumes
         if: always()
         shell: pwsh
-        run: ./documentation/labs/database-operations/cleanup.ps1
+        run: ./labs/database-operations/cleanup.ps1

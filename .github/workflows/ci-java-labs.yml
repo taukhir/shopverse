@@ -3,11 +3,11 @@ name: ShopVerse / CI / Java Labs
 on:
   pull_request:
     paths:
-      - 'documentation/labs/java-senior/**'
+      - 'labs/java-senior/**'
   push:
     branches: [master]
     paths:
-      - 'documentation/labs/java-senior/**'
+      - 'labs/java-senior/**'
   workflow_dispatch:
 
 permissions:
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: documentation/labs/java-senior
+        working-directory: labs/java-senior
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:

@@ -10,37 +10,32 @@ manual demonstration, not a second automatic production pipeline.
 | `ci-backend.yml` | Config and workflow validation, affected-service quality/unit checks, shared-module tests, Testcontainers, image builds/scans, SAGA and stable gate | PRs; complete runs on master pushes, merge queue, nightly and manual |
 | `ci-security.yml` | Secrets, dependencies/configuration and CodeQL source analysis | Called once by backend; manual diagnostic run available |
 | `ci-web.yml` | Web production build, unit tests, quick E2E, accessibility and Lighthouse | Relevant web PRs/master pushes; manual |
-| `docs-verify-publish.yml` | Docs content/build/browser/performance verification and Pages publication | Relevant PRs/master pushes, weekly and manual; publication excluded from PRs |
 | `cd-production.yml` | Publish verified candidate images, retain digest manifest, optional protected SSH deployment | Successful master-push backend runs; manual retry with a verified CI run ID |
-| `ci-docs-visual.yml` | Linux screenshot comparisons and manual baseline artifacts | Relevant UI changes, weekly and manual |
 | `ci-java-labs.yml` | Java documentation labs on JDK 24/25 | Relevant PRs/master pushes; manual |
 | `ci-database-lab.yml` | Disposable database-operations exercises | Weekly/manual; optional analytics |
 | `integration-jenkins.yml` | Submit a demonstration build with an explicit source SHA | Manual only; optional |
 
 Dependabot already updates Actions, Gradle, npm and Docker dependencies. The
 separate monthly `npm update` workflow was removed to avoid overlapping update
-PRs. Web CI runs `-Target Web`; Docs owns its own verification, avoiding duplicate
-Docusaurus builds in the Windows web job.
+PRs. Web CI runs `-Target Web`.
 
-Push/PR triggers for Web verification match only `shopverse-web/**`; Docs
-verification matches only `documentation/**`. Docs visual and Java lab workflows
-retain their narrower paths inside `documentation/`. Changes to workflow files,
-root READMEs, service code, shared Gradle files or infrastructure scripts alone
-do not trigger these site workflows. Existing manual runs and weekly Docs/visual
-checks remain separate from push/PR routing.
+The documentation site moved to its own repository,
+[taukhir/shopverse-docs](https://github.com/taukhir/shopverse-docs), with its own
+verification and GitHub Pages publication workflows. It is not part of this
+repository's CI anymore; this repository no longer has a `documentation/`
+directory, `docs-verify-publish.yml`, or `ci-docs-visual.yml`. The Java lab
+workflow (`ci-java-labs.yml`) stays here, scoped to `labs/java-senior/**`, since
+that lab's own Maven build and CI matrix belong to this repository.
 
-Path selection uses the complete PR diff: once a PR includes site changes,
-subsequent pushes still verify that site. When canonical README or AI workflow
-inputs outside `documentation/` change, regenerate and include their affected
-documentation mirrors in the same PR so Docs verification runs. Workflow-only
-changes can be checked with Actionlint and a manual site verification run.
+Push/PR triggers for Web verification match only `shopverse-web/**`.
 
 ## What is required, and what is optional?
 
-The four product responsibilities are backend verification (including security),
-web verification, documentation verification/publication, and release/deployment.
-The extra visual/lab workflows protect executable documentation; they are not
-production release gates. Security is reusable because backend must wait for its
+The three product responsibilities in this repository are backend verification
+(including security), web verification, and release/deployment. Documentation
+verification/publication lives in `taukhir/shopverse-docs` now. The lab workflows
+(`ci-java-labs.yml`, `ci-database-lab.yml`) protect executable lab material that
+stayed here; they are not production release gates. Security is reusable because backend must wait for its
 result, not because ShopVerse needs an independent orchestration platform.
 
 Do not add a pipeline for every service: a bounded service matrix provides
