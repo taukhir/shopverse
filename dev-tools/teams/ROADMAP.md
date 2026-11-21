@@ -449,9 +449,11 @@ explaining what Postgres's actual advisory locks would have added.
 **Expected result:** a real rotation test passes (old key still
 verifies during overlap, fails cleanly after retirement) — this directly
 closes the gap found while writing ADR 003. At least one service
-enforces audience. `documentation/docs/architecture/adr/003-jwt-jwks-security.md`
-and the `security/jwt/*` pages get updated to reflect the fix once it
-lands, since they currently document this as an open gap.
+enforces audience. `docs/architecture/adr/003-jwt-jwks-security.md` and the
+`docs-security/jwt/*` pages on
+[shopverse-docs](https://taukhir.github.io/shopverse-docs/security/) get
+updated to reflect the fix once it lands, since they currently document
+this as an open gap.
 
 ### FEAT-Q — Gateway-level distributed rate limiting
 

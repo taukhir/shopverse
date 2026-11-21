@@ -9,7 +9,9 @@ documentation without checking it.
 ```text
 Scope: [whole repository, or named services/areas]
 Areas of suspected drift: [rows in dev-tools/teams/PROGRESS.md you doubt, or "none, full sweep"]
-Related docs to cross-check: [e.g. documentation/docs/reference/FEATURES-*.md]
+Related docs to cross-check: [e.g. docs/reference/FEATURES-AND-DEMOS.md, or the
+FEATURES-SECURITY-CHECKOUT / FEATURES-RELIABILITY-OBSERVABILITY pages on
+https://taukhir.github.io/shopverse-docs/reference/]
 ```
 
 ## Workflow Prompt
@@ -26,9 +28,11 @@ Follow AGENTS.md. This is a read-only audit; do not modify service code.
    rating, wishlist, coupon, discount, tax, shipping-provider, currency,
    notification, recommend, plus any new keywords relevant to recent work) to
    catch newly added or newly removed capabilities that predate this audit.
-4. Cross-check documentation/docs/reference/FEATURES-SECURITY-CHECKOUT.md and
-   FEATURES-RELIABILITY-OBSERVABILITY.md for status changes since the last
-   audit; note any disagreement between those pages and what the code shows.
+4. Cross-check `docs/reference/FEATURES-AND-DEMOS.md` and the
+   FEATURES-SECURITY-CHECKOUT / FEATURES-RELIABILITY-OBSERVABILITY pages on
+   https://taukhir.github.io/shopverse-docs/reference/ for status changes
+   since the last audit; note any disagreement between those pages and what
+   the code shows.
 5. Update dev-tools/teams/PROGRESS.md: change Status values with new evidence citations
    (file:line where practical), move completed roadmap items into the
    relevant table with "Done" and evidence, add newly discovered gaps, and
