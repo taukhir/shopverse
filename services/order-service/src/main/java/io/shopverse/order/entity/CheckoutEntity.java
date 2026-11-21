@@ -116,6 +116,19 @@ public class CheckoutEntity extends BaseAuditableEntity {
         this.shippingCountry = country;
     }
 
+    public void clearItems() {
+        items.clear();
+        totalAmount = BigDecimal.ZERO;
+    }
+
+    public void incrementVersion() {
+        version = version + 1;
+    }
+
+    public void renewExpiry(Instant expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
     public boolean isPlaced() {
         return orderId != null;
     }

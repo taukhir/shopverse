@@ -76,7 +76,8 @@ public class SecurityConfig {
                          */
                         .requestMatchers(
                                 HttpMethod.GET,
-                                "/api/v1/orders/**"
+                                "/api/v1/orders/**",
+                                "/api/v1/checkouts/**"
                         ).hasAnyRole("CUSTOMER", "ADMIN")
 
                         /*
@@ -97,7 +98,8 @@ public class SecurityConfig {
                          */
                         .requestMatchers(
                                 HttpMethod.PUT,
-                                "/api/v1/orders/**"
+                                "/api/v1/orders/**",
+                                "/api/v1/checkouts/**"
                         ).hasAnyRole("CUSTOMER", "ADMIN")
 
                         /*

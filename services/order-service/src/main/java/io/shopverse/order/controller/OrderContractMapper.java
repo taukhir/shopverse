@@ -8,6 +8,7 @@ import io.shopverse.contracts.order.OrderResponse;
 import io.shopverse.contracts.order.OrderTimelineResponse;
 import io.shopverse.contracts.order.PlaceOrderRequest;
 import io.shopverse.contracts.order.ShippingAddressResponse;
+import io.shopverse.contracts.order.UpdateCheckoutRequest;
 import java.math.BigDecimal;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -23,6 +24,8 @@ public interface OrderContractMapper {
     io.shopverse.order.dto.CheckoutRequest toApplication(CheckoutRequest request);
 
     io.shopverse.order.dto.PlaceOrderRequest toApplication(PlaceOrderRequest request);
+
+    io.shopverse.order.dto.UpdateCheckoutRequest toApplication(UpdateCheckoutRequest request);
 
     ShippingAddressResponse toContract(io.shopverse.order.dto.ShippingAddressResponse value);
 

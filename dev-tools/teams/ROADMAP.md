@@ -306,8 +306,8 @@ implementation already in this repo, and an explicit recorded decision
 
 **Steps:**
 1. Install k6 locally; write one scenario script against the checkout
-   flow (`POST /api/v1/orders/checkout`) with a ramping virtual-user
-   profile.
+   flow (`POST /api/v1/checkouts` then `POST /api/v1/checkouts/{checkoutId}/place-order`)
+   with a ramping virtual-user profile.
 2. Seed enough catalog data first (`Seed-ShopverseData.ps1`) so the test
    doesn't bottleneck on "not enough distinct products."
 3. Run against the local Compose stack; capture p50/p95/p99 latency and

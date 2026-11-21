@@ -321,6 +321,111 @@
         }
       }
     },
+    "/api/v1/checkouts/{checkoutId}": {
+      "get": {
+        "tags": [
+          "Checkouts"
+        ],
+        "operationId": "getCheckout",
+        "summary": "get Checkout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current checkout details and version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Insufficient role or resource ownership"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        },
+        "parameters": [
+          {
+            "name": "checkoutId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Checkouts"
+        ],
+        "operationId": "updateCheckout",
+        "summary": "update Checkout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Repriced checkout and new version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Insufficient role or resource ownership"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          }
+        },
+        "description": "Submit the complete selections and reviewed checkoutVersion. A successful update returns the new version, recalculated price and expiry, whether or not the checkout had previously expired. Placed checkouts cannot be edited (409).",
+        "parameters": [
+          {
+            "name": "checkoutId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCheckoutRequest"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/checkouts/{checkoutId}/place-order": {
       "post": {
         "tags": [
@@ -1119,6 +1224,34 @@
             "minimum": 1,
             "description": "The version returned by the checkout the customer reviewed.",
             "example": 1
+          }
+        }
+      },
+      "UpdateCheckoutRequest": {
+        "type": "object",
+        "required": [
+          "checkoutVersion",
+          "items",
+          "shippingAddress"
+        ],
+        "properties": {
+          "checkoutVersion": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1,
+            "description": "The version returned by the checkout the customer reviewed.",
+            "example": 1
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CheckoutItemRequest"
+            },
+            "minItems": 1,
+            "maxItems": 1
+          },
+          "shippingAddress": {
+            "$ref": "#/components/schemas/ShippingAddressRequest"
           }
         }
       },

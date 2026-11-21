@@ -60,10 +60,6 @@ export interface CheckoutRequestItem {
   quantity: number;
 }
 
-export interface CheckoutResponse {
-  orderNumber: string;
-}
-
 export interface Checkout {
   checkoutId: string;
   version: number;
@@ -122,8 +118,16 @@ export class OrdersApiService {
     return this.http.post<Checkout>(API_PATHS.checkouts.root, { items, shippingAddress });
   }
 
+  getCheckout(checkoutId: string) {
+    return this.http.get<Checkout>(API_PATHS.checkouts.byId(checkoutId));
+  }
+
+  updateCheckout(checkoutId: string, items: CheckoutRequestItem[], shippingAddress: ShippingAddress, checkoutVersion: number) {
+    return this.http.put<Checkout>(API_PATHS.checkouts.byId(checkoutId), { checkoutVersion, items, shippingAddress });
+  }
+
   placeOrder(checkoutId: string, checkoutVersion: number, idempotencyKey: string) {
     const headers = new HttpHeaders({ 'Idempotency-Key': idempotencyKey });
-    return this.http.post<CheckoutResponse>(API_PATHS.checkouts.placeOrder(checkoutId), { checkoutVersion }, { headers });
+    return this.http.post<Order>(API_PATHS.checkouts.placeOrder(checkoutId), { checkoutVersion }, { headers });
   }
 }

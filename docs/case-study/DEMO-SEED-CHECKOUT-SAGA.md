@@ -65,17 +65,18 @@ Expected users include `admin`, `customer1`, `customer2`, `support1`, and
 
 ## 5. Create An Idempotent Checkout
 
-Create stable identifiers for this demonstration:
+Checkout is a two-step flow: create a priced, versioned, expiring quote for
+review, then place the order from that exact version. Create stable
+identifiers for this demonstration:
 
 ```powershell
 $suffix = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
 $correlationId = "demo-$suffix"
 $idempotencyKey = "checkout-$suffix"
 
-$headers = @{
+$authHeaders = @{
     Authorization      = "Bearer $token"
     "X-Correlation-Id" = $correlationId
-    "Idempotency-Key"  = $idempotencyKey
 }
 
 $checkoutBody = @{
@@ -97,12 +98,28 @@ $checkoutBody = @{
     )
 } | ConvertTo-Json -Depth 5
 
-$order = Invoke-RestMethod `
+$checkout = Invoke-RestMethod `
     -Method Post `
-    -Uri "$gateway/api/v1/orders/checkout" `
-    -Headers $headers `
+    -Uri "$gateway/api/v1/checkouts" `
+    -Headers $authHeaders `
     -ContentType "application/json" `
     -Body $checkoutBody
+
+$checkout | ConvertTo-Json -Depth 10
+```
+
+Place the order from the reviewed checkout version:
+
+```powershell
+$placeOrderHeaders = $authHeaders + @{ "Idempotency-Key" = $idempotencyKey }
+$placeOrderBody = @{ checkoutVersion = $checkout.version } | ConvertTo-Json
+
+$order = Invoke-RestMethod `
+    -Method Post `
+    -Uri "$gateway/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
+    -Headers $placeOrderHeaders `
+    -ContentType "application/json" `
+    -Body $placeOrderBody
 
 $order | ConvertTo-Json -Depth 10
 ```
@@ -115,8 +132,9 @@ $orderNumber = $order.orderNumber
 ```
 
 The initial response can arrive before the asynchronous SAGA finishes. The
-checkout transaction atomically stores the Order, its first timeline entry, and
-an outbox event. A background publisher later sends that outbox event to Kafka.
+place-order transaction atomically stores the Order, its first timeline
+entry, and an outbox event. A background publisher later sends that outbox
+event to Kafka.
 
 ## 6. Follow The SAGA Timeline
 
@@ -135,8 +153,9 @@ sequenceDiagram
     participant Inventory as Inventory Service
     participant Payment as Payment Service
 
-    Client->>Gateway: POST /api/v1/orders/checkout
-    Gateway->>Order: Authenticated checkout + idempotency key
+    Client->>Gateway: POST /api/v1/checkouts (priced quote)
+    Client->>Gateway: POST /api/v1/checkouts/{checkoutId}/place-order + idempotency key
+    Gateway->>Order: Authenticated place-order
     Order->>OrderDB: Commit Order, timeline, and OrderCreatedEvent
     Order-->>Client: 201 Created with pending business state
     OrderDB->>Kafka: Publish OrderCreatedEvent
