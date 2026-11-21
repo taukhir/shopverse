@@ -65,8 +65,9 @@ not infer runtime AI readiness from the developer workflow assets.
 
 - Canonical READMEs remain beside their components.
 - Generated mirrors carry a source warning and are not edited manually.
-- README links inside `documentation/docs/` become site-relative links; other
-  repository links point to their canonical GitHub source.
+- README links mirrored into the `taukhir/shopverse-docs` site become
+  site-relative links there; other repository links point to their canonical
+  GitHub source.
 - Secrets and real customer/payment data remain outside prompts and fixtures.
 - AI claims require source, test, query, trace, metric, or browser evidence.
 - External writes, production mutations, replay, deployment, and destructive

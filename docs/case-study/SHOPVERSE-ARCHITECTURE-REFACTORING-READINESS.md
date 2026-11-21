@@ -282,9 +282,9 @@ criteria, not current POC guarantees:
 ## Recommended Onboarding Path
 
 1. Read `README.md` for service map and local run commands.
-2. Read `documentation/docs/architecture/SYSTEM-DESIGN.md` for intended
-   architecture.
-3. Trace `OrderController.checkout` into `OrderServiceImpl.checkout`.
+2. Read `docs/architecture/SYSTEM-DESIGN.md` for intended architecture.
+3. Trace `CheckoutController.createCheckout`/`placeOrder` into
+   `CheckoutServiceImpl` and `OrderServiceImpl.checkout`.
 4. Follow the outbox publisher in Order, Inventory, and Payment.
 5. Follow the Kafka listeners for inventory reserved, payment completed, and
    payment failed.
