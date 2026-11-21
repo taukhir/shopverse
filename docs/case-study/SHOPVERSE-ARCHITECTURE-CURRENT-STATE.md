@@ -125,9 +125,12 @@ sequenceDiagram
     participant Kafka
     participant DB
 
-    Browser->>Gateway: POST /api/v1/orders/checkout + Idempotency-Key
+    Browser->>Gateway: POST /api/v1/checkouts (priced, versioned quote)
     Gateway->>Order: Forward JWT and correlation ID
     Order->>Inventory: Load catalog through Feign
+    Order-->>Browser: 201 Created (checkoutId, version, expiresAt)
+    Browser->>Gateway: POST /api/v1/checkouts/{checkoutId}/place-order + Idempotency-Key
+    Gateway->>Order: Forward JWT and correlation ID
     Order->>DB: Save order, item, timeline, outbox row
     Order-->>Browser: 201 Created
     Order->>Kafka: Publish order.created from outbox

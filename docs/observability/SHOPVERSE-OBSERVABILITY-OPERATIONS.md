@@ -163,12 +163,17 @@ Obtain a customer JWT, then send a complete idempotent request:
 $token = "<customer-jwt>"
 $correlationId = "checkout-observe-101"
 
-curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+$checkout = curl.exe -X POST http://localhost:8080/api/v1/checkouts `
+  -H "Authorization: Bearer $token" `
+  -H "Content-Type: application/json" `
+  -d '{"items":[{"productId":101,"quantity":1}],"shippingAddress":{"recipientName":"Demo User","line1":"1 Demo Street","city":"Bengaluru","state":"Karnataka","postalCode":"560001","country":"India"}}' | ConvertFrom-Json
+
+curl.exe -X POST "http://localhost:8080/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
   -H "Authorization: Bearer $token" `
   -H "Content-Type: application/json" `
   -H "Idempotency-Key: checkout-observe-101" `
   -H "X-Correlation-Id: $correlationId" `
-  -d '{"items":[{"productId":101,"quantity":1}]}'
+  -d "{`"checkoutVersion`":$($checkout.version)}"
 ```
 
 Use the response order number and correlation ID to inspect business state,

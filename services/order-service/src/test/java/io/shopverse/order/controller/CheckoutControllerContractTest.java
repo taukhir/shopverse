@@ -35,7 +35,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -110,6 +112,59 @@ class CheckoutControllerContractTest {
     }
 
     @Test
+    void validGetCheckoutReturnsOkContract() throws Exception {
+        var response = new CheckoutResponse("CHK-TEST", 1L, "READY_TO_PLACE",
+            List.of(new OrderItemResponse(101L, "Test Product", 2, new BigDecimal("19.90"))),
+            new ShippingAddressResponse("Test Customer", "+919876543210", "12 Test Road",
+                "Unit 4", "Bengaluru", "Karnataka", "560001", "IN"),
+            "INR", new BigDecimal("39.80"),
+            Instant.parse("2026-11-17T12:34:56.123456Z"), null);
+        given(checkoutService.getCheckout("CHK-TEST", "alice")).willReturn(response);
+
+        mvc.perform(get("/api/v1/checkouts/CHK-TEST")
+                .principal(new UsernamePasswordAuthenticationToken("alice", "unused", List.of())))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.checkoutId").value("CHK-TEST"));
+    }
+
+    @Test
+    void validUpdateCheckoutMapsRequestAndReturnsOkContract() throws Exception {
+        var response = new CheckoutResponse("CHK-TEST", 2L, "READY_TO_PLACE",
+            List.of(new OrderItemResponse(101L, "Test Product", 2, new BigDecimal("19.90"))),
+            new ShippingAddressResponse("Test Customer", "+919876543210", "12 Test Road",
+                "Unit 4", "Bengaluru", "Karnataka", "560001", "IN"),
+            "INR", new BigDecimal("39.80"),
+            Instant.parse("2026-11-17T12:49:56.123456Z"), null);
+        given(checkoutService.updateCheckout(eq("CHK-TEST"), any(), eq("alice"))).willReturn(response);
+
+        mvc.perform(updateCheckout("CHK-TEST", updateBody(1)))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.version").value(2));
+
+        verify(checkoutService).updateCheckout(eq("CHK-TEST"), eq(new io.shopverse.order.dto.UpdateCheckoutRequest(
+                1L,
+                List.of(new io.shopverse.order.dto.CheckoutItemRequest(101L, 2)),
+                new io.shopverse.order.dto.ShippingAddressRequest("Test Customer", "+919876543210",
+                    "12 Test Road", "Unit 4", "Bengaluru", "Karnataka", "560001", "IN"))), eq("alice"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"null", "[]", "[{\"productId\":101,\"quantity\":0}]"})
+    void invalidUpdateItemsAreRejectedBeforeCallingService(String items) throws Exception {
+        mvc.perform(updateCheckout("CHK-TEST", "{\"checkoutVersion\":1,\"items\":" + items + ",\"shippingAddress\":" + ADDRESS + "}"))
+            .andExpect(status().isBadRequest());
+        verifyNoInteractions(checkoutService);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"{\"items\":[{\"productId\":101,\"quantity\":1}],\"shippingAddress\":" + ADDRESS + "}",
+        "{\"checkoutVersion\":0,\"items\":[{\"productId\":101,\"quantity\":1}],\"shippingAddress\":" + ADDRESS + "}"})
+    void invalidCheckoutVersionOnUpdateIsRejectedBeforeCallingService(String body) throws Exception {
+        mvc.perform(updateCheckout("CHK-TEST", body)).andExpect(status().isBadRequest());
+        verifyNoInteractions(checkoutService);
+    }
+
+    @Test
     void validPlaceOrderMapsRequestAndReturnsCreatedContract() throws Exception {
         var response = new OrderResponse(7L, "ORD-TEST", "corr-test", "place-test", "alice",
             "PENDING_INVENTORY", "INR", new BigDecimal("39.80"), null, List.of(),
@@ -150,6 +205,16 @@ class CheckoutControllerContractTest {
         return post("/api/v1/checkouts/" + checkoutId + "/place-order")
             .principal(new UsernamePasswordAuthenticationToken("alice", "unused", List.of()))
             .contentType(MediaType.APPLICATION_JSON).content(body);
+    }
+
+    private MockHttpServletRequestBuilder updateCheckout(String checkoutId, String body) {
+        return put("/api/v1/checkouts/" + checkoutId)
+            .principal(new UsernamePasswordAuthenticationToken("alice", "unused", List.of()))
+            .contentType(MediaType.APPLICATION_JSON).content(body);
+    }
+
+    private String updateBody(int checkoutVersion) {
+        return "{\"checkoutVersion\":" + checkoutVersion + ",\"items\":[{\"productId\":101,\"quantity\":2}],\"shippingAddress\":" + ADDRESS + "}";
     }
 
     private String validBody() {

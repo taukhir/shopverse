@@ -30,6 +30,7 @@ export const API_PATHS = {
   },
   checkouts: {
     root: '/api/v1/checkouts',
+    byId: (checkoutId: string) => `/api/v1/checkouts/${checkoutId}`,
     placeOrder: (checkoutId: string) => `/api/v1/checkouts/${checkoutId}/place-order`,
   },
   payments: {

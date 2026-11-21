@@ -28,8 +28,8 @@ owner but several affected components.
 
 | ID | Title | Owner | Affected |
 |---|---|---|---|
-| BUG-001 | Checkout only orders the first cart item | platform | frontend-site, order-service, inventory-service, payment-service |
-| BUG-002 | Receipt always shows "Pending capture" | frontend-site | frontend-site |
+| BUG-001 | Checkout only orders the first cart item *(still blocked — product decision pending on the backend option; not started this round)* | platform | frontend-site, order-service, inventory-service, payment-service |
+| BUG-002 | Receipt always shows "Pending capture" *(Fixed)* | frontend-site | frontend-site |
 | BUG-003 | Checkout unit tests don't cover multi-item carts | frontend-site | frontend-site |
 | BUG-004/005 | `findByOrderNumberForUpdate` repository bugs *(Fixed)* | inventory-service | inventory-service |
 | BUG-006 | payment-service integration test fails in CI *(Fixed)* | payment-service | payment-service |

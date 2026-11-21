@@ -6,6 +6,7 @@ import io.shopverse.contracts.order.CheckoutRequest;
 import io.shopverse.contracts.order.CheckoutResponse;
 import io.shopverse.contracts.order.OrderResponse;
 import io.shopverse.contracts.order.PlaceOrderRequest;
+import io.shopverse.contracts.order.UpdateCheckoutRequest;
 import io.shopverse.order.service.CheckoutService;
 import io.shopverse.platform.observability.CorrelationConstants;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,8 +21,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +52,30 @@ public class CheckoutController {
         log.info("Checkout creation requested");
         var checkout = checkoutService.createCheckout(mapper.toApplication(request), authentication.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toContract(checkout));
+    }
+
+    @GetMapping("/{checkoutId}")
+    @Operation(summary = "Get the current checkout for the authenticated customer")
+    public ResponseEntity<CheckoutResponse> getCheckout(
+            @PathVariable String checkoutId,
+            Authentication authentication
+    ) {
+        log.info("Checkout lookup requested");
+        var checkout = checkoutService.getCheckout(checkoutId, authentication.getName());
+        return ResponseEntity.ok(mapper.toContract(checkout));
+    }
+
+    @PutMapping("/{checkoutId}")
+    @Operation(summary = "Replace checkout selections and recalculate the quote")
+    public ResponseEntity<CheckoutResponse> updateCheckout(
+            @PathVariable String checkoutId,
+            @Valid @RequestBody UpdateCheckoutRequest request,
+            Authentication authentication
+    ) {
+        log.info("Checkout update requested");
+        var checkout = checkoutService.updateCheckout(
+                checkoutId, mapper.toApplication(request), authentication.getName());
+        return ResponseEntity.ok(mapper.toContract(checkout));
     }
 
     @PostMapping("/{checkoutId}/place-order")

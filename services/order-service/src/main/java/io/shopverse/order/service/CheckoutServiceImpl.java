@@ -6,6 +6,7 @@ import io.shopverse.order.dto.CheckoutResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.PlaceOrderRequest;
 import io.shopverse.order.dto.ShippingAddressRequest;
+import io.shopverse.order.dto.UpdateCheckoutRequest;
 import io.shopverse.order.entity.CheckoutEntity;
 import io.shopverse.order.exception.CheckoutAlreadyPlacedException;
 import io.shopverse.order.exception.CheckoutExpiredException;
@@ -59,6 +60,49 @@ public class CheckoutServiceImpl implements CheckoutService {
         CheckoutEntity saved = repository.save(checkout);
         log.atInfo().addKeyValue("checkoutNumber", saved.getCheckoutNumber()).log("Checkout created");
         return CheckoutMapper.toResponse(saved, now);
+    }
+
+    @Override
+    public CheckoutResponse getCheckout(String checkoutNumber, String username) {
+        CheckoutEntity checkout = repository.findWithItemsByCheckoutNumberAndCustomerUsername(checkoutNumber, username)
+                .orElseThrow(() -> new ResourceNotFoundException("Checkout not found: " + checkoutNumber));
+        return CheckoutMapper.toResponse(checkout, Instant.now());
+    }
+
+    @Override
+    @Transactional
+    public CheckoutResponse updateCheckout(String checkoutNumber, UpdateCheckoutRequest request, String username) {
+        CheckoutEntity checkout = repository.findWithItemsByCheckoutNumberAndCustomerUsername(checkoutNumber, username)
+                .orElseThrow(() -> new ResourceNotFoundException("Checkout not found: " + checkoutNumber));
+
+        if (checkout.isPlaced()) {
+            throw new CheckoutAlreadyPlacedException("This checkout has already been placed and cannot be edited.");
+        }
+        if (!request.checkoutVersion().equals(checkout.getVersion())) {
+            throw new CheckoutVersionMismatchException(
+                    "The checkout has changed. Retrieve the latest version before updating it.");
+        }
+
+        Instant now = Instant.now();
+        var shippingAddress = request.shippingAddress();
+        checkout.setShippingAddress(
+                shippingAddress.recipientName().trim(),
+                trimToNull(shippingAddress.phoneNumber()),
+                shippingAddress.line1().trim(),
+                trimToNull(shippingAddress.line2()),
+                shippingAddress.city().trim(),
+                shippingAddress.state().trim(),
+                shippingAddress.postalCode().trim(),
+                shippingAddress.country().trim()
+        );
+        checkout.clearItems();
+        itemValidator.validateItems(new CheckoutRequest(request.items(), request.shippingAddress())).forEach(item ->
+                checkout.addItem(item.productId(), item.productName(), item.quantity(), item.unitPrice()));
+        checkout.incrementVersion();
+        checkout.renewExpiry(now.plus(CHECKOUT_TTL));
+
+        log.atInfo().addKeyValue("checkoutNumber", checkoutNumber).log("Checkout updated and repriced");
+        return CheckoutMapper.toResponse(checkout, now);
     }
 
     @Override

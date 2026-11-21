@@ -12,6 +12,8 @@ Order Service runs on port `8083`. It owns checkout, order state, customer owner
 | `GET` | `/api/v1/orders/{id}` | owner or admin |
 | `GET` | `/api/v1/orders/{id}/timeline` | owner or admin |
 | `POST` | `/api/v1/checkouts` | authenticated |
+| `GET` | `/api/v1/checkouts/{checkoutId}` | owner |
+| `PUT` | `/api/v1/checkouts/{checkoutId}` | owner |
 | `POST` | `/api/v1/checkouts/{checkoutId}/place-order` | authenticated |
 | `POST` | `/api/v1/orders/{id}/cancel` | owner |
 | `POST` | `/api/v1/orders/{id}/return-request` | owner |
@@ -51,9 +53,31 @@ Content-Type: application/json
 }
 ```
 
-Returns a `checkoutId`, a `version` (currently always `1` — there is no
-re-price/update step yet), computed totals, and an `expiresAt`. No order is
-created and no SAGA starts at this point.
+Returns a `checkoutId`, a `version`, computed totals, and an `expiresAt`. No
+order is created and no SAGA starts at this point.
+
+```http
+GET /api/v1/checkouts/{checkoutId}
+Authorization: Bearer <token>
+```
+
+Fetches the current checkout state and version — used to recover from a 409
+on place-order (stale version or expired quote) without losing the review.
+
+```http
+PUT /api/v1/checkouts/{checkoutId}
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{ "checkoutVersion": 1, "items": [{ "productId": 101, "quantity": 1 }], "shippingAddress": { "...": "..." } }
+```
+
+Re-validates items/address against the live catalog, replaces the snapshot,
+bumps `version` by 1, and always refreshes `expiresAt` — including on a
+previously expired checkout (a `PUT` is by definition a fresh quote).
+`checkoutVersion` must match the checkout's current version regardless of
+expiry (optimistic concurrency); a mismatch or an already-placed checkout
+returns `409`.
 
 ```http
 POST /api/v1/checkouts/{checkoutId}/place-order

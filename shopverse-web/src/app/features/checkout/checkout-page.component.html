@@ -122,9 +122,15 @@
     <div class="checkout">
       <div>
         <p>ORDER SUMMARY</p>
-        <h2>{{ cart.items()[0].productName }}</h2>
-        <span>Quantity {{ cart.items()[0].quantity }}</span>
-        <strong>{{ price(cart.total()) }}</strong>
+        @if (review(); as reviewed) {
+          <h2>{{ reviewed.items[0]?.productName }}</h2>
+          <span>Quantity {{ reviewed.items[0]?.quantity }}</span>
+          <strong>{{ price(+reviewed.totalAmount) }}</strong>
+        } @else {
+          <h2>{{ cart.items()[0].productName }}</h2>
+          <span>Quantity {{ cart.items()[0].quantity }}</span>
+          <strong>{{ price(cart.total()) }}</strong>
+        }
         <div class="review-list">
           <div><span>Contact</span><b>Uses signed-in account session</b></div>
           <div><span>Delivery</span><b>{{ selectedAddress()?.label || 'Address required' }}</b></div>
