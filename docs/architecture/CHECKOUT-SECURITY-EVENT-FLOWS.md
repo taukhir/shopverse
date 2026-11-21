@@ -65,7 +65,10 @@ sequenceDiagram
     participant Payment
     participant PaymentDB
 
-    Client->>Gateway: POST checkout + JWT + Idempotency-Key
+    Client->>Gateway: POST checkout (priced, versioned quote) + JWT
+    Gateway->>Order: Route with identity and correlation headers
+    Order-->>Client: 201 Created (checkoutId, version, expiresAt)
+    Client->>Gateway: POST place-order + JWT + Idempotency-Key + checkoutVersion
     Gateway->>Order: Route with identity and correlation headers
     Order->>OrderDB: Save order, item, timeline, and outbox
     OrderDB-->>Order: Commit

@@ -13,6 +13,7 @@ repository, published at
 Start here to see the platform end to end.
 
 - [Shopverse Case Study](case-study/SHOPVERSE.md) — overview and recommended reading order
+- [Checkout: Evolution And Fixes](case-study/CHECKOUT-EVOLUTION-AND-FIXES.md) — how the checkout contract evolved and what was fixed
 - [Complete Demo](case-study/COMPLETE-DEMO.md) — run the whole POC
   - [Setup And Checkout](case-study/COMPLETE-DEMO-SETUP-CHECKOUT.md)
   - [Recovery And Observability](case-study/COMPLETE-DEMO-RECOVERY-OBSERVABILITY.md)
