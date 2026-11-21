@@ -14,6 +14,7 @@ manual demonstration, not a second automatic production pipeline.
 | `ci-java-labs.yml` | Java documentation labs on JDK 24/25 | Relevant PRs/master pushes; manual |
 | `ci-database-lab.yml` | Disposable database-operations exercises | Weekly/manual; optional analytics |
 | `integration-jenkins.yml` | Submit a demonstration build with an explicit source SHA | Manual only; optional |
+| `sync-dev-with-master.yml` | Merge `master` into `dev` to keep the integration branch current | Master pushes; manual |
 
 Dependabot already updates Actions, Gradle, npm and Docker dependencies. The
 separate monthly `npm update` workflow was removed to avoid overlapping update
