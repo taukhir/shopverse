@@ -6,6 +6,7 @@ import io.shopverse.order.dto.CheckoutRequest;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.PlaceOrderRequest;
 import io.shopverse.order.dto.ShippingAddressRequest;
+import io.shopverse.order.dto.UpdateCheckoutRequest;
 import io.shopverse.order.entity.CheckoutEntity;
 import io.shopverse.order.exception.CheckoutAlreadyPlacedException;
 import io.shopverse.order.exception.CheckoutExpiredException;
@@ -79,6 +80,95 @@ class CheckoutServiceImplTest {
                 .hasMessage("Product is unavailable or does not exist: 103");
 
         verify(repository, never()).save(any());
+    }
+
+    @Test
+    void getCheckoutReturnsTheMappedResponse() {
+        CheckoutEntity checkout = readyCheckout();
+        when(repository.findWithItemsByCheckoutNumberAndCustomerUsername("CHK-1", "henry.thompson"))
+                .thenReturn(Optional.of(checkout));
+
+        var response = service.getCheckout("CHK-1", "henry.thompson");
+
+        assertThat(response.checkoutId()).isEqualTo("CHK-1");
+        assertThat(response.status()).isEqualTo("READY_TO_PLACE");
+    }
+
+    @Test
+    void getCheckoutRejectsAMissingOrUnownedCheckout() {
+        when(repository.findWithItemsByCheckoutNumberAndCustomerUsername("CHK-1", "henry.thompson"))
+                .thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.getCheckout("CHK-1", "henry.thompson"))
+                .isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
+    void updateCheckoutReprisesBumpsVersionAndRenewsExpiry() {
+        CheckoutEntity checkout = readyCheckout();
+        Instant originalExpiry = checkout.getExpiresAt();
+        when(repository.findWithItemsByCheckoutNumberAndCustomerUsername("CHK-1", "henry.thompson"))
+                .thenReturn(Optional.of(checkout));
+        when(catalogService.getProduct(103L)).thenReturn(new CatalogItemResponse(
+                103L, "Pulse Fitness Tracker", BigDecimal.valueOf(80.00), true,
+                "http://localhost:9000/shopverse-product-images/products/103.png", "products/103.png"
+        ));
+
+        var response = service.updateCheckout(
+                "CHK-1",
+                new UpdateCheckoutRequest(1L, List.of(new CheckoutItemRequest(103L, 2)), shippingAddress()),
+                "henry.thompson"
+        );
+
+        assertThat(response.version()).isEqualTo(2L);
+        assertThat(response.totalAmount()).isEqualByComparingTo("160.00");
+        assertThat(checkout.getExpiresAt()).isAfter(originalExpiry);
+        verify(orderService, never()).checkout(any(), any(), any(), any());
+    }
+
+    @Test
+    void updateCheckoutRejectsAnAlreadyPlacedCheckout() {
+        CheckoutEntity checkout = readyCheckout();
+        checkout.markPlaced(55L, "idem-1", Instant.now());
+        when(repository.findWithItemsByCheckoutNumberAndCustomerUsername("CHK-1", "henry.thompson"))
+                .thenReturn(Optional.of(checkout));
+
+        assertThatThrownBy(() -> service.updateCheckout(
+                "CHK-1", new UpdateCheckoutRequest(1L, List.of(new CheckoutItemRequest(103L, 1)), shippingAddress()),
+                "henry.thompson"
+        )).isInstanceOf(CheckoutAlreadyPlacedException.class);
+    }
+
+    @Test
+    void updateCheckoutRejectsAStaleCheckoutVersion() {
+        CheckoutEntity checkout = readyCheckout();
+        when(repository.findWithItemsByCheckoutNumberAndCustomerUsername("CHK-1", "henry.thompson"))
+                .thenReturn(Optional.of(checkout));
+
+        assertThatThrownBy(() -> service.updateCheckout(
+                "CHK-1", new UpdateCheckoutRequest(2L, List.of(new CheckoutItemRequest(103L, 1)), shippingAddress()),
+                "henry.thompson"
+        )).isInstanceOf(CheckoutVersionMismatchException.class);
+    }
+
+    @Test
+    void updateCheckoutSucceedsOnAPreviouslyExpiredCheckoutAndClearsTheExpiredStatus() {
+        CheckoutEntity checkout = new CheckoutEntity("CHK-1", "henry.thompson", Instant.now().minusSeconds(1));
+        checkout.setShippingAddress("Henry Thompson", null, "42 Market Road", null, "Bangalore", "Karnataka", "560001", "India");
+        checkout.addItem(103L, "Pulse Fitness Tracker", 1, BigDecimal.valueOf(72.49));
+        when(repository.findWithItemsByCheckoutNumberAndCustomerUsername("CHK-1", "henry.thompson"))
+                .thenReturn(Optional.of(checkout));
+        when(catalogService.getProduct(103L)).thenReturn(new CatalogItemResponse(
+                103L, "Pulse Fitness Tracker", BigDecimal.valueOf(72.49), true,
+                "http://localhost:9000/shopverse-product-images/products/103.png", "products/103.png"
+        ));
+
+        var response = service.updateCheckout(
+                "CHK-1", new UpdateCheckoutRequest(1L, List.of(new CheckoutItemRequest(103L, 1)), shippingAddress()),
+                "henry.thompson"
+        );
+
+        assertThat(response.status()).isEqualTo("READY_TO_PLACE");
     }
 
     @Test

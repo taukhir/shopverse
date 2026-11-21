@@ -100,6 +100,12 @@ export class CheckoutPageComponent {
     if (!item) return;
     const checkout = this.review();
     if (!checkout) return;
+    const address = this.selectedAddress();
+    if (!address) {
+      this.error.set('Add a delivery address before placing this order.');
+      this.toast.error('Delivery address required.');
+      return;
+    }
     this.loading.set(true);
     this.error.set('');
     this.receipt.set(null);
@@ -117,19 +123,108 @@ export class CheckoutPageComponent {
           productName: item.productName,
           quantity: item.quantity,
           amount: item.price * item.quantity,
-          paymentStatus: 'Pending capture',
+          paymentStatus: this.paymentStatusLabel(order.status),
         });
         this.cart.clear();
         this.loading.set(false);
         this.toast.success(`Order ${order.orderNumber} created.`);
       },
-      error: (error: unknown) => {
-        const message = this.checkoutErrorMessage(error);
+      error: (error: unknown) => this.handleConfirmError(error, checkout.checkoutId),
+    });
+  }
+
+  private handleConfirmError(error: unknown, checkoutId: string): void {
+    const conflict = this.classifyCheckoutConflict(error);
+    if (conflict === 'already-placed') {
+      this.error.set(APP_MESSAGES.errors.checkoutAlreadyPlaced);
+      this.toast.error(APP_MESSAGES.errors.checkoutAlreadyPlaced);
+      this.review.set(null);
+      this.loading.set(false);
+      return;
+    }
+    if (conflict === 'expired') {
+      this.repriceAfterConflict(checkoutId, APP_MESSAGES.errors.checkoutExpired);
+      return;
+    }
+    if (conflict === 'version-mismatch') {
+      this.refreshAfterConflict(checkoutId, APP_MESSAGES.errors.checkoutVersionMismatch);
+      return;
+    }
+    const message = this.checkoutErrorMessage(error);
+    this.error.set(message);
+    this.loading.set(false);
+    this.toast.error(message);
+  }
+
+  private refreshAfterConflict(checkoutId: string, message: string): void {
+    this.ordersApi.getCheckout(checkoutId).subscribe({
+      next: (refreshed) => {
+        this.review.set(refreshed);
+        this.error.set(message);
+        this.loading.set(false);
+        this.toast.error(message);
+      },
+      error: () => {
+        this.review.set(null);
         this.error.set(message);
         this.loading.set(false);
         this.toast.error(message);
       },
     });
+  }
+
+  private repriceAfterConflict(checkoutId: string, message: string): void {
+    const address = this.selectedAddress();
+    const item = this.cart.items()[0];
+    if (!address || !item) {
+      this.review.set(null);
+      this.error.set(message);
+      this.loading.set(false);
+      this.toast.error(message);
+      return;
+    }
+    this.ordersApi.updateCheckout(checkoutId, [{ productId: item.productId, quantity: item.quantity }], this.toShippingAddress(address), this.review()?.version ?? 1).subscribe({
+      next: (refreshed) => {
+        this.review.set(refreshed);
+        this.error.set(message);
+        this.loading.set(false);
+        this.toast.error(message);
+      },
+      error: () => {
+        this.review.set(null);
+        this.error.set(message);
+        this.loading.set(false);
+        this.toast.error(message);
+      },
+    });
+  }
+
+  private classifyCheckoutConflict(error: unknown): 'already-placed' | 'expired' | 'version-mismatch' | null {
+    if (!(error instanceof HttpErrorResponse) || error.status !== 409) return null;
+    const detail = typeof error.error?.detail === 'string' ? error.error.detail.toLowerCase() : '';
+    if (detail.includes('already been placed')) return 'already-placed';
+    if (detail.includes('expired')) return 'expired';
+    if (detail.includes('changed')) return 'version-mismatch';
+    return null;
+  }
+
+  private paymentStatusLabel(orderStatus: string): string {
+    switch (orderStatus) {
+      case 'CONFIRMED':
+      case 'PACKING':
+      case 'SHIPPED':
+      case 'OUT_FOR_DELIVERY':
+      case 'DELIVERED':
+        return 'Captured';
+      case 'PAYMENT_FAILED':
+        return 'Failed';
+      case 'PAYMENT_PROCESSING':
+        return 'Processing';
+      case 'CANCELLED':
+        return 'Cancelled';
+      default:
+        return 'Pending capture';
+    }
   }
 
   protected async copy(value: string, label: string): Promise<void> {

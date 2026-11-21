@@ -51,14 +51,19 @@ describe('CheckoutPageComponent', () => {
   let cartItems: ReturnType<typeof signal<CartItem[]>>;
   let cartStub: { items: () => CartItem[]; clear: ReturnType<typeof vi.fn> };
   let accountApiStub: { listAddresses: ReturnType<typeof vi.fn> };
-  let ordersApiStub: { placeOrder: ReturnType<typeof vi.fn>; createCheckout: ReturnType<typeof vi.fn> };
+  let ordersApiStub: {
+    placeOrder: ReturnType<typeof vi.fn>;
+    createCheckout: ReturnType<typeof vi.fn>;
+    getCheckout: ReturnType<typeof vi.fn>;
+    updateCheckout: ReturnType<typeof vi.fn>;
+  };
   let toastStub: { success: ReturnType<typeof vi.fn>; error: ReturnType<typeof vi.fn>; info: ReturnType<typeof vi.fn> };
 
   function createComponent(addressesResponse = of<UserAddress[]>([])): Internal {
     cartItems = signal<CartItem[]>([]);
     cartStub = { items: () => cartItems(), clear: vi.fn(() => cartItems.set([])) };
     accountApiStub = { listAddresses: vi.fn(() => addressesResponse) };
-    ordersApiStub = { placeOrder: vi.fn(), createCheckout: vi.fn() };
+    ordersApiStub = { placeOrder: vi.fn(), createCheckout: vi.fn(), getCheckout: vi.fn(), updateCheckout: vi.fn() };
     toastStub = { success: vi.fn(), error: vi.fn(), info: vi.fn() };
 
     TestBed.configureTestingModule({
@@ -161,7 +166,7 @@ describe('CheckoutPageComponent', () => {
     const component = createComponent(of([chosenAddress]));
     cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 2 }]);
     component.review.set({ checkoutId: 'CHK-1', version: 1 });
-    ordersApiStub.placeOrder.mockReturnValue(of({ orderNumber: 'ORD-1' }));
+    ordersApiStub.placeOrder.mockReturnValue(of({ orderNumber: 'ORD-1', status: 'PENDING_INVENTORY' }));
 
     component.confirmOrder();
 
@@ -173,9 +178,100 @@ describe('CheckoutPageComponent', () => {
 
     expect(component.success()).toBe('ORD-1');
     expect((component.receipt() as { amount: number }).amount).toBe(200);
+    expect((component.receipt() as { paymentStatus: string }).paymentStatus).toBe('Pending capture');
     expect(cartStub.clear).toHaveBeenCalledOnce();
     expect(toastStub.success).toHaveBeenCalledWith('Order ORD-1 created.');
     expect(component.loading()).toBe(false);
+  });
+
+  it('confirmOrder() maps the placed order status to a real payment-status label on the receipt', () => {
+    const chosenAddress = address({ id: 3, defaultAddress: true });
+    const component = createComponent(of([chosenAddress]));
+    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 2 }]);
+    component.review.set({ checkoutId: 'CHK-1', version: 1 });
+    ordersApiStub.placeOrder.mockReturnValue(of({ orderNumber: 'ORD-1', status: 'CONFIRMED' }));
+
+    component.confirmOrder();
+
+    expect((component.receipt() as { paymentStatus: string }).paymentStatus).toBe('Captured');
+  });
+
+  it('confirmOrder() requires a delivery address', () => {
+    const component = createComponent(of([]));
+    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 1 }]);
+    component.review.set({ checkoutId: 'CHK-1', version: 1 });
+
+    component.confirmOrder();
+
+    expect(component.error()).toContain('Add a delivery address');
+    expect(ordersApiStub.placeOrder).not.toHaveBeenCalled();
+  });
+
+  it('confirmOrder() on a version-mismatch 409 refreshes the checkout via getCheckout() and surfaces a distinct message', () => {
+    const chosenAddress = address({ id: 3, defaultAddress: true });
+    const component = createComponent(of([chosenAddress]));
+    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 2 }]);
+    component.review.set({ checkoutId: 'CHK-1', version: 1 });
+    const refreshed = {
+      checkoutId: 'CHK-1', version: 2, status: 'READY_TO_PLACE',
+      items: [], shippingAddress: null, totalAmount: '200.00', currency: 'INR',
+      expiresAt: '2026-01-01T00:00:00Z', orderId: null,
+    };
+    ordersApiStub.placeOrder.mockReturnValue(throwError(() => new HttpErrorResponse({
+      status: 409, error: { detail: 'The checkout has changed. Review the latest version before placing the order.' },
+    })));
+    ordersApiStub.getCheckout.mockReturnValue(of(refreshed));
+
+    component.confirmOrder();
+
+    expect(ordersApiStub.getCheckout).toHaveBeenCalledWith('CHK-1');
+    expect(component.review()).toEqual(refreshed);
+    expect(component.error()).toBe(APP_MESSAGES.errors.checkoutVersionMismatch);
+    expect(toastStub.error).toHaveBeenCalledWith(APP_MESSAGES.errors.checkoutVersionMismatch);
+    expect(component.loading()).toBe(false);
+  });
+
+  it('confirmOrder() on an expired 409 reprices via updateCheckout() and surfaces a distinct message', () => {
+    const chosenAddress = address({ id: 3, defaultAddress: true });
+    const component = createComponent(of([chosenAddress]));
+    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 2 }]);
+    component.review.set({ checkoutId: 'CHK-1', version: 1 });
+    const repriced = {
+      checkoutId: 'CHK-1', version: 2, status: 'READY_TO_PLACE',
+      items: [], shippingAddress: null, totalAmount: '205.00', currency: 'INR',
+      expiresAt: '2026-01-01T00:15:00Z', orderId: null,
+    };
+    ordersApiStub.placeOrder.mockReturnValue(throwError(() => new HttpErrorResponse({
+      status: 409, error: { detail: 'The checkout price has expired. Request a new quote before placing the order.' },
+    })));
+    ordersApiStub.updateCheckout.mockReturnValue(of(repriced));
+
+    component.confirmOrder();
+
+    expect(ordersApiStub.updateCheckout).toHaveBeenCalledWith(
+      'CHK-1', [{ productId: 1, quantity: 2 }], expect.objectContaining({ recipientName: 'Ahmed' }), 1);
+    expect(component.review()).toEqual(repriced);
+    expect(component.error()).toBe(APP_MESSAGES.errors.checkoutExpired);
+    expect(component.loading()).toBe(false);
+  });
+
+  it('confirmOrder() on an already-placed 409 clears the review and surfaces a distinct message', () => {
+    const chosenAddress = address({ id: 3, defaultAddress: true });
+    const component = createComponent(of([chosenAddress]));
+    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 2 }]);
+    component.review.set({ checkoutId: 'CHK-1', version: 1 });
+    ordersApiStub.placeOrder.mockReturnValue(throwError(() => new HttpErrorResponse({
+      status: 409, error: { detail: 'This checkout has already been placed. Retrieve it to view its order.' },
+    })));
+
+    component.confirmOrder();
+
+    expect(component.review()).toBeNull();
+    expect(component.error()).toBe(APP_MESSAGES.errors.checkoutAlreadyPlaced);
+    expect(toastStub.error).toHaveBeenCalledWith(APP_MESSAGES.errors.checkoutAlreadyPlaced);
+    expect(component.loading()).toBe(false);
+    expect(ordersApiStub.getCheckout).not.toHaveBeenCalled();
+    expect(ordersApiStub.updateCheckout).not.toHaveBeenCalled();
   });
 
   it('confirmOrder() does nothing when no checkout has been reviewed yet', () => {

@@ -56,13 +56,14 @@ Authorization: Bearer eyJ...
 
 ## Checkout
 
-### POST `/api/v1/orders/checkout` — Create an idempotent checkout
+Checkout is a two-step flow: create a priced, versioned, expiring quote for
+review, then place the order from that exact version.
+
+### POST `/api/v1/checkouts` — Create a priced checkout quote
 
 ```http
-POST /api/v1/orders/checkout
+POST /api/v1/checkouts
 Authorization: Bearer <token>
-Idempotency-Key: checkout-user-42-cart-9001
-X-Correlation-Id: demo-checkout-9001
 Content-Type: application/json
 
 {
@@ -85,7 +86,30 @@ Content-Type: application/json
 }
 ```
 
-Current validation allows one checkout item. Reusing the idempotency key returns the existing order and must not reserve or charge twice. The shipping address is stored as an immutable snapshot on the Order.
+Returns a `checkoutId`, `version`, computed totals, and an `expiresAt`. No
+order is created and no SAGA starts yet.
+
+### GET/PUT `/api/v1/checkouts/{checkoutId}` — Fetch or re-price a checkout
+
+`GET` returns the current checkout state and version — used to recover from
+a 409 on place-order. `PUT` re-validates items/address, replaces the
+snapshot, bumps `version`, and always refreshes `expiresAt` (including on a
+previously expired checkout). `checkoutVersion` in the `PUT` body must match
+the current version; a mismatch or an already-placed checkout returns `409`.
+
+### POST `/api/v1/checkouts/{checkoutId}/place-order` — Place the order
+
+```http
+POST /api/v1/checkouts/{checkoutId}/place-order
+Authorization: Bearer <token>
+Idempotency-Key: checkout-user-42-cart-9001
+X-Correlation-Id: demo-checkout-9001
+Content-Type: application/json
+
+{ "checkoutVersion": 1 }
+```
+
+Current validation allows one checkout item. Reusing the idempotency key returns the existing order and must not reserve or charge twice. The shipping address is stored as an immutable snapshot on the Order. A stale `checkoutVersion`, an expired unplaced checkout, or reusing a different key on an already-placed checkout returns `409`.
 
 ## Important APIs
 
@@ -124,7 +148,10 @@ Current validation allows one checkout item. Reusing the idempotency key returns
 | `GET` | `/api/v1/orders` | current user's orders |
 | `GET` | `/api/v1/orders/{id}` | owner or admin |
 | `GET` | `/api/v1/orders/{id}/timeline` | owner or admin |
-| `POST` | `/api/v1/orders/checkout` | authenticated |
+| `POST` | `/api/v1/checkouts` | authenticated |
+| `GET` | `/api/v1/checkouts/{checkoutId}` | owner |
+| `PUT` | `/api/v1/checkouts/{checkoutId}` | owner |
+| `POST` | `/api/v1/checkouts/{checkoutId}/place-order` | authenticated |
 | `POST` | `/api/v1/orders/{id}/cancel` | owner |
 | `POST` | `/api/v1/orders/{id}/return-request` | owner, delivered orders |
 | `GET` | `/api/v1/payments/orders/{orderNumber}` | owner or admin |
@@ -203,7 +230,7 @@ every current Shopverse service returns this exact schema today:
   "status": 409,
   "code": "DUPLICATE_REQUEST",
   "message": "The idempotency key is already associated with another request",
-  "path": "/api/v1/orders/checkout",
+  "path": "/api/v1/checkouts/CHK-9F3A2B1C/place-order",
   "correlationId": "demo-checkout-9001"
 }
 ```

@@ -2,15 +2,15 @@
 
 ## 7. Prove Duplicate Request Handling
 
-Repeat the exact checkout with the same `Idempotency-Key`:
+Repeat the exact place-order call with the same `Idempotency-Key`:
 
 ```powershell
 $duplicate = Invoke-RestMethod `
     -Method Post `
-    -Uri "$gateway/api/v1/orders/checkout" `
-    -Headers $headers `
+    -Uri "$gateway/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
+    -Headers $placeOrderHeaders `
     -ContentType "application/json" `
-    -Body $checkoutBody
+    -Body $placeOrderBody
 
 [pscustomobject]@{
     OriginalOrderId  = $order.id
@@ -146,8 +146,9 @@ docker compose exec mysql sh -lc '
 ```
 
 These rows are historical examples only. They do not create Kafka or outbox
-events during migration. Use `POST /api/v1/orders/checkout` to demonstrate the
-live choreography SAGA.
+events during migration. Use `POST /api/v1/checkouts` followed by
+`POST /api/v1/checkouts/{checkoutId}/place-order` to demonstrate the live
+choreography SAGA.
 
 Inspect timeline history, reservation state, and matching payment records:
 

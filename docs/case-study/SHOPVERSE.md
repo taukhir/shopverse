@@ -34,6 +34,7 @@ case-study track is where Shopverse-specific implementation claims are made.
 | 9 | [Observability](https://taukhir.github.io/shopverse-docs/observability/OBSERVABILITY) | How are logs, metrics, and traces connected? |
 | 10 | [Testing strategy](https://taukhir.github.io/shopverse-docs/development/TESTING) | How is the ecosystem verified without unbounded resource use? |
 | 11 | [Problems and solutions](https://taukhir.github.io/shopverse-docs/reliability/PROBLEMS-AND-SOLUTIONS) | Which production-relevant defects were found and fixed? |
+| 12 | [Checkout: evolution and fixes](./CHECKOUT-EVOLUTION-AND-FIXES.md) | How did the checkout contract evolve, and which checkout-specific defects were found and fixed? |
 
 ## What The Case Study Demonstrates
 

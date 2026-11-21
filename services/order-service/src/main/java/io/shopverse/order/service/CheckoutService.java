@@ -4,10 +4,15 @@ import io.shopverse.order.dto.CheckoutRequest;
 import io.shopverse.order.dto.CheckoutResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.PlaceOrderRequest;
+import io.shopverse.order.dto.UpdateCheckoutRequest;
 
 public interface CheckoutService {
 
     CheckoutResponse createCheckout(CheckoutRequest request, String username);
+
+    CheckoutResponse getCheckout(String checkoutNumber, String username);
+
+    CheckoutResponse updateCheckout(String checkoutNumber, UpdateCheckoutRequest request, String username);
 
     OrderResponse placeOrder(
             String checkoutNumber,

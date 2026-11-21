@@ -109,6 +109,24 @@ class OrderContractMapperTest {
     }
 
     @Test
+    void updateCheckoutRequestMappingPreservesVersionItemsAndAddress() {
+        var request = new io.shopverse.contracts.order.UpdateCheckoutRequest(
+                3L,
+                List.of(new CheckoutItemRequest(101L, 2)),
+                new ShippingAddressRequest("Test Customer", "+919876543210", "12 Test Road",
+                        "Unit 4", "Bengaluru", "Karnataka", "560001", "IN")
+        );
+
+        var result = mapper.toApplication(request);
+
+        assertThat(result.checkoutVersion()).isEqualTo(3L);
+        assertThat(result.items()).containsExactly(new io.shopverse.order.dto.CheckoutItemRequest(101L, 2));
+        assertThat(result.shippingAddress()).isEqualTo(
+                new io.shopverse.order.dto.ShippingAddressRequest("Test Customer", "+919876543210",
+                        "12 Test Road", "Unit 4", "Bengaluru", "Karnataka", "560001", "IN"));
+    }
+
+    @Test
     void timelineMappingPreservesStageDetailAndTimestamp() {
         var response = new io.shopverse.order.dto.OrderTimelineResponse("ORD-TEST", "corr-test",
                 "ORDER_CREATED", "Checkout accepted", Instant.parse("2026-11-17T12:34:56.123456Z"));

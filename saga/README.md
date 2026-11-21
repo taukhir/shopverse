@@ -40,18 +40,26 @@ listener retry configuration.
 
 ## Trigger Checkout
 
+Checkout is a two-step flow: create a priced quote, then place the order
+from it.
+
 ```powershell
 $token = "<customer-jwt>"
 
-curl.exe -X POST http://localhost:8080/api/v1/orders/checkout `
+$checkout = curl.exe -X POST http://localhost:8080/api/v1/checkouts `
+  -H "Authorization: Bearer $token" `
+  -H "Content-Type: application/json" `
+  -d '{"items":[{"productId":101,"quantity":1}],"shippingAddress":{"recipientName":"Demo User","line1":"1 Demo Street","city":"Bengaluru","state":"Karnataka","postalCode":"560001","country":"India"}}' | ConvertFrom-Json
+
+curl.exe -X POST "http://localhost:8080/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
   -H "Authorization: Bearer $token" `
   -H "Content-Type: application/json" `
   -H "Idempotency-Key: checkout-demo-101" `
   -H "X-Correlation-Id: checkout-demo-101" `
-  -d '{"items":[{"productId":101,"quantity":1}]}'
+  -d "{`"checkoutVersion`":$($checkout.version)}"
 ```
 
-The endpoint is authenticated. `Idempotency-Key` prevents duplicate checkout
+Place-order is authenticated. `Idempotency-Key` prevents duplicate order
 creation, and `X-Correlation-Id` links HTTP and Kafka logs.
 
 ## Verify
