@@ -1,0 +1,84 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-multi-item-reservations
+      author: shopverse
+      changes:
+        - createTable:
+            tableName: inventory_reservations_new
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_number
+                  type: VARCHAR(40)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: correlation_id
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expires_at
+                  type: TIMESTAMP(6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP(6)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP(6)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: inventory_reservations_new
+            columnNames: order_number, product_id
+            constraintName: uk_inventory_reservation_order_product
+        - sql:
+            dbms: mysql
+            sql: SET SESSION sql_mode = ''
+        - sql:
+            sql: >-
+              INSERT INTO inventory_reservations_new
+                (id, order_number, correlation_id, product_id, quantity, status, expires_at, created_at, updated_at)
+              SELECT id, order_number, correlation_id, product_id, quantity, status, expires_at, created_at, updated_at
+              FROM inventory_reservations
+        - sql:
+            dbms: mysql
+            sql: SET SESSION sql_mode = @@GLOBAL.sql_mode
+        - dropTable:
+            tableName: inventory_reservations
+        - renameTable:
+            oldTableName: inventory_reservations_new
+            newTableName: inventory_reservations
+        - createIndex:
+            tableName: inventory_reservations
+            indexName: idx_inventory_reservation_expiry
+            columns:
+              - column:
+                  name: status
+              - column:
+                  name: expires_at
