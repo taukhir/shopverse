@@ -1,6 +1,8 @@
 package io.shopverse.inventory_service.saga;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public record InventoryReservedEvent(
@@ -13,4 +15,7 @@ public record InventoryReservedEvent(
         BigDecimal amount,
         List<LineItem> items
 ) {
+    public InventoryReservedEvent {
+        items = items == null ? null : Collections.unmodifiableList(new ArrayList<>(items));
+    }
 }

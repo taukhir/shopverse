@@ -58,11 +58,17 @@ databaseChangeLog:
             columnNames: order_number, product_id
             constraintName: uk_inventory_reservation_order_product
         - sql:
+            dbms: mysql
+            sql: SET SESSION sql_mode = ''
+        - sql:
             sql: >-
               INSERT INTO inventory_reservations_new
                 (id, order_number, correlation_id, product_id, quantity, status, expires_at, created_at, updated_at)
               SELECT id, order_number, correlation_id, product_id, quantity, status, expires_at, created_at, updated_at
               FROM inventory_reservations
+        - sql:
+            dbms: mysql
+            sql: SET SESSION sql_mode = @@GLOBAL.sql_mode
         - dropTable:
             tableName: inventory_reservations
         - renameTable:

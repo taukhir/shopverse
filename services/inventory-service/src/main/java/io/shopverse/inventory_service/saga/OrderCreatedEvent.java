@@ -1,6 +1,8 @@
 package io.shopverse.inventory_service.saga;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public record OrderCreatedEvent(
@@ -13,6 +15,10 @@ public record OrderCreatedEvent(
         BigDecimal amount,
         List<LineItem> items
 ) {
+
+    public OrderCreatedEvent {
+        items = items == null ? null : Collections.unmodifiableList(new ArrayList<>(items));
+    }
 
     public List<LineItem> items() {
         return items == null || items.isEmpty()
