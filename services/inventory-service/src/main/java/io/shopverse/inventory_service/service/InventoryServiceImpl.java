@@ -25,6 +25,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import java.util.List;
 import java.time.Instant;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -109,7 +110,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public InventoryReservationResponse getReservationByOrderNumber(String orderNumber) {
-        InventoryReservation reservation = reservationRepository.findByOrderNumber(orderNumber)
+        InventoryReservation reservation = reservationRepository.findFirstByOrderNumberOrderById(orderNumber)
                 .orElseThrow(() -> new ResourceNotFoundException("Inventory reservation not found for order: " + orderNumber));
         return toReservationResponse(reservation);
     }
@@ -118,7 +119,7 @@ public class InventoryServiceImpl implements InventoryService {
     @Transactional
     @CacheEvict(cacheNames = "inventory", allEntries = true)
     public boolean reserve(String orderNumber, String correlationId, Long productId, int quantity) {
-        var existingReservation = reservationRepository.findByOrderNumber(orderNumber);
+        var existingReservation = reservationRepository.findByOrderNumberAndProductId(orderNumber, productId);
         if (existingReservation.isPresent()) {
             // A replay is successful only while the original reservation is still active.
             // Treat released/expired reservations as unavailable; they must never recreate
@@ -156,7 +157,19 @@ public class InventoryServiceImpl implements InventoryService {
     @Transactional
     @CacheEvict(cacheNames = "inventory", allEntries = true)
     public void release(String orderNumber) {
-        reservationRepository.findByOrderNumber(orderNumber)
+        reservationRepository.findAllByOrderNumber(orderNumber).stream()
+                .filter(reservation -> reservation.getStatus() == ReservationStatus.RESERVED)
+                .forEach(reservation -> {
+                    findItem(reservation.getProductId()).release(reservation.getQuantity());
+                    reservation.release();
+                });
+    }
+
+    @Override
+    @Transactional
+    @CacheEvict(cacheNames = "inventory", allEntries = true)
+    public void release(String orderNumber, Long productId) {
+        reservationRepository.findByOrderNumberAndProductId(orderNumber, productId)
                 .filter(reservation -> reservation.getStatus() == ReservationStatus.RESERVED)
                 .ifPresent(reservation -> {
                     findItem(reservation.getProductId()).release(reservation.getQuantity());
@@ -167,9 +180,9 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     @Transactional
     public void confirmReservation(String orderNumber) {
-        reservationRepository.findByOrderNumberForUpdate(orderNumber)
+        reservationRepository.findAllByOrderNumberForUpdate(orderNumber).stream()
                 .filter(reservation -> reservation.getStatus() == ReservationStatus.RESERVED)
-                .ifPresent(InventoryReservation::confirm);
+                .forEach(InventoryReservation::confirm);
     }
 
     @Override
@@ -184,27 +197,33 @@ public class InventoryServiceImpl implements InventoryService {
         expired.forEach(reservation -> {
             findItem(reservation.getProductId()).release(reservation.getQuantity());
             reservation.expire();
-            InventoryFailedEvent event = new InventoryFailedEvent(
-                    null,
-                    reservation.getOrderNumber(),
-                    reservation.getCorrelationId(),
-                    "Inventory reservation expired before payment completed"
-            );
-            outboxService.enqueue(
-                    "INVENTORY_RESERVATION",
-                    reservation.getOrderNumber(),
-                    InventoryFailedEvent.class.getSimpleName(),
-                    topics.inventoryFailed(),
-                    reservation.getOrderNumber(),
-                    event,
-                    reservation.getCorrelationId()
-            );
             meterRegistry.counter("shopverse.inventory.reservations.expired").increment();
             log.atWarn()
                     .addKeyValue("orderNumber", reservation.getOrderNumber())
                     .addKeyValue("correlationId", reservation.getCorrelationId())
                     .log("Inventory reservation expired and stock was released");
         });
+        expired.stream()
+                .collect(Collectors.groupingBy(InventoryReservation::getOrderNumber))
+                .forEach((orderNumber, rows) -> {
+                    InventoryReservation first = rows.get(0);
+                    InventoryFailedEvent event = new InventoryFailedEvent(
+                            null,
+                            orderNumber,
+                            first.getCorrelationId(),
+                            "Inventory reservation expired before payment completed",
+                            rows.stream().map(InventoryReservation::getProductId).toList()
+                    );
+                    outboxService.enqueue(
+                            "INVENTORY_RESERVATION",
+                            orderNumber,
+                            InventoryFailedEvent.class.getSimpleName(),
+                            topics.inventoryFailed(),
+                            orderNumber,
+                            event,
+                            first.getCorrelationId()
+                    );
+                });
         return expired.size();
     }
 

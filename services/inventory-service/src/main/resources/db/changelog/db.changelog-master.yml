@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/changelog/007-failed-event-indexes.yml
   - include:
       file: db/changelog/008-realistic-catalog-data.yml
+  - include:
+      file: db/changelog/009-multi-item-reservations.yml

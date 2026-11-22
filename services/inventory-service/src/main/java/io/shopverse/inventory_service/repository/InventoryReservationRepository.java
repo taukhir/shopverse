@@ -13,11 +13,15 @@ import java.util.List;
 
 public interface InventoryReservationRepository extends JpaRepository<InventoryReservation, Long> {
 
-    Optional<InventoryReservation> findByOrderNumber(String orderNumber);
+    Optional<InventoryReservation> findFirstByOrderNumberOrderById(String orderNumber);
+
+    Optional<InventoryReservation> findByOrderNumberAndProductId(String orderNumber, Long productId);
+
+    List<InventoryReservation> findAllByOrderNumber(String orderNumber);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select r from InventoryReservation r where r.orderNumber = :orderNumber")
-    Optional<InventoryReservation> findByOrderNumberForUpdate(@Param("orderNumber") String orderNumber);
+    List<InventoryReservation> findAllByOrderNumberForUpdate(@Param("orderNumber") String orderNumber);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<InventoryReservation> findAllByStatusAndExpiresAtBefore(

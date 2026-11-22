@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,13 @@ import java.time.Duration;
 
 @Getter
 @Entity
-@Table(name = "inventory_reservations")
+@Table(
+        name = "inventory_reservations",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_inventory_reservation_order_product",
+                columnNames = {"order_number", "product_id"}
+        )
+)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class InventoryReservation extends BaseAuditableEntity {
 
@@ -25,7 +32,7 @@ public class InventoryReservation extends BaseAuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 40)
+    @Column(nullable = false, length = 40)
     private String orderNumber;
 
     @Column(nullable = false, length = 64)
