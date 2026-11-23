@@ -29,6 +29,7 @@ export const routes: Routes = [
   { path: 'admin/recovery', title: 'Recovery - ShopVerse', loadComponent: () => import('./features/admin/recovery-admin.component').then((m) => m.RecoveryAdminComponent), canActivate: [adminGuard] },
   { path: 'admin/activity', title: 'Admin activity - ShopVerse', loadComponent: () => import('./features/admin/admin-activity.component').then((m) => m.AdminActivityComponent), canActivate: [adminGuard] },
   { path: 'admin/settings', title: 'Admin settings - ShopVerse', loadComponent: () => import('./features/admin/admin-settings.component').then((m) => m.AdminSettingsComponent), canActivate: [adminGuard] },
+  { path: 'admin/access-control', title: 'Roles & permissions - ShopVerse', loadComponent: () => import('./features/admin/access-control-page.component').then((m) => m.AccessControlPageComponent), canActivate: [adminGuard] },
   { path: 'admin/users/:id', title: 'User profile - ShopVerse', loadComponent: () => import('./features/admin/admin-user-detail.component').then((m) => m.AdminUserDetailComponent), canActivate: [adminGuard] },
   { path: 'admin/:section', title: 'Admin - ShopVerse', loadComponent: () => import('./features/admin/admin-page.component').then((m) => m.AdminPageComponent), canActivate: [adminGuard] },
   { path: '**', redirectTo: '' },
