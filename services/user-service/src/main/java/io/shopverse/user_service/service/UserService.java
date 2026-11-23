@@ -9,6 +9,7 @@ import io.shopverse.user_service.model.RegisterCustomerRequest;
 import io.shopverse.user_service.model.ResetPasswordRequest;
 import io.shopverse.user_service.model.UpdateProfileRequest;
 import io.shopverse.user_service.model.UpdateUserRequest;
+import io.shopverse.user_service.model.ReplaceUserRequest;
 import io.shopverse.user_service.model.UserFilter;
 import org.springframework.data.domain.Pageable;
 
@@ -27,6 +28,8 @@ public interface UserService {
     UserResponse createUser(CreateUserRequest request);
 
     UserResponse updateUser(Long id, UpdateUserRequest request);
+
+    UserResponse replaceUser(Long id, ReplaceUserRequest request);
 
     void changePassword(Long id, ChangePasswordRequest request);
 

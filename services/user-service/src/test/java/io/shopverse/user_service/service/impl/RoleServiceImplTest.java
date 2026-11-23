@@ -129,13 +129,13 @@ class RoleServiceImplTest {
     }
 
     @Test
-    void deleteRoleThrowsWhenRoleIsAssignedToUsers() {
+    void deleteRoleThrowsWhenRoleIsAssignedToUsersOrGroups() {
         Role role = role(1L, "ADMIN", Set.of(), Set.of(new User()));
         when(roleRepository.findById(1L)).thenReturn(Optional.of(role));
 
         assertThatThrownBy(() -> roleService.deleteRole(1L))
                 .isInstanceOf(ResourceInUseException.class)
-                .hasMessage("Role is assigned to one or more users");
+                .hasMessage("Role is assigned to one or more users or groups");
 
         verify(roleRepository, never()).delete(any(Role.class));
     }

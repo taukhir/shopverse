@@ -1,4 +1,4 @@
-package io.shopverse.user_service.controller;
+package io.shopverse.user_service.controller.admin;
 
 import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.platform.web.pagination.PaginationUtils;

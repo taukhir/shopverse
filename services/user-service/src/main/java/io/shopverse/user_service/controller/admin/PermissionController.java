@@ -1,4 +1,4 @@
-package io.shopverse.user_service.controller;
+package io.shopverse.user_service.controller.admin;
 
 import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.platform.web.pagination.PaginationUtils;
@@ -33,6 +33,7 @@ import java.util.Set;
 @RequestMapping(ApiConstants.PERMISSIONS)
 @RequiredArgsConstructor
 @Tag(name = "Permissions", description = "Permission management APIs")
+@PreAuthorize("hasAuthority('ADMIN_ACCESS')")
 public class PermissionController {
 
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of(
@@ -69,12 +70,12 @@ public class PermissionController {
         ));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{permissionId}")
     @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
-    public ResponseEntity<ApiResponse<PermissionResponse>> getPermission(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<PermissionResponse>> getPermission(@PathVariable Long permissionId) {
         return ResponseEntity.ok(ApiResponse.success(
                 "Permission fetched successfully",
-                permissionService.getPermission(id)
+                permissionService.getPermission(permissionId)
         ));
     }
 
@@ -83,30 +84,33 @@ public class PermissionController {
     public ResponseEntity<ApiResponse<PermissionResponse>> createPermission(
             @Valid @RequestBody CreatePermissionRequest request
     ) {
+        PermissionResponse created = permissionService.createPermission(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
+                .location(org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{permissionId}").buildAndExpand(created.id()).toUri())
                 .body(ApiResponse.success(
                         "Permission created successfully",
-                        permissionService.createPermission(request)
+                        created
                 ));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{permissionId}")
     @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<PermissionResponse>> updatePermission(
-            @PathVariable Long id,
+            @PathVariable Long permissionId,
             @Valid @RequestBody UpdatePermissionRequest request
     ) {
         return ResponseEntity.ok(ApiResponse.success(
                 "Permission updated successfully",
-                permissionService.updatePermission(id, request)
+                permissionService.updatePermission(permissionId, request)
         ));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{permissionId}")
     @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePermission(@PathVariable Long id) {
-        permissionService.deletePermission(id);
+    public void deletePermission(@PathVariable Long permissionId) {
+        permissionService.deletePermission(permissionId);
     }
 }

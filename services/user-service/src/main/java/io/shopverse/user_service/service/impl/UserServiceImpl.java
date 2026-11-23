@@ -19,6 +19,7 @@ import io.shopverse.user_service.model.RegisterCustomerRequest;
 import io.shopverse.user_service.model.ResetPasswordRequest;
 import io.shopverse.user_service.model.UpdateProfileRequest;
 import io.shopverse.user_service.model.UpdateUserRequest;
+import io.shopverse.user_service.model.ReplaceUserRequest;
 import io.shopverse.user_service.model.UserFilter;
 import io.shopverse.user_service.repository.UserRepository;
 import io.shopverse.user_service.repository.specification.UserSpecifications;
@@ -63,9 +64,15 @@ public class UserServiceImpl implements UserService {
                 pageable.getPageSize()
         );
 
-        PageResponse<UserSummaryResponse> response = PageMapper.toResponse(
-                userRepository.findAll(UserSpecifications.from(filter), pageable),
-                UserMapper::toUserSummaryResponse
+        var usersPage = userRepository.findAll(UserSpecifications.from(filter), pageable);
+        var usersWithAuthorities = userRepository.findAllWithAuthoritiesByIdIn(usersPage.getContent().stream().map(User::getId).toList());
+        var summariesById = usersWithAuthorities.stream().collect(java.util.stream.Collectors.toMap(User::getId, UserMapper::toUserSummaryResponse));
+        PageResponse<UserSummaryResponse> response = new PageResponse<>(
+                usersPage.getContent().stream()
+                        .map(user -> summariesById.getOrDefault(user.getId(), UserMapper.toUserSummaryResponse(user)))
+                        .toList(),
+                usersPage.getNumber(), usersPage.getSize(), usersPage.getTotalElements(), usersPage.getTotalPages(),
+                usersPage.isFirst(), usersPage.isLast()
         );
         log.info("Loaded users page with {} items out of {} total items", response.content().size(), response.totalElements());
         return response;
@@ -238,6 +245,35 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public UserResponse replaceUser(Long id, ReplaceUserRequest request) {
+        User user = findUser(id);
+        String username = request.username().trim();
+        if (!username.equals(user.getUsername()) && userRepository.existsByUsername(username)) {
+            throw new DuplicateResourceException("Username already exists");
+        }
+        String email = normalizeEmail(request.email());
+        if (!email.equals(user.getEmail()) && userRepository.existsByEmail(email)) {
+            throw new DuplicateResourceException("Email already exists");
+        }
+
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setFirstName(request.firstName());
+        user.setLastName(request.lastName());
+        user.setPhoneNumber(request.phoneNumber());
+        user.setStatus(request.status());
+        user.setEnabled(request.enabled());
+        user.setAccountNonLocked(request.accountNonLocked());
+        user.setRoles(resolveRoles(request.roles() == null ? Set.of() : request.roles()));
+
+        User savedUser = userRepository.save(user);
+        userAuditService.record(savedUser, AuditActions.USER_UPDATED, AuditDetails.USER_ACCOUNT_UPDATED);
+        recordUserAudit(savedUser, AuditActions.USER_UPDATED, "User replaced", AuditDetails.USER_ACCOUNT_UPDATED);
+        return UserMapper.toUserResponse(savedUser);
+    }
+
+    @Override
+    @Transactional
     public void changePassword(Long id, ChangePasswordRequest request) {
         log.info("Changing password for user id: {}", id);
         User user = findUser(id);
@@ -267,6 +303,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(UserStatus.DELETED);
         user.setEnabled(false);
         user.setAccountNonLocked(false);
+        user.setGroups(new HashSet<>());
         User savedUser = userRepository.save(user);
         userAuditService.record(savedUser, AuditActions.USER_DELETED, AuditDetails.USER_ACCOUNT_SOFT_DELETED);
         recordUserAudit(savedUser, AuditActions.USER_DELETED, "User soft deleted", AuditDetails.USER_ACCOUNT_SOFT_DELETED);

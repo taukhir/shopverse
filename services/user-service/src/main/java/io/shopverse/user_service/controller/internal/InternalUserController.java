@@ -1,4 +1,4 @@
-package io.shopverse.user_service.controller;
+package io.shopverse.user_service.controller.internal;
 
 import io.shopverse.user_service.constants.ApiConstants;
 import io.shopverse.user_service.dto.UserResponse;

@@ -10,11 +10,15 @@ public final class ApiConstants {
 
     public static final String PUBLIC_API = API_V1 + "/public";
     public static final String USERS = API_V1 + "/users";
+    public static final String ACCOUNTS = API_V1 + "/accounts";
+    public static final String CURRENT_ACCOUNT = ACCOUNTS + "/current";
+    public static final String ADMIN_USERS = API_V1 + "/admin/users";
     public static final String CART = API_V1 + "/cart";
     public static final String ADMIN_AUDIT_EVENTS = API_V1 + "/admin/audit-events";
     public static final String INTERNAL_USERS = API_V1 + "/internal/users";
     public static final String ROLES = API_V1 + "/roles";
     public static final String PERMISSIONS = API_V1 + "/permissions";
+    public static final String GROUPS = API_V1 + "/groups";
 
     public static final String SWAGGER = "/swagger-ui/**";
     public static final String SWAGGER_HTML = "/swagger-ui.html";

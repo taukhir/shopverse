@@ -1,4 +1,4 @@
-package io.shopverse.user_service.controller;
+package io.shopverse.user_service.controller.publicapi;
 
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
@@ -8,6 +8,7 @@ import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.model.RegisterCustomerRequest;
 import io.shopverse.user_service.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,8 +31,9 @@ public class PublicRegistrationController {
     private final UserService userService;
 
     @PostMapping("/register")
+    @Operation(summary = "Register a customer", security = {})
     public ResponseEntity<UserResponse> registerCustomer(@Valid @RequestBody RegisterCustomerRequest request) {
-        log.info("Public customer registration requested for username={}, email={}", request.username(), request.email());
+        log.info("Public customer registration requested for username={}", request.username());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userService.registerCustomer(request));

@@ -7,6 +7,7 @@ import io.shopverse.user_service.dto.UserSummaryResponse;
 import io.shopverse.user_service.entities.Permission;
 import io.shopverse.user_service.entities.Role;
 import io.shopverse.user_service.entities.User;
+import io.shopverse.user_service.entities.UserGroup;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -27,7 +28,7 @@ public final class UserMapper {
                 user.getLastName(),
                 user.getPhoneNumber(),
                 user.getStatus(),
-                toRoleResponses(user.getRoles())
+                toRoleResponses(effectiveRoles(user))
         );
     }
 
@@ -40,12 +41,20 @@ public final class UserMapper {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getStatus(),
-                user.getRoles()
+                effectiveRoles(user)
                         .stream()
                         .map(Role::getRoleName)
                         .sorted()
                         .collect(Collectors.toCollection(java.util.LinkedHashSet::new))
         );
+    }
+
+    private static Set<Role> effectiveRoles(User user) {
+        Set<Role> roles = new java.util.LinkedHashSet<>(user.getRoles());
+        for (UserGroup group : user.getGroups()) {
+            roles.addAll(group.getRoles());
+        }
+        return roles;
     }
 
     public static RoleResponse toRoleResponse(Role role) {

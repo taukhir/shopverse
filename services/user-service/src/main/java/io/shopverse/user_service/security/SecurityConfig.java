@@ -64,8 +64,12 @@ public class SecurityConfig {
                         .requestMatchers(ApiConstants.ADMIN_AUDIT_EVENTS).hasRole("ADMIN")
                         .requestMatchers(ApiConstants.CART + "/**").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers(ApiConstants.CART).hasAnyRole("CUSTOMER", "ADMIN")
+                        .requestMatchers(ApiConstants.ACCOUNTS + "/**").hasAnyRole("CUSTOMER", "ADMIN")
                         .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole("CUSTOMER", "ADMIN")
+                        .requestMatchers(ApiConstants.ADMIN_USERS + "/**").hasRole("ADMIN")
                         .requestMatchers(ApiConstants.ROLES + "/**").hasRole("ADMIN")
+                        .requestMatchers(ApiConstants.PERMISSIONS + "/**").hasRole("ADMIN")
+                        .requestMatchers(ApiConstants.GROUPS + "/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 
                 .oauth2ResourceServer(oauth -> oauth.jwt(jwt ->

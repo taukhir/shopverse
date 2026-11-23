@@ -1,14 +1,15 @@
-package io.shopverse.user_service.controller;
+package io.shopverse.user_service.controller.admin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.shopverse.user_service.controller.account.AccountController;
+import io.shopverse.user_service.controller.account.UserAddressController;
 import io.shopverse.user_service.constants.ResilienceConstants;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.entities.enums.UserStatus;
 import io.shopverse.user_service.exceptions.GlobalExceptionHandler;
 import io.shopverse.user_service.model.CreateUserRequest;
-import io.shopverse.user_service.service.UserAddressService;
 import io.shopverse.user_service.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,10 +21,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -34,9 +35,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-class UserControllerTest {
+class UserAdminControllerTest {
 
-    private static final String USERS_PATH = "/api/v1/users";
+    private static final String USERS_PATH = "/api/v1/admin/users";
 
     private MockMvc mockMvc;
 
@@ -44,9 +45,6 @@ class UserControllerTest {
 
     @Mock
     private UserService userService;
-
-    @Mock
-    private UserAddressService userAddressService;
 
     @BeforeEach
     void setUp() {
@@ -56,7 +54,7 @@ class UserControllerTest {
         validator.afterPropertiesSet();
 
         mockMvc = MockMvcBuilders
-                .standaloneSetup(new UserController(userService, userAddressService))
+                .standaloneSetup(new UserAdminController(userService))
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .setValidator(validator)
                 .build();
@@ -96,11 +94,20 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
+                .andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.header().string("Location", "http://localhost/api/v1/admin/users/1"))
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.message").value("User created successfully"))
                 .andExpect(jsonPath("$.data.username").value("ahmed"));
 
         verify(userService).createUser(any(CreateUserRequest.class));
+    }
+
+    @Test
+    void legacyUserRouteRemainsAvailableDuringMigration() throws Exception {
+        when(userService.getUser(1L)).thenReturn(userResponse());
+        mockMvc.perform(get("/api/v1/users/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(1));
     }
 
     @Test
@@ -129,18 +136,24 @@ class UserControllerTest {
     }
 
     @Test
-    void userEndpointsUseAnnotationBasedResilience() throws Exception {
-        RateLimiter rateLimiter = UserController.class.getAnnotation(RateLimiter.class);
-        Bulkhead bulkhead = UserController.class.getAnnotation(Bulkhead.class);
+    void accountAddressAndAdminControllersUseAnnotationBasedResilience() {
+        for (Class<?> controller : List.of(
+                UserAdminController.class,
+                AccountController.class,
+                UserAddressController.class
+        )) {
+            RateLimiter rateLimiter = controller.getAnnotation(RateLimiter.class);
+            Bulkhead bulkhead = controller.getAnnotation(Bulkhead.class);
 
-        org.assertj.core.api.Assertions.assertThat(rateLimiter).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(rateLimiter.name())
-                .isEqualTo(ResilienceConstants.API_RATE_LIMITER);
-        org.assertj.core.api.Assertions.assertThat(bulkhead).isNotNull();
-        org.assertj.core.api.Assertions.assertThat(bulkhead.name())
-                .isEqualTo(ResilienceConstants.API_BULKHEAD);
-        org.assertj.core.api.Assertions.assertThat(bulkhead.type())
-                .isEqualTo(Bulkhead.Type.SEMAPHORE);
+            org.assertj.core.api.Assertions.assertThat(rateLimiter).isNotNull();
+            org.assertj.core.api.Assertions.assertThat(rateLimiter.name())
+                    .isEqualTo(ResilienceConstants.API_RATE_LIMITER);
+            org.assertj.core.api.Assertions.assertThat(bulkhead).isNotNull();
+            org.assertj.core.api.Assertions.assertThat(bulkhead.name())
+                    .isEqualTo(ResilienceConstants.API_BULKHEAD);
+            org.assertj.core.api.Assertions.assertThat(bulkhead.type())
+                    .isEqualTo(Bulkhead.Type.SEMAPHORE);
+        }
     }
 
     private static UserResponse userResponse() {

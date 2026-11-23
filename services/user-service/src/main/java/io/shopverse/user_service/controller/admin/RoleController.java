@@ -1,4 +1,4 @@
-package io.shopverse.user_service.controller;
+package io.shopverse.user_service.controller.admin;
 
 import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.platform.web.pagination.PaginationUtils;
@@ -33,6 +33,7 @@ import java.util.Set;
 @RequestMapping(ApiConstants.ROLES)
 @RequiredArgsConstructor
 @Tag(name = "Roles", description = "Role management APIs")
+@PreAuthorize("hasAuthority('ADMIN_ACCESS')")
 public class RoleController {
 
     private static final Set<String> ALLOWED_SORT_FIELDS = Set.of(
@@ -68,33 +69,36 @@ public class RoleController {
         ));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{roleId}")
     @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
-    public ResponseEntity<ApiResponse<RoleResponse>> getRole(@PathVariable Long id) {
-        return ResponseEntity.ok(ApiResponse.success("Role fetched successfully", roleService.getRole(id)));
+    public ResponseEntity<ApiResponse<RoleResponse>> getRole(@PathVariable Long roleId) {
+        return ResponseEntity.ok(ApiResponse.success("Role fetched successfully", roleService.getRole(roleId)));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<RoleResponse>> createRole(@Valid @RequestBody CreateRoleRequest request) {
+        RoleResponse created = roleService.createRole(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ApiResponse.success("Role created successfully", roleService.createRole(request)));
+                .location(org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{roleId}").buildAndExpand(created.id()).toUri())
+                .body(ApiResponse.success("Role created successfully", created));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{roleId}")
     @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     public ResponseEntity<ApiResponse<RoleResponse>> updateRole(
-            @PathVariable Long id,
+            @PathVariable Long roleId,
             @Valid @RequestBody UpdateRoleRequest request
     ) {
-        return ResponseEntity.ok(ApiResponse.success("Role updated successfully", roleService.updateRole(id, request)));
+        return ResponseEntity.ok(ApiResponse.success("Role updated successfully", roleService.updateRole(roleId, request)));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{roleId}")
     @PreAuthorize("hasAuthority('ADMIN_ACCESS')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRole(@PathVariable Long id) {
-        roleService.deleteRole(id);
+    public void deleteRole(@PathVariable Long roleId) {
+        roleService.deleteRole(roleId);
     }
 }

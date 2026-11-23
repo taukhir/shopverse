@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +34,11 @@ public class UserAddressServiceImpl implements UserAddressService {
                 .stream()
                 .map(UserAddressMapper::toResponse)
                 .toList();
+    }
+
+    @Override
+    public Optional<UserAddressResponse> getAddress(String username, Long addressId) {
+        return addressRepository.findByIdAndUserUsername(addressId, username).map(UserAddressMapper::toResponse);
     }
 
     @Override
@@ -80,12 +86,11 @@ public class UserAddressServiceImpl implements UserAddressService {
         address.setPostalCode(trim(request.postalCode()));
         address.setCountry(trim(request.country()));
 
-        if (Boolean.TRUE.equals(request.defaultAddress())) {
-            address.setDefaultAddress(true);
-        }
+        boolean makeDefault = Boolean.TRUE.equals(request.defaultAddress());
+        address.setDefaultAddress(makeDefault);
 
         UserAddress saved = addressRepository.save(address);
-        if (saved.isDefaultAddress()) {
+        if (makeDefault) {
             addressRepository.clearOtherDefaultAddresses(username, saved.getId());
         }
         log.info("Updated address id={} for username={}", saved.getId(), username);

@@ -42,7 +42,9 @@ public class DatabaseUserDetailsService implements UserDetailsService {
     private Collection<GrantedAuthority> toAuthorities(User user) {
         Set<GrantedAuthority> authorities = new LinkedHashSet<>();
 
-        user.getRoles().forEach(role -> {
+        Set<io.shopverse.user_service.entities.Role> roles = new LinkedHashSet<>(user.getRoles());
+        user.getGroups().forEach(group -> roles.addAll(group.getRoles()));
+        roles.forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
             role.getPermissions().forEach(permission ->
                     authorities.add(new SimpleGrantedAuthority(permission.getPermissionName()))

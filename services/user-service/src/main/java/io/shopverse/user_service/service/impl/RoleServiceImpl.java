@@ -99,8 +99,8 @@ public class RoleServiceImpl implements RoleService {
     @CacheEvict(cacheNames = CacheConfig.ROLES_BY_NAME, allEntries = true)
     public void deleteRole(Long id) {
         Role role = findRole(id);
-        if (!role.getUsers().isEmpty()) {
-            throw new ResourceInUseException("Role is assigned to one or more users");
+        if (!role.getUsers().isEmpty() || !role.getGroups().isEmpty()) {
+            throw new ResourceInUseException("Role is assigned to one or more users or groups");
         }
         roleRepository.delete(role);
         recordRoleAudit(role, "ROLE_DELETED", "Role deleted");
