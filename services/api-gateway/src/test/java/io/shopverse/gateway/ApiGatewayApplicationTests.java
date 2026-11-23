@@ -2,7 +2,6 @@ package io.shopverse.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 		"spring.cloud.config.enabled=false",
 		"security.jwt.issuer=shopverse-auth-service"
 })
-@AutoConfigureWebTestClient
 @Import(ApiGatewayApplicationTests.SecurityProbeController.class)
 class ApiGatewayApplicationTests {
 
