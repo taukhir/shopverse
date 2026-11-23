@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { catchError, forkJoin, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, forkJoin, map, of } from 'rxjs';
 
 import { API_PATHS } from '../../core/api/api-paths';
 
 export type RecoveryService = 'Orders' | 'Inventory' | 'Payments';
+export type RecoveryServiceState = 'loading' | 'loaded' | 'error';
 
 export interface FailedEvent {
   id: number;
@@ -27,6 +27,12 @@ const endpoints: Record<RecoveryService, string> = {
   Payments: API_PATHS.payments.deadLetters,
 };
 
+export interface RecoveryServiceResult {
+  service: RecoveryService;
+  events: FailedEvent[];
+  state: Exclude<RecoveryServiceState, 'loading'>;
+}
+
 @Injectable({ providedIn: 'root' })
 export class RecoveryApiService {
   private readonly http = inject(HttpClient);
@@ -36,19 +42,23 @@ export class RecoveryApiService {
       Orders: this.loadServiceEvents('Orders'),
       Inventory: this.loadServiceEvents('Inventory'),
       Payments: this.loadServiceEvents('Payments'),
-    }).pipe(map((result) => [...result.Orders, ...result.Inventory, ...result.Payments]));
+    }).pipe(map((result) => Object.values(result)));
+  }
+
+  loadServiceEvents(service: RecoveryService) {
+    return this.http.get<Omit<FailedEvent, 'service'>[]>(endpoints[service]).pipe(
+      map((events): RecoveryServiceResult => ({
+        service,
+        events: events.map((event) => ({ ...event, service })),
+        state: 'loaded',
+      })),
+      catchError(() => of({ service, events: [], state: 'error' as const })),
+    );
   }
 
   replay(event: FailedEvent) {
     return this.http.post<Omit<FailedEvent, 'service'>>(`${endpoints[event.service]}/${event.id}/replay`, {}).pipe(
       map((updated) => ({ ...updated, service: event.service })),
-    );
-  }
-
-  private loadServiceEvents(service: RecoveryService) {
-    return this.http.get<Omit<FailedEvent, 'service'>[]>(endpoints[service]).pipe(
-      catchError(() => of([])),
-      map((events) => events.map((event) => ({ ...event, service }))),
     );
   }
 }

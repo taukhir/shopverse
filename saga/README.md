@@ -45,22 +45,34 @@ from it.
 
 ```powershell
 $token = "<customer-jwt>"
+$headers = @{ Authorization = "Bearer $token"; "X-Correlation-Id" = "checkout-demo-101" }
+$checkoutBody = @{
+  shippingAddress = @{
+    recipientName = "Demo Customer"
+    phoneNumber = "+919876543210"
+    line1 = "42 Market Road"
+    city = "Bangalore"
+    state = "Karnataka"
+    postalCode = "560001"
+    country = "India"
+  }
+  items = @(@{ productId = 101; quantity = 1 })
+} | ConvertTo-Json -Depth 5
+$checkout = Invoke-RestMethod -Method Post `
+  -Uri "http://localhost:8080/api/v1/checkouts" `
+  -Headers $headers -ContentType "application/json" -Body $checkoutBody
+$order = Invoke-RestMethod -Method Post `
+  -Uri "http://localhost:8080/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
+  -Headers ($headers + @{ "Idempotency-Key" = "checkout-demo-101" }) `
+  -ContentType "application/json" `
+  -Body (@{ checkoutVersion = $checkout.version } | ConvertTo-Json)
 
-$checkout = curl.exe -X POST http://localhost:8080/api/v1/checkouts `
-  -H "Authorization: Bearer $token" `
-  -H "Content-Type: application/json" `
-  -d '{"items":[{"productId":101,"quantity":1}],"shippingAddress":{"recipientName":"Demo User","line1":"1 Demo Street","city":"Bengaluru","state":"Karnataka","postalCode":"560001","country":"India"}}' | ConvertFrom-Json
-
-curl.exe -X POST "http://localhost:8080/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
-  -H "Authorization: Bearer $token" `
-  -H "Content-Type: application/json" `
-  -H "Idempotency-Key: checkout-demo-101" `
-  -H "X-Correlation-Id: checkout-demo-101" `
-  -d "{`"checkoutVersion`":$($checkout.version)}"
+$order | ConvertTo-Json -Depth 8
 ```
 
-Place-order is authenticated. `Idempotency-Key` prevents duplicate order
-creation, and `X-Correlation-Id` links HTTP and Kafka logs.
+Both endpoints are authenticated. The idempotency key is required on placement
+and prevents duplicate order creation. `X-Correlation-Id` links HTTP and Kafka
+logs.
 
 ## Verify
 

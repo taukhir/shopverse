@@ -125,12 +125,13 @@ sequenceDiagram
     participant Kafka
     participant DB
 
-    Browser->>Gateway: POST /api/v1/checkouts (priced, versioned quote)
-    Gateway->>Order: Forward JWT and correlation ID
-    Order->>Inventory: Load catalog through Feign
-    Order-->>Browser: 201 Created (checkoutId, version, expiresAt)
-    Browser->>Gateway: POST /api/v1/checkouts/{checkoutId}/place-order + Idempotency-Key
-    Gateway->>Order: Forward JWT and correlation ID
+    Browser->>Gateway: POST /api/v1/checkouts
+    Gateway->>Order: Create priced, versioned checkout
+    Order->>Inventory: Validate product and read current price
+    Order-->>Browser: checkoutId, version, expiry
+    Browser->>Gateway: POST /api/v1/checkouts/{id}/place-order + Idempotency-Key
+    Gateway->>Order: Place reviewed checkout version
+    Order->>Inventory: Revalidate product and read current price
     Order->>DB: Save order, item, timeline, outbox row
     Order-->>Browser: 201 Created
     Order->>Kafka: Publish order.created from outbox
@@ -146,7 +147,11 @@ sequenceDiagram
 ```
 
 The HTTP response means the order resource was created. It does not mean stock
-and payment finished.
+and payment finished. Placement fetches product details from Inventory again,
+so the current product price is used for the Order; if it changed after quote
+creation, the Order total can differ from the displayed quote. The code does
+not currently reject that change or persist the quoted total as the accepted
+price.
 
 ## Current Good Decisions
 

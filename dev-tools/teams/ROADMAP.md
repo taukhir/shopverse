@@ -305,9 +305,11 @@ implementation already in this repo, and an explicit recorded decision
 ### FEAT-R — Load/performance testing (k6)
 
 **Steps:**
-1. Install k6 locally; write one scenario script against the checkout
-   flow (`POST /api/v1/checkouts` then `POST /api/v1/checkouts/{checkoutId}/place-order`)
-   with a ramping virtual-user profile.
+1. Install k6 locally; write one scenario script against the two-step
+   checkout flow (`POST /api/v1/checkouts`, then
+   `POST /api/v1/checkouts/{checkoutId}/place-order`) with a ramping
+   virtual-user profile. Keep each virtual user's checkout ID and
+   idempotency key isolated.
 2. Seed enough catalog data first (`Seed-ShopverseData.ps1`) so the test
    doesn't bottleneck on "not enough distinct products."
 3. Run against the local Compose stack; capture p50/p95/p99 latency and

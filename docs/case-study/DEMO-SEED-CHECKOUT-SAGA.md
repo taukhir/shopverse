@@ -101,25 +101,16 @@ $checkoutBody = @{
 $checkout = Invoke-RestMethod `
     -Method Post `
     -Uri "$gateway/api/v1/checkouts" `
-    -Headers $authHeaders `
+    -Headers @{ Authorization = "Bearer $token"; "X-Correlation-Id" = $correlationId } `
     -ContentType "application/json" `
     -Body $checkoutBody
-
-$checkout | ConvertTo-Json -Depth 10
-```
-
-Place the order from the reviewed checkout version:
-
-```powershell
-$placeOrderHeaders = $authHeaders + @{ "Idempotency-Key" = $idempotencyKey }
-$placeOrderBody = @{ checkoutVersion = $checkout.version } | ConvertTo-Json
 
 $order = Invoke-RestMethod `
     -Method Post `
     -Uri "$gateway/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
-    -Headers $placeOrderHeaders `
+    -Headers $headers `
     -ContentType "application/json" `
-    -Body $placeOrderBody
+    -Body (@{ checkoutVersion = $checkout.version } | ConvertTo-Json)
 
 $order | ConvertTo-Json -Depth 10
 ```
@@ -153,9 +144,13 @@ sequenceDiagram
     participant Inventory as Inventory Service
     participant Payment as Payment Service
 
-    Client->>Gateway: POST /api/v1/checkouts (priced quote)
-    Client->>Gateway: POST /api/v1/checkouts/{checkoutId}/place-order + idempotency key
-    Gateway->>Order: Authenticated place-order
+    Client->>Gateway: POST /api/v1/checkouts
+    Gateway->>Order: Create priced, versioned checkout
+    Order->>Inventory: Validate product and read current price
+    Order-->>Client: checkoutId, version, expiry
+    Client->>Gateway: POST /api/v1/checkouts/{id}/place-order + Idempotency-Key
+    Gateway->>Order: Place reviewed checkout version
+    Order->>Inventory: Revalidate product and read current price
     Order->>OrderDB: Commit Order, timeline, and OrderCreatedEvent
     Order-->>Client: 201 Created with pending business state
     OrderDB->>Kafka: Publish OrderCreatedEvent
@@ -169,10 +164,13 @@ sequenceDiagram
             Payment->>Kafka: Publish PaymentCompletedEvent
             Kafka->>Order: Confirm order
             Kafka->>Inventory: Confirm reservation
-        else Payment declines or times out
+        else Payment declines
             Payment->>Kafka: Publish PaymentFailedEvent
             Kafka->>Order: Mark payment failed
             Kafka->>Inventory: Release reservation (compensation)
+        else Payment times out
+            Payment->>Payment: Keep payment TIMED_OUT; publish no terminal event
+            Note over Payment,Order: Order remains PAYMENT_PROCESSING until retry, reconciliation, or webhook resolves the outcome
         end
     else Stock is unavailable
         Inventory->>Kafka: Publish InventoryFailedEvent

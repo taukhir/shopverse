@@ -157,23 +157,22 @@ password.
 
 ## End-To-End Checkout Check
 
-Obtain a customer JWT, then send a complete idempotent request:
+Obtain a customer JWT, create a checkout, then place its reviewed version with
+an idempotency key:
 
 ```powershell
 $token = "<customer-jwt>"
 $correlationId = "checkout-observe-101"
 
-$checkout = curl.exe -X POST http://localhost:8080/api/v1/checkouts `
-  -H "Authorization: Bearer $token" `
-  -H "Content-Type: application/json" `
-  -d '{"items":[{"productId":101,"quantity":1}],"shippingAddress":{"recipientName":"Demo User","line1":"1 Demo Street","city":"Bengaluru","state":"Karnataka","postalCode":"560001","country":"India"}}' | ConvertFrom-Json
-
-curl.exe -X POST "http://localhost:8080/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
-  -H "Authorization: Bearer $token" `
-  -H "Content-Type: application/json" `
-  -H "Idempotency-Key: checkout-observe-101" `
-  -H "X-Correlation-Id: $correlationId" `
-  -d "{`"checkoutVersion`":$($checkout.version)}"
+$checkoutBody = '{"shippingAddress":{"recipientName":"Demo Customer","phoneNumber":"+919876543210","line1":"42 Market Road","city":"Bangalore","state":"Karnataka","postalCode":"560001","country":"India"},"items":[{"productId":101,"quantity":1}]}'
+$checkout = Invoke-RestMethod -Method Post -Uri http://localhost:8080/api/v1/checkouts `
+  -Headers @{ Authorization = "Bearer $token"; "X-Correlation-Id" = $correlationId } `
+  -ContentType "application/json" `
+  -Body $checkoutBody
+$order = Invoke-RestMethod -Method Post -Uri "http://localhost:8080/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
+  -Headers @{ Authorization = "Bearer $token"; "Idempotency-Key" = "checkout-observe-101"; "X-Correlation-Id" = $correlationId } `
+  -ContentType "application/json" `
+  -Body (@{ checkoutVersion = $checkout.version } | ConvertTo-Json)
 ```
 
 Use the response order number and correlation ID to inspect business state,
