@@ -1,7 +1,8 @@
 package io.shopverse.gateway;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
@@ -22,11 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
 @Import(ApiGatewayApplicationTests.SecurityProbeController.class)
 class ApiGatewayApplicationTests {
 
-	@Autowired
+	@LocalServerPort
+	private int port;
+
 	private WebTestClient webTestClient;
 
 	@MockitoBean
 	private ReactiveJwtDecoder jwtDecoder;
+
+	@BeforeEach
+	void setUp() {
+		webTestClient = WebTestClient.bindToServer()
+				.baseUrl("http://localhost:" + port)
+				.build();
+	}
 
 	@Test
 	void contextLoads() {
