@@ -7,7 +7,9 @@ public final class UserGroupSpecifications {
     private UserGroupSpecifications() { }
 
     public static Specification<UserGroup> search(String search) {
-        if (search == null || search.isBlank()) return null;
+        if (search == null || search.isBlank()) {
+            return null;
+        }
         String pattern = "%" + search.trim().toLowerCase() + "%";
         return (root, query, builder) -> builder.or(
                 builder.like(builder.lower(root.get("groupName")), pattern),

@@ -1,6 +1,5 @@
 package io.shopverse.user_service.service.impl;
 
-import io.shopverse.platform.web.pagination.PageMapper;
 import io.shopverse.platform.web.pagination.PageResponse;
 import io.shopverse.user_service.constants.AuditActions;
 import io.shopverse.user_service.constants.AuditDetails;

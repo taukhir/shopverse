@@ -55,8 +55,12 @@ public class UserGroupServiceImpl implements UserGroupService {
     @CacheEvict(cacheNames = CacheConfig.ROLES_BY_NAME, allEntries = true)
     public UserGroupResponse createGroup(CreateGroupRequest request) {
         String name = request.groupName().trim();
-        if (name.isBlank()) throw new io.shopverse.user_service.exceptions.BadRequestException("Group name must not be blank");
-        if (groupRepository.existsByGroupName(name)) throw new DuplicateResourceException("Group already exists");
+        if (name.isBlank()) {
+            throw new io.shopverse.user_service.exceptions.BadRequestException("Group name must not be blank");
+        }
+        if (groupRepository.existsByGroupName(name)) {
+            throw new DuplicateResourceException("Group already exists");
+        }
         UserGroup group = UserGroup.builder().groupName(name).description(trim(request.description()))
                 .roles(resolveRoles(request.roleIds())).build();
         UserGroup saved = groupRepository.save(group);
@@ -71,12 +75,20 @@ public class UserGroupServiceImpl implements UserGroupService {
         UserGroup group = findGroup(id);
         if (request.groupName() != null) {
             String name = request.groupName().trim();
-            if (name.isBlank()) throw new io.shopverse.user_service.exceptions.BadRequestException("Group name must not be blank");
-            if (!name.equals(group.getGroupName()) && groupRepository.existsByGroupName(name)) throw new DuplicateResourceException("Group already exists");
+            if (name.isBlank()) {
+                throw new io.shopverse.user_service.exceptions.BadRequestException("Group name must not be blank");
+            }
+            if (!name.equals(group.getGroupName()) && groupRepository.existsByGroupName(name)) {
+                throw new DuplicateResourceException("Group already exists");
+            }
             group.setGroupName(name);
         }
-        if (request.description() != null) group.setDescription(trim(request.description()));
-        if (request.roleIds() != null) group.setRoles(resolveRoles(request.roleIds()));
+        if (request.description() != null) {
+            group.setDescription(trim(request.description()));
+        }
+        if (request.roleIds() != null) {
+            group.setRoles(resolveRoles(request.roleIds()));
+        }
         UserGroup saved = groupRepository.save(group);
         audit(saved, "GROUP_UPDATED");
         return toResponse(saved);
@@ -88,7 +100,9 @@ public class UserGroupServiceImpl implements UserGroupService {
     public UserGroupResponse replaceGroup(Long id, ReplaceGroupRequest request) {
         UserGroup group = findGroup(id);
         String name = request.groupName().trim();
-        if (name.isBlank()) throw new io.shopverse.user_service.exceptions.BadRequestException("Group name must not be blank");
+        if (name.isBlank()) {
+            throw new io.shopverse.user_service.exceptions.BadRequestException("Group name must not be blank");
+        }
         if (!name.equals(group.getGroupName()) && groupRepository.existsByGroupName(name)) {
             throw new DuplicateResourceException("Group already exists");
         }
@@ -105,7 +119,9 @@ public class UserGroupServiceImpl implements UserGroupService {
     @CacheEvict(cacheNames = CacheConfig.ROLES_BY_NAME, allEntries = true)
     public void deleteGroup(Long id) {
         UserGroup group = findGroup(id);
-        if (groupRepository.countMembersByGroupId(id) > 0) throw new ResourceInUseException("Group has members; remove members before deleting it");
+        if (groupRepository.countMembersByGroupId(id) > 0) {
+            throw new ResourceInUseException("Group has members; remove members before deleting it");
+        }
         group.getRoles().clear();
         groupRepository.flush();
         audit(group, "GROUP_DELETED");
@@ -124,7 +140,9 @@ public class UserGroupServiceImpl implements UserGroupService {
     public UserGroupResponse addMember(Long groupId, Long userId) {
         UserGroup group = findGroup(groupId);
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-        if (user.getGroups().add(group)) userRepository.save(user);
+        if (user.getGroups().add(group)) {
+            userRepository.save(user);
+        }
         audit(group, "GROUP_MEMBER_ADDED");
         return toResponse(group);
     }
@@ -135,7 +153,9 @@ public class UserGroupServiceImpl implements UserGroupService {
     public UserGroupResponse removeMember(Long groupId, Long userId) {
         UserGroup group = findGroup(groupId);
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-        if (user.getGroups().remove(group)) userRepository.save(user);
+        if (user.getGroups().remove(group)) {
+            userRepository.save(user);
+        }
         audit(group, "GROUP_MEMBER_REMOVED");
         return toResponse(group);
     }
@@ -146,7 +166,9 @@ public class UserGroupServiceImpl implements UserGroupService {
     public UserGroupResponse addRole(Long groupId, Long roleId) {
         UserGroup group = findGroup(groupId);
         Role role = roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + roleId));
-        if (group.getRoles().add(role)) groupRepository.save(group);
+        if (group.getRoles().add(role)) {
+            groupRepository.save(group);
+        }
         audit(group, "GROUP_ROLE_ADDED");
         return toResponse(group);
     }
@@ -157,7 +179,9 @@ public class UserGroupServiceImpl implements UserGroupService {
     public UserGroupResponse removeRole(Long groupId, Long roleId) {
         UserGroup group = findGroup(groupId);
         Role role = roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException("Role not found with id: " + roleId));
-        if (group.getRoles().remove(role)) groupRepository.save(group);
+        if (group.getRoles().remove(role)) {
+            groupRepository.save(group);
+        }
         audit(group, "GROUP_ROLE_REMOVED");
         return toResponse(group);
     }
@@ -167,9 +191,13 @@ public class UserGroupServiceImpl implements UserGroupService {
     }
 
     private Set<Role> resolveRoles(Set<Long> ids) {
-        if (ids == null || ids.isEmpty()) return new HashSet<>();
+        if (ids == null || ids.isEmpty()) {
+            return new HashSet<>();
+        }
         Set<Role> roles = new HashSet<>(roleRepository.findAllById(ids));
-        if (roles.size() != ids.size()) throw new ResourceNotFoundException("One or more roles were not found");
+        if (roles.size() != ids.size()) {
+            throw new ResourceNotFoundException("One or more roles were not found");
+        }
         return roles;
     }
 
