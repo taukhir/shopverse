@@ -149,6 +149,10 @@
           @if (error()) {
             <b>{{ error() }}</b>
           }
+          @if (!selectedAddress()) {
+            <p class="address-required-note" role="status">Add a delivery address before reviewing this order.</p>
+            <a class="add-address-link" [routerLink]="['/account']" [queryParams]="{ returnUrl: '/checkout' }">Add delivery address &rarr;</a>
+          }
           <button (click)="reviewOrder()" [disabled]="loading() || !selectedAddress()">{{ loading() ? 'Reviewing...' : 'Review order' }} <em>&rarr;</em></button>
         } @else {
           <p>REVIEW</p>

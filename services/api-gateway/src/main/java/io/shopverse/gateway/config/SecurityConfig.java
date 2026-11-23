@@ -36,7 +36,8 @@ public class SecurityConfig {
                 .authorizeExchange(authorize -> authorize
                         .pathMatchers(
                                 "/auth/**",
-                                "/api/v1/*/public/**",
+                                "/api/v1/public/users/register",
+                                "/api/v1/public/health",
                                 "/actuator/health",
                                 "/actuator/health/**",
                                 "/actuator/info",

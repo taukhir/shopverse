@@ -71,6 +71,14 @@ owner but several affected components.
 | BUG-042 | Account lockout is dead code | user-service | user-service, auth-service |
 | BUG-043 | Fine-grained RBAC permissions seeded but ignored downstream | platform | user-service, order-service, inventory-service, payment-service |
 | BUG-044 | Account deletion doesn't cascade PII removal | user-service | user-service, order-service, payment-service |
+| BUG-045 | Admin navigation is missing an accessible landmark label | frontend-backoffice | frontend-backoffice |
+| BUG-046 | Account profile/address saves are reported missing after reload; verify persistence and readback | platform | frontend-site, user-service |
+| BUG-047 | Public User Service endpoints are not routed/allowed by API Gateway *(code updated; verification pending)* | api-gateway | api-gateway, user-service, auth-service, frontend-site |
+| BUG-048 | Cart reads invoke write-capable cart creation under read-only transaction metadata | user-service | user-service, frontend-site |
+| BUG-049 | Cart replace/merge accepts duplicate products and unchecked quantity sums | user-service | user-service, frontend-site |
+| BUG-050 | Existing JWT authorities remain valid after user/role changes until expiry | platform | auth-service, user-service, api-gateway, frontend-site |
+| BUG-051 | Address update ignores an explicit false default flag | user-service | user-service, frontend-site |
+| BUG-052 | User Service logs account identifiers and email addresses | user-service | user-service, platform |
 
 ## Features
 
@@ -118,6 +126,11 @@ owner but several affected components.
 | FEAT-AM | Consumer-side staleness/skip gate for saga handlers | platform | order-service, inventory-service, payment-service |
 | FEAT-AN | Strategy-pattern registry for payment providers | payment-service | payment-service |
 | FEAT-AO | Customer notification inbox and persisted delivery preferences | platform | frontend-site, order-service, payment-service, user-service |
+| FEAT-AP | Collapsible mobile navigation menu for storefront and admin | frontend-site | frontend-site, frontend-backoffice |
+| FEAT-AQ | Add user groups and group-based role assignment | user-service | user-service, auth-service, api-gateway, frontend-backoffice |
+| FEAT-AR | Add User Service group administration APIs | user-service | user-service, api-gateway, frontend-backoffice |
+| FEAT-AS | Extract persisted cart ownership into Cart Service | platform | user-service, api-gateway, frontend-site, platform |
+| FEAT-AT | Add back-office group management UI | frontend-backoffice | frontend-backoffice, user-service |
 
 ## Enhancements
 
@@ -169,6 +182,16 @@ owner but several affected components.
 | ENH-044 | Named per-step pipeline metrics for checkout/saga flow | platform | order-service, inventory-service, payment-service |
 | ENH-045 | Recovery console must distinguish unavailable services from an empty DLT queue | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
 | ENH-046 | Checkout receipt should use the placed order's authoritative total and live workflow/payment state | frontend-site | frontend-site, order-service, payment-service |
+| ENH-047 | Redesign responsive storefront and admin headers and navigation presentation | frontend-site | frontend-site, frontend-backoffice |
+| ENH-048 | Expand accessibility checks across key routes and mobile layouts | frontend-site | frontend-site, frontend-backoffice |
+| ENH-049 | Add User Service persistence, security, and HTTP integration coverage | user-service | user-service, platform |
+| ENH-050 | Define cross-replica role/permission cache invalidation | user-service | user-service |
+| ENH-051 | Apply endpoint resilience controls consistently across User Service APIs | user-service | user-service, api-gateway, platform |
+| ENH-052 | Define User Service account API and controller boundaries | user-service | user-service, api-gateway, frontend-site, frontend-backoffice |
+| ENH-053 | Split account, address, and admin user controllers | user-service | user-service, api-gateway, frontend-site, frontend-backoffice |
+| ENH-054 | Publish and migrate to the redesigned User Service API contracts | platform | user-service, api-gateway, frontend-site, frontend-backoffice, shopverse-common |
+| ENH-055 | Define account and group authorization semantics and audit events | user-service | user-service, auth-service, api-gateway |
+| ENH-056 | Remove superseded Accounts/Profile service split proposal | platform | user-service, auth-service |
 
 ## Debugging Drills
 
@@ -178,19 +201,21 @@ owner but several affected components.
 
 ---
 
-## Quick counts (2026-11-17) — by Owner
+Detailed evidence and acceptance criteria for BUG-047-BUG-052 and ENH-049-ENH-051 are in [the User Service audit](docs/user-service-audit.md). The account/API/group/cart redesign task sequence and acceptance criteria are in [the User Service redesign plan](docs/user-service-redesign-plan.md). BUG-046 and other pre-existing account/security tasks are not duplicated.
+
+## Quick counts (2026-11-23) - by Owner
 
 | Owner | Bugs | Features | Enhancements |
 |---|---|---|---|
-| frontend-site | 6 | 1 | 2 |
-| frontend-backoffice | 0 | 5 | 3 |
+| frontend-site | 6 | 2 | 4 |
+| frontend-backoffice | 1 | 6 | 3 |
 | order-service | 7 | 3 | 2 |
 | inventory-service | 5 | 3 | 3 |
 | payment-service | 5 | 2 | 2 |
 | auth-service | 1 | 0 | 2 |
-| user-service | 3 | 1 | 1 |
-| api-gateway | 1 | 1 | 3 |
-| **platform** | **17** | **26** | **23** |
+| user-service | 7 | 3 | 7 |
+| api-gateway | 2 | 1 | 3 |
+| **platform** | **19** | **27** | **25** |
 
 `platform` is still the largest owner bucket by far — that's structurally
 expected (it owns everything cross-cutting), not a sign the backlog is
