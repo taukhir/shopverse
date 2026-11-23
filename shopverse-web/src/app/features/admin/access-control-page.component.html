@@ -1,0 +1,165 @@
+<main class="admin-page-shell access-control">
+  <nav class="admin-local-nav" aria-label="Admin navigation">
+    <div class="crumbs">
+      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Roles &amp; permissions</b>
+    </div>
+    <div class="admin-actions">
+      <a routerLink="/admin">Overview</a>
+      <a routerLink="/admin/users">Users</a>
+      <button type="button" (click)="logout()">Sign out</button>
+    </div>
+  </nav>
+
+  <header class="heading">
+    <div>
+      <p class="eyebrow">ACCESS CONTROL</p>
+      <h1>Roles &amp; permissions.</h1>
+      <p class="lede">Define permission records, group them into roles, then assign roles from each user profile.</p>
+    </div>
+    <a routerLink="/admin/users">Manage user assignments &rarr;</a>
+  </header>
+
+  <p class="security-note">These controls manage the User Service role and permission catalog. API authorization must still be enforced by each backend service; hiding a screen or action does not grant or revoke API access. Permission claims are issued at login, so existing access tokens keep their current claims until they expire.</p>
+
+  @if (error()) {
+    <div class="notice" role="alert">{{ error() }} <button type="button" (click)="load()">Retry</button></div>
+  } @else if (loading()) {
+    <app-loading-skeleton [rows]="5" />
+  } @else {
+    @if (actionError()) {
+      <div class="form-message error" role="alert">{{ actionError() }}</div>
+    }
+
+    <section class="role-workspace" aria-label="Role management">
+      <aside class="role-list panel">
+        <div class="section-head">
+          <div><p>ROLE CATALOG</p><h2>{{ roles().length }} roles</h2></div>
+          <button type="button" (click)="createRole()">Add role</button>
+        </div>
+        @if (!roles().length) {
+          <app-empty-state eyebrow="NO ROLES" title="No roles are defined." message="Create a role, then grant it permissions from the catalog." />
+        } @else {
+          <div class="role-items">
+            @for (role of roles(); track role.id) {
+              <button type="button" class="role-item" [class.selected]="selectedRoleId() === role.id" (click)="selectRole(role)">
+                <span><strong>{{ role.roleName }}</strong><small>{{ role.description || 'No description' }}</small></span>
+                <em>{{ role.permissions.length }} permissions</em>
+              </button>
+            }
+          </div>
+        }
+      </aside>
+
+      <section class="role-detail panel" aria-label="Selected role">
+        @if (selectedRole(); as role) {
+          <div class="section-head">
+            <div><p>ROLE DETAILS</p><h2>{{ role.roleName }}</h2></div>
+            <div class="button-row">
+              <button type="button" (click)="editRole(role)">Edit role</button>
+              <button type="button" class="danger" (click)="deleteRole(role)" [disabled]="busyId() === 'role-' + role.id">{{ busyId() === 'role-' + role.id ? 'Deleting...' : 'Delete' }}</button>
+            </div>
+          </div>
+          <p class="role-description">{{ role.description || 'No description provided.' }}</p>
+          <h3>Assigned permissions</h3>
+          @if (!role.permissions.length) {
+            <p class="empty-copy">This role currently grants no catalog permissions.</p>
+          } @else {
+            <ul class="permission-chips">
+              @for (permission of role.permissions; track permission.id) {
+                <li><strong>{{ permission.permissionName }}</strong><span>{{ permission.moduleName || 'General' }}</span></li>
+              }
+            </ul>
+          }
+        } @else {
+          <app-empty-state eyebrow="SELECT A ROLE" title="Choose a role to inspect it." message="Create a role or select one from the catalog." />
+        }
+      </section>
+    </section>
+
+    @if (roleEditorOpen()) {
+      <section class="editor panel" aria-labelledby="role-editor-title">
+        <div class="section-head">
+          <div><p>{{ editingRoleId() === null ? 'NEW ROLE' : 'EDIT ROLE' }}</p><h2 id="role-editor-title">Role details and permissions</h2></div>
+          <button type="button" (click)="closeRoleEditor()">Close</button>
+        </div>
+        <form (ngSubmit)="saveRole()">
+          <div class="role-fields">
+            <label>Role name<input name="roleName" [(ngModel)]="roleDraft.roleName" required maxlength="80" autocomplete="off" /></label>
+            <label>Description<input name="roleDescription" [(ngModel)]="roleDraft.description" maxlength="240" /></label>
+          </div>
+          <fieldset class="permission-picker">
+            <legend>Permissions granted by this role</legend>
+            @if (!permissions().length) {
+              <p class="empty-copy">No permissions exist yet. Add permission records below first.</p>
+            } @else {
+              @for (group of permissionGroups(); track group[0]) {
+                <section class="permission-group">
+                  <h3>{{ group[0] }}</h3>
+                  <div class="permission-options">
+                    @for (permission of group[1]; track permission.id) {
+                      <label class="permission-option">
+                        <input type="checkbox" [checked]="roleHasPermission(permission.permissionName)" (change)="togglePermission(permission.permissionName)" />
+                        <span><strong>{{ permission.permissionName }}</strong><small>{{ permission.description || 'No description' }}</small></span>
+                      </label>
+                    }
+                  </div>
+                </section>
+              }
+            }
+          </fieldset>
+          <div class="button-row editor-actions">
+            <button type="button" (click)="closeRoleEditor()">Cancel</button>
+            <button class="primary" type="submit" [disabled]="savingRole()">{{ savingRole() ? 'Saving...' : 'Save role' }}</button>
+          </div>
+        </form>
+      </section>
+    }
+
+    <section class="permissions panel" aria-label="Permission catalog">
+      <div class="section-head">
+        <div><p>PERMISSION CATALOG</p><h2>{{ permissions().length }} permissions</h2></div>
+        <button type="button" (click)="createPermission()">Add permission</button>
+      </div>
+      @if (!permissions().length) {
+        <app-empty-state eyebrow="NO PERMISSIONS" title="No permissions are defined." message="Create a permission before assigning it to a role." />
+      } @else {
+        <div class="permission-table">
+          @for (group of permissionGroups(); track group[0]) {
+            <section>
+              <h3>{{ group[0] }}</h3>
+              @for (permission of group[1]; track permission.id) {
+                <article>
+                  <div><strong>{{ permission.permissionName }}</strong><span>{{ permission.description || 'No description' }}</span></div>
+                  <div class="button-row">
+                    <button type="button" (click)="editPermission(permission)">Edit</button>
+                    <button type="button" class="danger" (click)="deletePermission(permission)" [disabled]="busyId() === 'permission-' + permission.id">{{ busyId() === 'permission-' + permission.id ? 'Deleting...' : 'Delete' }}</button>
+                  </div>
+                </article>
+              }
+            </section>
+          }
+        </div>
+      }
+    </section>
+
+    @if (permissionEditorOpen()) {
+      <section class="editor panel" aria-labelledby="permission-editor-title">
+        <div class="section-head">
+          <div><p>{{ editingPermissionId() === null ? 'NEW PERMISSION' : 'EDIT PERMISSION' }}</p><h2 id="permission-editor-title">Permission details</h2></div>
+          <button type="button" (click)="permissionEditorOpen.set(false)">Close</button>
+        </div>
+        <form (ngSubmit)="savePermission()">
+          <div class="role-fields">
+            <label>Permission name<input name="permissionName" [(ngModel)]="permissionDraft.permissionName" required maxlength="100" autocomplete="off" /></label>
+            <label>Module<input name="moduleName" [(ngModel)]="permissionDraft.moduleName" maxlength="80" /></label>
+            <label class="wide">Description<input name="permissionDescription" [(ngModel)]="permissionDraft.description" maxlength="240" /></label>
+          </div>
+          <div class="button-row editor-actions">
+            <button type="button" (click)="permissionEditorOpen.set(false)">Cancel</button>
+            <button class="primary" type="submit" [disabled]="savingPermission()">{{ savingPermission() ? 'Saving...' : 'Save permission' }}</button>
+          </div>
+        </form>
+      </section>
+    }
+  }
+</main>

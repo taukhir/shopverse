@@ -27,7 +27,7 @@ overlay. It talks to the backend through the API Gateway at `localhost:8080`.
 - Customer order and order-detail views.
 - Customer order cancellation, payment retry, refund request, and return request actions.
 - Account/profile management and address book.
-- Admin views for users, orders, inventory, payments, recovery, activity, and fulfillment workflows.
+- Admin views for users, roles and permissions, orders, inventory, payments, recovery, activity, and fulfillment workflows.
 
 ## Current Backend Integrations
 
@@ -44,6 +44,7 @@ The UI is wired to the API Gateway through `/api` and `/auth`.
 | Payments | Customer retry/refund actions and admin payment operations | `GET /api/v1/payments/orders/{orderNumber}`, `POST /api/v1/payments/orders/{orderNumber}/retry`, `POST /api/v1/payments/orders/{orderNumber}/refund` |
 | Admin fulfillment | Pack, ship/out-for-delivery, deliver, cancel | `POST /api/v1/orders/admin/{id}/pack`, `POST /api/v1/orders/admin/{id}/ship`, `POST /api/v1/orders/admin/{id}/deliver`, `POST /api/v1/orders/admin/{id}/cancel` |
 | Admin activity | Filterable operational activity with backend-audit-first fallback behavior | paged `GET /api/v1/admin/audit-events`, then derived from existing admin APIs if unavailable |
+| Access control | Admin role and permission catalog CRUD; assign roles from a user's profile | `GET/POST/PATCH/DELETE /api/v1/roles`, `GET/POST/PATCH/DELETE /api/v1/permissions`, `GET/PATCH /api/v1/users/{id}` |
 
 ## Local Development
 
@@ -156,6 +157,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFull
   `CONFIRMED -> PACKING -> SHIPPED -> OUT_FOR_DELIVERY -> DELIVERED`.
 - Admin activity tries paged `GET /api/v1/admin/audit-events` first. If that
   endpoint is unavailable, it derives a timeline from existing admin APIs.
+- Admin access control manages User Service roles and permission records;
+  downstream services still need server-side authorization checks for each
+  permission they intend to enforce.
 - Protected API calls attach `Authorization: Bearer <token>`.
 
 ## Browser, Environment, And UX Budgets

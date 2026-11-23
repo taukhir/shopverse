@@ -52,7 +52,14 @@ export const API_PATHS = {
     byId: (id: number | string) => `/api/v1/users/${id}`,
   },
   roles: {
-    page: (size = 50) => `/api/v1/roles?size=${size}`,
+    page: (size = 50, page = 0) => `/api/v1/roles?size=${size}&page=${page}`,
+    root: '/api/v1/roles',
+    byId: (id: number | string) => `/api/v1/roles/${id}`,
+  },
+  permissions: {
+    page: (size = 100, page = 0) => `/api/v1/permissions?size=${size}&page=${page}`,
+    root: '/api/v1/permissions',
+    byId: (id: number | string) => `/api/v1/permissions/${id}`,
   },
   cart: {
     root: '/api/v1/cart',
