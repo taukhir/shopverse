@@ -11,7 +11,7 @@ import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
 import { compareNumber, compareText } from '../../shared/utils/collection';
-import { FailedEvent, RecoveryApiService, RecoveryService } from './recovery-api.service';
+import { FailedEvent, RecoveryApiService, RecoveryService, RecoveryServiceResult, RecoveryServiceState } from './recovery-api.service';
 
 type ServiceFilter = RecoveryService | 'All';
 type ReplayFilter = 'All' | 'Open' | 'Replayed';
@@ -30,6 +30,9 @@ export class RecoveryAdminComponent {
   protected readonly session = inject(SessionService);
   private readonly toast = inject(ToastService);
   protected readonly events = signal<FailedEvent[]>([]);
+  protected readonly serviceStates = signal<Record<RecoveryService, RecoveryServiceState>>({
+    Orders: 'loading', Inventory: 'loading', Payments: 'loading',
+  });
   protected readonly filter = signal<ServiceFilter>('All');
   protected readonly loading = signal(true);
   protected readonly error = signal('');
@@ -86,9 +89,11 @@ export class RecoveryAdminComponent {
     this.error.set('');
     this.actionError.set('');
     this.actionSuccess.set('');
+    this.events.set([]);
+    this.serviceStates.set({ Orders: 'loading', Inventory: 'loading', Payments: 'loading' });
     this.recoveryApi.listEvents().subscribe({
-      next: (events) => {
-        this.events.set(events);
+      next: (results) => {
+        this.applyServiceResults(results);
         this.loading.set(false);
       },
       error: () => {
@@ -96,6 +101,30 @@ export class RecoveryAdminComponent {
         this.loading.set(false);
       },
     });
+  }
+
+  protected retryService(service: RecoveryService): void {
+    this.serviceStates.update((states) => ({ ...states, [service]: 'loading' }));
+    this.recoveryApi.loadServiceEvents(service).subscribe((result) => this.applyServiceResult(result));
+  }
+
+  protected readonly serviceNames: RecoveryService[] = ['Orders', 'Inventory', 'Payments'];
+  protected readonly unavailableServices = computed(() => this.serviceNames.filter((service) => this.serviceStates()[service] === 'error'));
+
+  protected serviceState(service: RecoveryService): RecoveryServiceState {
+    return this.serviceStates()[service];
+  }
+
+  private applyServiceResults(results: RecoveryServiceResult[]): void {
+    for (const result of results) this.applyServiceResult(result);
+  }
+
+  private applyServiceResult(result: RecoveryServiceResult): void {
+    this.serviceStates.update((states) => ({ ...states, [result.service]: result.state }));
+    this.events.update((events) => [
+      ...events.filter((event) => event.service !== result.service),
+      ...result.events,
+    ]);
   }
 
   protected setFilter(filter: ServiceFilter): void {

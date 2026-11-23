@@ -57,7 +57,9 @@ Authorization: Bearer eyJ...
 ## Checkout
 
 Checkout is a two-step flow: create a priced, versioned, expiring quote for
-review, then place the order from that exact version.
+review, then place the order from that exact version. Creating a checkout
+calculates a versioned quote and does not create an Order or start the SAGA;
+placing it requires the reviewed version and an `Idempotency-Key`.
 
 ### POST `/api/v1/checkouts` — Create a priced checkout quote
 
@@ -87,7 +89,8 @@ Content-Type: application/json
 ```
 
 Returns a `checkoutId`, `version`, computed totals, and an `expiresAt`. No
-order is created and no SAGA starts yet.
+order is created and no SAGA starts yet. Current validation allows one item
+per checkout, and the quote uses product data fetched from Inventory.
 
 ### GET/PUT `/api/v1/checkouts/{checkoutId}` — Fetch or re-price a checkout
 
@@ -109,7 +112,16 @@ Content-Type: application/json
 { "checkoutVersion": 1 }
 ```
 
-Current validation allows one checkout item. Reusing the idempotency key returns the existing order and must not reserve or charge twice. The shipping address is stored as an immutable snapshot on the Order. A stale `checkoutVersion`, an expired unplaced checkout, or reusing a different key on an already-placed checkout returns `409`.
+Placement validates the checkout version and expiry, then fetches the product
+from Inventory again. The current product name and price are used to create the
+Order, while the checkout's address and item quantity are retained. Therefore,
+the Order total can differ from the earlier quote if the Inventory price
+changes between the two requests; the current code does not reject that price
+change or persist an accepted quote total into the Order. Repeating placement
+with the same idempotency key returns the original order; it does not create
+another reservation or payment. A stale version, an expired unplaced checkout,
+or a different key for an already placed checkout returns `409`. The shipping
+address is stored as an immutable snapshot on the Order.
 
 ## Important APIs
 
@@ -230,7 +242,7 @@ every current Shopverse service returns this exact schema today:
   "status": 409,
   "code": "DUPLICATE_REQUEST",
   "message": "The idempotency key is already associated with another request",
-  "path": "/api/v1/checkouts/CHK-9F3A2B1C/place-order",
+  "path": "/api/v1/checkouts/{checkoutId}/place-order",
   "correlationId": "demo-checkout-9001"
 }
 ```

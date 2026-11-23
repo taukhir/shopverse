@@ -117,6 +117,7 @@ owner but several affected components.
 | FEAT-AL | Admin analytics/KPI dashboard | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
 | FEAT-AM | Consumer-side staleness/skip gate for saga handlers | platform | order-service, inventory-service, payment-service |
 | FEAT-AN | Strategy-pattern registry for payment providers | payment-service | payment-service |
+| FEAT-AO | Customer notification inbox and persisted delivery preferences | platform | frontend-site, order-service, payment-service, user-service |
 
 ## Enhancements
 
@@ -166,6 +167,8 @@ owner but several affected components.
 | ENH-042 | Admin settings/configuration is scattered | frontend-backoffice | frontend-backoffice, payment-service |
 | ENH-043 | Inventory admin's delete action is a disabled stub | frontend-backoffice | frontend-backoffice, inventory-service |
 | ENH-044 | Named per-step pipeline metrics for checkout/saga flow | platform | order-service, inventory-service, payment-service |
+| ENH-045 | Recovery console must distinguish unavailable services from an empty DLT queue | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
+| ENH-046 | Checkout receipt should use the placed order's authoritative total and live workflow/payment state | frontend-site | frontend-site, order-service, payment-service |
 
 ## Debugging Drills
 
@@ -179,8 +182,8 @@ owner but several affected components.
 
 | Owner | Bugs | Features | Enhancements |
 |---|---|---|---|
-| frontend-site | 5 | 0 | 1 |
-| frontend-backoffice | 0 | 4 | 2 |
+| frontend-site | 6 | 1 | 2 |
+| frontend-backoffice | 0 | 5 | 3 |
 | order-service | 7 | 3 | 2 |
 | inventory-service | 5 | 3 | 3 |
 | payment-service | 5 | 2 | 2 |

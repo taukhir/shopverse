@@ -1,16 +1,23 @@
 # Demo Idempotency, Outbox, And Recovery
 
+This walkthrough assumes you completed the checkout placement in
+[Demo Seed, Checkout, And SAGA](./DEMO-SEED-CHECKOUT-SAGA.md) and still have
+`$gateway`, `$headers`, `$checkout`, `$order`, `$orderNumber`, and
+`$correlationId` in the same PowerShell session. The duplicate-placement step
+reuses the same checkout ID, checkout version, and idempotency key.
+
 ## 7. Prove Duplicate Request Handling
 
-Repeat the exact place-order call with the same `Idempotency-Key`:
+Repeat the placement request for the same checkout with the same
+`Idempotency-Key`:
 
 ```powershell
 $duplicate = Invoke-RestMethod `
     -Method Post `
     -Uri "$gateway/api/v1/checkouts/$($checkout.checkoutId)/place-order" `
-    -Headers $placeOrderHeaders `
+    -Headers $headers `
     -ContentType "application/json" `
-    -Body $placeOrderBody
+    -Body (@{ checkoutVersion = $checkout.version } | ConvertTo-Json)
 
 [pscustomobject]@{
     OriginalOrderId  = $order.id
@@ -146,8 +153,8 @@ docker compose exec mysql sh -lc '
 ```
 
 These rows are historical examples only. They do not create Kafka or outbox
-events during migration. Use `POST /api/v1/checkouts` followed by
-`POST /api/v1/checkouts/{checkoutId}/place-order` to demonstrate the live
+events during migration. Use the two-step `POST /api/v1/checkouts` and
+`POST /api/v1/checkouts/{checkoutId}/place-order` flow to demonstrate the live
 choreography SAGA.
 
 Inspect timeline history, reservation state, and matching payment records:

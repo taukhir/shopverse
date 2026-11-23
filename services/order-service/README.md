@@ -28,8 +28,13 @@ Order Service runs on port `8083`. It owns checkout, order state, customer owner
 | `POST` | `/api/v1/orders/admin/dead-letters/{id}/replay` | admin |
 
 Checkout is a two-step flow: create a priced, versioned, expiring checkout
-for review, then place the order from the exact version the customer
-reviewed.
+for review, then place that checkout version. Placement validates the
+checkout's version and expiry, but it also fetches the product from Inventory
+again. The Order uses the current Inventory product name and price, so its
+total can differ from the quote if the price changes between creation and
+placement. Current code does not reject that change or carry the quoted total
+into the Order; this behavior should be considered when changing quote or
+pricing semantics.
 
 ```http
 POST /api/v1/checkouts
@@ -89,9 +94,10 @@ Content-Type: application/json
 { "checkoutVersion": 1 }
 ```
 
-Placing the order re-validates the checkout's version and expiry, then
-creates the Order from the checkout's item/address snapshot and starts the
-choreography SAGA exactly as before. A replay with the same `Idempotency-Key`
+Placing the order re-validates the checkout's version and expiry, refreshes
+product availability and price from Inventory, then creates the Order using
+the checkout's quantity/address and the refreshed product details. A replay
+with the same `Idempotency-Key`
 returns the original order, even past expiry; a stale `checkoutVersion`, an
 expired unplaced checkout, or reusing a different key on an already-placed
 checkout returns `409`.

@@ -28,6 +28,20 @@
   } @else if (loading()) {
     <app-loading-skeleton [rows]="5" />
   } @else {
+    @if (unavailableServices().length) {
+      <section class="service-availability" aria-live="polite" aria-label="Recovery service availability">
+        <p>Some recovery sources are unavailable. Results below include only sources that loaded successfully.</p>
+        @for (service of unavailableServices(); track service) {
+          <div class="form-message error">
+            <span>{{ service }} recovery data is unavailable.</span>
+            <button type="button" (click)="retryService(service)" [disabled]="serviceState(service) === 'loading'">
+              {{ serviceState(service) === 'loading' ? 'Retrying...' : 'Retry ' + service }}
+            </button>
+          </div>
+        }
+      </section>
+    }
+
     <section class="metrics">
       <article class="primary"><span>Recoverable</span><strong>{{ totals().open }}</strong><em>{{ totals().all }} total events</em></article>
       <article><span>Replayed</span><strong>{{ totals().replayed }}</strong></article>
@@ -70,7 +84,11 @@
     }
 
     @if (!filteredEvents().length) {
-      <app-empty-state eyebrow="NO EVENTS MATCH" title="No failed events match." message="Clear the search or filters to inspect more recovery records." />
+      @if (unavailableServices().length) {
+        <p class="form-message">No matching events are available from the recovery sources that loaded. Retry unavailable sources before treating this as a complete result.</p>
+      } @else {
+        <app-empty-state eyebrow="NO EVENTS MATCH" title="No failed events match." message="Clear the search or filters to inspect more recovery records." />
+      }
     } @else {
       <section class="event-list">
         @for (event of filteredEvents(); track eventKey(event)) {

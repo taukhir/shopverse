@@ -3,7 +3,13 @@ springBoot = "4.0.9"
 springCloud = "2025.1.4"
 springDependencyManagement = "1.1.7"
 spotbugsPlugin = "6.5.13"
+resilience4j = "2.4.0"
+testcontainers = "2.0.5"
 
 [plugins]
 springDependencyManagement = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
 spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugsPlugin" }
+
+[libraries]
+resilience4j-spring-boot = { module = "io.github.resilience4j:resilience4j-spring-boot4", version.ref = "resilience4j" }
+testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
