@@ -44,7 +44,7 @@ Service-specific files override or add settings for individual services.
 
 ## Gateway Route Boundary
 
-`API-GATEWAY.yml` exposes public client routes such as `/auth/**`, `/api/v1/orders/**`, `/api/v1/users/**`, `/api/v1/roles/**`, and `/api/v1/permissions/**`.
+`API-GATEWAY.yml` exposes client routes such as `/auth/**`, `/api/v1/orders/**`, `/api/v1/users/**`, `/api/v1/roles/**`, and `/api/v1/permissions/**`. User Service public registration and health endpoints are routed under `/api/v1/public/**`; Gateway permits those paths anonymously. Protected User Service routes still require a valid JWT.
 
 Internal User Service routes such as `/api/v1/internal/users/authenticated` are not routed through API Gateway. Auth Service calls that endpoint directly through Eureka/OpenFeign for internal Basic credential validation during login.
 

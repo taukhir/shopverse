@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { ProfileUpdate, SessionService, UserProfile } from '../../core/auth/session.service';
 import { ConfirmService } from '../../core/feedback/confirm.service';
@@ -19,6 +19,7 @@ import { Order, OrdersApiService } from '../orders/orders-api.service';
 })
 export class AccountPageComponent {
   protected readonly session = inject(SessionService);
+  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly confirm = inject(ConfirmService);
   private readonly toast = inject(ToastService);
@@ -32,6 +33,7 @@ export class AccountPageComponent {
   protected readonly saveError = signal('');
   protected readonly addressError = signal('');
   protected readonly saveSuccess = signal(false);
+  protected readonly returnToCheckout = this.route.snapshot.queryParamMap.get('returnUrl') === '/checkout';
   protected readonly profile = this.session.profile;
   protected readonly addresses = signal<UserAddress[]>([]);
   protected readonly recentOrders = signal<Order[]>([]);
@@ -128,12 +130,30 @@ export class AccountPageComponent {
       : this.accountApi.createAddress(payload);
 
     request.subscribe({
-      next: () => {
-        this.addressSaving.set(false);
-        this.toast.success(editingId ? 'Address updated.' : 'Address added.');
-        this.editingAddressId.set(null);
-        this.prepareNewAddress();
-        this.loadAddresses();
+      next: (savedAddress) => {
+        this.accountApi.listAddresses().subscribe({
+          next: (addresses) => {
+            this.addressSaving.set(false);
+            this.addresses.set(addresses);
+            if (!addresses.some((address) => address.id === savedAddress.id)) {
+              this.addressError.set('The save request succeeded, but the address was not returned when we reloaded it. Refresh before trying again.');
+              this.toast.error('Address could not be verified after saving.');
+              return;
+            }
+
+            this.toast.success(editingId ? 'Address updated.' : 'Address added.');
+            this.editingAddressId.set(null);
+            this.prepareNewAddress();
+            if (this.returnToCheckout) {
+              this.router.navigateByUrl('/checkout');
+            }
+          },
+          error: () => {
+            this.addressSaving.set(false);
+            this.addressError.set('The save request succeeded, but we could not verify the address. Refresh before trying again.');
+            this.toast.error('Address could not be verified after saving.');
+          },
+        });
       },
       error: () => {
         this.addressSaving.set(false);

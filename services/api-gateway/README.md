@@ -16,7 +16,7 @@ API Gateway runs on port `8080` and is the normal client entry point.
 | Prefix | Destination |
 |---|---|
 | `/auth/**` | Auth Service |
-| `/api/v1/users/**`, `/api/v1/cart/**`, `/api/v1/roles/**`, `/api/v1/permissions/**`, `/api/v1/admin/**` | User Service |
+| `/api/v1/public/**`, `/api/v1/users/**`, `/api/v1/cart/**`, `/api/v1/roles/**`, `/api/v1/permissions/**`, `/api/v1/admin/**` | User Service |
 | `/api/v1/orders/**` | Order Service |
 | `/api/v1/payments/**` | Payment Service |
 | `/api/v1/inventory/**` | Inventory Service |

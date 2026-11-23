@@ -23,6 +23,10 @@
   align-items: start;
 }
 
+.account-content {
+  min-width: 0;
+}
+
 .summary,
 .profile-form {
   border: 1px solid var(--line);

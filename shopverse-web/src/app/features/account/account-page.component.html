@@ -2,6 +2,9 @@
   <div class="heading">
     <p class="eyebrow">YOUR ACCOUNT</p>
     <h1 class="page-title">Good to see you,<br />{{ profile()?.firstName || session.username() }}.</h1>
+    @if (returnToCheckout) {
+      <a routerLink="/checkout">Return to checkout &rarr;</a>
+    }
   </div>
 
   @if (loading()) {
@@ -34,7 +37,8 @@
         </div>
       </aside>
 
-      <form class="profile-form" (ngSubmit)="saveProfile()">
+      <div class="account-content">
+        <form class="profile-form" (ngSubmit)="saveProfile()">
         <div class="form-head">
           <p>PROFILE DETAILS</p>
           <span>Update your name and contact details used by ShopVerse.</span>
@@ -46,6 +50,18 @@
           <label>Email<input name="email" [(ngModel)]="form.email" type="email" autocomplete="email" required /></label>
           <label>Phone<input name="phoneNumber" [(ngModel)]="form.phoneNumber" autocomplete="tel" placeholder="+919999999999" /></label>
         </div>
+
+        @if (saveError()) {
+          <div class="form-message error" role="alert">{{ saveError() }}</div>
+        }
+        @if (saveSuccess()) {
+          <div class="form-message success" role="status">Account details updated.</div>
+        }
+        <button class="save" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Saving...' : 'Save account details' }}
+          <b>&rarr;</b>
+        </button>
+        </form>
 
         <section class="address-card">
           <p>ADDRESS</p>
@@ -65,7 +81,7 @@
           </div>
         </section>
 
-        <section class="address-form">
+        <form class="address-form" (ngSubmit)="saveAddress()">
           <div class="fields">
             <label>Label<input name="addressLabel" [(ngModel)]="addressForm.label" required /></label>
             <label>Recipient<input name="recipientName" [(ngModel)]="addressForm.recipientName" required autocomplete="name" /></label>
@@ -88,12 +104,12 @@
           }
 
           <div class="address-actions">
-            <button type="button" (click)="saveAddress()" [disabled]="addressSaving()">{{ addressSaving() ? 'Saving...' : editingAddressId() ? 'Update address' : 'Add address' }}</button>
+            <button type="submit" [disabled]="addressSaving()">{{ addressSaving() ? 'Saving...' : editingAddressId() ? 'Update address' : 'Add address' }}</button>
             @if (editingAddressId()) {
               <button type="button" (click)="cancelAddressEdit()">Cancel</button>
             }
           </div>
-        </section>
+        </form>
 
         @if (addresses().length) {
           <section class="saved-addresses" aria-label="Saved addresses">
@@ -144,18 +160,7 @@
           </article>
         </section>
 
-        @if (saveError()) {
-          <div class="form-message error">{{ saveError() }}</div>
-        }
-        @if (saveSuccess()) {
-          <div class="form-message success">Account details updated.</div>
-        }
-
-        <button class="save" type="submit" [disabled]="saving()">
-          {{ saving() ? 'Saving...' : 'Save account details' }}
-          <b>&rarr;</b>
-        </button>
-      </form>
+      </div>
     </div>
 
     <section class="quick-actions" aria-labelledby="account-actions-title">

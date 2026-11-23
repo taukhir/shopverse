@@ -43,8 +43,14 @@ for (const file of files) {
 }
 
 const gatewaySource = await readFile(join(configRoot, 'API-GATEWAY.yml'), 'utf8');
-for (const route of ['/api/v1/cart/**', '/api/v1/admin/**']) {
-  if (!gatewaySource.includes(route)) failures.push(`API-GATEWAY.yml: missing required public route ${route}`);
+const gatewayConfig = yaml.load(gatewaySource);
+const userServiceRoute = gatewayConfig?.spring?.cloud?.gateway?.server?.webflux?.routes
+  ?.find((route) => route.id === 'user-service');
+const userServicePaths = userServiceRoute?.predicates
+  ?.filter((predicate) => typeof predicate === 'string')
+  ?.flatMap((predicate) => predicate.startsWith('Path=') ? predicate.slice('Path='.length).split(',') : []) ?? [];
+for (const route of ['/api/v1/public/**', '/api/v1/cart/**', '/api/v1/admin/**']) {
+  if (!userServicePaths.includes(route)) failures.push(`API-GATEWAY.yml: User Service route is missing ${route}`);
 }
 if (gatewaySource.includes('/api/v1/internal/')) {
   failures.push('API-GATEWAY.yml: internal service routes must not be exposed');
