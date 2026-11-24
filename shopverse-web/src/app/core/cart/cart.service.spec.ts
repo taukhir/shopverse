@@ -157,7 +157,7 @@ describe('CartService', () => {
     service.mergeLocalToAccount();
     const mergeRequest = httpMock.expectOne((req) => req.method === 'POST' && req.url === '/api/v1/cart/merge');
     mergeRequest.flush({ items: [{ productId: 9, quantity: 3 }], valid: true, message: '' });
-    httpMock.expectOne('/api/v1/inventory/public/items').flush([]);
+    httpMock.expectNone('/api/v1/inventory/public/items');
 
     expect(service.items()[0]).toMatchObject({ productId: 9, quantity: 3, productName: 'Local Thing' });
   });
