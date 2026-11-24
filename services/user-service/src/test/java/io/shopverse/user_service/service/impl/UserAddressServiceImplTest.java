@@ -35,7 +35,7 @@ class UserAddressServiceImplTest {
                 "Home", "Ahmed", null, "Street 1", null, "Bengaluru", "KA", "560001", "India", false));
 
         verify(addressRepository).save(address);
-        verify(addressRepository, never()).clearOtherDefaultAddresses(any(), any());
+        verify(addressRepository, never()).clearOtherDefaultAddresses(any(), any(), any());
         assertFalse(address.isDefaultAddress());
     }
 }

@@ -1,7 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { STORAGE_KEYS } from '../constants/storage-keys';
 import { CartService } from './cart.service';
@@ -31,6 +31,7 @@ describe('CartService', () => {
   });
 
   afterEach(() => {
+    vi.useRealTimers();
     httpMock.verify();
     localStorage.clear();
   });
@@ -96,8 +97,10 @@ describe('CartService', () => {
   });
 
   it('persists quantities to the backend cart when authenticated', () => {
+    vi.useFakeTimers();
     sessionStub.isAuthenticated = () => true;
     service.add({ productId: 7, productName: 'Thing', price: 10 });
+    vi.advanceTimersByTime(200);
     const request = httpMock.expectOne((req) => req.method === 'PUT' && req.url === '/api/v1/cart');
     expect(request.request.body.items).toEqual([{ productId: 7, quantity: 1 }]);
     request.flush({ items: [], valid: true, message: '' });
@@ -144,9 +147,11 @@ describe('CartService', () => {
   });
 
   it('mergeLocalToAccount posts local items and restores the merged response', () => {
+    vi.useFakeTimers();
     sessionStub.isAuthenticated = () => true;
     service.add({ productId: 9, productName: 'Local Thing', price: 30 });
-    // draining the PUT from add() before exercising merge
+    vi.advanceTimersByTime(200);
+    // Drain the debounced PUT from add() before exercising merge.
     httpMock.expectOne((req) => req.method === 'PUT').flush({ items: [], valid: true, message: '' });
 
     service.mergeLocalToAccount();
