@@ -106,7 +106,7 @@ export async function mockShopverseApis(page: Page) {
     return json(route, { token: token(body.username ?? 'customer1', isAdmin ? 'ROLE_ADMIN ROLE_CUSTOMER' : 'ROLE_CUSTOMER') });
   });
 
-  await page.route('**/api/v1/users/me', (route) => json(route, {
+  await page.route('**/api/v1/accounts/current', (route) => json(route, {
     id: 1,
     username: 'customer1',
     email: 'customer1@shopverse.local',
@@ -117,7 +117,7 @@ export async function mockShopverseApis(page: Page) {
     roles: [{ roleName: 'ROLE_CUSTOMER' }],
   }));
 
-  await page.route('**/api/v1/users/me/addresses', (route) => json(route, [{
+  await page.route('**/api/v1/accounts/current/addresses', (route) => json(route, [{
     id: 501,
     label: 'Home',
     recipientName: 'Customer One',
@@ -174,7 +174,7 @@ export async function mockShopverseApis(page: Page) {
   }));
 
   await page.route('**/api/v1/orders/admin/all', (route) => json(route, [order]));
-  await page.route('**/api/v1/users?size=12', (route) => json(route, {
+  await page.route('**/api/v1/admin/users**', (route) => json(route, {
     content: [{
       id: 1,
       username: 'customer1',

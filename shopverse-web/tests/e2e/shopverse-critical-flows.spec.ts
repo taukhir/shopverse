@@ -54,7 +54,7 @@ test('admin can open overview and durable activity across order, inventory, and 
   await signIn(page, 'admin');
   await expect(page).toHaveURL(/\/admin/);
   await expect(page.getByRole('heading', { name: /system at a glance/i })).toBeVisible();
-  await expect(page.getByText('Inventory health')).toBeVisible();
+  await expect(page.getByText(/inventory health/i)).toBeVisible();
 
   await page.getByRole('link', { name: 'Activity' }).click();
   await expect(page.getByText('/api/v1/admin/audit-events')).toBeVisible();
