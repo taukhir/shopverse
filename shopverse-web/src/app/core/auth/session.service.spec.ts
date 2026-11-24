@@ -91,17 +91,21 @@ describe('SessionService', () => {
   it('loadProfile() fetches and stores the profile', () => {
     const service = create();
     service.loadProfile().subscribe();
-    httpMock.expectOne('/api/v1/users/me').flush({
+    const request = httpMock.expectOne('/api/v1/accounts/current');
+    expect(request.request.method).toBe('GET');
+    request.flush({
       id: 1, username: 'bob', email: 'bob@example.test', firstName: 'Bob', lastName: 'B',
       phoneNumber: null, status: 'ACTIVE', roles: [],
     });
     expect(service.profile()?.username).toBe('bob');
   });
 
-  it('updateProfile() puts and replaces the stored profile', () => {
+  it('updateProfile() patches and stores the changed profile', () => {
     const service = create();
     service.updateProfile({ email: 'new@example.test', firstName: 'Bob', lastName: 'B', phoneNumber: '123' }).subscribe();
-    httpMock.expectOne('/api/v1/users/me').flush({
+    const request = httpMock.expectOne('/api/v1/accounts/current');
+    expect(request.request.method).toBe('PATCH');
+    request.flush({
       id: 1, username: 'bob', email: 'new@example.test', firstName: 'Bob', lastName: 'B',
       phoneNumber: '123', status: 'ACTIVE', roles: [],
     });

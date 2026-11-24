@@ -119,6 +119,16 @@ refresh-token/audit support tables, address tables, cart tables, and bootstrap d
 `UserRepository` and `RoleRepository` use `@EntityGraph` to load roles and
 permissions without an N+1 query sequence.
 
+Mutable entities (`User`, `UserAddress`, `Cart`, `CartItem`, `Role`,
+`Permission`, `UserGroup`, and `RefreshToken`) extend `BaseAuditableEntity` and
+receive `createdAt`, `createdBy`, `updatedAt`, `updatedBy`, and optimistic-lock
+`version` values through Spring Data JPA auditing. `createdBy` and `updatedBy`
+use the authenticated Spring Security principal name; unauthenticated operations
+have no auditor and may leave actor fields null. Append-only event/history
+entities keep their event-specific actor and timestamp fields. The address
+default-switch bulk update explicitly writes modification actor/time because
+bulk JPQL bypasses JPA entity listeners.
+
 `DatabaseUserDetailsService` adapts the User repository model to Spring Security's `UserDetailsService` contract. BCrypt compares the supplied password with the stored hash.
 
 Local Liquibase data includes `admin`, `customer1`, `customer2`, `support1`,

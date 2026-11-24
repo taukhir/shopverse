@@ -1,15 +1,5 @@
+<app-admin-header (signOut)="logout()" />
 <main class="admin-page-shell payment-admin">
-  <nav class="admin-local-nav" aria-label="Admin navigation">
-    <div class="crumbs">
-      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Payments</b>
-    </div>
-    <div class="admin-actions">
-      <a routerLink="/admin">Overview</a>
-      <a routerLink="/admin/orders">Orders</a>
-      <a routerLink="/">Storefront</a>
-      <button type="button" (click)="logout()">Sign out</button>
-    </div>
-  </nav>
 
   <div class="heading">
     <div>
@@ -90,13 +80,25 @@
             </div>
             <div>
               <span>Failure</span>
-              <b>{{ payment.failureReason || '&mdash;' }}</b>
+              <b>{{ payment.failureReason || '—' }}</b>
             </div>
-            <div class="actions">
-              <button type="button" (click)="reconcile(payment)" [disabled]="!canReconcile(payment) || busyOrder() === payment.orderNumber">
-                {{ busyOrder() === payment.orderNumber ? 'Working...' : 'Reconcile' }}
-              </button>
-              <button type="button" (click)="refund(payment)" [disabled]="!canRefund(payment) || busyOrder() === payment.orderNumber">Refund</button>
+            <div class="actions" [attr.aria-label]="'Actions for payment ' + payment.orderNumber">
+              @if (canRetryPayment(payment)) {
+                <button type="button" class="retry-action" (click)="retry(payment)" [disabled]="busyOrder() === payment.orderNumber">
+                  {{ busyOrder() === payment.orderNumber ? 'Working…' : 'Retry' }}
+                </button>
+              }
+              @if (canReconcile(payment)) {
+                <button type="button" class="reconcile-action" (click)="reconcile(payment)" [disabled]="busyOrder() === payment.orderNumber">
+                  {{ busyOrder() === payment.orderNumber ? 'Working…' : 'Reconcile' }}
+                </button>
+              }
+              @if (canRefund(payment)) {
+                <button type="button" class="refund-action" (click)="refund(payment)" [disabled]="busyOrder() === payment.orderNumber">Refund</button>
+              }
+              @if (!canRetryPayment(payment) && !canReconcile(payment) && !canRefund(payment)) {
+                <span class="no-actions">No action available</span>
+              }
             </div>
           </article>
         }

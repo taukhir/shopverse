@@ -55,10 +55,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageResponse<UserSummaryResponse> getUsers(UserFilter filter, Pageable pageable) {
         log.info(
-                "Loading users with filter searchPresent={}, status={}, role={}, page={}, size={}",
+                "Loading users with filter searchPresent={}, statusPresent={}, rolePresent={}, page={}, size={}",
                 filter.search() != null && !filter.search().isBlank(),
-                filter.status(),
-                filter.role(),
+                filter.status() != null,
+                filter.role() != null && !filter.role().isBlank(),
                 pageable.getPageNumber(),
                 pageable.getPageSize()
         );

@@ -97,7 +97,7 @@
         <strong>Loading saved addresses...</strong>
       } @else if (addressError()) {
         <strong>{{ addressError() }}</strong>
-        <button type="button" (click)="loadAddresses()">Retry</button>
+          <button type="button" (click)="loadAddresses(true)">Retry</button>
       } @else if (addresses().length) {
         <label>
           Saved address

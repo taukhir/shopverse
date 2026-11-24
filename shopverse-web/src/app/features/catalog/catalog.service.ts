@@ -36,6 +36,8 @@ export class CatalogService {
   private catalogCache$: Observable<CatalogItem[]> | null = null;
   private readonly cacheTtlMs = 60_000;
   private lastLoadedAt = 0;
+  private readonly productCache = new Map<number, { expiresAt: number; request$: Observable<{ product: CatalogItem | null; related: CatalogItem[] }> }>();
+  private categoriesCache: { expiresAt: number; request$: Observable<string[]> } | null = null;
 
   getCatalog(options: { refresh?: boolean } = {}) {
     const cacheIsFresh = Date.now() - this.lastLoadedAt < this.cacheTtlMs;
@@ -49,13 +51,16 @@ export class CatalogService {
       tap(() => {
         this.lastLoadedAt = Date.now();
       }),
-      shareReplay({ bufferSize: 1, refCount: false }),
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
     return this.catalogCache$;
   }
 
   getProductById(productId: number) {
-    return forkJoin({
+    const cached = this.productCache.get(productId);
+    if (cached && cached.expiresAt > Date.now()) return cached.request$;
+
+    const request$ = forkJoin({
       product: this.http.get<InventoryItem>(API_PATHS.inventory.publicItem(productId)).pipe(
         map((item) => this.fromInventory(item)),
         catchError(() => of(null)),
@@ -70,11 +75,20 @@ export class CatalogService {
         return this.getProductByIdFromCatalog(productId);
       }),
       catchError(() => this.getProductByIdFromCatalog(productId)),
+      shareReplay({ bufferSize: 1, refCount: true }),
     );
+    this.productCache.set(productId, { expiresAt: Date.now() + this.cacheTtlMs, request$ });
+    return request$;
   }
 
   getCategories() {
-    return this.http.get<string[]>(API_PATHS.inventory.publicCategories).pipe(catchError(() => of([])));
+    if (this.categoriesCache && this.categoriesCache.expiresAt > Date.now()) return this.categoriesCache.request$;
+    const request$ = this.http.get<string[]>(API_PATHS.inventory.publicCategories).pipe(
+      catchError(() => of([] as string[])),
+      shareReplay({ bufferSize: 1, refCount: true }),
+    );
+    this.categoriesCache = { expiresAt: Date.now() + this.cacheTtlMs, request$ };
+    return request$;
   }
 
   private relatedScore(source: CatalogItem, candidate: CatalogItem): number {

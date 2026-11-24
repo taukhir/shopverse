@@ -1,15 +1,5 @@
+<app-admin-header (signOut)="logout()" />
 <main class="admin-page-shell recovery-admin">
-  <nav class="admin-local-nav" aria-label="Admin navigation">
-    <div class="crumbs">
-      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Recovery</b>
-    </div>
-    <div class="admin-actions">
-      <a routerLink="/admin">Overview</a>
-      <a routerLink="/admin/orders">Orders</a>
-      <a routerLink="/">Storefront</a>
-      <button type="button" (click)="logout()">Sign out</button>
-    </div>
-  </nav>
 
   <div class="heading">
     <div>

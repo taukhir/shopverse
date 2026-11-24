@@ -43,13 +43,25 @@ export const API_PATHS = {
     orderAction: (orderNumber: string, action: 'reconcile' | 'refund') => `/api/v1/payments/admin/orders/${orderNumber}/${action}`,
     deadLetters: '/api/v1/payments/admin/dead-letters',
   },
+  accounts: {
+    current: '/api/v1/accounts/current',
+    addresses: '/api/v1/accounts/current/addresses',
+    addressById: (id: number | string) => `/api/v1/accounts/current/addresses/${id}`,
+  },
   users: {
-    me: '/api/v1/users/me',
-    addresses: '/api/v1/users/me/addresses',
-    addressById: (id: number | string) => `/api/v1/users/me/addresses/${id}`,
     register: '/api/v1/public/users/register',
-    page: (size = 12) => `/api/v1/users?size=${size}`,
-    byId: (id: number | string) => `/api/v1/users/${id}`,
+  },
+  adminUsers: {
+    page: (size = 12) => `/api/v1/admin/users?size=${size}`,
+    byId: (id: number | string) => `/api/v1/admin/users/${id}`,
+  },
+  groups: {
+    page: (size = 20, page = 0, search = '') => `/api/v1/groups?size=${size}&page=${page}${search ? `&search=${encodeURIComponent(search)}` : ''}`,
+    root: '/api/v1/groups',
+    byId: (id: number | string) => `/api/v1/groups/${id}`,
+    members: (id: number | string, page = 0, size = 20) => `/api/v1/groups/${id}/members?page=${page}&size=${size}`,
+    member: (groupId: number | string, userId: number | string) => `/api/v1/groups/${groupId}/members/${userId}`,
+    role: (groupId: number | string, roleId: number | string) => `/api/v1/groups/${groupId}/roles/${roleId}`,
   },
   roles: {
     page: (size = 50, page = 0) => `/api/v1/roles?size=${size}&page=${page}`,

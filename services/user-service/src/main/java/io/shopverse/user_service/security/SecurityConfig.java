@@ -58,7 +58,6 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers("/actuator/refresh").hasRole("ADMIN")
                         .requestMatchers(ApiConstants.PUBLIC_API + "/**",
-
                                 ApiConstants.SWAGGER, ApiConstants.SWAGGER_HTML, ApiConstants.OPEN_API).permitAll()
                         .requestMatchers(ApiConstants.ADMIN_AUDIT_EVENTS + "/**").hasRole("ADMIN")
                         .requestMatchers(ApiConstants.ADMIN_AUDIT_EVENTS).hasRole("ADMIN")

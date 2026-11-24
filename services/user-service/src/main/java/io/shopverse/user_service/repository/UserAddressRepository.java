@@ -18,6 +18,8 @@ public interface UserAddressRepository extends JpaRepository<UserAddress, Long> 
     boolean existsByUserUsername(String username);
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
-    @Query("update UserAddress address set address.defaultAddress = false where address.user.username = :username and address.id <> :addressId")
-    void clearOtherDefaultAddresses(@Param("username") String username, @Param("addressId") Long addressId);
+    @Query("update UserAddress address set address.defaultAddress = false, address.updatedAt = CURRENT_TIMESTAMP, address.updatedBy = :updatedBy where address.user.username = :username and address.id <> :addressId and address.defaultAddress = true")
+    void clearOtherDefaultAddresses(@Param("username") String username,
+                                   @Param("addressId") Long addressId,
+                                   @Param("updatedBy") String updatedBy);
 }

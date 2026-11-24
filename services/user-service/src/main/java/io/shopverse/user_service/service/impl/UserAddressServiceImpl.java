@@ -65,7 +65,7 @@ public class UserAddressServiceImpl implements UserAddressService {
 
         UserAddress saved = addressRepository.save(address);
         if (makeDefault) {
-            addressRepository.clearOtherDefaultAddresses(username, saved.getId());
+            addressRepository.clearOtherDefaultAddresses(username, saved.getId(), username);
         }
         log.info("Created address id={} for username={}", saved.getId(), username);
         return UserAddressMapper.toResponse(saved);
@@ -91,7 +91,7 @@ public class UserAddressServiceImpl implements UserAddressService {
 
         UserAddress saved = addressRepository.save(address);
         if (makeDefault) {
-            addressRepository.clearOtherDefaultAddresses(username, saved.getId());
+            addressRepository.clearOtherDefaultAddresses(username, saved.getId(), username);
         }
         log.info("Updated address id={} for username={}", saved.getId(), username);
         return UserAddressMapper.toResponse(saved);
@@ -120,7 +120,7 @@ public class UserAddressServiceImpl implements UserAddressService {
                 .ifPresent(address -> {
                     address.setDefaultAddress(true);
                     UserAddress saved = addressRepository.save(address);
-                    addressRepository.clearOtherDefaultAddresses(username, saved.getId());
+                    addressRepository.clearOtherDefaultAddresses(username, saved.getId(), username);
                     log.info("Promoted address id={} as default for username={}", saved.getId(), username);
                 });
     }

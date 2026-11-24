@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
 
 import { API_PATHS } from '../../core/api/api-paths';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { SessionService } from '../../core/auth/session.service';
 import { formatInr } from '../../shared/utils/formatters';
 
@@ -27,7 +28,7 @@ interface Order { id:number; orderNumber:string; customerUsername:string; status
 
 @Component({
   selector: 'app-admin-user-detail',
-  imports: [DatePipe, FormsModule, RouterLink],
+  imports: [AdminHeaderComponent, DatePipe, FormsModule, RouterLink],
   templateUrl: './admin-user-detail.component.html',
   styleUrl: './admin-user-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,7 +58,7 @@ export class AdminUserDetailComponent {
     this.loading.set(true);
     this.error.set('');
     forkJoin({
-      user: this.http.get<ApiResponse<User>>(API_PATHS.users.byId(id ?? '')),
+      user: this.http.get<ApiResponse<User>>(API_PATHS.adminUsers.byId(id ?? '')),
       roles: this.http.get<Page<Role>>(API_PATHS.roles.page(50)).pipe(catchError(() => of({ content: [], totalElements: 0 } as Page<Role>))),
       orders: this.http.get<Order[]>(API_PATHS.orders.adminAll).pipe(catchError(() => of([] as Order[]))),
     }).subscribe({
@@ -91,7 +92,7 @@ export class AdminUserDetailComponent {
     this.saving.set(true);
     this.saveError.set('');
     this.saveSuccess.set(false);
-    this.http.patch<ApiResponse<User>>(API_PATHS.users.byId(user.id), {
+    this.http.patch<ApiResponse<User>>(API_PATHS.adminUsers.byId(user.id), {
       status: this.form.status,
       roles: Array.from(this.form.roles),
     }).subscribe({

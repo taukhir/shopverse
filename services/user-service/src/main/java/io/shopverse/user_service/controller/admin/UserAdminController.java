@@ -72,14 +72,14 @@ public class UserAdminController {
             @RequestParam(required = false) String role
     ) {
         log.info(
-                "User search requested page={}, size={}, sortBy={}, direction={}, searchPresent={}, status={}, role={}",
+                "User search requested page={}, size={}, sortPresent={}, directionPresent={}, searchPresent={}, statusPresent={}, rolePresent={}",
                 page,
                 size,
-                sortBy,
-                direction,
+                sortBy != null && !sortBy.isBlank(),
+                direction != null && !direction.isBlank(),
                 search != null && !search.isBlank(),
-                status,
-                role
+                status != null,
+                role != null && !role.isBlank()
         );
 
         Pageable pageable = PaginationUtils.createPageable(page, size, sortBy, direction, ALLOWED_SORT_FIELDS);

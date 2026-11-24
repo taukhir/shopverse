@@ -50,10 +50,10 @@ export class CheckoutPageComponent {
     this.loadAddresses();
   }
 
-  protected loadAddresses(): void {
+  protected loadAddresses(force = false): void {
     this.addressesLoading.set(true);
     this.addressError.set('');
-    this.accountApi.listAddresses().subscribe({
+    this.accountApi.listAddresses(force).subscribe({
       next: (addresses) => {
         this.addresses.set(addresses);
         const selected = addresses.find((address) => address.defaultAddress) ?? addresses[0] ?? null;
