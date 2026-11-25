@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
+import java.time.Duration;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,13 +26,16 @@ public class JwtService {
     @Value("${security.jwt.issuer}")
     private String issuer;
 
+    @Value("${security.jwt.access-token-ttl:PT1H}")
+    private Duration accessTokenTtl;
+
     public AuthResponse generateToken(User user) {
         Instant issuedAt = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .id(UUID.randomUUID().toString())
                 .issuer(issuer)
                 .issuedAt(issuedAt)
-                .expiresAt(issuedAt.plus(1, ChronoUnit.HOURS))
+                .expiresAt(issuedAt.plus(accessTokenTtl))
                 .subject(user.username())
                 .claim(
                         "roles",

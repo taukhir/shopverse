@@ -456,8 +456,8 @@ its own CI. Verify documentation changes there instead.
 Run real Docker-backed integration only when you need release confidence:
 
 ```powershell
-.\scripts\Test-ShopverseFullStack.ps1 -Mode Smoke -TimeoutMinutes 35
-.\scripts\Test-ShopverseFullStack.ps1 -Mode Full -TimeoutMinutes 45 -KeepStack
+.\infra\scripts\Test-ShopverseFullStack.ps1 -Mode Smoke -TimeoutMinutes 35
+.\infra\scripts\Test-ShopverseFullStack.ps1 -Mode Full -TimeoutMinutes 45 -KeepStack
 ```
 
 API Gateway also exposes a stronger production readiness contract:
@@ -474,13 +474,13 @@ endpoint automatically.
 Run the structured go-live checklist when you want one release report:
 
 ```powershell
-.\scripts\Test-ShopverseRelease.ps1 -Mode Full -TimeoutMinutes 60
+.\infra\scripts\Test-ShopverseRelease.ps1 -Mode Full -TimeoutMinutes 60
 ```
 
 For a faster orchestration check without Docker:
 
 ```powershell
-.\scripts\Test-ShopverseRelease.ps1 -Mode Quick -SkipFullStack -SkipBrowsers
+.\infra\scripts\Test-ShopverseRelease.ps1 -Mode Quick -SkipFullStack -SkipBrowsers
 ```
 
 If PowerShell script execution is locked down locally, use:

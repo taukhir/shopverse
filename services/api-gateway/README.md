@@ -7,7 +7,7 @@ API Gateway runs on port `8080` and is the normal client entry point.
 - route requests by service path;
 - resolve `lb://SERVICE-NAME` destinations through Eureka and Spring Cloud LoadBalancer;
 - enforce public/protected path policy;
-- validate bearer JWT signature, timestamps, issuer, and Redis revocation state for protected routes;
+- validate browser-cookie or bearer JWT signature, timestamps, issuer, and Redis revocation state for protected routes;
 - propagate correlation and trace context;
 - emit gateway request logs and Micrometer metrics.
 
@@ -34,6 +34,62 @@ including `GatewayFilterChain`, `chain.filter(...)`, `doFinally(...)`,
 correlation handling, timing, metrics, and production practices, see
 [API Gateway](https://taukhir.github.io/shopverse-docs/development/API-GATEWAY-GENERIC).
 
+## Browser cookie authentication and CSRF
+
+Angular does not attach a bearer token. The browser sends `SHOPVERSE_ACCESS`
+automatically; the Gateway treats it as the bearer credential internally.
+
+1. `GET /auth/csrf` and `POST /auth/login` are public routes at the JWT layer.
+   The CSRF filter still requires the configured origin and matching CSRF
+   cookie/header for login.
+2. `BrowserCookieTokenConverter` extracts `SHOPVERSE_ACCESS` and passes it
+   through normal JWT authentication. If no cookie exists, it falls back to an
+   explicit `Authorization: Bearer` header.
+3. `BrowserCookieCsrfWebFilter` checks unsafe requests that contain the access
+   cookie or CSRF cookie, plus configured Auth mutation paths. It requires a
+   trusted `Origin` (or `Referer` fallback) and constant-time-equal
+   `XSRF-TOKEN` cookie / `X-XSRF-TOKEN` header. Failure returns `403`.
+4. `BrowserCookieTokenRelayFilter` converts an authenticated browser cookie to
+   an internal `Authorization: Bearer ...` header and strips `SHOPVERSE_ACCESS`
+   from forwarded cookies. Downstream services still validate JWT and enforce
+   their own authorization and ownership rules.
+
+The CSRF token is intentionally readable by JavaScript; the access token is
+HttpOnly. The CSRF token proves that a state-changing request came through the
+trusted application context; it does not authenticate the user. SameSite cookie
+behavior is defense in depth and does not replace CSRF checks.
+
+Relevant settings in `cloud-configs/API-GATEWAY.yml`:
+
+```yaml
+security:
+  browser:
+    access-cookie-name: SHOPVERSE_ACCESS
+    csrf-cookie-name: XSRF-TOKEN
+    csrf-header-name: X-XSRF-TOKEN
+    csrf:
+      protected-paths: /auth/login,/auth/logout,/auth/revoke
+      allowed-origins: http://localhost:4200,http://127.0.0.1:4200
+```
+
+Set `BROWSER_CSRF_ALLOWED_ORIGINS` to exact production origins. Do not use
+wildcards. This Origin allowlist is a CSRF check, not a CORS configuration.
+The storefront nginx proxy and Angular development proxy keep `/auth` and `/api`
+on the browser's storefront origin. A separate API origin also needs explicit
+credentialed CORS policy for the exact frontend origin.
+
+The Gateway security chain permits `/auth/csrf` and `/auth/session` for
+anonymous calls; protected APIs still require valid authentication. An absent
+cookie makes `/auth/session` return an anonymous JSON identity, while a supplied
+invalid/expired token can be rejected with `401` before the controller runs.
+
+`GET /auth/session` is how Angular restores its in-memory identity after page
+reload. It does not create a server-side session. It validates the HttpOnly JWT
+cookie and returns display identity/roles; backend resource authorization does
+not trust the Angular state. There is currently no refresh-token endpoint, so
+expiry requires the user to log in again. See the detailed endpoint and lifecycle
+examples in [Auth Service README](../auth-service/README.md#browser-cookie-and-csrf-flow).
+
 ## Configuration
 
 Routes, JWT validation, actuator exposure, resilience, tracing, and logging are
@@ -41,8 +97,9 @@ centralized in `cloud-configs/API-GATEWAY.yml`.
 
 Protected JWT validation performs a nonblocking Redis lookup for the token's
 `jti` using the shared revocation key prefix. A revoked token or unavailable
-Redis causes authentication to fail closed. `/auth/login` and the public JWKS
-endpoint remain anonymous; `/auth/logout` requires a valid, unrevoked token.
+Redis causes authentication to fail closed. `/auth/login`, `/auth/csrf`,
+`/auth/session`, and the public JWKS endpoint are anonymous at the JWT layer;
+`/auth/logout` requires a valid, unrevoked token and CSRF proof for cookie callers.
 
 ## OpenAPI
 

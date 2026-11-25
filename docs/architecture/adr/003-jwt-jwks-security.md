@@ -117,6 +117,51 @@ oversight.
   refreshed key set, though already-cached decoders can keep validating
   previously-fetched keys until their cache expires.
 
+## Browser cookie and CSRF addendum (2026-11-25)
+
+The first-party Angular browser client no longer receives or persists access
+JWTs in JavaScript-readable storage. Auth Service issues the JWT in a bounded
+`SHOPVERSE_ACCESS` cookie with `HttpOnly`, `SameSite=Lax`, path `/`, and
+`Secure` enabled by production configuration. `GET /auth/session` returns only
+UI identity/roles with `Cache-Control: no-store`; authorization still occurs in
+Gateway and resource services. The cookie is accepted by Gateway's JWT converter
+and translated to `Authorization: Bearer` only on the downstream request; the
+access cookie itself is removed before proxying. The Gateway still accepts an
+explicit Bearer header, but `/auth/login` no longer returns a token JSON body;
+non-browser clients need a separately defined way to obtain their token.
+
+For browser writes, Angular sends a readable `XSRF-TOKEN` cookie in
+`X-XSRF-TOKEN`. Gateway compares the values in constant time and checks
+`Origin` (or `Referer`) against a configured explicit allowlist. Login and logout
+are protected even without an authenticated access cookie. Auth Service also
+uses Spring Security cookie-backed CSRF validation for its own mutations. This
+is a direct HttpOnly-cookie architecture, not a BFF: the signed JWT remains the
+credential, with browser transport changed. HttpOnly limits token extraction,
+but an XSS vulnerability can still make authenticated same-origin requests.
+
+The access cookie and CSRF cookie are expired on logout after revoking the
+presented JWT `jti`. There is no refresh token or server session lifecycle yet;
+an expired access token requires a fresh login. Coordinate refresh rotation and
+token-family revocation with ENH-057 Phase 2 before adding silent renewal.
+Production must use HTTPS, `BROWSER_COOKIE_SECURE=true`, and the exact storefront
+origin list in `BROWSER_CSRF_ALLOWED_ORIGINS`; browser credentials must never be
+combined with wildcard CORS origins.
+
+On a full page reload, Angular calls `GET /auth/session` and reconstructs its
+in-memory display identity from the HttpOnly cookie; this does not renew the
+JWT. The route returns an anonymous response when no credential is supplied,
+but a supplied invalid/expired cookie can be rejected with `401` by resource
+server authentication. The interceptor then clears only Angular's memory state;
+the next login replaces the expired cookie. Explicit logout calls
+`POST /auth/logout`, revokes the presented `jti` in Redis, expires both cookies,
+and clears Angular state after success.
+
+The browser migration changes the login response contract: `/auth/login` now
+returns `{ "authenticated": true }` and sets the credential as a cookie instead
+of returning a JWT JSON body. Existing non-browser clients that expect a token
+from this endpoint need a separately designed client contract; this ADR does not
+claim that such a token-returning path exists.
+
 ## Access-token revocation addendum (2026-11-24)
 
 The implementation adds a Redis denylist keyed by the already-issued JWT
@@ -128,8 +173,8 @@ retain signature, issuer, and time validation and reject revoked tokens.
 
 This introduces a shared runtime dependency for protected requests: revocation
 checks fail closed if Redis cannot be reached. Public login and JWKS endpoints
-remain anonymous, while logout requires a valid, not-yet-revoked token. Logout
-currently revokes only the presented access token. Refresh-token rotation,
+remain anonymous along with `/auth/csrf` and `/auth/session`, while logout
+requires a valid, not-yet-revoked token. Logout currently revokes only the presented access token. Refresh-token rotation,
 logout-all, and automatic revocation when account roles/status change remain
 separate work. The Docker-local Redis configuration is for development; the
 production Redis deployment must provide private connectivity, TLS, credentials,

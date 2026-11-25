@@ -36,14 +36,14 @@ run never starts Docker containers.
 Run unit tests only for one service:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
   -Mode Quick -Services order-service
 ```
 
 Override the suite and individual-task budgets independently:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
   -Mode Quick `
   -TimeoutMinutes 10 `
   -TaskTimeoutMinutes 4 `
@@ -57,34 +57,34 @@ minutes for unit tests and eight minutes for integration tests.
 Run unit tests only for changed services:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
   -Mode Changed
 ```
 
 Compare against a specific branch:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
   -Mode Changed -BaseRef origin/main
 ```
 
 Run the MySQL and Kafka Testcontainers suites:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
   -Mode Integration -TimeoutMinutes 10
 ```
 
 Run checkout verification against the normal local stack:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Smoke-Test.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Smoke-Test.ps1
 ```
 
 Verify every direct local service health endpoint:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseHealthEndpoints.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseHealthEndpoints.ps1
 ```
 
 Verify the API Gateway production readiness contract:
@@ -102,7 +102,7 @@ endpoint before running checkout smoke tests.
 Run a fresh isolated stack and checkout verification:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
   -Mode Full -TimeoutMinutes 10 -ForceIsolatedStack
 ```
 
@@ -113,10 +113,10 @@ Shopverse environments at once. The forced isolated gate uses
 does not start Prometheus, Loki, Promtail, or Grafana. Stop the development
 stack first on lower-memory machines.
 
-Run a fresh isolated stack with Angular and documentation containers:
+Run a fresh isolated backend and Angular stack:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFullStack.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseFullStack.ps1 `
   -Mode Smoke -TimeoutMinutes 35
 ```
 
@@ -126,15 +126,16 @@ This publishes only test ports:
 |---|---|
 | API Gateway | `http://127.0.0.1:18080` |
 | Angular storefront/admin | `http://127.0.0.1:14200` |
-| Docusaurus documentation | `http://127.0.0.1:13001` |
+| MinIO product media | `http://127.0.0.1:19000` |
 
-Use `-SkipBrowser` for backend-only Docker smoke, `-SkipDocs` to avoid building
-the docs image, and `-KeepStack` when a failure needs manual inspection.
+Use `-SkipBrowser` for backend-only Docker smoke and `-KeepStack` when a failure
+needs manual inspection. The documentation site runs from its separate
+repository and is not part of this Compose test stack.
 
 Run the structured release checklist:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseRelease.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseRelease.ps1 `
   -Mode Full -TimeoutMinutes 60
 ```
 
@@ -143,10 +144,10 @@ with start/end timestamps, Git branch/commit, dirty-file count, phase results,
 duration, and any failure message. Use these focused variants when needed:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseRelease.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseRelease.ps1 `
   -Mode Quick -SkipFullStack -SkipBrowsers
 
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseRelease.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Test-ShopverseRelease.ps1 `
   -Mode Quick -SkipFrontend -SkipBrowsers
 ```
 
@@ -316,7 +317,7 @@ unit-test failure.
 .\order-service\gradlew.bat integrationTest --no-daemon --max-workers=2
 
 # Existing stack checkout failure
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Smoke-Test.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Smoke-Test.ps1
 ```
 
 Full verification prints container status and only the final 120 log lines on

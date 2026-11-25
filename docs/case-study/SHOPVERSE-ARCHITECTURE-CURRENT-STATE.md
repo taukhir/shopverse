@@ -84,17 +84,26 @@ flowchart TB
 
 ### Browser And API Gateway
 
-1. The Angular app authenticates with `POST /auth/login`.
-2. Auth Service returns an RSA-signed access token.
-3. The Angular interceptor stores the access token in `sessionStorage`, adds
-   `Authorization: Bearer ...` for protected calls, and creates an
-   `X-Correlation-Id` per request.
-4. API Gateway validates JWTs for protected routes and forwards requests to
-   services by Eureka logical names.
+1. Angular requests `GET /auth/csrf`, then authenticates with `POST /auth/login`.
+2. Auth Service returns no JWT in JSON and sets a bounded RSA access JWT in the
+   HttpOnly `SHOPVERSE_ACCESS` cookie. `GET /auth/session` supplies UI identity
+   and roles with caching disabled.
+3. Angular does not read or persist the access JWT. The browser sends its cookie
+   automatically; mutations also include `X-XSRF-TOKEN`, which Gateway checks
+   against the CSRF cookie and configured trusted origin.
+4. API Gateway validates cookie JWTs and forwards protected requests to
+   services as Bearer authorization through Eureka logical names, removing the
+   access cookie from downstream Cookie headers.
 5. Resource services validate the JWT again and apply method/resource
    authorization locally. JWT roles/permissions are a login-time snapshot and
    are not immediately refreshed or revoked when account or group data changes;
    see BUG-050 and ENH-057 in the team backlog.
+
+After a page reload, Angular calls `GET /auth/session` to rebuild its in-memory
+identity; this does not renew the token. Explicit `POST /auth/logout` revokes
+the presented `jti` in Redis and expires both cookies. There is no refresh-token
+endpoint or silent renewal, so access-token expiry requires another login. See
+the detailed endpoint and code examples in the [Auth Service README](../../services/auth-service/README.md#browser-cookie-and-csrf-flow).
 
 ### Login Flow
 
@@ -106,13 +115,14 @@ sequenceDiagram
     participant User
     participant UserDB
 
-    Browser->>Gateway: POST /auth/login
+    Browser->>Gateway: GET /auth/csrf
+    Browser->>Gateway: POST /auth/login + CSRF header
     Gateway->>Auth: Forward public login
     Auth->>User: Internal Basic auth lookup
     User->>UserDB: Load user, roles, permissions, hash
     User-->>Auth: Authenticated user projection
     Auth->>Auth: Sign JWT with RSA private key
-    Auth-->>Browser: Access token
+    Auth-->>Browser: HttpOnly access cookie, no JWT JSON body
 ```
 
 ### Checkout Flow
@@ -181,7 +191,7 @@ price.
 | API collection reads | Admin and customer list endpoints return unpaged lists in multiple services. | Slow queries and large responses under real data volume. | P2 |
 | Caching | Order catalog reads use bounded local Caffeine cache with TTL and admin eviction; other local caches remain per-instance. | Multi-replica cache invalidation still needs events or distributed cache later. | P2 |
 | Infrastructure exposure | Local Compose exposes service ports, Eureka, Config Server, MySQL, MinIO, Kafka, Prometheus, Loki, Zipkin, and Grafana to the host. | Acceptable locally, unsafe if reused beyond a developer machine. | P2 |
-| Frontend token storage | JWT is stored in `sessionStorage`. | XSS can steal tokens; CSP and refresh-token strategy are missing. | P2 |
+| Browser token storage | Angular uses a bounded HttpOnly access cookie and server-backed session identity; CSRF token and trusted-origin checks protect mutations. | HttpOnly limits direct token theft but does not stop injected scripts from issuing requests; refresh-token strategy and CSP remain outstanding. | P2 |
 | Documentation mismatch risk | Some docs describe production goals beside implemented behavior. | Readers may confuse current runtime with roadmap hardening. | P3 |
 
 ## Duplicate Logic
@@ -250,7 +260,7 @@ should stay service-owned.
 | No service-to-service mTLS | Network trust is Compose-only | Use mTLS/service mesh or signed internal service tokens. |
 | Actuator metrics exposed without auth in local config | Useful for Prometheus | Restrict by network policy or management port, expose only to Prometheus. |
 | CORS/CSP production posture is not explicit | Browser security depends on defaults/deployment | Add strict CSP, allowed origins, secure headers, and no wildcard CORS. |
-| Session storage token | Simpler demo UX | Prefer BFF or HttpOnly secure cookies for browser apps. |
+| Browser access token cookie | HttpOnly, SameSite=Lax cookie is implemented for Angular. | Require HTTPS/Secure cookies and explicit production CSRF origin allowlist; add CSP and coordinate refresh rotation with ENH-057 Phase 2. |
 | MinIO public anonymous bucket | Product images are public in demo | Use least privilege bucket policy and CDN/object ACL review. |
 | Docker Compose host port exposure | Good for local debugging | In production expose only gateway and public observability entrypoints behind auth. |
 | Secrets in `.env` workflow | Local-only pattern | Use managed secrets, no checked-in real credentials, secret scanning in CI. |

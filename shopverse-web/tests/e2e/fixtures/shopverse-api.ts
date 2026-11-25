@@ -83,27 +83,42 @@ function json(route: Route, body: unknown, status = 200) {
   });
 }
 
-function token(username: string, roles: string) {
-  const header = Buffer.from(JSON.stringify({ alg: 'none', typ: 'JWT' })).toString('base64url');
-  const payload = Buffer.from(JSON.stringify({
-    sub: username,
-    roles,
-    exp: Math.floor(Date.now() / 1000) + 3600,
-  })).toString('base64url');
-  return `${header}.${payload}.signature`;
-}
-
 export async function mockShopverseApis(page: Page) {
+  let browserSession: { authenticated: boolean; username: string; roles: string[]; expiresAt: string } | null = null;
   await page.route('**/mock/*.svg', (route) => route.fulfill({
     contentType: 'image/svg+xml',
     body: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160"><rect width="200" height="160" fill="#eef1ff"/><rect x="36" y="48" width="128" height="64" rx="12" fill="#11162b"/><circle cx="150" cy="118" r="10" fill="#7384ff"/></svg>',
   }));
 
+  await page.route('**/auth/csrf', (route) => route.fulfill({
+    status: 204,
+    headers: { 'set-cookie': 'XSRF-TOKEN=mock-csrf-token; Path=/; SameSite=Lax' },
+  }));
+  await page.route('**/auth/session', (route) => json(route, browserSession ?? {
+    authenticated: false,
+    username: null,
+    roles: [],
+    expiresAt: null,
+  }));
   await page.route('**/auth/login', async (route) => {
     const request = route.request();
     const body = request.postDataJSON() as { username?: string };
     const isAdmin = body.username === 'admin';
-    return json(route, { token: token(body.username ?? 'customer1', isAdmin ? 'ROLE_ADMIN ROLE_CUSTOMER' : 'ROLE_CUSTOMER') });
+    browserSession = {
+      authenticated: true,
+      username: body.username ?? 'customer1',
+      roles: isAdmin ? ['ROLE_ADMIN', 'ROLE_CUSTOMER'] : ['ROLE_CUSTOMER'],
+      expiresAt: new Date(Date.now() + 3600_000).toISOString(),
+    };
+    return route.fulfill({
+      status: 200,
+      headers: { 'content-type': 'application/json', 'set-cookie': 'SHOPVERSE_ACCESS=mock-session; Path=/; HttpOnly; SameSite=Lax' },
+      body: JSON.stringify({ authenticated: true }),
+    });
+  });
+  await page.route('**/auth/logout', (route) => {
+    browserSession = null;
+    return route.fulfill({ status: 204 });
   });
 
   await page.route('**/api/v1/accounts/current', (route) => json(route, {

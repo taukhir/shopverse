@@ -205,9 +205,10 @@ export class AdminPageComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout(true);
-    this.toast.info('Signed out.');
-    this.router.navigateByUrl('/');
+    this.session.logoutFromServer().subscribe({
+      next: () => { this.toast.info('Signed out.'); this.router.navigateByUrl('/'); },
+      error: () => this.toast.error('Sign out failed. Please check your connection and try again.'),
+    });
   }
 
   private slices(values:string[]): StatusSlice[] {

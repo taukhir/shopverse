@@ -1,13 +1,13 @@
 # ShopVerse Backlog — By Area
 
-Companion index to [`BACKLOG.md`](BACKLOG.md), which stays the source of
-truth for full detail (requirement, evidence, citations). This file adds
-two things `BACKLOG.md` doesn't have: **Owner** (the single component
-responsible for fixing/building it) and **Affected** (every component
-that's touched or impacted, including the owner). Same relationship
-[`ROADMAP.md`](ROADMAP.md) has to `BACKLOG.md` — a different view on the
-same data, IDs never renumbered here. Update this file when a new
-`BACKLOG.md` row is added.
+Tracked backlog status and ownership view. The previously referenced
+`BACKLOG.md` is absent from this checkout; `git ls-files '*BACKLOG*'` lists
+only this file. The detailed canonical backlog needs restoration or an
+explicit replacement decision before this index can be treated as complete.
+This file records **Owner** (the component responsible for the work) and
+**Affected** (all impacted components), keeps existing IDs stable, and should
+be updated whenever a backlog ID or status changes. [`ROADMAP.md`](ROADMAP.md)
+remains a separate prioritization and sequencing view.
 
 ## Naming Convention
 
@@ -28,7 +28,7 @@ owner but several affected components.
 
 | ID | Title | Owner | Affected |
 |---|---|---|---|
-| BUG-001 | Checkout only orders the first cart item *(still blocked — product decision pending on the backend option; not started this round)* | platform | frontend-site, order-service, inventory-service, payment-service |
+| BUG-001 | Checkout only orders the first cart item *(Inventory phase 1 implemented; end-to-end rollout remains open for Order, Payment, and frontend)* | platform | frontend-site, order-service, inventory-service, payment-service |
 | BUG-002 | Receipt always shows "Pending capture" *(Fixed)* | frontend-site | frontend-site |
 | BUG-003 | Checkout unit tests don't cover multi-item carts | frontend-site | frontend-site |
 | BUG-004/005 | `findByOrderNumberForUpdate` repository bugs *(Fixed)* | inventory-service | inventory-service |
@@ -79,6 +79,20 @@ owner but several affected components.
 | BUG-050 | Existing JWT authorities remain valid after user/role changes until expiry | platform | auth-service, user-service, api-gateway, frontend-site |
 | BUG-051 | Address update ignores an explicit false default flag *(code fix added; service tests blocked)* | user-service | user-service, frontend-site |
 | BUG-052 | User Service logs account identifiers and email addresses | user-service | user-service, platform |
+| BUG-053 | Admin reservation lookup returns only the first reservation row for a multi-item order | inventory-service | inventory-service, frontend-backoffice |
+| BUG-054 | Auth Service logout integration test fails revocation-store argument verification in CI | auth-service | auth-service |
+
+### BUG-053 acceptance criteria
+
+- Preserve the existing reservation lookup contract or provide a compatible migration path.
+- Let authorized administrators inspect every reservation for an order, including each product, quantity, status, and expiry.
+- Add tests for single-row and multi-row orders and confirm authorization still blocks non-admin access.
+
+### BUG-054 acceptance criteria
+
+- Diagnose why `logoutRevokesTheAuthenticatedTokenIdUntilItsExpiry` fails the Mockito revocation-store argument verification in CI.
+- Keep the test assertion aligned with the actual JWT `jti` and `exp` passed to the store; do not weaken it to a call-only assertion.
+- Run the focused Auth Service test and the module test task in CI or an equivalent supported environment.
 
 ## Features
 
@@ -194,6 +208,7 @@ owner but several affected components.
 | ENH-056 | Remove superseded Accounts/Profile service split proposal | platform | user-service, auth-service |
 | ENH-057 | Redis-backed token/session lifecycle and service-to-service credentials | platform | auth-service, user-service, api-gateway, order-service, inventory-service, payment-service, shopverse-common, platform |
 | ENH-058 | Implement scoped API-key authentication for service-to-service calls | platform | auth-service, user-service, api-gateway, order-service, inventory-service, payment-service, shopverse-common, platform |
+| ENH-059 | Protect browser authentication tokens with an HttpOnly-cookie or BFF session design | frontend-site | frontend-site, auth-service, api-gateway, platform |
 
 ### ENH-057 acceptance criteria
 
@@ -204,9 +219,9 @@ owner but several affected components.
 - Add forward-only persistence/configuration changes, migration and rollout compatibility, key/credential rotation and rollback procedures, and tests for token validation, expiry, invalidation, refresh rotation/reuse, Redis failure, unauthorized service identity, and cross-service authorization.
 - Update Auth/Gateway/service documentation and client token handling; never log tokens, API keys, passwords, or authorization headers.
 
-**Sequencing/dependency:** Begin with Phase 1 before Redis implementation. Reconcile the existing ENH-019 full OAuth2 Authorization Server/JWT rotation proposal with ENH-057 Phase 1 so signing-key rotation and broader Authorization Server scope are not implemented twice. ENH-057 remains the umbrella; phases should be tracked as linked subtasks when work is assigned.
+**Sequencing/dependency:** Access-token revocation is already implemented as an initial Phase 3 subset, while the full Phase 1 token contract/validation criteria remain open. Reconcile the existing ENH-019 full OAuth2 Authorization Server/JWT rotation proposal with ENH-057 so signing-key rotation and broader Authorization Server scope are not implemented twice. ENH-057 remains the umbrella; phases should be tracked as linked subtasks when work is assigned.
 
-**Architecture note:** JWT access tokens remain self-contained for API authentication; Redis provides shared session, refresh-token, and revocation state. The canonical root `BACKLOG.md` referenced in this file's introduction was not present when this item was added; this row and acceptance criteria are recorded here pending restoration of that file.
+**Architecture note:** JWT access tokens remain self-contained for API authentication. Redis currently stores access-token revocation markers; shared refresh-token/session state remains planned. Because the previously referenced `BACKLOG.md` is absent from this checkout, this row and its acceptance criteria are recorded in the tracked area view pending restoration or an explicit replacement decision.
 
 ### ENH-058 acceptance criteria
 
@@ -219,7 +234,19 @@ owner but several affected components.
 
 **Dependency:** Coordinate with ENH-057 Phase 4. ENH-058 implements API keys as the explicitly selected service-credential mechanism; revisit OAuth2 client credentials or mTLS only if implementation evidence shows API keys do not meet the required identity or operational controls.
 
-**Implementation update (2026-11-24):** Access-token `jti` logout/revocation is now implemented in the working tree: Auth Service `POST /auth/logout`, Redis TTL marker, Gateway reactive validation, and shared servlet validation for Auth/User/Order/Payment/Inventory. Focused tests were added but could not be run because the Gradle Foojay resolver plugin could not be resolved in this environment. Refresh-token rotation, logout-all, automatic account/role-change revocation, response-contract migration, audience validation, and key rotation remain open.
+### ENH-059 acceptance criteria
+
+- Audit the Angular login, token storage, HTTP interceptor, refresh/logout, and account/session flows; document the current `sessionStorage` access-token exposure and select a target architecture: preferably a backend-for-frontend (BFF) session, or a direct HttpOnly-cookie design with an explicit backend contract.
+- Remove access/refresh token persistence in `sessionStorage` and `localStorage`. Angular must not need to read bearer tokens or treat decoded token claims as authorization authority; use a server-backed session/profile response for UI state while backend services enforce authorization.
+- Set session cookies with `HttpOnly`, `Secure` in production, deliberate `SameSite`, narrow `Path`/`Domain`, and bounded lifetime. Configure credentialed CORS for explicit trusted origins only; never combine credentials with wildcard origins.
+- Protect state-changing cookie-authenticated requests against CSRF using a documented mechanism (for example, a synchronizer token or correctly implemented double-submit token) and validate `Origin`/`Referer` where appropriate. Cover login CSRF and logout behavior as well as ordinary mutations.
+- Coordinate refresh, rotation, expiry, logout, and server-side revocation with ENH-057 Phase 2. Logout must invalidate the server session/token family and clear the browser cookie; do not create a parallel refresh-token lifecycle.
+- Provide a compatible migration and rollback plan, then remove any JavaScript-readable token fallback after cutover. Document that HttpOnly limits token theft by JavaScript but does not stop injected scripts from issuing requests as the user.
+- Add frontend and backend integration coverage for login, authenticated account calls, expiry/refresh, logout, CSRF rejection, cookie attributes, CORS, and absence of tokens in browser storage. Update authentication/security documentation and verify the deployed cookie/TLS configuration before release.
+
+**Dependency:** ENH-057 Phase 2 must define refresh/session lifecycle and server-side revocation. Track this as the frontend-led browser-storage migration with Auth Service and Gateway contract work as dependencies.
+
+**Implementation update (2026-11-25):** Working-tree implementation replaces Angular JWT storage/Authorization headers with an HttpOnly `SHOPVERSE_ACCESS` cookie, server-backed `/auth/session`, readable CSRF cookie/header, and Gateway trusted-origin plus double-submit validation. Auth Service issues the cookie and clears both access/CSRF cookies on logout while revoking the presented `jti`; downstream relay removes the access cookie. Production requires HTTPS, `BROWSER_COOKIE_SECURE=true`, and an explicit storefront origin allowlist. Focused Angular/Auth/Gateway tests and docs were added; they have not yet run. This uses direct cookie transport, not a BFF. Refresh rotation, session renewal, logout-all/family revocation remain blocked on ENH-057 Phase 2. Complete only after focused/module checks pass and production settings are reviewed.
 
 ## Debugging Drills
 
@@ -229,18 +256,18 @@ owner but several affected components.
 
 ---
 
-Detailed evidence and acceptance criteria for BUG-047-BUG-052 and ENH-049-ENH-051 are in [the User Service audit](docs/user-service-audit.md). The account/API/group/cart redesign task sequence and acceptance criteria are in [the User Service redesign plan](docs/user-service-redesign-plan.md). BUG-046 and other pre-existing account/security tasks are not duplicated.
+Detailed evidence and acceptance criteria for BUG-047-BUG-052 and ENH-049-ENH-051 are in [the User Service audit](docs/user-service-audit.md). BUG-053 is detailed in [the Inventory Service audit](docs/inventory-service-audit.md); the account/API/group/cart redesign sequence remains in [the User Service redesign plan](docs/user-service-redesign-plan.md). BUG-046 and other pre-existing account/security tasks are not duplicated.
 
-## Quick counts (2026-11-23) - by Owner
+## Quick counts (2026-11-25) - by Owner
 
 | Owner | Bugs | Features | Enhancements |
 |---|---|---|---|
-| frontend-site | 6 | 2 | 4 |
+| frontend-site | 6 | 2 | 5 |
 | frontend-backoffice | 1 | 6 | 3 |
 | order-service | 7 | 3 | 2 |
-| inventory-service | 5 | 3 | 3 |
+| inventory-service | 6 | 3 | 3 |
 | payment-service | 5 | 2 | 2 |
-| auth-service | 1 | 0 | 2 |
+| auth-service | 2 | 0 | 2 |
 | user-service | 7 | 3 | 7 |
 | api-gateway | 2 | 1 | 3 |
 | **platform** | **19** | **27** | **27** |

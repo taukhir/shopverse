@@ -23,7 +23,9 @@ export class CustomerLayoutComponent {
   private readonly toast = inject(ToastService);
 
   constructor() {
-    this.cart.loadPersistedCart();
+    this.session.restoreSession().subscribe((identity) => {
+      if (identity) this.cart.loadPersistedCart();
+    });
   }
 
   protected toggleMenu(): void {
@@ -41,8 +43,12 @@ export class CustomerLayoutComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout(true);
-    this.toast.info('Signed out.');
-    this.router.navigateByUrl('/');
+    this.session.logoutFromServer().subscribe({
+      next: () => {
+        this.toast.info('Signed out.');
+        this.router.navigateByUrl('/');
+      },
+      error: () => this.toast.error('Sign out failed. Please check your connection and try again.'),
+    });
   }
 }

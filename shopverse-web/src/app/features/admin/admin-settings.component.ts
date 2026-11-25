@@ -40,7 +40,9 @@ export class AdminSettingsComponent {
   }
 
   protected logout(): void {
-    this.session.logout(true);
-    this.router.navigateByUrl('/');
+    this.session.logoutFromServer().subscribe({
+      next: () => { this.toast.info('Signed out.'); this.router.navigateByUrl('/'); },
+      error: () => this.toast.error('Sign out failed. Please check your connection and try again.'),
+    });
   }
 }

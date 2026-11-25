@@ -15,14 +15,29 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$repoRoot = Split-Path -Parent $PSScriptRoot
+$repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $startedAt = [DateTimeOffset]::UtcNow
 $deadline = $startedAt.AddMinutes($TimeoutMinutes)
-$projectName = "shopverse-fullstack-$PID"
+$projectName = "shopverse-fullstack-$PID-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
 $gatewayUrl = "http://127.0.0.1:18080"
 $webUrl = "http://127.0.0.1:14200"
 $results = [System.Collections.Generic.List[object]]::new()
 $dockerAvailable = $false
+$testEnvironmentNames = @(
+    "COMPOSE_PROJECT_NAME",
+    "COMPOSE_PARALLEL_LIMIT",
+    "COMPOSE_BAKE",
+    "MYSQL_PASSWORD",
+    "MYSQL_ROOT_PASSWORD",
+    "MINIO_ROOT_USER",
+    "MINIO_ROOT_PASSWORD",
+    "GRAFANA_ADMIN_PASSWORD",
+    "SHOPVERSE_WEB_TEST_PORT"
+)
+$previousTestEnvironment = @{}
+foreach ($name in $testEnvironmentNames) {
+    $previousTestEnvironment[$name] = [Environment]::GetEnvironmentVariable($name, "Process")
+}
 $composeArgumentsPrefix = @(
     "--profile", "apps",
     "--profile", "assets",
@@ -190,11 +205,14 @@ function Set-TestEnvironment {
 }
 
 function Clear-TestEnvironment {
-    "COMPOSE_PROJECT_NAME",
-    "COMPOSE_PARALLEL_LIMIT",
-    "COMPOSE_BAKE",
-    "SHOPVERSE_WEB_TEST_PORT" |
-        ForEach-Object { Remove-Item "Env:$_" -ErrorAction SilentlyContinue }
+    foreach ($name in $testEnvironmentNames) {
+        $previousValue = $previousTestEnvironment[$name]
+        if ($null -eq $previousValue) {
+            Remove-Item "Env:$name" -ErrorAction SilentlyContinue
+        } else {
+            [Environment]::SetEnvironmentVariable($name, $previousValue, "Process")
+        }
+    }
 }
 
 $verificationError = $null
