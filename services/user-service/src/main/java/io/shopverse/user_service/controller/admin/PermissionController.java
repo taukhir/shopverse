@@ -8,7 +8,7 @@ import io.shopverse.user_service.dto.PermissionResponse;
 import io.shopverse.user_service.model.CreatePermissionRequest;
 import io.shopverse.user_service.model.PermissionFilter;
 import io.shopverse.user_service.model.UpdatePermissionRequest;
-import io.shopverse.user_service.service.PermissionService;
+import io.shopverse.user_service.service.access.PermissionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

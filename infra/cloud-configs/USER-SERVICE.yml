@@ -23,6 +23,8 @@ spring:
     show-sql: ${JPA_SHOW_SQL:false}
 
   security:
+    jwt:
+      access-token-ttl: ${JWT_ACCESS_TOKEN_TTL:10m}
     oauth2:
       resourceserver:
         jwt:

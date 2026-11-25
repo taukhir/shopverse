@@ -73,7 +73,7 @@ flowchart TB
 |---|---|---|---|
 | API Gateway | Edge routing, JWT validation, correlation header creation | Auth JWKS, Eureka | Should remain thin. No domain decisions. |
 | Auth Service | Login, RSA JWT signing, JWKS | User Service | Current model is custom JWT issuing, not a full authorization server. |
-| User Service | Users, roles, permissions, password history, internal auth endpoint | MySQL | Source of identity and authorization data. |
+| User Service | Users/accounts, addresses, roles, permissions, groups, audit evidence, legacy persisted carts | MySQL | Source of identity and authorization data; cart extraction remains planned. |
 | Order Service | Checkout, orders, order items, order timeline, order outbox, order DLT records | Inventory catalog API, Kafka, MySQL | Owns the customer-facing order state machine. |
 | Inventory Service | Product catalog details, stock, reservations, reservation expiry, inventory outbox, DLT records | Kafka, MySQL, MinIO image URLs | Current checkout runtime supports one item per order. |
 | Payment Service | Payment attempts, payment state, provider stub, reconciliation, payment outbox, DLT records | Kafka, MySQL | Payment provider is intentionally simulated. |
@@ -86,13 +86,15 @@ flowchart TB
 
 1. The Angular app authenticates with `POST /auth/login`.
 2. Auth Service returns an RSA-signed access token.
-3. The Angular interceptor stores the token in `sessionStorage`, adds
+3. The Angular interceptor stores the access token in `sessionStorage`, adds
    `Authorization: Bearer ...` for protected calls, and creates an
    `X-Correlation-Id` per request.
 4. API Gateway validates JWTs for protected routes and forwards requests to
    services by Eureka logical names.
 5. Resource services validate the JWT again and apply method/resource
-   authorization locally.
+   authorization locally. JWT roles/permissions are a login-time snapshot and
+   are not immediately refreshed or revoked when account or group data changes;
+   see BUG-050 and ENH-057 in the team backlog.
 
 ### Login Flow
 

@@ -193,11 +193,12 @@ owner but several affected components.
 | ENH-055 | Define account and group authorization semantics and audit events | user-service | user-service, auth-service, api-gateway |
 | ENH-056 | Remove superseded Accounts/Profile service split proposal | platform | user-service, auth-service |
 | ENH-057 | Redis-backed token/session lifecycle and service-to-service credentials | platform | auth-service, user-service, api-gateway, order-service, inventory-service, payment-service, shopverse-common, platform |
+| ENH-058 | Implement scoped API-key authentication for service-to-service calls | platform | auth-service, user-service, api-gateway, order-service, inventory-service, payment-service, shopverse-common, platform |
 
 ### ENH-057 acceptance criteria
 
 - **Phase 1 - access-token foundation (start here):** Define a compatible token response (`accessToken`, `tokenType`, `expiresIn`); specify and validate JWT issuer, audience, stable subject, token ID, issue/expiry times, signing algorithm, and consistent role/permission mapping across Auth Service, Gateway, and resource services. Establish a deliberate short access-token lifetime, key ID handling, overlapping signing-key rotation, configuration/secret requirements, and cross-service negative tests before changing production clients.
-- **Phase 2 - refresh/session lifecycle:** Implement opaque refresh tokens with secure storage, rotation, expiry, replay/reuse detection, logout, and session/token revocation. Use Redis for shared session/revocation state with TTLs and documented HA/persistence behavior; define fail-closed behavior when Redis is unavailable. Do not store raw refresh tokens or API-key secrets.
+- **Phase 2 - refresh-token feature (backlogged; not implemented):** Add an Auth Service refresh endpoint that accepts only a refresh token and returns a new access token (and rotated refresh token). Generate high-entropy opaque refresh tokens; store only a cryptographic hash plus session/user metadata in shared Redis with an absolute expiry. Rotate on every successful refresh, atomically invalidate the presented token, and detect reuse so the affected token family/session can be revoked. Support explicit logout/revocation, expiry, and session-level logout; access tokens must not be accepted by the refresh endpoint or used to call it. Keep refresh tokens out of business APIs and logs; deliver/store them using the client-appropriate secure mechanism. Define Redis HA, persistence, eviction, outage/fail-closed behavior, and token TTL policy. Add focused unit/integration tests for valid refresh, expired/unknown/revoked tokens, rotation, concurrent refresh, reuse detection, logout, and Redis failure. Update Auth API contracts, frontend refresh behavior, and security documentation as part of implementation. Do not store raw refresh tokens or API-key secrets.
 - **Phase 3 - revocation and client migration:** Support access-token invalidation through a Redis-backed revocation/session-version check at the trust boundaries, while keeping access tokens short-lived. Define behavior for logout, account disablement, password change, and role/permission changes. Migrate frontend and service clients compatibly and define rollback behavior.
 - **Phase 4 - service identity:** Define per-service credentials for internal HTTP calls, including caller identity, scope, expiry, rotation, secret distribution, and audit. Evaluate API keys against OAuth2 client credentials or mTLS and record the selected approach; do not use one shared key across services or expose internal endpoints through the public Gateway.
 - Add forward-only persistence/configuration changes, migration and rollout compatibility, key/credential rotation and rollback procedures, and tests for token validation, expiry, invalidation, refresh rotation/reuse, Redis failure, unauthorized service identity, and cross-service authorization.
@@ -206,6 +207,19 @@ owner but several affected components.
 **Sequencing/dependency:** Begin with Phase 1 before Redis implementation. Reconcile the existing ENH-019 full OAuth2 Authorization Server/JWT rotation proposal with ENH-057 Phase 1 so signing-key rotation and broader Authorization Server scope are not implemented twice. ENH-057 remains the umbrella; phases should be tracked as linked subtasks when work is assigned.
 
 **Architecture note:** JWT access tokens remain self-contained for API authentication; Redis provides shared session, refresh-token, and revocation state. The canonical root `BACKLOG.md` referenced in this file's introduction was not present when this item was added; this row and acceptance criteria are recorded here pending restoration of that file.
+
+### ENH-058 acceptance criteria
+
+- Give each calling service a distinct API key identity; keys must be scoped to the receiving service and permitted operations. Do not share one key across all services or confuse service API keys with user access/refresh tokens.
+- Use a key identifier plus high-entropy secret. Store only a one-way hash in the authoritative credential store; reveal the raw key once at creation and distribute it through the approved secrets manager. Never place raw keys in source, ordinary config, logs, URLs, or telemetry.
+- Protect service-to-service endpoints at the receiving service, not only at API Gateway. Reject missing, invalid, expired, revoked, wrong-audience, and insufficient-scope keys. Keep internal routes unavailable through public Gateway routing.
+- Implement issuance/registration, rotation with an overlap window, revocation, expiry, and audit of key lifecycle actions. Define how receivers obtain current key status and how revocation propagates; if Redis is used as a validation cache, set bounded TTLs and fail closed on cache/authentication-store outage.
+- Update each internal HTTP client to send its own credential over TLS using a dedicated header; redact that header from logs and traces. Keep user JWT authorization separate where a call also needs end-user context, and define trusted propagation rules rather than forwarding credentials blindly.
+- Add tests for valid service identity/scope, service-to-service denial for invalid/revoked/expired keys, rotation overlap, caller/target isolation, Redis or credential-store failure, and proof that public routes cannot reach internal APIs. Document secret bootstrap, rotation, revocation, incident response, and rollback.
+
+**Dependency:** Coordinate with ENH-057 Phase 4. ENH-058 implements API keys as the explicitly selected service-credential mechanism; revisit OAuth2 client credentials or mTLS only if implementation evidence shows API keys do not meet the required identity or operational controls.
+
+**Implementation update (2026-11-24):** Access-token `jti` logout/revocation is now implemented in the working tree: Auth Service `POST /auth/logout`, Redis TTL marker, Gateway reactive validation, and shared servlet validation for Auth/User/Order/Payment/Inventory. Focused tests were added but could not be run because the Gradle Foojay resolver plugin could not be resolved in this environment. Refresh-token rotation, logout-all, automatic account/role-change revocation, response-contract migration, audience validation, and key rotation remain open.
 
 ## Debugging Drills
 
@@ -229,7 +243,7 @@ Detailed evidence and acceptance criteria for BUG-047-BUG-052 and ENH-049-ENH-05
 | auth-service | 1 | 0 | 2 |
 | user-service | 7 | 3 | 7 |
 | api-gateway | 2 | 1 | 3 |
-| **platform** | **19** | **27** | **26** |
+| **platform** | **19** | **27** | **27** |
 
 `platform` is still the largest owner bucket by far — that's structurally
 expected (it owns everything cross-cutting), not a sign the backlog is

@@ -69,13 +69,19 @@ checkout clears the stale review and points the customer at their order
 history — each with its own, distinct message instead of one generic
 "conflict" string.
 
-### BUG-002 — Receipt always showed "Pending capture" regardless of actual order status
+### BUG-002 - Receipt always showed "Pending capture" regardless of actual order status (status fix applied)
 
 The checkout page's post-purchase receipt hardcoded `paymentStatus: 'Pending
 capture'` unconditionally. Fixed by deriving the label from the real order
 status returned by `place-order` (`CONFIRMED`/`PACKING`/... → "Captured",
 `PAYMENT_FAILED` → "Failed", `PAYMENT_PROCESSING` → "Processing",
 `CANCELLED` → "Cancelled", anything else → "Pending capture").
+
+The current implementation derives that label from Order workflow status, not
+authoritative provider payment state. The receipt still synthesizes
+`txn-${order.orderNumber}` and calculates its amount from the first cart item.
+Those reference and amount provenance gaps remain open; the synthetic value is
+not a provider transaction ID.
 
 ### Stale documentation referencing the removed single-call endpoint
 

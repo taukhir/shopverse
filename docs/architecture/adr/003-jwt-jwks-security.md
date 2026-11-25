@@ -117,6 +117,25 @@ oversight.
   refreshed key set, though already-cached decoders can keep validating
   previously-fetched keys until their cache expires.
 
+## Access-token revocation addendum (2026-11-24)
+
+The implementation adds a Redis denylist keyed by the already-issued JWT
+`jti`; it does not replace signed JWTs with server-side sessions or store raw
+access tokens. Auth Service exposes protected `POST /auth/logout`, which writes
+the token ID with a TTL ending at `exp`. Gateway performs a reactive Redis
+lookup; Auth and servlet resource servers use the shared security starter. All
+retain signature, issuer, and time validation and reject revoked tokens.
+
+This introduces a shared runtime dependency for protected requests: revocation
+checks fail closed if Redis cannot be reached. Public login and JWKS endpoints
+remain anonymous, while logout requires a valid, not-yet-revoked token. Logout
+currently revokes only the presented access token. Refresh-token rotation,
+logout-all, and automatic revocation when account roles/status change remain
+separate work. The Docker-local Redis configuration is for development; the
+production Redis deployment must provide private connectivity, TLS, credentials,
+high availability, a no-eviction policy (or equivalent protection for revocation
+keys), memory alarms, and operational recovery appropriate to the service.
+
 ## Official References
 
 - [RFC 7519 — JSON Web Token (JWT)](https://www.rfc-editor.org/rfc/rfc7519)

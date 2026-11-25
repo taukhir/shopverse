@@ -107,6 +107,22 @@ services:
     networks:
       - shopverse
 
+  redis:
+    image: redis:7.4.2
+    container_name: shopverse-redis
+    command: [ "redis-server", "--appendonly", "yes" ]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    networks:
+        - shopverse
+
   config-server:
     build:
       context: .
@@ -174,6 +190,10 @@ services:
       JAVA_OPTS: ${USER_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_APPLICATION_NAME: ${USER_SERVICE_APP_NAME:-USER-SERVICE}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_CONNECT_TIMEOUT: ${SPRING_DATA_REDIS_CONNECT_TIMEOUT:-2s}
+      SPRING_DATA_REDIS_TIMEOUT: ${SPRING_DATA_REDIS_TIMEOUT:-2s}
       EUREKA_DEFAULT_ZONE: ${USER_SERVICE_EUREKA_DEFAULT_ZONE:-http://discovery-server:8761/eureka}
       DB_URL: ${USER_SERVICE_DB_URL:-jdbc:mysql://mysql:3306/user_service?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false}
       DB_USERNAME: ${MYSQL_USER:-ahmed}
@@ -208,6 +228,8 @@ services:
         condition: service_healthy
       discovery-server:
         condition: service_healthy
+      redis:
+        condition: service_healthy
       zipkin:
         condition: service_started
     healthcheck:
@@ -230,6 +252,10 @@ services:
       SERVER_PORT: 8081
       JAVA_OPTS: ${AUTH_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_CONNECT_TIMEOUT: ${SPRING_DATA_REDIS_CONNECT_TIMEOUT:-2s}
+      SPRING_DATA_REDIS_TIMEOUT: ${SPRING_DATA_REDIS_TIMEOUT:-2s}
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
       TRACING_SAMPLING_PROBABILITY: ${AUTH_SERVICE_TRACING_SAMPLING_PROBABILITY:-0.1}
@@ -247,6 +273,8 @@ services:
       discovery-server:
         condition: service_healthy
       user-service:
+        condition: service_healthy
+      redis:
         condition: service_healthy
       zipkin:
         condition: service_started
@@ -270,6 +298,10 @@ services:
       SERVER_PORT: 8083
       JAVA_OPTS: ${ORDER_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_CONNECT_TIMEOUT: ${SPRING_DATA_REDIS_CONNECT_TIMEOUT:-2s}
+      SPRING_DATA_REDIS_TIMEOUT: ${SPRING_DATA_REDIS_TIMEOUT:-2s}
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
@@ -297,6 +329,8 @@ services:
         condition: service_healthy
       auth-service:
         condition: service_healthy
+      redis:
+        condition: service_healthy
       kafka:
         condition: service_healthy
       zipkin:
@@ -321,6 +355,10 @@ services:
       SERVER_PORT: 8084
       JAVA_OPTS: ${PAYMENT_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_CONNECT_TIMEOUT: ${SPRING_DATA_REDIS_CONNECT_TIMEOUT:-2s}
+      SPRING_DATA_REDIS_TIMEOUT: ${SPRING_DATA_REDIS_TIMEOUT:-2s}
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
@@ -348,6 +386,8 @@ services:
         condition: service_healthy
       auth-service:
         condition: service_healthy
+      redis:
+        condition: service_healthy
       kafka:
         condition: service_healthy
       zipkin:
@@ -372,6 +412,10 @@ services:
       SERVER_PORT: 8086
       JAVA_OPTS: ${INVENTORY_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_CONNECT_TIMEOUT: ${SPRING_DATA_REDIS_CONNECT_TIMEOUT:-2s}
+      SPRING_DATA_REDIS_TIMEOUT: ${SPRING_DATA_REDIS_TIMEOUT:-2s}
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
@@ -404,6 +448,8 @@ services:
         condition: service_healthy
       auth-service:
         condition: service_healthy
+      redis:
+        condition: service_healthy
       kafka:
         condition: service_healthy
       minio:
@@ -430,6 +476,10 @@ services:
       SERVER_PORT: 8080
       JAVA_OPTS: ${API_GATEWAY_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_CONNECT_TIMEOUT: ${SPRING_DATA_REDIS_CONNECT_TIMEOUT:-2s}
+      SPRING_DATA_REDIS_TIMEOUT: ${SPRING_DATA_REDIS_TIMEOUT:-2s}
       EUREKA_DEFAULT_ZONE: http://discovery-server:8761/eureka
       JWK_SET_URI: http://auth-service:8081/auth/.well-known/jwks.json
       ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
@@ -448,6 +498,8 @@ services:
       user-service:
         condition: service_healthy
       auth-service:
+        condition: service_healthy
+      redis:
         condition: service_healthy
       order-service:
         condition: service_healthy
@@ -569,3 +621,4 @@ volumes:
   auth-service-logs:
   discovery-server-logs:
   config-server-logs:
+  redis-data:

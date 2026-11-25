@@ -30,7 +30,7 @@ contracts, helper APIs, and Spring Boot auto-configuration.
 | `shopverse-common-error` | Common API error response records and local handler helpers | Exception classes and service-specific status policy |
 | `shopverse-pagination-starter` | `PageResponse`, `PageMapper`, pagination validation | Endpoint-specific allowed sort fields |
 | `shopverse-observability-starter` | Servlet request logging, MDC correlation, correlation helpers, request metrics | Reactive gateway filters and service-specific log messages that are not common |
-| `shopverse-security-starter` | Servlet resource-server JWT decoder, issuer validation, roles/permissions authority mapping | Endpoint authorization rules, Basic auth, token issuing, gateway reactive security |
+| `shopverse-security-starter` | Servlet resource-server JWT decoder, issuer/time validation, Redis access-token revocation checks, roles/permissions authority mapping | Endpoint authorization rules, Basic auth, token issuing, gateway reactive security |
 | `shopverse-kafka-starter` | Shared Kafka event payload parsing | Event payload records and listener business handling |
 | `shopverse-outbox-starter` | Outbox publisher loop, worker, metrics, Kafka send, shared store contract | Outbox entity, repository, table schema, event creation |
 | `shopverse-kafka-recovery-starter` | DLT failed-event record/list/replay flow and contracts | Failed-event entity, repository, response DTO, controller endpoints |
@@ -69,7 +69,7 @@ implementation 'io.shopverse.platform:shopverse-security-starter:0.0.1-SNAPSHOT'
 | `order-service` | common error, observability, security, Kafka parsing, outbox, Kafka recovery |
 | `payment-service` | common error, observability, security, Kafka parsing, outbox, Kafka recovery |
 | `inventory-service` | common error, observability, security, Kafka parsing, outbox, Kafka recovery |
-| `auth-service` | observability |
+| `auth-service` | observability, security |
 | `config-server` | observability |
 | `discovery-server` | observability |
 

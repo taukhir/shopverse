@@ -6,7 +6,7 @@ import io.shopverse.user_service.constants.ApiConstants;
 import io.shopverse.user_service.constants.ResilienceConstants;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.model.RegisterCustomerRequest;
-import io.shopverse.user_service.service.UserService;
+import io.shopverse.user_service.service.account.AccountService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
 public class PublicRegistrationController {
 
-    private final UserService userService;
+    private final AccountService accountService;
 
     @PostMapping("/register")
     @Operation(summary = "Register a customer", security = {})
@@ -36,6 +36,6 @@ public class PublicRegistrationController {
         log.info("Public customer registration requested for username={}", request.username());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(userService.registerCustomer(request));
+                .body(accountService.registerCustomer(request));
     }
 }

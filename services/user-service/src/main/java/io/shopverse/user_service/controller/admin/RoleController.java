@@ -8,7 +8,7 @@ import io.shopverse.user_service.dto.RoleResponse;
 import io.shopverse.user_service.model.CreateRoleRequest;
 import io.shopverse.user_service.model.RoleFilter;
 import io.shopverse.user_service.model.UpdateRoleRequest;
-import io.shopverse.user_service.service.RoleService;
+import io.shopverse.user_service.service.access.RoleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -26,6 +26,7 @@ interface StatusSlice { status:string; count:number; percent:number; }
 })
 export class AdminPageComponent {
   private readonly route=inject(ActivatedRoute);
+  private readonly destroyRef=inject(DestroyRef);
   private readonly adminApi=inject(AdminApiService);
   private readonly confirm=inject(ConfirmService);
   private readonly router=inject(Router);
@@ -126,7 +127,7 @@ export class AdminPageComponent {
     this.optionalWarning.set('');
 
     if (this.section() === 'orders') {
-      this.adminApi.loadOrders().subscribe({
+      this.adminApi.loadOrders().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (orders) => {
           if (generation !== this.loadGeneration) return;
           this.orders.set(orders);
@@ -138,7 +139,7 @@ export class AdminPageComponent {
     }
 
     if (this.section() === 'users') {
-      this.adminApi.loadUsers().subscribe({
+      this.adminApi.loadUsers().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (users) => {
           if (generation !== this.loadGeneration) return;
           this.users.set(users.content);
@@ -150,7 +151,7 @@ export class AdminPageComponent {
       return;
     }
 
-    this.adminApi.loadOverview().subscribe({
+    this.adminApi.loadOverview().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: ({orders, users, inventory, payments, orderDeadLetters, inventoryDeadLetters, paymentDeadLetters})=>{
         if (generation !== this.loadGeneration) return;
         this.orders.set(orders);
@@ -204,7 +205,7 @@ export class AdminPageComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout();
+    this.session.logout(true);
     this.toast.info('Signed out.');
     this.router.navigateByUrl('/');
   }

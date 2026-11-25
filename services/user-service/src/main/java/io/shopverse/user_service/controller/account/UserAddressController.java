@@ -7,7 +7,7 @@ import io.shopverse.user_service.constants.ResilienceConstants;
 import io.shopverse.user_service.dto.UserAddressResponse;
 import io.shopverse.user_service.model.UserAddressRequest;
 import io.shopverse.user_service.exceptions.ResourceNotFoundException;
-import io.shopverse.user_service.service.UserAddressService;
+import io.shopverse.user_service.service.address.UserAddressService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

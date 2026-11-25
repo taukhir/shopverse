@@ -1,8 +1,10 @@
 package io.shopverse.gateway.config;
 
+import io.shopverse.gateway.security.RevocationAwareReactiveJwtDecoder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -20,13 +22,15 @@ public class SecurityConfig {
     @Bean
     ReactiveJwtDecoder jwtDecoder(
             @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri,
-            @Value("${security.jwt.issuer}") String issuer
+            @Value("${security.jwt.issuer}") String issuer,
+            ReactiveStringRedisTemplate redisTemplate,
+            @Value("${security.jwt.revocation-key-prefix:shopverse:auth:revoked-jti:v1:}") String keyPrefix
     ) {
         NimbusReactiveJwtDecoder decoder = NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).build();
         decoder.setJwtValidator(new DelegatingOAuth2TokenValidator<Jwt>(
                 JwtValidators.createDefaultWithIssuer(issuer)
         ));
-        return decoder;
+        return new RevocationAwareReactiveJwtDecoder(decoder, redisTemplate, keyPrefix);
     }
 
     @Bean
@@ -35,7 +39,8 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(authorize -> authorize
                         .pathMatchers(
-                                "/auth/**",
+                                "/auth/login",
+                                "/auth/.well-known/jwks.json",
                                 "/api/v1/public/**",
                                 "/api/v1/inventory/public/**",
                                 "/actuator/health",

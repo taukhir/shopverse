@@ -16,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static io.shopverse.user_service.constants.SecurityConstants.CUSTOMER;
+import static io.shopverse.user_service.constants.SecurityConstants.ADMIN;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -24,7 +27,7 @@ public class SecurityConfig {
 
     @Bean
     @Order(1)
-    public SecurityFilterChain internalUserSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain internalUserSecurityFilterChain(HttpSecurity http) {
         http
                 // Keep HTTP Basic scoped to internal credential validation only.
                 .securityMatcher(ApiConstants.INTERNAL_USERS + "/**")
@@ -41,14 +44,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
             JwtAuthenticationConverter jwtAuthenticationConverter
-    ) throws Exception {
+    )  {
 
         http
-
                 .csrf(AbstractHttpConfigurer::disable)
-
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
+                .sessionManagement(session ->
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/actuator/health",
@@ -56,18 +57,18 @@ public class SecurityConfig {
                                 "/actuator/info",
                                 "/actuator/prometheus"
                         ).permitAll()
-                        .requestMatchers("/actuator/refresh").hasRole("ADMIN")
+                        .requestMatchers("/actuator/refresh").hasRole(ADMIN)
                         .requestMatchers(ApiConstants.PUBLIC_API + "/**",
                                 ApiConstants.SWAGGER, ApiConstants.SWAGGER_HTML, ApiConstants.OPEN_API).permitAll()
-                        .requestMatchers(ApiConstants.ADMIN_AUDIT_EVENTS + "/**").hasRole("ADMIN")
-                        .requestMatchers(ApiConstants.ADMIN_AUDIT_EVENTS).hasRole("ADMIN")
-                        .requestMatchers(ApiConstants.CART + "/**").hasAnyRole("CUSTOMER", "ADMIN")
-                        .requestMatchers(ApiConstants.CART).hasAnyRole("CUSTOMER", "ADMIN")
-                        .requestMatchers(ApiConstants.ACCOUNTS + "/**").hasAnyRole("CUSTOMER", "ADMIN")
-                        .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole("CUSTOMER", "ADMIN")
-                        .requestMatchers(ApiConstants.ADMIN_USERS + "/**").hasRole("ADMIN")
-                        .requestMatchers(ApiConstants.ROLES + "/**").hasRole("ADMIN")
-                        .requestMatchers(ApiConstants.PERMISSIONS + "/**").hasRole("ADMIN")
+                        .requestMatchers(ApiConstants.ADMIN_AUDIT_EVENTS + "/**").hasRole(ADMIN)
+                        .requestMatchers(ApiConstants.ADMIN_AUDIT_EVENTS).hasRole(ADMIN)
+                        .requestMatchers(ApiConstants.CART + "/**").hasAnyRole(CUSTOMER, ADMIN)
+                        .requestMatchers(ApiConstants.CART).hasAnyRole(CUSTOMER, ADMIN)
+                        .requestMatchers(ApiConstants.ACCOUNTS + "/**").hasAnyRole(CUSTOMER, ADMIN)
+                        .requestMatchers(ApiConstants.USERS + "/**").hasAnyRole(CUSTOMER, ADMIN)
+                        .requestMatchers(ApiConstants.ADMIN_USERS + "/**").hasRole(ADMIN)
+                        .requestMatchers(ApiConstants.ROLES + "/**").hasRole(ADMIN)
+                        .requestMatchers(ApiConstants.PERMISSIONS + "/**").hasRole(ADMIN)
                         .requestMatchers(ApiConstants.GROUPS + "/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 

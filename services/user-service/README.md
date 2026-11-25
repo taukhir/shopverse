@@ -9,7 +9,7 @@ The service intentionally defines two ordered filter chains:
 1. internal Basic authentication for `/api/v1/internal/users/**`;
 2. JWT Resource Server security for public and administrative APIs.
 
-The internal endpoint supports Auth Service credential validation. Public APIs use bearer JWTs. The JWT decoder verifies the JWKS signature, timestamps, and issuer `shopverse-auth-service`.
+The internal endpoint supports Auth Service credential validation. Public APIs use bearer JWTs. The JWT decoder verifies the JWKS signature, timestamps, issuer `shopverse-auth-service`, and Redis access-token revocation marker. Revocation lookup fails closed if Redis is unavailable.
 
 ## APIs
 
@@ -18,7 +18,7 @@ The internal endpoint supports Auth Service credential validation. Public APIs u
 | health | `/api/v1/public/health` | public |
 | registration | `/api/v1/public/users/register` | public |
 | internal authentication | `/api/v1/internal/users/authenticated` | internal Basic |
-| current account | `/api/v1/accounts/current` | authenticated user |
+| current account | `/api/v1/accounts/current` | `ROLE_CUSTOMER` or `ROLE_ADMIN` |
 | account addresses | `/api/v1/accounts/current/addresses` | authenticated owner |
 | persisted cart | `/api/v1/cart` | authenticated owner |
 | administrative users | `/api/v1/admin/users` | fine-grained user authorities |
@@ -42,6 +42,18 @@ permissions currently expose partial updates with `PATCH` only. Create endpoints
 return `201 Created` and a `Location` header; deletes and idempotent relationship
 assignment/removal return `204 No Content`. Reads and successful updates return
 `200 OK`; missing or non-owned address resources return `404 Not Found`.
+
+The application service layer is grouped by feature (`service.account`,
+`service.admin`, `service.identity`, `service.provisioning`, `service.address`,
+`service.access`, `service.group`, `service.cart`, `service.audit`,
+`service.credentials`, and `service.lookup`). Account profile changes,
+administrative user management, identity lookup, and shared user provisioning
+are separate use cases. Shared persistence entities and request/response types
+remain in `entities`, `model`, and `dto` because multiple features use them.
+There is no remaining implementation under the legacy `service.impl` package;
+the empty directory may still appear in a local checkout but is not a code
+package. This feature organization is source-verified; automated tests are
+tracked separately below.
 
 User authorities:
 
@@ -82,7 +94,8 @@ Self-service endpoints:
 
 Groups augment direct user roles; nested groups are not supported. Group and
 membership changes appear in JWT authorities when Auth Service issues a new token;
-they do not revoke existing tokens immediately.
+they do not automatically revoke existing tokens. A caller can revoke the presented
+token through Auth Service logout.
 
 Cart endpoints:
 
@@ -177,8 +190,8 @@ Do not commit `.env`. In production, use a secret manager and replace internal B
 
 ## Tests
 
-Controller tests demonstrate request mapping and validation. Service tests cover
-password, lookup, role, permission, and audit behavior. Dedicated method-security
+Controller tests demonstrate request mapping and validation. Feature service tests cover
+account, user provisioning/administration, password, lookup, role, permission, and audit behavior. Dedicated method-security
 tests should be added for permission allow/deny cases; the standalone MockMvc
 controller test does not load the Spring Security filter chain.
 

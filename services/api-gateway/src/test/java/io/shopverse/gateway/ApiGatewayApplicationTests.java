@@ -68,6 +68,10 @@ class ApiGatewayApplicationTests {
 				.uri("/api/v1/internal/users/authenticated")
 				.exchange()
 				.expectStatus().isUnauthorized();
+		webTestClient.post()
+				.uri("/auth/logout")
+				.exchange()
+				.expectStatus().isUnauthorized();
 	}
 
 	@RestController

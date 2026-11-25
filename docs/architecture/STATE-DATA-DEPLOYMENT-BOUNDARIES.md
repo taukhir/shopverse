@@ -66,6 +66,10 @@ erDiagram
     USER ||--o{ LOGIN_AUDIT : creates
     USER ||--o{ PASSWORD_HISTORY : owns
     USER ||--o{ REFRESH_TOKEN : owns
+    USER ||--o{ USER_ADDRESS : owns
+    USER ||--o{ CART : owns_legacy
+    USER_GROUP ||--o{ USER_GROUP_MEMBERSHIP : contains
+    USER_GROUP ||--o{ USER_GROUP_ROLE : grants
 
     ORDER ||--|{ ORDER_ITEM : contains
     ORDER ||--o{ ORDER_TIMELINE_EVENT : records
@@ -101,7 +105,10 @@ erDiagram
 
 This is a logical overview. Relationships do not cross schema boundaries.
 Outbox and failed-event tables belong to Order, Inventory, and Payment
-independently.
+independently. User Service currently owns group and address data and still
+hosts the legacy persisted cart tables; Cart Service extraction is planned, not
+complete. The `refresh_tokens` schema/entity is present, but this diagram does
+not imply a working refresh-token lifecycle.
 
 ## Core Class Collaboration
 
@@ -187,6 +194,9 @@ strictly race-safe. A database-unique event ID/inbox remains planned.
 
 - Checkout currently accepts one item.
 - Cache providers are local in-memory caches, not distributed Redis.
+- Access-token revocation uses Redis `jti` markers; Auth, Gateway, and resource
+  servers fail closed when revocation state cannot be checked. Refresh/session
+  lifecycle and user-wide revocation are not implemented.
 - Payment integration is a configurable stub.
 - Kafka processing is at least once; exactly-once business processing is not
   claimed.

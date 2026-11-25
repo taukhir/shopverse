@@ -10,7 +10,7 @@ import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.entities.enums.UserStatus;
 import io.shopverse.user_service.exceptions.GlobalExceptionHandler;
 import io.shopverse.user_service.model.CreateUserRequest;
-import io.shopverse.user_service.service.UserService;
+import io.shopverse.user_service.service.admin.AdminUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,7 +44,7 @@ class UserAdminControllerTest {
     private ObjectMapper objectMapper;
 
     @Mock
-    private UserService userService;
+    private AdminUserService userService;
 
     @BeforeEach
     void setUp() {

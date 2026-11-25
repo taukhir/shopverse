@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, finalize, of, shareReplay, tap } from 'rxjs';
+import { Observable, catchError, finalize, of, shareReplay, tap } from 'rxjs';
 
 import { API_PATHS } from '../api/api-paths';
 import { STORAGE_KEYS } from '../constants/storage-keys';
@@ -76,7 +76,18 @@ export class SessionService {
     }));
   }
 
-  logout(): void {
+  logout(revokeToken = false): void {
+    if (revokeToken && this.token()) {
+      this.http.post<void>(API_PATHS.auth.logout, {}).pipe(
+        catchError(() => of(undefined)),
+        finalize(() => this.clearLocalSession()),
+      ).subscribe();
+      return;
+    }
+    this.clearLocalSession();
+  }
+
+  private clearLocalSession(): void {
     sessionStorage.removeItem(STORAGE_KEYS.sessionToken);
     this.token.set(null);
     this.profile.set(null);

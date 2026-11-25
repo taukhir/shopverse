@@ -9,7 +9,7 @@ import io.shopverse.user_service.dto.UserSummaryResponse;
 import io.shopverse.user_service.model.CreateGroupRequest;
 import io.shopverse.user_service.model.UpdateGroupRequest;
 import io.shopverse.user_service.model.ReplaceGroupRequest;
-import io.shopverse.user_service.service.UserGroupService;
+import io.shopverse.user_service.service.group.UserGroupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

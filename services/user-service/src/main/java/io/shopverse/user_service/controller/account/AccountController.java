@@ -6,7 +6,8 @@ import io.shopverse.user_service.constants.ApiConstants;
 import io.shopverse.user_service.constants.ResilienceConstants;
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.model.UpdateProfileRequest;
-import io.shopverse.user_service.service.UserService;
+import io.shopverse.user_service.service.account.AccountService;
+import io.shopverse.user_service.service.identity.UserIdentityService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +30,12 @@ import java.security.Principal;
 @Bulkhead(name = ResilienceConstants.API_BULKHEAD, type = Bulkhead.Type.SEMAPHORE)
 public class AccountController {
 
-    private final UserService userService;
+    private final AccountService accountService;
+    private final UserIdentityService userIdentityService;
 
     @GetMapping
     public ResponseEntity<UserResponse> getCurrentAccount(Principal principal) {
-        return ResponseEntity.ok(userService.loadAuthenticatedUserByUsername(principal.getName()));
+        return ResponseEntity.ok(userIdentityService.getByUsername(principal.getName()));
     }
 
     @PatchMapping
@@ -42,7 +44,7 @@ public class AccountController {
             @Valid @RequestBody UpdateProfileRequest request
     ) {
         log.info("Authenticated account update requested for username={}", principal.getName());
-        return ResponseEntity.ok(userService.updateAuthenticatedUserProfile(principal.getName(), request));
+        return ResponseEntity.ok(accountService.updateProfile(principal.getName(), request));
     }
 
 }

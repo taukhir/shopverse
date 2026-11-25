@@ -6,6 +6,7 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import io.shopverse.platform.security.AccessTokenRevocationValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,12 +47,13 @@ public class JwtConfig {
     }
 
     @Bean
-    JwtDecoder jwtDecoder() {
+    JwtDecoder jwtDecoder(AccessTokenRevocationValidator revocationValidator) {
         NimbusJwtDecoder decoder = NimbusJwtDecoder
                 .withPublicKey(rsaKeys.publicKey())
                 .build();
         decoder.setJwtValidator(new DelegatingOAuth2TokenValidator<Jwt>(
-                JwtValidators.createDefaultWithIssuer(issuer)
+                JwtValidators.createDefaultWithIssuer(issuer),
+                revocationValidator
         ));
         return decoder;
     }

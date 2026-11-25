@@ -27,11 +27,12 @@ public class JwtService {
     private String issuer;
 
     public AuthResponse generateToken(User user) {
+        Instant issuedAt = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .id(UUID.randomUUID().toString())
                 .issuer(issuer)
-                .issuedAt(Instant.now())
-                .expiresAt(Instant.now().plus(1, ChronoUnit.HOURS))
+                .issuedAt(issuedAt)
+                .expiresAt(issuedAt.plus(1, ChronoUnit.HOURS))
                 .subject(user.username())
                 .claim(
                         "roles",

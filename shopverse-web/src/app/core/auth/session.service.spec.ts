@@ -124,4 +124,20 @@ describe('SessionService', () => {
     expect(service.profile()).toBeNull();
     expect(sessionStorage.getItem(STORAGE_KEYS.sessionToken)).toBeNull();
   });
+
+  it('logout(true) calls the server logout endpoint before clearing the token', () => {
+    const token = buildToken({ sub: 'dana', roles: 'ROLE_CUSTOMER', exp: Math.floor(Date.now() / 1000) + 3600 });
+    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
+    const service = create();
+
+    service.logout(true);
+
+    const request = httpMock.expectOne('/auth/logout');
+    expect(request.request.method).toBe('POST');
+    expect(service.token()).toBe(token);
+    request.flush(null, { status: 204, statusText: 'No Content' });
+
+    expect(service.token()).toBeNull();
+    expect(sessionStorage.getItem(STORAGE_KEYS.sessionToken)).toBeNull();
+  });
 });

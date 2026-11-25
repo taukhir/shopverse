@@ -58,7 +58,8 @@ test('admin can open overview and durable activity across order, inventory, and 
 
   await page.getByRole('link', { name: 'Activity' }).click();
   await expect(page.getByText('/api/v1/admin/audit-events')).toBeVisible();
-  await expect(page.getByText('ORDER_PACKED', { exact: true })).toBeVisible();
-  await expect(page.getByText('RESERVATION_RELEASED', { exact: true })).toBeVisible();
-  await expect(page.getByText('PAYMENT_CAPTURED', { exact: true })).toBeVisible();
+  const activityRows = page.locator('.activity-table tbody tr');
+  await expect(activityRows.filter({ hasText: 'ORDER_PACKED' })).toBeVisible();
+  await expect(activityRows.filter({ hasText: 'RESERVATION_RELEASED' })).toBeVisible();
+  await expect(activityRows.filter({ hasText: 'PAYMENT_CAPTURED' })).toBeVisible();
 });

@@ -41,7 +41,7 @@ export class CustomerLayoutComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout();
+    this.session.logout(true);
     this.toast.info('Signed out.');
     this.router.navigateByUrl('/');
   }

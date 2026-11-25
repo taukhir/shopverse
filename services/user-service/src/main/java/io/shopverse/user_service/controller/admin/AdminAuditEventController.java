@@ -5,7 +5,7 @@ import io.shopverse.platform.web.pagination.PaginationUtils;
 import io.shopverse.user_service.constants.ApiConstants;
 import io.shopverse.user_service.dto.AdminAuditEventResponse;
 import io.shopverse.user_service.model.AdminAuditEventFilter;
-import io.shopverse.user_service.service.AdminAuditEventService;
+import io.shopverse.user_service.service.audit.AdminAuditEventService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

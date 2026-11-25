@@ -2,7 +2,7 @@ package io.shopverse.user_service.controller.internal;
 
 import io.shopverse.user_service.constants.ApiConstants;
 import io.shopverse.user_service.dto.UserResponse;
-import io.shopverse.user_service.service.UserService;
+import io.shopverse.user_service.service.identity.UserIdentityService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "InternalUsers", description = "Internal User account and password management APIs")
 public class InternalUserController {
 
-    private final UserService userService;
+    private final UserIdentityService userIdentityService;
 
     @GetMapping("/authenticated")
     public ResponseEntity<UserResponse> getAuthenticatedUser(Authentication authentication) {
         String username = authentication.getName();
         log.info("Internal authenticated user lookup started username={}", username);
-        UserResponse user = userService.loadAuthenticatedUserByUsername(username);
+        UserResponse user = userIdentityService.getByUsername(username);
         log.info(
                 "Internal authenticated user lookup completed username={} userId={} status={} roles={}",
                 username,

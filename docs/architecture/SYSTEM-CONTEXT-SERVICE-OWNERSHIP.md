@@ -82,7 +82,7 @@ Cloud LoadBalancer selects a registered instance.
 |---|---|
 | API Gateway | Edge routing, JWT validation, correlation handling, request metrics |
 | Auth Service | Authenticate through User Service, sign RSA JWTs, expose JWKS |
-| User Service | Users, roles, permissions, internal credential lookup, method security |
+| User Service | Users/accounts, addresses, roles, permissions, groups, internal credential lookup, User Service audit evidence, and the legacy persisted cart pending Cart Service extraction |
 | Order Service | Idempotent checkout, ownership, order state, timeline, SAGA outcomes |
 | Inventory Service | Stock, optimistic locking, reservation, expiry, compensation |
 | Payment Service | Payment state machine, provider simulation, reconciliation, refund |

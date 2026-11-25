@@ -3,7 +3,7 @@ package io.shopverse.user_service.controller.cart;
 import io.shopverse.user_service.constants.ApiConstants;
 import io.shopverse.user_service.dto.CartResponse;
 import io.shopverse.user_service.model.CartRequest;
-import io.shopverse.user_service.service.CartService;
+import io.shopverse.user_service.service.cart.CartService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

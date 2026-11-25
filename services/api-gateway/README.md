@@ -7,7 +7,7 @@ API Gateway runs on port `8080` and is the normal client entry point.
 - route requests by service path;
 - resolve `lb://SERVICE-NAME` destinations through Eureka and Spring Cloud LoadBalancer;
 - enforce public/protected path policy;
-- validate bearer JWT signature, timestamps, and issuer for protected routes;
+- validate bearer JWT signature, timestamps, issuer, and Redis revocation state for protected routes;
 - propagate correlation and trace context;
 - emit gateway request logs and Micrometer metrics.
 
@@ -38,6 +38,11 @@ correlation handling, timing, metrics, and production practices, see
 
 Routes, JWT validation, actuator exposure, resilience, tracing, and logging are
 centralized in `cloud-configs/API-GATEWAY.yml`.
+
+Protected JWT validation performs a nonblocking Redis lookup for the token's
+`jti` using the shared revocation key prefix. A revoked token or unavailable
+Redis causes authentication to fail closed. `/auth/login` and the public JWKS
+endpoint remain anonymous; `/auth/logout` requires a valid, unrevoked token.
 
 ## OpenAPI
 

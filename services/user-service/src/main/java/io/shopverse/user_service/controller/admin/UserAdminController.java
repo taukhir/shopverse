@@ -16,7 +16,7 @@ import io.shopverse.user_service.model.ResetPasswordRequest;
 import io.shopverse.user_service.model.UpdateUserRequest;
 import io.shopverse.user_service.model.ReplaceUserRequest;
 import io.shopverse.user_service.model.UserFilter;
-import io.shopverse.user_service.service.UserService;
+import io.shopverse.user_service.service.admin.AdminUserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +58,7 @@ public class UserAdminController {
             "createdAt"
     );
 
-    private final UserService userService;
+    private final AdminUserService adminUserService;
 
     @GetMapping
     @PreAuthorize("hasAuthority('USER_READ')")
@@ -83,21 +83,21 @@ public class UserAdminController {
         );
 
         Pageable pageable = PaginationUtils.createPageable(page, size, sortBy, direction, ALLOWED_SORT_FIELDS);
-        return ResponseEntity.ok(userService.getUsers(new UserFilter(search, status, role), pageable));
+        return ResponseEntity.ok(adminUserService.getUsers(new UserFilter(search, status, role), pageable));
     }
 
     @GetMapping("/{userId}")
     @PreAuthorize("hasAuthority('USER_READ')")
     public ResponseEntity<ApiResponse<UserResponse>> getUser(@PathVariable Long userId) {
         log.info("User lookup requested by id: {}", userId);
-        return ResponseEntity.ok(ApiResponse.success("User fetched successfully", userService.getUser(userId)));
+        return ResponseEntity.ok(ApiResponse.success("User fetched successfully", adminUserService.getUser(userId)));
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('USER_CREATE')")
     public ResponseEntity<ApiResponse<UserResponse>> createUser(@Valid @RequestBody CreateUserRequest request) {
         log.info("User creation requested for username={}", request.username());
-        UserResponse created = userService.createUser(request);
+        UserResponse created = adminUserService.createUser(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .location(org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest()
@@ -112,14 +112,14 @@ public class UserAdminController {
             @Valid @RequestBody UpdateUserRequest request
     ) {
         log.info("User update requested for id: {}", userId);
-        return ResponseEntity.ok(ApiResponse.success("User updated successfully", userService.updateUser(userId, request)));
+        return ResponseEntity.ok(ApiResponse.success("User updated successfully", adminUserService.updateUser(userId, request)));
     }
 
     @PutMapping("/{userId}")
     @PreAuthorize("hasAuthority('USER_UPDATE')")
     public ResponseEntity<ApiResponse<UserResponse>> replaceUser(
             @PathVariable Long userId, @Valid @RequestBody ReplaceUserRequest request) {
-        return ResponseEntity.ok(ApiResponse.success("User replaced successfully", userService.replaceUser(userId, request)));
+        return ResponseEntity.ok(ApiResponse.success("User replaced successfully", adminUserService.replaceUser(userId, request)));
     }
 
     @PatchMapping("/{userId}/password")
@@ -129,7 +129,7 @@ public class UserAdminController {
             @Valid @RequestBody ChangePasswordRequest request
     ) {
         log.info("Password change requested for user id: {}", userId);
-        userService.changePassword(userId, request);
+        adminUserService.changePassword(userId, request);
         return ResponseEntity.noContent().build();
     }
 
@@ -140,7 +140,7 @@ public class UserAdminController {
             @Valid @RequestBody ResetPasswordRequest request
     ) {
         log.warn("Password reset requested for user id: {}", userId);
-        userService.resetPassword(userId, request);
+        adminUserService.resetPassword(userId, request);
         return ResponseEntity.noContent().build();
     }
 
@@ -149,6 +149,6 @@ public class UserAdminController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long userId) {
         log.warn("User deletion requested for id: {}", userId);
-        userService.deleteUser(userId);
+        adminUserService.deleteUser(userId);
     }
 }

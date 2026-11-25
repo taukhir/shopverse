@@ -6,6 +6,7 @@ package io.shopverse.user_service.constants;
 public final class SecurityConstants {
 
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
     public static final String ROLE_SUPPORT = "ROLE_SUPPORT";
     public static final String USER_CREATE = "USER_CREATE";
     public static final String USER_READ = "USER_READ";
@@ -13,6 +14,8 @@ public final class SecurityConstants {
     public static final String USER_DELETE = "USER_DELETE";
     public static final String ADMIN_ACCESS = "ADMIN_ACCESS";
     public static final String SYSTEM_ACTOR = "system";
+    public static final String ADMIN = "ADMIN";
+    public static final String CUSTOMER = "CUSTOMER";
 
     private SecurityConstants() {
     }

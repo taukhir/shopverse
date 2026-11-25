@@ -114,7 +114,7 @@ export class AdminUserDetailComponent {
   }
 
   protected logout(): void {
-    this.session.logout();
+    this.session.logout(true);
     this.router.navigateByUrl('/');
   }
 

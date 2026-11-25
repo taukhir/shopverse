@@ -1,7 +1,7 @@
 package io.shopverse.user_service.controller.admin;
 
 import io.shopverse.user_service.dto.UserGroupResponse;
-import io.shopverse.user_service.service.UserGroupService;
+import io.shopverse.user_service.service.group.UserGroupService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

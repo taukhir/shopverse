@@ -2,7 +2,8 @@ package io.shopverse.user_service.controller.account;
 
 import io.shopverse.user_service.dto.UserResponse;
 import io.shopverse.user_service.entities.enums.UserStatus;
-import io.shopverse.user_service.service.UserService;
+import io.shopverse.user_service.service.account.AccountService;
+import io.shopverse.user_service.service.identity.UserIdentityService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,27 +27,30 @@ class AccountControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private UserService userService;
+    private AccountService accountService;
+
+    @Mock
+    private UserIdentityService userIdentityService;
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new AccountController(userService)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new AccountController(accountService, userIdentityService)).build();
     }
 
     @Test
     void getCurrentAccountUsesAuthenticatedUsernameAndKeepsExistingRoute() throws Exception {
-        when(userService.loadAuthenticatedUserByUsername("ahmed")).thenReturn(userResponse());
+        when(userIdentityService.getByUsername("ahmed")).thenReturn(userResponse());
 
         mockMvc.perform(get("/api/v1/users/me").principal((Principal) () -> "ahmed"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("ahmed"));
 
-        verify(userService).loadAuthenticatedUserByUsername("ahmed");
+        verify(userIdentityService).getByUsername("ahmed");
     }
 
     @Test
     void getCurrentAccountSupportsCanonicalCurrentResourcePath() throws Exception {
-        when(userService.loadAuthenticatedUserByUsername("ahmed")).thenReturn(userResponse());
+        when(userIdentityService.getByUsername("ahmed")).thenReturn(userResponse());
         mockMvc.perform(get("/api/v1/accounts/current").principal((Principal) () -> "ahmed"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("ahmed"));

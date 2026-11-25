@@ -1,6 +1,6 @@
 package io.shopverse.user_service.controller.account;
 
-import io.shopverse.user_service.service.UserAddressService;
+import io.shopverse.user_service.service.address.UserAddressService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

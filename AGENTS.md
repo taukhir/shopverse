@@ -79,6 +79,29 @@ recovery, compensation, and end-to-end observability.
 - Do not stage, commit, push, open a PR, update an issue, or send a message unless
   the user requests that action.
 
+## Documentation Maintenance
+
+Documentation is part of a change whenever behavior, API contracts, events,
+configuration, operations, architecture, or user-visible flows change. Before
+finishing an implementation or review task, consult
+[`docs/DOCUMENTATION-MAINTENANCE.md`](docs/DOCUMENTATION-MAINTENANCE.md) and
+update every applicable canonical document and index in the same change.
+
+- A new or changed API must update the owning service README and relevant API
+  contract/reference, plus gateway routing/security docs and frontend usage docs
+  when those are affected.
+- A changed feature or behavior must update its owning service README and the
+  canonical platform reference (feature matrix, architecture, case study, or
+  operations guide as appropriate). Update `dev-tools/teams/docs/` audit/plan
+  records when findings, decisions, status, or follow-ups change.
+- Update indexes whenever documents are added, renamed, or removed. Link to the
+  canonical source instead of maintaining duplicate technical explanations.
+- If a change is internal and has no API, behavior, configuration, operational,
+  architectural, or user workflow impact, document why no update is needed in
+  the handoff.
+- Check documentation claims against current source/config/tests. Mark planned
+  behavior and unverified runtime assumptions clearly.
+
 ## Verification
 
 Run the narrowest relevant check first, then the broader module check justified
@@ -152,6 +175,14 @@ Before handoff, inspect the diff for:
   `docs/reliability/` in the `taukhir/shopverse-docs` repository.
 - Reusable AI task prompts and evidence templates: `dev-tools/ai-workflows/`.
 - Deterministic AI workflow scenarios and scoring: `dev-tools/ai-workflows/evals/`.
+- Documentation policy and root-level index: `docs/README.md` and
+  `docs/DOCUMENTATION-MAINTENANCE.md`.
+- Contributor audits and plans: `dev-tools/teams/docs/` (start at `index.md`).
+- Agent documentation navigation: `dev-tools/teams/AGENT-DOCS-INDEX.md`.
+- For a code-to-documentation audit, use
+  `dev-tools/ai-workflows/prompts/documentation-update.md` and its evidence
+  requirements; inspect current source and canonical docs before accepting
+  findings.
 
 ## Handoff
 
