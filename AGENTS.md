@@ -107,6 +107,12 @@ update every applicable canonical document and index in the same change.
 Run the narrowest relevant check first, then the broader module check justified
 by the change. Report commands actually executed and any validation not run.
 
+Before pushing ShopVerse changes, contributors and agents must follow
+[`dev-tools/teams/docs/local-validation-ci-readiness.md`](dev-tools/teams/docs/local-validation-ci-readiness.md).
+Select checks based on changed services and risk; run required local checks,
+record blockers instead of treating skipped checks as passes, and synchronize
+all applicable canonical documentation before handoff.
+
 ### Java services on Windows
 
 Run from the service directory:

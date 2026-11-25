@@ -11,6 +11,9 @@ public class RedisAccessTokenRevocationStore implements AccessTokenRevocationSto
     private static final int MAX_TOKEN_ID_LENGTH = 128;
     private static final String TOKEN_ID_PATTERN = "[A-Za-z0-9._-]+";
 
+    // Spring owns this shared infrastructure bean; copying it would not provide
+    // an independent Redis client and could break connection/configuration behavior.
+    @SuppressWarnings("EI_EXPOSE_REP2")
     private final StringRedisTemplate redisTemplate;
     private final String keyPrefix;
 
