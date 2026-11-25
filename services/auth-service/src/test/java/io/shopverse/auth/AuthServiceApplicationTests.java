@@ -13,6 +13,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -61,7 +62,7 @@ class AuthServiceApplicationTests {
 
 	@Test
 	void logoutRevokesTheAuthenticatedTokenIdUntilItsExpiry() throws Exception {
-		Instant issuedAt = Instant.now();
+		Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
 		Instant expiresAt = issuedAt.plusSeconds(600);
 		String token = jwtEncoder.encode(JwtEncoderParameters.from(JwtClaimsSet.builder()
 				.id("logout-test-jti")
