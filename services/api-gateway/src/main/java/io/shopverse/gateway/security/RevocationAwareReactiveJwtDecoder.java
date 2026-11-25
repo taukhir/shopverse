@@ -1,5 +1,6 @@
 package io.shopverse.gateway.security;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtException;
@@ -8,14 +9,16 @@ import reactor.core.publisher.Mono;
 
 public class RevocationAwareReactiveJwtDecoder implements ReactiveJwtDecoder {
 
-    // These collaborators are intentionally retained: the delegate performs JWT
-    // validation and the Redis template checks revocation state.
-    @SuppressWarnings("EI_EXPOSE_REP2")
     private final ReactiveJwtDecoder delegate;
-    @SuppressWarnings("EI_EXPOSE_REP2")
     private final ReactiveStringRedisTemplate redisTemplate;
     private final String keyPrefix;
 
+    // These collaborators are intentionally retained to validate JWTs and check
+    // revocation state in Redis.
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "The decoder retains injected infrastructure collaborators by design."
+    )
     public RevocationAwareReactiveJwtDecoder(
             ReactiveJwtDecoder delegate,
             ReactiveStringRedisTemplate redisTemplate,

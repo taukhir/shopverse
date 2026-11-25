@@ -1,6 +1,7 @@
 description = 'Shopverse resource-server security auto-configuration and JWT authority mapping.'
 
 dependencies {
+	compileOnly 'com.github.spotbugs:spotbugs-annotations:4.10.5'
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'

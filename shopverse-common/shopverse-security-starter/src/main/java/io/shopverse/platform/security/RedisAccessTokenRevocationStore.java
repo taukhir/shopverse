@@ -1,5 +1,6 @@
 package io.shopverse.platform.security;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.time.Duration;
@@ -11,12 +12,14 @@ public class RedisAccessTokenRevocationStore implements AccessTokenRevocationSto
     private static final int MAX_TOKEN_ID_LENGTH = 128;
     private static final String TOKEN_ID_PATTERN = "[A-Za-z0-9._-]+";
 
-    // Spring owns this shared infrastructure bean; copying it would not provide
-    // an independent Redis client and could break connection/configuration behavior.
-    @SuppressWarnings("EI_EXPOSE_REP2")
     private final StringRedisTemplate redisTemplate;
     private final String keyPrefix;
 
+    // Spring owns this shared infrastructure bean; it must be retained, not copied.
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "Retains the injected Spring Redis infrastructure bean by design."
+    )
     public RedisAccessTokenRevocationStore(StringRedisTemplate redisTemplate, String keyPrefix) {
         this.redisTemplate = redisTemplate;
         this.keyPrefix = keyPrefix;

@@ -1,5 +1,6 @@
 package io.shopverse.gateway.observability;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,11 @@ public class GatewayRequestLoggingFilter implements GlobalFilter, Ordered {
     // Micrometer registry used to publish metrics to monitoring systems like Prometheus.
     private final MeterRegistry meterRegistry;
 
+    // The filter retains the shared registry to publish request metrics.
+    @SuppressFBWarnings(
+            value = "EI_EXPOSE_REP2",
+            justification = "The filter retains the injected Micrometer infrastructure bean by design."
+    )
     public GatewayRequestLoggingFilter(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
     }
