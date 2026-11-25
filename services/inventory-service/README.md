@@ -1,5 +1,11 @@
 # Inventory Service
 
+> **Admin reservation detail status (2026-11-25):** the frontend accepts either
+> a reservation object or an array, but the current admin order lookup still
+> returns one reservation. BUG-056 tracks a compatible multi-reservation API
+> and service/integration tests; do not claim multi-item reservation detail is
+> complete until that contract is deployed.
+
 Inventory Service runs on port `8086`. It owns the public product catalog, product metadata, stock, reservations, expiry, overselling prevention, cancellation release, and inventory-side SAGA recovery.
 
 ## APIs

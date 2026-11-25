@@ -25,7 +25,9 @@ public class BrowserCookieTokenRelayFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         var accessCookie = exchange.getRequest().getCookies().getFirst(accessCookieName);
-        if (accessCookie == null || accessCookie.getValue().isBlank()) return chain.filter(exchange);
+        if (accessCookie == null || accessCookie.getValue().isBlank()) {
+            return chain.filter(exchange);
+        }
 
         String forwardedCookies = exchange.getRequest().getCookies().values().stream()
                 .flatMap(java.util.Collection::stream)
@@ -34,8 +36,11 @@ public class BrowserCookieTokenRelayFilter implements GlobalFilter, Ordered {
                 .collect(Collectors.joining("; "));
         var request = exchange.getRequest().mutate().headers(headers -> {
             headers.setBearerAuth(accessCookie.getValue());
-            if (forwardedCookies.isBlank()) headers.remove(HttpHeaders.COOKIE);
-            else headers.set(HttpHeaders.COOKIE, forwardedCookies);
+            if (forwardedCookies.isBlank()) {
+                headers.remove(HttpHeaders.COOKIE);
+            } else {
+                headers.set(HttpHeaders.COOKIE, forwardedCookies);
+            }
         }).build();
         return chain.filter(exchange.mutate().request(request).build());
     }

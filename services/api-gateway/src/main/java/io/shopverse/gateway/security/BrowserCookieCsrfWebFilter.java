@@ -49,13 +49,17 @@ public class BrowserCookieCsrfWebFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         HttpMethod method = exchange.getRequest().getMethod();
-        if (method == null || isSafeMethod(method)) return chain.filter(exchange);
+        if (method == null || isSafeMethod(method)) {
+            return chain.filter(exchange);
+        }
 
         String path = exchange.getRequest().getPath().value();
         boolean browserMutationPath = browserMutationPaths.contains(path);
         boolean browserCookieRequest = exchange.getRequest().getCookies().containsKey(accessCookieName);
         boolean browserSessionMutation = exchange.getRequest().getCookies().containsKey(csrfCookieName);
-        if (!browserMutationPath && !browserCookieRequest && !browserSessionMutation) return chain.filter(exchange);
+        if (!browserMutationPath && !browserCookieRequest && !browserSessionMutation) {
+            return chain.filter(exchange);
+        }
 
         if (!validOrigin(exchange) || !validCsrfToken(exchange)) {
             exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
@@ -67,7 +71,9 @@ public class BrowserCookieCsrfWebFilter implements WebFilter {
     private boolean validCsrfToken(ServerWebExchange exchange) {
         var cookie = exchange.getRequest().getCookies().getFirst(csrfCookieName);
         String header = exchange.getRequest().getHeaders().getFirst(csrfHeaderName);
-        if (cookie == null || header == null || cookie.getValue().isBlank()) return false;
+        if (cookie == null || header == null || cookie.getValue().isBlank()) {
+            return false;
+        }
         return MessageDigest.isEqual(
                 cookie.getValue().getBytes(StandardCharsets.UTF_8),
                 header.getBytes(StandardCharsets.UTF_8)
@@ -78,7 +84,9 @@ public class BrowserCookieCsrfWebFilter implements WebFilter {
         String origin = exchange.getRequest().getHeaders().getOrigin();
         if (origin == null || origin.isBlank()) {
             String referer = exchange.getRequest().getHeaders().getFirst("Referer");
-            if (referer == null || referer.isBlank()) return false;
+            if (referer == null || referer.isBlank()) {
+                return false;
+            }
             try {
                 URI uri = URI.create(referer);
                 origin = uri.getScheme() + "://" + uri.getAuthority();

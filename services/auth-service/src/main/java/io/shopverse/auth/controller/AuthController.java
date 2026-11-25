@@ -86,8 +86,10 @@ public class AuthController {
 
     @GetMapping("/session")
     public ResponseEntity<BrowserSessionResponse> session(@AuthenticationPrincipal Jwt jwt) {
-        if (jwt == null) return ResponseEntity.ok().cacheControl(CacheControl.noStore())
+        if (jwt == null) {
+            return ResponseEntity.ok().cacheControl(CacheControl.noStore())
                 .body(new BrowserSessionResponse(false, null, List.of(), null));
+        }
         String roleClaim = jwt.getClaimAsString("roles");
         List<String> roles = roleClaim == null || roleClaim.isBlank()
                 ? List.of()
