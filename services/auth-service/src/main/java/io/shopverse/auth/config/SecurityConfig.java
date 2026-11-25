@@ -24,7 +24,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
                         ).permitAll()
-                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/auth/login", "/auth/.well-known/jwks.json").permitAll()
                         .requestMatchers("/actuator/refresh").hasRole("ADMIN")
 
                         // Secure all remaining APIs

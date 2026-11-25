@@ -4,6 +4,7 @@ server:
 security:
   jwt:
     issuer: ${JWT_ISSUER:shopverse-auth-service}
+    revocation-key-prefix: ${JWT_REVOCATION_KEY_PREFIX:shopverse:auth:revoked-jti:v1:}
 
 spring:
   cloud:

@@ -1,0 +1,41 @@
+<app-admin-header (signOut)="logout()" />
+<main class="groups-page">
+  <div class="page-heading">
+    <div><p class="eyebrow">ACCESS MANAGEMENT</p><h1>Groups</h1><p>Organize users and grant access through role assignments.</p></div>
+    <button class="primary" type="button" (click)="create()">Create group</button>
+  </div>
+  @if (error()) { <div class="notice" role="alert">{{ error() }} <button type="button" (click)="load()">Try again</button></div> }
+  @if (editorOpen()) {
+    <section class="editor" aria-labelledby="editor-title">
+      <div class="section-heading"><h2 id="editor-title">{{ editingId() ? 'Edit group' : 'Create a group' }}</h2><button type="button" class="quiet" (click)="editorOpen.set(false)">Close</button></div>
+      <label>Group name<input [(ngModel)]="draft.groupName" maxlength="80" required /></label>
+      <label>Description<textarea [(ngModel)]="draft.description" maxlength="500" rows="3"></textarea></label>
+      <fieldset><legend>Assigned roles</legend><div class="role-options">
+        @for (role of roles(); track role.id) { <label class="check"><input type="checkbox" [checked]="hasRole(role.id)" (change)="toggleRole(role.id, $any($event.target).checked)" /><span><strong>{{ role.roleName }}</strong><small>{{ role.description || 'No description' }}</small></span></label> }
+        @if (!roles().length) { <p>No roles are available. Create roles in <a routerLink="/admin/access-control">Roles &amp; permissions</a>.</p> }
+      </div></fieldset>
+      <div class="form-actions"><button type="button" class="quiet" (click)="editorOpen.set(false)">Cancel</button><button class="primary" type="button" [disabled]="saving()" (click)="save()">{{ saving() ? 'Saving…' : editingId() ? 'Save changes' : 'Create group' }}</button></div>
+    </section>
+  }
+  <div class="workspace">
+    <section class="group-list" aria-label="Groups list">
+      <form class="search" (ngSubmit)="search()"><label class="visually-hidden" for="group-search">Search groups</label><input id="group-search" name="search" [ngModel]="query()" (ngModelChange)="query.set($event)" placeholder="Search groups" /><button type="submit">Search</button></form>
+      @if (loading()) { <p class="muted">Loading groups…</p> }
+      @else if (!groups().length) { <div class="empty"><h2>No groups found</h2><p>Create a group to bundle users and roles.</p></div> }
+      @else { @for (group of groups(); track group.id) {
+        <button class="group-row" [class.selected]="selected()?.id === group.id" type="button" (click)="select(group)"><span><strong>{{ group.groupName }}</strong><small>{{ group.memberCount }} members · {{ group.roles?.length ?? 0 }} roles</small></span><span aria-hidden="true">›</span></button>
+      } }
+    </section>
+    <section class="group-detail" aria-label="Selected group details">
+      @if (!selected()) { <div class="empty"><h2>Select a group</h2><p>Group details and membership controls will appear here.</p></div> }
+      @else {
+        <div class="detail-heading"><div><p class="eyebrow">GROUP DETAILS</p><h2>{{ selected()!.groupName }}</h2><p>{{ selected()!.description || 'No description provided.' }}</p></div><div class="detail-actions"><button type="button" class="quiet" (click)="edit(selected()!)">Edit</button><button type="button" class="danger" (click)="removeGroup(selected()!)">Delete</button></div></div>
+        <h3>Assigned roles</h3><div class="chips">@for (role of selected()!.roles ?? []; track role.id) { <span>{{ role.roleName }}</span> } @empty { <span class="muted">No roles assigned</span> }</div>
+        <div class="section-heading members-heading"><h3>Members <span>{{ selected()!.memberCount }}</span></h3></div>
+        <form class="add-member" (ngSubmit)="addMember()"><label for="member-id">Add member by user ID</label><input id="member-id" type="number" min="1" [ngModel]="memberId()" (ngModelChange)="memberId.set($event)" name="memberId" placeholder="User ID" /><button class="primary" type="submit">Add member</button></form>
+        @if (!members().length) { <p class="muted">No members on this page yet.</p> }
+        @for (member of members(); track member.id) { <div class="member-row"><span><strong>{{ member.firstName }} {{ member.lastName }}</strong><small>{{ member.username }} · {{ member.email }}</small></span><button class="quiet" type="button" (click)="removeMember(member)">Remove</button></div> }
+      }
+    </section>
+  </div>
+</main>

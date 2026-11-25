@@ -12,17 +12,19 @@
   } @else if (state() === 'error') {
     <div class="notice">We could not load this order. <button type="button" (click)="load()">Try again</button></div>
   } @else if (order()) {
-    <div class="heading">
-      <p>ORDER {{ order()?.orderNumber }}</p>
-      <h1>{{ currentStatus() }}</h1>
-      <span>Placed {{ order()?.createdAt | date:'medium' }}</span>
+    <div class="order-hero">
+      <div>
+        <p class="eyebrow">ORDER DETAILS</p>
+        <h1>{{ order()?.orderNumber }}</h1>
+        <span>Placed {{ order()?.createdAt | date:'medium' }}</span>
+      </div>
+      <div class="hero-status">
+        <span>Order status</span>
+        <strong [class]="statusTone(order()?.status)">{{ currentStatus() }}</strong>
+      </div>
     </div>
 
     <section class="status-strip">
-      <article>
-        <span>Current status</span>
-        <strong [class]="statusTone(order()?.status)">{{ currentStatus() }}</strong>
-      </article>
       <article>
         <span>Payment</span>
         <strong [class]="statusTone(payment()?.status)">{{ paymentStatus() }}</strong>
@@ -34,15 +36,17 @@
     </section>
 
     <section class="progress-card">
-      <div>
+      <div class="progress-heading">
         <p>TRACKING</p>
-        <h2>Where your order stands.</h2>
+        <h2>Order progress</h2>
+        <span>Track each step from order placement to confirmation.</span>
       </div>
-      <div class="steps">
+      <div class="steps" aria-label="Order progress steps">
         @for (step of steps(); track step.label) {
-          <article [class]="step.state">
-            <i></i>
+          <article [class]="step.state" [attr.aria-current]="step.state === 'active' ? 'step' : null">
+            <i aria-hidden="true"></i>
             <span>{{ step.label }}</span>
+            <small>{{ step.state === 'done' ? 'Complete' : step.state === 'active' ? 'In progress' : step.state === 'blocked' ? 'Needs attention' : 'Waiting' }}</small>
           </article>
         }
       </div>
@@ -57,16 +61,16 @@
       <div>
         <p>CUSTOMER SERVICE</p>
         <h2>Need help with this order?</h2>
-        <span>These actions are wired as frontend placeholders until payment, refund, cancellation, and receipt APIs are available.</span>
+        <span>Available actions depend on your order and payment status.</span>
       </div>
       <div class="action-grid">
-        <button type="button" (click)="cancelOrder()" [disabled]="!canCancelOrder()">Cancel order</button>
-        <button type="button" (click)="retryPayment()" [disabled]="!canRetryPayment()">Retry payment</button>
-        <button type="button" (click)="requestRefund()" [disabled]="!canRequestRefund()">Request refund</button>
-        <button type="button" (click)="requestReturn()" [disabled]="!canRequestReturn()">Request return</button>
-        <button type="button" (click)="placeholderAction('Download receipt')">Download receipt</button>
-        <button type="button" (click)="copyAllReferences()">Copy all references</button>
+        @if (canCancelOrder()) { <button class="secondary-action" type="button" (click)="cancelOrder()"><span aria-hidden="true">×</span> Cancel order</button> }
+        @if (canRetryPayment()) { <button class="primary-action" type="button" (click)="retryPayment()" [disabled]="retryingPayment()"><span class="button-icon" [class.spinning]="retryingPayment()" aria-hidden="true">&#8635;</span>{{ retryingPayment() ? 'Retrying payment...' : 'Retry payment' }}</button> }
+        @if (canRequestRefund()) { <button class="secondary-action" type="button" (click)="requestRefund()"><span aria-hidden="true">↩</span> Request refund</button> }
+        @if (canRequestReturn()) { <button class="secondary-action" type="button" (click)="requestReturn()"><span aria-hidden="true">↩</span> Request return</button> }
+        <button class="secondary-action" type="button" (click)="copyAllReferences()">Copy order references</button>
       </div>
+      @if (retryResult(); as result) { <p class="retry-feedback" [class]="'retry-feedback ' + result.tone" role="status" aria-live="polite">{{ result.message }}</p> }
     </section>
 
     <div class="layout">
@@ -86,22 +90,24 @@
         </section>
 
         <section class="panel">
-          <div class="panel-head"><p>ORDER TIMELINE</p><strong>{{ timeline().length }} steps</strong></div>
+          <div class="panel-head"><div><p>ORDER TIMELINE</p><h2>Updates</h2></div><span>{{ timeline().length }} {{ timeline().length === 1 ? 'update' : 'updates' }}</span></div>
           @if (!timeline().length) {
             <div class="empty">No timeline events have been recorded yet.</div>
           } @else {
-            <div class="timeline">
-              @for (event of timeline(); track event.stage + event.occurredAt) {
-                <article [class]="statusTone(event.stage)">
-                  <i></i>
-                  <div>
-                    <span>{{ event.occurredAt | date:'medium' }}</span>
-                    <h3>{{ cleanStage(event.stage) }}</h3>
-                    <p>{{ event.detail }}</p>
+            <ol class="timeline" aria-label="Order status updates">
+              @for (event of timeline(); track event.stage + event.occurredAt; let last = $last) {
+                <li class="timeline-event" [class.last]="last" [class.good]="timelineTone(event.stage) === 'good'" [class.warning]="timelineTone(event.stage) === 'warning'" [class.danger]="timelineTone(event.stage) === 'danger'" [class.active]="timelineTone(event.stage) === 'active'">
+                  <div class="timeline-marker"><i></i></div>
+                  <div class="timeline-card">
+                    <div class="timeline-meta">
+                      <div class="timeline-title"><h3>{{ cleanStage(event.stage) }}</h3><span class="timeline-badge">{{ timelineOutcome(event.stage) }}</span></div>
+                      <time [attr.datetime]="event.occurredAt">{{ event.occurredAt | date:'medium' }}</time>
+                    </div>
+                    <p>{{ event.detail || 'Your order status was updated.' }}</p>
                   </div>
-                </article>
+                </li>
               }
-            </div>
+            </ol>
           }
         </section>
       </main>

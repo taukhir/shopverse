@@ -1,26 +1,6 @@
+<app-admin-header (signOut)="logout()" />
 <div class="admin-shell">
-  <aside>
-    <a class="brand" routerLink="/"><img class="brand-mark" src="/shopverse-mark.svg" width="26" height="26" alt="" />shop<span>verse</span></a>
-    <p>OPERATIONS</p>
-    <nav aria-label="Operations navigation">
-      <a routerLink="/admin" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Overview</a>
-      <a routerLink="/admin/orders" routerLinkActive="active">Orders</a>
-      <a routerLink="/admin/inventory" routerLinkActive="active">Inventory</a>
-      <a routerLink="/admin/payments" routerLinkActive="active">Payments</a>
-      <a routerLink="/admin/recovery" routerLinkActive="active">Recovery</a>
-      <a routerLink="/admin/activity" routerLinkActive="active">Activity</a>
-      <a routerLink="/admin/users" routerLinkActive="active">Users</a>
-      <a routerLink="/admin/access-control" routerLinkActive="active">Roles &amp; permissions</a>
-      <a routerLink="/admin/settings" routerLinkActive="active">Settings</a>
-    </nav>
-    <a class="back" routerLink="/">View storefront</a>
-  </aside>
-
   <main>
-    <div class="topbar">
-      <span>ADMIN / {{ section().toUpperCase() }}</span>
-      <button (click)="logout()">Sign out</button>
-    </div>
 
     <section class="content">
       <p class="eyebrow">Operations workspace</p>
@@ -85,7 +65,7 @@
           <section class="panel">
             <div class="panel-head">
               <div><p>PAYMENTS</p><h2>Status summary.</h2></div>
-              <span>{{ price(paymentTotals().amount) }}</span>
+              <div class="panel-action"><span>{{ price(paymentTotals().amount) }}</span><a routerLink="/admin/payments">Manage payments &rarr;</a></div>
             </div>
             <div class="payment-summary">
               <article><span>Captured</span><strong>{{ paymentTotals().captured }}</strong></article>
@@ -198,9 +178,9 @@
             actionLink="/admin"
           />
         } @else {
-          <div class="table">
+          <div class="table user-list">
             @for(user of visibleUsers(); track user.id) {
-              <a [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><em>{{ user.status }}</em><b>View</b></a>
+              <a [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><em>{{ user.status }}</em><b><span aria-hidden="true">&#128065;</span> View</b></a>
             }
           </div>
           <div class="table-pagination">

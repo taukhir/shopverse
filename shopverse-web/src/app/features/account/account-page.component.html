@@ -30,7 +30,7 @@
         </div>
         <div class="summary-actions">
           <a routerLink="/orders">View order history <b>&rarr;</b></a>
-          @if (session.isAdmin()) {
+          @if (session.canAccessBackOffice()) {
             <a routerLink="/admin">Open operations <b>&rarr;</b></a>
           }
           <button type="button" (click)="logout()">Sign out</button>
@@ -65,12 +65,17 @@
 
         <section class="address-card">
           <p>ADDRESS</p>
-          <h2>{{ defaultAddress()?.label || 'Add your delivery address.' }}</h2>
-          @if (defaultAddress(); as address) {
+          @if (addressesLoading()) {
+            <h2>Loading saved address...</h2>
+            <span>Checking your address book.</span>
+          } @else if (defaultAddress(); as address) {
+            <h2>{{ address.label }}</h2>
             <span>{{ address.line1 }}{{ address.line2 ? ', ' + address.line2 : '' }}, {{ address.city }}, {{ address.state }} {{ address.postalCode }}, {{ address.country }}</span>
           } @else {
+            <h2>Add your delivery address.</h2>
             <span>Save a delivery address so checkout can use verified customer contact details.</span>
           }
+          @if (addressError() && !addressesLoading()) { <button type="button" class="address-retry" (click)="loadAddresses(true)"><span aria-hidden="true">&#8635;</span> Reload saved addresses</button> }
         </section>
 
         <section class="address-book">
@@ -145,18 +150,6 @@
             <h3>Active session</h3>
             <span>Authenticated session is used for checkout, order history, and account actions.</span>
             <button type="button" (click)="logout()">Sign out of this session</button>
-          </article>
-          <article>
-            <p>RECENT ORDERS</p>
-            <h3>Order history</h3>
-            @if (recentOrders().length) {
-              @for (order of recentOrders(); track order.id) {
-                <a [routerLink]="['/orders', order.id]">{{ order.orderNumber }} · {{ order.status }}</a>
-              }
-            } @else {
-              <span>No recent orders found for this account.</span>
-            }
-            <a routerLink="/orders">Open orders &rarr;</a>
           </article>
         </section>
 

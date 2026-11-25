@@ -1,0 +1,39 @@
+<aside class="admin-sidebar" [class.is-open]="menuOpen()">
+  <div class="admin-sidebar__top">
+    <a class="admin-brand" routerLink="/admin" (click)="closeMenu()">
+      <img src="/shopverse-mark.svg" width="30" height="30" alt="" />
+      <span>shop<strong>verse</strong><small>Back office</small></span>
+    </a>
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-controls="admin-primary-navigation"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggleMenu()"
+    >
+      <span aria-hidden="true">{{ menuOpen() ? 'x' : '+' }}</span>
+      {{ menuOpen() ? 'Close' : 'Menu' }}
+    </button>
+  </div>
+
+  <div class="workspace-label">OPERATIONS</div>
+  <nav id="admin-primary-navigation" class="admin-primary-nav" [class.is-open]="menuOpen()" aria-label="Operations navigation">
+    <a routerLink="/admin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">OV</span><span>Overview</span></a>
+    <a routerLink="/admin/orders" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v17H5zM8 8h8M8 12h8M8 16h5" /></svg></span><span>Orders</span></a>
+    <a routerLink="/admin/inventory" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 8v9l9 5 9-5V8M12 13v9" /></svg></span><span>Inventory</span></a>
+    <a routerLink="/admin/payments" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">$</span><span>Payments</span></a>
+    <a routerLink="/admin/recovery" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">RC</span><span>Recovery</span></a>
+    <a routerLink="/admin/activity" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">AC</span><span>Activity</span></a>
+
+    <div class="nav-section-label">ACCESS</div>
+    <a routerLink="/admin/users" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">US</span><span>Users</span></a>
+    <a routerLink="/admin/groups" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">GR</span><span>Groups</span></a>
+    <a routerLink="/admin/access-control" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">RL</span><span>Roles &amp; permissions</span></a>
+    <a routerLink="/admin/settings" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">ST</span><span>Settings</span></a>
+  </nav>
+
+  <div class="admin-sidebar__footer">
+    <a class="storefront-action" routerLink="/" (click)="closeMenu()"><span aria-hidden="true">&#8599;</span> View storefront</a>
+    <button class="sign-out-action" type="button" (click)="closeMenu(); signOut.emit()"><span aria-hidden="true">&#8618;</span> Sign out</button>
+  </div>
+</aside>

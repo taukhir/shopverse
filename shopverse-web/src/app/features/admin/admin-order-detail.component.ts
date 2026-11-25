@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -73,7 +74,7 @@ interface InventoryReservation {
 
 @Component({
   selector: 'app-admin-order-detail',
-  imports: [DatePipe, RouterLink],
+  imports: [AdminHeaderComponent, DatePipe, RouterLink],
   templateUrl: './admin-order-detail.component.html',
   styleUrl: './admin-order-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -218,7 +219,7 @@ export class AdminOrderDetailComponent {
   }
 
   protected logout(): void {
-    this.session.logout();
+    this.session.logout(true);
     this.router.navigateByUrl('/');
   }
 

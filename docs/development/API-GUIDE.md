@@ -54,6 +54,20 @@ Use the returned token:
 Authorization: Bearer eyJ...
 ```
 
+### POST `/auth/logout` - Revoke the current access token
+
+Send the access token being logged out:
+
+```http
+POST /auth/logout
+Authorization: Bearer <access-token>
+```
+
+The endpoint returns `204 No Content` after Auth Service records the JWT `jti`
+in Redis until that token expires. The Gateway and resource services reject
+that token on subsequent protected requests. Logout requires an unrevoked token;
+it does not revoke other tokens issued to the same user.
+
 ## Checkout
 
 Checkout is a two-step flow: create a priced, versioned, expiring quote for
@@ -143,8 +157,18 @@ address is stored as an immutable snapshot on the Order.
 
 ### Customer Commerce
 
+User Service's canonical self-service account and address routes use
+`/accounts/current`; `/users/me` and `/accounts/me` paths below are retained
+compatibility aliases. User Service owns groups and still hosts persisted carts
+pending the separately tracked Cart Service extraction.
+
 | Method | Path | Rule |
 |---|---|---|
+| `GET` | `/api/v1/accounts/current` | current user's profile |
+| `PATCH` | `/api/v1/accounts/current` | partially update current user's profile |
+| `GET` | `/api/v1/accounts/current/addresses` | list current user's addresses |
+| `GET/POST` | `/api/v1/accounts/current/addresses[/{addressId}]` | read/create owned address; see service README for full CRUD |
+| `PUT/DELETE` | `/api/v1/accounts/current/addresses/{addressId}` | replace/delete owned address |
 | `GET` | `/api/v1/users/me` | current user's profile |
 | `PUT` | `/api/v1/users/me` | update current user's profile |
 | `PATCH` | `/api/v1/users/me` | partial profile update alias |
@@ -170,6 +194,14 @@ address is stored as an immutable snapshot on the Order.
 | `POST` | `/api/v1/payments/intent` | authenticated |
 | `POST` | `/api/v1/payments/orders/{orderNumber}/retry` | owner or admin |
 | `POST` | `/api/v1/payments/orders/{orderNumber}/refund` | owner or admin |
+
+Administrative User Service routes include `/api/v1/admin/users`,
+`/api/v1/roles`, `/api/v1/permissions`, `/api/v1/groups`, and
+`/api/v1/admin/audit-events`. They require configured administrative
+authorities; see [User Service README](../../services/user-service/README.md)
+for methods, compatibility aliases, and operation details. Groups augment the
+authorities in newly issued JWTs; existing tokens are not immediately revoked
+when group membership or role assignments change.
 
 ### Administration And Recovery
 

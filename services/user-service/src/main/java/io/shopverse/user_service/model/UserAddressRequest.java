@@ -39,6 +39,6 @@ public record UserAddressRequest(
         @Size(max = 100)
         String country,
 
-        Boolean defaultAddress
+        boolean defaultAddress
 ) {
 }

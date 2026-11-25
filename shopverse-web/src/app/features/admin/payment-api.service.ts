@@ -4,7 +4,7 @@ import { Injectable, inject } from '@angular/core';
 import { API_PATHS } from '../../core/api/api-paths';
 
 export type SimulationMode = 'SUCCESS' | 'DECLINE' | 'TIMEOUT';
-export type PaymentAction = 'reconcile' | 'refund';
+export type PaymentAction = 'retry' | 'reconcile' | 'refund';
 
 export interface Payment {
   id: number;
@@ -31,6 +31,9 @@ export class PaymentApiService {
   }
 
   runOrderAction(orderNumber: string, action: PaymentAction) {
+    if (action === 'retry') {
+      return this.http.post<Payment>(API_PATHS.payments.retry(orderNumber), {});
+    }
     return this.http.post<Payment>(API_PATHS.payments.orderAction(orderNumber, action), {});
   }
 }

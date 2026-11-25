@@ -4,6 +4,9 @@
 
 - This service owns users, credentials, roles, permissions, addresses, persisted carts,
   and its admin audit events. Do not move product availability into cart validation.
+- Keep HTTP controllers grouped by responsibility under `controller/account`,
+  `controller/admin`, `controller/cart`, `controller/internal`, and `controller/publicapi`.
+  Keep customer self-service separate from administrator user operations.
 - Preserve ordered internal-Basic and JWT filter chains, service-layer method security,
   customer ownership, password hashing, lockout behavior, and immutable audit evidence.
 - UI visibility and standalone controller tests are not authorization proof.

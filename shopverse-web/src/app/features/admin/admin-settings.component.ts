@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { Router } from '@angular/router';
 
 import { SessionService } from '../../core/auth/session.service';
 import { ToastService } from '../../core/feedback/toast.service';
@@ -8,7 +9,7 @@ import { PaymentApiService, SimulationMode } from './payment-api.service';
 
 @Component({
   selector: 'app-admin-settings',
-  imports: [FormsModule, RouterLink],
+  imports: [AdminHeaderComponent, FormsModule],
   templateUrl: './admin-settings.component.html',
   styleUrl: './admin-settings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,7 +40,7 @@ export class AdminSettingsComponent {
   }
 
   protected logout(): void {
-    this.session.logout();
+    this.session.logout(true);
     this.router.navigateByUrl('/');
   }
 }

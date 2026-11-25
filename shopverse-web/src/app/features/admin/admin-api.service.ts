@@ -89,10 +89,29 @@ export interface AdminAuditEvent {
 export class AdminApiService {
   private readonly http = inject(HttpClient);
 
+  loadOrders() {
+    return this.http.get<AdminOrder[]>(API_PATHS.orders.adminAll);
+  }
+
+  loadUsers(size = 12) {
+    return this.http.get<Page<AdminUser>>(API_PATHS.adminUsers.page(size));
+  }
+
   loadOverview() {
     return forkJoin({
-      orders: this.http.get<AdminOrder[]>(API_PATHS.orders.adminAll),
-      users: this.http.get<Page<AdminUser>>(API_PATHS.users.page(12)),
+      orders: this.loadOrders(),
+      users: this.loadUsers(),
+      inventory: this.http.get<AdminInventoryItem[]>(API_PATHS.inventory.publicItems).pipe(catchError(() => of([] as AdminInventoryItem[]))),
+      payments: this.http.get<AdminPayment[]>(API_PATHS.payments.admin).pipe(catchError(() => of([] as AdminPayment[]))),
+      orderDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.orders.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),
+      inventoryDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.inventory.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),
+      paymentDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.payments.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),
+    });
+  }
+
+  loadActivitySources() {
+    return forkJoin({
+      orders: this.loadOrders(),
       inventory: this.http.get<AdminInventoryItem[]>(API_PATHS.inventory.publicItems).pipe(catchError(() => of([] as AdminInventoryItem[]))),
       payments: this.http.get<AdminPayment[]>(API_PATHS.payments.admin).pipe(catchError(() => of([] as AdminPayment[]))),
       orderDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.orders.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),

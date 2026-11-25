@@ -9,13 +9,14 @@ import { ToastService } from '../../core/feedback/toast.service';
 import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 import { AccessControlApiService, PermissionRecord, PermissionRequest, RoleRecord, RoleRequest } from './access-control-api.service';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 
 const emptyRole = (): RoleRequest => ({ roleName: '', description: '', permissions: [] });
 const emptyPermission = (): PermissionRequest => ({ permissionName: '', description: '', moduleName: '' });
 
 @Component({
   selector: 'app-access-control-page',
-  imports: [EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink],
+  imports: [AdminHeaderComponent, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink],
   templateUrl: './access-control-page.component.html',
   styleUrl: './access-control-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -241,7 +242,7 @@ export class AccessControlPageComponent {
   }
 
   protected logout(): void {
-    this.session.logout();
+    this.session.logout(true);
     this.router.navigateByUrl('/');
   }
 }

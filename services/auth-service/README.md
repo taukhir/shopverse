@@ -7,6 +7,7 @@ Auth Service runs on port `8081`. It authenticates credentials through User Serv
 | Method | Path | Purpose |
 |---|---|---|
 | `POST` | `/auth/login` | authenticate username/password and issue JWT |
+| `POST` | `/auth/logout` | revoke the authenticated access token; requires Bearer JWT |
 | `GET` | `/auth/.well-known/jwks.json` | publish the RSA public key set |
 | `GET` | `/actuator/health` | runtime health |
 | `GET` | `/actuator/prometheus` | Prometheus metrics |
@@ -33,14 +34,25 @@ directly.
 
 The token contains issuer, subject, issue/expiry time, ID, roles, and permissions. The issuer is `shopverse-auth-service`.
 
+### Access-token logout and revocation
+
+`POST /auth/logout` requires the current Bearer access token. Auth Service stores
+only its `jti` as a Redis revocation marker under
+`shopverse:auth:revoked-jti:v1:<jti>`, with a TTL ending at the token expiry.
+The full JWT is never written to Redis. Gateway and the User, Order, Payment,
+and Inventory resource servers check the same marker after validating the JWT
+signature, issuer, and timestamps. Revocation checks fail closed if Redis
+cannot be reached. Logout revokes the presented access token; it does not revoke
+other tokens for the same user or implement refresh-token/session management.
+
 ## Key Lifecycle And Failure Contract
 
 - RSA private-key material remains an Auth Service secret; only public JWK values
   are exposed.
 - Rotate keys by publishing the new public key before issuing tokens with it, keep
   the previous public key available for the remaining token lifetime, then retire it.
-- Resource services validate signature, issuer, and timestamps. Clock skew and
-  token lifetime must remain bounded and configuration-reviewed.
+- Resource services validate signature, issuer, timestamps, and Redis revocation
+  state. Clock skew and token lifetime must remain bounded and configuration-reviewed.
 - Invalid credentials return an authentication failure without revealing whether
   the username exists. Dependency or signing failures must not produce a token.
 - Rate-limit login attempts and alert on abnormal failures, JWKS retrieval errors,
@@ -59,7 +71,7 @@ See:
 
 ## Configuration
 
-Runtime configuration comes from `cloud-configs/AUTH-SERVICE.yml` through Config Server. Important environment values include RSA key material/path, JWT issuer, internal User Service credentials, Eureka URL, Zipkin endpoint, and log path.
+Runtime configuration comes from `infra/cloud-configs/AUTH-SERVICE.yml` and the shared `application.yml` through Config Server. Important values include RSA key material/path, JWT issuer, Redis connection settings and revocation key prefix, internal User Service credentials, Eureka URL, Zipkin endpoint, and log path.
 
 Real credentials and private keys must not be committed. Local POC values may be supplied through `.env`.
 
@@ -90,7 +102,7 @@ docker compose up -d auth-service
 
 Shopverse uses JWT bearer tokens and Resource Server validation. This service is
 not a complete OAuth2 Authorization Server and does not currently issue refresh
-tokens, provide revocation/consent, or automate signing-key rotation. Production
+tokens, revoke all sessions for a user, provide consent, or automate signing-key rotation. Production
 deployments should move signing keys to a secret manager or KMS/HSM-backed boundary.
 
 ## AI-Assisted Development

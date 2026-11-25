@@ -8,7 +8,6 @@ import { ToastService } from '../../core/feedback/toast.service';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
 import { AccountApiService, UserAddress, UserAddressRequest } from './account-api.service';
-import { Order, OrdersApiService } from '../orders/orders-api.service';
 
 @Component({
   selector: 'app-account-page',
@@ -24,10 +23,10 @@ export class AccountPageComponent {
   private readonly confirm = inject(ConfirmService);
   private readonly toast = inject(ToastService);
   private readonly accountApi = inject(AccountApiService);
-  private readonly ordersApi = inject(OrdersApiService);
   protected readonly loading = signal(false);
   protected readonly saving = signal(false);
   protected readonly addressSaving = signal(false);
+  protected readonly addressesLoading = signal(true);
   protected readonly addressDeleting = signal(false);
   protected readonly loadError = signal('');
   protected readonly saveError = signal('');
@@ -36,7 +35,6 @@ export class AccountPageComponent {
   protected readonly returnToCheckout = this.route.snapshot.queryParamMap.get('returnUrl') === '/checkout';
   protected readonly profile = this.session.profile;
   protected readonly addresses = signal<UserAddress[]>([]);
-  protected readonly recentOrders = signal<Order[]>([]);
   protected readonly editingAddressId = signal<number | null>(null);
   protected readonly form: ProfileUpdate = { email: '', firstName: '', lastName: '', phoneNumber: '' };
   protected readonly addressForm: UserAddressRequest = {
@@ -65,7 +63,6 @@ export class AccountPageComponent {
       this.loadProfile();
     }
     this.loadAddresses();
-    this.loadRecentOrders();
   }
 
   protected loadProfile(): void {
@@ -107,16 +104,21 @@ export class AccountPageComponent {
     });
   }
 
-  protected loadAddresses(): void {
+  protected loadAddresses(force = false): void {
+    this.addressesLoading.set(true);
     this.addressError.set('');
-    this.accountApi.listAddresses().subscribe({
+    this.accountApi.listAddresses(force).subscribe({
       next: (addresses) => {
         this.addresses.set(addresses);
+        this.addressesLoading.set(false);
         if (!this.editingAddressId()) {
           this.prepareNewAddress();
         }
       },
-      error: () => this.addressError.set('Address book is unavailable. Try again after User Service is running.'),
+      error: () => {
+        this.addressesLoading.set(false);
+        this.addressError.set('Saved addresses could not be loaded. Check your session and try again.');
+      },
     });
   }
 
@@ -131,29 +133,16 @@ export class AccountPageComponent {
 
     request.subscribe({
       next: (savedAddress) => {
-        this.accountApi.listAddresses().subscribe({
-          next: (addresses) => {
-            this.addressSaving.set(false);
-            this.addresses.set(addresses);
-            if (!addresses.some((address) => address.id === savedAddress.id)) {
-              this.addressError.set('The save request succeeded, but the address was not returned when we reloaded it. Refresh before trying again.');
-              this.toast.error('Address could not be verified after saving.');
-              return;
-            }
-
-            this.toast.success(editingId ? 'Address updated.' : 'Address added.');
-            this.editingAddressId.set(null);
-            this.prepareNewAddress();
-            if (this.returnToCheckout) {
-              this.router.navigateByUrl('/checkout');
-            }
-          },
-          error: () => {
-            this.addressSaving.set(false);
-            this.addressError.set('The save request succeeded, but we could not verify the address. Refresh before trying again.');
-            this.toast.error('Address could not be verified after saving.');
-          },
-        });
+        this.addressSaving.set(false);
+        const cachedAddresses = this.accountApi.cachedAddresses();
+        if (cachedAddresses) this.addresses.set(cachedAddresses);
+        else this.addresses.update((addresses) => editingId
+          ? addresses.map((address) => address.id === savedAddress.id ? savedAddress : address)
+          : [savedAddress, ...addresses]);
+        this.toast.success(editingId ? 'Address updated.' : 'Address added.');
+        this.editingAddressId.set(null);
+        this.prepareNewAddress();
+        if (this.returnToCheckout) this.router.navigateByUrl('/checkout');
       },
       error: () => {
         this.addressSaving.set(false);
@@ -222,7 +211,7 @@ export class AccountPageComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout();
+    this.session.logout(true);
     this.toast.info('Signed out.');
     this.router.navigateByUrl('/');
   }
@@ -239,13 +228,6 @@ export class AccountPageComponent {
     if (!this.addressForm.phoneNumber) {
       this.addressForm.phoneNumber = profile.phoneNumber ?? '';
     }
-  }
-
-  private loadRecentOrders(): void {
-    this.ordersApi.listCustomerOrders().subscribe({
-      next: (orders) => this.recentOrders.set([...orders].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)).slice(0, 3)),
-      error: () => this.recentOrders.set([]),
-    });
   }
 
   private prepareNewAddress(): void {

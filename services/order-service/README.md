@@ -205,6 +205,10 @@ Order and catalog reads use local Spring Cache. Controller access uses RateLimit
 `cloud-configs/ORDER-SERVICE.yml` owns datasource, JWT, Kafka topics, outbox,
 cache, Feign, resilience, metrics, tracing, and logging settings.
 
+JWT signature, issuer, timestamps, and the shared Redis revocation marker are
+validated by `shopverse-security-starter`. If Redis is unavailable, protected
+requests fail closed.
+
 ## Tests And Observability
 
 ```powershell

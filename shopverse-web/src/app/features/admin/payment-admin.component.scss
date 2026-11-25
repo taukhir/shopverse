@@ -1,5 +1,5 @@
 .payment-admin {
-  padding-top: 54px;
+  padding-top: 30px;
 }
 
 .crumbs {
@@ -24,14 +24,14 @@
   align-items: end;
   justify-content: space-between;
   gap: 22px;
-  margin: 50px 0 42px;
+  margin: 30px 0 28px;
 }
 
 .heading h1 {
   margin: 17px 0 0;
-  font-size: clamp(44px, 6vw, 80px);
-  letter-spacing: -0.08em;
-  line-height: 0.9;
+  font-size: clamp(36px, 5vw, 62px);
+  letter-spacing: -0.065em;
+  line-height: 1;
 }
 
 .heading > button {
@@ -112,7 +112,8 @@
 }
 
 .table {
-  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
 }
 
 .table article {
@@ -120,8 +121,17 @@
   grid-template-columns: minmax(190px, 1.3fr) .75fr 1fr 1.1fr 160px;
   align-items: center;
   gap: 18px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--white);
+  box-shadow: 0 6px 18px rgba(12, 16, 32, .035);
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+.table article:hover {
+  border-color: rgba(79, 97, 233, .4);
+  box-shadow: 0 10px 24px rgba(12, 16, 32, .07);
 }
 
 .table article > div {
@@ -155,11 +165,45 @@
 }
 
 .actions button {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
   padding: 8px 9px;
+  border-radius: 7px;
   border: 1px solid var(--line);
   background: var(--white);
   font-size: 11px;
   font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.actions .reconcile-action {
+  color: #24358b;
+  border-color: #cfd4ff;
+  background: #f1f2ff;
+}
+
+.actions .retry-action {
+  color: #134d3a;
+  border-color: #b9e6d1;
+  background: #edfbf4;
+}
+
+.actions .refund-action {
+  color: #8b1d1d;
+  border-color: #f0caca;
+  background: #fff6f5;
+}
+
+.table .actions .no-actions {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-transform: none;
 }
 
 .actions button:disabled {
@@ -200,4 +244,8 @@
   .table article {
     grid-template-columns: 1fr;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .table article { transition: none; }
 }

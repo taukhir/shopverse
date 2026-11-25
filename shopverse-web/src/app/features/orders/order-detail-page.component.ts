@@ -27,6 +27,8 @@ export class OrderDetailPageComponent {
   protected readonly order = signal<Order | null>(null);
   protected readonly timeline = signal<TimelineEvent[]>([]);
   protected readonly payment = signal<Payment | null>(null);
+  protected readonly retryingPayment = signal(false);
+  protected readonly retryResult = signal<{ tone: 'success' | 'warning' | 'error'; message: string } | null>(null);
   protected readonly state = signal<'loading' | 'ready' | 'error'>('loading');
   protected readonly steps = computed<ProgressStep[]>(() => {
     const orderStatus = this.order()?.status ?? '';
@@ -75,13 +77,29 @@ export class OrderDetailPageComponent {
   }
 
   protected statusTone(status?: string | null): 'good' | 'warning' | 'danger' | 'active' {
-    const value = status ?? '';
-    if (value === 'CONFIRMED' || value === 'COMPLETED' || value === 'CAPTURED') return 'good';
-    if (value.includes('FAILED') || value.includes('REJECTED') || value.includes('CANCELLED') || value === 'DECLINED' || value === 'TIMED_OUT') {
+    const value = (status ?? '').toUpperCase();
+    if (value.includes('FAILED') || value.includes('REJECTED') || value.includes('CANCELLED') || value === 'DECLINED' || value === 'TIMED_OUT' || value.includes('ERROR')) {
       return 'danger';
     }
-    if (value.includes('PENDING') || value.includes('CREATED')) return 'warning';
+    if (['ORDER_CREATED', 'INVENTORY_RESERVED', 'PAYMENT_COMPLETED', 'ORDER_CONFIRMED', 'CONFIRMED', 'COMPLETED', 'CAPTURED', 'PACKING', 'SHIPPED', 'OUT_FOR_DELIVERY', 'DELIVERED', 'RETURNED'].includes(value)) {
+      return 'good';
+    }
+    if (value.includes('PENDING') || value.includes('PROCESSING') || value.includes('CREATED')) return 'warning';
     return 'active';
+  }
+
+  protected timelineTone(stage: string): 'good' | 'warning' | 'danger' | 'active' {
+    return stage === 'ORDER_CANCELLED' || stage === 'RETURN_REQUESTED' ? 'warning' : this.statusTone(stage);
+  }
+
+  protected timelineOutcome(stage: string): string {
+    const tone = this.timelineTone(stage);
+    if (stage === 'ORDER_CANCELLED') return 'Cancelled';
+    if (stage === 'RETURN_REQUESTED') return 'Requested';
+    if (tone === 'good') return 'Successful';
+    if (tone === 'danger') return 'Failed';
+    if (tone === 'warning') return 'In progress';
+    return 'Update';
   }
 
   protected currentStatus(): string {
@@ -140,14 +158,26 @@ export class OrderDetailPageComponent {
 
   protected retryPayment(): void {
     const order = this.order();
-    if (!order?.orderNumber || !this.canRetryPayment()) return;
+    if (!order?.orderNumber || !this.canRetryPayment() || this.retryingPayment()) return;
+    this.retryingPayment.set(true);
+    this.retryResult.set(null);
     this.ordersApi.retryPayment(order.orderNumber).subscribe({
       next: (payment) => {
         this.payment.set(payment);
-        this.toast.success('Payment retry submitted.');
+        const captured = ['CAPTURED', 'RECONCILED'].includes(payment.status);
+        const message = captured
+          ? `Payment succeeded. Status: ${this.cleanStage(payment.status)}.`
+          : `Payment attempt finished with status ${this.cleanStage(payment.status)}.${payment.failureReason ? ` ${payment.failureReason}` : ''}`;
+        this.retryResult.set({ tone: captured ? 'success' : 'warning', message });
+        this.retryingPayment.set(false);
+        if (captured) this.toast.success('Payment completed.');
         this.loadOrderState(order);
       },
-      error: () => this.toast.error('Payment retry failed for this payment state.'),
+      error: () => {
+        this.retryingPayment.set(false);
+        this.retryResult.set({ tone: 'error', message: 'Payment retry failed. Your order has not been charged again; refresh the order status before retrying.' });
+        this.toast.error('Payment retry failed.');
+      },
     });
   }
 
@@ -200,10 +230,6 @@ export class OrderDetailPageComponent {
       `Status: ${order.status}`,
     ].join('\n');
     await this.copy(references, 'Order references');
-  }
-
-  protected placeholderAction(action: string): void {
-    this.toast.info(`${action} will be enabled when the backend workflow is available.`);
   }
 
   protected nextMessage(): string {

@@ -51,4 +51,8 @@ public class Role extends BaseAuditableEntity {
     @ManyToMany(mappedBy = "roles")
     @Builder.Default
     private Set<User> users = new HashSet<>();
+
+    @ManyToMany(mappedBy = "roles")
+    @Builder.Default
+    private Set<UserGroup> groups = new HashSet<>();
 }

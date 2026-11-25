@@ -38,7 +38,8 @@ body {
 
 a { color: inherit; text-decoration: none; }
 button, input { font: inherit; }
-button { cursor: pointer; }
+button { cursor: pointer; text-align: center; line-height: 1.25; vertical-align: middle; }
+button:disabled { cursor: not-allowed; }
 img { display: block; max-width: 100%; }
 
 img.image-fallback {
@@ -59,8 +60,8 @@ img.image-fallback {
 .ghost-action {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  justify-content: center;
+  gap: 10px;
   padding: 13px 16px;
   border-radius: 999px;
   font-size: 12px;
@@ -83,14 +84,14 @@ img.image-fallback {
   max-width: var(--max-width);
   min-height: calc(100dvh - 188px);
   margin: auto;
-  padding: 96px 24px;
+  padding: clamp(44px, 6vw, 72px) 24px;
 }
 
 .admin-page-shell {
   max-width: 1180px;
   min-height: 100dvh;
   margin: auto;
-  padding: 70px 30px;
+  padding: 44px 30px 60px;
 }
 
 .eyebrow {
@@ -103,10 +104,10 @@ img.image-fallback {
 }
 
 .page-title {
-  margin: 18px 0 50px;
-  font-size: clamp(46px, 7vw, 94px);
-  letter-spacing: -0.08em;
-  line-height: 0.9;
+  margin: 14px 0 34px;
+  font-size: clamp(36px, 5.5vw, 68px);
+  letter-spacing: -0.065em;
+  line-height: 1;
 }
 
 .notice {
@@ -163,7 +164,9 @@ img.image-fallback {
 .list-controls input,
 .list-controls select {
   width: 100%;
-  padding: 11px;
+  min-height: 42px;
+  padding: 10px 12px;
+  border-radius: 8px;
   border: 1px solid var(--line);
   background: var(--white);
   font: inherit;
@@ -241,7 +244,12 @@ img.image-fallback {
 }
 
 .table-pagination button {
-  padding: 8px 11px;
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 8px;
   color: var(--ink);
   border: 1px solid var(--line);
   background: var(--paper);
@@ -298,3 +306,32 @@ img.image-fallback {
 }
 
 .skip-link:focus { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+@media (min-width: 981px) {
+  app-admin-header ~ main.admin-page-shell,
+  app-admin-header ~ main.access-control,
+  app-admin-header ~ main.admin-order-detail,
+  app-admin-header ~ main.admin-user-detail {
+    --admin-content-width: 1180px;
+    width: min(calc(100vw - 264px), var(--admin-content-width)) !important;
+    margin-left: max(264px, calc((100vw - var(--admin-content-width) + 264px) / 2)) !important;
+    margin-right: 0 !important;
+  }
+
+  app-admin-header ~ main.groups-page {
+    width: min(calc(100vw - 264px), 1240px) !important;
+    margin-left: max(264px, calc((100vw - 1240px + 264px) / 2)) !important;
+    margin-right: 0 !important;
+  }
+
+  app-admin-header ~ main.admin-activity,
+  app-admin-header ~ .admin-shell {
+    width: calc(100vw - 264px) !important;
+    margin-left: 264px !important;
+    margin-right: 0 !important;
+  }
+}

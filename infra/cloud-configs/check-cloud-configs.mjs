@@ -49,7 +49,7 @@ const userServiceRoute = gatewayConfig?.spring?.cloud?.gateway?.server?.webflux?
 const userServicePaths = userServiceRoute?.predicates
   ?.filter((predicate) => typeof predicate === 'string')
   ?.flatMap((predicate) => predicate.startsWith('Path=') ? predicate.slice('Path='.length).split(',') : []) ?? [];
-for (const route of ['/api/v1/public/**', '/api/v1/cart/**', '/api/v1/admin/**']) {
+for (const route of ['/api/v1/public/**', '/api/v1/accounts/**', '/api/v1/cart/**', '/api/v1/groups/**', '/api/v1/admin/**']) {
   if (!userServicePaths.includes(route)) failures.push(`API-GATEWAY.yml: User Service route is missing ${route}`);
 }
 if (gatewaySource.includes('/api/v1/internal/')) {

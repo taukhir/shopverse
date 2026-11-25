@@ -10,7 +10,7 @@ spring:
     config:
       server:
         native:
-          search-locations: ${CONFIG_SEARCH_LOCATIONS:file:../cloud-configs,file:./cloud-configs}
+          search-locations: ${CONFIG_SEARCH_LOCATIONS:file:./infra/cloud-configs,file:./cloud-configs}
 
 management:
   endpoints:

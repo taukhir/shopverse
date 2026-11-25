@@ -4,6 +4,7 @@ import io.shopverse.user_service.entities.User;
 import io.shopverse.user_service.entities.enums.UserStatus;
 import io.shopverse.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,7 @@ public class DatabaseUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) {
+    public @NonNull UserDetails loadUserByUsername(@NonNull String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
@@ -42,7 +43,9 @@ public class DatabaseUserDetailsService implements UserDetailsService {
     private Collection<GrantedAuthority> toAuthorities(User user) {
         Set<GrantedAuthority> authorities = new LinkedHashSet<>();
 
-        user.getRoles().forEach(role -> {
+        Set<io.shopverse.user_service.entities.Role> roles = new LinkedHashSet<>(user.getRoles());
+        user.getGroups().forEach(group -> roles.addAll(group.getRoles()));
+        roles.forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
             role.getPermissions().forEach(permission ->
                     authorities.add(new SimpleGrantedAuthority(permission.getPermissionName()))

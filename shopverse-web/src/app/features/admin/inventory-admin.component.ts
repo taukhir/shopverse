@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { SessionService } from '../../core/auth/session.service';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { APP_MESSAGES } from '../../core/errors/app-messages';
 import { ConfirmService } from '../../core/feedback/confirm.service';
 import { ToastService } from '../../core/feedback/toast.service';
@@ -30,7 +31,7 @@ const blank = (): InventoryItem => ({
 
 @Component({
   selector: 'app-inventory-admin',
-  imports: [EmptyStateComponent, FormsModule, ImageFallbackDirective, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
+  imports: [AdminHeaderComponent, EmptyStateComponent, FormsModule, ImageFallbackDirective, LoadingSkeletonComponent, ServiceNoticeComponent],
   templateUrl: './inventory-admin.component.html',
   styleUrl: './inventory-admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -98,6 +99,7 @@ export class InventoryAdminComponent {
 
   protected load(): void {
     this.loading.set(true);
+    this.error.set('');
     this.inventoryApi.listItems().subscribe({
       next: (items) => {
         this.items.set(items);
@@ -108,6 +110,21 @@ export class InventoryAdminComponent {
         this.loading.set(false);
       },
     });
+  }
+
+  protected setSearch(query: string): void {
+    this.search.set(query);
+    this.page.set(1);
+  }
+
+  protected setStockFilter(filter: 'ALL'|'LOW'|'OUT'|'AVAILABLE'): void {
+    this.stockFilter.set(filter);
+    this.page.set(1);
+  }
+
+  protected setSort(sort: 'name'|'stockAsc'|'stockDesc'|'priceAsc'|'priceDesc'|'category'): void {
+    this.sort.set(sort);
+    this.page.set(1);
   }
 
   protected create(): void {
@@ -167,10 +184,6 @@ export class InventoryAdminComponent {
     return warnings;
   }
 
-  protected deleteUnavailable(): void {
-    this.toast.info('Delete is waiting for a backend inventory delete endpoint.');
-  }
-
   protected pageLabel(): string {
     const total = this.filteredItems().length;
     if (!total) return '0 records';
@@ -185,6 +198,11 @@ export class InventoryAdminComponent {
   }
 
   protected save(): void {
+    const imageUrl = this.form.imageUrl?.trim() ?? '';
+    if (this.form.productId <= 0 || this.form.unitPrice <= 0 || (!imageUrl.startsWith('http') && !imageUrl.startsWith('/'))) {
+      this.saveError.set('Enter a positive product ID and price, plus a valid image URL or local asset path.');
+      return;
+    }
     this.saving.set(true);
     this.saveError.set('');
     this.inventoryApi.saveItem({ ...this.form }).subscribe({
@@ -209,7 +227,7 @@ export class InventoryAdminComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout();
+    this.session.logout(true);
     this.toast.info('Signed out.');
     this.router.navigateByUrl('/');
   }

@@ -34,6 +34,7 @@ sequenceDiagram
     participant Auth
     participant User
     participant UserDB
+    participant Redis
 
     Client->>Gateway: POST /auth/login with credentials
     Gateway->>Auth: Route public login request
@@ -43,13 +44,21 @@ sequenceDiagram
     User-->>Auth: Authenticated user authorities
     Auth->>Auth: Create claims and sign JWT with RSA private key
     Auth-->>Client: Access token
+    Client->>Gateway: POST /auth/logout + Bearer JWT
+    Gateway->>Redis: Check jti revocation marker
+    Gateway->>Auth: Forward authenticated logout
+    Auth->>Redis: Store revoked jti until exp
+    Auth-->>Client: 204 No Content
     Client->>Gateway: Protected API + Bearer JWT
     Gateway->>Auth: Read public key from JWKS when required
-    Gateway->>Gateway: Verify signature and claims
+    Gateway->>Gateway: Verify signature, claims, and jti status
 ```
 
 Resource services use the Auth Service JWKS endpoint to verify tokens. They do
-not receive or share the RSA private signing key.
+not receive or share the RSA private signing key. Gateway and resource services
+also fail closed when the JWT's `jti` is present in Redis or revocation state
+cannot be checked. Logout revokes one access token; refresh-token rotation and
+user-wide session revocation are not implemented.
 
 ## Successful Checkout SAGA
 

@@ -1,14 +1,37 @@
 <a class="skip-link" href="#main-content">Skip to content</a>
 
 <header class="site-header">
-  <a class="brand" routerLink="/" aria-label="ShopVerse home"><img class="brand-mark" src="/shopverse-mark.svg" width="26" height="26" alt="" />shop<span>verse</span></a>
-  <nav class="site-nav" aria-label="Main navigation">
-    <a routerLink="/" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Home</a>
-    <a routerLink="/products" routerLinkActive="active">Shop</a>
-    <a routerLink="/orders" routerLinkActive="active">Orders</a>
-    @if (session.isAuthenticated()) { <a routerLink="/notifications" routerLinkActive="active">Alerts</a><a routerLink="/account" routerLinkActive="active">Account</a>@if (session.isAdmin()) { <a routerLink="/admin">Operations</a> }<button class="logout" type="button" (click)="logout()">Sign out</button> } @else { <a routerLink="/login" routerLinkActive="active">Sign in</a> }
+  <a class="brand" routerLink="/" aria-label="ShopVerse home" (click)="closeMenu()"><img class="brand-mark" src="/shopverse-mark.svg" width="28" height="28" alt="" />shop<span>verse</span></a>
+  <div class="header-actions">
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-controls="storefront-navigation"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggleMenu()"
+    >
+      {{ menuOpen() ? 'Close menu' : 'Menu' }}
+    </button>
+    <a class="cart-link" routerLink="/cart" (click)="closeMenu()">Cart <span>{{ cart.itemCount() }}</span></a>
+  </div>
+  <nav id="storefront-navigation" class="site-nav" [class.is-open]="menuOpen()" aria-label="ShopVerse navigation">
+    <a routerLink="/" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Home</a>
+    <a routerLink="/products" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Shop</a>
+    @if (session.isAuthenticated()) {
+      <a routerLink="/orders" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Orders</a>
+      <a routerLink="/notifications" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Notifications</a>
+      <a routerLink="/account" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Account</a>
+      @if (session.canAccessBackOffice()) {
+        <a routerLink="/admin" class="operations-link" (click)="closeMenu()">Back office</a>
+      }
+      @if (cart.itemCount() > 0) {
+        <a routerLink="/checkout" class="checkout-link" (click)="closeMenu()">Checkout</a>
+      }
+      <button class="logout" type="button" (click)="closeMenu(); logout()">Sign out</button>
+    } @else {
+      <a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Sign in</a>
+    }
   </nav>
-  <a class="cart-link" routerLink="/cart">Cart <span>{{ cart.itemCount() }}</span></a>
 </header>
 
 <main id="main-content"><router-outlet /></main>
@@ -16,5 +39,5 @@
 <footer class="site-footer">
   <a class="brand" routerLink="/" aria-label="ShopVerse home"><img class="brand-mark" src="/shopverse-mark.svg" width="26" height="26" loading="lazy" decoding="async" alt="" />shop<span>verse</span></a>
   <p>Commerce that keeps every step in view.</p>
-  <a routerLink="/admin">Operations</a>
+  @if (session.canAccessBackOffice()) { <a routerLink="/admin">Back office</a> }
 </footer>

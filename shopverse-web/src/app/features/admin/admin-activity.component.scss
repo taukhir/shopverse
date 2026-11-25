@@ -165,7 +165,28 @@ button:disabled {
 
 .activity-table {
   border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--white);
 }
+
+.activity-table-scroll { overflow-x: auto; }
+.activity-table table { width: 100%; border-collapse: collapse; text-align: left; }
+.activity-table th { padding: 13px 14px; color: var(--muted); background: #f5f5fa; font-size: 10px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.activity-table td { max-width: 250px; padding: 14px; border-top: 1px solid var(--line); color: #555b6f; font-size: 12px; vertical-align: middle; }
+.activity-table tbody tr:hover { background: #fafaff; }
+.activity-table td:first-child { display: flex; min-width: 115px; flex-direction: column; align-items: flex-start; gap: 6px; }
+.area-label { color: var(--muted); font-size: 9px; font-weight: 900; letter-spacing: .08em; }
+.result-badge { padding: 5px 7px; color: #4558ce; background: #e8eaff; font-size: 9px; font-weight: 900; }
+.result-failed .result-badge,.result-attention .result-badge { color: #9d2f22; background: #ffe5e2; }
+.result-pending .result-badge { color: #7c5900; background: #fff1c8; }
+.activity-description { min-width: 230px; }
+.activity-description strong,.activity-description span { display: block; }
+.activity-description strong { color: var(--ink); font-size: 12px; }
+.activity-description span { max-width: 320px; margin-top: 5px; color: #676b79; line-height: 1.4; }
+.reference-cell { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.view-link,.read-only-label { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-size: 11px; font-weight: 900; white-space: nowrap; }
+.read-only-label { color: var(--muted); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
 
 .empty-state {
   display: grid;
@@ -299,6 +320,8 @@ dd {
   .event {
     grid-template-columns: 1fr;
   }
+
+  .activity-table table { min-width: 980px; }
 
   dl {
     grid-template-columns: repeat(2, minmax(0, 1fr));

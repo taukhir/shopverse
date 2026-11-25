@@ -20,7 +20,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Shopverse User Service API")
-                        .description("User, role, permission, password, and audit management APIs.")
+                        .description("Account, address, user, role, permission, group, password, and audit management APIs.")
                         .version("v1")
                         .license(new License().name("Internal")))
                 .servers(List.of(new Server().url("http://localhost:8082")))

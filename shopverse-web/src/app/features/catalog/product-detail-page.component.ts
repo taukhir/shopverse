@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { CartService } from '../../core/cart/cart.service';
 import { ToastService } from '../../core/feedback/toast.service';
@@ -25,6 +26,7 @@ export class ProductDetailPageComponent {
   private readonly catalog = inject(CatalogService);
   private readonly route = inject(ActivatedRoute);
   private readonly toast = inject(ToastService);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly state = signal<ProductState>('loading');
   protected readonly product = signal<CatalogItem | null>(null);
@@ -32,12 +34,14 @@ export class ProductDetailPageComponent {
   protected readonly quantity = signal(1);
   protected readonly total = computed(() => this.price((this.product()?.price ?? 0) * this.quantity()));
   protected readonly deliveryWindow = computed(() => this.product()?.available ? '2-4 business days' : 'Unavailable');
+  private detailRequest?: Subscription;
 
   constructor() {
     this.route.paramMap.pipe(takeUntilDestroyed()).subscribe(() => this.load());
   }
 
   protected load(): void {
+    this.detailRequest?.unsubscribe();
     const productId = Number(this.route.snapshot.paramMap.get('id'));
     if (!Number.isFinite(productId)) {
       this.state.set('not-found');
@@ -45,7 +49,7 @@ export class ProductDetailPageComponent {
     }
 
     this.state.set('loading');
-    this.catalog.getProductById(productId).subscribe({
+    this.detailRequest = this.catalog.getProductById(productId).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: ({ product, related }) => {
         this.product.set(product);
         this.related.set(related);

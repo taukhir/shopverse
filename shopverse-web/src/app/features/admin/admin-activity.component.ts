@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 import { SessionService } from '../../core/auth/session.service';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { APP_MESSAGES } from '../../core/errors/app-messages';
 import { ConfirmService } from '../../core/feedback/confirm.service';
 import { ToastService } from '../../core/feedback/toast.service';
@@ -30,7 +31,7 @@ interface AdminActivityEvent {
 
 @Component({
   selector: 'app-admin-activity',
-  imports: [FormsModule, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
+  imports: [AdminHeaderComponent, FormsModule, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
   templateUrl: './admin-activity.component.html',
   styleUrl: './admin-activity.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -109,7 +110,7 @@ export class AdminActivityComponent {
   }
 
   private loadDerivedActivity(): void {
-    this.adminApi.loadOverview().subscribe({
+    this.adminApi.loadActivitySources().subscribe({
       next: ({ orders, inventory, payments, orderDeadLetters, inventoryDeadLetters, paymentDeadLetters }) => {
         const failedEvents = [
           ...orderDeadLetters.map((event) => ({ ...event, service: 'Orders' })),
@@ -152,7 +153,7 @@ export class AdminActivityComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout();
+    this.session.logout(true);
     this.toast.info('Signed out.');
     this.router.navigateByUrl('/');
   }

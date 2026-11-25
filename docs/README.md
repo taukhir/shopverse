@@ -8,6 +8,14 @@ see the separate [shopverse-docs](https://github.com/taukhir/shopverse-docs)
 repository, published at
 [taukhir.github.io/shopverse-docs](https://taukhir.github.io/shopverse-docs/).
 
+## Documentation Rules
+
+- [Documentation Maintenance Rules](DOCUMENTATION-MAINTENANCE.md) defines the
+  required documentation updates for code, API, feature, event, configuration,
+  security, and operational changes.
+- For agent navigation, see
+  [Agent Documentation Index](../dev-tools/teams/AGENT-DOCS-INDEX.md).
+
 ## Case Study
 
 Start here to see the platform end to end.
@@ -49,6 +57,11 @@ Start here to see the platform end to end.
 - [Shopverse API Guide](development/API-GUIDE.md)
 - [Shopverse Observability Operations](observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
 - [Service README And AI Capability Gap Matrix](services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX.md)
+
+The feature page above is an index to the separately published capability
+pages; it is not a local Implemented/Partial/Planned matrix. Verify current
+behavior against service code and the canonical published pages before using
+status claims.
 
 Service-specific APIs, configuration, and operational detail stay in each
 service's own README (`services/<name>/README.md`), not duplicated here.

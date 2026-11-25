@@ -45,7 +45,7 @@ before Docker creates resources.
 docker compose --profile apps --profile assets up -d
 
 # Rebuild and restart one changed service
-docker compose --profile apps up -d --build order-service
+docker compose --profile apps --profile assets up -d --build order-service
 
 # Start only the web UI against an already-running backend (full-stack overlay)
 # --profile apps --profile assets is still required: shopverse-web depends on
@@ -119,6 +119,53 @@ docker compose exec mysql mysql -uroot -p
 
 Production deployments should use managed/database-per-service isolation as
 required by scale, security, and availability objectives.
+
+## Registry Images and Deployment Override
+
+[`docker-compose.deploy.yml`](../../docker-compose.deploy.yml) is an override
+for the root Compose file. It replaces the eight application services' local
+build/image settings with prebuilt images from a container registry. It does
+not build or publish images, and the file alone does not deploy anything. A
+Compose `up` command using both files creates or updates containers from the
+selected registry images; it may recreate containers when the image or
+configuration changes. MySQL, Kafka, MinIO, Zipkin, and observability
+infrastructure remain defined by the base Compose file.
+
+The override supports these interpolation variables:
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `IMAGE_REGISTRY` | `ghcr.io` | Registry host |
+| `IMAGE_NAMESPACE` | `taukhir/shopverse` | Repository or organization namespace |
+| `IMAGE_TAG` | `latest` | Tag applied to each application image |
+
+Set them in the root `.env` (or in the process environment) to select the
+images that have already been published. For example:
+
+```dotenv
+IMAGE_REGISTRY=ghcr.io
+IMAGE_NAMESPACE=taukhir/shopverse
+IMAGE_TAG=1.2.3
+```
+
+Validate the merged model, then pull and start/update the application stack:
+
+```powershell
+docker compose --profile apps --profile assets `
+  -f docker-compose.yml -f docker-compose.deploy.yml config --quiet
+
+docker compose --profile apps --profile assets `
+  -f docker-compose.yml -f docker-compose.deploy.yml pull
+
+docker compose --profile apps --profile assets `
+  -f docker-compose.yml -f docker-compose.deploy.yml up -d
+```
+
+Authenticate to a private registry with `docker login` before pulling. The
+`up` command is the operation that applies the selected images; use an explicit
+immutable tag for predictable rollouts. Do not use this override for local
+image builds, which use `docker-compose.yml` without the deploy override and
+the `--build` flag.
 
 ## MinIO Product Media
 

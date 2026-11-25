@@ -160,6 +160,9 @@ fencing/lease mechanism, or another proven single-owner design.
 
 `cloud-configs/INVENTORY-SERVICE.yml` defines datasource, cache, JWT, reservation TTL, expiry scan delay, RateLimiter, and Bulkhead.
 
+The shared security starter validates JWT signature, issuer, timestamps, and
+Redis revocation state. Protected requests fail closed if Redis is unavailable.
+
 ## Tests And Observability
 
 `test` covers unit/slice behavior; `integrationTest` uses MySQL and Kafka

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { SessionService } from '../../core/auth/session.service';
 import { APP_MESSAGES } from '../../core/errors/app-messages';
@@ -13,18 +13,20 @@ import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.com
 import { compareNumber, compareText, uniqueSorted } from '../../shared/utils/collection';
 import { formatInr } from '../../shared/utils/formatters';
 import { AdminApiService, AdminFailedEvent, AdminInventoryItem, AdminOrder, AdminPayment, AdminUser } from './admin-api.service';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 
 interface StatusSlice { status:string; count:number; percent:number; }
 
 @Component({
   selector:'app-admin-page',
-  imports:[EmptyStateComponent,FormsModule,LoadingSkeletonComponent,RouterLink,RouterLinkActive,ServiceNoticeComponent],
+  imports:[AdminHeaderComponent,EmptyStateComponent,FormsModule,LoadingSkeletonComponent,RouterLink,ServiceNoticeComponent],
   templateUrl:'./admin-page.component.html',
   styleUrl:'./admin-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminPageComponent {
   private readonly route=inject(ActivatedRoute);
+  private readonly destroyRef=inject(DestroyRef);
   private readonly adminApi=inject(AdminApiService);
   private readonly confirm=inject(ConfirmService);
   private readonly router=inject(Router);
@@ -47,6 +49,7 @@ export class AdminPageComponent {
   protected readonly optionalWarning=signal('');
   protected readonly loading=signal(true);
   protected readonly error=signal('');
+  private loadGeneration = 0;
 
   protected readonly openOrderCount=computed(()=>this.orders().filter(order=>order.status!=='CONFIRMED' && order.status!=='CANCELLED').length);
   protected readonly orderRevenue=computed(()=>this.orders().reduce((sum,order)=>sum+Number(order.totalAmount || 0),0));
@@ -118,12 +121,39 @@ export class AdminPageComponent {
   }
 
   protected load(): void {
+    const generation = ++this.loadGeneration;
     this.loading.set(true);
     this.error.set('');
     this.optionalWarning.set('');
 
-    this.adminApi.loadOverview().subscribe({
+    if (this.section() === 'orders') {
+      this.adminApi.loadOrders().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: (orders) => {
+          if (generation !== this.loadGeneration) return;
+          this.orders.set(orders);
+          this.loading.set(false);
+        },
+        error: () => { if (generation === this.loadGeneration) this.fail(); },
+      });
+      return;
+    }
+
+    if (this.section() === 'users') {
+      this.adminApi.loadUsers().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: (users) => {
+          if (generation !== this.loadGeneration) return;
+          this.users.set(users.content);
+          this.userTotal.set(users.totalElements ?? users.content.length);
+          this.loading.set(false);
+        },
+        error: () => { if (generation === this.loadGeneration) this.fail(); },
+      });
+      return;
+    }
+
+    this.adminApi.loadOverview().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: ({orders, users, inventory, payments, orderDeadLetters, inventoryDeadLetters, paymentDeadLetters})=>{
+        if (generation !== this.loadGeneration) return;
         this.orders.set(orders);
         this.users.set(users.content);
         this.userTotal.set(users.totalElements ?? users.content.length);
@@ -139,7 +169,7 @@ export class AdminPageComponent {
         }
         this.loading.set(false);
       },
-      error:()=>this.fail(),
+      error:()=>{ if (generation === this.loadGeneration) this.fail(); },
     });
   }
 
@@ -175,7 +205,7 @@ export class AdminPageComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout();
+    this.session.logout(true);
     this.toast.info('Signed out.');
     this.router.navigateByUrl('/');
   }

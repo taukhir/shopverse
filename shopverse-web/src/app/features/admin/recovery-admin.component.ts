@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { SessionService } from '../../core/auth/session.service';
 import { APP_MESSAGES } from '../../core/errors/app-messages';
@@ -18,7 +19,7 @@ type ReplayFilter = 'All' | 'Open' | 'Replayed';
 
 @Component({
   selector: 'app-recovery-admin',
-  imports: [DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
+  imports: [AdminHeaderComponent, DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, ServiceNoticeComponent],
   templateUrl: './recovery-admin.component.html',
   styleUrl: './recovery-admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -163,7 +164,7 @@ export class RecoveryAdminComponent {
   }
 
   protected logout(): void {
-    this.session.logout();
+    this.session.logout(true);
     this.router.navigateByUrl('/');
   }
 }

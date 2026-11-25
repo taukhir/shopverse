@@ -91,17 +91,21 @@ describe('SessionService', () => {
   it('loadProfile() fetches and stores the profile', () => {
     const service = create();
     service.loadProfile().subscribe();
-    httpMock.expectOne('/api/v1/users/me').flush({
+    const request = httpMock.expectOne('/api/v1/accounts/current');
+    expect(request.request.method).toBe('GET');
+    request.flush({
       id: 1, username: 'bob', email: 'bob@example.test', firstName: 'Bob', lastName: 'B',
       phoneNumber: null, status: 'ACTIVE', roles: [],
     });
     expect(service.profile()?.username).toBe('bob');
   });
 
-  it('updateProfile() puts and replaces the stored profile', () => {
+  it('updateProfile() patches and stores the changed profile', () => {
     const service = create();
     service.updateProfile({ email: 'new@example.test', firstName: 'Bob', lastName: 'B', phoneNumber: '123' }).subscribe();
-    httpMock.expectOne('/api/v1/users/me').flush({
+    const request = httpMock.expectOne('/api/v1/accounts/current');
+    expect(request.request.method).toBe('PATCH');
+    request.flush({
       id: 1, username: 'bob', email: 'new@example.test', firstName: 'Bob', lastName: 'B',
       phoneNumber: '123', status: 'ACTIVE', roles: [],
     });
@@ -118,6 +122,22 @@ describe('SessionService', () => {
 
     expect(service.token()).toBeNull();
     expect(service.profile()).toBeNull();
+    expect(sessionStorage.getItem(STORAGE_KEYS.sessionToken)).toBeNull();
+  });
+
+  it('logout(true) calls the server logout endpoint before clearing the token', () => {
+    const token = buildToken({ sub: 'dana', roles: 'ROLE_CUSTOMER', exp: Math.floor(Date.now() / 1000) + 3600 });
+    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
+    const service = create();
+
+    service.logout(true);
+
+    const request = httpMock.expectOne('/auth/logout');
+    expect(request.request.method).toBe('POST');
+    expect(service.token()).toBe(token);
+    request.flush(null, { status: 204, statusText: 'No Content' });
+
+    expect(service.token()).toBeNull();
     expect(sessionStorage.getItem(STORAGE_KEYS.sessionToken)).toBeNull();
   });
 });

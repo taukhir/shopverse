@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 
@@ -15,6 +15,7 @@ import { SessionService } from '../../core/auth/session.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomerLayoutComponent {
+  protected readonly menuOpen = signal(false);
   protected readonly cart = inject(CartService);
   protected readonly session = inject(SessionService);
   private readonly confirm = inject(ConfirmService);
@@ -25,6 +26,14 @@ export class CustomerLayoutComponent {
     this.cart.loadPersistedCart();
   }
 
+  protected toggleMenu(): void {
+    this.menuOpen.update((open) => !open);
+  }
+
+  protected closeMenu(): void {
+    this.menuOpen.set(false);
+  }
+
   protected async logout(): Promise<void> {
     const confirmed = await this.confirm.confirm({
       title: 'Sign out?',
@@ -32,7 +41,7 @@ export class CustomerLayoutComponent {
       confirmText: 'Sign out',
     });
     if (!confirmed) return;
-    this.session.logout();
+    this.session.logout(true);
     this.toast.info('Signed out.');
     this.router.navigateByUrl('/');
   }

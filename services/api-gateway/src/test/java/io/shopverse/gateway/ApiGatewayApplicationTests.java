@@ -57,11 +57,19 @@ class ApiGatewayApplicationTests {
 				.exchange()
 				.expectStatus().isUnauthorized();
 		webTestClient.get()
-				.uri("/api/v1/public/unlisted")
+				.uri("/api/v1/accounts/current")
 				.exchange()
 				.expectStatus().isUnauthorized();
 		webTestClient.get()
+				.uri("/api/v1/public/unlisted")
+				.exchange()
+				.expectStatus().isOk();
+		webTestClient.get()
 				.uri("/api/v1/internal/users/authenticated")
+				.exchange()
+				.expectStatus().isUnauthorized();
+		webTestClient.post()
+				.uri("/auth/logout")
 				.exchange()
 				.expectStatus().isUnauthorized();
 	}
@@ -78,7 +86,7 @@ class ApiGatewayApplicationTests {
 			return ResponseEntity.status(HttpStatus.CREATED).body("created");
 		}
 
-		@GetMapping({"/api/v1/users/me", "/api/v1/internal/users/authenticated"})
+		@GetMapping({"/api/v1/users/me", "/api/v1/accounts/current", "/api/v1/internal/users/authenticated", "/api/v1/public/unlisted"})
 		String protectedEndpoint() {
 			return "protected";
 		}

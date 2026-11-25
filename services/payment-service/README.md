@@ -121,6 +121,9 @@ provider idempotency key derived from the order number.
 
 Customer payment lookup compares the authenticated JWT subject with the payment owner. Administrators retain cross-customer access.
 
+JWT validation also checks the token's Redis revocation marker through the
+shared security starter. Protected requests fail closed if Redis is unavailable.
+
 See [Resource ownership authorization](https://taukhir.github.io/shopverse-docs/reliability/problems/runtime/RESOURCE-OWNERSHIP-AUTHORIZATION)
 for the problem statement, `@PreAuthorize` flow, targeted repository query,
 expected API outcomes, and method-security tests.

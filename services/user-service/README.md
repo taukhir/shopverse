@@ -1,6 +1,6 @@
 # User Service
 
-User Service runs on port `8082`. It owns users, roles, permissions, database-backed authentication, customer address books, persisted carts, and permission-level administration.
+User Service runs on port `8082`. It owns user identity, accounts, customer address books, roles, permissions, groups, and permission-level administration. It still hosts the legacy persisted cart API pending FEAT-AS migration; cart extraction remains a separate task.
 
 ## Security Chains
 
@@ -9,7 +9,7 @@ The service intentionally defines two ordered filter chains:
 1. internal Basic authentication for `/api/v1/internal/users/**`;
 2. JWT Resource Server security for public and administrative APIs.
 
-The internal endpoint supports Auth Service credential validation. Public APIs use bearer JWTs. The JWT decoder verifies the JWKS signature, timestamps, and issuer `shopverse-auth-service`.
+The internal endpoint supports Auth Service credential validation. Public APIs use bearer JWTs. The JWT decoder verifies the JWKS signature, timestamps, issuer `shopverse-auth-service`, and Redis access-token revocation marker. Revocation lookup fails closed if Redis is unavailable.
 
 ## APIs
 
@@ -18,13 +18,42 @@ The internal endpoint supports Auth Service credential validation. Public APIs u
 | health | `/api/v1/public/health` | public |
 | registration | `/api/v1/public/users/register` | public |
 | internal authentication | `/api/v1/internal/users/authenticated` | internal Basic |
-| current profile | `/api/v1/users/me` | authenticated user |
-| address book | `/api/v1/users/me/addresses` | authenticated owner |
+| current account | `/api/v1/accounts/current` | `ROLE_CUSTOMER` or `ROLE_ADMIN` |
+| account addresses | `/api/v1/accounts/current/addresses` | authenticated owner |
 | persisted cart | `/api/v1/cart` | authenticated owner |
-| users | `/api/v1/users` | permission authorities |
+| administrative users | `/api/v1/admin/users` | fine-grained user authorities |
 | roles | `/api/v1/roles` | `ADMIN_ACCESS` |
 | permissions | `/api/v1/permissions` | `ADMIN_ACCESS` |
+| groups | `/api/v1/groups` | `ADMIN_ACCESS` |
 | admin audit | `/api/v1/admin/audit-events` | `ADMIN_ACCESS` |
+
+Controllers are grouped by responsibility: `controller.account` contains
+`AccountController` and `UserAddressController`; `controller.admin` contains
+`UserAdminController`, `UserGroupController`, `RoleController`, `PermissionController`, and
+`AdminAuditEventController`; `controller.cart`, `controller.internal`, and
+`controller.publicapi` contain the cart, internal credential lookup, and public
+health/registration endpoints respectively. These are package/controller
+boundaries. Canonical paths distinguish account self-service from administration;
+legacy `/api/v1/accounts/me/**` and `/api/v1/users/me/**` self-service paths and
+`/api/v1/users/**` administrative paths remain temporarily mapped for compatibility.
+Profile and administrative partial updates use `PATCH`; full user, address, and
+group replacements use `PUT` with complete replacement request DTOs. Roles and
+permissions currently expose partial updates with `PATCH` only. Create endpoints
+return `201 Created` and a `Location` header; deletes and idempotent relationship
+assignment/removal return `204 No Content`. Reads and successful updates return
+`200 OK`; missing or non-owned address resources return `404 Not Found`.
+
+The application service layer is grouped by feature (`service.account`,
+`service.admin`, `service.identity`, `service.provisioning`, `service.address`,
+`service.access`, `service.group`, `service.cart`, `service.audit`,
+`service.credentials`, and `service.lookup`). Account profile changes,
+administrative user management, identity lookup, and shared user provisioning
+are separate use cases. Shared persistence entities and request/response types
+remain in `entities`, `model`, and `dto` because multiple features use them.
+There is no remaining implementation under the legacy `service.impl` package;
+the empty directory may still appear in a local checkout but is not a code
+package. This feature organization is source-verified; automated tests are
+tracked separately below.
 
 User authorities:
 
@@ -40,13 +69,33 @@ Self-service endpoints:
 | Method | Path | Purpose |
 |---|---|---|
 | `POST` | `/api/v1/public/users/register` | create a customer account |
-| `GET` | `/api/v1/users/me` | return the current profile |
-| `PUT` | `/api/v1/users/me` | replace/update the current profile |
-| `PATCH` | `/api/v1/users/me` | partial profile update alias |
-| `GET` | `/api/v1/users/me/addresses` | list owned addresses |
-| `POST` | `/api/v1/users/me/addresses` | create address |
-| `PUT` | `/api/v1/users/me/addresses/{addressId}` | update owned address |
-| `DELETE` | `/api/v1/users/me/addresses/{addressId}` | delete owned address |
+| `GET` | `/api/v1/accounts/current` | read current account (`200`) |
+| `PATCH` | `/api/v1/accounts/current` | partially update current account (`200`) |
+| `GET` | `/api/v1/accounts/current/addresses` | list owned addresses (`200`) |
+| `GET` | `/api/v1/accounts/current/addresses/{addressId}` | read an owned address (`200`, `404` if absent or not owned) |
+| `POST` | `/api/v1/accounts/current/addresses` | create address (`201`, `Location`) |
+| `PUT` | `/api/v1/accounts/current/addresses/{addressId}` | replace owned address (`200`) |
+| `DELETE` | `/api/v1/accounts/current/addresses/{addressId}` | delete owned address (`204`) |
+| `GET` | `/api/v1/admin/users` | list users (`200`) |
+| `POST` | `/api/v1/admin/users` | create user (`201`, `Location`) |
+| `GET/PUT/PATCH/DELETE` | `/api/v1/admin/users/{userId}` | read/replace/partially update/soft-delete user (`200`/`204`) |
+| `GET` | `/api/v1/groups` | list groups (`200`) |
+| `POST` | `/api/v1/groups` | create group (`201`, `Location`) |
+| `GET/PUT/PATCH/DELETE` | `/api/v1/groups/{groupId}` | read/replace/partially update/delete group (`200`/`204`) |
+| `GET` | `/api/v1/groups/{groupId}/members` | list group members |
+| `PUT/DELETE` | `/api/v1/groups/{groupId}/members/{userId}` | add/remove membership idempotently (`204`) |
+| `PUT/DELETE` | `/api/v1/groups/{groupId}/roles/{roleId}` | assign/unassign a role idempotently (`204`) |
+| `GET` | `/api/v1/roles` | list roles (`200`) |
+| `POST` | `/api/v1/roles` | create role (`201`, `Location`) |
+| `GET/PATCH/DELETE` | `/api/v1/roles/{roleId}` | read/partially update/delete role (`200`/`204`) |
+| `GET` | `/api/v1/permissions` | list permissions (`200`) |
+| `POST` | `/api/v1/permissions` | create permission (`201`, `Location`) |
+| `GET/PATCH/DELETE` | `/api/v1/permissions/{permissionId}` | read/partially update/delete permission (`200`/`204`) |
+
+Groups augment direct user roles; nested groups are not supported. Group and
+membership changes appear in JWT authorities when Auth Service issues a new token;
+they do not automatically revoke existing tokens. A caller can revoke the presented
+token through Auth Service logout.
 
 Cart endpoints:
 
@@ -70,7 +119,7 @@ Admin audit endpoints:
 | `GET` | `/api/v1/admin/audit-events/{id}` | inspect one admin audit event |
 
 The first implementation records User Service administrative/account actions
-such as user, role, permission, and password changes. Other services can later
+such as user, role, permission, group, membership, and password changes. Other services can later
 write to the same audit contract or move the contract into a dedicated audit
 service without changing the Angular route.
 
@@ -78,10 +127,20 @@ Swagger is available at `/swagger-ui/index.html`; use the **Authorize** action w
 
 ## Persistence
 
-Liquibase creates users, roles, permissions, join tables, refresh-token/audit
-support tables, address tables, cart tables, and bootstrap data.
+Liquibase creates users, roles, permissions, groups, membership/role join tables,
+refresh-token/audit support tables, address tables, cart tables, and bootstrap data.
 `UserRepository` and `RoleRepository` use `@EntityGraph` to load roles and
 permissions without an N+1 query sequence.
+
+Mutable entities (`User`, `UserAddress`, `Cart`, `CartItem`, `Role`,
+`Permission`, `UserGroup`, and `RefreshToken`) extend `BaseAuditableEntity` and
+receive `createdAt`, `createdBy`, `updatedAt`, `updatedBy`, and optimistic-lock
+`version` values through Spring Data JPA auditing. `createdBy` and `updatedBy`
+use the authenticated Spring Security principal name; unauthenticated operations
+have no auditor and may leave actor fields null. Append-only event/history
+entities keep their event-specific actor and timestamp fields. The address
+default-switch bulk update explicitly writes modification actor/time because
+bulk JPQL bypasses JPA entity listeners.
 
 `DatabaseUserDetailsService` adapts the User repository model to Spring Security's `UserDetailsService` contract. BCrypt compares the supplied password with the stored hash.
 
@@ -119,7 +178,9 @@ docker compose exec mysql sh -lc '
 
 Role and permission lookups use `ConcurrentMapCacheManager`. This is a local cache, not Redis. Mutations evict the related caches.
 
-`UserController` uses annotation-based RateLimiter and semaphore Bulkhead. Lookup operations use a bounded Retry.
+Account, address, and administrative user controllers use the configured
+annotation-based RateLimiter and semaphore Bulkhead. Lookup operations use a
+bounded Retry.
 
 ## Configuration
 
@@ -129,8 +190,8 @@ Do not commit `.env`. In production, use a secret manager and replace internal B
 
 ## Tests
 
-Controller tests demonstrate request mapping and validation. Service tests cover
-password, lookup, role, permission, and audit behavior. Dedicated method-security
+Controller tests demonstrate request mapping and validation. Feature service tests cover
+account, user provisioning/administration, password, lookup, role, permission, and audit behavior. Dedicated method-security
 tests should be added for permission allow/deny cases; the standalone MockMvc
 controller test does not load the Spring Security filter chain.
 

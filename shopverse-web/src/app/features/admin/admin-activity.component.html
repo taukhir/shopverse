@@ -1,15 +1,5 @@
+<app-admin-header (signOut)="logout()" />
 <main class="admin-activity">
-  <nav class="admin-local-nav" aria-label="Admin navigation">
-    <div>
-      <a routerLink="/">Home</a><span>/</span><a routerLink="/admin">Admin</a><span>/</span><b>Activity</b>
-    </div>
-    <div class="admin-actions">
-      <a routerLink="/admin">Overview</a>
-      <a routerLink="/admin/recovery">Recovery</a>
-      <a routerLink="/">Storefront</a>
-      <button type="button" (click)="logout()">Sign out</button>
-    </div>
-  </nav>
 
   <section class="hero">
     <p class="eyebrow">Operational audit view</p>
@@ -89,31 +79,24 @@
           </div>
         </div>
 
-        @for (event of visibleEvents(); track event.id) {
-          <article [class]="'event result-' + event.result.toLowerCase()">
-            <div class="event-marker">
-              <span>{{ event.area }}</span>
-              <b>{{ event.result }}</b>
-            </div>
-            <div class="event-body">
-              <div>
-                <h2>{{ event.title }}</h2>
-                <p>{{ event.description }}</p>
-              </div>
-              <dl>
-                <div><dt>Actor</dt><dd>{{ event.actor }}</dd></div>
-                <div><dt>Status</dt><dd>{{ event.status }}</dd></div>
-                <div><dt>Time</dt><dd>{{ event.occurredAt || 'Not provided' }}</dd></div>
-                @if (event.meta) {
-                  <div><dt>Ref</dt><dd>{{ event.meta }}</dd></div>
-                }
-              </dl>
-            </div>
-            @if (event.link) {
-              <a [routerLink]="event.link">Open <span>&rarr;</span></a>
-            }
-          </article>
-        }
+        <div class="activity-table-scroll">
+          <table>
+            <thead><tr><th scope="col">Area / result</th><th scope="col">Activity</th><th scope="col">Actor</th><th scope="col">Status</th><th scope="col">Time</th><th scope="col">Reference</th><th scope="col"><span class="visually-hidden">Details</span></th></tr></thead>
+            <tbody>
+              @for (event of visibleEvents(); track event.id) {
+                <tr [class]="'result-' + event.result.toLowerCase()">
+                  <td><span class="area-label">{{ event.area }}</span><span class="result-badge">{{ event.result }}</span></td>
+                  <td class="activity-description"><strong>{{ event.title }}</strong><span>{{ event.description }}</span></td>
+                  <td>{{ event.actor }}</td>
+                  <td>{{ event.status }}</td>
+                  <td>{{ event.occurredAt || 'Not provided' }}</td>
+                  <td class="reference-cell">{{ event.meta || '—' }}</td>
+                  <td>@if (event.link) { <a class="view-link" [routerLink]="event.link" [attr.aria-label]="'View details for ' + event.title"><span aria-hidden="true">&#8599;</span> View</a> } @else { <span class="read-only-label" title="No detail page is available"><span aria-hidden="true">&#128274;</span> Read only</span> }</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       </section>
     }
   }

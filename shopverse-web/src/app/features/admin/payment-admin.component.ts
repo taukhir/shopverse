@@ -1,4 +1,5 @@
 import { DatePipe } from '@angular/common';
+import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -16,7 +17,7 @@ import { Payment, PaymentAction, PaymentApiService } from './payment-api.service
 
 @Component({
   selector: 'app-payment-admin',
-  imports: [DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
+  imports: [AdminHeaderComponent, DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
   templateUrl: './payment-admin.component.html',
   styleUrl: './payment-admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -98,11 +99,21 @@ export class PaymentAdminComponent {
   protected async reconcile(payment: Payment): Promise<void> {
     const confirmed = await this.confirm.confirm({
       title: `Reconcile ${payment.orderNumber}?`,
-      message: 'This will ask the payment workflow to complete a payment that is pending or timed out.',
+      message: 'This completes a payment that timed out before its final status was received.',
       confirmText: 'Reconcile',
     });
     if (!confirmed) return;
     this.runOrderAction(payment, 'reconcile');
+  }
+
+  protected async retry(payment: Payment): Promise<void> {
+    const confirmed = await this.confirm.confirm({
+      title: `Retry payment for ${payment.orderNumber}?`,
+      message: 'This starts another payment attempt. Continue only when a new charge attempt is intended.',
+      confirmText: 'Retry payment',
+    });
+    if (!confirmed) return;
+    this.runOrderAction(payment, 'retry');
   }
 
   protected async refund(payment: Payment): Promise<void> {
@@ -117,7 +128,11 @@ export class PaymentAdminComponent {
   }
 
   protected canReconcile(payment: Payment): boolean {
-    return payment.status === 'TIMED_OUT' || payment.status === 'PENDING' || payment.status === 'AUTHORIZED';
+    return payment.status === 'TIMED_OUT';
+  }
+
+  protected canRetryPayment(payment: Payment): boolean {
+    return payment.status === 'DECLINED' || payment.status === 'TIMED_OUT';
   }
 
   protected canRefund(payment: Payment): boolean {
@@ -142,7 +157,7 @@ export class PaymentAdminComponent {
   }
 
   protected logout(): void {
-    this.session.logout();
+    this.session.logout(true);
     this.router.navigateByUrl('/');
   }
 
@@ -153,9 +168,10 @@ export class PaymentAdminComponent {
     this.paymentApi.runOrderAction(payment.orderNumber, action).subscribe({
       next: (updated) => {
         this.payments.update((payments) => payments.map((candidate) => candidate.orderNumber === updated.orderNumber ? updated : candidate));
-        this.actionSuccess.set(`Payment ${payment.orderNumber} ${action === 'refund' ? 'refunded' : 'reconciled'}.`);
+        const result = this.actionResult(action);
+        this.actionSuccess.set(`Payment ${payment.orderNumber} ${result}.`);
         this.busyOrder.set('');
-        this.toast.success(`Payment ${payment.orderNumber} ${action === 'refund' ? 'refunded' : 'reconciled'}.`);
+        this.toast.success(`Payment ${payment.orderNumber} ${result}.`);
       },
       error: () => {
         this.actionError.set(`Could not ${action} payment ${payment.orderNumber}.`);
@@ -167,6 +183,12 @@ export class PaymentAdminComponent {
 
   private countPages(total: number): number {
     return Math.max(1, Math.ceil(total / this.pageSize));
+  }
+
+  private actionResult(action: PaymentAction): string {
+    if (action === 'refund') return 'refunded';
+    if (action === 'retry') return 'retry started';
+    return 'reconciled';
   }
 
   private clampedPage(page: number, pageCount: number): number {
