@@ -136,7 +136,8 @@ public class OrderController {
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "DESC") String direction
     ) {
-        log.info("Admin requested order page={}, size={}, status={}", page, size, status.replaceAll("[\r\n]", "_"));
+        String safeStatusForLog = sanitizeForLog(status);
+        log.info("Admin requested order page={}, size={}, status={}", page, size, safeStatusForLog);
         return orderService.getAdminOrders(page, size, search, status, sortBy, direction);
     }
 
@@ -178,6 +179,13 @@ public class OrderController {
         log.warn("Admin requested catalog cache eviction");
         catalogService.evictCatalog();
         return ResponseEntity.noContent().build();
+    }
+
+    private String sanitizeForLog(String value) {
+        if (value == null) {
+            return null;
+        }
+        return value.replaceAll("[\\r\\n\\t\\f\\u000B]+", "_");
     }
 
 }
