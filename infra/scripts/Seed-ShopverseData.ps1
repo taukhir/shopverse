@@ -23,7 +23,7 @@ param(
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
-$repositoryRoot = Split-Path -Parent $PSScriptRoot
+$repositoryRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 if ([string]::IsNullOrWhiteSpace($CredentialsPath)) {
     $CredentialsPath = Join-Path $repositoryRoot "shopverse-local-credentials.md"
 }

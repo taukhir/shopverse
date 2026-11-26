@@ -12,9 +12,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
   const network = inject(NetworkStatusService);
   const router = inject(Router);
   const isPublic = PUBLIC_API_MARKERS.some((marker) => request.url.includes(marker));
-  const token = session.token();
   const headers: Record<string, string> = { 'X-Correlation-Id': crypto.randomUUID() };
-  if (token && !isPublic) headers['Authorization'] = `Bearer ${token}`;
   network.requestStarted();
   const slowTimer = setTimeout(() => network.requestSlow(), 3500);
 

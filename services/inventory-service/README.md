@@ -1,5 +1,11 @@
 # Inventory Service
 
+> **Admin reservation detail status (2026-11-25):** the frontend accepts either
+> a reservation object or an array, but the current admin order lookup still
+> returns one reservation. BUG-056 tracks a compatible multi-reservation API
+> and service/integration tests; do not claim multi-item reservation detail is
+> complete until that contract is deployed.
+
 Inventory Service runs on port `8086`. It owns the public product catalog, product metadata, stock, reservations, expiry, overselling prevention, cancellation release, and inventory-side SAGA recovery.
 
 ## APIs
@@ -25,8 +31,9 @@ for gateway-facing examples.
 ## Reservation Flow
 
 The service consumes `shopverse.order.created`, verifies stock, creates a
-reservation, decrements available quantity, and saves an inventory outcome to
-the outbox. Payment failure and order cancellation release the reservation.
+reservation per product line, decrements available quantities, and saves one
+inventory outcome to the outbox. Payment failure and order cancellation
+release the active reservations for the order.
 A scheduled expiry task restores stock for reservations that exceed the
 configured five-minute TTL.
 
@@ -45,10 +52,11 @@ idempotent Payment refund workflow.
 ## Idempotent Consumer Behavior
 
 Kafka can redeliver the same `order.created` business event. Inventory uses
-`orderNumber` as the reservation business key. Before reserving stock, the
-service checks whether a reservation already exists for that order. If it
-exists, the duplicate event is treated as already handled and stock is not
-decremented again.
+`(orderNumber, productId)` as the reservation business key. One order may have
+one reservation row per product. Before reserving stock, the service checks
+whether that row already exists. If it exists and remains `RESERVED`, replay is
+treated as already handled and stock is not decremented again; a released or
+expired row is not recreated as a successful reservation.
 
 `orderNumber` is used here because Inventory only receives the event after
 Order Service has created the order. Kafka consumer ID, group ID, partition,
@@ -58,7 +66,7 @@ key.
 
 ## Concurrency
 
-`InventoryItem` uses JPA `@Version`. Concurrent updates based on a stale version fail instead of silently overselling the last item. Reservation operations are transactional and use order number as the business key.
+`InventoryItem` uses JPA `@Version`. Concurrent updates based on a stale version fail instead of silently overselling the last item. Reservation operations are transactional and use `(orderNumber, productId)` as the business key.
 
 Liquibase seeds products `101` through `120`, including available, reserved, low-stock,
 and unavailable examples. Each catalog record also contains `brand`, `model`,
@@ -78,7 +86,22 @@ The `version` value increments on successful versioned updates. Concurrent
 transactions using an older value are rejected and must restart the complete
 idempotent reservation operation with freshly loaded state.
 
-Administrators can inspect the reservation created for one order:
+### Multiple line items in one order
+
+The Inventory consumer accepts an `OrderCreatedEvent` containing a list of
+line items. It reserves them in one local transaction and writes one consolidated
+outcome to the transactional outbox. If any line cannot be reserved, Inventory
+releases the reservations already made for that order and emits one failure
+event. The consumer retains a scalar `productId`/`quantity` fallback for the
+current Order Service event shape, which still produces one line item per
+checkout. End-to-end multi-item checkout remains blocked on the coordinated
+Order, Payment, and frontend rollout tracked by BUG-001.
+
+`GET /api/v1/inventory/admin/reservations/orders/{orderNumber}` currently
+returns only the first reservation row by ID. It does not expose every product
+row for a multi-item order; BUG-053 tracks complete administrative inspection.
+
+Administrators can inspect a reservation for one order (currently the first row only):
 
 ```http
 GET /api/v1/inventory/admin/reservations/orders/{orderNumber}

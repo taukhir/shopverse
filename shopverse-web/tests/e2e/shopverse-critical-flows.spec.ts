@@ -39,7 +39,9 @@ test('customer can browse, persist cart after refresh, checkout, and see receipt
 
 test('customer order history exposes timeline and current payment state', async ({ page }) => {
   await mockShopverseApis(page);
+  await page.goto('/login');
   await signIn(page);
+  await expect(page).not.toHaveURL(/\/login/);
 
   await page.goto('/orders');
   await expect(page.getByRole('heading', { name: /order history/i })).toBeVisible();

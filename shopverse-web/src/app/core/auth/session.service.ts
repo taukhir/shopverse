@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, catchError, finalize, of, shareReplay, tap } from 'rxjs';
+import { Observable, catchError, concatMap, finalize, map, of, shareReplay, switchMap, tap, throwError } from 'rxjs';
 
 import { API_PATHS } from '../api/api-paths';
-import { STORAGE_KEYS } from '../constants/storage-keys';
 
 export interface UserProfile {
   id: number;
@@ -23,26 +22,55 @@ export interface ProfileUpdate {
   phoneNumber: string;
 }
 
-interface TokenClaims { sub?: string; exp?: number; roles?: string; }
+export interface BrowserSession {
+  authenticated: boolean;
+  username: string | null;
+  roles: string[];
+  expiresAt: string | null;
+}
 
 @Injectable({ providedIn: 'root' })
 export class SessionService {
+  private static readonly LEGACY_TOKEN_KEY = 'shopverse.session.token';
   private readonly http = inject(HttpClient);
   private profileRequest: Observable<UserProfile> | null = null;
   private profileRevision = 0;
+  private sessionRequest: Observable<BrowserSession | null> | null = null;
   readonly sessionVersion = signal(0);
-  readonly token = signal<string | null>(this.readToken());
+  readonly identity = signal<BrowserSession | null>(null);
+  readonly sessionReady = signal(false);
   readonly profile = signal<UserProfile | null>(null);
-  readonly username = computed(() => this.claims()?.sub ?? null);
-  readonly roles = computed(() => (this.claims()?.roles ?? '').split(' ').filter(Boolean));
-  readonly isAuthenticated = computed(() => !!this.username() && !this.isExpired());
+  readonly username = computed(() => this.identity()?.username ?? null);
+  readonly roles = computed(() => this.identity()?.roles ?? []);
+  readonly isAuthenticated = computed(() => this.identity()?.authenticated ?? false);
   readonly isAdmin = computed(() => this.roles().includes('ROLE_ADMIN'));
   readonly canAccessBackOffice = computed(() => this.isAuthenticated() && this.isAdmin());
 
+  constructor() {
+    try { sessionStorage.removeItem(SessionService.LEGACY_TOKEN_KEY); } catch { /* Storage can be disabled by the browser. */ }
+  }
+
   login(username: string, password: string) {
-    return this.http.post<{ token: string }>(API_PATHS.auth.login, { username, password }).pipe(
-      tap(({ token }) => this.setToken(token)),
+    return this.http.get<void>(API_PATHS.auth.csrf).pipe(
+      concatMap(() => this.http.post<{ authenticated: boolean }>(API_PATHS.auth.login, { username, password })),
+      switchMap(() => this.fetchSession().pipe(
+        switchMap((session) => session ? of(session) : throwError(() => new Error('The authenticated session could not be restored.'))),
+      )),
+      tap((session) => this.setSession(session)),
     );
+  }
+
+  restoreSession(): Observable<BrowserSession | null> {
+    if (this.sessionReady()) return of(this.identity());
+    if (this.sessionRequest) return this.sessionRequest;
+    const request = this.fetchSession().pipe(
+      catchError(() => of(null)),
+      tap((session) => this.setSession(session)),
+      finalize(() => { this.sessionRequest = null; }),
+      shareReplay({ bufferSize: 1, refCount: false }),
+    );
+    this.sessionRequest = request;
+    return request;
   }
 
   loadProfile(force = false): Observable<UserProfile> {
@@ -76,50 +104,36 @@ export class SessionService {
     }));
   }
 
-  logout(revokeToken = false): void {
-    if (revokeToken && this.token()) {
-      this.http.post<void>(API_PATHS.auth.logout, {}).pipe(
-        catchError(() => of(undefined)),
-        finalize(() => this.clearLocalSession()),
-      ).subscribe();
-      return;
+  logout(): void {
+    this.clearSession();
+  }
+
+  logoutFromServer(): Observable<void> {
+    if (!this.isAuthenticated()) {
+      this.clearSession();
+      return of(undefined);
     }
-    this.clearLocalSession();
+    return this.http.post<void>(API_PATHS.auth.logout, {}).pipe(
+      tap(() => this.clearSession()),
+    );
   }
 
-  private clearLocalSession(): void {
-    sessionStorage.removeItem(STORAGE_KEYS.sessionToken);
-    this.token.set(null);
+  private fetchSession(): Observable<BrowserSession | null> {
+    return this.http.get<BrowserSession>(API_PATHS.auth.session).pipe(
+      map((session) => session.authenticated ? session : null),
+    );
+  }
+
+  private setSession(session: BrowserSession | null): void {
+    this.identity.set(session);
+    this.sessionReady.set(true);
     this.profile.set(null);
     this.profileRequest = null;
     this.profileRevision++;
     this.sessionVersion.update((version) => version + 1);
   }
 
-  private setToken(token: string): void {
-    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
-    this.token.set(token);
-    this.profile.set(null);
-    this.profileRequest = null;
-    this.profileRevision++;
-    this.sessionVersion.update((version) => version + 1);
-  }
-
-  private readToken(): string | null {
-    try { return sessionStorage.getItem(STORAGE_KEYS.sessionToken); } catch { return null; }
-  }
-
-  private claims(): TokenClaims | null {
-    const token = this.token();
-    if (!token) return null;
-    try {
-      const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-      return JSON.parse(atob(payload)) as TokenClaims;
-    } catch { return null; }
-  }
-
-  private isExpired(): boolean {
-    const exp = this.claims()?.exp;
-    return !!exp && exp * 1000 <= Date.now();
+  private clearSession(): void {
+    this.setSession(null);
   }
 }

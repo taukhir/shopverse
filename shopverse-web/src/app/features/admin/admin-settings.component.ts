@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { Router } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { PaymentApiService, SimulationMode } from './payment-api.service';
 
 @Component({
   selector: 'app-admin-settings',
-  imports: [AdminHeaderComponent, FormsModule],
+  imports: [AdminHeaderComponent, FormsModule, RouterLink],
   templateUrl: './admin-settings.component.html',
   styleUrl: './admin-settings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,7 +41,9 @@ export class AdminSettingsComponent {
   }
 
   protected logout(): void {
-    this.session.logout(true);
-    this.router.navigateByUrl('/');
+    this.session.logoutFromServer().subscribe({
+      next: () => { this.toast.info('Signed out.'); this.router.navigateByUrl('/'); },
+      error: () => this.toast.error('Sign out failed. Please check your connection and try again.'),
+    });
   }
 }

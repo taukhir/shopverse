@@ -51,9 +51,6 @@
           <p class="checkout-warning">Remove unavailable items before checkout. They cannot be reserved or paid for.</p>
           <button class="cleanup" type="button" (click)="removeUnavailableItems()">Remove unavailable items</button>
         }
-        @if (cart.items().length > 1) {
-          <p class="checkout-warning">Checkout currently accepts one product line per order. Keep one item in cart before placing the order.</p>
-        }
         @if (canCheckout()) {
           <a routerLink="/checkout">Continue to checkout <span>&rarr;</span></a>
         } @else {
