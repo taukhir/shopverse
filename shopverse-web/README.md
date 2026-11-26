@@ -25,9 +25,11 @@ overlay. It talks to the backend through the API Gateway at `localhost:8080`.
 - Product catalog, category, product-detail, and related-product browsing.
 - Persisted cart, account-cart merge, and checkout flow with saved delivery address.
 - Customer order and order-detail views.
+- Recent order-activity view linked to each order's full timeline.
 - Customer order cancellation, payment retry, refund request, and return request actions.
 - Account/profile management and address book.
 - Admin views for users, roles and permissions, orders, inventory, payments, recovery, activity, and fulfillment workflows.
+- Shared back-office navigation across operations, reconciliation, returns/refunds, access management, and settings, with consistent desktop content framing.
 
 ## Current Backend Integrations
 
@@ -41,6 +43,7 @@ The UI is wired to the API Gateway through `/api` and `/auth`.
 | Account | Profile edit and address CRUD | `GET/PUT/PATCH /api/v1/users/me`, `GET/POST/PUT/DELETE /api/v1/users/me/addresses` |
 | Checkout | Two-step flow: create a priced/versioned/expiring quote for review, then place the order with the shipping snapshot and an idempotency key. Re-pricing (`GET`/`PUT`) recovers from a stale-version or expired-quote conflict without losing the review | `POST /api/v1/checkouts`, `GET/PUT /api/v1/checkouts/{checkoutId}`, `POST /api/v1/checkouts/{checkoutId}/place-order` |
 | Orders | History, detail, timeline, delivery snapshot, cancel, return request | `GET /api/v1/orders`, `GET /api/v1/orders/{id}`, `GET /api/v1/orders/{id}/timeline`, `POST /api/v1/orders/{id}/cancel`, `POST /api/v1/orders/{id}/return-request` |
+| Customer order activity | Recent order states and dates from the existing customer order-history response; no synthetic notification events or per-order detail fan-out | `GET /api/v1/orders` |
 | Payments | Customer retry/refund actions and admin payment operations | `GET /api/v1/payments/orders/{orderNumber}`, `POST /api/v1/payments/orders/{orderNumber}/retry`, `POST /api/v1/payments/orders/{orderNumber}/refund` |
 | Admin fulfillment | Pack, ship/out-for-delivery, deliver, cancel | `POST /api/v1/orders/admin/{id}/pack`, `POST /api/v1/orders/admin/{id}/ship`, `POST /api/v1/orders/admin/{id}/deliver`, `POST /api/v1/orders/admin/{id}/cancel` |
 | Admin activity | Filterable operational activity with backend-audit-first fallback behavior | paged `GET /api/v1/admin/audit-events`, then derived from existing admin APIs if unavailable |
@@ -122,6 +125,7 @@ Automated coverage now replaces these routine manual checks:
 
 - customer login redirect, cart restore after refresh, checkout, and receipt references;
 - order history, order detail timeline, and payment status visibility;
+- customer notification navigation renders recent order activity from the order-history API, with loading/error/empty handling;
 - admin overview and admin activity backed by Order, Inventory, and Payment audit signals;
 - accessibility smoke checks on home, catalog, cart, account, and admin pages;
 - Lighthouse budget on the production build;

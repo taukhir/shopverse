@@ -16,13 +16,16 @@
     </button>
   </div>
 
-  <div class="workspace-label">OPERATIONS</div>
+  <div class="workspace-label">WORKSPACE</div>
   <nav id="admin-primary-navigation" class="admin-primary-nav" [class.is-open]="menuOpen()" aria-label="Operations navigation">
     <a routerLink="/admin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">OV</span><span>Overview</span></a>
     <a routerLink="/admin/orders" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v17H5zM8 8h8M8 12h8M8 16h5" /></svg></span><span>Orders</span></a>
     <a routerLink="/admin/inventory" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 8v9l9 5 9-5V8M12 13v9" /></svg></span><span>Inventory</span></a>
+    <div class="nav-section-label">FINANCE &amp; SERVICE</div>
     <a routerLink="/admin/payments" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">$</span><span>Payments</span></a>
-    <a routerLink="/admin/recovery" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">RC</span><span>Recovery</span></a>
+    <a routerLink="/admin/reconciliation" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">RC</span><span>Reconciliation</span></a>
+    <a routerLink="/admin/returns" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">RT</span><span>Returns &amp; refunds</span></a>
+    <a routerLink="/admin/recovery" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">DL</span><span>Recovery</span></a>
     <a routerLink="/admin/activity" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()"><span class="nav-icon" aria-hidden="true">AC</span><span>Activity</span></a>
 
     <div class="nav-section-label">ACCESS</div>

@@ -314,22 +314,20 @@ img.image-fallback {
 @media (min-width: 981px) {
   app-admin-header ~ main.admin-page-shell,
   app-admin-header ~ main.access-control,
+  app-admin-header ~ main.groups-page,
   app-admin-header ~ main.admin-order-detail,
-  app-admin-header ~ main.admin-user-detail {
-    --admin-content-width: 1180px;
+  app-admin-header ~ main.admin-user-detail,
+  app-admin-header ~ main.admin-activity {
+    --admin-content-width: 1440px;
+    box-sizing: border-box;
+    max-width: var(--admin-content-width) !important;
     width: min(calc(100vw - 264px), var(--admin-content-width)) !important;
     margin-left: max(264px, calc((100vw - var(--admin-content-width) + 264px) / 2)) !important;
     margin-right: 0 !important;
   }
 
-  app-admin-header ~ main.groups-page {
-    width: min(calc(100vw - 264px), 1240px) !important;
-    margin-left: max(264px, calc((100vw - 1240px + 264px) / 2)) !important;
-    margin-right: 0 !important;
-  }
-
-  app-admin-header ~ main.admin-activity,
   app-admin-header ~ .admin-shell {
+    box-sizing: border-box;
     width: calc(100vw - 264px) !important;
     margin-left: 264px !important;
     margin-right: 0 !important;

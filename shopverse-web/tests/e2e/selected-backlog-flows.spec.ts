@@ -73,6 +73,19 @@ test('public account registration sends its request through the configured User 
   await expect(page.locator('.form-message.success')).toContainText('Account created.');
 });
 
+test('notification center shows real recent order states with a link to each order', async ({ page }) => {
+  await mockShopverseApis(page);
+  await page.goto('/login');
+  await signIn(page);
+  await expect(page).not.toHaveURL(/\/login/);
+  await page.goto('/notifications');
+
+  await expect(page.getByRole('heading', { name: 'Order activity.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Confirmed' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /view details/i })).toHaveAttribute('href', '/orders/9001');
+  await expect(page.getByText(/unread tracking and delivery preferences are not available yet/i)).toBeVisible();
+});
+
 test('admin order details render every reservation from a list response', async ({ page }) => {
   await mockShopverseApis(page);
   await page.goto('/login');
