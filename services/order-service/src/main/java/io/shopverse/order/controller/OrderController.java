@@ -136,7 +136,7 @@ public class OrderController {
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "DESC") String direction
     ) {
-        log.info("Admin requested order page={}, size={}, status={}", page, size, status);
+        log.info("Admin requested order page={}, size={}, status={}", page, size, status.replaceAll("[\r\n]", "_"));
         return orderService.getAdminOrders(page, size, search, status, sortBy, direction);
     }
 
