@@ -252,6 +252,8 @@ services:
       SERVER_PORT: 8081
       JAVA_OPTS: ${AUTH_SERVICE_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      BROWSER_COOKIE_SECURE: ${BROWSER_COOKIE_SECURE:-false}
+      JWT_ACCESS_TOKEN_TTL: ${JWT_ACCESS_TOKEN_TTL:-PT1H}
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
       SPRING_DATA_REDIS_CONNECT_TIMEOUT: ${SPRING_DATA_REDIS_CONNECT_TIMEOUT:-2s}
@@ -476,6 +478,7 @@ services:
       SERVER_PORT: 8080
       JAVA_OPTS: ${API_GATEWAY_JAVA_OPTS:--XX:MaxRAMPercentage=60 -XX:+UseContainerSupport -XX:+ExitOnOutOfMemoryError}
       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      BROWSER_CSRF_ALLOWED_ORIGINS: ${BROWSER_CSRF_ALLOWED_ORIGINS:-http://localhost:4200,http://127.0.0.1:4200}
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
       SPRING_DATA_REDIS_CONNECT_TIMEOUT: ${SPRING_DATA_REDIS_CONNECT_TIMEOUT:-2s}

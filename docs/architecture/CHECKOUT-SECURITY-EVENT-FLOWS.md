@@ -10,7 +10,7 @@ sequenceDiagram
     participant Service
     participant Database
 
-    Client->>Gateway: HTTP request + JWT + optional X-Correlation-Id
+    Client->>Gateway: HTTP request + HttpOnly JWT cookie or Bearer JWT + optional X-Correlation-Id
     Gateway->>Gateway: Validate route and JWT
     Gateway->>Eureka: Resolve logical service
     Eureka-->>Gateway: Available instances
@@ -36,23 +36,37 @@ sequenceDiagram
     participant UserDB
     participant Redis
 
-    Client->>Gateway: POST /auth/login with credentials
+    Client->>Gateway: GET /auth/csrf
+    Gateway->>Auth: issue XSRF-TOKEN cookie
+    Client->>Gateway: POST /auth/login + credentials + XSRF cookie/header
     Gateway->>Auth: Route public login request
     Auth->>User: Feign GET internal authenticated user + Basic credentials
     User->>UserDB: Load user, roles, permissions, password hash
     User->>User: Verify credentials through Spring Security
     User-->>Auth: Authenticated user authorities
     Auth->>Auth: Create claims and sign JWT with RSA private key
-    Auth-->>Client: Access token
-    Client->>Gateway: POST /auth/logout + Bearer JWT
+    Auth-->>Client: SHOPVERSE_ACCESS HttpOnly cookie; authenticated=true JSON
+    Client->>Gateway: GET /auth/session + access cookie
+    Gateway->>Auth: validate JWT and return UI identity/roles
+    Auth-->>Client: authenticated identity; Cache-Control: no-store
+    Client->>Gateway: Protected API + HttpOnly cookie (CSRF header on writes)
+    Gateway->>Gateway: Convert cookie to bearer JWT and validate
+    Gateway->>Gateway: Check jti revocation in Redis
+    Gateway->>User: Forward Authorization: Bearer; strip access cookie
+    Client->>Gateway: POST /auth/logout + cookie + CSRF header
     Gateway->>Redis: Check jti revocation marker
     Gateway->>Auth: Forward authenticated logout
     Auth->>Redis: Store revoked jti until exp
     Auth-->>Client: 204 No Content
-    Client->>Gateway: Protected API + Bearer JWT
-    Gateway->>Auth: Read public key from JWKS when required
-    Gateway->>Gateway: Verify signature, claims, and jti status
 ```
+
+`GET /auth/csrf` is a pre-login step. On every unsafe browser request, Gateway
+requires a trusted `Origin` (or `Referer` fallback) and equal `XSRF-TOKEN`
+cookie / `X-XSRF-TOKEN` header. A page reload does not refresh the JWT: Angular
+calls `/auth/session` to rebuild only its in-memory identity. Shopverse does not
+currently implement `/auth/refresh`; once the access JWT expires, the user must
+log in again. See the detailed flow, endpoint examples, Angular code, and cookie
+attributes in [Auth Service README](../../services/auth-service/README.md#browser-cookie-and-csrf-flow).
 
 Resource services use the Auth Service JWKS endpoint to verify tokens. They do
 not receive or share the RSA private signing key. Gateway and resource services
@@ -82,11 +96,12 @@ sequenceDiagram
     Order->>OrderDB: Save order, item, timeline, and outbox
     OrderDB-->>Order: Commit
     Order-->>Client: 201 Created
-    Order->>Kafka: Publish order.created from outbox
+    Order->>Kafka: Publish order.created from outbox (currently one line item)
     Kafka-->>Inventory: OrderCreatedEvent
-    Inventory->>InventoryDB: Reserve stock and save outbox
+    Inventory->>InventoryDB: Reserve supplied line items in one transaction
+    Inventory->>InventoryDB: On partial failure, release earlier reservations
     InventoryDB-->>Inventory: Commit
-    Inventory->>Kafka: Publish inventory.reserved
+    Inventory->>Kafka: Publish one consolidated outcome from outbox
     Kafka-->>Order: Mark inventory reserved/payment processing
     Kafka-->>Payment: InventoryReservedEvent
     Payment->>PaymentDB: Persist captured payment and outbox
@@ -97,6 +112,10 @@ sequenceDiagram
 
 The HTTP response confirms creation of the Order resource. It does not imply
 that asynchronous inventory and payment processing has completed.
+
+Inventory can consume list-shaped order events and reserve multiple products
+atomically, but the current Order API/producer still sends one line item. The
+coordinated multi-item checkout rollout remains tracked as BUG-001.
 
 ## Failure And Compensation
 

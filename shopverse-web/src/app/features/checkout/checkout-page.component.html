@@ -38,9 +38,11 @@
           <strong>{{ transaction.placedAt | date:'medium' }}</strong>
         </article>
         <article>
-          <span>Item</span>
-          <strong>{{ transaction.productName }}</strong>
-          <small>Product {{ transaction.productId }} · Qty {{ transaction.quantity }}</small>
+          <span>Items ({{ transaction.items.length }})</span>
+          @for (item of transaction.items; track item.productId) {
+            <strong>{{ item.productName }}</strong>
+            <small>Product {{ item.productId }} · Qty {{ item.quantity }} · {{ price(item.amount) }}</small>
+          }
         </article>
       </div>
 
@@ -58,12 +60,6 @@
       actionLabel="Browse products"
       actionLink="/products"
     />
-  } @else if (cart.items().length > 1) {
-    <div class="notice">
-      <h2>One item at a time.</h2>
-      <span>The current ShopVerse checkout API accepts one item per order. Adjust your cart before continuing.</span>
-      <a routerLink="/cart">Review cart &rarr;</a>
-    </div>
   } @else {
     <div class="checkout-steps" aria-label="Checkout steps">
       <article class="active"><span>01</span><b>Review</b></article>
@@ -123,12 +119,12 @@
       <div>
         <p>ORDER SUMMARY</p>
         @if (review(); as reviewed) {
-          <h2>{{ reviewed.items[0]?.productName }}</h2>
-          <span>Quantity {{ reviewed.items[0]?.quantity }}</span>
+          <h2>{{ reviewed.items.length }} {{ reviewed.items.length === 1 ? 'item' : 'items' }}</h2>
+          <span>{{ reviewed.items.reduce((total, item) => total + item.quantity, 0) }} units</span>
           <strong>{{ price(+reviewed.totalAmount) }}</strong>
         } @else {
-          <h2>{{ cart.items()[0].productName }}</h2>
-          <span>Quantity {{ cart.items()[0].quantity }}</span>
+          <h2>{{ cart.items().length }} {{ cart.items().length === 1 ? 'item' : 'items' }}</h2>
+          <span>{{ cart.items().reduce((total, item) => total + item.quantity, 0) }} units</span>
           <strong>{{ price(cart.total()) }}</strong>
         }
         <div class="review-list">

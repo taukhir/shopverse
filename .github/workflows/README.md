@@ -97,7 +97,12 @@ globally without path-aware rules, or unrelated PRs may remain pending.
 Gitleaks scans history with comments and sensitive artifact upload disabled.
 Trivy source/dependency/configuration and container scans block HIGH/CRITICAL findings,
 including unfixed vulnerabilities. SARIF evidence is retained even when scanning
-fails. Container scanning happens on the exact CI image, not a separate rebuild.
+fails. Before the source scan, `ci-security.yml` restores the Maven cache keyed by
+`labs/java-senior/pom.xml` and resolves that lab's dependencies. This supplies local
+POM metadata to Trivy and reuses the cache populated by Java Labs CI. A Maven Central
+HTTP 429 during dependency resolution or Trivy's repository lookup is an incomplete
+security scan, not a clean result; let the rate limit clear and rerun the failed check.
+Container scanning happens on the exact CI image, not a separate rebuild.
 
 CodeQL analyzes Java, JavaScript/TypeScript and Actions source with `security-extended`.
 It runs for public repositories; private repositories require Code Security entitlement

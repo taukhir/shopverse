@@ -1,13 +1,13 @@
 # ShopVerse Backlog — By Area
 
-Companion index to [`BACKLOG.md`](BACKLOG.md), which stays the source of
-truth for full detail (requirement, evidence, citations). This file adds
-two things `BACKLOG.md` doesn't have: **Owner** (the single component
-responsible for fixing/building it) and **Affected** (every component
-that's touched or impacted, including the owner). Same relationship
-[`ROADMAP.md`](ROADMAP.md) has to `BACKLOG.md` — a different view on the
-same data, IDs never renumbered here. Update this file when a new
-`BACKLOG.md` row is added.
+Tracked backlog status and ownership view. The previously referenced
+`BACKLOG.md` is absent from this checkout; `git ls-files '*BACKLOG*'` lists
+only this file. The detailed canonical backlog needs restoration or an
+explicit replacement decision before this index can be treated as complete.
+This file records **Owner** (the component responsible for the work) and
+**Affected** (all impacted components), keeps existing IDs stable, and should
+be updated whenever a backlog ID or status changes. [`ROADMAP.md`](ROADMAP.md)
+remains a separate prioritization and sequencing view.
 
 ## Naming Convention
 
@@ -28,9 +28,9 @@ owner but several affected components.
 
 | ID | Title | Owner | Affected |
 |---|---|---|---|
-| BUG-001 | Checkout only orders the first cart item *(still blocked — product decision pending on the backend option; not started this round)* | platform | frontend-site, order-service, inventory-service, payment-service |
+| BUG-001 | Checkout only orders the first cart item *(frontend submits all lines; backend contract/saga rollout remains open)* | platform | frontend-site, order-service, inventory-service, payment-service |
 | BUG-002 | Receipt always shows "Pending capture" *(Fixed)* | frontend-site | frontend-site |
-| BUG-003 | Checkout unit tests don't cover multi-item carts | frontend-site | frontend-site |
+| BUG-003 | Checkout unit tests don't cover multi-item carts *(coverage added; 111 frontend unit tests pass locally)* | frontend-site | frontend-site |
 | BUG-004/005 | `findByOrderNumberForUpdate` repository bugs *(Fixed)* | inventory-service | inventory-service |
 | BUG-006 | payment-service integration test fails in CI *(Fixed)* | payment-service | payment-service |
 | BUG-007 | order-service integration test fails in CI *(Fixed)* | order-service | order-service |
@@ -48,7 +48,7 @@ owner but several affected components.
 | BUG-019 | Error response shape drifted across services | platform | order-service, inventory-service, payment-service, user-service, auth-service, frontend-site |
 | BUG-020 | IDOR in payment-service `createIntent` — no ownership check | payment-service | payment-service |
 | BUG-021 | config-server and discovery-server have no authentication | platform | platform |
-| BUG-022 | Checkout `Idempotency-Key` regenerated on every retry | frontend-site | frontend-site, order-service |
+| BUG-022 | Checkout `Idempotency-Key` regenerated on every retry *(stable per checkout through retries; frontend unit suite passes locally)* | frontend-site | frontend-site, order-service |
 | BUG-023 | payment-service doesn't tolerate duplicate event delivery | payment-service | payment-service |
 | BUG-024 | inventory `reserve()`/`release()` have no row lock | inventory-service | inventory-service |
 | BUG-025 | Gateway readiness/metrics endpoints leak internal topology | api-gateway | api-gateway |
@@ -72,13 +72,46 @@ owner but several affected components.
 | BUG-043 | Fine-grained RBAC permissions seeded but ignored downstream | platform | user-service, order-service, inventory-service, payment-service |
 | BUG-044 | Account deletion doesn't cascade PII removal | user-service | user-service, order-service, payment-service |
 | BUG-045 | Admin navigation is missing an accessible landmark label *(Fixed in shared navigation)* | frontend-backoffice | frontend-backoffice |
-| BUG-046 | Account profile/address saves are reported missing after reload; verify persistence and readback | platform | frontend-site, user-service |
-| BUG-047 | Public User Service endpoints are not routed/allowed by API Gateway *(matcher/routes updated; test verification pending)* | api-gateway | api-gateway, user-service, auth-service, frontend-site |
+| BUG-046 | Account profile/address saves are reported missing after reload; frontend address readback added; verify persistence end-to-end | platform | frontend-site, user-service |
+| BUG-047 | Public User Service endpoints are not routed/allowed by API Gateway *(frontend API paths covered; Gateway/runtime verification pending)* | api-gateway | api-gateway, user-service, auth-service, frontend-site |
 | BUG-048 | Cart reads invoke write-capable cart creation under read-only transaction metadata | user-service | user-service, frontend-site |
 | BUG-049 | Cart replace/merge accepts duplicate products and unchecked quantity sums | user-service | user-service, frontend-site |
-| BUG-050 | Existing JWT authorities remain valid after user/role changes until expiry | platform | auth-service, user-service, api-gateway, frontend-site |
-| BUG-051 | Address update ignores an explicit false default flag *(code fix added; service tests blocked)* | user-service | user-service, frontend-site |
+| BUG-050 | Existing JWT authorities remain valid after user/role changes until expiry *(backend revocation/version strategy required; UI cannot invalidate issued JWT claims)* | platform | auth-service, user-service, api-gateway, frontend-site |
+| BUG-051 | Address update ignores an explicit false default flag *(frontend sends false unchanged; verify service persistence semantics)* | user-service | user-service, frontend-site |
 | BUG-052 | User Service logs account identifiers and email addresses | user-service | user-service, platform |
+| BUG-053 | Admin reservation lookup returns only the first reservation row for a multi-item order *(frontend accepts a list; endpoint remains single-row)* | inventory-service | inventory-service, frontend-backoffice |
+| BUG-054 | Auth Service logout integration test fails revocation-store argument verification in CI | auth-service | auth-service |
+| BUG-055 | Complete multi-item checkout across Order, Inventory and Payment SAGA | order-service | order-service, inventory-service, payment-service, frontend-site |
+| BUG-056 | Return all order reservations from the admin reservation endpoint | inventory-service | inventory-service, frontend-backoffice |
+| BUG-057 | Verify profile and address persistence/readback against the User Service database | user-service | user-service, frontend-site |
+| BUG-058 | Verify explicit false default-address updates persist correctly | user-service | user-service, frontend-site |
+| BUG-059 | Add Gateway-to-User-Service public route/security end-to-end coverage | api-gateway | api-gateway, user-service, frontend-site |
+| BUG-060 | Invalidate or refresh authorization after account/role/permission changes | platform | auth-service, user-service, api-gateway, frontend-backoffice |
+| BUG-061 | Checkout frontend does not confirm it renders a partial-reservation-failure response from the multi-item saga (BUG-001/BUG-055) correctly, only full success/failure | frontend-site | frontend-site, order-service, inventory-service |
+
+### BUG-053 acceptance criteria
+
+- Preserve the existing reservation lookup contract or provide a compatible migration path.
+- Let authorized administrators inspect every reservation for an order, including each product, quantity, status, and expiry.
+- Add tests for single-row and multi-row orders and confirm authorization still blocks non-admin access.
+
+### BUG-054 acceptance criteria
+
+- Diagnose why `logoutRevokesTheAuthenticatedTokenIdUntilItsExpiry` fails the Mockito revocation-store argument verification in CI.
+- Keep the test assertion aligned with the actual JWT `jti` and `exp` passed to the store; do not weaken it to a call-only assertion.
+- Run the focused Auth Service test and the module test task in CI or an equivalent supported environment.
+
+### Backend placeholders for selected frontend work
+
+- **BUG-055 (Order/Inventory/Payment):** remove the single-item checkout contract cap only after defining bounded item count/quantity validation; make reservation, compensation, payment calculation and event handling idempotent per order line; preserve all line details in order/receipt responses; add multi-item success, partial reservation failure, payment failure compensation, duplicate event, and retry tests. Update OpenAPI/event docs and perform a full-stack checkout.
+- **BUG-056 (Inventory):** retain the legacy single-row endpoint during migration or version the response; expose every reservation for an order with product, quantity, status and expiry; enforce admin authorization; cover zero, one and multiple rows with integration tests and document the contract.
+- **BUG-057 (User):** verify the configured User DB, Liquibase state, transaction commit, and GET readback after profile/address writes; add database-backed tests proving values survive a fresh request/service restart; include profile update and address create/update/delete.
+- **BUG-058 (User):** prove that an explicit `defaultAddress=false` persists and does not get defaulted by null/primitive mapping; maintain exactly the intended default-address invariant; add service and repository tests for false, true, omitted and changing the default.
+- **BUG-059 (Gateway):** exercise public registration and public user routes through the actual Gateway to User Service; verify anonymous allow-list, protected-route denial, forwarded path, CORS/CSRF expectations and no accidental exposure of internal endpoints.
+- **BUG-060 (Auth/User/Gateway):** choose a freshness mechanism (short-lived token plus version lookup, revocation, or session authority refresh) and propagate it to every authorization boundary; role/group/permission changes, disablement and logout must take effect within the documented bound; test existing-token behavior and cache invalidation. The Angular UI cannot rewrite issued JWT claims.
+- **FEAT-AU (Order/Payment/Inventory):** implement a return-request state machine with authorized approve/reject transitions, refund idempotency, inventory disposition/restock policy, audit actor/reason, customer-visible status, concurrency protection, and integration tests. Refund execution must not itself imply return approval.
+- **ENH-060 (Platform/services):** offer a bounded and paginated cross-service reconciliation query with consistent correlation/order/payment/reservation state, data freshness/partial-source indicators, actionable conflict classification, and durable audit trail; document timeout/failure semantics and integration coverage.
+- **ENH-061 (Platform/services):** provide time-bounded aggregates with explicit currency/time zone/denominator definitions, source freshness and partial data states; test aggregate correctness against known fixtures. Do not report loaded UI page totals as authoritative enterprise KPIs.
 
 ## Features
 
@@ -103,7 +136,7 @@ owner but several affected components.
 | FEAT-P | Feature flags / kill switches | platform | order-service, inventory-service, payment-service, frontend-site, frontend-backoffice |
 | FEAT-Q | Gateway-level distributed rate limiting | api-gateway | api-gateway |
 | FEAT-R | Load/performance testing | platform | order-service, inventory-service, payment-service |
-| FEAT-S | Back-office reconciliation console | frontend-backoffice | frontend-backoffice, order-service, payment-service, inventory-service |
+| FEAT-S | Back-office reconciliation console *(frontend queue uses existing Payment API; cross-service aggregation/audit pending)* | frontend-backoffice | frontend-backoffice, order-service, payment-service, inventory-service |
 | FEAT-T | Formal Kafka production hardening | platform | order-service, inventory-service, payment-service |
 | FEAT-U | Kubernetes manifests/Helm chart | platform | order-service, inventory-service, payment-service, auth-service, user-service, api-gateway |
 | FEAT-V | Canary / rolling deployment strategy | platform | order-service, inventory-service, payment-service, auth-service, user-service, api-gateway |
@@ -120,9 +153,9 @@ owner but several affected components.
 | FEAT-AG | Consumer-driven contract testing for Kafka events | platform | order-service, inventory-service, payment-service |
 | FEAT-AH | Chaos engineering / fault-injection harness | platform | order-service, inventory-service, payment-service, auth-service |
 | FEAT-AI | Synthetic/canary monitoring for checkout | platform | order-service, inventory-service, payment-service, frontend-site |
-| FEAT-AJ | Back-office return/refund approval workflow | frontend-backoffice | frontend-backoffice, order-service, payment-service, inventory-service |
-| FEAT-AK | Roles & Permissions management UI *(UI implementation present; runtime verification pending)* | frontend-backoffice | frontend-backoffice, user-service |
-| FEAT-AL | Admin analytics/KPI dashboard | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
+| FEAT-AJ | Back-office return/refund approval workflow *(read-only return queue added; decision workflow/API pending)* | frontend-backoffice | frontend-backoffice, order-service, payment-service, inventory-service |
+| FEAT-AK | Roles & Permissions management UI *(route/payload regression tests added; runtime verification pending)* | frontend-backoffice | frontend-backoffice, user-service |
+| FEAT-AL | Admin analytics/KPI dashboard *(loaded-data attention/return KPIs added; authoritative aggregates pending)* | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
 | FEAT-AM | Consumer-side staleness/skip gate for saga handlers | platform | order-service, inventory-service, payment-service |
 | FEAT-AN | Strategy-pattern registry for payment providers | payment-service | payment-service |
 | FEAT-AO | Customer notification inbox and persisted delivery preferences | platform | frontend-site, order-service, payment-service, user-service |
@@ -130,7 +163,8 @@ owner but several affected components.
 | FEAT-AQ | Add user groups and group-based role assignment *(implementation added; DB/security verification pending)* | user-service | user-service, auth-service, api-gateway, frontend-backoffice |
 | FEAT-AR | Add User Service group administration APIs *(implementation added; contract/security tests pending)* | user-service | user-service, api-gateway, frontend-backoffice |
 | FEAT-AS | Extract persisted cart ownership into Cart Service | platform | user-service, api-gateway, frontend-site, platform |
-| FEAT-AT | Add back-office group management UI *(UI implementation present; API integration verification pending)* | frontend-backoffice | frontend-backoffice, user-service |
+| FEAT-AT | Add back-office group management UI *(route/payload regression tests added; runtime verification pending)* | frontend-backoffice | frontend-backoffice, user-service |
+| FEAT-AU | Add audited return/refund decision workflow and backend APIs | payment-service | order-service, payment-service, inventory-service, frontend-backoffice |
 
 ## Enhancements
 
@@ -177,13 +211,13 @@ owner but several affected components.
 | ENH-039 | No shared test-data fixtures/builders | platform | order-service, inventory-service |
 | ENH-040 | No flaky-test tracking/quarantine | platform | order-service, inventory-service, payment-service, user-service, auth-service, api-gateway |
 | ENH-041 | No mutation testing anywhere | platform | inventory-service |
-| ENH-042 | Admin settings/configuration is scattered | frontend-backoffice | frontend-backoffice, payment-service |
+| ENH-042 | Admin settings/configuration is scattered *(settings landing links consolidated; configuration centralization remains partial)* | frontend-backoffice | frontend-backoffice, payment-service |
 | ENH-043 | Inventory admin's delete action is a disabled stub *(UI now explains deletion is unavailable; full workflow still needs an Inventory Service endpoint)* | frontend-backoffice | frontend-backoffice, inventory-service |
 | ENH-044 | Named per-step pipeline metrics for checkout/saga flow | platform | order-service, inventory-service, payment-service |
 | ENH-045 | Recovery console must distinguish unavailable services from an empty DLT queue *(UI implementation present; runtime verification pending)* | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
 | ENH-046 | Checkout receipt should use the placed order's authoritative total and live workflow/payment state | frontend-site | frontend-site, order-service, payment-service |
 | ENH-047 | Redesign responsive storefront and admin headers and navigation presentation *(Implemented; responsive visual verification pending)* | frontend-site | frontend-site, frontend-backoffice |
-| ENH-048 | Expand accessibility checks across key routes and mobile layouts | frontend-site | frontend-site, frontend-backoffice |
+| ENH-048 | Expand accessibility checks across login, checkout, orders, roles/groups, and mobile layouts *(checks added; Playwright workers failed immediately locally, rerun required)* | frontend-site | frontend-site, frontend-backoffice |
 | ENH-049 | Add User Service persistence, security, and HTTP integration coverage | user-service | user-service, platform |
 | ENH-050 | Define cross-replica role/permission cache invalidation | user-service | user-service |
 | ENH-051 | Apply endpoint resilience controls consistently across User Service APIs | user-service | user-service, api-gateway, platform |
@@ -194,6 +228,9 @@ owner but several affected components.
 | ENH-056 | Remove superseded Accounts/Profile service split proposal | platform | user-service, auth-service |
 | ENH-057 | Redis-backed token/session lifecycle and service-to-service credentials | platform | auth-service, user-service, api-gateway, order-service, inventory-service, payment-service, shopverse-common, platform |
 | ENH-058 | Implement scoped API-key authentication for service-to-service calls | platform | auth-service, user-service, api-gateway, order-service, inventory-service, payment-service, shopverse-common, platform |
+| ENH-059 | Protect browser authentication tokens with an HttpOnly-cookie or BFF session design | frontend-site | frontend-site, auth-service, api-gateway, platform |
+| ENH-060 | Provide cross-service reconciliation query and audit API | platform | order-service, payment-service, inventory-service, frontend-backoffice |
+| ENH-061 | Provide bounded, time-based admin analytics aggregates | platform | order-service, inventory-service, payment-service, frontend-backoffice |
 
 ### ENH-057 acceptance criteria
 
@@ -204,9 +241,9 @@ owner but several affected components.
 - Add forward-only persistence/configuration changes, migration and rollout compatibility, key/credential rotation and rollback procedures, and tests for token validation, expiry, invalidation, refresh rotation/reuse, Redis failure, unauthorized service identity, and cross-service authorization.
 - Update Auth/Gateway/service documentation and client token handling; never log tokens, API keys, passwords, or authorization headers.
 
-**Sequencing/dependency:** Begin with Phase 1 before Redis implementation. Reconcile the existing ENH-019 full OAuth2 Authorization Server/JWT rotation proposal with ENH-057 Phase 1 so signing-key rotation and broader Authorization Server scope are not implemented twice. ENH-057 remains the umbrella; phases should be tracked as linked subtasks when work is assigned.
+**Sequencing/dependency:** Access-token revocation is already implemented as an initial Phase 3 subset, while the full Phase 1 token contract/validation criteria remain open. Reconcile the existing ENH-019 full OAuth2 Authorization Server/JWT rotation proposal with ENH-057 so signing-key rotation and broader Authorization Server scope are not implemented twice. ENH-057 remains the umbrella; phases should be tracked as linked subtasks when work is assigned.
 
-**Architecture note:** JWT access tokens remain self-contained for API authentication; Redis provides shared session, refresh-token, and revocation state. The canonical root `BACKLOG.md` referenced in this file's introduction was not present when this item was added; this row and acceptance criteria are recorded here pending restoration of that file.
+**Architecture note:** JWT access tokens remain self-contained for API authentication. Redis currently stores access-token revocation markers; shared refresh-token/session state remains planned. Because the previously referenced `BACKLOG.md` is absent from this checkout, this row and its acceptance criteria are recorded in the tracked area view pending restoration or an explicit replacement decision.
 
 ### ENH-058 acceptance criteria
 
@@ -219,7 +256,19 @@ owner but several affected components.
 
 **Dependency:** Coordinate with ENH-057 Phase 4. ENH-058 implements API keys as the explicitly selected service-credential mechanism; revisit OAuth2 client credentials or mTLS only if implementation evidence shows API keys do not meet the required identity or operational controls.
 
-**Implementation update (2026-11-24):** Access-token `jti` logout/revocation is now implemented in the working tree: Auth Service `POST /auth/logout`, Redis TTL marker, Gateway reactive validation, and shared servlet validation for Auth/User/Order/Payment/Inventory. Focused tests were added but could not be run because the Gradle Foojay resolver plugin could not be resolved in this environment. Refresh-token rotation, logout-all, automatic account/role-change revocation, response-contract migration, audience validation, and key rotation remain open.
+### ENH-059 acceptance criteria
+
+- Audit the Angular login, token storage, HTTP interceptor, refresh/logout, and account/session flows; document the current `sessionStorage` access-token exposure and select a target architecture: preferably a backend-for-frontend (BFF) session, or a direct HttpOnly-cookie design with an explicit backend contract.
+- Remove access/refresh token persistence in `sessionStorage` and `localStorage`. Angular must not need to read bearer tokens or treat decoded token claims as authorization authority; use a server-backed session/profile response for UI state while backend services enforce authorization.
+- Set session cookies with `HttpOnly`, `Secure` in production, deliberate `SameSite`, narrow `Path`/`Domain`, and bounded lifetime. Configure credentialed CORS for explicit trusted origins only; never combine credentials with wildcard origins.
+- Protect state-changing cookie-authenticated requests against CSRF using a documented mechanism (for example, a synchronizer token or correctly implemented double-submit token) and validate `Origin`/`Referer` where appropriate. Cover login CSRF and logout behavior as well as ordinary mutations.
+- Coordinate refresh, rotation, expiry, logout, and server-side revocation with ENH-057 Phase 2. Logout must invalidate the server session/token family and clear the browser cookie; do not create a parallel refresh-token lifecycle.
+- Provide a compatible migration and rollback plan, then remove any JavaScript-readable token fallback after cutover. Document that HttpOnly limits token theft by JavaScript but does not stop injected scripts from issuing requests as the user.
+- Add frontend and backend integration coverage for login, authenticated account calls, expiry/refresh, logout, CSRF rejection, cookie attributes, CORS, and absence of tokens in browser storage. Update authentication/security documentation and verify the deployed cookie/TLS configuration before release.
+
+**Dependency:** ENH-057 Phase 2 must define refresh/session lifecycle and server-side revocation. Track this as the frontend-led browser-storage migration with Auth Service and Gateway contract work as dependencies.
+
+**Implementation update (2026-11-25):** Working-tree implementation replaces Angular JWT storage/Authorization headers with an HttpOnly `SHOPVERSE_ACCESS` cookie, server-backed `/auth/session`, readable CSRF cookie/header, and Gateway trusted-origin plus double-submit validation. Auth Service issues the cookie and clears both access/CSRF cookies on logout while revoking the presented `jti`; downstream relay removes the access cookie. Production requires HTTPS, `BROWSER_COOKIE_SECURE=true`, and an explicit storefront origin allowlist. Focused Angular/Auth/Gateway tests and docs were added; they have not yet run. This uses direct cookie transport, not a BFF. Refresh rotation, session renewal, logout-all/family revocation remain blocked on ENH-057 Phase 2. Complete only after focused/module checks pass and production settings are reviewed.
 
 ## Debugging Drills
 
@@ -229,25 +278,11 @@ owner but several affected components.
 
 ---
 
-Detailed evidence and acceptance criteria for BUG-047-BUG-052 and ENH-049-ENH-051 are in [the User Service audit](docs/user-service-audit.md). The account/API/group/cart redesign task sequence and acceptance criteria are in [the User Service redesign plan](docs/user-service-redesign-plan.md). BUG-046 and other pre-existing account/security tasks are not duplicated.
+Detailed evidence and acceptance criteria for BUG-047-BUG-052 and ENH-049-ENH-051 are in [the User Service audit](docs/user-service-audit.md). BUG-053 is detailed in [the Inventory Service audit](docs/inventory-service-audit.md); the account/API/group/cart redesign sequence remains in [the User Service redesign plan](docs/user-service-redesign-plan.md). BUG-046 and other pre-existing account/security tasks are not duplicated.
 
-## Quick counts (2026-11-23) - by Owner
+## Owner counts
 
-| Owner | Bugs | Features | Enhancements |
-|---|---|---|---|
-| frontend-site | 6 | 2 | 4 |
-| frontend-backoffice | 1 | 6 | 3 |
-| order-service | 7 | 3 | 2 |
-| inventory-service | 5 | 3 | 3 |
-| payment-service | 5 | 2 | 2 |
-| auth-service | 1 | 0 | 2 |
-| user-service | 7 | 3 | 7 |
-| api-gateway | 2 | 1 | 3 |
-| **platform** | **19** | **27** | **27** |
-
-`platform` is still the largest owner bucket by far — that's structurally
-expected (it owns everything cross-cutting), not a sign the backlog is
-unbalanced. If this is used for sprint planning, `platform`-owned items
-still need a *second* split (CI/CD vs. infra vs. shared-libraries vs.
-multi-service features) before handing the bucket to one person — flagged
-previously, not yet done.
+Quick counts were removed on 2026-11-25 because the prior table was not
+reconciled with the full set of IDs and became stale as backend placeholders
+were added. Generate counts from the canonical backlog when it is restored;
+this area view's header records that `BACKLOG.md` is absent from the checkout.

@@ -18,7 +18,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$repoRoot = Split-Path -Parent $PSScriptRoot
+$repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $gatewayUrl = "http://localhost:8080"
 $startedAt = [DateTimeOffset]::UtcNow
 $deadline = $startedAt.AddMinutes($TimeoutMinutes)

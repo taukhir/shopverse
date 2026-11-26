@@ -1,7 +1,7 @@
 # Shopverse Docker Runbook
 
 This directory contains Docker-specific supporting files. The root
-[`docker-compose.yml`](../docker-compose.yml) is the main entry point.
+[`docker-compose.yml`](../../docker-compose.yml) is the main entry point.
 
 Detailed explanations of the service Dockerfile, multi-stage builds, BuildKit
 cache isolation, non-root users, Compose configuration, MySQL bootstrap, and
@@ -80,30 +80,80 @@ Important flags:
 | `--tail=N` | bound the number of log lines |
 | `-v` on `down` | remove named volumes and their persistent data |
 
-## Lightweight Verification
+## Platform Verification
 
-The verification override starts only the dependencies required by the
-automated checkout path:
+Run `infra/scripts/Verify-Shopverse.ps1` from the repository root. It resolves
+the repository root internally and provides four modes:
+
+| Mode | Checks | Starts Compose? |
+|---|---|---|
+| `Quick` | Unit tests for all backend services by default; optionally limit with `-Services` | No |
+| `Changed` | Unit tests for changed backend services; `-BaseRef` selects the `<BaseRef>...HEAD` comparison | No |
+| `Integration` | Commerce-service integration tests for Order, Inventory, and Payment | Testcontainers may start Docker dependencies |
+| `Full` | Reuses a healthy local Gateway for a saga smoke test, or starts an isolated verification stack and runs the smoke test | Yes, unless a healthy local stack is reused |
+
+Run the modes from the repository root:
 
 ```powershell
-docker compose -f docker-compose.yml -f docker-compose.test.yml up -d --build
-```
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
+  -Mode Quick -TimeoutMinutes 10
 
-Use the repository scripts for bounded checks:
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
+  -Mode Changed -BaseRef origin/dev -TimeoutMinutes 10
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
-  -Mode Quick -TimeoutMinutes 1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
+  -Mode Integration -TimeoutMinutes 30
 
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
-  -Mode Integration -TimeoutMinutes 5
-
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Verify-Shopverse.ps1 `
+powershell -NoProfile -ExecutionPolicy Bypass -File .\infra\scripts\Verify-Shopverse.ps1 `
   -Mode Full -TimeoutMinutes 10 -ForceIsolatedStack
 ```
 
-The full script is intended to have an explicit timeout and bounded diagnostic
-output. Do not replace it with an unbounded `docker compose logs -f` in CI.
+`Quick` and `Changed` run unit tests, not a Docker Compose startup. `Full`
+normally creates a uniquely named `shopverse-verify-<process-id>` project when
+it needs an isolated stack. On failure it prints Compose status and the last
+120 log lines. Unless `-KeepStack` is specified, it then removes that isolated
+project and its named volumes. Use `-KeepStack` when you need to inspect failed
+containers; locate the project with `docker compose ls --all`, then pass its
+name with `-p` to `docker compose ps` or `logs`.
+
+Without `-BaseRef`, `Changed` checks changes relative to `HEAD` and untracked
+files. With `-BaseRef`, it checks the committed range from that ref to `HEAD`;
+include or commit local edits before relying on that comparison.
+
+### Diagnose a Compose startup failure
+
+The final message `Docker Compose startup failed with exit code 1` is the
+verification script reporting Compose's nonzero exit status; it is not the
+underlying cause. Inspect the Compose stdout/stderr printed immediately above
+it. The script also attempts bounded `ps` and log output before cleanup.
+
+Check the merged test configuration before retrying startup. These synthetic
+passwords match the local defaults used by the verifier; do not replace real
+`.env` values with production credentials:
+
+```powershell
+$env:MYSQL_PASSWORD = "shopverse-test-password"
+$env:MYSQL_ROOT_PASSWORD = "shopverse-test-root-password"
+$env:GRAFANA_ADMIN_PASSWORD = "shopverse-test-grafana-password"
+docker compose -f docker-compose.yml -f docker-compose.test.yml config --quiet
+```
+
+If configuration validation fails, fix the first reported YAML, interpolation,
+or dependency error before starting containers. For a retained failed stack,
+inspect its state and bounded logs:
+
+```powershell
+docker compose ls --all
+$project = "shopverse-verify-12345" # replace with the project name shown above
+docker compose -p $project -f docker-compose.yml -f docker-compose.test.yml ps
+docker compose -p $project -f docker-compose.yml -f docker-compose.test.yml logs --tail=120
+```
+
+Common categories to check in the actual Compose output include missing
+environment values, an invalid merged service/dependency, image build/pull
+failure, Docker Desktop resource limits, and host port conflicts. Do not infer
+which one occurred from the final exit-code line alone. Avoid unbounded
+`docker compose logs -f` in CI.
 
 ## MySQL Databases
 

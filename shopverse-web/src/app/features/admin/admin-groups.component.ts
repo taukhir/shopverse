@@ -93,7 +93,10 @@ export class AdminGroupsComponent {
   protected async logout(): Promise<void> {
     const ok = await this.confirm.confirm({ title: 'Sign out?', message: 'You will leave the operations workspace.', confirmText: 'Sign out' });
     if (!ok) return;
-    this.session.logout(true); this.toast.info('Signed out.'); this.router.navigateByUrl('/');
+    this.session.logoutFromServer().subscribe({
+      next: () => { this.toast.info('Signed out.'); this.router.navigateByUrl('/'); },
+      error: () => this.toast.error('Sign out failed. Please check your connection and try again.'),
+    });
   }
   private emptyDraft(): GroupRequest { return { groupName: '', description: '', roleIds: [] }; }
 }

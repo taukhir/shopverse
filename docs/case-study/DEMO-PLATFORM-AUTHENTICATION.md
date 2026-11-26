@@ -140,17 +140,60 @@ $loginBody = @{
     password = "Admin@123"
 } | ConvertTo-Json
 
-$login = Invoke-RestMethod `
+$session = [Microsoft.PowerShell.Commands.WebRequestSession]::new()
+Invoke-WebRequest -Method Get -Uri "$gateway/auth/csrf" -WebSession $session | Out-Null
+$csrfToken = ($session.Cookies.GetCookies([uri]$gateway) | Where-Object Name -eq "XSRF-TOKEN").Value
+Invoke-RestMethod `
     -Method Post `
     -Uri "$gateway/auth/login" `
+    -WebSession $session `
+    -Headers @{ "X-XSRF-TOKEN" = $csrfToken } `
     -ContentType "application/json" `
-    -Body $loginBody
+    -Body $loginBody | Out-Null
 
-$token = $login.token
-$token.Substring(0, [Math]::Min(40, $token.Length))
+$browserIdentity = Invoke-RestMethod -Uri "$gateway/auth/session" -WebSession $session
+$browserIdentity | Select-Object authenticated, username, roles
 ```
 
-Expected result: the response contains a non-empty `token`.
+Expected result: the browser session is authenticated as `admin`, the response
+contains identity/roles only, and the web session retains an HttpOnly access
+cookie rather than exposing a JWT to JavaScript.
+
+### Page reload is session restoration, not token refresh
+
+Simulate what Angular's route guard does after a full page reload:
+
+```powershell
+$restoredIdentity = Invoke-RestMethod -Uri "$gateway/auth/session" -WebSession $session
+$restoredIdentity | Select-Object authenticated, username, roles, expiresAt
+```
+
+The `WebRequestSession` sends the HttpOnly access cookie automatically. In the
+browser, Angular similarly calls `/auth/session` and restores its in-memory UI
+identity. Shopverse does not currently have a refresh-token endpoint. When the
+JWT expires, `/auth/session` or protected APIs can return `401`; the user must
+sign in again.
+
+### Logout
+
+The request must carry both cookies and the CSRF header. The Gateway checks the
+trusted origin and matching CSRF values; Auth Service revokes the current JWT's
+`jti` in Redis and expires the two cookies.
+
+```powershell
+Invoke-WebRequest `
+    -Method Post `
+    -Uri "$gateway/auth/logout" `
+    -WebSession $session `
+    -Headers @{ "X-XSRF-TOKEN" = $csrfToken; "Origin" = "http://localhost:4200" } | Out-Null
+
+Invoke-RestMethod -Uri "$gateway/auth/session" -WebSession $session |
+    Select-Object authenticated, username
+```
+
+After successful logout, the final session call should report
+`authenticated = false`. The Redis marker revokes only the access token used for
+this logout; it does not implement logout on every device.
 
 The authentication path is:
 
@@ -162,15 +205,19 @@ sequenceDiagram
     participant U as User Service
     participant D as User Database
 
-    C->>G: POST /auth/login
+    C->>G: GET /auth/csrf, then POST /auth/login + CSRF header
     G->>A: route request
     A->>U: Feign internal Basic Auth request
     U->>D: load user, roles, and permissions
     D-->>U: encoded password and authorities
     U-->>A: authenticated user details
     A->>A: verify password and sign RSA JWT
-    A-->>C: access token
+    A-->>C: HttpOnly access cookie, no token in JSON
 ```
+
+For the complete lifecycle, including how the Gateway converts the cookie to a
+Bearer header, CSRF checks, page reload versus token refresh, and current
+limitations, see [Auth Service browser cookie and CSRF flow](../../services/auth-service/README.md#browser-cookie-and-csrf-flow).
 
 Inspect the public signing keys:
 

@@ -1,5 +1,13 @@
 # Order Service
 
+> **Checkout contract status (2026-11-25):** the web client now submits all
+> cart lines, but `CheckoutRequest.items` and `UpdateCheckoutRequest.items`
+> currently enforce `@Size(max = 1)`. Multi-item checkout remains blocked at
+> the service contract and SAGA boundary; see BUG-055 in
+> `dev-tools/teams/BACKLOG-BY-AREA.md`. Do not describe the frontend change as
+> end-to-end multi-item support until the service, Inventory, and Payment
+> behavior and integration tests land.
+
 Order Service runs on port `8083`. It owns checkout, order state, customer ownership, shipping snapshots, cancellation, fulfillment transitions, return requests, the business SAGA timeline, and Order-side outbox/DLT recovery.
 
 ## APIs

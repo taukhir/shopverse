@@ -22,12 +22,14 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$repoRoot = Split-Path -Parent $PSScriptRoot
+$repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $commerceServices = @("order-service", "inventory-service", "payment-service")
 $runtimeServices = @(
     "mysql",
     "mysql-bootstrap",
     "kafka",
+    "minio",
+    "minio-init",
     "config-server",
     "discovery-server",
     "user-service",
@@ -324,7 +326,21 @@ try {
                 }
             }
 
-            $projectName = "shopverse-verify-$PID"
+            $projectName = "shopverse-verify-$PID-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
+            $testEnvironmentNames = @(
+                "COMPOSE_PROJECT_NAME",
+                "COMPOSE_PARALLEL_LIMIT",
+                "COMPOSE_BAKE",
+                "MYSQL_PASSWORD",
+                "MYSQL_ROOT_PASSWORD",
+                "MINIO_ROOT_USER",
+                "MINIO_ROOT_PASSWORD",
+                "GRAFANA_ADMIN_PASSWORD"
+            )
+            $previousEnvironment = @{}
+            foreach ($name in $testEnvironmentNames) {
+                $previousEnvironment[$name] = [Environment]::GetEnvironmentVariable($name, "Process")
+            }
             $env:COMPOSE_PROJECT_NAME = $projectName
             $env:COMPOSE_PARALLEL_LIMIT = "2"
             $env:COMPOSE_BAKE = "false"
@@ -334,12 +350,20 @@ try {
             if (-not $env:MYSQL_ROOT_PASSWORD) {
                 $env:MYSQL_ROOT_PASSWORD = "shopverse-test-root-password"
             }
+            if (-not $env:MINIO_ROOT_USER) {
+                $env:MINIO_ROOT_USER = "shopverse-test-minio"
+            }
+            if (-not $env:MINIO_ROOT_PASSWORD) {
+                $env:MINIO_ROOT_PASSWORD = "shopverse-test-minio-password"
+            }
             if (-not $env:GRAFANA_ADMIN_PASSWORD) {
                 $env:GRAFANA_ADMIN_PASSWORD = "shopverse-test-grafana-password"
             }
             try {
                 $composeArguments = @(
                     "compose",
+                    "--profile", "apps",
+                    "--profile", "assets",
                     "-f", "docker-compose.yml",
                     "-f", "docker-compose.test.yml",
                     "up", "-d", "--build"
@@ -366,16 +390,21 @@ try {
                 })
             } catch {
                 Write-Host "Verification failed. Collecting bounded diagnostics."
-                & docker compose -f docker-compose.yml -f docker-compose.test.yml ps
-                & docker compose -f docker-compose.yml -f docker-compose.test.yml logs --tail=120
+                & docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.test.yml ps
+                & docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.test.yml logs --tail=120
                 throw
             } finally {
                 if (-not $KeepStack) {
-                    & docker compose -f docker-compose.yml -f docker-compose.test.yml down -v --remove-orphans --timeout 10
+                    & docker compose --profile apps --profile assets -f docker-compose.yml -f docker-compose.test.yml down -v --remove-orphans --timeout 10
                 }
-                Remove-Item Env:COMPOSE_PROJECT_NAME -ErrorAction SilentlyContinue
-                Remove-Item Env:COMPOSE_PARALLEL_LIMIT -ErrorAction SilentlyContinue
-                Remove-Item Env:COMPOSE_BAKE -ErrorAction SilentlyContinue
+                foreach ($name in $testEnvironmentNames) {
+                    $previousValue = $previousEnvironment[$name]
+                    if ($null -eq $previousValue) {
+                        Remove-Item "Env:$name" -ErrorAction SilentlyContinue
+                    } else {
+                        [Environment]::SetEnvironmentVariable($name, $previousValue, "Process")
+                    }
+                }
             }
         }
     }
