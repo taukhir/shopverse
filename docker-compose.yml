@@ -368,6 +368,7 @@ services:
       DB_URL: jdbc:mysql://mysql:3306/payment_service?allowPublicKeyRetrieval=true&useSSL=false
       DB_USERNAME: ${MYSQL_USER:-ahmed}
       DB_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      PAYMENT_WEBHOOK_SECRET: ${PAYMENT_WEBHOOK_SECRET:?Set PAYMENT_WEBHOOK_SECRET in .env}
       DB_POOL_MAX_SIZE: ${PAYMENT_SERVICE_DB_POOL_MAX_SIZE:-4}
       DB_POOL_MIN_IDLE: ${PAYMENT_SERVICE_DB_POOL_MIN_IDLE:-1}
       LOG_FILE: /app/logs/payment-service.log

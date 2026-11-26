@@ -43,7 +43,8 @@ import static org.mockito.Mockito.when;
         "shopverse.kafka.topics.inventory-failed=shopverse.inventory.failed",
         "shopverse.kafka.topics.payment-completed=shopverse.payment.completed",
         "shopverse.kafka.topics.payment-failed=shopverse.payment.failed",
-        "security.jwt.issuer=shopverse-auth-service"
+        "security.jwt.issuer=shopverse-auth-service",
+        "shopverse.payment.webhook-secret=test-webhook-secret"
 })
 class PaymentOwnershipAuthorizationTest {
 

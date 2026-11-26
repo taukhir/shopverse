@@ -33,6 +33,7 @@ shopverse:
       message: ${PAYMENT_SERVICE_HEALTH_CHECKUP_MESSAGE:Payment service is running}
   payment:
     approval-limit: ${PAYMENT_APPROVAL_LIMIT:10000.00}
+    webhook-secret: ${PAYMENT_WEBHOOK_SECRET:?Set PAYMENT_WEBHOOK_SECRET in .env}
 
 management:
   endpoints:

@@ -35,7 +35,8 @@ import static org.assertj.core.api.Assertions.assertThat;
         "shopverse.kafka.topics.payment-completed=shopverse.payment.completed",
         "shopverse.kafka.topics.payment-failed=shopverse.payment.failed",
         "spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:65535/jwks",
-        "security.jwt.issuer=shopverse-auth-service"
+        "security.jwt.issuer=shopverse-auth-service",
+        "shopverse.payment.webhook-secret=test-webhook-secret"
 })
 class PaymentInfrastructureIntegrationTest {
 
