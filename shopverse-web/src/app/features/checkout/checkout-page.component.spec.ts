@@ -217,6 +217,18 @@ describe('CheckoutPageComponent', () => {
     expect((component.receipt() as { paymentStatus: string }).paymentStatus).toBe('Captured');
   });
 
+  it('confirmOrder() maps an inventory-rejected order status to a stock-unavailable label, not "Pending capture"', () => {
+    const chosenAddress = address({ id: 3, defaultAddress: true });
+    const component = createComponent(of([chosenAddress]));
+    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 2 }]);
+    component.review.set({ checkoutId: 'CHK-1', version: 1 });
+    ordersApiStub.placeOrder.mockReturnValue(of({ orderNumber: 'ORD-1', status: 'INVENTORY_REJECTED' }));
+
+    component.confirmOrder();
+
+    expect((component.receipt() as { paymentStatus: string }).paymentStatus).toBe('Stock unavailable');
+  });
+
   it('confirmOrder() requires a delivery address', () => {
     const component = createComponent(of([]));
     cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 1 }]);

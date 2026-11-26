@@ -214,6 +214,8 @@ export class CheckoutPageComponent {
       case 'OUT_FOR_DELIVERY':
       case 'DELIVERED':
         return 'Captured';
+      case 'INVENTORY_REJECTED':
+        return 'Stock unavailable';
       case 'PAYMENT_FAILED':
         return 'Failed';
       case 'PAYMENT_PROCESSING':
