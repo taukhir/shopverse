@@ -46,6 +46,7 @@ jobs:
           MINIO_ROOT_USER: test-minio-user
           MINIO_ROOT_PASSWORD: test-minio-password
           GRAFANA_ADMIN_PASSWORD: test-grafana-password
+          PAYMENT_WEBHOOK_SECRET: test-payment-webhook-secret
           COMPOSE_PROJECT_NAME: shopverse-ci-validation
         run: |
           set -euo pipefail
@@ -293,6 +294,7 @@ jobs:
       MINIO_ROOT_USER: shopverse-test-minio
       MINIO_ROOT_PASSWORD: shopverse-test-minio-password
       GRAFANA_ADMIN_PASSWORD: shopverse-test-grafana-password
+      PAYMENT_WEBHOOK_SECRET: shopverse-test-payment-webhook-secret
       COMPOSE_PROJECT_NAME: shopverse-ci-smoke
       COMPOSE_PARALLEL_LIMIT: "2"
       COMPOSE_BAKE: "false"
