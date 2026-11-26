@@ -16,7 +16,7 @@ import { formatInr } from '../../shared/utils/formatters';
 export class CartPageComponent {
   protected readonly cart = inject(CartService);
   protected readonly hasUnavailableItems = computed(() => this.cart.items().some((item) => item.available === false));
-  protected readonly canCheckout = computed(() => this.cart.items().length === 1 && !this.hasUnavailableItems());
+  protected readonly canCheckout = computed(() => this.cart.items().length > 0 && !this.hasUnavailableItems());
 
   protected price(value: number): string {
     return formatInr(value);

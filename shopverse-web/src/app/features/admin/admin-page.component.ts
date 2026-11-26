@@ -79,6 +79,8 @@ export class AdminPageComponent {
   protected readonly recentFailedEvents=computed(()=>[...this.failedEvents()].sort((a,b)=>(b.failedAt || '').localeCompare(a.failedAt || '')).slice(0,5));
   protected readonly orderStatusSlices=computed(()=>this.slices(this.orders().map(order=>order.status)));
   protected readonly paymentStatusSlices=computed(()=>this.slices(this.payments().map(payment=>payment.status)));
+  protected readonly returnRequests=computed(()=>this.orders().filter(order=>order.status==='RETURN_REQUESTED'));
+  protected readonly paymentAttention=computed(()=>this.payments().filter(payment=>['DECLINED','TIMED_OUT','PENDING','AUTHORIZED'].includes(payment.status)));
   protected readonly orderStatuses=computed(()=>['ALL',...uniqueSorted(this.orders().map(order=>order.status))]);
   protected readonly filteredOrders=computed(()=>{
     const query=this.orderSearch().trim().toLowerCase();

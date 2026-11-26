@@ -89,7 +89,7 @@ export class AdminOrderDetailComponent {
   protected readonly order = signal<Order | null>(null);
   protected readonly timeline = signal<TimelineEvent[]>([]);
   protected readonly payment = signal<Payment | null>(null);
-  protected readonly reservation = signal<InventoryReservation | null>(null);
+  protected readonly reservations = signal<InventoryReservation[]>([]);
   protected readonly loading = signal(true);
   protected readonly actionLoading = signal(false);
   protected readonly error = signal('');
@@ -229,12 +229,12 @@ export class AdminOrderDetailComponent {
     forkJoin({
       timeline: this.http.get<TimelineEvent[]>(API_PATHS.orders.timeline(order.id)).pipe(catchError(() => of([]))),
       payment: this.http.get<Payment>(API_PATHS.payments.byOrder(order.orderNumber)).pipe(catchError(() => of(null))),
-      reservation: this.http.get<InventoryReservation>(API_PATHS.inventory.reservationByOrder(order.orderNumber)).pipe(catchError(() => of(null))),
+      reservations: this.http.get<InventoryReservation | InventoryReservation[]>(API_PATHS.inventory.reservationByOrder(order.orderNumber)).pipe(catchError(() => of([]))),
     }).subscribe({
-      next: ({ timeline, payment, reservation }) => {
+      next: ({ timeline, payment, reservations }) => {
         this.timeline.set(timeline);
         this.payment.set(payment);
-        this.reservation.set(reservation);
+        this.reservations.set(Array.isArray(reservations) ? reservations : reservations ? [reservations] : []);
         this.loading.set(false);
         this.actionLoading.set(false);
       },

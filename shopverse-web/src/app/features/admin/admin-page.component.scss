@@ -60,3 +60,8 @@ h1{margin:0 0 32px;font-size:clamp(36px,4.5vw,62px);letter-spacing:-.065em;line-
 .notice button{margin-left:8px;padding:0;color:var(--accent-soft);border:0;background:none;font-weight:800}
 @media(max-width:980px){.hero-metrics,.overview-grid{grid-template-columns:1fr}.stock-cards,.payment-summary{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){.content{padding:38px 18px}.panel-head{flex-wrap:wrap}.panel-action{justify-items:start}.table article,.table a{align-items:flex-start;flex-direction:column;gap:8px}.table.user-list a{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}.table.user-list a>div{grid-column:1/-1}.table.user-list b{grid-column:2;grid-row:2}.hero-metrics,.stock-cards,.payment-summary{grid-template-columns:1fr}}
+.workspace-shortcuts { margin-top: 20px; }
+.shortcut-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.shortcut-grid a { display: grid; gap: 8px; padding: 18px; border: 1px solid var(--line, #dedee6); border-radius: 14px; color: inherit; text-decoration: none; }
+.shortcut-grid a:hover, .shortcut-grid a:focus-visible { border-color: var(--accent, #6674f5); }
+.shortcut-grid span { color: var(--muted, #626579); }

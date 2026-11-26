@@ -134,11 +134,13 @@ export class AccountPageComponent {
     request.subscribe({
       next: (savedAddress) => {
         this.addressSaving.set(false);
-        const cachedAddresses = this.accountApi.cachedAddresses();
-        if (cachedAddresses) this.addresses.set(cachedAddresses);
-        else this.addresses.update((addresses) => editingId
-          ? addresses.map((address) => address.id === savedAddress.id ? savedAddress : address)
-          : [savedAddress, ...addresses]);
+        this.accountApi.invalidateAddresses();
+        this.accountApi.listAddresses(true).subscribe({
+          next: (addresses) => this.addresses.set(addresses),
+          error: () => this.addresses.update((addresses) => editingId
+            ? addresses.map((address) => address.id === savedAddress.id ? savedAddress : address)
+            : [savedAddress, ...addresses]),
+        });
         this.toast.success(editingId ? 'Address updated.' : 'Address added.');
         this.editingAddressId.set(null);
         this.prepareNewAddress();

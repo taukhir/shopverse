@@ -87,6 +87,13 @@ export class AccountApiService {
     }));
   }
 
+  /** Drops the session-scoped address snapshot so the next read uses the server response. */
+  invalidateAddresses(): void {
+    this.addressRevision++;
+    this.addressesCache = null;
+    this.addressesRequest = null;
+  }
+
   deleteAddress(id: number) {
     this.syncSessionVersion();
     const sessionVersion = this.session.sessionVersion();
