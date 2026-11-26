@@ -62,7 +62,8 @@ public class PaymentController {
     }
 
     @PostMapping("/intent")
-    @Operation(summary = "Create or return an idempotent payment intent for an order")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create or return an idempotent payment intent for an order (admin/ops use; the saga creates customer payments)")
     public PaymentResponse createIntent(
             @Valid @org.springframework.web.bind.annotation.RequestBody PaymentIntentRequest request,
             Authentication authentication

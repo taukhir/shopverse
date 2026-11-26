@@ -1,6 +1,8 @@
 package io.shopverse.payment_service.security;
 
 import io.shopverse.payment_service.controller.PaymentController;
+import io.shopverse.payment_service.dto.PaymentIntentRequest;
+import io.shopverse.payment_service.dto.PaymentResponse;
 import io.shopverse.payment_service.entity.PaymentEntity;
 import io.shopverse.payment_service.repository.PaymentRepository;
 import io.shopverse.payment_service.service.FailedKafkaEventService;
@@ -11,14 +13,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(properties = {
         "spring.cloud.config.enabled=false",
@@ -72,5 +79,28 @@ class PaymentOwnershipAuthorizationTest {
     @WithMockUser(username = "admin", roles = "ADMIN")
     void administratorCanReadAnyPayment() {
         assertThatNoException().isThrownBy(() -> controller.getByOrderNumber("ORD-PAYMENT-1"));
+    }
+
+    @Test
+    @WithMockUser(username = "bob", roles = "CUSTOMER")
+    void customerCannotCreateAPaymentIntentForAnyOrderNumber() {
+        var request = new PaymentIntentRequest("ORD-PAYMENT-1", "correlation-payment-1", new BigDecimal("49.99"));
+
+        assertThatThrownBy(() -> controller.createIntent(request, null))
+                .isInstanceOf(AccessDeniedException.class);
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void administratorCanCreateAPaymentIntent() {
+        var request = new PaymentIntentRequest("ORD-PAYMENT-1", "correlation-payment-1", new BigDecimal("49.99"));
+        when(paymentService.createIntent(anyString(), anyString(), anyString(), any()))
+                .thenReturn(new PaymentResponse(
+                        1L, "ORD-PAYMENT-1", "correlation-payment-1", new BigDecimal("49.99"),
+                        "PENDING", null, null, Instant.now(), Instant.now()));
+
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        assertThatNoException().isThrownBy(() -> controller.createIntent(request, authentication));
     }
 }
