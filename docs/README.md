@@ -57,6 +57,7 @@ Start here to see the platform end to end.
 - [Shopverse API Guide](development/API-GUIDE.md)
 - [Shopverse Observability Operations](observability/SHOPVERSE-OBSERVABILITY-OPERATIONS.md)
 - [Service README And AI Capability Gap Matrix](services/SERVICE-README-AI-CAPABILITY-GAP-MATRIX.md)
+- [Docker And Local Compose Runbook](../infra/docker/README.md) - local stack, verification modes, deployment override, and Compose troubleshooting
 
 The feature page above is an index to the separately published capability
 pages; it is not a local Implemented/Partial/Planned matrix. Verify current

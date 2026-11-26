@@ -6,3 +6,11 @@ spring:
     name: AUTH-SERVICE
   config:
     import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8888}
+
+security:
+  browser:
+    access-cookie-name: ${BROWSER_ACCESS_COOKIE_NAME:SHOPVERSE_ACCESS}
+    csrf-cookie-name: ${BROWSER_CSRF_COOKIE_NAME:XSRF-TOKEN}
+    cookie-secure: ${BROWSER_COOKIE_SECURE:false}
+  jwt:
+    access-token-ttl: ${JWT_ACCESS_TOKEN_TTL:PT1H}

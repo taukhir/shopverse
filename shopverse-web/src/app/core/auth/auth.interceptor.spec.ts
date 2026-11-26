@@ -9,7 +9,7 @@ import { NetworkStatusService } from '../network/network-status.service';
 import { SessionService } from './session.service';
 
 describe('authInterceptor', () => {
-  let sessionStub: { token: () => string | null; logout: () => void };
+  let sessionStub: { logout: () => void };
   let networkStub: { requestStarted: () => void; requestSucceeded: () => void; requestFailed: (status: number) => void; requestSlow: () => void };
   let routerStub: { url: string; navigate: (...args: unknown[]) => void };
   let logoutCalled: boolean;
@@ -18,7 +18,7 @@ describe('authInterceptor', () => {
   function setup(): void {
     logoutCalled = false;
     navigateArgs = null;
-    sessionStub = { token: () => 'token-123', logout: () => { logoutCalled = true; } };
+    sessionStub = { logout: () => { logoutCalled = true; } };
     networkStub = {
       requestStarted: vi.fn(),
       requestSucceeded: vi.fn(),
@@ -49,7 +49,7 @@ describe('authInterceptor', () => {
     return TestBed.runInInjectionContext(() => authInterceptor(request, next));
   }
 
-  it('attaches a correlation id and bearer token for a private request', async () => {
+  it('attaches a correlation id without exposing a bearer token for a private request', async () => {
     let authorization = '';
     let correlation = '';
     const next: HttpHandlerFn = (req) => {
@@ -60,7 +60,7 @@ describe('authInterceptor', () => {
 
     await run('/api/v1/orders', next).toPromise();
 
-    expect(authorization).toBe('Bearer token-123');
+    expect(authorization).toBe('');
     expect(correlation.length).toBeGreaterThan(0);
   });
 

@@ -29,7 +29,17 @@
           <article><span>Orders</span><strong>{{ orders().length }}</strong><em>{{ openOrderCount() }} open</em></article>
           <article><span>Customers</span><strong>{{ userTotal() }}</strong><em>{{ users().length }} loaded</em></article>
           <article><span>Recoverable</span><strong>{{ recoverableEvents().length }}</strong><em>{{ failedEvents().length }} failed events</em></article>
+          <article><span>Payments needing review</span><strong>{{ paymentAttention().length }}</strong><em>Current loaded payment records</em></article>
+          <article><span>Return requests</span><strong>{{ returnRequests().length }}</strong><em>Decision actions require backend workflow</em></article>
         </div>
+
+        <section class="panel workspace-shortcuts" aria-label="Finance and service workspaces">
+          <div class="panel-head"><div><p>FINANCE &amp; SERVICE WORK</p><h2>Review queues.</h2></div></div>
+          <div class="shortcut-grid">
+            <a routerLink="/admin/reconciliation"><strong>Reconciliation</strong><span>Review payment/order state and supported reconcile actions.</span></a>
+            <a routerLink="/admin/returns"><strong>Returns &amp; refunds</strong><span>Inspect customer return requests and their current order status.</span></a>
+          </div>
+        </section>
 
         <div class="overview-grid">
           <section class="panel inventory-panel">
@@ -43,7 +53,7 @@
               <article><span>Reserved</span><strong>{{ inventoryTotals().reserved }}</strong></article>
               <article class="danger"><span>Low / out</span><strong>{{ inventoryTotals().lowStock + inventoryTotals().outOfStock }}</strong></article>
             </div>
-            <div class="stock-bar" aria-label="Inventory stock split">
+            <div class="stock-bar" role="img" aria-label="Inventory stock split">
               <i class="available" [style.width.%]="percent(inventoryTotals().available, inventoryTotals().available + inventoryTotals().reserved)"></i>
               <i class="reserved" [style.width.%]="percent(inventoryTotals().reserved, inventoryTotals().available + inventoryTotals().reserved)"></i>
             </div>

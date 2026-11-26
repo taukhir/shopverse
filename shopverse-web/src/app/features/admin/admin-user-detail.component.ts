@@ -8,6 +8,7 @@ import { catchError, forkJoin, of } from 'rxjs';
 import { API_PATHS } from '../../core/api/api-paths';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { SessionService } from '../../core/auth/session.service';
+import { ToastService } from '../../core/feedback/toast.service';
 import { formatInr } from '../../shared/utils/formatters';
 
 interface User {
@@ -37,6 +38,7 @@ export class AdminUserDetailComponent {
   private readonly http = inject(HttpClient);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly toast = inject(ToastService);
   protected readonly session = inject(SessionService);
   protected readonly user = signal<User | null>(null);
   protected readonly roles = signal<Role[]>([]);
@@ -114,8 +116,10 @@ export class AdminUserDetailComponent {
   }
 
   protected logout(): void {
-    this.session.logout(true);
-    this.router.navigateByUrl('/');
+    this.session.logoutFromServer().subscribe({
+      next: () => { this.toast.info('Signed out.'); this.router.navigateByUrl('/'); },
+      error: () => this.toast.error('Sign out failed. Please check your connection and try again.'),
+    });
   }
 
   private populate(user: User): void {

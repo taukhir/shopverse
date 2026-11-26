@@ -1,6 +1,8 @@
 package io.shopverse.gateway.config;
 
 import io.shopverse.gateway.security.RevocationAwareReactiveJwtDecoder;
+import io.shopverse.gateway.security.BrowserCookieCsrfWebFilter;
+import io.shopverse.gateway.security.BrowserCookieTokenConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,12 +36,19 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+    SecurityWebFilterChain securityWebFilterChain(
+            ServerHttpSecurity http,
+            BrowserCookieTokenConverter tokenConverter,
+            BrowserCookieCsrfWebFilter csrfWebFilter
+    ) {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .addFilterAt(csrfWebFilter, org.springframework.security.config.web.server.SecurityWebFiltersOrder.CSRF)
                 .authorizeExchange(authorize -> authorize
                         .pathMatchers(
                                 "/auth/login",
+                                "/auth/csrf",
+                                "/auth/session",
                                 "/auth/.well-known/jwks.json",
                                 "/api/v1/public/**",
                                 "/api/v1/inventory/public/**",
@@ -51,7 +60,9 @@ public class SecurityConfig {
                         ).permitAll()
                         .anyExchange().authenticated()
                 )
-                .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
+                .oauth2ResourceServer(oauth -> oauth
+                        .bearerTokenConverter(tokenConverter)
+                        .jwt(Customizer.withDefaults()))
                 .build();
     }
 }

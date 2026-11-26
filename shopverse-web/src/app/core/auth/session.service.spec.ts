@@ -3,18 +3,14 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
-import { STORAGE_KEYS } from '../constants/storage-keys';
-import { SessionService } from './session.service';
+import { SessionService, BrowserSession } from './session.service';
 
-function toBase64Url(value: string): string {
-  return btoa(value).replace(/\+/g, '-').replace(/\//g, '_');
-}
-
-function buildToken(claims: Record<string, unknown>): string {
-  const header = toBase64Url(JSON.stringify({ alg: 'RS256' }));
-  const payload = toBase64Url(JSON.stringify(claims));
-  return `${header}.${payload}.signature`;
-}
+const customerSession: BrowserSession = {
+  authenticated: true,
+  username: 'bob',
+  roles: ['ROLE_CUSTOMER'],
+  expiresAt: '2026-11-25T12:00:00Z',
+};
 
 describe('SessionService', () => {
   let httpMock: HttpTestingController;
@@ -25,70 +21,60 @@ describe('SessionService', () => {
     return TestBed.inject(SessionService);
   }
 
-  afterEach(() => {
-    httpMock?.verify();
-    sessionStorage.clear();
-  });
+  afterEach(() => httpMock?.verify());
 
-  beforeEach(() => {
-    sessionStorage.clear();
-  });
-
-  it('starts unauthenticated when there is no stored token', () => {
+  it('starts without an in-memory session and does not read browser storage', () => {
+    sessionStorage.setItem('shopverse.session.token', 'legacy-token');
     const service = create();
-    expect(service.token()).toBeNull();
+    expect(service.identity()).toBeNull();
     expect(service.username()).toBeNull();
     expect(service.roles()).toEqual([]);
     expect(service.isAuthenticated()).toBe(false);
     expect(service.isAdmin()).toBe(false);
+    expect(sessionStorage.getItem('shopverse.session.token')).toBeNull();
   });
 
-  it('reads a previously stored, valid token on construction', () => {
-    const token = buildToken({ sub: 'alice', roles: 'ROLE_CUSTOMER', exp: Math.floor(Date.now() / 1000) + 3600 });
-    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
+  it('login obtains CSRF protection, authenticates, then loads the server-backed session', () => {
     const service = create();
-    expect(service.username()).toBe('alice');
+    let result: BrowserSession | null | undefined;
+    service.login('bob', 'secret').subscribe((session) => { result = session; });
+
+    httpMock.expectOne('/auth/csrf').flush(null);
+    const login = httpMock.expectOne('/auth/login');
+    expect(login.request.method).toBe('POST');
+    expect(login.request.body).toEqual({ username: 'bob', password: 'secret' });
+    login.flush({ authenticated: true });
+    httpMock.expectOne('/auth/session').flush(customerSession);
+
+    expect(result).toEqual(customerSession);
+    expect(service.username()).toBe('bob');
+    expect(service.isAuthenticated()).toBe(true);
+    expect(sessionStorage.getItem('shopverse.session.token')).toBeNull();
+  });
+
+  it('restores the HttpOnly-cookie session from the server and shares an in-flight request', () => {
+    const service = create();
+    let first: BrowserSession | null | undefined;
+    let second: BrowserSession | null | undefined;
+    service.restoreSession().subscribe((session) => { first = session; });
+    service.restoreSession().subscribe((session) => { second = session; });
+
+    httpMock.expectOne('/auth/session').flush(customerSession);
+
+    expect(first).toEqual(customerSession);
+    expect(second).toEqual(customerSession);
     expect(service.isAuthenticated()).toBe(true);
   });
 
-  it('login() stores the token and updates signals', () => {
+  it('uses roles returned by the server to control admin-only navigation visibility', () => {
     const service = create();
-    const token = buildToken({ sub: 'bob', roles: 'ROLE_CUSTOMER', exp: Math.floor(Date.now() / 1000) + 3600 });
-
-    service.login('bob', 'secret').subscribe();
-    const request = httpMock.expectOne('/auth/login');
-    expect(request.request.body).toEqual({ username: 'bob', password: 'secret' });
-    request.flush({ token });
-
-    expect(service.token()).toBe(token);
-    expect(service.username()).toBe('bob');
-    expect(sessionStorage.getItem(STORAGE_KEYS.sessionToken)).toBe(token);
-  });
-
-  it('parses roles from a space-separated roles claim and detects admin', () => {
-    const token = buildToken({ sub: 'admin1', roles: 'ROLE_CUSTOMER ROLE_ADMIN', exp: Math.floor(Date.now() / 1000) + 3600 });
-    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
-    const service = create();
-    expect(service.roles()).toEqual(['ROLE_CUSTOMER', 'ROLE_ADMIN']);
+    service.restoreSession().subscribe();
+    httpMock.expectOne('/auth/session').flush({ ...customerSession, username: 'admin', roles: ['ROLE_ADMIN'] });
     expect(service.isAdmin()).toBe(true);
+    expect(service.canAccessBackOffice()).toBe(true);
   });
 
-  it('treats an expired token as unauthenticated', () => {
-    const token = buildToken({ sub: 'carol', roles: 'ROLE_CUSTOMER', exp: Math.floor(Date.now() / 1000) - 10 });
-    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
-    const service = create();
-    expect(service.isAuthenticated()).toBe(false);
-  });
-
-  it('treats a malformed token as no claims instead of throwing', () => {
-    sessionStorage.setItem(STORAGE_KEYS.sessionToken, 'not-a-jwt');
-    const service = create();
-    expect(() => service.username()).not.toThrow();
-    expect(service.username()).toBeNull();
-    expect(service.isAuthenticated()).toBe(false);
-  });
-
-  it('loadProfile() fetches and stores the profile', () => {
+  it('loads and caches the current account profile', () => {
     const service = create();
     service.loadProfile().subscribe();
     const request = httpMock.expectOne('/api/v1/accounts/current');
@@ -112,32 +98,29 @@ describe('SessionService', () => {
     expect(service.profile()?.email).toBe('new@example.test');
   });
 
-  it('logout() clears the token and profile', () => {
-    const token = buildToken({ sub: 'dana', roles: 'ROLE_CUSTOMER', exp: Math.floor(Date.now() / 1000) + 3600 });
-    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
+  it('logout clears in-memory identity and profile without storing or exposing a token', () => {
     const service = create();
-    expect(service.isAuthenticated()).toBe(true);
-
+    service.restoreSession().subscribe();
+    httpMock.expectOne('/auth/session').flush(customerSession);
     service.logout();
-
-    expect(service.token()).toBeNull();
+    expect(service.identity()).toBeNull();
     expect(service.profile()).toBeNull();
-    expect(sessionStorage.getItem(STORAGE_KEYS.sessionToken)).toBeNull();
+    expect(service.isAuthenticated()).toBe(false);
   });
 
-  it('logout(true) calls the server logout endpoint before clearing the token', () => {
-    const token = buildToken({ sub: 'dana', roles: 'ROLE_CUSTOMER', exp: Math.floor(Date.now() / 1000) + 3600 });
-    sessionStorage.setItem(STORAGE_KEYS.sessionToken, token);
+  it('logoutFromServer sends the cookie-authenticated logout request and clears session only after success', () => {
     const service = create();
-
-    service.logout(true);
+    service.restoreSession().subscribe();
+    httpMock.expectOne('/auth/session').flush(customerSession);
+    let completed = false;
+    service.logoutFromServer().subscribe(() => { completed = true; });
 
     const request = httpMock.expectOne('/auth/logout');
     expect(request.request.method).toBe('POST');
-    expect(service.token()).toBe(token);
+    expect(service.isAuthenticated()).toBe(true);
     request.flush(null, { status: 204, statusText: 'No Content' });
-
-    expect(service.token()).toBeNull();
-    expect(sessionStorage.getItem(STORAGE_KEYS.sessionToken)).toBeNull();
+    expect(completed).toBe(true);
+    expect(service.identity()).toBeNull();
+    expect(service.isAuthenticated()).toBe(false);
   });
 });

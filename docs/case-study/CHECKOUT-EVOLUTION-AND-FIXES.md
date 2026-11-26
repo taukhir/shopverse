@@ -102,9 +102,11 @@ every reference to the real two-step `/api/v1/checkouts` +
 
 - **BUG-001** — checkout only ever submits the first cart item
   (`cart.items()[0]`), never the full multi-item cart. Deliberately left
-  blocked: the backend option (contract shape for multi-item checkout) is
-  still an open product decision, and the frontend multi-item UI is blocked
-  on that landing first.
+  blocked for end-to-end rollout: Inventory's phase 1 now accepts list-shaped
+  order events and supports per-product reservations with compensation, but
+  Order Service still enforces one item and emits the legacy scalar event.
+  Payment/Order consumer compatibility and the frontend contract migration
+  remain open under the decided list-shaped event approach.
 - **BUG-003** — checkout unit tests don't cover multi-item carts. Tied to
   BUG-001; moot until that's unblocked.
 - The richer `Problem` error shape (machine-readable `code`, `correlationId`,
