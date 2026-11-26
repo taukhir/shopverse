@@ -41,14 +41,12 @@
       </article>
       <article>
         <span>Inventory reservation</span>
-        <strong>{{ reservation()?.status || 'Not found' }}</strong>
-        <p>
-          @if (reservation()) {
-            Product {{ reservation()!.productId }} / Qty {{ reservation()!.quantity }} / Expires {{ reservation()!.expiresAt | date:'short' }}
-          } @else {
-            No reservation record returned yet.
-          }
-        </p>
+        <strong>{{ reservations().length ? reservations().length + ' reservation(s)' : 'Not found' }}</strong>
+        @for (reservation of reservations(); track reservation.id) {
+          <p>Product {{ reservation.productId }} / Qty {{ reservation.quantity }} / {{ reservation.status }} / Expires {{ reservation.expiresAt | date:'short' }}</p>
+        } @empty {
+          <p>No reservation record returned yet.</p>
+        }
       </article>
       <article>
         <span>Correlation</span>

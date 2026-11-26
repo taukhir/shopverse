@@ -51,6 +51,13 @@ spring:
           jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/auth/.well-known/jwks.json}
 
 security:
+  browser:
+    access-cookie-name: ${BROWSER_ACCESS_COOKIE_NAME:SHOPVERSE_ACCESS}
+    csrf-cookie-name: ${BROWSER_CSRF_COOKIE_NAME:XSRF-TOKEN}
+    csrf-header-name: ${BROWSER_CSRF_HEADER_NAME:X-XSRF-TOKEN}
+    csrf:
+      protected-paths: ${BROWSER_CSRF_PROTECTED_PATHS:/auth/login,/auth/logout,/auth/revoke}
+      allowed-origins: ${BROWSER_CSRF_ALLOWED_ORIGINS:http://localhost:4200,http://127.0.0.1:4200}
   jwt:
     issuer: ${JWT_ISSUER:shopverse-auth-service}
     revocation-key-prefix: ${JWT_REVOCATION_KEY_PREFIX:shopverse:auth:revoked-jti:v1:}

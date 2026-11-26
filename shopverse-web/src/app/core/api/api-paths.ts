@@ -1,6 +1,8 @@
 export const API_PATHS = {
   auth: {
     login: '/auth/login',
+    csrf: '/auth/csrf',
+    session: '/auth/session',
     logout: '/auth/logout',
   },
   catalog: {
@@ -86,4 +88,4 @@ export const API_PATHS = {
   },
 } as const;
 
-export const PUBLIC_API_MARKERS = ['/auth/login', '/auth/.well-known/jwks.json', '/public/'] as const;
+export const PUBLIC_API_MARKERS = ['/auth/login', '/auth/csrf', '/auth/session', '/auth/.well-known/jwks.json', '/public/'] as const;

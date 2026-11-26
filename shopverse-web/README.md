@@ -35,7 +35,7 @@ The UI is wired to the API Gateway through `/api` and `/auth`.
 
 | Area | Frontend behavior | Backend APIs |
 |---|---|---|
-| Auth/session | Login, admin/customer navigation, protected API auth header | `POST /auth/login`, `GET /api/v1/users/me` |
+| Auth/session | Login, in-memory UI identity restored from HttpOnly cookie, server-side logout | `GET /auth/csrf`, `POST /auth/login`, `GET /auth/session`, `POST /auth/logout` |
 | Catalog | Product grid, detail page, related products, categories fallback | `GET /api/v1/inventory/public/items`, `GET /api/v1/inventory/public/items/{id}`, `GET /api/v1/inventory/public/items/{id}/related`, `GET /api/v1/inventory/public/categories` |
 | Cart | Local fallback, persisted account cart, merge local cart after login | `GET/PUT /api/v1/cart`, `POST /api/v1/cart/merge`, `POST /api/v1/cart/validate`, `DELETE /api/v1/cart/items/{productId}` |
 | Account | Profile edit and address CRUD | `GET/PUT/PATCH /api/v1/users/me`, `GET/POST/PUT/DELETE /api/v1/users/me/addresses` |
@@ -69,6 +69,17 @@ http://localhost:4200
 `proxy.conf.json` forwards `/api` and `/auth` to the API Gateway on
 `http://localhost:8080`, so start the backend stack before exercising real
 catalog, auth, checkout, or admin flows.
+
+The browser uses the same-origin `/auth` and `/api` paths through this proxy;
+the access JWT is an `HttpOnly` `SHOPVERSE_ACCESS` cookie and Angular does not
+read or attach it as a Bearer header. Angular reads only the `XSRF-TOKEN` cookie
+to add `X-XSRF-TOKEN` on unsafe requests. Production nginx also proxies both
+paths through the storefront origin. If deploying the API on a separate browser
+origin, configure explicit credentialed CORS origins as well as the Gateway's
+CSRF origin allowlist; the allowlist alone is not CORS configuration.
+
+For the request-by-request login, CSRF, `/auth/session`, page reload, logout,
+and token-expiry behavior, see the [Auth Service browser cookie and CSRF flow](../services/auth-service/README.md#browser-cookie-and-csrf-flow).
 
 Recommended local backend startup from the repository root:
 
@@ -143,7 +154,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFull
 
 ## Runtime Notes
 
-- Access tokens are stored in `sessionStorage` for the local POC.
+- The access JWT is held in the HttpOnly `SHOPVERSE_ACCESS` cookie; Angular
+  stores only the session identity/roles in memory. A full page reload calls
+  `/auth/session` to rebuild that UI state. There is currently no refresh-token
+  endpoint, so JWT expiry requires signing in again.
 - Cart state is stored in `localStorage` first, then synced to `/api/v1/cart`
   when the customer is authenticated.
 - Product catalog/detail data comes from Inventory public APIs, with the older
@@ -177,9 +191,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFull
 - Every API-backed view needs loading, empty, partial, success, validation, authorization,
   unavailable, retry, and duplicate-submission behavior without leaking internal errors.
 
-Known POC limits: access tokens use `sessionStorage` and visual snapshots cover
-selected routes rather than every responsive state. The deterministic AI evaluation
-uses synthetic accessibility and Web Vitals evidence; browser tests remain authoritative.
+Known POC limits: the access JWT is now held in an HttpOnly cookie, but refresh
+tokens and silent renewal are not implemented. Visual snapshots cover selected
+routes rather than every responsive state. The deterministic AI evaluation uses
+synthetic accessibility and Web Vitals evidence; browser tests remain authoritative.
 
 ## Validation
 

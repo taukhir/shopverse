@@ -2,23 +2,29 @@
 
 ## Context
 
-Shopverse's checkout API, Kafka events, and database schema are single-item
-end-to-end, not just at the UI:
+Shopverse's checkout API and Order producer remain single-item, but Inventory
+has completed the first implementation phase for multi-item reservation:
 
 - `CheckoutRequest.items` is `@NotEmpty @Size(max = 1)` — the backend
   contract itself rejects more than one item, not only the frontend.
-- `OrderCreatedEvent` carries a single `productId`/`quantity`, built from
-  `order.getItems().getFirst()`, with `amount` set to the order's **full
-  total** rather than a per-item amount. `InventoryReservedEvent` carries the
-  same single-item shape onward to payment-service.
-- `InventoryReservation.orderNumber` has a database-level
-  `@Column(unique = true)` constraint — only one reservation row per order
-  can exist today.
+- Order Service's `OrderCreatedEvent` still carries scalar
+  `productId`/`quantity`, built from `order.getItems().getFirst()`, with
+  `amount` set to the order's **full total** rather than a per-item amount.
+  Its HTTP contract still rejects more than one line item.
+- The Inventory consumer accepts an `items` list and falls back to the legacy
+  scalar fields when the list is absent or empty. `InventoryReservedEvent`
+  retains the legacy fields and also carries the line-item list for downstream
+  compatibility work.
+- Inventory reservation uniqueness is now composite
+  `(order_number, product_id)`, so an order can have one reservation row per
+  product. Inventory reserves all supplied lines in one transaction, releases
+  successful earlier reservations if a later line fails, and enqueues one
+  consolidated outcome.
 - `OrderEntity.addItem()` already accumulates `totalAmount` correctly across
-  multiple calls — the order aggregate itself is multi-item-capable. The
-  limitation is specifically the checkout API contract, the Kafka
-  choreography, and the reservation schema, tracked as `BUG-001` in
-  [`dev-tools/teams/BACKLOG.md`](https://github.com/taukhir/shopverse/blob/main/dev-tools/teams/BACKLOG.md).
+  multiple calls - the order aggregate itself is multi-item-capable. The
+  remaining limitation is the Order API/producer, Payment and Order consumer
+  compatibility, and frontend rollout, tracked as `BUG-001` in
+  [`dev-tools/teams/BACKLOG-BY-AREA.md`](../../../dev-tools/teams/BACKLOG-BY-AREA.md).
 
 This was initially miscategorized as a frontend-only defect
 (`checkout-page.component.ts` only submits `items()[0]`). Tracing the
@@ -32,7 +38,9 @@ through plan mode before editing) rather than a one-file fix.
 **(a) Redesign `OrderCreatedEvent`/`InventoryReservedEvent` to carry a list
 of line items.** A breaking event-schema change requiring a compatibility
 review of every producer and consumer (order-service, inventory-service,
-payment-service), per this repository's event-copy convention.
+payment-service), per this repository's event-copy convention. Inventory's
+consumer side is implemented with a legacy scalar fallback; the coordinated
+producer and downstream-consumer rollout remains outstanding.
 
 **(b) Keep single-item events; emit one event per line item, same
 `orderNumber`.** Avoids the schema break, but still needs the same
@@ -121,7 +129,8 @@ partially succeed. Shopverse doesn't need that system's full strategy-class
 machinery — a two-value enum on each line item (`SHIP_TOGETHER` /
 `SHIP_SEPARATELY`, defaulting to together) is enough to avoid having to
 retrofit the concept later once partial-reservation-failure handling
-(inventory-service's hardest piece of this change) is built.
+(now implemented in Inventory's first phase) is exercised by end-to-end
+multi-item checkout.
 
 ## Consequences
 
@@ -129,30 +138,33 @@ retrofit the concept later once partial-reservation-failure handling
   `CheckoutRequest`'s `@Size(max = 1)` constraint both need to change
   together, since the DTO constraint is the first thing that currently
   rejects multi-item requests.
-- **inventory-service:** needs the schema change on its consumer side, a
-  Liquibase migration on `InventoryReservation` (the `orderNumber` unique
-  constraint most likely becomes a composite `(orderNumber, productId)`
-  constraint), and new partial-reservation-failure business logic that
-  doesn't exist today — this is the hardest part of the change, not the
-  type changes themselves.
+- **inventory-service:** consumer support for list-shaped events, the
+  composite `(orderNumber, productId)` reservation key, and compensating
+  release on partial reservation failure are implemented in BUG-001 phase 1.
+  A remaining operational gap is that the admin lookup by order number returns
+  only the first reservation row; BUG-053 tracks exposing all rows.
 - **payment-service:** barely changes. It already reads only
   `orderNumber`/`amount` at the order level, never per-item fields, and (a)
   preserves the one-event-per-order shape it already assumes.
 - **Rollout is two deploys, not one**, for every service that produces or
   consumes either event, to avoid breaking old consumers during the window
   where old and new instances run side by side.
-- **Effort is sprint-sized**, not a quick patch — driven by inventory's new
-  business logic and the doubled deploy/test surface, not by the schema
-  change in isolation.
+- **Remaining effort is cross-service rollout and verification**, not the
+  Inventory reservation algorithm, which is implemented in phase 1. Order,
+  Payment, and frontend contract changes still need coordinated compatibility
+  tests and staged deployment.
 - Database migration, event-schema change, and checkout authorization/
   validation all move together in one coordinated change, consistent with
   this repository's rule that an event schema change requires a
   compatibility review of every producer and consumer, not a
   service-by-service patch.
 
-**Status:** decided (option (a) over (b)/(c)); implementation not yet
-scheduled. Tracked as `BUG-001` in
-[`dev-tools/teams/BACKLOG.md`](https://github.com/taukhir/shopverse/blob/main/dev-tools/teams/BACKLOG.md).
+**Status:** option (a) is decided. Inventory phase 1 is implemented, including
+the list-shaped consumer extension, composite reservation key, and atomic
+partial-failure compensation. Order Service still emits the legacy scalar event
+and limits checkout to one line; Payment/Order consumer compatibility and the
+frontend rollout are not complete. Track the remaining cross-service work as
+`BUG-001` in [`dev-tools/teams/BACKLOG-BY-AREA.md`](../../../dev-tools/teams/BACKLOG-BY-AREA.md).
 
 ## Official References
 

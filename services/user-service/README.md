@@ -1,5 +1,12 @@
 # User Service
 
+> **Account persistence verification status (2026-11-25):** the web app
+> invalidates its address cache and reads the address list back after a save;
+> this is not proof that the configured database committed the update.
+> BUG-057/058 track DB-backed reload verification and explicit-false
+> default-address semantics. BUG-060 tracks authorization freshness after
+> role/account changes.
+
 User Service runs on port `8082`. It owns user identity, accounts, customer address books, roles, permissions, groups, and permission-level administration. It still hosts the legacy persisted cart API pending FEAT-AS migration; cart extraction remains a separate task.
 
 ## Security Chains

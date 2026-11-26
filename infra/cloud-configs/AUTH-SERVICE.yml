@@ -2,9 +2,14 @@ server:
   port: ${SERVER_PORT:8081}
 
 security:
+  browser:
+    access-cookie-name: ${BROWSER_ACCESS_COOKIE_NAME:SHOPVERSE_ACCESS}
+    csrf-cookie-name: ${BROWSER_CSRF_COOKIE_NAME:XSRF-TOKEN}
+    cookie-secure: ${BROWSER_COOKIE_SECURE:true}
   jwt:
     issuer: ${JWT_ISSUER:shopverse-auth-service}
     revocation-key-prefix: ${JWT_REVOCATION_KEY_PREFIX:shopverse:auth:revoked-jti:v1:}
+    access-token-ttl: ${JWT_ACCESS_TOKEN_TTL:PT1H}
 
 spring:
   cloud:

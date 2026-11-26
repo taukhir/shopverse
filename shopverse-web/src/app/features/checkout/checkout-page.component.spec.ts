@@ -126,10 +126,13 @@ describe('CheckoutPageComponent', () => {
     expect(ordersApiStub.createCheckout).not.toHaveBeenCalled();
   });
 
-  it('reviewOrder() creates a persisted checkout for the first cart item, and stores it', () => {
+  it('reviewOrder() sends every cart item to the persisted checkout', () => {
     const chosenAddress = address({ id: 3, defaultAddress: true });
     const component = createComponent(of([chosenAddress]));
-    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 2 }]);
+    cartItems.set([
+      { productId: 1, productName: 'Widget', price: 100, quantity: 2 },
+      { productId: 2, productName: 'Cable', price: 25, quantity: 3 },
+    ]);
     const checkoutResponse = {
       checkoutId: 'CHK-1', version: 1, status: 'READY_TO_PLACE',
       items: [], shippingAddress: null, totalAmount: '200.00', currency: 'INR',
@@ -141,7 +144,7 @@ describe('CheckoutPageComponent', () => {
 
     expect(ordersApiStub.createCheckout).toHaveBeenCalledOnce();
     const [items, shippingAddress] = ordersApiStub.createCheckout.mock.calls[0];
-    expect(items).toEqual([{ productId: 1, quantity: 2 }]);
+    expect(items).toEqual([{ productId: 1, quantity: 2 }, { productId: 2, quantity: 3 }]);
     expect(shippingAddress).toMatchObject({ recipientName: 'Ahmed', city: 'Bengaluru' });
     expect(ordersApiStub.placeOrder).not.toHaveBeenCalled();
 
@@ -161,10 +164,13 @@ describe('CheckoutPageComponent', () => {
     expect(ordersApiStub.createCheckout).toHaveBeenCalledOnce();
   });
 
-  it('confirmOrder() places the order from the reviewed checkout with a fresh idempotency key, clears the cart, and stores a receipt on success', () => {
+  it('confirmOrder() places every item with one checkout idempotency key and stores all receipt lines', () => {
     const chosenAddress = address({ id: 3, defaultAddress: true });
     const component = createComponent(of([chosenAddress]));
-    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 2 }]);
+    cartItems.set([
+      { productId: 1, productName: 'Widget', price: 100, quantity: 2 },
+      { productId: 2, productName: 'Cable', price: 25, quantity: 3 },
+    ]);
     component.review.set({ checkoutId: 'CHK-1', version: 1 });
     ordersApiStub.placeOrder.mockReturnValue(of({ orderNumber: 'ORD-1', status: 'PENDING_INVENTORY' }));
 
@@ -174,14 +180,29 @@ describe('CheckoutPageComponent', () => {
     const [checkoutId, version, idempotencyKey] = ordersApiStub.placeOrder.mock.calls[0];
     expect(checkoutId).toBe('CHK-1');
     expect(version).toBe(1);
-    expect(idempotencyKey).toMatch(/^web-1-/);
+    expect(idempotencyKey).toMatch(/^web-/);
 
     expect(component.success()).toBe('ORD-1');
-    expect((component.receipt() as { amount: number }).amount).toBe(200);
+    expect((component.receipt() as { amount: number }).amount).toBe(275);
+    expect((component.receipt() as { items: unknown[] }).items).toHaveLength(2);
     expect((component.receipt() as { paymentStatus: string }).paymentStatus).toBe('Pending capture');
     expect(cartStub.clear).toHaveBeenCalledOnce();
     expect(toastStub.success).toHaveBeenCalledWith('Order ORD-1 created.');
     expect(component.loading()).toBe(false);
+  });
+
+  it('reuses the idempotency key after an ambiguous placement failure', () => {
+    const component = createComponent(of([address({ id: 3, defaultAddress: true })]));
+    cartItems.set([{ productId: 1, productName: 'Widget', price: 100, quantity: 1 }]);
+    component.review.set({ checkoutId: 'CHK-RETRY', version: 1 });
+    ordersApiStub.placeOrder
+      .mockReturnValueOnce(throwError(() => new HttpErrorResponse({ status: 503 })))
+      .mockReturnValueOnce(of({ orderNumber: 'ORD-RETRY', status: 'PENDING_INVENTORY' }));
+
+    component.confirmOrder();
+    component.confirmOrder();
+
+    expect(ordersApiStub.placeOrder.mock.calls[0][2]).toBe(ordersApiStub.placeOrder.mock.calls[1][2]);
   });
 
   it('confirmOrder() maps the placed order status to a real payment-status label on the receipt', () => {
@@ -253,6 +274,22 @@ describe('CheckoutPageComponent', () => {
     expect(component.review()).toEqual(repriced);
     expect(component.error()).toBe(APP_MESSAGES.errors.checkoutExpired);
     expect(component.loading()).toBe(false);
+  });
+
+  it('reprices every cart line when the checkout has expired', () => {
+    const component = createComponent(of([address({ id: 3, defaultAddress: true })]));
+    cartItems.set([
+      { productId: 1, productName: 'Widget', price: 100, quantity: 2 },
+      { productId: 2, productName: 'Cable', price: 25, quantity: 1 },
+    ]);
+    component.review.set({ checkoutId: 'CHK-1', version: 1 });
+    ordersApiStub.placeOrder.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 409, error: { detail: 'The checkout price has expired.' } })));
+    ordersApiStub.updateCheckout.mockReturnValue(of({ checkoutId: 'CHK-1', version: 2 }));
+
+    component.confirmOrder();
+
+    expect(ordersApiStub.updateCheckout).toHaveBeenCalledWith(
+      'CHK-1', [{ productId: 1, quantity: 2 }, { productId: 2, quantity: 1 }], expect.any(Object), 1);
   });
 
   it('confirmOrder() on an already-placed 409 clears the review and surfaces a distinct message', () => {
