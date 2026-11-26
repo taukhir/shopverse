@@ -1,65 +1,58 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-type NotificationTone = 'info' | 'success' | 'warning';
-
-interface NotificationPreview {
-  readonly title: string;
-  readonly description: string;
-  readonly meta: string;
-  readonly tone: NotificationTone;
-}
-
-interface PreferencePreview {
-  readonly label: string;
-  readonly description: string;
-  readonly enabled: boolean;
-}
+import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
+import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
+import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
+import { formatInr } from '../../shared/utils/formatters';
+import { Order, OrdersApiService } from '../orders/orders-api.service';
 
 @Component({
   selector: 'app-notifications-page',
-  imports: [RouterLink],
+  imports: [DatePipe, EmptyStateComponent, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
   templateUrl: './notifications-page.component.html',
   styleUrl: './notifications-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationsPageComponent {
-  protected readonly notifications = signal<NotificationPreview[]>([
-    {
-      title: 'Order status updates',
-      description: 'Placed, confirmed, reserved, packed, shipped, delivered, cancelled, and refund events will appear here.',
-      meta: 'Order lifecycle',
-      tone: 'info',
-    },
-    {
-      title: 'Payment activity',
-      description: 'Payment retries, authorization state, settlement status, and failed payment recovery notices will be grouped here.',
-      meta: 'Payment visibility',
-      tone: 'warning',
-    },
-    {
-      title: 'Account and session safety',
-      description: 'New sign-ins, password-sensitive events, and account detail updates will be highlighted for customer trust.',
-      meta: 'Security',
-      tone: 'success',
-    },
-  ]);
+  private readonly ordersApi = inject(OrdersApiService);
+  protected readonly orders = signal<Order[]>([]);
+  protected readonly state = signal<'loading' | 'ready' | 'error'>('loading');
+  protected readonly attentionCount = computed(() => this.orders().filter((order) => this.needsAttention(order.status)).length);
 
-  protected readonly preferences = signal<PreferencePreview[]>([
-    {
-      label: 'Email updates',
-      description: 'Useful for receipts, payment failures, and delivery milestones.',
-      enabled: true,
-    },
-    {
-      label: 'In-app alerts',
-      description: 'Fast status updates while customers are browsing ShopVerse.',
-      enabled: true,
-    },
-    {
-      label: 'Promotional messages',
-      description: 'Optional product drops and restock messages. Disabled by default for a cleaner experience.',
-      enabled: false,
-    },
-  ]);
+  constructor() {
+    this.load();
+  }
+
+  protected load(): void {
+    this.state.set('loading');
+    this.ordersApi.listCustomerOrders().subscribe({
+      next: (orders) => {
+        this.orders.set([...orders].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)));
+        this.state.set('ready');
+      },
+      error: () => this.state.set('error'),
+    });
+  }
+
+  protected statusLabel(status: string): string {
+    return status.replaceAll('_', ' ').toLowerCase().replace(/\b\w/g, (letter) => letter.toUpperCase());
+  }
+
+  protected needsAttention(status: string): boolean {
+    return status.includes('FAILED') || status.includes('REJECTED');
+  }
+
+  protected statusMessage(status: string): string {
+    if (this.needsAttention(status)) return 'This order needs attention. Open its details to review the latest status.';
+    if (status === 'DELIVERED') return 'This order has been delivered.';
+    if (status === 'RETURN_REQUESTED') return 'Your return request is awaiting review.';
+    if (status === 'CONFIRMED') return 'Your order is confirmed and moving to fulfillment.';
+    return 'Your order is progressing. Open its details for the timeline.';
+  }
+
+  protected price(value: string): string {
+    return formatInr(value);
+  }
 }

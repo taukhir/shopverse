@@ -217,7 +217,7 @@ owner but several affected components.
 | ENH-045 | Recovery console must distinguish unavailable services from an empty DLT queue *(UI implementation present; runtime verification pending)* | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
 | ENH-046 | Checkout receipt should use the placed order's authoritative total and live workflow/payment state | frontend-site | frontend-site, order-service, payment-service |
 | ENH-047 | Redesign responsive storefront and admin headers and navigation presentation *(Implemented; responsive visual verification pending)* | frontend-site | frontend-site, frontend-backoffice |
-| ENH-048 | Expand accessibility checks across login, checkout, orders, roles/groups, and mobile layouts *(checks added; Playwright workers failed immediately locally, rerun required)* | frontend-site | frontend-site, frontend-backoffice |
+| ENH-048 | Expand accessibility checks across login, checkout, orders, roles/groups, and mobile layouts *(Chromium axe scans pass locally; CI verification remains)* | frontend-site | frontend-site, frontend-backoffice |
 | ENH-049 | Add User Service persistence, security, and HTTP integration coverage | user-service | user-service, platform |
 | ENH-050 | Define cross-replica role/permission cache invalidation | user-service | user-service |
 | ENH-051 | Apply endpoint resilience controls consistently across User Service APIs | user-service | user-service, api-gateway, platform |
@@ -231,6 +231,24 @@ owner but several affected components.
 | ENH-059 | Protect browser authentication tokens with an HttpOnly-cookie or BFF session design | frontend-site | frontend-site, auth-service, api-gateway, platform |
 | ENH-060 | Provide cross-service reconciliation query and audit API | platform | order-service, payment-service, inventory-service, frontend-backoffice |
 | ENH-061 | Provide bounded, time-based admin analytics aggregates | platform | order-service, inventory-service, payment-service, frontend-backoffice |
+| ENH-062 | Replace static notification preview with recent customer order activity from the existing Orders API *(implemented; live inbox/unread/preferences remain under FEAT-AO)* | frontend-site | frontend-site, order-service |
+| ENH-063 | Complete back-office navigation and normalize workspace page framing *(sidebar links and desktop alignment implemented; visual/runtime verification pending)* | frontend-backoffice | frontend-backoffice |
+
+### ENH-063 acceptance criteria
+
+- Every implemented admin route is discoverable from the shared navigation, including reconciliation and returns/refunds.
+- Keep navigation grouped by operational purpose, indicate the active route, and preserve keyboard and mobile-menu behavior.
+- Align admin route content consistently beside the fixed desktop sidebar and keep the responsive stacked layout at tablet/mobile breakpoints.
+- Maintain clear route/page titles, operational loading/error/empty states, and explicit notices when a workflow is backend-dependent.
+- Record visual/browser verification separately from source-level implementation; do not claim that frontend queues provide backend approval, audit, or authoritative analytics.
+
+### ENH-062 acceptance criteria
+
+- Derive displayed activity only from the authenticated customer's existing order-history response; do not fabricate notification events or unread counts.
+- Show loading, service failure with retry, empty history, and populated order states.
+- Sort recent orders newest first, show the current order state and date, and link each item to its order detail/timeline.
+- Avoid per-order timeline/payment requests on the list screen; open the existing detail page for those details.
+- Keep persisted notifications, read/unread state, and delivery preferences as FEAT-AO backend work.
 
 ### ENH-057 acceptance criteria
 

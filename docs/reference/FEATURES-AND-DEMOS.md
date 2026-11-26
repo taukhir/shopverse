@@ -1,6 +1,6 @@
 # Shopverse Features And Demos
 
-## Current checkout and back-office implementation note (2026-11-25)
+## Current checkout, back-office, and frontend implementation note (2026-11-26)
 
 The web checkout submits all cart lines, holds a stable idempotency key for
 retries of one checkout, and renders multi-line review/receipt details. The
@@ -12,6 +12,19 @@ operations. Current dashboard counters reflect records loaded by the web app;
 authoritative time-window analytics and cross-service reconciliation depend on
 ENH-060/061. See the [selected frontend implementation report](../../dev-tools/teams/docs/frontend-selected-backlog-implementation-2026-11-25.md)
 and [`BACKLOG-BY-AREA.md`](../../dev-tools/teams/BACKLOG-BY-AREA.md).
+
+The customer notification route currently shows recent order states from the
+authenticated order-history API, with loading, retry, empty, and populated
+states. It does not represent a persisted notification inbox: unread/read
+tracking and delivery preferences remain part of FEAT-AO and require backend
+contracts. See ENH-062 in the backlog for the implemented frontend scope.
+
+The back-office shares a responsive operations sidebar across admin routes.
+Its navigation includes orders, inventory, payments, reconciliation,
+returns/refunds, recovery, activity, users, groups, roles/permissions, and
+settings. Desktop admin pages now use a common content width and sidebar offset.
+Reconciliation remains Payment-API-backed and returns remain read-only until
+the backend workflows land; ENH-063 tracks browser visual verification.
 
 <!-- split-guide-index -->
 # Shopverse Features And Demos
