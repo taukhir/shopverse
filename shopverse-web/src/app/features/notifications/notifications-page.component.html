@@ -8,74 +8,84 @@
   </nav>
 
   <header class="hero">
-    <p>Customer signals</p>
-    <h1>Notification center.</h1>
-    <span>Frontend-ready inbox for order, payment, and account events. Backend delivery rules can plug into this surface later.</span>
+    <p>Customer updates</p>
+    <h1>Order activity.</h1>
+    <span>Recent updates are based on your orders. Open an order to see its full timeline and payment status.</span>
   </header>
 
-  <section class="summary-grid" aria-label="Notification summary">
-    <article>
-      <span>Unread</span>
-      <strong>0</strong>
-      <p>Live unread counts need notification API support.</p>
-    </article>
-    <article>
-      <span>Watching</span>
-      <strong>Orders</strong>
-      <p>Order lifecycle events are the first priority.</p>
-    </article>
-    <article>
-      <span>Delivery</span>
-      <strong>In-app + email</strong>
-      <p>Preference controls are staged for backend persistence.</p>
-    </article>
-  </section>
+  @if (state() === 'loading') {
+    <section class="activity-panel" aria-label="Loading order updates" aria-live="polite">
+      <app-loading-skeleton [rows]="4" />
+    </section>
+  } @else if (state() === 'error') {
+    <app-service-notice
+      eyebrow="UPDATES UNAVAILABLE"
+      title="We could not load your order activity."
+      message="Your order data is unchanged. Try again to reload the latest updates."
+      (retry)="load()"
+    />
+  } @else {
+    <section class="summary-grid" aria-label="Order activity summary">
+      <article>
+        <span>Orders shown</span>
+        <strong>{{ orders().length }}</strong>
+        <p>Most recent orders appear first.</p>
+      </article>
+      <article>
+        <span>Need attention</span>
+        <strong>{{ attentionCount() }}</strong>
+        <p>Failed or rejected order states.</p>
+      </article>
+      <article>
+        <span>Full timeline</span>
+        <strong>Available</strong>
+        <p>Open any order for its status history.</p>
+      </article>
+    </section>
 
-  <section class="layout">
-    <main class="panel">
-      <div class="panel-head">
-        <div>
-          <p>A clean activity stream</p>
-          <h2>What customers will see</h2>
+    @if (!orders().length) {
+      <app-empty-state
+        eyebrow="NO ORDER UPDATES"
+        title="Your order activity will appear here."
+        message="Once you place an order, you can follow its current status and open its detailed timeline here."
+        actionLabel="Browse products"
+        actionLink="/products"
+      />
+    } @else {
+      <section class="activity-panel" aria-labelledby="activity-title">
+        <div class="panel-head">
+          <div>
+            <p>Recent activity</p>
+            <h2 id="activity-title">Your latest orders</h2>
+          </div>
+          <button type="button" (click)="load()">Refresh updates</button>
         </div>
-        <a routerLink="/orders">View orders →</a>
-      </div>
 
-      <div class="notification-list">
-        @for (notification of notifications(); track notification.title) {
-          <article [class]="notification.tone">
-            <i aria-hidden="true"></i>
-            <div>
-              <span>{{ notification.meta }}</span>
-              <h3>{{ notification.title }}</h3>
-              <p>{{ notification.description }}</p>
-            </div>
-          </article>
-        }
-      </div>
-    </main>
-
-    <aside class="panel preferences">
-      <div class="panel-head compact">
-        <div>
-          <p>Preferences</p>
-          <h2>Controls staged</h2>
+        <div class="activity-list">
+          @for (order of orders(); track order.id) {
+            <article [class.needs-attention]="needsAttention(order.status)">
+              <span class="status-mark" aria-hidden="true"></span>
+              <div class="activity-copy">
+                <div class="activity-meta">
+                  <span>{{ order.orderNumber }}</span>
+                  <time [attr.datetime]="order.createdAt">{{ order.createdAt | date:'medium' }}</time>
+                </div>
+                <h3>{{ statusLabel(order.status) }}</h3>
+                <p>{{ statusMessage(order.status) }}</p>
+              </div>
+              <div class="activity-order">
+                <strong>{{ price(order.totalAmount) }}</strong>
+                <a [routerLink]="['/orders', order.id]">View details <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          }
         </div>
-      </div>
+      </section>
+    }
 
-      <div class="preference-list">
-        @for (preference of preferences(); track preference.label) {
-          <article>
-            <div>
-              <strong>{{ preference.label }}</strong>
-              <p>{{ preference.description }}</p>
-            </div>
-            <button type="button" disabled>{{ preference.enabled ? 'On' : 'Off' }}</button>
-          </article>
-        }
-      </div>
-
-      <p class="note">Preference changes are disabled until notification settings endpoints are available.</p>
+    <aside class="delivery-note">
+      <strong>Notification preferences</strong>
+      <p>In-app unread tracking and delivery preferences are not available yet. This page shows current order states from your order history.</p>
     </aside>
-  </section>
+  }
 </section>

@@ -44,7 +44,7 @@ test('account and admin pages have no serious accessibility violations', async (
 
 test('checkout, order history, and order details have no serious accessibility violations', async ({ page }) => {
   await signIn(page);
-  for (const path of ['/checkout', '/orders', '/orders/9001']) {
+  for (const path of ['/checkout', '/orders', '/orders/9001', '/notifications']) {
     await page.goto(path);
     const results = await new AxeBuilder({ page }).exclude('img').analyze();
     expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? '')), path).toEqual([]);

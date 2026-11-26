@@ -5,9 +5,16 @@
   padding: 76px 24px 96px;
 }
 
-.customer-nav {
+.customer-nav,
+.customer-nav div,
+.panel-head,
+.activity-meta,
+.activity-order {
   display: flex;
   align-items: center;
+}
+
+.customer-nav {
   justify-content: space-between;
   gap: 18px;
   margin-bottom: 42px;
@@ -16,21 +23,16 @@
   font-weight: 800;
 }
 
-.customer-nav div {
-  display: flex;
-  gap: 14px;
-}
+.customer-nav div { gap: 14px; }
+.customer-nav a { text-decoration: none; }
+.customer-nav a:hover,
+.activity-order a:hover { color: var(--accent); }
 
-.hero {
-  display: grid;
-  gap: 12px;
-  max-width: 920px;
-}
-
+.hero { display: grid; gap: 12px; max-width: 920px; }
 .hero p,
 .summary-grid span,
 .panel-head p,
-.notification-list span {
+.activity-meta {
   margin: 0;
   color: var(--muted);
   font-size: 10px;
@@ -43,7 +45,7 @@
   margin: 0;
   font-size: clamp(48px, 8vw, 96px);
   letter-spacing: -0.08em;
-  line-height: 0.88;
+  line-height: 0.9;
 }
 
 .hero > span {
@@ -55,175 +57,73 @@
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
-  margin-top: 34px;
+  margin: 34px 0 22px;
 }
 
 .summary-grid article,
-.panel {
+.activity-panel,
+.delivery-note {
   border: 1px solid var(--line);
   background: var(--white);
 }
 
-.summary-grid article {
-  padding: 22px;
-}
-
-.summary-grid strong {
-  display: block;
-  margin-top: 12px;
-  font-size: 24px;
-  letter-spacing: -0.05em;
-}
-
+.summary-grid article { padding: 22px; }
+.summary-grid strong { display: block; margin-top: 12px; font-size: 24px; letter-spacing: -0.05em; }
 .summary-grid p,
-.notification-list p,
-.preference-list p,
-.note {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-}
+.activity-copy p,
+.delivery-note p { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
 
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 22px;
-  margin-top: 22px;
-  align-items: start;
-}
-
-.panel {
-  padding: 28px;
-}
-
-.panel-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--line);
-}
-
-.panel-head h2 {
-  margin: 8px 0 0;
-  font-size: 28px;
-  letter-spacing: -0.06em;
-}
-
-.panel-head a {
-  align-self: start;
-  color: var(--accent);
+.activity-panel { margin-top: 34px; padding: 28px; }
+.panel-head { justify-content: space-between; gap: 18px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.panel-head h2 { margin: 8px 0 0; font-size: 28px; letter-spacing: -0.06em; }
+.panel-head button {
+  min-height: 42px;
+  padding: 0 16px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--white);
+  font: inherit;
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 800;
+  cursor: pointer;
 }
+.panel-head button:hover { border-color: var(--accent); }
+.panel-head button:focus-visible,
+.activity-order a:focus-visible,
+.customer-nav a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
-.notification-list,
-.preference-list {
+.activity-list article {
   display: grid;
-}
-
-.notification-list article {
-  display: grid;
-  grid-template-columns: 14px 1fr;
-  gap: 16px;
+  grid-template-columns: 12px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
 }
+.activity-list article:last-child { border-bottom: 0; }
+.status-mark { width: 10px; height: 10px; border-radius: 50%; background: #167a58; }
+.needs-attention .status-mark { background: #b13b31; }
+.activity-meta { justify-content: space-between; gap: 12px; letter-spacing: 0.04em; }
+.activity-copy h3 { margin: 7px 0 0; font-size: 20px; letter-spacing: -0.04em; }
+.activity-order { flex-direction: column; align-items: flex-end; gap: 9px; }
+.activity-order strong { font-size: 15px; white-space: nowrap; }
+.activity-order a { color: var(--ink); font-size: 12px; font-weight: 900; white-space: nowrap; }
 
-.notification-list article:last-child,
-.preference-list article:last-child {
-  border-bottom: 0;
+.delivery-note { margin-top: 18px; padding: 18px 22px; }
+.delivery-note strong { font-size: 14px; }
+
+@media (max-width: 760px) {
+  .notifications-page { padding: 36px 16px 64px; }
+  .summary-grid { grid-template-columns: 1fr; }
+  .activity-panel { padding: 20px; }
+  .activity-list article { grid-template-columns: 10px minmax(0, 1fr); align-items: start; gap: 12px; }
+  .activity-order { grid-column: 2; flex-direction: row; justify-content: space-between; align-items: center; }
 }
 
-.notification-list i {
-  width: 10px;
-  height: 10px;
-  margin-top: 5px;
-  border: 2px solid var(--accent);
-  background: var(--white);
-}
-
-.notification-list .success i {
-  border-color: #0f7b55;
-  background: #0f7b55;
-}
-
-.notification-list .warning i {
-  border-color: #8a6200;
-  background: #fff3ca;
-}
-
-.notification-list h3 {
-  margin: 7px 0 0;
-  font-size: 22px;
-  letter-spacing: -0.04em;
-}
-
-.preferences {
-  color: var(--white);
-  background: var(--ink-soft);
-}
-
-.preferences .panel-head {
-  border-bottom-color: rgba(255, 255, 255, 0.12);
-}
-
-.preferences .panel-head p {
-  color: var(--accent-soft);
-}
-
-.preference-list article {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 20px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.preference-list strong {
-  font-size: 15px;
-}
-
-.preference-list p,
-.note {
-  color: rgba(255, 255, 255, 0.64);
-}
-
-.preference-list button {
-  align-self: start;
-  min-width: 58px;
-  padding: 8px 10px;
-  color: var(--ink);
-  border: 0;
-  background: var(--accent-soft);
-  font-size: 11px;
-  font-weight: 900;
-}
-
-.preference-list button:disabled {
-  opacity: 0.72;
-}
-
-.note {
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-@media (max-width: 900px) {
-  .summary-grid,
-  .layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 620px) {
-  .customer-nav,
-  .panel-head,
-  .preference-list article {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+@media (max-width: 520px) {
+  .customer-nav { align-items: flex-start; flex-direction: column; margin-bottom: 32px; }
+  .panel-head { align-items: flex-start; flex-direction: column; }
+  .activity-meta { align-items: flex-start; flex-direction: column; gap: 5px; }
 }
