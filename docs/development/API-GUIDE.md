@@ -4,7 +4,7 @@
 
 ```mermaid
 flowchart LR
-    Client -->|"JWT and correlation ID"| Gateway --> Service
+    Client -->|"HttpOnly JWT cookie or Bearer JWT + correlation ID"| Gateway --> Service
     Service -->|"authorize ownership"| Domain["Domain operation"]
     Domain --> Database
     Domain -->|"integration intent"| Outbox --> Kafka
@@ -22,7 +22,7 @@ is explicitly marked as hardening or roadmap. For feature status, see
 
 - APIs are versioned under `/api/v1`.
 - request records use Jakarta Validation;
-- protected APIs require `Authorization: Bearer <token>`;
+- protected browser APIs use the `SHOPVERSE_ACCESS` HttpOnly cookie; other callers with an issued token may use `Authorization: Bearer <token>`;
 - checkout requires `Idempotency-Key`;
 - `X-Correlation-Id` can be supplied by the caller and is propagated;
 - responses use DTOs instead of exposing JPA entities;
@@ -36,11 +36,23 @@ outbox evidence, failure simulation, and observability.
 
 ## Authentication
 
-### POST `/auth/login` — Authenticate and issue an access token
+### Browser login, CSRF, session restore, and logout
+
+The first-party Angular login uses an HttpOnly cookie. It does not receive the
+JWT in the login response body. First obtain a CSRF cookie:
+
+```http
+GET /auth/csrf
+```
+
+Then post credentials with the CSRF cookie copied to the matching header by
+Angular's XSRF interceptor:
 
 ```http
 POST /auth/login
 Content-Type: application/json
+Cookie: XSRF-TOKEN=<csrf-value>
+X-XSRF-TOKEN: <csrf-value>
 
 {
   "username": "admin",
@@ -48,25 +60,58 @@ Content-Type: application/json
 }
 ```
 
-Use the returned token:
+Successful response:
 
 ```http
-Authorization: Bearer eyJ...
+HTTP/1.1 200 OK
+Cache-Control: no-store
+Set-Cookie: SHOPVERSE_ACCESS=<JWT>; Path=/; Max-Age=3600; HttpOnly; SameSite=Lax
+Content-Type: application/json
+
+{"authenticated":true}
 ```
 
-### POST `/auth/logout` - Revoke the current access token
+`Secure` is enabled in production. The readable `XSRF-TOKEN` cookie is not an
+authentication token; Angular sends it as `X-XSRF-TOKEN` on unsafe requests.
+Gateway also checks `Origin` (or `Referer`) against its configured allowlist.
 
-Send the access token being logged out:
+After login or a full page reload, request the UI session:
+
+```http
+GET /auth/session
+```
+
+The browser sends `SHOPVERSE_ACCESS` automatically. A valid token returns
+`authenticated`, `username`, `roles`, and `expiresAt`, with `Cache-Control:
+no-store`. An absent cookie produces an anonymous result; a supplied invalid or
+expired cookie may produce `401`. This endpoint restores Angular's in-memory
+display state; it does not create a server-side session or refresh the JWT.
+
+Protected APIs can then be called through the same-origin `/api` proxy. Gateway
+validates the cookie JWT and Redis revocation state, converts it to an internal
+Bearer header, and removes the access cookie before forwarding. Resource
+services validate it again. For non-browser clients that already have a token,
+the Gateway converter still accepts an explicit Bearer header; `/auth/login` no
+longer returns such a token in JSON.
+
+For logout, send the cookies and CSRF header:
 
 ```http
 POST /auth/logout
-Authorization: Bearer <access-token>
+Cookie: SHOPVERSE_ACCESS=<JWT>; XSRF-TOKEN=<csrf-value>
+X-XSRF-TOKEN: <csrf-value>
+Origin: http://localhost:4200
 ```
 
-The endpoint returns `204 No Content` after Auth Service records the JWT `jti`
-in Redis until that token expires. The Gateway and resource services reject
-that token on subsequent protected requests. Logout requires an unrevoked token;
-it does not revoke other tokens issued to the same user.
+The endpoint returns `204 No Content`, stores the JWT `jti` in Redis until the
+token expires, and expires both browser cookies. Gateway and resource services
+reject the revoked JWT. Logout revokes only the presented token, not other
+tokens issued to that user.
+
+**Page reload is different from token refresh.** Angular reloads the user
+identity by calling `/auth/session`; Shopverse has no `/auth/refresh` endpoint
+or refresh-token rotation yet. When the access token expires, the user must log
+in again. See the [complete authentication lifecycle](../../services/auth-service/README.md#browser-cookie-and-csrf-flow).
 
 ## Checkout
 
@@ -143,7 +188,10 @@ address is stored as an immutable snapshot on the Order.
 
 | Method | Path |
 |---|---|
+| `GET` | `/auth/csrf` |
 | `POST` | `/auth/login` |
+| `GET` | `/auth/session` |
+| `POST` | `/auth/logout` |
 | `GET` | `/auth/.well-known/jwks.json` |
 | `POST` | `/api/v1/public/users/register` |
 | `GET` | `/api/v1/public/health` |
@@ -300,7 +348,7 @@ service returns it consistently.
 
 1. Start the stack using the [Docker guide](https://github.com/taukhir/shopverse/tree/main/docker).
 2. Confirm gateway, discovery, Config Server, MySQL, Kafka, and observability containers are healthy.
-3. Log in through `POST /auth/login` and store the bearer token.
+3. Log in through `GET /auth/csrf` and `POST /auth/login`; retain the browser cookie jar because the response contains no JWT JSON field.
 4. Call `GET /api/v1/inventory/public/items` and choose an available product.
 5. Create or confirm an account address through `/api/v1/users/me/addresses`.
 6. Persist a cart through `/api/v1/cart` or merge a browser cart through `/api/v1/cart/merge`.

@@ -70,8 +70,17 @@ class ApiGatewayApplicationTests {
 				.expectStatus().isUnauthorized();
 		webTestClient.post()
 				.uri("/auth/logout")
+				.cookie("XSRF-TOKEN", "csrf-test")
+				.header("X-XSRF-TOKEN", "csrf-test")
+				.header("Origin", "http://localhost:4200")
 				.exchange()
 				.expectStatus().isUnauthorized();
+		webTestClient.post()
+				.uri("/api/v1/public/users/register")
+				.cookie("SHOPVERSE_ACCESS", "synthetic-jwt")
+				.header("Origin", "http://localhost:4200")
+				.exchange()
+				.expectStatus().isForbidden();
 	}
 
 	@RestController

@@ -1,5 +1,18 @@
 # Shopverse Features And Demos
 
+## Current checkout and back-office implementation note (2026-11-25)
+
+The web checkout submits all cart lines, holds a stable idempotency key for
+retries of one checkout, and renders multi-line review/receipt details. The
+Order Service request DTO still caps checkout requests at one line, so
+multi-item checkout is not end-to-end available until BUG-055 is implemented.
+Back-office reconciliation currently uses existing Payment APIs; return
+requests are visible in a read-only queue until FEAT-AU supplies approval
+operations. Current dashboard counters reflect records loaded by the web app;
+authoritative time-window analytics and cross-service reconciliation depend on
+ENH-060/061. See the [selected frontend implementation report](../../dev-tools/teams/docs/frontend-selected-backlog-implementation-2026-11-25.md)
+and [`BACKLOG-BY-AREA.md`](../../dev-tools/teams/BACKLOG-BY-AREA.md).
+
 <!-- split-guide-index -->
 # Shopverse Features And Demos
 

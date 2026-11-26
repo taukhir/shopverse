@@ -6,8 +6,10 @@ Auth Service runs on port `8081`. It authenticates credentials through User Serv
 
 | Method | Path | Purpose |
 |---|---|---|
-| `POST` | `/auth/login` | authenticate username/password and issue JWT |
-| `POST` | `/auth/logout` | revoke the authenticated access token; requires Bearer JWT |
+| `GET` | `/auth/csrf` | issue the readable CSRF cookie used by browser mutations |
+| `POST` | `/auth/login` | authenticate username/password and set an HttpOnly access cookie |
+| `GET` | `/auth/session` | return browser identity and roles, or an anonymous session |
+| `POST` | `/auth/logout` | revoke the authenticated access token and clear browser cookies |
 | `GET` | `/auth/.well-known/jwks.json` | publish the RSA public key set |
 | `GET` | `/actuator/health` | runtime health |
 | `GET` | `/actuator/prometheus` | Prometheus metrics |
@@ -36,7 +38,7 @@ The token contains issuer, subject, issue/expiry time, ID, roles, and permission
 
 ### Access-token logout and revocation
 
-`POST /auth/logout` requires the current Bearer access token. Auth Service stores
+`POST /auth/logout` requires the current authenticated access token. Auth Service stores
 only its `jti` as a Redis revocation marker under
 `shopverse:auth:revoked-jti:v1:<jti>`, with a TTL ending at the token expiry.
 The full JWT is never written to Redis. Gateway and the User, Order, Payment,
@@ -44,6 +46,202 @@ and Inventory resource servers check the same marker after validating the JWT
 signature, issuer, and timestamps. Revocation checks fail closed if Redis
 cannot be reached. Logout revokes the presented access token; it does not revoke
 other tokens for the same user or implement refresh-token/session management.
+
+### Browser cookie and CSRF flow
+
+The Angular browser uses a direct HttpOnly-cookie transport. This is **not a
+BFF and not a server-side session**: the cookie contains the signed JWT; Auth
+Service and resource servers continue validating that JWT. Angular holds only
+the non-authoritative UI identity in memory.
+
+#### 1. Get a CSRF token before login
+
+```http
+GET /auth/csrf
+```
+
+Auth Service creates 32 random bytes, Base64URL-encodes them, and returns an
+`XSRF-TOKEN` cookie. It is intentionally readable by Angular (`HttpOnly=false`)
+so Angular can copy it into `X-XSRF-TOKEN`. This value is only an anti-CSRF
+proof; it is not an authentication credential.
+
+```java
+byte[] random = new byte[32];
+secureRandom.nextBytes(random);
+return ResponseEntity.noContent()
+    .header(HttpHeaders.SET_COOKIE,
+        csrfCookie(Base64.getUrlEncoder().withoutPadding().encodeToString(random), accessTokenTtl).toString())
+    .build();
+```
+
+#### 2. Login and set the access cookie
+
+Angular's `SessionService.login()` first calls `/auth/csrf`, then posts the
+credentials to `/auth/login`. The browser stores the cookies from responses
+and sends them on later same-origin/proxied API requests; Angular never reads
+the access cookie.
+
+```typescript
+return this.http.get<void>('/auth/csrf').pipe(
+  concatMap(() => this.http.post<{ authenticated: boolean }>('/auth/login', { username, password })),
+  switchMap(() => this.fetchSession().pipe(
+    switchMap((session) => session ? of(session) : throwError(() => new Error('Session was not restored'))),
+  )),
+  tap((session) => this.setSession(session)),
+);
+```
+
+Auth Service still validates credentials through User Service and signs the
+JWT. It returns the JWT only in the cookie, with `HttpOnly`, `SameSite=Lax`,
+`Path=/`, bounded `Max-Age`, and `Secure` controlled by
+`security.browser.cookie-secure`; the JSON response is `{ "authenticated":
+true }` and is `Cache-Control: no-store`.
+
+```java
+return ResponseEntity.status(HttpStatus.OK)
+    .cacheControl(CacheControl.noStore())
+    .header(HttpHeaders.SET_COOKIE,
+        accessCookie(issued.token(), accessTokenTtl).toString())
+    .body(new LoginResponse(true));
+```
+
+#### 3. What `/auth/session` returns
+
+```http
+GET /auth/session
+```
+
+Gateway validates the `SHOPVERSE_ACCESS` cookie as a JWT. Auth Service returns
+`authenticated`, `username`, `roles`, and `expiresAt`, with `Cache-Control:
+no-store`. With no valid authenticated principal, it returns
+`{ "authenticated": false, "username": null, "roles": [], "expiresAt": null }`.
+Angular uses this response for route guards and displaying identity/role-based
+navigation only. Service authorization remains authoritative.
+
+An absent cookie produces the anonymous response. A supplied but invalid or
+expired cookie can instead be rejected by JWT authentication with `401`; Angular
+then clears its in-memory state and sends the user to login. The endpoint does
+not extend the JWT expiry.
+
+```json
+{
+  "authenticated": true,
+  "username": "admin",
+  "roles": ["ROLE_ADMIN"],
+  "expiresAt": "2026-11-25T13:00:00Z"
+}
+```
+
+The response DTO intentionally contains no JWT:
+
+```java
+public record BrowserSessionResponse(
+    boolean authenticated,
+    String username,
+    List<String> roles,
+    Instant expiresAt
+) {}
+```
+
+#### 4. Browser mutations and CSRF
+
+Angular configures `XSRF-TOKEN` and `X-XSRF-TOKEN` through
+`withXsrfConfiguration`. For unsafe methods, it sends both the cookie (the
+browser does this) and the matching header (Angular reads the CSRF value).
+Gateway's `BrowserCookieCsrfWebFilter` rejects the request with `403` unless:
+
+1. the request has a configured trusted `Origin` (or an allowed `Referer` when
+   `Origin` is absent); and
+2. the `XSRF-TOKEN` cookie and `X-XSRF-TOKEN` header are both present and match.
+
+This applies to requests carrying the access or CSRF cookie, and explicitly to
+configured Auth mutations such as login/logout. Auth Service also enables
+Spring Security's cookie-backed CSRF protection for its own unsafe endpoints.
+`SameSite=Lax` is defense in depth; it does not replace token and origin checks.
+
+```typescript
+provideHttpClient(
+  withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }),
+  withInterceptors([authInterceptor]),
+)
+```
+
+The auth interceptor now adds a correlation ID and handles `401`; it does not
+read a token or set an `Authorization` header.
+The current storefront proxy serves `/auth` and `/api` through the storefront
+origin, so cookies are same-origin in local development and the nginx setup.
+`BROWSER_CSRF_ALLOWED_ORIGINS` validates the request Origin; it does not itself
+configure CORS. A deployment that separates UI and API origins also needs
+explicit credentialed CORS configuration for the exact UI origin.
+
+#### 5. Gateway validation and downstream forwarding
+
+`BrowserCookieTokenConverter` prefers the access cookie and converts it into
+Spring Security's bearer-token authentication input. If no access cookie is
+present, it preserves the `Authorization: Bearer` path for callers that already
+have a token. The Gateway validates signature, issuer, time claims, and Redis
+revocation state. `BrowserCookieTokenRelayFilter` then places the cookie value
+in the internal `Authorization` header and removes the access cookie from the
+forwarded `Cookie` header. Resource services independently validate the JWT
+and authorize the requested operation.
+
+The core cookie-to-bearer conversion is:
+
+```java
+HttpCookie cookie = exchange.getRequest().getCookies().getFirst(accessCookieName);
+if (cookie != null && !cookie.getValue().isBlank()) {
+    return Mono.just(new BearerTokenAuthenticationToken(cookie.getValue()));
+}
+return headerConverter.convert(exchange); // retain explicit Bearer clients
+```
+
+#### 6. Page reload versus token refresh
+
+After a full browser page reload, Angular starts with empty in-memory signals.
+The route guard calls `/auth/session`; the browser automatically sends the
+HttpOnly cookie, so the UI identity is restored without reading browser storage
+or the JWT. `SessionService` deletes the old `shopverse.session.token` storage
+entry once as migration cleanup.
+
+This is **not** an OAuth refresh-token flow. There is no `/auth/refresh` route,
+refresh token, rotation, or silent renewal. When the access JWT expires, the
+cookie expires and protected calls fail authentication; Angular clears its
+in-memory identity and routes to login. The user must authenticate again.
+
+#### 7. Logout
+
+Angular calls `POST /auth/logout` with the cookies and CSRF header. Auth Service
+revokes the presented JWT's `jti` in Redis through the token's expiry, then
+expires both `SHOPVERSE_ACCESS` and `XSRF-TOKEN` cookies. Angular clears the
+in-memory identity after a successful response. This revokes only this access
+token; it is not logout-all or session-family revocation.
+
+```java
+accessTokenRevocationService.revoke(jwt);
+return ResponseEntity.noContent()
+    .header(HttpHeaders.SET_COOKIE, accessCookie("", Duration.ZERO).toString())
+    .header(HttpHeaders.SET_COOKIE, csrfCookie("", Duration.ZERO).toString())
+    .build();
+```
+
+```typescript
+logoutFromServer(): Observable<void> {
+  return this.http.post<void>('/auth/logout', {}).pipe(
+    tap(() => this.clearSession()),
+  );
+}
+```
+
+Production must use HTTPS, `BROWSER_COOKIE_SECURE=true`, and the exact storefront
+origins in `BROWSER_CSRF_ALLOWED_ORIGINS`; never use wildcard origins with
+credentialed CORS. HttpOnly reduces token extraction by JavaScript but does not
+stop XSS from issuing authenticated requests in the user's browser.
+
+**Client compatibility:** `/auth/login` now returns an authenticated flag and
+sets a cookie; it no longer returns a JWT in JSON. A non-browser client that
+depends on receiving a Bearer token from this endpoint needs a separate,
+explicitly designed client contract; do not assume that legacy response is
+still available.
 
 ## Key Lifecycle And Failure Contract
 
@@ -100,10 +298,16 @@ docker compose up -d auth-service
 
 ## Limitations
 
-Shopverse uses JWT bearer tokens and Resource Server validation. This service is
-not a complete OAuth2 Authorization Server and does not currently issue refresh
-tokens, revoke all sessions for a user, provide consent, or automate signing-key rotation. Production
-deployments should move signing keys to a secret manager or KMS/HSM-backed boundary.
+Shopverse uses JWT validation at the Gateway and resource services; the browser
+client transports its JWT in an HttpOnly cookie. Gateway can accept an explicit
+Bearer token, but `/auth/login` does not return one in JSON and no separate
+non-browser token-issuing flow is currently defined. This service is not a
+complete OAuth2 Authorization Server and does not currently issue refresh
+tokens, revoke all sessions for a user, provide consent, or automate
+signing-key rotation. HttpOnly reduces direct token theft by injected
+JavaScript, but XSS can still issue authenticated requests as the user.
+Production deployments must use HTTPS, secure cookies, explicit trusted origins,
+and signing keys from a secret manager or KMS/HSM boundary.
 
 ## AI-Assisted Development
 

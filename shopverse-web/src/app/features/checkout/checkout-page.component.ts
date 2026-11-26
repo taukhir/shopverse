@@ -16,10 +16,8 @@ interface CheckoutReceipt {
   idempotencyKey: string;
   transactionId: string;
   placedAt: string;
-  productId: number;
-  productName: string;
-  quantity: number;
   amount: number;
+  items: Array<{ productId: number; productName: string; quantity: number; amount: number }>;
   paymentStatus: string;
 }
 
@@ -42,6 +40,7 @@ export class CheckoutPageComponent {
   protected readonly success = signal('');
   protected readonly receipt = signal<CheckoutReceipt | null>(null);
   protected readonly review = signal<Checkout | null>(null);
+  private readonly idempotencyKeys = new Map<string, string>();
   protected readonly addresses = signal<UserAddress[]>([]);
   protected readonly selectedAddressId = signal<number | null>(null);
   protected readonly selectedAddress = computed(() => this.addresses().find((address) => address.id === this.selectedAddressId()) ?? this.addresses().find((address) => address.defaultAddress) ?? this.addresses()[0] ?? null);
@@ -69,8 +68,8 @@ export class CheckoutPageComponent {
 
   protected reviewOrder(): void {
     if (this.loading()) return;
-    const item = this.cart.items()[0];
-    if (!item) return;
+    const items = this.cart.items();
+    if (!items.length) return;
     const address = this.selectedAddress();
     if (!address) {
       this.error.set('Add a delivery address before placing this order.');
@@ -80,7 +79,7 @@ export class CheckoutPageComponent {
     this.loading.set(true);
     this.error.set('');
     this.review.set(null);
-    this.ordersApi.createCheckout([{ productId: item.productId, quantity: item.quantity }], this.toShippingAddress(address)).subscribe({
+    this.ordersApi.createCheckout(items.map(({ productId, quantity }) => ({ productId, quantity })), this.toShippingAddress(address)).subscribe({
       next: (review) => {
         this.review.set(review);
         this.loading.set(false);
@@ -96,8 +95,8 @@ export class CheckoutPageComponent {
 
   protected confirmOrder(): void {
     if (this.loading()) return;
-    const item = this.cart.items()[0];
-    if (!item) return;
+    const items = this.cart.items();
+    if (!items.length) return;
     const checkout = this.review();
     if (!checkout) return;
     const address = this.selectedAddress();
@@ -109,7 +108,7 @@ export class CheckoutPageComponent {
     this.loading.set(true);
     this.error.set('');
     this.receipt.set(null);
-    const idempotencyKey = `web-${item.productId}-${crypto.randomUUID()}`;
+    const idempotencyKey = this.idempotencyKey(checkout.checkoutId);
     this.ordersApi.placeOrder(checkout.checkoutId, checkout.version, idempotencyKey).subscribe({
       next: (order) => {
         const transactionId = `txn-${order.orderNumber}`;
@@ -119,13 +118,12 @@ export class CheckoutPageComponent {
           idempotencyKey,
           transactionId,
           placedAt: new Date().toISOString(),
-          productId: item.productId,
-          productName: item.productName,
-          quantity: item.quantity,
-          amount: item.price * item.quantity,
+          amount: items.reduce((total, item) => total + item.price * item.quantity, 0),
+          items: items.map((item) => ({ productId: item.productId, productName: item.productName, quantity: item.quantity, amount: item.price * item.quantity })),
           paymentStatus: this.paymentStatusLabel(order.status),
         });
         this.cart.clear();
+        this.idempotencyKeys.delete(checkout.checkoutId);
         this.loading.set(false);
         this.toast.success(`Order ${order.orderNumber} created.`);
       },
@@ -175,15 +173,15 @@ export class CheckoutPageComponent {
 
   private repriceAfterConflict(checkoutId: string, message: string): void {
     const address = this.selectedAddress();
-    const item = this.cart.items()[0];
-    if (!address || !item) {
+    const items = this.cart.items();
+    if (!address || !items.length) {
       this.review.set(null);
       this.error.set(message);
       this.loading.set(false);
       this.toast.error(message);
       return;
     }
-    this.ordersApi.updateCheckout(checkoutId, [{ productId: item.productId, quantity: item.quantity }], this.toShippingAddress(address), this.review()?.version ?? 1).subscribe({
+    this.ordersApi.updateCheckout(checkoutId, items.map(({ productId, quantity }) => ({ productId, quantity })), this.toShippingAddress(address), this.review()?.version ?? 1).subscribe({
       next: (refreshed) => {
         this.review.set(refreshed);
         this.error.set(message);
@@ -225,6 +223,15 @@ export class CheckoutPageComponent {
       default:
         return 'Pending capture';
     }
+  }
+
+  private idempotencyKey(checkoutId: string): string {
+    let key = this.idempotencyKeys.get(checkoutId);
+    if (!key) {
+      key = `web-${crypto.randomUUID()}`;
+      this.idempotencyKeys.set(checkoutId, key);
+    }
+    return key;
   }
 
   protected async copy(value: string, label: string): Promise<void> {

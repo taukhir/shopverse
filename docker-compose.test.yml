@@ -23,6 +23,22 @@ services:
       retries: 20
       start_period: 20s
 
+  redis:
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
+    mem_limit: 192m
+    ports: !reset []
+
+  minio:
+    container_name: ${COMPOSE_PROJECT_NAME}-minio
+    mem_limit: 256m
+    ports: !override
+      - "127.0.0.1:19000:9000"
+      - "127.0.0.1:19001:9001"
+
+  minio-init:
+    container_name: ${COMPOSE_PROJECT_NAME}-minio-init
+    mem_limit: 128m
+
   config-server:
     container_name: ${COMPOSE_PROJECT_NAME}-config-server
     mem_limit: 384m
@@ -68,6 +84,7 @@ services:
     ports: !reset []
     environment:
       JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      BROWSER_COOKIE_SECURE: "false"
       MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
     healthcheck:
       interval: 5s
@@ -106,6 +123,7 @@ services:
     mem_limit: 448m
     ports: !reset []
     environment:
+      MINIO_PUBLIC_ENDPOINT: http://localhost:19000
       JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
       MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
     healthcheck:
@@ -121,6 +139,7 @@ services:
       - "18080:8080"
     environment:
       JAVA_OPTS: "-Xms64m -Xmx320m -XX:+ExitOnOutOfMemoryError"
+      BROWSER_CSRF_ALLOWED_ORIGINS: "http://localhost:18080,http://127.0.0.1:18080"
       MANAGEMENT_TRACING_SAMPLING_PROBABILITY: "0"
     healthcheck:
       interval: 5s

@@ -82,3 +82,18 @@ repository protection findings remain separate in
 establish production readiness, deployment or rollback success. Local changes
 need a fresh hosted run after they are pushed; the failed run is historical
 evidence and does not become successful when local files change.
+
+## Follow-up: Maven Central rate limiting in the source scan
+
+On 2026-11-26, the source scan in [PR #156 run 45795404820](https://github.com/taukhir/shopverse/actions/runs/45795404820/job/139824660394?pr=156)
+stopped while Trivy requested the Maven POM for `org.openjdk.jmh:jmh-core:1.37`;
+Maven Central returned HTTP 429. This is an infrastructure/dependency-metadata
+retrieval failure. It does not establish a vulnerability finding or a clean scan,
+and no completed SARIF result should be inferred from that run.
+
+The reusable security workflow now restores the Maven cache keyed to
+`labs/java-senior/pom.xml` and resolves that lab's dependencies before starting
+Trivy. This reuses the cache maintained by Java Labs CI and gives Trivy local Maven
+metadata. A cold cache still depends on Maven Central availability; if Central
+returns 429 while pre-resolving, the security job remains failed and must be rerun
+after the rate limit clears. Verify the mitigation with a new hosted PR run.

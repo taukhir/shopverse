@@ -39,6 +39,15 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+      - name: Set up Java and restore Maven dependency cache
+        uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+          cache-dependency-path: labs/java-senior/pom.xml
+      - name: Resolve Maven lab dependencies for Trivy
+        run: mvn --batch-mode --file labs/java-senior/pom.xml dependency:resolve
       - name: Scan lockfiles and infrastructure configuration
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
