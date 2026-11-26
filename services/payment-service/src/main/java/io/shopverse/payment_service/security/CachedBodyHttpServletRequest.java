@@ -19,7 +19,7 @@ public class CachedBodyHttpServletRequest extends HttpServletRequestWrapper {
 
     public CachedBodyHttpServletRequest(HttpServletRequest request, byte[] body) {
         super(request);
-        this.body = body;
+        this.body = body.clone();
     }
 
     @Override
