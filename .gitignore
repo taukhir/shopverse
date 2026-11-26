@@ -65,6 +65,10 @@ HELP.md
 **/.nyc_output/
 dev-tools/testing/reports/
 
+# Allow local Git hooks to be installed with `git config core.hooksPath .githooks`.
+!.githooks/
+!.githooks/**
+
 
 # Package manager store/cache
 .pnpm-store/

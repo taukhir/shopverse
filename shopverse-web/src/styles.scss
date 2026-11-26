@@ -175,6 +175,34 @@ img.image-fallback {
   text-transform: none;
 }
 
+.list-controls > button {
+  align-self: end;
+}
+
+.admin-page-action {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  border: 1px solid var(--ink-soft);
+  border-radius: 8px;
+  color: var(--white);
+  background: var(--ink-soft);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.admin-page-action:hover:not(:disabled) { filter: brightness(1.12); }
+.admin-page-action:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.admin-page-action:disabled { cursor: not-allowed; opacity: .55; }
+.admin-page-action--link { color: var(--accent); border-color: var(--line); background: var(--white); }
+
 .admin-local-nav {
   display: flex;
   align-items: center;

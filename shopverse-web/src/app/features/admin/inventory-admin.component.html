@@ -1,13 +1,9 @@
 <app-admin-header (signOut)="logout()" />
 <main class="admin-page-shell inventory-admin">
 
-  <div class="heading">
-    <div>
-      <p class="eyebrow">INVENTORY</p>
-      <h1>Stock and catalog.</h1>
-    </div>
-    <button (click)="create()">Add item +</button>
-  </div>
+  <app-admin-page-header eyebrow="INVENTORY" title="Stock and catalog." description="Review availability, reservations, and catalog health.">
+    <button class="admin-page-action" type="button" (click)="create()">Add item</button>
+  </app-admin-page-header>
 
   @if (error()) {
     <app-service-notice
@@ -77,13 +73,7 @@
           </article>
         }
       </div>
-      <div class="table-pagination">
-        <span>{{ pageLabel() }}</span>
-        <div>
-          <button type="button" (click)="changePage(-1)" [disabled]="page() <= 1">Previous</button>
-          <button type="button" (click)="changePage(1)" [disabled]="page() >= pageCount()">Next</button>
-        </div>
-      </div>
+      <app-admin-table-pagination [label]="pageLabel()" [page]="page()" [pageCount]="pageCount()" (pageChange)="goToPage($event)" />
     }
   }
 

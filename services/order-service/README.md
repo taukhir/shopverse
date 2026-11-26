@@ -27,6 +27,7 @@ Order Service runs on port `8083`. It owns checkout, order state, customer owner
 | `POST` | `/api/v1/orders/{id}/return-request` | owner |
 | `DELETE` | `/api/v1/orders/{id}` | admin |
 | `GET` | `/api/v1/orders/admin/all` | admin route policy |
+| `GET` | `/api/v1/orders/admin?page=0&size=20&search=&status=ALL&sortBy=createdAt&direction=DESC` | admin, bounded page (size 1-100) |
 | `POST` | `/api/v1/orders/admin/{id}/cancel` | admin |
 | `POST` | `/api/v1/orders/admin/{id}/pack` | admin |
 | `POST` | `/api/v1/orders/admin/{id}/ship` | admin |
@@ -43,6 +44,14 @@ total can differ from the quote if the price changes between creation and
 placement. Current code does not reject that change or carry the quoted total
 into the Order; this behavior should be considered when changing quote or
 pricing semantics.
+
+Admin order lists should use the paged endpoint. Search matches order number or
+customer username; `status=ALL` disables status filtering. Sort fields are
+allow-listed (`createdAt`, `totalAmount`, `status`, `customerUsername`,
+`orderNumber`) and the response is the shared `PageResponse` envelope. The page
+contains order summaries without item collections so the database limit applies
+to the query instead of loading the full order history. `/admin/all` remains for
+legacy consumers and should not be used for the interactive Orders table.
 
 ```http
 POST /api/v1/checkouts

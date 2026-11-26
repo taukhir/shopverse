@@ -1,13 +1,9 @@
 <app-admin-header (signOut)="logout()" />
 <main class="admin-page-shell recovery-admin">
 
-  <div class="heading">
-    <div>
-      <p class="eyebrow">RECOVERY</p>
-      <h1>Dead-letter operations.</h1>
-    </div>
-    <button type="button" (click)="load()">Refresh</button>
-  </div>
+  <app-admin-page-header eyebrow="RECOVERY" title="Dead-letter operations." description="Inspect failed events, source availability, and supported replay actions.">
+    <button class="admin-page-action" type="button" (click)="load()">Refresh</button>
+  </app-admin-page-header>
 
   @if (error()) {
     <app-service-notice

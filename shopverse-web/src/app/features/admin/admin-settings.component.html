@@ -1,12 +1,7 @@
 <app-admin-header (signOut)="logout()" />
 <main class="admin-page-shell admin-settings">
 
-  <div class="heading">
-    <div>
-      <p class="eyebrow">SETTINGS</p>
-      <h1>Platform configuration.</h1>
-    </div>
-  </div>
+  <app-admin-page-header eyebrow="SETTINGS" title="Platform configuration." description="Review operations workspaces and the available demo configuration controls." />
 
   <section class="settings-links" aria-label="Operations settings and workspaces">
     <a routerLink="/admin/access-control"><strong>Roles &amp; permissions</strong><span>Manage role definitions and permission assignments.</span></a>

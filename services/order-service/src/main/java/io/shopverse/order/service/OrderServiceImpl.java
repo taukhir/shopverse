@@ -3,6 +3,7 @@ package io.shopverse.order.service;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.shopverse.order.config.KafkaTopicsProperties;
 import io.shopverse.order.dto.CheckoutRequest;
+import io.shopverse.order.dto.AdminOrderSummaryResponse;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.OrderTimelineResponse;
 import io.shopverse.order.entity.OrderEntity;
@@ -15,18 +16,25 @@ import io.shopverse.order.exception.ResourceNotFoundException;
 import io.shopverse.order.outbox.OutboxService;
 import io.shopverse.order.repository.OrderRepository;
 import io.shopverse.order.repository.OrderTimelineRepository;
+import io.shopverse.platform.web.pagination.PageMapper;
+import io.shopverse.platform.web.pagination.PageResponse;
+import io.shopverse.platform.web.pagination.PaginationUtils;
+import io.shopverse.platform.web.pagination.InvalidPageRequestException;
 import io.shopverse.order.saga.OrderCreatedEvent;
 import io.shopverse.order.saga.OrderCancelledEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.EnumSet;
 import java.util.UUID;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -41,6 +49,7 @@ public class OrderServiceImpl implements OrderService {
             OrderStatus.PAYMENT_PROCESSING,
             OrderStatus.PAYMENT_FAILED
     );
+    private static final Set<String> ADMIN_ORDER_SORT_FIELDS = Set.of("createdAt", "totalAmount", "status", "customerUsername", "orderNumber");
 
     private final OrderRepository repository;
     private final OrderTimelineRepository timelineRepository;
@@ -133,6 +142,39 @@ public class OrderServiceImpl implements OrderService {
         return repository.findAllByOrderByCreatedAtDesc().stream()
                 .map(OrderMapper::toResponse)
                 .toList();
+    }
+
+    @Override
+    public PageResponse<AdminOrderSummaryResponse> getAdminOrders(
+            int page,
+            int size,
+            String search,
+            String status,
+            String sortBy,
+            String direction
+    ) {
+        var validated = PaginationUtils.createPageable(page, size, sortBy, direction, ADMIN_ORDER_SORT_FIELDS);
+        var pageable = PageRequest.of(page, size, validated.getSort().and(Sort.by(Sort.Direction.DESC, "id")));
+        String normalizedSearch = search == null ? "" : search.trim();
+        String normalizedStatus = status == null ? "" : status.trim();
+        OrderStatus statusFilter = null;
+        if (!normalizedStatus.isEmpty() && !"ALL".equalsIgnoreCase(normalizedStatus)) {
+            try {
+                statusFilter = OrderStatus.valueOf(normalizedStatus.toUpperCase());
+            } catch (IllegalArgumentException exception) {
+                throw new InvalidPageRequestException("Unsupported order status: " + normalizedStatus);
+            }
+        }
+        var orders = repository.findAdminOrders(normalizedSearch, statusFilter, pageable);
+        return PageMapper.toResponse(orders, order -> new AdminOrderSummaryResponse(
+                order.getId(),
+                order.getOrderNumber(),
+                order.getCustomerUsername(),
+                order.getStatus().name(),
+                order.getCurrency(),
+                order.getTotalAmount(),
+                order.getCreatedAt()
+        ));
     }
 
     @Override

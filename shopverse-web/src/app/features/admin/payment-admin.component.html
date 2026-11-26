@@ -1,13 +1,9 @@
 <app-admin-header (signOut)="logout()" />
 <main class="admin-page-shell payment-admin">
 
-  <div class="heading">
-    <div>
-      <p class="eyebrow">PAYMENTS</p>
-      <h1>Payment operations.</h1>
-    </div>
-    <button type="button" (click)="load()">Refresh</button>
-  </div>
+  <app-admin-page-header eyebrow="PAYMENTS" title="Payment operations." description="Review payment outcomes and supported recovery actions.">
+    <button class="admin-page-action" type="button" (click)="load()">Refresh</button>
+  </app-admin-page-header>
 
   @if (error()) {
     <app-service-notice
@@ -103,13 +99,7 @@
           </article>
         }
       </section>
-      <div class="table-pagination">
-        <span>{{ pageLabel() }}</span>
-        <div>
-          <button type="button" (click)="changePage(-1)" [disabled]="page() <= 1">Previous</button>
-          <button type="button" (click)="changePage(1)" [disabled]="page() >= pageCount()">Next</button>
-        </div>
-      </div>
+      <app-admin-table-pagination [label]="pageLabel()" [page]="page()" [pageCount]="pageCount()" (pageChange)="goToPage($event)" />
     }
   }
 </main>

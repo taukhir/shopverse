@@ -10,16 +10,17 @@ import { ToastService } from '../../core/feedback/toast.service';
 import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
-import { compareNumber, compareText, uniqueSorted } from '../../shared/utils/collection';
 import { formatInr } from '../../shared/utils/formatters';
 import { AdminApiService, AdminFailedEvent, AdminInventoryItem, AdminOrder, AdminPayment, AdminUser } from './admin-api.service';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
+import { AdminTablePaginationComponent } from '../../shared/ui-state/admin-table-pagination.component';
 
 interface StatusSlice { status:string; count:number; percent:number; }
 
 @Component({
   selector:'app-admin-page',
-  imports:[AdminHeaderComponent,EmptyStateComponent,FormsModule,LoadingSkeletonComponent,RouterLink,ServiceNoticeComponent],
+  imports:[AdminHeaderComponent,AdminPageHeaderComponent,AdminTablePaginationComponent,EmptyStateComponent,FormsModule,LoadingSkeletonComponent,RouterLink,ServiceNoticeComponent],
   templateUrl:'./admin-page.component.html',
   styleUrl:'./admin-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +35,8 @@ export class AdminPageComponent {
   private readonly toast=inject(ToastService);
 
   protected readonly section=signal(this.route.snapshot.paramMap.get('section') ?? 'overview');
+  protected readonly pageTitle=computed(()=>this.section()==='overview'?'System at a glance.':this.section()==='orders'?'Order operations.':'Customer accounts.');
+  protected readonly pageDescription=computed(()=>this.section()==='overview'?'Current operational signals from available ShopVerse services.':this.section()==='orders'?'Search and review customer orders, then open an order to view supported actions.':'Search the customer directory and inspect account access.');
   protected readonly orders=signal<AdminOrder[]>([]);
   protected readonly users=signal<AdminUser[]>([]);
   protected readonly userTotal=signal(0);
@@ -41,12 +44,19 @@ export class AdminPageComponent {
   protected readonly payments=signal<AdminPayment[]>([]);
   protected readonly failedEvents=signal<AdminFailedEvent[]>([]);
   protected readonly orderSearch=signal('');
+  protected orderSearchDraft = '';
+  protected readonly userSearch=signal('');
+  protected userSearchDraft = '';
   protected readonly orderStatusFilter=signal('ALL');
   protected readonly orderSort=signal<'newest'|'oldest'|'amountDesc'|'amountAsc'|'status'|'customer'|'orderNumber'>('newest');
   protected readonly orderPage=signal(1);
+  protected readonly orderTotal=signal(0);
   protected readonly userPage=signal(1);
   protected readonly pageSize=8;
   protected readonly optionalWarning=signal('');
+  protected readonly inventoryAvailable=signal(true);
+  protected readonly paymentsAvailable=signal(true);
+  protected readonly recoveryAvailable=signal(true);
   protected readonly loading=signal(true);
   protected readonly error=signal('');
   private loadGeneration = 0;
@@ -81,39 +91,12 @@ export class AdminPageComponent {
   protected readonly paymentStatusSlices=computed(()=>this.slices(this.payments().map(payment=>payment.status)));
   protected readonly returnRequests=computed(()=>this.orders().filter(order=>order.status==='RETURN_REQUESTED'));
   protected readonly paymentAttention=computed(()=>this.payments().filter(payment=>['DECLINED','TIMED_OUT','PENDING','AUTHORIZED'].includes(payment.status)));
-  protected readonly orderStatuses=computed(()=>['ALL',...uniqueSorted(this.orders().map(order=>order.status))]);
-  protected readonly filteredOrders=computed(()=>{
-    const query=this.orderSearch().trim().toLowerCase();
-    const status=this.orderStatusFilter();
-    const orders=this.orders().filter(order=>{
-      const matchesStatus=status==='ALL' || order.status===status;
-      const haystack=`${order.orderNumber} ${order.customerUsername}`.toLowerCase();
-      return matchesStatus && (!query || haystack.includes(query));
-    });
-    return [...orders].sort((a,b)=>{
-      switch(this.orderSort()){
-        case 'oldest': return (a.createdAt || '').localeCompare(b.createdAt || '');
-        case 'amountDesc': return compareNumber(b.totalAmount, a.totalAmount);
-        case 'amountAsc': return compareNumber(a.totalAmount, b.totalAmount);
-        case 'status': return compareText(a.status, b.status);
-        case 'customer': return compareText(a.customerUsername, b.customerUsername);
-        case 'orderNumber': return compareText(a.orderNumber, b.orderNumber);
-        default: return (b.createdAt || '').localeCompare(a.createdAt || '');
-      }
-    });
-  });
-  protected readonly orderPageCount=computed(()=>this.pageCount(this.filteredOrders().length));
-  protected readonly visibleOrders=computed(()=>{
-    const page=this.clampedPage(this.orderPage(), this.orderPageCount());
-    const start=(page-1)*this.pageSize;
-    return this.filteredOrders().slice(start,start+this.pageSize);
-  });
-  protected readonly userPageCount=computed(()=>this.pageCount(this.users().length));
-  protected readonly visibleUsers=computed(()=>{
-    const page=this.clampedPage(this.userPage(), this.userPageCount());
-    const start=(page-1)*this.pageSize;
-    return this.users().slice(start,start+this.pageSize);
-  });
+  protected readonly orderStatuses=computed(()=>['ALL','ORDER_CREATED','PENDING_INVENTORY','INVENTORY_RESERVED','PAYMENT_PROCESSING','INVENTORY_REJECTED','PAYMENT_FAILED','CONFIRMED','CANCELLED','PACKING','SHIPPED','OUT_FOR_DELIVERY','DELIVERED','RETURN_REQUESTED','RETURNED']);
+  protected readonly filteredOrders=computed(()=>this.orders());
+  protected readonly orderPageCount=computed(()=>this.pageCount(this.orderTotal()));
+  protected readonly visibleOrders=computed(()=>this.orders());
+  protected readonly userPageCount=computed(()=>this.pageCount(this.userTotal()));
+  protected readonly visibleUsers=computed(()=>this.users());
 
   constructor(){
     this.route.paramMap.pipe(takeUntilDestroyed()).subscribe(params=>{
@@ -129,10 +112,18 @@ export class AdminPageComponent {
     this.optionalWarning.set('');
 
     if (this.section() === 'orders') {
-      this.adminApi.loadOrders().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-        next: (orders) => {
+      this.adminApi.loadAdminOrders(
+        this.orderPage() - 1,
+        this.pageSize,
+        this.orderSearch(),
+        this.orderStatusFilter(),
+        this.orderSortField(),
+        this.orderSortDirection(),
+      ).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: (page) => {
           if (generation !== this.loadGeneration) return;
-          this.orders.set(orders);
+          this.orders.set(page.content);
+          this.orderTotal.set(page.totalElements ?? page.content.length);
           this.loading.set(false);
         },
         error: () => { if (generation === this.loadGeneration) this.fail(); },
@@ -141,7 +132,7 @@ export class AdminPageComponent {
     }
 
     if (this.section() === 'users') {
-      this.adminApi.loadUsers().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      this.adminApi.loadUsers(this.userPage() - 1, this.pageSize, this.userSearch()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (users) => {
           if (generation !== this.loadGeneration) return;
           this.users.set(users.content);
@@ -159,16 +150,22 @@ export class AdminPageComponent {
         this.orders.set(orders);
         this.users.set(users.content);
         this.userTotal.set(users.totalElements ?? users.content.length);
-        this.inventory.set(inventory);
-        this.payments.set(payments);
+        this.inventory.set(inventory.data);
+        this.payments.set(payments.data);
+        this.inventoryAvailable.set(inventory.available);
+        this.paymentsAvailable.set(payments.available);
+        this.recoveryAvailable.set(orderDeadLetters.available && inventoryDeadLetters.available && paymentDeadLetters.available);
         this.failedEvents.set([
-          ...orderDeadLetters.map(event=>({...event,service:'Orders'})),
-          ...inventoryDeadLetters.map(event=>({...event,service:'Inventory'})),
-          ...paymentDeadLetters.map(event=>({...event,service:'Payments'})),
+          ...orderDeadLetters.data.map(event=>({...event,service:'Orders'})),
+          ...inventoryDeadLetters.data.map(event=>({...event,service:'Inventory'})),
+          ...paymentDeadLetters.data.map(event=>({...event,service:'Payments'})),
         ]);
-        if(!inventory.length || !payments.length){
-          this.optionalWarning.set(APP_MESSAGES.warnings.partialAdminData);
-        }
+        const unavailable = [
+          ...(!inventory.available ? ['inventory'] : []),
+          ...(!payments.available ? ['payments'] : []),
+          ...(!this.recoveryAvailable() ? ['one or more recovery sources'] : []),
+        ];
+        if (unavailable.length) this.optionalWarning.set(`Some dashboard data could not be loaded: ${unavailable.join(', ')}. Displayed counts may be incomplete.`);
         this.loading.set(false);
       },
       error:()=>{ if (generation === this.loadGeneration) this.fail(); },
@@ -192,12 +189,49 @@ export class AdminPageComponent {
     return `${start}-${end} of ${total}`;
   }
 
-  protected changeOrderPage(delta:number): void {
-    this.orderPage.set(this.clampedPage(this.orderPage()+delta,this.orderPageCount()));
+  protected goToOrderPage(target:number): void {
+    const next = this.clampedPage(target,this.orderPageCount());
+    if (next === this.orderPage()) return;
+    this.orderPage.set(next);
+    this.load();
   }
 
-  protected changeUserPage(delta:number): void {
-    this.userPage.set(this.clampedPage(this.userPage()+delta,this.userPageCount()));
+  protected updateOrderFilters(): void {
+    this.orderPage.set(1);
+    this.load();
+  }
+
+  protected searchOrders(): void {
+    this.orderSearch.set(this.orderSearchDraft.trim());
+    this.updateOrderFilters();
+  }
+
+  protected goToUserPage(target:number): void {
+    const nextPage = this.clampedPage(target, this.userPageCount());
+    if (nextPage === this.userPage()) return;
+    this.userPage.set(nextPage);
+    this.load();
+  }
+
+  protected searchUsers(): void {
+    this.userSearch.set(this.userSearchDraft.trim());
+    this.userPage.set(1);
+    this.load();
+  }
+
+  private orderSortField(): string {
+    switch (this.orderSort()) {
+      case 'oldest': return 'createdAt';
+      case 'amountDesc': case 'amountAsc': return 'totalAmount';
+      case 'status': return 'status';
+      case 'customer': return 'customerUsername';
+      case 'orderNumber': return 'orderNumber';
+      default: return 'createdAt';
+    }
+  }
+
+  private orderSortDirection(): 'ASC' | 'DESC' {
+    return this.orderSort() === 'oldest' || this.orderSort() === 'amountAsc' ? 'ASC' : 'DESC';
   }
 
   protected async logout(): Promise<void> {

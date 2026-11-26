@@ -233,6 +233,36 @@ export async function mockShopverseApis(page: Page, options: { failFirstPlaceOrd
   }));
 
   await page.route('**/api/v1/orders/admin/all', (route) => json(route, [order]));
+  const adminOrderRecords = Array.from({ length: 17 }, (_, index) => ({
+    ...order,
+    id: 9100 + index,
+    orderNumber: `ADM-ORD-${String(index + 1).padStart(4, '0')}`,
+    customerUsername: `customer${String(index + 1).padStart(2, '0')}`,
+    status: index % 2 === 0 ? 'PAYMENT_FAILED' : 'CONFIRMED',
+    totalAmount: (index + 1) * 125,
+  }));
+  await page.route('**/api/v1/orders/admin?**', (route) => {
+    const url = new URL(route.request().url());
+    const pageNumber = Number(url.searchParams.get('page') ?? 0);
+    const size = Number(url.searchParams.get('size') ?? 20);
+    const search = (url.searchParams.get('search') ?? '').toLowerCase();
+    const status = url.searchParams.get('status') ?? 'ALL';
+    const filtered = adminOrderRecords.filter((record) => {
+      const matchesSearch = !search || `${record.orderNumber} ${record.customerUsername}`.toLowerCase().includes(search);
+      return matchesSearch && (status === 'ALL' || record.status === status);
+    });
+    const content = filtered.slice(pageNumber * size, (pageNumber + 1) * size);
+    const totalPages = Math.ceil(filtered.length / size);
+    return json(route, {
+      content,
+      page: pageNumber,
+      size,
+      totalElements: filtered.length,
+      totalPages,
+      first: pageNumber === 0,
+      last: pageNumber >= totalPages - 1,
+    });
+  });
   await page.route('**/api/v1/admin/users**', (route) => json(route, {
     content: [{
       id: 1,
@@ -255,7 +285,7 @@ export async function mockShopverseApis(page: Page, options: { failFirstPlaceOrd
   }]));
   await page.route('**/api/v1/*/admin/dead-letters', (route) => json(route, []));
   await page.route('**/api/v1/inventory/admin/reservations/orders/WEB-ORD-9001', (route) => json(route, reservations));
-  await page.route('**/api/v1/admin/audit-events', (route) => json(route, {
+  await page.route('**/api/v1/admin/audit-events?**', (route) => json(route, {
     content: [
       {
         id: 1,

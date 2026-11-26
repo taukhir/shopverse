@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
 import { ConfirmService } from '../../core/feedback/confirm.service';
 import { SessionService } from '../../core/auth/session.service';
 import { ToastService } from '../../core/feedback/toast.service';
@@ -11,7 +12,7 @@ import { AdminGroupsApiService, AdminGroup, GroupMember, GroupRole, GroupRequest
 
 @Component({
   selector: 'app-admin-groups',
-  imports: [AdminHeaderComponent, FormsModule, RouterLink],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, FormsModule, RouterLink],
   templateUrl: './admin-groups.component.html',
   styleUrl: './admin-groups.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

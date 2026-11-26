@@ -24,6 +24,10 @@ export const API_PATHS = {
     cancel: (id: number | string) => `/api/v1/orders/${id}/cancel`,
     timeline: (id: number | string) => `/api/v1/orders/${id}/timeline`,
     adminAll: '/api/v1/orders/admin/all',
+    adminPage: (page = 0, size = 20, search = '', status = 'ALL', sortBy = 'createdAt', direction: 'ASC' | 'DESC' = 'DESC') => {
+      const filters = [search && `search=${encodeURIComponent(search)}`, status !== 'ALL' && `status=${encodeURIComponent(status)}`].filter(Boolean);
+      return `/api/v1/orders/admin?page=${page}&size=${size}&sortBy=${encodeURIComponent(sortBy)}&direction=${direction}${filters.length ? `&${filters.join('&')}` : ''}`;
+    },
     adminCancel: (id: number | string) => `/api/v1/orders/admin/${id}/cancel`,
     adminPack: (id: number | string) => `/api/v1/orders/admin/${id}/pack`,
     adminShip: (id: number | string) => `/api/v1/orders/admin/${id}/ship`,
@@ -55,7 +59,7 @@ export const API_PATHS = {
     register: '/api/v1/public/users/register',
   },
   adminUsers: {
-    page: (size = 12) => `/api/v1/admin/users?size=${size}`,
+    page: (page = 0, size = 12, search = '') => `/api/v1/admin/users?page=${page}&size=${size}${search ? `&search=${encodeURIComponent(search)}` : ''}`,
     byId: (id: number | string) => `/api/v1/admin/users/${id}`,
   },
   groups: {
@@ -83,7 +87,10 @@ export const API_PATHS = {
     item: (productId: number | string) => `/api/v1/cart/items/${productId}`,
   },
   admin: {
-    auditEvents: '/api/v1/admin/audit-events',
+    auditEvents: (page = 0, size = 20, area = '', actor = '', result = '', search = '') => {
+      const filters = [area && `area=${encodeURIComponent(area)}`, actor && `actor=${encodeURIComponent(actor)}`, result && `result=${encodeURIComponent(result)}`, search && `search=${encodeURIComponent(search)}`].filter(Boolean);
+      return `/api/v1/admin/audit-events?page=${page}&size=${size}${filters.length ? `&${filters.join('&')}` : ''}`;
+    },
     auditEvent: (id: number | string) => `/api/v1/admin/audit-events/${id}`,
   },
 } as const;

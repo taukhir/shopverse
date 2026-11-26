@@ -15,6 +15,18 @@ manual demonstration, not a second automatic production pipeline.
 | `ci-database-lab.yml` | Disposable database-operations exercises | Weekly/manual; optional analytics |
 | `integration-jenkins.yml` | Submit a demonstration build with an explicit source SHA | Manual only; optional |
 | `sync-dev-with-master.yml` | Merge `master` into `dev` to keep the integration branch current | Master pushes; manual |
+| `commit-message.yml` | Validate every pull request and merge-queue commit subject against `[JIRA-ID] : commit message` | Pull requests; merge queue; manual |
+
+## Commit message format
+
+Commit subjects must use `[JIRA-ID] : commit message`, for example
+`[BUG-003] : cover multi-item checkout`. Pull request and merge-queue checks
+validate every commit in the proposed range, including commits created when a
+local hook is bypassed. To receive the same feedback before creating a commit,
+install the repository hook once with `git config core.hooksPath .githooks`.
+The hook checks the first line of each new commit message. The Jira key pattern
+accepts uppercase project keys followed by a hyphen and an alphanumeric issue
+key (for example `BUG-003`, `FEAT-S`, `FEAT-AJ`, or `PROJ-123`).
 
 Dependabot already updates Actions, Gradle, npm and Docker dependencies. The
 separate monthly `npm update` workflow was removed to avoid overlapping update
