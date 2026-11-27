@@ -47,6 +47,10 @@ jobs:
           MINIO_ROOT_PASSWORD: test-minio-password
           GRAFANA_ADMIN_PASSWORD: test-grafana-password
           PAYMENT_WEBHOOK_SECRET: test-payment-webhook-secret
+          CONFIG_SERVER_USERNAME: test-config-client
+          CONFIG_SERVER_PASSWORD: test-config-server-password
+          EUREKA_USERNAME: test-eureka-client
+          EUREKA_PASSWORD: test-eureka-password
           COMPOSE_PROJECT_NAME: shopverse-ci-validation
         run: |
           set -euo pipefail
@@ -295,6 +299,10 @@ jobs:
       MINIO_ROOT_PASSWORD: shopverse-test-minio-password
       GRAFANA_ADMIN_PASSWORD: shopverse-test-grafana-password
       PAYMENT_WEBHOOK_SECRET: shopverse-test-payment-webhook-secret
+      CONFIG_SERVER_USERNAME: shopverse-test-config-client
+      CONFIG_SERVER_PASSWORD: shopverse-test-config-server-password
+      EUREKA_USERNAME: shopverse-test-eureka-client
+      EUREKA_PASSWORD: shopverse-test-eureka-password
       COMPOSE_PROJECT_NAME: shopverse-ci-smoke
       COMPOSE_PARALLEL_LIMIT: "2"
       COMPOSE_BAKE: "false"

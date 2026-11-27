@@ -5,4 +5,8 @@ spring:
   application:
     name: DISCOVERY-SERVER
   config:
-    import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8888}
+    import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://${CONFIG_SERVER_USERNAME:config-client}:${CONFIG_SERVER_PASSWORD:?Set CONFIG_SERVER_PASSWORD in .env}@localhost:8888}
+  security:
+    user:
+      name: ${EUREKA_USERNAME:eureka-client}
+      password: ${EUREKA_PASSWORD:?Set EUREKA_PASSWORD in .env}
