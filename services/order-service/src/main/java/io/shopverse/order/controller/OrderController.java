@@ -113,6 +113,7 @@ public class OrderController {
     // ADMIN APIs
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public OrderDeleteResponse deleteOrder(@PathVariable Long id) {
         log.warn("Deleting order by id: {}", id);
         orderService.cancel(id);
@@ -120,6 +121,7 @@ public class OrderController {
     }
 
     @GetMapping("/admin/all")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<OrderResponse> allOrders() {
         log.info("Admin requested all orders");
         return orderService.getAllOrders().stream().map(mapper::toContract).toList();
@@ -174,6 +176,7 @@ public class OrderController {
     }
 
     @PostMapping("/admin/catalog-cache/evict")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Evict cached inventory catalog data")
     public ResponseEntity<Void> evictCatalogCache() {
         log.warn("Admin requested catalog cache eviction");

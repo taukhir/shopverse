@@ -15,6 +15,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
@@ -60,6 +62,47 @@ class OrderOwnershipAuthorizationTest {
     @WithMockUser(username = "admin", roles = "ADMIN")
     void administratorCanReadAnyTimeline() {
         assertThatNoException().isThrownBy(() -> controller.getTimeline(ORDER_ID));
+    }
+
+    @Test
+    @WithMockUser(username = "bob", roles = "CUSTOMER")
+    void customerCannotDeleteAnOrder() {
+        assertThatThrownBy(() -> controller.deleteOrder(ORDER_ID))
+                .isInstanceOf(AuthorizationDeniedException.class);
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void administratorCanDeleteAnOrder() {
+        assertThatNoException().isThrownBy(() -> controller.deleteOrder(ORDER_ID));
+    }
+
+    @Test
+    @WithMockUser(username = "bob", roles = "CUSTOMER")
+    void customerCannotListAllOrders() {
+        assertThatThrownBy(controller::allOrders)
+                .isInstanceOf(AuthorizationDeniedException.class);
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void administratorCanListAllOrders() {
+        given(orderService.getAllOrders()).willReturn(List.of());
+
+        assertThatNoException().isThrownBy(controller::allOrders);
+    }
+
+    @Test
+    @WithMockUser(username = "bob", roles = "CUSTOMER")
+    void customerCannotEvictTheCatalogCache() {
+        assertThatThrownBy(controller::evictCatalogCache)
+                .isInstanceOf(AuthorizationDeniedException.class);
+    }
+
+    @Test
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void administratorCanEvictTheCatalogCache() {
+        assertThatNoException().isThrownBy(controller::evictCatalogCache);
     }
 
     @Configuration
