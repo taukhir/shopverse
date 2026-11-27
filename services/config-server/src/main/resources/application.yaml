@@ -11,6 +11,10 @@ spring:
       server:
         native:
           search-locations: ${CONFIG_SEARCH_LOCATIONS:file:./infra/cloud-configs,file:./cloud-configs}
+  security:
+    user:
+      name: ${CONFIG_SERVER_USERNAME:config-client}
+      password: ${CONFIG_SERVER_PASSWORD:?Set CONFIG_SERVER_PASSWORD in .env}
 
 management:
   endpoints:
