@@ -161,6 +161,24 @@ Server response does not prove that every client consumed the intended revision.
 Do not expose repository contents or broad environment endpoints publicly. Protect
 refresh with JWT authorization, retain an audit trail for production changes, and
 prefer immutable restart/rollout for high-risk security or connectivity settings.
+
+### Authentication (BUG-021)
+
+HTTP Basic auth is required on every endpoint except `/actuator/health` (see
+`security/SecurityConfig.java`). Credentials are set via `CONFIG_SERVER_USERNAME`/
+`CONFIG_SERVER_PASSWORD` (required, no default - startup fails without them, same
+`${VAR:?...}` pattern as `PAYMENT_WEBHOOK_SECRET`), and every consuming service's
+`spring.config.import` embeds them directly in the URI
+(`configserver:http://user:pass@config-server:8888`), which Spring Cloud Config
+resolves natively.
+
+**Known trade-off, not a defect:** because the credentials live in a plain
+connection URI, they will appear in cleartext in verbose/`DEBUG` Spring Cloud
+logging and in the output of `docker compose config` (which prints every
+resolved environment value). Do not enable verbose Spring Cloud config-client
+logging in a shared or production environment, and do not share or commit
+`docker compose config` output - treat it the same as any other file containing
+live secrets.
 - Kafka bootstrap server
 - Kafka topic names for the Order/Inventory/Payment choreography SAGA
 
