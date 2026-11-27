@@ -185,7 +185,12 @@ public class OrderController {
         if (value == null) {
             return null;
         }
-        return value.replaceAll("[\\r\\n\\t\\f\\u000B]+", "_");
+        return value
+                .replace('\r', '_')
+                .replace('\n', '_')
+                .replace('\t', '_')
+                .replace('\f', '_')
+                .replace('\u000B', '_');
     }
 
 }
