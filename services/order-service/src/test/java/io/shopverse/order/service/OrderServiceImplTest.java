@@ -3,6 +3,7 @@ package io.shopverse.order.service;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import io.shopverse.order.config.KafkaTopicsProperties;
 import io.shopverse.order.dto.CatalogItemResponse;
+import io.shopverse.order.dto.AdminOrderSummaryResponse;
 import io.shopverse.order.dto.CheckoutItemRequest;
 import io.shopverse.order.dto.CheckoutRequest;
 import io.shopverse.order.dto.ShippingAddressRequest;
@@ -17,6 +18,9 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -50,6 +54,33 @@ class OrderServiceImplTest {
             outboxService,
             topics
     );
+
+    @Test
+    void adminOrderSearchReturnsRequestedBoundedPageAndSummaryFields() {
+        var order = new OrderEntity("ORD-SEARCH", "customer.one", "correlation-search", "idempotency-search");
+        order.markPaymentFailed("declined");
+        when(repository.findAdminOrders(eq("customer"), eq(OrderStatus.PAYMENT_FAILED), any()))
+                .thenReturn(new PageImpl<>(List.of(order), PageRequest.of(1, 8), 17));
+
+        var response = service.getAdminOrders(1, 8, " customer ", "PAYMENT_FAILED", "totalAmount", "ASC");
+
+        assertThat(response.content()).singleElement().satisfies(summary -> {
+            assertThat(summary).isInstanceOf(AdminOrderSummaryResponse.class);
+            assertThat(summary.orderNumber()).isEqualTo("ORD-SEARCH");
+            assertThat(summary.customerUsername()).isEqualTo("customer.one");
+            assertThat(summary.status()).isEqualTo("PAYMENT_FAILED");
+        });
+        assertThat(response.page()).isEqualTo(1);
+        assertThat(response.size()).isEqualTo(8);
+        assertThat(response.totalElements()).isEqualTo(17);
+        verify(repository).findAdminOrders(eq("customer"), eq(OrderStatus.PAYMENT_FAILED), eq(PageRequest.of(1, 8, Sort.by(Sort.Direction.ASC, "totalAmount").and(Sort.by(Sort.Direction.DESC, "id")))));
+    }
+
+    @Test
+    void adminOrderPageRejectsUnsupportedSortField() {
+        assertThatThrownBy(() -> service.getAdminOrders(0, 20, "", "ALL", "idempotencyKey", "DESC"))
+                .hasMessageContaining("Sorting is not supported");
+    }
 
     @Test
     void checkoutValidatesRequestedProductWithDirectInventoryLookup() {

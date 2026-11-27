@@ -78,7 +78,7 @@ Current consumers use state-check idempotency (a handler is a no-op unless
 the order is in the specific state the event expects); a formal
 transactional consumer inbox (event-ID-keyed deduplication) is tracked
 separately as a planned follow-up (`FEAT-L`/inbox tracked in
-`dev-tools/teams/BACKLOG.md`), not yet built.
+`dev-tools/teams/BACKLOG-BY-AREA.md`), not yet built.
 
 ## Consequences
 
@@ -104,7 +104,7 @@ separately as a planned follow-up (`FEAT-L`/inbox tracked in
   end. See
   [Order Status Dead-Transition Problem](https://taukhir.github.io/shopverse-docs/reliability/problems/ORDER-STATUS-DEAD-TRANSITION-PROBLEM)
   for the full root cause and fix (`BUG-013`,
-  `dev-tools/teams/BACKLOG.md`) — fix designed, not yet implemented as of
+  `dev-tools/teams/BACKLOG-BY-AREA.md`) — fix designed, not yet implemented as of
   this writing.
 - Observability and replay tooling (correlation ID propagation, DLT
   persistence, timeline queries) are required parts of this architecture,
@@ -123,3 +123,15 @@ separately as a planned follow-up (`FEAT-L`/inbox tracked in
 - [Shopverse Saga Code Flow](https://taukhir.github.io/shopverse-docs/reliability/SHOPVERSE-SAGA-CODE-FLOW)
 - [Saga Consistency And Compensation](https://taukhir.github.io/shopverse-docs/reliability/SAGA-CONSISTENCY-COMPENSATION)
 - [ADR 005: Multi-Item Checkout Event Contract](./005-multi-item-checkout-event-contract.md)
+
+## Status addendum (2026-11-26)
+
+The earlier BUG-013 paragraph above records the state when this ADR was
+written; it is superseded by the fix now present in
+services/order-service/src/main/java/io/shopverse/order/service/OrderServiceImpl.java.
+OrderServiceImpl.checkout() enters PENDING_INVENTORY before writing the
+OrderCreated outbox event, and the inventory success/rejection handlers
+consume that state. The fix shipped; current verification and remaining
+checkout phases are tracked in
+dev-tools/teams/BACKLOG-BY-AREA.md. This addendum does not change the
+choreography decision.

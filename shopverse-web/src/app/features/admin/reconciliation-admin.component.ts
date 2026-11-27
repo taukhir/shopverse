@@ -5,16 +5,17 @@ import { Router, RouterLink } from '@angular/router';
 import { SessionService } from '../../core/auth/session.service';
 import { ToastService } from '../../core/feedback/toast.service';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 import { Payment, PaymentApiService } from './payment-api.service';
 
 @Component({
   selector: 'app-reconciliation-admin',
-  imports: [AdminHeaderComponent, DatePipe, LoadingSkeletonComponent, RouterLink],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, DatePipe, LoadingSkeletonComponent, RouterLink],
   template: `
     <app-admin-header (signOut)="logout()" />
     <main class="admin-page-shell">
-      <header class="heading"><div><p class="eyebrow">FINANCE OPERATIONS</p><h1>Reconciliation</h1><p>Payment records requiring attention, with supported payment actions.</p></div><button type="button" (click)="load()">Refresh</button></header>
+      <app-admin-page-header eyebrow="FINANCE OPERATIONS" title="Reconciliation" description="Payment records requiring attention, with supported payment actions."><button class="admin-page-action" type="button" (click)="load()">Refresh</button></app-admin-page-header>
       @if (loading()) { <app-loading-skeleton [rows]="5" /> }
       @else if (error()) { <section class="notice" role="alert">{{ error() }} <button type="button" (click)="load()">Retry</button></section> }
       @else {

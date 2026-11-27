@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,7 +20,7 @@ type ReplayFilter = 'All' | 'Open' | 'Replayed';
 
 @Component({
   selector: 'app-recovery-admin',
-  imports: [AdminHeaderComponent, DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, ServiceNoticeComponent],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, ServiceNoticeComponent],
   templateUrl: './recovery-admin.component.html',
   styleUrl: './recovery-admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

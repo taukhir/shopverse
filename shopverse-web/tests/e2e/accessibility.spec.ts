@@ -63,7 +63,7 @@ test('login and storefront navigation remain accessible at a mobile viewport', a
 test('admin navigation remains accessible at a mobile viewport', async ({ page }) => {
   await signIn(page, 'admin');
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const path of ['/admin', '/admin/access-control', '/admin/groups']) {
+  for (const path of ['/admin', '/admin/orders', '/admin/users', '/admin/access-control', '/admin/groups']) {
     await page.goto(path);
     const results = await new AxeBuilder({ page }).exclude('img').analyze();
     expect(results.violations.filter((violation) => ['serious', 'critical'].includes(violation.impact ?? '')), path).toEqual([]);

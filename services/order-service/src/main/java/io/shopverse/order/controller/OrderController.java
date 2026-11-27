@@ -3,6 +3,7 @@ package io.shopverse.order.controller;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.shopverse.order.constants.OrderMessages;
+import io.shopverse.order.dto.AdminOrderSummaryResponse;
 import io.shopverse.contracts.order.CatalogItemResponse;
 import io.shopverse.contracts.order.OrderDeleteResponse;
 import io.shopverse.contracts.order.OrderResponse;
@@ -10,6 +11,7 @@ import io.shopverse.contracts.order.OrderTimelineResponse;
 import io.shopverse.contracts.order.ServiceHealthResponse;
 import io.shopverse.order.service.CatalogService;
 import io.shopverse.order.service.OrderService;
+import io.shopverse.platform.web.pagination.PageResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.validation.annotation.Validated;
@@ -122,6 +125,22 @@ public class OrderController {
         return orderService.getAllOrders().stream().map(mapper::toContract).toList();
     }
 
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Search and page admin orders")
+    public PageResponse<AdminOrderSummaryResponse> adminOrders(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "") String search,
+            @RequestParam(defaultValue = "ALL") String status,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "DESC") String direction
+    ) {
+        String safeStatusForLog = sanitizeForLog(status);
+        log.info("Admin requested order page={}, size={}, status={}", page, size, safeStatusForLog);
+        return orderService.getAdminOrders(page, size, search, status, sortBy, direction);
+    }
+
     @PostMapping("/admin/{id}/cancel")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Cancel an order from the admin operations workflow")
@@ -160,6 +179,18 @@ public class OrderController {
         log.warn("Admin requested catalog cache eviction");
         catalogService.evictCatalog();
         return ResponseEntity.noContent().build();
+    }
+
+    private String sanitizeForLog(String value) {
+        if (value == null) {
+            return null;
+        }
+        return value
+                .replace('\r', '_')
+                .replace('\n', '_')
+                .replace('\t', '_')
+                .replace('\f', '_')
+                .replace('\u000B', '_');
     }
 
 }

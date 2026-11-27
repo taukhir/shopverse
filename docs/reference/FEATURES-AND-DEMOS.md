@@ -26,6 +26,19 @@ settings. Desktop admin pages now use a common content width and sidebar offset.
 Reconciliation remains Payment-API-backed and returns remain read-only until
 the backend workflows land; ENH-063 tracks browser visual verification.
 
+The admin customer directory uses the User Service's pageable/search API and
+displays server totals. Durable activity uses the audit API's server-side page
+and filters; its derived-data fallback remains client-side. Dashboard source
+failures now remain distinguishable from successful empty responses. Admin
+primary routes share reusable page-header/action framing. The interactive order
+list now uses a bounded Order Service page endpoint with status/search filters,
+allow-listed sorting, stable tie-break ordering, and summary records. Orders,
+users, activity, inventory, and payments use a shared accessible pager. The
+backend test run and browser verification still need to pass before ENH-065,
+ENH-063, ENH-048, and ENH-067 can close. Effective session permissions remain
+under ENH-066; saved views, scoped exports, and audited bulk actions remain
+under FEAT-AZ.
+
 <!-- split-guide-index -->
 # Shopverse Features And Demos
 

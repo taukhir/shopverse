@@ -1,17 +1,7 @@
 <app-admin-header (signOut)="logout()" />
 <main class="admin-activity">
 
-  <section class="hero">
-    <p class="eyebrow">Operational audit view</p>
-    <h1>Admin activity and system signals.</h1>
-    <p>
-      @if (source() === 'audit') {
-        Showing durable backend audit records from <code>/api/v1/admin/audit-events</code>.
-      } @else {
-        Backend audit records are not available yet, so this page is deriving activity from current Order, Inventory, Payment, and Recovery APIs.
-      }
-    </p>
-  </section>
+  <app-admin-page-header eyebrow="OPERATIONAL AUDIT VIEW" title="Admin activity and system signals." [description]="source() === 'audit' ? 'Showing durable, server-paged audit records.' : 'Durable audit records are unavailable; this view derives activity from current Order, Inventory, Payment, and Recovery APIs.'" />
 
   @if (loading()) {
     <app-loading-skeleton [rows]="6" />
@@ -24,16 +14,16 @@
     />
   } @else {
     <section class="summary-grid" aria-label="Activity summary">
-      <article><span>Total signals</span><strong>{{ summary().total }}</strong></article>
-      <article class="attention"><span>Need attention</span><strong>{{ summary().attention }}</strong></article>
-      <article><span>Order events</span><strong>{{ summary().orders }}</strong></article>
-      <article><span>Recovery events</span><strong>{{ summary().recovery }}</strong></article>
+      <article><span>{{ source() === 'audit' ? 'Matching audit events' : 'Loaded signals' }}</span><strong>{{ summary().total }}</strong></article>
+      <article class="attention"><span>Need attention (page)</span><strong>{{ summary().attention }}</strong></article>
+      <article><span>Order events (page)</span><strong>{{ summary().orders }}</strong></article>
+      <article><span>Recovery events (page)</span><strong>{{ summary().recovery }}</strong></article>
     </section>
 
     <section class="filters" aria-label="Activity filters">
       <label>
         <span>Area</span>
-        <select [ngModel]="areaFilter()" (ngModelChange)="areaFilter.set($event); page.set(1)">
+        <select [ngModel]="areaFilter()" (ngModelChange)="areaFilter.set($event); filtersChanged()">
           @for (area of areas; track area) {
             <option [value]="area">{{ area }}</option>
           }
@@ -41,7 +31,7 @@
       </label>
       <label>
         <span>Result</span>
-        <select [ngModel]="resultFilter()" (ngModelChange)="resultFilter.set($event); page.set(1)">
+        <select [ngModel]="resultFilter()" (ngModelChange)="resultFilter.set($event); filtersChanged()">
           @for (result of results; track result) {
             <option [value]="result">{{ result }}</option>
           }
@@ -49,16 +39,13 @@
       </label>
       <label>
         <span>Actor</span>
-        <select [ngModel]="actorFilter()" (ngModelChange)="actorFilter.set($event); page.set(1)">
-          @for (actor of actors(); track actor) {
-            <option [value]="actor">{{ actor }}</option>
-          }
-        </select>
+        <input type="search" [(ngModel)]="actorDraft" (keydown.enter)="searchActivity()" placeholder="Filter actor" />
       </label>
       <label class="search">
         <span>Search</span>
-        <input type="search" [ngModel]="query()" (ngModelChange)="query.set($event); page.set(1)" placeholder="Order, topic, status..." />
+        <input type="search" [(ngModel)]="queryDraft" (keydown.enter)="searchActivity()" placeholder="Order, topic, status..." />
       </label>
+      <button type="button" (click)="searchActivity()">Apply filters</button>
       <button type="button" (click)="resetFilters()">Reset</button>
     </section>
 
@@ -71,14 +58,6 @@
       </section>
     } @else {
       <section class="activity-table" aria-label="Admin activity events">
-        <div class="table-head">
-          <span>{{ pageLabel() }}</span>
-          <div>
-            <button type="button" (click)="changePage(-1)" [disabled]="page() === 1">Previous</button>
-            <button type="button" (click)="changePage(1)" [disabled]="page() === pageCount()">Next</button>
-          </div>
-        </div>
-
         <div class="activity-table-scroll">
           <table>
             <thead><tr><th scope="col">Area / result</th><th scope="col">Activity</th><th scope="col">Actor</th><th scope="col">Status</th><th scope="col">Time</th><th scope="col">Reference</th><th scope="col"><span class="visually-hidden">Details</span></th></tr></thead>
@@ -97,6 +76,7 @@
             </tbody>
           </table>
         </div>
+        <app-admin-table-pagination [label]="pageLabel()" [page]="page()" [pageCount]="pageCount()" (pageChange)="goToPage($event)" />
       </section>
     }
   }

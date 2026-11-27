@@ -59,9 +59,56 @@ test('admin can open overview and durable activity across order, inventory, and 
   await expect(page.getByText(/inventory health/i)).toBeVisible();
 
   await page.getByRole('link', { name: 'Activity' }).click();
-  await expect(page.getByText('/api/v1/admin/audit-events')).toBeVisible();
+  await expect(page.getByText(/Showing durable, server-paged audit records/)).toBeVisible();
   const activityRows = page.locator('.activity-table tbody tr');
   await expect(activityRows.filter({ hasText: 'ORDER_PACKED' })).toBeVisible();
   await expect(activityRows.filter({ hasText: 'RESERVATION_RELEASED' })).toBeVisible();
   await expect(activityRows.filter({ hasText: 'PAYMENT_CAPTURED' })).toBeVisible();
+});
+
+test('admin orders use server filters and paging with keyboard controls on a narrow screen', async ({ page }) => {
+  await signIn(page, 'admin');
+  await expect(page).not.toHaveURL(/\/login/);
+  await page.goto('/admin/orders');
+  await expect(page.getByRole('heading', { name: 'Order operations.' })).toBeVisible();
+  await expect(page.getByText('1-8 of 17')).toBeVisible();
+  await expect(page.getByText('ADM-ORD-0001')).toBeVisible();
+  await expect(page.getByText('ADM-ORD-0009')).toHaveCount(0);
+
+  const nextButton = page.getByRole('button', { name: 'Next page' });
+  await nextButton.focus();
+  await expect(nextButton).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByText('9-16 of 17')).toBeVisible();
+  await expect(page.getByText('ADM-ORD-0009')).toBeVisible();
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.getByPlaceholder('Order number or customer')).toBeVisible();
+  const overflows = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+  expect(overflows).toBe(false);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: 'test-results/admin-orders-mobile-verification.png' });
+
+  const search = page.getByPlaceholder('Order number or customer');
+  await search.fill('ADM-ORD-0017');
+  await search.press('Enter');
+  await expect(page.getByText('ADM-ORD-0017')).toBeVisible();
+  await expect(page.getByText('1-1 of 1')).toBeVisible();
+});
+
+test('admin mobile navigation opens with the keyboard and closes after route selection', async ({ page }) => {
+  await signIn(page, 'admin');
+  await expect(page).not.toHaveURL(/\/login/);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/admin/orders');
+
+  await page.getByRole('button', { name: 'Menu' }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('button', { name: 'Close' })).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.getByRole('link', { name: 'Users' })).toBeVisible();
+  await page.getByRole('link', { name: 'Users' }).click();
+  await expect(page).toHaveURL(/\/admin\/users/);
+  await expect(page.getByRole('button', { name: 'Menu' })).toHaveAttribute('aria-expanded', 'false');
+  const overflows = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+  expect(overflows).toBe(false);
 });

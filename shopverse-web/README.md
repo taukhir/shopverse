@@ -29,7 +29,7 @@ overlay. It talks to the backend through the API Gateway at `localhost:8080`.
 - Customer order cancellation, payment retry, refund request, and return request actions.
 - Account/profile management and address book.
 - Admin views for users, roles and permissions, orders, inventory, payments, recovery, activity, and fulfillment workflows.
-- Shared back-office navigation across operations, reconciliation, returns/refunds, access management, and settings, with consistent desktop content framing.
+- Shared back-office navigation and page-header/action framing across operations, reconciliation, returns/refunds, access management, and settings, with consistent desktop content alignment.
 
 ## Current Backend Integrations
 
@@ -46,8 +46,9 @@ The UI is wired to the API Gateway through `/api` and `/auth`.
 | Customer order activity | Recent order states and dates from the existing customer order-history response; no synthetic notification events or per-order detail fan-out | `GET /api/v1/orders` |
 | Payments | Customer retry/refund actions and admin payment operations | `GET /api/v1/payments/orders/{orderNumber}`, `POST /api/v1/payments/orders/{orderNumber}/retry`, `POST /api/v1/payments/orders/{orderNumber}/refund` |
 | Admin fulfillment | Pack, ship/out-for-delivery, deliver, cancel | `POST /api/v1/orders/admin/{id}/pack`, `POST /api/v1/orders/admin/{id}/ship`, `POST /api/v1/orders/admin/{id}/deliver`, `POST /api/v1/orders/admin/{id}/cancel` |
-| Admin activity | Filterable operational activity with backend-audit-first fallback behavior | paged `GET /api/v1/admin/audit-events`, then derived from existing admin APIs if unavailable |
-| Access control | Admin role and permission catalog CRUD; assign roles from a user's profile | `GET/POST/PATCH/DELETE /api/v1/roles`, `GET/POST/PATCH/DELETE /api/v1/permissions`, `GET/PATCH /api/v1/users/{id}` |
+| Admin orders | Database-paged order summaries with search, status filter, and allow-listed sorting (page size 1-100) | `GET /api/v1/orders/admin?page=&size=&search=&status=&sortBy=&direction=` |
+| Admin activity | Server-paged/filterable durable activity with a clearly labeled derived-data fallback | `GET /api/v1/admin/audit-events?page=&size=&area=&actor=&result=&search=`, then derived from existing admin APIs if unavailable |
+| Access control | Admin role and permission catalog CRUD; pageable/searchable customer directory; assign roles from a user's profile | `GET /api/v1/admin/users?page=&size=&search=`, `GET/POST/PATCH/DELETE /api/v1/roles`, `GET/POST/PATCH/DELETE /api/v1/permissions`, `GET/PATCH /api/v1/users/{id}` |
 
 ## Local Development
 
@@ -175,6 +176,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-ShopverseFull
   `CONFIRMED -> PACKING -> SHIPPED -> OUT_FOR_DELIVERY -> DELIVERED`.
 - Admin activity tries paged `GET /api/v1/admin/audit-events` first. If that
   endpoint is unavailable, it derives a timeline from existing admin APIs.
+- The Admin Orders table uses the bounded Orders endpoint and requests a new
+  page when the user changes search, status, sort, or page. The legacy
+  `/api/v1/orders/admin/all` remains for current overview/recovery consumers.
+- Admin orders, users, activity, inventory, and payments share the same
+  accessible pagination component, while each retains its route-specific row
+  and detail semantics.
 - Admin access control manages User Service roles and permission records;
   downstream services still need server-side authorization checks for each
   permission they intend to enforce.

@@ -1,14 +1,9 @@
 <app-admin-header (signOut)="logout()" />
 <main class="admin-page-shell access-control">
 
-  <header class="heading">
-    <div>
-      <p class="eyebrow">ACCESS CONTROL</p>
-      <h1>Roles &amp; permissions.</h1>
-      <p class="lede">Define permission records, group them into roles, then assign roles from each user profile.</p>
-    </div>
-    <a routerLink="/admin/users">Manage user assignments &rarr;</a>
-  </header>
+  <app-admin-page-header eyebrow="ACCESS CONTROL" title="Roles &amp; permissions." description="Define permissions, group them into roles, and assign roles from user profiles.">
+    <a class="admin-page-action admin-page-action--link" routerLink="/admin/users">Manage user assignments &rarr;</a>
+  </app-admin-page-header>
 
   <p class="security-note">These controls manage the User Service role and permission catalog. API authorization must still be enforced by each backend service; hiding a screen or action does not grant or revoke API access. Permission claims are issued at login, so existing access tokens keep their current claims until they expire.</p>
 

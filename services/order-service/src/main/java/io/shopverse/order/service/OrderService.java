@@ -3,6 +3,8 @@ package io.shopverse.order.service;
 import io.shopverse.order.dto.CheckoutRequest;
 import io.shopverse.order.dto.OrderResponse;
 import io.shopverse.order.dto.OrderTimelineResponse;
+import io.shopverse.order.dto.AdminOrderSummaryResponse;
+import io.shopverse.platform.web.pagination.PageResponse;
 
 import java.util.List;
 
@@ -15,6 +17,15 @@ public interface OrderService {
     List<OrderResponse> getCustomerOrders(String username);
 
     List<OrderResponse> getAllOrders();
+
+    PageResponse<AdminOrderSummaryResponse> getAdminOrders(
+            int page,
+            int size,
+            String search,
+            String status,
+            String sortBy,
+            String direction
+    );
 
     List<OrderTimelineResponse> getTimeline(Long orderId);
 

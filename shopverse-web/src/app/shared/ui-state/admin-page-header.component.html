@@ -1,0 +1,10 @@
+<header class="admin-page-header">
+  <div class="page-copy">
+    <p class="eyebrow">{{ eyebrow() }}</p>
+    <h1>{{ title() }}</h1>
+    @if (description()) {
+      <p class="description">{{ description() }}</p>
+    }
+  </div>
+  <div class="page-actions"><ng-content /></div>
+</header>

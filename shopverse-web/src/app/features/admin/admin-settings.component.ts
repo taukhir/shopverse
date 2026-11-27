@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
 import { Router } from '@angular/router';
 
 import { SessionService } from '../../core/auth/session.service';
@@ -10,7 +11,7 @@ import { PaymentApiService, SimulationMode } from './payment-api.service';
 
 @Component({
   selector: 'app-admin-settings',
-  imports: [AdminHeaderComponent, FormsModule, RouterLink],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, FormsModule, RouterLink],
   templateUrl: './admin-settings.component.html',
   styleUrl: './admin-settings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

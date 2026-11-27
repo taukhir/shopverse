@@ -43,6 +43,7 @@ Start here to see the platform end to end.
 - [ADR 003: JWT And JWKS Authentication](architecture/adr/003-jwt-jwks-security.md)
 - [ADR 004: Observability Stack](architecture/adr/004-observability-stack.md)
 - [ADR 005: Multi-Item Checkout Event Contract](architecture/adr/005-multi-item-checkout-event-contract.md)
+- [ADR 006: Order-Gated Payment Request In Checkout Choreography](architecture/adr/006-order-gated-payment-request-saga.md) - proposed
 
 ## System Design
 
@@ -66,3 +67,8 @@ status claims.
 
 Service-specific APIs, configuration, and operational detail stay in each
 service's own README (`services/<name>/README.md`), not duplicated here.
+
+
+## Architecture Review
+
+- [Overall system design review](../dev-tools/teams/docs/architecture-system-design-review-2026-11-26.md) - current-source assessment and target-design recommendation.

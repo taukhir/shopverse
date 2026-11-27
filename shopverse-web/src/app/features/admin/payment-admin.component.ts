@@ -1,5 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
+import { AdminTablePaginationComponent } from '../../shared/ui-state/admin-table-pagination.component';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -17,7 +19,7 @@ import { Payment, PaymentAction, PaymentApiService } from './payment-api.service
 
 @Component({
   selector: 'app-payment-admin',
-  imports: [AdminHeaderComponent, DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, AdminTablePaginationComponent, DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
   templateUrl: './payment-admin.component.html',
   styleUrl: './payment-admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -153,7 +155,11 @@ export class PaymentAdminComponent {
   }
 
   protected changePage(delta: number): void {
-    this.page.set(this.clampedPage(this.page() + delta, this.pageCount()));
+    this.goToPage(this.page() + delta);
+  }
+
+  protected goToPage(target: number): void {
+    this.page.set(this.clampedPage(target, this.pageCount()));
   }
 
   protected logout(): void {

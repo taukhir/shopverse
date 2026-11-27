@@ -3,8 +3,7 @@
   <main>
 
     <section class="content">
-      <p class="eyebrow">Operations workspace</p>
-      <h1>{{ section()==='overview' ? 'System at a glance.' : section()==='orders' ? 'Order operations.' : 'Customer accounts.' }}</h1>
+      <app-admin-page-header eyebrow="OPERATIONS WORKSPACE" [title]="pageTitle()" [description]="pageDescription()" />
 
       @if(loading()) {
         <app-loading-skeleton [rows]="5" />
@@ -28,8 +27,8 @@
           </article>
           <article><span>Orders</span><strong>{{ orders().length }}</strong><em>{{ openOrderCount() }} open</em></article>
           <article><span>Customers</span><strong>{{ userTotal() }}</strong><em>{{ users().length }} loaded</em></article>
-          <article><span>Recoverable</span><strong>{{ recoverableEvents().length }}</strong><em>{{ failedEvents().length }} failed events</em></article>
-          <article><span>Payments needing review</span><strong>{{ paymentAttention().length }}</strong><em>Current loaded payment records</em></article>
+          <article><span>Recoverable</span><strong>{{ recoveryAvailable() ? recoverableEvents().length : '—' }}</strong><em>{{ recoveryAvailable() ? failedEvents().length + ' failed events' : 'Recovery sources unavailable' }}</em></article>
+          <article><span>Payments needing review</span><strong>{{ paymentsAvailable() ? paymentAttention().length : '—' }}</strong><em>{{ paymentsAvailable() ? 'Current loaded payment records' : 'Payment source unavailable' }}</em></article>
           <article><span>Return requests</span><strong>{{ returnRequests().length }}</strong><em>Decision actions require backend workflow</em></article>
         </div>
 
@@ -48,10 +47,10 @@
               <a routerLink="/admin/inventory">Manage inventory &rarr;</a>
             </div>
             <div class="stock-cards">
-              <article><span>Items</span><strong>{{ inventoryTotals().items }}</strong></article>
-              <article><span>Available</span><strong>{{ inventoryTotals().available }}</strong></article>
-              <article><span>Reserved</span><strong>{{ inventoryTotals().reserved }}</strong></article>
-              <article class="danger"><span>Low / out</span><strong>{{ inventoryTotals().lowStock + inventoryTotals().outOfStock }}</strong></article>
+              <article><span>Items</span><strong>{{ inventoryAvailable() ? inventoryTotals().items : '—' }}</strong></article>
+              <article><span>Available</span><strong>{{ inventoryAvailable() ? inventoryTotals().available : '—' }}</strong></article>
+              <article><span>Reserved</span><strong>{{ inventoryAvailable() ? inventoryTotals().reserved : '—' }}</strong></article>
+              <article class="danger"><span>Low / out</span><strong>{{ inventoryAvailable() ? inventoryTotals().lowStock + inventoryTotals().outOfStock : '—' }}</strong></article>
             </div>
             <div class="stock-bar" role="img" aria-label="Inventory stock split">
               <i class="available" [style.width.%]="percent(inventoryTotals().available, inventoryTotals().available + inventoryTotals().reserved)"></i>
@@ -59,7 +58,9 @@
             </div>
             <div class="low-stock">
               <p>LOW STOCK WATCH</p>
-              @if(!lowStockItems().length) {
+              @if(!inventoryAvailable()) {
+                <span class="empty">Inventory data is unavailable. Stock counts are not shown as zero.</span>
+              } @else if(!lowStockItems().length) {
                 <span class="empty">No low-stock items right now.</span>
               } @else {
                 @for(item of lowStockItems(); track item.productId) {
@@ -75,16 +76,18 @@
           <section class="panel">
             <div class="panel-head">
               <div><p>PAYMENTS</p><h2>Status summary.</h2></div>
-              <div class="panel-action"><span>{{ price(paymentTotals().amount) }}</span><a routerLink="/admin/payments">Manage payments &rarr;</a></div>
+              <div class="panel-action"><span>{{ paymentsAvailable() ? price(paymentTotals().amount) : 'Unavailable' }}</span><a routerLink="/admin/payments">Manage payments &rarr;</a></div>
             </div>
             <div class="payment-summary">
-              <article><span>Captured</span><strong>{{ paymentTotals().captured }}</strong></article>
-              <article><span>Pending</span><strong>{{ paymentTotals().pending }}</strong></article>
-              <article class="danger"><span>Failed</span><strong>{{ paymentTotals().failed }}</strong></article>
-              <article><span>Refunded</span><strong>{{ paymentTotals().refunded }}</strong></article>
+              <article><span>Captured</span><strong>{{ paymentsAvailable() ? paymentTotals().captured : '—' }}</strong></article>
+              <article><span>Pending</span><strong>{{ paymentsAvailable() ? paymentTotals().pending : '—' }}</strong></article>
+              <article class="danger"><span>Failed</span><strong>{{ paymentsAvailable() ? paymentTotals().failed : '—' }}</strong></article>
+              <article><span>Refunded</span><strong>{{ paymentsAvailable() ? paymentTotals().refunded : '—' }}</strong></article>
             </div>
             <div class="status-list">
-              @if(!paymentStatusSlices().length) {
+              @if(!paymentsAvailable()) {
+                <div class="empty">Payment data is unavailable. Status counts are not shown as zero.</div>
+              } @else if(!paymentStatusSlices().length) {
                 <div class="empty">No payment records yet.</div>
               } @else {
                 @for(slice of paymentStatusSlices(); track slice.status) {
@@ -117,7 +120,9 @@
               <div><p>RECOVERY</p><h2>Recent failures.</h2></div>
               <a routerLink="/admin/recovery">{{ recoverableEvents().length }} actionable &rarr;</a>
             </div>
-            @if(!recentFailedEvents().length) {
+            @if(!recoveryAvailable()) {
+              <div class="empty">One or more recovery sources are unavailable. Review the source status above.</div>
+            } @else if(!recentFailedEvents().length) {
               <div class="empty">No failed events have been recorded.</div>
             } @else {
               <div class="recovery-list">
@@ -136,16 +141,16 @@
         </div>
       } @else if(section()==='orders') {
         <div class="list-controls" aria-label="Order list controls">
-          <label>Search<input [(ngModel)]="orderSearch" placeholder="Order number or customer" /></label>
+          <label>Search<input [(ngModel)]="orderSearchDraft" (keydown.enter)="searchOrders()" placeholder="Order number or customer" /></label>
           <label>Status
-            <select [(ngModel)]="orderStatusFilter">
+            <select [ngModel]="orderStatusFilter()" (ngModelChange)="orderStatusFilter.set($event); updateOrderFilters()">
               @for(status of orderStatuses(); track status) {
                 <option [value]="status">{{ status }}</option>
               }
             </select>
           </label>
           <label>Sort
-            <select [(ngModel)]="orderSort">
+            <select [ngModel]="orderSort()" (ngModelChange)="orderSort.set($event); updateOrderFilters()">
               <option value="newest">Newest first</option>
               <option value="oldest">Oldest first</option>
               <option value="amountDesc">Amount high to low</option>
@@ -155,6 +160,7 @@
               <option value="orderNumber">Order number</option>
             </select>
           </label>
+          <button type="button" class="admin-page-action" (click)="searchOrders()">Search</button>
         </div>
         @if(!filteredOrders().length) {
           <app-empty-state
@@ -170,15 +176,15 @@
               <a [routerLink]="['/admin/orders', order.id]"><div><span>{{ order.orderNumber }}</span><strong>{{ order.customerUsername }}</strong></div><em>{{ order.status }}</em><b>{{ price(order.totalAmount) }}</b></a>
             }
           </div>
-          <div class="table-pagination">
-            <span>{{ pageLabel(filteredOrders().length, orderPage()) }}</span>
-            <div>
-              <button type="button" (click)="changeOrderPage(-1)" [disabled]="orderPage() <= 1">Previous</button>
-              <button type="button" (click)="changeOrderPage(1)" [disabled]="orderPage() >= orderPageCount()">Next</button>
-            </div>
-          </div>
+          <app-admin-table-pagination [label]="pageLabel(orderTotal(), orderPage())" [page]="orderPage()" [pageCount]="orderPageCount()" (pageChange)="goToOrderPage($event)" />
         }
       } @else if(section()==='users') {
+        <div class="list-controls user-controls" aria-label="Customer account filters">
+          <label>Search accounts
+            <input [(ngModel)]="userSearchDraft" (keydown.enter)="searchUsers()" placeholder="Username, email, or name" />
+          </label>
+          <button type="button" (click)="searchUsers()">Search</button>
+        </div>
         @if(!users().length) {
           <app-empty-state
             eyebrow="NO USERS LOADED"
@@ -193,13 +199,7 @@
               <a [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><em>{{ user.status }}</em><b><span aria-hidden="true">&#128065;</span> View</b></a>
             }
           </div>
-          <div class="table-pagination">
-            <span>{{ pageLabel(users().length, userPage()) }}</span>
-            <div>
-              <button type="button" (click)="changeUserPage(-1)" [disabled]="userPage() <= 1">Previous</button>
-              <button type="button" (click)="changeUserPage(1)" [disabled]="userPage() >= userPageCount()">Next</button>
-            </div>
-          </div>
+          <app-admin-table-pagination [label]="pageLabel(userTotal(), userPage())" [page]="userPage()" [pageCount]="userPageCount()" (pageChange)="goToUserPage($event)" />
         }
       } @else {
         <div class="notice">This area is reserved for a later operations integration.</div>

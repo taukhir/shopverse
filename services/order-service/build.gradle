@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+	implementation 'io.shopverse.platform:shopverse-pagination-starter:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-contracts:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-avro-schemas:0.0.1-SNAPSHOT'
 	implementation 'io.shopverse.platform:shopverse-common-error:0.0.1-SNAPSHOT'

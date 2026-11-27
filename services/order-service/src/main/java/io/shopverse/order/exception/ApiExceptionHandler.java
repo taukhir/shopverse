@@ -1,6 +1,7 @@
 package io.shopverse.order.exception;
 
 import io.shopverse.platform.error.ApiErrors;
+import io.shopverse.platform.web.pagination.InvalidPageRequestException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -62,6 +63,11 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     ProblemDetail handleConstraintViolation(ConstraintViolationException exception) {
+        return ApiErrors.problem(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(InvalidPageRequestException.class)
+    ProblemDetail handleInvalidPage(InvalidPageRequestException exception) {
         return ApiErrors.problem(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 }

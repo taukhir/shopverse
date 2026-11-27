@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { catchError, forkJoin, map, of } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of } from 'rxjs';
 
 import { API_PATHS } from '../../core/api/api-paths';
 
@@ -63,9 +63,16 @@ export interface Page<T> {
 export interface AdminOverviewData {
   orders: AdminOrder[];
   users: Page<AdminUser>;
-  inventory: AdminInventoryItem[];
-  payments: AdminPayment[];
-  failedEvents: AdminFailedEvent[];
+  inventory: AdminSource<AdminInventoryItem[]>;
+  payments: AdminSource<AdminPayment[]>;
+  orderDeadLetters: AdminSource<AdminFailedEvent[]>;
+  inventoryDeadLetters: AdminSource<AdminFailedEvent[]>;
+  paymentDeadLetters: AdminSource<AdminFailedEvent[]>;
+}
+
+export interface AdminSource<T> {
+  data: T;
+  available: boolean;
 }
 
 export interface AdminAuditEvent {
@@ -93,19 +100,23 @@ export class AdminApiService {
     return this.http.get<AdminOrder[]>(API_PATHS.orders.adminAll);
   }
 
-  loadUsers(size = 12) {
-    return this.http.get<Page<AdminUser>>(API_PATHS.adminUsers.page(size));
+  loadAdminOrders(page = 0, size = 20, search = '', status = 'ALL', sortBy = 'createdAt', direction: 'ASC' | 'DESC' = 'DESC') {
+    return this.http.get<Page<AdminOrder>>(API_PATHS.orders.adminPage(page, size, search, status, sortBy, direction));
+  }
+
+  loadUsers(page = 0, size = 12, search = '') {
+    return this.http.get<Page<AdminUser>>(API_PATHS.adminUsers.page(page, size, search));
   }
 
   loadOverview() {
     return forkJoin({
       orders: this.loadOrders(),
       users: this.loadUsers(),
-      inventory: this.http.get<AdminInventoryItem[]>(API_PATHS.inventory.publicItems).pipe(catchError(() => of([] as AdminInventoryItem[]))),
-      payments: this.http.get<AdminPayment[]>(API_PATHS.payments.admin).pipe(catchError(() => of([] as AdminPayment[]))),
-      orderDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.orders.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),
-      inventoryDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.inventory.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),
-      paymentDeadLetters: this.http.get<AdminFailedEvent[]>(API_PATHS.payments.deadLetters).pipe(catchError(() => of([] as AdminFailedEvent[]))),
+      inventory: this.optionalSource(this.http.get<AdminInventoryItem[]>(API_PATHS.inventory.publicItems)),
+      payments: this.optionalSource(this.http.get<AdminPayment[]>(API_PATHS.payments.admin)),
+      orderDeadLetters: this.optionalSource(this.http.get<AdminFailedEvent[]>(API_PATHS.orders.deadLetters)),
+      inventoryDeadLetters: this.optionalSource(this.http.get<AdminFailedEvent[]>(API_PATHS.inventory.deadLetters)),
+      paymentDeadLetters: this.optionalSource(this.http.get<AdminFailedEvent[]>(API_PATHS.payments.deadLetters)),
     });
   }
 
@@ -120,7 +131,14 @@ export class AdminApiService {
     });
   }
 
-  loadAuditEvents() {
-    return this.http.get<Page<AdminAuditEvent>>(API_PATHS.admin.auditEvents).pipe(map((page) => page.content ?? []));
+  loadAuditEvents(page = 0, size = 20, area = '', actor = '', result = '', search = '') {
+    return this.http.get<Page<AdminAuditEvent>>(API_PATHS.admin.auditEvents(page, size, area, actor, result, search));
+  }
+
+  private optionalSource<T>(request: Observable<T>, fallback: T = [] as T) {
+    return request.pipe(
+      map((data) => ({ data, available: true })),
+      catchError(() => of({ data: fallback, available: false })),
+    );
   }
 }

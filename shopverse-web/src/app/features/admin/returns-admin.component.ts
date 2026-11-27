@@ -6,17 +6,18 @@ import { API_PATHS } from '../../core/api/api-paths';
 import { SessionService } from '../../core/auth/session.service';
 import { ToastService } from '../../core/feedback/toast.service';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 
 interface ReturnOrder { id: number; orderNumber: string; customerUsername: string; status: string; totalAmount: number; createdAt?: string; }
 
 @Component({
   selector: 'app-returns-admin',
-  imports: [AdminHeaderComponent, LoadingSkeletonComponent, RouterLink],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, LoadingSkeletonComponent, RouterLink],
   template: `
     <app-admin-header (signOut)="logout()" />
     <main class="admin-page-shell">
-      <header class="heading"><div><p class="eyebrow">CUSTOMER CARE</p><h1>Returns &amp; refunds</h1><p>Inspect return requests while approval actions are being added to the services.</p></div><button type="button" (click)="load()">Refresh</button></header>
+      <app-admin-page-header eyebrow="CUSTOMER CARE" title="Returns &amp; refunds" description="Inspect return requests while approval actions are being added to the services."><button class="admin-page-action" type="button" (click)="load()">Refresh</button></app-admin-page-header>
       @if (loading()) { <app-loading-skeleton [rows]="4" /> }
       @else if (error()) { <section class="notice" role="alert">{{ error() }} <button type="button" (click)="load()">Retry</button></section> }
       @else {

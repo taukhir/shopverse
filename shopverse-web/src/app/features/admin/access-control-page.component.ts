@@ -10,13 +10,14 @@ import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 import { AccessControlApiService, PermissionRecord, PermissionRequest, RoleRecord, RoleRequest } from './access-control-api.service';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
 
 const emptyRole = (): RoleRequest => ({ roleName: '', description: '', permissions: [] });
 const emptyPermission = (): PermissionRequest => ({ permissionName: '', description: '', moduleName: '' });
 
 @Component({
   selector: 'app-access-control-page',
-  imports: [AdminHeaderComponent, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, RouterLink],
   templateUrl: './access-control-page.component.html',
   styleUrl: './access-control-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

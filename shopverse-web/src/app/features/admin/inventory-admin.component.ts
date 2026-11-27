@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { SessionService } from '../../core/auth/session.service';
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
+import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
+import { AdminTablePaginationComponent } from '../../shared/ui-state/admin-table-pagination.component';
 import { APP_MESSAGES } from '../../core/errors/app-messages';
 import { ConfirmService } from '../../core/feedback/confirm.service';
 import { ToastService } from '../../core/feedback/toast.service';
@@ -31,7 +33,7 @@ const blank = (): InventoryItem => ({
 
 @Component({
   selector: 'app-inventory-admin',
-  imports: [AdminHeaderComponent, EmptyStateComponent, FormsModule, ImageFallbackDirective, LoadingSkeletonComponent, ServiceNoticeComponent],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, AdminTablePaginationComponent, EmptyStateComponent, FormsModule, ImageFallbackDirective, LoadingSkeletonComponent, ServiceNoticeComponent],
   templateUrl: './inventory-admin.component.html',
   styleUrl: './inventory-admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -194,7 +196,11 @@ export class InventoryAdminComponent {
   }
 
   protected changePage(delta: number): void {
-    this.page.set(this.clampedPage(this.page() + delta, this.pageCount()));
+    this.goToPage(this.page() + delta);
+  }
+
+  protected goToPage(target: number): void {
+    this.page.set(this.clampedPage(target, this.pageCount()));
   }
 
   protected save(): void {
