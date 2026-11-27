@@ -105,6 +105,24 @@ service checks with:
 - Alert on registration churn, renewals below threshold, unavailable registry peers,
   stale-instance routing, and client lookup latency/failures.
 
+## Authentication (BUG-021)
+
+HTTP Basic auth is required on every endpoint except `/actuator/health` and
+`/api/health` (see `security/SecurityConfig.java`) - this covers the Eureka
+registry REST API and dashboard, which previously accepted anonymous reads and
+anonymous instance registration/deregistration. Credentials are set via
+`EUREKA_USERNAME`/`EUREKA_PASSWORD` (required, no default - startup fails
+without them), and every client's `eureka.client.service-url.defaultZone`
+embeds them directly in the URL (`http://user:pass@discovery-server:8761/eureka`),
+which the Eureka client resolves natively.
+
+**Known trade-off, not a defect:** because the credentials live in a plain
+connection URL, they will appear in cleartext in verbose/`DEBUG` Eureka client
+logging and in the output of `docker compose config` (which prints every
+resolved environment value). Do not enable verbose Eureka client logging in a
+shared or production environment, and do not share or commit `docker compose
+config` output - treat it the same as any other file containing live secrets.
+
 ## AI-Assisted Development
 
 Follow scoped [`AGENTS.md`](AGENTS.md), imported by [`CLAUDE.md`](CLAUDE.md).
