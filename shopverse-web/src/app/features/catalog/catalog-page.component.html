@@ -1,6 +1,8 @@
 <section class="catalog-hero">
-  <p class="eyebrow">THE SHOPVERSE EDIT / 2026</p>
-  <h1>Things worth<br />bringing home.</h1>
+  <div class="catalog-hero-copy">
+    <p class="eyebrow">THE SHOPVERSE EDIT / 2026</p>
+    <h1>Things worth<br />bringing home.</h1>
+  </div>
   <div class="catalog-note"><span>01</span><p>Our current collection, live from Inventory Service.</p></div>
 </section>
 
@@ -49,6 +51,10 @@
       <button type="button" (click)="clearFilters()">Clear</button>
     </div>
 
+    @if (comparison.count() > 0) {
+      <a class="compare-selection" routerLink="/compare">Compare {{ comparison.count() }} product{{ comparison.count() === 1 ? '' : 's' }} <span aria-hidden="true">&rarr;</span></a>
+    }
+
     @if (!filteredProducts().length) {
       <app-empty-state
         eyebrow="NO RESULTS"
@@ -62,6 +68,22 @@
     <div class="product-grid">
       @for (product of filteredProducts(); track product.productId; let index = $index) {
         <article class="product-card" [class.unavailable]="!product.available">
+          <button
+            class="save-product"
+            type="button"
+            [attr.aria-label]="wishlist.isSaved(product.productId) ? 'Remove ' + product.productName + ' from saved items' : 'Save ' + product.productName + ' for later'"
+            [attr.aria-pressed]="wishlist.isSaved(product.productId)"
+            (click)="toggleSaved(product)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z" /></svg>
+          </button>
+          <button
+            class="compare-product"
+            type="button"
+            [attr.aria-label]="'Compare ' + product.productName"
+            [attr.aria-pressed]="comparison.contains(product.productId)"
+            (click)="toggleCompare(product)"
+          >Compare</button>
           <a class="product-art" [routerLink]="['/products', product.productId]" [attr.aria-label]="'View ' + product.productName + (product.available ? '' : ', Unavailable')">
             <img
               [src]="product.imageUrl"

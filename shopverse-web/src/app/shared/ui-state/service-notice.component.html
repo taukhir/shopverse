@@ -2,5 +2,5 @@
   <p>{{ eyebrow() }}</p>
   <h2>{{ title() }}</h2>
   <span>{{ message() }}</span>
-  <button type="button" (click)="retry.emit()">{{ retryLabel() }} <b>&rarr;</b></button>
+  <button class="ui-button ui-button--secondary" type="button" (click)="retry.emit()">{{ retryLabel() }} <b aria-hidden="true">&rarr;</b></button>
 </section>

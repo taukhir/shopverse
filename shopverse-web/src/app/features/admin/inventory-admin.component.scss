@@ -192,7 +192,7 @@ form footer button {
   gap: 12px;
   padding: 18px;
   border: 1px solid var(--line);
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .image-preview p,
@@ -285,7 +285,7 @@ form footer button {
   margin-bottom: 18px;
   padding: 16px;
   border: 1px solid var(--line);
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .form-guidance span {
@@ -345,4 +345,24 @@ form footer {
 
 @media (prefers-reduced-motion: reduce) {
   .table article { transition: none; }
+}
+
+.table.admin-record-list { gap: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 13px; }
+.inventory-record { grid-template-columns: 70px minmax(0,1fr) minmax(180px,220px) 176px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; box-shadow: none; transition: background-color .16s ease; }
+.table .inventory-record:hover { border-color: var(--line); background: #fafaff; box-shadow: none; }
+.inventory-record > div:first-of-type { min-width: 0; }
+.inventory-stock { display: flex !important; flex-wrap: wrap; gap: 7px !important; }
+.inventory-record img { border-radius: 8px; background: var(--paper); }
+.inventory-record .row-actions { align-items: center; justify-content: flex-end; }
+.inventory-record .row-actions button { min-height: 36px; padding: 8px 10px; border-radius: 8px; }
+.inventory-record .delete-unavailable { max-width: 70px; }
+@media (max-width: 980px) { .inventory-record { grid-template-columns: 64px minmax(0,1fr) minmax(160px,200px); }.inventory-record .row-actions { grid-column: 2 / -1; justify-content: flex-start; } }
+@media (max-width: 700px) {
+  .table.admin-record-list { gap: 0; }
+  .inventory-record { grid-template-columns: 56px minmax(0,1fr); gap: 10px 12px; padding: 14px; }
+  .inventory-record img { width: 56px; height: 52px; }
+  .inventory-record > div:first-of-type { grid-column: 2; }
+  .inventory-record .inventory-stock { grid-column: 2; }
+  .inventory-record .row-actions { grid-column: 1 / -1; display: flex; justify-content: flex-start; }
+  .inventory-record b { display: inline; }
 }

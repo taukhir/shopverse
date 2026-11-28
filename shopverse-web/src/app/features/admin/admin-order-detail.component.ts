@@ -10,6 +10,7 @@ import { SessionService } from '../../core/auth/session.service';
 import { ConfirmService } from '../../core/feedback/confirm.service';
 import { ToastService } from '../../core/feedback/toast.service';
 import { formatInr } from '../../shared/utils/formatters';
+import { statusTone } from '../../shared/utils/status-tone';
 
 interface OrderItem {
   productId: number;
@@ -80,6 +81,7 @@ interface InventoryReservation {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminOrderDetailComponent {
+  protected statusTone(value: string): string { return statusTone(value); }
   private readonly http = inject(HttpClient);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);

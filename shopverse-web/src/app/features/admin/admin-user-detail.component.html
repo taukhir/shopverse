@@ -20,7 +20,7 @@
           <article><span>Username</span><strong>{{ user()!.username }}</strong></article>
           <article><span>Email</span><strong>{{ user()!.email }}</strong></article>
           <article><span>Phone</span><strong>{{ user()!.phoneNumber || 'Not provided' }}</strong></article>
-          <article><span>Status</span><strong>{{ user()!.status }}</strong></article>
+          <article><span>Status</span><strong><span [class]="'ui-status-badge ui-status-badge--' + statusTone(user()!.status)">{{ user()!.status }}</span></strong></article>
           <article class="roles">
             <span>Roles</span>
             <strong>
@@ -79,12 +79,12 @@
       @if (!userOrders().length) {
         <div class="empty">No orders found for this user.</div>
       } @else {
-        <div class="order-list">
+        <div class="order-list admin-record-list" aria-label="Orders linked to this account">
           @for (order of userOrders(); track order.id) {
-            <a [routerLink]="['/orders', order.id]">
+            <a class="admin-record-row" [routerLink]="['/admin/orders', order.id]">
               <div>
                 <span>{{ order.orderNumber }}</span>
-                <strong>{{ order.status }}</strong>
+                <strong><span [class]="'ui-status-badge ui-status-badge--' + statusTone(order.status)">{{ order.status }}</span></strong>
                 <small>{{ order.createdAt | date:'mediumDate' }}</small>
               </div>
               <b>{{ price(order.totalAmount) }} <em>&rarr;</em></b>

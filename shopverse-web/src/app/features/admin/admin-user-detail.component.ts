@@ -10,6 +10,7 @@ import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.co
 import { SessionService } from '../../core/auth/session.service';
 import { ToastService } from '../../core/feedback/toast.service';
 import { formatInr } from '../../shared/utils/formatters';
+import { statusTone } from '../../shared/utils/status-tone';
 
 interface User {
   id:number;
@@ -35,6 +36,7 @@ interface Order { id:number; orderNumber:string; customerUsername:string; status
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminUserDetailComponent {
+  protected statusTone(value: string): string { return statusTone(value); }
   private readonly http = inject(HttpClient);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);

@@ -17,6 +17,8 @@
   <nav id="storefront-navigation" class="site-nav" [class.is-open]="menuOpen()" aria-label="ShopVerse navigation">
     <a routerLink="/" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Home</a>
     <a routerLink="/products" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Shop</a>
+    <a routerLink="/saved" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Saved <span class="saved-count">{{ wishlist.count() }}</span></a>
+    <a routerLink="/compare" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Compare <span class="saved-count">{{ comparison.count() }}</span></a>
     @if (session.isAuthenticated()) {
       <a routerLink="/orders" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Orders</a>
       <a routerLink="/notifications" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="closeMenu()">Notifications</a>

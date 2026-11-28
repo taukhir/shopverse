@@ -18,22 +18,25 @@
   }
   <div class="workspace">
     <section class="group-list" aria-label="Groups list">
-      <form class="search" (ngSubmit)="search()"><label class="visually-hidden" for="group-search">Search groups</label><input id="group-search" name="search" [ngModel]="query()" (ngModelChange)="query.set($event)" placeholder="Search groups" /><button type="submit">Search</button></form>
+      <form class="search admin-filter-bar" (ngSubmit)="search()"><label for="group-search">Search groups<input class="ui-field" id="group-search" name="search" [ngModel]="query()" (ngModelChange)="query.set($event)" placeholder="Group name or description" /></label><button class="ui-button ui-button--secondary" type="submit">Search</button></form>
       @if (loading()) { <p class="muted">Loading groups…</p> }
       @else if (!groups().length) { <div class="empty"><h2>No groups found</h2><p>Create a group to bundle users and roles.</p></div> }
       @else { @for (group of groups(); track group.id) {
-        <button class="group-row" [class.selected]="selected()?.id === group.id" type="button" (click)="select(group)"><span><strong>{{ group.groupName }}</strong><small>{{ group.memberCount }} members · {{ group.roles?.length ?? 0 }} roles</small></span><span aria-hidden="true">›</span></button>
-      } }
+        <button class="group-row admin-record-row" [class.selected]="selected()?.id === group.id" [attr.aria-pressed]="selected()?.id === group.id" type="button" (click)="select(group)"><span><strong>{{ group.groupName }}</strong><small>{{ group.memberCount }} members · {{ group.roles?.length ?? 0 }} roles</small></span><span aria-hidden="true">›</span></button>
+      } <app-admin-table-pagination [label]="groupPageLabel()" [page]="groupPage()" [pageCount]="groupPageCount()" (pageChange)="goToGroupPage($event)" /> }
     </section>
     <section class="group-detail" aria-label="Selected group details">
       @if (!selected()) { <div class="empty"><h2>Select a group</h2><p>Group details and membership controls will appear here.</p></div> }
       @else {
         <div class="detail-heading"><div><p class="eyebrow">GROUP DETAILS</p><h2>{{ selected()!.groupName }}</h2><p>{{ selected()!.description || 'No description provided.' }}</p></div><div class="detail-actions"><button type="button" class="quiet" (click)="edit(selected()!)">Edit</button><button type="button" class="danger" (click)="removeGroup(selected()!)">Delete</button></div></div>
         <h3>Assigned roles</h3><div class="chips">@for (role of selected()!.roles ?? []; track role.id) { <span>{{ role.roleName }}</span> } @empty { <span class="muted">No roles assigned</span> }</div>
-        <div class="section-heading members-heading"><h3>Members <span>{{ selected()!.memberCount }}</span></h3></div>
+        <div class="section-heading members-heading"><h3>Members <span>{{ memberTotal() || selected()!.memberCount }}</span></h3></div>
         <form class="add-member" (ngSubmit)="addMember()"><label for="member-id">Add member by user ID</label><input id="member-id" type="number" min="1" [ngModel]="memberId()" (ngModelChange)="memberId.set($event)" name="memberId" placeholder="User ID" /><button class="primary" type="submit">Add member</button></form>
         @if (!members().length) { <p class="muted">No members on this page yet.</p> }
-        @for (member of members(); track member.id) { <div class="member-row"><span><strong>{{ member.firstName }} {{ member.lastName }}</strong><small>{{ member.username }} · {{ member.email }}</small></span><button class="quiet" type="button" (click)="removeMember(member)">Remove</button></div> }
+        <div class="member-list admin-record-list" aria-label="Group members">
+          @for (member of members(); track member.id) { <div class="member-row admin-record-row"><span><strong>{{ member.firstName }} {{ member.lastName }}</strong><small>{{ member.username }} · {{ member.email }}</small></span><button class="ui-button ui-button--quiet" type="button" (click)="removeMember(member)">Remove</button></div> }
+        </div>
+        @if (memberTotal()) { <app-admin-table-pagination [label]="'Page ' + memberPage()" [page]="memberPage()" [pageCount]="memberPageCount()" (pageChange)="goToMemberPage($event)" /> }
       }
     </section>
   </div>

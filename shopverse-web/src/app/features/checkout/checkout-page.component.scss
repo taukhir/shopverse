@@ -154,7 +154,7 @@
   padding: 13px;
   color: var(--ink);
   border: 1px solid var(--line);
-  background: #fbfaf7;
+  background: var(--surface-muted);
   font: inherit;
   font-size: 14px;
   font-weight: 800;
@@ -166,7 +166,7 @@
   margin-top: 12px;
   padding: 14px;
   border: 1px solid var(--line);
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .address-select strong {
@@ -230,7 +230,7 @@
   gap: 7px;
   padding: 13px;
   border: 1px solid var(--line);
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .review-list b,

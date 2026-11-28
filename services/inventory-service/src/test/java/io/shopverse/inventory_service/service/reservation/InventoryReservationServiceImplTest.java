@@ -1,4 +1,4 @@
-package io.shopverse.inventory_service.service;
+package io.shopverse.inventory_service.service.reservation;
 
 import io.shopverse.inventory_service.config.InventoryProperties;
 import io.shopverse.inventory_service.config.KafkaTopicsProperties;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class InventoryServiceImplTest {
+class InventoryReservationServiceImplTest {
 
     private final InventoryItemRepository itemRepository = mock(InventoryItemRepository.class);
     private final InventoryReservationRepository reservationRepository = mock(InventoryReservationRepository.class);
@@ -40,7 +40,7 @@ class InventoryServiceImplTest {
             "shopverse.payment.failed",
             "shopverse.order.cancelled"
     );
-    private final InventoryServiceImpl service = new InventoryServiceImpl(
+    private final InventoryReservationServiceImpl service = new InventoryReservationServiceImpl(
             itemRepository, reservationRepository, inventoryProperties, outboxService, topics, new SimpleMeterRegistry()
     );
 
@@ -53,8 +53,8 @@ class InventoryServiceImplTest {
     void reservesEachLineItemIndependentlyUnderTheSameOrderNumber() {
         when(reservationRepository.findByOrderNumberAndProductId("ORD-1", 101L)).thenReturn(Optional.empty());
         when(reservationRepository.findByOrderNumberAndProductId("ORD-1", 102L)).thenReturn(Optional.empty());
-        when(itemRepository.findByProductId(101L)).thenReturn(Optional.of(item(101L, 5)));
-        when(itemRepository.findByProductId(102L)).thenReturn(Optional.of(item(102L, 5)));
+        when(itemRepository.findByProductIdForUpdate(101L)).thenReturn(Optional.of(item(101L, 5)));
+        when(itemRepository.findByProductIdForUpdate(102L)).thenReturn(Optional.of(item(102L, 5)));
 
         boolean firstReserved = service.reserve("ORD-1", "corr-1", 101L, 2);
         boolean secondReserved = service.reserve("ORD-1", "corr-1", 102L, 1);
@@ -69,8 +69,8 @@ class InventoryServiceImplTest {
         InventoryReservation first = new InventoryReservation("ORD-2", "corr-2", 201L, 2, Duration.ofMinutes(5));
         InventoryReservation second = new InventoryReservation("ORD-2", "corr-2", 202L, 1, Duration.ofMinutes(5));
         when(reservationRepository.findAllByOrderNumber("ORD-2")).thenReturn(List.of(first, second));
-        when(itemRepository.findByProductId(201L)).thenReturn(Optional.of(item(201L, 0)));
-        when(itemRepository.findByProductId(202L)).thenReturn(Optional.of(item(202L, 0)));
+        when(itemRepository.findByProductIdForUpdate(201L)).thenReturn(Optional.of(item(201L, 0)));
+        when(itemRepository.findByProductIdForUpdate(202L)).thenReturn(Optional.of(item(202L, 0)));
 
         service.release("ORD-2");
 
@@ -82,7 +82,7 @@ class InventoryServiceImplTest {
     void releaseByOrderNumberAndProductIdReleasesOnlyThatLineItem() {
         InventoryReservation target = new InventoryReservation("ORD-3", "corr-3", 301L, 2, Duration.ofMinutes(5));
         when(reservationRepository.findByOrderNumberAndProductId("ORD-3", 301L)).thenReturn(Optional.of(target));
-        when(itemRepository.findByProductId(301L)).thenReturn(Optional.of(item(301L, 0)));
+        when(itemRepository.findByProductIdForUpdate(301L)).thenReturn(Optional.of(item(301L, 0)));
 
         service.release("ORD-3", 301L);
 
@@ -108,8 +108,8 @@ class InventoryServiceImplTest {
         InventoryReservation rowB = new InventoryReservation("ORD-5", "corr-5", 502L, 3, Duration.ofMinutes(-1));
         when(reservationRepository.findAllByStatusAndExpiresAtBefore(eq(ReservationStatus.RESERVED), any(Instant.class)))
                 .thenReturn(List.of(rowA, rowB));
-        when(itemRepository.findByProductId(501L)).thenReturn(Optional.of(item(501L, 0)));
-        when(itemRepository.findByProductId(502L)).thenReturn(Optional.of(item(502L, 0)));
+        when(itemRepository.findByProductIdForUpdate(501L)).thenReturn(Optional.of(item(501L, 0)));
+        when(itemRepository.findByProductIdForUpdate(502L)).thenReturn(Optional.of(item(502L, 0)));
 
         int expiredCount = service.expireReservations();
 
@@ -122,3 +122,4 @@ class InventoryServiceImplTest {
         );
     }
 }
+

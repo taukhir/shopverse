@@ -2,8 +2,7 @@ package io.shopverse.inventory_service.controller;
 
 import io.shopverse.inventory_service.dto.InventoryResponse;
 import io.shopverse.inventory_service.exception.ResourceNotFoundException;
-import io.shopverse.inventory_service.service.InventoryImageService;
-import io.shopverse.inventory_service.service.InventoryService;
+import io.shopverse.inventory_service.service.catalog.InventoryCatalogService;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -15,14 +14,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class InventoryControllerTest {
+class InventoryCatalogControllerTest {
 
-    private final InventoryService inventoryService = mock(InventoryService.class);
-    private final InventoryImageService inventoryImageService = mock(InventoryImageService.class);
-    private final InventoryController controller = new InventoryController(inventoryService, inventoryImageService);
+    private final InventoryCatalogService inventoryCatalogService = mock(InventoryCatalogService.class);
+    private final InventoryCatalogController controller = new InventoryCatalogController(inventoryCatalogService);
 
     @Test
-    void publicItemReturnsProductById() {
+    void getItemReturnsProductById() {
         InventoryResponse product = new InventoryResponse(
                 3L,
                 103L,
@@ -39,23 +37,24 @@ class InventoryControllerTest {
                 true,
                 Instant.parse("2026-07-11T00:00:00Z")
         );
-        when(inventoryService.getByProductId(103L)).thenReturn(product);
+        when(inventoryCatalogService.getByProductId(103L)).thenReturn(product);
 
-        InventoryResponse response = controller.publicItem(103L);
+        InventoryResponse response = controller.getItem(103L);
 
         assertThat(response.productId()).isEqualTo(103L);
         assertThat(response.productName()).isEqualTo("Pulse Fitness Tracker");
         assertThat(response.available()).isTrue();
-        verify(inventoryService).getByProductId(103L);
+        verify(inventoryCatalogService).getByProductId(103L);
     }
 
     @Test
-    void publicItemPropagatesMissingProduct() {
-        when(inventoryService.getByProductId(404L))
+    void getItemPropagatesMissingProduct() {
+        when(inventoryCatalogService.getByProductId(404L))
                 .thenThrow(new ResourceNotFoundException("Product not found: 404"));
 
-        assertThatThrownBy(() -> controller.publicItem(404L))
+        assertThatThrownBy(() -> controller.getItem(404L))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Product not found: 404");
     }
 }
+

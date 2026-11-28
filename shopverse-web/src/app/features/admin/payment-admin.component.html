@@ -34,17 +34,17 @@
       <div class="form-message success">{{ actionSuccess() }}</div>
     }
 
-    <div class="list-controls" aria-label="Payment list controls">
-      <label>Search<input [(ngModel)]="search" placeholder="Order, reference, failure, status" /></label>
+    <div class="list-controls admin-filter-bar" aria-label="Payment list controls">
+      <label>Search<input class="ui-field" [(ngModel)]="search" placeholder="Order, reference, failure, status" /></label>
       <label>Status
-        <select [(ngModel)]="statusFilter">
+        <select class="ui-field" [(ngModel)]="statusFilter">
           @for (status of statuses(); track status) {
             <option [value]="status">{{ status }}</option>
           }
         </select>
       </label>
       <label>Sort
-        <select [(ngModel)]="sort">
+        <select class="ui-field" [(ngModel)]="sort">
           <option value="updatedDesc">Recently updated</option>
           <option value="updatedAsc">Oldest updated</option>
           <option value="amountDesc">Amount high to low</option>
@@ -58,12 +58,12 @@
     @if (!filteredPayments().length) {
       <app-empty-state eyebrow="NO PAYMENTS MATCH" title="No payment records match." message="Clear the search or status filter to see more payment records." />
     } @else {
-      <section class="table">
+      <section class="table admin-record-list payment-records" aria-label="Payment records">
         @for (payment of visiblePayments(); track payment.id) {
-          <article>
+          <article class="admin-record-row payment-record">
             <div class="order">
               <span>{{ payment.orderNumber }}</span>
-              <strong>{{ payment.status }}</strong>
+              <strong [class]="'ui-status-badge ui-status-badge--' + statusTone(payment.status)">{{ payment.status }}</strong>
               <small>{{ payment.updatedAt | date:'medium' }}</small>
             </div>
             <div>
@@ -80,17 +80,17 @@
             </div>
             <div class="actions" [attr.aria-label]="'Actions for payment ' + payment.orderNumber">
               @if (canRetryPayment(payment)) {
-                <button type="button" class="retry-action" (click)="retry(payment)" [disabled]="busyOrder() === payment.orderNumber">
+                <button type="button" class="ui-button retry-action" (click)="retry(payment)" [disabled]="busyOrder() === payment.orderNumber">
                   {{ busyOrder() === payment.orderNumber ? 'Working…' : 'Retry' }}
                 </button>
               }
               @if (canReconcile(payment)) {
-                <button type="button" class="reconcile-action" (click)="reconcile(payment)" [disabled]="busyOrder() === payment.orderNumber">
+                <button type="button" class="ui-button reconcile-action" (click)="reconcile(payment)" [disabled]="busyOrder() === payment.orderNumber">
                   {{ busyOrder() === payment.orderNumber ? 'Working…' : 'Reconcile' }}
                 </button>
               }
               @if (canRefund(payment)) {
-                <button type="button" class="refund-action" (click)="refund(payment)" [disabled]="busyOrder() === payment.orderNumber">Refund</button>
+                <button type="button" class="ui-button refund-action" (click)="refund(payment)" [disabled]="busyOrder() === payment.orderNumber">Refund</button>
               }
               @if (!canRetryPayment(payment) && !canReconcile(payment) && !canRefund(payment)) {
                 <span class="no-actions">No action available</span>

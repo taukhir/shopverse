@@ -29,7 +29,7 @@
   background:
     radial-gradient(circle at 50% 28%, rgba(184, 192, 255, 0.78), transparent 34%),
     radial-gradient(circle at 18% 78%, rgba(120, 135, 255, 0.2), transparent 28%),
-    linear-gradient(145deg, #fbfaf7, #e8e8f5);
+    linear-gradient(145deg, var(--surface-muted), #e8e8f5);
 }
 
 .product-media img {
@@ -77,6 +77,25 @@ h1 {
   letter-spacing: -0.05em;
 }
 
+.save-detail {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 42px;
+  align-items: center;
+  gap: 9px;
+  margin-top: 16px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--white);
+  font-size: 12px;
+  font-weight: 800;
+}
+.save-detail svg { width: 17px; height: 17px; fill: transparent; stroke: currentColor; stroke-width: 1.8; }
+.save-detail[aria-pressed="true"] { color: #a51e35; border-color: #f0c5cc; background: #fff0f2; }
+.save-detail[aria-pressed="true"] svg { fill: currentColor; }
+
 .summary-copy {
   max-width: 520px;
   margin: 24px 0 0;
@@ -97,7 +116,7 @@ h1 {
   padding: 14px;
   border: 1px solid rgba(12, 16, 32, 0.1);
   border-radius: 16px;
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .service-strip span,
@@ -127,7 +146,7 @@ h1 {
   display: grid;
   gap: 7px;
   padding: 15px;
-  background: #fbfaf7;
+  background: var(--surface-muted);
   border-right: 1px solid rgba(12, 16, 32, 0.08);
 }
 
@@ -162,7 +181,7 @@ h1 {
   padding: 16px;
   border: 1px solid rgba(12, 16, 32, 0.1);
   border-radius: 18px;
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .quantity div {
@@ -372,3 +391,4 @@ h1 {
     display: flex;
   }
 }
+.compare-detail { display: inline-flex; margin: 0 0 0 10px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); background: var(--white); font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }

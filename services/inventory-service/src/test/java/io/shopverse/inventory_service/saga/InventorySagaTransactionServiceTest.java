@@ -2,7 +2,7 @@ package io.shopverse.inventory_service.saga;
 
 import io.shopverse.inventory_service.config.KafkaTopicsProperties;
 import io.shopverse.inventory_service.outbox.OutboxService;
-import io.shopverse.inventory_service.service.InventoryService;
+import io.shopverse.inventory_service.service.reservation.InventoryReservationService;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 class InventorySagaTransactionServiceTest {
 
-    private final InventoryService inventoryService = mock(InventoryService.class);
+    private final InventoryReservationService inventoryReservationService = mock(InventoryReservationService.class);
     private final OutboxService outboxService = mock(OutboxService.class);
     private final KafkaTopicsProperties topics = new KafkaTopicsProperties(
             "shopverse.order.created",
@@ -29,7 +29,7 @@ class InventorySagaTransactionServiceTest {
             "shopverse.order.cancelled"
     );
     private final InventorySagaTransactionService service =
-            new InventorySagaTransactionService(inventoryService, outboxService, topics);
+            new InventorySagaTransactionService(inventoryReservationService, outboxService, topics);
 
     @Test
     void reservesEveryLineItemAndPublishesOneConsolidatedReservedEvent() {
@@ -38,14 +38,14 @@ class InventorySagaTransactionServiceTest {
                 101L, 2, BigDecimal.valueOf(150),
                 List.of(new LineItem(101L, 2), new LineItem(102L, 1))
         );
-        when(inventoryService.reserve("ORD-1", "corr-1", 101L, 2)).thenReturn(true);
-        when(inventoryService.reserve("ORD-1", "corr-1", 102L, 1)).thenReturn(true);
+        when(inventoryReservationService.reserve("ORD-1", "corr-1", 101L, 2)).thenReturn(true);
+        when(inventoryReservationService.reserve("ORD-1", "corr-1", 102L, 1)).thenReturn(true);
 
         service.handleOrderCreated(event);
 
-        verify(inventoryService).reserve("ORD-1", "corr-1", 101L, 2);
-        verify(inventoryService).reserve("ORD-1", "corr-1", 102L, 1);
-        verify(inventoryService, never()).release(eq("ORD-1"), any());
+        verify(inventoryReservationService).reserve("ORD-1", "corr-1", 101L, 2);
+        verify(inventoryReservationService).reserve("ORD-1", "corr-1", 102L, 1);
+        verify(inventoryReservationService, never()).release(eq("ORD-1"), any());
         verify(outboxService).enqueue(
                 eq("INVENTORY_RESERVATION"),
                 eq("ORD-1"),
@@ -64,13 +64,13 @@ class InventorySagaTransactionServiceTest {
                 201L, 1, BigDecimal.valueOf(50),
                 List.of(new LineItem(201L, 1), new LineItem(202L, 5))
         );
-        when(inventoryService.reserve("ORD-2", "corr-2", 201L, 1)).thenReturn(true);
-        when(inventoryService.reserve("ORD-2", "corr-2", 202L, 5)).thenReturn(false);
+        when(inventoryReservationService.reserve("ORD-2", "corr-2", 201L, 1)).thenReturn(true);
+        when(inventoryReservationService.reserve("ORD-2", "corr-2", 202L, 5)).thenReturn(false);
 
         service.handleOrderCreated(event);
 
-        verify(inventoryService).release("ORD-2", 201L);
-        verify(inventoryService, never()).release("ORD-2", 202L);
+        verify(inventoryReservationService).release("ORD-2", 201L);
+        verify(inventoryReservationService, never()).release("ORD-2", 202L);
 
         var captor = org.mockito.ArgumentCaptor.forClass(InventoryFailedEvent.class);
         verify(outboxService).enqueue(
@@ -92,11 +92,11 @@ class InventorySagaTransactionServiceTest {
                 301L, 4, BigDecimal.valueOf(20),
                 null
         );
-        when(inventoryService.reserve("ORD-3", "corr-3", 301L, 4)).thenReturn(true);
+        when(inventoryReservationService.reserve("ORD-3", "corr-3", 301L, 4)).thenReturn(true);
 
         service.handleOrderCreated(event);
 
-        verify(inventoryService).reserve("ORD-3", "corr-3", 301L, 4);
+        verify(inventoryReservationService).reserve("ORD-3", "corr-3", 301L, 4);
         verify(outboxService).enqueue(
                 eq("INVENTORY_RESERVATION"),
                 eq("ORD-3"),

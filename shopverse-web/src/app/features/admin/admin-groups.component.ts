@@ -5,6 +5,7 @@ import { forkJoin } from 'rxjs';
 
 import { AdminHeaderComponent } from '../../layouts/admin-header/admin-header.component';
 import { AdminPageHeaderComponent } from '../../shared/ui-state/admin-page-header.component';
+import { AdminTablePaginationComponent } from '../../shared/ui-state/admin-table-pagination.component';
 import { ConfirmService } from '../../core/feedback/confirm.service';
 import { SessionService } from '../../core/auth/session.service';
 import { ToastService } from '../../core/feedback/toast.service';
@@ -12,7 +13,7 @@ import { AdminGroupsApiService, AdminGroup, GroupMember, GroupRole, GroupRequest
 
 @Component({
   selector: 'app-admin-groups',
-  imports: [AdminHeaderComponent, AdminPageHeaderComponent, FormsModule, RouterLink],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, AdminTablePaginationComponent, FormsModule, RouterLink],
   templateUrl: './admin-groups.component.html',
   styleUrl: './admin-groups.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,6 +29,12 @@ export class AdminGroupsComponent {
   protected readonly members = signal<GroupMember[]>([]);
   protected readonly selected = signal<AdminGroup | null>(null);
   protected readonly query = signal('');
+  protected readonly groupPage = signal(1);
+  protected readonly groupPageCount = signal(1);
+  protected readonly groupTotal = signal(0);
+  protected readonly memberPage = signal(1);
+  protected readonly memberPageCount = signal(1);
+  protected readonly memberTotal = signal(0);
   protected readonly loading = signal(true);
   protected readonly saving = signal(false);
   protected readonly error = signal('');
@@ -41,17 +48,29 @@ export class AdminGroupsComponent {
   protected load(): void {
     this.loading.set(true);
     this.error.set('');
-    forkJoin({ groups: this.api.list(this.query()), roles: this.api.listRoles() }).subscribe({
-      next: ({ groups, roles }) => { this.groups.set(groups.content ?? []); this.roles.set(roles.content ?? []); this.loading.set(false); },
+    forkJoin({ groups: this.api.list(this.query(), this.groupPage() - 1), roles: this.api.listRoles() }).subscribe({
+      next: ({ groups, roles }) => { this.groups.set(groups.content ?? []); this.groupPageCount.set(Math.max(1, groups.totalPages ?? 1)); this.groupTotal.set(groups.totalElements ?? 0); this.roles.set(roles.content ?? []); this.loading.set(false); },
       error: () => { this.error.set('Groups could not be loaded. Check your access and try again.'); this.loading.set(false); },
     });
   }
 
-  protected search(): void { this.load(); }
+  protected search(): void { this.groupPage.set(1); this.load(); }
+  protected goToGroupPage(page: number): void { this.groupPage.set(page); this.load(); }
+  protected groupPageLabel(): string { const total = this.groupTotal(); const start = total ? (this.groupPage() - 1) * 12 + 1 : 0; return `${start}-${Math.min(this.groupPage() * 12, total)} of ${total} groups`; }
+  protected goToMemberPage(page: number): void {
+    const group = this.selected();
+    if (!group) return;
+    this.memberPage.set(page);
+    this.api.listMembers(group.id, page - 1).subscribe({
+      next: (result) => { this.members.set(result.content ?? []); this.memberPageCount.set(Math.max(1, result.totalPages ?? 1)); this.memberTotal.set(result.totalElements ?? 0); },
+      error: () => this.error.set('Group members could not be loaded.'),
+    });
+  }
   protected select(group: AdminGroup): void {
     this.selected.set(group);
+    this.memberPage.set(1);
     this.members.set([]);
-    this.api.listMembers(group.id).subscribe({ next: page => this.members.set(page.content ?? []), error: () => this.error.set('Group members could not be loaded.') });
+    this.api.listMembers(group.id).subscribe({ next: page => { this.members.set(page.content ?? []); this.memberPageCount.set(Math.max(1, page.totalPages ?? 1)); this.memberTotal.set(page.totalElements ?? 0); }, error: () => this.error.set('Group members could not be loaded.') });
   }
   protected create(): void { this.editingId.set(null); this.draft = this.emptyDraft(); this.editorOpen.set(true); }
   protected edit(group: AdminGroup): void {

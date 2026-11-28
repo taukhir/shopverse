@@ -1,0 +1,33 @@
+<section class="compare-page page-shell" aria-labelledby="compare-title">
+  <a class="back-link" routerLink="/products">&larr; Back to shop</a>
+  <header class="compare-heading">
+    <div><p class="eyebrow">MAKE THE RIGHT PICK</p><h1 id="compare-title">Compare products.</h1><p>Review price, availability and product details side by side.</p></div>
+    <a class="add-more" routerLink="/products">Add products <span aria-hidden="true">+</span></a>
+  </header>
+
+  @if (state() === 'loading') {
+    <app-loading-skeleton [rows]="2" variant="cards" />
+  } @else if (state() === 'error') {
+    <app-service-notice eyebrow="COMPARISON UNAVAILABLE" title="We could not load product details." message="Try again when the catalog service is available." (retry)="load()" />
+  } @else if (!products().length) {
+    <app-empty-state eyebrow="NO PRODUCTS SELECTED" title="Choose a few products to compare." message="Use Compare on product cards. Your selection stays in this browser." actionLabel="Browse products" actionLink="/products" />
+  } @else {
+    <div class="compare-toolbar"><span>{{ products().length }} of {{ comparison.limit }} products selected</span><button type="button" (click)="clear()">Clear comparison</button></div>
+    <div class="comparison-scroll" role="region" aria-label="Product comparison" tabindex="0">
+      <table aria-label="Product comparison">
+        <thead><tr><th scope="col" class="row-label">Product details</th>
+          @for (product of products(); track product.productId) {
+            <th scope="col" class="product-column">
+              <button class="remove" type="button" (click)="remove(product)" [attr.aria-label]="'Remove ' + product.productName + ' from comparison'">Remove</button>
+              <a class="product-image" [routerLink]="['/products', product.productId]"><img [src]="product.imageUrl" [alt]="product.productName" width="220" height="150" appImageFallback /></a>
+              <a class="product-name" [routerLink]="['/products', product.productId]">{{ product.productName }}</a>
+              <button class="add-cart" type="button" [disabled]="!product.available" (click)="addToCart(product)">{{ product.available ? 'Add to cart' : 'Unavailable' }}</button>
+            </th>
+          }
+        </tr></thead>
+        <tbody>@for (row of rows(); track row.label) {<tr><th scope="row">{{ row.label }}</th>@for (value of row.values; track $index) {<td>{{ value }}</td>}</tr>}</tbody>
+      </table>
+    </div>
+    <p class="comparison-note">Prices and stock are current catalog values and will be verified again at checkout.</p>
+  }
+</section>

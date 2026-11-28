@@ -3,6 +3,7 @@
   gap: 10px;
   max-width: 680px;
   padding: 30px;
+  border-radius: 16px;
   color: var(--white);
   background: var(--ink-soft);
 }
@@ -32,9 +33,4 @@ span {
 button {
   width: fit-content;
   margin-top: 10px;
-  padding: 10px 0;
-  color: var(--accent-soft);
-  border: 0;
-  background: none;
-  font-weight: 800;
 }

@@ -12,7 +12,9 @@ import { ToastService } from '../../core/feedback/toast.service';
 import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
+import { AdminTablePaginationComponent } from '../../shared/ui-state/admin-table-pagination.component';
 import { compareNumber, compareText } from '../../shared/utils/collection';
+import { statusTone as getStatusTone } from '../../shared/utils/status-tone';
 import { FailedEvent, RecoveryApiService, RecoveryService, RecoveryServiceResult, RecoveryServiceState } from './recovery-api.service';
 
 type ServiceFilter = RecoveryService | 'All';
@@ -20,7 +22,7 @@ type ReplayFilter = 'All' | 'Open' | 'Replayed';
 
 @Component({
   selector: 'app-recovery-admin',
-  imports: [AdminHeaderComponent, AdminPageHeaderComponent, DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, ServiceNoticeComponent],
+  imports: [AdminHeaderComponent, AdminPageHeaderComponent, AdminTablePaginationComponent, DatePipe, EmptyStateComponent, FormsModule, LoadingSkeletonComponent, ServiceNoticeComponent],
   templateUrl: './recovery-admin.component.html',
   styleUrl: './recovery-admin.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,6 +48,8 @@ export class RecoveryAdminComponent {
   protected readonly replayFilter = signal<ReplayFilter>('All');
   protected readonly search = signal('');
   protected readonly sort = signal<'failedDesc'|'failedAsc'|'retryDesc'|'replayDesc'|'service'>('failedDesc');
+  protected readonly page = signal(1);
+  private readonly pageSize = 8;
 
   protected readonly filteredEvents = computed(() => {
     const filter = this.filter();
@@ -69,6 +73,8 @@ export class RecoveryAdminComponent {
       }
     });
   });
+  protected readonly pageCount = computed(() => Math.max(1, Math.ceil(this.filteredEvents().length / this.pageSize)));
+  protected readonly visibleEvents = computed(() => this.filteredEvents().slice((this.page() - 1) * this.pageSize, this.page() * this.pageSize));
 
   protected readonly totals = computed(() => {
     const events = this.events();
@@ -105,6 +111,8 @@ export class RecoveryAdminComponent {
     });
   }
 
+  protected statusTone(value: string): string { return getStatusTone(value); }
+
   protected retryService(service: RecoveryService): void {
     this.serviceStates.update((states) => ({ ...states, [service]: 'loading' }));
     this.recoveryApi.loadServiceEvents(service).subscribe((result) => this.applyServiceResult(result));
@@ -131,6 +139,13 @@ export class RecoveryAdminComponent {
 
   protected setFilter(filter: ServiceFilter): void {
     this.filter.set(filter);
+    this.page.set(1);
+  }
+
+  protected pageLabel(): string {
+    const total = this.filteredEvents().length;
+    const start = total ? (this.page() - 1) * this.pageSize + 1 : 0;
+    return `${start}-${Math.min(this.page() * this.pageSize, total)} of ${total} recovery events`;
   }
 
   protected async replay(event: FailedEvent): Promise<void> {

@@ -20,14 +20,14 @@
       <aside class="role-list panel">
         <div class="section-head">
           <div><p>ROLE CATALOG</p><h2>{{ roles().length }} roles</h2></div>
-          <button type="button" (click)="createRole()">Add role</button>
+          <button class="ui-button ui-button--primary" type="button" (click)="createRole()">Add role</button>
         </div>
         @if (!roles().length) {
           <app-empty-state eyebrow="NO ROLES" title="No roles are defined." message="Create a role, then grant it permissions from the catalog." />
         } @else {
-          <div class="role-items">
+          <div class="role-items admin-record-list" aria-label="Roles">
             @for (role of roles(); track role.id) {
-              <button type="button" class="role-item" [class.selected]="selectedRoleId() === role.id" (click)="selectRole(role)">
+              <button type="button" class="role-item admin-record-row" [class.selected]="selectedRoleId() === role.id" [attr.aria-pressed]="selectedRoleId() === role.id" (click)="selectRole(role)">
                 <span><strong>{{ role.roleName }}</strong><small>{{ role.description || 'No description' }}</small></span>
                 <em>{{ role.permissions.length }} permissions</em>
               </button>
@@ -41,8 +41,8 @@
           <div class="section-head">
             <div><p>ROLE DETAILS</p><h2>{{ role.roleName }}</h2></div>
             <div class="button-row">
-              <button type="button" (click)="editRole(role)">Edit role</button>
-              <button type="button" class="danger" (click)="deleteRole(role)" [disabled]="busyId() === 'role-' + role.id">{{ busyId() === 'role-' + role.id ? 'Deleting...' : 'Delete' }}</button>
+              <button class="ui-button ui-button--secondary" type="button" (click)="editRole(role)">Edit role</button>
+              <button type="button" class="ui-button ui-button--danger" (click)="deleteRole(role)" [disabled]="busyId() === 'role-' + role.id">{{ busyId() === 'role-' + role.id ? 'Deleting...' : 'Delete' }}</button>
             </div>
           </div>
           <p class="role-description">{{ role.description || 'No description provided.' }}</p>
@@ -104,21 +104,22 @@
     <section class="permissions panel" aria-label="Permission catalog">
       <div class="section-head">
         <div><p>PERMISSION CATALOG</p><h2>{{ permissions().length }} permissions</h2></div>
-        <button type="button" (click)="createPermission()">Add permission</button>
+        <button class="ui-button ui-button--primary" type="button" (click)="createPermission()">Add permission</button>
       </div>
       @if (!permissions().length) {
         <app-empty-state eyebrow="NO PERMISSIONS" title="No permissions are defined." message="Create a permission before assigning it to a role." />
       } @else {
-        <div class="permission-table">
-          @for (group of permissionGroups(); track group[0]) {
+          <div class="admin-filter-bar" aria-label="Permission catalog filters"><label>Search permissions<input class="ui-field" type="search" placeholder="Name, module, or description" [ngModel]="permissionSearch()" (ngModelChange)="permissionSearch.set($event)" /></label></div>
+          <div class="permission-table">
+          @for (group of permissionCatalogGroups(); track group[0]) {
             <section>
               <h3>{{ group[0] }}</h3>
               @for (permission of group[1]; track permission.id) {
-                <article>
-                  <div><strong>{{ permission.permissionName }}</strong><span>{{ permission.description || 'No description' }}</span></div>
+                <article class="admin-record-row permission-record">
+                  <div><strong>{{ permission.permissionName }}</strong><span>{{ permission.description || 'No description' }}</span><span class="ui-status-badge ui-status-badge--neutral">{{ permission.moduleName || 'General' }}</span></div>
                   <div class="button-row">
-                    <button type="button" (click)="editPermission(permission)">Edit</button>
-                    <button type="button" class="danger" (click)="deletePermission(permission)" [disabled]="busyId() === 'permission-' + permission.id">{{ busyId() === 'permission-' + permission.id ? 'Deleting...' : 'Delete' }}</button>
+                    <button class="ui-button ui-button--secondary" type="button" (click)="editPermission(permission)">Edit</button>
+                    <button type="button" class="ui-button ui-button--danger" (click)="deletePermission(permission)" [disabled]="busyId() === 'permission-' + permission.id">{{ busyId() === 'permission-' + permission.id ? 'Deleting...' : 'Delete' }}</button>
                   </div>
                 </article>
               }

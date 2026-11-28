@@ -90,6 +90,18 @@
   border-color: rgba(184, 192, 255, 0.32);
 }
 
+.site-nav .saved-count {
+  display: inline-grid;
+  min-width: 20px;
+  height: 20px;
+  place-items: center;
+  padding-inline: 5px;
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--accent-soft);
+  font-size: 10px;
+}
+
 .site-nav .operations-link {
   color: var(--accent-soft);
 }

@@ -14,9 +14,9 @@ export interface GroupRequest { groupName: string; description: string; roleIds:
 export class AdminGroupsApiService {
   private readonly http = inject(HttpClient);
 
-  list(search = '') { return this.http.get<GroupPage<AdminGroup>>(API_PATHS.groups.page(100, 0, search)); }
+  list(search = '', page = 0, size = 12) { return this.http.get<GroupPage<AdminGroup>>(API_PATHS.groups.page(size, page, search)); }
   listRoles() { return this.http.get<GroupPage<GroupRole>>('/api/v1/roles?size=100&page=0'); }
-  listMembers(groupId: number) { return this.http.get<GroupPage<GroupMember>>(API_PATHS.groups.members(groupId)); }
+  listMembers(groupId: number, page = 0, size = 10) { return this.http.get<GroupPage<GroupMember>>(API_PATHS.groups.members(groupId, page, size)); }
   create(request: GroupRequest) { return this.http.post<GroupApiResponse<AdminGroup>>(API_PATHS.groups.root, request); }
   update(id: number, request: GroupRequest) { return this.http.patch<GroupApiResponse<AdminGroup>>(API_PATHS.groups.byId(id), request); }
   delete(id: number) { return this.http.delete<void>(API_PATHS.groups.byId(id)); }

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ImageFallbackDirective } from '../../shared/directives/image-fallback.directive';
+import { RecentlyViewedComponent } from './recently-viewed.component';
 
 @Component({
   selector: 'app-storefront',
-  imports: [ImageFallbackDirective, RouterLink],
+  imports: [ImageFallbackDirective, RecentlyViewedComponent, RouterLink],
   templateUrl: './storefront.component.html',
   styleUrl: './storefront.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

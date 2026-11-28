@@ -67,22 +67,6 @@
   font-size:12px;
   line-height:1.25
 }
-.hero-status strong.good {
-  color:#075c3d;
-  background:#dff7e9
-}
-.hero-status strong.warning {
-  color:#664d03;
-  background:#fff3cd
-}
-.hero-status strong.danger {
-  color:#8b1d1d;
-  background:#ffe5e2
-}
-.hero-status strong.active {
-  color:#313c9a;
-  background:#e8eaff
-}
 .status-strip {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -111,17 +95,11 @@
   line-height:1.25;
   word-break:break-word
 }
-.status-strip strong.good {
-  color:#0f7b55
-}
-.status-strip strong.warning {
-  color:#8a6200
-}
-.status-strip strong.danger {
-  color:#8b1d1d
-}
-.status-strip strong.active {
-  color:var(--accent)
+.status-strip strong.ui-status-badge {
+  display:inline-flex;
+  width:fit-content;
+  padding:5px 10px;
+  font-size:13px
 }
 .progress-card,.next-card,.customer-actions {
   display:grid;
@@ -157,8 +135,6 @@
   border:1px solid #e4e6ef;
   border-radius:12px;
   background:linear-gradient(145deg,#fff,#f8f8fc);
-  box-shadow:0 5px 15px rgba(12,16,32,.035);
-  transition:border-color .16s ease,background-color .16s ease,transform .16s ease
 }
 .steps i {
   display:grid;
@@ -266,36 +242,6 @@
   align-items:stretch;
   flex-wrap:wrap;
   gap:10px
-}
-.action-grid button {
-  min-height:42px;
-  padding:10px 14px;
-  border:1px solid var(--line);
-  border-radius:8px;
-  color:var(--ink);
-  background:#fbfaf7;
-  font-size:11px;
-  font-weight:900;
-  text-align:center;
-  transition:background-color .16s ease,border-color .16s ease,transform .16s ease
-}
-.action-grid button:hover {
-  border-color:var(--accent);
-  background:#eef0ff;
-  transform:translateY(-1px)
-}
-.action-grid .primary-action {
-  border-color:var(--ink);
-  color:#fff;
-  background:var(--ink)
-}
-.action-grid .primary-action:hover {
-  color:#fff;
-  background:#272e63
-}
-.action-grid button:disabled {
-  cursor:not-allowed;
-  opacity:.5
 }
 .retry-feedback {
   grid-column:1/-1;
@@ -674,13 +620,5 @@ aside {
 }
 .timeline-card {
   padding:13px
-}
-}
-@media(prefers-reduced-motion:reduce) {
-  .action-grid button,.steps article {
-    transition:none
-  }
-.button-icon.spinning {
-  animation:none
 }
 }

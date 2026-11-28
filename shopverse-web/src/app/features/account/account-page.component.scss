@@ -185,7 +185,7 @@ input:focus {
   margin-top: 18px;
   padding: 20px;
   border: 1px solid var(--line);
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .address-book p {
@@ -261,7 +261,7 @@ input:focus {
   gap: 18px;
   padding: 18px;
   border: 1px solid var(--line);
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .saved-addresses h3 {
@@ -295,7 +295,7 @@ input:focus {
   min-height: 170px;
   padding: 18px;
   border: 1px solid var(--line);
-  background: #fbfaf7;
+  background: var(--surface-muted);
 }
 
 .account-panels p {

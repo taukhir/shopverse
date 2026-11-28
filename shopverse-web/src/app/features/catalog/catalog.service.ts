@@ -35,8 +35,12 @@ export class CatalogService {
   private readonly http = inject(HttpClient);
   private catalogCache$: Observable<CatalogItem[]> | null = null;
   private readonly cacheTtlMs = 60_000;
+  private readonly maxCachedProducts = 24;
   private lastLoadedAt = 0;
-  private readonly productCache = new Map<number, { expiresAt: number; request$: Observable<{ product: CatalogItem | null; related: CatalogItem[] }> }>();
+  private readonly productCache = new Map<
+    number,
+    { expiresAt: number; request$: Observable<{ product: CatalogItem | null; related: CatalogItem[] }> }
+  >();
   private categoriesCache: { expiresAt: number; request$: Observable<string[]> } | null = null;
 
   getCatalog(options: { refresh?: boolean } = {}) {
@@ -57,8 +61,14 @@ export class CatalogService {
   }
 
   getProductById(productId: number) {
+    const now = Date.now();
+    this.removeExpiredProducts(now);
     const cached = this.productCache.get(productId);
-    if (cached && cached.expiresAt > Date.now()) return cached.request$;
+    if (cached) {
+      this.productCache.delete(productId);
+      this.productCache.set(productId, cached);
+      return cached.request$;
+    }
 
     const request$ = forkJoin({
       product: this.http.get<InventoryItem>(API_PATHS.inventory.publicItem(productId)).pipe(
@@ -77,8 +87,19 @@ export class CatalogService {
       catchError(() => this.getProductByIdFromCatalog(productId)),
       shareReplay({ bufferSize: 1, refCount: true }),
     );
-    this.productCache.set(productId, { expiresAt: Date.now() + this.cacheTtlMs, request$ });
+    while (this.productCache.size >= this.maxCachedProducts) {
+      const leastRecentlyUsed = this.productCache.keys().next().value;
+      if (leastRecentlyUsed === undefined) break;
+      this.productCache.delete(leastRecentlyUsed);
+    }
+    this.productCache.set(productId, { expiresAt: now + this.cacheTtlMs, request$ });
     return request$;
+  }
+
+  private removeExpiredProducts(now: number): void {
+    for (const [productId, entry] of this.productCache) {
+      if (entry.expiresAt <= now) this.productCache.delete(productId);
+    }
   }
 
   getCategories() {
@@ -105,9 +126,9 @@ export class CatalogService {
         const product = products.find((candidate) => candidate.productId === productId) ?? null;
         const related = product
           ? products
-            .filter((candidate) => candidate.productId !== productId)
-            .sort((a, b) => this.relatedScore(product, b) - this.relatedScore(product, a))
-            .slice(0, 3)
+              .filter((candidate) => candidate.productId !== productId)
+              .sort((a, b) => this.relatedScore(product, b) - this.relatedScore(product, a))
+              .slice(0, 3)
           : [];
         return { product, related };
       }),

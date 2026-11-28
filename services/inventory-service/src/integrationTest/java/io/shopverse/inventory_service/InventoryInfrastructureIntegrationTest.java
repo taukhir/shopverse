@@ -1,6 +1,7 @@
 package io.shopverse.inventory_service;
 
 import io.shopverse.inventory_service.outbox.OutboxService;
+import io.shopverse.inventory_service.service.reservation.InventoryReservationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,10 @@ import org.testcontainers.kafka.KafkaContainer;
 import java.time.Duration;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,6 +67,7 @@ class InventoryInfrastructureIntegrationTest {
 
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired OutboxService outboxService;
+    @Autowired InventoryReservationService inventoryReservationService;
     @Autowired TransactionTemplate transactionTemplate;
     @Autowired KafkaTemplate<String, String> kafkaTemplate;
 
@@ -108,6 +114,76 @@ class InventoryInfrastructureIntegrationTest {
             status.setRollbackOnly();
         });
         assertThat(outboxCount(rolledBackId)).isZero();
+    }
+
+    @Test
+    void concurrentReservationsForTheFinalUnitAllowOnlyOneOrderToReserveIt() throws Exception {
+        long productId = 800_000L + Math.abs(UUID.randomUUID().getMostSignificantBits() % 100_000L);
+        String orderPrefix = "LOCK-" + UUID.randomUUID().toString().replace("-", "").substring(0, 24);
+        String firstOrderNumber = orderPrefix + "-A";
+        String secondOrderNumber = orderPrefix + "-B";
+
+        jdbcTemplate.update(
+                """
+                insert into inventory_items
+                    (product_id, product_name, unit_price, available_quantity, reserved_quantity,
+                     version, created_at, updated_at)
+                values (?, 'Reservation lock race item', 1.00, 1, 0, 0,
+                        current_timestamp(6), current_timestamp(6))
+                """,
+                productId
+        );
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        CountDownLatch ready = new CountDownLatch(2);
+        CountDownLatch start = new CountDownLatch(1);
+        try {
+            Future<Boolean> firstAttempt = executor.submit(() -> {
+                ready.countDown();
+                if (!start.await(10, TimeUnit.SECONDS)) {
+                    throw new IllegalStateException("Timed out waiting to start the first reservation");
+                }
+                return inventoryReservationService.reserve(
+                        firstOrderNumber, "corr-" + firstOrderNumber, productId, 1);
+            });
+            Future<Boolean> secondAttempt = executor.submit(() -> {
+                ready.countDown();
+                if (!start.await(10, TimeUnit.SECONDS)) {
+                    throw new IllegalStateException("Timed out waiting to start the second reservation");
+                }
+                return inventoryReservationService.reserve(
+                        secondOrderNumber, "corr-" + secondOrderNumber, productId, 1);
+            });
+
+            assertThat(ready.await(10, TimeUnit.SECONDS)).isTrue();
+            start.countDown();
+
+            assertThat(java.util.List.of(
+                    firstAttempt.get(20, TimeUnit.SECONDS),
+                    secondAttempt.get(20, TimeUnit.SECONDS)
+            )).containsExactlyInAnyOrder(true, false);
+            assertThat(jdbcTemplate.queryForObject(
+                    "select available_quantity from inventory_items where product_id = ?",
+                    Integer.class,
+                    productId
+            )).isZero();
+            assertThat(jdbcTemplate.queryForObject(
+                    "select reserved_quantity from inventory_items where product_id = ?",
+                    Integer.class,
+                    productId
+            )).isEqualTo(1);
+            assertThat(jdbcTemplate.queryForObject(
+                    "select count(*) from inventory_reservations where product_id = ? and status = 'RESERVED'",
+                    Integer.class,
+                    productId
+            )).isEqualTo(1);
+        } finally {
+            start.countDown();
+            executor.shutdownNow();
+            assertThat(executor.awaitTermination(10, TimeUnit.SECONDS)).isTrue();
+            jdbcTemplate.update("delete from inventory_reservations where product_id = ?", productId);
+            jdbcTemplate.update("delete from inventory_items where product_id = ?", productId);
+        }
     }
 
     @Test

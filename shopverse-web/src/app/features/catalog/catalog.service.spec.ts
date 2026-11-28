@@ -72,9 +72,13 @@ describe('CatalogService', () => {
     let result: unknown;
     service.getCatalog().subscribe((items) => (result = items));
     httpMock.expectOne('/api/v1/inventory/public/items').error(new ProgressEvent('error'));
-    httpMock.expectOne('/api/v1/orders/public/catalog').flush([{ productId: 2, productName: 'Fallback', price: 5, available: true, imageUrl: '', imageKey: '' }]);
+    httpMock
+      .expectOne('/api/v1/orders/public/catalog')
+      .flush([{ productId: 2, productName: 'Fallback', price: 5, available: true, imageUrl: '', imageKey: '' }]);
 
-    expect(result).toEqual([{ productId: 2, productName: 'Fallback', price: 5, available: true, imageUrl: '', imageKey: '' }]);
+    expect(result).toEqual([
+      { productId: 2, productName: 'Fallback', price: 5, available: true, imageUrl: '', imageKey: '' },
+    ]);
   });
 
   it('getCategories() falls back to an empty list on failure', () => {
@@ -100,17 +104,31 @@ describe('CatalogService', () => {
     expect(result?.related).toHaveLength(3);
   });
 
+  it('bounds product detail caching and evicts the least recently used entry', () => {
+    for (let productId = 1; productId <= 25; productId++) {
+      service.getProductById(productId).subscribe();
+      httpMock.expectOne(`/api/v1/inventory/public/items/${productId}`).flush({ ...inventoryItem, productId });
+      httpMock.expectOne(`/api/v1/inventory/public/items/${productId}/related`).flush([]);
+    }
+
+    service.getProductById(1).subscribe();
+    httpMock.expectOne('/api/v1/inventory/public/items/1').flush({ ...inventoryItem, productId: 1 });
+    httpMock.expectOne('/api/v1/inventory/public/items/1/related').flush([]);
+  });
+
   it('getProductById() falls back to catalog-based lookup with category/brand scoring when inventory has no direct match', () => {
     let result: { product: unknown; related: unknown[] } | undefined;
     service.getProductById(1).subscribe((value) => (result = value));
 
     httpMock.expectOne('/api/v1/inventory/public/items/1').flush(null as never);
     httpMock.expectOne('/api/v1/inventory/public/items/1/related').flush([]);
-    httpMock.expectOne('/api/v1/inventory/public/items').flush([
-      inventoryItem,
-      { ...inventoryItem, productId: 6, category: 'Tools', brand: 'Other' },
-      { ...inventoryItem, productId: 7, category: 'Other', brand: 'Acme' },
-    ]);
+    httpMock
+      .expectOne('/api/v1/inventory/public/items')
+      .flush([
+        inventoryItem,
+        { ...inventoryItem, productId: 6, category: 'Tools', brand: 'Other' },
+        { ...inventoryItem, productId: 7, category: 'Other', brand: 'Acme' },
+      ]);
 
     expect((result?.product as { productId: number }).productId).toBe(1);
     expect((result?.related as Array<{ productId: number }>).map((item) => item.productId)).toEqual([6, 7]);
