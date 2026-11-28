@@ -90,6 +90,10 @@
   color: var(--accent-soft);
 }
 
+.metrics .primary em {
+  color: var(--accent-soft);
+}
+
 .metrics strong {
   font-size: 32px;
   letter-spacing: -0.05em;
@@ -249,3 +253,12 @@
 @media (prefers-reduced-motion: reduce) {
   .table article { transition: none; }
 }
+
+.table.admin-record-list { gap: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 13px; }
+.payment-record { grid-template-columns: minmax(180px,1.25fr) minmax(105px,.65fr) minmax(150px,1fr) minmax(160px,1.1fr) minmax(160px,auto); border: 0; border-bottom: 1px solid var(--line); border-radius: 0; box-shadow: none; transition: background-color .16s ease; }
+.table .payment-record:hover { border-color: var(--line); background: #fafaff; box-shadow: none; }
+.payment-record .order strong { width: fit-content; }
+.payment-record .actions { justify-content: flex-start; flex-wrap: wrap; }
+.payment-record .actions button { min-height: 38px; padding-inline: 11px; border-radius: 8px; }
+@media (max-width: 980px) { .payment-record { grid-template-columns: repeat(2,minmax(0,1fr)); }.payment-record .actions { grid-column: 1 / -1; } }
+@media (max-width: 680px) { .payment-record { grid-template-columns: minmax(0,1fr); gap: 12px; }.payment-record .actions { grid-column: auto; }.payment-record .actions button { flex: 1 1 30%; } }

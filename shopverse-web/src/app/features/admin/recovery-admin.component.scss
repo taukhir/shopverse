@@ -63,6 +63,10 @@
   color: var(--accent-soft);
 }
 
+.metrics .primary em {
+  color: var(--accent-soft);
+}
+
 .metrics strong {
   font-size: 32px;
   letter-spacing: -0.05em;
@@ -219,3 +223,11 @@ p {
     grid-template-columns: 1fr;
   }
 }
+
+.event-list.admin-record-list { gap: 0; }
+.recovery-record { border: 0; border-bottom: 1px solid var(--line); }
+.recovery-record:last-child { border-bottom: 0; }
+.recovery-record .event-head { align-items: flex-start; }
+.recovery-record .event-head em { flex: 0 0 auto; }
+.recovery-record > button { min-height: 40px; border-radius: 8px; }
+@media (max-width: 620px) { .recovery-record { gap: 14px; padding: 16px; }.recovery-record .event-meta { grid-template-columns: repeat(2,minmax(0,1fr)); } }

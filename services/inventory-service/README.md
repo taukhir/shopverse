@@ -66,7 +66,13 @@ key.
 
 ## Concurrency
 
-`InventoryItem` uses JPA `@Version`. Concurrent updates based on a stale version fail instead of silently overselling the last item. Reservation operations are transactional and use `(orderNumber, productId)` as the business key.
+Stock-changing reservation operations are transactional and load the affected
+`InventoryItem` with `findByProductIdForUpdate`, which uses a database
+`PESSIMISTIC_WRITE` lock. Concurrent reserve, release, and expiry work for the
+same product therefore waits on that stock row before checking or changing its
+quantities. Catalog reads and admin upsert continue using the unlocked lookup.
+`InventoryItem` also uses JPA `@Version` as an optimistic version check. The
+reservation business key remains `(orderNumber, productId)`.
 
 Liquibase seeds products `101` through `120`, including available, reserved, low-stock,
 and unavailable examples. Each catalog record also contains `brand`, `model`,

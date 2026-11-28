@@ -17,9 +17,9 @@ describe('AdminGroupsApiService', () => {
 
   it('uses the group and membership routes from the API contract', () => {
     service.list('ops team').subscribe();
-    http.expectOne('/api/v1/groups?size=100&page=0&search=ops%20team').flush({ content: [], totalElements: 0, totalPages: 0 });
+    http.expectOne('/api/v1/groups?size=12&page=0&search=ops%20team').flush({ content: [], totalElements: 0, totalPages: 0 });
     service.listMembers(9).subscribe();
-    http.expectOne('/api/v1/groups/9/members?page=0&size=20').flush({ content: [], totalElements: 0, totalPages: 0 });
+    http.expectOne('/api/v1/groups/9/members?page=0&size=10').flush({ content: [], totalElements: 0, totalPages: 0 });
   });
 
   it('sends selected role IDs when creating a group', () => {

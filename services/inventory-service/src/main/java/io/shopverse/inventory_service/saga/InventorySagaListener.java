@@ -3,7 +3,7 @@ package io.shopverse.inventory_service.saga;
 import io.shopverse.platform.kafka.KafkaEventParser;
 import io.shopverse.platform.observability.CorrelationContext;
 import io.shopverse.inventory_service.recovery.FailedKafkaEventService;
-import io.shopverse.inventory_service.service.InventoryService;
+import io.shopverse.inventory_service.service.reservation.InventoryReservationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -19,7 +19,7 @@ public class InventorySagaListener {
 
     private final KafkaEventParser eventParser;
     private final InventorySagaTransactionService sagaTransactionService;
-    private final InventoryService inventoryService;
+    private final InventoryReservationService inventoryReservationService;
     private final FailedKafkaEventService failedKafkaEventService;
 
     @RetryableTopic(attempts = "3")
@@ -49,7 +49,8 @@ public class InventorySagaListener {
     )
     public void onPaymentCompleted(String payload) {
         PaymentCompletedEvent event = eventParser.parse(payload, PaymentCompletedEvent.class);
-        CorrelationContext.run(event.correlationId(), () -> inventoryService.confirmReservation(event.orderNumber()));
+        CorrelationContext.run(event.correlationId(),
+                () -> inventoryReservationService.confirmReservation(event.orderNumber()));
     }
 
     @RetryableTopic(attempts = "3")
@@ -74,7 +75,7 @@ public class InventorySagaListener {
     }
 
     private void handlePaymentFailed(PaymentFailedEvent event) {
-        inventoryService.release(event.orderNumber());
+        inventoryReservationService.release(event.orderNumber());
         log.warn(
                 "Choreography saga compensation released inventory orderNumber={} correlationId={} reason={}",
                 event.orderNumber(),
@@ -84,7 +85,7 @@ public class InventorySagaListener {
     }
 
     private void handleOrderCancelled(OrderCancelledEvent event) {
-        inventoryService.release(event.orderNumber());
+        inventoryReservationService.release(event.orderNumber());
         log.warn(
                 "Released inventory after order cancellation orderNumber={} correlationId={} reason={}",
                 event.orderNumber(),

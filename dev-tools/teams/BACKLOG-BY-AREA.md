@@ -47,10 +47,10 @@ owner but several affected components.
 | BUG-018 | Order Prometheus active-request meter registration fails | order-service | order-service |
 | BUG-019 | Error response shape drifted across services | platform | order-service, inventory-service, payment-service, user-service, auth-service, frontend-site |
 | BUG-020 | IDOR in payment-service `createIntent` — no ownership check *(Fixed - restricted to ADMIN, the real payment-creation path is the saga, not this endpoint; PR #159 merged)* | payment-service | payment-service |
-| BUG-021 | config-server and discovery-server have no authentication | platform | platform |
+| BUG-021 | config-server and discovery-server have no authentication *(Fixed - HTTP Basic required on both, credentials threaded through docker-compose/infra, ops-runbook note added; PR #162 merged)* | platform | platform |
 | BUG-022 | Checkout `Idempotency-Key` regenerated on every retry *(stable per checkout through retries; frontend unit suite passes locally)* | frontend-site | frontend-site, order-service |
 | BUG-023 | payment-service doesn't tolerate duplicate event delivery | payment-service | payment-service |
-| BUG-024 | inventory `reserve()`/`release()` have no row lock | inventory-service | inventory-service |
+| BUG-024 | Inventory stock-row lock for reserve/release/expiry implemented; Testcontainers race test added, execution pending local Gradle runtime | inventory-service | inventory-service |
 | BUG-025 | Gateway readiness/metrics endpoints leak internal topology | api-gateway | api-gateway |
 | BUG-026 | No CI scan/publish for `shopverse-web`'s Docker image | platform | frontend-site, platform |
 | BUG-027 | No rate limiting on `/auth/login` | auth-service | auth-service |
@@ -156,7 +156,7 @@ owner but several affected components.
 | FEAT-AI | Synthetic/canary monitoring for checkout | platform | order-service, inventory-service, payment-service, frontend-site |
 | FEAT-AJ | Back-office return/refund approval workflow *(read-only return queue added; decision workflow/API pending)* | frontend-backoffice | frontend-backoffice, order-service, payment-service, inventory-service |
 | FEAT-AK | Roles & Permissions management UI *(route/payload regression tests added; runtime verification pending)* | frontend-backoffice | frontend-backoffice, user-service |
-| FEAT-AL | Admin analytics/KPI dashboard *(loaded-data attention/return KPIs added; authoritative aggregates pending)* | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
+| FEAT-AL | Admin analytics/KPI dashboard *(expanded loaded-data metrics and seven-day order trend added; authoritative aggregates remain under ENH-061)* | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
 | FEAT-AM | Consumer-side staleness/skip gate for saga handlers | platform | order-service, inventory-service, payment-service |
 | FEAT-AN | Strategy-pattern registry for payment providers | payment-service | payment-service |
 | FEAT-AO | Customer notification inbox and persisted delivery preferences | platform | frontend-site, order-service, payment-service, user-service |
@@ -171,6 +171,9 @@ owner but several affected components.
 | FEAT-AX | Marketplace/multi-vendor model (2027 Q3 client roadmap) - Elena's discussion-10 assessment: a second product, not a feature; touches authorization, inventory ownership, split payment settlement, likely a new service boundary | platform | order-service, inventory-service, payment-service, user-service, api-gateway |
 | FEAT-AY | Mobile app (2027 Q4 client roadmap) - depends on FEAT-E/FEAT-L's stalled OpenAPI/Avro contract rollout actually finishing first, per Diego | platform | order-service, inventory-service, payment-service, user-service, auth-service, api-gateway |
 | FEAT-AZ | Add enterprise back-office productivity workflows (saved views, scoped exports, audited bulk actions) | platform | frontend-backoffice, order-service, inventory-service, payment-service, user-service |
+| FEAT-BA | Customer saved-items wishlist *(browser-local MVP implemented; unit tests pass, E2E/axe cases pass locally, Playwright teardown stalls in this environment; account/device sync requires a backend contract)* | frontend-site | frontend-site, inventory-service, user-service |
+| FEAT-BB | Customer product comparison *(browser-local comparison of up to three live catalog products; build, E2E, and axe checks pass)* | frontend-site | frontend-site, inventory-service |
+| FEAT-BC | Recently viewed products *(browser-local history with live catalog hydration; build, E2E, and axe checks pass)* | frontend-site | frontend-site, inventory-service |
 
 ## Enhancements
 
@@ -223,7 +226,7 @@ owner but several affected components.
 | ENH-045 | Recovery console must distinguish unavailable services from an empty DLT queue *(UI implementation present; runtime verification pending)* | frontend-backoffice | frontend-backoffice, order-service, inventory-service, payment-service |
 | ENH-046 | Checkout receipt should use the placed order's authoritative total and live workflow/payment state | frontend-site | frontend-site, order-service, payment-service |
 | ENH-047 | Redesign responsive storefront and admin headers and navigation presentation *(Implemented; responsive visual verification pending)* | frontend-site | frontend-site, frontend-backoffice |
-| ENH-048 | Expand accessibility checks across login, checkout, orders, roles/groups, and mobile layouts *(9 axe browser tests pass locally; Playwright plugin teardown times out after tests; CI verification remains)* | frontend-site | frontend-site, frontend-backoffice |
+| ENH-048 | Expand accessibility checks across login, checkout, orders, roles/groups, and mobile layouts *(route coverage now includes storefront, checkout, account/order, admin operations, access, settings, and detail screens; all 14 axe/browser specs reached completion locally across desktop and mobile, but Playwright did not exit cleanly; CI verification remains)* | frontend-site | frontend-site, frontend-backoffice |
 | ENH-049 | Add User Service persistence, security, and HTTP integration coverage | user-service | user-service, platform |
 | ENH-050 | Define cross-replica role/permission cache invalidation | user-service | user-service |
 | ENH-051 | Apply endpoint resilience controls consistently across User Service APIs | user-service | user-service, api-gateway, platform |
@@ -238,13 +241,13 @@ owner but several affected components.
 | ENH-060 | Provide cross-service reconciliation query and audit API | platform | order-service, payment-service, inventory-service, frontend-backoffice |
 | ENH-061 | Provide bounded, time-based admin analytics aggregates | platform | order-service, inventory-service, payment-service, frontend-backoffice |
 | ENH-068 | When the Order-JSON redesign (FEAT-E/FEAT-L) resumes, ADMIN-only response fields (internalStatusReason/internalDetail) need two separate response DTOs selected by the controller's existing role check before mapping, not one shared DTO with a conditionally-populated field - plus a mandatory negative test. Cybersecurity Engineer finding, 2026-11-18; no live vulnerability today since the fields don't exist in any real DTO yet | order-service | order-service |
-| ENH-069 | 3 of 7 admin endpoints in OrderController (deleteOrder, allOrders, evictCatalogCache) rely solely on SecurityConfig's path matchers for authorization, with no method-level @PreAuthorize backup unlike the other 4 - defense-in-depth gap, not a live vulnerability (SEC-REVIEW-001 restart finding, 2026-11-26) | order-service | order-service |
+| ENH-069 | 3 of 7 admin endpoints in OrderController (deleteOrder, allOrders, evictCatalogCache) rely solely on SecurityConfig's path matchers for authorization, with no method-level @PreAuthorize backup unlike the other 4 - defense-in-depth gap, not a live vulnerability (SEC-REVIEW-001 restart finding, 2026-11-26) *(Fixed - @PreAuthorize added to all 3, with new authorization tests; PR #163 merged)* | order-service | order-service |
 | ENH-062 | Replace static notification preview with recent customer order activity from the existing Orders API *(implemented; live inbox/unread/preferences remain under FEAT-AO)* | frontend-site | frontend-site, order-service |
-| ENH-063 | Complete back-office navigation and normalize workspace page framing *(mobile menu keyboard navigation and 390px Orders layout pass locally; broader route visual verification remains)* | frontend-backoffice | frontend-backoffice |
+| ENH-063 | Complete back-office navigation and normalize workspace page framing *(dashboard overview metric alignment visually reviewed at desktop width; mobile menu keyboard navigation and 390px Orders layout pass locally; broader route visual verification remains)* | frontend-backoffice | frontend-backoffice |
 | ENH-064 | Use server-side paging and search for the back-office user directory *(implemented; API regression tests added)* | frontend-backoffice | frontend-backoffice, user-service |
 | ENH-065 | Add bounded server-side paging/filtering to admin order listing *(endpoint and Orders UI implemented; Java tests still blocked because this environment cannot download Gradle 9.9.1)* | order-service | order-service, frontend-backoffice |
 | ENH-066 | Expose effective session permissions for safe permission-aware back-office UI | platform | auth-service, user-service, frontend-backoffice |
-| ENH-067 | Standardize admin page headers, filter bars, table density, and action patterns *(shared headers and pagination now used on primary listing routes; browser and remaining detail-screen verification open)* | frontend-backoffice | frontend-backoffice |
+| ENH-067 | Standardize admin page headers, filter bars, table density, and action patterns *(shared fields, status badges, record rows, filters, bounded paging, and responsive layouts applied across activity, inventory, payments, recovery, reconciliation, returns, orders, users, groups, access management, and admin order/user details; local build, unit, and critical E2E checks pass; accessibility specs reach completion but Playwright teardown hangs locally; CI verification remains)* | frontend-backoffice | frontend-backoffice |
 
 ### ENH-063 acceptance criteria
 
@@ -272,6 +275,7 @@ owner but several affected components.
 - Provide reusable page-header, filter-toolbar, table/pagination, status, and action styles/components for admin routes.
 - Migrate operations, finance, recovery, access-management, and detail screens without changing their API behavior or removing route-specific context.
 - Verify desktop/tablet/mobile layouts, keyboard focus, contrast, and loading/empty/error/success states before closure.
+- Keep one consistent pagination/filter/action pattern across long result lists; use server paging when the API supports it and bounded client paging for already bounded operational queues.
 - Keep tables usable at narrow widths with deliberate scrolling or card transformation and no clipped actions.
 
 ### ENH-066 acceptance criteria
@@ -288,6 +292,28 @@ owner but several affected components.
 - Provide bulk operations only for backend-approved state transitions; show per-record results and prevent unsafe partial retries.
 - Persist an actor, timestamp, target, action, and outcome for every bulk mutation; require reason/confirmation for high-impact actions.
 - Define APIs, pagination limits, permissions, audit schema, idempotency, and failure/retry semantics before implementing browser controls.
+
+### FEAT-BA acceptance criteria
+
+- Allow customers to save and remove catalog items from product cards and product details, including unavailable items.
+- Show the saved-item count and provide a dedicated saved-items route with current catalog price and availability.
+- Keep saved product IDs across refreshes on the same browser without storing personal or payment data; clearly disclose that cross-device/account synchronization is not available.
+- Keep keyboard access, accessible labels/pressed state, mobile layout, and empty/loading/error states usable.
+- Treat account/device synchronization as a separate backend/API follow-up; do not imply browser-local storage is account persistence.
+
+### FEAT-BB acceptance criteria
+
+- Let customers compare up to three distinct catalog products from product cards and product details.
+- Show live catalog price, availability, category, brand, model, and description side by side; refresh these details from the catalog rather than persisting stale product data.
+- Persist only selected product IDs in browser storage, restore the comparison after refresh, and support removing one item or clearing the comparison.
+- Provide accessible controls/table semantics, narrow-screen horizontal scrolling, and empty/loading/error states; explain that stock and price are revalidated at checkout.
+
+### FEAT-BC acceptance criteria
+
+- Record the six most recently opened product IDs, newest first, without storing personal data or stale product details.
+- Show current catalog name, price, and availability on the storefront; omit products removed from the catalog.
+- Allow customers to clear the browser-local history and keep all products keyboard accessible at desktop and mobile widths.
+- Avoid a catalog request when the customer has no recent items; clearly handle catalog loading and unavailable states.
 
 ### ENH-062 acceptance criteria
 

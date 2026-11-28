@@ -9,7 +9,8 @@
     <section class="hero">
       <div>
         <p class="eyebrow">ORDER {{ order()!.orderNumber }}</p>
-        <h1>{{ order()!.status }}</h1>
+        <h1>{{ order()!.orderNumber }}</h1>
+        <span [class]="'ui-status-badge ui-status-badge--' + statusTone(order()!.status)">{{ order()!.status }}</span>
         <span>Placed {{ order()!.createdAt | date:'medium' }} by {{ order()!.customerUsername }}</span>
       </div>
       <strong>{{ price(order()!.totalAmount) }}</strong>
@@ -36,14 +37,14 @@
     <section class="state-grid">
       <article>
         <span>Payment status</span>
-        <strong>{{ payment()?.status || 'Not created' }}</strong>
+        <strong><span [class]="'ui-status-badge ui-status-badge--' + statusTone(payment()?.status || 'UNKNOWN')">{{ payment()?.status || 'Not created' }}</span></strong>
         <p>{{ payment()?.paymentReference || payment()?.failureReason || 'No payment record returned yet.' }}</p>
       </article>
       <article>
         <span>Inventory reservation</span>
         <strong>{{ reservations().length ? reservations().length + ' reservation(s)' : 'Not found' }}</strong>
         @for (reservation of reservations(); track reservation.id) {
-          <p>Product {{ reservation.productId }} / Qty {{ reservation.quantity }} / {{ reservation.status }} / Expires {{ reservation.expiresAt | date:'short' }}</p>
+          <p>Product {{ reservation.productId }} / Qty {{ reservation.quantity }} / <span [class]="'ui-status-badge ui-status-badge--' + statusTone(reservation.status)">{{ reservation.status }}</span> / Expires {{ reservation.expiresAt | date:'short' }}</p>
         } @empty {
           <p>No reservation record returned yet.</p>
         }
@@ -68,8 +69,9 @@
     <div class="layout">
       <section class="panel">
         <div class="panel-head"><p>ITEMS</p><strong>{{ order()!.items.length }} lines</strong></div>
+        <div class="items-list admin-record-list">
         @for (item of order()!.items; track item.productId) {
-          <article class="item">
+          <article class="item admin-record-row">
             <div>
               <span>PRODUCT {{ item.productId }}</span>
               <h2>{{ item.productName }}</h2>
@@ -78,6 +80,7 @@
             <strong>{{ price(lineTotal(item)) }}</strong>
           </article>
         }
+        </div>
       </section>
 
       <section class="panel">
@@ -85,9 +88,9 @@
         @if (!timeline().length) {
           <div class="empty">No timeline events recorded.</div>
         } @else {
-          <div class="timeline">
+          <div class="timeline admin-record-list" aria-label="Order saga timeline">
             @for (event of timeline(); track event.stage + event.occurredAt) {
-              <article>
+              <article class="admin-record-row">
                 <i></i>
                 <div>
                   <span>{{ event.occurredAt | date:'medium' }}</span>

@@ -2,7 +2,7 @@ package io.shopverse.inventory_service.saga;
 
 import io.shopverse.inventory_service.config.KafkaTopicsProperties;
 import io.shopverse.inventory_service.outbox.OutboxService;
-import io.shopverse.inventory_service.service.InventoryService;
+import io.shopverse.inventory_service.service.reservation.InventoryReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InventorySagaTransactionService {
 
-    private final InventoryService inventoryService;
+    private final InventoryReservationService inventoryReservationService;
     private final OutboxService outboxService;
     private final KafkaTopicsProperties topics;
 
@@ -25,7 +25,7 @@ public class InventorySagaTransactionService {
         Long failedProductId = null;
 
         for (LineItem item : items) {
-            boolean reserved = inventoryService.reserve(
+            boolean reserved = inventoryReservationService.reserve(
                     event.orderNumber(), event.correlationId(), item.productId(), item.quantity());
             if (!reserved) {
                 failedProductId = item.productId();
@@ -36,7 +36,7 @@ public class InventorySagaTransactionService {
 
         boolean allReserved = failedProductId == null;
         if (!allReserved) {
-            reservedProductIds.forEach(productId -> inventoryService.release(event.orderNumber(), productId));
+            reservedProductIds.forEach(productId -> inventoryReservationService.release(event.orderNumber(), productId));
         }
 
         Object outgoingEvent = allReserved

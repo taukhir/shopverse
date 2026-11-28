@@ -21,16 +21,60 @@
 
         <div class="hero-metrics">
           <article class="primary-card">
-            <span>Total revenue signal</span>
+            <span>Order value total</span>
             <strong>{{ price(orderRevenue()) }}</strong>
-            <p>Based on all order records currently visible to admin.</p>
+            <p>Sum of loaded order amounts; not a captured-revenue total.</p>
           </article>
           <article><span>Orders</span><strong>{{ orders().length }}</strong><em>{{ openOrderCount() }} open</em></article>
           <article><span>Customers</span><strong>{{ userTotal() }}</strong><em>{{ users().length }} loaded</em></article>
-          <article><span>Recoverable</span><strong>{{ recoveryAvailable() ? recoverableEvents().length : '—' }}</strong><em>{{ recoveryAvailable() ? failedEvents().length + ' failed events' : 'Recovery sources unavailable' }}</em></article>
-          <article><span>Payments needing review</span><strong>{{ paymentsAvailable() ? paymentAttention().length : '—' }}</strong><em>{{ paymentsAvailable() ? 'Current loaded payment records' : 'Payment source unavailable' }}</em></article>
-          <article><span>Return requests</span><strong>{{ returnRequests().length }}</strong><em>Decision actions require backend workflow</em></article>
+          <article><span>Recoverable</span><strong>{{ recoveryAvailable() ? recoverableEvents() : '—' }}</strong><em>{{ recoveryAvailable() ? failedEvents().length + ' failed events' : 'Recovery sources unavailable' }}</em></article>
+          <article><span>Payments needing review</span><strong>{{ paymentsAvailable() ? paymentAttention() : '—' }}</strong><em>{{ paymentsAvailable() ? 'Current loaded payment records' : 'Payment source unavailable' }}</em></article>
+          <article><span>Return requests</span><strong>{{ returnRequests() }}</strong><em>Decision actions require backend workflow</em></article>
         </div>
+
+        <section class="panel analytics-panel" aria-labelledby="analytics-title">
+          <div class="analytics-heading">
+            <div><p>PERFORMANCE SIGNALS</p><h2 id="analytics-title">Operational analytics.</h2></div>
+            <span>Loaded records | client calculated</span>
+          </div>
+          <p class="analytics-disclaimer">These indicators summarize records returned to this dashboard. They are useful for operational review, but are not time-bounded financial or enterprise KPIs.</p>
+          <div class="analytics-grid">
+            @for(metric of overviewMetrics(); track metric.label) {
+              <article class="analytics-card">
+                <span>{{ metric.label }}</span>
+                <strong>{{ metric.value }}</strong>
+                <small>{{ metric.detail }}</small>
+                @if(metric.percent !== null) {
+                  <div class="analytics-meter" role="img" [attr.aria-label]="metric.label + ': ' + metric.value">
+                    <i [style.width.%]="metric.percent"></i>
+                  </div>
+                }
+              </article>
+            }
+          </div>
+
+          <section class="volume-panel" aria-labelledby="volume-title">
+            <div class="panel-head">
+              <div><p>RECENT ACTIVITY</p><h3 id="volume-title">Orders over the last seven days.</h3></div>
+              <span>UTC</span>
+            </div>
+            @if(orderVolumeTrend().timestampCount === 0) {
+              <p class="empty">Order timestamps are not available in the loaded records.</p>
+            } @else if(orderVolumeTrend().recentCount === 0) {
+              <p class="empty">No orders were placed in the last seven days.</p>
+            } @else {
+              <div class="volume-chart" role="list" aria-label="Daily order volume over the last seven days">
+                @for(day of orderVolumeTrend().days; track day.date) {
+                  <div class="volume-day" role="listitem" [attr.aria-label]="day.date + ': ' + day.count + ' orders'">
+                    <strong>{{ day.count }}</strong>
+                    <div class="volume-bar"><i [style.height.%]="day.barPercent"></i></div>
+                    <span>{{ day.label }}</span>
+                  </div>
+                }
+              </div>
+            }
+          </section>
+        </section>
 
         <section class="panel workspace-shortcuts" aria-label="Finance and service workspaces">
           <div class="panel-head"><div><p>FINANCE &amp; SERVICE WORK</p><h2>Review queues.</h2></div></div>
@@ -53,8 +97,8 @@
               <article class="danger"><span>Low / out</span><strong>{{ inventoryAvailable() ? inventoryTotals().lowStock + inventoryTotals().outOfStock : '—' }}</strong></article>
             </div>
             <div class="stock-bar" role="img" aria-label="Inventory stock split">
-              <i class="available" [style.width.%]="percent(inventoryTotals().available, inventoryTotals().available + inventoryTotals().reserved)"></i>
-              <i class="reserved" [style.width.%]="percent(inventoryTotals().reserved, inventoryTotals().available + inventoryTotals().reserved)"></i>
+              <i class="available" [style.width.%]="dashboardMetrics().inventoryAvailablePercent"></i>
+              <i class="reserved" [style.width.%]="dashboardMetrics().reservedStockPercent"></i>
             </div>
             <div class="low-stock">
               <p>LOW STOCK WATCH</p>
@@ -118,7 +162,7 @@
           <section class="panel recovery-panel">
             <div class="panel-head">
               <div><p>RECOVERY</p><h2>Recent failures.</h2></div>
-              <a routerLink="/admin/recovery">{{ recoverableEvents().length }} actionable &rarr;</a>
+              <a routerLink="/admin/recovery">{{ recoverableEvents() }} actionable &rarr;</a>
             </div>
             @if(!recoveryAvailable()) {
               <div class="empty">One or more recovery sources are unavailable. Review the source status above.</div>
@@ -140,17 +184,17 @@
           </section>
         </div>
       } @else if(section()==='orders') {
-        <div class="list-controls" aria-label="Order list controls">
-          <label>Search<input [(ngModel)]="orderSearchDraft" (keydown.enter)="searchOrders()" placeholder="Order number or customer" /></label>
+        <div class="list-controls admin-filter-bar" aria-label="Order list controls">
+          <label>Search<input class="ui-field" [(ngModel)]="orderSearchDraft" (keydown.enter)="searchOrders()" placeholder="Order number or customer" /></label>
           <label>Status
-            <select [ngModel]="orderStatusFilter()" (ngModelChange)="orderStatusFilter.set($event); updateOrderFilters()">
+            <select class="ui-field" [ngModel]="orderStatusFilter()" (ngModelChange)="orderStatusFilter.set($event); updateOrderFilters()">
               @for(status of orderStatuses(); track status) {
                 <option [value]="status">{{ status }}</option>
               }
             </select>
           </label>
           <label>Sort
-            <select [ngModel]="orderSort()" (ngModelChange)="orderSort.set($event); updateOrderFilters()">
+            <select class="ui-field" [ngModel]="orderSort()" (ngModelChange)="orderSort.set($event); updateOrderFilters()">
               <option value="newest">Newest first</option>
               <option value="oldest">Oldest first</option>
               <option value="amountDesc">Amount high to low</option>
@@ -160,7 +204,7 @@
               <option value="orderNumber">Order number</option>
             </select>
           </label>
-          <button type="button" class="admin-page-action" (click)="searchOrders()">Search</button>
+          <button type="button" class="ui-button ui-button--primary admin-page-action" (click)="searchOrders()">Search</button>
         </div>
         @if(!filteredOrders().length) {
           <app-empty-state
@@ -171,19 +215,19 @@
             actionLink="/"
           />
         } @else {
-          <div class="table">
+          <div class="table admin-record-list order-records" aria-label="Orders">
             @for(order of visibleOrders(); track order.id) {
-              <a [routerLink]="['/admin/orders', order.id]"><div><span>{{ order.orderNumber }}</span><strong>{{ order.customerUsername }}</strong></div><em>{{ order.status }}</em><b>{{ price(order.totalAmount) }}</b></a>
+              <a class="admin-record-row order-record" [routerLink]="['/admin/orders', order.id]"><div><span>{{ order.orderNumber }}</span><strong>{{ order.customerUsername }}</strong></div><span [class]="'ui-status-badge ui-status-badge--' + statusTone(order.status)">{{ order.status }}</span><b>{{ price(order.totalAmount) }}</b></a>
             }
           </div>
           <app-admin-table-pagination [label]="pageLabel(orderTotal(), orderPage())" [page]="orderPage()" [pageCount]="orderPageCount()" (pageChange)="goToOrderPage($event)" />
         }
       } @else if(section()==='users') {
-        <div class="list-controls user-controls" aria-label="Customer account filters">
+        <div class="list-controls admin-filter-bar user-controls" aria-label="Customer account filters">
           <label>Search accounts
-            <input [(ngModel)]="userSearchDraft" (keydown.enter)="searchUsers()" placeholder="Username, email, or name" />
+            <input class="ui-field" [(ngModel)]="userSearchDraft" (keydown.enter)="searchUsers()" placeholder="Username, email, or name" />
           </label>
-          <button type="button" (click)="searchUsers()">Search</button>
+          <button class="ui-button ui-button--primary" type="button" (click)="searchUsers()">Search</button>
         </div>
         @if(!users().length) {
           <app-empty-state
@@ -194,9 +238,9 @@
             actionLink="/admin"
           />
         } @else {
-          <div class="table user-list">
+          <div class="table admin-record-list user-list" aria-label="Customer accounts">
             @for(user of visibleUsers(); track user.id) {
-              <a [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><em>{{ user.status }}</em><b><span aria-hidden="true">&#128065;</span> View</b></a>
+              <a class="admin-record-row user-record" [routerLink]="['/admin/users',user.id]"><div><span>{{ user.username }}</span><strong>{{ user.firstName }} {{ user.lastName }}</strong></div><span [class]="'ui-status-badge ui-status-badge--' + statusTone(user.status)">{{ user.status }}</span><b><span aria-hidden="true">&#128065;</span> View</b></a>
             }
           </div>
           <app-admin-table-pagination [label]="pageLabel(userTotal(), userPage())" [page]="userPage()" [pageCount]="userPageCount()" (pageChange)="goToUserPage($event)" />

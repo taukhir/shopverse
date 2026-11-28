@@ -4,7 +4,9 @@
   max-width: 620px;
   padding: 28px;
   border: 1px solid var(--line);
+  border-radius: 16px;
   background: var(--white);
+  box-shadow: 0 10px 30px rgba(12, 16, 32, .045);
 }
 
 p {
@@ -35,3 +37,5 @@ a {
   font-size: 13px;
   font-weight: 800;
 }
+
+.empty-state a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }

@@ -1,4 +1,4 @@
-<section class="skeleton" [class.cards]="variant() === 'cards'" [attr.aria-label]="'Loading content'">
+<section class="skeleton" [class.cards]="variant() === 'cards'" role="status" aria-label="Loading content" aria-live="polite" aria-busy="true">
   @for (item of placeholders.slice(0, rows()); track item) {
     <article>
       <i></i>

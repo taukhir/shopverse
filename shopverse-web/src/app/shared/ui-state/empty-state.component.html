@@ -1,6 +1,6 @@
-<section class="empty-state">
+<section class="empty-state" aria-labelledby="empty-state-title">
   <p>{{ eyebrow() }}</p>
-  <h2>{{ title() }}</h2>
+  <h2 id="empty-state-title">{{ title() }}</h2>
   @if (message()) {
     <span>{{ message() }}</span>
   }

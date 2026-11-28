@@ -275,6 +275,11 @@ export async function mockShopverseApis(page: Page, options: { failFirstPlaceOrd
     }],
     totalElements: 1,
   }));
+  await page.route('**/api/v1/admin/users/1', (route) => json(route, {
+    data: { id: 1, username: 'admin', email: 'admin@shopverse.local', firstName: 'Admin', lastName: 'User', phoneNumber: '+910000000000', status: 'ACTIVE', roles: [{ roleName: 'ROLE_ADMIN' }] },
+    message: 'ok',
+    success: true,
+  }));
   await page.route('**/api/v1/payments/admin', (route) => json(route, [{
     id: 7001,
     orderNumber: order.orderNumber,

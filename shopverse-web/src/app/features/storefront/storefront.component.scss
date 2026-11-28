@@ -8,7 +8,7 @@
   background:
     radial-gradient(circle at 20% 16%, rgba(184, 192, 255, 0.78), transparent 24%),
     radial-gradient(circle at 50% 82%, rgba(120, 135, 255, 0.18), transparent 30%),
-    linear-gradient(120deg, var(--paper) 0%, #e9e9f8 100%);
+    linear-gradient(120deg, var(--paper) 0%, var(--paper-deep) 100%);
 }
 
 .hero-copy {
@@ -33,13 +33,13 @@
 h1,
 h2 {
   margin: 0;
-  letter-spacing: -0.075em;
-  line-height: 0.9;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
 }
 
 h1 {
   max-width: 760px;
-  font-size: clamp(58px, 7.2vw, 118px);
+  font-size: clamp(48px, 6.8vw, 108px);
 }
 
 .lede {

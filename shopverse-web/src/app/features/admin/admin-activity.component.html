@@ -20,10 +20,10 @@
       <article><span>Recovery events (page)</span><strong>{{ summary().recovery }}</strong></article>
     </section>
 
-    <section class="filters" aria-label="Activity filters">
+    <section class="filters admin-filter-bar" aria-label="Activity filters">
       <label>
         <span>Area</span>
-        <select [ngModel]="areaFilter()" (ngModelChange)="areaFilter.set($event); filtersChanged()">
+        <select class="ui-field" [ngModel]="areaFilter()" (ngModelChange)="areaFilter.set($event); filtersChanged()">
           @for (area of areas; track area) {
             <option [value]="area">{{ area }}</option>
           }
@@ -31,7 +31,7 @@
       </label>
       <label>
         <span>Result</span>
-        <select [ngModel]="resultFilter()" (ngModelChange)="resultFilter.set($event); filtersChanged()">
+        <select class="ui-field" [ngModel]="resultFilter()" (ngModelChange)="resultFilter.set($event); filtersChanged()">
           @for (result of results; track result) {
             <option [value]="result">{{ result }}</option>
           }
@@ -39,14 +39,14 @@
       </label>
       <label>
         <span>Actor</span>
-        <input type="search" [(ngModel)]="actorDraft" (keydown.enter)="searchActivity()" placeholder="Filter actor" />
+        <input class="ui-field" type="search" [(ngModel)]="actorDraft" (keydown.enter)="searchActivity()" placeholder="Filter actor" />
       </label>
       <label class="search">
         <span>Search</span>
-        <input type="search" [(ngModel)]="queryDraft" (keydown.enter)="searchActivity()" placeholder="Order, topic, status..." />
+        <input class="ui-field" type="search" [(ngModel)]="queryDraft" (keydown.enter)="searchActivity()" placeholder="Order, topic, status..." />
       </label>
-      <button type="button" (click)="searchActivity()">Apply filters</button>
-      <button type="button" (click)="resetFilters()">Reset</button>
+      <button class="ui-button ui-button--primary" type="button" (click)="searchActivity()">Apply filters</button>
+      <button class="ui-button ui-button--secondary" type="button" (click)="resetFilters()">Reset</button>
     </section>
 
     @if (!filteredEvents().length) {
@@ -54,12 +54,12 @@
         <p>NO ACTIVITY</p>
         <h2>No matching operational signals.</h2>
         <span>Adjust filters or reload after backend services produce orders, payments, inventory, or recovery records.</span>
-        <button type="button" (click)="resetFilters()">Reset filters</button>
+        <button class="ui-button ui-button--secondary" type="button" (click)="resetFilters()">Reset filters</button>
       </section>
     } @else {
       <section class="activity-table" aria-label="Admin activity events">
-        <div class="activity-table-scroll">
-          <table>
+        <div class="activity-table-scroll admin-table-scroll" role="region" aria-label="Activity results; scroll horizontally for all columns" tabindex="0">
+          <table aria-label="Admin activity events">
             <thead><tr><th scope="col">Area / result</th><th scope="col">Activity</th><th scope="col">Actor</th><th scope="col">Status</th><th scope="col">Time</th><th scope="col">Reference</th><th scope="col"><span class="visually-hidden">Details</span></th></tr></thead>
             <tbody>
               @for (event of visibleEvents(); track event.id) {
@@ -67,7 +67,7 @@
                   <td><span class="area-label">{{ event.area }}</span><span class="result-badge">{{ event.result }}</span></td>
                   <td class="activity-description"><strong>{{ event.title }}</strong><span>{{ event.description }}</span></td>
                   <td>{{ event.actor }}</td>
-                  <td>{{ event.status }}</td>
+                  <td><span [class]="'ui-status-badge ui-status-badge--' + statusTone(event.status)">{{ event.status }}</span></td>
                   <td>{{ event.occurredAt || 'Not provided' }}</td>
                   <td class="reference-cell">{{ event.meta || '—' }}</td>
                   <td>@if (event.link) { <a class="view-link" [routerLink]="event.link" [attr.aria-label]="'View details for ' + event.title"><span aria-hidden="true">&#8599;</span> View</a> } @else { <span class="read-only-label" title="No detail page is available"><span aria-hidden="true">&#128274;</span> Read only</span> }</td>

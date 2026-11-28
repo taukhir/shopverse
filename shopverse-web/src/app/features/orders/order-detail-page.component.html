@@ -20,14 +20,14 @@
       </div>
       <div class="hero-status">
         <span>Order status</span>
-        <strong [class]="statusTone(order()?.status)">{{ currentStatus() }}</strong>
+        <strong [class]="'ui-status-badge ui-status-badge--' + badgeTone(order()?.status)">{{ currentStatus() }}</strong>
       </div>
     </div>
 
     <section class="status-strip">
       <article>
         <span>Payment</span>
-        <strong [class]="statusTone(payment()?.status)">{{ paymentStatus() }}</strong>
+        <strong [class]="'ui-status-badge ui-status-badge--' + badgeTone(payment()?.status)">{{ paymentStatus() }}</strong>
       </article>
       <article>
         <span>Support reference</span>
@@ -64,11 +64,11 @@
         <span>Available actions depend on your order and payment status.</span>
       </div>
       <div class="action-grid">
-        @if (canCancelOrder()) { <button class="secondary-action" type="button" (click)="cancelOrder()"><span aria-hidden="true">×</span> Cancel order</button> }
-        @if (canRetryPayment()) { <button class="primary-action" type="button" (click)="retryPayment()" [disabled]="retryingPayment()"><span class="button-icon" [class.spinning]="retryingPayment()" aria-hidden="true">&#8635;</span>{{ retryingPayment() ? 'Retrying payment...' : 'Retry payment' }}</button> }
-        @if (canRequestRefund()) { <button class="secondary-action" type="button" (click)="requestRefund()"><span aria-hidden="true">↩</span> Request refund</button> }
-        @if (canRequestReturn()) { <button class="secondary-action" type="button" (click)="requestReturn()"><span aria-hidden="true">↩</span> Request return</button> }
-        <button class="secondary-action" type="button" (click)="copyAllReferences()">Copy order references</button>
+        @if (canCancelOrder()) { <button class="ui-button ui-button--secondary" type="button" (click)="cancelOrder()"><span aria-hidden="true">×</span> Cancel order</button> }
+        @if (canRetryPayment()) { <button class="ui-button ui-button--primary" type="button" (click)="retryPayment()" [disabled]="retryingPayment()"><span class="button-icon" [class.spinning]="retryingPayment()" aria-hidden="true">&#8635;</span>{{ retryingPayment() ? 'Retrying payment...' : 'Retry payment' }}</button> }
+        @if (canRequestRefund()) { <button class="ui-button ui-button--secondary" type="button" (click)="requestRefund()"><span aria-hidden="true">↩</span> Request refund</button> }
+        @if (canRequestReturn()) { <button class="ui-button ui-button--secondary" type="button" (click)="requestReturn()"><span aria-hidden="true">↩</span> Request return</button> }
+        <button class="ui-button ui-button--secondary" type="button" (click)="copyAllReferences()">Copy order references</button>
       </div>
       @if (retryResult(); as result) { <p class="retry-feedback" [class]="'retry-feedback ' + result.tone" role="status" aria-live="polite">{{ result.message }}</p> }
     </section>

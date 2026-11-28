@@ -1,6 +1,7 @@
 .skeleton {
   display: grid;
   gap: 12px;
+  width: 100%;
 }
 
 .skeleton.cards {
@@ -14,6 +15,7 @@ article {
   min-height: 86px;
   padding: 16px;
   border: 1px solid var(--line);
+  border-radius: 12px;
   background: var(--white);
 }
 
@@ -21,6 +23,8 @@ article {
   grid-template-columns: 1fr;
   min-height: 240px;
 }
+
+.skeleton article { overflow: hidden; border-color: #e4e3ec; }
 
 i,
 span,
@@ -60,4 +64,8 @@ b {
   to {
     background-position: -220% 0;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  i, span, b { animation: none; }
 }

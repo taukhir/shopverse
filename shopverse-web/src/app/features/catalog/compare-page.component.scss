@@ -1,0 +1,26 @@
+.compare-page { min-height: 60vh; padding-top: 38px; padding-bottom: 90px; }
+.back-link { color: var(--muted); font-size: 13px; font-weight: 750; text-decoration: none; }
+.compare-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 34px 0 32px; }
+.eyebrow { margin: 0 0 10px; color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: .14em; }
+h1 { margin: 0; color: var(--ink); font-size: clamp(42px, 6vw, 76px); letter-spacing: -.075em; line-height: .95; }
+.compare-heading p:last-child { margin: 12px 0 0; color: var(--muted); }
+.add-more, .add-cart { display: inline-flex; justify-content: center; gap: 18px; padding: 12px 17px; border: 0; border-radius: 999px; color: var(--white); background: var(--ink); font: inherit; font-size: 12px; font-weight: 850; text-decoration: none; white-space: nowrap; }
+.compare-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; color: var(--muted); font-size: 13px; font-weight: 700; }
+.compare-toolbar button, .remove { border: 0; color: #4354c8; background: transparent; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.comparison-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; background: var(--white); }
+table { width: 100%; min-width: 660px; border-collapse: collapse; table-layout: fixed; }
+th, td { padding: 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+thead th { background: #f8f8fc; }
+.row-label { width: 170px; color: var(--muted); font-size: 12px; }
+.product-column { position: relative; }
+.product-column:not(:first-child) { border-left: 1px solid var(--line); }
+.remove { display: block; margin: 0 0 10px auto; }
+.product-image { display: grid; height: 150px; place-items: center; padding: 10px; border-radius: 12px; background: #f7f7fb; }
+.product-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.product-name { display: block; min-height: 46px; margin: 14px 0; color: var(--ink); font-size: 16px; font-weight: 850; text-decoration: none; }
+.add-cart { width: 100%; padding: 10px 12px; cursor: pointer; }
+.add-cart:disabled { color: var(--muted); background: #ececf1; cursor: not-allowed; }
+tbody th { width: 170px; color: var(--muted); font-size: 12px; font-weight: 800; }
+tbody td { color: var(--ink); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+.comparison-note { margin-top: 16px; color: var(--muted); font-size: 12px; }
+@media (max-width: 620px) { .compare-heading { align-items: start; flex-direction: column; }.add-more { align-self: stretch; }.compare-page { padding-top: 24px; } }

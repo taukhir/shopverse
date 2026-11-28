@@ -30,6 +30,7 @@ export class AccessControlPageComponent {
   protected readonly session = inject(SessionService);
   protected readonly roles = signal<RoleRecord[]>([]);
   protected readonly permissions = signal<PermissionRecord[]>([]);
+  protected readonly permissionSearch = signal('');
   protected readonly selectedRoleId = signal<number | null>(null);
   protected readonly loading = signal(true);
   protected readonly savingRole = signal(false);
@@ -51,6 +52,13 @@ export class AccessControlPageComponent {
       groups.set(moduleName, [...(groups.get(moduleName) ?? []), permission]);
     }
     return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b));
+  });
+  protected readonly permissionCatalogGroups = computed(() => {
+    const query = this.permissionSearch().trim().toLowerCase();
+    return this.permissionGroups().map(([moduleName, permissions]) => [
+      moduleName,
+      permissions.filter((permission) => !query || `${permission.permissionName} ${permission.description ?? ''} ${moduleName}`.toLowerCase().includes(query)),
+    ] as [string, PermissionRecord[]]).filter(([, permissions]) => permissions.length > 0);
   });
 
   constructor() {

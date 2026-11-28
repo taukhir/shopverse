@@ -1,6 +1,6 @@
 # Shopverse Features And Demos
 
-## Current checkout, back-office, and frontend implementation note (2026-11-26)
+## Current checkout, back-office, and frontend implementation note (2026-11-27)
 
 The web checkout submits all cart lines, holds a stable idempotency key for
 retries of one checkout, and renders multi-line review/receipt details. The
@@ -23,8 +23,50 @@ The back-office shares a responsive operations sidebar across admin routes.
 Its navigation includes orders, inventory, payments, reconciliation,
 returns/refunds, recovery, activity, users, groups, roles/permissions, and
 settings. Desktop admin pages now use a common content width and sidebar offset.
+Both the storefront and back-office responsive menus close on Escape as well as
+after selecting a route. This keyboard interaction is covered by the quick
+browser flow; full visual verification across every route remains tracked under
+ENH-048/063.
 Reconciliation remains Payment-API-backed and returns remain read-only until
 the backend workflows land; ENH-063 tracks browser visual verification.
+
+The interaction layer now has shared `.ui-field`, `.ui-button`, and
+`.ui-status-badge` styles, plus common admin filter, record-row, and scrollable
+table patterns. Orders, users, activity, inventory, payments, and recovery use
+these patterns, with narrow layouts and accessible status tones checked by
+browser tests. Product cards use fixed image frames and equalized content areas;
+comparison/recently-viewed features continue to hydrate current details from
+the catalog. The browser suite checks fixture-image loading, desktop card-height
+alignment, and mobile overflow. Real catalog media was not verified because the
+local Inventory API was unavailable during this review.
+
+The admin overview adds average order value, delivered share, payment capture
+and failure rates, catalog availability, reserved-stock share, and a seven-day
+order-volume chart. These are calculated from the records currently loaded by
+the browser and disclose that limitation; they are not authoritative time-range
+KPIs. Bounded aggregates with explicit time zone, denominator, freshness, and
+partial-source semantics remain ENH-061 backend work.
+
+The storefront now lets customers save products from catalog cards and product
+details, then revisit them at `/saved`. The navigation shows the current saved
+count, and the page supports removal, add-to-cart, empty, loading, and catalog
+error states. The browser stores product IDs only; the page refreshes prices and
+availability from the live catalog. This MVP is local to the current browser
+and does not synchronize with an account or other devices. See FEAT-BA for
+scope and the backend follow-up boundary.
+
+Customers can also compare up to three products at `/compare`. Product IDs are
+stored in this browser, while price, stock, and descriptive fields are loaded
+from the current catalog on each visit. Comparison works from catalog cards or
+product details, supports remove/clear, and offers add-to-cart for available
+items. It is a shopping aid; checkout remains authoritative for price and stock.
+See FEAT-BB in the team backlog.
+
+The storefront also offers a **Recently viewed** section after a customer has
+opened product details. It keeps up to six product IDs in the current browser,
+hydrates current names, prices, and availability from the catalog, drops items
+that are no longer listed, and supports clearing the history. It makes no
+catalog request when there is no history. See FEAT-BC in the team backlog.
 
 The admin customer directory uses the User Service's pageable/search API and
 displays server totals. Durable activity uses the audit API's server-side page
@@ -33,9 +75,7 @@ failures now remain distinguishable from successful empty responses. Admin
 primary routes share reusable page-header/action framing. The interactive order
 list now uses a bounded Order Service page endpoint with status/search filters,
 allow-listed sorting, stable tie-break ordering, and summary records. Orders,
-users, activity, inventory, and payments use a shared accessible pager. The
-backend test run and browser verification still need to pass before ENH-065,
-ENH-063, ENH-048, and ENH-067 can close. Effective session permissions remain
+users, activity, inventory, and payments use a shared accessible pager; recovery, reconciliation, returns, and group/member lists now follow the same filter, action, status, and pagination patterns. Admin order and user detail screens use the shared status and record-row treatment. Accessibility browser coverage includes the public shopping flow, account/checkout/order routes, primary admin areas, details, and mobile viewport checks. Local verification passes for the production build, 125 unit tests, 10 critical browser flows, and 14 accessibility browser specs reached completion locally; the Playwright process did not exit cleanly, so a clean CI verification remains required before closing ENH-048 and ENH-067. Effective session permissions remain
 under ENH-066; saved views, scoped exports, and audited bulk actions remain
 under FEAT-AZ.
 

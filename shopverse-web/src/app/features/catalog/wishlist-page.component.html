@@ -1,0 +1,61 @@
+<section class="wishlist-page page-shell" aria-labelledby="wishlist-title">
+  <a class="back-link" routerLink="/products">&larr; Continue shopping</a>
+
+  <header class="wishlist-heading">
+    <p class="eyebrow">YOUR COLLECTION</p>
+    <h1 id="wishlist-title">Saved for later.</h1>
+    <p>Keep the things you like close. Your saved items stay on this browser.</p>
+  </header>
+
+  @if (state() === 'loading') {
+    <app-loading-skeleton [rows]="3" variant="cards" />
+  } @else if (state() === 'error') {
+    <app-service-notice
+      eyebrow="SAVED ITEMS UNAVAILABLE"
+      title="We could not refresh your saved products."
+      message="Your saved list is still stored on this browser. Try loading the catalog again."
+      (retry)="load()"
+    />
+  } @else if (savedProducts().length === 0) {
+    <app-empty-state
+      eyebrow="NOTHING SAVED YET"
+      title="Keep a few favorites in view."
+      message="Save products from the catalog or product details and they will appear here."
+      actionLabel="Browse the collection"
+      actionLink="/products"
+    />
+  } @else {
+    <div class="wishlist-meta">
+      <p>{{ wishlist.count() }} {{ wishlist.count() === 1 ? 'item' : 'items' }} saved</p>
+      @if (missingCount() > 0) {
+        <p class="stale-note">{{ missingCount() }} saved {{ missingCount() === 1 ? 'item is' : 'items are' }} no longer in the current catalog.</p>
+      }
+    </div>
+
+    <div class="saved-grid">
+      @for (product of savedProducts(); track product.productId) {
+        <article class="saved-card">
+          <a class="saved-art" [routerLink]="['/products', product.productId]">
+            <img [src]="product.imageUrl" [alt]="product.productName" width="360" height="260" loading="lazy" decoding="async" appImageFallback />
+            @if (!product.available) { <span class="availability-flag">Unavailable</span> }
+          </a>
+          <div class="saved-info">
+            <div>
+              <p class="eyebrow">{{ product.available ? 'IN STOCK' : 'CURRENTLY UNAVAILABLE' }}</p>
+              <h2><a [routerLink]="['/products', product.productId]">{{ product.productName }}</a></h2>
+            </div>
+            <strong>{{ price(product.price) }}</strong>
+          </div>
+          <div class="saved-actions">
+            <button class="remove-action" type="button" (click)="remove(product)">Remove</button>
+            @if (product.available) {
+              <button class="cart-action" type="button" (click)="addToCart(product)">Add to cart <span aria-hidden="true">&rarr;</span></button>
+            } @else {
+              <span class="unavailable-note">Check back soon</span>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

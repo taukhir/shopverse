@@ -88,6 +88,11 @@ export class OrderDetailPageComponent {
     return 'active';
   }
 
+  protected badgeTone(status?: string | null): 'success' | 'warning' | 'danger' | 'neutral' {
+    const tone = this.statusTone(status);
+    return tone === 'good' ? 'success' : tone === 'active' ? 'neutral' : tone;
+  }
+
   protected timelineTone(stage: string): 'good' | 'warning' | 'danger' | 'active' {
     return stage === 'ORDER_CANCELLED' || stage === 'RETURN_REQUESTED' ? 'warning' : this.statusTone(stage);
   }

@@ -39,21 +39,21 @@
 
     <section class="filters" aria-label="Recovery filters">
       @for (item of filters; track item) {
-        <button type="button" [class.active]="filter() === item" (click)="setFilter(item)">{{ item }}</button>
+        <button class="ui-button ui-button--secondary" type="button" [class.active]="filter() === item" [attr.aria-pressed]="filter() === item" (click)="setFilter(item)">{{ item }}</button>
       }
     </section>
 
-    <div class="list-controls" aria-label="Recovery list controls">
-      <label>Search<input [(ngModel)]="search" placeholder="Topic, failure reason, service" /></label>
+    <div class="list-controls admin-filter-bar" aria-label="Recovery list controls">
+      <label>Search<input class="ui-field" [(ngModel)]="search" placeholder="Topic, failure reason, service" /></label>
       <label>State
-        <select [(ngModel)]="replayFilter">
+        <select class="ui-field" [(ngModel)]="replayFilter">
           @for (item of replayFilters; track item) {
             <option [value]="item">{{ item }}</option>
           }
         </select>
       </label>
       <label>Sort
-        <select [(ngModel)]="sort">
+        <select class="ui-field" [(ngModel)]="sort">
           <option value="failedDesc">Recently failed</option>
           <option value="failedAsc">Oldest failed</option>
           <option value="retryDesc">Retry count</option>
@@ -77,13 +77,13 @@
         <app-empty-state eyebrow="NO EVENTS MATCH" title="No failed events match." message="Clear the search or filters to inspect more recovery records." />
       }
     } @else {
-      <section class="event-list">
-        @for (event of filteredEvents(); track eventKey(event)) {
-          <article [class.replayed]="event.replayed">
+      <section class="event-list admin-record-list" aria-label="Recovery events">
+          @for (event of visibleEvents(); track eventKey(event)) {
+          <article class="admin-record-row recovery-record" [class.replayed]="event.replayed">
             <div class="event-main">
               <div class="event-head">
                 <span>{{ event.service }} / {{ event.sourceTopic }}</span>
-                <em>{{ event.replayed ? 'Replayed' : 'Open' }}</em>
+                <em [class]="'ui-status-badge ui-status-badge--' + statusTone(event.replayed ? 'REPLAYED' : 'OPEN')">{{ event.replayed ? 'Replayed' : 'Open' }}</em>
               </div>
               <h2>{{ event.failureReason }}</h2>
               <p>{{ event.payload }}</p>
@@ -94,12 +94,13 @@
               <div><span>Failed</span><strong>{{ event.failedAt | date:'medium' }}</strong></div>
               <div><span>Last replay</span><strong>{{ event.replayedAt ? (event.replayedAt | date:'medium') : 'Not replayed' }}</strong></div>
             </div>
-            <button type="button" (click)="replay(event)" [disabled]="event.replayed || busyKey() === eventKey(event)">
+            <button class="ui-button ui-button--primary" type="button" (click)="replay(event)" [disabled]="event.replayed || busyKey() === eventKey(event)">
               {{ busyKey() === eventKey(event) ? 'Replaying...' : event.replayed ? 'Replayed' : 'Replay event' }}
             </button>
           </article>
         }
       </section>
+      @if (filteredEvents().length) { <app-admin-table-pagination [label]="pageLabel()" [page]="page()" [pageCount]="pageCount()" (pageChange)="page.set($event)" /> }
     }
   }
 </main>

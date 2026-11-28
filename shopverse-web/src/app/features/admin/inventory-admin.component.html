@@ -2,7 +2,7 @@
 <main class="admin-page-shell inventory-admin">
 
   <app-admin-page-header eyebrow="INVENTORY" title="Stock and catalog." description="Review availability, reservations, and catalog health.">
-    <button class="admin-page-action" type="button" (click)="create()">Add item</button>
+    <button class="ui-button ui-button--primary admin-page-action" type="button" (click)="create()">Add item</button>
   </app-admin-page-header>
 
   @if (error()) {
@@ -19,13 +19,13 @@
       <div><span>Products</span><strong>{{ stockSummary().products }}</strong></div>
       <div><span>Available units</span><strong>{{ stockSummary().available }}</strong></div>
       <div><span>Reserved units</span><strong>{{ stockSummary().reserved }}</strong></div>
-      <button type="button" (click)="setStockFilter('LOW')"><span>Low stock</span><strong>{{ stockSummary().low }}</strong></button>
-      <button type="button" (click)="setStockFilter('OUT')"><span>Out of stock</span><strong>{{ stockSummary().out }}</strong></button>
+      <button type="button" [attr.aria-pressed]="stockFilter() === 'LOW'" (click)="setStockFilter('LOW')"><span>Low stock</span><strong>{{ stockSummary().low }}</strong></button>
+      <button type="button" [attr.aria-pressed]="stockFilter() === 'OUT'" (click)="setStockFilter('OUT')"><span>Out of stock</span><strong>{{ stockSummary().out }}</strong></button>
     </section>
-    <div class="list-controls" aria-label="Inventory list controls">
-      <label>Search<input [ngModel]="search()" (ngModelChange)="setSearch($event)" placeholder="Product, category, brand, model" /></label>
+    <div class="list-controls admin-filter-bar" aria-label="Inventory list controls">
+      <label>Search<input class="ui-field" [ngModel]="search()" (ngModelChange)="setSearch($event)" placeholder="Product, category, brand, model" /></label>
       <label>Stock
-        <select [ngModel]="stockFilter()" (ngModelChange)="setStockFilter($event)">
+        <select class="ui-field" [ngModel]="stockFilter()" (ngModelChange)="setStockFilter($event)">
           <option value="ALL">All stock</option>
           <option value="AVAILABLE">Available</option>
           <option value="LOW">Low stock</option>
@@ -33,7 +33,7 @@
         </select>
       </label>
       <label>Sort
-        <select [ngModel]="sort()" (ngModelChange)="setSort($event)">
+        <select class="ui-field" [ngModel]="sort()" (ngModelChange)="setSort($event)">
           <option value="name">Name</option>
           <option value="category">Category</option>
           <option value="stockAsc">Stock low to high</option>
@@ -47,9 +47,9 @@
     @if (!filteredItems().length) {
       <app-empty-state eyebrow="NO INVENTORY MATCH" title="No items match the current filters." message="Clear the search or change stock filters to see more items." />
     } @else {
-      <div class="table">
+      <div class="table admin-record-list inventory-records">
         @for (item of visibleItems(); track item.productId) {
-          <article>
+          <article class="admin-record-row inventory-record">
             <img
               [src]="item.imageUrl"
               [alt]="item.productName"
@@ -64,10 +64,12 @@
               <strong>{{ item.productName }}</strong>
               <small>{{ item.brand }} / {{ item.model }}</small>
             </div>
-            <em [class.low]="item.availableQuantity < 5">{{ item.availableQuantity }} available</em>
-            <b>{{ item.reservedQuantity }} reserved</b>
+            <div class="inventory-stock" aria-label="Stock quantities">
+              <span [class]="'ui-status-badge ui-status-badge--' + (item.availableQuantity === 0 ? 'danger' : item.availableQuantity < 5 ? 'warning' : 'success')">{{ item.availableQuantity }} available</span>
+              <span class="ui-status-badge ui-status-badge--neutral">{{ item.reservedQuantity }} reserved</span>
+            </div>
             <div class="row-actions">
-              <button type="button" (click)="edit(item)"><span class="action-symbol" aria-hidden="true">&#9998;</span> Edit</button>
+              <button class="ui-button ui-button--secondary" type="button" (click)="edit(item)"><span class="action-symbol" aria-hidden="true">&#9998;</span> Edit</button>
               <span class="delete-unavailable" title="Inventory Service does not provide a delete endpoint"><span class="action-symbol" aria-hidden="true">&#128274;</span> Read only</span>
             </div>
           </article>

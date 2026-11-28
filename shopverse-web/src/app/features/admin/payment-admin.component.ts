@@ -15,6 +15,7 @@ import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton
 import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
 import { compareNumber, compareText, uniqueSorted } from '../../shared/utils/collection';
 import { formatInr } from '../../shared/utils/formatters';
+import { statusTone as getStatusTone } from '../../shared/utils/status-tone';
 import { Payment, PaymentAction, PaymentApiService } from './payment-api.service';
 
 @Component({
@@ -144,6 +145,8 @@ export class PaymentAdminComponent {
   protected price(value: number): string {
     return formatInr(value);
   }
+
+  protected statusTone(value: string): string { return getStatusTone(value); }
 
   protected pageLabel(): string {
     const total = this.filteredPayments().length;

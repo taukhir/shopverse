@@ -1,37 +1,33 @@
-package io.shopverse.inventory_service.service;
+package io.shopverse.inventory_service.service.reservation;
 
-import io.shopverse.inventory_service.dto.InventoryResponse;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.shopverse.inventory_service.config.InventoryProperties;
+import io.shopverse.inventory_service.config.KafkaTopicsProperties;
 import io.shopverse.inventory_service.dto.InventoryReservationResponse;
-import io.shopverse.inventory_service.dto.InventoryUpsertRequest;
 import io.shopverse.inventory_service.entity.InventoryItem;
 import io.shopverse.inventory_service.entity.InventoryReservation;
 import io.shopverse.inventory_service.entity.ReservationStatus;
 import io.shopverse.inventory_service.exception.ResourceNotFoundException;
+import io.shopverse.inventory_service.outbox.OutboxService;
 import io.shopverse.inventory_service.repository.InventoryItemRepository;
 import io.shopverse.inventory_service.repository.InventoryReservationRepository;
 import io.shopverse.inventory_service.saga.InventoryFailedEvent;
-import io.shopverse.inventory_service.config.KafkaTopicsProperties;
-import io.shopverse.inventory_service.outbox.OutboxService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.scheduling.annotation.Scheduled;
-import io.micrometer.core.instrument.MeterRegistry;
 
-import java.util.List;
 import java.time.Instant;
-import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class InventoryServiceImpl implements InventoryService {
+public class InventoryReservationServiceImpl implements InventoryReservationService {
 
     private final InventoryItemRepository itemRepository;
     private final InventoryReservationRepository reservationRepository;
@@ -41,77 +37,10 @@ public class InventoryServiceImpl implements InventoryService {
     private final MeterRegistry meterRegistry;
 
     @Override
-    @Transactional
-    @CacheEvict(cacheNames = "inventory", allEntries = true)
-    public InventoryResponse upsert(InventoryUpsertRequest request) {
-        InventoryItem item = itemRepository.findByProductId(request.productId())
-                .map(existing -> {
-                    existing.replaceCatalogDetails(
-                            request.productName(),
-                            request.brand(),
-                            request.model(),
-                            request.category(),
-                            request.description(),
-                            request.imageUrl(),
-                            request.imageKey(),
-                            request.unitPrice(),
-                            request.availableQuantity()
-                    );
-                    return existing;
-                })
-                .orElseGet(() -> new InventoryItem(
-                        request.productId(),
-                        request.productName(),
-                        request.brand(),
-                        request.model(),
-                        request.category(),
-                        request.description(),
-                        request.imageUrl(),
-                        request.imageKey(),
-                        request.unitPrice(),
-                        request.availableQuantity()
-                ));
-        return toResponse(itemRepository.save(item));
-    }
-
-    @Override
-    @Cacheable(cacheNames = "inventory", key = "#productId")
-    public InventoryResponse getByProductId(Long productId) {
-        return toResponse(findItem(productId));
-    }
-
-    @Override
-    public List<InventoryResponse> getAll() {
-        return itemRepository.findAll().stream().map(this::toResponse).toList();
-    }
-
-    @Override
-    public List<String> getCategories() {
-        return itemRepository.findAll().stream()
-                .map(InventoryItem::getCategory)
-                .filter(category -> category != null && !category.isBlank())
-                .distinct()
-                .sorted()
-                .toList();
-    }
-
-    @Override
-    public List<InventoryResponse> getRelated(Long productId) {
-        InventoryItem item = findItem(productId);
-        List<InventoryItem> related = item.getCategory() == null || item.getCategory().isBlank()
-                ? itemRepository.findAll().stream()
-                        .filter(candidate -> !candidate.getProductId().equals(productId))
-                        .sorted(Comparator.comparing(InventoryItem::getAvailableQuantity).reversed())
-                        .limit(8)
-                        .toList()
-                : itemRepository.findTop8ByCategoryAndProductIdNotOrderByAvailableQuantityDesc(item.getCategory(), productId);
-        return related.stream().map(this::toResponse).toList();
-    }
-
-    @Override
     public InventoryReservationResponse getReservationByOrderNumber(String orderNumber) {
         InventoryReservation reservation = reservationRepository.findFirstByOrderNumberOrderById(orderNumber)
-                .orElseThrow(() -> new ResourceNotFoundException("Inventory reservation not found for order: " + orderNumber));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Inventory reservation not found for order: " + orderNumber));
         return toReservationResponse(reservation);
     }
 
@@ -122,11 +51,11 @@ public class InventoryServiceImpl implements InventoryService {
         var existingReservation = reservationRepository.findByOrderNumberAndProductId(orderNumber, productId);
         if (existingReservation.isPresent()) {
             // A replay is successful only while the original reservation is still active.
-            // Treat released/expired reservations as unavailable; they must never recreate
-            // a successful inventory outcome for the same order number.
+            // Released/expired reservations must never recreate a successful inventory outcome.
             return existingReservation.get().getStatus() == ReservationStatus.RESERVED;
         }
-        InventoryItem item = itemRepository.findByProductId(productId).orElse(null);
+
+        InventoryItem item = itemRepository.findByProductIdForUpdate(productId).orElse(null);
         if (item == null) {
             meterRegistry.counter("shopverse.inventory.reservation.conflicts", "reason", "PRODUCT_NOT_FOUND")
                     .increment();
@@ -137,6 +66,7 @@ public class InventoryServiceImpl implements InventoryService {
                     .increment();
             return false;
         }
+
         item.reserve(quantity);
         itemRepository.saveAndFlush(item);
         reservationRepository.save(new InventoryReservation(
@@ -160,7 +90,7 @@ public class InventoryServiceImpl implements InventoryService {
         reservationRepository.findAllByOrderNumber(orderNumber).stream()
                 .filter(reservation -> reservation.getStatus() == ReservationStatus.RESERVED)
                 .forEach(reservation -> {
-                    findItem(reservation.getProductId()).release(reservation.getQuantity());
+                    findItemForUpdate(reservation.getProductId()).release(reservation.getQuantity());
                     reservation.release();
                 });
     }
@@ -172,7 +102,7 @@ public class InventoryServiceImpl implements InventoryService {
         reservationRepository.findByOrderNumberAndProductId(orderNumber, productId)
                 .filter(reservation -> reservation.getStatus() == ReservationStatus.RESERVED)
                 .ifPresent(reservation -> {
-                    findItem(reservation.getProductId()).release(reservation.getQuantity());
+                    findItemForUpdate(reservation.getProductId()).release(reservation.getQuantity());
                     reservation.release();
                 });
     }
@@ -195,7 +125,7 @@ public class InventoryServiceImpl implements InventoryService {
                 Instant.now()
         );
         expired.forEach(reservation -> {
-            findItem(reservation.getProductId()).release(reservation.getQuantity());
+            findItemForUpdate(reservation.getProductId()).release(reservation.getQuantity());
             reservation.expire();
             meterRegistry.counter("shopverse.inventory.reservations.expired").increment();
             log.atWarn()
@@ -227,28 +157,9 @@ public class InventoryServiceImpl implements InventoryService {
         return expired.size();
     }
 
-    private InventoryItem findItem(Long productId) {
-        return itemRepository.findByProductId(productId)
+    private InventoryItem findItemForUpdate(Long productId) {
+        return itemRepository.findByProductIdForUpdate(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Inventory item not found: " + productId));
-    }
-
-    private InventoryResponse toResponse(InventoryItem item) {
-        return new InventoryResponse(
-                item.getId(),
-                item.getProductId(),
-                item.getProductName(),
-                item.getBrand(),
-                item.getModel(),
-                item.getCategory(),
-                item.getDescription(),
-                item.getImageUrl(),
-                item.getImageKey(),
-                item.getUnitPrice(),
-                item.getAvailableQuantity(),
-                item.getReservedQuantity(),
-                item.getAvailableQuantity() > 0,
-                item.getUpdatedAt()
-        );
     }
 
     private InventoryReservationResponse toReservationResponse(InventoryReservation reservation) {

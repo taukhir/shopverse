@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 
 import { CartService } from '../../core/cart/cart.service';
 import { ToastService } from '../../core/feedback/toast.service';
+import { WishlistService } from '../../core/wishlist/wishlist.service';
+import { ComparisonService } from '../../core/comparison/comparison.service';
 import { ImageFallbackDirective } from '../../shared/directives/image-fallback.directive';
 import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
@@ -26,6 +28,8 @@ export class CatalogPageComponent {
   private readonly catalogService = inject(CatalogService);
   private readonly cart = inject(CartService);
   private readonly toast = inject(ToastService);
+  protected readonly wishlist = inject(WishlistService);
+  protected readonly comparison = inject(ComparisonService);
 
   protected readonly state = signal<CatalogState>('loading');
   protected readonly products = signal<CatalogItem[]>([]);
@@ -86,6 +90,17 @@ export class CatalogPageComponent {
   protected addToCart(product: CatalogItem): void {
     this.cart.add(product);
     this.toast.success(`${product.productName} added to cart.`);
+  }
+
+  protected toggleSaved(product: CatalogItem): void {
+    const saved = this.wishlist.toggle(product.productId);
+    this.toast.info(saved ? `${product.productName} saved for later.` : `${product.productName} removed from saved items.`);
+  }
+
+  protected toggleCompare(product: CatalogItem): void {
+    const result = this.comparison.toggle(product.productId);
+    if (result === 'limit') this.toast.info(`Compare up to ${this.comparison.limit} products at a time.`);
+    else this.toast.info(result === 'added' ? `${product.productName} added to comparison.` : `${product.productName} removed from comparison.`);
   }
 
   protected clearFilters(): void {

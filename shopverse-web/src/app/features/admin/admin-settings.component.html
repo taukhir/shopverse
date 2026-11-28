@@ -19,7 +19,8 @@
       <span>This affects the payment provider stub used by the demo workflow.</span>
     </div>
     <form (ngSubmit)="setSimulationMode()">
-      <select name="simulationMode" [(ngModel)]="simulationMode">
+      <label for="simulationMode">Payment outcome</label>
+      <select id="simulationMode" class="ui-field" name="simulationMode" [(ngModel)]="simulationMode">
         @for (mode of modes; track mode) {
           <option [value]="mode">{{ mode }}</option>
         }

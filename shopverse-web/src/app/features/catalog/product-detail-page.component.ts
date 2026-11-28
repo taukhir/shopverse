@@ -5,6 +5,9 @@ import { Subscription } from 'rxjs';
 
 import { CartService } from '../../core/cart/cart.service';
 import { ToastService } from '../../core/feedback/toast.service';
+import { WishlistService } from '../../core/wishlist/wishlist.service';
+import { ComparisonService } from '../../core/comparison/comparison.service';
+import { RecentlyViewedService } from '../../core/recently-viewed/recently-viewed.service';
 import { ImageFallbackDirective } from '../../shared/directives/image-fallback.directive';
 import { EmptyStateComponent } from '../../shared/ui-state/empty-state.component';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
@@ -27,6 +30,9 @@ export class ProductDetailPageComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly toast = inject(ToastService);
   private readonly destroyRef = inject(DestroyRef);
+  protected readonly wishlist = inject(WishlistService);
+  protected readonly comparison = inject(ComparisonService);
+  private readonly recentlyViewed = inject(RecentlyViewedService);
 
   protected readonly state = signal<ProductState>('loading');
   protected readonly product = signal<CatalogItem | null>(null);
@@ -53,6 +59,7 @@ export class ProductDetailPageComponent {
       next: ({ product, related }) => {
         this.product.set(product);
         this.related.set(related);
+        if (product) this.recentlyViewed.record(product.productId);
         this.quantity.set(1);
         this.state.set(product ? 'ready' : 'not-found');
       },
@@ -72,6 +79,17 @@ export class ProductDetailPageComponent {
       this.cart.add(product);
     }
     this.toast.success(`${this.quantity()} × ${product.productName} added to cart.`);
+  }
+
+  protected toggleSaved(product: CatalogItem): void {
+    const saved = this.wishlist.toggle(product.productId);
+    this.toast.info(saved ? `${product.productName} saved for later.` : `${product.productName} removed from saved items.`);
+  }
+
+  protected toggleCompare(product: CatalogItem): void {
+    const result = this.comparison.toggle(product.productId);
+    if (result === 'limit') this.toast.info(`Compare up to ${this.comparison.limit} products at a time.`);
+    else this.toast.info(result === 'added' ? `${product.productName} added to comparison.` : `${product.productName} removed from comparison.`);
   }
 
   protected price(value: number): string {

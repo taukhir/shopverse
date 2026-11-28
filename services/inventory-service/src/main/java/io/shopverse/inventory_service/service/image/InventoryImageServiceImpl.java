@@ -1,4 +1,4 @@
-package io.shopverse.inventory_service.service;
+package io.shopverse.inventory_service.service.image;
 
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
@@ -17,13 +17,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryImageService {
+public class InventoryImageServiceImpl implements InventoryImageService {
 
     private static final Set<String> ALLOWED_TYPES = Set.of("image/jpeg", "image/png", "image/webp", "image/gif");
 
     private final MinioClient minioClient;
     private final InventoryImageProperties properties;
 
+    @Override
     public InventoryImageResponse upload(Long productId, MultipartFile file) {
         validate(file);
         String extension = extensionFor(file.getContentType());

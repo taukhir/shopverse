@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
@@ -11,34 +13,33 @@ import { ConfirmService } from '../../core/feedback/confirm.service';
 import { ToastService } from '../../core/feedback/toast.service';
 import { LoadingSkeletonComponent } from '../../shared/ui-state/loading-skeleton.component';
 import { ServiceNoticeComponent } from '../../shared/ui-state/service-notice.component';
-import { formatInr } from '../../shared/utils/formatters';
-import { AdminApiService, AdminAuditEvent, AdminFailedEvent, AdminInventoryItem, AdminOrder, AdminPayment } from './admin-api.service';
-
-type ActivityArea = 'ALL' | 'ORDERS' | 'INVENTORY' | 'PAYMENTS' | 'RECOVERY' | 'USERS';
-type ActivityResult = 'ALL' | 'SUCCESS' | 'ATTENTION' | 'FAILED' | 'PENDING';
-
-interface AdminActivityEvent {
-  id: string;
-  area: Exclude<ActivityArea, 'ALL'>;
-  title: string;
-  description: string;
-  actor: string;
-  occurredAt: string;
-  result: Exclude<ActivityResult, 'ALL'>;
-  status: string;
-  link?: string;
-  meta?: string;
-}
-
+import { statusTone as getStatusTone } from '../../shared/utils/status-tone';
+import { AdminApiService } from './admin-api.service';
+import {
+  ActivityArea,
+  ActivityResult,
+  AdminActivityEvent,
+  AdminActivityMapperService,
+} from './admin-activity-mapper.service';
 @Component({
   selector: 'app-admin-activity',
-  imports: [AdminHeaderComponent, AdminPageHeaderComponent, AdminTablePaginationComponent, FormsModule, LoadingSkeletonComponent, RouterLink, ServiceNoticeComponent],
+  imports: [
+    AdminHeaderComponent,
+    AdminPageHeaderComponent,
+    AdminTablePaginationComponent,
+    FormsModule,
+    LoadingSkeletonComponent,
+    RouterLink,
+    ServiceNoticeComponent,
+  ],
   templateUrl: './admin-activity.component.html',
   styleUrl: './admin-activity.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminActivityComponent {
+  private readonly destroyRef = inject(DestroyRef);
   private readonly adminApi = inject(AdminApiService);
+  private readonly activityMapper = inject(AdminActivityMapperService);
   private readonly confirm = inject(ConfirmService);
   private readonly router = inject(Router);
   protected readonly session = inject(SessionService);
@@ -58,6 +59,8 @@ export class AdminActivityComponent {
   protected readonly page = signal(1);
   protected readonly pageSize = 12;
   private auditRequestId = 0;
+  private auditRequest?: Subscription;
+  private derivedRequest?: Subscription;
 
   protected readonly areas: ActivityArea[] = ['ALL', 'ORDERS', 'INVENTORY', 'PAYMENTS', 'RECOVERY', 'USERS'];
   protected readonly results: ActivityResult[] = ['ALL', 'SUCCESS', 'ATTENTION', 'FAILED', 'PENDING'];
@@ -79,7 +82,12 @@ export class AdminActivityComponent {
       })
       .sort((a, b) => (b.occurredAt || '').localeCompare(a.occurredAt || ''));
   });
-  protected readonly pageCount = computed(() => Math.max(1, Math.ceil((this.source() === 'audit' ? this.auditTotal() : this.filteredEvents().length) / this.pageSize)));
+  protected readonly pageCount = computed(() =>
+    Math.max(
+      1,
+      Math.ceil((this.source() === 'audit' ? this.auditTotal() : this.filteredEvents().length) / this.pageSize),
+    ),
+  );
   protected readonly visibleEvents = computed(() => {
     if (this.source() === 'audit') return this.events();
     const page = Math.min(Math.max(1, this.page()), this.pageCount());
@@ -97,10 +105,15 @@ export class AdminActivityComponent {
   });
 
   constructor() {
+    this.destroyRef.onDestroy(() => {
+      this.auditRequest?.unsubscribe();
+      this.derivedRequest?.unsubscribe();
+    });
     this.load();
   }
 
   protected load(): void {
+    this.derivedRequest?.unsubscribe();
     this.loading.set(true);
     this.error.set('');
     this.loadAuditPage(true);
@@ -117,25 +130,27 @@ export class AdminActivityComponent {
     this.filtersChanged();
   }
 
-  private loadDerivedActivity(): void {
-    this.adminApi.loadActivitySources().subscribe({
+  private loadDerivedActivity(requestId: number): void {
+    this.derivedRequest?.unsubscribe();
+    this.derivedRequest = this.adminApi.loadActivitySources().subscribe({
       next: ({ orders, inventory, payments, orderDeadLetters, inventoryDeadLetters, paymentDeadLetters }) => {
-        const failedEvents = [
-          ...orderDeadLetters.map((event) => ({ ...event, service: 'Orders' })),
-          ...inventoryDeadLetters.map((event) => ({ ...event, service: 'Inventory' })),
-          ...paymentDeadLetters.map((event) => ({ ...event, service: 'Payments' })),
-        ];
-        this.events.set([
-          ...this.fromOrders(orders),
-          ...this.fromPayments(payments),
-          ...this.fromInventory(inventory),
-          ...this.fromRecovery(failedEvents),
-        ]);
+        if (requestId !== this.auditRequestId) return;
+        this.events.set(
+          this.activityMapper.fromSources({
+            orders,
+            inventory,
+            payments,
+            orderDeadLetters,
+            inventoryDeadLetters,
+            paymentDeadLetters,
+          }),
+        );
         this.source.set('derived');
         this.page.set(1);
         this.loading.set(false);
       },
       error: () => {
+        if (requestId !== this.auditRequestId) return;
         this.error.set(APP_MESSAGES.errors.operationsUnavailable);
         this.loading.set(false);
       },
@@ -172,7 +187,10 @@ export class AdminActivityComponent {
     });
     if (!confirmed) return;
     this.session.logoutFromServer().subscribe({
-      next: () => { this.toast.info('Signed out.'); this.router.navigateByUrl('/'); },
+      next: () => {
+        this.toast.info('Signed out.');
+        this.router.navigateByUrl('/');
+      },
       error: () => this.toast.error('Sign out failed. Please check your connection and try again.'),
     });
   }
@@ -185,149 +203,37 @@ export class AdminActivityComponent {
     return `${start}-${end} of ${total}`;
   }
 
+  protected statusTone(value: string): string {
+    return getStatusTone(value);
+  }
+
   private loadAuditPage(fallbackOnError: boolean): void {
+    this.auditRequest?.unsubscribe();
+    this.derivedRequest?.unsubscribe();
     const requestId = ++this.auditRequestId;
     this.loading.set(true);
     this.error.set('');
     const area = this.areaFilter() === 'ALL' ? '' : this.areaFilter();
     const result = this.resultFilter() === 'ALL' ? '' : this.resultFilter();
     const actor = this.actorFilter() === 'ALL' ? '' : this.actorFilter();
-    this.adminApi.loadAuditEvents(this.page() - 1, this.pageSize, area, actor, result, this.query()).subscribe({
-      next: (response) => {
-        if (requestId !== this.auditRequestId) return;
-        this.events.set(response.content.map((event) => this.fromAuditEvent(event)));
-        this.auditTotal.set(response.totalElements);
-        this.source.set('audit');
-        this.loading.set(false);
-      },
-      error: () => {
-        if (requestId !== this.auditRequestId) return;
-        if (fallbackOnError) this.loadDerivedActivity();
-        else {
-          this.error.set(APP_MESSAGES.errors.operationsUnavailable);
+    this.auditRequest = this.adminApi
+      .loadAuditEvents(this.page() - 1, this.pageSize, area, actor, result, this.query())
+      .subscribe({
+        next: (response) => {
+          if (requestId !== this.auditRequestId) return;
+          this.events.set(this.activityMapper.fromAuditEvents(response.content));
+          this.auditTotal.set(response.totalElements);
+          this.source.set('audit');
           this.loading.set(false);
-        }
-      },
-    });
-  }
-
-  private fromOrders(orders: AdminOrder[]): AdminActivityEvent[] {
-    return orders.map((order) => ({
-      id: `order-${order.id}`,
-      area: 'ORDERS',
-      title: `Order ${order.orderNumber}`,
-      description: `Current order state is ${this.clean(order.status)} for ${order.customerUsername}.`,
-      actor: order.customerUsername || 'system',
-      occurredAt: order.createdAt || '',
-      result: this.orderResult(order.status),
-      status: order.status,
-      link: `/admin/orders/${order.id}`,
-      meta: formatInr(order.totalAmount || 0),
-    }));
-  }
-
-  private fromPayments(payments: AdminPayment[]): AdminActivityEvent[] {
-    return payments.map((payment) => ({
-      id: `payment-${payment.id}`,
-      area: 'PAYMENTS',
-      title: `Payment ${payment.orderNumber}`,
-      description: payment.failureReason || `Payment state is ${this.clean(payment.status)}.`,
-      actor: 'payment-service',
-      occurredAt: payment.updatedAt || '',
-      result: this.paymentResult(payment.status),
-      status: payment.status,
-      link: '/admin/payments',
-      meta: formatInr(payment.amount || 0),
-    }));
-  }
-
-  private fromAuditEvent(event: AdminAuditEvent): AdminActivityEvent {
-    const area = this.normalizeArea(event.area);
-    const metadata = event.metadata ? Object.entries(event.metadata).map(([key, value]) => `${key}: ${String(value)}`).join(' · ') : undefined;
-    return {
-      id: `audit-${event.id}`,
-      area,
-      title: event.title || event.action || `${area.toLowerCase()} activity`,
-      description: event.description || event.message || 'Audit event recorded by backend.',
-      actor: event.actor || 'system',
-      occurredAt: event.occurredAt || '',
-      result: this.normalizeResult(event.result),
-      status: event.status || event.action || event.result,
-      link: event.link || this.linkForSubject(event.subjectType, event.subjectId),
-      meta: metadata || (event.subjectType && event.subjectId ? `${event.subjectType} ${event.subjectId}` : undefined),
-    };
-  }
-
-  private fromInventory(items: AdminInventoryItem[]): AdminActivityEvent[] {
-    return items
-      .filter((item) => item.availableQuantity < 5 || item.reservedQuantity > 0 || !item.available)
-      .map((item) => ({
-        id: `inventory-${item.productId}`,
-        area: 'INVENTORY',
-        title: item.productName,
-        description: `${item.availableQuantity} available, ${item.reservedQuantity} reserved.`,
-        actor: 'inventory-service',
-        occurredAt: item.updatedAt || '',
-        result: item.availableQuantity === 0 || !item.available ? 'ATTENTION' : 'PENDING',
-        status: item.available ? 'LOW_STOCK' : 'UNAVAILABLE',
-        link: '/admin/inventory',
-        meta: `Product ${item.productId}`,
-      }));
-  }
-
-  private fromRecovery(events: AdminFailedEvent[]): AdminActivityEvent[] {
-    return events.map((event) => ({
-      id: `recovery-${event.service}-${event.id}`,
-      area: 'RECOVERY',
-      title: `${event.service || 'Service'} dead-letter ${event.id}`,
-      description: event.failureReason || 'Failed event awaiting operator review.',
-      actor: event.service?.toLowerCase() || 'recovery',
-      occurredAt: event.replayedAt || event.failedAt || '',
-      result: event.replayed ? 'SUCCESS' : 'FAILED',
-      status: event.replayed ? 'REPLAYED' : 'ACTION_REQUIRED',
-      link: '/admin/recovery',
-      meta: event.sourceTopic,
-    }));
-  }
-
-  private orderResult(status: string): Exclude<ActivityResult, 'ALL'> {
-    if (['CANCELLED', 'RETURN_REQUESTED', 'RETURNED'].includes(status)) return 'ATTENTION';
-    if (['DELIVERED', 'CONFIRMED', 'PAID'].includes(status)) return 'SUCCESS';
-    return 'PENDING';
-  }
-
-  private paymentResult(status: string): Exclude<ActivityResult, 'ALL'> {
-    if (['DECLINED', 'TIMED_OUT', 'FAILED'].includes(status)) return 'FAILED';
-    if (['REFUNDED'].includes(status)) return 'ATTENTION';
-    if (['CAPTURED', 'RECONCILED'].includes(status)) return 'SUCCESS';
-    return 'PENDING';
-  }
-
-  private clean(value: string): string {
-    return value.replaceAll('_', ' ').toLowerCase();
-  }
-
-  private normalizeArea(area: string): Exclude<ActivityArea, 'ALL'> {
-    const normalized = area?.toUpperCase();
-    if (normalized === 'ORDERS' || normalized === 'INVENTORY' || normalized === 'PAYMENTS' || normalized === 'RECOVERY' || normalized === 'USERS') return normalized;
-    return 'RECOVERY';
-  }
-
-  private normalizeResult(result: string): Exclude<ActivityResult, 'ALL'> {
-    const normalized = result?.toUpperCase();
-    if (normalized === 'SUCCESS' || normalized === 'ATTENTION' || normalized === 'FAILED' || normalized === 'PENDING') return normalized;
-    if (normalized === 'ERROR') return 'FAILED';
-    if (normalized === 'WARN' || normalized === 'WARNING') return 'ATTENTION';
-    return 'PENDING';
-  }
-
-  private linkForSubject(subjectType?: string, subjectId?: number | string): string | undefined {
-    const type = subjectType?.toUpperCase();
-    if (!subjectId) return undefined;
-    if (type === 'ORDER') return `/admin/orders/${subjectId}`;
-    if (type === 'USER') return `/admin/users/${subjectId}`;
-    if (type === 'PAYMENT') return '/admin/payments';
-    if (type === 'INVENTORY') return '/admin/inventory';
-    return undefined;
+        },
+        error: () => {
+          if (requestId !== this.auditRequestId) return;
+          if (fallbackOnError) this.loadDerivedActivity(requestId);
+          else {
+            this.error.set(APP_MESSAGES.errors.operationsUnavailable);
+            this.loading.set(false);
+          }
+        },
+      });
   }
 }
